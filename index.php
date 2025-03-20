@@ -110,12 +110,35 @@
 
         .value-box {
             flex: 1;
-            max-width: 200px;
+            max-width: 250px;
             margin: 0 10px;
             padding: 15px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 350px;
+        }
+
+        .value-box img {
+            max-width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
+        }
+
+        .value-box h2 {
+            margin: 10px 0;
+        }
+
+        .value-box p {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #history {
