@@ -177,17 +177,17 @@
     
     <section id="values">
         <div class="value-box">
-            <img src="images/愿景图.jpg" alt="愿景">
+            <img src="images/images/愿景图.jpg" alt="愿景">
             <h2>愿景</h2>
             <p>打造高效且创新的团队，为公司不断创造价值，成为行业标杆。</p>
         </div>
         <div class="value-box">
-            <img src="images/文化图.jpg" alt="文化">
+            <img src="images/images/文化图.jpg" alt="文化">
             <h2>文化</h2>
             <p>积极向上，高效执行，灵活应变，诚信待人。</p>
         </div>
         <div class="value-box">
-            <img src="images/价值观.jpg" alt="价值观">
+            <img src="images/images/价值观图.jpg" alt="价值观">
             <h2>价值观</h2>
             <p>目标导向，理念一致，追求卓越，创新精神。</p>
         </div>
