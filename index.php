@@ -99,6 +99,7 @@
             flex: 1;
             background-color: #d67232;
             height: 200px;
+            border-radius: 10px;
         }
 
         #values {
@@ -143,6 +144,63 @@
             width: 70%;
             margin: 40px auto;
             border-radius: 8px;
+        }
+
+        .timeline {
+            position: relative;
+            width: 80%;
+            margin: 40px auto;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: black;
+            top: 80%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            display: inline-block;
+            width: 30%;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .timeline-item .circle {
+            width: 16px;
+            height: 16px;
+            background: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .timeline-item .year {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .timeline-item .content {
+            width: 120px;
+            height: 80px;
+            background: #ccc;
+            margin-bottom: 30px;
+            border-radius: 5px;
+            display: inline-block;
         }
 
         h1 {
@@ -211,6 +269,24 @@
     <section id="history">
         <h2>发展历史</h2>
     </section>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="content"></div>
+            <div class="circle"></div>
+            <span class="year">2023</span>
+        </div>
+        <div class="timeline-item">
+            <div class="content"></div>
+            <div class="circle"></div>
+            <span class="year">2024</span>
+        </div>
+        <div class="timeline-item">
+            <div class="content"></div>
+            <div class="circle"></div>
+            <span class="year">2025</span>
+        </div>
+    </div>
 
 </body>
 </html>
