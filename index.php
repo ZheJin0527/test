@@ -183,6 +183,7 @@
             border-radius: 10px;
             display: block;
             margin: 0 auto;
+            position: relative; /* 让图片单独移动，不影响文字 */
         }
 
         /* 时间点（黑点在线上） */
@@ -214,11 +215,11 @@
 
         /* 调整图片与线的距离 */
         .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 180px; /* 增加图片和线的距离 */
+            margin-bottom: 250px; /* 增加图片和线的距离 */
         }
 
         .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 180px; /* 增加图片和线的距离 */
+            margin-top: 250px; /* 增加图片和线的距离 */
         }
 
         h1 {
