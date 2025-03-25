@@ -157,7 +157,6 @@
             padding: 50px 0;
         }
 
-        /* 时间轴的黑线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -176,14 +175,15 @@
             width: 30%;
         }
 
-        /* 图片（不改变位置） */
+        /* 事件图片 */
         .timeline-img {
-            width: 200px;
+            width: 200px; /* 放大图片 */
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
             display: block;
             margin: 0 auto;
+            position: relative; /* 让图片单独移动，不影响文字 */
         }
 
         /* 时间点（黑点在线上） */
@@ -194,36 +194,16 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            top: 50%;
+            top: 50.25%; /* 让黑点在线上 */
             transform: translate(-50%, -50%);
         }
 
-        /* 年份和文字对齐红色线 */
-        .timeline-item span.year,
-        .timeline-item p.timeline-text {
-            position: absolute;
-            width: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* 调整上方的文字和年份 */
-        .timeline-item:nth-child(odd) span.year,
-        .timeline-item:nth-child(odd) p.timeline-text {
-            top: -150px; /* 上方的年份和文字往上移动 */
-        }
-
-        /* 调整下方的文字和年份 */
-        .timeline-item:nth-child(even) span.year,
-        .timeline-item:nth-child(even) p.timeline-text {
-            bottom: -150px; /* 下方的年份和文字往下移动 */
-        }
-
-        /* 年份样式 */
+        /* 年份 */
         .year {
             font-weight: bold;
             font-size: 18px;
             display: block;
+            margin-top: 10px;
         }
 
         /* 文字描述 */
@@ -231,6 +211,15 @@
             font-size: 14px;
             color: #333;
             margin-top: 5px;
+        }
+
+        /* 调整图片与线的距离 */
+        .timeline-item:nth-child(odd) .timeline-img {
+            margin-bottom: 250px; /* 增加图片和线的距离 */
+        }
+
+        .timeline-item:nth-child(even) .timeline-img {
+            margin-top: 250px; /* 增加图片和线的距离 */
         }
 
         h1 {
