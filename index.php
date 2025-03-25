@@ -203,15 +203,24 @@
             font-weight: bold;
             font-size: 18px;
             display: block;
-            margin-top: 2px;
+            position: absolute;
+            top: 45%; /* 让年份更接近横线 */
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         /* 文字描述 */
         .timeline-text {
             font-size: 14px;
             color: #333;
-            margin-top: 2px;
+            position: absolute;
+            top: 55%; /* 让文字更接近横线 */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; /* 让文字不换行 */
+            text-align: center;
         }
+
 
         /* 调整图片与线的距离 */
         .timeline-item:nth-child(odd) .timeline-img {
