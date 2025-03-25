@@ -152,6 +152,9 @@
             margin: 40px auto;
             padding: 40px 0;
             text-align: center;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
         }
 
         .timeline::after {
@@ -160,56 +163,52 @@
             width: 100%;
             height: 2px;
             background: black;
-            top: 80%;
+            top: 50%;
             left: 0;
             transform: translateY(-50%);
         }
 
         .timeline-item {
             position: relative;
-            display: inline-block;
             width: 30%;
             text-align: center;
-            vertical-align: top;
         }
 
         .timeline-img {
-            width: 120px; /* 调整图片大小 */
+            width: 120px;
             height: 120px;
             background: #ccc;
             border-radius: 10px;
             object-fit: cover;
+            margin-bottom: 20px; /* 让图片和圆点分开 */
         }
 
-        .timeline-item .circle {
+        .circle {
             width: 16px;
             height: 16px;
             background: black;
             border-radius: 50%;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
+            position: relative;
+            margin: 0 auto;
         }
 
-        .timeline-item .year {
-            position: absolute;
-            top: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%);
+        .year {
+            display: block;
             font-size: 18px;
             font-weight: bold;
+            margin-top: 5px; /* 让年份紧挨着圆点 */
         }
 
-        .timeline-item .content {
-            width: 120px;
-            height: 80px;
-            background: #ccc;
-            margin-bottom: 30px;
-            border-radius: 5px;
-            display: inline-block;
+        .timeline-text {
+            margin-top: 10px; /* 让文字距离年份 */
+            font-size: 14px;
+            color: #333;
+            max-width: 200px; /* 限制文字宽度，避免变形 */
+            word-wrap: break-word;
+            margin-left: auto;
+            margin-right: auto;
         }
+
 
         h1 {
             font-size: 28px;
