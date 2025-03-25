@@ -157,6 +157,7 @@
             padding: 50px 0;
         }
 
+        /* 时间轴主线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -170,6 +171,9 @@
 
         /* 时间轴项目 */
         .timeline-item {
+            display: flex;
+            flex-direction: column; /* 让元素垂直排列 */
+            align-items: center; /* 让年份、黑点、文字居中 */
             text-align: center;
             position: relative;
             width: 30%;
@@ -177,16 +181,14 @@
 
         /* 事件图片 */
         .timeline-img {
-            width: 200px; /* 放大图片 */
+            width: 200px;
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            position: relative; /* 让图片单独移动，不影响文字 */
+            position: relative; /* 让图片单独调整 */
         }
 
-        /* 时间点（黑点在线上） */
+        /* 时间点（黑点） */
         .circle {
             width: 14px;
             height: 14px;
@@ -194,7 +196,7 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            top: 50.25%; /* 让黑点在线上 */
+            top: 50%;
             transform: translate(-50%, -50%);
         }
 
@@ -202,24 +204,23 @@
         .year {
             font-weight: bold;
             font-size: 18px;
-            display: block;
-            margin-top: 10px;
+            margin-top: -40px; /* 上移年份靠近横线 */
         }
 
         /* 文字描述 */
         .timeline-text {
             font-size: 14px;
             color: #333;
-            margin-top: 5px;
+            margin-top: -20px; /* 让文字靠近横线 */
         }
 
-        /* 调整图片与线的距离 */
+        /* **调整图片与线的距离，而不影响年份和文字** */
         .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 250px; /* 增加图片和线的距离 */
+            margin-top: -100px; /* 图片上移 */
         }
 
         .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 250px; /* 增加图片和线的距离 */
+            margin-top: 100px; /* 图片下移 */
         }
 
         h1 {
