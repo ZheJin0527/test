@@ -255,7 +255,7 @@
             height: 100%;
             border: none;
         }
-        
+
         h1 {
             font-size: 28px;
             margin-bottom: 8px;
