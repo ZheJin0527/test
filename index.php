@@ -194,7 +194,7 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            top: 50%; /* 让黑点在线上 */
+            top: 50.25%; /* 让黑点在线上 */
             transform: translate(-50%, -50%);
         }
 
