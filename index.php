@@ -177,8 +177,8 @@
 
         /* 事件图片 */
         .timeline-img {
-            width: 180px; /* 放大图片 */
-            height: 180px;
+            width: 200px; /* 放大图片 */
+            height: 200px;
             object-fit: cover;
             border-radius: 10px;
             display: block;
@@ -214,11 +214,11 @@
 
         /* 调整图片与线的距离 */
         .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 50px; /* 让图片和线有间距 */
+            margin-bottom: 80px; /* 增加图片和线的距离 */
         }
 
         .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 50px; /* 让图片和线有间距 */
+            margin-top: 80px; /* 增加图片和线的距离 */
         }
 
         h1 {
