@@ -188,9 +188,9 @@
 
         /* 时间点（黑点在线上） */
         .circle {
-            width: 14px;
-            height: 14px;
-            background-color: black;
+            width: 16px;
+            height: 16px;
+            background-color: #f90;
             border-radius: 50%;
             position: absolute;
             left: 50%;
