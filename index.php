@@ -203,15 +203,19 @@
         /* 年份 */
         .year {
             font-weight: bold;
-            font-size: 18px;
-            margin-top: -40px; /* 上移年份靠近横线 */
+            font-size: 16px;
+            margin-bottom: 0px; /* 取消底部间距 */
+            position: relative;
+            top: -10px; /* 上移让它更靠近时间线 */
         }
 
         /* 文字描述 */
         .timeline-text {
             font-size: 14px;
             color: #333;
-            margin-top: -20px; /* 让文字靠近横线 */
+            margin-top: 0px; /* 取消顶部间距 */
+            position: relative;
+            top: -10px; /* 上移让它更靠近时间线 */
         }
 
         /* **调整图片与线的距离，而不影响年份和文字** */
