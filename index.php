@@ -147,81 +147,80 @@
         }
 
         /* 时间轴整体样式 */
-.timeline {
-    display: flex;
-    justify-content: space-around; /* 保持元素均匀排列 */
-    align-items: center;
-    position: relative;
-    width: 90%;
-    margin: 50px auto;
-    padding: 50px 0;
-}
+        .timeline {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: relative;
+            width: 90%;
+            margin: 50px auto;
+            padding: 50px 0;
+        }
 
-/* 时间轴主线 */
-.timeline::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: black;
-    z-index: -1;
-}
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: black;
+            z-index: -1;
+        }
 
-/* 时间轴项目 */
-.timeline-item {
-    display: flex;
-    flex-direction: column; /* 让元素垂直排列 */
-    align-items: center; /* 让年份、黑点、文字居中 */
-    text-align: center;
-    position: relative;
-    width: 30%; /* 使其大小不会随图片变宽 */
-}
+        /* 时间轴项目 */
+        .timeline-item {
+            text-align: center;
+            position: relative;
+            width: 30%;
+        }
 
-/* 事件图片 */
-.timeline-img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    position: relative; /* 让图片可以单独调整 */
-}
+        /* 事件图片 */
+        .timeline-img {
+            width: 200px; /* 放大图片 */
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            position: relative; /* 让图片单独移动，不影响文字 */
+        }
 
-/* 时间点（黑点） */
-.circle {
-    width: 14px;
-    height: 14px;
-    background-color: black;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
+        /* 时间点（黑点在线上） */
+        .circle {
+            width: 14px;
+            height: 14px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%; /* 让黑点在线上 */
+            transform: translate(-50%, -50%);
+        }
 
-/* 年份 */
-.year {
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 10px;
-}
+        /* 年份 */
+        .year {
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-top: 2px;
+        }
 
-/* 文字描述 */
-.timeline-text {
-    font-size: 14px;
-    color: #333;
-    margin-top: 5px;
-}
+        /* 文字描述 */
+        .timeline-text {
+            font-size: 14px;
+            color: #333;
+            margin-top: 2px;
+        }
 
-/* **重点修正：调整图片位置，而不影响年份和文字** */
-.timeline-item:nth-child(odd) .timeline-img {
-    margin-top: -120px; /* 图片上移 */
-}
+        /* 调整图片与线的距离 */
+        .timeline-item:nth-child(odd) .timeline-img {
+            margin-bottom: 250px; /* 增加图片和线的距离 */
+        }
 
-.timeline-item:nth-child(even) .timeline-img {
-    margin-top: 120px; /* 图片下移 */
-}
+        .timeline-item:nth-child(even) .timeline-img {
+            margin-top: 250px; /* 增加图片和线的距离 */
+        }
 
         h1 {
             font-size: 28px;
