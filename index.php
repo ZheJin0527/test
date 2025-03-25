@@ -223,20 +223,22 @@
         }
 
         .container {
-            display: block; /* 让整个联系我们模块独占一行 */
-            max-width: 800px; /* 适当控制最大宽度 */
-            margin: 80px auto; /* 居中，并与时间轴保持距离 */
+            display: block; /* 让 container 独占整行 */
+            width: 100%; /* 让它充满宽度 */
+            max-width: 800px; /* 让它不会太宽，保持美观 */
+            margin: 50px auto 0 auto; /* 确保它和时间轴有间距 */
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             padding: 20px;
-            text-align: center; /* 让文本居中 */
+            text-align: center;
+            clear: both; /* 确保它不会跑到时间轴旁边 */
         }
 
-        /* 联系信息样式 */
+        /* 联系方式内容 */
         .contact-info {
-            width: 100%; /* 让信息部分占满整行 */
-            padding: 20px 0;
+            width: 100%;
+            padding: 40px;
             background: #fff;
         }
 
@@ -253,14 +255,15 @@
             margin-bottom: 10px;
         }
 
-        /* 地图样式 */
+        /* 地图容器 */
         .map-container {
-            width: 100%; /* 让地图占满整行 */
+            width: 100%;
+            margin-top: 20px;
         }
 
         .map-container iframe {
             width: 100%;
-            height: 350px; /* 适当增加高度 */
+            height: 300px; /* 调整地图高度 */
             border: none;
         }
 
