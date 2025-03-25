@@ -173,6 +173,14 @@
             vertical-align: top;
         }
 
+        .timeline-img {
+            width: 120px; /* 调整图片大小 */
+            height: 120px;
+            background: #ccc;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
         .timeline-item .circle {
             width: 16px;
             height: 16px;
@@ -271,22 +279,30 @@
     </section>
 
     <div class="timeline">
-        <div class="timeline-item">
-            <div class="content"></div>
-            <div class="circle"></div>
-            <span class="year">2023</span>
-        </div>
-        <div class="timeline-item">
-            <div class="content"></div>
-            <div class="circle"></div>
-            <span class="year">2024</span>
-        </div>
-        <div class="timeline-item">
-            <div class="content"></div>
-            <div class="circle"></div>
-            <span class="year">2025</span>
-        </div>
+    <!-- 2023 -->
+    <div class="timeline-item">
+        <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
+        <div class="circle"></div>
+        <span class="year">2023</span>
+        <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
     </div>
+
+    <!-- 2024 -->
+    <div class="timeline-item">
+        <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
+        <div class="circle"></div>
+        <span class="year">2024</span>
+        <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
+    </div>
+
+    <!-- 2025 -->
+    <div class="timeline-item">
+        <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
+        <div class="circle"></div>
+        <span class="year">2025</span>
+        <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
+    </div>
+</div>
 
 </body>
 </html>
