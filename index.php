@@ -225,13 +225,8 @@
         .container {
             display: block; /* 让 container 独占整行 */
             width: 100%; /* 让它充满宽度 */
-            max-width: 800px; /* 让它不会太宽，保持美观 */
-            margin: 50px auto 0 auto; /* 确保它和时间轴有间距 */
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
+            max-width: 1200px; /* 让它不会太宽，保持美观 */
+            margin: 80px auto 0 auto; /* 确保它和时间轴有足够的间距 */
             clear: both; /* 确保它不会跑到时间轴旁边 */
         }
 
