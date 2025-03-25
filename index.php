@@ -270,9 +270,7 @@
 <body>
 
     <nav>
-        <div class="logo">
-        <img src="images/images/logo.png" alt="Kunzz Logo" class="logo-img">KUNZZ HOLDINGS
-    </div>
+        <div class="logo">KUNZZ HOLDINGS</div>
         <div class="menu">
             <a href="#home">首页</a>
             <a href="#about-us">关于我们</a>
