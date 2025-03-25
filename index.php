@@ -157,6 +157,7 @@
             padding: 50px 0;
         }
 
+        /* 时间轴的黑线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -171,17 +172,19 @@
         /* 时间轴项目 */
         .timeline-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
+            flex-direction: column;
             width: 30%;
+            position: relative;
         }
 
-        /* 让图片和文字水平对齐 */
-        .timeline-content {
+        /* 让文字和年份水平对齐 */
+        .timeline-text-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 20px; /* 控制文字和图片的间距 */
+            text-align: center;
+            width: 200px; /* 让文字和图片保持对齐 */
         }
 
         /* 事件图片 */
@@ -200,7 +203,7 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            top: 50.25%;
+            top: 50%;
             transform: translate(-50%, -50%);
         }
 
@@ -214,17 +217,17 @@
         .timeline-text {
             font-size: 14px;
             color: #333;
+            margin-top: 5px;
         }
 
-        /* 调整上下排项目的对齐方式 */
-        .timeline-item:nth-child(odd) .timeline-content {
-            flex-direction: row-reverse; /* 让上方的文字在右边 */
+        /* 调整文字在不同图片位置的排列方式 */
+        .timeline-item:nth-child(odd) .timeline-text-container {
+            order: -1; /* 让上方的文字在图片左侧 */
         }
 
-        .timeline-item:nth-child(even) .timeline-content {
-            flex-direction: row; /* 让下方的文字在左边 */
+        .timeline-item:nth-child(even) .timeline-text-container {
+            order: 1; /* 让下方的文字在图片右侧 */
         }
-
 
         h1 {
             font-size: 28px;
