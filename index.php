@@ -223,18 +223,21 @@
         }
 
         .container {
-            display: flex;
             max-width: 1200px;
             margin: 50px auto;
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .contact-info {
-            width: 40%;
+            width: 100%;
             padding: 40px;
             background: #fff;
+            text-align: center;
         }
         .contact-info h2 {
             margin-bottom: 20px;
@@ -248,11 +251,11 @@
             margin-bottom: 10px;
         }
         .map-container {
-            width: 60%;
+            width: 100%;
         }
         .map-container iframe {
             width: 100%;
-            height: 100%;
+            height: 450px;
             border: none;
         }
 
