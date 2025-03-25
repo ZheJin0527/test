@@ -173,9 +173,6 @@
             text-align: center;
             position: relative;
             width: 30%;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* 让所有内容居中 */
         }
 
         /* 事件图片 */
@@ -185,6 +182,7 @@
             object-fit: cover;
             border-radius: 10px;
             display: block;
+            margin: 0 auto;
         }
 
         /* 时间点（黑点在线上） */
@@ -199,11 +197,18 @@
             transform: translate(-50%, -50%);
         }
 
+        /* 年份和文字区域 */
+        .timeline-text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;  /* 让文字区域垂直居中 */
+            height: 200px;  /* 确保和图片高度一致 */
+        }
+
         /* 年份 */
         .year {
             font-weight: bold;
             font-size: 18px;
-            margin: 10px 0;
         }
 
         /* 文字描述 */
@@ -211,8 +216,8 @@
             font-size: 14px;
             color: #333;
             max-width: 220px;
-            text-align: center;
         }
+
 
         h1 {
             font-size: 28px;
