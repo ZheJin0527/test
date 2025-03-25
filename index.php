@@ -178,11 +178,11 @@
             width: 30%;
         }
 
-        /* 黑点在线上 */
+        /* 黑点 */
         .circle {
             width: 16px;
             height: 16px;
-            background-color: #f90;
+            background-color: #000;
             border-radius: 50%;
             position: absolute;
             left: 50%;
@@ -190,13 +190,21 @@
             transform: translate(-50%, -50%);
         }
 
-        /* 时间轴事件的内容（文字+年份），确保水平居中 */
+        /* 事件图片 */
+        .timeline-img {
+            width: 200px; /* 控制图片大小 */
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+
+        /* 文字部分（固定到上下） */
         .timeline-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 200px; /* 让文字区域与图片同高 */
+            text-align: center;
+            max-width: 200px;
+            position: absolute;
+            width: 100%;
         }
 
         /* 年份 */
@@ -209,30 +217,16 @@
         .timeline-text {
             font-size: 14px;
             color: #333;
-            text-align: center;
-            max-width: 200px;
         }
 
-        /* 事件图片 */
-        .timeline-img {
-            width: 200px; /* 图片大小 */
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* 控制奇数项（2023, 2025）：文字在上，图片在下 */
+        /* 让奇数项（2023, 2025）文字在下，图片靠近黑线 */
         .timeline-item:nth-child(odd) .timeline-content {
-            order: -1; /* 让文字在上 */
-            margin-bottom: 20px;
+            bottom: -80px;  /* 让文字远离黑线 */
         }
 
-        /* 控制偶数项（2024）：文字在下，图片在上 */
+        /* 让偶数项（2024）文字在上，图片靠近黑线 */
         .timeline-item:nth-child(even) .timeline-content {
-            order: 1; /* 让文字在下 */
-            margin-top: 20px;
+            top: -80px;  /* 让文字远离黑线 */
         }
 
         h1 {
