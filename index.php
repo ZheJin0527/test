@@ -163,9 +163,8 @@
             width: 100%;
             height: 2px;
             background: black;
-            top: 50%;
+            top: 58px;  /* 调整这个值，让横线和黑点对齐 */
             left: 0;
-            transform: translateY(-50%);
         }
 
         .timeline-item {
@@ -180,7 +179,7 @@
             background: #ccc;
             border-radius: 10px;
             object-fit: cover;
-            margin-bottom: 20px; /* 让图片和圆点分开 */
+            margin-bottom: 20px;
         }
 
         .circle {
@@ -190,25 +189,25 @@
             border-radius: 50%;
             position: relative;
             margin: 0 auto;
+            z-index: 2;
         }
 
         .year {
             display: block;
             font-size: 18px;
             font-weight: bold;
-            margin-top: 5px; /* 让年份紧挨着圆点 */
+            margin-top: 5px;
         }
 
         .timeline-text {
-            margin-top: 10px; /* 让文字距离年份 */
+            margin-top: 10px;
             font-size: 14px;
             color: #333;
-            max-width: 200px; /* 限制文字宽度，避免变形 */
+            max-width: 200px;
             word-wrap: break-word;
             margin-left: auto;
             margin-right: auto;
         }
-
 
         h1 {
             font-size: 28px;
@@ -288,10 +287,10 @@
 
     <!-- 2024 -->
     <div class="timeline-item">
-        <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
+    <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
         <div class="circle"></div>
         <span class="year">2024</span>
-        <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
+        <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
     </div>
 
     <!-- 2025 -->
