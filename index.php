@@ -148,11 +148,13 @@
 
         /* 时间轴整体样式 */
         .timeline {
-            display: flex;  /* 让年份和描述文字在同一行 */
-            justify-content: center; /* 居中对齐 */
-            align-items: center; /* 确保它们在同一高度 */
-            gap: 10px; /* 设置年份和文字之间的间距 */
-            margin-top: 20px; /* 调整位置，确保在图片正中间 */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: relative;
+            width: 90%;
+            margin: 50px auto;
+            padding: 50px 0;
         }
 
         .timeline::before {
@@ -168,20 +170,26 @@
 
         /* 时间轴项目 */
         .timeline-item {
-            text-align: center;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 30%;
+        }
+
+        /* 让图片和文字水平对齐 */
+        .timeline-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; /* 控制文字和图片的间距 */
         }
 
         /* 事件图片 */
         .timeline-img {
-            width: 200px; /* 放大图片 */
+            width: 200px;
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            position: relative; /* 让图片单独移动，不影响文字 */
         }
 
         /* 时间点（黑点在线上） */
@@ -192,7 +200,7 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            top: 50.25%; /* 让黑点在线上 */
+            top: 50.25%;
             transform: translate(-50%, -50%);
         }
 
@@ -200,25 +208,23 @@
         .year {
             font-weight: bold;
             font-size: 18px;
-            display: block;
-            margin-top: 10px;
         }
 
         /* 文字描述 */
         .timeline-text {
             font-size: 14px;
             color: #333;
-            margin-top: 5px;
         }
 
-        /* 调整图片与线的距离 */
-        .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 250px; /* 增加图片和线的距离 */
+        /* 调整上下排项目的对齐方式 */
+        .timeline-item:nth-child(odd) .timeline-content {
+            flex-direction: row-reverse; /* 让上方的文字在右边 */
         }
 
-        .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 250px; /* 增加图片和线的距离 */
+        .timeline-item:nth-child(even) .timeline-content {
+            flex-direction: row; /* 让下方的文字在左边 */
         }
+
 
         h1 {
             font-size: 28px;
