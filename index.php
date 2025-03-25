@@ -224,6 +224,7 @@
 
         .container {
             display: flex;
+            flex-direction: column; /* 让内容垂直排列 */
             max-width: 1200px;
             margin: 50px auto;
             background: white;
@@ -231,11 +232,19 @@
             border-radius: 10px;
             overflow: hidden;
         }
+
+        /* 调整联系我们和地图的排布 */
+        .contact-info, .map-container {
+            width: 100%; /* 让它们都占满整行 */
+        }
+
+        /* 联系方式内部样式 */
         .contact-info {
-            width: 40%;
             padding: 40px;
             background: #fff;
+            text-align: center; /* 居中内容 */
         }
+
         .contact-info h2 {
             margin-bottom: 20px;
             font-size: 24px;
@@ -243,19 +252,19 @@
             display: inline-block;
             padding-bottom: 5px;
         }
+
         .contact-info p {
             font-size: 16px;
             margin-bottom: 10px;
         }
-        .map-container {
-            width: 60%;
-        }
+
+        /* 地图占满整行 */
         .map-container iframe {
             width: 100%;
-            height: 100%;
+            height: 350px; /* 适当调整地图高度 */
             border: none;
         }
-
+        
         h1 {
             font-size: 28px;
             margin-bottom: 8px;
