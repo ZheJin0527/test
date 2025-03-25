@@ -254,7 +254,7 @@
             width: 100%;
             height: 100%;
             border: none;
-        } 
+        }
 
         h1 {
             font-size: 28px;
