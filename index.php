@@ -223,20 +223,19 @@
         }
 
         .container {
-            display: block; /* 让 container 独占整行 */
-            width: 100%; /* 让它充满宽度 */
-            max-width: 1200px; /* 让它不会太宽，保持美观 */
-            margin: 80px auto 0 auto; /* 确保它和时间轴有足够的间距 */
-            clear: both; /* 确保它不会跑到时间轴旁边 */
+            display: flex;
+            max-width: 1200px;
+            margin: 50px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
         }
-
-        /* 联系方式内容 */
         .contact-info {
-            width: 100%;
+            width: 40%;
             padding: 40px;
             background: #fff;
         }
-
         .contact-info h2 {
             margin-bottom: 20px;
             font-size: 24px;
@@ -244,21 +243,16 @@
             display: inline-block;
             padding-bottom: 5px;
         }
-
         .contact-info p {
             font-size: 16px;
             margin-bottom: 10px;
         }
-
-        /* 地图容器 */
         .map-container {
-            width: 100%;
-            margin-top: 20px;
+            width: 60%;
         }
-
         .map-container iframe {
             width: 100%;
-            height: 300px; /* 调整地图高度 */
+            height: 100%;
             border: none;
         }
 
@@ -352,6 +346,7 @@
         <div class="circle"></div>
         <span class="year">2025</span>
         <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
+    </div>
     </div>
 
     <!-- 联系我们 -->
