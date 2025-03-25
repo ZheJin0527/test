@@ -223,21 +223,18 @@
         }
 
         .container {
+            display: flex;
             max-width: 1200px;
             margin: 50px auto;
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         .contact-info {
-            width: 100%;
+            width: 40%;
             padding: 40px;
             background: #fff;
-            text-align: center;
         }
         .contact-info h2 {
             margin-bottom: 20px;
@@ -251,14 +248,14 @@
             margin-bottom: 10px;
         }
         .map-container {
-            width: 100%;
+            width: 60%;
         }
         .map-container iframe {
             width: 100%;
-            height: 450px;
+            height: 100%;
             border: none;
         }
-
+        
         h1 {
             font-size: 28px;
             margin-bottom: 8px;
