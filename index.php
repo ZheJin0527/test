@@ -214,11 +214,11 @@
 
         /* 调整图片与线的距离 */
         .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 80px; /* 增加图片和线的距离 */
+            margin-bottom: 180px; /* 增加图片和线的距离 */
         }
 
         .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 80px; /* 增加图片和线的距离 */
+            margin-top: 180px; /* 增加图片和线的距离 */
         }
 
         h1 {
