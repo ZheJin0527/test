@@ -146,68 +146,77 @@
             border-radius: 8px;
         }
 
+        /* 时间线整体样式 */
         .timeline {
             position: relative;
-            width: 80%;
-            margin: 40px auto;
-            padding: 40px 0;
-            text-align: center;
             display: flex;
             justify-content: space-around;
-            align-items: flex-start;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
+            align-items: center;
             width: 100%;
-            height: 2px;
-            background: black;
-            top: 58px;  /* 调整这个值，让横线和黑点对齐 */
-            left: 0;
+            margin-top: 80px; /* 适当调整让整体下移 */
+            padding: 40px 0;
         }
 
+        /* 时间线的横线 */
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 3px; /* 线条粗细 */
+            background-color: black;
+            transform: translateY(-50%);
+            z-index: -1;
+        }
+
+        /* 每个时间节点的容器 */
         .timeline-item {
             position: relative;
-            width: 30%;
             text-align: center;
+            width: 30%; /* 控制宽度，使其均匀排列 */
         }
 
-        .timeline-img {
-            width: 120px;
-            height: 120px;
-            background: #ccc;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
-
+        /* 里程碑上的黑点 */
         .circle {
-            width: 16px;
-            height: 16px;
-            background: black;
+            width: 14px;
+            height: 14px;
+            background-color: black;
             border-radius: 50%;
-            position: relative;
-            margin: 0 auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 2;
         }
 
+        /* 年份样式 */
         .year {
             display: block;
             font-size: 18px;
             font-weight: bold;
-            margin-top: 5px;
+            margin-top: 20px;
         }
 
+        /* 时间线上的图片 */
+        .timeline-img {
+            width: 100px; /* 你可以调整大小 */
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto 15px auto;
+        }
+
+        /* 时间线文字 */
         .timeline-text {
-            margin-top: 10px;
             font-size: 14px;
-            color: #333;
-            max-width: 200px;
-            word-wrap: break-word;
+            margin-top: 10px;
+            max-width: 200px; /* 设定最大宽度，避免过长换行 */
             margin-left: auto;
             margin-right: auto;
         }
+
 
         h1 {
             font-size: 28px;
