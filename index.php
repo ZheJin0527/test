@@ -157,6 +157,7 @@
             padding: 50px 0;
         }
 
+        /* 黑色横线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -170,23 +171,14 @@
 
         /* 时间轴项目 */
         .timeline-item {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             position: relative;
             width: 30%;
         }
 
-        /* 事件图片 */
-        .timeline-img {
-            width: 200px; /* 放大图片 */
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            position: relative; /* 让图片单独移动，不影响文字 */
-        }
-
-        /* 时间点（黑点在线上） */
+        /* 黑点在线上 */
         .circle {
             width: 16px;
             height: 16px;
@@ -194,32 +186,53 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            top: 50.25%; /* 让黑点在线上 */
+            top: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        /* 时间轴事件的内容（文字+年份），确保水平居中 */
+        .timeline-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px; /* 让文字区域与图片同高 */
         }
 
         /* 年份 */
         .year {
             font-weight: bold;
             font-size: 18px;
-            display: block;
-            margin-top: 10px;
         }
 
         /* 文字描述 */
         .timeline-text {
             font-size: 14px;
             color: #333;
-            margin-top: 5px;
+            text-align: center;
+            max-width: 200px;
         }
 
-        /* 调整图片与线的距离 */
-        .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 250px; /* 增加图片和线的距离 */
+        /* 事件图片 */
+        .timeline-img {
+            width: 200px; /* 图片大小 */
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
         }
 
-        .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 250px; /* 增加图片和线的距离 */
+        /* 控制奇数项（2023, 2025）：文字在上，图片在下 */
+        .timeline-item:nth-child(odd) .timeline-content {
+            order: -1; /* 让文字在上 */
+            margin-bottom: 20px;
+        }
+
+        /* 控制偶数项（2024）：文字在下，图片在上 */
+        .timeline-item:nth-child(even) .timeline-content {
+            order: 1; /* 让文字在下 */
+            margin-top: 20px;
         }
 
         h1 {
