@@ -222,6 +222,40 @@
             margin-top: 250px; /* 增加图片和线的距离 */
         }
 
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 50px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .contact-info {
+            width: 40%;
+            padding: 40px;
+            background: #fff;
+        }
+        .contact-info h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 3px solid #000;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .contact-info p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .map-container {
+            width: 60%;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         h1 {
             font-size: 28px;
             margin-bottom: 8px;
@@ -312,6 +346,19 @@
         <div class="circle"></div>
         <span class="year">2025</span>
         <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
+    </div>
+
+    <div class="container">
+        <div class="contact-info">
+            <h2>联系我们</h2>
+            <p><strong>地址：</strong>25, Jln Tanjong 3, Taman Desa Cemerlang, 81800 Ulu Tiram, Johor Darul Ta'zim</p>
+            <p><strong>邮箱：</strong>contact@kunzzholdings.com</p>
+            <p><strong>电话：</strong>+60 123-456 789</p>
+        </div>
+        <div class="map-container">
+            <!-- 这里替换成你的 Google Maps 嵌入链接 -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.0835983485779!2d103.80679626959696!3d1.5627186405076339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6ebade6584b1%3A0xb26af9d71aa82b20!2s25%2C%20Jln%20Tanjong%203%2C%20Taman%20Desa%20Cemerlang%2C%2081800%20Ulu%20Tiram%2C%20Johor%20Darul%20Ta&#39;zim!5e0!3m2!1szh-CN!2smy!4v1742888938742!5m2!1szh-CN!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </div>
 </div>
 
