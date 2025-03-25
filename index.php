@@ -171,28 +171,19 @@
 
         /* 时间轴项目 */
         .timeline-item {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            width: 30%;
-            position: relative;
-        }
-
-        /* 让文字和年份水平对齐 */
-        .timeline-text-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
-            width: 200px; /* 让文字和图片保持对齐 */
+            position: relative;
+            width: 30%;
         }
 
-        /* 事件图片 */
+        /* 图片（不改变位置） */
         .timeline-img {
             width: 200px;
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
+            display: block;
+            margin: 0 auto;
         }
 
         /* 时间点（黑点在线上） */
@@ -207,10 +198,32 @@
             transform: translate(-50%, -50%);
         }
 
-        /* 年份 */
+        /* 年份和文字对齐红色线 */
+        .timeline-item span.year,
+        .timeline-item p.timeline-text {
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 调整上方的文字和年份 */
+        .timeline-item:nth-child(odd) span.year,
+        .timeline-item:nth-child(odd) p.timeline-text {
+            top: -150px; /* 上方的年份和文字往上移动 */
+        }
+
+        /* 调整下方的文字和年份 */
+        .timeline-item:nth-child(even) span.year,
+        .timeline-item:nth-child(even) p.timeline-text {
+            bottom: -150px; /* 下方的年份和文字往下移动 */
+        }
+
+        /* 年份样式 */
         .year {
             font-weight: bold;
             font-size: 18px;
+            display: block;
         }
 
         /* 文字描述 */
@@ -218,15 +231,6 @@
             font-size: 14px;
             color: #333;
             margin-top: 5px;
-        }
-
-        /* 调整文字在不同图片位置的排列方式 */
-        .timeline-item:nth-child(odd) .timeline-text-container {
-            order: -1; /* 让上方的文字在图片左侧 */
-        }
-
-        .timeline-item:nth-child(even) .timeline-text-container {
-            order: 1; /* 让下方的文字在图片右侧 */
         }
 
         h1 {
