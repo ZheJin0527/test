@@ -157,7 +157,6 @@
             padding: 50px 0;
         }
 
-        /* 时间轴主线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -171,9 +170,6 @@
 
         /* 时间轴项目 */
         .timeline-item {
-            display: flex;
-            flex-direction: column; /* 让元素垂直排列 */
-            align-items: center; /* 让年份、黑点、文字居中 */
             text-align: center;
             position: relative;
             width: 30%;
@@ -181,14 +177,16 @@
 
         /* 事件图片 */
         .timeline-img {
-            width: 200px;
+            width: 200px; /* 放大图片 */
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
-            position: relative; /* 让图片单独调整 */
+            display: block;
+            margin: 0 auto;
+            position: relative; /* 让图片单独移动，不影响文字 */
         }
 
-        /* 时间点（黑点） */
+        /* 时间点（黑点在线上） */
         .circle {
             width: 14px;
             height: 14px;
@@ -196,35 +194,32 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            top: 50%;
+            top: 50.25%; /* 让黑点在线上 */
             transform: translate(-50%, -50%);
         }
 
         /* 年份 */
         .year {
             font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 0px; /* 取消底部间距 */
-            position: relative;
-            top: -10px; /* 上移让它更靠近时间线 */
+            font-size: 18px;
+            display: block;
+            margin-top: 10px;
         }
 
         /* 文字描述 */
         .timeline-text {
             font-size: 14px;
             color: #333;
-            margin-top: 0px; /* 取消顶部间距 */
-            position: relative;
-            top: -10px; /* 上移让它更靠近时间线 */
+            margin-top: 5px;
         }
 
-        /* **调整图片与线的距离，而不影响年份和文字** */
+        /* 调整图片与线的距离 */
         .timeline-item:nth-child(odd) .timeline-img {
-            margin-top: -100px; /* 图片上移 */
+            margin-bottom: 250px; /* 增加图片和线的距离 */
         }
 
         .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 100px; /* 图片下移 */
+            margin-top: 250px; /* 增加图片和线的距离 */
         }
 
         h1 {
