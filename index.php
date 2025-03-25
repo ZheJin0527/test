@@ -157,6 +157,7 @@
             padding: 50px 0;
         }
 
+        /* 时间轴的线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -173,6 +174,9 @@
             text-align: center;
             position: relative;
             width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* 事件图片 */
@@ -182,7 +186,6 @@
             object-fit: cover;
             border-radius: 10px;
             display: block;
-            margin: 0 auto;
         }
 
         /* 时间点（黑点在线上） */
@@ -197,12 +200,13 @@
             transform: translate(-50%, -50%);
         }
 
-        /* 年份和文字区域 */
-        .timeline-text-container {
+        /* 文字内容区域 */
+        .timeline-content {
             display: flex;
             flex-direction: column;
-            justify-content: center;  /* 让文字区域垂直居中 */
-            height: 200px;  /* 确保和图片高度一致 */
+            align-items: center; /* 水平居中 */
+            justify-content: center; /* 垂直居中 */
+            height: 200px; /* 确保和图片高度一致 */
         }
 
         /* 年份 */
@@ -216,8 +220,17 @@
             font-size: 14px;
             color: #333;
             max-width: 220px;
+            text-align: center;
         }
 
+        /* 偶数项调整 */
+        .timeline-item:nth-child(even) .timeline-img {
+            order: 1; /* 让图片在下面 */
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            order: -1; /* 让文字在上面 */
+        }
 
         h1 {
             font-size: 28px;
