@@ -165,7 +165,6 @@
             width: 100%;
             height: 4px;
             background-color: black;
-            transform: translateY(-50%);
             z-index: -1;
         }
 
@@ -178,15 +177,15 @@
 
         /* 事件图片 */
         .timeline-img {
-            width: 150px;
-            height: 150px;
+            width: 180px; /* 放大图片 */
+            height: 180px;
             object-fit: cover;
             border-radius: 10px;
             display: block;
-            margin: 0 auto 20px auto; 
+            margin: 0 auto;
         }
 
-        /* 时间点（黑点） */
+        /* 时间点（黑点在线上） */
         .circle {
             width: 14px;
             height: 14px;
@@ -194,8 +193,8 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            bottom: -10px;
-            transform: translateX(-50%);
+            top: 50%; /* 让黑点在线上 */
+            transform: translate(-50%, -50%);
         }
 
         /* 年份 */
@@ -213,21 +212,13 @@
             margin-top: 5px;
         }
 
-        /* 调整上下布局 */
+        /* 调整图片与线的距离 */
         .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 40px;
-        }
-
-        .timeline-item:nth-child(odd) .circle {
-            top: calc(100% + 5px);
+            margin-bottom: 50px; /* 让图片和线有间距 */
         }
 
         .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 40px;
-        }
-
-        .timeline-item:nth-child(even) .circle {
-            bottom: -10px;
+            margin-top: 50px; /* 让图片和线有间距 */
         }
 
         h1 {
