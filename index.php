@@ -206,15 +206,21 @@
         }
 
         #history {
+            position: relative;
+            width: 100vw; /* 宽度充满整个屏幕 */
+            min-height: 6vh; /* 更细一点 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            background-color: #d67232;
-            padding: 20px 0;
             color: white;
             font-size: 22px;
             font-weight: bold;
-            width: 70%;
-            margin: 40px auto;
-            border-radius: 8px;
+            margin: 0; /* 紧贴上下 */
+            border-radius: 0; /* 让它完全贴合屏幕 */
+
+            /* 纯渐变背景 */
+            background: linear-gradient(to right, #d67232, #f5b14c);
         }
 
         /* 时间轴整体样式 */
