@@ -82,13 +82,40 @@
         }
 
         #home{
-            background-color: #d67232;
+            position: relative;
+            width: 100%;  
+            min-height: 80vh;  /* 最少占 80% 视口高度 */
+            max-height: 100vh; /* 但不会超过 100% 视口高度 */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 5%;
             color: white;
-            flex-direction: column;
-            padding: 40px;
-            width: 80%;
-            margin: 40px auto;
-            border-radius: 10px;
+            text-align: left;
+            
+            /* 渐变 + 背景图 */
+            background: linear-gradient(to right, rgba(214, 114, 50, 0.85), rgba(0, 0, 0, 0)), 
+                        url('images/images/会议室.jpg') center/cover no-repeat;
+            
+            /* 防止超宽屏背景拉伸 */
+            background-size: cover;
+        }
+
+        /* 确保文本不会太靠边 */
+        #home .text {
+            max-width: 50%; /* 文字最多占50%屏幕宽度 */
+            font-size: 1.8rem;
+        }
+
+        /* 让标题适应各种屏幕 */
+        #home h1 {
+            font-size: clamp(2rem, 5vw, 4rem); /* 根据屏幕大小自适应 */
+            font-weight: bold;
+        }
+
+        #home p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: bold;
         }
 
         #brands {
