@@ -149,6 +149,7 @@
         #missions h1 {
             font-size: 2rem;
             font-weight: bold;
+            text-align: center;
         }
 
         #missions p {
@@ -225,6 +226,10 @@
 
             /* 纯渐变背景 */
             background: linear-gradient(to right, #d67232, #f5b14c);
+        }
+
+        #history h2 {
+            text-align: center;
         }
 
         /* 时间轴整体样式 */
