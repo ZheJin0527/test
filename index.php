@@ -39,7 +39,7 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: 24px; /* 让 Logo 图片高度与文字一致 */
+            height: 36px; /* 让 Logo 图片高度与文字一致 */
             margin-right: 10px; /* 图片与文字间距 */
         }
 
