@@ -207,7 +207,7 @@
 
         #history {
             position: relative;
-            width: 100vw; /* 宽度充满整个屏幕 */
+            width: 100%; /* 宽度充满整个屏幕 */
             min-height: 6vh; /* 更细一点 */
             display: flex;
             align-items: center;
