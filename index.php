@@ -11,6 +11,8 @@
             margin: 0;
             padding: 0;
             scroll-behavior: smooth;
+            overflow-x: hidden; /* 隐藏水平滚动条 */
+            width: 100%;
         }
 
         /* 导航栏 */
@@ -26,6 +28,8 @@
             justify-content: flex-end;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            box-sizing: border-box; /* 确保 padding 不会导致宽度超出 */
         }
         
         /* Logo 容器 */
@@ -240,7 +244,9 @@
             position: absolute;
             top: 50%;
             left: 0;
-            width: 100%;
+            width: 90%;
+            max-width: 100%;
+            margin: auto;
             height: 4px;
             background-color: black;
             z-index: -1;
