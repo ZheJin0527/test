@@ -81,7 +81,17 @@
             text-align: center;
         }
 
-        #home, #brands {
+        #home{
+            background-color: #d67232;
+            color: white;
+            flex-direction: column;
+            padding: 40px;
+            width: 80%;
+            margin: 40px auto;
+            border-radius: 10px;
+        }
+
+        #brands {
             background-color: #d67232;
             color: white;
             flex-direction: column;
