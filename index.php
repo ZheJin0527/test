@@ -28,10 +28,19 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
+        /* Logo 容器 */
         nav .logo {
+            display: flex;
+            align-items: center;
             font-size: 24px;
             font-weight: bold;
             margin-right: auto;
+        }
+
+        /* Logo 图片 */
+        .logo-img {
+            height: 24px; /* 让 Logo 图片高度与文字一致 */
+            margin-right: 10px; /* 图片与文字间距 */
         }
 
         nav .menu {
@@ -308,7 +317,10 @@
 <body>
 
     <nav>
-        <div class="logo">KUNZZ HOLDINGS</div>
+    <div class="logo">
+        <img src="images/images/logo.png" alt="Logo" class="logo-img">
+            KUNZZ HOLDINGS
+        </div>
         <div class="menu">
             <a href="#home">首页</a>
             <a href="#about-us">关于我们</a>
