@@ -84,19 +84,18 @@
         }
 
         #home, #missions, #history {
-            width: 90%;
-            max-width: 1000px; /* 限制最大宽度防止过大 */
+            width: 96%; /* 让内容更贴近屏幕边缘但留一点间距 */
+            max-width: 1200px;
             margin: auto;
         }
 
         #home {
             position: relative;
-            width: 100%;  
-            min-height: 40vh;  /* 适应不同屏幕 */
+            min-height: 40vh;
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            padding-left: 5%;
+            padding-left: 3%;
             color: white;
             text-align: left;
             background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)), 
@@ -123,15 +122,12 @@
 
         #missions {
             position: relative;
-            width: 100%;
-            min-height: 25vh;  /* 适应不同屏幕 */
+            min-height: 25vh;
             display: flex;
             align-items: center;
-            justify-content: center; /* 让文字保持居中 */
+            justify-content: center;
             text-align: center;
             color: white;
-
-            /* 背景渐变 + 图片 */
             background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
                         url('images/images/办公区.jpg') center/cover no-repeat;
             background-size: cover;
@@ -208,8 +204,7 @@
 
         #history {
             position: relative;
-            width: 100%; /* 宽度充满整个屏幕 */
-            min-height: 15vh;  /* 适应不同屏幕 */
+            min-height: 15vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -217,8 +212,6 @@
             color: white;
             font-size: 22px;
             font-weight: bold;
-
-            /* 纯渐变背景 */
             background: linear-gradient(to right, #d67232, #f5b14c);
         }
 
