@@ -84,15 +84,15 @@
         }
 
         #home, #missions, #history {
-            width: 100%;
-            max-width: 1200px;
+            width: 90%;
+            max-width: 1000px; /* 限制最大宽度防止过大 */
             margin: auto;
         }
 
         #home {
             position: relative;
             width: 100%;  
-            min-height: 50vh;  /* 适应不同屏幕 */
+            min-height: 40vh;  /* 适应不同屏幕 */
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -124,13 +124,12 @@
         #missions {
             position: relative;
             width: 100%;
-            min-height: 30vh;  /* 适应不同屏幕 */
+            min-height: 25vh;  /* 适应不同屏幕 */
             display: flex;
             align-items: center;
             justify-content: center; /* 让文字保持居中 */
             text-align: center;
             color: white;
-            overflow: hidden; /* 确保不会出现滚动条 */
 
             /* 背景渐变 + 图片 */
             background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
@@ -210,7 +209,7 @@
         #history {
             position: relative;
             width: 100%; /* 宽度充满整个屏幕 */
-            min-height: 20vh;  /* 适应不同屏幕 */
+            min-height: 15vh;  /* 适应不同屏幕 */
             display: flex;
             align-items: center;
             justify-content: center;
