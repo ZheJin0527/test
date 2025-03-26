@@ -358,7 +358,7 @@
             <p><strong>电话：</strong>+60 123-456 789</p>
         </div>
         <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.0835983485779!2d103.80679626959696!3d1.5627186405076339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6ebade6584b1%3A0xb26af9d71aa82b20!2s25%2C%20Jln%20Tanjong%203%2C%20Taman%20Desa%20Cemerlang%2C%2081800%20Ulu%20Tiram%2C%20Johor%20Darul%20Ta&#39;zim!5e0!3m2!1szh-CN!2smy!4v1742888938742!5m2!1szh-CN!2smy" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1RrVHef5rpOnLfmBvdtZOd2RQYWz-56g&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>
         </div>
     </div>
 </div>
