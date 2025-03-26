@@ -122,23 +122,17 @@
             font-weight: bold;
         }
 
-        #missions {
-            position: relative;
-            width: 100%;
-            min-height: 50vh;  /* 控制高度，比 home 小一点 */
-            max-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center; /* 让文字保持居中 */
-            text-align: center;
-            color: white;
-            overflow: hidden; /* 确保不会出现滚动条 */
-
-            /* 背景渐变 + 图片 */
-            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
-                        url('images/images/办公区.jpg') center/cover no-repeat;
-            background-size: cover;
-        }
+        #missions, #history {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* 垂直居中 */
+    align-items: center;  /* 水平居中 */
+    text-align: center;
+    width: 100vw;  /* 确保宽度占满整个屏幕 */
+    min-height: 50vh;  /* 让其占据一定高度 */
+    margin: 0;
+    padding: 0;
+}
 
         /* 确保文本不会太靠边 */
         #missions .text {
@@ -210,27 +204,12 @@
             margin: 0;
         }
 
-        #history {
-            position: relative;
-            width: 100%; /* 宽度充满整个屏幕 */
-            min-height: 6vh; /* 更细一点 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            margin: 0; /* 紧贴上下 */
-            border-radius: 0; /* 让它完全贴合屏幕 */
-
-            /* 纯渐变背景 */
-            background: linear-gradient(to right, #d67232, #f5b14c);
-        }
-
-        #history h2 {
-            text-align: center;
-        }
+        #missions h1, #history h2 {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
 
         /* 时间轴整体样式 */
         .timeline {
