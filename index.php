@@ -84,8 +84,8 @@
         #home{
             position: relative;
             width: 100%;  
-            min-height: 80vh;  /* 最少占 80% 视口高度 */
-            max-height: 100vh; /* 但不会超过 100% 视口高度 */
+            height: auto;
+            min-height: 60vh; /* 调小最小高度，避免屏幕太小溢出 */
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -121,8 +121,8 @@
         #missions {
             position: relative;
             width: 100%;
+            height: auto; /* 让内容决定高度 */
             min-height: 50vh;  /* 控制高度，比 home 小一点 */
-            max-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center; /* 让文字保持居中 */
@@ -143,12 +143,12 @@
 
         /* 文字大小和原来一样 */
         #missions h1 {
-            font-size: 2rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem); /* 响应式字体 */
             font-weight: bold;
         }
 
         #missions p {
-            font-size: 1rem;
+            font-size: clamp(1rem, 2vw, 1.5rem);
             font-weight: bold;
         }
 
@@ -208,13 +208,14 @@
         #history {
             position: relative;
             width: 100%; /* 宽度充满整个屏幕 */
-            min-height: 6vh; /* 更细一点 */
+            height: auto;
+            min-height: 5vh; /* 调小一点 */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            font-size: 22px;
+            font-size: clamp(18px, 3vw, 22px);
             font-weight: bold;
             margin: 0; /* 紧贴上下 */
             border-radius: 0; /* 让它完全贴合屏幕 */
