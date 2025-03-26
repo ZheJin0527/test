@@ -46,6 +46,7 @@
         nav .menu {
             display: flex;
             align-items: center;
+            margin-right: 50px;
         }
 
         nav a {
