@@ -79,78 +79,64 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            width: 100vw;
+            box-sizing: border-box;
         }
 
-        #home{
-            position: relative;
-            width: 100%;  
-            height: auto;
-            min-height: 60vh; /* 调小最小高度，避免屏幕太小溢出 */
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding-left: 5%;
-            color: white;
-            text-align: left;
-            
-            /* 渐变 + 背景图 */
-            background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)), 
-                        url('images/images/会议室.jpg') center/cover no-repeat;
-            
-            /* 防止超宽屏背景拉伸 */
-            background-size: cover;
-        }
+        #home {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 5%;
+    color: white;
+    text-align: left;
+    background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)), 
+                url('images/images/会议室.jpg') center/cover no-repeat;
+}
 
-        /* 确保文本不会太靠边 */
-        #home .text {
-            max-width: 50%; /* 文字最多占50%屏幕宽度 */
-            font-size: 1.8rem;
-        }
+#home .text {
+    max-width: 50%;
+    font-size: 1.8rem;
+}
 
-        /* 让标题适应各种屏幕 */
-        #home h1 {
-            font-size: clamp(2rem, 5vw, 4rem); /* 根据屏幕大小自适应 */
-            font-weight: bold;
-        }
+#home h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: bold;
+}
 
-        #home p {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            font-weight: bold;
-        }
+#home p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: bold;
+}
 
-        #missions {
-            position: relative;
-            width: 100%;
-            height: auto; /* 让内容决定高度 */
-            min-height: 50vh;  /* 控制高度，比 home 小一点 */
-            display: flex;
-            align-items: center;
-            justify-content: center; /* 让文字保持居中 */
-            text-align: center;
-            color: white;
-            overflow: hidden; /* 确保不会出现滚动条 */
+/* 我们的使命 */
+#missions {
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
+                url('images/images/办公区.jpg') center/cover no-repeat;
+}
 
-            /* 背景渐变 + 图片 */
-            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
-                        url('images/images/办公区.jpg') center/cover no-repeat;
-            background-size: cover;
-        }
+#missions .text {
+    max-width: 55%;
+}
 
-        /* 确保文本不会太靠边 */
-        #missions .text {
-            max-width: 55%;
-        }
+#missions h1 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: bold;
+}
 
-        /* 文字大小和原来一样 */
-        #missions h1 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem); /* 响应式字体 */
-            font-weight: bold;
-        }
-
-        #missions p {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            font-weight: bold;
-        }
+#missions p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: bold;
+}
 
         #about-us {
             background-color: white;
@@ -174,204 +160,154 @@
         }
 
         #values {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            padding: 40px 10%;
-        }
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 40px 10%;
+}
 
-        .value-box {
-            flex: 1;
-            max-width: 250px;
-            margin: 0 10px;
-            padding: 0;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow: hidden;
-        }
+.value-box {
+    flex: 1;
+    max-width: 250px;
+    margin: 0 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
 
-        .value-box img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+.value-box img {
+    width: 100%;
+    height: 180px; /* 调整高度 */
+    object-fit: cover;
+}
 
-        .value-box h2, .value-box p {
-            padding: 10px;
-            margin: 0;
-        }
+.value-box h2, .value-box p {
+    padding: 10px;
+    margin: 0;
+}
 
-        #history {
-            position: relative;
-            width: 100%; /* 宽度充满整个屏幕 */
-            height: auto;
-            min-height: 5vh; /* 调小一点 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            font-size: clamp(18px, 3vw, 22px);
-            font-weight: bold;
-            margin: 0; /* 紧贴上下 */
-            border-radius: 0; /* 让它完全贴合屏幕 */
-
-            /* 纯渐变背景 */
-            background: linear-gradient(to right, #d67232, #f5b14c);
-        }
+/* 发展历史 */
+#history {
+    width: 100%;
+    min-height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: bold;
+    margin: 0;
+    border-radius: 0;
+    background: linear-gradient(to right, #d67232, #f5b14c);
+}
 
         /* 时间轴整体样式 */
         .timeline {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            position: relative;
-            width: 90%;
-            margin: 50px auto 100px;
-            padding: 50px 0;
-        }
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    width: 90%;
+    margin: 50px auto 100px;
+    padding: 50px 0;
+    overflow-x: hidden;
+}
 
-        /* 时间轴横线 */
-        .timeline::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: black;
-            z-index: -1;
-        }
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: black;
+    z-index: -1;
+}
 
-        /* 时间轴项目 */
-        .timeline-item {
-            text-align: center;
-            position: relative;
-            width: 30%;
-        }
+/* 时间轴项目 */
+.timeline-item {
+    text-align: center;
+    position: relative;
+    width: 30%;
+}
 
-        /* 时间点（黑点在线上） */
-        .circle {
-            width: 16px;
-            height: 16px;
-            background-color: #f90;
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
+/* 时间点 */
+.circle {
+    width: 16px;
+    height: 16px;
+    background-color: #f90;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
 
-        /* 事件图片 */
-        .timeline-img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            position: relative;
-        }
+.timeline-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
 
-        /* 让时间点连接到图片 */
-        .timeline-item::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            width: 4px;
-            height: 220px;
-            background-color: black;
-            transform: translateX(-50%);
-            z-index: -1;
-        }
+.year {
+    font-size: 18px;
+    font-weight: bold;
+}
 
-        /* 让线从时间点向下连接到图片 */
-        .timeline-item:nth-child(odd)::after {
-            bottom: calc(48% + 8px);
-        }
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .timeline {
+        flex-direction: column;
+        align-items: center;
+    }
+    .timeline-item {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    .timeline::before {
+        display: none;
+    }
+}
 
-        .timeline-item:nth-child(even)::after {
-            top: calc(50% + 8px);
-        }
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 50px auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-        /* 让 2023 和 2025 向上靠近时间轴 */
-        .timeline-item:nth-child(odd) .year,
-        .timeline-item:nth-child(odd) .timeline-text {
-            position: relative;
-            top: -80px; /* 向上移动 */
-            font-weight: bold;
-        }
+.contact-info {
+    width: 40%;
+    padding: 40px;
+}
 
-        /* 让 2024 向下靠近时间轴 */
-        .timeline-item:nth-child(even) .year,
-        .timeline-item:nth-child(even) .timeline-text {
-            position: relative;
-            top: 80px; /* 向下移动 */
-            font-weight: bold;
-        }
+.contact-info h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    border-bottom: 3px solid #000;
+    padding-bottom: 5px;
+}
 
-        /* 年份 */
-        .year {
-            font-size: 18px;
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
+.map-container {
+    width: 60%;
+}
 
-        /* 文字描述 */
-        .timeline-text {
-            font-size: 14px;
-            color: #333;
-            margin-top: 5px;
-        }
-
-        /* 调整图片与线的距离 */
-        .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 250px;
-        }
-
-        .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 250px;
-        }
-
-        .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 50px auto;
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .contact-info {
-            width: 40%;
-            padding: 40px;
-            background: #fff;
-        }
-        .contact-info h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            border-bottom: 3px solid #000;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-        .contact-info p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        .map-container {
-            width: 60%;
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
         h1 {
             font-size: 28px;
             margin-bottom: 8px;
