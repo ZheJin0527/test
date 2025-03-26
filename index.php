@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             scroll-behavior: smooth;
+            overflow-x: hidden; /* 防止水平滚动 */
         }
 
         /* 导航栏 */
@@ -74,30 +75,32 @@
 
         /* 版块样式 */
         section {
-            padding: 50px 10%;
+            padding: 40px 5%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+            flex-wrap: wrap;
         }
 
-        #home{
+        #home, #missions, #history {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        #home {
             position: relative;
             width: 100%;  
-            min-height: 80vh;  /* 最少占 80% 视口高度 */
-            max-height: 100vh; /* 但不会超过 100% 视口高度 */
+            min-height: 50vh;  /* 适应不同屏幕 */
             display: flex;
             align-items: center;
             justify-content: flex-start;
             padding-left: 5%;
             color: white;
             text-align: left;
-            
-            /* 渐变 + 背景图 */
             background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)), 
                         url('images/images/会议室.jpg') center/cover no-repeat;
-            
-            /* 防止超宽屏背景拉伸 */
             background-size: cover;
         }
 
@@ -121,8 +124,7 @@
         #missions {
             position: relative;
             width: 100%;
-            min-height: 50vh;  /* 控制高度，比 home 小一点 */
-            max-height: 70vh;
+            min-height: 30vh;  /* 适应不同屏幕 */
             display: flex;
             align-items: center;
             justify-content: center; /* 让文字保持居中 */
@@ -208,7 +210,7 @@
         #history {
             position: relative;
             width: 100%; /* 宽度充满整个屏幕 */
-            min-height: 6vh; /* 更细一点 */
+            min-height: 20vh;  /* 适应不同屏幕 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -216,8 +218,6 @@
             color: white;
             font-size: 22px;
             font-weight: bold;
-            margin: 0; /* 紧贴上下 */
-            border-radius: 0; /* 让它完全贴合屏幕 */
 
             /* 纯渐变背景 */
             background: linear-gradient(to right, #d67232, #f5b14c);
