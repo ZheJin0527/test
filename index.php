@@ -121,34 +121,34 @@
         #missions {
             position: relative;
             width: 100%;
-            min-height: 55vh;  /* 进一步缩小高度 */
-            max-height: 80vh;  /* 避免太大 */
+            min-height: 50vh;  /* 控制高度，比 home 小一点 */
+            max-height: 70vh;
             display: flex;
             align-items: center;
-            justify-content: center; /* 让文字保持在中间 */
+            justify-content: center; /* 让文字保持居中 */
             text-align: center;
             color: white;
+            overflow: hidden; /* 确保不会出现滚动条 */
 
-            /* 渐变 + 背景图 */
-            background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)),
+            /* 背景渐变 + 图片 */
+            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
                         url('images/images/办公区.jpg') center/cover no-repeat;
-
-            /* 防止超宽屏背景拉伸 */
             background-size: cover;
         }
 
-        /* 文字大小保持不变，防止影响排版 */
+        /* 确保文本不会太靠边 */
         #missions .text {
-            max-width: 55%; /* 控制文字宽度，让它看起来更紧凑 */
+            max-width: 55%;
         }
 
+        /* 文字大小和原来一样 */
         #missions h1 {
-            font-size: 2rem; /* 保持原来的大小 */
+            font-size: 2rem;
             font-weight: bold;
         }
 
         #missions p {
-            font-size: 1rem; /* 保持原来的大小 */
+            font-size: 1rem;
             font-weight: bold;
         }
 
