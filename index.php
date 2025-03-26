@@ -235,7 +235,7 @@
 
         /* 让线从时间点向下连接到图片 */
         .timeline-item:nth-child(odd)::after {
-            bottom: calc(50% + 8px); /* 让线条从黑点往下延伸 */
+            bottom: calc(48% + 8px); /* 让线条从黑点往下延伸 */
         }
 
         .timeline-item:nth-child(even)::after {
