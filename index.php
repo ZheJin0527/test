@@ -118,14 +118,38 @@
             font-weight: bold;
         }
 
-        #brands {
-            background-color: #d67232;
+        #missions {
+            position: relative;
+            width: 100%;
+            min-height: 55vh;  /* 进一步缩小高度 */
+            max-height: 80vh;  /* 避免太大 */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* 让文字保持在中间 */
+            text-align: center;
             color: white;
-            flex-direction: column;
-            padding: 40px;
-            width: 80%;
-            margin: 40px auto;
-            border-radius: 10px;
+
+            /* 渐变 + 背景图 */
+            background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)),
+                        url('images/images/办公区.jpg') center/cover no-repeat;
+
+            /* 防止超宽屏背景拉伸 */
+            background-size: cover;
+        }
+
+        /* 文字大小保持不变，防止影响排版 */
+        #missions .text {
+            max-width: 55%; /* 控制文字宽度，让它看起来更紧凑 */
+        }
+
+        #missions h1 {
+            font-size: 2rem; /* 保持原来的大小 */
+            font-weight: bold;
+        }
+
+        #missions p {
+            font-size: 1rem; /* 保持原来的大小 */
+            font-weight: bold;
         }
 
         #about-us {
@@ -382,7 +406,7 @@
         </div>
     </section>
 
-    <section id="brands">
+    <section id="missions">
         <div>
             <h1>我们的使命</h1>
             <p>塑造积极向上和舒适的工作环境</p>
