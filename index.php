@@ -94,7 +94,7 @@
             text-align: left;
             
             /* 渐变 + 背景图 */
-            background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)), 
+            background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgb(228, 183, 141)), 
                         url('images/images/会议室.jpg') center/cover no-repeat;
             
             /* 防止超宽屏背景拉伸 */
