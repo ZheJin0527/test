@@ -153,7 +153,7 @@
             align-items: center;
             position: relative;
             width: 90%;
-            margin: 50px auto;
+            margin: 50px auto 100px;
             padding: 50px 0;
         }
 
