@@ -32,7 +32,7 @@
         nav .logo {
             display: flex;
             align-items: center;
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             margin-right: auto;
         }
