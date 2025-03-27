@@ -12,6 +12,7 @@
             padding: 0;
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
+            background-color: black;
         }
 
         /* 导航栏 */
