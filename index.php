@@ -292,8 +292,8 @@
 
         /* 时间点（黑点在线上） */
         .circle {
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             background-color: #f90;
             border-radius: 50%;
             position: absolute;
