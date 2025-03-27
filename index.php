@@ -12,7 +12,7 @@
             padding: 0;
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
-            background-color:rgb(221, 190, 148);
+            background-color:rgb(216, 204, 187);
         }
 
         /* 导航栏 */
