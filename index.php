@@ -399,21 +399,27 @@
 
         .contact-info {
             width: 35%;
-            padding: 35px; /* 让内边距更宽松 */
+            padding: 35px;
             background: #fff;
+            font-family: 'Roboto', sans-serif; /* 选择更清晰的字体 */
         }
 
         .contact-info h2 {
-            margin-bottom: 25px; /* 标题和内容的间距加宽 */
-            font-size: 26px; /* 标题字体稍微加大 */
+            margin-bottom: 25px;
+            font-size: 26px;
+            font-family: 'Montserrat', sans-serif; /* 让标题更有设计感 */
+            font-weight: bold;
             border-bottom: 3px solid #000;
             display: inline-block;
             padding-bottom: 5px;
         }
 
         .contact-info p {
-            font-size: 24px; /* 文字稍微变大 */
-            margin-bottom: 15px; /* 增加行间距 */
+            font-size: 20px; /* 适中，易读 */
+            margin-bottom: 15px;
+            font-family: 'Lato', sans-serif; /* 地址、邮箱等适合简洁的字体 */
+            letter-spacing: 0.5px; /* 增加字距，提高可读性 */
+            line-height: 1.6; /* 让内容看起来更整齐 */
         }
 
         .map-container {
