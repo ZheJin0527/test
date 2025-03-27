@@ -209,12 +209,12 @@
 
         .value-box {
             flex: 1;
-            max-width: 250px;
-            margin: 0 10px;
-            padding: 0;
+            max-width: 350px;
+            margin: 0 15px;
+            padding: 10;
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -223,13 +223,20 @@
 
         .value-box img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
         }
 
-        .value-box h2, .value-box p {
-            padding: 10px;
-            margin: 0;
+        .value-box h2 {
+            font-size: 1.8rem;  /* 标题放大 */
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .value-box p {
+            font-size: 1.2rem;  /* 段落字体加大 */
+            line-height: 1.6;  /* 增加行距，提高可读性 */
+            padding: 10px 20px;  /* 增加内边距 */
         }
 
         #history {
