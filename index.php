@@ -111,7 +111,7 @@
 
         #history {
             width: 100vw;
-            height: min(40vh, 400px); /* 让它比 #home 和 #missions 矮 */
+            height: min(30vh, 300px); /* 让它比 #home 和 #missions 矮 */
             display: flex;
             align-items: center;
             justify-content: center;
