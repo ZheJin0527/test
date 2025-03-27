@@ -300,7 +300,7 @@
         .circle {
             width: 20px;
             height: 20px;
-            background-color: #f90;
+            background: linear-gradient(to right, #F67F1E, #FDB716);
             border-radius: 50%;
             position: absolute;
             left: 50%;
