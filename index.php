@@ -154,7 +154,7 @@
             display: flex;
             align-items: center;
             text-align: left;
-            padding: 40px 10%;
+            padding: 80px 10%;
         }
 
         #about-us .text {
