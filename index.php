@@ -188,7 +188,6 @@
             flex-direction: column;
             align-items: center;
             overflow: hidden;
-            padding: 80px;
         }
 
         .value-box img {
