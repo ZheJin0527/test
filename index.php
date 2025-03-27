@@ -83,13 +83,19 @@
             flex-wrap: wrap;
         }
 
-        #home, #missions, #history {
-            width: 100vw;  /* 让元素始终贴合屏幕宽度 */
-            min-height: 40vh; /* 根据内容保持合适高度 */
-            margin: 0; /* 去掉额外的边距 */
+        #home, #missions {
+            width: 100vw;  /* 让元素始终填满屏幕宽度 */
+            min-height: 55vh; /* 增加高度，确保图片显示更多 */
+            margin: 0; /* 避免额外的间距影响布局 */
             padding: 0;
         }
 
+        #history {
+            width: 100vw;
+            min-height: 40vh; /* 保持较小的高度 */
+            margin: 0;
+            padding: 0;
+        }
 
         #home {
             position: relative;
