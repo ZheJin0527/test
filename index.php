@@ -96,31 +96,6 @@
                         url('images/images/会议室.jpg') center/cover no-repeat;
         }
 
-        #missions {
-            width: 100vw;
-            height: min(80vh, 700px); /* 让它跟 #home 一样大 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
-                        url('images/images/办公区.jpg') center/cover no-repeat;
-        }
-
-        #history {
-            width: 100vw;
-            height: min(30vh, 300px); /* 让它比 #home 和 #missions 矮 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-            background: linear-gradient(to right, #d67232, #f5b14c);
-        }
-
         #home {
             position: relative;
             min-height: 40vh;
@@ -152,7 +127,18 @@
             font-weight: bold;
         }
 
-        
+        #missions {
+            width: 100vw;
+            height: min(80vh, 700px); /* 让它跟 #home 一样大 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
+                        url('images/images/办公区.jpg') center/cover no-repeat;
+        }
 
         /* 确保文本不会太靠边 */
         #missions .text {
@@ -222,7 +208,18 @@
             padding: 10px;
             margin: 0;
         }
-
+        
+        #history {
+            width: 100vw;
+            height: min(30vh, 300px); /* 让它比 #home 和 #missions 矮 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to right, #d67232, #f5b14c);
+        }
     
 
         /* 时间轴整体样式 */
