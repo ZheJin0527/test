@@ -175,39 +175,39 @@
             background-color: rgb(245, 238, 231);
             color: black;
             display: flex;
-            align-items: center;
+            align-items: stretch; /* 让图片和文字高度一样 */
             text-align: left;
-            margin: 0 auto;      /* 让整个区块居中 */
-            padding: 60px 5vw;   /* 内边距，左右 5vw 适应不同屏幕 */
-            width: 90%;          /* 控制整体宽度，防止过宽 */
-            max-width: 1200px;   /* 最大宽度，防止大屏幕太宽 */
+            padding: 60px 10%;
         }
 
-        /* 文字内容部分 */
         #about-us .text {
-            flex: 1;             /* 让文字和图片各占一半 */
-            padding: 0 20px;     /* 文字的左右间距 */
-            font-size: 1.2rem;   /* 字体大小 */
+            flex: 1;
+            padding: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 让文字内容居中 */
         }
 
-        /* 让标题更大 */
+        /* 标题和段落调整 */
         #about-us .text h2 {
             font-size: 2.2rem;
             font-weight: bold;
+            margin-bottom: 10px;
         }
 
-        /* 让段落文字稍微大一点 */
         #about-us .text p {
             font-size: 1.6rem;
-            line-height: 1.8; /* 增加行距，提升可读性 */
+            line-height: 1.8;
         }
 
-        /* 图片或颜色块 */
+        /* 图片样式 */
         #about-us .image {
             flex: 1;
             background-color: #d67232;
-            height: 300px;       /* 固定高度 */
-            border-radius: 10px; /* 圆角 */
+            height: auto; /* 让高度随文本变化 */
+            min-height: 300px; /* 避免图片太小 */
+            border-radius: 10px;
         }
 
         #values {
