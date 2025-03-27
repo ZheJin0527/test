@@ -196,7 +196,7 @@
         /* 图片区域 */
         #about-us .image {
             flex: 1;
-            background-color: #d67232;
+            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
             min-height: 350px;  /* 确保图片比文字略高 */
             height: auto;
             border-radius: 10px;
