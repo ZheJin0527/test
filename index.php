@@ -304,8 +304,8 @@
 
         /* 事件图片 */
         .timeline-img {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             object-fit: cover;
             border-radius: 10px;
             display: block;
