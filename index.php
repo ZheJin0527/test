@@ -355,7 +355,7 @@
             font-size: 1.6rem;
             display: block;
             margin-top: 10px;
-            font-weight: bold;
+            font-weight: 900; /* 字体加粗 */
         }
 
         /* 文字描述 */
