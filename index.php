@@ -393,7 +393,7 @@
             border-radius: 10px;
             overflow: hidden;
             padding: 15px 20px;
-            height: 600px; /* 拉大整体高度 */
+            height: 500px; /* 拉大整体高度 */
         }
 
         .contact-info {
