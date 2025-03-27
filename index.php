@@ -96,20 +96,6 @@
                         url('images/images/会议室.jpg') center/cover no-repeat;
         }
 
-        #home {
-            position: relative;
-            min-height: 40vh;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding-left: 3%;
-            color: white;
-            text-align: left;
-            background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)), 
-                        url('images/images/会议室.jpg') center/cover no-repeat;
-            background-size: cover;
-        }
-
         /* 确保文本不会太靠边 */
         #home .text {
             max-width: 50%; /* 文字最多占50%屏幕宽度 */
