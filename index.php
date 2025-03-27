@@ -451,7 +451,7 @@
             KUNZZ HOLDINGS
         </div>
         <div class="menu">
-            <button class="translate-btn">EN</button>
+            <button class="translate-btn">en</button>
             <a href="#home">首页</a>
             <a href="#about-us">关于我们</a>
             <a href="#brands">旗下品牌</a>
