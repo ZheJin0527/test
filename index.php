@@ -84,17 +84,22 @@
         }
 
         #home, #missions {
-            width: 100vw;  /* 让元素始终填满屏幕宽度 */
-            min-height: 60vh; /* 增加高度，确保图片显示更多 */
-            margin: 0; /* 避免额外的间距影响布局 */
-            padding: 0;
+            width: 100vw; /* 让元素始终填满屏幕宽度 */
+            min-height: 70vh; /* 让区块变得更大 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         #history {
             width: 100vw;
             min-height: 40vh; /* 保持较小的高度 */
-            margin: 0;
-            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(to right, #d67232, #f5b14c);
         }
 
         #home {
