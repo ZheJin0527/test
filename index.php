@@ -185,8 +185,8 @@
         #about-us .text {
             flex: 1;
             padding: 10px 20px;  /* 缩小段落上下间距 */
-            font-size: 1.2rem;  /* 适当放大字体 */
-            line-height: 1.6;  /* 调整行间距 */
+            font-size: 1.5rem;  /* 适当放大字体 */
+            line-height: 1.8;  /* 调整行间距 */
         }
 
         /* 图片区域 */
