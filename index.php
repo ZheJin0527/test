@@ -355,7 +355,8 @@
             font-size: 1.6rem;
             display: block;
             margin-top: 10px;
-            font-weight: bolder; /* 尝试使用bolder让字体变粗 */
+            font-weight: 900;
+            font-family: "Arial Black", Arial, sans-serif; /* 使用更粗的字体 */
         }
 
         /* 文字描述 */
