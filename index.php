@@ -147,12 +147,14 @@
 
         /* 文字大小和原来一样 */
         #missions h1 {
-            font-size: 2rem;
+            color: white;
+            font-size: clamp(2rem, 5vw, 4rem);
             font-weight: bold;
         }
 
         #missions p {
-            font-size: 1rem;
+            color: white;
+            font-size: clamp(1rem, 3vw, 2rem);
             font-weight: bold;
         }
 
@@ -208,7 +210,7 @@
             padding: 10px;
             margin: 0;
         }
-        
+
         #history {
             width: 100vw;
             height: min(30vh, 300px); /* 让它比 #home 和 #missions 矮 */
@@ -220,7 +222,12 @@
             box-sizing: border-box;
             background: linear-gradient(to right, #d67232, #f5b14c);
         }
-    
+
+        #history h2 {
+            color: white;
+            font-size: clamp(2rem, 5vw, 4rem); /* 响应式字体 */
+            font-weight: bold;
+        }  
 
         /* 时间轴整体样式 */
         .timeline {
