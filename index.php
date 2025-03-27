@@ -173,7 +173,7 @@
             display: flex;
             justify-content: space-around;
             text-align: center;
-            padding: 40px 10%;
+            padding: 80px 10%;
         }
 
         .value-box {
