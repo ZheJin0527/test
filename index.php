@@ -228,13 +228,13 @@
         }
 
         .value-box h2 {
-            font-size: 1.8rem;  /* 标题放大 */
+            font-size: 2.0rem;  /* 标题放大 */
             font-weight: bold;
             margin-top: 15px;
         }
 
         .value-box p {
-            font-size: 1.2rem;  /* 段落字体加大 */
+            font-size: 1.4rem;  /* 段落字体加大 */
             line-height: 1.6;  /* 增加行距，提高可读性 */
             padding: 10px 20px;  /* 增加内边距 */
         }
