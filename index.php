@@ -217,6 +217,7 @@
             color: white;
             font-size: clamp(2rem, 5vw, 4rem); /* 响应式字体 */
             font-weight: bold;
+            margin-bottom: 10px;
         }  
 
         /* 时间轴整体样式 */
