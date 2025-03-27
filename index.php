@@ -150,7 +150,7 @@
         }
 
         #about-us {
-            background-color: white;
+            background-color:rgb(245, 238, 231);
             color: black;
             display: flex;
             align-items: center;
