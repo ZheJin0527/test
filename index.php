@@ -117,8 +117,11 @@
             text-align: left;
             padding-left: 3%;
             box-sizing: border-box;
-            background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)),
-                        url('images/images/会议室.jpg') center/cover no-repeat;
+            background: linear-gradient(to right, 
+            rgba(245, 123, 31, 0.85) 0%, 
+            rgba(255, 113, 6, 0.85) 57.73%, 
+            rgba(0, 0, 0, 0.85) 100%
+        ), url('images/images/会议室.jpg') center/cover no-repeat;
             background-size: cover;
         }
 
