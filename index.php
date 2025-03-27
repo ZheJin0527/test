@@ -18,7 +18,7 @@
         /* 导航栏 */
         nav {
             background-color: white;
-            padding: 10px 60px;
+            padding: 20px 60px;
             position: fixed;
             width: 100%;
             top: 0;
@@ -41,7 +41,7 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: 40px; /* 让 Logo 图片高度与文字一致 */
+            height: 50px; /* 让 Logo 图片高度与文字一致 */
             margin-right: 10px; /* 图片与文字间距 */
         }
 
@@ -71,6 +71,27 @@
         }
 
         .login-btn:hover {
+            background-color: #d87b00;
+        }
+
+        /* 翻译按钮 */
+        .translate-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f90;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .translate-btn:hover {
             background-color: #d87b00;
         }
 
@@ -391,6 +412,7 @@
             KUNZZ HOLDINGS
         </div>
         <div class="menu">
+            <button class="translate-btn">EN</button>
             <a href="#home">首页</a>
             <a href="#about-us">关于我们</a>
             <a href="#brands">旗下品牌</a>
