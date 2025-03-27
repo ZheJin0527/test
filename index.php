@@ -255,7 +255,10 @@
             text-align: center;
             padding: 10px 20px;
             box-sizing: border-box;
-            background: linear-gradient(to right, #d67232, #f5b14c);
+            background: linear-gradient(to right, 
+            rgba(245, 121, 31, 0.85), 
+            rgba(253, 189, 21, 0.85)
+        );
         }
 
         #history h2 {
@@ -300,7 +303,7 @@
         .circle {
             width: 20px;
             height: 20px;
-            background: linear-gradient(to right, #F67F1E, #FDB716);
+            background: linear-gradient(to bottom, #F67F1E, #FDB716);
             border-radius: 50%;
             position: absolute;
             left: 50%;
