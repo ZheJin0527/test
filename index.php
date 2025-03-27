@@ -412,7 +412,7 @@
         }
 
         .contact-info p {
-            font-size: 18px; /* 文字稍微变大 */
+            font-size: 24px; /* 文字稍微变大 */
             margin-bottom: 15px; /* 增加行间距 */
         }
 
