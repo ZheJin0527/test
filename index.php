@@ -387,24 +387,36 @@
         .container {
             display: flex;
             max-width: 1200px;
-            margin: 150px auto; /* 增加 margin-top，让它整体往下移动 */
+            margin: 100px auto;
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            padding: 30px 40px; /* 增加 padding，让整体变大 */
+            padding: 15px 20px;
         }
         .contact-info {
             width: 40%;
-            padding: 60px; /* 增加 padding，使内容部分变大 */
+            padding: 40px;
+            background: #fff;
+        }
+        .contact-info h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 3px solid #000;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .contact-info p {
+            font-size: 16px;
+            margin-bottom: 10px;
         }
         .map-container {
             width: 60%;
-            height: 450px; /* 增加高度，让地图部分变大 */
         }
         .map-container iframe {
             width: 100%;
             height: 100%;
+            border: none;
         }
 
         h1 {
