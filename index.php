@@ -171,24 +171,33 @@
             font-weight: bold;
         }
 
+        /* 关于我们部分 */
         #about-us {
-            background-color:rgb(245, 238, 231);
-            color: black;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        #about-us h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .about-content {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            text-align: left;
-            padding: 60px 10%
         }
 
-        #about-us .text {
-            flex: 1;
-            padding: 0 20px;
+        .about-text {
+            max-width: 700px;
+            margin-bottom: 20px;
         }
 
-        #about-us .image {
-            flex: 1;
-            background-color: #d67232;
-            height: 300px;
+        .about-image {
+            width: 80%;
+            max-width: 600px;
             border-radius: 10px;
         }
 
