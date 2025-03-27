@@ -177,13 +177,13 @@
             display: flex;
             align-items: stretch; /* 让图片和文字高度一样 */
             text-align: left;
-            padding: 60px 10%;
+            padding: 50px 8%;
         }
 
         #about-us .text {
             flex: 1;
-            padding: 20px;
-            font-size: 1.4rem;
+            padding: 15px;
+            font-size: 1.2rem;
             display: flex;
             flex-direction: column;
             justify-content: center; /* 让文字内容居中 */
@@ -191,14 +191,15 @@
 
         /* 标题和段落调整 */
         #about-us .text h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         #about-us .text p {
-            font-size: 1.6rem;
-            line-height: 1.8;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 8px; /* 缩小段落间距 */
         }
 
         /* 图片样式 */
@@ -206,7 +207,7 @@
             flex: 1;
             background-color: #d67232;
             height: auto; /* 让高度随文本变化 */
-            min-height: 300px; /* 避免图片太小 */
+            min-height: 280px; /* 避免图片太小 */
             border-radius: 10px;
         }
 
