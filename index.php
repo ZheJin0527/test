@@ -107,9 +107,9 @@
 
         #home {
             position: relative;
-            min-height: 40vh;
+            min-height: 35vh;
             width: 100vw;
-            height: min(80vh, 700px); /* 让它更大，但最大不超过 700px */
+            height: min(70vh, 600px); /* 让它更大，但最大不超过 700px */
             display: flex;
             align-items: center;
             justify-content: flex-start;
