@@ -84,10 +84,12 @@
         }
 
         #home, #missions, #history {
-            width: 96%; /* 让内容更贴近屏幕边缘但留一点间距 */
-            max-width: 1200px;
-            margin: auto;
+            width: 100vw;  /* 让元素始终贴合屏幕宽度 */
+            min-height: 40vh; /* 根据内容保持合适高度 */
+            margin: 0; /* 去掉额外的边距 */
+            padding: 0;
         }
+
 
         #home {
             position: relative;
