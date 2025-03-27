@@ -83,22 +83,41 @@
             flex-wrap: wrap;
         }
 
-        #home, #missions {
-            width: 100vw; /* 让元素始终填满屏幕宽度 */
-            min-height: 70vh; /* 让区块变得更大 */
+        #home {
+            width: 100vw;
+            height: min(80vh, 700px); /* 让它更大，但最大不超过 700px */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)),
+                        url('images/images/会议室.jpg') center/cover no-repeat;
+        }
+
+        #missions {
+            width: 100vw;
+            height: min(80vh, 700px); /* 让它跟 #home 一样大 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
+                        url('images/images/办公区.jpg') center/cover no-repeat;
         }
 
         #history {
             width: 100vw;
-            min-height: 40vh; /* 保持较小的高度 */
+            height: min(40vh, 400px); /* 让它比 #home 和 #missions 矮 */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
             background: linear-gradient(to right, #d67232, #f5b14c);
         }
 
