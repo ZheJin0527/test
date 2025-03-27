@@ -177,7 +177,7 @@
             display: flex;
             align-items: center;
             text-align: left;
-            padding: 60px 50%
+            padding: 60px 10%
         }
 
         #about-us .text {
