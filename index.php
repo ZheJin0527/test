@@ -386,21 +386,34 @@
 
         .container {
             display: flex;
-            max-width: 85%; /* 宽度缩小一点 */
-            margin: 5vh auto; /* 上下留空 */
+            max-width: 85%;
+            margin: 8vh auto; /* 上下间距加宽 */
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            padding: 15px 20px;
-            height: 60vh; /* 让它更小一点 */
-            min-height: 450px; /* 避免太矮 */
+            padding: 20px 25px; /* 内边距稍微增加 */
+            height: 60vh;
+            min-height: 450px;
         }
 
         .contact-info {
-            width: 35%; /* 适当缩小左侧宽度 */
-            padding: 30px; /* 让内边距也小一点 */
+            width: 35%;
+            padding: 35px; /* 让内边距更宽松 */
             background: #fff;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 25px; /* 标题和内容的间距加宽 */
+            font-size: 26px; /* 标题字体稍微加大 */
+            border-bottom: 3px solid #000;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .contact-info p {
+            font-size: 18px; /* 文字稍微变大 */
+            margin-bottom: 15px; /* 增加行间距 */
         }
 
         .map-container {
