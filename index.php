@@ -229,7 +229,7 @@
             position: relative;
             width: 90%;
             margin: 50px auto 100px;
-            padding: 50px 0;
+            padding: 30px 0;
         }
 
         /* 时间轴横线 */
