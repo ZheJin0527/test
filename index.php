@@ -85,7 +85,7 @@
 
         #home, #missions {
             width: 100vw;  /* 让元素始终填满屏幕宽度 */
-            min-height: 55vh; /* 增加高度，确保图片显示更多 */
+            min-height: 60vh; /* 增加高度，确保图片显示更多 */
             margin: 0; /* 避免额外的间距影响布局 */
             padding: 0;
         }
