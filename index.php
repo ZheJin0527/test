@@ -386,24 +386,25 @@
 
         .container {
             display: flex;
-            max-width: 1000px; /* 缩小整体宽度 */
-            margin: 100px auto;
+            max-width: 90%; /* 宽度自适应，最大不超过屏幕的 90% */
+            margin: 5vh auto; /* 让它不会贴到屏幕顶部 */
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
             padding: 15px 20px;
-            height: 500px; /* 拉大整体高度 */
+            height: 80vh; /* 让它根据屏幕高度伸缩 */
+            min-height: 500px; /* 避免太矮 */
         }
 
         .contact-info {
-            width: 35%; /* 缩小宽度 */
+            width: 35%; /* 适当缩小左侧宽度 */
             padding: 40px;
             background: #fff;
         }
 
         .map-container {
-            width: 65%; /* 缩小宽度 */
+            width: 65%;
         }
 
         .map-container iframe {
