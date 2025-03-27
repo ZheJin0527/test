@@ -338,12 +338,12 @@
         .container {
             display: flex;
             max-width: 1200px;
-            margin: 50px auto;
+            margin: 500px auto;
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            padding: 80px 20px;
+            padding: 15px 20px;
         }
         .contact-info {
             width: 40%;
