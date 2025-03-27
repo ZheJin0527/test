@@ -63,7 +63,7 @@
         }
 
         .login-btn {
-            background-color: #F57B1F；
+            background-color: rgb(235, 115, 3);
             color: white;
             padding: 8px 16px;
             text-decoration: none;
@@ -79,7 +79,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #F57B1F；
+            background-color:rgb(235, 115, 3);
             color: white;
             font-size: 16px;
             font-weight: bold;
