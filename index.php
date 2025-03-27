@@ -152,18 +152,7 @@
             font-weight: bold;
         }
 
-        #missions {
-            position: relative;
-            min-height: 25vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
-                        url('images/images/办公区.jpg') center/cover no-repeat;
-            background-size: cover;
-        }
+        
 
         /* 确保文本不会太靠边 */
         #missions .text {
@@ -234,18 +223,7 @@
             margin: 0;
         }
 
-        #history {
-            position: relative;
-            min-height: 15vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            background: linear-gradient(to right, #d67232, #f5b14c);
-        }
+    
 
         /* 时间轴整体样式 */
         .timeline {
