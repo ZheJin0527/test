@@ -84,16 +84,20 @@
         }
 
         #home {
+            position: relative;
+            min-height: 40vh;
             width: 100vw;
             height: min(80vh, 700px); /* 让它更大，但最大不超过 700px */
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
+            justify-content: flex-start;
+            color: white;
+            text-align: left;
+            padding-left: 3%;
             box-sizing: border-box;
             background: linear-gradient(to right, rgba(185, 85, 23, 0.85), rgba(255, 255, 255, 0)),
                         url('images/images/会议室.jpg') center/cover no-repeat;
+            background-size: cover;
         }
 
         /* 确保文本不会太靠边 */
