@@ -231,6 +231,7 @@
             font-size: 2.0rem;  /* 标题放大 */
             font-weight: bold;
             margin-top: 15px;
+            margin-bottom: 5px; /* 缩小标题与段落之间的间距 */
         }
 
         .value-box p {
