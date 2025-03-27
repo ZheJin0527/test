@@ -205,10 +205,10 @@
             width: 100vw;
             height: min(30vh, 300px); /* 让它比 #home 和 #missions 矮 */
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
             text-align: center;
-            padding: 20px;
+            padding: 0 20px;
             box-sizing: border-box;
             background: linear-gradient(to right, #d67232, #f5b14c);
         }
@@ -217,7 +217,8 @@
             color: white;
             font-size: clamp(2rem, 5vw, 4rem); /* 响应式字体 */
             font-weight: bold;
-            margin-bottom: 10px;
+            margin: 0; /* 避免额外的外边距 */
+            padding-top: 10px; /* 可微调 */
         }  
 
         /* 时间轴整体样式 */
