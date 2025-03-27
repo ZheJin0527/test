@@ -190,6 +190,18 @@
             font-size: 1.2rem;   /* 字体大小 */
         }
 
+        /* 让标题更大 */
+        #about-us .text h2 {
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        /* 让段落文字稍微大一点 */
+        #about-us .text p {
+            font-size: 1.6rem;
+            line-height: 1.8; /* 增加行距，提升可读性 */
+        }
+
         /* 图片或颜色块 */
         #about-us .image {
             flex: 1;
