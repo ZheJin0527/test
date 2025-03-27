@@ -372,12 +372,12 @@
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 40px;
             margin-bottom: 8px;
         }
 
         p {
-            font-size: 16px;
+            font-size: 28px;
             max-width: 800px;
         }
     </style>
