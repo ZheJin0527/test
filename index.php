@@ -386,33 +386,26 @@
 
         .container {
             display: flex;
-            max-width: 1200px;
+            max-width: 1000px; /* 缩小整体宽度 */
             margin: 100px auto;
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
             padding: 15px 20px;
+            height: 600px; /* 拉大整体高度 */
         }
+
         .contact-info {
-            width: 40%;
+            width: 35%; /* 缩小宽度 */
             padding: 40px;
             background: #fff;
         }
-        .contact-info h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            border-bottom: 3px solid #000;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-        .contact-info p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
+
         .map-container {
-            width: 60%;
+            width: 65%; /* 缩小宽度 */
         }
+
         .map-container iframe {
             width: 100%;
             height: 100%;
