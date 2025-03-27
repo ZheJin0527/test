@@ -173,9 +173,9 @@
         #values {
             display: flex;
             justify-content: space-around;
-            align-items: stretch; /* 让所有 .value-box 伸展填充高度 */
             text-align: center;
             padding: 80px 10%;
+            align-items: stretch; /* 让所有子元素等高 */
         }
 
         .value-box {
@@ -190,7 +190,6 @@
             flex-direction: column;
             align-items: center;
             overflow: hidden;
-            height: 100%; /* 让所有 .value-box 保持相同的高度 */
         }
 
         .value-box img {
