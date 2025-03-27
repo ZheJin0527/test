@@ -208,7 +208,7 @@
             flex-direction: column;
             justify-content: center;
             text-align: center;
-            padding: 10px 20px;
+            padding: 15px 20px;
             box-sizing: border-box;
             background: linear-gradient(to right, #d67232, #f5b14c);
         }
@@ -229,7 +229,7 @@
             position: relative;
             width: 90%;
             margin: 50px auto 100px;
-            padding: 15px 0;
+            padding: 10px 0;
         }
 
         /* 时间轴横线 */
@@ -343,6 +343,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            padding: 80px 20px;
         }
         .contact-info {
             width: 40%;
