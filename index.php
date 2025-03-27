@@ -140,9 +140,9 @@
         }
 
         #missions {
-            min-height: 35vh;
+            min-height: 30vh;
             width: 100vw;
-            height: min(60vh, 500px); /* 让它跟 #home 一样大 */
+            height: min(50vh, 400px); /* 让它跟 #home 一样大 */
             display: flex;
             align-items: center;
             justify-content: center;
