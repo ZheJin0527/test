@@ -352,7 +352,7 @@
 
         /* 年份 */
         .year {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             display: block;
             margin-top: 10px;
             font-weight: bold;
@@ -360,7 +360,7 @@
 
         /* 文字描述 */
         .timeline-text {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: #333;
             margin-top: 5px;
         }
