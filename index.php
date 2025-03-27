@@ -152,8 +152,11 @@
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
-            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
-                        url('images/images/办公区.jpg') center/cover no-repeat;
+            background: linear-gradient(to right, 
+            rgba(244, 115, 32, 0.85), 
+            rgba(254, 196, 20, 0.7)
+        ), 
+        url('images/images/办公区.jpg') center/cover no-repeat;
         }
 
         /* 确保文本不会太靠边 */
