@@ -208,7 +208,7 @@
             flex-direction: column;
             justify-content: center;
             text-align: center;
-            padding: 0 20px;
+            padding: 10px 20px;
             box-sizing: border-box;
             background: linear-gradient(to right, #d67232, #f5b14c);
         }
@@ -218,7 +218,7 @@
             font-size: clamp(2rem, 5vw, 4rem); /* 响应式字体 */
             font-weight: bold;
             margin: 0; /* 避免额外的外边距 */
-            padding-top: 10px; /* 可微调 */
+            padding-top: 5px 0; /* 轻微调整上下间距 */
         }  
 
         /* 时间轴整体样式 */
