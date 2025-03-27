@@ -386,20 +386,20 @@
 
         .container {
             display: flex;
-            max-width: 90%; /* 宽度自适应，最大不超过屏幕的 90% */
-            margin: 5vh auto; /* 让它不会贴到屏幕顶部 */
+            max-width: 85%; /* 宽度缩小一点 */
+            margin: 5vh auto; /* 上下留空 */
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
             padding: 15px 20px;
-            height: 80vh; /* 让它根据屏幕高度伸缩 */
-            min-height: 500px; /* 避免太矮 */
+            height: 60vh; /* 让它更小一点 */
+            min-height: 450px; /* 避免太矮 */
         }
 
         .contact-info {
             width: 35%; /* 适当缩小左侧宽度 */
-            padding: 40px;
+            padding: 30px; /* 让内边距也小一点 */
             background: #fff;
         }
 
