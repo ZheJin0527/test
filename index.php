@@ -152,9 +152,12 @@
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
-            background: linear-gradient(to right, rgba(215, 119, 49, 0.85), rgba(255, 200, 100, 0.7)),
-                        url('images/images/办公区.jpg') center/cover no-repeat;
-        }
+            background: linear-gradient(to right, 
+            #F47320D9, /* F47320 + D9 (85% 不透明度) */
+            #FEC414B3  /* FEC414 + B3 (70% 不透明度) */
+        ), 
+        url('images/images/办公区.jpg') center/cover no-repeat;
+
 
         /* 确保文本不会太靠边 */
         #missions .text {
@@ -175,7 +178,10 @@
         }
 
         #about-us {
-            background-color: rgb(245, 238, 231);
+            background: linear-gradient(to right, 
+        #F57B1F 0%, 
+        #FF7106 57.73%, 
+        #000000 100% )
             color: black;
             display: flex;
             align-items: center;
