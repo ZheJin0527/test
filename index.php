@@ -84,10 +84,6 @@
             flex-wrap: wrap;
         }
 
-        <footer>
-            © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
-        </footer>
-
         #home {
             position: relative;
             min-height: 40vh;
@@ -385,19 +381,6 @@
             font-size: 20px;
             max-width: 800px;
         }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            text-align: center;
-            background-color: #f8f8f8; /* 可以换成你喜欢的颜色 */
-            padding: 10px 0;
-            font-size: 14px;
-            color: #666; /* 颜色可以调整 */
-        }
     </style>
 </head>
 <body>
@@ -498,6 +481,10 @@
         </div>
     </div>
 </div>
+
+    <p style="text-align: center; font-size: 14px; color: #666; margin-top: 20px;">
+        © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
+    </p>
 
 </body>
 </html>
