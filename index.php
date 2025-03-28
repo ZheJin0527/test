@@ -217,15 +217,15 @@
 
         #values {
             display: flex;
-            justify-content: center;
-            gap: 50px; /* 控制每个项目的间距 */
+            justify-content: center; /* 水平居中 */
+            gap: 50px; /* 控制每个项目之间的间距 */
             text-align: center;
             padding: 80px 5%;
         }
 
         .value-item {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* 让图片、标题、描述上下排列 */
             align-items: center;
             max-width: 320px;
         }
@@ -237,22 +237,13 @@
             border-radius: 15px;
         }
 
-        .value-text {
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-            padding: 20px;
-            margin-top: 10px; /* 让文本部分与图片有一定间距 */
-            width: 100%;
-        }
-
-        .value-text h2 {
+        .value-item h2 {
             font-size: 2rem;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
-        .value-text p {
+        .value-item p {
             font-size: 1.2rem;
             line-height: 1.6;
             padding: 0 15px;
