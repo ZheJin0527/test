@@ -383,7 +383,7 @@
         .timeline-text {
             font-size: 1.4rem;
             color: #333;
-            margin-top: 15px;
+            margin-top: 40px;
         }
 
         /* 调整图片与线的距离 */
