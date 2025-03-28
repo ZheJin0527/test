@@ -183,12 +183,14 @@
             display: flex;
             align-items: center;
             text-align: left;
-            padding: 40px 8% 50px;  /* 适当缩小左右间距 */
-            gap: 30px;  /* 文字和图片之间的间距 */
+            padding: 40px 8% 50px;
+            gap: 30px;
+            max-width: 1200px; /* 限制最大宽度 */
+            margin: 0 auto; /* 让内容居中 */
         }
 
         #about-us h1 {
-            font-size: 4.0rem;  /* 标题放大 */
+            font-size: 4.0rem;
             font-weight: bold;
             margin-bottom: 10px;
             margin-top: -5px;
@@ -197,9 +199,9 @@
         /* 文本区域 */
         #about-us .text {
             flex: 1;
-            padding: 5px 20px;  /* 缩小段落上下间距 */
-            font-size: 1.5rem;  /* 适当放大字体 */
-            line-height: 1.8;  /* 调整行间距 */
+            padding: 5px 20px;
+            font-size: 1.5rem;
+            line-height: 1.8;
             font-weight: bold;
             margin-top: -5px;
         }
@@ -208,11 +210,11 @@
         #about-us .image {
             flex: 1;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
-            min-height: 350px;  /* 确保图片比文字略高 */
+            min-height: 350px;
             height: auto;
             border-radius: 10px;
         }
-
+        
         #values {
             display: flex;
             justify-content: space-around;
