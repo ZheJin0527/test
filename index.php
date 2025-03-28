@@ -298,8 +298,8 @@
             left: 0;
             width: 100%;
             height: 4px;
-            border-top: 4px dashed #FFA500; /* 橙色虚线 */
-            background: none; /* 取消原本的背景色 */
+            border-top: 4px dashed #FFA500;
+            background: none;
             z-index: -1;
         }
 
@@ -309,8 +309,9 @@
             position: relative;
             width: 30%;
             display: flex;
-            flex-direction: column;  
+            flex-direction: column;
             align-items: center;
+            padding-top: 40px; /* 给年份留出空间 */
         }
 
         /* 时间点（黑点在线上） */
@@ -343,7 +344,7 @@
             left: 50%;
             width: 4px;
             height: 220px;
-            border-left: 4px dashed #FFA500; /* 竖直方向的橙色虚线 */
+            border-left: 4px dashed #FFA500;
             transform: translateX(-50%);
             z-index: -1;
         }
@@ -357,28 +358,13 @@
             top: calc(50% + 8px);
         }
 
-        /* 让 2023 和 2025 向上靠近时间轴 */
-        .timeline-item:nth-child(odd) .year,
-        .timeline-item:nth-child(odd) .timeline-text {
-            position: relative;
-            top: -110px; /* 让年份和段落都靠近时间轴 */
-            font-weight: bold;
-        }
-
-        /* 让 2024 向下靠近时间轴 */
-        .timeline-item:nth-child(even) .year,
-        .timeline-item:nth-child(even) .timeline-text {
-            position: relative;
-            top: 130px; /* 让年份和段落都靠近时间轴 */
-            font-weight: bold;
-        }
-
-        /* 年份 */
+        /* 年份固定在时间轴上 */
         .year {
             font-size: 1.6rem;
             font-weight: 900;
             font-family: "Arial Black", Arial, sans-serif;
-            margin-bottom: 20px; /* 控制年份和段落的间距 */
+            position: absolute;
+            top: -50px; /* 让年份始终靠近时间轴 */
         }
 
         /* 文字描述 */
@@ -386,7 +372,7 @@
             font-size: 1.4rem;
             color: #333;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px; /* 控制段落和年份的间距 */
         }
 
         /* 调整图片与线的距离 */
@@ -528,7 +514,7 @@
 
     <!-- 2024 -->
     <div class="timeline-item">
-    <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。拓展业务，新增子公司，提升市场影响力。拓展业务，新增子公司，提升市场影响力。拓展业务，新增子公司，提升市场影响力。</p>
+    <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
         <div class="circle"></div>
         <span class="year">2024</span>
         <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
