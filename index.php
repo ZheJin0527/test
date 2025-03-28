@@ -360,14 +360,14 @@
         /* 让 2023 和 2025 向上靠近时间轴 */
         .timeline-item:nth-child(odd) .year {
             position: relative;
-            top: -50px; /* 让年份靠近时间轴 */
+            top: -100px; /* 让年份靠近时间轴 */
             font-weight: bold;
         }
 
         /* 让 2024 向下靠近时间轴 */
         .timeline-item:nth-child(even) .year {
             position: relative;
-            top: 50px; /* 让年份靠近时间轴 */
+            top: 100px; /* 让年份靠近时间轴 */
             font-weight: bold;
         }
 
