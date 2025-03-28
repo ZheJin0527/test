@@ -354,20 +354,24 @@
             top: calc(50% + 8px);
         }
 
-        /* 让 2023 和 2025 向上靠近时间轴 */
-        .timeline-item:nth-child(odd) .year,
-        .timeline-item:nth-child(odd) .timeline-text {
+        /* 让 2023 和 2025 的年份靠近时间轴 */
+        .timeline-item:nth-child(odd) .year {
             position: relative;
-            top: -120px; /* 向上移动 */
-            font-weight: bold;
+            top: -130px; /* 向上移动 */
         }
 
-        /* 让 2024 向下靠近时间轴 */
-        .timeline-item:nth-child(even) .year,
+        /* 让 2024 的年份靠近时间轴 */
+        .timeline-item:nth-child(even) .year {
+            position: relative;
+            top: 130px; /* 向下移动 */
+        }
+
+        /* 让段落文字保持原位 */
+        .timeline-item:nth-child(odd) .timeline-text,
         .timeline-item:nth-child(even) .timeline-text {
             position: relative;
-            top: 120px; /* 向下移动 */
-            font-weight: bold;
+            top: 0;
+            margin-top: 60px; /* 让文字与年份有间距 */
         }
 
         /* 年份 */
@@ -383,10 +387,6 @@
         .timeline-text {
             font-size: 1.4rem;
             color: #333;
-            margin-top: 60px;
-        }
-        .timeline-item:nth-child(even) .timeline-text {
-            margin-top: 60px;
         }
 
         /* 调整图片与线的距离 */
