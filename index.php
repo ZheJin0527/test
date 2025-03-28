@@ -279,7 +279,7 @@
             padding-top: 5px 0; /* 轻微调整上下间距 */
         }  
 
-        /* 时间轴整体样式 */
+        /* 时间轴 CSS */
         .timeline {
             display: flex;
             justify-content: space-around;
@@ -290,6 +290,7 @@
             padding: 10px 0;
         }
 
+        /* 时间轴横线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -302,6 +303,7 @@
             z-index: -1;
         }
 
+        /* 时间轴项目（节点） */
         .timeline-item {
             text-align: center;
             position: relative;
@@ -311,6 +313,7 @@
             align-items: center;
         }
 
+        /* 时间轴上的圆点 */
         .circle {
             width: 50px;
             height: 50px;
@@ -322,6 +325,7 @@
             transform: translate(-50%, -50%);
         }
 
+        /* 时间轴图片 */
         .timeline-img {
             width: 300px;
             height: 180px;
@@ -332,6 +336,7 @@
             position: relative;
         }
 
+        /* 竖线连接时间轴 */
         .timeline-item::after {
             content: "";
             position: absolute;
@@ -343,6 +348,7 @@
             z-index: -1;
         }
 
+        /* 控制竖线的上下位置 */
         .timeline-item:nth-child(odd)::after {
             bottom: calc(48% + 8px);
         }
@@ -351,31 +357,27 @@
             top: calc(50% + 8px);
         }
 
+        /* 年份样式，使其更靠近时间轴横线 */
         .year-container {
             position: absolute;
-            top: 40%; /* 让年份靠近圆圈 */
+            top: 50%; /* 让年份靠近横线 */
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             font-weight: bold;
             font-size: 1.6rem;
             font-family: "Arial Black", Arial, sans-serif;
         }
 
-        .timeline-text {
-            font-size: 1.4rem;
-            color: #333;
-            text-align: center;
-            margin-top: 20px;
-        }
-
+        /* 细调不同位置年份的距离 */
         .timeline-item:nth-child(odd) .year-container {
-            top: 62%; /* 调整上方年份位置 */
+            top: 55%; /* 让上方的年份稍微下降 */
         }
 
         .timeline-item:nth-child(even) .year-container {
-            top: 78%; /* 调整下方年份位置 */
+            top: 45%; /* 让下方的年份稍微上移 */
         }
 
+        /* 处理图片的上下间距 */
         .timeline-item:nth-child(odd) .timeline-img {
             margin-bottom: 250px;
         }
