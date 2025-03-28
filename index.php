@@ -383,7 +383,10 @@
         .timeline-text {
             font-size: 1.4rem;
             color: #333;
-            margin-top: 40px;
+            margin-top: 60px;
+        }
+        .timeline-item:nth-child(even) .timeline-text {
+            margin-top: 60px;
         }
 
         /* 调整图片与线的距离 */
