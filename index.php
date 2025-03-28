@@ -215,6 +215,7 @@
             height: auto;
             border-radius: 10px;
             transform: scale(1.1) translate(20px, 20px); /* 放大 1.1 倍，并向右下角移动 */
+            margin-bottom: -20px; /* 抵消 translate 产生的间距，避免和下个部分距离过大 */
         }
 
         /* 响应式调整：小屏幕适配 */
