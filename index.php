@@ -217,33 +217,38 @@
 
         #values {
             display: flex;
-            justify-content: center; /* 水平居中 */
-            gap: 50px; /* 控制每个项目之间的间距 */
-            text-align: center;
-            padding: 80px 5%;
+            justify-content: center;  /* 让整个区域居中 */
+            gap: 50px;  /* 控制每个 box 之间的间距 */
+            padding: 60px 8%;
+            flex-wrap: wrap;  /* 在小屏幕时自动换行 */
         }
 
-        .value-item {
+        .value-box {
             display: flex;
-            flex-direction: column; /* 让图片、标题、描述上下排列 */
+            flex-direction: column;
             align-items: center;
-            max-width: 320px;
+            max-width: 350px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            padding: 20px;
         }
 
-        .value-image img {
+        .value-box img {
             width: 100%;
             height: 220px;
             object-fit: cover;
             border-radius: 15px;
         }
 
-        .value-item h2 {
+        .value-box h2 {
             font-size: 2rem;
             font-weight: bold;
             margin-top: 15px;
         }
 
-        .value-item p {
+        .value-box p {
             font-size: 1.2rem;
             line-height: 1.6;
             padding: 0 15px;
@@ -484,7 +489,7 @@
         </div>
     </section>
     
-    <section id="values">
+    <section id="values">        
         <div class="value-box">
             <img src="images/images/愿景图.jpg" alt="愿景">
             <h2>愿景</h2>
