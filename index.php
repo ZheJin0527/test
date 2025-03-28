@@ -183,17 +183,12 @@
             display: flex;
             align-items: center;
             text-align: left;
-            padding: 40px 8% 50px;
-            gap: 30px;
-            max-width: 1200px;
-            width: clamp(800px, 80vw, 1200px);
-            margin: 0 auto;
-            position: relative; /* 保证不影响后续部分 */
+            padding: 40px 8% 50px;  /* 适当缩小左右间距 */
+            gap: 30px;  /* 文字和图片之间的间距 */
         }
 
-        /* 标题 */
         #about-us h1 {
-            font-size: 4.0rem;
+            font-size: 4.0rem;  /* 标题放大 */
             font-weight: bold;
             margin-bottom: 10px;
             margin-top: -5px;
@@ -202,9 +197,9 @@
         /* 文本区域 */
         #about-us .text {
             flex: 1;
-            padding: 5px 20px;
-            font-size: 1.5rem;
-            line-height: 1.8;
+            padding: 5px 20px;  /* 缩小段落上下间距 */
+            font-size: 1.5rem;  /* 适当放大字体 */
+            line-height: 1.8;  /* 调整行间距 */
             font-weight: bold;
             margin-top: -5px;
         }
@@ -213,35 +208,9 @@
         #about-us .image {
             flex: 1;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
-            min-height: 350px;
+            min-height: 350px;  /* 确保图片比文字略高 */
             height: auto;
             border-radius: 10px;
-            position: relative;  /* 让图片的变换不影响整体布局 */
-            transform: scale(1.15);  /* 放大 1.15 倍 */
-            transform-origin: bottom right;  /* 让放大以右下角为基准 */
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 1024px) {
-            #about-us {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
-            }
-
-            #about-us .text, 
-            #about-us .image {
-                flex: none;
-                width: 100%;
-            }
-
-            #about-us h1 {
-                font-size: 3.2rem;
-            }
-
-            #about-us .image {
-                transform: none;
-            }
         }
 
         #values {
