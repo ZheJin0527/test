@@ -374,7 +374,7 @@
             display: block;
             font-weight: 900;
             font-family: "Arial Black", Arial, sans-serif;
-            padding-bottom: 30px; /* 调整年份和段落文字的间距 */
+            padding-bottom: 10px; /* 调整年份和段落文字的间距 */
         }
 
         /* 文字描述 */
