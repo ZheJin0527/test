@@ -221,7 +221,6 @@
             text-align: center;
             padding: 80px 10%;
             align-items: stretch; /* 让所有子元素等高 */
-            background-color: rgb(245, 238, 231);
         }
 
         .value-box {
@@ -232,6 +231,7 @@
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 6px 10px rgba(255, 255, 255, 0.15);
+            background-color: rgb(245, 238, 231);
             display: flex;
             flex-direction: column;
             align-items: center;
