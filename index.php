@@ -217,24 +217,26 @@
 
         #values {
             display: flex;
-            justify-content: center; /* 让整个区域居中 */
-            gap: 50px; /* 控制每个项目的间距 */
+            justify-content: center; /* 居中对齐 */
+            align-items: flex-start;
+            gap: 40px; /* 控制项目间距 */
             padding: 60px 8%;
-            flex-wrap: wrap; /* 小屏幕时换行 */
+            flex-wrap: nowrap; /* 确保不换行 */
         }
 
         .value-item {
             display: flex;
-            flex-direction: column; /* 让图片和文字垂直排列 */
+            flex-direction: column; /* 让图片和文字上下排列 */
             align-items: center; /* 居中对齐 */
             text-align: center;
-            max-width: 350px;
+            max-width: 300px; /* 限制最大宽度 */
+            flex-shrink: 1; /* 允许项目在小屏幕适当缩小 */
         }
 
         .value-item img {
             width: 100%;
-            max-width: 300px; /* 控制图片最大宽度 */
-            height: 250px;
+            max-width: 250px; /* 图片不会太宽 */
+            height: auto;
             object-fit: cover;
             border-radius: 15px;
         }
@@ -244,14 +246,31 @@
         }
 
         .value-item h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
         }
 
         .value-item p {
             font-size: 1.2rem;
             line-height: 1.6;
-            padding: 0 15px;
+            padding: 0 10px;
+        }
+
+        /* ✅ 响应式调整，确保小屏幕不溢出 */
+        @media (max-width: 768px) {
+            #values {
+                flex-wrap: wrap; /* 小屏幕时允许换行 */
+                gap: 20px;
+            }
+            .value-item {
+                max-width: 45%; /* 让两列排列 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .value-item {
+                max-width: 100%; /* 小屏幕时单列排列 */
+            }
         }
 
         #history {
