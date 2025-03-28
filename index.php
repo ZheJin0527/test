@@ -183,7 +183,7 @@
             display: flex;
             align-items: center;
             text-align: left;
-            padding: 50px 8%;  /* 适当缩小左右间距 */
+            padding: 40px 8% 50px;  /* 适当缩小左右间距 */
             gap: 30px;  /* 文字和图片之间的间距 */
         }
 
