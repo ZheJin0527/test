@@ -374,7 +374,7 @@
         .year {
             font-size: 1.6rem;
             display: block;
-            margin-top: 10px;
+            margin-top: 100px;
             font-weight: 900;
             font-family: "Arial Black", Arial, sans-serif; /* 使用更粗的字体 */
         }
