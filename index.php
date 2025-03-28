@@ -230,7 +230,7 @@
             padding: 10;
             background-color: rgb(245, 238, 231);
             border-radius: 15px;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
         }
