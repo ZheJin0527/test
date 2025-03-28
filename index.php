@@ -298,7 +298,8 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background-color: black;
+            border-top: 4px dashed #FFA500; /* 橙色虚线 */
+            background: none; /* 取消原本的背景色 */
             z-index: -1;
         }
 
@@ -339,7 +340,7 @@
             left: 50%;
             width: 4px;
             height: 220px;
-            background-color: black;
+            border-left: 4px dashed #FFA500; /* 竖直方向的橙色虚线 */
             transform: translateX(-50%);
             z-index: -1;
         }
