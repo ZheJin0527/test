@@ -217,33 +217,35 @@
 
         #values {
             display: flex;
-            justify-content: center;  /* 让整个区域居中 */
-            gap: 50px;  /* 控制每个项目的间距 */
+            justify-content: center; /* 让整个区域居中 */
+            gap: 50px; /* 控制每个项目的间距 */
             padding: 60px 8%;
-            flex-wrap: wrap;  /* 小屏幕时换行 */
+            flex-wrap: wrap; /* 小屏幕时换行 */
         }
 
         .value-item {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: column; /* 让图片和文字垂直排列 */
+            align-items: center; /* 居中对齐 */
             text-align: center;
             max-width: 350px;
         }
 
         .value-item img {
             width: 100%;
-            max-width: 300px;  /* 控制图片最大宽度 */
+            max-width: 300px; /* 控制图片最大宽度 */
             height: 250px;
             object-fit: cover;
             border-radius: 15px;
-            display: block;
+        }
+
+        .value-item .text {
+            margin-top: 15px; /* 让文字和图片有间距 */
         }
 
         .value-item h2 {
             font-size: 2rem;
             font-weight: bold;
-            margin-top: 15px;
         }
 
         .value-item p {
