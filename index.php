@@ -183,7 +183,7 @@
             display: flex;
             align-items: center;
             text-align: left;
-            padding: 20px 8% 30px;  /* 适当缩小左右间距 */
+            padding: 40px 8% 50px;  /* 适当缩小左右间距 */
             gap: 30px;  /* 文字和图片之间的间距 */
         }
 
@@ -191,15 +191,17 @@
             font-size: 4.0rem;  /* 标题放大 */
             font-weight: bold;
             margin-bottom: 10px;
+            margin-top: -20px;
         }
 
         /* 文本区域 */
         #about-us .text {
             flex: 1;
-            padding: 0px 20px;  /* 缩小段落上下间距 */
+            padding: 5px 20px;  /* 缩小段落上下间距 */
             font-size: 1.5rem;  /* 适当放大字体 */
             line-height: 1.8;  /* 调整行间距 */
             font-weight: bold;
+            margin-top: -20px;
         }
 
         /* 图片区域 */
