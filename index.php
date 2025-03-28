@@ -298,12 +298,12 @@
             left: 0;
             width: 100%;
             height: 4px;
-            border-top: 4px dashed #FFA500;
+            border-top: 2px dashed #000; /* 虚线样式 */
             background: none;
             z-index: -1;
         }
 
-        /* 时间轴项目 */
+        /* 时间轴项目样式 */
         .timeline-item {
             text-align: center;
             position: relative;
@@ -311,77 +311,71 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 40px; /* 给年份留出空间 */
         }
 
-        /* 时间点（黑点在线上） */
+        /* 时间点（黑色圆点） */
         .circle {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(to bottom, #F67F1E, #FDB716);
+            width: 16px;
+            height: 16px;
+            background: black;
             border-radius: 50%;
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+            z-index: 1;
         }
 
-        /* 事件图片 */
-        .timeline-img {
-            width: 300px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* 让时间点连接到图片 */
-        .timeline-item::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            width: 4px;
-            height: 220px;
-            border-left: 4px dashed #FFA500;
-            transform: translateX(-50%);
-            z-index: -1;
-        }
-
-        /* 让线从时间点向下连接到图片 */
-        .timeline-item:nth-child(odd)::after {
-            bottom: calc(48% + 8px);
-        }
-
-        .timeline-item:nth-child(even)::after {
-            top: calc(50% + 8px);
-        }
-
-        /* 年份固定在时间轴上 */
+        /* 年份样式，确保靠近时间轴 */
         .year {
             font-size: 1.6rem;
-            font-weight: 900;
+            font-weight: bold;
             font-family: "Arial Black", Arial, sans-serif;
             position: absolute;
-            top: -50px; /* 让年份始终靠近时间轴 */
+            top: calc(50% - 20px); /* 让年份紧贴时间轴 */
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        /* 文字描述 */
+        /* 让奇数项年份在上方 */
+        .timeline-item:nth-child(odd) .year {
+            top: calc(50% - 30px);
+        }
+
+        /* 让偶数项年份在下方 */
+        .timeline-item:nth-child(even) .year {
+            top: calc(50% + 20px);
+        }
+
+        /* 文字描述样式 */
         .timeline-text {
             font-size: 1.4rem;
             color: #333;
             text-align: center;
-            margin-top: 30px; /* 控制段落和年份的间距 */
+            margin-top: 50px; /* 确保段落与年份间距稳定 */
+            max-width: 80%;
         }
 
-        /* 调整图片与线的距离 */
+        /* 图片样式 */
+        .timeline-img {
+            width: 200px;
+            height: 120px;
+            background: #ccc;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* 让奇数项的内容在上方 */
+        .timeline-item:nth-child(odd) .timeline-text,
         .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 250px;
+            order: -1;
+            margin-bottom: 50px;
         }
 
+        /* 让偶数项的内容在下方 */
+        .timeline-item:nth-child(even) .timeline-text,
         .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 250px;
+            margin-top: 50px;
         }
 
         .container {
