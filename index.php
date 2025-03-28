@@ -371,7 +371,7 @@
         .timeline-item:nth-child(even) .timeline-text {
             position: relative;
             top: 0;
-            margin-top: 30px; /* 让文字与年份有间距 */
+            margin-top: 20px; /* 让文字与年份有间距 */
         }
 
         /* 年份 */
@@ -387,6 +387,7 @@
         .timeline-text {
             font-size: 1.4rem;
             color: #333;
+            font-family: "Arial Black", Arial, sans-serif; /* 使用更粗的字体 */
         }
 
         /* 调整图片与线的距离 */
