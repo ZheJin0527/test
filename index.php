@@ -214,7 +214,7 @@
             min-height: 350px;  /* 确保图片比文字略高 */
             height: auto;
             border-radius: 10px;
-            transform: skewX(-5deg); /* 让图片区域有轻微倾斜效果 */
+            transform: scale(1.1) translate(20px, 20px); /* 放大 1.1 倍，并向右下角移动 */
         }
 
         /* 响应式调整：小屏幕适配 */
