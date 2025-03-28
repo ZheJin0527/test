@@ -118,7 +118,7 @@
             padding-left: 3%;
             box-sizing: border-box;
             background: linear-gradient(to right, 
-            rgba(245, 123, 31, 0.85) 0%, 
+            rgba(245, 123, 31, 1) 0%, 
             rgba(255, 113, 6, 0.85) 57.73%, 
             rgba(255, 255, 255, 0.85) 100%
         ), url('images/images/会议室.jpg') center/cover no-repeat;
