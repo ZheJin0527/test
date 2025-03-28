@@ -386,7 +386,7 @@
             font-size: 1.4rem;
             color: #333;
             text-align: center;
-            margin-top: 5px;
+            margin-top: 20px;
         }
 
         /* 调整图片与线的距离 */
