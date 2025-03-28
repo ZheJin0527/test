@@ -228,20 +228,19 @@
             max-width: 350px;
             margin: 0 15px;
             padding: 10;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 6px 10px rgba(255, 255, 255, 0.15);
             background-color: rgb(245, 238, 231);
+            border-radius: 15px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow: hidden;
         }
 
         .value-box img {
             width: 100%;
             height: 250px;
             object-fit: cover;
+            border-radius: 15px; /* 让四个角都变圆 */
         }
 
         .value-box h2 {
