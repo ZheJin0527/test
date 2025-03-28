@@ -528,7 +528,7 @@
 
     <!-- 2024 -->
     <div class="timeline-item">
-    <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
+    <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。拓展业务，新增子公司，提升市场影响力。拓展业务，新增子公司，提升市场影响力。拓展业务，新增子公司，提升市场影响力。</p>
         <div class="circle"></div>
         <span class="year">2024</span>
         <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
