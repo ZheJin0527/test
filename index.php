@@ -361,7 +361,7 @@
         .timeline-item:nth-child(odd) .year,
         .timeline-item:nth-child(odd) .timeline-text {
             position: relative;
-            top: -100px; /* 让年份和段落都靠近时间轴 */
+            top: -120px; /* 让年份和段落都靠近时间轴 */
             font-weight: bold;
         }
 
@@ -369,7 +369,7 @@
         .timeline-item:nth-child(even) .year,
         .timeline-item:nth-child(even) .timeline-text {
             position: relative;
-            top: 100px; /* 让年份和段落都靠近时间轴 */
+            top: 120px; /* 让年份和段落都靠近时间轴 */
             font-weight: bold;
         }
 
