@@ -228,9 +228,9 @@
             max-width: 350px;
             margin: 0 15px;
             padding: 10;
-            background-color: rgb(245, 238, 231);
+            background-color: transparent;
             border-radius: 15px;
-            display: none;
+            display: flex;
             flex-direction: column;
             align-items: center;
         }
