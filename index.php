@@ -299,7 +299,7 @@
             width: 100%;
             height: 4px;
             border-top: 4px dashed #FFA500; /* 橙色虚线 */
-            background: none; /* 取消原本的背景色 */
+            background: none;
             z-index: -1;
         }
 
@@ -313,7 +313,7 @@
             align-items: center;
         }
 
-        /* 时间点（黑点在线上） */
+        /* 时间点（圆点在线上） */
         .circle {
             width: 50px;
             height: 50px;
@@ -357,28 +357,44 @@
             top: calc(50% + 8px);
         }
 
-        /* 让 2023 和 2025 向上靠近时间轴 */
-        .timeline-item:nth-child(odd) .year,
-        .timeline-item:nth-child(odd) .timeline-text {
+        /* 年份容器 */
+        .year-container {
             position: relative;
-            top: -110px; /* 让年份和段落都靠近时间轴 */
-            font-weight: bold;
+            text-align: center;
         }
 
-        /* 让 2024 向下靠近时间轴 */
-        .timeline-item:nth-child(even) .year,
-        .timeline-item:nth-child(even) .timeline-text {
+        /* 段落容器 */
+        .text-container {
             position: relative;
-            top: 130px; /* 让年份和段落都靠近时间轴 */
-            font-weight: bold;
+            text-align: center;
         }
 
-        /* 年份 */
+        /* 让奇数项（如 2023 和 2025）的年份靠近时间轴 */
+        .timeline-item:nth-child(odd) .year-container {
+            top: -100px;
+        }
+
+        /* 让偶数项（如 2024）的年份靠近时间轴 */
+        .timeline-item:nth-child(even) .year-container {
+            top: -100px;
+        }
+
+        /* 让奇数项的段落保持间距 */
+        .timeline-item:nth-child(odd) .text-container {
+            top: -40px; /* 控制段落与年份的间距 */
+        }
+
+        /* 让偶数项的段落保持间距 */
+        .timeline-item:nth-child(even) .text-container {
+            top: 40px; /* 控制段落与年份的间距 */
+        }
+
+        /* 年份样式 */
         .year {
             font-size: 1.6rem;
             font-weight: 900;
             font-family: "Arial Black", Arial, sans-serif;
-            margin-bottom: 20px; /* 控制年份和段落的间距 */
+            margin-bottom: 10px; /* 控制年份和段落的间距 */
         }
 
         /* 文字描述 */
@@ -386,7 +402,7 @@
             font-size: 1.4rem;
             color: #333;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         /* 调整图片与线的距离 */
