@@ -382,7 +382,7 @@
         .timeline-text {
             font-size: 1.4rem;
             color: #333;
-            margin-top: 20px; /* 让段落与年份保持距离 */
+            margin-top: 10px; /* 让段落与年份保持距离 */
         }
 
         /* 调整图片与线的距离 */
