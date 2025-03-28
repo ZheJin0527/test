@@ -361,7 +361,7 @@
         .timeline-item:nth-child(odd) .year,
         .timeline-item:nth-child(odd) .timeline-text {
             position: relative;
-            top: -120px; /* 让年份和段落都靠近时间轴 */
+            top: -125px; /* 让年份和段落都靠近时间轴 */
             font-weight: bold;
         }
 
@@ -369,7 +369,7 @@
         .timeline-item:nth-child(even) .year,
         .timeline-item:nth-child(even) .timeline-text {
             position: relative;
-            top: 120px; /* 让年份和段落都靠近时间轴 */
+            top: 125px; /* 让年份和段落都靠近时间轴 */
             font-weight: bold;
         }
 
@@ -378,7 +378,7 @@
             font-size: 1.6rem;
             font-weight: 900;
             font-family: "Arial Black", Arial, sans-serif;
-            margin-bottom: 5px; /* 控制年份和段落的间距 */
+            margin-bottom: 20px; /* 控制年份和段落的间距 */
         }
 
         /* 文字描述 */
