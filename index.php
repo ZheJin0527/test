@@ -243,7 +243,7 @@
         }
 
         .value-box h2 {
-            font-size: 3.0rem;  /* 标题放大 */
+            font-size: 2.8rem;  /* 标题放大 */
             font-weight: bold;
             margin-top: 15px;
             margin-bottom: 5px; /* 缩小标题与段落之间的间距 */
