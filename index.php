@@ -309,7 +309,7 @@
             position: relative;
             width: 30%;
             display: flex;
-            flex-direction: column;
+            flex-direction: column;  
             align-items: center;
         }
 
@@ -357,32 +357,28 @@
             top: calc(50% + 8px);
         }
 
+        /* 让 2023 和 2025 向上靠近时间轴 */
+        .timeline-item:nth-child(odd) .year,
+        .timeline-item:nth-child(odd) .timeline-text {
+            position: relative;
+            top: -110px; /* 让年份和段落都靠近时间轴 */
+            font-weight: bold;
+        }
+
+        /* 让 2024 向下靠近时间轴 */
+        .timeline-item:nth-child(even) .year,
+        .timeline-item:nth-child(even) .timeline-text {
+            position: relative;
+            top: 130px; /* 让年份和段落都靠近时间轴 */
+            font-weight: bold;
+        }
+
         /* 年份 */
         .year {
             font-size: 1.6rem;
             font-weight: 900;
             font-family: "Arial Black", Arial, sans-serif;
-            margin-bottom: 10px; /* 控制年份和段落的间距 */
-        }
-
-        /* 保持年份不动 */
-        .timeline-item .year {
-            position: relative;
-            top: -120px; /* 保持年份的位置 */
-        }
-
-        /* 让 2023 和 2025 的段落远离年份 */
-        .timeline-item:nth-child(odd) .timeline-text {
-            position: relative;
-            top: 20px;  /* 让 2023 和 2025 的段落往下移动 */
-            margin-top: 40px; /* 调整年份和段落的间距 */
-        }
-
-        /* 让 2024 的段落远离年份 */
-        .timeline-item:nth-child(even) .timeline-text {
-            position: relative;
-            top: 30px;  /* 让 2024 的段落下移，单独调整 */
-            margin-top: 50px; /* 让 2024 的年份和段落间隔更大 */
+            margin-bottom: 20px; /* 控制年份和段落的间距 */
         }
 
         /* 文字描述 */
@@ -390,6 +386,7 @@
             font-size: 1.4rem;
             color: #333;
             text-align: center;
+            margin-top: 20px;
         }
 
         /* 调整图片与线的距离 */
