@@ -214,63 +214,47 @@
             height: auto;
             border-radius: 10px;
         }
-
+        
         #values {
             display: flex;
-            justify-content: center; /* 居中对齐 */
-            align-items: flex-start;
-            gap: 40px; /* 控制项目间距 */
-            padding: 60px 8%;
-            flex-wrap: nowrap; /* 确保不换行 */
-        }
-
-        .value-item {
-            display: flex;
-            flex-direction: column; /* 让图片和文字上下排列 */
-            align-items: center; /* 居中对齐 */
+            justify-content: space-around;
             text-align: center;
-            max-width: 300px; /* 限制最大宽度 */
-            flex-shrink: 1; /* 允许项目在小屏幕适当缩小 */
+            padding: 80px 10%;
+            align-items: stretch; /* 让所有子元素等高 */
+            background-color: rgb(245, 238, 231);
         }
 
-        .value-item img {
-            width: 100%;
-            max-width: 250px; /* 图片不会太宽 */
-            height: auto;
-            object-fit: cover;
+        .value-box {
+            flex: 1;
+            max-width: 350px;
+            margin: 0 15px;
+            padding: 10;
+            background-color: #fff;
             border-radius: 15px;
+            box-shadow: 0 6px 10px rgba(255, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
         }
 
-        .value-item .text {
-            margin-top: 15px; /* 让文字和图片有间距 */
+        .value-box img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
         }
 
-        .value-item h2 {
-            font-size: 1.8rem;
+        .value-box h2 {
+            font-size: 2.0rem;  /* 标题放大 */
             font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px; /* 缩小标题与段落之间的间距 */
         }
 
-        .value-item p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            padding: 0 10px;
-        }
-
-        /* ✅ 响应式调整，确保小屏幕不溢出 */
-        @media (max-width: 768px) {
-            #values {
-                flex-wrap: wrap; /* 小屏幕时允许换行 */
-                gap: 20px;
-            }
-            .value-item {
-                max-width: 45%; /* 让两列排列 */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .value-item {
-                max-width: 100%; /* 小屏幕时单列排列 */
-            }
+        .value-box p {
+            font-size: 1.4rem;  /* 段落字体加大 */
+            line-height: 1.6;  /* 增加行距，提高可读性 */
+            padding: 5px 20px;  /* 增加内边距 */
         }
 
         #history {
@@ -508,7 +492,7 @@
         </div>
     </section>
     
-    <section id="values">        
+    <section id="values">
         <div class="value-box">
             <img src="images/images/愿景图.jpg" alt="愿景">
             <h2>愿景</h2>
