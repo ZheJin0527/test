@@ -191,7 +191,7 @@
             font-size: 4.0rem;  /* 标题放大 */
             font-weight: bold;
             margin-bottom: 10px;
-            margin-top: -10px;
+            margin-top: -5px;
         }
 
         /* 文本区域 */
@@ -201,7 +201,7 @@
             font-size: 1.5rem;  /* 适当放大字体 */
             line-height: 1.8;  /* 调整行间距 */
             font-weight: bold;
-            margin-top: -10px;
+            margin-top: -5px;
         }
 
         /* 图片区域 */
