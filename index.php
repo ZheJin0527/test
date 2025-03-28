@@ -358,7 +358,7 @@
         .timeline-item:nth-child(odd) .year,
         .timeline-item:nth-child(odd) .timeline-text {
             position: relative;
-            top: -80px; /* 向上移动 */
+            top: -50px; /* 向上移动 */
             font-weight: bold;
         }
 
@@ -366,7 +366,7 @@
         .timeline-item:nth-child(even) .year,
         .timeline-item:nth-child(even) .timeline-text {
             position: relative;
-            top: 80px; /* 向下移动 */
+            top: 50px; /* 向下移动 */
             font-weight: bold;
         }
 
@@ -374,7 +374,7 @@
         .year {
             font-size: 1.6rem;
             display: block;
-            margin-top: 100px;
+            margin-top: 10px;
             font-weight: 900;
             font-family: "Arial Black", Arial, sans-serif; /* 使用更粗的字体 */
         }
