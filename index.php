@@ -230,7 +230,7 @@
             padding: 10;
             background-color: rgb(245, 238, 231);
             border-radius: 15px;
-            box-shadow: 0 6px 10px rgb(255, 255, 255);
+            
             display: flex;
             flex-direction: column;
             align-items: center;
