@@ -279,7 +279,7 @@
             padding-top: 5px 0; /* 轻微调整上下间距 */
         }  
 
-        /* 时间轴 CSS 重置 */
+        /* 时间轴整体样式 */
         .timeline {
             display: flex;
             justify-content: space-around;
@@ -290,6 +290,7 @@
             padding: 10px 0;
         }
 
+        /* 时间轴横线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -297,20 +298,22 @@
             left: 0;
             width: 100%;
             height: 4px;
-            border-top: 4px dashed #FFA500;
-            background: none;
+            border-top: 4px dashed #FFA500; /* 橙色虚线 */
+            background: none; /* 取消原本的背景色 */
             z-index: -1;
         }
 
+        /* 时间轴项目 */
         .timeline-item {
             text-align: center;
             position: relative;
             width: 30%;
             display: flex;
-            flex-direction: column;
+            flex-direction: column;  
             align-items: center;
         }
 
+        /* 时间点（黑点在线上） */
         .circle {
             width: 50px;
             height: 50px;
@@ -322,6 +325,7 @@
             transform: translate(-50%, -50%);
         }
 
+        /* 事件图片 */
         .timeline-img {
             width: 300px;
             height: 180px;
@@ -332,17 +336,19 @@
             position: relative;
         }
 
+        /* 让时间点连接到图片 */
         .timeline-item::after {
             content: "";
             position: absolute;
             left: 50%;
             width: 4px;
             height: 220px;
-            border-left: 4px dashed #FFA500;
+            border-left: 4px dashed #FFA500; /* 竖直方向的橙色虚线 */
             transform: translateX(-50%);
             z-index: -1;
         }
 
+        /* 让线从时间点向下连接到图片 */
         .timeline-item:nth-child(odd)::after {
             bottom: calc(48% + 8px);
         }
@@ -351,19 +357,31 @@
             top: calc(50% + 8px);
         }
 
-        .year-container {
-            position: absolute;
-            top: 55%; /* 让年份更靠近时间轴横线 */
-            left: 50%;
-            transform: translate(-50%, -50%);
+        /* 让 2023 和 2025 向上靠近时间轴 */
+        .timeline-item:nth-child(odd) .year,
+        .timeline-item:nth-child(odd) .timeline-text {
+            position: relative;
+            top: -110px; /* 让年份和段落都靠近时间轴 */
             font-weight: bold;
-            font-size: 1.6rem;
-            font-family: "Arial Black", Arial, sans-serif;
-            background: white;
-            padding: 5px 10px;
-            border-radius: 5px;
         }
 
+        /* 让 2024 向下靠近时间轴 */
+        .timeline-item:nth-child(even) .year,
+        .timeline-item:nth-child(even) .timeline-text {
+            position: relative;
+            top: 130px; /* 让年份和段落都靠近时间轴 */
+            font-weight: bold;
+        }
+
+        /* 年份 */
+        .year {
+            font-size: 1.6rem;
+            font-weight: 900;
+            font-family: "Arial Black", Arial, sans-serif;
+            margin-bottom: 20px; /* 控制年份和段落的间距 */
+        }
+
+        /* 文字描述 */
         .timeline-text {
             font-size: 1.4rem;
             color: #333;
@@ -371,14 +389,7 @@
             margin-top: 20px;
         }
 
-        .timeline-item:nth-child(odd) .year-container {
-            top: 52%; /* 让上方年份靠近时间轴 */
-        }
-
-        .timeline-item:nth-child(even) .year-container {
-            top: 48%; /* 让下方年份靠近时间轴 */
-        }
-
+        /* 调整图片与线的距离 */
         .timeline-item:nth-child(odd) .timeline-img {
             margin-bottom: 250px;
         }
