@@ -190,7 +190,7 @@
         #about-us h1 {
             font-size: 4.0rem;  /* 标题放大 */
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         /* 文本区域 */
