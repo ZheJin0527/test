@@ -250,8 +250,9 @@
         }
 
         .value-box p {
-            font-size: 2.0rem;  /* 段落字体加大 */
-            line-height: 1.6;  /* 增加行距，提高可读性 */
+            font-size: 1.4rem;  /* 段落字体加大 */
+            font-weight: bold;
+            line-height: 1.2;  /* 增加行距，提高可读性 */
             padding: 5px 20px;  /* 增加内边距 */
         }
 
