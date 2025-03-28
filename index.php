@@ -188,7 +188,7 @@
         }
 
         #about-us h1 {
-            font-size: 3.5rem;  /* 标题放大 */
+            font-size: 4.0rem;  /* 标题放大 */
             font-weight: bold;
             margin-bottom: 20px;
         }
