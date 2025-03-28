@@ -372,17 +372,15 @@
         .year {
             font-size: 1.6rem;
             display: block;
-            margin-top: 10px;
-            margin-bottom: 10px; /* 控制年份和文字的间距 */
             font-weight: 900;
             font-family: "Arial Black", Arial, sans-serif;
+            padding-bottom: 30px; /* 调整年份和段落文字的间距 */
         }
 
         /* 文字描述 */
         .timeline-text {
             font-size: 1.4rem;
             color: #333;
-            margin-top: 10px; /* 让段落与年份保持距离 */
         }
 
         /* 调整图片与线的距离 */
