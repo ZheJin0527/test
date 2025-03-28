@@ -185,6 +185,9 @@
             text-align: left;
             padding: 40px 8% 50px;  /* 适当缩小左右间距 */
             gap: 30px;  /* 文字和图片之间的间距 */
+            max-width: 1200px;  /* 限制最大宽度，防止大屏太宽 */
+            width: clamp(800px, 80vw, 1200px); /* 响应式宽度调整 */
+            margin: 0 auto; /* 居中 */
         }
 
         #about-us h1 {
@@ -211,6 +214,26 @@
             min-height: 350px;  /* 确保图片比文字略高 */
             height: auto;
             border-radius: 10px;
+            transform: skewX(-5deg); /* 让图片区域有轻微倾斜效果 */
+        }
+
+        /* 响应式调整：小屏幕适配 */
+        @media (max-width: 1024px) {
+            #about-us {
+                flex-direction: column; /* 小屏幕改成上下布局 */
+                text-align: center;
+                gap: 20px;
+            }
+            
+            #about-us .text, 
+            #about-us .image {
+                flex: none;
+                width: 100%;
+            }
+
+            #about-us h1 {
+                font-size: 3.2rem; /* 小屏幕标题稍微缩小 */
+            }
         }
 
         #values {
