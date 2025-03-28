@@ -187,6 +187,12 @@
             gap: 30px;  /* 文字和图片之间的间距 */
         }
 
+        #about-us h1 {
+            font-size: 2.5rem;  /* 标题放大 */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
         /* 文本区域 */
         #about-us .text {
             flex: 1;
