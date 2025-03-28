@@ -12,7 +12,7 @@
             padding: 0;
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
-            background-color:rgb(245, 238, 231);
+            background-color:rgb(255, 255, 255);
         }
 
         /* 导航栏 */
@@ -369,11 +369,11 @@
         }
 
         .timeline-item:nth-child(odd) .year-container {
-            top: 42%; /* 调整上方年份位置 */
+            top: 62%; /* 调整上方年份位置 */
         }
 
         .timeline-item:nth-child(even) .year-container {
-            top: 58%; /* 调整下方年份位置 */
+            top: 78%; /* 调整下方年份位置 */
         }
 
         .timeline-item:nth-child(odd) .timeline-img {
