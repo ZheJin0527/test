@@ -218,37 +218,35 @@
         #values {
             display: flex;
             justify-content: center;  /* 让整个区域居中 */
-            gap: 50px;  /* 控制每个 box 之间的间距 */
+            gap: 50px;  /* 控制每个项目的间距 */
             padding: 60px 8%;
-            flex-wrap: wrap;  /* 在小屏幕时自动换行 */
+            flex-wrap: wrap;  /* 小屏幕时换行 */
         }
 
-        .value-box {
+        .value-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            max-width: 350px;
             text-align: center;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-            padding: 20px;
+            max-width: 350px;
         }
 
-        .value-box img {
+        .value-item img {
             width: 100%;
-            height: 220px;
+            max-width: 300px;  /* 控制图片最大宽度 */
+            height: 250px;
             object-fit: cover;
             border-radius: 15px;
+            display: block;
         }
 
-        .value-box h2 {
+        .value-item h2 {
             font-size: 2rem;
             font-weight: bold;
             margin-top: 15px;
         }
 
-        .value-box p {
+        .value-item p {
             font-size: 1.2rem;
             line-height: 1.6;
             padding: 0 15px;
