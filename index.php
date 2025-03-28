@@ -311,8 +311,8 @@
 
         /* 时间点（黑点在线上） */
         .circle {
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(to bottom, #F67F1E, #FDB716);
             border-radius: 50%;
             position: absolute;
