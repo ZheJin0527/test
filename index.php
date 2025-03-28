@@ -358,7 +358,7 @@
         .timeline-item:nth-child(odd) .year,
         .timeline-item:nth-child(odd) .timeline-text {
             position: relative;
-            top: -150px; /* 向上移动 */
+            top: -100px; /* 向上移动 */
             font-weight: bold;
         }
 
@@ -366,7 +366,7 @@
         .timeline-item:nth-child(even) .year,
         .timeline-item:nth-child(even) .timeline-text {
             position: relative;
-            top: 150px; /* 向下移动 */
+            top: 100px; /* 向下移动 */
             font-weight: bold;
         }
 
