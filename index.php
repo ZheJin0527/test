@@ -178,7 +178,7 @@
         }
 
         #about-us {
-            background-color: rgb(245, 238, 231);
+            background-color: transparent;
             color: black;
             display: flex;
             align-items: center;
