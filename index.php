@@ -214,46 +214,44 @@
             height: auto;
             border-radius: 10px;
         }
-        
+
         #values {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            gap: 50px; /* 调整间距 */
             text-align: center;
-            padding: 80px 10%;
-            align-items: stretch; /* 让所有子元素等高 */
+            padding: 80px 5%;
         }
 
         .value-box {
             flex: 1;
-            max-width: 350px;
-            margin: 0 15px;
-            padding: 10;
+            max-width: 320px;
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow: hidden;
+            padding: 20px;
         }
 
         .value-box img {
             width: 100%;
-            height: 250px;
+            height: 220px;
             object-fit: cover;
+            border-radius: 15px; /* 让图片也有圆角 */
         }
 
         .value-box h2 {
-            font-size: 2.0rem;  /* 标题放大 */
+            font-size: 2rem;
             font-weight: bold;
             margin-top: 15px;
-            margin-bottom: 5px; /* 缩小标题与段落之间的间距 */
         }
 
         .value-box p {
-            font-size: 1.4rem;  /* 段落字体加大 */
-            line-height: 1.6;  /* 增加行距，提高可读性 */
-            padding: 5px 20px;  /* 增加内边距 */
+            font-size: 1.2rem;
+            line-height: 1.6;
+            padding: 0 15px;
         }
 
         #history {
