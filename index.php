@@ -371,22 +371,22 @@
 
         /* 让奇数项（如 2023 和 2025）的年份靠近时间轴 */
         .timeline-item:nth-child(odd) .year-container {
-            top: -100px;
+            top: -200px;
         }
 
         /* 让偶数项（如 2024）的年份靠近时间轴 */
         .timeline-item:nth-child(even) .year-container {
-            top: -100px;
+            top: -200px;
         }
 
         /* 让奇数项的段落保持间距 */
         .timeline-item:nth-child(odd) .text-container {
-            top: -40px; /* 控制段落与年份的间距 */
+            top: -20px; /* 控制段落与年份的间距 */
         }
 
         /* 让偶数项的段落保持间距 */
         .timeline-item:nth-child(even) .text-container {
-            top: 40px; /* 控制段落与年份的间距 */
+            top: 20px; /* 控制段落与年份的间距 */
         }
 
         /* 年份样式 */
