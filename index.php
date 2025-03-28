@@ -230,7 +230,6 @@
             padding: 10;
             background-color: rgb(245, 238, 231);
             border-radius: 15px;
-            
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -244,14 +243,14 @@
         }
 
         .value-box h2 {
-            font-size: 2.0rem;  /* 标题放大 */
+            font-size: 3.0rem;  /* 标题放大 */
             font-weight: bold;
             margin-top: 15px;
             margin-bottom: 5px; /* 缩小标题与段落之间的间距 */
         }
 
         .value-box p {
-            font-size: 1.4rem;  /* 段落字体加大 */
+            font-size: 2.0rem;  /* 段落字体加大 */
             line-height: 1.6;  /* 增加行距，提高可读性 */
             padding: 5px 20px;  /* 增加内边距 */
         }
