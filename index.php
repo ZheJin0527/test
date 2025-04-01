@@ -143,6 +143,22 @@
             animation: bounce 1.5s infinite;
         }
 
+        /* 让鼠标滚动一下就跳到下一页 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            animation: bounce 1.5s infinite;
+        }
+
         /* 让箭头或者文字有轻微弹跳效果 */
         @keyframes bounce {
             0%, 100% {
@@ -152,6 +168,7 @@
                 transform: translate(-50%, -10px);
             }
         }
+
 
         #missions {
             min-height: 30vh;
