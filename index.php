@@ -285,7 +285,7 @@
             display: flex;
             justify-content: space-around;
             text-align: center;
-            padding: 80px 10%;
+            padding: 20px 5%;
             align-items: stretch; /* 让所有子元素等高 */
         }
 
