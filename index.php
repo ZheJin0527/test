@@ -536,7 +536,7 @@
         <!-- Logo 部分 -->
         <div class="logo-container">
             <img src="images/images/logo.png" alt="Logo" class="logo-img">
-            KUNZZ HOLDINGS
+            <span class="logo-text">KUNZZ HOLDINGS</span>
         </div>
 
         <!-- 菜单部分 -->
