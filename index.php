@@ -39,7 +39,7 @@
         nav .logo {
             display: flex;
             align-items: center;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             margin-right: auto;
             color: white;
