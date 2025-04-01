@@ -26,12 +26,12 @@
             background-color: transparent;
             padding: 20px 0;
             position: fixed;
-            width: 100%;  /* 让导航栏占满整个屏幕宽度 */
+            width: 100%; /* 让导航栏占满整个屏幕宽度 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between;  /* 保证导航栏两端对齐 */
+            justify-content: space-between; /* 保证导航栏两端对齐 */
             align-items: center;
             box-sizing: border-box;
         }
@@ -42,8 +42,8 @@
             justify-content: space-between; /* 确保左右部分对齐 */
             align-items: center;
             width: 100%;
-            padding: 0 20px;
-            position: relative;  /* 设置相对定位，用于子元素绝对定位 */
+            padding: 0 5%; /* 使用相对单位，确保左右间距不固定 */
+            position: relative;
         }
 
         /* Logo 部分 */
@@ -56,7 +56,7 @@
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: 1.6rem;
+            font-size: 4vw;  /* 使用视窗宽度来设置字体大小 */
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -64,16 +64,17 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: 50px;
+            height: 6vw; /* 根据视窗宽度动态设置 Logo 图片的高度 */
+            max-height: 60px; /* 设置最大高度，防止过大 */
         }
 
         /* 菜单部分 */
         nav .menu-container {
             position: absolute; /* 使用绝对定位 */
-            left: 50%;  /* 设置左侧距离为父容器的 50% */
-            transform: translateX(-50%);  /* 使用 translateX 来确保居中 */
+            left: 50%; /* 设置左侧距离为父容器的 50% */
+            transform: translateX(-50%); /* 使用 translateX 来确保居中 */
             display: flex;
-            justify-content: center;  /* 确保菜单项居中 */
+            justify-content: center; /* 确保菜单项居中 */
             gap: 20px;
         }
 
@@ -90,9 +91,10 @@
             color: white;
             text-decoration: none;
             margin: 0 15px;
-            font-size: 1rem;
+            font-size: 1.2rem;  /* 使用相对单位，保证字体大小自适应 */
         }
 
+        /* 链接 hover 效果 */
         nav a:hover {
             text-decoration: underline;
         }
@@ -106,6 +108,7 @@
             border-radius: 5px;
         }
 
+        /* 登录按钮 hover 效果 */
         .login-btn:hover {
             background-color: #d87b00;
         }
@@ -126,8 +129,50 @@
             justify-content: center;
         }
 
+        /* 翻译按钮 hover 效果 */
         .translate-btn:hover {
             background-color: #d87b00;
+        }
+
+        /* 响应式设计：当屏幕小于 768px 时 */
+        @media (max-width: 768px) {
+            nav .logo-text {
+                font-size: 5vw;  /* 字体在小屏幕上适当减小 */
+            }
+
+            .logo-img {
+                height: 12vw; /* Logo 图片在小屏幕上适当增大 */
+            }
+
+            /* 菜单项之间间距的调整 */
+            nav .menu-container {
+                gap: 15px;
+            }
+
+            /* 按钮字体缩小 */
+            .buttons-container button, .buttons-container a {
+                font-size: 14px;
+            }
+        }
+
+        /* 响应式设计：当屏幕宽度在 768px 和 1200px 之间时 */
+        @media (max-width: 1200px) {
+            nav .logo-text {
+                font-size: 3vw; /* 中等屏幕大小时字体适度减小 */
+            }
+
+            .logo-img {
+                height: 8vw;  /* Logo 图片大小适中 */
+            }
+
+            /* 菜单项之间间距的调整 */
+            nav .menu-container {
+                gap: 18px;
+            }
+
+            .buttons-container button, .buttons-container a {
+                font-size: 16px;
+            }
         }
 
         /* 版块样式 */
