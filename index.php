@@ -7,125 +7,130 @@
     <title>KUNZZ HOLDINGS</title>
     <style>
 
-        * {
-            box-sizing: border-box; /* 包括内边距和边框在内的宽度计算 */
-        }
         /* 全局样式 */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-            overflow-x: hidden; /* 防止水平滚动 */
-            background-color: transparent;
-            
-            /* 让页面按整页滚动 */
-            height: 100%;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
+* {
+    box-sizing: border-box; /* 确保所有元素的宽度包括边框和内边距 */
+}
 
-            /* 新增：确保布局不会影响到导航栏 */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: stretch;
-        }
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden; /* 隐藏水平溢出内容 */
+    scroll-behavior: smooth;
+    background-color: transparent;
+}
 
-        /* 导航栏 */
-        nav {
-            background-color: transparent;
-            padding: 20px 30px; /* 调整左右内边距，避免在大屏幕上过大 */
-            position: fixed;
-            width: 100%; /* 确保导航栏占满整个屏幕宽度 */
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between; /* 确保 Logo 和按钮在两边 */
-            align-items: center;
-        }
+/* 导航栏样式 */
+nav {
+    background-color: transparent;
+    padding: 20px 30px; /* 内边距调整 */
+    position: fixed;
+    width: 100%; /* 确保导航栏占满整个屏幕宽度 */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between; /* Logo 和按钮在两边 */
+    align-items: center;
+}
 
-        .nav-container {
-            width: 100%; /* 让导航栏容器占满屏幕 */
-            display: flex;
-            justify-content: space-between; /* 让 Logo 和按钮分布在两侧 */
-            align-items: center;
-        }
+/* 容器样式 */
+.nav-container {
+    width: 100%; /* 容器宽度占满整个屏幕 */
+    display: flex;
+    justify-content: space-between; /* 让 Logo 和 按钮在两边 */
+    align-items: center;
+    position: relative;
+}
 
-        /* Logo 部分靠左 */
-        nav .logo {
-            display: flex;
-            align-items: center;
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-        }
+/* Logo 部分靠左 */
+nav .logo {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
 
-        /* Logo 图片 */
-        .logo-img {
-            height: 50px; /* 让 Logo 图片高度与文字一致 */
-            margin-right: 10px;
-        }
+/* Logo 图片 */
+.logo-img {
+    height: 50px; /* 让 Logo 图片高度与文字一致 */
+    margin-right: 10px;
+}
 
-        /* 菜单部分居中 */
-        nav .menu {
-            display: flex;
-            align-items: center;
-            justify-content: center; /* 让菜单居中 */
-            flex-grow: 1; /* 使菜单部分可以占据剩余空间 */
-        }
+/* 菜单部分居中 */
+nav .menu {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 让菜单居中 */
+    flex-grow: 1; /* 让菜单部分占据剩余空间 */
+}
 
-        /* 右侧按钮（翻译 & 登录） */
-        .nav-buttons {
-            display: flex;
-            align-items: center;
-            gap: 15px; /* 按钮间距 */
-        }
+/* 右侧按钮（翻译 & 登录） */
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* 按钮间距 */
+}
 
-        /* 链接样式 */
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 16px;
-        }
+/* 链接样式 */
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+}
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+nav a:hover {
+    text-decoration: underline;
+}
 
-        /* 登录按钮 */
-        .login-btn {
-            background-color: rgb(235, 115, 3);
-            color: white;
-            padding: 8px 16px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+/* 登录按钮 */
+.login-btn {
+    background-color: rgb(235, 115, 3);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
 
-        .login-btn:hover {
-            background-color: #d87b00;
-        }
+.login-btn:hover {
+    background-color: #d87b00;
+}
 
-        /* 翻译按钮 */
-        .translate-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgb(235, 115, 3);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+/* 翻译按钮 */
+.translate-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(235, 115, 3);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .translate-btn:hover {
-            background-color: #d87b00;
-        }
+.translate-btn:hover {
+    background-color: #d87b00;
+}
+
+/* 确保图片和视频不溢出 */
+img, video {
+    max-width: 100%;
+    height: auto; /* 确保图片和视频不会超出父容器 */
+}
+
+/* 容器限制宽度 */
+.container {
+    width: 100%; /* 最大宽度 100% */
+    overflow: hidden; /* 防止溢出 */
+}
+
 
         /* 版块样式 */
         section {
