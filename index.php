@@ -135,7 +135,7 @@
 
         /* 让标题字体更大 */
         #home h1 {
-            font-size: clamp(3rem, 6vw, 5rem); /* 屏幕小就变小，大就变大 */
+            font-size: clamp(3rem, 6vw, 10rem); /* 屏幕小就变小，大就变大 */
             font-weight: bold;
             margin-bottom: 20px;
         }
