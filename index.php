@@ -38,7 +38,7 @@
         /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
             width: 100%; /* 让导航栏容器占满屏幕 */
-            margin: 0 auto; /* 居中 */
+            margin: 0; /* 居中 */
             display: flex;
             justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
             align-items: center;
