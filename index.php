@@ -53,10 +53,11 @@
             margin-right: auto; /* 使 Logo 靠左 */
         }
 
-        nav .logo {
-            font-size: 1.6rem;
+        nav .logo-text {
+            font-size: 1.6rem;  /* 设置字体大小 */
             font-weight: bold;
             color: white;
+            margin-left: 10px;  /* 给 Logo 和文字之间留点空隙 */
         }
 
         /* Logo 图片 */
