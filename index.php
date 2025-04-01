@@ -24,7 +24,7 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 60px;
+            padding: 20px 30px; /* 调整左右内边距，避免在大屏幕上过大 */
             position: fixed;
             width: 100%; /* 确保导航栏占满整个屏幕宽度 */
             top: 0;
@@ -35,12 +35,10 @@
             align-items: center;
         }
 
-        /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
             width: 100%; /* 让导航栏容器占满屏幕 */
-            margin: 0 auto; /* 居中 */
             display: flex;
-            justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
+            justify-content: space-between; /* 让 Logo 和按钮分布在两侧 */
             align-items: center;
         }
 
@@ -64,7 +62,7 @@
             display: flex;
             align-items: center;
             justify-content: center; /* 让菜单居中 */
-            flex: 1; /* 使菜单部分可以占据剩余空间 */
+            flex-grow: 1; /* 使菜单部分可以占据剩余空间 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
@@ -114,6 +112,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .translate-btn:hover {
             background-color: #d87b00;
         }
