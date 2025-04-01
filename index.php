@@ -144,7 +144,7 @@
             justify-content: center;
             color: white;
             text-align: center;
-            padding-left: 3%;
+            padding: 0;
             box-sizing: border-box;
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                 url('images/images/会议室.jpg') center/cover no-repeat;
