@@ -43,6 +43,7 @@
             font-weight: bold;
             margin-right: auto;
             color: white;
+            flex: 1; /* 让 Logo 占据左侧空间 */
         }
 
         /* Logo 图片 */
