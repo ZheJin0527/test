@@ -139,7 +139,7 @@
         #home p {
             font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: bold;
-            max-width: 80%; /* 限制文字宽度，避免太长 */
+            max-width: 150%; /* 限制文字宽度，避免太长 */
         }
 
         /* 让鼠标滚动一下就跳到下一页 */
