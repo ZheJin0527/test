@@ -26,12 +26,12 @@
             background-color: transparent;
             padding: 20px 0;
             position: fixed;
-            width: 100%; /* 让导航栏占满整个屏幕宽度 */
+            width: 100%;  /* 让导航栏占满整个屏幕宽度 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between; /* 保证导航栏两端对齐 */
+            justify-content: space-between;  /* 保证导航栏两端对齐 */
             align-items: center;
             box-sizing: border-box;
         }
@@ -56,7 +56,7 @@
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: 4vw;  /* 使用视窗宽度来设置字体大小 */
+            font-size: 3vw;  /* 使用视窗宽度来设置字体大小 */
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -64,7 +64,7 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: 6vw; /* 根据视窗宽度动态设置 Logo 图片的高度 */
+            height: 5vw; /* 根据视窗宽度动态设置 Logo 图片的高度 */
             max-height: 60px; /* 设置最大高度，防止过大 */
         }
 
@@ -75,14 +75,14 @@
             transform: translateX(-50%); /* 使用 translateX 来确保居中 */
             display: flex;
             justify-content: center; /* 确保菜单项居中 */
-            gap: 20px;
+            gap: 4vw; /* 使用相对单位来控制菜单项之间的间距 */
         }
 
         /* 按钮部分 */
         nav .buttons-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 2vw; /* 使用相对单位来设置按钮之间的间距 */
             justify-content: flex-end;
         }
 
@@ -90,8 +90,8 @@
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.2rem;  /* 使用相对单位，保证字体大小自适应 */
+            margin: 0 2vw;
+            font-size: 2vw;  /* 使用相对单位，保证字体大小自适应 */
         }
 
         /* 链接 hover 效果 */
@@ -103,7 +103,7 @@
         .login-btn {
             background-color: rgb(235, 115, 3);
             color: white;
-            padding: 8px 16px;
+            padding: 0.6vw 1.2vw; /* 使用相对单位 */
             text-decoration: none;
             border-radius: 5px;
         }
@@ -115,12 +115,12 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: 40px;
-            height: 40px;
+            width: 5vw;  /* 使用视窗宽度 */
+            height: 5vw;  /* 使用视窗宽度 */
             border-radius: 50%;
             background-color: rgb(235, 115, 3);
             color: white;
-            font-size: 16px;
+            font-size: 1.5vw;
             font-weight: bold;
             border: none;
             cursor: pointer;
@@ -137,41 +137,46 @@
         /* 响应式设计：当屏幕小于 768px 时 */
         @media (max-width: 768px) {
             nav .logo-text {
-                font-size: 5vw;  /* 字体在小屏幕上适当减小 */
+                font-size: 6vw;  /* 字体在小屏幕上适当减小 */
             }
 
             .logo-img {
                 height: 12vw; /* Logo 图片在小屏幕上适当增大 */
             }
 
-            /* 菜单项之间间距的调整 */
             nav .menu-container {
-                gap: 15px;
+                gap: 10vw;
             }
 
-            /* 按钮字体缩小 */
+            nav a {
+                font-size: 5vw; /* 调整菜单文字大小 */
+            }
+
             .buttons-container button, .buttons-container a {
-                font-size: 14px;
+                font-size: 5vw;
             }
         }
 
         /* 响应式设计：当屏幕宽度在 768px 和 1200px 之间时 */
         @media (max-width: 1200px) {
             nav .logo-text {
-                font-size: 3vw; /* 中等屏幕大小时字体适度减小 */
+                font-size: 4vw; /* 中等屏幕大小时字体适度减小 */
             }
 
             .logo-img {
                 height: 8vw;  /* Logo 图片大小适中 */
             }
 
-            /* 菜单项之间间距的调整 */
             nav .menu-container {
-                gap: 18px;
+                gap: 5vw;
+            }
+
+            nav a {
+                font-size: 3vw;
             }
 
             .buttons-container button, .buttons-container a {
-                font-size: 16px;
+                font-size: 3vw;
             }
         }
 
