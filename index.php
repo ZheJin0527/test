@@ -589,5 +589,29 @@
         © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
     </p>
 
+    <!-- JavaScript 让鼠标滚轮滚一下直接跳到下一页 -->
+    <script>
+    document.addEventListener("wheel", (event) => {
+        event.preventDefault(); // 禁止默认滚动行为
+
+        let sections = document.querySelectorAll("section");
+        let currentIndex = Math.round(window.scrollY / window.innerHeight); // 计算当前在哪个 section
+
+        if (event.deltaY > 0 && currentIndex < sections.length - 1) {
+            // 向下滚动
+            window.scrollTo({
+                top: (currentIndex + 1) * window.innerHeight,
+                behavior: "smooth"
+            });
+        } else if (event.deltaY < 0 && currentIndex > 0) {
+            // 向上滚动
+            window.scrollTo({
+                top: (currentIndex - 1) * window.innerHeight,
+                behavior: "smooth"
+            });
+        }
+    }, { passive: false });
+    </script>
+
 </body>
 </html>
