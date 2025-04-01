@@ -107,9 +107,8 @@
 
         #home {
             position: relative;
-            min-height: 35vh;
             width: 100vw;
-            height: min(70vh, 600px); /* 让它更大，但最大不超过 700px */
+            height: 100vh; /* 让它始终占满整个视口 */
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -117,29 +116,33 @@
             text-align: left;
             padding-left: 3%;
             box-sizing: border-box;
-            background: linear-gradient(to right, 
-            rgba(245, 123, 31, 1) 0%, 
-            rgba(255, 113, 6, 0.70) 57.73%, 
-            rgba(255, 255, 255, 0.90) 100%
-        ), url('images/images/会议室.jpg') center/cover no-repeat;
-            background-size: cover;
+            background: url('images/images/会议室.jpg') center/cover no-repeat;
         }
 
-        /* 确保文本不会太靠边 */
-        #home .text {
-            max-width: 50%; /* 文字最多占50%屏幕宽度 */
-            font-size: 1.8rem;
+        /* 让鼠标滚动一下就跳到下一页 */
+        html {
+            scroll-behavior: smooth; /* 平滑滚动 */
         }
 
-        /* 让标题适应各种屏幕 */
-        #home h1 {
-            font-size: clamp(2rem, 5vw, 4rem); /* 根据屏幕大小自适应 */
-            font-weight: bold;
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            animation: bounce 1.5s infinite;
         }
 
-        #home p {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            font-weight: bold;
+        /* 让箭头或者文字有轻微弹跳效果 */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translate(-50%, 0);
+            }
+            50% {
+                transform: translate(-50%, -10px);
+            }
         }
 
         #missions {
