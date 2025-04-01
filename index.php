@@ -24,26 +24,26 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 0;  /* 调整上下padding，避免左右被压缩 */
+            padding: 20px 0;
             position: fixed;
             width: 100%;  /* 让导航栏占满整个屏幕宽度 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between;  /* 确保 Logo 和按钮在两边 */
+            justify-content: space-between;  /* 保持Logo和按钮在两边 */
             align-items: center;
             box-sizing: border-box;
         }
 
         /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
-            width: 100%; /* 让导航栏容器占满屏幕 */
+            width: 100%;  /* 让导航栏容器占满屏幕 */
             margin: 0 auto; /* 居中 */
             display: flex;
             justify-content: space-between;  /* 让 Logo 和 按钮分别靠左和靠右 */
             align-items: center;
-            padding: 0 20px; /* 添加左右padding，避免元素紧贴屏幕 */
+            padding: 0 20px;  /* 添加左右padding，避免元素紧贴屏幕 */
         }
 
         /* Logo 部分靠左 */
@@ -53,12 +53,12 @@
             font-size: 1.6rem;
             font-weight: bold;
             color: white;
-            margin-right: auto; /* 确保logo在左侧 */
+            margin-right: auto;  /* 使 Logo 靠左 */
         }
 
         /* Logo 图片 */
         .logo-img {
-            height: 50px; /* 让 Logo 图片高度与文字一致 */
+            height: 50px;  /* 让 Logo 图片高度与文字一致 */
             margin-right: 10px;
         }
 
@@ -66,8 +66,8 @@
         nav .menu {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex: 1;  /* 使菜单部分可以占据剩余空间，保证居中 */
+            justify-content: center;  /* 让菜单居中 */
+            flex-grow: 1;  /* 菜单部分占据剩余空间 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
@@ -75,6 +75,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            justify-content: flex-end;  /* 按钮靠右 */
         }
 
         /* 链接样式 */
@@ -537,6 +538,7 @@
             <a href="#home">首页</a>
             <a href="#about-us">关于我们</a>
             <a href="#brands">旗下品牌</a>
+            <a href="#join-us">加入我们</a>
         </div>
         <div class="menu">
         <button class="translate-btn">EN</button>
