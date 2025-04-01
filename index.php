@@ -518,12 +518,14 @@
             KUNZZ HOLDINGS
         </div>
         <div class="menu">
-            <button class="translate-btn">EN</button>
             <a href="#home">首页</a>
             <a href="#about-us">关于我们</a>
             <a href="#brands">旗下品牌</a>
-            <a href="#" class="login-btn">登录</a>
         </div>
+        <div class="menu">
+        <button class="translate-btn">EN</button>
+        <a href="#" class="login-btn">登录</a>
+    </div>
     </nav>
 
     <section id="home">
