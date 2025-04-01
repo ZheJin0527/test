@@ -207,7 +207,7 @@
 
         #missions {
             min-height: 30vh;
-            width: 100vw;
+            width: 100%;
             height: min(50vh, 400px); /* 让它跟 #home 一样大 */
             display: flex;
             align-items: center;
