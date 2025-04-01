@@ -282,15 +282,17 @@
             display: flex;
             justify-content: space-around;
             text-align: center;
-            padding: 80px 10%;
-            align-items: stretch; /* 让所有子元素等高 */
+            padding: 80px 5%;  /* 修改为百分比，保持自适应 */
+            align-items: stretch;
+            max-width: 100%;  /* 确保不会超出屏幕宽度 */
+            box-sizing: border-box;  /* 包括padding在内的宽度计算 */
         }
 
         .value-box {
             flex: 1;
-            max-width: 350px;
+            max-width: 350px;  /* 设定最大宽度，但不超过350px */
             margin: 0 15px;
-            padding: 10;
+            padding: 10px;
             background-color: transparent;
             border-radius: 15px;
             display: flex;
@@ -302,21 +304,21 @@
             width: 100%;
             height: 250px;
             object-fit: cover;
-            border-radius: 15px; /* 让四个角都变圆 */
+            border-radius: 15px;
         }
 
         .value-box h2 {
-            font-size: 2.8rem;  /* 标题放大 */
+            font-size: 2.8rem;
             font-weight: bold;
             margin-top: 15px;
-            margin-bottom: 5px; /* 缩小标题与段落之间的间距 */
+            margin-bottom: 5px;
         }
 
         .value-box p {
-            font-size: 1.6rem;  /* 段落字体加大 */
+            font-size: 1.6rem;
             font-weight: bold;
-            line-height: 1.2;  /* 增加行距，提高可读性 */
-            padding: 5px 20px;  /* 增加内边距 */
+            line-height: 1.2;
+            padding: 5px 20px;
         }
 
         #history {
