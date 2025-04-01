@@ -133,8 +133,8 @@
 
         #home {
             position: relative;
-            width: 100%;  /* 使用100%来自适应屏幕宽度 */
-            height: 100%; /* 使用100%来自适应屏幕高度 */
+            width: 100vw;
+            height: 100vh; /* 让它始终占满整个视口 */
             display: flex;
             flex-direction: column; /* 让文字纵向排列 */
             align-items: center;
