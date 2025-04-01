@@ -24,20 +24,21 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 60px;
+            padding: 20px 5%;  /* 使用百分比让导航栏在不同屏幕上自适应 */
             position: fixed;
-            width: 100%; /* 确保导航栏占满整个屏幕宽度 */
+            width: 100%;
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between; /* 确保 Logo 和按钮在两边 */
+            justify-content: space-between;  /* 确保 Logo 和按钮在两边 */
             align-items: center;
+            box-sizing: border-box;
         }
 
         /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
-            width: 100%; /* 让导航栏容器占满屏幕 */
+            width: 100%;
             margin: 0 auto; /* 居中 */
             display: flex;
             justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
@@ -48,7 +49,7 @@
         nav .logo {
             display: flex;
             align-items: center;
-            font-size: 28px;
+            font-size: 1.6rem;  /* 设置适应性字体大小 */
             font-weight: bold;
             color: white;
         }
@@ -63,15 +64,15 @@
         nav .menu {
             display: flex;
             align-items: center;
-            justify-content: center; /* 让菜单居中 */
-            flex: 1; /* 使菜单部分可以占据剩余空间 */
+            justify-content: center;
+            flex: 1;
         }
 
         /* 右侧按钮（翻译 & 登录） */
         .nav-buttons {
             display: flex;
             align-items: center;
-            gap: 15px; /* 按钮间距 */
+            gap: 15px;
         }
 
         /* 链接样式 */
@@ -79,7 +80,7 @@
             color: white;
             text-decoration: none;
             margin: 0 15px;
-            font-size: 16px;
+            font-size: 1rem;  /* 设置适应性字体大小 */
         }
 
         nav a:hover {
@@ -106,17 +107,7 @@
             border-radius: 50%;
             background-color: rgb(235, 115, 3);
             color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .translate-btn:hover {
-            background-color: #d87b00;
-        }
+            font-size:
 
         /* 版块样式 */
         section {
