@@ -32,15 +32,26 @@
             z-index: 1000;
             display: flex;
             align-items: center;
+            justify-content: center; /* 确保整体居中 */
         }
 
-        /* Logo 容器 */
+        /* 限制导航栏内容最大宽度 */
+        .nav-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px; /* 控制最大宽度，防止大屏幕过度拉伸 */
+            margin: 0 auto;
+        }
+
+        /* 左侧 Logo */
         nav .logo {
             display: flex;
             align-items: center;
             font-size: 28px;
             font-weight: bold;
             color: white;
+            flex-basis: 20%; /* 让 Logo 占 20% 的空间 */
         }
 
         /* Logo 图片 */
@@ -49,19 +60,20 @@
             margin-right: 10px;
         }
 
-        /* 导航菜单（中间对齐） */
+        /* 中间导航菜单 */
         nav .menu {
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-grow: 1; /* 让菜单占据可用空间 */
+            flex-grow: 1; /* 占据中间空间，使其居中 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
         nav .menu-right {
             display: flex;
             align-items: center;
-            margin-left: auto; /* 靠右 */
+            flex-basis: 20%; /* 让按钮区域占 20% 的空间 */
+            justify-content: flex-end; /* 靠右排列 */
         }
 
         /* 导航链接 */
