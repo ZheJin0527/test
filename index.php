@@ -508,7 +508,7 @@
     <nav>
     <div class="logo">
         <img src="images/images/logo.png" alt="Logo" class="logo-img">
-            KUNZZ HOLDINGS<br>Sdn. Bhd.
+            KUNZZ HOLDINGS
         </div>
         <div class="menu">
             <button class="translate-btn">EN</button>
