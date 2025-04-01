@@ -31,7 +31,7 @@
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between;  /* 保持Logo和按钮在两边 */
+            justify-content: space-between;  /* 保证导航栏两端对齐 */
             align-items: center;
             box-sizing: border-box;
         }
@@ -46,14 +46,17 @@
             padding: 0 20px;  /* 添加左右padding，避免元素紧贴屏幕 */
         }
 
-        /* Logo 部分靠左 */
-        nav .logo {
+        /* Logo 部分 */
+        nav .logo-container {
             display: flex;
             align-items: center;
+            margin-right: auto; /* 使 Logo 靠左 */
+        }
+
+        nav .logo {
             font-size: 1.6rem;
             font-weight: bold;
             color: white;
-            margin-right: auto;  /* 使 Logo 靠左 */
         }
 
         /* Logo 图片 */
@@ -62,8 +65,8 @@
             margin-right: 10px;
         }
 
-        /* 菜单部分居中 */
-        nav .menu {
+        /* 菜单部分 */
+        nav .menu-container {
             display: flex;
             align-items: center;
             justify-content: center;  /* 让菜单居中 */
@@ -71,7 +74,7 @@
         }
 
         /* 右侧按钮（翻译 & 登录） */
-        .nav-buttons {
+        nav .buttons-container {
             display: flex;
             align-items: center;
             gap: 15px;
@@ -528,24 +531,30 @@
 </head>
 <body>
 
-    <nav>
+<nav>
     <div class="nav-container">
-        <div class="logo">
+        <!-- Logo 部分 -->
+        <div class="logo-container">
             <img src="images/images/logo.png" alt="Logo" class="logo-img">
             KUNZZ HOLDINGS
         </div>
-        <div class="menu">
+
+        <!-- 菜单部分 -->
+        <div class="menu-container">
             <a href="#home">首页</a>
             <a href="#about-us">关于我们</a>
             <a href="#brands">旗下品牌</a>
             <a href="#join-us">加入我们</a>
         </div>
-        <div class="menu">
-        <button class="translate-btn">EN</button>
-        <a href="#" class="login-btn">登录</a>
-    </div>
+
+        <!-- 按钮部分 -->
+        <div class="buttons-container">
+            <button class="translate-btn">EN</button>
+            <a href="#" class="login-btn">登录</a>
+        </div>
     </div>
 </nav>
+
 
     <section id="home">
         <div>
