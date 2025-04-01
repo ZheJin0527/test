@@ -56,7 +56,7 @@
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: 1.2rem;  /* 初始字体大小较小 */
+            font-size: 1rem;  /* 初始字体更小 */
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -64,8 +64,8 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: 2rem;  /* 初始 Logo 图片较小 */
-            max-height: 40px; /* 设置最大高度，防止过大 */
+            height: 1.5rem;  /* 初始 Logo 图片较小 */
+            max-height: 35px; /* 设置最大高度，防止过大 */
         }
 
         /* 菜单部分 */
@@ -75,7 +75,7 @@
             transform: translateX(-50%); /* 使用 translateX 来确保居中 */
             display: flex;
             justify-content: center; /* 确保菜单项居中 */
-            gap: 1.5rem; /* 初始菜单间距较小 */
+            gap: 1rem; /* 初始菜单间距较小 */
         }
 
         /* 按钮部分 */
@@ -91,7 +91,7 @@
             color: white;
             text-decoration: none;
             margin: 0 1rem;
-            font-size: 1rem;  /* 初始字体较小 */
+            font-size: 0.9rem;  /* 初始字体较小 */
         }
 
         /* 链接 hover 效果 */
@@ -115,8 +115,8 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: 3rem;  /* 初始按钮大小较小 */
-            height: 3rem;  /* 初始按钮大小较小 */
+            width: 2.5rem;  /* 初始按钮大小较小 */
+            height: 2.5rem;  /* 初始按钮大小较小 */
             border-radius: 50%;
             background-color: rgb(235, 115, 3);
             color: white;
@@ -137,11 +137,34 @@
         /* 响应式设计：当屏幕大于 768px 时 */
         @media (min-width: 768px) {
             nav .logo-text {
-                font-size: 1.6rem;  /* 中屏幕时字体增大 */
+                font-size: 1.4rem;  /* 中屏幕时字体增大 */
             }
 
             .logo-img {
-                height: 4rem; /* Logo 图片增大 */
+                height: 3rem; /* Logo 图片增大 */
+            }
+
+            nav .menu-container {
+                gap: 1.5rem; /* 增加菜单间距 */
+            }
+
+            nav a {
+                font-size: 1.2rem; /* 增加菜单字体大小 */
+            }
+
+            .buttons-container button, .buttons-container a {
+                font-size: 1.2rem; /* 增大按钮字体大小 */
+            }
+        }
+
+        /* 响应式设计：当屏幕大于 1200px 时 */
+        @media (min-width: 1200px) {
+            nav .logo-text {
+                font-size: 1.8rem;  /* 大屏幕时字体增大 */
+            }
+
+            .logo-img {
+                height: 4rem;  /* Logo 图片增大 */
             }
 
             nav .menu-container {
@@ -154,29 +177,6 @@
 
             .buttons-container button, .buttons-container a {
                 font-size: 1.4rem; /* 增大按钮字体大小 */
-            }
-        }
-
-        /* 响应式设计：当屏幕大于 1200px 时 */
-        @media (min-width: 1200px) {
-            nav .logo-text {
-                font-size: 2rem;  /* 大屏幕时字体再增大 */
-            }
-
-            .logo-img {
-                height: 6rem;  /* Logo 图片增大 */
-            }
-
-            nav .menu-container {
-                gap: 3rem; /* 增加菜单间距 */
-            }
-
-            nav a {
-                font-size: 1.6rem; /* 增加菜单字体大小 */
-            }
-
-            .buttons-container button, .buttons-container a {
-                font-size: 1.6rem; /* 增大按钮字体大小 */
             }
         }
 
