@@ -14,7 +14,6 @@
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
             background-color: transparent;
-            width: 100%;
             
             /* 让页面按整页滚动 */
             height: 100%;
@@ -25,27 +24,25 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 60px;
+            padding: 20px 0; /* 确保不会影响左右对齐 */
             position: fixed;
-            width: 100%; /* 确保导航栏占满整个屏幕宽度 */
+            width: 100%; /* 让导航栏完全铺满屏幕 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between; /* 确保 Logo 和按钮在两边 */
             align-items: center;
         }
 
-        /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
-            width: 100%; /* 让导航栏容器占满屏幕 */
-            margin: 0 auto; /* 居中 */
+            width: 100%;
             display: flex;
-            justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
+            justify-content: space-between; /* 左右对齐 */
             align-items: center;
+            padding: 0 30px; /* 适当内边距，防止元素贴边太紧 */
         }
 
-        /* Logo 部分靠左 */
+        /* 左侧 Logo */
         nav .logo {
             display: flex;
             align-items: center;
@@ -56,35 +53,35 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: 50px; /* 让 Logo 图片高度与文字一致 */
+            height: 50px;
             margin-right: 10px;
         }
 
-        /* 菜单部分居中 */
+        /* 居中菜单 */
         nav .menu {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             align-items: center;
-            justify-content: center; /* 让菜单居中 */
-            flex: 1; /* 使菜单部分可以占据剩余空间 */
         }
 
-        /* 右侧按钮（翻译 & 登录） */
-        .nav-buttons {
-            display: flex;
-            align-items: center;
-            gap: 15px; /* 按钮间距 */
-        }
-
-        /* 链接样式 */
-        nav a {
+        nav .menu a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-size: 16px;
         }
 
-        nav a:hover {
+        nav .menu a:hover {
             text-decoration: underline;
+        }
+
+        /* 右侧按钮 */
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         /* 登录按钮 */
@@ -115,6 +112,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .translate-btn:hover {
             background-color: #d87b00;
         }
