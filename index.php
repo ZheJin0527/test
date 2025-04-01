@@ -19,6 +19,12 @@
             height: 100%;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
+
+            /* 新增：确保布局不会影响到导航栏 */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
         }
 
         /* 导航栏 */
