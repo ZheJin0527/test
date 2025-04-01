@@ -24,24 +24,25 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 60px;
             position: fixed;
-            width: 100%; /* 确保导航栏占满整个屏幕宽度 */
+            width: 100vw; /* 确保导航栏占满整个屏幕 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between; /* 确保 Logo 和按钮在两边 */
             align-items: center;
+            justify-content: center; /* 让 .nav-container 居中 */
+            box-sizing: border-box;
         }
 
         /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
-            width: 100%; /* 让导航栏容器占满屏幕 */
-            margin: 0 auto; /* 居中 */
+            width: 100%;
+            max-width: 1300px; /* 限制最大宽度，避免过宽 */
             display: flex;
-            justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
             align-items: center;
+            justify-content: space-between; /* 左右贴边 */
+            padding: 0 20px; /* 让 Logo 和按钮有一点间距 */
         }
 
         /* Logo 部分靠左 */
@@ -61,10 +62,10 @@
 
         /* 菜单部分居中 */
         nav .menu {
+            flex: 1; /* 占据可用空间 */
             display: flex;
-            align-items: center;
-            justify-content: center; /* 让菜单居中 */
-            flex: 1; /* 使菜单部分可以占据剩余空间 */
+            justify-content: center;
+            max-width: 600px; /* 限制最大宽度，确保不会被挤歪 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
