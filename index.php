@@ -29,19 +29,17 @@
             top: 0;
             left: 0;
             z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;  /* 左右对齐 */
-            padding: 20px 60px;
         }
 
-        /* 容器不限制宽度，始终铺满整个屏幕 */
+        /* 让导航内容始终居中 */
         .nav-container {
-            width: 100%; /* 让导航栏容器占满屏幕 */
-            margin: 0 auto; /* 居中 */
+            width: 100%;
+            max-width: 1400px; /* 设置最大宽度，防止超大屏幕问题 */
+            margin: 0 auto; /* 让导航栏在大屏幕上始终居中 */
             display: flex;
-            justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
             align-items: center;
+            justify-content: space-between;
+            padding: 20px 60px;
         }
 
         /* Logo 部分靠左 */
