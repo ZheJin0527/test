@@ -31,10 +31,9 @@
             z-index: 1000;
             display: flex;
             align-items: center;
-            padding: 20px 0;
-            position: relative;  /* 让内部的子元素可以使用 absolute 定位 */
+            justify-content: space-between;  /* 左右对齐 */
+            padding: 20px 60px;
         }
-
 
         /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
@@ -52,7 +51,6 @@
             font-size: 28px;
             font-weight: bold;
             color: white;
-            margin-left: 20px; /* 让 LOGO 贴近左边 */
         }
 
         /* Logo 图片 */
@@ -63,17 +61,14 @@
 
         /* 菜单部分居中 */
         nav .menu {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%); /* 确保菜单的中心点在 50% 位置 */
             display: flex;
-            gap: 40px; /* 让菜单间距更均匀 */
+            flex: 1;  /* 让菜单部分占据可用空间 */
+            justify-content: center; /* 让菜单居中 */
+            gap: 30px; /* 让菜单间距均匀 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
         .nav-buttons {
-            position: absolute;
-            right: 20px; /* 让按钮贴紧右侧 */
             display: flex;
             align-items: center;
             gap: 15px;
