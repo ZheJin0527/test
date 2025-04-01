@@ -527,8 +527,9 @@
 <body>
 
     <nav>
-    <div class="logo">
-        <img src="images/images/logo.png" alt="Logo" class="logo-img">
+    <div class="nav-container">
+        <div class="logo">
+            <img src="images/images/logo.png" alt="Logo" class="logo-img">
             KUNZZ HOLDINGS
         </div>
         <div class="menu">
@@ -540,7 +541,8 @@
         <button class="translate-btn">EN</button>
         <a href="#" class="login-btn">登录</a>
     </div>
-    </nav>
+    </div>
+</nav>
 
     <section id="home">
         <div>
