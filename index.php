@@ -25,10 +25,14 @@
         nav {
             background-color: transparent;
             position: fixed;
-            width: 100%;
+            width: 100vw; /* 让导航栏宽度始终铺满整个屏幕 */
             top: 0;
             left: 0;
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0; /* 取消左右 padding */
         }
 
         /* 让导航内容始终居中 */
@@ -60,7 +64,7 @@
         /* 菜单部分居中 */
         nav .menu {
             display: flex;
-            flex: 1;  /* 让菜单部分占据可用空间 */
+            flex-grow: 1; /* 让菜单部分可以占据剩余空间 */
             justify-content: center; /* 让菜单居中 */
             gap: 30px; /* 让菜单间距均匀 */
         }
@@ -70,6 +74,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            margin-right: 20px; /* 让按钮贴右边 */
         }
 
         /* 链接样式 */
