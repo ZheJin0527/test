@@ -13,12 +13,12 @@
             padding: 0;
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
-            background-color:rgb(245, 238, 231);
+            background-color: transparent;
         }
 
         /* 导航栏 */
         nav {
-            background-color: white;
+            background-color: transparent;
             padding: 20px 60px;
             position: fixed;
             width: 100%;
@@ -179,7 +179,7 @@
         }
 
         #about-us {
-            background-color: rgb(245, 238, 231);
+            background-color: transparent;
             color: black;
             display: flex;
             align-items: center;
@@ -229,7 +229,7 @@
             max-width: 350px;
             margin: 0 15px;
             padding: 10;
-            background-color: rgb(245, 238, 231);
+            background-color: transparent;
             border-radius: 15px;
             display: flex;
             flex-direction: column;
