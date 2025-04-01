@@ -31,63 +31,51 @@
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: center; /* 确保整体居中 */
-        }
-
-        /* 限制导航栏内容最大宽度 */
-        .nav-container {
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding: 0 60px; /* 两边间距 */
         }
 
-        /* 左侧 Logo */
+        /* 限制导航栏内容的最大宽度，并让它铺满 */
+        .nav-container {
+            width: 100%;
+            max-width: 1400px; /* 控制内容最大宽度 */
+            margin: 0 auto; /* 居中 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo 部分靠左 */
         nav .logo {
             display: flex;
             align-items: center;
             font-size: 28px;
             font-weight: bold;
             color: white;
-            flex: 1; /* 让 Logo 贴左边 */
-        }
-
-        /* ✅ 让 KUNZZ HOLDINGS 换行 */
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* ✅ KUNZZ HOLDINGS 和 Sdn. Bhd. 样式 */
-        .logo-text span {
-            font-size: 14px;
-            font-weight: normal;
-            opacity: 0.8;
         }
 
         /* Logo 图片 */
         .logo-img {
-            height: 50px;
+            height: 50px; /* 让 Logo 图片高度与文字一致 */
             margin-right: 10px;
         }
 
-        /* 中间导航菜单 */
+        /* 菜单部分在中间 */
         nav .menu {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex: 2; /* 让菜单居中 */
+            flex: 1;
+            justify-content: center; /* 让菜单居中 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
-        nav .menu-right {
+        .nav-buttons {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            flex: 1; /* 让翻译 & 登录按钮贴右边 */
+            gap: 15px; /* 按钮间距 */
         }
 
-        /* 导航链接 */
+        /* 链接样式 */
         nav a {
             color: white;
             text-decoration: none;
@@ -126,9 +114,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
         }
-
         .translate-btn:hover {
             background-color: #d87b00;
         }
