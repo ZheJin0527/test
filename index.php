@@ -6,16 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNZZ HOLDINGS</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         /* 全局样式 */
         body {
             font-family: Arial, sans-serif;
-            width: 100vw; /* 确保 body 贴合整个屏幕 */
-            height: 100%;
+            margin: 0;
+            padding: 0;
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
             background-color: transparent;
@@ -29,26 +24,24 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
+            padding: 20px 60px;
             position: fixed;
-            width: 100vw; /* 让导航栏宽度始终铺满整个屏幕 */
+            width: 100%; /* 确保导航栏占满整个屏幕宽度 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
+            justify-content: space-between; /* 确保 Logo 和按钮在两边 */
             align-items: center;
-            justify-content: space-between;
-            padding: 20px 0; /* 取消左右 padding */
         }
 
-        /* 让导航内容始终居中 */
+        /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
-            width: 100%;
-            max-width: 1400px; /* 设置最大宽度，防止超大屏幕问题 */
-            margin: 0 auto; /* 让导航栏在大屏幕上始终居中 */
+            width: 100%; /* 让导航栏容器占满屏幕 */
+            margin: 0 auto; /* 居中 */
             display: flex;
+            justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
             align-items: center;
-            justify-content: space-between;
-            padding: 20px 60px;
         }
 
         /* Logo 部分靠左 */
@@ -69,17 +62,16 @@
         /* 菜单部分居中 */
         nav .menu {
             display: flex;
-            flex-grow: 1; /* 让菜单部分可以占据剩余空间 */
+            align-items: center;
             justify-content: center; /* 让菜单居中 */
-            gap: 30px; /* 让菜单间距均匀 */
+            flex: 1; /* 使菜单部分可以占据剩余空间 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
         .nav-buttons {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-right: 20px; /* 让按钮贴右边 */
+            gap: 15px; /* 按钮间距 */
         }
 
         /* 链接样式 */
