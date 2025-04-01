@@ -55,8 +55,13 @@
         nav .menu {
             display: flex;
             align-items: center;
-            margin-right: 50px;
             flex: 2; /* 让菜单项占据导航栏中间空间 */
+        }
+
+        /* 右侧按钮（翻译 & 登录） */
+        nav .menu:last-child {
+            margin-left: auto; /* 让翻译 & 登录按钮靠右 */
+            margin-right: 50px; /* 距离右边 50px */
         }
 
         nav a {
