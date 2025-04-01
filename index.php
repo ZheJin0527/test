@@ -14,6 +14,7 @@
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
             background-color: transparent;
+            width: 100%;
             
             /* 让页面按整页滚动 */
             height: 100%;
