@@ -24,9 +24,9 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 0; /* 确保不会影响左右对齐 */
+            padding: 20px 0; /* 只保留上下内边距 */
             position: fixed;
-            width: 100%; /* 让导航栏完全铺满屏幕 */
+            width: 100%;
             top: 0;
             left: 0;
             z-index: 1000;
@@ -37,9 +37,10 @@
         .nav-container {
             width: 100%;
             display: flex;
-            justify-content: space-between; /* 左右对齐 */
+            justify-content: space-between; /* 让 logo 靠左，按钮靠右 */
             align-items: center;
-            padding: 0 30px; /* 适当内边距，防止元素贴边太紧 */
+            padding: 0 30px;
+            position: relative; /* 让 .menu 绝对定位相对于它 */
         }
 
         /* 左侧 Logo */
@@ -58,10 +59,13 @@
         }
 
         /* 居中菜单 */
-        nav .menu {
+        .menu-wrapper {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+        }
+
+        nav .menu {
             display: flex;
             align-items: center;
         }
