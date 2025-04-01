@@ -39,40 +39,42 @@
         /* 导航栏容器 */
         nav .nav-container {
             display: flex;
-            justify-content: space-between; /* 使 logo 左对齐，菜单居中，按钮右对齐 */
+            justify-content: space-between; /* 确保左右部分对齐 */
             align-items: center;
-            width: 100%; /* 确保容器宽度占满 */
-            padding: 0 20px; /* 适当的内边距 */
+            width: 100%;
+            padding: 0 20px;
+            position: relative;  /* 设置相对定位，用于子元素绝对定位 */
         }
 
         /* Logo 部分 */
         nav .logo-container {
             display: flex;
             align-items: center;
-            margin-right: 20px; /* Logo 和按钮之间有间距 */
+            margin-right: 20px;
             flex-shrink: 0; /* 防止 Logo 被压缩 */
         }
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: 1.6rem;  /* 设置字体大小 */
+            font-size: 1.6rem;
             font-weight: bold;
             color: white;
-            margin-left: 10px;  /* 给 Logo 和文字之间留点空隙 */
+            margin-left: 10px;
         }
 
         /* Logo 图片 */
         .logo-img {
-            height: 50px;  /* 让 Logo 图片高度与文字一致 */
+            height: 50px;
         }
 
         /* 菜单部分 */
         nav .menu-container {
+            position: absolute; /* 使用绝对定位 */
+            left: 50%;  /* 设置左侧距离为父容器的 50% */
+            transform: translateX(-50%);  /* 使用 translateX 来确保居中 */
             display: flex;
-            align-items: center;
-            justify-content: center;  /* 让菜单居中 */
-            flex-grow: 1;  /* 使菜单部分占据剩余空间，保证居中 */
-            gap: 20px;  /* 菜单项之间的间距 */
+            justify-content: center;  /* 确保菜单项居中 */
+            gap: 20px;
         }
 
         /* 按钮部分 */
@@ -80,7 +82,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            justify-content: flex-end;  /* 按钮靠右 */
+            justify-content: flex-end;
         }
 
         /* 链接样式 */
