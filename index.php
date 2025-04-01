@@ -24,9 +24,9 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 5%;  /* 使用百分比让导航栏在不同屏幕上自适应 */
+            padding: 20px 0;  /* 调整上下padding，避免左右被压缩 */
             position: fixed;
-            width: 100%;
+            width: 100%;  /* 让导航栏占满整个屏幕宽度 */
             top: 0;
             left: 0;
             z-index: 1000;
@@ -38,20 +38,22 @@
 
         /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
-            width: 100%;
+            width: 100%; /* 让导航栏容器占满屏幕 */
             margin: 0 auto; /* 居中 */
             display: flex;
-            justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
+            justify-content: space-between;  /* 让 Logo 和 按钮分别靠左和靠右 */
             align-items: center;
+            padding: 0 20px; /* 添加左右padding，避免元素紧贴屏幕 */
         }
 
         /* Logo 部分靠左 */
         nav .logo {
             display: flex;
             align-items: center;
-            font-size: 1.6rem;  /* 设置适应性字体大小 */
+            font-size: 1.6rem;
             font-weight: bold;
             color: white;
+            margin-right: auto; /* 确保logo在左侧 */
         }
 
         /* Logo 图片 */
@@ -65,7 +67,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex: 1;
+            flex: 1;  /* 使菜单部分可以占据剩余空间，保证居中 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
@@ -80,7 +82,7 @@
             color: white;
             text-decoration: none;
             margin: 0 15px;
-            font-size: 1rem;  /* 设置适应性字体大小 */
+            font-size: 1rem;
         }
 
         nav a:hover {
