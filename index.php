@@ -25,15 +25,16 @@
         nav {
             background-color: transparent;
             position: fixed;
-            width: 100%; /* 确保导航栏占满整个屏幕宽度 */
+            width: 100%;
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between; /* 确保 Logo 和按钮在两边 */
             align-items: center;
-            padding: 20px 0; /* 确保上下有间距，但左右无间距 */
+            padding: 20px 0;
+            position: relative;  /* 让内部的子元素可以使用 absolute 定位 */
         }
+
 
         /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
@@ -72,7 +73,7 @@
         /* 右侧按钮（翻译 & 登录） */
         .nav-buttons {
             position: absolute;
-            right: 20px;  /* 让按钮始终贴紧右侧 */
+            right: 20px; /* 让按钮贴紧右侧 */
             display: flex;
             align-items: center;
             gap: 15px;
