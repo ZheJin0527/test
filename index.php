@@ -509,6 +509,7 @@
     <div class="logo">
         <img src="images/images/logo.png" alt="Logo" class="logo-img">
             KUNZZ HOLDINGS
+            <span class="subtext">Sdn. Bhd.</span>
         </div>
         <div class="menu">
             <button class="translate-btn">EN</button>
