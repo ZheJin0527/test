@@ -121,7 +121,7 @@
             align-items: center;
             justify-content: flex-start;
             color: white;
-            text-align: left;
+            text-align: center;
             padding-left: 3%;
             box-sizing: border-box;
             background: url('images/images/会议室.jpg') center/cover no-repeat;
@@ -503,8 +503,10 @@
 
     <section id="home">
         <div>
-            <h1>创造价值，引领未来</h1>
-            <p>Kunzz Holdings 致力于培养精英团队，为子公司提供解决方案，激发无限可能</p>
+            <h1>让空间温暖，让团队闪光</h1>
+            <p>我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。</p>
+            <p>我们相信，高效源于信任，创新源于自由。</p>
+            <p>一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。</p>
         </div>
     </section>
 
