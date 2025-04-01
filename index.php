@@ -12,19 +12,16 @@
             margin: 0;
             padding: 0;
             scroll-behavior: smooth;
-            overflow-x: hidden; /* 防止水平滚动 */
+            overflow-x: hidden;
             background-color: transparent;
-            
-            /* 让页面按整页滚动 */
             height: 100%;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
         }
 
-        /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 0; /* 只保留上下内边距 */
+            padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
@@ -37,14 +34,13 @@
         .nav-container {
             width: 100%;
             display: flex;
-            justify-content: space-between; /* 让 logo 靠左，按钮靠右 */
+            justify-content: space-between;
             align-items: center;
             padding: 0 30px;
-            position: relative; /* 让 .menu 绝对定位相对于它 */
+            position: relative;
         }
 
-        /* 左侧 Logo */
-        nav .logo {
+        .logo {
             display: flex;
             align-items: center;
             font-size: 28px;
@@ -52,43 +48,39 @@
             color: white;
         }
 
-        /* Logo 图片 */
         .logo-img {
             height: 50px;
             margin-right: 10px;
         }
 
-        /* 居中菜单 */
         .menu-wrapper {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
         }
 
-        nav .menu {
+        .menu {
             display: flex;
             align-items: center;
         }
 
-        nav .menu a {
+        .menu a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-size: 16px;
         }
 
-        nav .menu a:hover {
+        .menu a:hover {
             text-decoration: underline;
         }
 
-        /* 右侧按钮 */
         .nav-buttons {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        /* 登录按钮 */
         .login-btn {
             background-color: rgb(235, 115, 3);
             color: white;
@@ -101,7 +93,6 @@
             background-color: #d87b00;
         }
 
-        /* 翻译按钮 */
         .translate-btn {
             width: 40px;
             height: 40px;
@@ -121,53 +112,43 @@
             background-color: #d87b00;
         }
 
-        /* 版块样式 */
         section {
             width: 100vw;
-            height: 100vh; /* 每个 section 占满整个屏幕 */
+            height: 100vh;
             padding: 40px 5%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             flex-wrap: wrap;
-            scroll-snap-align: start; /* 让滚动时对齐屏幕顶部 */
+            scroll-snap-align: start;
         }
 
         #home {
             position: relative;
             width: 100vw;
-            height: 100vh; /* 让它始终占满整个视口 */
+            height: 100vh;
             display: flex;
-            flex-direction: column; /* 让文字纵向排列 */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
             text-align: center;
-            padding: 0;
-            box-sizing: border-box;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
                 url('images/images/会议室.jpg') center/cover no-repeat;
             background-size: cover;
         }
 
-        /* 让标题字体更大 */
         #home h1 {
-            font-size: clamp(3rem, 6vw, 10rem); /* 屏幕小就变小，大就变大 */
+            font-size: clamp(3rem, 6vw, 10rem);
             font-weight: bold;
             margin-bottom: 20px;
         }
 
-        /* 让段落文字更大 */
         #home p {
             font-size: clamp(1.2rem, 1.2vw, 5rem);
             font-weight: bold;
-            max-width: 150%; /* 限制文字宽度，避免太长 */
-        }
-
-        /* 让鼠标滚动一下就跳到下一页 */
-        html {
-            scroll-behavior: smooth; /* 平滑滚动 */
+            max-width: 80%;
         }
 
         .scroll-down {
@@ -181,23 +162,6 @@
             animation: bounce 1.5s infinite;
         }
 
-        /* 让鼠标滚动一下就跳到下一页 */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .scroll-down {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-            animation: bounce 1.5s infinite;
-        }
-
-        /* 让箭头或者文字有轻微弹跳效果 */
         @keyframes bounce {
             0%, 100% {
                 transform: translate(-50%, 0);
@@ -207,40 +171,17 @@
             }
         }
 
-
         #missions {
             min-height: 30vh;
             width: 100vw;
-            height: min(50vh, 400px); /* 让它跟 #home 一样大 */
+            height: min(50vh, 400px);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 20px;
-            box-sizing: border-box;
-            background: linear-gradient(to right, 
-            rgba(244, 115, 32, 0.85), 
-            rgba(254, 196, 20, 0.7)
-        ), 
-        url('images/images/办公区.jpg') center/cover no-repeat;
-        }
-
-        /* 确保文本不会太靠边 */
-        #missions .text {
-            max-width: 55%;
-        }
-
-        /* 文字大小和原来一样 */
-        #missions h1 {
-            color: white;
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: bold;
-        }
-
-        #missions p {
-            color: white;
-            font-size: clamp(1rem, 3vw, 2rem);
-            font-weight: bold;
+            background: linear-gradient(to right, rgba(244, 115, 32, 0.85), rgba(254, 196, 20, 0.7)),
+                url('images/images/办公区.jpg') center/cover no-repeat;
         }
 
         #about-us {
@@ -251,34 +192,53 @@
             text-align: left;
             padding: 40px 8% 50px;
             gap: 30px;
-            max-width: 1200px; /* 限制最大宽度 */
-            margin: 0 auto; /* 让内容居中 */
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         #about-us h1 {
             font-size: 4.0rem;
             font-weight: bold;
             margin-bottom: 10px;
-            margin-top: -5px;
         }
 
-        /* 文本区域 */
         #about-us .text {
             flex: 1;
             padding: 5px 20px;
             font-size: 1.5rem;
             line-height: 1.8;
             font-weight: bold;
-            margin-top: -5px;
         }
 
-        /* 图片区域 */
         #about-us .image {
             flex: 1;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
             min-height: 350px;
-            height: auto;
             border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            .menu-wrapper {
+                position: static;
+                transform: none;
+            }
+            .menu {
+                flex-direction: column;
+            }
+            section {
+                height: auto;
+                padding: 20px 5%;
+            }
+            #about-us {
+                flex-direction: column;
+                text-align: center;
+            }
+            #about-us .text, #about-us .image {
+                width: 100%;
+            }
         }
         
         #values {
