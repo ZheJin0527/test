@@ -28,7 +28,6 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            box-shadow: 0 2px 5px rgb(255, 255, 255);
         }
         
         /* Logo 容器 */
