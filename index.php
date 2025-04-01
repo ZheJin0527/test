@@ -282,12 +282,12 @@
             display: flex;
             justify-content: space-around;
             text-align: center;
-            padding: 80px 10%;
+            padding: 20px 5%;
             align-items: stretch; /* 让所有子元素等高 */
         }
 
         .value-box {
-            flex: 1;
+            flex: 1;=
             max-width: 350px;
             margin: 0 15px;
             padding: 10;
@@ -326,12 +326,9 @@
             flex-direction: column;
             justify-content: center;
             text-align: center;
-            padding: 10px 20px;
+            padding: 10px 5%; /* 调整左右内边距 */
             box-sizing: border-box;
-            background: linear-gradient(to right, 
-            rgba(245, 121, 31, 0.85), 
-            rgba(253, 189, 21, 0.85)
-        );
+            background: linear-gradient(to right, rgba(245, 121, 31, 0.85), rgba(253, 189, 21, 0.85));
         }
 
         #history h2 {
@@ -463,13 +460,13 @@
 
         .container {
             display: flex;
-            max-width: 85%;
-            margin: 8vh auto; /* 上下间距加宽 */
+            width: 100%; /* 全屏适应 */
+            max-width: 1200px; /* 可选的最大宽度 */
+            margin: 8vh auto;
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            overflow: hidden;
-            padding: 20px 25px; /* 内边距稍微增加 */
+            padding: 20px 25px;
             height: 60vh;
             min-height: 450px;
         }
