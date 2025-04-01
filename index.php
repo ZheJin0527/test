@@ -57,7 +57,7 @@
         }
 
         nav a {
-            color: black;
+            color: white;
             text-decoration: none;
             margin: 0 15px;
             font-size: 16px;
@@ -139,7 +139,7 @@
 
         /* 让段落文字更大 */
         #home p {
-            font-size: clamp(1.2rem, 1.2vw, 2rem);
+            font-size: clamp(0.5rem, 1.2vw, 2rem);
             font-weight: bold;
             max-width: 150%; /* 限制文字宽度，避免太长 */
         }
