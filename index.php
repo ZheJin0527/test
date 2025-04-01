@@ -63,7 +63,6 @@
         /* Logo 图片 */
         .logo-img {
             height: 50px;  /* 让 Logo 图片高度与文字一致 */
-            margin-right: 10px;
         }
 
         /* 菜单部分 */
