@@ -246,10 +246,11 @@
             display: flex;
             align-items: center;
             text-align: left;
-            padding: 40px 8% 50px;
+            padding: 40px 5% 50px;  /* 使用百分比确保自适应 */
             gap: 30px;
-            max-width: 1200px; /* 限制最大宽度 */
-            margin: 0 auto; /* 让内容居中 */
+            max-width: 100%;  /* 确保宽度不会超过屏幕 */
+            box-sizing: border-box;  /* 包括padding在内的宽度计算 */
+            margin: 0 auto;  /* 让内容居中 */
         }
 
         #about-us h1 {
@@ -259,7 +260,6 @@
             margin-top: -5px;
         }
 
-        /* 文本区域 */
         #about-us .text {
             flex: 1;
             padding: 5px 20px;
@@ -269,7 +269,6 @@
             margin-top: -5px;
         }
 
-        /* 图片区域 */
         #about-us .image {
             flex: 1;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
