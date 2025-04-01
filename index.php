@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNZZ HOLDINGS</title>
     <style>
+
+        * {
+            box-sizing: border-box; /* 包括内边距和边框在内的宽度计算 */
+        }
         /* 全局样式 */
         body {
             font-family: Arial, sans-serif;
