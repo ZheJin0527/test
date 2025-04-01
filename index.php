@@ -31,38 +31,40 @@
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between; /* 让 Logo 和菜单两端对齐 */
             align-items: center;
         }
-        
+
         /* Logo 容器 */
         nav .logo {
             display: flex;
             align-items: center;
             font-size: 28px;
             font-weight: bold;
-            margin-right: auto;
             color: white;
-            flex: 1; /* 让 Logo 占据左侧空间 */
         }
 
         /* Logo 图片 */
         .logo-img {
-            height: 50px; /* 让 Logo 图片高度与文字一致 */
-            margin-right: 10px; /* 图片与文字间距 */
+            height: 50px;
+            margin-right: 10px;
         }
 
+        /* 导航菜单（中间对齐） */
         nav .menu {
             display: flex;
             align-items: center;
-            flex: 2; /* 让菜单项占据导航栏中间空间 */
+            justify-content: center;
+            flex-grow: 1; /* 让菜单占据可用空间 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
-        nav .menu:last-child {
-            margin-left: auto; /* 让翻译 & 登录按钮靠右 */
+        nav .menu-right {
+            display: flex;
+            align-items: center;
+            margin-left: auto; /* 靠右 */
         }
 
+        /* 导航链接 */
         nav a {
             color: white;
             text-decoration: none;
@@ -74,6 +76,7 @@
             text-decoration: underline;
         }
 
+        /* 登录按钮 */
         .login-btn {
             background-color: rgb(235, 115, 3);
             color: white;
@@ -91,7 +94,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color:rgb(235, 115, 3);
+            background-color: rgb(235, 115, 3);
             color: white;
             font-size: 16px;
             font-weight: bold;
