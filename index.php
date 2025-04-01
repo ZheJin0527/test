@@ -107,7 +107,17 @@
             border-radius: 50%;
             background-color: rgb(235, 115, 3);
             color: white;
-            font-size:
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .translate-btn:hover {
+            background-color: #d87b00;
         }
 
         /* 版块样式 */
