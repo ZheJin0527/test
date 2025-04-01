@@ -118,13 +118,28 @@
             width: 100vw;
             height: 100vh; /* 让它始终占满整个视口 */
             display: flex;
+            flex-direction: column; /* 让文字纵向排列 */
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             color: white;
             text-align: center;
             padding-left: 3%;
             box-sizing: border-box;
             background: url('images/images/会议室.jpg') center/cover no-repeat;
+        }
+
+        /* 让标题字体更大 */
+        #home h1 {
+            font-size: clamp(3rem, 6vw, 5rem); /* 屏幕小就变小，大就变大 */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* 让段落文字更大 */
+        #home p {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: bold;
+            max-width: 80%; /* 限制文字宽度，避免太长 */
         }
 
         /* 让鼠标滚动一下就跳到下一页 */
