@@ -36,23 +36,24 @@
             box-sizing: border-box;
         }
 
-        /* 容器不限制宽度，始终铺满整个屏幕 */
-        .nav-container {
-            width: 100%;  /* 让导航栏容器占满屏幕 */
-            margin: 0 auto; /* 居中 */
+        /* 导航栏容器 */
+        nav .nav-container {
             display: flex;
-            justify-content: space-between;  /* 让 Logo 和 按钮分别靠左和靠右 */
+            justify-content: space-between; /* 使 logo 左对齐，菜单居中，按钮右对齐 */
             align-items: center;
-            padding: 0 20px;  /* 添加左右padding，避免元素紧贴屏幕 */
+            width: 100%; /* 确保容器宽度占满 */
+            padding: 0 20px; /* 适当的内边距 */
         }
 
         /* Logo 部分 */
         nav .logo-container {
             display: flex;
             align-items: center;
-            margin-right: auto; /* 使 Logo 靠左 */
+            margin-right: 20px; /* Logo 和按钮之间有间距 */
+            flex-shrink: 0; /* 防止 Logo 被压缩 */
         }
 
+        /* Logo 文字 */
         nav .logo-text {
             font-size: 1.6rem;  /* 设置字体大小 */
             font-weight: bold;
@@ -70,10 +71,11 @@
             display: flex;
             align-items: center;
             justify-content: center;  /* 让菜单居中 */
-            flex-grow: 1;  /* 菜单部分占据剩余空间 */
+            flex-grow: 1;  /* 使菜单部分占据剩余空间，保证居中 */
+            gap: 20px;  /* 菜单项之间的间距 */
         }
 
-        /* 右侧按钮（翻译 & 登录） */
+        /* 按钮部分 */
         nav .buttons-container {
             display: flex;
             align-items: center;
