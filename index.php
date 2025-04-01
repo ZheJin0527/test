@@ -55,7 +55,8 @@
         nav .menu {
             display: flex;
             align-items: center;
-            margin-right: 50px;
+            justify-content: center; /* 让菜单项居中 */
+
         }
 
         nav a {
