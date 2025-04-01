@@ -14,6 +14,11 @@
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
             background-color: transparent;
+            
+            /* 让页面按整页滚动 */
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
         }
 
         /* 导航栏 */
@@ -97,12 +102,15 @@
 
         /* 版块样式 */
         section {
+            width: 100vw;
+            height: 100vh; /* 每个 section 占满整个屏幕 */
             padding: 40px 5%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             flex-wrap: wrap;
+            scroll-snap-align: start; /* 让滚动时对齐屏幕顶部 */
         }
 
         #home {
