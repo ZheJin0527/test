@@ -31,7 +31,7 @@
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between; /* 让 Logo 和菜单两端对齐 */
             align-items: center;
         }
         
@@ -62,7 +62,6 @@
             text-decoration: none;
             margin: 0 15px;
             font-size: 16px;
-            align-items: center;
         }
 
         nav a:hover {
