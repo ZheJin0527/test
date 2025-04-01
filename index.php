@@ -12,35 +12,40 @@
             margin: 0;
             padding: 0;
             scroll-behavior: smooth;
-            overflow-x: hidden;
+            overflow-x: hidden; /* 防止水平滚动 */
             background-color: transparent;
+            
+            /* 让页面按整页滚动 */
             height: 100%;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
         }
 
+        /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 0;
+            padding: 20px 60px;
             position: fixed;
-            width: 100%;
+            width: 100%; /* 确保导航栏占满整个屏幕宽度 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
+            justify-content: space-between; /* 确保 Logo 和按钮在两边 */
             align-items: center;
         }
 
+        /* 容器不限制宽度，始终铺满整个屏幕 */
         .nav-container {
-            width: 100%;
+            width: 100%; /* 让导航栏容器占满屏幕 */
+            margin: 0 auto; /* 居中 */
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* 让 Logo 和 按钮各自靠左和靠右 */
             align-items: center;
-            padding: 0 30px;
-            position: relative;
         }
 
-        .logo {
+        /* Logo 部分靠左 */
+        nav .logo {
             display: flex;
             align-items: center;
             font-size: 28px;
@@ -48,39 +53,40 @@
             color: white;
         }
 
+        /* Logo 图片 */
         .logo-img {
-            height: 50px;
+            height: 50px; /* 让 Logo 图片高度与文字一致 */
             margin-right: 10px;
         }
 
-        .menu-wrapper {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .menu {
+        /* 菜单部分居中 */
+        nav .menu {
             display: flex;
             align-items: center;
+            justify-content: center; /* 让菜单居中 */
+            flex: 1; /* 使菜单部分可以占据剩余空间 */
         }
 
-        .menu a {
+        /* 右侧按钮（翻译 & 登录） */
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* 按钮间距 */
+        }
+
+        /* 链接样式 */
+        nav a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-size: 16px;
         }
 
-        .menu a:hover {
+        nav a:hover {
             text-decoration: underline;
         }
 
-        .nav-buttons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
+        /* 登录按钮 */
         .login-btn {
             background-color: rgb(235, 115, 3);
             color: white;
@@ -93,6 +99,7 @@
             background-color: #d87b00;
         }
 
+        /* 翻译按钮 */
         .translate-btn {
             width: 40px;
             height: 40px;
@@ -107,48 +114,57 @@
             align-items: center;
             justify-content: center;
         }
-
         .translate-btn:hover {
             background-color: #d87b00;
         }
 
+        /* 版块样式 */
         section {
             width: 100vw;
-            height: 100vh;
+            height: 100vh; /* 每个 section 占满整个屏幕 */
             padding: 40px 5%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             flex-wrap: wrap;
-            scroll-snap-align: start;
+            scroll-snap-align: start; /* 让滚动时对齐屏幕顶部 */
         }
 
         #home {
             position: relative;
             width: 100vw;
-            height: 100vh;
+            height: 100vh; /* 让它始终占满整个视口 */
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* 让文字纵向排列 */
             align-items: center;
             justify-content: center;
             color: white;
             text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            padding-left: 3%;
+            box-sizing: border-box;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                 url('images/images/会议室.jpg') center/cover no-repeat;
             background-size: cover;
         }
 
+        /* 让标题字体更大 */
         #home h1 {
-            font-size: clamp(3rem, 6vw, 10rem);
+            font-size: clamp(3rem, 6vw, 10rem); /* 屏幕小就变小，大就变大 */
             font-weight: bold;
             margin-bottom: 20px;
         }
 
+        /* 让段落文字更大 */
         #home p {
             font-size: clamp(1.2rem, 1.2vw, 5rem);
             font-weight: bold;
-            max-width: 80%;
+            max-width: 150%; /* 限制文字宽度，避免太长 */
+        }
+
+        /* 让鼠标滚动一下就跳到下一页 */
+        html {
+            scroll-behavior: smooth; /* 平滑滚动 */
         }
 
         .scroll-down {
@@ -162,6 +178,23 @@
             animation: bounce 1.5s infinite;
         }
 
+        /* 让鼠标滚动一下就跳到下一页 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            animation: bounce 1.5s infinite;
+        }
+
+        /* 让箭头或者文字有轻微弹跳效果 */
         @keyframes bounce {
             0%, 100% {
                 transform: translate(-50%, 0);
@@ -171,17 +204,40 @@
             }
         }
 
+
         #missions {
             min-height: 30vh;
             width: 100vw;
-            height: min(50vh, 400px);
+            height: min(50vh, 400px); /* 让它跟 #home 一样大 */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 20px;
-            background: linear-gradient(to right, rgba(244, 115, 32, 0.85), rgba(254, 196, 20, 0.7)),
-                url('images/images/办公区.jpg') center/cover no-repeat;
+            box-sizing: border-box;
+            background: linear-gradient(to right, 
+            rgba(244, 115, 32, 0.85), 
+            rgba(254, 196, 20, 0.7)
+        ), 
+        url('images/images/办公区.jpg') center/cover no-repeat;
+        }
+
+        /* 确保文本不会太靠边 */
+        #missions .text {
+            max-width: 55%;
+        }
+
+        /* 文字大小和原来一样 */
+        #missions h1 {
+            color: white;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: bold;
+        }
+
+        #missions p {
+            color: white;
+            font-size: clamp(1rem, 3vw, 2rem);
+            font-weight: bold;
         }
 
         #about-us {
@@ -192,60 +248,41 @@
             text-align: left;
             padding: 40px 8% 50px;
             gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1200px; /* 限制最大宽度 */
+            margin: 0 auto; /* 让内容居中 */
         }
 
         #about-us h1 {
             font-size: 4.0rem;
             font-weight: bold;
             margin-bottom: 10px;
+            margin-top: -5px;
         }
 
+        /* 文本区域 */
         #about-us .text {
             flex: 1;
             padding: 5px 20px;
             font-size: 1.5rem;
             line-height: 1.8;
             font-weight: bold;
+            margin-top: -5px;
         }
 
+        /* 图片区域 */
         #about-us .image {
             flex: 1;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
             min-height: 350px;
+            height: auto;
             border-radius: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-            }
-            .menu-wrapper {
-                position: static;
-                transform: none;
-            }
-            .menu {
-                flex-direction: column;
-            }
-            section {
-                height: auto;
-                padding: 20px 5%;
-            }
-            #about-us {
-                flex-direction: column;
-                text-align: center;
-            }
-            #about-us .text, #about-us .image {
-                width: 100%;
-            }
         }
         
         #values {
             display: flex;
             justify-content: space-around;
             text-align: center;
-            padding: 20px 5%;
+            padding: 80px 10%;
             align-items: stretch; /* 让所有子元素等高 */
         }
 
