@@ -71,10 +71,11 @@
 
         /* 右侧按钮（翻译 & 登录） */
         .nav-buttons {
+            position: absolute;
+            right: 20px;  /* 让按钮始终贴紧右侧 */
             display: flex;
             align-items: center;
-            gap: 15px; /* 按钮间距 */
-            margin-right: 20px; /* 让按钮贴紧右边 */
+            gap: 15px;
         }
 
         /* 链接样式 */
