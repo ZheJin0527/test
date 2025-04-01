@@ -31,7 +31,6 @@
             left: 0;
             z-index: 1000;
             display: flex;
-            align-items: center;
             justify-content: center; /* 确保整体居中 */
         }
 
@@ -40,8 +39,7 @@
             display: flex;
             align-items: center;
             width: 100%;
-            max-width: 1200px; /* 控制最大宽度，防止大屏幕过度拉伸 */
-            margin: 0 auto;
+            padding: 0 60px; /* 两边间距 */
         }
 
         /* 左侧 Logo */
@@ -51,7 +49,20 @@
             font-size: 28px;
             font-weight: bold;
             color: white;
-            flex-basis: 20%; /* 让 Logo 占 20% 的空间 */
+            flex: 1; /* 让 Logo 贴左边 */
+        }
+
+        /* ✅ 让 KUNZZ HOLDINGS 换行 */
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ✅ KUNZZ HOLDINGS 和 Sdn. Bhd. 样式 */
+        .logo-text span {
+            font-size: 14px;
+            font-weight: normal;
+            opacity: 0.8;
         }
 
         /* Logo 图片 */
@@ -65,15 +76,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-grow: 1; /* 占据中间空间，使其居中 */
+            flex: 2; /* 让菜单居中 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
         nav .menu-right {
             display: flex;
             align-items: center;
-            flex-basis: 20%; /* 让按钮区域占 20% 的空间 */
-            justify-content: flex-end; /* 靠右排列 */
+            justify-content: flex-end;
+            flex: 1; /* 让翻译 & 登录按钮贴右边 */
         }
 
         /* 导航链接 */
