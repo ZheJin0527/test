@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNZZ HOLDINGS</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         /* 全局样式 */
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            width: 100vw; /* 确保 body 贴合整个屏幕 */
+            height: 100%;
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
             background-color: transparent;
