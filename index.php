@@ -24,7 +24,6 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 20px 60px;
             position: fixed;
             width: 100%; /* 确保导航栏占满整个屏幕宽度 */
             top: 0;
@@ -33,7 +32,7 @@
             display: flex;
             justify-content: space-between; /* 确保 Logo 和按钮在两边 */
             align-items: center;
-            padding-left: 3%;
+            padding: 20px 0; /* 确保上下有间距，但左右无间距 */
         }
 
         /* 容器不限制宽度，始终铺满整个屏幕 */
@@ -52,6 +51,7 @@
             font-size: 28px;
             font-weight: bold;
             color: white;
+            margin-left: 20px; /* 让 LOGO 贴近左边 */
         }
 
         /* Logo 图片 */
@@ -62,10 +62,11 @@
 
         /* 菜单部分居中 */
         nav .menu {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); /* 确保菜单的中心点在 50% 位置 */
             display: flex;
-            align-items: center;
-            justify-content: center; /* 让菜单居中 */
-            flex: 1; /* 使菜单部分可以占据剩余空间 */
+            gap: 40px; /* 让菜单间距更均匀 */
         }
 
         /* 右侧按钮（翻译 & 登录） */
@@ -73,6 +74,7 @@
             display: flex;
             align-items: center;
             gap: 15px; /* 按钮间距 */
+            margin-right: 20px; /* 让按钮贴紧右边 */
         }
 
         /* 链接样式 */
