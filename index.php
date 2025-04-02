@@ -95,7 +95,7 @@
 
         /* 登录按钮 */
         .login-btn {
-            background-color: rgb(235, 115, 3);
+            background-color: #FF5C00;
             color: white;
             padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             text-decoration: none;
@@ -112,7 +112,7 @@
             width: clamp(28px, 3.5vw, 40px);  /* 更小的宽度 */
             height: clamp(28px, 3.5vw, 40px); /* 更小的高度 */
             border-radius: 50%;
-            background-color: rgb(235, 115, 3);
+            background-color: #FF5C00;
             color: white;
             font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
             font-weight: bold;
@@ -124,7 +124,7 @@
         }
 
         .translate-btn:hover {
-            background-color: #FF5C00;
+            background-color: #d87b00;
         }
 
         /* 版块样式 */
@@ -182,7 +182,7 @@
 
         /* 按钮样式 */
         .btn {
-            background-color: rgb(235, 115, 3);
+            background-color: #FF5C00;
             color: white;
             padding: clamp(8px, 1vw, 16px) clamp(16px, 2vw, 32px); /* 根据屏幕大小调整内边距 */
             text-decoration: none;
@@ -201,7 +201,7 @@
         .btn-secondary {
             background-color: transparent;
             color: rgb(255, 255, 255);
-            border: 2px solid rgb(235, 115, 3);
+            border: 2px solid #FF5C00;
         }
 
         /* 悬停时变色 */
