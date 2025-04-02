@@ -34,6 +34,7 @@
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
+            transition: top 0.3s ease;  /* 添加过渡效果 */
         }
 
         /* 导航栏容器 */
