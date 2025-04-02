@@ -111,7 +111,8 @@
         }
 
         .login-btn:hover {
-            background-color: #d87b00;
+            color: #FF5C00; 
+            text-decoration: underline;
         }
 
         /* 翻译按钮 */
