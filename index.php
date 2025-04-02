@@ -432,11 +432,11 @@
             align-items: center;
             position: relative;
             width: 60%;
-            margin: 50px auto 100px;
+            margin: 50px auto;
             padding: 10px 0;
         }
 
-        /* 竖线（改成虚线） */
+        /* 竖线（时间轴主线 - 改成虚线） */
         .timeline::before {
             content: "";
             position: absolute;
@@ -458,7 +458,7 @@
             margin: 50px 0;
         }
 
-        /* 让图片和文字内容居中 */
+        /* 左侧和右侧内容 */
         .timeline-content {
             width: 40%;
             padding: 10px;
@@ -488,7 +488,7 @@
             font-size: 1.6rem;
             font-weight: bold;
             font-family: "Arial Black", Arial, sans-serif;
-            margin-bottom: 5px; /* 控制年份与圆圈之间的间距 */
+            margin-bottom: 5px; /* 让年份和圆圈保持间距 */
         }
 
         /* 时间点（圆形） */
@@ -497,29 +497,31 @@
             height: 50px;
             background: linear-gradient(to bottom, #F67F1E, #FDB716);
             border-radius: 50%;
-            z-index: 1;
             position: relative;
+            z-index: 1;
         }
 
-        /* 连接照片的虚线 */
+        /* 连接圆圈到照片的虚线 */
         .timeline-item::after {
             content: "";
             position: absolute;
-            width: 4px;
-            height: 120px; /* 让虚线从时间轴到照片 */
-            border-left: 4px dashed #FFA500; /* 橙色虚线 */
+            width: 100px; /* 控制线的长度 */
+            height: 4px;
+            border-top: 4px dashed #FFA500; /* 橙色虚线 */
             z-index: -1;
         }
 
-        /* 让线从时间点向下连接到图片 */
-        .timeline-item:nth-child(odd)::after {
-            left: calc(50% - 2px);
-            bottom: -120px; /* 控制虚线往下连到图片 */
+        /* 让线从圆圈连接到照片 */
+        .timeline-item:nth-child(odd)::after { /* 2023 和 2025 */
+            left: calc(50% - 50px); /* 让线从圆圈向左连接 */
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        .timeline-item:nth-child(even)::after {
-            left: calc(50% - 2px);
-            top: -120px; /* 控制虚线往上连到图片 */
+        .timeline-item:nth-child(even)::after { /* 2024 */
+            left: 50%;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         /* 事件图片 */
