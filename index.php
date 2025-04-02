@@ -116,8 +116,8 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(80px, 18vw, 200px);  /* 减少最小宽度，调整按钮宽度 */
-            height: clamp(35px, 5vw, 100px);  /* 调整按钮高度 */
+            width: clamp(60px, 18vw, 200px);  /* 减少最小宽度，调整按钮宽度 */
+            height: clamp(30px, 5vw, 100px);  /* 调整按钮高度 */
             border-radius: 25px;  /* 圆角 */
             background-color: transparent;
             color: white;
