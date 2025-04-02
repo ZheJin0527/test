@@ -97,10 +97,10 @@
         .login-btn {
             background-color: rgb(235, 115, 3);
             color: white;
-            padding: clamp(6px, 1vw, 12px) clamp(10px, 1.5vw, 20px);
+            padding: clamp(6px, 1vw, 10px) clamp(10px, 1.5vw, 18px);  /* 调整按钮内边距 */
             text-decoration: none;
             border-radius: 5px;
-            font-size: clamp(1rem, 1.5vw, 1.6rem);
+            font-size: clamp(0.9rem, 1.5vw, 1.4rem);  /* 调小字体最大值 */
         }
 
         .login-btn:hover {
@@ -109,12 +109,12 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(35px, 4vw, 50px);
-            height: clamp(35px, 4vw, 50px);
+            width: clamp(30px, 4vw, 45px);  /* 调整最大宽度 */
+            height: clamp(30px, 4vw, 45px); /* 调整最大高度 */
             border-radius: 50%;
             background-color: rgb(235, 115, 3);
             color: white;
-            font-size: clamp(1rem, 1.5vw, 1.6rem);
+            font-size: clamp(0.9rem, 1.5vw, 1.4rem);  /* 调小字体最大值 */
             font-weight: bold;
             border: none;
             cursor: pointer;
