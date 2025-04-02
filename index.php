@@ -428,7 +428,7 @@
         /* 时间轴整体样式 */
         .timeline {
             display: flex;
-            flex-direction: column; /* 改为垂直方向排列 */
+            flex-direction: column;
             align-items: center;
             position: relative;
             width: 60%;
@@ -448,7 +448,7 @@
             z-index: -1;
         }
 
-        /* 每个时间点的容器 */
+        /* 每个时间项 */
         .timeline-item {
             display: flex;
             justify-content: space-between;
@@ -458,36 +458,31 @@
             margin: 50px 0;
         }
 
+        /* 时间点容器 */
+        .timeline-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 年份 */
+        .year {
+            font-size: 1.6rem;
+            font-weight: bold;
+            font-family: "Arial Black", Arial, sans-serif;
+            margin-bottom: 5px; /* 控制年份与圆圈之间的间距 */
+        }
+
         /* 时间点（圆形） */
         .circle {
             width: 50px;
             height: 50px;
             background: linear-gradient(to bottom, #F67F1E, #FDB716);
             border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             z-index: 1;
-        }
-
-        /* 让奇数项（左侧）文字在左，图片在右 */
-        .timeline-item:nth-child(odd) .timeline-content {
-            text-align: right;
-            order: 1;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-img {
-            order: 2;
-        }
-
-        /* 让偶数项（右侧）文字在右，图片在左 */
-        .timeline-item:nth-child(even) .timeline-content {
-            text-align: left;
-            order: 2;
-        }
-
-        .timeline-item:nth-child(even) .timeline-img {
-            order: 1;
         }
 
         /* 文字内容 */
@@ -496,16 +491,24 @@
             padding: 10px;
         }
 
-        .year {
-            font-size: 1.6rem;
-            font-weight: bold;
-            font-family: "Arial Black", Arial, sans-serif;
-            margin-bottom: 10px;
+        /* 2023 和 2025：图片在左，文字在右 */
+        .timeline-item:nth-child(odd) .timeline-img {
+            order: 1; /* 照片在左边 */
         }
 
-        .timeline-text {
-            font-size: 1.4rem;
-            color: #333;
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: left;
+            order: 2; /* 文字在右边 */
+        }
+
+        /* 2024：图片在右，文字在左 */
+        .timeline-item:nth-child(even) .timeline-img {
+            order: 2; /* 照片在右边 */
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            text-align: right;
+            order: 1; /* 文字在左边 */
         }
 
         /* 事件图片 */
@@ -658,29 +661,47 @@
     </section>
 
     <div class="timeline">
-    <!-- 2023 -->
-    <div class="timeline-item">
-        <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
-        <div class="circle"></div>
-        <span class="year">2023</span>
-        <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
-    </div>
+        <!-- 2023 -->
+        <div class="timeline-item">
+            <div class="timeline-content left">
+                <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
+            </div>
+            <div class="timeline-info">
+                <span class="year">2023</span>
+                <div class="circle"></div>
+            </div>
+            <div class="timeline-content right">
+                <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
+            </div>
+        </div>
 
-    <!-- 2024 -->
-    <div class="timeline-item">
-    <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
-        <div class="circle"></div>
-        <span class="year">2024</span>
-        <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
-    </div>
+        <!-- 2024 -->
+        <div class="timeline-item">
+            <div class="timeline-content left">
+                <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
+            </div>
+            <div class="timeline-info">
+                <span class="year">2024</span>
+                <div class="circle"></div>
+            </div>
+            <div class="timeline-content right">
+                <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
+            </div>
+        </div>
 
-    <!-- 2025 -->
-    <div class="timeline-item">
-        <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
-        <div class="circle"></div>
-        <span class="year">2025</span>
-        <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
-    </div>
+        <!-- 2025 -->
+        <div class="timeline-item">
+            <div class="timeline-content left">
+                <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
+            </div>
+            <div class="timeline-info">
+                <span class="year">2025</span>
+                <div class="circle"></div>
+            </div>
+            <div class="timeline-content right">
+                <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
+            </div>
+        </div>
     </div>
 
     <!-- 联系我们 -->
