@@ -89,7 +89,7 @@
         nav .buttons-container {
             display: flex;
             align-items: center;
-            gap: clamp(10px, 2vw, 25px);
+            gap: clamp(8px, 2vw, 20px);  /* 调整按钮间距 */
             justify-content: flex-end;
         }
 
@@ -97,10 +97,10 @@
         .login-btn {
             background-color: rgb(235, 115, 3);
             color: white;
-            padding: clamp(6px, 1vw, 10px) clamp(10px, 1.5vw, 18px);  /* 调整按钮内边距 */
+            padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             text-decoration: none;
             border-radius: 5px;
-            font-size: clamp(0.9rem, 1.5vw, 1.4rem);  /* 调小字体最大值 */
+            font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
         }
 
         .login-btn:hover {
@@ -109,12 +109,12 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(30px, 4vw, 45px);  /* 调整最大宽度 */
-            height: clamp(30px, 4vw, 45px); /* 调整最大高度 */
+            width: clamp(28px, 3.5vw, 40px);  /* 更小的宽度 */
+            height: clamp(28px, 3.5vw, 40px); /* 更小的高度 */
             border-radius: 50%;
             background-color: rgb(235, 115, 3);
             color: white;
-            font-size: clamp(0.9rem, 1.5vw, 1.4rem);  /* 调小字体最大值 */
+            font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
             font-weight: bold;
             border: none;
             cursor: pointer;
