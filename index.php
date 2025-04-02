@@ -24,7 +24,7 @@
         /* 导航栏 */
         #navbar {
             background-color: transparent;
-            padding: 15px 0; /* 适中间距 */
+            padding: 15px 0 25px 0;; /* 增加底部间距 */
             position: fixed;
             width: 100%;
             top: 0;
@@ -134,8 +134,8 @@
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
-            width: clamp(30px, 4.8vw, 70px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(30px, 4.8vw, 70px); /* 设置 Logo 高度 */
+            width: clamp(30px, 4.8vw, 90px);  /* Logo 尺寸根据按钮大小调整 */
+            height: clamp(30px, 4.8vw, 90px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
             margin-right: -10px; /* 让 logo 贴近文字 */
         }
