@@ -116,7 +116,6 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             border-radius: 25px;  /* 圆角 */
             background-color: transparent;
             color: white;
