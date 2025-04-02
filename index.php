@@ -106,7 +106,7 @@
             padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             text-decoration: none;
             border-radius: 25px;
-            font-size: clamp(1rem, 2vw, 1.4rem);  /* 更小的字体大小 */
+            font-size: clamp(1rem, 2vw, 2rem);  /* 更小的字体大小 */
             font-weight: bold;
         }
 
@@ -116,27 +116,27 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(120px, 20vw, 200px);  /* 调整按钮宽度，确保有足够空间 */
-            height: clamp(50px, 7vw, 70px); /* 调整按钮高度 */
+            width: clamp(100px, 15vw, 200px);  /* 调整按钮宽度，确保有足够空间 */
+            height: clamp(40px, 6vw, 60px); /* 调整按钮高度 */
             border-radius: 25px;  /* 圆角 */
             background-color: transparent;
             color: white;
-            font-size: clamp(1rem, 2vw, 1.4rem);  /* 字体大小，和登录按钮类似 */
+            font-size: clamp(1rem, 2vw, 2rem);  /* 字体大小，和登录按钮类似 */
             font-weight: bold;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;  /* 垂直居中 */
             justify-content: center;  /* 水平居中 */
-            gap: 5px;  /* 增加 logo 和文本之间的间距 */
+            gap: 1px;  /* 增加 logo 和文本之间的间距 */
             padding-left: 15px;  /* 增加左边内边距 */
             overflow: visible;  /* 确保内容不会被隐藏 */
         }
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
-            width: clamp(35px, 5vw, 75px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(35px, 5vw, 75px); /* 设置 Logo 高度 */
+            width: clamp(35px, 6vw, 100px);  /* Logo 尺寸根据按钮大小调整 */
+            height: clamp(35px, 6vw, 100px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
         }
 
