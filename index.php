@@ -128,7 +128,7 @@
             justify-content: flex-start; 
             gap: 0px;  /* 控制 logo 和文本之间的间距 */
             padding-left: 0px;  /* 减小左侧内边距 */
-            padding-right: 8px;  /* 可以适当调整右边内边距 */
+            padding-right: 10px;  /* 可以适当调整右边内边距 */
             overflow: visible;  /* 确保内容不会被隐藏 */
             white-space: nowrap;  /* 确保文本保持在一行 */
         }
