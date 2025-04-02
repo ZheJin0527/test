@@ -105,7 +105,7 @@
             color: white;
             padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 15px;
             font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
         }
 
