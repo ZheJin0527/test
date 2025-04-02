@@ -762,7 +762,7 @@
         // 获取页面的滚动位置
         if (window.scrollY > 0) {
             // 当页面滚动时，隐藏导航栏
-            navbar.style.top = "-100px"; // 隐藏导航栏（根据需要调整隐藏的高度）
+            navbar.style.top = "-120px"; // 隐藏导航栏（根据需要调整隐藏的高度）
         } else {
             // 当页面回到顶部时，显示导航栏
             navbar.style.top = "0"; // 导航栏恢复到顶部
