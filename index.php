@@ -168,7 +168,45 @@
         #home p {
             font-size: clamp(1.2rem, 1.2vw, 5rem);
             font-weight: bold;
-            max-width: 150%; /* 限制文字宽度，避免太长 */
+            max-width: 80%; /* 限制文字宽度，避免太长 */
+            margin: 0 auto 10px; /* 居中显示 */
+        }
+
+        /* 按钮容器，让按钮居中 */
+        .home-buttons {
+            margin-top: 30px; 
+            display: flex;
+            gap: 20px; /* 按钮之间的间距 */
+            justify-content: center; /* 让按钮居中 */
+        }
+
+        /* 按钮样式 */
+        .btn {
+            background-color: rgb(235, 115, 3);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        /* 按钮鼠标悬停效果 */
+        .btn:hover {
+            background-color: #d87b00;
+            transform: scale(1.05);
+        }
+
+        /* 了解我们按钮 */
+        .btn-secondary {
+            background-color: white;
+            color: rgb(235, 115, 3);
+            border: 2px solid rgb(235, 115, 3);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgb(235, 115, 3);
+            color: white;
         }
 
         /* 让鼠标滚动一下就跳到下一页 */
@@ -557,14 +595,20 @@
 </nav>
 
 
-    <section id="home">
-        <div>
-            <h1>让空间温暖，让团队闪光</h1>
-            <p>我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。</p>
-            <p>我们相信，高效源于信任，创新源于自由。</p>
-            <p>一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。</p>
+<section id="home">
+    <div>
+        <h1>让空间温暖，让团队闪光</h1>
+        <p>我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。</p>
+        <p>我们相信，高效源于信任，创新源于自由。</p>
+        <p>一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。</p>
+
+        <!-- 按钮区域 -->
+        <div class="home-buttons">
+            <a href="#join-us" class="btn">加入我们</a>
+            <a href="#about-us" class="btn btn-secondary">了解我们</a>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="about-us">
     <div class="text">
