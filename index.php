@@ -97,7 +97,6 @@
             align-items: center;
             gap: clamp(8px, 2vw, 20px);  /* 调整按钮间距 */
             justify-content: flex-end;
-            overflow: visible;
         }
 
         /* 登录按钮 */
@@ -139,6 +138,7 @@
             height: clamp(30px, 5vw, 50px); /* 调整 logo 图片的大小 */
             max-width: 50px; /* 限制 logo 最大宽度 */
             max-height: 50px; /* 限制 logo 最大高度 */
+            object-fit: contain; 
         }
 
         /* hover 效果 */
