@@ -137,7 +137,7 @@
             width: clamp(35px, 5vw, 100px);  /* Logo 尺寸根据按钮大小调整 */
             height: clamp(35px, 5vw, 100px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
-            margin-right: -4px; /* 让 logo 贴近文字 */
+            margin-right: -6px; /* 让 logo 贴近文字 */
         }
 
         /* hover 效果 */
