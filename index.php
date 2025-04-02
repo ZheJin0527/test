@@ -24,7 +24,7 @@
         /* 导航栏 */
         #navbar {
             background-color: transparent;
-            padding: 8px 0 25px 0; /* 增加底部间距 */
+            padding: 4px 0; /* 增加底部间距 */
             position: fixed;
             width: 100%;
             top: 0;
