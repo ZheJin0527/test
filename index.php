@@ -56,7 +56,7 @@
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: clamp(1rem, 1.5vw, 2.2rem); /* 最大字体调整为 2.2rem */
+            font-size: clamp(1rem, 1.6vw, 2.5rem); /* 最大字体调整为 2.2rem */
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -82,7 +82,7 @@
         nav .menu-container a {
             color: white;
             text-decoration: none;
-            font-size: clamp(1rem, 1.5vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
+            font-size: clamp(1rem, 1.4vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
         }
 
         /* 按钮部分 */
