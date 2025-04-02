@@ -125,7 +125,7 @@
             display: flex;
             align-items: center;  /* 垂直居中 */
             justify-content: flex-start; 
-            gap: -2px;  /* 控制 logo 和文本之间的间距 */
+            gap: 0px;  /* 控制 logo 和文本之间的间距 */
             padding-left: 0px;  /* 减小左侧内边距 */
             padding-right: 20px;  /* 可以适当调整右边内边距 */
             overflow: visible;  /* 确保内容不会被隐藏 */
@@ -137,6 +137,7 @@
             width: clamp(35px, 5vw, 100px);  /* Logo 尺寸根据按钮大小调整 */
             height: clamp(35px, 5vw, 100px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
+            margin-right: -4px; /* 让 logo 贴近文字 */
         }
 
         /* hover 效果 */
