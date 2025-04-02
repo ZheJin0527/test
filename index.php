@@ -457,12 +457,12 @@
 
         /* 2023 和 2025（照片左，文字右） */
         .timeline-item.left {
-            flex-direction: row;
+            flex-direction: row; /* 默认图片在左 */
         }
 
-        /* 2024（照片右，文字左） */
+        /* 2024（文字左，照片右） */
         .timeline-item.right {
-            flex-direction: row-reverse;
+            flex-direction: row-reverse; /* 默认文字在左 */
         }
 
         /* 时间信息（年份+圆圈） */
@@ -529,6 +529,24 @@
             height: 180px;
             object-fit: cover;
             border-radius: 10px;
+        }
+
+        /* 交换左右位置，使 2023 & 2025 的照片在左，文字在右 */
+        .timeline-item.left .timeline-content:first-child {
+            order: -1; /* 确保图片排在左边 */
+        }
+
+        .timeline-item.left .timeline-content:last-child {
+            order: 1; /* 文字排在右边 */
+        }
+
+        /* 2024 文字在左，照片在右 */
+        .timeline-item.right .timeline-content:first-child {
+            order: 1; /* 文字在左 */
+        }
+
+        .timeline-item.right .timeline-content:last-child {
+            order: -1; /* 照片在右 */
         }
 
         .container {
