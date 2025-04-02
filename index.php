@@ -106,7 +106,7 @@
             padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             text-decoration: none;
             border-radius: 25px;
-            font-size: clamp(1rem, 2vw, 2rem);  /* 更小的字体大小 */
+            font-size: clamp(1rem, 2vw, 1.6rem);  /* 更小的字体大小 */
             font-weight: bold;
         }
 
@@ -121,7 +121,7 @@
             border-radius: 25px;  /* 圆角 */
             background-color: transparent;
             color: white;
-            font-size: clamp(1rem, 2vw, 2rem);  /* 字体大小，和登录按钮类似 */
+            font-size: clamp(1rem, 2vw, 1.6rem);  /* 字体大小，和登录按钮类似 */
             font-weight: bold;
             border: none;
             cursor: pointer;
