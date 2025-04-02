@@ -612,8 +612,8 @@
 
         <!-- 按钮部分 -->
         <div class="buttons-container">
+        <img src="images/images/翻译.png" alt="Logo" class="logo-img">
             <button class="translate-btn">EN</button>
-            <img src="images/images/翻译.png" alt="Logo" class="logo-img">
             <a href="#" class="login-btn">LOGIN</a>
         </div>
     </div>
