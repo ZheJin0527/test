@@ -116,7 +116,7 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(120px, 20vw, 200px);  /* 调整按钮宽度，更长一些 */
+            width: clamp(120px, 20vw, 200px);  /* 调整按钮宽度，确保有足够空间 */
             height: clamp(50px, 7vw, 70px); /* 调整按钮高度 */
             border-radius: 25px;  /* 圆角 */
             background-color: transparent;
@@ -130,15 +130,15 @@
             justify-content: center;  /* 水平居中 */
             gap: 10px;  /* 增加 logo 和文本之间的间距 */
             padding-left: 15px;  /* 增加左边内边距 */
+            overflow: visible;  /* 确保内容不会被隐藏 */
         }
 
         /* 翻译按钮中的 Logo 图片样式 */
-        .translate-btn .logo-img {
-            width: clamp(30px, 5vw, 50px); /* 调整 logo 图片的大小 */
-            height: clamp(30px, 5vw, 50px); /* 调整 logo 图片的大小 */
-            max-width: 50px; /* 限制 logo 最大宽度 */
-            max-height: 50px; /* 限制 logo 最大高度 */
-            object-fit: contain; 
+        .translate-btn .translate-logo-img {
+            width: 30%; /* 设置宽度为按钮的 30% */
+            height: auto; /* 高度自动调整 */
+            max-width: 40px; /* 限制 logo 图片的最大宽度 */
+            object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
         }
 
         /* hover 效果 */
@@ -618,7 +618,7 @@
         <!-- 按钮部分 -->
         <div class="buttons-container">
         <button class="translate-btn">
-        <img src="images/images/翻译.png" alt="Logo" class="logo-img"> <!-- Logo 图片 -->
+        <img src="images/images/翻译.png" alt="Logo" class="translate-logo-img"> <!-- Logo 图片 -->
         EN / CN
         </button>
             <a href="#" class="login-btn">LOGIN</a>
