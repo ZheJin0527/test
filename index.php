@@ -451,7 +451,6 @@
         /* 时间轴项 */
         .timeline-item {
             display: flex;
-            align-items: center;
             justify-content: space-between;
             width: 100%;
             margin: 50px 0;
@@ -460,12 +459,12 @@
 
         /* 左侧项 */
         .timeline-item.left {
-            flex-direction: row-reverse;
+            flex-direction: row; /* 照片在左，文字在右 */
         }
 
         /* 右侧项 */
         .timeline-item.right {
-            flex-direction: row;
+            flex-direction: row-reverse; /* 照片在右，文字在左 */
         }
 
         /* 圆圈 + 年份 */
