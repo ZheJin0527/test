@@ -199,8 +199,8 @@
 
         /* 了解我们按钮 */
         .btn-secondary {
-            background-color: white;
-            color: rgb(235, 115, 3);
+            background-color: transparent;
+            color: rgb(255, 255, 255);
             border: 2px solid rgb(235, 115, 3);
         }
 
