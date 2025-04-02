@@ -107,6 +107,7 @@
             text-decoration: none;
             border-radius: 25px;
             font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
+            font-weight: bold;
         }
 
         .login-btn:hover {
