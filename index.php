@@ -200,9 +200,9 @@
         /* 让段落文字更大 */
         #home p {
             font-size: clamp(1.2rem, 1.2vw, 5rem);
-            font-weight: bold;
             max-width: 80%; /* 限制文字宽度，避免太长 */
             margin: 0 auto 10px; /* 居中显示 */
+            line-height: 1.8; /* 增加行间距 */
         }
 
         /* 按钮容器，让按钮居中 */
