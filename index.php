@@ -85,6 +85,12 @@
             font-size: clamp(1rem, 1.4vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
         }
 
+        /* 鼠标悬停时 */
+        nav .menu-container a:hover {
+            color: #FF5C00; 
+            text-decoration: underline;
+        }
+
         /* 按钮部分 */
         nav .buttons-container {
             display: flex;
