@@ -60,7 +60,7 @@
             font-weight: bold;
             color: white;
             margin-left: 10px;
-        }/*1rem, 2vw, 1.4rem
+        }
 
         /* Logo 图片 */
         .logo-img {
@@ -97,6 +97,7 @@
             align-items: center;
             gap: clamp(8px, 2vw, 20px);  /* 调整按钮间距 */
             justify-content: flex-end;
+            overflow: visible;
         }
 
         /* 登录按钮 */
