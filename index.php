@@ -135,8 +135,8 @@
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
-            width: clamp(35px, 4.6vw, 75px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(35px, 4.6vw, 75px); /* 设置 Logo 高度 */
+            width: clamp(35px, 4.8vw, 75px);  /* Logo 尺寸根据按钮大小调整 */
+            height: clamp(35px, 4.8vw, 75px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
         }
 
