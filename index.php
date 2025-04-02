@@ -133,6 +133,15 @@
             background-color: #d87b00;
         }
 
+        .nav-hidden {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        nav {
+            transition: transform 0.3s ease-in-out;
+        }
+
         /* 版块样式 */
         section {
             width: 100vw;
@@ -721,6 +730,23 @@
         }
     }, { passive: false });
     </script>
+
+    <script>
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener("scroll", function () {
+            let nav = document.querySelector("nav");
+            if (window.scrollY > lastScrollY) {
+                // 向下滚动，隐藏导航栏
+                nav.classList.add("nav-hidden");
+            } else {
+                // 向上滚动，显示导航栏
+                nav.classList.remove("nav-hidden");
+            }
+            lastScrollY = window.scrollY;
+        });
+    </script>
+
 
 </body>
 </html>
