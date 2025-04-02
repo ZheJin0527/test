@@ -428,38 +428,37 @@
         /* 时间轴整体样式 */
         .timeline {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column; /* 改为垂直方向排列 */
             align-items: center;
             position: relative;
-            width: 90%;
+            width: 60%;
             margin: 50px auto 100px;
             padding: 10px 0;
         }
 
-        /* 时间轴横线 */
+        /* 竖线 */
         .timeline::before {
             content: "";
             position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            border-top: 4px dashed #FFA500; /* 橙色虚线 */
-            background: none; /* 取消原本的背景色 */
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #FFA500; /* 竖线颜色 */
             z-index: -1;
         }
 
-        /* 时间轴项目 */
+        /* 每个时间点的容器 */
         .timeline-item {
-            text-align: center;
-            position: relative;
-            width: 30%;
             display: flex;
-            flex-direction: column;  
+            justify-content: space-between;
             align-items: center;
+            width: 100%;
+            position: relative;
+            margin: 50px 0;
         }
 
-        /* 时间点（黑点在线上） */
+        /* 时间点（圆形） */
         .circle {
             width: 50px;
             height: 50px;
@@ -467,8 +466,46 @@
             border-radius: 50%;
             position: absolute;
             left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* 让奇数项（左侧）文字在左，图片在右 */
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+            order: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-img {
+            order: 2;
+        }
+
+        /* 让偶数项（右侧）文字在右，图片在左 */
+        .timeline-item:nth-child(even) .timeline-content {
+            text-align: left;
+            order: 2;
+        }
+
+        .timeline-item:nth-child(even) .timeline-img {
+            order: 1;
+        }
+
+        /* 文字内容 */
+        .timeline-content {
+            width: 40%;
+            padding: 10px;
+        }
+
+        .year {
+            font-size: 1.6rem;
+            font-weight: bold;
+            font-family: "Arial Black", Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .timeline-text {
+            font-size: 1.4rem;
+            color: #333;
         }
 
         /* 事件图片 */
@@ -477,71 +514,6 @@
             height: 180px;
             object-fit: cover;
             border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* 让时间点连接到图片 */
-        .timeline-item::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            width: 4px;
-            height: 220px;
-            border-left: 4px dashed #FFA500; /* 竖直方向的橙色虚线 */
-            transform: translateX(-50%);
-            z-index: -1;
-        }
-
-        /* 让线从时间点向下连接到图片 */
-        .timeline-item:nth-child(odd)::after {
-            bottom: calc(48% + 8px);
-        }
-
-        .timeline-item:nth-child(even)::after {
-            top: calc(50% + 8px);
-        }
-
-        /* 让 2023 和 2025 向上靠近时间轴 */
-        .timeline-item:nth-child(odd) .year,
-        .timeline-item:nth-child(odd) .timeline-text {
-            position: relative;
-            top: -110px; /* 让年份和段落都靠近时间轴 */
-            font-weight: bold;
-        }
-
-        /* 让 2024 向下靠近时间轴 */
-        .timeline-item:nth-child(even) .year,
-        .timeline-item:nth-child(even) .timeline-text {
-            position: relative;
-            top: 130px; /* 让年份和段落都靠近时间轴 */
-            font-weight: bold;
-        }
-
-        /* 年份 */
-        .year {
-            font-size: 1.6rem;
-            font-weight: 900;
-            font-family: "Arial Black", Arial, sans-serif;
-            margin-bottom: 20px; /* 控制年份和段落的间距 */
-        }
-
-        /* 文字描述 */
-        .timeline-text {
-            font-size: 1.4rem;
-            color: #333;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* 调整图片与线的距离 */
-        .timeline-item:nth-child(odd) .timeline-img {
-            margin-bottom: 250px;
-        }
-
-        .timeline-item:nth-child(even) .timeline-img {
-            margin-top: 250px;
         }
 
         .container {
