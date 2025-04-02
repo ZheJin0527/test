@@ -34,7 +34,6 @@
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
-            transition: top 0.3s ease;  /* 添加过渡效果 */
         }
 
         /* 导航栏容器 */
@@ -734,6 +733,8 @@
 
     <script>
     const navbar = document.getElementById("navbar");
+
+    navbar.style.transition = "top 0.3s ease";  // 平滑过渡效果
 
     // 监听页面的滚动事件
     window.onscroll = function() {
