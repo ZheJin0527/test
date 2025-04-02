@@ -451,19 +451,18 @@
         /* 时间轴项 */
         .timeline-item {
             display: flex;
-            justify-content: space-between;
             width: 100%;
             margin: 50px 0;
             position: relative;
         }
 
-        /* 左侧项 */
-        .timeline-item.left {
+        /* 2023 和 2025 年份（照片左，文字右） */
+        .timeline-item:nth-child(odd) {
             flex-direction: row; /* 照片在左，文字在右 */
         }
 
-        /* 右侧项 */
-        .timeline-item.right {
+        /* 2024 年份（照片右，文字左） */
+        .timeline-item:nth-child(even) {
             flex-direction: row-reverse; /* 照片在右，文字在左 */
         }
 
@@ -697,7 +696,7 @@
 
     <div class="timeline">
         <!-- 2023 -->
-        <div class="timeline-item left">
+        <div class="timeline-item">
             <div class="timeline-info">
                 <span class="year">2023</span>
                 <div class="circle"></div>
@@ -712,7 +711,7 @@
         </div>
 
         <!-- 2024 -->
-        <div class="timeline-item right">
+        <div class="timeline-item">
             <div class="timeline-info">
                 <span class="year">2024</span>
                 <div class="circle"></div>
@@ -727,7 +726,7 @@
         </div>
 
         <!-- 2025 -->
-        <div class="timeline-item left">
+        <div class="timeline-item">
             <div class="timeline-info">
                 <span class="year">2025</span>
                 <div class="circle"></div>
@@ -741,6 +740,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- 联系我们 -->
     <div class="container">
