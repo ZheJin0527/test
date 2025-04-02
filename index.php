@@ -106,7 +106,7 @@
             padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             text-decoration: none;
             border-radius: 25px;
-            font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
+            font-size: clamp(1rem, 2vw, 1.4rem);  /* 更小的字体大小 */
             font-weight: bold;
         }
 
@@ -116,8 +116,8 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(100px, 15vw, 180px);  /* 调整按钮宽度，更长一些 */
-            height: clamp(40px, 6vw, 60px); /* 调整按钮高度 */
+            width: clamp(120px, 20vw, 200px);  /* 调整按钮宽度，更长一些 */
+            height: clamp(50px, 7vw, 70px); /* 调整按钮高度 */
             border-radius: 25px;  /* 圆角 */
             background-color: transparent;
             color: white;
@@ -128,14 +128,16 @@
             display: flex;
             align-items: center;  /* 垂直居中 */
             justify-content: center;  /* 水平居中 */
-            gap: 8px;  /* 增加 logo 和文本之间的间距 */
-            padding-left: 12px;  /* 增加左边内边距 */
+            gap: 10px;  /* 增加 logo 和文本之间的间距 */
+            padding-left: 15px;  /* 增加左边内边距 */
         }
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .logo-img {
-            width: clamp(20px, 3.5vw, 35px); /* 调整 logo 图片的大小 */
-            height: clamp(20px, 3.5vw, 35px); /* 调整 logo 图片的大小 */
+            width: clamp(30px, 5vw, 50px); /* 调整 logo 图片的大小 */
+            height: clamp(30px, 5vw, 50px); /* 调整 logo 图片的大小 */
+            max-width: 50px; /* 限制 logo 最大宽度 */
+            max-height: 50px; /* 限制 logo 最大高度 */
         }
 
         /* hover 效果 */
