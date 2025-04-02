@@ -436,7 +436,7 @@
             padding: 10px 0;
         }
 
-        /* 竖线 */
+        /* 竖线（改成虚线） */
         .timeline::before {
             content: "";
             position: absolute;
@@ -444,11 +444,11 @@
             left: 50%;
             width: 4px;
             height: 100%;
-            background: #FFA500; /* 竖线颜色 */
+            border-left: 4px dashed #FFA500; /* 橙色虚线 */
             z-index: -1;
         }
 
-        /* 每个时间项 */
+        /* 时间轴项目 */
         .timeline-item {
             display: flex;
             justify-content: space-between;
@@ -458,7 +458,22 @@
             margin: 50px 0;
         }
 
-        /* 时间点容器 */
+        /* 让图片和文字内容居中 */
+        .timeline-content {
+            width: 40%;
+            padding: 10px;
+        }
+
+        /* 2023 和 2025：图片在左，文字在右 */
+        .left {
+            text-align: right;
+        }
+
+        .right {
+            text-align: left;
+        }
+
+        /* 时间信息（年份 + 圆圈） */
         .timeline-info {
             display: flex;
             flex-direction: column;
@@ -483,32 +498,28 @@
             background: linear-gradient(to bottom, #F67F1E, #FDB716);
             border-radius: 50%;
             z-index: 1;
+            position: relative;
         }
 
-        /* 文字内容 */
-        .timeline-content {
-            width: 40%;
-            padding: 10px;
+        /* 连接照片的虚线 */
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 120px; /* 让虚线从时间轴到照片 */
+            border-left: 4px dashed #FFA500; /* 橙色虚线 */
+            z-index: -1;
         }
 
-        /* 2023 和 2025：图片在左，文字在右 */
-        .timeline-item:nth-child(odd) .timeline-img {
-            order: 1; /* 照片在左边 */
+        /* 让线从时间点向下连接到图片 */
+        .timeline-item:nth-child(odd)::after {
+            left: calc(50% - 2px);
+            bottom: -120px; /* 控制虚线往下连到图片 */
         }
 
-        .timeline-item:nth-child(odd) .timeline-content {
-            text-align: left;
-            order: 2; /* 文字在右边 */
-        }
-
-        /* 2024：图片在右，文字在左 */
-        .timeline-item:nth-child(even) .timeline-img {
-            order: 2; /* 照片在右边 */
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            text-align: right;
-            order: 1; /* 文字在左边 */
+        .timeline-item:nth-child(even)::after {
+            left: calc(50% - 2px);
+            top: -120px; /* 控制虚线往上连到图片 */
         }
 
         /* 事件图片 */
