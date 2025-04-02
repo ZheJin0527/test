@@ -24,7 +24,7 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 10px 0; /* 让初始间距更小 */
+            padding: 15px 0; /* 适中间距 */
             position: fixed;
             width: 100%;
             top: 0;
@@ -56,7 +56,7 @@
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: clamp(0.8rem, 1.2vw, 1.6rem); /* 随屏幕大小变化 */
+            font-size: clamp(1rem, 1.5vw, 2rem); /* 小屏幕不小于 1rem，逐步增大 */
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -64,8 +64,8 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: clamp(25px, 4vw, 50px); /* 随屏幕大小渐进变化 */
-            max-height: 50px;
+            height: clamp(30px, 5vw, 60px); /* 小屏幕不小于 30px，逐步增大 */
+            max-height: 60px;
         }
 
         /* 菜单部分 */
@@ -75,21 +75,21 @@
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
-            gap: clamp(10px, 2vw, 20px); /* 控制菜单项间距 */
+            gap: clamp(15px, 2.5vw, 30px); /* 初始间距适中 */
         }
 
         /* 菜单链接 */
         nav .menu-container a {
             color: white;
             text-decoration: none;
-            font-size: clamp(0.7rem, 1vw, 1.4rem); /* 渐进变大 */
+            font-size: clamp(1rem, 1.5vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
         }
 
         /* 按钮部分 */
         nav .buttons-container {
             display: flex;
             align-items: center;
-            gap: clamp(8px, 1.5vw, 20px);
+            gap: clamp(10px, 2vw, 25px);
             justify-content: flex-end;
         }
 
@@ -97,10 +97,10 @@
         .login-btn {
             background-color: rgb(235, 115, 3);
             color: white;
-            padding: clamp(4px, 0.8vw, 10px) clamp(8px, 1.2vw, 16px); /* 渐进式变化 */
+            padding: clamp(6px, 1vw, 12px) clamp(10px, 1.5vw, 20px);
             text-decoration: none;
             border-radius: 5px;
-            font-size: clamp(0.8rem, 1vw, 1.2rem);
+            font-size: clamp(1rem, 1.5vw, 1.6rem);
         }
 
         .login-btn:hover {
@@ -109,12 +109,12 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(30px, 3vw, 40px);
-            height: clamp(30px, 3vw, 40px);
+            width: clamp(35px, 4vw, 50px);
+            height: clamp(35px, 4vw, 50px);
             border-radius: 50%;
             background-color: rgb(235, 115, 3);
             color: white;
-            font-size: clamp(0.8rem, 1vw, 1.2rem);
+            font-size: clamp(1rem, 1.5vw, 1.6rem);
             font-weight: bold;
             border: none;
             cursor: pointer;
