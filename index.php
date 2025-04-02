@@ -124,7 +124,7 @@
         }
 
         .translate-btn:hover {
-            background-color: #d87b00;
+            background-color: #FF5C00;
         }
 
         /* 版块样式 */
