@@ -116,13 +116,12 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(100px, 20vw, 150px);  /* 调整按钮宽度，确保有足够空间 */
+            width: clamp(100px, 20vw, 200px);  /* 调整按钮宽度，确保有足够空间 */
             height: clamp(35px, 5vw, 100px);  /* 调整按钮高度，使按钮更加扁平 */
             border-radius: 25px;  /* 圆角 */
             background-color: transparent;
             color: white;
             font-size: clamp(1rem, 2vw, 1.6rem);  /* 字体大小，和登录按钮类似 */
-            font-weight: bold;
             border: none;
             cursor: pointer;
             display: flex;
