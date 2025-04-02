@@ -116,27 +116,29 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(28px, 3.5vw, 40px);  /* 更小的宽度 */
-            height: clamp(28px, 3.5vw, 40px); /* 更小的高度 */
-            border-radius: 50%;
-            background-color:transparent;
+            width: clamp(50px, 7vw, 70px);  /* 调整按钮的宽度 */
+            height: clamp(30px, 4vw, 50px); /* 调整按钮的高度 */
+            border-radius: 25px;  /* 圆角 */
+            background-color: transparent;
             color: white;
             font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
             font-weight: bold;
             border: none;
             cursor: pointer;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: center;  /* 垂直居中 */
+            justify-content: center;  /* 水平居中 */
+            gap: 5px;  /* 控制 logo 和文本之间的间距 */
+            padding-left: 10px;  /* 增加内边距让 logo 和文本有合适的距离 */
         }
 
+        /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .logo-img {
-            position: absolute;
-            left: -8px;  /* 图片放置在按钮的左侧 */
-            width: clamp(18px, 2.2vw, 20px); /* Logo 图片的大小 */
-            height: clamp(18px, 2.2vw, 20px); /* Logo 图片的大小 */
+            width: clamp(14px, 2vw, 20px); /* Logo 图片的大小 */
+            height: clamp(14px, 2vw, 20px); /* Logo 图片的大小 */
         }
 
+        /* hover 效果 */
         .translate-btn:hover {
             background-color: #d87b00;
         }
