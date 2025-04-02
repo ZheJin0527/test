@@ -184,9 +184,9 @@
         .btn {
             background-color: rgb(235, 115, 3);
             color: white;
-            padding: 12px 24px;
+            padding: clamp(8px, 1vw, 16px) clamp(16px, 2vw, 32px); /* 根据屏幕大小调整内边距 */
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2vw, 1.5rem); /* 自适应字体大小 */
             border-radius: 5px;
             transition: background 0.3s ease, transform 0.2s ease;
         }
@@ -204,6 +204,7 @@
             border: 2px solid rgb(235, 115, 3);
         }
 
+        /* 悬停时变色 */
         .btn-secondary:hover {
             background-color: rgb(235, 115, 3);
             color: white;
