@@ -56,7 +56,7 @@
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: clamp(1rem, 1.5vw, 2rem); /* 小屏幕不小于 1rem，逐步增大 */
+            font-size: clamp(1rem, 1.8vw, 2.5rem); /* 最大字体调整为 2.5rem */
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -64,8 +64,8 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: clamp(30px, 5vw, 60px); /* 小屏幕不小于 30px，逐步增大 */
-            max-height: 60px;
+            height: clamp(35px, 6vw, 75px); /* 最大高度调整为 75px */
+            max-height: 75px;
         }
 
         /* 菜单部分 */
