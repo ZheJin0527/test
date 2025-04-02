@@ -116,7 +116,7 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            width: clamp(150px, 20vw, 300px);  /* 调整按钮宽度，确保有足够空间 */
+            width: clamp(150px, 20vw, 250px);  /* 调整按钮宽度，确保有足够空间 */
             height: clamp(35px, 5vw, 50px);  /* 调整按钮高度，使按钮更加扁平 */
             border-radius: 25px;  /* 圆角 */
             background-color: transparent;
@@ -137,7 +137,7 @@
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
             width: clamp(35px, 6vw, 50px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(35px, 6vw, 50px); /* 设置 Logo 高度 */
+            height: clamp(35px, 6vw, 100px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
         }
 
