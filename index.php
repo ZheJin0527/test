@@ -132,7 +132,7 @@
 
         .translate-btn .logo-img {
             position: absolute;
-            right: 12px;  /* 图片放置在按钮的右侧 */
+            left: -8px;  /* 图片放置在按钮的左侧 */
             width: clamp(18px, 2.2vw, 20px); /* Logo 图片的大小 */
             height: clamp(18px, 2.2vw, 20px); /* Logo 图片的大小 */
         }
