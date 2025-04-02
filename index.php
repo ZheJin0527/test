@@ -621,11 +621,11 @@
 
         <!-- 按钮部分 -->
         <div class="buttons-container">
-        <button class="translate-btn">
-        <img src="images/images/翻译.png" alt="Logo" class="translate-logo-img"> <!-- Logo 图片 -->
-        EN / CN
-        </button>
-            <a href="#" class="login-btn">LOGIN</a>
+            <a href="#" class="login-btn">LOGIN</a> <!-- 登录按钮放左边 -->
+            <button class="translate-btn">
+                <img src="images/images/翻译.png" alt="Logo" class="translate-logo-img"> <!-- Logo 图片 -->
+                EN / CN
+            </button>
         </div>
     </div>
 </nav>
