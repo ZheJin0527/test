@@ -22,7 +22,7 @@
         }
 
         /* 导航栏 */
-        nav {
+        #navbar {
             background-color: transparent;
             padding: 15px 0; /* 适中间距 */
             position: fixed;
@@ -586,7 +586,7 @@
 </head>
 <body>
 
-<nav>
+<nav id="navbar">
     <div class="nav-container">
         <!-- Logo 部分 -->
         <div class="logo-container">
@@ -732,19 +732,19 @@
     </script>
 
     <script>
-        let lastScrollY = window.scrollY;
+    const navbar = document.getElementById("navbar");
 
-        window.addEventListener("scroll", function () {
-            let nav = document.querySelector("nav");
-            if (window.scrollY > lastScrollY) {
-                // 向下滚动，隐藏导航栏
-                nav.classList.add("nav-hidden");
-            } else {
-                // 向上滚动，显示导航栏
-                nav.classList.remove("nav-hidden");
-            }
-            lastScrollY = window.scrollY;
-        });
+    // 监听页面的滚动事件
+    window.onscroll = function() {
+        // 获取页面的滚动位置
+        if (window.scrollY > 0) {
+            // 当页面滚动时，隐藏导航栏
+            navbar.style.top = "-80px"; // 隐藏导航栏（根据需要调整隐藏的高度）
+        } else {
+            // 当页面回到顶部时，显示导航栏
+            navbar.style.top = "0"; // 导航栏恢复到顶部
+        }
+    };
     </script>
 
 
