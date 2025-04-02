@@ -425,14 +425,17 @@
             padding-top: 5px 0; /* 轻微调整上下间距 */
         }  
 
-        /* 时间轴整体样式 */
+        /* 时间轴整体 */
         .timeline {
             position: relative;
             width: 80%;
             margin: 50px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* 中间的时间轴虚线 */
+        /* 时间轴的中间虚线 */
         .timeline::before {
             content: "";
             position: absolute;
@@ -442,29 +445,30 @@
             height: 100%;
             border-left: 4px dashed #FFA500;
             transform: translateX(-50%);
+            z-index: -1;
         }
 
-        /* 时间轴项目 */
+        /* 时间轴项 */
         .timeline-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: relative;
             width: 100%;
             margin: 50px 0;
+            position: relative;
         }
 
-        /* 左侧项目 */
+        /* 左侧项 */
         .timeline-item.left {
             flex-direction: row-reverse;
         }
 
-        /* 右侧项目 */
+        /* 右侧项 */
         .timeline-item.right {
             flex-direction: row;
         }
 
-        /* 时间轴信息（年份、圆圈、虚线） */
+        /* 圆圈 + 年份 */
         .timeline-info {
             display: flex;
             flex-direction: column;
@@ -495,36 +499,45 @@
             margin-bottom: 10px;
         }
 
-        /* 圆圈到图片的虚线 */
+        /* 圆圈到照片的虚线 */
         .dashed-line {
             width: 4px;
             height: 120px;
             border-left: 4px dashed #FFA500;
         }
 
-        /* 时间轴内容（图片+文字） */
+        /* 文字和图片交错排列 */
         .timeline-content {
+            width: 40%;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
 
-        /* 时间轴图片 */
+        /* 图片 */
         .timeline-img {
             width: 280px;
             height: 180px;
             object-fit: cover;
             border-radius: 10px;
-            display: block;
         }
 
-        /* 文字描述 */
+        /* 文字 */
         .timeline-text {
             width: 280px;
             font-size: 1.2rem;
             text-align: center;
             color: #333;
-            margin-top: 10px;
+        }
+
+        /* 文字在右侧 */
+        .text-right {
+            text-align: left;
+        }
+
+        /* 文字在左侧 */
+        .text-left {
+            text-align: right;
         }
 
         .container {
