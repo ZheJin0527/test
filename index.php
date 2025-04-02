@@ -119,7 +119,7 @@
             width: clamp(28px, 3.5vw, 40px);  /* 更小的宽度 */
             height: clamp(28px, 3.5vw, 40px); /* 更小的高度 */
             border-radius: 50%;
-            background-color: #FF5C00;
+            background-color:transparent;
             color: white;
             font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
             font-weight: bold;
@@ -128,6 +128,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .translate-btn .logo-img {
+            position: absolute;
+            left: -12px;  /* 图片放置在按钮的左侧 */
+            width: clamp(14px, 2vw, 20px); /* Logo 图片的大小 */
+            height: clamp(14px, 2vw, 20px); /* Logo 图片的大小 */
         }
 
         .translate-btn:hover {
@@ -606,6 +613,7 @@
         <!-- 按钮部分 -->
         <div class="buttons-container">
             <button class="translate-btn">EN</button>
+            <img src="images/images/翻译.png" alt="Logo" class="logo-img">
             <a href="#" class="login-btn">LOGIN</a>
         </div>
     </div>
