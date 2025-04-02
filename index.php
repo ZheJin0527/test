@@ -106,7 +106,7 @@
             padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             text-decoration: none;
             border-radius: 25px;
-            font-size: clamp(1rem, 2vw, 1.6rem);  /* 更小的字体大小 */
+            font-size: clamp(1rem, 1.8vw, 1.6rem);  /* 更小的字体大小 */
             font-weight: bold;
         }
 
@@ -136,8 +136,8 @@
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
-            width: clamp(35px, 6vw, 100px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(35px, 6vw, 100px); /* 设置 Logo 高度 */
+            width: clamp(35px, 5vw, 100px);  /* Logo 尺寸根据按钮大小调整 */
+            height: clamp(35px, 5vw, 100px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
         }
 
