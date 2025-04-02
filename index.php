@@ -464,7 +464,6 @@
             padding: 10px;
         }
 
-        /* 2023 和 2025：图片在左，文字在右 */
         .left {
             text-align: right;
         }
@@ -501,27 +500,27 @@
             z-index: 1;
         }
 
-        /* 连接圆圈到照片的虚线 */
+        /* 竖向虚线（从圆圈连接到图片） */
         .timeline-item::after {
             content: "";
             position: absolute;
-            width: 100px; /* 控制线的长度 */
-            height: 4px;
-            border-top: 4px dashed #FFA500; /* 橙色虚线 */
+            left: 50%;
+            top: 50px; /* 从圆圈正下方开始 */
+            width: 4px;
+            height: 80px; /* 控制线的长度 */
+            border-left: 4px dashed #FFA500; /* 竖向虚线 */
             z-index: -1;
         }
 
-        /* 让线从圆圈连接到照片 */
-        .timeline-item:nth-child(odd)::after { /* 2023 和 2025 */
-            left: calc(50% - 50px); /* 让线从圆圈向左连接 */
-            top: 50%;
-            transform: translateY(-50%);
+        /* 调整 2023 和 2025 图片在左，文字在右 */
+        .timeline-item:nth-child(odd) .timeline-img {
+            order: -1; /* 把图片放到左侧 */
+            margin-right: 20px;
         }
 
-        .timeline-item:nth-child(even)::after { /* 2024 */
-            left: 50%;
-            top: 50%;
-            transform: translateY(-50%);
+        /* 调整 2024 图片在右，文字在左 */
+        .timeline-item:nth-child(even) .timeline-img {
+            margin-left: 20px;
         }
 
         /* 事件图片 */
