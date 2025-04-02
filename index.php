@@ -125,7 +125,7 @@
             display: flex;
             align-items: center;  /* 垂直居中 */
             justify-content: flex-start; 
-            gap: 0px;  /* 控制 logo 和文本之间的间距 */
+            gap: -2px;  /* 控制 logo 和文本之间的间距 */
             padding-left: 0px;  /* 减小左侧内边距 */
             padding-right: 20px;  /* 可以适当调整右边内边距 */
             overflow: visible;  /* 确保内容不会被隐藏 */
