@@ -83,7 +83,6 @@
             color: white;
             text-decoration: none;
             font-size: clamp(1rem, 1.4vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
-            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         /* 按钮部分 */
@@ -102,7 +101,6 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: clamp(0.8rem, 1.2vw, 1.2rem);  /* 更小的字体大小 */
-            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .login-btn:hover {
@@ -123,7 +121,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .translate-btn:hover {
