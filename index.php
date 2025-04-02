@@ -145,6 +145,11 @@
             text-decoration: underline;
         }
 
+        /* 鼠标悬停时，让 logo 变成 #FF5C00 */
+        .translate-btn:hover .translate-logo-img {
+            filter: brightness(0) saturate(100%) invert(38%) sepia(99%) saturate(1450%) hue-rotate(4deg) brightness(101%) contrast(104%);
+        }
+
         .nav-hidden {
             transform: translateY(-100%);
             transition: transform 0.3s ease-in-out;
