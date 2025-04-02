@@ -504,6 +504,11 @@
             width: 4px;
             height: 120px;
             border-left: 4px dashed #FFA500;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
         }
 
         /* 文字和图片交错排列 */
@@ -538,6 +543,16 @@
         /* 文字在左侧 */
         .text-left {
             text-align: right;
+        }
+
+        /* 图片在左侧 */
+        .img-left {
+            margin-right: 20px;
+        }
+
+        /* 图片在右侧 */
+        .img-right {
+            margin-left: 20px;
         }
 
         .container {
@@ -684,14 +699,16 @@
     <div class="timeline">
         <!-- 2023 -->
         <div class="timeline-item left">
-            <div class="timeline-content">
-                <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
-                <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
-            </div>
             <div class="timeline-info">
                 <span class="year">2023</span>
                 <div class="circle"></div>
                 <div class="dashed-line"></div>
+            </div>
+            <div class="timeline-content img-left">
+                <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
+            </div>
+            <div class="timeline-content text-right">
+                <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
             </div>
         </div>
 
@@ -702,22 +719,26 @@
                 <div class="circle"></div>
                 <div class="dashed-line"></div>
             </div>
-            <div class="timeline-content">
+            <div class="timeline-content text-left">
                 <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
+            </div>
+            <div class="timeline-content img-right">
                 <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
             </div>
         </div>
 
         <!-- 2025 -->
         <div class="timeline-item left">
-            <div class="timeline-content">
-                <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
-                <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
-            </div>
             <div class="timeline-info">
                 <span class="year">2025</span>
                 <div class="circle"></div>
                 <div class="dashed-line"></div>
+            </div>
+            <div class="timeline-content img-left">
+                <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
+            </div>
+            <div class="timeline-content text-right">
+                <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
             </div>
         </div>
     </div>
