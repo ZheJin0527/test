@@ -454,6 +454,8 @@
             width: 100%;
             margin: 50px 0;
             position: relative;
+            justify-content: space-between;  /* 让每个条目两侧有间距 */
+            align-items: center;
         }
 
         /* 2023 和 2025 年份（照片左，文字右） */
