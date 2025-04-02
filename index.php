@@ -64,7 +64,7 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: clamp(25px, 4.5vw, 65px); /* 最大高度调整为 65px */
+            height: clamp(25px, 4.6vw, 65px); /* 最大高度调整为 65px */
             max-height: 75px;
         }
 
