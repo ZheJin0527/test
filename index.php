@@ -24,14 +24,14 @@
         /* 导航栏 */
         nav {
             background-color: transparent;
-            padding: 15px 0;  /* 适当减少内边距 */
+            padding: 10px 0; /* 让初始间距更小 */
             position: fixed;
-            width: 100%;  /* 让导航栏占满整个屏幕宽度 */
+            width: 100%;
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between;  /* 保证导航栏两端对齐 */
+            justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
         }
@@ -39,10 +39,10 @@
         /* 导航栏容器 */
         nav .nav-container {
             display: flex;
-            justify-content: space-between; /* 确保左右部分对齐 */
+            justify-content: space-between;
             align-items: center;
             width: 100%;
-            padding: 0 3%; /* 适当减少左右间距 */
+            padding: 0 5%;
             position: relative;
         }
 
@@ -50,78 +50,71 @@
         nav .logo-container {
             display: flex;
             align-items: center;
-            margin-right: 15px;
-            flex-shrink: 0; /* 防止 Logo 被压缩 */
+            margin-right: 20px;
+            flex-shrink: 0;
         }
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: 0.9rem;  /* 初始字体更小 */
+            font-size: clamp(0.8rem, 1.2vw, 1.6rem); /* 随屏幕大小变化 */
             font-weight: bold;
             color: white;
-            margin-left: 8px;
+            margin-left: 10px;
         }
 
         /* Logo 图片 */
         .logo-img {
-            height: 1.2rem;  /* 初始 Logo 图片更小 */
-            max-height: 30px; /* 进一步限制最大高度 */
+            height: clamp(25px, 4vw, 50px); /* 随屏幕大小渐进变化 */
+            max-height: 50px;
         }
 
         /* 菜单部分 */
         nav .menu-container {
-            position: absolute; /* 使用绝对定位 */
-            left: 50%; /* 设置左侧距离为父容器的 50% */
-            transform: translateX(-50%); /* 使用 translateX 来确保居中 */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            justify-content: center; /* 确保菜单项居中 */
-            gap: 0.8rem; /* 初始菜单间距更小 */
+            justify-content: center;
+            gap: clamp(10px, 2vw, 20px); /* 控制菜单项间距 */
+        }
+
+        /* 菜单链接 */
+        nav .menu-container a {
+            color: white;
+            text-decoration: none;
+            font-size: clamp(0.7rem, 1vw, 1.4rem); /* 渐进变大 */
         }
 
         /* 按钮部分 */
         nav .buttons-container {
             display: flex;
             align-items: center;
-            gap: 0.8rem; /* 适当减少按钮间距 */
+            gap: clamp(8px, 1.5vw, 20px);
             justify-content: flex-end;
-        }
-
-        /* 链接样式 */
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 0.8rem;
-            font-size: 0.85rem;  /* 初始字体更小 */
-        }
-
-        /* 链接 hover 效果 */
-        nav a:hover {
-            text-decoration: underline;
         }
 
         /* 登录按钮 */
         .login-btn {
             background-color: rgb(235, 115, 3);
             color: white;
-            padding: 5px 10px; /* 初始按钮尺寸更小 */
-            font-size: 0.85rem;
+            padding: clamp(4px, 0.8vw, 10px) clamp(8px, 1.2vw, 16px); /* 渐进式变化 */
             text-decoration: none;
             border-radius: 5px;
+            font-size: clamp(0.8rem, 1vw, 1.2rem);
         }
 
-        /* 登录按钮 hover 效果 */
         .login-btn:hover {
             background-color: #d87b00;
         }
 
         /* 翻译按钮 */
         .translate-btn {
-            width: 2rem;  /* 初始按钮大小更小 */
-            height: 2rem;  /* 初始按钮大小更小 */
+            width: clamp(30px, 3vw, 40px);
+            height: clamp(30px, 3vw, 40px);
             border-radius: 50%;
             background-color: rgb(235, 115, 3);
             color: white;
-            font-size: 0.85rem;
+            font-size: clamp(0.8rem, 1vw, 1.2rem);
             font-weight: bold;
             border: none;
             cursor: pointer;
@@ -130,55 +123,8 @@
             justify-content: center;
         }
 
-        /* 翻译按钮 hover 效果 */
         .translate-btn:hover {
             background-color: #d87b00;
-        }
-
-        /* 响应式设计：当屏幕大于 768px 时 */
-        @media (min-width: 768px) {
-            nav .logo-text {
-                font-size: 1.2rem;  /* 中屏幕时字体增大 */
-            }
-
-            .logo-img {
-                height: 2rem; /* Logo 图片增大 */
-            }
-
-            nav .menu-container {
-                gap: 1rem; /* 增加菜单间距 */
-            }
-
-            nav a {
-                font-size: 1rem; /* 增加菜单字体大小 */
-            }
-
-            .buttons-container button, .buttons-container a {
-                font-size: 1rem; /* 增大按钮字体大小 */
-            }
-        }
-
-        /* 响应式设计：当屏幕大于 1200px 时 */
-        @media (min-width: 1200px) {
-            nav .logo-text {
-                font-size: 1.5rem;  /* 大屏幕时字体增大 */
-            }
-
-            .logo-img {
-                height: 3rem;  /* Logo 图片增大 */
-            }
-
-            nav .menu-container {
-                gap: 1.5rem; /* 增加菜单间距 */
-            }
-
-            nav a {
-                font-size: 1.2rem; /* 增加菜单字体大小 */
-            }
-
-            .buttons-container button, .buttons-container a {
-                font-size: 1.2rem; /* 增大按钮字体大小 */
-            }
         }
 
         /* 版块样式 */
