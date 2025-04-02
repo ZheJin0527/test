@@ -24,7 +24,7 @@
         /* 导航栏 */
         #navbar {
             background-color: transparent;
-            padding: 4px 0; /* 增加底部间距 */
+            padding: 15px 0; /* 增加底部间距 */
             position: fixed;
             width: 100%;
             top: 0;
@@ -762,7 +762,7 @@
         // 获取页面的滚动位置
         if (window.scrollY > 0) {
             // 当页面滚动时，隐藏导航栏
-            navbar.style.top = "-80px"; // 隐藏导航栏（根据需要调整隐藏的高度）
+            navbar.style.top = "-100px"; // 隐藏导航栏（根据需要调整隐藏的高度）
         } else {
             // 当页面回到顶部时，显示导航栏
             navbar.style.top = "0"; // 导航栏恢复到顶部
