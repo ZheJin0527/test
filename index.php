@@ -455,12 +455,12 @@
             width: 100%;
         }
 
-        /* 左侧排列（2023、2025） */
+        /* 2023 和 2025（照片左，文字右） */
         .timeline-item.left {
             flex-direction: row;
         }
 
-        /* 右侧排列（2024） */
+        /* 2024（照片右，文字左） */
         .timeline-item.right {
             flex-direction: row-reverse;
         }
