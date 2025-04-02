@@ -128,15 +128,15 @@
             display: flex;
             align-items: center;  /* 垂直居中 */
             justify-content: center;  /* 水平居中 */
-            gap: 10px;  /* 增加 logo 和文本之间的间距 */
+            gap: 5px;  /* 增加 logo 和文本之间的间距 */
             padding-left: 15px;  /* 增加左边内边距 */
             overflow: visible;  /* 确保内容不会被隐藏 */
         }
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
-            width: clamp(35px, 4.8vw, 75px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(35px, 4.8vw, 75px); /* 设置 Logo 高度 */
+            width: clamp(35px, 5vw, 75px);  /* Logo 尺寸根据按钮大小调整 */
+            height: clamp(35px, 5vw, 75px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
         }
 
