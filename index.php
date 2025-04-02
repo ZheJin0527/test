@@ -111,8 +111,7 @@
         }
 
         .login-btn:hover {
-            color: #FF5C00; 
-            text-decoration: underline;
+            background-color: #d87b00;
         }
 
         /* 翻译按钮 */
@@ -142,7 +141,8 @@
 
         /* hover 效果 */
         .translate-btn:hover {
-            background-color: #d87b00;
+            color: #FF5C00; 
+            text-decoration: underline;
         }
 
         .nav-hidden {
