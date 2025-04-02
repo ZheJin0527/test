@@ -56,11 +56,11 @@
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: clamp(1rem, 1.6vw, 2.5rem); /* 最大字体调整为 2.2rem */
+            font-size: clamp(1rem, 2vw, 2.5rem); /* 最大字体调整为 2.2rem */
             font-weight: bold;
             color: white;
             margin-left: 10px;
-        }
+        }/*1rem, 2vw, 1.4rem
 
         /* Logo 图片 */
         .logo-img {
