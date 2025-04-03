@@ -428,9 +428,8 @@
         /* 时间轴整体 */
         .timeline {
             position: relative;
-            max-width: 800px; /* 限制最大宽度，不会无限变宽 */
+            width: 80%;
             margin: 50px auto;
-            width: 100%; /* 适应小屏幕 */
         }
 
         /* 时间轴的中间虚线 */
@@ -507,6 +506,7 @@
             padding: 10px;
             position: relative;
             z-index: 2;
+            margin: 0 40px; /* 调整照片和文字与时间轴的间距 */
         }
 
         /* 文字大小自动适应 */
@@ -525,8 +525,6 @@
             border-radius: 10px;
             position: relative;
             z-index: 3;
-            margin-left: -10px;
-            margin-right: -10px;
         }
 
         /* 小屏幕（768px 以下），进一步缩小 */
@@ -549,6 +547,7 @@
 
             .timeline-content {
                 max-width: 100%;
+                margin: 0;
             }
 
             .timeline-img {
