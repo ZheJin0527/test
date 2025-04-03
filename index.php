@@ -507,7 +507,7 @@
             background: none;
             border-top: 4px dashed #FFA500;
             border-left: none;
-            z-index: 0;
+            z-index: 0; /* 确保虚线在图片下方 */
         }
 
         /* 2024（照片在右），虚线向右连接 */
@@ -550,6 +550,7 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
+            position: relative; /* 确保图片和文字的容器不影响虚线 */
         }
 
         /* 文字大小自动适应 */
