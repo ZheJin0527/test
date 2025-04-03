@@ -527,20 +527,47 @@
             padding: 10px;
         }
 
-        /* 让文字和图片在小屏幕时更灵活 */
+        /* 让文字大小自适应 */
         .timeline-text {
-            font-size: clamp(1rem, 2vw, 1.4rem); /* 让字体大小随屏幕变化 */
+            font-size: clamp(1rem, 1.8vw, 1.2rem); /* 适配不同屏幕 */
             text-align: center;
             color: #333;
         }
 
-        /* 让图片大小随容器变化 */
+        /* 让图片大小适配不同屏幕 */
         .timeline-img {
-            width: 100%; /* 图片宽度填充容器 */
-            max-width: 100%; /* 防止超出 */
-            height: auto; /* 保持图片比例 */
+            width: 100%; /* 图片默认填充容器 */
+            max-width: 320px; /* 初始化小一点，避免重叠 */
+            height: auto;
             object-fit: cover;
             border-radius: 10px;
+        }
+
+        /* 当屏幕较小时（如 768px 以下），进一步缩小图片 */
+        @media (max-width: 768px) {
+            .timeline-content {
+                max-width: 300px;
+            }
+
+            .timeline-img {
+                max-width: 250px;
+            }
+        }
+
+        /* 超小屏幕（如手机 480px 以下）调整为上下布局 */
+        @media (max-width: 480px) {
+            .timeline-item {
+                flex-direction: column; /* 让文字和图片上下排列 */
+                text-align: center;
+            }
+
+            .timeline-content {
+                max-width: 100%; /* 让内容充满屏幕 */
+            }
+
+            .timeline-img {
+                max-width: 200px;
+            }
         }
 
         /* 交换左右位置，使 2023 & 2025 的照片在左，文字在右 */
