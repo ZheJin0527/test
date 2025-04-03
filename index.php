@@ -428,8 +428,9 @@
         /* 时间轴整体 */
         .timeline {
             position: relative;
-            width: 80%;
+            max-width: 800px; /* 限制最大宽度，不会无限变宽 */
             margin: 50px auto;
+            width: 100%; /* 适应小屏幕 */
         }
 
         /* 时间轴的中间虚线 */
@@ -453,17 +454,17 @@
             position: relative;
             margin: 50px 0;
             width: 100%;
-            overflow: hidden; /* 确保内容不会超出 */
+            overflow: hidden;
         }
 
         /* 2023 和 2025（照片左，文字右） */
         .timeline-item.left {
-            flex-direction: row; /* 默认图片在左 */
+            flex-direction: row;
         }
 
         /* 2024（文字左，照片右） */
         .timeline-item.right {
-            flex-direction: row-reverse; /* 默认文字在左 */
+            flex-direction: row-reverse;
         }
 
         /* 时间信息（年份+圆圈） */
@@ -496,33 +497,29 @@
             margin-bottom: 10px;
         }
 
-        /* 默认虚线向左连接（适用于 2023 & 2025）*/
+        /* 默认虚线向左连接（适用于 2023 & 2025） */
         .dashed-line {
             position: absolute;
             top: 50%;
-            right: calc(50% + 10px); /* 让虚线从时间轴往左延伸 */
+            right: calc(50% + 10px);
             transform: translateY(-50%);
-            width: calc(50vw - 280px); /* 让虚线动态调整 */
+            width: calc(50vw - 280px);
             height: 4px;
-            background: none;
             border-top: 4px dashed #FFA500;
-            border-left: none;
-            z-index: -2; /* 让虚线位于图片下方 */
+            z-index: -2;
         }
 
         /* 2024（照片在右），虚线向右连接 */
         .timeline-item.right .dashed-line {
-            left: calc(50% + 10px); /* 让虚线从时间轴向右延伸 */
+            left: calc(50% + 10px);
             right: auto;
-            transform: translateY(-50%);
             width: calc(50vw - 280px);
-            z-index: -2; /* 让虚线在最底层，隐藏到照片后面 */
         }
 
         /* 小屏幕适配 */
         @media (max-width: 768px) {
             .dashed-line {
-                width: calc(50vw - 180px); /* 确保小屏幕时虚线不会太长 */
+                width: calc(50vw - 180px);
             }
 
             .timeline-item.right .dashed-line {
@@ -538,25 +535,25 @@
             }
 
             .dashed-line {
-                display: none; /* 超小屏幕时去掉虚线，防止错乱 */
+                display: none;
             }
         }
 
         /* 让文字和图片容器自适应 */
         .timeline-content {
             flex: 1;
-            max-width: 350px; /* 默认稍微小一点 */
+            max-width: 350px;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px;
-            position: relative; /* 确保图片和文字的容器不影响虚线 */
-            z-index: 2; /* 确保图片容器在虚线上面 */
+            position: relative;
+            z-index: 2;
         }
 
         /* 文字大小自动适应 */
         .timeline-text {
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem); /* 让文字跟随屏幕变化 */
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
             text-align: center;
             color: #333;
         }
@@ -564,14 +561,14 @@
         /* 让图片大小随屏幕调整 */
         .timeline-img {
             width: 100%;
-            max-width: clamp(200px, 25vw, 500px); /* 让图片更灵活 */
+            max-width: clamp(200px, 25vw, 500px);
             height: auto;
             object-fit: cover;
             border-radius: 10px;
             position: relative;
-            z-index: 3; /* 确保照片层级高于虚线 */
-            margin-left: -10px; /* 让照片向左移动，盖住虚线 */
-            margin-right: -10px; /* 让照片向右移动，盖住虚线 */
+            z-index: 3;
+            margin-left: -10px;
+            margin-right: -10px;
         }
 
         /* 小屏幕（768px 以下），进一步缩小 */
@@ -603,20 +600,20 @@
 
         /* 交换左右位置，使 2023 & 2025 的照片在左，文字在右 */
         .timeline-item.left .timeline-content:first-child {
-            order: -1; /* 确保图片排在左边 */
+            order: -1;
         }
 
         .timeline-item.left .timeline-content:last-child {
-            order: 1; /* 文字排在右边 */
+            order: 1;
         }
 
         /* 2024 文字在左，照片在右 */
         .timeline-item.right .timeline-content:first-child {
-            order: 1; /* 文字在左 */
+            order: 1;
         }
 
         .timeline-item.right .timeline-content:last-child {
-            order: -1; /* 照片在右 */
+            order: -1;
         }
 
         .container {
