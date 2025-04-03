@@ -448,7 +448,7 @@
         /* 时间轴项 */
         .timeline-item {
             display: flex;
-            justify-content: flex-start; /* 确保项目在水平方向上从左对齐 */
+            justify-content: flex-start; /* 确保项目从左对齐 */
             align-items: center; /* 保证文字和照片平行对齐 */
             position: relative;
             margin: 50px 0;
@@ -471,7 +471,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-right: 20px; /* 适当调整圆圈与文字的间距 */
+            margin: 0 20px; /* 调整圆圈与文字之间的间距 */
         }
 
         /* 圆圈 */
@@ -504,7 +504,7 @@
             background: none;
             border-top: 4px dashed #FFA500;
             border-left: none;
-            z-index: -2; /* 让虚线位于图片下方 */
+            z-index: -1; /* 让虚线位于图片下方 */
         }
 
         /* 2024（照片在右），虚线向右连接 */
@@ -513,7 +513,7 @@
             right: auto;
             transform: translateY(-50%);
             width: calc(50vw - 280px);
-            z-index: -2; /* 让虚线在最底层，隐藏到照片后面 */
+            z-index: -1; /* 让虚线在最底层，隐藏到照片后面 */
         }
 
         /* 小屏幕适配 */
