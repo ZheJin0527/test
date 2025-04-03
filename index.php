@@ -478,8 +478,8 @@
 
         /* 圆圈 */
         .circle {
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             background: linear-gradient(to bottom, #F67F1E, #FDB716);
             border-radius: 50%;
             display: flex;
