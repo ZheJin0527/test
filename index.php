@@ -497,48 +497,6 @@
             margin-bottom: 10px;
         }
 
-        /* 默认虚线向左连接（适用于 2023 & 2025） */
-        .dashed-line {
-            position: absolute;
-            top: 50%;
-            right: calc(50% + 10px);
-            transform: translateY(-50%);
-            width: calc(50vw - 280px);
-            height: 4px;
-            border-top: 4px dashed #FFA500;
-            z-index: -2;
-        }
-
-        /* 2024（照片在右），虚线向右连接 */
-        .timeline-item.right .dashed-line {
-            left: calc(50% + 10px);
-            right: auto;
-            width: calc(50vw - 280px);
-        }
-
-        /* 小屏幕适配 */
-        @media (max-width: 768px) {
-            .dashed-line {
-                width: calc(50vw - 180px);
-            }
-
-            .timeline-item.right .dashed-line {
-                width: calc(50vw - 180px);
-            }
-        }
-
-        /* 超小屏幕（480px 以下），改为上下布局 */
-        @media (max-width: 480px) {
-            .timeline-item {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .dashed-line {
-                display: none;
-            }
-        }
-
         /* 让文字和图片容器自适应 */
         .timeline-content {
             flex: 1;
