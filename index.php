@@ -495,12 +495,12 @@
             margin-bottom: 10px;
         }
 
-        /* 默认横向虚线向左延伸 */
+        /* 默认情况下 .dashed-line 连接向左 */
         .dashed-line {
             position: absolute;
             top: 50%;
-            left: 50%; /* 让虚线从圆圈的正中间开始 */
-            transform: translateY(-50%) translateX(-50%); /* 默认向左延伸 */
+            right: 50%; /* 让虚线从元素正中间开始，向左延伸 */
+            transform: translateY(-50%) translateX(50%);
             width: calc(50vw - 160px); /* 让虚线自适应屏幕大小 */
             height: 4px;
             background: none;
@@ -509,11 +509,11 @@
             z-index: 1;
         }
 
-        /* 2024（照片在右，文字在左），虚线向右延伸 */
+        /* 2024（照片在右，文字在左），虚线连接向右 */
         .timeline-item.right .dashed-line {
-            left: auto;
-            right: 50%; /* 让虚线从右侧延伸 */
-            transform: translateY(-50%) translateX(50%); /* 向右延伸 */
+            left: 50%; /* 让虚线从左侧开始 */
+            right: auto;
+            transform: translateY(-50%);
             width: calc(50vw - 160px);
         }
 
