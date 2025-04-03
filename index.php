@@ -495,26 +495,26 @@
             margin-bottom: 10px;
         }
 
-        /* 横向虚线（默认向右） */
+        /* 让 .dashed-line 变成横向虚线 */
         .dashed-line {
-            height: 4px;
-            border-top: 4px dashed #FFA500; /* 让虚线变成横线 */
-            border-left: none; /* 移除原来的竖线 */
             position: absolute;
             top: 50%;
-            left: 100%; /* 让它从圆圈的右侧开始 */
+            left: 50%; /* 让虚线从圆圈的正中间开始 */
             transform: translateY(-50%);
-            width: calc(50% - 60px); /* 让虚线自适应照片边缘 */
-            max-width: 200px; /* 避免虚线过长 */
+            width: calc(50vw - 160px); /* 让虚线自适应屏幕大小 */
+            height: 4px;
+            background: none;
+            border-top: 4px dashed #FFA500; /* 变成横线 */
+            border-left: none; /* 移除原来的竖线 */
             z-index: 1;
         }
 
-        /* 2024（照片在右，文字在左），虚线向左 */
+        /* 2024（照片在右，文字在左） */
         .timeline-item.right .dashed-line {
             left: auto;
-            right: 100%; /* 让虚线从圆圈的左侧延伸出去 */
-            width: calc(50% - 60px); /* 让虚线自适应照片边缘 */
-            max-width: 200px;
+            right: 50%; /* 让虚线从右侧延伸 */
+            transform: translateY(-50%) translateX(50%);
+            width: calc(50vw - 160px);
         }
 
         /* 文字和图片容器 */
