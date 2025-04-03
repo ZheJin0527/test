@@ -501,7 +501,7 @@
             height: 120px;
             border-left: 4px dashed #FFA500;
             position: absolute;
-            top: 100%;
+            top: calc(100% + 15px); /* 让虚线往下移动一点 */
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
