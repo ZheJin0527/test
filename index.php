@@ -495,26 +495,49 @@
             margin-bottom: 10px;
         }
 
-        /* 默认情况下 .dashed-line 连接向左 */
+        /* 默认虚线向左连接（适用于 2023 & 2025）*/
         .dashed-line {
             position: absolute;
             top: 50%;
-            right: 50%; /* 让虚线从中心点向左延伸 */
+            right: calc(50% + 10px); /* 让虚线从时间轴往左延伸 */
             transform: translateY(-50%);
-            width: calc(50vw - 160px); /* 让虚线自适应屏幕大小 */
+            width: calc(50vw - 200px); /* 让虚线动态调整 */
             height: 4px;
             background: none;
-            border-top: 4px dashed #FFA500; /* 变成横线 */
-            border-left: none; /* 移除原来的竖线 */
+            border-top: 4px dashed #FFA500;
+            border-left: none;
             z-index: 1;
         }
 
-        /* 2024（照片在右，文字在左），虚线连接向右 */
+        /* 2024（照片在右），虚线向右连接 */
         .timeline-item.right .dashed-line {
-            left: 50%; /* 让虚线从中心点向右延伸 */
+            left: calc(50% + 10px); /* 让虚线从时间轴向右延伸 */
             right: auto;
             transform: translateY(-50%);
-            width: calc(50vw - 160px);
+            width: calc(50vw - 200px);
+        }
+
+        /* 小屏幕适配 */
+        @media (max-width: 768px) {
+            .dashed-line {
+                width: calc(50vw - 120px); /* 确保小屏幕时虚线不会太长 */
+            }
+
+            .timeline-item.right .dashed-line {
+                width: calc(50vw - 120px);
+            }
+        }
+
+        /* 超小屏幕（480px 以下），改为上下布局 */
+        @media (max-width: 480px) {
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .dashed-line {
+                display: none; /* 超小屏幕时去掉虚线，防止错乱 */
+            }
         }
 
         /* 让文字和图片容器自适应 */
