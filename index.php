@@ -501,7 +501,7 @@
             top: 50%;
             right: 50%; /* 让虚线从中心点向左延伸 */
             transform: translateY(-50%);
-            width: calc(50% - 140px); /* 140px 约等于图片宽度的一半 */
+            width: calc(50vw - 160px); /* 让虚线自适应屏幕大小 */
             height: 4px;
             background: none;
             border-top: 4px dashed #FFA500; /* 变成横线 */
@@ -514,7 +514,7 @@
             left: 50%; /* 让虚线从中心点向右延伸 */
             right: auto;
             transform: translateY(-50%);
-            width: calc(50% - 140px);
+            width: calc(50vw - 160px);
         }
 
         /* 文字和图片容器 */
