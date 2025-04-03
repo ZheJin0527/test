@@ -453,6 +453,7 @@
             position: relative;
             margin: 50px 0;
             width: 100%;
+            overflow: hidden; /* 确保内容不会超出 */
         }
 
         /* 2023 和 2025（照片左，文字右） */
@@ -549,7 +550,6 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
-            z-index: 1; /* 确保容器高于虚线 */
         }
 
         /* 文字大小自动适应 */
