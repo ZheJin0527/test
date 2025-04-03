@@ -507,6 +507,7 @@
             border-top: 4px dashed #FFA500;
             border-left: none;
             z-index: -2;
+            clip-path: inset(0 100% 0 0); /* 用于隐藏虚线，确保照片完全遮住虚线 */
         }
 
         /* 2024（照片在右），虚线向右连接 */
@@ -516,6 +517,7 @@
             transform: translateY(-50%);
             width: calc(50vw - 280px);
             z-index: -2; /* 让虚线在最底层，隐藏到照片后面 */
+            clip-path: inset(0 100% 0 0); /* 用于隐藏虚线，确保照片完全遮住虚线 */
         }
 
         /* 小屏幕适配 */
