@@ -565,7 +565,7 @@
             height: auto;
             object-fit: cover;
             border-radius: 10px;
-            z-index: -1; /* 让虚线在最底层，隐藏到照片后面 */
+            z-index: 1; /* 让虚线在最底层，隐藏到照片后面 */
         }
 
         /* 小屏幕（768px 以下），进一步缩小 */
