@@ -506,7 +506,7 @@
             background: none;
             border-top: 4px dashed #FFA500;
             border-left: none;
-            z-index: 1;
+            z-index: -1;
         }
 
         /* 2024（照片在右），虚线向右连接 */
@@ -515,6 +515,7 @@
             right: auto;
             transform: translateY(-50%);
             width: calc(50vw - 280px);
+            z-index: -1; /* 让虚线在最底层，隐藏到照片后面 */
         }
 
         /* 小屏幕适配 */
@@ -564,6 +565,7 @@
             height: auto;
             object-fit: cover;
             border-radius: 10px;
+            z-index: -1; /* 让虚线在最底层，隐藏到照片后面 */
         }
 
         /* 小屏幕（768px 以下），进一步缩小 */
