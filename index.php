@@ -503,15 +503,15 @@
             border-left: none; /* 取消左边的虚线 */
             position: absolute;
             top: 50%; /* 让它位于圆圈的中间 */
-            left: 100%; /* 从圆圈右边开始 */
+            right: 100%; /* 从圆圈右边开始 */
             transform: translateY(-50%); /* 居中对齐 */
             z-index: 1;
         }
 
         /* 2024 的虚线反向（向左） */
         .timeline-item.right .dashed-line {
-            left: auto;
-            right: 100%; /* 让虚线从左边延伸出去 */
+            right: auto;
+            left: 100%; /* 让虚线从左边延伸出去 */
         }
 
         /* 文字和图片容器 */
