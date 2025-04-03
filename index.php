@@ -549,7 +549,7 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
-            z-index: 2; /* 确保容器高于虚线 */
+            z-index: 1; /* 确保容器高于虚线 */
         }
 
         /* 文字大小自动适应 */
@@ -567,7 +567,7 @@
             object-fit: cover;
             border-radius: 10px;
             position: relative;
-            z-index: 3; /* 确保照片层级高于虚线 */
+            z-index: 2; /* 确保照片层级高于虚线 */
             margin-left: -10px; /* 让照片向左移动，盖住虚线 */
             margin-right: -10px; /* 让照片向右移动，盖住虚线 */
         }
