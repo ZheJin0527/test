@@ -665,6 +665,7 @@
         <h2>发展历史</h2>
     </section>
 
+    <section id="timeline">
     <div class="timeline">
         <div class="checkpoint">
             <div>
@@ -692,6 +693,7 @@
                 </p>
     </div>
     </div>
+    </section>
 
     <!-- 联系我们 -->
     <div class="container">
