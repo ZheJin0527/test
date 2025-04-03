@@ -448,7 +448,7 @@
         /* 时间轴项 */
         .timeline-item {
             display: flex;
-            justify-content: center; /* 确保所有项水平居中 */
+            justify-content: space-between;
             align-items: center;
             position: relative;
             margin: 50px 0;
@@ -487,13 +487,13 @@
             align-items: center;
             justify-content: center;
             z-index: 2;
-            margin-bottom: 10px; /* 给圆圈和年份之间留出间隔 */
         }
 
         /* 年份 */
         .year {
             font-size: 1.4rem;
             font-weight: bold;
+            margin-bottom: 10px;
         }
 
         /* 默认虚线向左连接（适用于 2023 & 2025）*/
