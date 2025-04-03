@@ -507,7 +507,7 @@
             background: none;
             border-top: 4px dashed #FFA500;
             border-left: none;
-            z-index: -2; /* 让虚线位于图片下方 */
+            z-index: -1; /* 让虚线位于图片下方 */
         }
 
         /* 2024（照片在右），虚线向右连接 */
