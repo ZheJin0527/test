@@ -505,7 +505,7 @@
             top: 50%; /* 让它位于圆圈的中间 */
             right: 100%; /* 从圆圈右边开始 */
             transform: translateY(-50%); /* 居中对齐 */
-            z-index: 1;
+            z-index: -1;
         }
 
         /* 2024 的虚线反向（向左） */
@@ -520,7 +520,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 2;
         }
 
         /* 文字 */
@@ -537,7 +536,6 @@
             height: 180px;
             object-fit: cover;
             border-radius: 10px;
-            z-index: 2;
         }
 
         /* 交换左右位置，使 2023 & 2025 的照片在左，文字在右 */
