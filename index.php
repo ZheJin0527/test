@@ -517,26 +517,28 @@
             width: calc(50vw - 160px);
         }
 
-        /* 文字和图片容器 */
+        /* 让文字和图片容器自适应屏幕 */
         .timeline-content {
-            width: 40%;
+            flex: 1; /* 让内容根据屏幕大小伸缩 */
+            max-width: 500px; /* 限制最大宽度，防止过大 */
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 10px;
         }
 
-        /* 文字 */
+        /* 让文字和图片在小屏幕时更灵活 */
         .timeline-text {
-            width: 280px;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2vw, 1.4rem); /* 让字体大小随屏幕变化 */
             text-align: center;
             color: #333;
         }
 
-        /* 图片 */
+        /* 让图片大小随容器变化 */
         .timeline-img {
-            width: 280px;
-            height: 180px;
+            width: 100%; /* 图片宽度填充容器 */
+            max-width: 100%; /* 防止超出 */
+            height: auto; /* 保持图片比例 */
             object-fit: cover;
             border-radius: 10px;
         }
