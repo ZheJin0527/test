@@ -517,56 +517,56 @@
             width: calc(50vw - 160px);
         }
 
-        /* 让文字和图片容器自适应屏幕 */
+        /* 让文字和图片容器自适应 */
         .timeline-content {
-            flex: 1; /* 让内容根据屏幕大小伸缩 */
-            max-width: 500px; /* 限制最大宽度，防止过大 */
+            flex: 1;
+            max-width: 350px; /* 默认稍微小一点 */
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px;
         }
 
-        /* 让文字大小自适应 */
+        /* 文字大小自动适应 */
         .timeline-text {
-            font-size: clamp(1rem, 1.8vw, 1.2rem); /* 适配不同屏幕 */
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem); /* 让文字跟随屏幕变化 */
             text-align: center;
             color: #333;
         }
 
-        /* 让图片大小适配不同屏幕 */
+        /* 让图片大小随屏幕调整 */
         .timeline-img {
-            width: 100%; /* 图片默认填充容器 */
-            max-width: 320px; /* 初始化小一点，避免重叠 */
+            width: 100%;
+            max-width: clamp(200px, 25vw, 500px); /* 让图片更灵活 */
             height: auto;
             object-fit: cover;
             border-radius: 10px;
         }
 
-        /* 当屏幕较小时（如 768px 以下），进一步缩小图片 */
+        /* 小屏幕（768px 以下），进一步缩小 */
         @media (max-width: 768px) {
             .timeline-content {
-                max-width: 300px;
+                max-width: 280px;
             }
 
             .timeline-img {
-                max-width: 250px;
+                max-width: 220px;
             }
         }
 
-        /* 超小屏幕（如手机 480px 以下）调整为上下布局 */
+        /* 超小屏幕（480px 以下），改为上下排列 */
         @media (max-width: 480px) {
             .timeline-item {
-                flex-direction: column; /* 让文字和图片上下排列 */
+                flex-direction: column;
                 text-align: center;
             }
 
             .timeline-content {
-                max-width: 100%; /* 让内容充满屏幕 */
+                max-width: 100%;
             }
 
             .timeline-img {
-                max-width: 200px;
+                max-width: 180px;
             }
         }
 
