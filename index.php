@@ -506,7 +506,7 @@
             padding: 10px;
             position: relative;
             z-index: 2;
-            margin: 0 40px; /* 调整照片和文字与时间轴的间距 */
+            margin: 0 30px; /* 调整照片和文字与时间轴的间距，使其稍微靠近 */
         }
 
         /* 文字大小自动适应 */
