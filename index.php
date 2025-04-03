@@ -551,7 +551,7 @@
             align-items: center;
             padding: 10px;
             position: relative; /* 确保图片和文字的容器不影响虚线 */
-            z-index: 1; /* 确保图片容器在虚线上面 */
+            z-index: 2; /* 确保图片容器在虚线上面 */
         }
 
         /* 文字大小自动适应 */
