@@ -457,12 +457,12 @@
 
         /* 2023 和 2025（照片左，文字右） */
         .timeline-item.left {
-            flex-direction: row;
+            flex-direction: row; /* 默认图片在左 */
         }
 
         /* 2024（文字左，照片右） */
         .timeline-item.right {
-            flex-direction: row-reverse;
+            flex-direction: row-reverse; /* 默认文字在左 */
         }
 
         /* 时间信息（年份+圆圈） */
@@ -472,8 +472,7 @@
             align-items: center;
             position: absolute;
             left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             z-index: 2;
         }
 
@@ -496,25 +495,16 @@
             margin-bottom: 10px;
         }
 
-        /* 圆圈到照片的虚线（横向） */
+        /* 圆圈到照片的虚线 */
         .dashed-line {
-            width: 100px;  /* 让虚线变长，向照片方向延伸 */
-            height: 4px;   /* 变成横线，而不是竖线 */
-            border-left: none; /* 取消左边框 */
-            border-top: 4px dashed #FFA500; /* 改成顶部的虚线 */
+            width: 4px;
+            height: 120px;
+            border-left: 4px dashed #FFA500;
             position: absolute;
-            top: 50%;  /* 让虚线垂直居中 */
-            left: 50%; /* 从圆圈中间开始 */
-            transform: translateY(-50%); /* 调整居中对齐 */
-        }
-
-        /* 让虚线朝正确方向 */
-        .timeline-item.left .dashed-line {
-            left: calc(50% + 25px); /* 向右偏移，连接到图片 */
-        }
-
-        .timeline-item.right .dashed-line {
-            right: calc(50% + 25px); /* 向左偏移，连接到图片 */
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
         }
 
         /* 文字和图片容器 */
@@ -523,7 +513,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative; /* 允许虚线正确对齐 */
         }
 
         /* 文字 */
@@ -542,15 +531,22 @@
             border-radius: 10px;
         }
 
-        /* 2023 和 2025：虚线向右连接 */
-        .timeline-item.left .dashed-line {
-            left: calc(50% + 15px); /* 从圆圈右侧开始 */
+        /* 交换左右位置，使 2023 & 2025 的照片在左，文字在右 */
+        .timeline-item.left .timeline-content:first-child {
+            order: -1; /* 确保图片排在左边 */
         }
 
-        /* 2024：虚线向左连接 */
-        .timeline-item.right .dashed-line {
-            left: auto;
-            right: calc(50% + 15px); /* 从圆圈左侧开始 */
+        .timeline-item.left .timeline-content:last-child {
+            order: 1; /* 文字排在右边 */
+        }
+
+        /* 2024 文字在左，照片在右 */
+        .timeline-item.right .timeline-content:first-child {
+            order: 1; /* 文字在左 */
+        }
+
+        .timeline-item.right .timeline-content:last-child {
+            order: -1; /* 照片在右 */
         }
 
         .container {
