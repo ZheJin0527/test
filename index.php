@@ -448,8 +448,8 @@
         /* 时间轴项 */
         .timeline-item {
             display: flex;
-            justify-content: flex-start; /* 确保项目从左对齐 */
-            align-items: center; /* 保证文字和照片平行对齐 */
+            justify-content: space-between;
+            align-items: center;
             position: relative;
             margin: 50px 0;
             width: 100%;
@@ -471,7 +471,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 20px; /* 调整圆圈与文字之间的间距 */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
         }
 
         /* 圆圈 */
@@ -484,13 +487,13 @@
             align-items: center;
             justify-content: center;
             z-index: 2;
-            margin-bottom: 10px; /* 圆圈与年份之间的间距 */
         }
 
         /* 年份 */
         .year {
             font-size: 1.4rem;
             font-weight: bold;
+            margin-bottom: 10px;
         }
 
         /* 默认虚线向左连接（适用于 2023 & 2025）*/
@@ -504,7 +507,7 @@
             background: none;
             border-top: 4px dashed #FFA500;
             border-left: none;
-            z-index: -1; /* 让虚线位于图片下方 */
+            z-index: -2; /* 让虚线位于图片下方 */
         }
 
         /* 2024（照片在右），虚线向右连接 */
@@ -513,7 +516,7 @@
             right: auto;
             transform: translateY(-50%);
             width: calc(50vw - 280px);
-            z-index: -1; /* 让虚线在最底层，隐藏到照片后面 */
+            z-index: -2; /* 让虚线在最底层，隐藏到照片后面 */
         }
 
         /* 小屏幕适配 */
@@ -567,6 +570,8 @@
             border-radius: 10px;
             position: relative;
             z-index: 3; /* 确保照片层级高于虚线 */
+            margin-left: -10px; /* 让照片向左移动，盖住虚线 */
+            margin-right: -10px; /* 让照片向右移动，盖住虚线 */
         }
 
         /* 小屏幕（768px 以下），进一步缩小 */
