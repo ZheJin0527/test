@@ -506,7 +506,7 @@
             background: none;
             border-top: 4px dashed #FFA500;
             border-left: none;
-            z-index: -2;
+            z-index: 0;
         }
 
         /* 2024（照片在右），虚线向右连接 */
@@ -515,7 +515,7 @@
             right: auto;
             transform: translateY(-50%);
             width: calc(50vw - 280px);
-            z-index: -2; /* 让虚线在最底层，隐藏到照片后面 */
+            z-index: 0; /* 让虚线在最底层，隐藏到照片后面 */
         }
 
         /* 小屏幕适配 */
@@ -549,6 +549,7 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
+            z-index: 1; /* 确保容器高于虚线 */
         }
 
         /* 文字大小自动适应 */
@@ -565,7 +566,10 @@
             height: auto;
             object-fit: cover;
             border-radius: 10px;
-            z-index: 2; /* 让虚线在最底层，隐藏到照片后面 */
+            position: relative;
+            z-index: 2; /* 确保照片层级高于虚线 */
+            margin-left: -10px; /* 让照片向左移动，盖住虚线 */
+            margin-right: -10px; /* 让照片向右移动，盖住虚线 */
         }
 
         /* 小屏幕（768px 以下），进一步缩小 */
