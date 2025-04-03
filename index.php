@@ -537,6 +537,7 @@
             height: 180px;
             object-fit: cover;
             border-radius: 10px;
+            z-index: 2;
         }
 
         /* 交换左右位置，使 2023 & 2025 的照片在左，文字在右 */
