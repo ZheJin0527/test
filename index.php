@@ -495,26 +495,28 @@
             margin-bottom: 10px;
         }
 
-        /* 默认情况下 .dashed-line 连接向左，并自动对齐图片边缘 */
+        /* 让虚线自动连接到图片边缘 */
         .dashed-line {
             position: absolute;
             top: 50%;
-            right: 50%; /* 从中心向左延伸 */
-            transform: translateY(-50%);
-            width: calc(50% - 140px - 10px); /* 自动计算长度，140px是图片宽度一半，10px是间距 */
             height: 4px;
             background: none;
-            border-top: 4px dashed #FFA500; /* 变成横线 */
+            border-top: 4px dashed #FFA500;
             border-left: none;
             z-index: 1;
+            width: calc(50% - 150px); /* 计算宽度，150px 为图片一半加上额外间距 */
+        }
+
+        /* 默认连接向左 */
+        .timeline-item.left .dashed-line {
+            right: 50%; /* 从中心向左延伸 */
+            transform: translateY(-50%) translateX(100%);
         }
 
         /* 2024（照片在右，文字在左），虚线连接向右 */
         .timeline-item.right .dashed-line {
             left: 50%; /* 让虚线从中心向右 */
-            right: auto;
-            transform: translateY(-50%);
-            width: calc(50% - 140px - 10px); /* 自动计算长度，确保对齐图片边缘 */
+            transform: translateY(-50%) translateX(-100%);
         }
 
         /* 文字和图片容器 */
