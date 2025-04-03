@@ -83,12 +83,51 @@
             color: white;
             text-decoration: none;
             font-size: clamp(1rem, 1.4vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
+            position: relative; /* 让子元素（下拉菜单）基于这个链接定位 */
+            padding: 10px;
         }
 
         /* 鼠标悬停时 */
         nav .menu-container a:hover {
             color: #FF5C00; 
             text-decoration: underline;
+        }
+
+        /* 关于我们 下拉菜单 */
+        nav .dropdown {
+            position: relative;
+        }
+
+        nav .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            border-radius: 5px;
+            min-width: 150px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 下拉菜单的选项 */
+        nav .dropdown-content a {
+            display: block;
+            color: white;
+            padding: 10px 15px;
+            text-align: left;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        /* 悬停显示下拉菜单 */
+        nav .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 鼠标悬停时改变颜色 */
+        nav .dropdown-content a:hover {
+            background-color: #FF5C00;
         }
 
         /* 按钮部分 */
@@ -646,7 +685,11 @@
         <!-- 菜单部分 -->
         <div class="menu-container">
             <a href="#home">首页</a>
+            <div class="dropdown">
             <a href="#about-us">关于我们</a>
+            <div class="dropdown-content">
+                <a href="#history">发展历史</a>
+            </div>
             <a href="#brands">旗下品牌</a>
             <a href="#join-us">加入我们</a>
         </div>
