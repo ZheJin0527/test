@@ -427,151 +427,101 @@
 
         /* 时间轴整体 */
         .timeline {
-            position: relative;
-            max-width: 800px; /* 限制最大宽度，不会无限变宽 */
-            margin: 50px auto;
-            width: 100%; /* 适应小屏幕 */
+            margin: 5em auto;
+            max-width: 34.15em;
         }
 
-        /* 时间轴的中间虚线 */
-        .timeline::before {
-            content: "";
+        .checkpoint {
+            max-width: 34em;
+            padding-top: 2em;
+            padding-bottom: 2em;
+            position: relative;
+        }
+
+        .checkpoint div {
+            border: 2px solid #888;
+            border-radius: 1em;
+            padding: 1.5em;
+        }
+
+        .checkpoint p {
+            line-height: 27px;
+            color: #ccc;
+        }
+
+        .checkpoint:nth-child(odd) {
+            border-left: 3px solid #888;
+            padding-left: 3em;
+            transform: translateX(17em);
+        }
+
+        .checkpoint:nth-child(even) {
+            border-right: 3px solid #888;
+            padding-right: 3em;
+            transform: translateX(-17em);
+        }
+
+        .checkpoint:nth-child(odd)::before, .checkpoint:nth-child(even)::before{
+            content: '';
+            background: #888;
+            width: 3em;
+            height: 3px;
             position: absolute;
-            top: 0;
-            left: 50%;
-            width: 4px;
-            height: 100%;
-            border-left: 4px dashed #FFA500;
-            transform: translateX(-50%);
-            z-index: -1;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        /* 时间轴项 */
-        .timeline-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            margin: 50px 0;
-            width: 100%;
-            overflow: hidden;
+        .checkpoint:nth-child(odd)::before {
+            left: 0;
         }
 
-        /* 2023 和 2025（照片左，文字右） */
-        .timeline-item.left {
-            flex-direction: row;
+        .checkpoint:nth-child(even)::before {
+            right: 0;
         }
 
-        /* 2024（文字左，照片右） */
-        .timeline-item.right {
-            flex-direction: row-reverse;
-        }
-
-        /* 时间信息（年份+圆圈） */
-        .timeline-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .checkpoint:nth-child(odd) div::before, .checkpoint:nth-child(even) div::before {
+            content: '';
+            background: #fff;
+            box-shadow: 0 0 0.5em #0d71fc;
+            width: 0.8em;
+            height: 0.8em;
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%
         }
 
-        /* 圆圈 */
-        .circle {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(to bottom, #F67F1E, #FDB716);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
+        .checkpoint:nth-child(odd) div::before {
+            left: -0.5em;
         }
 
-        /* 年份 */
-        .year {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .checkpoint:nth-child(even) div::before {
+            right: -0.5em;
         }
-
-        /* 让文字和图片容器自适应 */
-        .timeline-content {
-            flex: 1;
-            max-width: 350px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* 文字大小自动适应 */
-        .timeline-text {
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-            text-align: center;
-            color: #333;
-        }
-
-        /* 让图片大小随屏幕调整 */
-        .timeline-img {
-            width: 100%;
-            max-width: clamp(200px, 25vw, 500px);
-            height: auto;
-            object-fit: cover;
-            border-radius: 10px;
-            position: relative;
-            z-index: 3;
-            margin-left: -10px;
-            margin-right: -10px;
-        }
-
-        /* 小屏幕（768px 以下），进一步缩小 */
-        @media (max-width: 768px) {
-            .timeline-content {
-                max-width: 280px;
+        
+        @media screen and (max-width: 1150px) {
+            .timeline {
+                width: 80vw;
             }
-
-            .timeline-img {
-                max-width: 220px;
+            .timeline .checkpoint {
+                width: 100%;
+                transform: none;
+                padding-left: 0;
+                padding-right: 0;
+                border: none;
             }
-        }
-
-        /* 超小屏幕（480px 以下），改为上下排列 */
-        @media (max-width: 480px) {
-            .timeline-item {
-                flex-direction: column;
-                text-align: center;
+            .timeline .checkpoint::before {
+                width: 3px;
+                height: 4em;
+                top: -2em;
+                left: 50%;
+                transform: translateX(-50%);
             }
-
-            .timeline-content {
-                max-width: 100%;
+            .timeline .checkpoint div::before {
+                top: -0.5em;
+                left: 50%;
+                transform: translateX(-50%);
             }
-
-            .timeline-img {
-                max-width: 180px;
-            }
-        }
-
-        /* 交换左右位置，使 2023 & 2025 的照片在左，文字在右 */
-        .timeline-item.left .timeline-content:first-child {
-            order: -1;
-        }
-
-        .timeline-item.left .timeline-content:last-child {
-            order: 1;
-        }
-
-        /* 2024 文字在左，照片在右 */
-        .timeline-item.right .timeline-content:first-child {
-            order: 1;
-        }
-
-        .timeline-item.right .timeline-content:last-child {
-            order: -1;
         }
 
         .container {
@@ -716,50 +666,31 @@
     </section>
 
     <div class="timeline">
-        <!-- 2023 -->
-        <div class="timeline-item left">
-            <div class="timeline-content image-content">
-                <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
-            </div>
-            <div class="timeline-info">
-                <span class="year">2023</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content text-content">
-                <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
-            </div>
-        </div>
+        <div class="checkpoint">
+            <div>
+                <h2>2023</h2>
+                <p>
+                    Kunzz Holdings 成立，确立发展方向。
+                </p>
+    </div>
+    </div>
 
-        <!-- 2024 -->
-        <div class="timeline-item right">
-            <div class="timeline-content text-content">
-                <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
-            </div>
-            <div class="timeline-info">
-                <span class="year">2024</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content image-content">
-                <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
-            </div>
-        </div>
+    <div class="checkpoint">
+            <div>
+                <h2>2024</h2>
+                <p>
+                    拓展业务，新增子公司，提升市场影响力。
+                </p>
+    </div>
+    </div>
 
-        <!-- 2025 -->
-        <div class="timeline-item left">
-            <div class="timeline-content image-content">
-                <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
-            </div>
-            <div class="timeline-info">
-                <span class="year">2025</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content text-content">
-                <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
-            </div>
-        </div>
+    <div class="checkpoint">
+            <div>
+                <h2>2025</h2>
+                <p>
+                    计划进入国际市场，推动品牌全球化。
+                </p>
+    </div>
     </div>
 
     <!-- 联系我们 -->
