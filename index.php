@@ -665,7 +665,6 @@
         <h2>发展历史</h2>
     </section>
 
-    <section id="timeline">
     <div class="timeline">
         <div class="checkpoint">
             <div>
@@ -693,9 +692,9 @@
                 </p>
     </div>
     </div>
-    </section>
 
     <!-- 联系我们 -->
+    <section id="contact-us">
     <div class="container">
         <div class="contact-info">
             <h2>联系我们</h2>
@@ -708,6 +707,7 @@
         </div>
     </div>
 </div>
+</section>
 
     <p style="text-align: center; font-size: 14px; color: #666; margin-top: 20px;">
         © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
