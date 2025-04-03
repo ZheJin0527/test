@@ -495,16 +495,23 @@
             margin-bottom: 10px;
         }
 
-        /* 圆圈到照片的虚线 */
+        /* 圆圈到照片的横向虚线（默认：向右） */
         .dashed-line {
-            width: 4px;
-            height: 120px;
-            border-left: 4px dashed #FFA500;
+            width: 120px; /* 让虚线变成横线 */
+            height: 4px; /* 变成一条横线 */
+            border-top: 4px dashed #FFA500; /* 变成上边框虚线 */
+            border-left: none; /* 取消左边的虚线 */
             position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 50%; /* 让它位于圆圈的中间 */
+            left: 100%; /* 从圆圈右边开始 */
+            transform: translateY(-50%); /* 居中对齐 */
             z-index: 1;
+        }
+
+        /* 2024 的虚线反向（向左） */
+        .timeline-item.right .dashed-line {
+            left: auto;
+            right: 100%; /* 让虚线从左边延伸出去 */
         }
 
         /* 文字和图片容器 */
