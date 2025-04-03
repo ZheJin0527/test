@@ -425,142 +425,123 @@
             padding-top: 5px 0; /* 轻微调整上下间距 */
         }  
 
-        /* 时间轴整体 */
+        /* 时间轴整体样式 */
         .timeline {
-            position: relative;
-            width: 80%;
-            margin: 50px auto;
-        }
-
-        /* 时间轴的中间虚线 */
-        .timeline::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 4px;
-            height: 100%;
-            border-left: 4px dashed #FFA500;
-            transform: translateX(-50%);
-            z-index: -1;
-        }
-
-        /* 时间轴整体 */
-        .timeline {
-            position: relative;
-            width: 80%;
-            margin: 50px auto;
-        }
-
-        /* 时间轴的中间虚线 */
-        .timeline::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 4px;
-            height: 100%;
-            border-left: 4px dashed #FFA500;
-            transform: translateX(-50%);
-            z-index: -1;
-        }
-
-        /* 时间轴项 */
-        .timeline-item {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
             position: relative;
-            margin: 50px 0;
+            width: 90%;
+            margin: 50px auto 100px;
+            padding: 10px 0;
+        }
+
+        /* 时间轴横线 */
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
             width: 100%;
+            height: 4px;
+            border-top: 4px dashed #FFA500; /* 橙色虚线 */
+            background: none; /* 取消原本的背景色 */
+            z-index: -1;
         }
 
-        /* 2023 和 2025（照片左，文字右） */
-        .timeline-item.left {
-            flex-direction: row; /* 照片在左，文字在右 */
-        }
-
-        /* 2024（文字左，照片右） */
-        .timeline-item.right {
-            flex-direction: row-reverse; /* 文字在左，照片在右 */
-        }
-
-        /* 时间信息（年份+圆圈） */
-        .timeline-info {
+        /* 时间轴项目 */
+        .timeline-item {
+            text-align: center;
+            position: relative;
+            width: 30%;
             display: flex;
-            flex-direction: column;
+            flex-direction: column;  
             align-items: center;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
         }
 
-        /* 圆圈 */
+        /* 时间点（黑点在线上） */
         .circle {
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(to bottom, #F67F1E, #FDB716);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 事件图片 */
+        .timeline-img {
+            width: 300px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 让时间点连接到图片 */
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            width: 4px;
+            height: 220px;
+            border-left: 4px dashed #FFA500; /* 竖直方向的橙色虚线 */
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        /* 让线从时间点向下连接到图片 */
+        .timeline-item:nth-child(odd)::after {
+            bottom: calc(48% + 8px);
+        }
+
+        .timeline-item:nth-child(even)::after {
+            top: calc(50% + 8px);
+        }
+
+        /* 让 2023 和 2025 向上靠近时间轴 */
+        .timeline-item:nth-child(odd) .year,
+        .timeline-item:nth-child(odd) .timeline-text {
+            position: relative;
+            top: -110px; /* 让年份和段落都靠近时间轴 */
+            font-weight: bold;
+        }
+
+        /* 让 2024 向下靠近时间轴 */
+        .timeline-item:nth-child(even) .year,
+        .timeline-item:nth-child(even) .timeline-text {
+            position: relative;
+            top: 130px; /* 让年份和段落都靠近时间轴 */
+            font-weight: bold;
         }
 
         /* 年份 */
         .year {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            font-family: "Arial Black", Arial, sans-serif;
+            margin-bottom: 20px; /* 控制年份和段落的间距 */
         }
 
-        /* 文字和图片容器 */
-        .timeline-content {
-            width: 40%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative; /* 允许虚线正确对齐 */
-        }
-
-        /* 文字 */
+        /* 文字描述 */
         .timeline-text {
-            width: 280px;
-            font-size: 1.2rem;
-            text-align: center;
+            font-size: 1.4rem;
             color: #333;
+            text-align: center;
+            margin-top: 20px;
         }
 
-        /* 图片 */
-        .timeline-img {
-            width: 280px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
+        /* 调整图片与线的距离 */
+        .timeline-item:nth-child(odd) .timeline-img {
+            margin-bottom: 250px;
         }
 
-        /* 虚线（横向连接到照片） */
-        .dashed-line {
-            width: 100px;  /* 让虚线变长，向照片方向延伸 */
-            height: 4px;   /* 变成横线，而不是竖线 */
-            border-left: none; /* 取消左边框 */
-            border-top: 4px dashed #FFA500; /* 改成顶部的虚线 */
-            position: absolute;
-            top: 50%;  /* 让虚线垂直居中 */
-            left: 50%; /* 从圆圈中间开始 */
-            transform: translateY(-50%); /* 调整居中对齐 */
-        }
-
-        /* 2023 和 2025：虚线向右连接 */
-        .timeline-item.left .dashed-line {
-            left: calc(50% + 15px); /* 从圆圈右侧开始 */
-        }
-
-        /* 2024：虚线向左连接 */
-        .timeline-item.right .dashed-line {
-            left: auto;
-            right: calc(50% + 15px); /* 从圆圈左侧开始 */
+        .timeline-item:nth-child(even) .timeline-img {
+            margin-top: 250px;
         }
 
         .container {
@@ -705,50 +686,29 @@
     </section>
 
     <div class="timeline">
-        <!-- 2023 -->
-        <div class="timeline-item left">
-            <div class="timeline-content image-content">
-                <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
-            </div>
-            <div class="timeline-info">
-                <span class="year">2023</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content text-content">
-                <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
-            </div>
-        </div>
+    <!-- 2023 -->
+    <div class="timeline-item">
+        <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
+        <div class="circle"></div>
+        <span class="year">2023</span>
+        <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
+    </div>
 
-        <!-- 2024 -->
-        <div class="timeline-item right">
-            <div class="timeline-content text-content">
-                <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
-            </div>
-            <div class="timeline-info">
-                <span class="year">2024</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content image-content">
-                <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
-            </div>
-        </div>
+    <!-- 2024 -->
+    <div class="timeline-item">
+    <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
+        <div class="circle"></div>
+        <span class="year">2024</span>
+        <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
+    </div>
 
-        <!-- 2025 -->
-        <div class="timeline-item left">
-            <div class="timeline-content image-content">
-                <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
-            </div>
-            <div class="timeline-info">
-                <span class="year">2025</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content text-content">
-                <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
-            </div>
-        </div>
+    <!-- 2025 -->
+    <div class="timeline-item">
+        <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
+        <div class="circle"></div>
+        <span class="year">2025</span>
+        <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
+    </div>
     </div>
 
     <!-- 联系我们 -->
