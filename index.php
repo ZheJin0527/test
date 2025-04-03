@@ -439,7 +439,7 @@
             top: 0;
             left: 50%;
             width: 4px;
-            height: 95%;
+            height: 80%;
             border-left: 4px dashed #FFA500;
             transform: translateX(-50%);
             z-index: -1;
