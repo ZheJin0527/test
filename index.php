@@ -448,8 +448,8 @@
         /* 时间轴项 */
         .timeline-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: flex-start; /* 确保项目在水平方向上从左对齐 */
+            align-items: center; /* 保证文字和照片平行对齐 */
             position: relative;
             margin: 50px 0;
             width: 100%;
@@ -471,10 +471,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
+            margin-right: 20px; /* 适当调整圆圈与文字的间距 */
         }
 
         /* 圆圈 */
@@ -487,13 +484,13 @@
             align-items: center;
             justify-content: center;
             z-index: 2;
+            margin-bottom: 10px; /* 圆圈与年份之间的间距 */
         }
 
         /* 年份 */
         .year {
             font-size: 1.4rem;
             font-weight: bold;
-            margin-bottom: 10px;
         }
 
         /* 默认虚线向左连接（适用于 2023 & 2025）*/
@@ -570,8 +567,6 @@
             border-radius: 10px;
             position: relative;
             z-index: 3; /* 确保照片层级高于虚线 */
-            margin-left: -10px; /* 让照片向左移动，盖住虚线 */
-            margin-right: -10px; /* 让照片向右移动，盖住虚线 */
         }
 
         /* 小屏幕（768px 以下），进一步缩小 */
