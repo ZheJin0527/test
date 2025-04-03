@@ -515,7 +515,7 @@
             right: auto;
             transform: translateY(-50%);
             width: calc(50vw - 280px);
-            z-index: -1; /* 让虚线在最底层，隐藏到照片后面 */
+            z-index: -2; /* 让虚线在最底层，隐藏到照片后面 */
         }
 
         /* 小屏幕适配 */
