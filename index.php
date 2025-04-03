@@ -501,7 +501,7 @@
             top: 50%;
             right: calc(50% + 10px); /* 让虚线从时间轴往左延伸 */
             transform: translateY(-50%);
-            width: calc(50vw - 200px); /* 让虚线动态调整 */
+            width: calc(50vw - 280px); /* 让虚线动态调整 */
             height: 4px;
             background: none;
             border-top: 4px dashed #FFA500;
@@ -514,17 +514,17 @@
             left: calc(50% + 10px); /* 让虚线从时间轴向右延伸 */
             right: auto;
             transform: translateY(-50%);
-            width: calc(50vw - 200px);
+            width: calc(50vw - 280px);
         }
 
         /* 小屏幕适配 */
         @media (max-width: 768px) {
             .dashed-line {
-                width: calc(50vw - 120px); /* 确保小屏幕时虚线不会太长 */
+                width: calc(50vw - 180px); /* 确保小屏幕时虚线不会太长 */
             }
 
             .timeline-item.right .dashed-line {
-                width: calc(50vw - 120px);
+                width: calc(50vw - 180px);
             }
         }
 
