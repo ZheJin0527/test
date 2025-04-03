@@ -499,8 +499,8 @@
         .dashed-line {
             position: absolute;
             top: 50%;
-            right: 50%; /* 让虚线从元素正中间开始，向左延伸 */
-            transform: translateY(-50%) translateX(50%);
+            left: 50%; /* 让虚线从元素正中间开始，向左延伸 */
+            transform: translateY(-50%) translateX(-100%);
             width: calc(50vw - 160px); /* 让虚线自适应屏幕大小 */
             height: 4px;
             background: none;
@@ -511,8 +511,8 @@
 
         /* 2024（照片在右，文字在左），虚线连接向右 */
         .timeline-item.right .dashed-line {
-            left: 50%; /* 让虚线从左侧开始 */
-            right: auto;
+            left: auto;
+            right: 50%; /* 让虚线从左侧开始 */
             transform: translateY(-50%);
             width: calc(50vw - 160px);
         }
