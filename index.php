@@ -709,11 +709,11 @@
         <div class="timeline-item left">
             <div class="timeline-content image-content">
                 <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
+                <div class="dashed-line"></div> <!-- ✅ 虚线放到图片容器里 -->
             </div>
             <div class="timeline-info">
                 <span class="year">2023</span>
                 <div class="circle"></div>
-                <div class="dashed-line"></div>
             </div>
             <div class="timeline-content text-content">
                 <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
@@ -728,10 +728,10 @@
             <div class="timeline-info">
                 <span class="year">2024</span>
                 <div class="circle"></div>
-                <div class="dashed-line"></div>
             </div>
             <div class="timeline-content image-content">
                 <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
+                <div class="dashed-line"></div> <!-- ✅ 放对位置 -->
             </div>
         </div>
 
@@ -739,11 +739,11 @@
         <div class="timeline-item left">
             <div class="timeline-content image-content">
                 <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
+                <div class="dashed-line"></div> <!-- ✅ 放对位置 -->
             </div>
             <div class="timeline-info">
                 <span class="year">2025</span>
                 <div class="circle"></div>
-                <div class="dashed-line"></div>
             </div>
             <div class="timeline-content text-content">
                 <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
