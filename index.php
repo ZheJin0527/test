@@ -107,7 +107,6 @@
             text-decoration: none;
             border-radius: 25px;
             font-size: clamp(1rem, 1.4vw, 1.5rem);  /* 更小的字体大小 */
-
         }
 
         .login-btn:hover {
@@ -158,6 +157,48 @@
 
         nav {
             transition: transform 0.3s ease-in-out;
+        }
+
+        /* ========================= */
+        /* ✅ 新增：关于我们下拉菜单样式 */
+        /* ========================= */
+
+        .dropdown {
+            position: relative;
+        }
+
+        /* 默认隐藏下拉内容 */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%; /* 紧贴主菜单项底部 */
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 120px;
+            z-index: 1001;
+            border-radius: 8px;
+            padding: 8px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 鼠标悬停时显示 */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 下拉内容样式 */
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+        }
+
+        /* hover 效果 */
+        .dropdown-content a:hover {
+            background-color: #222;
+            color: #FF5C00;
         }
 
         /* 版块样式 */
@@ -646,7 +687,12 @@
         <!-- 菜单部分 -->
         <div class="menu-container">
             <a href="#home">首页</a>
-            <a href="#about-us">关于我们</a>
+            <div class="dropdown">
+                <a href="#about-us">关于我们</a>
+                <div class="dropdown-content">
+                    <a href="#history">发展历史</a>
+                </div>
+            </div>
             <a href="#brands">旗下品牌</a>
             <a href="#join-us">加入我们</a>
         </div>
