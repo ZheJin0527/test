@@ -76,6 +76,7 @@
             display: flex;
             justify-content: center;
             gap: clamp(15px, 2.5vw, 30px); /* 初始间距适中 */
+            background-color:rgba(134, 134, 133, 0.29);
         }
 
         /* 菜单链接 */
