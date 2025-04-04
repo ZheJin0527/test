@@ -212,27 +212,6 @@
         scroll-snap-align: start; /* 让滚动时对齐屏幕顶部 */
     }
 
-    #history {
-            width: 100vw;
-            height: min(20vh, 200px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            padding: 10px 20px;
-            box-sizing: border-box;
-            background: linear-gradient(to right, 
-                rgba(245, 121, 31, 0.85), 
-                rgba(253, 189, 21, 0.85)
-            );
-        }
-
-        #history h2 {
-            color: white;
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: bold;
-            margin: 0;
-        }  
 
         .timeline {
             position: relative;
@@ -400,9 +379,6 @@
         </div>
     </nav>
 
-    <section id="history">
-        <h2>发展历史</h2>
-    </section>
 
     <div class="timeline">
         <!-- 2023 -->
@@ -450,6 +426,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const navbar = document.getElementById("navbar");
+    
+        navbar.style.transition = "top 0.3s ease";  // 平滑过渡效果
+    
+        // 监听页面的滚动事件
+        window.onscroll = function() {
+            // 获取页面的滚动位置
+            if (window.scrollY > 0) {
+                // 当页面滚动时，隐藏导航栏
+                navbar.style.top = "-120px"; // 隐藏导航栏（根据需要调整隐藏的高度）
+            } else {
+                // 当页面回到顶部时，显示导航栏
+                navbar.style.top = "0"; // 导航栏恢复到顶部
+            }
+        };
+        </script>
 
 </body>
 </html>
