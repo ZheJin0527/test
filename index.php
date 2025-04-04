@@ -193,6 +193,8 @@
             text-decoration: none;
             display: block;
             font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+            white-space: nowrap;
+            min-width: max-content;
         }
 
         /* hover 效果 */
