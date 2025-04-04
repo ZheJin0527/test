@@ -1,1 +1,459 @@
+<<<<<<< HEAD
 
+=======
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="icon" type="image/png" href="images/images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发展历史 - KUNZZ HOLDINGS</title>
+    <link rel="stylesheet" href="style.css"> <!-- 引入通用CSS文件（如果你用了） -->
+    <style>
+    /* 全局样式 */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+        overflow-x: hidden; /* 防止水平滚动 */
+        background-color: transparent;
+    }
+
+    /* 导航栏 */
+    #navbar {
+        background-color: transparent;
+        padding: 15px 0; /* 增加底部间距 */
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    /* 导航栏容器 */
+    nav .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 3%;
+        position: relative;
+    }
+
+    /* Logo 部分 */
+    nav .logo-container {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+
+    /* Logo 文字 */
+    nav .logo-text {
+        font-size: clamp(1rem, 2vw, 2.5rem); /* 最大字体调整为 2.2rem */
+        font-weight: bold;
+        color: white;
+        margin-left: 10px;
+    }
+
+    /* Logo 图片 */
+    .logo-img {
+        height: clamp(25px, 4.6vw, 65px); /* 最大高度调整为 65px */
+        max-height: 75px;
+    }
+
+    /* 菜单部分 */
+    nav .menu-container {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        gap: clamp(15px, 2.5vw, 30px); /* 初始间距适中 */
+    }
+
+    /* 菜单链接 */
+    nav .menu-container a {
+        color: white;
+        text-decoration: none;
+        font-size: clamp(1rem, 1.4vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
+    }
+
+    /* 鼠标悬停时 */
+    nav .menu-container a:hover {
+        color: #FF5C00; 
+        text-decoration: underline;
+    }
+
+    /* 按钮部分 */
+    nav .buttons-container {
+        display: flex;
+        align-items: center;
+        gap: clamp(8px, 2vw, 20px);  /* 调整按钮间距 */
+        justify-content: flex-end;
+    }
+
+    /* 登录按钮 */
+    .login-btn {
+        background-color: #FF5C00;
+        color: white;
+        padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
+        text-decoration: none;
+        border-radius: 25px;
+        font-size: clamp(1rem, 1.4vw, 1.5rem);  /* 更小的字体大小 */
+    }
+
+    .login-btn:hover {
+        background-color: #d87b00;
+    }
+
+    /* 翻译按钮 */
+    .translate-btn {
+        border-radius: 25px;  /* 圆角 */
+        background-color: transparent;
+        color: white;
+        font-size: clamp(1rem, 1.4vw, 1.5rem);  /* 字体大小 */
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;  /* 垂直居中 */
+        justify-content: flex-start; 
+        gap: 0px;  /* 控制 logo 和文本之间的间距 */
+        padding-left: 0px;  /* 减小左侧内边距 */
+        padding-right: 20px;  /* 可以适当调整右边内边距 */
+        overflow: visible;  /* 确保内容不会被隐藏 */
+        white-space: nowrap;  /* 确保文本保持在一行 */
+    }
+
+    /* 翻译按钮中的 Logo 图片样式 */
+    .translate-btn .translate-logo-img {
+        width: clamp(30px, 4.8vw, 85px);  /* Logo 尺寸根据按钮大小调整 */
+        height: clamp(30px, 4.8vw, 85px); /* 设置 Logo 高度 */
+        object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
+        margin-right: -10px; /* 让 logo 贴近文字 */
+    }
+
+    /* hover 效果 */
+    .translate-btn:hover {
+        color: #FF5C00; 
+        text-decoration: underline;
+    }
+
+    /* 鼠标悬停时，让 logo 变成 #FF5C00 */
+    .translate-btn:hover .translate-logo-img {
+        filter: brightness(0) saturate(100%) invert(38%) sepia(99%) saturate(1450%) hue-rotate(4deg) brightness(101%) contrast(104%);
+    }
+
+    .nav-hidden {
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    nav {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* ========================= */
+    /* ✅ 新增：关于我们下拉菜单样式 */
+    /* ========================= */
+
+    .dropdown {
+        position: relative;
+    }
+
+    /* 默认隐藏下拉内容 */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%; /* 紧贴主菜单项底部 */
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        min-width: 120px;
+        z-index: 1001;
+        border-radius: 8px;
+        padding: 8px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 鼠标悬停时显示 */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* 下拉内容样式 */
+    .dropdown-content a {
+        color: white;
+        padding: 10px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+        white-space: nowrap;
+        min-width: max-content;
+    }
+
+    /* hover 效果 */
+    .dropdown-content a:hover {
+        background-color: #222;
+        color: #FF5C00;
+    }
+
+    /* 版块样式 */
+    section {
+        width: 100vw;
+        height: 100vh; /* 每个 section 占满整个屏幕 */
+        padding: 40px 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-wrap: wrap;
+        scroll-snap-align: start; /* 让滚动时对齐屏幕顶部 */
+    }
+
+    #history {
+            width: 100vw;
+            height: min(20vh, 200px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to right, 
+                rgba(245, 121, 31, 0.85), 
+                rgba(253, 189, 21, 0.85)
+            );
+        }
+
+        #history h2 {
+            color: white;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: bold;
+            margin: 0;
+        }  
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+            width: 100%;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            border-left: 4px dashed #FFA500;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin: 50px 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .timeline-item.left {
+            flex-direction: row;
+        }
+
+        .timeline-item.right {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .circle {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(to bottom, #F67F1E, #FDB716);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .year {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            max-width: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-text {
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            text-align: center;
+            color: #333;
+        }
+
+        .timeline-img {
+            width: 100%;
+            max-width: clamp(200px, 25vw, 500px);
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+            position: relative;
+            z-index: 3;
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-content {
+                max-width: 280px;
+            }
+            .timeline-img {
+                max-width: 220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            .timeline-content {
+                max-width: 100%;
+            }
+            .timeline-img {
+                max-width: 180px;
+            }
+        }
+
+        .timeline-item.left .timeline-content:first-child {
+            order: -1;
+        }
+
+        .timeline-item.left .timeline-content:last-child {
+            order: 1;
+        }
+
+        .timeline-item.right .timeline-content:first-child {
+            order: 1;
+        }
+
+        .timeline-item.right .timeline-content:last-child {
+            order: -1;
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <!-- Logo 部分 -->
+            <div class="logo-container">
+                <img src="images/images/logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text">KUNZZ HOLDINGS</span>
+            </div>
+    
+            <!-- 菜单部分 -->
+            <div class="menu-container">
+                <a href="#home">首页</a>
+                <div class="dropdown">
+                    <a href="#about-us">关于我们</a>
+                    <div class="dropdown-content">
+                        <a href="#history">发展历史</a>
+                    </div>
+                </div>
+                <a href="#brands">旗下品牌</a>
+                <a href="#join-us">加入我们</a>
+            </div>
+    
+            <!-- 按钮部分 -->
+            <div class="buttons-container">
+                <a href="#" class="login-btn">LOGIN</a> <!-- 登录按钮放左边 -->
+                <button class="translate-btn">
+                    <img src="images/images/翻译.png" alt="Logo" class="translate-logo-img"> <!-- Logo 图片 -->
+                    EN / CN
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="history">
+        <h2>发展历史</h2>
+    </section>
+
+    <div class="timeline">
+        <!-- 2023 -->
+        <div class="timeline-item left">
+            <div class="timeline-content image-content">
+                <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
+            </div>
+            <div class="timeline-info">
+                <span class="year">2023</span>
+                <div class="circle"></div>
+                <div class="dashed-line"></div>
+            </div>
+            <div class="timeline-content text-content">
+                <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
+            </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="timeline-item right">
+            <div class="timeline-content text-content">
+                <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
+            </div>
+            <div class="timeline-info">
+                <span class="year">2024</span>
+                <div class="circle"></div>
+                <div class="dashed-line"></div>
+            </div>
+            <div class="timeline-content image-content">
+                <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
+            </div>
+        </div>
+
+        <!-- 2025 -->
+        <div class="timeline-item left">
+            <div class="timeline-content image-content">
+                <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
+            </div>
+            <div class="timeline-info">
+                <span class="year">2025</span>
+                <div class="circle"></div>
+                <div class="dashed-line"></div>
+            </div>
+            <div class="timeline-content text-content">
+                <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+>>>>>>> 558e2a2 (testing547)
