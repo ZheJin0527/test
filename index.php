@@ -24,7 +24,7 @@
         /* 导航栏 */
         #navbar {
             background-color: transparent;
-            padding: 15px 0;
+            padding: 15px 0; /* 增加底部间距 */
             position: fixed;
             width: 100%;
             top: 0;
@@ -56,7 +56,7 @@
 
         /* Logo 文字 */
         nav .logo-text {
-            font-size: clamp(1rem, 2vw, 2.5rem);
+            font-size: clamp(1rem, 2vw, 2.5rem); /* 最大字体调整为 2.2rem */
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -64,7 +64,7 @@
 
         /* Logo 图片 */
         .logo-img {
-            height: clamp(25px, 4.6vw, 65px);
+            height: clamp(25px, 4.6vw, 65px); /* 最大高度调整为 65px */
             max-height: 75px;
         }
 
@@ -75,16 +75,14 @@
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
-            gap: clamp(15px, 2.5vw, 30px);
+            gap: clamp(15px, 2.5vw, 30px); /* 初始间距适中 */
         }
 
         /* 菜单链接 */
         nav .menu-container a {
             color: white;
             text-decoration: none;
-            font-size: clamp(1rem, 1.4vw, 1.8rem);
-            padding: 10px 15px;
-            position: relative;
+            font-size: clamp(1rem, 1.4vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
         }
 
         /* 鼠标悬停时 */
@@ -93,47 +91,11 @@
             text-decoration: underline;
         }
 
-        /* 下拉菜单容器 */
-        .submenu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.8); /* 半透明背景 */
-            border-radius: 5px;
-            padding: 10px 0;
-            min-width: 140px;
-            white-space: nowrap;
-        }
-
-        /* 下拉菜单项 */
-        .submenu a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            font-size: clamp(1rem, 1.2vw, 1.6rem);
-            padding: 8px 20px;
-        }
-
-        /* 鼠标悬停时高亮 */
-        .submenu a:hover {
-            background-color: #FF5C00;
-        }
-
-        /* 让“关于我们”鼠标悬停时显示下拉菜单 */
-        .about-us-container {
-            position: relative;
-        }
-
-        .about-us-container:hover .submenu {
-            display: block;
-        }
-
         /* 按钮部分 */
         nav .buttons-container {
             display: flex;
             align-items: center;
-            gap: clamp(8px, 2vw, 20px);
+            gap: clamp(8px, 2vw, 20px);  /* 调整按钮间距 */
             justify-content: flex-end;
         }
 
@@ -141,10 +103,11 @@
         .login-btn {
             background-color: #FF5C00;
             color: white;
-            padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);
+            padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
             text-decoration: none;
             border-radius: 25px;
-            font-size: clamp(1rem, 1.4vw, 1.5rem);
+            font-size: clamp(1rem, 1.4vw, 1.5rem);  /* 更小的字体大小 */
+
         }
 
         .login-btn:hover {
@@ -153,28 +116,28 @@
 
         /* 翻译按钮 */
         .translate-btn {
-            border-radius: 25px;
+            border-radius: 25px;  /* 圆角 */
             background-color: transparent;
             color: white;
-            font-size: clamp(1rem, 1.4vw, 1.5rem);
+            font-size: clamp(1rem, 1.4vw, 1.5rem);  /* 字体大小 */
             border: none;
             cursor: pointer;
             display: flex;
-            align-items: center;
+            align-items: center;  /* 垂直居中 */
             justify-content: flex-start; 
-            gap: 0px;
-            padding-left: 0px;
-            padding-right: 20px;
-            overflow: visible;
-            white-space: nowrap;
+            gap: 0px;  /* 控制 logo 和文本之间的间距 */
+            padding-left: 0px;  /* 减小左侧内边距 */
+            padding-right: 20px;  /* 可以适当调整右边内边距 */
+            overflow: visible;  /* 确保内容不会被隐藏 */
+            white-space: nowrap;  /* 确保文本保持在一行 */
         }
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
-            width: clamp(30px, 4.8vw, 85px);
-            height: clamp(30px, 4.8vw, 85px);
-            object-fit: contain;
-            margin-right: -10px;
+            width: clamp(30px, 4.8vw, 85px);  /* Logo 尺寸根据按钮大小调整 */
+            height: clamp(30px, 4.8vw, 85px); /* 设置 Logo 高度 */
+            object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
+            margin-right: -10px; /* 让 logo 贴近文字 */
         }
 
         /* hover 效果 */
@@ -673,41 +636,31 @@
 <body>
 
 <nav id="navbar">
-        <div class="nav-container">
-
-            <!-- Logo 部分 -->
-            <div class="logo-container">
-                <img class="logo-img" src="logo.png" alt="Logo">
-                <span class="logo-text">公司名称</span>
-            </div>
-
-            <!-- 菜单部分 -->
-            <div class="menu-container">
-                <a href="#home">首页</a>
-                
-                <!-- “关于我们” 添加下拉菜单 -->
-                <div class="about-us-container">
-                    <a href="#about-us">关于我们</a>
-                    <div class="submenu">
-                        <a href="#history">发展历史</a>
-                    </div>
-                </div>
-
-                <a href="#brands">旗下品牌</a>
-                <a href="#join-us">加入我们</a>
-            </div>
-
-            <!-- 按钮部分 -->
-            <div class="buttons-container">
-                <a href="#login" class="login-btn">登录</a>
-                <button class="translate-btn">
-                    <img class="translate-logo-img" src="translate-icon.png" alt="翻译">
-                    语言
-                </button>
-            </div>
-
+    <div class="nav-container">
+        <!-- Logo 部分 -->
+        <div class="logo-container">
+            <img src="images/images/logo.png" alt="Logo" class="logo-img">
+            <span class="logo-text">KUNZZ HOLDINGS</span>
         </div>
-    </nav>
+
+        <!-- 菜单部分 -->
+        <div class="menu-container">
+            <a href="#home">首页</a>
+            <a href="#about-us">关于我们</a>
+            <a href="#brands">旗下品牌</a>
+            <a href="#join-us">加入我们</a>
+        </div>
+
+        <!-- 按钮部分 -->
+        <div class="buttons-container">
+            <a href="#" class="login-btn">LOGIN</a> <!-- 登录按钮放左边 -->
+            <button class="translate-btn">
+                <img src="images/images/翻译.png" alt="Logo" class="translate-logo-img"> <!-- Logo 图片 -->
+                EN / CN
+            </button>
+        </div>
+    </div>
+</nav>
 
 
 <section id="home">
