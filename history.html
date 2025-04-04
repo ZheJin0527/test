@@ -212,137 +212,263 @@
         scroll-snap-align: start; /* 让滚动时对齐屏幕顶部 */
     }
 
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 50px auto;
+    .inline-block {
+        max-width: 100%;
+        display: inline-block;
+    }
+
+    .page-wrapper {
+        z-index: 0;
+        position: relative;
+    }
+
+    .container {
+        width: 90vw;
+        max-width: 1360px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .margin-bottom-medium {
+        margin-bottom: 32px;
+    }
+
+    .paragraph-large {
+        letter-spacing: -0.02em;
+        font-size: 20px;
+    }
+
+    .section-timeline-heading {
+        background-color: #0a0a0a;
+    }
+
+    .padding-vertical-xlarge {
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+
+    .timeline-main_heading-wrapper {
+        color: #fff;
+        text-align: center;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .timeline_component {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 1120px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        position: relative;
+    }
+
+    .timeline_item{
+        z-index: 2;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 180px 1fr;
+        grid-auto-columns: 1fr;
+        padding-top: 80px;
+        padding-bottom: 80px;
+        display: grid;
+        position: relative;
+    }
+
+    .timeline_left {
+        text-align: right;
+        justify-content: flex-end;
+        align-items: stretch;
+    }
+
+    .timeline_left {
+        text-align: right;
+        justify-content: flex-end;
+        align-items: stretch;
+    }
+
+    .timeline_centre {
+        text-align: right;
+        justify-content: flex-end;
+        align-items: stretch;
+    }
+
+    .timeline_centre {
+        justify-content: center;
+        display: flex;
+    }
+
+    .timeline_date-text {
+        color: #fff;
+        letter-spacing: -0.03em;
+        font-size: 48px;
+        font-weight: 500;
+        line-height: 1.2;
+        position: sticky;
+        top: 50vh;
+    }
+
+    .timeline_text {
+        color: #fff;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    .timeline_circle {
+        background-color: #fff;
+        border-radius: 100%;
+        width: 15px;
+        min-width: 15px;
+        max-width: 15px;
+        height: 15px;
+        min-height: 15px;
+        max-height: 15px;
+        position: sticky;
+        top: 50vh;
+        box-shadow: 0 0 0 8px #0a0a0a;
+    }
+
+    .timeline_progress {
+        z-index: -2;
+        background-color: #414141;
+        width: 3px;
+        height: 100%;
+        position: absolute;
+    }
+
+    .timeline_progress-bar {
+        z-index: -1;
+        background: #ff6a00;
+        background: -webkit-linear-gradient(
+            to bottom,
+            #ff6a00,
+            #ee0979
+        );
+        background: linear-gradient(
+            to bottom,
+            #ff6a00,
+            #ee0979
+        );
+
+        width: 3px;
+        height: 50vh;
+        position: fixed;
+        inset: 0 auto 50vh;
+    }
+
+    .section-timeline {
+        z-index: -3;
+        background-color: #414141;
+        position: relative;
+    }
+
+    .margin-bottom-xlarge {
+        margin-bottom: 56px;
+    }
+
+    .timeline_link {
+        opacity: 0.6;
+        color: #fff;
+        letter-spacing: 0.8px;
+        text-transform:uppercase;
+        border-radius: 8px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.3;
+        text-decoration: none;
+        transition: opacity 0.3s;
+        display: flex;
+    }
+
+    .timeline_link:hover {
+        opacity: 1;
+    }
+
+    link-icon {
+        width: 20px;
+        height: 20px;
+        margin-left: 8px;
+    }
+
+    .inline-block {
+        display: inline-block;
+    }
+
+    .text-colour-lightgrey {
+        color: #ffffffa6;
+    }
+
+    .overlay-fade-top {
+        background-image: linear-gradient(#0a0a0a, #0a0a0a00);
+        height: 80px;
+        position:absolute;
+        inset: 0% 0% auto;
+    }
+
+    .overlay-fade-bottom {
+        background-image: linear-gradient(#0a0a0a, #0a0a0a00);
+        height: 80px;
+        position:absolute;
+        inset: 0% 0% ;
+    }
+
+    @media screen and (max-width: 767px) {
+        h2 {
+            font-size: 40px;
+        }
+
+        .paragraph-large {
+            font-size: 18px
+        }
+
+        .padding-vertical-xlarge {
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        .timeline_item {
+            grid-template-columns: 64px 1fr;
             width: 100%;
-            margin-top: 120px; /* 增加此行，将时间轴向下移动 */
         }
 
-        .timeline::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 4px;
-            height: 100%;
-            border-left: 4px dashed #FFA500;
-            transform: translateX(-50%);
-            z-index: -1;
+        .timeline_left {
+            text-align: left;
+            grid-area: 1 / 2 / 2 / 3;
         }
 
-        .timeline-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            margin: 50px 0;
-            width: 100%;
-            overflow: hidden;
+        .timeline_centre {
+            text-align: flex-start;
+            grid-area: 1 / 1 / 3 / 2;
         }
 
-        .timeline-item.left {
-            flex-direction: row;
+        .timeline-right {
+            grid-area: span 1 / span 1 / span 1 / span 1;
         }
 
-        .timeline-item.right {
-            flex-direction: row-reverse;
+        .timeline_date-text {
+            margin-bottom: 24px;
+            font-size: 36px;
         }
 
-        .timeline-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
+        .timeline_text {
+            font-size: 20px;
         }
 
-        .circle {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(to bottom, #F67F1E, #FDB716);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
+        .timeline-progress {
+            left: 6px;
         }
 
-        .year {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .margin-bottom-xlarge {
+            margin-bottom: 48px;
         }
+    }
 
-        .timeline-content {
-            flex: 1;
-            max-width: 350px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .timeline-text {
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-            text-align: center;
-            color: #333;
-        }
-
-        .timeline-img {
-            width: 100%;
-            max-width: clamp(200px, 25vw, 500px);
-            height: auto;
-            object-fit: cover;
-            border-radius: 10px;
-            position: relative;
-            z-index: 3;
-            margin-left: -10px;
-            margin-right: -10px;
-        }
-
-        @media (max-width: 768px) {
-            .timeline-content {
-                max-width: 280px;
-            }
-            .timeline-img {
-                max-width: 220px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .timeline-item {
-                flex-direction: column;
-                text-align: center;
-            }
-            .timeline-content {
-                max-width: 100%;
-            }
-            .timeline-img {
-                max-width: 180px;
-            }
-        }
-
-        .timeline-item.left .timeline-content:first-child {
-            order: -1;
-        }
-
-        .timeline-item.left .timeline-content:last-child {
-            order: 1;
-        }
-
-        .timeline-item.right .timeline-content:first-child {
-            order: 1;
-        }
-
-        .timeline-item.right .timeline-content:last-child {
-            order: -1;
-        }
     </style>
 </head>
 <body>
@@ -379,51 +505,87 @@
         </div>
     </nav>
 
-
-    <div class="timeline">
-        <!-- 2023 -->
-        <div class="timeline-item left">
-            <div class="timeline-content image-content">
-                <img src="images/images/2023发展.jpg" alt="2023发展" class="timeline-img">
-            </div>
-            <div class="timeline-info">
-                <span class="year">2023</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content text-content">
-                <p class="timeline-text">Kunzz Holdings 成立，确立发展方向。</p>
-            </div>
-        </div>
-
-        <!-- 2024 -->
-        <div class="timeline-item right">
-            <div class="timeline-content text-content">
-                <p class="timeline-text">拓展业务，新增子公司，提升市场影响力。</p>
-            </div>
-            <div class="timeline-info">
-                <span class="year">2024</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content image-content">
-                <img src="images/images/2024发展.jpg" alt="2024发展" class="timeline-img">
+    <div class="page-wrapper">
+        <div class="section-timline-heading">
+            <div class="container">
+                <div class="padding-vertical-xlarge">
+                    <div class="timeline-main_heading-wrapper">
+                        <div class="margin-bottom-medium">
+                            <h2>发展历史</h2>                     
+                        </div>
+                        <p class="paragraph-large">
+                            fgfdgdffddfgdfg.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="section-timeline">
+            <div class="container">
+                <div class="timeline_component">
+                    <div class="timeline_progress">
+                        <div class="timeline_progress-bar"></div>
+                    </div>
+                    <div class="timeline_item">
+                        <div class="timeline_left">
+                            <div class="timeline_date-text">2023</div>
+                        </div>
+                        <div class="timeline_centre">
+                            <div class="timeline_circle"></div>               
+                        </div>
+                        <div class="timeline_right">
+                            <div class="margin-bottom-xlarge">
+                                <div class="timeline_text">
+                                    Kunzz Holdings 成立，确立发展方向。
+                                </div>
+                            </div>
+                            <div class="timeline_image-wrapper">
+                                <img src="images/images/2023发展.jpg" loading="lazy" alt="2023发展" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline_item">
+                        <div class="timeline_left">
+                            <div class="timeline_date-text">2024</div>
+                        </div>
+                        <div class="timeline_centre">
+                            <div class="timeline_circle"></div>
+                        </div>
+                        <div class="timeline_right">
+                            <div class="margin-bottom-medium">
+                                <div class="timeline_text">
+                                    拓展业务，新增子公司，提升市场影响力。
+                                </div>
+                            </div>
+                            <div class="timeline_image-wrapper">
+                                <img src="images/images/2024发展.jpg" loading="lazy" alt="2024发展" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline_item">
+                        <div class="timeline_left">
+                            <div class="timeline_date-text">2025</div>
+                        </div>
+                        <div class="timeline_centre">
+                            <div class="timeline_circle"></div>
+                        </div>
+                        <div class="timeline_right">
+                            <div class="margin-bottom-medium">
+                                <div class="timeline_text">
+                                    计划进入国际市场，推动品牌全球化。
+                                </div>
+                            </div>
+                            <div class="timeline_image-wrapper">
+                                <img src="images/images/2025发展.jpg" loading="lazy" alt="2025发展" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overlay-fade-top"></div>
+                    <div class="overlay-fade-bottom"></div>
+                </div>
+            </div>
 
-        <!-- 2025 -->
-        <div class="timeline-item left">
-            <div class="timeline-content image-content">
-                <img src="images/images/2025发展.jpg" alt="2025发展" class="timeline-img">
-            </div>
-            <div class="timeline-info">
-                <span class="year">2025</span>
-                <div class="circle"></div>
-                <div class="dashed-line"></div>
-            </div>
-            <div class="timeline-content text-content">
-                <p class="timeline-text">计划进入国际市场，推动品牌全球化。</p>
-            </div>
+            <div style="height: 50vh;"></div>
         </div>
     </div>
 
