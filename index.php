@@ -520,7 +520,7 @@
             <div class="dropdown">
                 <a href="#about-us">关于我们</a>
                 <div class="dropdown-content">
-                    <a href="#history">发展历史</a>
+                    <a href="history.html">发展历史</a>
                 </div>
             </div>
             <a href="#brands">旗下品牌</a>
