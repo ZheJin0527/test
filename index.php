@@ -82,7 +82,7 @@
         nav .menu-container a {
             color: white;
             text-decoration: none;
-            font-size: clamp(1rem, 1.4vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
+            font-size: clamp(0.8rem, 1vw, 1rem); /* 字体最小 1rem，逐步增大 */
         }
 
         /* 鼠标悬停时 */
