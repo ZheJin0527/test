@@ -128,7 +128,7 @@
             display: flex;
             align-items: center;  /* 垂直居中 */
             justify-content: flex-start; 
-            gap: clamp(4px, 1vw, 10px);
+            gap: clamp(4px, 0.8vw, 10px);
             padding-left: 0px;  /* 减小左侧内边距 */
             padding-right: 20px;  /* 可以适当调整右边内边距 */
             overflow: visible;  /* 确保内容不会被隐藏 */
@@ -137,8 +137,8 @@
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
-            width: clamp(30px, 4.8vw, 40px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(30px, 4.8vw, 40px); /* 设置 Logo 高度 */
+            width: clamp(30px, 5vw, 40px);  /* Logo 尺寸根据按钮大小调整 */
+            height: clamp(30px, 5vw, 40px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
             margin-right: 0px; /* 让 logo 贴近文字 */
         }
