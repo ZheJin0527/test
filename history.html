@@ -337,7 +337,7 @@
     }
 
     .timeline_img {
-        max-width: 50%;
+        max-width: 100%;
         box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
     }
 
@@ -438,7 +438,7 @@
         <div class="timeline">
             <div class="timeline-item" data-text="Image yearly Timeline">
                 <div class="timeline_content">
-                    <img src="images/images/2023发展.jpg" alt="2023发展" />
+                    <img class="timeline_img" src="images/images/2023发展.jpg" alt="2023发展" />
                     <h2 class="timeline_content-title">2023</h2>
                     <p class="timeline_content-desc">add a description</p>
                 </div>
@@ -446,7 +446,7 @@
 
             <div class="timeline-item" data-text="Image yearly Timeline">
                 <div class="timeline_content">
-                    <img src="images/images/2024发展.jpg" alt="2024发展" />
+                    <img class="timeline_img" src="images/images/2024发展.jpg" alt="2024发展" />
                     <h2 class="timeline_content-title">2024</h2>
                     <p class="timeline_content-desc">add a description</p>
                 </div>
@@ -454,7 +454,7 @@
 
             <div class="timeline-item" data-text="Image yearly Timeline">
                 <div class="timeline_content">
-                    <img src="images/images/2025发展.jpg" alt="2025发展" />
+                    <img class="timeline_img" src="images/images/2025发展.jpg" alt="2025发展" />
                     <h2 class="timeline_content-title">2025</h2>
                     <p class="timeline_content-desc">add a description</p>
                 </div>
@@ -504,7 +504,7 @@
                         selectors.item
                         .first()
                         .find(selectors.img)
-                        .find("src") +
+                        .attr("src") +
                         ")"
                     );
 
