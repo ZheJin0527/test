@@ -870,7 +870,7 @@
             <div class="thumbnail">
 
                 <div class="item">
-                    "<img src="images/images/办公区.jpg" alt="办公区">
+                    <img src="images/images/办公区.jpg" alt="办公区">
                 </div>
                 <div class="item">
                     "<img src="images/images/会议室.jpg" alt="会议室">
@@ -979,7 +979,7 @@
         let slider = document.querySelector(".slider");
         let sliderList = document.querySelector(".slider .list");
         let thumbnail = document.querySelector(".slider .thumbnail");
-        let thumbnailItems = document.querySelector(".item");
+        let thumbnailItems = document.querySelectorAll(".thumbnail .item");
 
         thumbnail.appendChild(thumbnailItems[0]);
 
@@ -1005,9 +1005,6 @@
                 slider.classList.add("prev");
             }
 
-            slider.addEventListener(
-                "animationed",
-            )
         }
     </script>
 
