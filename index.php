@@ -403,7 +403,6 @@
 
         #about-us .image {
             flex: 1;
-            position: relative;
             border-radius: 10px;
             overflow: hidden;
             display: flex;
@@ -412,6 +411,7 @@
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
             min-width: 300px;
             min-height: 350px;
+            height: 500px;
         }
 
         .slider-wrapper {
@@ -426,10 +426,13 @@
             position: relative;
             width: 100%;
             height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .slide {
-            display: none;
+            display: flex !important;
             flex-direction: column;
             align-items: center;
             text-align: center;
@@ -795,7 +798,6 @@
 
         showSlide(index);
     </script>
-
 
 
 </body>
