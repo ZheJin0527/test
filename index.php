@@ -404,14 +404,55 @@
 
         #about-us .image {
             flex: 1;
-            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
-            min-width: 300px;
-            min-height: 350px;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            position: relative;
             border-radius: 10px;
+            overflow: hidden;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
+            min-height: 350px;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+        }
+
+        .slider img.slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .slider img.active {
+            display: block;
+        }
+
+        .slider button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            background-color: rgba(0,0,0,0.3);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1;
+            border-radius: 50%;
+        }
+
+        .slider button.prev {
+            left: 10px;
+        }
+
+        .slider button.next {
+            right: 10px;
         }
 
         @media (max-width: 768px) {
@@ -592,9 +633,15 @@
             <p>Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。</p>
         </div>
         <div class="image">
-        <img src="images/images/会议室.jpg" alt="会议室" style="max-width: 100%; height: auto; border-radius: 10px;">
+        <div class="slider">
+            <button class="prev">&#10094;</button>
+            <img src="images/images/会议室.jpg" alt="会议室" class="slide active">
+            <img src="images/images/办公区.jpg" alt="办公区" class="slide">
+            <img src="images/images/愿景图.jpg" alt="愿景图" class="slide">
+            <button class="next">&#10095;</button>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="missions">
         <div>
@@ -680,6 +727,33 @@
         }
     };
     </script>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+        let index = 0;
+
+        function showSlide(i) {
+            slides.forEach((slide, idx) => {
+                slide.classList.remove('active');
+                if (idx === i) slide.classList.add('active');
+            });
+        }
+
+        prev.addEventListener('click', () => {
+            index = (index - 1 + slides.length) % slides.length;
+            showSlide(index);
+        });
+
+        next.addEventListener('click', () => {
+            index = (index + 1) % slides.length;
+            showSlide(index);
+        });
+
+        showSlide(index);
+    </script>
+
 
 
 </body>
