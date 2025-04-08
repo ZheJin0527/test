@@ -246,6 +246,14 @@
         line-height: 25px;
     }
 
+    /* 针对大屏幕电脑（比如宽度 >= 1024px）增加字体大小 */
+    @media screen and (min-width: 1024px) {
+        .my-text {
+            font-size: 18px;
+            line-height: 28px;
+        }
+    }
+
     .timeline::before {
         position: absolute;
         left: 50%;
