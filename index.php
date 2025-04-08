@@ -410,20 +410,21 @@
             justify-content: center;
             align-items: center;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
-            min-height: 350px;
+            min-height: 350px; /* 固定最小高度 */
             text-align: center; /* Center align caption */
         }
 
         .slider {
             position: relative;
             width: 100%;
-            max-width: 100%;
             height: 100%;
         }
 
         .slide-container {
             display: none;
             position: relative;
+            width: 100%; /* Ensure full width */
+            height: 100%; /* Ensure full height */
         }
 
         .slide-container .caption {
@@ -431,6 +432,12 @@
             font-weight: normal;
             margin-top: 10px;
             color: #333;
+        }
+
+        .slider img {
+            width: 100%; /* Make sure image fills the container's width */
+            height: 100%; /* Make sure image fills the container's height */
+            object-fit: cover; /* Ensures the image maintains aspect ratio */
         }
 
         .slider img.active {
