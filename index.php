@@ -414,6 +414,14 @@
             min-height: 350px;
         }
 
+        .slider-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .slider {
             position: relative;
             width: 100%;
@@ -644,33 +652,38 @@
     </div>
 </section>
 
-    <section id="about-us">
+<section id="about-us">
     <div class="text">
-            <h1>关于我们</h1>
-            <p>Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。</p>
-        </div>
-        <div class="image">
-        <div class="slider">
-            <button class="prev">&#10094;</button>
-            <div class="slide active">
-                <img src="images/images/会议室.jpg" alt="会议室">
-                <p class="caption">这是第一张图片的说明文字。</p>
-            </div>
+        <h1>关于我们</h1>
+        <p>Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。</p>
+    </div>
 
-            <div class="slide">
-                <img src="images/images/办公区.jpg" alt="办公区">
-                <p class="caption">这是第二张图片的说明文字。</p>
-            </div>
+    <div class="image">
+        <div class="slider-wrapper">
+            <div class="slider">
+                <button class="prev">&#10094;</button>
 
-            <div class="slide">
-                <img src="images/images/愿景图.jpg" alt="愿景图">
-                <p class="caption">这是第三张图片的说明文字。</p>
-            </div>
+                <div class="slide active">
+                    <img src="images/images/会议室.jpg" alt="会议室">
+                    <p class="caption">这是第一张图片的说明文字。</p>
+                </div>
 
-            <button class="next">&#10095;</button>
+                <div class="slide">
+                    <img src="images/images/办公区.jpg" alt="办公区">
+                    <p class="caption">这是第二张图片的说明文字。</p>
+                </div>
+
+                <div class="slide">
+                    <img src="images/images/愿景图.jpg" alt="愿景图">
+                    <p class="caption">这是第三张图片的说明文字。</p>
+                </div>
+
+                <button class="next">&#10095;</button>
+            </div>
         </div>
     </div>
 </section>
+
 
     <section id="missions">
         <div>
