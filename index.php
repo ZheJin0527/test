@@ -210,14 +210,13 @@
         /* 版块样式 */
         section {
             width: 100vw;
-            height: 100vh; /* 每个 section 占满整个屏幕 */
+            min-height: 100vh;
             padding: 40px 5%;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            flex-wrap: wrap;
-            scroll-snap-align: start; /* 让滚动时对齐屏幕顶部 */
+            scroll-snap-align: start;
+            box-sizing: border-box;
         }
 
         #home {
@@ -411,26 +410,44 @@
             justify-content: center;
             align-items: center;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
+            min-width: 300px;
             min-height: 350px;
         }
 
         .slider {
             position: relative;
             width: 100%;
-            max-width: 100%;
             height: 100%;
         }
 
-        .slider img.slide {
+        .slide {
             display: none;
-            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             height: 100%;
+        }
+
+        .slider img {
+            width: 100%;
+            height: auto;
             object-fit: cover;
             border-radius: 10px;
         }
 
-        .slider img.active {
-            display: block;
+        .slider.active {
+            display: flex;
+        }
+
+        /* 图片下方的说明文字 */
+        .caption {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 10px 15px;
+            border-radius: 8px;
+            max-width: 90%;
         }
 
         .slider button {
@@ -635,9 +652,21 @@
         <div class="image">
         <div class="slider">
             <button class="prev">&#10094;</button>
-            <img src="images/images/会议室.jpg" alt="会议室" class="slide active">
-            <img src="images/images/办公区.jpg" alt="办公区" class="slide">
-            <img src="images/images/愿景图.jpg" alt="愿景图" class="slide">
+            <div class="slide active">
+                <img src="images/images/会议室.jpg" alt="会议室">
+                <p class="caption">这是第一张图片的说明文字。</p>
+            </div>
+
+            <div class="slide">
+                <img src="images/images/办公区.jpg" alt="办公区">
+                <p class="caption">这是第二张图片的说明文字。</p>
+            </div>
+
+            <div class="slide">
+                <img src="images/images/愿景图.jpg" alt="愿景图">
+                <p class="caption">这是第三张图片的说明文字。</p>
+            </div>
+
             <button class="next">&#10095;</button>
         </div>
     </div>
