@@ -412,6 +412,7 @@
             min-width: 300px;
             min-height: 350px;
             height: 500px;
+            position: relative;
         }
 
         .slider-wrapper {
@@ -432,11 +433,13 @@
         }
 
         .slide {
-            display: flex !important;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            display: none;   /* 默认隐藏所有图片 */
+            width: 100%;
             height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
         .slider img {
@@ -448,6 +451,13 @@
 
         .slider.active {
             display: flex;
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
         }
 
         /* 图片下方的说明文字 */
@@ -662,27 +672,25 @@
     </div>
 
     <div class="image">
-        <div class="slider-wrapper">
-            <div class="slider">
-                <button class="prev">&#10094;</button>
+        <div class="slider">
+            <button class="prev">&#10094;</button>
 
-                <div class="slide active">
-                    <img src="images/images/会议室.jpg" alt="会议室">
-                    <p class="caption">这是第一张图片的说明文字。</p>
-                </div>
-
-                <div class="slide">
-                    <img src="images/images/办公区.jpg" alt="办公区">
-                    <p class="caption">这是第二张图片的说明文字。</p>
-                </div>
-
-                <div class="slide">
-                    <img src="images/images/愿景图.jpg" alt="愿景图">
-                    <p class="caption">这是第三张图片的说明文字。</p>
-                </div>
-
-                <button class="next">&#10095;</button>
+            <div class="slide active">
+                <img src="images/images/会议室.jpg" alt="会议室">
+                <p class="caption">这是第一张图片的说明文字。</p>
             </div>
+
+            <div class="slide">
+                <img src="images/images/办公区.jpg" alt="办公区">
+                <p class="caption">这是第二张图片的说明文字。</p>
+            </div>
+
+            <div class="slide">
+                <img src="images/images/愿景图.jpg" alt="愿景图">
+                <p class="caption">这是第三张图片的说明文字。</p>
+            </div>
+
+            <button class="next">&#10095;</button>
         </div>
     </div>
 </section>
@@ -779,25 +787,30 @@
         const next = document.querySelector('.next');
         let index = 0;
 
+        // 显示对应索引的图片
         function showSlide(i) {
             slides.forEach((slide, idx) => {
-                slide.classList.remove('active');
-                if (idx === i) slide.classList.add('active');
+                slide.classList.remove('active');  // 移除所有active类
+                if (idx === i) slide.classList.add('active');  // 只显示当前的图片
             });
         }
 
+        // 左按钮点击事件
         prev.addEventListener('click', () => {
-            index = (index - 1 + slides.length) % slides.length;
+            index = (index - 1 + slides.length) % slides.length;  // 循环左移
             showSlide(index);
         });
 
+        // 右按钮点击事件
         next.addEventListener('click', () => {
-            index = (index + 1) % slides.length;
+            index = (index + 1) % slides.length;  // 循环右移
             showSlide(index);
         });
 
+        // 初始化显示第一张图片
         showSlide(index);
     </script>
+
 
 
 </body>
