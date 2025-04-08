@@ -398,14 +398,275 @@
             margin-top: -5px;
         }
 
-        #about-us .image {
-            flex: 1;
-            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
-            min-height: 350px;
-            height: auto;
-            border-radius: 10px;
+
+        .slider {
+            height: 100vh;
+            margin-top: -50px;
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider .list .item {
+            width: 100;
+            height: 100%;
+            position: absolute;
+            inset: 0 0 0 0;
+        }
+
+        .slider .list .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider .list .item .content {
+            position: absolute;
+            top: 20%;
+            width: 1140px;
+            max-width: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-right: 30%;
+            box-sizing: border-box;
+            color: #fff;
+            text-shadow: 0 5px 10px #0004;
+        }
+
+        .slider .list .item .content .title {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1.3em;
+        }
+
+        .slider .list .item .content .type {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ff1414cb;
+        }
+
+        .slider .list .item .button button {
+            border: 2px solid black;
+            margin: 20px 0;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.4s;
+            padding: 10px 20px;
+        }
+
+        .slider .list .item .button button:hover {
+            transform: scale(1.2);
+            border-color: #ff1212cb;
+        }
+
+        .thumbnail {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            width: max-content;
+            z-index: 100;
+            display: flex;
+            gap: 20px;
+        }
+
+        .thumbnail .item {
+            width: 150px;
+            height: 220px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .thumbnail .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .arrowButtons {
+            position: absolute;
+            top: 80%;
+            right: 52%;
+            z-index: 100%;
+            width: 300px;
+            max-width: 30%;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .arrowButtons button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ff1414cb;
+            border: none;
+            color: white;
+            font-weight: bold;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .arrowButtons button:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .slider .list .item:nth-child(1) {
+            z-index: 1;
+        }
+
+        .slider .list .item:nth-child(1) .content .title,
+        .slider .list .item:nth-child(1) .content .type,
+        .slider .list .item:nth-child(1) .content .description,
+        .slider .list .item:nth-child(1) .content .button {
+            transform: translateY(50px);
+            filter: blur(20px);
+            opacity: 0;
+            animation: showContent 0.5s 1s linear 1 forwards;
         }
         
+        @keyframes showContent {
+            to{transform: translateY(0px);
+                filter: blur(0px);
+                opacity: 1;
+            }
+        }
+
+        .slider .list .item:nth-child(1) .content .title {
+            animation-delay: 0.4s !important;
+        }
+
+        .slider .list .item:nth-child(1) .content .type {
+            animation-delay: 0.6s !important;
+        }
+
+        .slider .list .item:nth-child(1) .content .description {
+            animation-delay: 0.8s !important;
+        }
+
+        .slider .list .item:nth-child(1) .content .button {
+            animation-delay: 1s !important;
+        }
+
+        .slider.next .list .item:nth-child(1) img {
+            width: 150px;
+            height: 220px;
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            border-radius:30px;
+            animation: showImage 0.5s linear 1 forwards;
+        }
+
+        @keyframes showImages {
+            to{
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+        }
+
+        .slider.next .thumbnail .item:nth-last-child(1) {
+            overflow: hidden;
+            animation: showThumbnail 0.5s linear 1 forwards;
+        }
+
+        .slider.prev .list .item img {
+            z-index: 100%;
+        }
+
+        @keyframes showThumbnail {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+        }
+
+        .slider.next .thumbnail {
+            animation: effectNext .5s linear 1 forwards;
+        }
+
+        @keyframes effectNext {
+            from {
+                transform: translateX(150px);
+            }
+        }
+
+        .slider.prev .list .item:nth-child(2) {
+            z-index: 2;
+        }
+
+        .slider.prev .list .item:nth-child(2) img {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            animation: outFrame 0.5s linear 1 forwards;
+        }
+
+        @keyframes outFrame {
+            to{
+                width: 150px;
+                height: 220px;
+                bottom: 50%;
+                left: 50;
+                border-radius: 20px;
+            }
+        }
+
+        .slider.prev .thumbnail .item:nth-child(1){
+            overflow: hidden;
+            opacity: 0;
+            animation: showThumbnail .5s linear 1 forwards;
+        }
+
+        .slider.next .arrowButtons .button,
+        .slider.prev .arrowButtons .button{
+            pointer-events: none;
+        }
+
+        .slider.prev .list .item:nth-child(1) .content .title,
+        .slider.prev .list .item:nth-child(1) .content .type,
+        .slider.prev .list .item:nth-child(1) .content .description,
+        .slider.prev .list .item:nth-child(1) .content .button
+        {
+            animation: contentOut 1.5s linear 1 forwards !important;
+        }
+
+        @keyframes contentOut {
+            to{
+                transform: translateX(-150px);
+                filter: blur(20px);
+                opacity: 0;
+            }
+        }
+
+        @media screen and (max-width: 678px) {
+            nav {
+                margin-left: 0;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            a{
+                font-size: 0.7rem;
+            }
+
+            .slider .list .item .content{
+                padding-right: 0;
+            }
+
+            .slider .list .item .content .title{
+                font-size: 50px;
+            }
+        }
+
+
         #values {
             display: flex;
             justify-content: space-around;
@@ -563,7 +824,67 @@
             <h1>关于我们</h1>
             <p>Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。</p>
         </div>
-        <div class="image"></div>
+        <div class="slider">
+            <div class="list">
+                <img src="images/images/办公区.jpg" alt="办公区">
+                <div class="content">
+                    <div class="title">IMAGE SLIDER</div>
+                    <div class="type">办公区</div>
+                    <div class="description">
+                        简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。
+                    </div>
+                    <div class="button">
+                        <button>SEE MORE</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+            <img src="images/images/会议室.jpg" alt="会议室">
+            <div class="content">
+            <div class="title">IMAGE SLIDER</div>
+                    <div class="type">会议室</div>
+                    <div class="description">
+                        简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。
+                    </div>
+                    <div class="button">
+                        <button>SEE MORE</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+            <img src="images/images/会议室.jpg" alt="休息室">
+            <div class="content">
+            <div class="title">IMAGE SLIDER</div>
+                    <div class="type">休息室</div>
+                    <div class="description">
+                        简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。
+                    </div>
+                    <div class="button">
+                        <button>SEE MORE</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="thumbnail">
+
+                <div class="item">
+                    "<img src="images/images/办公区.jpg" alt="办公区">
+                </div>
+                <div class="item">
+                    "<img src="images/images/会议室.jpg" alt="会议室">
+                </div>
+                <div class="item">
+                    "<img src="images/images/办公区.jpg" alt="休息室">
+                </div>
+            </div>
+
+            <div class="arrowButtons">
+                <button class="prev"> < </button>
+                <button class="next"> > </button>
+            </div>
+
     </section>
 
     <section id="missions">
@@ -649,6 +970,45 @@
             navbar.style.top = "0"; // 导航栏恢复到顶部
         }
     };
+    </script>
+
+    <script>
+        let nextBtn = document.querySelector(".next");
+        let prevBtn = document.querySelector(".prev");
+
+        let slider = document.querySelector(".slider");
+        let sliderList = document.querySelector(".slider .list");
+        let thumbnail = document.querySelector(".slider .thumbnail");
+        let thumbnailItems = document.querySelector(".item");
+
+        thumbnail.appendChild(thumbnailItems[0]);
+
+        nextBtn.onclick = function () {
+            moveSlider("next");
+        };
+
+        prevBtn.onclick = function () {
+            moveSlider("prev");
+        };
+
+        function moveSlider(direction) {
+            let sliderItems = sliderList.querySelectorAll(".item");
+            let thumbnailItems = document.querySelectorAll(".thumbnail .item");
+
+            if (direction === "next") {
+                sliderList.appendChild(sliderItems[0]);
+                thumbnail.appendChild(thumbnailItems[0]);
+                slider.classList.add("next");
+            } else {
+                sliderList.prepend(sliderItems[sliderItems.length - 1]);
+                thumbnail.prepend(thumbnailItems[thumbnailItems.length - 1]);
+                slider.classList.add("prev");
+            }
+
+            slider.addEventListener(
+                "animationed",
+            )
+        }
     </script>
 
 
