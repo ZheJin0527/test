@@ -631,7 +631,8 @@
             <button class="prev">&#10094;</button>
             <div class="slide-container">
                 <img src="images/images/会议室.jpg" alt="会议室" class="slide active">
-                <p class="caption">这是我们的会议室，提供专业的讨论和决策空间。</p>
+                <p class="caption">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。
+                </p>
             </div>
             <div class="slide-container">
                 <img src="images/images/办公区.jpg" alt="办公区" class="slide">
