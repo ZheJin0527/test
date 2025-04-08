@@ -401,102 +401,57 @@
             text-align: left;
         }
 
-        #about-us .image {
+        .image {
             flex: 1;
-            min-width: 300px;
-            min-height: 350px;
-            height: 500px;
+            position: relative;
             border-radius: 10px;
-            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
+            min-height: 350px;
         }
 
         .slider {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
         }
 
-        .slide {
-            display: none;  /* 默认隐藏所有图片 */
+        .slider img.slide {
+            display: none;
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .slide.active {
-            display: flex;  /* 只有.active的图片显示 */
-        }
-
-        .slide img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;  /* 确保图片覆盖整个区域 */
+            object-fit: cover;
             border-radius: 10px;
         }
 
-        .caption {
-            margin-top: 10px;
-            font-size: 1rem;
-            color: #fff;
-            background-color: rgba(0, 0, 0, 0.4);
-            padding: 10px 15px;
-            border-radius: 8px;
-            max-width: 90%;
+        .slider img.active {
+            display: block;
         }
 
-        .prev, .next {
+        .slider button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
+            font-size: 2rem;
+            background-color: rgba(0,0,0,0.3);
             color: white;
             border: none;
-            font-size: 2rem;
             padding: 10px;
             cursor: pointer;
-            z-index: 10;
+            z-index: 1;
+            border-radius: 50%;
         }
 
-        .prev {
+        .slider button.prev {
             left: 10px;
         }
 
-        .next {
+        .slider button.next {
             right: 10px;
-        }
-
-        .prev:hover, .next:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        @media (max-width: 768px) {
-            #about-us {
-                flex-direction: column;
-            }
-
-            #about-us .text, #about-us .image {
-                flex: unset;
-                width: 100%;
-            }
-
-            #about-us h1 {
-                font-size: 2.5rem;
-            }
-
-            #about-us .text {
-                font-size: 1.2rem;
-                text-align: left;
-            }
         }
         
         #values {
@@ -654,32 +609,22 @@
 <section id="about-us">
     <div class="text">
         <h1>关于我们</h1>
-        <p>Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。</p>
+        <p>
+            Kunzz Holdings Sdn. Bhd. 是一家在马来西亚的多元化控股管理公司...
+        </p>
     </div>
 
     <div class="image">
         <div class="slider">
             <button class="prev">&#10094;</button>
-
-            <div class="slide active">
-                <img src="images/images/会议室.jpg" alt="会议室">
-                <p class="caption">这是第一张图片的说明文字。</p>
-            </div>
-
-            <div class="slide">
-                <img src="images/images/办公区.jpg" alt="办公区">
-                <p class="caption">这是第二张图片的说明文字。</p>
-            </div>
-
-            <div class="slide">
-                <img src="images/images/愿景图.jpg" alt="愿景图">
-                <p class="caption">这是第三张图片的说明文字。</p>
-            </div>
-
+            <img src="images/images/会议室.jpg" alt="会议室" class="slide active">
+            <img src="images/images/办公区.jpg" alt="办公区" class="slide">
+            <img src="images/images/愿景图.jpg" alt="愿景" class="slide">
             <button class="next">&#10095;</button>
         </div>
     </div>
 </section>
+
 
 
     <section id="missions">
@@ -773,27 +718,23 @@
         const next = document.querySelector('.next');
         let index = 0;
 
-        // 显示对应索引的图片
         function showSlide(i) {
             slides.forEach((slide, idx) => {
-                slide.classList.remove('active');  // 移除所有active类
-                if (idx === i) slide.classList.add('active');  // 只显示当前的图片
+                slide.classList.remove('active');
+                if (idx === i) slide.classList.add('active');
             });
         }
 
-        // 左按钮点击事件
         prev.addEventListener('click', () => {
-            index = (index - 1 + slides.length) % slides.length;  // 循环左移
+            index = (index - 1 + slides.length) % slides.length;
             showSlide(index);
         });
 
-        // 右按钮点击事件
         next.addEventListener('click', () => {
-            index = (index + 1) % slides.length;  // 循环右移
+            index = (index + 1) % slides.length;
             showSlide(index);
         });
 
-        // 初始化显示第一张图片
         showSlide(index);
     </script>
 
