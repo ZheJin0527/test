@@ -417,7 +417,6 @@
         @media (max-width: 768px) {
             #about-us {
                 flex-direction: column;
-                text-align: center;
             }
 
             #about-us .text, #about-us .image {
@@ -431,6 +430,7 @@
 
             #about-us .text {
                 font-size: 1.2rem;
+                text-align: left;
             }
         }
         
