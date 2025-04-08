@@ -400,11 +400,11 @@
 
 
         .slider {
-            height: 100vh;
-            margin-top: -50px;
-            width: 100vw;
+            flex: 1;
+            height: 100%;
             overflow: hidden;
             position: relative;
+            border-radius: 10px;
         }
 
         .slider .list .item {
@@ -826,6 +826,7 @@
         </div>
         <div class="slider">
             <div class="list">
+            <div class="item">
                 <img src="images/images/办公区.jpg" alt="办公区">
                 <div class="content">
                     <div class="title">IMAGE SLIDER</div>
@@ -1006,6 +1007,9 @@
             }
 
         }
+
+        slider.addEventListener("animationend")
+        
     </script>
 
 
