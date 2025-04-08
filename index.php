@@ -411,6 +411,7 @@
             align-items: center;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
             min-height: 350px;
+            text-align: center; /* Center align caption */
         }
 
         .slider {
@@ -420,12 +421,16 @@
             height: 100%;
         }
 
-        .slider img.slide {
+        .slide-container {
             display: none;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
+            position: relative;
+        }
+
+        .slide-container .caption {
+            font-size: 1.2rem;
+            font-weight: normal;
+            margin-top: 10px;
+            color: #333;
         }
 
         .slider img.active {
@@ -437,7 +442,7 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 2rem;
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0, 0, 0, 0.3);
             color: white;
             border: none;
             padding: 10px;
@@ -609,17 +614,26 @@
 <section id="about-us">
     <div class="text">
         <h1>关于我们</h1>
-        <p id="image-caption">
-            Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。
+        <p>
+            Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。
         </p>
     </div>
 
     <div class="image">
         <div class="slider">
             <button class="prev">&#10094;</button>
-            <img src="images/images/会议室.jpg" alt="会议室" class="slide active" data-caption="这是我们的会议室，提供专业的讨论和决策空间。">
-            <img src="images/images/办公区.jpg" alt="办公区" class="slide" data-caption="这是我们的办公区，舒适高效的工作环境。">
-            <img src="images/images/愿景图.jpg" alt="愿景" class="slide" data-caption="我们的愿景图，展示了公司未来的发展方向。">
+            <div class="slide-container">
+                <img src="images/images/会议室.jpg" alt="会议室" class="slide active">
+                <p class="caption">这是我们的会议室，提供专业的讨论和决策空间。</p>
+            </div>
+            <div class="slide-container">
+                <img src="images/images/办公区.jpg" alt="办公区" class="slide">
+                <p class="caption">这是我们的办公区，舒适高效的工作环境。</p>
+            </div>
+            <div class="slide-container">
+                <img src="images/images/愿景图.jpg" alt="愿景" class="slide">
+                <p class="caption">我们的愿景图，展示了公司未来的发展方向。</p>
+            </div>
             <button class="next">&#10095;</button>
         </div>
     </div>
@@ -712,35 +726,31 @@
     </script>
 
     <script>
-        let currentIndex = 0;
-        const slides = document.querySelectorAll('.slider img');
-        const caption = document.getElementById('image-caption');
-        const prevButton = document.querySelector('.slider .prev');
-        const nextButton = document.querySelector('.slider .next');
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide-container');
+    const prevButton = document.querySelector('.slider .prev');
+    const nextButton = document.querySelector('.slider .next');
 
-        function showSlide(index) {
-            // Hide all slides
-            slides.forEach(slide => slide.classList.remove('active'));
+    function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => slide.style.display = 'none');
             
-            // Show the current slide
-            slides[index].classList.add('active');
-            
-            // Update the caption
-            caption.textContent = slides[index].getAttribute('data-caption');
-        }
+        // Show the current slide
+        slides[index].style.display = 'block';
+    }
 
-        prevButton.addEventListener('click', () => {
-            currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
-            showSlide(currentIndex);
-        });
-
-        nextButton.addEventListener('click', () => {
-            currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
-            showSlide(currentIndex);
-        });
-
-        // Initialize the first slide
+    prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
         showSlide(currentIndex);
+    });
+
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+        showSlide(currentIndex);
+    });
+
+    // Initialize the first slide
+    showSlide(currentIndex);
 
     </script>
 
