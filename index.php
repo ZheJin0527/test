@@ -395,13 +395,18 @@
             font-size: 1.5rem;
             line-height: 1.8;
             font-weight: bold;
-            margin-top: -5px;
         }
 
+        .slider-container {
+            flex: 1; /* 右侧部分 */
+            display: flex;
+            justify-content: flex-end; /* 将滑动区域对齐右侧 */
+            position: relative;
+        }
 
         .slider {
-            flex: 1;
-            height: 500px;
+            width: 100%;
+            height: 500px; /* 设置高度 */
             overflow: hidden;
             position: relative;
             border-radius: 10px;
@@ -824,6 +829,7 @@
             <h1>关于我们</h1>
             <p>Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。</p>
         </div>
+        <div class="slider-container">
         <div class="slider">
             <div class="list">
             <div class="item">
@@ -969,10 +975,7 @@
 
         let slider = document.querySelector(".slider");
         let sliderList = document.querySelector(".slider .list");
-        let thumbnail = document.querySelector(".slider .thumbnail");
-        let thumbnailItems = document.querySelectorAll(".thumbnail .item");
 
-        thumbnail.appendChild(thumbnailItems[0]);
 
         nextBtn.onclick = function () {
             moveSlider("next");
@@ -984,16 +987,11 @@
 
         function moveSlider(direction) {
             let sliderItems = sliderList.querySelectorAll(".item");
-            let thumbnailItems = document.querySelectorAll(".thumbnail .item");
 
             if (direction === "next") {
                 sliderList.appendChild(sliderItems[0]);
-                thumbnail.appendChild(thumbnailItems[0]);
-                slider.classList.add("next");
             } else {
                 sliderList.prepend(sliderItems[sliderItems.length - 1]);
-                thumbnail.prepend(thumbnailItems[thumbnailItems.length - 1]);
-                slider.classList.add("prev");
             }
 
         }
