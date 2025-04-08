@@ -401,7 +401,7 @@
 
         .slider {
             flex: 1;
-            height: 100%;
+            height: 500px;
             overflow: hidden;
             position: relative;
             border-radius: 10px;
@@ -829,13 +829,12 @@
             <div class="item">
                 <img src="images/images/办公区.jpg" alt="办公区">
                 <div class="content">
-                    <div class="title">IMAGE SLIDER</div>
-                    <div class="type">办公区</div>
-                    <div class="description">
+                    <p>IMAGE SLIDER</p>
+                    <h2>办公区</h2>
+                    <p>
                         简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。
-                    </div>
-                    <div class="button">
-                        <button>SEE MORE</button>
+                    </p>
+                    <a href="#">SEE MORE</a>
                     </div>
                 </div>
             </div>
@@ -843,13 +842,12 @@
             <div class="item">
             <img src="images/images/会议室.jpg" alt="会议室">
             <div class="content">
-            <div class="title">IMAGE SLIDER</div>
-                    <div class="type">会议室</div>
-                    <div class="description">
+            <p>IMAGE SLIDER</p>
+                    <h2>会议室</h2>
+                    <p>
                         简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。
-                    </div>
-                    <div class="button">
-                        <button>SEE MORE</button>
+                    </p>
+                    <a href="#">SEE MORE</a>
                     </div>
                 </div>
             </div>
@@ -857,34 +855,26 @@
             <div class="item">
             <img src="images/images/会议室.jpg" alt="休息室">
             <div class="content">
-            <div class="title">IMAGE SLIDER</div>
-                    <div class="type">休息室</div>
-                    <div class="description">
+            <p>IMAGE SLIDER</p>
+                    <h2>休息室</h2>
+                    <p>
                         简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。
-                    </div>
-                    <div class="button">
-                        <button>SEE MORE</button>
+                    </p>
+                    <a href="#">SEE MORE</a>
                     </div>
                 </div>
             </div>
 
             <div class="thumbnail">
-
-                <div class="item">
-                    <img src="images/images/办公区.jpg" alt="办公区">
-                </div>
-                <div class="item">
-                    "<img src="images/images/会议室.jpg" alt="会议室">
-                </div>
-                <div class="item">
-                    "<img src="images/images/办公区.jpg" alt="休息室">
-                </div>
+            <div class="item"><img src="images/images/办公区.jpg" /></div>
+            <div class="item"><img src="images/images/会议室.jpg" /></div>
             </div>
 
             <div class="arrowButtons">
-                <button class="prev"> < </button>
-                <button class="next"> > </button>
+                <button class="prev">&lt;</button>
+                <button class="next">&gt;</button>
             </div>
+    </div>
 
     </section>
 
@@ -1009,7 +999,7 @@
         }
 
         slider.addEventListener("animationend")
-        
+
     </script>
 
 
