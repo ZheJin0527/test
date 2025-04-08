@@ -376,11 +376,11 @@
             justify-content: space-between;
             align-items: center;
             text-align: left;
-            padding: 40px 5% 50px;  /* 使用百分比确保自适应 */
+            padding: 40px 5% 50px;
             gap: 30px;
-            max-width: 1200px;  /* 确保宽度不会超过屏幕 */
-            box-sizing: border-box;  /* 包括padding在内的宽度计算 */
-            margin: 0 auto;  /* 让内容居中 */
+            max-width: 1200px;
+            box-sizing: border-box;
+            margin: 0 auto;
         }
 
         #about-us h1 {
@@ -404,14 +404,14 @@
         #about-us .image {
             flex: 1;
             min-width: 300px;
-            min-height: 350px;  /* 给个最小高度 */
-            height: 500px;      /* 给个明确的高度 */
+            min-height: 350px;
+            height: 500px;
             border-radius: 10px;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;  /* 关键：使按钮能正常定位 */
+            position: relative;
         }
 
         .slider {
@@ -424,7 +424,7 @@
         }
 
         .slide {
-            display: none;   /* 默认隐藏所有图片 */
+            display: none;  /* 默认隐藏所有图片 */
             width: 100%;
             height: 100%;
             display: flex;
@@ -434,13 +434,13 @@
         }
 
         .slide.active {
-            display: flex;   /* 只有.active的图片显示 */
+            display: flex;  /* 只有.active的图片显示 */
         }
 
         .slide img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: cover;  /* 保证图片覆盖整个区域 */
+            object-fit: cover;  /* 确保图片覆盖整个区域 */
             border-radius: 10px;
         }
 
@@ -475,7 +475,6 @@
             right: 10px;
         }
 
-        /* 确保按钮的可点击区域没有被遮挡 */
         .prev:hover, .next:hover {
             background-color: rgba(0, 0, 0, 0.7);
         }
