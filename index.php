@@ -429,10 +429,9 @@
 
         .slide-container .caption {
             font-size: 1.2rem;
-            font-weight: normal;
+            font-weight: bold;
             margin-top: 10px;
             color: #333;
-            font-weight: bold;
         }
 
         .slider img {
