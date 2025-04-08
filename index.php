@@ -76,13 +76,17 @@
             display: flex;
             justify-content: center;
             gap: clamp(15px, 2.5vw, 30px); /* 初始间距适中 */
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.2); /* 灰色背景，调整透明度 */
+            border-radius: 8px; /* 圆角 */
+            border: 2px solid rgba(200, 200, 200, 0.5); /* 灰色边框，透明度可以调整 */
         }
 
         /* 菜单链接 */
         nav .menu-container a {
             color: white;
             text-decoration: none;
-            font-size: clamp(1rem, 1.4vw, 1.8rem); /* 字体最小 1rem，逐步增大 */
+            font-size: clamp(0.8rem, 1.2vw, 1.2rem); /* 字体最小 1rem，逐步增大 */
         }
 
         /* 鼠标悬停时 */
@@ -107,7 +111,6 @@
             text-decoration: none;
             border-radius: 25px;
             font-size: clamp(1rem, 1.4vw, 1.5rem);  /* 更小的字体大小 */
-
         }
 
         .login-btn:hover {
@@ -125,7 +128,7 @@
             display: flex;
             align-items: center;  /* 垂直居中 */
             justify-content: flex-start; 
-            gap: 0px;  /* 控制 logo 和文本之间的间距 */
+            gap: clamp(4px, 0.8vw, 10px);
             padding-left: 0px;  /* 减小左侧内边距 */
             padding-right: 20px;  /* 可以适当调整右边内边距 */
             overflow: visible;  /* 确保内容不会被隐藏 */
@@ -134,10 +137,10 @@
 
         /* 翻译按钮中的 Logo 图片样式 */
         .translate-btn .translate-logo-img {
-            width: clamp(30px, 4.8vw, 85px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(30px, 4.8vw, 85px); /* 设置 Logo 高度 */
+            width: clamp(28px, 2.5vw, 40px);  /* Logo 尺寸根据按钮大小调整 */
+            height: clamp(28px, 2.5vw, 40px); /* 设置 Logo 高度 */
             object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
-            margin-right: -10px; /* 让 logo 贴近文字 */
+            margin-right: 0px; /* 让 logo 贴近文字 */
         }
 
         /* hover 效果 */
@@ -158,6 +161,50 @@
 
         nav {
             transition: transform 0.3s ease-in-out;
+        }
+
+        /* ========================= */
+        /* ✅ 新增：关于我们下拉菜单样式 */
+        /* ========================= */
+
+        .dropdown {
+            position: relative;
+        }
+
+        /* 默认隐藏下拉内容 */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%; /* 紧贴主菜单项底部 */
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 120px;
+            z-index: 1001;
+            border-radius: 8px;
+            padding: 8px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 鼠标悬停时显示 */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 下拉内容样式 */
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+            white-space: nowrap;
+            min-width: max-content;
+        }
+
+        /* hover 效果 */
+        .dropdown-content a:hover {
+            background-color: #222;
+            color: #FF5C00;
         }
 
         /* 版块样式 */
@@ -402,128 +449,6 @@
             padding: 5px 20px;
         }
 
-        #history {
-            width: 100vw;
-            height: min(20vh, 200px); /* 让它更细 */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            padding: 10px 20px;
-            box-sizing: border-box;
-            background: linear-gradient(to right, 
-            rgba(245, 121, 31, 0.85), 
-            rgba(253, 189, 21, 0.85)
-        );
-        }
-
-        #history h2 {
-            color: white;
-            font-size: clamp(2rem, 5vw, 4rem); /* 响应式字体 */
-            font-weight: bold;
-            margin: 0; /* 避免额外的外边距 */
-            padding-top: 5px 0; /* 轻微调整上下间距 */
-        }  
-
-        /* 时间轴整体 */
-        .timeline {
-            margin: 5em auto;
-            max-width: 34.15em;
-        }
-
-        .checkpoint {
-            max-width: 34em;
-            padding-top: 2em;
-            padding-bottom: 2em;
-            position: relative;
-        }
-
-        .checkpoint div {
-            border: 2px solid #888;
-            border-radius: 1em;
-            padding: 1.5em;
-        }
-
-        .checkpoint p {
-            line-height: 27px;
-            color: #ccc;
-        }
-
-        .checkpoint:nth-child(odd) {
-            border-left: 3px solid #888;
-            padding-left: 3em;
-            transform: translateX(17em);
-        }
-
-        .checkpoint:nth-child(even) {
-            border-right: 3px solid #888;
-            padding-right: 3em;
-            transform: translateX(-17em);
-        }
-
-        .checkpoint:nth-child(odd)::before, .checkpoint:nth-child(even)::before{
-            content: '';
-            background: #888;
-            width: 3em;
-            height: 3px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .checkpoint:nth-child(odd)::before {
-            left: 0;
-        }
-
-        .checkpoint:nth-child(even)::before {
-            right: 0;
-        }
-
-        .checkpoint:nth-child(odd) div::before, .checkpoint:nth-child(even) div::before {
-            content: '';
-            background: #fff;
-            box-shadow: 0 0 0.5em #0d71fc;
-            width: 0.8em;
-            height: 0.8em;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            border-radius: 50%
-        }
-
-        .checkpoint:nth-child(odd) div::before {
-            left: -0.5em;
-        }
-
-        .checkpoint:nth-child(even) div::before {
-            right: -0.5em;
-        }
-        
-        @media screen and (max-width: 1150px) {
-            .timeline {
-                width: 80vw;
-            }
-            .timeline .checkpoint {
-                width: 100%;
-                transform: none;
-                padding-left: 0;
-                padding-right: 0;
-                border: none;
-            }
-            .timeline .checkpoint::before {
-                width: 3px;
-                height: 4em;
-                top: -2em;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            .timeline .checkpoint div::before {
-                top: -0.5em;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        }
-
         .container {
             display: flex;
             max-width: 85%;
@@ -596,7 +521,12 @@
         <!-- 菜单部分 -->
         <div class="menu-container">
             <a href="#home">首页</a>
-            <a href="#about-us">关于我们</a>
+            <div class="dropdown">
+                <a href="#about-us">关于我们</a>
+                <div class="dropdown-content">
+                    <a href="history.html">发展历史</a>
+                </div>
+            </div>
             <a href="#brands">旗下品牌</a>
             <a href="#join-us">加入我们</a>
         </div>
@@ -660,38 +590,6 @@
             <p>目标导向，理念一致，追求卓越，创新精神。</p>
         </div>
     </section>
-
-    <section id="history">
-        <h2>发展历史</h2>
-    </section>
-
-    <div class="timeline">
-        <div class="checkpoint">
-            <div>
-                <h2>2023</h2>
-                <p>
-                    Kunzz Holdings 成立，确立发展方向。
-                </p>
-    </div>
-    </div>
-
-    <div class="checkpoint">
-            <div>
-                <h2>2024</h2>
-                <p>
-                    拓展业务，新增子公司，提升市场影响力。
-                </p>
-    </div>
-    </div>
-
-    <div class="checkpoint">
-            <div>
-                <h2>2025</h2>
-                <p>
-                    计划进入国际市场，推动品牌全球化。
-                </p>
-    </div>
-    </div>
 
     <!-- 联系我们 -->
     <div class="container">
