@@ -432,6 +432,7 @@
             font-weight: normal;
             margin-top: 10px;
             color: #333;
+            font-weight: bold;
         }
 
         .slider img {
