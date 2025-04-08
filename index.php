@@ -403,33 +403,24 @@
 
         #about-us .image {
             flex: 1;
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
             min-width: 300px;
-            min-height: 350px;
-            height: 500px;
-            position: relative;
-        }
-
-        .slider-wrapper {
-            width: 100%;
-            height: 100%;
+            min-height: 350px;  /* 给个最小高度 */
+            height: 500px;      /* 给个明确的高度 */
+            border-radius: 10px;
+            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            position: relative;  /* 关键：使按钮能正常定位 */
         }
 
         .slider {
-            position: relative;
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .slide {
@@ -442,25 +433,17 @@
             flex-direction: column;
         }
 
-        .slider img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .slider.active {
-            display: flex;
+        .slide.active {
+            display: flex;   /* 只有.active的图片显示 */
         }
 
         .slide img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: cover;
+            object-fit: cover;  /* 保证图片覆盖整个区域 */
             border-radius: 10px;
         }
 
-        /* 图片下方的说明文字 */
         .caption {
             margin-top: 10px;
             font-size: 1rem;
@@ -471,26 +454,30 @@
             max-width: 90%;
         }
 
-        .slider button {
+        .prev, .next {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2rem;
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
+            font-size: 2rem;
             padding: 10px;
             cursor: pointer;
-            z-index: 1;
-            border-radius: 50%;
+            z-index: 10;
         }
 
-        .slider button.prev {
+        .prev {
             left: 10px;
         }
 
-        .slider button.next {
+        .next {
             right: 10px;
+        }
+
+        /* 确保按钮的可点击区域没有被遮挡 */
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         @media (max-width: 768px) {
