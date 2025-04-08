@@ -373,17 +373,19 @@
             background-color: transparent;
             color: black;
             display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             align-items: center;
             text-align: left;
             padding: 40px 5% 50px;  /* 使用百分比确保自适应 */
             gap: 30px;
-            max-width: 100%;  /* 确保宽度不会超过屏幕 */
+            max-width: 1200px;  /* 确保宽度不会超过屏幕 */
             box-sizing: border-box;  /* 包括padding在内的宽度计算 */
             margin: 0 auto;  /* 让内容居中 */
         }
 
         #about-us h1 {
-            font-size: 4.0rem;
+            font-size: 4rem;
             font-weight: bold;
             margin-bottom: 10px;
             margin-top: -5px;
@@ -391,19 +393,45 @@
 
         #about-us .text {
             flex: 1;
+            min-width: 300px;
             padding: 5px 20px;
             font-size: 1.5rem;
             line-height: 1.8;
             font-weight: bold;
             margin-top: -5px;
+            text-align: left;
         }
 
         #about-us .image {
             flex: 1;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
+            min-width: 300px;
             min-height: 350px;
-            height: auto;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             border-radius: 10px;
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            #about-us {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            #about-us .text, #about-us .image {
+                flex: unset;
+                width: 100%;
+            }
+
+            #about-us h1 {
+                font-size: 2.5rem;
+            }
+
+            #about-us .text {
+                font-size: 1.2rem;
+            }
         }
         
         #values {
@@ -563,7 +591,9 @@
             <h1>关于我们</h1>
             <p>Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。</p>
         </div>
-        <div class="image"></div>
+        <div class="image">
+        <img src="images/images/会议室.jpg" alt="会议室" style="max-width: 100%; height: auto; border-radius: 10px;">
+        </div>
     </section>
 
     <section id="missions">
