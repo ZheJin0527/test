@@ -822,19 +822,19 @@
     </script>
 
     <script>
-        const slideContainers = [....document.querySelectorAll('.slide-container')];
-        const nextBtn = [....document.querySelectorAll('.next-btn')];
-        const prevBtn = [....document.querySelectorAll('.prev-btn')];
+        const slideContainers = [...document.querySelectorAll('.slide-container')];
+        const nextBtn = [...document.querySelectorAll('.next-btn')];
+        const prevBtn = [...document.querySelectorAll('.prev-btn')];
 
-        slideContainer.forEach((item, i) => {
+        slideContainers.forEach((item, i) => {
             let containerDimensions = item.getBoundingClientRect();
-            let containerWidth = containerDimentions.width;
+            let containerWidth = containerDimensions.width;
 
             nextBtn[i].addEventListener('click', () => {
                 item.scrollLeft += containerWidth;
             })
 
-            preBtn[i].addEventListener('click', () => {
+            prevBtn[i].addEventListener('click', () => {
                 item.scrollLeft -= containerWidth;
             })
         })
