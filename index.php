@@ -239,22 +239,21 @@ nav .buttons-container {
         
         #home {
     position: relative;
-    width: 1920px; /* 设置宽度为 1920px */
-    height: 1000px; /* 设置高度为 1000px */
-    top: 80px; /* 设置距离顶部的距离为 80px，避免覆盖导航栏 */
+    width: 1920px;  /* 设置固定宽度为1920px */
+    height: 1000px;  /* 高度为视口高度 */
+    margin: 0 auto; /* 居中对齐 */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url('images/images/会议室.jpg') center/cover no-repeat; /* 背景图片 */
+    background-size: cover;
     display: flex;
-    flex-direction: column; /* 让文字纵向排列 */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
     padding-left: 3%;
     box-sizing: border-box;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-        url('images/images/会议室.jpg') center/cover no-repeat;
-    background-size: cover;
 }
-
 
         #home h1 {
     position: absolute;
