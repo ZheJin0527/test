@@ -414,56 +414,132 @@
             text-align: center; /* Center align caption */
         }
 
-        .slider {
+        .slide {
             position: relative;
-            width: 100%;
-            height: 100%;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .slide-category {
+            padding: 0 10vw;
+            font-size: 30px;
+            font-weight: 500;
+            margin-bottom: 40px;
+            text-transform: capitalize;
         }
 
         .slide-container {
+            padding: 0 10vw;
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .slide-container::-webkit-scrollbar {
             display: none;
+        }
+
+        .slide-card {
+            flex: 0 0 auto;
+            width: 250;
+            height: 450px;
+            margin-right: 40px;
+        }
+
+        .slide-image {
             position: relative;
-            width: 100%; /* Ensure full width */
-            height: 100%; /* Ensure full height */
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
         }
 
-        .slide-container .caption {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-top: 10px;
-            color: #333;
+        .slide-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .slider img {
-            width: 100%; /* Make sure image fills the container's width */
-            height: 100%; /* Make sure image fills the container's height */
-            object-fit: cover; /* Ensures the image maintains aspect ratio */
+        .slide-info {
+            width: 100%;
+            height: 100%;
+            padding-top: 10px;
         }
 
-        .slider img.active {
-            display: block;
+        .slide-description {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            opacity: 0.5;
+            text-transform: capitalize;
+            margin: 5px 0;
         }
 
-        .slider button {
+        .prev-btn,
+        .next-btn {
+            border: none;
+            width: 10vw;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+            cursor: pointer;
+            z-index: 9;
+        }
+
+        .prev-btn {
+            left: 0;
+            transform: rotate(180deg);
+        }
+
+        .next-btn {
+            right: 0;
+        }
+
+        .prev-btn img,
+        .next-btn img {
+            opacity: 0.2;
+        }
+
+        .prev-btn:hover img,
+        .next-btn:hover img {
+            opacity: 1;
+        }
+
+        .collection-container {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2.1fr);
+            grid-gap: 10px;
+        }
+
+        .collection {
+            position: relative;
+        }
+
+        .collection img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .collection p {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 1;
-            border-radius: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            font-size: 50px;
+            text-transform: capitalize;
         }
 
-        .slider button.prev {
-            left: 10px;
-        }
-
-        .slider button.next {
-            right: 10px;
+        .collection:nth-child(3) {
+            grid-column: span 2;
+            margin-bottom: 10px;          
         }
         
         #values {
@@ -628,23 +704,35 @@
 
     <div class="image">
         <div class="slider">
-            <button class="prev">&#10094;</button>
+            <button class="prev-btn"><img src="images/images/left.jpg" alt=""></button>
+            <button class="next-btn"><img src="images/images/right.jpg" alt=""></button>
             <div class="slide-container">
-                <img src="images/images/会议室.jpg" alt="会议室" class="slide active">
-                <p class="caption">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。
-                </p>
+                <div class="slide-card">
+                    <div class="slide-image">
+                    <img src="images/images/会议室.jpg" class="slide-thumb" alt="会议室">
+                    </div>
+                    <div class="slide-info">
+                        <p class="slide-description">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
+                    </div>
+                </div>
+                <div class="slide-card">
+                    <div class="slide-image">
+                    <img src="images/images/办公区.jpg" class="slide-thumb" alt="办公区">
+                    </div>
+                    <div class="slide-info">
+                        <p class="slide-description">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
+                    </div>
+                </div>
+                <div class="slide-card">
+                    <div class="slide-image">
+                    <img src="images/images/愿景图.jpg" class="slide-thumb" alt="愿景">
+                    </div>
+                    <div class="slide-info">
+                        <p class="slide-description">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
+                    </div>
+                </div>
             </div>
-            <div class="slide-container">
-                <img src="images/images/办公区.jpg" alt="办公区" class="slide">
-                <p class="caption">这是我们的办公区，舒适高效的工作环境。</p>
-            </div>
-            <div class="slide-container">
-                <img src="images/images/愿景图.jpg" alt="愿景" class="slide">
-                <p class="caption">我们的愿景图，展示了公司未来的发展方向。</p>
-            </div>
-            <button class="next">&#10095;</button>
         </div>
-    </div>
 </section>
 
 
@@ -734,32 +822,22 @@
     </script>
 
     <script>
-    let currentIndex = 0;
-    const slides = document.querySelectorAll('.slide-container');
-    const prevButton = document.querySelector('.slider .prev');
-    const nextButton = document.querySelector('.slider .next');
+        const slideContainers = [....document.querySelectorAll('.slide-container')];
+        const nextBtn = [....document.querySelectorAll('.next-btn')];
+        const prevBtn = [....document.querySelectorAll('.prev-btn')];
 
-    function showSlide(index) {
-        // Hide all slides
-        slides.forEach(slide => slide.style.display = 'none');
-            
-        // Show the current slide
-        slides[index].style.display = 'block';
-    }
+        slideContainer.forEach((item, i) => {
+            let containerDimensions = item.getBoundingClientRect();
+            let containerWidth = containerDimentions.width;
 
-    prevButton.addEventListener('click', () => {
-        currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
-        showSlide(currentIndex);
-    });
+            nextBtn[i].addEventListener('click', () => {
+                item.scrollLeft += containerWidth;
+            })
 
-    nextButton.addEventListener('click', () => {
-        currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
-        showSlide(currentIndex);
-    });
-
-    // Initialize the first slide
-    showSlide(currentIndex);
-
+            preBtn[i].addEventListener('click', () => {
+                item.scrollLeft -= containerWidth;
+            })
+        })
     </script>
 
 
