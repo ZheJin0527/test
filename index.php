@@ -369,179 +369,112 @@
         }
 
         #about-us {
-            background-color: transparent;
-            color: black;
             display: flex;
-            flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            text-align: left;
-            padding: 40px 5% 50px;
+            padding: 40px 5%;
             gap: 30px;
             max-width: 1200px;
-            box-sizing: border-box;
             margin: 0 auto;
-        }
+            color: black;
+            box-sizing: border-box;
+            }
 
-        #about-us h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            margin-top: -5px;
-        }
-
-        #about-us .text {
+            #about-us .text {
             flex: 1;
             min-width: 300px;
-            padding: 5px 20px;
             font-size: 1.5rem;
             line-height: 1.8;
             font-weight: bold;
-            margin-top: -5px;
             text-align: left;
-        }
+            }
 
-        .image {
+            #about-us h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            }
+
+            .image {
             flex: 1;
             position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
-            min-height: 350px; /* 固定最小高度 */
-            text-align: center; /* Center align caption */
-        }
-
-        .slide {
-            position: relative;
-            overflow: hidden;
+            border-radius: 10px;
             padding: 20px;
-        }
-
-        .slide-category {
-            padding: 0 10vw;
-            font-size: 30px;
-            font-weight: 500;
-            margin-bottom: 40px;
-            text-transform: capitalize;
-        }
-
-        .slide-container {
-            padding: 0 10vw;
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-        }
-
-        .slide-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .slide-card {
-            flex: 0 0 auto;
-            width: 250px;
-            height: 450px;
-            margin-right: 40px;
-        }
-
-        .slide-image {
-            position: relative;
-            width: 100%;
-            height: 350px;
+            box-sizing: border-box;
             overflow: hidden;
-        }
-
-        .slide-thumb {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .slide-info {
-            width: 100%;
-            height: 100%;
-            padding-top: 10px;
-            text-align: center;
-        }
-
-        .slide-description {
-            width: 100%;
-            height: 20px;
-            line-height: 20px;
-            overflow: hidden;
-            opacity: 0.5;
-            text-transform: capitalize;
-            margin: 5px 0;
-        }
-
-        .prev-btn,
-        .next-btn {
-            border: none;
-            width: 10vw;
-            height: 100%;
-            position: absolute;
-            top: 0;
+            min-height: 400px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
-            cursor: pointer;
-            z-index: 9;
-        }
+            justify-content: center;
+            }
 
-        .prev-btn {
-            left: 0;
-            transform: rotate(180deg);
-        }
-
-        .next-btn {
-            right: 0;
-        }
-
-        .prev-btn img,
-        .next-btn img {
-            opacity: 0.2;
-        }
-
-        .prev-btn:hover img,
-        .next-btn:hover img {
-            opacity: 1;
-        }
-
-        .collection-container {
+            .slider {
             width: 100%;
-            display: grid;
-            grid-template-columns: repeat(2.1fr);
-            grid-gap: 10px;
-        }
-
-        .collection {
             position: relative;
-        }
+            overflow: hidden;
+            }
 
-        .collection img {
+            .slide-card {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            }
+
+            .slide-card.active {
+            display: flex;
+            }
+
+            .slide-thumb {
             width: 100%;
-            height: 100%;
+            height: 300px;
             object-fit: cover;
-        }
+            border-radius: 10px;
+            }
 
-        .collection p {
+            .slide-caption {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: white;
+            font-weight: normal;
+            }
+
+            /* Arrow buttons */
+            .prev-btn,
+            .next-btn {
+            background: none;
+            border: none;
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            font-size: 50px;
-            text-transform: capitalize;
-        }
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            }
 
-        .collection:nth-child(3) {
-            grid-column: span 2;
-            margin-bottom: 10px;          
-        }
+            .prev-btn img,
+            .next-btn img {
+            width: 100%;
+            height: auto;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+            }
+
+            .prev-btn:hover img,
+            .next-btn:hover img {
+            opacity: 1;
+            }
+
+            .prev-btn {
+            left: -20px;
+            }
+
+            .next-btn {
+            right: -20px;
+            }
         
         #values {
             display: flex;
@@ -696,46 +629,40 @@
 </section>
 
 <section id="about-us">
-    <div class="text">
-        <h1>关于我们</h1>
-        <p>
-            Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。
-        </p>
+  <div class="text">
+    <h1>关于我们</h1>
+    <p>
+      Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。
+    </p>
+  </div>
+
+  <div class="image">
+    <div class="slider">
+      <button class="prev-btn">
+        <img src="images/images/left.png" alt="左">
+      </button>
+
+      <div class="slide-card">
+        <img src="images/images/会议室.jpg" class="slide-thumb" alt="会议室">
+        <p class="slide-caption">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。</p>
+      </div>
+
+      <div class="slide-card">
+        <img src="images/images/办公区.jpg" class="slide-thumb" alt="办公区">
+        <p class="slide-caption">每一张办公桌，不止是工具，更是你与梦想交谈的舞台。</p>
+      </div>
+
+      <div class="slide-card">
+        <img src="images/images/愿景图.jpg" class="slide-thumb" alt="愿景">
+        <p class="slide-caption">我们用克制的美学，打造有温度的效率感。</p>
+      </div>
+
+      <button class="next-btn">
+        <img src="images/images/right.png" alt="右">
+      </button>
     </div>
-
-    <div class="image">
-        <div class="slider">
-            <button class="prev-btn"><img src="images/images/left.png" alt=""></button>
-            <button class="next-btn"><img src="images/images/right.png" alt=""></button>
-            <div class="slide-container">
-                <div class="slide-card">
-                    <div class="slide-image">
-                    <img src="images/images/会议室.jpg" class="slide-thumb" alt="会议室">
-                    </div>
-                    <div class="slide-info">
-                        <p class="slide-description">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
-                    </div>
-                </div>
-                <div class="slide-card">
-                    <div class="slide-image">
-                    <img src="images/images/办公区.jpg" class="slide-thumb" alt="办公区">
-                    </div>
-                    <div class="slide-info">
-                        <p class="slide-description">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
-                    </div>
-                </div>
-                <div class="slide-card">
-                    <div class="slide-image">
-                    <img src="images/images/愿景图.jpg" class="slide-thumb" alt="愿景">
-                    </div>
-                    <div class="slide-info">
-                        <p class="slide-description">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  </div>
 </section>
-
 
     <section id="missions">
         <div>
@@ -823,23 +750,30 @@
     </script>
 
     <script>
-        const slideContainers = [...document.querySelectorAll('.slide-container')];
-        const nextBtn = [...document.querySelectorAll('.next-btn')];
-        const prevBtn = [...document.querySelectorAll('.prev-btn')];
+    const slides = document.querySelectorAll('.slide-card');
+    const nextBtn = document.querySelector('.next-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+    let current = 0;
 
-        slideContainers.forEach((item, i) => {
-            let containerDimensions = item.getBoundingClientRect();
-            let containerWidth = containerDimensions.width;
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+    }
 
-            nextBtn[i].addEventListener('click', () => {
-                item.scrollLeft += containerWidth;
-            })
+    nextBtn.addEventListener('click', () => {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+    });
 
-            prevBtn[i].addEventListener('click', () => {
-                item.scrollLeft -= containerWidth;
-            })
-        })
+    prevBtn.addEventListener('click', () => {
+        current = (current - 1 + slides.length) % slides.length;
+        showSlide(current);
+    });
+
+    // 初始化第一张
+    showSlide(current);
     </script>
+
 
 
 
