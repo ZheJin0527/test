@@ -441,7 +441,7 @@
 
         .slide-card {
             flex: 0 0 auto;
-            width: 250;
+            width: 250px;
             height: 450px;
             margin-right: 40px;
         }
@@ -463,6 +463,7 @@
             width: 100%;
             height: 100%;
             padding-top: 10px;
+            text-align: center;
         }
 
         .slide-description {
@@ -704,8 +705,8 @@
 
     <div class="image">
         <div class="slider">
-            <button class="prev-btn"><img src="images/images/left.jpg" alt=""></button>
-            <button class="next-btn"><img src="images/images/right.jpg" alt=""></button>
+            <button class="prev-btn"><img src="images/images/left.png" alt=""></button>
+            <button class="next-btn"><img src="images/images/right.png" alt=""></button>
             <div class="slide-container">
                 <div class="slide-card">
                     <div class="slide-image">
