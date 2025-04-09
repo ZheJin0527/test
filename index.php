@@ -644,7 +644,7 @@
 
       <div class="slide-card">
         <img src="images/images/会议室.jpg" class="slide-thumb" alt="会议室">
-        <p class="slide-caption">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。</p>
+        <p class="slide-caption">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
       </div>
 
       <div class="slide-card">
