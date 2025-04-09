@@ -22,538 +22,308 @@
         }
 
         /* 导航栏 */
-        #navbar {
-            background-color: transparent;
-            padding: 15px 0; /* 增加底部间距 */
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-        }
+#navbar {
+    background-color: transparent;
+    padding: 0; /* 移除内边距，直接控制高度 */
+    position: fixed;
+    width: 1920px; /* 设置为 Figma 提供的宽度 */
+    height: 80px; /* 设置为 Figma 提供的高度 */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
 
-        /* 导航栏容器 */
-        nav .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 0 3%;
-            position: relative;
-        }
+/* 导航栏容器 */
+nav .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;  /* 增加左右内边距，保证内容不至于贴边 */
+    position: relative;
+}
 
-        /* Logo 部分 */
-        nav .logo-container {
-            display: flex;
-            align-items: center;
-            margin-right: 20px;
-            flex-shrink: 0;
-        }
+/* Logo 部分 */
+nav .logo-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
 
-        /* Logo 文字 */
-        nav .logo-text {
-            font-size: clamp(1rem, 2vw, 2.5rem); /* 最大字体调整为 2.2rem */
-            font-weight: bold;
-            color: white;
-            margin-left: 10px;
-        }
+/* Logo 文字样式 */
+nav .logo-text {
+    font-size: 18px; /* 增大字体大小以匹配 Figma 设计 */
+    font-weight: bold;
+    color: white;
+    margin-left: 10px;
+    
+    /* 定位调整 */
+    position: absolute;  /* 使用绝对定位 */
+    top: 22px;  /* 设置从顶部的距离为22px */
+    left: 125px; /* 设置从左边的距离为125px */
+    width: 99px;  /* 设置宽度为99px */
+    height: 34px; /* 设置高度为34px */
+    box-sizing: border-box;  /* 确保宽高包含内边距和边框 */
+}
 
-        /* Logo 图片 */
-        .logo-img {
-            height: clamp(25px, 4.6vw, 65px); /* 最大高度调整为 65px */
-            max-height: 75px;
-        }
 
-        /* 菜单部分 */
-        nav .menu-container {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            gap: clamp(15px, 2.5vw, 30px); /* 初始间距适中 */
-            padding: 15px 30px;
-            background-color: rgba(0, 0, 0, 0.2); /* 灰色背景，调整透明度 */
-            border-radius: 8px; /* 圆角 */
-            border: 2px solid rgba(200, 200, 200, 0.5); /* 灰色边框，透明度可以调整 */
-        }
+/* Logo 图片样式 */
+.logo-img {
+    width: 40px;  /* 设置宽度为40px */
+    height: 40px; /* 设置高度为40px */
+    position: absolute;  /* 使用绝对定位 */
+    top: 19px;  /* 设置从顶部的距离为19px */
+    left: 80px; /* 设置从左边的距离为80px */
+}
 
-        /* 菜单链接 */
-        nav .menu-container a {
-            color: white;
-            text-decoration: none;
-            font-size: clamp(0.8rem, 1.2vw, 1.2rem); /* 字体最小 1rem，逐步增大 */
-        }
 
-        /* 鼠标悬停时 */
-        nav .menu-container a:hover {
-            color: #FF5C00; 
-            text-decoration: underline;
-        }
+/* 菜单容器样式 */
+nav .menu-container {
+    position: relative;  /* 修改为相对定位 */
+    width: 348px;  /* 设置容器宽度 */
+    height: 22px;  /* 设置容器高度 */
+    display: flex;
+    justify-content: space-between;  /* 水平均匀分布菜单项 */
+    align-items: center;  /* 垂直居中 */
+    padding: 10px 20px;  /* 设置内边距 */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 2px solid rgba(200, 200, 200, 0.5);
+    box-sizing: border-box;
+    margin: 0 auto;  /* 使容器在父元素中居中 */
+}
 
-        /* 按钮部分 */
-        nav .buttons-container {
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 2vw, 20px);  /* 调整按钮间距 */
-            justify-content: flex-end;
-        }
+/* 菜单链接 */
+nav .menu-container a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px; /* 增大菜单字体大小 */
+    height: 22px; /* 固定高度 */
+}
 
-        /* 登录按钮 */
-        .login-btn {
-            background-color: #FF5C00;
-            color: white;
-            padding: clamp(5px, 0.8vw, 8px) clamp(8px, 1.2vw, 15px);  /* 更小的内边距 */
-            text-decoration: none;
-            border-radius: 25px;
-            font-size: clamp(1rem, 1.4vw, 1.5rem);  /* 更小的字体大小 */
-        }
+/* 如果你需要特别设置每个菜单项的宽度（以Figma的数值为例） */
+nav .menu-container a:nth-child(1) {
+    width: 33px;
+    left: 786px;
+}
 
-        .login-btn:hover {
-            background-color: #d87b00;
-        }
+nav .menu-container a:nth-child(2) {
+    width: 65px;
+    left: 859px;
+}
 
-        /* 翻译按钮 */
-        .translate-btn {
-            border-radius: 25px;  /* 圆角 */
-            background-color: transparent;
-            color: white;
-            font-size: clamp(1rem, 1.4vw, 1.5rem);  /* 字体大小 */
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;  /* 垂直居中 */
-            justify-content: flex-start; 
-            gap: clamp(4px, 0.8vw, 10px);
-            padding-left: 0px;  /* 减小左侧内边距 */
-            padding-right: 20px;  /* 可以适当调整右边内边距 */
-            overflow: visible;  /* 确保内容不会被隐藏 */
-            white-space: nowrap;  /* 确保文本保持在一行 */
-        }
+nav .menu-container a:nth-child(3) {
+    width: 65px;
+    left: 964px;
+}
 
-        /* 翻译按钮中的 Logo 图片样式 */
-        .translate-btn .translate-logo-img {
-            width: clamp(28px, 2.5vw, 40px);  /* Logo 尺寸根据按钮大小调整 */
-            height: clamp(28px, 2.5vw, 40px); /* 设置 Logo 高度 */
-            object-fit: contain;  /* 保证 logo 按比例显示，避免变形 */
-            margin-right: 0px; /* 让 logo 贴近文字 */
-        }
+nav .menu-container a:nth-child(4) {
+    width: 65px;
+    left: 1069px;
+}
 
-        /* hover 效果 */
-        .translate-btn:hover {
-            color: #FF5C00; 
-            text-decoration: underline;
-        }
 
-        /* 鼠标悬停时，让 logo 变成 #FF5C00 */
-        .translate-btn:hover .translate-logo-img {
-            filter: brightness(0) saturate(100%) invert(38%) sepia(99%) saturate(1450%) hue-rotate(4deg) brightness(101%) contrast(104%);
-        }
 
-        .nav-hidden {
-            transform: translateY(-100%);
-            transition: transform 0.3s ease-in-out;
-        }
+/* 鼠标悬停时 */
+nav .menu-container a:hover {
+    color: #FF5C00; 
+    text-decoration: underline;
+}
+
+/* 按钮部分 */
+nav .buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 221px;  /* 设置容器宽度为 221px */
+    height: 26px;  /* 设置容器高度为 26px */
+    top: 26px;  /* 设置容器的 top 值为 26px */
+    left: 1625px;  /* 设置容器的 left 值为 1625px */
+    gap: 32px;  /* 设置按钮之间的间距为 32px */
+    position: absolute;  /* 使用绝对定位来放置容器 */
+}
+
+.login-btn {
+    background-color: #FF5C00;
+    color: white;
+    width: 100px;  /* 设置按钮的宽度 */
+    height: 26px;  /* 设置按钮的高度 */
+    padding: 0;  /* 去除原有的内边距，因为已经通过宽高定义按钮尺寸 */
+    text-decoration: none;
+    border-radius: 25px;  /* 保留原有的圆角 */
+    font-size: 18px;
+    display: flex;  /* 使用 flexbox 来确保按钮内容居中 */
+    justify-content: center;  /* 水平居中 */
+    align-items: center;  /* 垂直居中 */
+}
+
+
+.login-btn:hover {
+    background-color: #d87b00;
+}
+
+/* 翻译按钮 */
+.translate-btn {
+    border-radius: 25px;
+    background-color: transparent;
+    color: white;
+    font-family: 'Inter', sans-serif;  /* 设置字体为 Inter */
+    font-weight: 400;  /* 设置字体粗细为 400 */
+    font-size: 16px;  /* 设置字体大小为 16px */
+    line-height: 140%;  /* 设置行高为 140% */
+    letter-spacing: 0%;  /* 设置字间距为 0% */
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-left: 0;
+    padding-right: 20px;
+    overflow: visible;
+    white-space: nowrap;
+    width: 24px;  /* 设置按钮的宽度为 24px */
+    height: 22px;  /* 设置按钮的高度为 22px */
+}
+
+
+/* 翻译按钮中的 Logo 图片样式 */
+.translate-btn .translate-logo-img {
+    width: 12px;  /* 设置 Logo 图片宽度为 12px */
+    height: 12px;  /* 设置 Logo 图片高度为 12px */
+    object-fit: contain;
+    margin-right: 0;  /* 去除右边距 */
+}
+
+/* 翻译按钮样式 */
+.translate-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;  /* 设置 Logo 和文本之间的间距为 8px */
+    width: 69px;  /* 设置按钮宽度为 69px */
+    height: 23px;  /* 设置按钮高度为 23px */
+    font-size: 15px;  /* 设置按钮字体大小 */
+    color: white;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+
+/* hover 效果 */
+.translate-btn:hover {
+    color: #FF5C00;
+    text-decoration: underline;
+}
+
+/* 鼠标悬停时，让 logo 变成 #FF5C00 */
+.translate-btn:hover .translate-logo-img {
+    filter: brightness(0) saturate(100%) invert(38%) sepia(99%) saturate(1450%) hue-rotate(4deg) brightness(101%) contrast(104%);
+}
+
+.nav-hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
 
         nav {
             transition: transform 0.3s ease-in-out;
         }
-
-        /* ========================= */
-        /* ✅ 新增：关于我们下拉菜单样式 */
-        /* ========================= */
-
-        .dropdown {
-            position: relative;
-        }
-
-        /* 默认隐藏下拉内容 */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%; /* 紧贴主菜单项底部 */
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.9);
-            min-width: 120px;
-            z-index: 1001;
-            border-radius: 8px;
-            padding: 8px 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        /* 鼠标悬停时显示 */
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* 下拉内容样式 */
-        .dropdown-content a {
-            color: white;
-            padding: 10px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: clamp(0.9rem, 1.2vw, 1.4rem);
-            white-space: nowrap;
-            min-width: max-content;
-        }
-
-        /* hover 效果 */
-        .dropdown-content a:hover {
-            background-color: #222;
-            color: #FF5C00;
-        }
-
-        /* 版块样式 */
-        section {
-            width: 100vw;
-            min-height: 100vh;
-            padding: 40px 5%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            scroll-snap-align: start;
-            box-sizing: border-box;
-        }
-
+        
         #home {
-            position: relative;
-            width: 100vw;
-            height: 100vh; /* 让它始终占满整个视口 */
-            display: flex;
-            flex-direction: column; /* 让文字纵向排列 */
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding-left: 3%;
-            box-sizing: border-box;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                url('images/images/会议室.jpg') center/cover no-repeat;
-            background-size: cover;
-        }
+    position: relative;
+    width: 1920px; /* 设置宽度为 1920px */
+    height: 1000px; /* 设置高度为 1000px */
+    top: 80px; /* 设置距离顶部的距离为 80px，避免覆盖导航栏 */
+    display: flex;
+    flex-direction: column; /* 让文字纵向排列 */
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding-left: 3%;
+    box-sizing: border-box;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url('images/images/会议室.jpg') center/cover no-repeat;
+    background-size: cover;
+}
 
-        /* 让标题字体更大 */
+
         #home h1 {
-            font-size: clamp(3rem, 6vw, 10rem); /* 屏幕小就变小，大就变大 */
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+    position: absolute;
+    width: 1144px;  /* 保留 Figma 的宽度 */
+    height: 101px;  /* 保留 Figma 的高度 */
+    top: 352px;  /* 保留 Figma 的顶部位置 */
+    left: 80px;  /* 保留 Figma 的左侧位置 */
+    font-size: 100px;  /* 屏幕小就变小，大就变大 */
+    font-family: 'Source Sans Pro', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-weight: 900;
+    line-height: 140%;
+    letter-spacing: 1.4%;
+    text-align: left;
+    margin-bottom: 20px;  /* 增加底部间距，避免重叠 */
+}
 
-        /* 让段落文字更大 */
-        #home p {
-            font-size: clamp(1.2rem, 1.2vw, 5rem);
-            font-weight: bold;
-            max-width: 80%; /* 限制文字宽度，避免太长 */
-            margin: 0 auto 10px; /* 居中显示 */
-            line-height: 1.8; /* 增加行间距 */
-        }
+#home p {
+    position: absolute;
+    width: 864px;
+    top: 533px;  /* 保持与 Figma 设计一致，段落开始位置 */
+    left: 80px;
+    font-family: 'Source Sans Pro', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: 0;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    white-space: normal;
+}
+
+
 
         /* 按钮容器，让按钮居中 */
-        .home-buttons {
-            margin-top: 30px; 
-            display: flex;
-            gap: 20px; /* 按钮之间的间距 */
-            justify-content: center; /* 让按钮居中 */
-        }
-
-        /* 按钮样式 */
         .btn {
-            background-color: #FF5C00;
-            color: white;
-            padding: clamp(8px, 1vw, 16px) clamp(16px, 2vw, 32px); /* 根据屏幕大小调整内边距 */
-            text-decoration: none;
-            font-size: clamp(1rem, 2vw, 1.5rem); /* 自适应字体大小 */
-            border-radius: 5px;
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
+    position: absolute;
+    top: 747px;
+    left: 80px;
+    width: 248px;
+    height: 70px;
+    border-radius: 10px;
+    padding: 15px 60px;
+    background-color: #FF5C00;
+    color: white;
+    font-size: 32px; /* Figma 字号 */
+    font-family: 'Source Sans Pro', sans-serif; /* Figma 字体 */
+    font-weight: 700; /* Figma 粗细 */
+    line-height: 100%; /* Figma 行高 */
+    letter-spacing: 0%; /* Figma 字间距 */
+    text-align: center; /* Figma 对齐 */
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+
+
 
         /* 按钮鼠标悬停效果 */
         .btn:hover {
             background-color: #d87b00;
             transform: scale(1.05);
         }
-
-        /* 了解我们按钮 */
-        .btn-secondary {
-            background-color: transparent;
-            color: rgb(255, 255, 255);
-            border: 2px solid #FF5C00;
-        }
-
-        /* 悬停时变色 */
-        .btn-secondary:hover {
-            background-color: rgb(235, 115, 3);
-            color: white;
-        }
-
-        /* 让鼠标滚动一下就跳到下一页 */
-        html {
-            scroll-behavior: smooth; /* 平滑滚动 */
-        }
-
-        .scroll-down {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-            animation: bounce 1.5s infinite;
-        }
-
-        /* 让鼠标滚动一下就跳到下一页 */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .scroll-down {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-            animation: bounce 1.5s infinite;
-        }
-
-        /* 让箭头或者文字有轻微弹跳效果 */
-        @keyframes bounce {
-            0%, 100% {
-                transform: translate(-50%, 0);
-            }
-            50% {
-                transform: translate(-50%, -10px);
-            }
-        }
-
-
-        #missions {
-            min-height: 30vh;
-            width: 100%;
-            height: min(50vh, 400px); /* 让它跟 #home 一样大 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-            background: linear-gradient(to right, 
-            rgba(244, 115, 32, 0.85), 
-            rgba(254, 196, 20, 0.7)
-        ), 
-        url('images/images/办公区.jpg') center/cover no-repeat;
-        }
-
-        /* 确保文本不会太靠边 */
-        #missions .text {
-            max-width: 55%;
-        }
-
-        /* 文字大小和原来一样 */
-        #missions h1 {
-            color: white;
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: bold;
-        }
-
-        #missions p {
-            color: white;
-            font-size: clamp(1rem, 3vw, 2rem);
-            font-weight: bold;
-        }
-
-        #about-us {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 5%;
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            box-sizing: border-box;
-        }
-
-        #about-us .text {
-            flex: 1;
-            min-width: 300px;
-            font-size: 1.5rem;
-            line-height: 1.8;
-            font-weight: bold;
-        }
-
-        .image-slider-wrapper {
-            flex: 1;
-            position: relative;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            padding: 10px 0;
-        }
-
-        .slider-container {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE */
-        }
-
-        .slider-container::-webkit-scrollbar {
-            display: none; /* Chrome */
-        }
-
-        .slide-card {
-            flex: 0 0 80%;
-            max-width: 80%;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .slide-card img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        .caption {
-            padding: 10px;
-            font-size: 1rem;
-            color: #333;
-        }
-
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 2;
-            width: 30px;
-            height: 30px;
-        }
-
-        .slider-btn img {
-            width: 100%;
-            height: auto;
-            opacity: 0.7;
-        }
-
-        .slider-btn:hover img {
-            opacity: 1;
-        }
-
-        .prev-btn {
-            left: 5px;
-        }
-
-        .next-btn {
-            right: 5px;
-        }
         
-        #values {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            padding: 80px 5%;  /* 修改为百分比，保持自适应 */
-            align-items: stretch;
-            max-width: 100%;  /* 确保不会超出屏幕宽度 */
-            box-sizing: border-box;  /* 包括padding在内的宽度计算 */
-        }
-
-        .value-box {
-            flex: 1;
-            max-width: 350px;  /* 设定最大宽度，但不超过350px */
-            margin: 0 15px;
-            padding: 10px;
-            background-color: transparent;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .value-box img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
-
-        .value-box h2 {
-            font-size: 2.8rem;
-            font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 5px;
-        }
-
-        .value-box p {
-            font-size: 1.6rem;
-            font-weight: bold;
-            line-height: 1.2;
-            padding: 5px 20px;
-        }
-
-        .container {
-            display: flex;
-            max-width: 85%;
-            margin: 8vh auto; /* 上下间距加宽 */
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            padding: 20px 25px; /* 内边距稍微增加 */
-            height: 60vh;
-            min-height: 450px;
-        }
-
-        .contact-info {
-            width: 35%;
-            padding: 35px;
-            background: #fff;
-            font-family: 'Roboto', sans-serif; /* 选择更清晰的字体 */
-        }
-
-        .contact-info h2 {
-            margin-bottom: 25px;
-            font-size: 26px;
-            font-family: 'Montserrat', sans-serif; /* 让标题更有设计感 */
-            font-weight: bold;
-            border-bottom: 3px solid #000;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .contact-info p {
-            font-size: 20px; /* 适中，易读 */
-            margin-bottom: 15px;
-            font-family: 'Lato', sans-serif; /* 地址、邮箱等适合简洁的字体 */
-            letter-spacing: 0.5px; /* 增加字距，提高可读性 */
-            line-height: 1.6; /* 让内容看起来更整齐 */
-        }
-
-        .map-container {
-            width: 65%;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
         h1 {
-            font-size: 32px;
+            font-size: 100px;
             margin-bottom: 8px;
         }
 
@@ -561,7 +331,9 @@
             font-size: 20px;
             max-width: 800px;
         }
-    </style>
+        
+        
+        </style>
 </head>
 <body>
 
@@ -570,7 +342,7 @@
         <!-- Logo 部分 -->
         <div class="logo-container">
             <img src="images/images/logo.png" alt="Logo" class="logo-img">
-            <span class="logo-text">KUNZZ HOLDINGS</span>
+            <span class="logo-text">KUNZZ HOLDINGS<br>Sdn Bhd</span>
         </div>
 
         <!-- 菜单部分 -->
@@ -578,9 +350,6 @@
             <a href="#home">首页</a>
             <div class="dropdown">
                 <a href="#about-us">关于我们</a>
-                <div class="dropdown-content">
-                    <a href="history.html">发展历史</a>
-                </div>
             </div>
             <a href="#brands">旗下品牌</a>
             <a href="#join-us">加入我们</a>
@@ -600,147 +369,10 @@
     <section id="home">
         <div>
             <h1>让空间温暖，让团队闪光</h1>
-            <p>我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。</p>
-            <p>我们相信，高效源于信任，创新源于自由。</p>
-            <p>一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。</p>
-
-            <!-- 按钮区域 -->
-            <div class="home-buttons">
-                <a href="#join-us" class="btn">加入我们</a>
-                <a href="#about-us" class="btn btn-secondary">了解我们</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="about-us">
-    <div class="text">
-        <h1>关于我们</h1>
-        <p>
-        Kunzz Holdings Sdn. Bhd.是一家在马来西亚的多元化控股管理公司，涵盖营销策划、创意设计、财务咨询、及精品日式餐饮服务……
-        </p>
-    </div>
-
-    <div class="image-slider-wrapper">
-        <button class="slider-btn prev-btn"><img src="images/images/left.png" alt="Left"></button>
-        <div class="slider-container">
-        <div class="slide-card">
-            <img src="images/images/会议室.jpg" alt="会议室">
-            <p class="caption">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
-        </div>
-        <div class="slide-card">
-            <img src="images/images/办公区.jpg" alt="办公区">
-            <p class="caption">办公区：沉静与高效的交汇</p>
-        </div>
-        <div class="slide-card">
-            <img src="images/images/愿景图.jpg" alt="愿景图">
-            <p class="caption">愿景图：我们共同的方向</p>
-        </div>
-        </div>
-        <button class="slider-btn next-btn"><img src="images/images/right.png" alt="Right"></button>
-    </div>
-    </section>
-
-    <section id="missions">
-        <div>
-            <h1>我们的使命</h1>
-            <p>塑造积极向上和舒适的工作环境</p>
+            <p>我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。我们相信，高效源于信任，创新源于自由。一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。</p>
+                <a href="#about-us" class="btn">了解我们</a>
         </div>
     </section>
     
-    <section id="values">
-        <div class="value-box">
-            <img src="images/images/愿景图.jpg" alt="愿景">
-            <h2>愿景</h2>
-            <p>打造高效且创新的团队，为公司不断创造价值，成为行业标杆。</p>
-        </div>
-        <div class="value-box">
-            <img src="images/images/文化图.jpg" alt="文化">
-            <h2>文化</h2>
-            <p>积极向上，高效执行，灵活应变，诚信待人。</p>
-        </div>
-        <div class="value-box">
-            <img src="images/images/价值观图.jpg" alt="价值观">
-            <h2>价值观</h2>
-            <p>目标导向，理念一致，追求卓越，创新精神。</p>
-        </div>
-    </section>
-
-    <!-- 联系我们 -->
-    <div class="container">
-        <div class="contact-info">
-            <h2>联系我们</h2>
-            <p><strong>地址：</strong>25, Jln Tanjong 3, Taman Desa Cemerlang, 81800 Ulu Tiram, Johor Darul Ta'zim</p>
-            <p><strong>邮箱：</strong>contact@kunzzholdings.com</p>
-            <p><strong>电话：</strong>+60 123-456 789</p>
-        </div>
-        <div class="map-container">
-        <iframe src="https://www.google.com/maps/d/embed?mid=1RrVHef5rpOnLfmBvdtZOd2RQYWz-56g&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>
-        </div>
-    </div>
-</div>
-
-    <p style="text-align: center; font-size: 14px; color: #666; margin-top: 20px;">
-        © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
-    </p>
-
-    <!-- JavaScript 让鼠标滚轮滚一下直接跳到下一页 -->
-    <script>
-    document.addEventListener("wheel", (event) => {
-        event.preventDefault(); // 禁止默认滚动行为
-
-        let sections = document.querySelectorAll("section");
-        let currentIndex = Math.round(window.scrollY / window.innerHeight); // 计算当前在哪个 section
-
-        if (event.deltaY > 0 && currentIndex < sections.length - 1) {
-            // 向下滚动
-            window.scrollTo({
-                top: (currentIndex + 1) * window.innerHeight,
-                behavior: "smooth"
-            });
-        } else if (event.deltaY < 0 && currentIndex > 0) {
-            // 向上滚动
-            window.scrollTo({
-                top: (currentIndex - 1) * window.innerHeight,
-                behavior: "smooth"
-            });
-        }
-    }, { passive: false });
-    </script>
-
-    <script>
-    const navbar = document.getElementById("navbar");
-
-    navbar.style.transition = "top 0.3s ease";  // 平滑过渡效果
-
-    // 监听页面的滚动事件
-    window.onscroll = function() {
-        // 获取页面的滚动位置
-        if (window.scrollY > 0) {
-            // 当页面滚动时，隐藏导航栏
-            navbar.style.top = "-120px"; // 隐藏导航栏（根据需要调整隐藏的高度）
-        } else {
-            // 当页面回到顶部时，显示导航栏
-            navbar.style.top = "0"; // 导航栏恢复到顶部
-        }
-    };
-    </script>
-
-    <script>
-    const slider = document.querySelector('.slider-container');
-    const next = document.querySelector('.next-btn');
-    const prev = document.querySelector('.prev-btn');
-
-    const slideWidth = slider.querySelector('.slide-card').offsetWidth + 20; // 20 for gap
-
-    next.addEventListener('click', () => {
-        slider.scrollLeft += slideWidth;
-    });
-
-    prev.addEventListener('click', () => {
-        slider.scrollLeft -= slideWidth;
-    });
-    </script>
-
-
-</body>
+    </body>
 </html>
