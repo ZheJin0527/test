@@ -376,106 +376,90 @@
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
-            color: black;
             box-sizing: border-box;
-            }
+        }
 
-            #about-us .text {
+        #about-us .text {
             flex: 1;
             min-width: 300px;
             font-size: 1.5rem;
             line-height: 1.8;
             font-weight: bold;
-            text-align: left;
-            }
+        }
 
-            #about-us h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            }
-
-            .image {
+        .image-slider-wrapper {
             flex: 1;
             position: relative;
-            background: linear-gradient(to right, #F36F20 0%, #FFCB13 100%);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .slider-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE */
+        }
+
+        .slider-container::-webkit-scrollbar {
+            display: none; /* Chrome */
+        }
+
+        .slide-card {
+            flex: 0 0 80%;
+            max-width: 80%;
+            background: white;
             border-radius: 10px;
-            padding: 20px;
-            box-sizing: border-box;
             overflow: hidden;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            }
-
-            .slider {
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            }
-
-            .slide-card {
-            display: none;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
-            }
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
 
-            .slide-card.active {
-            display: flex;
-            }
-
-            .slide-thumb {
+        .slide-card img {
             width: 100%;
             height: 300px;
             object-fit: cover;
-            border-radius: 10px;
-            }
+        }
 
-            .slide-caption {
-            margin-top: 15px;
+        .caption {
+            padding: 10px;
             font-size: 1rem;
-            color: white;
-            font-weight: normal;
-            }
+            color: #333;
+        }
 
-            /* Arrow buttons */
-            .prev-btn,
-            .next-btn {
-            background: none;
-            border: none;
+        .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            background: none;
+            border: none;
             cursor: pointer;
-            z-index: 10;
-            width: 30px; /* 更小 */
+            z-index: 2;
+            width: 30px;
             height: 30px;
-            padding: 0;
-            }
+        }
 
-            .prev-btn img,
-            .next-btn img {
+        .slider-btn img {
             width: 100%;
             height: auto;
-            opacity: 0.6;
-            transition: opacity 0.2s ease;
-            filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); /* 增强对比 */
-            }
+            opacity: 0.7;
+        }
 
-            .prev-btn:hover img,
-            .next-btn:hover img {
+        .slider-btn:hover img {
             opacity: 1;
-            }
+        }
 
-            .prev-btn {
-            left: 10px; /* 不再负值，放到图内 */
-            }
+        .prev-btn {
+            left: 5px;
+        }
 
-            .next-btn {
-            right: 10px;
-            }
+        .next-btn {
+            right: 5px;
+        }
         
         #values {
             display: flex;
@@ -613,57 +597,48 @@
     </div>
 </nav>
 
+    <section id="home">
+        <div>
+            <h1>让空间温暖，让团队闪光</h1>
+            <p>我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。</p>
+            <p>我们相信，高效源于信任，创新源于自由。</p>
+            <p>一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。</p>
 
-<section id="home">
-    <div>
-        <h1>让空间温暖，让团队闪光</h1>
-        <p>我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。</p>
-        <p>我们相信，高效源于信任，创新源于自由。</p>
-        <p>一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。</p>
-
-        <!-- 按钮区域 -->
-        <div class="home-buttons">
-            <a href="#join-us" class="btn">加入我们</a>
-            <a href="#about-us" class="btn btn-secondary">了解我们</a>
+            <!-- 按钮区域 -->
+            <div class="home-buttons">
+                <a href="#join-us" class="btn">加入我们</a>
+                <a href="#about-us" class="btn btn-secondary">了解我们</a>
+            </div>
         </div>
+    </section>
+
+    <section id="about-us">
+    <div class="text">
+        <h1>关于我们</h1>
+        <p>
+        Kunzz Holdings Sdn. Bhd.是一家在马来西亚的多元化控股管理公司，涵盖营销策划、创意设计、财务咨询、及精品日式餐饮服务……
+        </p>
     </div>
-</section>
 
-<section id="about-us">
-  <div class="text">
-    <h1>关于我们</h1>
-    <p>
-      Kunzz Holdings Sdn. Bhd.是一家在于马来西亚的多元化控股管理公司，以创新和高效执行力赋能旗下业务稳健发展。公司业务覆盖营销策划、创意设计、财务咨询、及精品日式餐饮服务，我们致力于为子公司提供战略指引、资源共享、管理咨询及人才培养，助力旗下企业持续突破瓶颈，提升行业竞争力。
-    </p>
-  </div>
-
-  <div class="image">
-    <div class="slider">
-      <button class="prev-btn">
-        <img src="images/images/left.png" alt="左">
-      </button>
-
-      <div class="slide-card">
-        <img src="images/images/会议室.jpg" class="slide-thumb" alt="会议室">
-        <p class="slide-caption">简洁的线条、通透的玻璃，勾勒出一放静谧而理性的空间。在这里，思想有序流转，创意悄然长大。每一张办公桌，不止是工具，更是你与梦想交谈的舞台。我们用克制的美学，打造有温度的效率感，在安静中专注，于简约中深耕。</p>
-      </div>
-
-      <div class="slide-card">
-        <img src="images/images/办公区.jpg" class="slide-thumb" alt="办公区">
-        <p class="slide-caption">每一张办公桌，不止是工具，更是你与梦想交谈的舞台。</p>
-      </div>
-
-      <div class="slide-card">
-        <img src="images/images/愿景图.jpg" class="slide-thumb" alt="愿景">
-        <p class="slide-caption">我们用克制的美学，打造有温度的效率感。</p>
-      </div>
-
-      <button class="next-btn">
-        <img src="images/images/right.png" alt="右">
-      </button>
+    <div class="image-slider-wrapper">
+        <button class="slider-btn prev-btn"><img src="images/icons/left.png" alt="Left"></button>
+        <div class="slider-container">
+        <div class="slide-card">
+            <img src="images/images/会议室.jpg" alt="会议室">
+            <p class="caption">会议室：创意在此萌芽</p>
+        </div>
+        <div class="slide-card">
+            <img src="images/images/办公区.jpg" alt="办公区">
+            <p class="caption">办公区：沉静与高效的交汇</p>
+        </div>
+        <div class="slide-card">
+            <img src="images/images/愿景图.jpg" alt="愿景图">
+            <p class="caption">愿景图：我们共同的方向</p>
+        </div>
+        </div>
+        <button class="slider-btn next-btn"><img src="images/icons/right.png" alt="Right"></button>
     </div>
-  </div>
-</section>
+    </section>
 
     <section id="missions">
         <div>
@@ -751,31 +726,20 @@
     </script>
 
     <script>
-    const slides = document.querySelectorAll('.slide-card');
-    const nextBtn = document.querySelector('.next-btn');
-    const prevBtn = document.querySelector('.prev-btn');
-    let current = 0;
+    const slider = document.querySelector('.slider-container');
+    const next = document.querySelector('.next-btn');
+    const prev = document.querySelector('.prev-btn');
 
-    function showSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        slides[index].classList.add('active');
-    }
+    const slideWidth = slider.querySelector('.slide-card').offsetWidth + 20; // 20 for gap
 
-    nextBtn.addEventListener('click', () => {
-        current = (current + 1) % slides.length;
-        showSlide(current);
+    next.addEventListener('click', () => {
+        slider.scrollLeft += slideWidth;
     });
 
-    prevBtn.addEventListener('click', () => {
-        current = (current - 1 + slides.length) % slides.length;
-        showSlide(current);
+    prev.addEventListener('click', () => {
+        slider.scrollLeft -= slideWidth;
     });
-
-    // 初始化第一张
-    showSlide(current);
     </script>
-
-
 
 
 </body>
