@@ -450,8 +450,8 @@
             transform: translateY(-50%);
             cursor: pointer;
             z-index: 10;
-            width: 40px;
-            height: 40px;
+            width: 30px; /* 更小 */
+            height: 30px;
             padding: 0;
             }
 
@@ -459,8 +459,9 @@
             .next-btn img {
             width: 100%;
             height: auto;
-            opacity: 0.7;
+            opacity: 0.6;
             transition: opacity 0.2s ease;
+            filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); /* 增强对比 */
             }
 
             .prev-btn:hover img,
@@ -469,11 +470,11 @@
             }
 
             .prev-btn {
-            left: -20px;
+            left: 10px; /* 不再负值，放到图内 */
             }
 
             .next-btn {
-            right: -20px;
+            right: 10px;
             }
         
         #values {
