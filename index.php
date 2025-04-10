@@ -56,7 +56,7 @@
             align-items: center;
             margin-right: 20px;
             flex-shrink: 0;
-            padding: 0 10px;  /* 增加左右内边距，保证内容不至于贴边 */
+            padding: 0;
         }
 
         /* Logo 文字样式 */
@@ -65,6 +65,7 @@
             font-weight: bold;
             color: white;
             margin-left: 10px;
+            padding: 0;
             
             /* 定位调整 */
             position: absolute;  /* 使用绝对定位 */
