@@ -68,7 +68,6 @@ nav .logo-text {
     left: 125px; /* 设置从左边的距离为125px */
     width: auto;
     height: 34px;
-    white-space: nowrap;
     box-sizing: border-box;
 }
 
