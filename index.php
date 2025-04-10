@@ -35,13 +35,12 @@
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
-            margin: 0 auto; /* 居中 */
         }
 
         /* 导航栏容器 */
         nav .nav-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             width: 100%;
             position: relative;
