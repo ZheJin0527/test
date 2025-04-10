@@ -7,12 +7,13 @@
     <title>KUNZZ HOLDINGS</title>
     <style>
         /* 全局样式 */
-        body, html {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
+            background-color: transparent;
             
             /* 让页面按整页滚动 */
             height: 100%;
@@ -23,18 +24,18 @@
         /* 导航栏 */
         #navbar {
             background-color: transparent;
-            padding: 0; /* 移除内边距，直接控制高度 */
+            padding: 0 20px; /* 移除内边距，直接控制高度 */
             position: fixed;
             width: 100%;
+            max-width: 1920px; /* 设置为 Figma 提供的宽度 */
             height: 80px; /* 设置为 Figma 提供的高度 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
-            margin: 0;
         }
 
         /* 导航栏容器 */
@@ -42,19 +43,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1920px;
             width: 100%;
-            max-width: 1920px; /* 最大宽度限制 */
-            padding: 0; /* 无内边距 */
-            margin-left: 0; /* 水平居中 */
-            box-sizing: border-box;
-            margin-top: 22px;
+            padding: 0 20px;  /* 增加左右内边距，保证内容不至于贴边 */
+            position: relative;
+            margin-left: 20px;
         }
 
         /* Logo 部分 */
         nav .logo-container {
             display: flex;
             align-items: center;
-            margin: 0;
+            margin-right: 0;
             flex-shrink: 0;
             padding: 0;
         }
@@ -64,7 +64,8 @@
             font-size: 16px; /* 增大字体大小以匹配 Figma 设计 */
             font-weight: bold;
             color: white;
-            margin: 3px 0 0 0;
+            margin-left: 10px;
+            padding: 0 20px 0 0;
             
             /* 定位调整 */
             position: absolute;  /* 使用绝对定位 */
@@ -124,15 +125,15 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
+            max-width: 1920px;  /* 设置最大宽度为 1920px */
             height: 40px;  /* 增加容器高度，保证按钮间距更加宽松 */
             gap: 32px;  /* 设置按钮之间的间距为 32px */
             position: absolute;  /* 使用绝对定位来放置容器 */
-            padding-right: 0;  /* 为容器添加右内边距，避免按钮靠边 */
+            padding-right: 30px;  /* 为容器添加右内边距，避免按钮靠边 */
             box-sizing: border-box;  /* 确保 padding 包含在总宽度内 */
             top: 22px;  /* 设置容器的 top 值为 26px */
             right: 0;  /* 使用 right: 0 来确保容器靠右对齐 */
-            margin-right: 0;
-            margin-top: 22px;
+            margin-right: 20px;
         }
 
         /* 登录按钮 */
