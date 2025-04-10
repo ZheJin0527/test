@@ -64,7 +64,7 @@
             font-size: 16px; /* 增大字体大小以匹配 Figma 设计 */
             font-weight: bold;
             color: white;
-            margin: 2px 0 0 0;
+            margin: 3px 0 0 0;
             
             /* 定位调整 */
             position: absolute;  /* 使用绝对定位 */
