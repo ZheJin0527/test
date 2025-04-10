@@ -66,9 +66,10 @@ nav .logo-text {
     position: absolute;  /* 使用绝对定位 */
     top: 22px;  /* 设置从顶部的距离为22px */
     left: 125px; /* 设置从左边的距离为125px */
-    width: auto;  /* 设置宽度为99px */
+    width: auto;
     height: 34px;
     white-space: nowrap;
+    box-sizing: border-box;
 }
 
 /* Logo 图片样式 */
