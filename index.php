@@ -28,7 +28,7 @@
             position: fixed;
             width: 100%;
             max-width: 1920px; /* 设置为 Figma 提供的宽度 */
-            height: 80px; /* 设置为 Figma 提供的高度 */
+            height: 60px; /* 设置为 Figma 提供的高度 */
             top: 0;
             left: 0;
             z-index: 1000;
