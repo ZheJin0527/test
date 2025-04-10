@@ -57,6 +57,7 @@
             margin-right: 0;
             flex-shrink: 0;
             padding: 0;
+            margin-bottom: 3px;
         }
 
         /* Logo 文字样式 */
