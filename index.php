@@ -78,7 +78,7 @@ nav .logo-text {
     width: 40px;  /* 设置宽度为40px */
     height: 40px; /* 设置高度为40px */
     position: absolute;  /* 使用绝对定位 */
-    top: 19px;  /* 设置从顶部的距离为19px */
+    top: 22px;  /* 设置从顶部的距离为19px */
     left: 80px; /* 设置从左边的距离为80px */
 }
 
@@ -98,6 +98,7 @@ nav .menu-container {
     border: 2px solid rgba(200, 200, 200, 0.5);
     box-sizing: border-box;
     margin: 0 auto;  /* 使容器在父元素中居中 */
+    top: 22px;
 }
 
 /* 菜单链接 */
@@ -127,7 +128,7 @@ nav .buttons-container {
     position: absolute;  /* 使用绝对定位来放置容器 */
     padding-right: 30px;  /* 为容器添加右内边距，避免按钮靠边 */
     box-sizing: border-box;  /* 确保 padding 包含在总宽度内 */
-    top: 26px;  /* 设置容器的 top 值为 26px */
+    top: 22px;  /* 设置容器的 top 值为 26px */
     right: 0;  /* 使用 right: 0 来确保容器靠右对齐 */
 }
 
@@ -145,7 +146,6 @@ nav .buttons-container {
     justify-content: center;  /* 水平居中 */
     align-items: center;  /* 垂直居中 */
 }
-
 
 
 .login-btn:hover {
