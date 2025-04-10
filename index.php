@@ -7,7 +7,7 @@
     <title>KUNZZ HOLDINGS</title>
     <style>
         /* 全局样式 */
-        body {
+        body, html {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -26,26 +26,27 @@
             padding: 0; /* 移除内边距，直接控制高度 */
             position: fixed;
             width: 100%;
-            max-width: 1920px; /* 设置为 Figma 提供的宽度 */
             height: 80px; /* 设置为 Figma 提供的高度 */
             top: 0;
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             box-sizing: border-box;
+            margin: 0;
         }
 
         /* 导航栏容器 */
         nav .nav-container {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: center;
             width: 100%;
-            position: relative;
-            margin-left: 0;
-            padding-left: 0; /* 去除左内边距 */
+            max-width: 1920px; /* 最大宽度限制 */
+            padding: 0; /* 无内边距 */
+            margin: 0 auto; /* 水平居中 */
+            box-sizing: border-box;
         }
 
         /* Logo 部分 */
