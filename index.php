@@ -22,178 +22,180 @@
         }
 
         /* 导航栏 */
-#navbar {
-    background-color: transparent;
-    padding: 0 20px; /* 移除内边距，直接控制高度 */
-    position: fixed;
-    width: 100%;
-    max-width: 1920px; /* 设置为 Figma 提供的宽度 */
-    height: 80px; /* 设置为 Figma 提供的高度 */
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-}
+        #navbar {
+            background-color: transparent;
+            padding: 0 20px; /* 移除内边距，直接控制高度 */
+            position: fixed;
+            width: 100%;
+            max-width: 1920px; /* 设置为 Figma 提供的宽度 */
+            height: 80px; /* 设置为 Figma 提供的高度 */
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
 
-/* 导航栏容器 */
-nav .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1920px;
-    width: 100%;
-    padding: 0 20px;  /* 增加左右内边距，保证内容不至于贴边 */
-    position: relative;
-}
+        /* 导航栏容器 */
+        nav .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1920px;
+            width: 100%;
+            padding: 0 20px;  /* 增加左右内边距，保证内容不至于贴边 */
+            position: relative;
+            margin-left: 20px;
+        }
 
-/* Logo 部分 */
-nav .logo-container {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-    flex-shrink: 0;
-}
+        /* Logo 部分 */
+        nav .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
 
-/* Logo 文字样式 */
-nav .logo-text {
-    font-size: 16px; /* 增大字体大小以匹配 Figma 设计 */
-    font-weight: bold;
-    color: white;
-    margin-left: 10px;
-    
-    /* 定位调整 */
-    position: absolute;  /* 使用绝对定位 */
-    top: 22px;  /* 设置从顶部的距离为22px */
-    left: 125px; /* 设置从左边的距离为125px */
-    height: 34px; /* 设置高度为34px */
-    box-sizing: border-box;  /* 确保宽高包含内边距和边框 */
-}
-
-
-/* Logo 图片样式 */
-.logo-img {
-    width: 40px;  /* 设置宽度为40px */
-    height: 40px; /* 设置高度为40px */
-    position: absolute;  /* 使用绝对定位 */
-    top: 22px;  /* 设置从顶部的距离为19px */
-    left: 80px; /* 设置从左边的距离为80px */
-}
+        /* Logo 文字样式 */
+        nav .logo-text {
+            font-size: 16px; /* 增大字体大小以匹配 Figma 设计 */
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+            
+            /* 定位调整 */
+            position: absolute;  /* 使用绝对定位 */
+            top: 22px;  /* 设置从顶部的距离为22px */
+            left: 125px; /* 设置从左边的距离为125px */
+            height: 34px; /* 设置高度为34px */
+            box-sizing: border-box;  /* 确保宽高包含内边距和边框 */
+        }
 
 
-/* 菜单容器样式 */
-nav .menu-container {
-    position: relative;  /* 修改为相对定位 */
-    max-width: 1920px;  /* 设置最大宽度为1920px */
-    height: 22px;  /* 设置容器高度 */
-    display: flex;
-    justify-content: space-between;  /* 水平均匀分布菜单项 */
-    gap: 20px;
-    align-items: center;  /* 垂直居中 */
-    padding: 15px 30px;  /* 设置内边距 */
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    border: 2px solid rgba(200, 200, 200, 0.5);
-    box-sizing: border-box;
-    margin: 0 auto;  /* 使容器在父元素中居中 */
-    top: 22px;
-}
-
-/* 菜单链接 */
-nav .menu-container a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px; /* 增大菜单字体大小 */
-    height: 22px; /* 固定高度 */
-    line-height: 22px;  /* 确保文字垂直居中 */
-}
+        /* Logo 图片样式 */
+        .logo-img {
+            width: 40px;  /* 设置宽度为40px */
+            height: 40px; /* 设置高度为40px */
+            position: absolute;  /* 使用绝对定位 */
+            top: 22px;  /* 设置从顶部的距离为19px */
+            left: 80px; /* 设置从左边的距离为80px */
+        }
 
 
-/* 鼠标悬停时 */
-nav .menu-container a:hover {
-    color: #FF5C00; 
-    text-decoration: underline;
-}
+        /* 菜单容器样式 */
+        nav .menu-container {
+            position: relative;  /* 修改为相对定位 */
+            max-width: 1920px;  /* 设置最大宽度为1920px */
+            height: 22px;  /* 设置容器高度 */
+            display: flex;
+            justify-content: space-between;  /* 水平均匀分布菜单项 */
+            gap: 20px;
+            align-items: center;  /* 垂直居中 */
+            padding: 15px 30px;  /* 设置内边距 */
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border: 2px solid rgba(200, 200, 200, 0.5);
+            box-sizing: border-box;
+            margin: 0 auto;  /* 使容器在父元素中居中 */
+            top: 22px;
+        }
 
-/* 按钮部分 */
-nav .buttons-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    max-width: 1920px;  /* 设置最大宽度为 1920px */
-    height: 40px;  /* 增加容器高度，保证按钮间距更加宽松 */
-    gap: 32px;  /* 设置按钮之间的间距为 32px */
-    position: absolute;  /* 使用绝对定位来放置容器 */
-    padding-right: 30px;  /* 为容器添加右内边距，避免按钮靠边 */
-    box-sizing: border-box;  /* 确保 padding 包含在总宽度内 */
-    top: 22px;  /* 设置容器的 top 值为 26px */
-    right: 0;  /* 使用 right: 0 来确保容器靠右对齐 */
-}
-
-/* 登录按钮 */
-.login-btn {
-    background-color: #FF5C00;
-    color: white;
-    width: 100px;  /* 设置按钮的宽度 */
-    height: 40px;  /* 增加按钮的高度，让它看起来更加宽松 */
-    padding: 0;  /* 去除原有的内边距，因为已经通过宽高定义按钮尺寸 */
-    text-decoration: none;
-    border-radius: 25px;  /* 保留原有的圆角 */
-    font-size: 16px;
-    display: flex;  /* 使用 flexbox 来确保按钮内容居中 */
-    justify-content: center;  /* 水平居中 */
-    align-items: center;  /* 垂直居中 */
-}
+        /* 菜单链接 */
+        nav .menu-container a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px; /* 增大菜单字体大小 */
+            height: 22px; /* 固定高度 */
+            line-height: 22px;  /* 确保文字垂直居中 */
+        }
 
 
-.login-btn:hover {
-    background-color: #d87b00;
-}
+        /* 鼠标悬停时 */
+        nav .menu-container a:hover {
+            color: #FF5C00; 
+            text-decoration: underline;
+        }
 
-/* 翻译按钮 */
-.translate-btn {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 8px;  /* 设置 Logo 和文本之间的间距为 8px */
-    width: auto;  /* 根据内容自适应宽度 */
-    height: 23px;  /* 设置按钮高度为 23px */
-    font-size: 16px;  /* 设置字体大小为 16px */
-    color: white;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    padding-left: 0;
-    padding-right: 20px;
-    overflow: visible;
-    white-space: nowrap;
-}
+        /* 按钮部分 */
+        nav .buttons-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            max-width: 1920px;  /* 设置最大宽度为 1920px */
+            height: 40px;  /* 增加容器高度，保证按钮间距更加宽松 */
+            gap: 32px;  /* 设置按钮之间的间距为 32px */
+            position: absolute;  /* 使用绝对定位来放置容器 */
+            padding-right: 30px;  /* 为容器添加右内边距，避免按钮靠边 */
+            box-sizing: border-box;  /* 确保 padding 包含在总宽度内 */
+            top: 22px;  /* 设置容器的 top 值为 26px */
+            right: 0;  /* 使用 right: 0 来确保容器靠右对齐 */
+            margin-right: 20px;
+        }
 
-/* 翻译按钮中的 Logo 图片样式 */
-.translate-btn .translate-logo-img {
-    width: 12px;  /* 设置 Logo 图片宽度为 12px */
-    height: 12px;  /* 设置 Logo 图片高度为 12px */
-    object-fit: contain;
-    margin-right: 0;  /* 去除右边距 */
-}
+        /* 登录按钮 */
+        .login-btn {
+            background-color: #FF5C00;
+            color: white;
+            width: 100px;  /* 设置按钮的宽度 */
+            height: 40px;  /* 增加按钮的高度，让它看起来更加宽松 */
+            padding: 0;  /* 去除原有的内边距，因为已经通过宽高定义按钮尺寸 */
+            text-decoration: none;
+            border-radius: 25px;  /* 保留原有的圆角 */
+            font-size: 16px;
+            display: flex;  /* 使用 flexbox 来确保按钮内容居中 */
+            justify-content: center;  /* 水平居中 */
+            align-items: center;  /* 垂直居中 */
+        }
 
-/* hover 效果 */
-.translate-btn:hover {
-    color: #FF5C00;
-    text-decoration: underline;
-}
 
-/* 鼠标悬停时，让 logo 变成 #FF5C00 */
-.translate-btn:hover .translate-logo-img {
-    filter: brightness(0) saturate(100%) invert(38%) sepia(99%) saturate(1450%) hue-rotate(4deg) brightness(101%) contrast(104%);
-}
+        .login-btn:hover {
+            background-color: #d87b00;
+        }
 
-.nav-hidden {
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-in-out;
-}
+        /* 翻译按钮 */
+        .translate-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;  /* 设置 Logo 和文本之间的间距为 8px */
+            width: auto;  /* 根据内容自适应宽度 */
+            height: 23px;  /* 设置按钮高度为 23px */
+            font-size: 16px;  /* 设置字体大小为 16px */
+            color: white;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            padding-left: 0;
+            padding-right: 20px;
+            overflow: visible;
+            white-space: nowrap;
+        }
+
+        /* 翻译按钮中的 Logo 图片样式 */
+        .translate-btn .translate-logo-img {
+            width: 12px;  /* 设置 Logo 图片宽度为 12px */
+            height: 12px;  /* 设置 Logo 图片高度为 12px */
+            object-fit: contain;
+            margin-right: 0;  /* 去除右边距 */
+        }
+
+        /* hover 效果 */
+        .translate-btn:hover {
+            color: #FF5C00;
+            text-decoration: underline;
+        }
+
+        /* 鼠标悬停时，让 logo 变成 #FF5C00 */
+        .translate-btn:hover .translate-logo-img {
+            filter: brightness(0) saturate(100%) invert(38%) sepia(99%) saturate(1450%) hue-rotate(4deg) brightness(101%) contrast(104%);
+        }
+
+        .nav-hidden {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
 
 
         nav {
@@ -201,22 +203,22 @@ nav .buttons-container {
         }
         
         #home {
-    position: relative;
-    width: 1920px;  /* 设置固定宽度为1920px */
-    height: 1000px;  /* 高度为视口高度 */
-    margin: 0 auto; /* 居中对齐 */
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    url('images/images/会议室.jpg') center/cover no-repeat; /* 背景图片 */
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    padding-left: 3%;
-    box-sizing: border-box;
-}
+            position: relative;
+            width: 1920px;  /* 设置固定宽度为1920px */
+            height: 1000px;  /* 高度为视口高度 */
+            margin: 0 auto; /* 居中对齐 */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+            url('images/images/会议室.jpg') center/cover no-repeat; /* 背景图片 */
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding-left: 3%;
+            box-sizing: border-box;
+        }
 
         #home h1 {
     position: absolute;
