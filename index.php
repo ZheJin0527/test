@@ -47,6 +47,7 @@
             width: 100%;
             position: relative;
             margin-left: 0;
+            padding-left: 0;
         }
 
         /* Logo 部分 */
