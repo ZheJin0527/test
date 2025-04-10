@@ -65,7 +65,7 @@
             font-weight: bold;
             color: white;
             margin-left: 10px;
-            padding: 0;
+            padding: 0 20px 0 0;
             
             /* 定位调整 */
             position: absolute;  /* 使用绝对定位 */
