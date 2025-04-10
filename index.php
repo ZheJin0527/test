@@ -46,7 +46,7 @@
             max-width: 1920px;
             width: 100%;
             position: relative;
-            margin-left: 20px;
+            margin-left: 10px;
         }
 
         /* Logo 部分 */
@@ -131,7 +131,7 @@
             box-sizing: border-box;  /* 确保 padding 包含在总宽度内 */
             top: 22px;  /* 设置容器的 top 值为 26px */
             right: 0;  /* 使用 right: 0 来确保容器靠右对齐 */
-            margin-right: 20px;
+            margin-right: 10px;
         }
 
         /* 登录按钮 */
