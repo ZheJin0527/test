@@ -308,7 +308,7 @@
         <!-- Logo 部分 -->
         <div class="logo-container">
             <img src="images/images/logo.png" alt="Logo" class="logo-img">
-            <span class="logo-text">KUNZZ HOLDINGS<br>Sdn Bhd</span>
+            <span class="logo-text">KUNZZ HOLDINGS<br>SDN BHD</span>
         </div>
 
         <!-- 菜单部分 -->
