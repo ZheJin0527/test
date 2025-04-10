@@ -45,9 +45,9 @@
             align-items: center;
             max-width: 1920px;
             width: 100%;
-            padding: 0 20px;  /* 增加左右内边距，保证内容不至于贴边 */
+            padding: 0;  /* 增加左右内边距，保证内容不至于贴边 */
             position: relative;
-            margin-left: 20px;
+            margin-left: 0;
         }
 
         /* Logo 部分 */
