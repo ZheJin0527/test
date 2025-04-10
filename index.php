@@ -54,7 +54,7 @@
         nav .logo-container {
             display: flex;
             align-items: center;
-            margin-right: 20px;
+
             flex-shrink: 0;
             padding: 0;
         }
