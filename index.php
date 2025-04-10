@@ -45,7 +45,7 @@
             align-items: center;
             max-width: 1920px;
             width: 100%;
-            padding: 0;  /* 增加左右内边距，保证内容不至于贴边 */
+            padding: 0 20px;  /* 增加左右内边距，保证内容不至于贴边 */
             position: relative;
             margin-left: 20px;
         }
@@ -64,7 +64,7 @@
             font-size: 16px; /* 增大字体大小以匹配 Figma 设计 */
             font-weight: bold;
             color: white;
-            margin-left: 10px;
+            margin-left: 0;
             padding: 0 20px 0 0;
             
             /* 定位调整 */
