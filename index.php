@@ -127,7 +127,7 @@
             height: 40px;  /* 增加容器高度，保证按钮间距更加宽松 */
             gap: 32px;  /* 设置按钮之间的间距为 32px */
             position: absolute;  /* 使用绝对定位来放置容器 */
-            padding-right: 30px;  /* 为容器添加右内边距，避免按钮靠边 */
+            padding-right: 0;  /* 为容器添加右内边距，避免按钮靠边 */
             box-sizing: border-box;  /* 确保 padding 包含在总宽度内 */
             top: 22px;  /* 设置容器的 top 值为 26px */
             right: 0;  /* 使用 right: 0 来确保容器靠右对齐 */
