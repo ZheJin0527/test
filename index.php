@@ -154,28 +154,22 @@ nav .buttons-container {
 
 /* 翻译按钮 */
 .translate-btn {
-    border-radius: 25px;
-    background-color: transparent;
-    color: white;
-    font-family: 'Inter', sans-serif;  /* 设置字体为 Inter */
-    font-weight: 400;  /* 设置字体粗细为 400 */
-    font-size: 16px;  /* 设置字体大小为 16px */
-    line-height: 140%;  /* 设置行高为 140% */
-    letter-spacing: 0%;  /* 设置字间距为 0% */
-    border: none;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 8px;  /* 设置 Logo 和文本之间的间距为 8px */
+    width: auto;  /* 根据内容自适应宽度 */
+    height: 23px;  /* 设置按钮高度为 23px */
+    font-size: 16px;  /* 设置字体大小为 16px */
+    color: white;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
     padding-left: 0;
     padding-right: 20px;
     overflow: visible;
     white-space: nowrap;
-    width: 24px;  /* 设置按钮的宽度为 24px */
-    height: 22px;  /* 设置按钮的高度为 22px */
 }
-
 
 /* 翻译按钮中的 Logo 图片样式 */
 .translate-btn .translate-logo-img {
@@ -184,22 +178,6 @@ nav .buttons-container {
     object-fit: contain;
     margin-right: 0;  /* 去除右边距 */
 }
-
-/* 翻译按钮样式 */
-.translate-btn {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 8px;  /* 设置 Logo 和文本之间的间距为 8px */
-    width: 69px;  /* 设置按钮宽度为 69px */
-    height: 23px;  /* 设置按钮高度为 23px */
-    font-size: 15px;  /* 设置按钮字体大小 */
-    color: white;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-
 
 /* hover 效果 */
 .translate-btn:hover {
