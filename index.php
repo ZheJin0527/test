@@ -57,7 +57,6 @@
             margin-right: 0;
             flex-shrink: 0;
             padding: 0;
-            margin-bottom: 3px;
         }
 
         /* Logo 文字样式 */
@@ -65,7 +64,7 @@
             font-size: 16px; /* 增大字体大小以匹配 Figma 设计 */
             font-weight: bold;
             color: white;
-            margin-left: 0;
+            margin: 3px 0 0 0;
             padding: 0 20px 0 0;
             
             /* 定位调整 */
