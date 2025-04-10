@@ -24,9 +24,10 @@
         /* 导航栏 */
 #navbar {
     background-color: transparent;
-    padding: 0; /* 移除内边距，直接控制高度 */
+    padding: 0 20px; /* 移除内边距，直接控制高度 */
     position: fixed;
-    width: 1920px; /* 设置为 Figma 提供的宽度 */
+    width: 100%;
+    max-width: 1920px; /* 设置为 Figma 提供的宽度 */
     height: 80px; /* 设置为 Figma 提供的高度 */
     top: 0;
     left: 0;
@@ -42,6 +43,7 @@ nav .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1920px;
     width: 100%;
     padding: 0 20px;  /* 增加左右内边距，保证内容不至于贴边 */
     position: relative;
@@ -57,7 +59,7 @@ nav .logo-container {
 
 /* Logo 文字样式 */
 nav .logo-text {
-    font-size: 18px; /* 增大字体大小以匹配 Figma 设计 */
+    font-size: 16px; /* 增大字体大小以匹配 Figma 设计 */
     font-weight: bold;
     color: white;
     margin-left: 10px;
@@ -66,7 +68,6 @@ nav .logo-text {
     position: absolute;  /* 使用绝对定位 */
     top: 22px;  /* 设置从顶部的距离为22px */
     left: 125px; /* 设置从左边的距离为125px */
-    width: 99px;  /* 设置宽度为99px */
     height: 34px; /* 设置高度为34px */
     box-sizing: border-box;  /* 确保宽高包含内边距和边框 */
 }
@@ -85,12 +86,13 @@ nav .logo-text {
 /* 菜单容器样式 */
 nav .menu-container {
     position: relative;  /* 修改为相对定位 */
-    width: 348px;  /* 设置容器宽度 */
+    max-width: 1920px;  /* 设置最大宽度为1920px */
     height: 22px;  /* 设置容器高度 */
     display: flex;
     justify-content: space-between;  /* 水平均匀分布菜单项 */
+    gap: 20px;
     align-items: center;  /* 垂直居中 */
-    padding: 10px 20px;  /* 设置内边距 */
+    padding: 15px 30px;  /* 设置内边距 */
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     border: 2px solid rgba(200, 200, 200, 0.5);
@@ -102,31 +104,10 @@ nav .menu-container {
 nav .menu-container a {
     color: white;
     text-decoration: none;
-    font-size: 18px; /* 增大菜单字体大小 */
+    font-size: 16px; /* 增大菜单字体大小 */
     height: 22px; /* 固定高度 */
+    line-height: 22px;  /* 确保文字垂直居中 */
 }
-
-/* 如果你需要特别设置每个菜单项的宽度（以Figma的数值为例） */
-nav .menu-container a:nth-child(1) {
-    width: 33px;
-    left: 786px;
-}
-
-nav .menu-container a:nth-child(2) {
-    width: 65px;
-    left: 859px;
-}
-
-nav .menu-container a:nth-child(3) {
-    width: 65px;
-    left: 964px;
-}
-
-nav .menu-container a:nth-child(4) {
-    width: 65px;
-    left: 1069px;
-}
-
 
 
 /* 鼠标悬停时 */
@@ -140,27 +121,31 @@ nav .buttons-container {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 221px;  /* 设置容器宽度为 221px */
-    height: 26px;  /* 设置容器高度为 26px */
-    top: 26px;  /* 设置容器的 top 值为 26px */
-    left: 1625px;  /* 设置容器的 left 值为 1625px */
+    max-width: 1920px;  /* 设置最大宽度为 1920px */
+    height: 40px;  /* 增加容器高度，保证按钮间距更加宽松 */
     gap: 32px;  /* 设置按钮之间的间距为 32px */
     position: absolute;  /* 使用绝对定位来放置容器 */
+    padding-right: 30px;  /* 为容器添加右内边距，避免按钮靠边 */
+    box-sizing: border-box;  /* 确保 padding 包含在总宽度内 */
+    top: 26px;  /* 设置容器的 top 值为 26px */
+    right: 0;  /* 使用 right: 0 来确保容器靠右对齐 */
 }
 
+/* 登录按钮 */
 .login-btn {
     background-color: #FF5C00;
     color: white;
     width: 100px;  /* 设置按钮的宽度 */
-    height: 26px;  /* 设置按钮的高度 */
+    height: 40px;  /* 增加按钮的高度，让它看起来更加宽松 */
     padding: 0;  /* 去除原有的内边距，因为已经通过宽高定义按钮尺寸 */
     text-decoration: none;
     border-radius: 25px;  /* 保留原有的圆角 */
-    font-size: 18px;
+    font-size: 16px;
     display: flex;  /* 使用 flexbox 来确保按钮内容居中 */
     justify-content: center;  /* 水平居中 */
     align-items: center;  /* 垂直居中 */
 }
+
 
 
 .login-btn:hover {
