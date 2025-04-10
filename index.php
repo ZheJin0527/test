@@ -13,7 +13,6 @@
             padding: 0;
             scroll-behavior: smooth;
             overflow-x: hidden; /* 防止水平滚动 */
-            background-color: transparent;
             
             /* 让页面按整页滚动 */
             height: 100%;
@@ -24,7 +23,7 @@
         /* 导航栏 */
         #navbar {
             background-color: transparent;
-            padding: 0 20px; /* 移除内边距，直接控制高度 */
+            padding: 0; /* 移除内边距，直接控制高度 */
             position: fixed;
             width: 100%;
             max-width: 1920px; /* 设置为 Figma 提供的宽度 */
@@ -36,6 +35,7 @@
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
+            margin: 0 auto; /* 居中 */
         }
 
         /* 导航栏容器 */
@@ -43,11 +43,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1920px;
             width: 100%;
             position: relative;
             margin-left: 0;
-            padding-left: 0;
+            padding-left: 0; /* 去除左内边距 */
         }
 
         /* Logo 部分 */
@@ -124,7 +123,6 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            max-width: 1920px;  /* 设置最大宽度为 1920px */
             height: 40px;  /* 增加容器高度，保证按钮间距更加宽松 */
             gap: 32px;  /* 设置按钮之间的间距为 32px */
             position: absolute;  /* 使用绝对定位来放置容器 */
