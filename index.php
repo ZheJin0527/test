@@ -43,7 +43,7 @@ nav .nav-container {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 0 20px;  /* 增加左右内边距，保证内容不至于贴边 */
+    padding: 3%;  /* 增加左右内边距，保证内容不至于贴边 */
     position: relative;
 }
 
@@ -66,9 +66,8 @@ nav .logo-text {
     position: absolute;  /* 使用绝对定位 */
     top: 22px;  /* 设置从顶部的距离为22px */
     left: 125px; /* 设置从左边的距离为125px */
-    width: 99px;  /* 设置宽度为99px */
-    height: 34px; /* 设置高度为34px */
-    box-sizing: border-box;  /* 确保宽高包含内边距和边框 */
+    width: auto;  /* 设置宽度为99px */
+    white-space: nowrap;
 }
 
 /* Logo 图片样式 */
