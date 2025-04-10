@@ -54,7 +54,7 @@
         nav .logo-container {
             display: flex;
             align-items: center;
-
+            margin: 0;
             flex-shrink: 0;
             padding: 0;
         }
@@ -64,7 +64,7 @@
             font-size: 16px; /* 增大字体大小以匹配 Figma 设计 */
             font-weight: bold;
             color: white;
-            margin-left: 10px;
+            margin: 0;
             padding: 0 20px 0 0;
             
             /* 定位调整 */
