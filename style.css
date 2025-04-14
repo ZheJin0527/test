@@ -333,7 +333,7 @@ nav {
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
-    margin-bottom: 2px;
+    margin-bottom: 0;
 }
 
 .value-card p {
