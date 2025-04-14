@@ -81,38 +81,28 @@
   </section>
 
   <div class="values-section container">
-  <div class="values-left">
-    <div class="value-card">
-      <div class="value-icon">
-        <img src="images/icons/pin.png" alt="icon">
+    <div class="values-left">
+      <div class="value-card">
+        <img src="images/icons/pin.png" alt="icon" class="value-icon">
+        <h3>积极向上</h3>
+        <p>始终以正面心态面对挑战，在变化中寻找成长机会</p>
       </div>
-      <h3>积极向上</h3>
-      <p>始终以正面心态面对挑战，在变化中寻找成长机会</p>
-    </div>
-    <div class="value-card">
-      <div class="value-icon">
-        <img src="images/icons/check.png" alt="icon">
+      <div class="value-card">
+        <img src="images/icons/check.png" alt="icon" class="value-icon">
+        <h3>高效执行</h3>
+        <p>说到做到，快速响应，追求结果导向与行动力</p>
       </div>
-      <h3>高效执行</h3>
-      <p>说到做到，快速响应，追求结果导向与行动力</p>
-    </div>
-    <div class="value-card">
-      <div class="value-icon">
-        <img src="images/images/灵活1.png" alt="icon">
+      <div class="value-card">
+        <img src="images/images/灵.png" alt="icon" class="value-icon">
+        <h3>灵活应变</h3>
+        <p>面对市场变化和问题，保持开放思维，快速调整策略</p>
       </div>
-      <h3>灵活应变</h3>
-      <p>面对市场变化和问题，保持开放思维，快速调整策略</p>
-    </div>
-    <div class="value-card">
-      <div class="value-icon">
-        <img src="images/icons/check.png" alt="icon">
+      <div class="value-card">
+        <img src="images/icons/check.png" alt="icon" class="value-icon">
+        <h3>诚信待人</h3>
+        <p>以真诚与责任建立合作与信任，是我们最基本的做人原则</p>
       </div>
-      <h3>诚信待人</h3>
-      <p>以真诚与责任建立合作与信任，是我们最基本的做人原则</p>
     </div>
-  </div>
-</div>
-
   
     <div class="values-right">
       <h2 class="values-title">我们的核心价值<br>公司文化</h2>
