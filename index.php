@@ -83,17 +83,12 @@
   <div class="values-section container">
     <div class="values-left">
       <div class="value-card">
-      <div class="value-icon">
-        <img src="images/images/积极向上.png" alt="icon">
-        </div>
+        <img src="images/images/积极向上.png" alt="icon" class="value-icon">
         <h3>积极向上</h3>
         <p>始终以正面心态面对挑战，在变化中寻找成长机会</p>
       </div>
       <div class="value-card">
-      <div class="value-icon">
-        <img src="images/images/高效执.png" alt="icon">
-        </div>
-        <div class="value-icon">
+        <img src="images/images/高效执行.png" alt="icon" class="value-icon">
         <h3>高效执行</h3>
         <p>说到做到，快速响应，追求结果导向与行动力</p>
       </div>
