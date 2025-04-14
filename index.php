@@ -117,7 +117,7 @@
     <h2 class="brands-title">旗下品牌</h2>
     <div class="brands-cards">
       <div class="brand-card">
-        <img src="https://via.placeholder.com/360x460" alt="图1">
+        <img src="images/images/2023发展.jpg" alt="图1">
         <div class="brand-content">
           <h3>TOKYO JAPANESE CUISINE</h3>
           <p>专注打造高品质日式料理体验，以“好吃、好看、好服务”为宗旨， TOKYO 致力于成为区域领先的日式餐饮品牌</p>
@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="brand-card">
-        <img src="https://via.placeholder.com/360x460" alt="图2">
+        <img src="images/images/中央厨房.jpg" alt="图2">
         <div class="brand-content">
           <h3>中央厨房</h3>
           <p>提供统一高效的食材处理与配送支持，保障旗下品牌稳定供应、标准化品质于成本控制，是餐饮板块的核心后盾</p>
