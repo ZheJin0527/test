@@ -147,7 +147,7 @@
     <div class="contact-info">
         <h2>联系我们</h2>
         <p>公司名称：Kunzz Holdings Sdn Bhd</p>
-        <p>地址：参考Google地图</p>
+        <p>地址：25, Jln Tanjong 3, Taman Desa Cemerlang, 81800 Ulu Tiram, Johor Darul Ta'zim</p>
         <p>电话：+60 123-456 789</p>
         <p>邮箱：hello@kunzz.com</p>
         <p>营业时间：周一至周五 9AM-6PM</p>
