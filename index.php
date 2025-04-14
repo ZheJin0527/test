@@ -83,22 +83,22 @@
   <div class="values-section container">
     <div class="values-left">
       <div class="value-card">
-        <img src="images/images/积极向上.png" alt="icon" class="value-icon">
+        <img src="images/images/积极向上 (1).png" alt="icon" class="value-icon">
         <h3>积极向上</h3>
         <p>始终以正面心态面对挑战，在变化中寻找成长机会</p>
       </div>
       <div class="value-card">
-        <img src="images/images/高效执行.png" alt="icon" class="value-icon">
+        <img src="images/images/高效执行 (1).png" alt="icon" class="value-icon">
         <h3>高效执行</h3>
         <p>说到做到，快速响应，追求结果导向与行动力</p>
       </div>
       <div class="value-card">
-        <img src="images/images/灵活.png" alt="icon" class="value-icon">
+        <img src="images/images/灵活应变 (1).png" alt="icon" class="value-icon">
         <h3>灵活应变</h3>
         <p>面对市场变化和问题，保持开放思维，快速调整策略</p>
       </div>
       <div class="value-card">
-        <img src="images/images/诚信待人.png" alt="icon" class="value-icon">
+        <img src="images/images/诚信待人 (1).png" alt="icon" class="value-icon">
         <h3>诚信待人</h3>
         <p>以真诚与责任建立合作与信任，是我们最基本的做人原则</p>
       </div>
