@@ -326,6 +326,8 @@ nav {
     width: 124px;
     height: 124px;
     margin: 51px 0 40px 0;
+    object-fit: contain; /* 保证图片缩放适应容器 */
+    display: block;
 }
 
 .value-card h3 {
