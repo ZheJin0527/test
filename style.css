@@ -308,7 +308,6 @@ nav {
 }
 
 .value-card {
-    position: relative; /* 让内部 absolute 有参照 */
     width: 416px;
     height: 416px;
     background-color: #FFF1E5;
@@ -324,12 +323,10 @@ nav {
 }
 
 .value-icon {
-    position: absolute;
-    top: 30px; /* 根据视觉位置微调 */
     width: 124px;
     height: 124px;
+    margin: 51px 0 40px 0;
 }
-
 
 .value-card h3 {
     font-size: 45px;
