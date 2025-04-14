@@ -76,7 +76,7 @@
     </div>
     <div class="about-image">
       <!-- 你可以换成自己的图片 -->
-      <img src="your-image.jpg" alt="公司介绍图" />
+      <img src="images/images/大logo.jpg" alt="公司介绍图" />
     </div>
   </section>
 
