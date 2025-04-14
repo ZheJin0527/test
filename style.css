@@ -326,7 +326,6 @@ nav {
     width: 124px;
     height: 124px;
     margin: 60px 0 0 0;
-    color: #ff5c00;
 }
 
 .value-card h3 {
@@ -334,7 +333,7 @@ nav {
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
 }
 
 .value-card p {
