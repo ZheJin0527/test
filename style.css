@@ -1,0 +1,540 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    background-color: white;
+}
+
+.container {
+    width: 1920px;
+    margin: 0 auto;
+}
+
+/* 导航栏 */
+.navbar {
+    background-color: #2F2F2F;
+    color: white;
+    height: 80px;
+    padding: 0 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 导航栏内部容器 */
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.company-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 140%;
+}
+
+.nav-links {
+    width: 348px;
+    height: 22px;;
+    font-family: 'Inter', sans-serif;
+    font-weight: lighter;
+    display: flex;
+    gap: 40px;
+    font-size: 16px;
+    margin: 28px 0 30px 0;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+/* 鼠标悬停时 */
+.nav-links a:hover {
+    color: #FF5C00; 
+    text-decoration: underline;
+}
+
+.right-section {
+    width: 221px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 26px 0 28px 0;
+}
+
+.login-btn {
+    width: 100px;
+    height: 26px;
+    background-color: #ff5c00;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 2px 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #d87b00;
+}
+
+.language-switch {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    gap: 8px;
+}
+
+.language-switch .lang {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 69px;
+    height: 23px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    text-decoration: none;
+    background: transparent;
+}
+
+.language-switch .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.nav-hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+nav {
+    transition: transform 0.3s ease-in-out;
+}
+
+.home {
+    position: relative;
+    padding: 80px 0 0 80px;
+    height: calc(100vh - 80px); /* 还保持满屏显示 */
+    background: url('images/images/封面.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: white;
+}
+  
+.home-content {
+    margin-top: 108px;
+    width: 1144px;
+    height: 101px;
+}
+  
+.home h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 100px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    line-height: 140%;
+    letter-spacing: 1.4%;
+}
+  
+.home p {
+    font-size: 24px;
+    font-weight: lighter;
+    line-height: 140%;
+    margin-top: 0; /* 确保p和h1的间距是80px */
+    margin-bottom: 90px;
+}
+  
+.home-button {
+    width: 248px;
+    height: 70px;
+    display: flex;
+    justify-content: center;     /* 水平居中 */
+    align-items: center;         /* 垂直居中 */
+    background-color: #ff5c00;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+  
+  .home-button:hover {
+    background-color: #e04800;
+}
+  
+.stats-section {
+    height: 300px;
+    background-color: #ff5c00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    color: white;
+    padding: 0 257px;
+}
+  
+.stat-box {
+    display: flex;
+    width: 1407px;
+    height: 169px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+  
+.stat-number {
+    font-size: 100px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    line-height: 140%;
+    letter-spacing: 0.5%;
+}
+  
+.stat-label {
+    font-size: 32px;
+    font-family: 'Inter', sans-serif;
+    line-height: 140%;
+    letter-spacing: 0.5%;
+}
+  
+.divider {
+    width: 10px;
+    height: 120px;
+    background-color: white;
+}
+
+.about-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 70px 0 80px;
+    box-sizing: border-box;
+}
+  
+.about-text {
+    flex: 1;
+    padding-right: 40px;
+}
+  
+.about-subtitle {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    color: black;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.circle {
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    background-color: #ff5c00;
+    margin-right: 10px; /* 圆圈与文字之间的间距 */
+}
+  
+.about-title {
+    font-size: 80px;
+    color: #ff5c00;
+    margin: 20px 0 72px 0;
+}
+  
+.about-description {
+    width: 780px;
+    height: 170px;
+    font-size: 24px;
+    font-weight: normal;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+  
+.about-image {
+    padding: 80px 0;
+    width: 884px;
+    height: 639px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    overflow: hidden;
+}
+  
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: white;
+}
+  
+.values-section {
+    max-width: 1760px;
+    width: calc(100% - 160px); /* 保证左右 margin 一致 */
+    height: 920px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: #FF5C00;
+    border-radius: 16px;
+    color: #000;
+    margin: 0 auto 80px;
+    box-sizing: border-box;
+    gap: 53px; /* ✅ 左右间距 */
+    flex-wrap: wrap
+}
+
+.values-left {
+    display: grid;
+    grid-template-columns: repeat(2, 416px); /* ✅ 固定格子大小 */
+    grid-gap: 32px;
+    margin-left: 32px;
+}
+
+.value-card {
+    width: 416px;
+    height: 416px;
+    background-color: #FFF1E5;
+    padding: 30px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.value-icon {
+    width: 124px;
+    height: 124px;
+    margin: 60px 0 0 0;
+}
+
+.value-card h3 {
+    font-size: 45px;
+    font-weight: bold;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 140%;
+    margin-bottom: 0;
+}
+
+.value-card p {
+    width: 360px;
+    font-size: 25px;
+    font-weight: lighter;
+    color: #333;
+    line-height: 140%;
+    padding: 0 28px;
+    margin-bottom: 52px;
+}
+
+.values-right {
+    max-width: 720px;
+    height: 647px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.values-title {
+    font-size: 100px;
+    font-weight: bold;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    margin-top: 136.5;
+    margin-bottom: 32px;
+    line-height: 140%;
+}
+
+.values-description {
+    font-size: 25px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    line-height: 140%;
+    margin-bottom: 140px;
+}
+
+.values-button {
+    background-color: white;
+    width: 130px;
+    height: 35px;
+    display: inline-block;
+    padding: 10px 24px;
+    border: 2px solid white;
+    border-radius: 16px;
+    font-size: 25px;
+    color: #ff5c00;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 140%;
+    text-decoration: none;
+    margin-bottom: 136.5;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.values-button:hover {
+    background-color: white;
+    color: #FF5C00;
+}
+
+.brands-section {
+    height: 1091px;
+    padding: 0 80px;
+    text-align: center;
+}
+
+.brands-title {
+    font-size: 80px;
+    font-weight: bold;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: black;
+    line-height: 140%;
+    margin-bottom: 56px;
+    padding: 32px 32px 24px 32px;
+}
+
+.brands-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 33px;
+    padding: 0;
+}
+
+.brand-card {
+    width: 565px;
+    height: 891px; /* 保持卡片整体高度 */
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-card img,
+.placeholder-image {
+    width: 100%;
+    height: 565px; /* 固定图片高度 */
+    object-fit: cover;
+    flex-shrink: 0; /* 防止图片被文字挤压 */
+    padding-bottom: 0;
+    background-color: #ccc;
+}
+
+.brand-content {
+    flex: 1;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-content h3 {
+    font-size: 45px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: bold;
+    margin: 0;
+    text-align: left;
+}
+
+.brand-content p {
+    font-size: 20px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: lighter;
+    color: #444;
+    line-height: 140%;
+    text-align: left;
+    margin-top: auto;
+    margin-bottom: 38px;
+}
+
+.brand-button {
+    background-color: #ff5c00;
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: lighter;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: block;
+    width: 80px;      /* 设置宽度 */
+    height: 18px;      /* 设置高度 */
+}
+
+.contact-container {
+    display: flex;
+    width: 1648px;    /* 设置宽度为1012px */
+    height: 576px;
+    margin: 80px 81px 48px 191px; /* 上下间距加宽 */
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.contact-info {
+    width: 35%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* 垂直居中 */
+    align-items: flex-start;   /* 水平靠左对齐 */
+    padding: 71.5px 35px;           /* 左右内边距 */
+}
+
+.contact-info h2 {
+    font-size: 80px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    line-height: 140%;
+    margin: 0 0 32px 0;  /* 只保留底部32px */
+    padding: 0;
+}
+
+.contact-info p {
+    font-size: 32px; /* 适中，易读 */
+    margin: 0;
+    padding: 10px 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: lighter;
+    line-height: 140%; /* 让内容看起来更整齐 */
+    color: #333;
+}
+
+.map-container {
+    width: 65%;
+}
+
+.map-container iframe {
+    width: 1012px;    /* 设置宽度为1012px */
+    height: 576px;    /* 设置高度为576px */
+    border: none;
+}
+
+
+  
+  
+  
+
+
+
+
+  
