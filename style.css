@@ -552,7 +552,7 @@ nav {
 /* 关于我们 */
 .aboutus {
     position: relative;
-    padding: 20px 0 0 80px;
+    padding: 80px 0 0 80px;
     height: calc(60vh - 80px); /* 还保持满屏显示 */
     background: url('images/images/关于封面.jpg') no-repeat center center/cover;
     display: flex;
@@ -562,7 +562,7 @@ nav {
 }
   
 .aboutus-content {
-    margin-top: 80px;
+    margin-top: 76px;
     width: 402px;
     height: 140px;
     display: flex;
@@ -570,6 +570,7 @@ nav {
     align-items: center; /* 水平居中 */
     justify-content: center;
     text-align: center;
+    transform: translateY(-60px); /* 👈 内容整体往上移 60px 可调整 */
 }
   
 .aboutus-content h1 {
@@ -593,9 +594,4 @@ nav {
 }
   
   
-  
-
-
-
-
   
