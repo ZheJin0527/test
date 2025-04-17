@@ -612,7 +612,6 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    transform: translateY(-60px);
 }
 
 .intro-content h1 {
