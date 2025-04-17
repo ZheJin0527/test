@@ -601,10 +601,11 @@ nav {
     align-items: center;
     justify-content: center;
     color: white;
+    box-sizing: border-box;
+    padding: 80px 0 0 80px;
 }
 
 .intro-content {
-    margin: 80px 0 0 80px;
     width: 402px;
     height: 140px;
     display: flex;
@@ -612,6 +613,7 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin: 0;
 }
 
 .intro-content h1 {
@@ -635,6 +637,7 @@ nav {
     color: #888888;
     white-space: nowrap;
 }
+
   
   
   
