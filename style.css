@@ -42,25 +42,41 @@ body {
 }
 
 .nav-links {
-    width: 348px;
-    height: 22px;;
+    height: 80px;
     font-family: 'Inter', sans-serif;
     font-weight: lighter;
     display: flex;
-    gap: 40px;
+    gap: 30px; /* 减少项间距 */
     font-size: 16px;
-    margin: 28px 0 30px 0;
+    margin-left: 2px; /* 这里控制 .nav-links 左侧的偏移量 */
 }
 
+/* 每个导航项的样式 */
 .nav-links a {
     color: white;
     text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px; /* 添加左右 padding，便于在悬停时变宽 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+    white-space: nowrap; /* 防止文字换行 */
+}
+
+/* 当前页高亮 */
+.nav-links a.active {
+    background-color: #FF5C00;
+    color: white;
+    padding: 0 40px;
 }
 
 /* 鼠标悬停时 */
 .nav-links a:hover {
-    color: #FF5C00; 
-    text-decoration: underline;
+    background-color: #FF5C00;
+    color: white;
+    padding: 0 40px; /* 在鼠标悬停时增大 padding，使得区域变宽 */
+    text-decoration: none;
 }
 
 .right-section {
@@ -218,7 +234,7 @@ nav {
     background-color: white;
 }
 
-.about-section {
+.comprofile-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -226,12 +242,12 @@ nav {
     box-sizing: border-box;
 }
   
-.about-text {
+.comprofile-text {
     flex: 1;
     padding-right: 40px;
 }
   
-.about-subtitle {
+.comprofile-subtitle {
     display: flex;
     align-items: center;
     height: 56px;
@@ -249,13 +265,13 @@ nav {
     margin-right: 10px; /* 圆圈与文字之间的间距 */
 }
   
-.about-title {
+.comprofile-title {
     font-size: 80px;
     color: #ff5c00;
     margin: 20px 0 72px 0;
 }
   
-.about-description {
+.comprofile-description {
     width: 780px;
     height: 170px;
     font-size: 24px;
@@ -265,7 +281,7 @@ nav {
     line-height: 1.6;
 }
   
-.about-image {
+.comprofile-image {
     padding: 80px 0;
     width: 884px;
     height: 639px;
@@ -276,7 +292,7 @@ nav {
     overflow: hidden;
 }
   
-.about-image img {
+.comprofile-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -530,6 +546,51 @@ nav {
 }
 
 
+
+
+
+/* 关于我们 */
+.aboutus {
+    position: relative;
+    padding: 20px 0 0 80px;
+    height: calc(60vh - 80px); /* 还保持满屏显示 */
+    background: url('images/images/关于封面.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+  
+.aboutus-content {
+    margin-top: 80px;
+    width: 402px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    justify-content: center;
+    text-align: center;
+}
+  
+.aboutus-content h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 100px;
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: 1.4%;
+    margin: 0;
+    padding: 0;
+}
+  
+.aboutus-content p {
+    font-size: 25px;
+    font-weight: lighter;
+    line-height: 1.2;
+    letter-spacing: 0.5%;
+    margin: 20px 0; /* 确保p和h1的间距是80px */
+    padding: 0;
+    white-space: nowrap;
+}
   
   
   
