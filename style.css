@@ -987,10 +987,11 @@ nav {
     width: 100%;
     position: relative;
     padding: 80px 0 350px;
-    transition: 0.3s ease 0s;
-    background-color: white; /* 设置白色背景 */
-    background-attachment: initial; /* 去掉 fixed */
-    background-size: initial; /* 去掉 cover */
+    background-color: white; /* 直接白色背景 */
+}
+
+.timeline-container::before {
+    content: none; /* 直接去掉背景遮罩 */
 }
 
 .timeline-header {
