@@ -862,14 +862,14 @@ nav {
     padding: 0 10px;
     box-sizing: border-box;
     font-family: 'Source Sans Pro', sans-serif;
-    color: #fff;
+    color: black;
 }
 
 .timeline_content-desc {
     margin: 0;
     font-size: 15px;
     box-sizing: border-box;
-    color: rgba(255, 255, 255, 1);
+    color: black;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: normal;
     line-height: 25px;
@@ -890,7 +890,7 @@ nav {
     height: 100%;
     margin-left: -1px;
     content: "";
-    background: rgba(255, 255, 255, 0.7);
+    background: black;
 }
 
 @media only screen and (max-width: 767px) {
