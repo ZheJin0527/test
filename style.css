@@ -857,6 +857,7 @@ nav {
 .timeline_content-title {
     font-weight: bold;
     font-size: 66px;
+    margin: -10px 0 0 0;
     transition: 0.4s;
     padding: 0 10px;
     box-sizing: border-box;
