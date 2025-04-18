@@ -949,7 +949,7 @@ nav {
 }
 
 .timeline-item--active::before {
-    top: 55%;
+    top: 200%;
     transition: 0.3s all 0.2s;
     opacity: 1;
 }
