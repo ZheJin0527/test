@@ -862,14 +862,14 @@ nav {
     padding: 0 10px;
     box-sizing: border-box;
     font-family: 'Source Sans Pro', sans-serif;
-    color: black;
+    color: #FF5C00;
 }
 
 .timeline_content-desc {
     margin: 0;
     font-size: 15px;
     box-sizing: border-box;
-    color: black;
+    color: #FF5C00;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: normal;
     line-height: 25px;
@@ -1002,7 +1002,7 @@ nav {
 }
 
 .timeline-header_title {
-    color: black;
+    color: #FF5C00;
     font-size: 80px;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
