@@ -48,7 +48,7 @@ body {
     display: flex;
     gap: 30px; /* 减少项间距 */
     font-size: 16px;
-    margin-left: 2px; /* 这里控制 .nav-links 左侧的偏移量 */
+    margin-left: 96px; /* 这里控制 .nav-links 左侧的偏移量 */
 }
 
 /* 每个导航项的样式 */
