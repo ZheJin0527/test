@@ -32,36 +32,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 (function($) {
-    $.fn.timeline = function() {
-      var selectors = {
-        id: $(this),
-        item: $(this).find(".timeline-item"),
-        activeClass: "timeline-item--active"
-      };
-  
-      selectors.item.eq(0).addClass(selectors.activeClass);
-  
-      var itemLength = selectors.item.length;
-      $(window).scroll(function() {
-        var max, min;
-        var pos = $(this).scrollTop();
-  
-        selectors.item.each(function(i) {
-          min = $(this).offset().top;
-          max = $(this).height() + $(this).offset().top;
-  
-          if (i === itemLength - 2 && pos > min + $(this).height() / 2) {
-            selectors.item.removeClass(selectors.activeClass);
-            selectors.item.last().addClass(selectors.activeClass);
-          } else if (pos <= max - 40 && pos >= min) {
-            selectors.item.removeClass(selectors.activeClass);
-            $(this).addClass(selectors.activeClass);
-          }
-        });
-      });
+  $.fn.timeline = function() {
+    var selectors = {
+      id: $(this),
+      item: $(this).find(".timeline-item"),
+      activeClass: "timeline-item--active"
     };
-  })(jQuery);
-  
-  $(document).ready(function() {
-    $("#timeline-1").timeline();
-  });
+
+    selectors.item.eq(0).addClass(selectors.activeClass);
+
+    $(window).on("scroll", function() {
+      var pos = $(this).scrollTop();
+      var windowHeight = $(this).height();
+      var windowMiddle = pos + windowHeight / 2;
+
+      selectors.item.each(function() {
+        var itemOffset = $(this).offset().top;
+        var itemHeight = $(this).outerHeight();
+        var itemMiddle = itemOffset + itemHeight / 2;
+
+        if (Math.abs(itemMiddle - windowMiddle) < itemHeight / 2) {
+          selectors.item.removeClass(selectors.activeClass);
+          $(this).addClass(selectors.activeClass);
+        }
+      });
+    });
+  };
+})(jQuery);
+
+$(document).ready(function() {
+  $("#timeline-1").timeline();
+});
