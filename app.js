@@ -39,16 +39,24 @@ $.fn.timeline = function() {
 
   selectors.item.eq(0).addClass(selectors.activeClass);
 
-  // 创建圆圈元素（只创建一次）
-  if (selectors.id.find(".timeline-circle").length === 0) {
-    selectors.id.find(".timeline").append('<div class="timeline-circle"></div>');
+  const timelineEl = selectors.id.find(".timeline");
+
+  // 添加圆圈
+  if (timelineEl.find(".timeline-circle").length === 0) {
+    timelineEl.append('<div class="timeline-circle"></div>');
   }
 
-  var circle = selectors.id.find(".timeline-circle");
+  // 添加进度条
+  if (timelineEl.find(".timeline-progress").length === 0) {
+    timelineEl.append('<div class="timeline-progress"></div>');
+  }
 
-  $(window).on("scroll", function() {
-    var pos = $(this).scrollTop();
-    var windowHeight = $(this).height();
+  var circle = timelineEl.find(".timeline-circle");
+  var progress = timelineEl.find(".timeline-progress");
+
+  function updateScroll() {
+    var pos = $(window).scrollTop();
+    var windowHeight = $(window).height();
     var windowMiddle = pos + windowHeight / 2;
 
     selectors.item.each(function() {
@@ -62,9 +70,8 @@ $.fn.timeline = function() {
       }
     });
 
-    // 🔶 让圆圈跟随 scroll 滑动，限制在时间轴内部
-    var timelineTop = selectors.id.find(".timeline").offset().top;
-    var timelineHeight = selectors.id.find(".timeline").height();
+    var timelineTop = timelineEl.offset().top;
+    var timelineHeight = timelineEl.height();
     var scrollCenter = $(window).scrollTop() + windowHeight / 2;
     var circleTop = scrollCenter - timelineTop;
 
@@ -72,11 +79,14 @@ $.fn.timeline = function() {
     if (circleTop > timelineHeight) circleTop = timelineHeight;
 
     circle.css("top", circleTop + "px");
-  });
+    progress.css("height", circleTop + "px");
+  }
+
+  $(window).on("scroll", updateScroll);
+  updateScroll(); // 初始化调用
 };
 })(jQuery);
 
 $(document).ready(function() {
 $("#timeline-1").timeline();
 });
-
