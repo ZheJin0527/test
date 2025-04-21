@@ -1002,7 +1002,8 @@ nav {
 }
 
 .timeline-header_title {
-    color: #FF5C00;
+    color: white;
+    background-color: #FF5C00;
     font-size: 80px;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
