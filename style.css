@@ -886,7 +886,7 @@ nav {
 .timeline::before {
     position: absolute;
     left: 50%;
-    width: 2px;
+    width: 3px;
     height: 100%;
     margin-left: -1px;
     content: "";
