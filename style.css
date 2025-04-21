@@ -1007,7 +1007,8 @@ nav {
     font-size: 80px;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
-    margin: 0;
+    margin-bottom: 100px;
+    padding: 20px;
 }  
 
 
