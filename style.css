@@ -997,6 +997,7 @@ nav {
 .timeline-header {
     width: 100%;
     text-align: center;
+    margin-top: 0;
     margin-bottom: 80px;
     position: relative;
 }
