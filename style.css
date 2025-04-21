@@ -744,7 +744,7 @@ nav {
     background-color: white;
     border-radius: 16px;
     color: #000;
-    margin: 80px auto;
+    margin: 80px auto 0;
     box-sizing: border-box;
     gap: 53px; /* ✅ 左右间距 */
     flex-wrap: wrap
