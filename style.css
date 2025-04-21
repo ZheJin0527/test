@@ -852,6 +852,7 @@ nav {
     flex-direction: column;
     max-width: 700px;
     position: relative;
+    margin-top: 100px; /* 给顶部留空间 */
 }
 
 .timeline_content-title {
@@ -875,7 +876,6 @@ nav {
     line-height: 25px;
 }
 
-/* 针对大屏幕电脑（比如宽度 >= 1024px）增加字体大小 */
 @media screen and (min-width: 1024px) {
     .timeline_content-desc {
         font-size: 20px;
@@ -883,24 +883,21 @@ nav {
     }
 }
 
+/* 时间轴竖线位置保持不变 */
 .timeline::before {
     position: absolute;
+    top: 0;
     left: 50%;
     width: 3px;
     height: 100%;
-    margin-left: -1px;
+    margin-left: -1px; /* 确保竖线在正中 */
     content: "";
     background: #FF5C00;
-}
-
-@media only screen and (max-width: 767px) {
-    .timeline::before {
-        left: 40px;
-    }
+    z-index: 0;
 }
 
 .timeline-item {
-    padding:40px 0;
+    padding: 40px 0;
     opacity: 0.3;
     filter: blur(2px);
     transition: 0.5s;
@@ -925,7 +922,7 @@ nav {
     margin-top: -5px;
     padding-left: 15px;
     opacity: 0;
-    right: calc(-100% - 56);
+    right: calc(-100% - 56px);
 }
 
 .timeline-item:nth-child(even) {
@@ -958,12 +955,30 @@ nav {
     margin: 2px 0 2px 0;
 }
 
+.timeline-circle {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #FF5C00;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px #FF5C00;
+    z-index: 5;
+  }
+
 @media only screen and (max-width: 767px) {
+    .timeline::before {
+        left: 50%;
+    }
+
     .timeline-item {
         align-self: baseline !important;
         width: 100%;
         padding: 0 30px 150px 80px;
     }
+
     .timeline-item::before {
         left: 10px !important;
         padding: 0 !important;
@@ -987,11 +1002,11 @@ nav {
     width: 100%;
     position: relative;
     padding: 80px 0 200px;
-    background-color: white; /* 直接白色背景 */
+    background-color: white;
 }
 
 .timeline-container::before {
-    content: none; /* 直接去掉背景遮罩 */
+    content: none;
 }
 
 .timeline-header {
@@ -1009,7 +1024,8 @@ nav {
     font-weight: bold;
     padding: 40px;
     margin-top: 0;
-}  
+}
+
 
 
 
