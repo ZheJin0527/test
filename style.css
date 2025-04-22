@@ -936,14 +936,14 @@ nav {
     padding: 0 10px;
     box-sizing: border-box;
     font-family: 'Source Sans Pro', sans-serif;
-    color: black;
+    color: #444;
 }
 
 .timeline_content-desc {
     margin: 0;
     font-size: 15px;
     box-sizing: border-box;
-    color: black;
+    color: #444;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: normal;
     line-height: 25px;
