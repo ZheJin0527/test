@@ -950,8 +950,10 @@ nav {
 }
 
 .timeline_img {
-    max-width: 100%;
+    width: 440px;
+    height: 350px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
 }
 
 /* 圆圈样式 */
