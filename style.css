@@ -917,7 +917,7 @@ nav {
     transform: translateY(-80px);
     margin-bottom: 100px;
     margin-left: -250px;  /* 左边距离时间轴增加 */
-    margin-right: -140px; /* 右边距离时间轴增加 */
+    margin-right: -120px; /* 右边距离时间轴增加 */
 }
 
 .timeline-item:nth-child(even) {
