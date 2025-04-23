@@ -1046,3 +1046,59 @@ nav {
     }
 }
 
+.footer {
+    padding: 40px 80px;
+    background-color: #2F2F2F;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid #444;
+}
+
+.footer-logo {
+    flex: 1 1 250px;
+    margin-bottom: 20px;
+}
+
+.footer-logo h1 {
+    font-size: 24px;
+    color: #FF5C00;
+    margin-bottom: 8px;
+}
+
+.footer-logo p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+    margin-bottom: 20px;
+}
+
+.footer-section h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    background-color: #2F2F2F;
+    border-top: 1px solid #444;
+    padding: 10px;
+}
