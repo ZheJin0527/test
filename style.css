@@ -1094,6 +1094,11 @@ nav {
     color: #ccc;
 }
 
+.footer-section li a {
+    color: #ccc;
+    text-decoration: none;
+}
+
 .footer-bottom {
     text-align: center;
     font-size: 14px;
