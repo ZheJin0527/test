@@ -1093,6 +1093,11 @@ nav {
     color: #fff;
 }
 
+.footer-section h4 a {
+    color: #fff;
+    text-decoration: none;
+}
+
 .footer-section ul {
     list-style: none;
     padding: 0;
