@@ -1069,6 +1069,12 @@ nav {
     margin-bottom: 8px;
 }
 
+.footer-logo h1 img.logo {
+    width: 28px;
+    height: 28px;          /* 根据 logo 大小适当调整 */
+    margin-right: 10px;    /* logo 和文字之间的间距 */
+}
+
 .footer-logo p {
     font-size: 14px;
     font-weight: bold;
