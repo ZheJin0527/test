@@ -93,6 +93,7 @@ body {
 
 /* 下拉选项（增加上下 padding） */
 .dropdown a {
+    display: block;
     padding: 16px 20px !important;
     color: white;
     font-weight: normal;
