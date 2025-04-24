@@ -1132,3 +1132,19 @@ nav {
     height: 1.2px;
     background-color: #444;
 }
+
+.social-icons {
+    margin-top: 10px;
+    display: flex;
+    gap: 12px; /* 图标之间的间距 */
+}
+
+.social-icons a img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.2); /* 悬停时轻微放大 */
+}
