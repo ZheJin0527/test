@@ -1101,10 +1101,20 @@ nav {
 }
 
 .footer-bottom {
+    position: relative;
     text-align: center;
     font-size: 14px;
     color: #666;
     background-color: #2F2F2F;
-    border-top: 1px solid #444;
     padding: 10px;
+}
+  
+.footer-bottom::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 80px; /* ⬅️ 左边间距 */
+    right: 48px; /* ⬅️ 右边间距 */
+    height: 1.2px;
+    background-color: #444;
 }
