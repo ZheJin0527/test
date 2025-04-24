@@ -1127,8 +1127,8 @@ nav {
     content: "";
     position: absolute;
     top: 0;
-    left: 80px; /* ⬅️ 左边间距 */
-    right: 48px; /* ⬅️ 右边间距 */
+    left: 80px;
+    right: 80px;
     height: 1.2px;
     background-color: #444;
 }
