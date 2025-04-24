@@ -1067,6 +1067,7 @@ nav {
     font-weight: bold;
     color: #FF5C00;
     margin-bottom: 8px;
+    display: flex;   
 }
 
 .footer-logo h1 img.logo {
