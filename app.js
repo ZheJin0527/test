@@ -2,28 +2,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const navbar = document.querySelector(".navbar");
   let lastScrollTop = window.scrollY;
 
+  const backToTopBtn = document.getElementById("backToTop"); // 回到顶部按钮
+
   window.addEventListener("scroll", function () {
-    const scrollTop = window.scrollY;
+      const scrollTop = window.scrollY;
 
-    if (scrollTop > lastScrollTop) {
-      navbar.classList.add("nav-hidden"); // 向下滚动隐藏
-    } else {
-      navbar.classList.remove("nav-hidden"); // 向上滚动显示
-    }
+      // 导航栏隐藏/显示逻辑
+      if (scrollTop > lastScrollTop) {
+          navbar.classList.add("nav-hidden"); // 向下滚动隐藏
+      } else {
+          navbar.classList.remove("nav-hidden"); // 向上滚动显示
+      }
 
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+      // 回到顶部按钮显示/隐藏逻辑
+      if (scrollTop > 100) {
+          backToTopBtn.style.display = "block";
+      } else {
+          backToTopBtn.style.display = "none";
+      }
   });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
+  // 导航链接点击高亮逻辑
   const links = document.querySelectorAll('.nav-links a');
-
-  // 监听点击事件，设置 active 样式（不再使用 localStorage）
   links.forEach(link => {
       link.addEventListener('click', (e) => {
-          // 点击时移除所有链接的高亮
           links.forEach(l => l.classList.remove('active'));
-          // 当前点击的链接添加高亮
           e.currentTarget.classList.add('active');
       });
   });
@@ -93,3 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
 $(document).ready(function() {
   $("#timeline-1").timeline();
 });
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
