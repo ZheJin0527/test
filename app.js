@@ -119,6 +119,62 @@ function scrollToTop() {
 }
 
 
+// Scroll Activated Number Counter for .stats-section
+document.addEventListener("DOMContentLoaded", function () {
+  const statSection = document.querySelector('.stats-section');
+  const statNumbers = document.querySelectorAll('.stat-number');
+  let hasAnimated = false; // 防止重复动画
+
+  function animateCountUp(el, target, duration = 1000) {
+    let startTime = null;
+
+    function update(currentTime) {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = Math.floor(progress * target);
+
+      el.textContent = current.toLocaleString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target.toLocaleString();
+        if (el.getAttribute('data-target').includes('+')) {
+          el.textContent += '+';
+        }
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top < window.innerHeight &&
+      rect.bottom > 0
+    );
+  }
+
+  function handleScroll() {
+    if (!hasAnimated && isInViewport(statSection)) {
+      statNumbers.forEach(el => {
+        const raw = el.textContent;
+        const target = parseInt(raw.replace(/\D/g, '')); // 只取数字部分
+        if (!isNaN(target)) {
+          el.setAttribute('data-target', raw); // 保存原本带+的内容
+          el.textContent = "0"; // 重置成0
+          animateCountUp(el, target, 1000); // 开始动画
+        }
+      });
+      hasAnimated = true;
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // 预防页面一开始已经在 viewport
+});
 
 
 
