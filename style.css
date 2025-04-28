@@ -941,7 +941,7 @@ nav {
     height: 80%;
     margin-left: -1px;
     content: "";
-    background: #FF5C00;
+    border-left: 3px dashed #FF5C00;
     z-index: 0;
 }
 
@@ -1007,6 +1007,7 @@ nav {
     width: 440px;
     height: 350px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
 }
 
 /* 圆圈样式 */
