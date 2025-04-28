@@ -74,7 +74,7 @@ body {
 
 .nav-item {
     position: relative;
-}
+  }
   
 /* 下拉菜单整体 */
 .dropdown {
@@ -91,7 +91,7 @@ body {
     box-sizing: border-box;
 }
 
-/* 下拉选项（增加上下 padding） */
+/* 下拉选项 */
 .dropdown a {
     display: block;
     padding: 16px 20px !important;
@@ -558,7 +558,7 @@ nav {
 
 .contact-container {
     display: flex;
-    width: 1648px;    /* 设置宽度为1012px */
+    width: 1648px;   
     height: 576px;
     margin: 80px 81px 48px 191px; /* 上下间距加宽 */
     background: white;
@@ -618,7 +618,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: black;
 }
   
 .aboutus-content {
@@ -914,7 +914,7 @@ nav {
 
 .timeline-header_title {
     color: white;
-    background-color: #FF5C00;
+    background: linear-gradient(to bottom, #FF5C00, #ee891c);
     font-size: 80px;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
@@ -941,7 +941,7 @@ nav {
     height: 80%;
     margin-left: -1px;
     content: "";
-    background: #FF5C00;
+    border-left: 3px dashed #FF5C00;
     z-index: 0;
 }
 
@@ -968,7 +968,7 @@ nav {
     position: relative;
     transform: translateY(-80px);
     margin-bottom: 100px;
-    margin-left: -230px;  /* 左边距离时间轴增加 */
+    margin-left: -100px;  /* 左边距离时间轴增加 */
     margin-right: -100px; /* 右边距离时间轴增加 */
 }
 
@@ -1007,6 +1007,7 @@ nav {
     width: 440px;
     height: 350px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
 }
 
 /* 圆圈样式 */
@@ -1014,14 +1015,22 @@ nav {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 20px;
-    height: 20px;
+    width: 70px;
+    height: 70px;
     background-color: #FF5C00;
     border-radius: 50%;
     border: 3px solid white;
     box-shadow: 0 0 0 3px #FF5C00;
     z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
 }
+  
 
 /* 响应式 */
 @media screen and (min-width: 1024px) {
@@ -1113,6 +1122,40 @@ nav {
     text-decoration: none;
 }
 
+.footer-brands {
+    position: relative;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    background-color: #2F2F2F;
+    padding: 10px;
+  }
+  
+  .footer-brands h3 {
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 40px;
+    margin-top: 40px;
+  }
+  
+  .brand-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+  }  
+
+  .footer-brands::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 80px;
+    right: 80px;
+    height: 1.2px;
+    background-color: #444;
+}
+
 .footer-bottom {
     position: relative;
     text-align: center;
@@ -1131,7 +1174,7 @@ nav {
     height: 1.2px;
     background-color: #444;
 }
-
+  
 .social-icons {
     margin-top: 10px;
     display: flex;
@@ -1170,3 +1213,8 @@ nav {
     transform: scale(1.2);
     opacity: 1; /* 鼠标经过时更明显 */
 }
+
+  
+  
+  
+  
