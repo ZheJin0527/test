@@ -46,9 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const timelineEl = selectors.id.find(".timeline");
 
-    // 添加圆圈
+    // 获取初始年份
+    const firstYear = parseInt(selectors.item.eq(0).data("year")) || 2023;
+
+    // 添加格子并设置初始为第一项年份
     if (timelineEl.find(".timeline-circle").length === 0) {
-      timelineEl.append('<div class="timeline-circle"></div>');
+      timelineEl.append(`<div class="timeline-circle">${firstYear}</div>`);
     }
 
     // 添加进度条
@@ -58,6 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var circle = timelineEl.find(".timeline-circle");
     var progress = timelineEl.find(".timeline-progress");
+
+    let currentYear = firstYear; // 当前显示年份
 
     function updateScroll() {
       var pos = $(window).scrollTop();
@@ -72,9 +77,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (Math.abs(itemMiddle - windowMiddle) < itemHeight / 2) {
           selectors.item.removeClass(selectors.activeClass);
           $(this).addClass(selectors.activeClass);
+
+          // 获取当前项年份并更新格子（不加一）
+          const targetYear = parseInt($(this).data("year"));
+          if (!isNaN(targetYear) && targetYear !== currentYear) {
+            currentYear = targetYear;
+            circle.text(currentYear);
+          }
         }
       });
 
+      // 控制格子位置和进度条高度
       var timelineTop = timelineEl.offset().top;
       var timelineHeight = timelineEl.height();
       var scrollCenter = $(window).scrollTop() + windowHeight / 2;
@@ -82,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (circleTop < 0) circleTop = 0;
 
-      // ✅ 限制圆圈在 timeline 的 80% 以内
       const maxCircleTop = timelineHeight * 0.8;
       if (circleTop > maxCircleTop) circleTop = maxCircleTop;
 
@@ -91,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     $(window).on("scroll", updateScroll);
-    updateScroll(); // 页面加载时也执行一次
+    updateScroll();
   };
 })(jQuery);
 
@@ -105,3 +117,8 @@ function scrollToTop() {
     behavior: 'smooth'
   });
 }
+
+
+
+
+
