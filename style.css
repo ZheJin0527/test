@@ -938,7 +938,7 @@ nav {
     top: 0;
     left: 50%;
     width: 3px;
-    height: 90%;
+    height: 80%;
     margin-left: -1px;
     content: "";
     border-left: 3px dashed #FF5C00;
