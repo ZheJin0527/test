@@ -914,7 +914,7 @@ nav {
 
 .timeline-header_title {
     color: white;
-    background-color: #FF5C00;
+    background: linear-gradient(to bottom, #FF5C00, #ee891c);
     font-size: 80px;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
@@ -938,7 +938,7 @@ nav {
     top: 0;
     left: 50%;
     width: 3px;
-    height: 80%;
+    height: 90%;
     margin-left: -1px;
     content: "";
     border-left: 3px dashed #FF5C00;
