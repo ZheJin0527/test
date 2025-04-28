@@ -73,7 +73,9 @@
 
   <section class="join-us-form">
     <h2>如有兴趣，可以填写以下的资料方便我们尽快联络您</h2>
-    <form id="jobApplicationForm" enctype="multipart/form-data">
+    <form id="jobApplicationForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+    <!-- 隐藏的 access_key -->
+    <input type="hidden" name="access_key" value="a18bc4c6-2f16-4861-8d10-a3de747cab50">
   
       <!-- 中文姓名 + 性别 -->
       <div class="form-group-row">
