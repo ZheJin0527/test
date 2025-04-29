@@ -177,4 +177,29 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+document.getElementById('jobApplicationForm').addEventListener('submit', function(e) {
+  const fileInput = document.getElementById('resume');
+  const file = fileInput.files[0];
+
+  if (file && file.size > 3 * 1024 * 1024) { // 3MB
+    alert('上传的简历不能超过3MB！');
+    e.preventDefault();
+  }
+});
+
+function toggleDetail(el) {
+  const row = el.closest("tr");  // 找到当前职位行
+  const detailRow = row.nextElementSibling;  // 找到下一行（详情行）
+
+  if (detailRow && detailRow.classList.contains("detail-row")) {
+    if (detailRow.style.display === "table-row") {
+      detailRow.style.display = "none";  // 如果展开，则收起
+      el.classList.remove("rotate");  // 收起箭头
+    } else {
+      detailRow.style.display = "table-row";  // 如果收起，则展开
+      el.classList.add("rotate");  // 展开箭头
+    }
+  }
+}
+
 
