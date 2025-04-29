@@ -1256,14 +1256,14 @@ nav {
 .job-table-title {
     text-align: center;
     font-size: 32px;
-    margin-top: 60px;
-    margin-bottom: 20px;
+    margin-top: 80px;
+    margin-bottom: 0;
     font-family: 'Inter', sans-serif;
     color: #333;
 }
 
 table {
-    margin: 80px auto;
+    margin: 20px auto;
     width: 90%;
     border-collapse: separate;
     border-spacing: 0;
