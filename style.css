@@ -1256,7 +1256,7 @@ nav {
 .work-environment-section {
     text-align: center;
     padding: 60px 20px;
-    background: linear-gradient(to bottom, #faf6e0, #ffffff);
+    background: linear-gradient(to top, #faf6e0, #ffffff);
 }
   
 .work-environment-section h2 {
