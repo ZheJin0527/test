@@ -1253,6 +1253,37 @@ nav {
     white-space: nowrap;
 }  
 
+.benefits {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f9fbfc;
+}
+  
+.benefits h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #333;
+}
+  .benefits-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;}
+  .benefit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;}
+  .benefit-item img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 12px;}
+  .benefit-item p {
+    font-size: 16px;
+    color: black;}
+
 .work-environment-section {
     text-align: center;
     padding: 60px 20px;
