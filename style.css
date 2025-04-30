@@ -1253,6 +1253,52 @@ nav {
     white-space: nowrap;
 }  
 
+.work-environment-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
+}
+  
+.work-environment-section h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #333;
+}
+  
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+  
+.work-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+  
+.work-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+  
+.work-item span {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0,0,0,0.7);
+}  
+
 .job-table-title {
     text-align: center;
     font-size: 32px;
