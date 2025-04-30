@@ -1257,7 +1257,6 @@ nav {
     text-align: center;
     padding: 60px 20px;
     background: #f9fbfc;
-    margin: 0;
 }
   
 .benefits h2 {
@@ -1265,29 +1264,37 @@ nav {
     margin-bottom: 40px;
     color: #333;
 }
-  .benefits-grid {
+  
+.benefits-grid {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 40px;
     max-width: 1200px;
-    margin: 0 auto;}
-  .benefit-item {
+    margin: 0 auto;
+}
+  
+.benefit-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 150px;}
-  .benefit-item img {
+    width: 150px;
+}
+  
+.benefit-item img {
     width: 60px;
     height: 60px;
-    margin-bottom: 12px;}
-  .benefit-item p {
+    margin-bottom: 12px;
+}
+  
+.benefit-item p {
     font-size: 16px;
-    color: black;}
+    color: black;
+}
 
 .work-environment-section {
     text-align: center;
-    padding: 60px 20px;
+    padding: 0px 20px 60px;
     background: linear-gradient(to top, #faf6e0, #ffffff);
 }
   
