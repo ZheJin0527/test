@@ -1274,6 +1274,8 @@ nav {
 }
   
 .work-item {
+    width: 440px;
+    height: 350px;
     position: relative;
     border-radius: 16px;
     overflow: hidden;
