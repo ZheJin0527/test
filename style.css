@@ -1387,7 +1387,7 @@ nav {
 .environment-wrapper .swiper-button-prev::after,
 .environment-wrapper .swiper-button-next::after {
   font-size: 40px !important;
-  color: #FF5C00 !important;
+  color: black !important;
   font-weight: 900 !important;
 }
 
