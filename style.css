@@ -1292,55 +1292,102 @@ nav {
     color: black;
 }
 
-.work-environment-section {
-    text-align: center;
-    padding: 40px 20px 60px;
+.environment-section {
     background: #faf6e0;
+    padding: 60px 80px;
+    text-align: center;
 }
   
-.work-environment-section h2 {
+.environment-heading {
     font-size: 45px;
     margin-bottom: 40px;
     color: #333;
 }
   
-.work-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 1400px;
+.environment-swiper {
+    max-width: 1200px;
     margin: 0 auto;
-}
-
-  
-.work-item {
-    width: 440px;
-    height: 350px;
-    position: relative;
-    border-radius: 16px;
+    padding: 20px 10px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
   
-.work-item img {
+.environment-list {
+    padding: 0;
+    margin: 0;
+}
+  
+.environment-item {
+    list-style: none;
+    height: 100%;
+}
+  
+.environment-link {
+    user-select: none;
+    display: block;
+    background: transparent;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+    transition: 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+  
+.environment-link:hover {
+    border-color: #5372F0;
+}
+  
+.environment-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
+    border-radius: 12px;
 }
   
-.work-item span {
+.environment-title {
     position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 100%;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     text-align: center;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(0,0,0,0.7);
-}  
+    margin: 0;
+}
+  
+/* Swiper controls */
+.environment-swiper .swiper-pagination-bullet {
+    height: 13px;
+    width: 13px;
+    opacity: 0.5;
+    background: #5372F0;
+}
+  
+.environment-swiper .swiper-pagination-bullet-active {
+    opacity: 1;
+}
+  
+.environment-swiper .swiper-button-prev,
+.environment-swiper .swiper-button-next {
+    color: #5372F0;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    padding: 10px;
+}
+  
+.environment-swiper .swiper-button-prev::after,
+.environment-swiper .swiper-button-next::after {
+    font-size: 20px;
+}
+  
+@media screen and (max-width: 768px) {
+    .environment-swiper {
+      width: 90%;
+    }
+}
 
 .job-table-title {
     text-align: center;

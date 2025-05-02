@@ -1,3 +1,28 @@
+// ======= Swiper 初始化（工作环境轮播）=======
+document.addEventListener("DOMContentLoaded", function () {
+  const swiper = new Swiper(".environment-wrapper", {
+    loop: true,
+    slidesPerView: 1,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      }
+    }
+  });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const navbar = document.querySelector(".navbar");
   let lastScrollTop = window.scrollY;
