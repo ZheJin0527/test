@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNZZ HOLDINGS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
@@ -102,31 +103,56 @@
     </div>
   </div>  
 
-  <div class="work-environment-section">
-    <h2>工作环境</h2>
-    <div class="work-grid">
-      <div class="work-item">
-        <img src="images/images/会议室1.jpg" alt="会议室">
-        <span>会议室</span>
-      </div>
-      <div class="work-item">
-        <img src="images/images/办公区.jpg" alt="办公区">
-        <span>办公区</span>
-      </div>
-      <div class="work-item">
-        <img src="images/images/2023发展.jpg" alt="研发实验室">
-        <span>研发实验室</span>
-      </div>
-      <div class="work-item">
-        <img src="images/images/2024发展.jpg" alt="员工餐厅">
-        <span>员工餐厅</span>
-      </div>
-      <div class="work-item">
-        <img src="images/images/2025发展.jpg" alt="公司办公室">
-        <span>公司办公室</span>
-      </div>
+  <div class="container swiper">
+    <div class="environment-wrapper">
+        <ul class="environment-list swiper-wrapper">
+            <li class="environment-item swiper-slide">
+                <a href="#" class="environment-link">
+                  <img src="images/images/会议室1.jpg" alt="会议室">
+                    class="environment-image">
+                    <h2 class="environment-title">会议室</h2>
+                    <button class="environment-button material-symbols-rounded">&#8594;</button>
+                </a>
+            </li>
+            <li class="environment-item swiper-slide">
+                <a href="#" class="environment-link">
+                  <img src="images/images/办公区.jpg" alt="办公区">
+                    class="environment-image">
+                    <h2 class="environment-title">办公区</h2>
+                    <button class="environment-button material-symbols-rounded">&#8594;</button>
+                </a>
+            </li>
+            <li class="environment-item swiper-slide">
+                <a href="#" class="environment-link">
+                  <img src="images/images/2023发展.jpg" alt="研发实验室">
+                    class="environment-image">
+                    <h2 class="environment-title">研究实验室</h2>
+                    <button class="environment-button material-symbols-rounded">&#8594;</button>
+                </a>
+            </li>
+            <li class="environment-item swiper-slide">
+                <a href="#" class="environment-link">
+                  <img src="images/images/2024发展.jpg" alt="员工餐厅">
+                    class="environment-image">
+                    <h2 class="environment-title">员工餐厅</h2>
+                    <button class="environment-button material-symbols-rounded">&#8594;</button>
+                </a>
+            </li>
+            <li class="environment-item swiper-slide">
+                <a href="#" class="environment-link">
+                  <img src="images/images/2025发展.jpg" alt="公司办公室">
+                    class="environment-image">
+                    <h2 class="environment-title">公司办公室</h2>
+                    <button class="environment-button material-symbols-rounded">&#8594;</button>
+                </a>
+            </li>
+        </ul>
+
+        <div class="swiper-pagination"></div>
+        <div class="swiper-slide-button swiper-button-prev"></div>
+        <div class="swiper-slide-button swiper-button-next"></div>
     </div>
-  </div>
+</div>
 
 
   <h2 class="job-table-title">目前在招聘的职位</h2>
@@ -322,6 +348,8 @@
   <div class="footer-bottom">
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script src="app.js"></script>
 </body>
