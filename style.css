@@ -1382,6 +1382,10 @@ nav {
 .environment-swiper .swiper-button-next::after {
     font-size: 20px;
 }
+
+.swiper-slide {
+    height: 350px;
+}
   
 @media screen and (max-width: 768px) {
     .environment-swiper {
