@@ -1359,14 +1359,14 @@ nav {
 }
   
 /* Swiper controls */
-.environment-swiper .swiper-pagination-bullet {
+.environment-wrapper .swiper-pagination-bullet {
     height: 13px;
     width: 13px;
     opacity: 0.5;
-    background: #5372F0;
+    background: #FF5C00 !important; /* 你要改的颜色 */
 }
   
-.environment-swiper .swiper-pagination-bullet-active {
+.environment-wrapper .swiper-pagination-bullet-active {
     opacity: 1;
 }
   
@@ -1387,7 +1387,7 @@ nav {
 .environment-wrapper .swiper-button-prev::after,
 .environment-wrapper .swiper-button-next::after {
   font-size: 40px !important;
-  color: black !important;
+  color: #FF5C00 !important;
   font-weight: 900 !important;
 }
 
