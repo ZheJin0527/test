@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // 确保路径正确，Composer 安装了 PHPMailer
+require 'C:/Users/User/kunzzweb/vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "✅ 已进入 POST 块<br>";
