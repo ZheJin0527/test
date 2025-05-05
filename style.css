@@ -1407,12 +1407,12 @@ tr:hover td {
 }
   
 .rotate {
-    transform: rotate(180deg);
+    transform: rotate(360deg);
 }
   
 .detail-row {
     display: none;
-    background-color: #f9f9f9;
+    background-color: #faf6e0;
     transition: all 0.3s ease;
 }
   
