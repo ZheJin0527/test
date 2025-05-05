@@ -3,17 +3,27 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// 引入 PHPMailer 类
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// 调试：输出当前文件路径，帮助排查问题
+echo '当前文件路径: ' . __DIR__ . '<br>';
 
-// 确保正确加载 PHPMailer
-require '/home/u857194726/domains/kunzzgroup.com/public_html/vendor/autoload.php';
+// 使用绝对路径加载 Composer 的自动加载文件
+$autoloadPath = '/home/u857194726/domains/kunzzgroup.com/public_html/vendor/autoload.php';
+echo '检查 vendor/autoload.php 文件是否存在: ' . (file_exists($autoloadPath) ? '存在' : '不存在') . '<br>';
 
+require $autoloadPath; // 使用绝对路径加载 autoload.php
+
+// 测试 PHPMailer 类是否加载成功
+if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+    echo "PHPMailer 类加载成功！<br>";
+} else {
+    echo "❌ PHPMailer 类加载失败！<br>";
+    exit; // 如果类加载失败，终止执行
+}
+
+// 确认表单是 POST 请求
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "✅ 已进入 POST 块<br>";
 
-    // 创建 PHPMailer 实例
     $mail = new PHPMailer(true);
 
     try {
