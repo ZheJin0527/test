@@ -3,15 +3,16 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// 确保路径正确，加载 Composer 自动加载文件
-require __DIR__ . '/vendor/autoload.php';
+// 调试：检查 autoload.php 文件是否存在
+$autoloadPath = __DIR__ . '/vendor/autoload.php';
 if (file_exists($autoloadPath)) {
-    require $autoloadPath;
-    echo "✅ autoload.php 文件加载成功<br>";
+    echo "✅ autoload.php 文件加载成功！<br>";
 } else {
-    echo "❌ autoload.php 文件不存在<br>";
-    exit;
+    echo "❌ autoload.php 文件加载失败！<br>";
+    exit; // 如果没有找到 autoload.php，停止执行
 }
+
+require $autoloadPath;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
