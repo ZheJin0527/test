@@ -75,54 +75,6 @@ body {
 .nav-item {
     position: relative;
 }
-  
-/* 下拉菜单整体 */
-.dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #2F2F2F;
-    display: none;
-    flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 999;
-    width: 200px;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-/* 下拉选项（增加上下 padding） */
-.dropdown a {
-    display: block;
-    padding: 16px 20px !important;
-    color: white;
-    font-weight: normal;
-    font-size: 14px;
-    width: 100%;
-    text-align: left;
-    text-decoration: none;
-    box-sizing: border-box;
-    white-space: nowrap;
-    background-color: transparent !important;
-    transition: none !important;
-}
-  
-/* ✅ 完全禁止 hover 状态变化 */
-.dropdown a:hover {
-    background-color: transparent !important;
-    color:#FF5C00 !important;
-    padding: 16px 20px !important; /* 加上 !important 防止被覆盖 */
-    font-size: 14px !important;
-    border: none !important;
-    box-shadow: none !important;
-    transform: none !important;
-}
-  
-
-/* 显示 dropdown */
-.nav-item:hover .dropdown {
-    display: flex;
-}
 
 /* 当前页高亮 */
 .nav-links a.active {
