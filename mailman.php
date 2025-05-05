@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // 确保正确加载 PHPMailer
-require 'vendor/autoload.php'; // 确保路径正确，Composer 安装了 PHPMailer
+require '/home/u857194726/domains/kunzzgroup.com/public_html/vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "✅ 已进入 POST 块<br>";
