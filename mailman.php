@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // 确保路径正确，加载 Composer 自动加载文件
-$autoloadPath = __DIR__ . '/vendor/autoload.php'; // 使用相对路径
+require __DIR__ . '/vendor/autoload.php';
 if (file_exists($autoloadPath)) {
     require $autoloadPath;
     echo "✅ autoload.php 文件加载成功<br>";
