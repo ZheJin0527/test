@@ -1412,7 +1412,7 @@ nav {
 
 table {
     margin: 20px auto;
-    width: 40%;
+    width: 70%;
     border-collapse: separate;
     border-spacing: 0;
     background: #ffffff;
@@ -1475,7 +1475,7 @@ tr:hover td {
 /* 加入我们表单区 */
 .join-us-form {
     width: 100%;
-    max-width: 700px;
+    max-width: 1330px;
     margin: 50px auto;
     padding: 30px;
     background: #fff;
