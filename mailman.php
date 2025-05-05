@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 echo '当前文件路径: ' . __DIR__ . '<br>';
 
 // 使用绝对路径加载 Composer 的自动加载文件
-$autoloadPath = '/home/u857194726/domains/kunzzgroup.com/public_html/vendor/autoload.php';
+require '/home/u857194726/domains/kunzzgroup.com/public_html/vendor/autoload.php';
 echo '检查 vendor/autoload.php 文件是否存在: ' . (file_exists($autoloadPath) ? '存在' : '不存在') . '<br>';
 
 require $autoloadPath; // 使用绝对路径加载 autoload.php
