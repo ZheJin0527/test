@@ -227,4 +227,8 @@ function toggleDetail(el) {
   }
 }
 
-
+// ========= 弹窗申请功能 =========
+function openModal(positionName) {
+  const modalUrl = `apply.html?position=${encodeURIComponent(positionName)}`;
+  window.location.href = modalUrl; // 跳转到申请页面并传递职位参数
+}
