@@ -177,14 +177,16 @@
   </table>
 
   <section class="join-us-form"> 
-    <h2>如有兴趣，可以填写以下的资料方便我们尽快联络您</h2>
-    <form id="jobApplicationForm" action="mailman.php" method="POST" enctype="multipart/form-data">
+    <h2>请提供您宝贵的意见</h2>
+    <form id="jobApplicationForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
 
       <!-- 中文姓名 + 性别 -->
       <div class="form-group-row">
         <div class="half-width">
           <label for="chineseName">中文姓名*</label>
-          <input type="text" id="chineseName" name="chineseName" required>
+          <input type="hidden" name="access_key" value="a18bc4c6-2f16-4861-8d10-a3de747cab50">
+          <input type="hidden" name="redirect" value="success.html">
+          <input type="text" id="chineseName" name="chineseName" placeholder="请输入中文姓名" required pattern="[\u4e00-\u9fa5]{2,}" title="请输入中文姓名（至少两个汉字）">
         </div>
 
         <div class="half-width">
@@ -200,7 +202,7 @@
       <div class="form-group-row">
         <div class="half-width">
           <label for="englishName">英文姓名*</label>
-          <input type="text" id="englishName" name="englishName" required>
+          <input type="text" id="englishName" name="englishName" placeholder="请输入英文姓名" required pattern="[A-Za-z ]{2,}" title="请输入英文姓名（只限字母）">
         </div>
 
         <div class="half-width">
@@ -228,14 +230,14 @@
             <option value="+81">日本 (+81)</option>
             <!-- 可以加更多国家 -->
           </select>
-          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="请输入电话号码" required>
+          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="请输入电话号码" required pattern="\d{1,10}" maxlength="10" inputmode="numeric" title="请输入正确手机号">
         </div>
       </div>
 
       <!-- 电子邮箱 -->
       <div class="form-group">
         <label for="email">电子邮箱*</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" placeholder="请输入邮箱地址" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" title="请输入正确邮箱地址">
       </div>
 
       <!-- 信息 -->
@@ -248,7 +250,6 @@
       <div class="form-group">
         <button type="submit" class="submit-btn">提交</button>
       </div>
-
     </form>
 </section>  
 
