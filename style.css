@@ -1207,7 +1207,7 @@ nav {
 
 /* 招聘部分 */
 .recruitment {
-    padding: 60px 20px;
+    padding: 60px 0px;
 }
   
 .recruitment-container {
@@ -1215,7 +1215,7 @@ nav {
     flex-wrap: wrap;
     align-items: center;
     gap: 40px;
-    max-width: 1200px;
+    max-width: 2400px;
     margin: 0 auto;
 }
   
