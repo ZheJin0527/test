@@ -227,10 +227,9 @@ function toggleDetail(el) {
   }
 }
 
+// ======= 清空表单（返回时触发）=======
 window.addEventListener('pageshow', function (event) {
-  const isBack = event.persisted || (window.performance && performance.getEntriesByType("navigation")[0]?.type === "back_forward");
-
-  if (isBack) {
+  if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
     const form = document.getElementById('jobApplicationForm');
     if (form) form.reset();
   }
