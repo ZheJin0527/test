@@ -227,8 +227,11 @@ function toggleDetail(el) {
   }
 }
 
-// ========= 弹窗申请功能 =========
-function openModal(positionName) {
-  const modalUrl = `apply.html?position=${encodeURIComponent(positionName)}`;
-  window.location.href = modalUrl; // 跳转到申请页面并传递职位参数
-}
+window.addEventListener('pageshow', function (event) {
+  const isBack = event.persisted || (window.performance && performance.getEntriesByType("navigation")[0]?.type === "back_forward");
+
+  if (isBack) {
+    const form = document.getElementById('jobApplicationForm');
+    if (form) form.reset();
+  }
+});
