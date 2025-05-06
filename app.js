@@ -227,21 +227,28 @@ function toggleDetail(el) {
   }
 }
 
-// ======= 清空表单（返回时触发）=======
+// 清空表单内容
 window.addEventListener('pageshow', function (event) {
-  // 确保是从缓存返回，或者是后退操作
+  // 只有从缓存返回时或浏览器后退时才触发
   if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
     const form = document.getElementById('jobApplicationForm');
     if (form) {
-      form.reset();  // 清空表单
+      // 使用 form.reset() 清空表单
+      form.reset();
+      // 强制清空每个输入框的值
+      const inputs = form.querySelectorAll('input, select, textarea');
+      inputs.forEach(input => {
+        input.value = '';
+      });
     }
   }
 });
 
-// 监听历史记录的变化（用于进一步捕获后退或前进操作）
-window.addEventListener('popstate', function() {
+// 确保在加载页面时清空表单
+window.addEventListener('load', function () {
   const form = document.getElementById('jobApplicationForm');
   if (form) {
-    form.reset();  // 清空表单
+    form.reset();
   }
 });
+
