@@ -229,8 +229,12 @@ function toggleDetail(el) {
 
 // ======= 清空表单（返回时触发）=======
 window.addEventListener('pageshow', function (event) {
+  // 确保是通过浏览器历史返回触发的
   if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
     const form = document.getElementById('jobApplicationForm');
-    if (form) form.reset();
+    if (form) {
+      form.reset();  // 清空表单
+    }
   }
 });
+
