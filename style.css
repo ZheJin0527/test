@@ -1316,7 +1316,7 @@ nav {
     height: 13px;
     width: 13px;
     opacity: 0.5;
-    background: #FF5C00 !important; /* 你要改的颜色 */
+    background: black !important; /* 你要改的颜色 */
 }
   
 .environment-wrapper .swiper-pagination-bullet-active {
