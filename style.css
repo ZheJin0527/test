@@ -1572,7 +1572,7 @@ tr:hover td {
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
     text-align: center;
-    max-width: 500px;
+    max-width: 800px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1581,18 +1581,19 @@ tr:hover td {
 
 .message-box h1 {
     color: #4CAF50;
-    font-size: 28px;
+    font-size: 36px;
+    font-weight: bold;
     margin-bottom: 16px;
 }
 
 .message-box p {
-    font-size: 18px;
+    font-size: 24px;
     color: #333;
 }
 
 .message-box a {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 26px;
     color: #FF5C00;
     text-decoration: none;
     font-weight: bold;
