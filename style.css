@@ -1325,11 +1325,11 @@ nav {
   
 .environment-wrapper .swiper-button-prev,
 .environment-wrapper .swiper-button-next {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.6) !important;
   border-radius: 50%;
   padding: 10px;
-  width: 33px;
-  height: 33px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1339,8 +1339,8 @@ nav {
 /* Swiper箭头图标样式 */
 .environment-wrapper .swiper-button-prev::after,
 .environment-wrapper .swiper-button-next::after {
-  font-size: 40px !important;
-  color: black !important;
+  font-size: 26px !important;
+  color: white !important;
   font-weight: 900 !important;
 }
 
