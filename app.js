@@ -229,7 +229,7 @@ function toggleDetail(el) {
 
 // ======= 清空表单（返回时触发）=======
 window.addEventListener('pageshow', function (event) {
-  // 确保是通过浏览器历史返回触发的
+  // 确保是从缓存返回，或者是后退操作
   if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
     const form = document.getElementById('jobApplicationForm');
     if (form) {
@@ -238,3 +238,10 @@ window.addEventListener('pageshow', function (event) {
   }
 });
 
+// 监听历史记录的变化（用于进一步捕获后退或前进操作）
+window.addEventListener('popstate', function() {
+  const form = document.getElementById('jobApplicationForm');
+  if (form) {
+    form.reset();  // 清空表单
+  }
+});
