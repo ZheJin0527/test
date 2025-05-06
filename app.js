@@ -227,28 +227,40 @@ function toggleDetail(el) {
   }
 }
 
-// 清空表单内容
+// 在页面加载时清空表单
+window.addEventListener('load', function () {
+  const form = document.getElementById('jobApplicationForm');
+  if (form) {
+    form.reset(); // 重置表单
+    clearFormFields(form); // 强制清空表单输入
+  }
+});
+
+// 页面返回时触发清空
 window.addEventListener('pageshow', function (event) {
-  // 只有从缓存返回时或浏览器后退时才触发
   if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
     const form = document.getElementById('jobApplicationForm');
     if (form) {
-      // 使用 form.reset() 清空表单
-      form.reset();
-      // 强制清空每个输入框的值
-      const inputs = form.querySelectorAll('input, select, textarea');
-      inputs.forEach(input => {
-        input.value = '';
-      });
+      form.reset(); // 重置表单
+      clearFormFields(form); // 强制清空表单输入
     }
   }
 });
 
-// 确保在加载页面时清空表单
-window.addEventListener('load', function () {
+// 用于清空所有表单字段的函数
+function clearFormFields(form) {
+  const inputs = form.querySelectorAll('input, select, textarea');
+  inputs.forEach(input => {
+    input.value = ''; // 清空每个表单元素的值
+  });
+}
+
+// 确保页面卸载时也能清空
+window.addEventListener('unload', function () {
   const form = document.getElementById('jobApplicationForm');
   if (form) {
     form.reset();
+    clearFormFields(form);
   }
 });
 
