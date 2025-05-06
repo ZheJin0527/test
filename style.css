@@ -1200,7 +1200,7 @@ nav {
     font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.5%;
-    margin: 20px 58px 0 20px; /* 确保p和h1的间距是80px */
+    margin: 20px 58px 0 20px;
     padding: 0;
     white-space: nowrap;
 }  
@@ -1234,8 +1234,8 @@ nav {
 }
   
 .benefit-item img {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     margin-bottom: 12px;
 }
   
