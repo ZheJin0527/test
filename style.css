@@ -1593,7 +1593,8 @@ tr:hover td {
 
 .message-box a {
     display: inline-block;
-    margin-top: 26px;
+    font-size: 24px;
+    margin-top: 20px;
     color: #FF5C00;
     text-decoration: none;
     font-weight: bold;
