@@ -1596,6 +1596,8 @@ form input, form select, form button {
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* 两列布局时的 textarea 调整 */
