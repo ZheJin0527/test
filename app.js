@@ -235,9 +235,20 @@ if (referrer.includes("success.html?from=form") && form) {
   form.reset();
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const closeBtn = document.querySelector('.close-btn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
+      const modal = document.getElementById('formModal');
+      if (modal) modal.style.display = 'none';
+    });
+  }
+});
+
+
 // ======= 弹窗申请表逻辑 =======
 
-// 打开弹窗并设置职位名称
+// 打开弹窗并设置职位名称（下面还不能用）
 function openForm(positionName) {
   const modal = document.getElementById('formModal');
   const positionField = document.getElementById('formPosition');
