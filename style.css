@@ -1567,7 +1567,7 @@ form input, form select, form button {
 .form-group-row {
     margin-bottom: 20px;
     display: flex;
-    gap: 30px;
+    gap: 0 30px;
 }
 
 /* 左右半格 */
@@ -1575,13 +1575,13 @@ form input, form select, form button {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 0 20px;
 }
 
 /* label通用 */
 .form-group label,
 .form-group-row label {
-    margin-bottom: 0px;
+    margin-bottom: 8px;
     font-weight: bold;
 }
 
@@ -1601,7 +1601,7 @@ form input, form select, form button {
 /* 手机输入区 */
 .phone-input {
     display: flex;
-    gap: 10px;
+    gap: 0;
 }
 
 .phone-input select {
@@ -1616,7 +1616,7 @@ form input, form select, form button {
 .gender-options {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 0 20px;
     margin-top: 8px;
 }
 
