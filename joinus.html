@@ -181,21 +181,45 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeForm()">&times;</span>
       <form action="https://formsubmit.co/joeytan801@gmail.com" method="POST" enctype="multipart/form-data">
+        
+        <!-- ✅ 自定义成功页跳转 -->
+        <input type="hidden" name="_redirect" value="https://kunzzgroup.com/success.html">
+        <input type="hidden" name="_captcha" value="false">
+  
         <h2>申请职位</h2>
+  
         <label>职位名称：</label>
         <input type="text" id="formPosition" name="position" readonly>
   
+        <!-- ✅ 中文姓名只能输入中文 -->
         <label>中文姓名：</label>
-        <input type="text" name="chinese_name" required>
+        <input type="text" name="chinese_name" required 
+               pattern="[\u4e00-\u9fa5]{2,}" 
+               title="请输入中文姓名（至少两个汉字）">
   
+        <!-- ✅ 英文姓名只能输入英文 -->
         <label>英文姓名：</label>
-        <input type="text" name="english_name" required>
+        <input type="text" name="english_name" required 
+               pattern="[A-Za-z ]{2,}" 
+               title="请输入英文姓名（只限英文字母）">
   
         <label>电子邮箱：</label>
         <input type="email" name="email" required>
   
+        <!-- ✅ 电话号码含国家码 -->
         <label>电话号码：</label>
-        <input type="tel" name="phone" required>
+        <div style="display: flex; gap: 10px;">
+          <select name="country_code" required>
+            <option value="+60">马来西亚 (+60)</option>
+            <option value="+65">新加坡 (+65)</option>
+            <option value="+86">中国 (+86)</option>
+            <option value="+852">香港 (+852)</option>
+            <option value="+81">日本 (+81)</option>
+          </select>
+          <input type="tel" name="phone" required 
+                 pattern="\d{4,15}" 
+                 title="请输入电话号码（不含国家码）">
+        </div>
   
         <label>性别：</label>
         <select name="gender" required>
