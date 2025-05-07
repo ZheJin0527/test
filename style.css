@@ -1581,7 +1581,7 @@ form input, form select, form button {
 /* label通用 */
 .form-group label,
 .form-group-row label {
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     font-weight: bold;
 }
 
