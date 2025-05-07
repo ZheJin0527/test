@@ -237,3 +237,29 @@ document.addEventListener("DOMContentLoaded", function () {
     form.reset();
   }
 });
+
+// ======= 弹窗申请表逻辑 =======
+
+// 打开弹窗并设置职位名称
+function openForm(positionName) {
+  const modal = document.getElementById('formModal');
+  const positionField = document.getElementById('formPosition');
+  modal.style.display = 'block';
+  if (positionField) {
+    positionField.value = positionName;
+  }
+}
+
+// 关闭弹窗
+function closeForm() {
+  const modal = document.getElementById('formModal');
+  modal.style.display = 'none';
+}
+
+// 点击遮罩层关闭弹窗
+window.addEventListener("click", function (event) {
+  const modal = document.getElementById('formModal');
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});

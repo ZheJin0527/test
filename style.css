@@ -1455,7 +1455,68 @@ tr:hover td {
 .apply-btn:hover {
     background-color: #cc4a00;
 }  
+
+/* 弹窗样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
   
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+  
+.close-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+}
+  
+.close-btn:hover {
+    color: black;
+}
+  
+form input, form select, form button {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+  
+.submit-btn {
+    background-color: #FF5C00;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+  
+.submit-btn:hover {
+    background-color: #cc4a00;
+}
+  
+
 /* 加入我们表单区 */
 .join-us-form {
     width: 100%;
