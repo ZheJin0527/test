@@ -182,7 +182,6 @@
       <span class="close-btn" onclick="closeForm()">&times;</span>
       <form id="jobApplicationForm" action="https://formsubmit.co/joeytan801@gmail.com" method="POST" enctype="multipart/form-data">
         
-        <!-- ✅ 自定义成功页跳转 -->
         <input type="hidden" name="_redirect" value="https://kunzzgroup.com/success.html">
         <input type="hidden" name="_captcha" value="false">
   
@@ -191,13 +190,11 @@
         <label>职位名称：</label>
         <input type="text" id="formPosition" name="position" readonly>
   
-        <!-- ✅ 中文姓名只能输入中文 -->
         <label>中文姓名：</label>
         <input type="text" name="chinese_name" required 
                pattern="[\u4e00-\u9fa5]{2,}" 
                title="请输入中文姓名（至少两个汉字）">
   
-        <!-- ✅ 英文姓名只能输入英文 -->
         <label>英文姓名：</label>
         <input type="text" name="english_name" required 
                pattern="[A-Za-z ]{2,}" 
@@ -206,9 +203,8 @@
         <label>电子邮箱：</label>
         <input type="email" name="email" required>
   
-        <!-- ✅ 电话号码含国家码 -->
         <label>电话号码：</label>
-        <div style="display: flex; gap: 10px;">
+        <div class="phone-group">
           <select name="country_code" required>
             <option value="+60">马来西亚 (+60)</option>
             <option value="+65">新加坡 (+65)</option>
@@ -217,9 +213,9 @@
             <option value="+81">日本 (+81)</option>
           </select>
           <input type="tel" name="phone" required 
-                pattern="\d{1,10}" maxlength="10" 
-                title="请输入最多10位数字的电话号码">
-      </div>
+                 pattern="\d{1,10}" maxlength="10" 
+                 title="请输入最多10位数字的电话号码">
+        </div>
   
         <label>性别：</label>
         <select name="gender" required>
@@ -235,16 +231,7 @@
         <button type="submit" class="submit-btn">提交申请</button>
       </form>
     </div>
-  </div>
-
-  <!-- 确认提交弹窗(还不能用) -->
-  <div id="confirmationModal" class="modal">
-    <div class="modal-content">
-      <p>您确定要提交表单吗？</p>
-      <button id="confirmSubmitBtn">确认</button>
-      <button id="closeConfirmationModalBtn">取消</button>
-    </div>
-  </div>
+  </div>  
 
   <section class="join-us-form"> 
     <h2>请提供您宝贵的意见</h2>
