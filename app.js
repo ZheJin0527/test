@@ -235,14 +235,16 @@ if (referrer.includes("success.html?from=form") && form) {
   form.reset();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const closeBtn = document.querySelector('.close-btn');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', function () {
-      const modal = document.getElementById('formModal');
-      if (modal) modal.style.display = 'none';
-    });
+function closeForm() {
+  const modal = document.getElementById('formModal');
+  if (modal) {
+    modal.style.display = 'none';
   }
+}
+
+// 其他的 DOMContentLoaded 写法留着没问题
+document.addEventListener("DOMContentLoaded", function () {
+  // 你的初始化逻辑
 });
 
 
