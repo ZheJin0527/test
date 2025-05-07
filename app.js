@@ -247,53 +247,52 @@ function openForm(positionName) {
   }
 }
 
-// 关闭弹窗
-function closeForm() {
-  document.getElementById('formModal').style.display = 'none';
-}
+document.addEventListener("DOMContentLoaded", function () {
 
-// 打开确认提交弹窗
-function showConfirmationModal(event) {
-  event.preventDefault(); // 阻止表单的默认提交
-  document.getElementById('confirmationModal').style.display = 'block';
-}
+  // 监听提交按钮的点击事件
+  document.getElementById('submitBtn').addEventListener('click', function (event) {
+    event.preventDefault(); // 阻止表单默认提交
+    showConfirmationModal(); // 显示确认弹窗
+  });
 
-// 关闭确认提交的弹窗
-function closeConfirmationModal() {
-  document.getElementById('confirmationModal').style.display = 'none';
-}
-
-// 提交表单
-function submitForm() {
-  document.getElementById('jobApplicationForm').submit();
-  closeConfirmationModal(); // 隐藏确认弹窗
-}
-
-// 点击遮罩层关闭弹窗
-window.addEventListener("click", function (event) {
-  const modal = document.getElementById('formModal');
-  if (event.target === modal) {
-    modal.style.display = "none";
+  // 打开确认提交弹窗
+  function showConfirmationModal() {
+    document.getElementById('confirmationModal').style.display = 'block';
   }
-});
 
-// 绑定点击提交按钮事件
-document.getElementById('submitBtn').addEventListener('click', function (event) {
-  showConfirmationModal(event); // 弹出确认框
-});
+  // 关闭确认提交的弹窗
+  function closeConfirmationModal() {
+    document.getElementById('confirmationModal').style.display = 'none';
+  }
 
-// 绑定确认提交按钮事件
-document.getElementById('confirmSubmitBtn').addEventListener('click', function () {
-  submitForm(); // 提交表单
-});
+  // 提交表单
+  function submitForm() {
+    document.getElementById('jobApplicationForm').submit(); // 提交表单
+    closeConfirmationModal(); // 隐藏确认弹窗
+  }
 
-// 绑定关闭确认弹窗按钮事件
-document.getElementById('closeConfirmationModalBtn').addEventListener('click', function () {
-  closeConfirmationModal(); // 关闭弹窗
-});
+  // 点击确认按钮时，提交表单
+  document.getElementById('confirmSubmitBtn').addEventListener('click', function () {
+    submitForm(); // 提交表单
+  });
 
-// 阻止表单提交，弹出确认框
-form.onsubmit = function (event) {
-  showConfirmationModal(event); // 显示确认框
-  return false; // 阻止默认提交
-}
+  // 点击取消按钮时，关闭确认弹窗
+  document.getElementById('closeConfirmationModalBtn').addEventListener('click', function () {
+    closeConfirmationModal(); // 关闭弹窗
+  });
+
+  // 点击遮罩层关闭弹窗
+  window.addEventListener("click", function (event) {
+    const modal = document.getElementById('confirmationModal');
+    if (event.target === modal) {
+      closeConfirmationModal(); // 点击遮罩层关闭弹窗
+    }
+  });
+
+  // 表单提交前检查并拦截
+  document.getElementById('jobApplicationForm').onsubmit = function (event) {
+    event.preventDefault(); // 阻止表单的默认提交
+    showConfirmationModal(); // 显示确认弹窗
+    return false; // 仍然阻止表单的提交
+  };
+});
