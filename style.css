@@ -1567,7 +1567,7 @@ form input, form select, form button {
 .form-group-row {
     margin-bottom: 20px;
     display: flex;
-    gap: 0 40px;
+    gap: 0 60px;
 }
 
 /* 左右半格 */
