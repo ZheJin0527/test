@@ -1598,6 +1598,24 @@ form input, form select, form button {
     border-radius: 4px;
 }
 
+/* 两列布局时的 textarea 调整 */
+.form-group-row textarea {
+    height: 100%;
+    resize: vertical;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+/* 确保 .half-width 下的 input 和 textarea 都正常布局 */
+.half-width input,
+.half-width textarea {
+    width: 100%;
+}
+
 /* 手机输入区 */
 .phone-input {
     display: flex;
