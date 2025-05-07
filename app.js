@@ -237,23 +237,17 @@ if (referrer.includes("success.html?from=form") && form) {
 
 // ======= 弹窗申请表逻辑 =======
 
+// 打开弹窗并设置职位名称
+function openForm(positionName) {
+  const modal = document.getElementById('formModal');
+  const positionField = document.getElementById('formPosition');
+  modal.style.display = 'block';
+  if (positionField) {
+    positionField.value = positionName;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-  // 打开职位申请表单，并将职位名称填充到表单字段中
-  function openForm(positionName) {
-    const modal = document.getElementById('formModal');
-    const positionField = document.getElementById('formPosition');
-    modal.style.display = 'block'; // 显示表单弹窗
-
-    if (positionField) {
-      positionField.value = positionName; // 填充职位名称
-    }
-  }
-
-  // 关闭表单弹窗
-  function closeForm() {
-    const modal = document.getElementById('formModal');
-    modal.style.display = 'none'; // 隐藏表单弹窗
-  }
 
   // 监听提交按钮的点击事件
   document.getElementById('submitBtn').addEventListener('click', function (event) {
@@ -285,6 +279,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // 点击取消按钮时，关闭确认弹窗
   document.getElementById('closeConfirmationModalBtn').addEventListener('click', function () {
     closeConfirmationModal(); // 关闭弹窗
+  });
+
+  // 点击遮罩层关闭弹窗
+  window.addEventListener("click", function (event) {
+    const modal = document.getElementById('confirmationModal');
+    if (event.target === modal) {
+      closeConfirmationModal(); // 点击遮罩层关闭弹窗
+    }
   });
 
   // 表单提交前检查并拦截
