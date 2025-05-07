@@ -237,3 +237,23 @@ document.addEventListener("DOMContentLoaded", function () {
     form.reset();
   }
 });
+
+// ======= Google Form 弹窗申请功能 =======
+function openForm(jobTitle) {
+  const baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLScg6EOG_8SWqhlQe5eagsz9ug1BmXk0lrWAO3CTDRAQykZ33g/viewform?usp=pp_url";
+  const entryId = "entry.123456789"; // TODO: 替换为你的字段 ID！
+  const fullUrl = `${baseUrl}&${entryId}=` + encodeURIComponent(jobTitle);
+
+  const iframe = document.getElementById("formIframe");
+  iframe.src = fullUrl;
+
+  const modal = document.getElementById("modal");
+  modal.style.display = "flex";
+}
+
+function closeForm() {
+  const modal = document.getElementById("modal");
+  const iframe = document.getElementById("formIframe");
+  iframe.src = "";
+  modal.style.display = "none";
+}

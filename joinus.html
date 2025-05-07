@@ -153,13 +153,13 @@
         <td colspan="5">
           <div class="detail-content">
             <div><strong>职位详情：</strong>负责sdwdw，能吃苦耐劳，服从安排。</div>
-            <button class="apply-btn" onclick="location.href='#jobApplicationForm'">申请</button>
+            <button class="apply-btn" onclick="openForm('员')">申请</button>
           </div>
         </td>
       </tr>
-    
+  
       <tr>
-        <td>员</td>
+        <td>客服</td>
         <td>1</td>
         <td>硕士</td>
         <td>2025-04-26</td>
@@ -169,12 +169,20 @@
         <td colspan="5">
           <div class="detail-content">
             <div><strong>职位详情：</strong>客户接待，需有良好的沟通能力与服务意识。</div>
-            <button class="apply-btn" onclick="location.href='#'">申请</button>
+            <button class="apply-btn" onclick="openForm('客服')">申请</button>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+  
+  <!-- Google Form 弹窗容器 -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeForm()">×</button>
+      <iframe id="formIframe" src=""></iframe>
+    </div>
+  </div>
 
   <section class="join-us-form"> 
     <h2>请提供您宝贵的意见</h2>
