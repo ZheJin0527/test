@@ -180,7 +180,7 @@
   <div id="formModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeForm()">&times;</span>
-      <form action="https://formsubmit.co/joeytan801@gmail.com" method="POST" enctype="multipart/form-data">
+      <form id="jobApplicationForm" action="https://formsubmit.co/joeytan801@gmail.com" method="POST" enctype="multipart/form-data">
         
         <!-- ✅ 自定义成功页跳转 -->
         <input type="hidden" name="_redirect" value="https://kunzzgroup.com/success.html">
@@ -234,6 +234,15 @@
   
         <button type="submit" class="submit-btn">提交申请</button>
       </form>
+    </div>
+  </div>
+
+  <!-- 确认提交弹窗 -->
+  <div id="confirmationModal" class="modal">
+    <div class="modal-content">
+      <p>您确定要提交表单吗？</p>
+      <button id="confirmSubmitBtn">确认</button>
+      <button id="closeConfirmationModalBtn">取消</button>
     </div>
   </div>
 
