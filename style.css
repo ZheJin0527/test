@@ -1601,7 +1601,7 @@ form input, form select, form button {
 /* 手机输入区 */
 .phone-input {
     display: flex;
-    gap: 0 10px;
+    gap: 0;
 }
 
 .phone-input select {
