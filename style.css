@@ -1561,7 +1561,6 @@ form input, form select, form button {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 640px;
 }
 
 /* 表单两列（中文姓名+性别） */
