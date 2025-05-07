@@ -217,9 +217,9 @@
             <option value="+81">日本 (+81)</option>
           </select>
           <input type="tel" name="phone" required 
-                 pattern="\d{4,15}" 
-                 title="请输入电话号码（不含国家码）">
-        </div>
+                pattern="\d{1,10}" maxlength="10" 
+                title="请输入最多10位数字的电话号码">
+      </div>
   
         <label>性别：</label>
         <select name="gender" required>
