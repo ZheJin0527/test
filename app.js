@@ -250,59 +250,47 @@ function openForm(positionName) {
   }
 }
 
-  // 关闭弹窗
-  function closeForm() {
-    document.getElementById('formModal').style.display = 'none';
+// 关闭弹窗
+function closeForm() {
+  document.getElementById('formModal').style.display = 'none';
+}
+
+// 打开确认提交弹窗
+function showConfirmationModal(event) {
+  event.preventDefault(); // 阻止表单的默认提交
+  document.getElementById('confirmationModal').style.display = 'block';
+}
+
+// 关闭确认提交的弹窗
+function closeConfirmationModal() {
+  document.getElementById('confirmationModal').style.display = 'none';
+}
+
+// 提交表单
+function submitForm() {
+  document.getElementById('jobApplicationForm').submit();
+  closeConfirmationModal(); // 隐藏确认弹窗
+}
+
+// 点击遮罩层关闭弹窗
+window.addEventListener("click", function (event) {
+  const modal = document.getElementById('formModal');
+  if (event.target === modal) {
+    modal.style.display = "none";
   }
+});
 
-  // 打开确认提交弹窗
-  function showConfirmationModal() {
-    document.getElementById('confirmationModal').style.display = 'block';
-  }
+// 显示确认提交弹窗
+document.getElementById('submitBtn').addEventListener('click', function (event) {
+  showConfirmationModal(event); // 弹出确认框
+});
 
-  // 关闭确认提交的弹窗
-  function closeConfirmationModal() {
-    document.getElementById('confirmationModal').style.display = 'none';
-  }
+// 提交表单
+document.getElementById('confirmSubmitBtn').addEventListener('click', function () {
+  submitForm();
+});
 
-  // 提交表单
-  function submitForm() {
-    document.getElementById('jobApplicationForm').submit();
-    closeConfirmationModal(); // 隐藏确认弹窗
-  }
-
-  // 点击遮罩层关闭弹窗
-  window.addEventListener("click", function (event) {
-    const modal = document.getElementById('formModal');
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  });
-
-  // 打开职位申请弹窗
-  document.querySelectorAll('.apply-btn').forEach(button => {
-    button.addEventListener('click', function () {
-      const positionName = this.getAttribute('data-position-name');
-      openForm(positionName);
-    });
-  });
-
-  // 关闭职位申请弹窗
-  document.getElementById('closeFormBtn').addEventListener('click', function () {
-    closeForm();
-  });
-
-  // 显示确认提交弹窗
-  document.getElementById('submitBtn').addEventListener('click', function () {
-    showConfirmationModal();
-  });
-
-  // 提交表单
-  document.getElementById('confirmSubmitBtn').addEventListener('click', function () {
-    submitForm();
-  });
-
-  // 关闭确认提交弹窗
-  document.getElementById('closeConfirmationModalBtn').addEventListener('click', function () {
-    closeConfirmationModal();
-  });
+// 关闭确认提交弹窗
+document.getElementById('closeConfirmationModalBtn').addEventListener('click', function () {
+  closeConfirmationModal();
+});
