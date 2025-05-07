@@ -212,6 +212,7 @@ document.getElementById('jobApplicationForm').addEventListener('submit', functio
   }
 });
 
+// ======= 职位详情展开/收起 =======
 function toggleDetail(el) {
   const row = el.closest("tr");  // 找到当前职位行
   const detailRow = row.nextElementSibling;  // 找到下一行（详情行）
@@ -227,16 +228,12 @@ function toggleDetail(el) {
   }
 }
 
-// 清空表单：如果是从 success.html?from=form 回来的
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("jobApplicationForm");
-
-  // 检查是否是从 success.html 页面跳转回来的
-  const referrer = document.referrer;
-  if (referrer.includes("success.html?from=form") && form) {
-    form.reset();
-  }
-});
+// ======= 清空表单：如果从 success.html?from=form 回来的 =======
+const form = document.getElementById("jobApplicationForm");
+const referrer = document.referrer;
+if (referrer.includes("success.html?from=form") && form) {
+  form.reset();
+}
 
 // ======= 弹窗申请表逻辑 =======
 
@@ -280,17 +277,23 @@ window.addEventListener("click", function (event) {
   }
 });
 
-// 显示确认提交弹窗
+// 绑定点击提交按钮事件
 document.getElementById('submitBtn').addEventListener('click', function (event) {
   showConfirmationModal(event); // 弹出确认框
 });
 
-// 提交表单
+// 绑定确认提交按钮事件
 document.getElementById('confirmSubmitBtn').addEventListener('click', function () {
-  submitForm();
+  submitForm(); // 提交表单
 });
 
-// 关闭确认提交弹窗
+// 绑定关闭确认弹窗按钮事件
 document.getElementById('closeConfirmationModalBtn').addEventListener('click', function () {
-  closeConfirmationModal();
+  closeConfirmationModal(); // 关闭弹窗
 });
+
+// 阻止表单提交，弹出确认框
+form.onsubmit = function (event) {
+  showConfirmationModal(event); // 显示确认框
+  return false; // 阻止默认提交
+}
