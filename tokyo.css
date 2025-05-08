@@ -316,7 +316,7 @@ nav {
 .dish-row {
     display: flex;
     justify-content: center;
-    gap: 60px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
