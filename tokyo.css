@@ -293,3 +293,66 @@ nav {
     line-height: 1.6;
     margin: 0;
 }
+
+.cuisine-section {
+    height: 920px;
+    background-color: #5b3b1f; /* 模拟图中咖啡色背景 */
+    padding: 80px;
+    color: #fcebd2;
+    text-align: center;
+    position: relative;
+}
+
+.cuisine-section h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.cuisine-section h2 {
+    font-size: 28px;
+    margin-bottom: 60px;
+}
+
+.dish-row {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.dish {
+    width: 300px;
+    color: #fcebd2;
+}
+
+.dish img {
+    width: 100%;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dish-title-en {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.dish-title-jp {
+    font-size: 18px;
+    margin-top: 6px;
+}
+
+.dish-description {
+    font-size: 14px;
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+.sakura {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    width: 80px;
+    opacity: 0.8;
+}
