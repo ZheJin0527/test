@@ -352,16 +352,16 @@ nav {
 
 .sakura-top-right {
     position: absolute;
-    top: 20px;
-    right: 40px;
-    width: 80px;
+    top: 0px;
+    right: 0px;
+    width: 200px;
     opacity: 0.8;
 }
 
 .sakura-bottom-left {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    width: 100px;
+    bottom: 0px;
+    left: 0px;
+    width: 200px;
     opacity: 0.8;
 }
