@@ -295,7 +295,6 @@ nav {
 }
 
 .cuisine-section {
-    width: auto;
     height: 920px;
     background-color: #5b3b1f; /* 模拟图中咖啡色背景 */
     padding: 80px;
@@ -317,9 +316,10 @@ nav {
 
 .dish-row {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 20px;
     flex-wrap: wrap;
+    width: 100%
 }
 
 .dish {
