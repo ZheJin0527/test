@@ -119,24 +119,28 @@ body {
 .language-switch {
     display: flex;
     align-items: center;
-    color: black;
+    color: white;
     font-size: 16px;
     gap: 8px;
 }
-  
+
 .language-switch .lang {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 69px;
     height: 23px;
+    font-family: 'Inter', sans-serif;
+    color: white;
     text-decoration: none;
-    color: black;
+    background: transparent;
 }
-  
+
 .language-switch .icon {
     width: 24px;
     height: 24px;
-    margin-right: 4px;
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
 .nav-hidden {
