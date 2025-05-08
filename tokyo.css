@@ -374,14 +374,15 @@ nav {
 .location-section {
     background-color: #FFE9BA;
     padding: 80px; /* 给上下加点空间，让内容不会太贴边 */
+    justify-items: center;
 }
 
 .location-container {
     display: flex;
     width: 1648px;    
     height: 576px;
-    margin: 80px 81px 48px 191px; /* 上下间距加宽 */
-    background: white;
+    margin: 0 81px 0 191px; /* 上下间距加宽 */
+    background: #FFE9BA;
     border-radius: 10px;
     overflow: hidden;
 }
