@@ -318,6 +318,7 @@ nav {
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .dish {
@@ -333,18 +334,18 @@ nav {
 }
 
 .dish-title-en {
-    font-size: 20px;
+    font-size: 40px;
     margin-top: 20px;
     font-weight: bold;
 }
 
 .dish-title-jp {
-    font-size: 18px;
+    font-size: 38px;
     margin-top: 6px;
 }
 
 .dish-description {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 12px;
     line-height: 1.6;
 }
