@@ -295,7 +295,7 @@ nav {
 }
 
 .cuisine-section {
-    height: 820px;
+    height: 920px;
     background-color: #5b3b1f; /* 模拟图中咖啡色背景 */
     padding: 80px;
     color: #fcebd2;
@@ -336,7 +336,6 @@ nav {
 .dish-title-en {
     font-size: 40px;
     margin-top: 20px;
-    font-weight: bold;
 }
 
 .dish-title-jp {
