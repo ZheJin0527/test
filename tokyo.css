@@ -1,0 +1,184 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    background-color: white;
+}
+  
+.container {
+    width: 1920px;
+    margin: 0 auto;
+}
+  
+/* 导航栏 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 0 80px;
+    background-color: white;
+    color: black;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e0e0e0;
+}
+  
+/* Logo 区域 */
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+  
+.logo {
+    width: 40px;
+    height: 40px;
+}
+  
+.company-name {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.4;
+    color: black;
+}
+  
+/* 导航链接 */
+.nav-links {
+    height: 80px;
+    display: flex;
+    gap: 30px;
+    font-size: 16px;
+    align-items: center;
+    font-weight: 500;
+    color: black;
+}
+  
+.nav-links a {
+    color: black;
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+  
+.nav-links a:hover {
+    text-decoration: underline;
+}
+  
+/* 右边登录和语言切换区域 */
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+  
+.right-nav-links {
+    display: flex;
+    gap: 24px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+  
+.right-nav-links a {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+  
+.login-btn {
+    width: 100px;
+    height: 36px;
+    background-color: #8B5E20;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 2px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.login-btn:hover {
+    background-color: #704B18;
+}
+  
+.language-switch {
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 16px;
+    gap: 8px;
+}
+  
+.language-switch .lang {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 23px;
+    text-decoration: none;
+    color: black;
+}
+  
+.language-switch .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+}
+
+.nav-hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+nav {
+    transition: transform 0.3s ease-in-out;
+}
+
+.home {
+    position: relative;
+    padding: 80px 0 0 80px;
+    height: calc(100vh - 80px); /* 还保持满屏显示 */
+    background: url('images/images/tokyo封面.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: black;
+}
+
+.home-content {
+    margin-top: 108px;
+    width: 1144px;
+    height: 101px;
+}
+  
+.home h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 90px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    line-height: 100%;
+    letter-spacing: 1.4%;
+}
+  
+.home p {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 140%;
+    margin-top: 0; /* 确保p和h1的间距是80px */
+    margin-bottom: 90px;
+
+}
