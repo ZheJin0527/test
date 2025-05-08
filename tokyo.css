@@ -371,12 +371,17 @@ nav {
     opacity: 0.8;
 }
 
+.location-section {
+    background-color: #fff2dc;
+    padding: 80px; /* 给上下加点空间，让内容不会太贴边 */
+}
+
 .location-container {
     display: flex;
-    width: 1648px;    /* 设置宽度为1012px */
+    width: 1648px;    
     height: 576px;
     margin: 80px 81px 48px 191px; /* 上下间距加宽 */
-    background: #fff2dc;
+    background: white;
     border-radius: 10px;
     overflow: hidden;
 }
