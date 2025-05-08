@@ -295,6 +295,7 @@ nav {
 }
 
 .cuisine-section {
+    width: auto;
     height: 920px;
     background-color: #5b3b1f; /* 模拟图中咖啡色背景 */
     padding: 80px;
