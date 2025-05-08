@@ -370,3 +370,52 @@ nav {
     width: 200px;
     opacity: 0.8;
 }
+
+.location-container {
+    display: flex;
+    width: 1648px;    /* 设置宽度为1012px */
+    height: 576px;
+    margin: 80px 81px 48px 191px; /* 上下间距加宽 */
+    background: #fff2dc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.location-info {
+    width: 35%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* 垂直居中 */
+    align-items: flex-start;   /* 水平靠左对齐 */
+    padding: 71.5px 35px;           /* 左右内边距 */
+}
+
+.location-info h2 {
+    font-size: 80px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    line-height: 140%;
+    margin: 0 0 32px 0;  /* 只保留底部32px */
+    padding: 0;
+}
+
+.location-info p {
+    font-size: 32px; /* 适中，易读 */
+    margin: 0;
+    padding: 10px 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: normal;
+    line-height: 140%; /* 让内容看起来更整齐 */
+    color: #888888;
+}
+
+.map-container {
+    width: 65%;
+}
+
+.map-container iframe {
+    width: 1012px;    /* 设置宽度为1012px */
+    height: 576px;    /* 设置高度为576px */
+    border: none;
+}
