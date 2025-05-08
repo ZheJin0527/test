@@ -229,9 +229,8 @@ nav {
   
 .tokyoabout-image {
     padding: 80px 0;
-    width: 884px;
-    height: 639px;
-    border-radius: 20px;
+    width: 800px;
+    height: 800px;
     display: flex;
     justify-content: center;
     align-items: center;
