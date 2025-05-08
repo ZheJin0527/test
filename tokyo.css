@@ -268,15 +268,7 @@ nav {
     text-align: center;
 }
 
-.mission-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 25px;
 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    margin-bottom: 24px;
-    object-fit: cover;
-}
 
 .mission-content h3 {
     font-size: 64px;
