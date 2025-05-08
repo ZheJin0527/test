@@ -266,11 +266,24 @@ nav {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-color: #fff2dc; /* 统一背景色 */
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-    border: none;
+}
+/* 加了这一层包住图片 */
+.img-wrapper {
+    width: 100%;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 4px solid #6b3f1f;
+    margin-bottom: 24px;
+    background-color: #fff2dc; /* 确保背景一致 */
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    object-fit: cover;
 }
 
 .mission-card img {
