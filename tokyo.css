@@ -328,8 +328,8 @@ nav {
 }
 
 .dish img {
-    width: 400px;
-    height: 400px;
+    width: 700px;
+    height: auto;
     border-radius: 20px;
     background-color: transparent;
 }
