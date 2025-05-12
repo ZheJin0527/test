@@ -952,3 +952,175 @@ form input[type="file"] {
 .submit-btn:hover {
     background-color: #8B5E20;
 }
+
+/* 加入我们表单区 */
+.join-us-form {
+    width: 100%;
+    max-width: 1330px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+}
+
+.join-us-form h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+/* 表单一般行 */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 表单两列（中文姓名+性别） */
+.form-group-row {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 0 60px;
+}
+
+/* 左右半格 */
+.half-width {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0 20px;
+}
+
+/* label通用 */
+.form-group label,
+.form-group-row label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* input、select、textarea统一 */
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-group-row input,
+.form-group-row select,
+.form-group-row textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 两列布局时的 textarea 调整 */
+.form-group-row textarea {
+    height: 100%;
+    resize: vertical;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+/* 确保 .half-width 下的 input 和 textarea 都正常布局 */
+.half-width input,
+.half-width textarea {
+    width: 100%;
+}
+
+/* 手机输入区 */
+.phone-input {
+    display: flex;
+    gap: 0;
+}
+
+.phone-input select {
+    flex: 0 0 150px;
+}
+
+.phone-input input {
+    flex: 1;
+}
+
+/* 性别选项（radio） */
+.gender-options {
+    display: flex;
+    align-items: center;
+    gap: 0 20px;
+    margin-top: 8px;
+}
+
+.gender-options label {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.gender-options input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #FF5C00; /* 橘色小圆圈 */
+}
+
+/* 提交按钮 */
+.submit-btn {
+    width: 30%;
+    padding: 15px;
+    background-color: #FF5C00;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #a07933;
+}
+
+.message-box {
+    background: #fff;
+    padding: 40px 60px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 800px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.message-box h1 {
+    color: #4CAF50;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.message-box p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.message-box a {
+    display: inline-block;
+    font-size: 24px;
+    margin-top: 20px;
+    color: #FF5C00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.message-box a:hover {
+    text-decoration: underline;
+}
