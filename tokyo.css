@@ -296,7 +296,7 @@ nav {
 
 .cuisine-section {
     height: 920px;
-    background-color: #5b3b1f; /* 模拟图中咖啡色背景 */
+    background-color: #5b3b1f;
     padding: 80px;
     color: #fcebd2;
     text-align: center;
@@ -644,7 +644,7 @@ nav {
 }
 
 .environment-section {
-    background: #faf6e0;
+    background: #5b3b1f;
     padding: 60px 80px;
     text-align: center;
 }
@@ -652,7 +652,7 @@ nav {
 .environment-heading {
     font-size: 45px;
     margin-bottom: 40px;
-    color: #333;
+    color: white;
 }
   
 .environment-swiper {
