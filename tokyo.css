@@ -301,19 +301,18 @@ nav {
     color: #fcebd2;
     text-align: center;
     position: relative;
+    box-sizing: border-box;
 }
 
 .cuisine-section h1 {
     font-size: 48px;
     margin-top: 0;
     margin-bottom: 10px;
-    box-sizing: border-box;
 }
 
 .cuisine-section h2 {
     font-size: 28px;
     margin-bottom: 60px;
-    box-sizing: border-box;
 }
 
 .dish-row {
@@ -321,14 +320,12 @@ nav {
     justify-content: space-evenly;
     gap: 0;
     flex-wrap: wrap;
-    width: 100%;
-    box-sizing: border-box;
+    width: 100%
 }
 
 .dish {
     max-width: 800px;
     color: #fcebd2;
-    box-sizing: border-box;
 }
 
 .dish img {
@@ -341,7 +338,6 @@ nav {
 .wide-dish img {
     width: 700px;
     height: 400px;
-    box-sizing: border-box;
 }
 
 .dish-title-en {
