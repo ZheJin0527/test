@@ -956,8 +956,7 @@ form input[type="file"] {
 /* 加入我们表单区 */
 .join-us-form {
     width: 100%;
-    max-width: 1330px;
-    margin: 50px auto;
+    margin: 150px auto;
     padding: 30px;
     background: #fff2dc;
     border-radius: 8px;
