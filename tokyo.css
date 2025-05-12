@@ -795,7 +795,7 @@ td {
 }
   
 tr:hover td {
-    background-color: #f0f8ff;
+    background-color: #FFE9BA;
     transition: background-color 0.3s ease;
 }
   
@@ -816,7 +816,7 @@ tr:hover td {
 }
 
 .detail-row td {
-    background-color: #f8f7f0;
+    background-color: #FFE9BA;
     transition: all 0.3s ease;
     color: #444;
 }
