@@ -425,3 +425,128 @@ nav {
     height: 576px;    /* 设置高度为576px */
     border: none;
 }
+
+/* page下方 */
+.footer {
+    padding: 40px 80px;
+    background-color: #2F2F2F;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid #444;
+}
+
+.footer-logo {
+    flex: 1 1 250px;
+    margin-bottom: 20px;
+}
+
+.footer-logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+    display: flex;   
+}
+
+.footer-logo h1 img.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.footer-logo p {
+    font-size: 14px;
+    line-height: 2;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+    margin-bottom: 20px;
+}
+
+.footer-section h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.footer-section h4 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #ccc;
+}
+
+.footer-section li a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    position: relative;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    background-color: #2F2F2F;
+    padding: 10px;
+}
+  
+.footer-bottom::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 80px;
+    right: 80px;
+    height: 1.2px;
+    background-color: #444;
+}
+
+.social-icons {
+    margin-top: 10px;
+    display: flex;
+    gap: 12px; /* 图标之间的间距 */
+}
+
+.social-icons a img {
+    width: 34px;
+    height: 34px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.2); /* 悬停时轻微放大 */
+}
+
+#backToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; /* 初始隐藏 */
+    padding: 10px 18px;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0.6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.backToTopBtn:hover {
+    transform: scale(1.2);
+    opacity: 1; /* 鼠标经过时更明显 */
+}
