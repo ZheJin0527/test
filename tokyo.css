@@ -724,7 +724,7 @@ nav {
   
 .environment-wrapper .swiper-button-prev,
 .environment-wrapper .swiper-button-next {
-  background: rgba(255, 255, 255, 0.6) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
   border-radius: 50%;
   padding: 10px;
   width: 28px;
