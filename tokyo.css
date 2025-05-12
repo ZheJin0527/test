@@ -821,6 +821,10 @@ tr:hover td {
     color: #444;
 }
 
+.detail-row:hover td {
+    background-color: #f8f7f0 !important;
+}
+
 .detail-cell {
     padding: 20px;
     border-top: 1px solid #ddd;
