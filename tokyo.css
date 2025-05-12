@@ -1066,14 +1066,14 @@ form input[type="file"] {
 .gender-options input[type="radio"] {
     width: 18px;
     height: 18px;
-    accent-color: #FF5C00; /* 橘色小圆圈 */
+    accent-color: #8B5E20; /* 橘色小圆圈 */
 }
 
 /* 提交按钮 */
 .submit-btn {
     width: 30%;
     padding: 15px;
-    background-color: #FF5C00;
+    background-color: #8B5E20;
     color: white;
     font-size: 18px;
     border: none;
@@ -1083,7 +1083,7 @@ form input[type="file"] {
 }
 
 .submit-btn:hover {
-    background-color: #a07933;
+    background-color: #8B5E20;
 }
 
 .message-box {
