@@ -791,11 +791,11 @@ th {
 td {
     font-size: 16px;
     color: #333;
-    background-color: #FFE9BA;
+    background-color: #f8f7f0;
 }
   
 tr:hover td {
-    background-color: #FFE9BA;
+    background-color: #f8f7f0;
     transition: background-color 0.3s ease;
 }
   
