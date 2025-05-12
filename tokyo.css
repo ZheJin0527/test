@@ -373,7 +373,7 @@ nav {
 }
 
 .location-section {
-    background-color: #FFE9BA;
+    background-color: #fff2dc;
     padding: 80px; /* 给上下加点空间，让内容不会太贴边 */
     justify-items: center;
 }
@@ -604,7 +604,7 @@ nav {
 .benefits {
     text-align: center;
     padding: 40px 20px;
-    background: #f9fbfc;
+    background: #fff2dc;
 }
   
 .benefits h2 {
