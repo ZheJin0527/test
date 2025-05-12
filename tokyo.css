@@ -767,7 +767,7 @@ table {
     width: 70%;
     border-collapse: separate;
     border-spacing: 0;
-    background: #ffffff;
+    background: #fff2dc;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -959,7 +959,7 @@ form input[type="file"] {
     max-width: 1330px;
     margin: 50px auto;
     padding: 30px;
-    background: #fff;
+    background: #fff2dc;
     border-radius: 8px;
     font-family: 'Inter', sans-serif;
     white-space: nowrap;
