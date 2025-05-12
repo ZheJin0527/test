@@ -781,7 +781,7 @@ th, td {
 }
   
 th {
-    background-color: #FF5C00;
+    background-color: #8B5E20;
     color: #ffffff;
     font-weight: bold;
     font-size: 18px;
@@ -791,7 +791,7 @@ th {
 td {
     font-size: 16px;
     color: #333;
-    background-color: #fff;
+    background-color: #FFE9BA;
 }
   
 tr:hover td {
