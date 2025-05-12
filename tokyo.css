@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
-    background-color: white;
+    background-color: #f8f7f0;
 }
   
 .container {
@@ -956,7 +956,8 @@ form input[type="file"] {
 /* 加入我们表单区 */
 .join-us-form {
     width: 100%;
-    margin: 150px auto;
+    max-width: 1330px;
+    margin: 50px auto;
     padding: 30px;
     background: #fff2dc;
     border-radius: 8px;
