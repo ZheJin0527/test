@@ -398,7 +398,7 @@ nav {
 }
 
 .location-info h2 {
-    font-size: 80px;
+    font-size: 60px;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
     line-height: 140%;
@@ -407,7 +407,7 @@ nav {
 }
 
 .location-info p {
-    font-size: 32px; /* 适中，易读 */
+    font-size: 20px; /* 适中，易读 */
     margin: 0;
     padding: 10px 0;
     font-family: 'Source Sans Pro', sans-serif;
