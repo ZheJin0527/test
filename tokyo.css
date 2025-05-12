@@ -839,7 +839,7 @@ tr:hover td {
 .apply-btn {
     margin-right: 75px;
     padding: 8px 20px;
-    background-color: #FF5C00;
+    background-color: #8B5E20;
     color: white;
     border: none;
     border-radius: 6px;
@@ -850,7 +850,7 @@ tr:hover td {
 }
   
 .apply-btn:hover {
-    background-color: #cc4a00;
+    background-color: #8B5E20;
 }  
 
 /* 弹窗样式 */
@@ -937,7 +937,7 @@ form input[type="file"] {
 }
 
 .submit-btn {
-    background-color: #FF5C00;
+    background-color: #8B5E20;
     color: white;
     border: none;
     font-size: 18px;
@@ -946,5 +946,5 @@ form input[type="file"] {
 }
 
 .submit-btn:hover {
-    background-color: #cc4a00;
+    background-color: #8B5E20;
 }
