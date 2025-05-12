@@ -600,3 +600,45 @@ nav {
     padding: 0;
     white-space: nowrap;
 }
+
+.benefits {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f9fbfc;
+}
+  
+.benefits h2 {
+    font-size: 45px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    color: #333;
+}
+  
+.benefits-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+  
+.benefit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+  
+.benefit-item img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 12px;
+}
+  
+.benefit-item p {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 50px;
+}
