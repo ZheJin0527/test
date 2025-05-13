@@ -1657,6 +1657,9 @@ form input[type="file"] {
     align-items: center;
     height: 100vh; /* 和注册页统一高度布局 */
     background-color: #FFE9BA;
+    display: inline-block; /* 让 <a> 看起来像按钮 */
+    text-align: center;     /* 让文字居中 */
+    text-decoration: none;  /* 移除下划线 */
 }
 
 .login-form {
@@ -1717,6 +1720,9 @@ form input[type="file"] {
     align-items: center;
     height: 100vh;
     background-color: #FFE9BA;
+    display: inline-block; /* 让 <a> 看起来像按钮 */
+    text-align: center;     /* 让文字居中 */
+    text-decoration: none;  /* 移除下划线 */
 }
 
 .register-form {

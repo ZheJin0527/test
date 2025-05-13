@@ -1136,6 +1136,9 @@ form input[type="file"] {
     align-items: center;
     padding: 100px 20px;
     background-color: #FFE9BA;
+    display: inline-block; /* 让 <a> 看起来像按钮 */
+    text-align: center;     /* 让文字居中 */
+    text-decoration: none;  /* 移除下划线 */
 }
 
 .login-form {
@@ -1190,7 +1193,11 @@ form input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;}
+    height: 100vh;
+    display: inline-block; /* 让 <a> 看起来像按钮 */
+    text-align: center;     /* 让文字居中 */
+    text-decoration: none;  /* 移除下划线 */
+}
 
 .register-form {
     background-color: #fff9ef;
