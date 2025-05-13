@@ -1725,7 +1725,7 @@ form input[type="file"] {
 .register-form h2 {
     font-size: 28px;
     margin-bottom: 40px;
-    color: #FF5C00;
+    color: black;
 }
 
 .register-form input {
