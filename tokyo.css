@@ -1259,7 +1259,7 @@ form input[type="file"] {
 
 .eye-icon {
   position: absolute;
-  top: 30%;
+  top: 50%;
   right: 10px;
   transform: translateY(-50%);
   width: 16px;     /* 更小的尺寸 */
