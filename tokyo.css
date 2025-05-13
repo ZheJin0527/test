@@ -1143,8 +1143,8 @@ form input[type="file"] {
 }
 
 .login-form {
-    background-color: white; /* 保留颜色 */
-    padding: 60px 80px;       /* 与满意版一致 */
+    background-color: #fff9ef;
+    padding: 60px 80px;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -1171,7 +1171,7 @@ form input[type="file"] {
     width: 100%;
     padding: 14px;
     margin-top: 20px;
-    background-color: #5b3b1f; /* 保留你原本颜色 */
+    background-color: #5b3b1f;
     color: white;
     border: none;
     border-radius: 10px;
@@ -1180,7 +1180,7 @@ form input[type="file"] {
 }
 
 .login-form button:hover {
-    background-color: #3a2613; /* 可选 hover 效果 */
+    background-color: #3a2613;
 }
 
 .login-form .link {
@@ -1189,7 +1189,7 @@ form input[type="file"] {
 }
 
 .login-form .link a {
-    color: #5b3b1f; /* 保留链接颜色 */
+    color: #5b3b1f;
     text-decoration: none;
 }
 
