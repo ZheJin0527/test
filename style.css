@@ -1769,15 +1769,20 @@ form input[type="file"] {
 
 .password-container input {
   width: 100%;
-  padding-right: 40px; /* 给眼睛图标留空间 */
+  padding-right: 40px; /* 给右侧图标留出空间 */
   box-sizing: border-box;
 }
 
-.toggle-password {
+.eye-icon {
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
+  width: 20px;   /* 控制大小 */
+  height: 20px;
   cursor: pointer;
-  user-select: none;
+  opacity: 0.7;
+}
+.eye-icon:hover {
+  opacity: 1;
 }
