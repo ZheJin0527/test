@@ -1775,6 +1775,11 @@ form input[type="file"] {
   border-radius: 10px;
 }
 
+.password-container input:focus {
+  border-radius: 10px;
+  outline: none; /* 可选：去掉蓝色外边框 */
+}
+
 .eye-icon {
   position: absolute;
   top: 30%;
@@ -1785,6 +1790,7 @@ form input[type="file"] {
   cursor: pointer;
   opacity: 0.7;
 }
+
 .eye-icon:hover {
   opacity: 1;
   border-radius: 10px;
