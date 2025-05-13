@@ -311,8 +311,14 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 });
 
-document.getElementById('toggle-password').addEventListener('click', function() {
-  const passwordField = document.getElementById('password');
-  const type = passwordField.type === 'password' ? 'text' : 'password';
-  passwordField.type = type;
+document.addEventListener("DOMContentLoaded", function () {
+  const togglePassword = document.getElementById("toggle-password");
+  const passwordInput = document.getElementById("password");
+
+  togglePassword.addEventListener("click", function () {
+    const isPassword = passwordInput.type === "password";
+    passwordInput.type = isPassword ? "text" : "password";
+    // 可选：切换图标
+    togglePassword.textContent = isPassword ? "🙈" : "👁️";
+  });
 });
