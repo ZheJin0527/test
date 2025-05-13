@@ -18,13 +18,38 @@
       <form action="register.php" method="POST">
         <input type="text" name="username" placeholder="用户名" pattern="[A-Za-z]{2,}" title="用户名只能包含英文字母，且至少两个字符" required />
         <input type="email" name="email" placeholder="请输入您的 Gmail" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"title="请输入以 @gmail.com 结尾的邮箱地址"/>
-        <input type="password" name="password" placeholder="请输入密码" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}" title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符"/>
-        <input type="password" name="confirm_password" placeholder="确认密码" required>
+        <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="请输入密码" required
+          pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}"
+          title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符" />
+        <img src="images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
+      </div>
+
+      <!-- 密码框 2 -->
+      <div class="password-container">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required>
+        <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
+      </div>
         <button type="submit">注册</button>
       </form>
     </div>
   </section>
 
   <script src="app.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("toggle-password");
+    const password = document.getElementById("password");
+
+    let visible = false;
+    toggle.addEventListener("click", function () {
+      visible = !visible;
+      password.type = visible ? "text" : "password";
+
+      // 如果你有第二张图可以加这个（可选）
+      // toggle.src = visible ? "/images/eye-off.png" : "/images/eye.png";
+    });
+  });
+</script>
 </body>
 </html>
