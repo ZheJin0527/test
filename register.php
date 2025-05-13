@@ -1,8 +1,8 @@
 <?php
 // 1. 数据库连接配置
 $host = 'localhost';           // 通常是 localhost
-$dbname = 'u857194726';        // ← 请改成你在 Hostinger 创建的数据库名
-$dbuser = 'u857194726';    // ← 改成你的数据库用户名
+$dbname = 'u857194726_kunzzgroup';        // ← 请改成你在 Hostinger 创建的数据库名
+$dbuser = 'u857194726_kunzzgroup';    // ← 改成你的数据库用户名
 $dbpass = 'Kholdings1688@';      // ← 改成你的数据库密码
 
 // 2. 连接数据库
