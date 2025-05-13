@@ -310,15 +310,3 @@ document.addEventListener("DOMContentLoaded", function () {
     return false; // 仍然阻止表单的提交
   };
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-  const togglePassword = document.getElementById("toggle-password");
-  const passwordInput = document.getElementById("password");
-
-  togglePassword.addEventListener("click", function () {
-    const isPassword = passwordInput.type === "password";
-    passwordInput.type = isPassword ? "text" : "password";
-    // 可选：切换图标
-    togglePassword.textContent = isPassword ? "🙈" : "👁️";
-  });
-});

@@ -19,9 +19,9 @@
       <form action="login.php" method="POST">
         <input type="email" name="username" placeholder="请输入 Gmail 地址" pattern=".+@gmail\.com" required>
         <div class="password-container">
-  <input type="password" name="password" placeholder="密码" required id="password">
-  <span class="toggle-password" id="toggle-password">👁️</span>
-</div>
+        <input type="password" name="password" placeholder="密码" required id="password">
+        <span class="toggle-password" id="toggle-password">👁️</span>
+      </div>
         <button type="submit">登录</button>
       </form>
       <div class="link">
@@ -32,5 +32,17 @@
 
 
   <script src="app.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const togglePassword = document.getElementById("toggle-password");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", function () {
+      const isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
+      togglePassword.textContent = isPassword ? "🙈" : "👁️"; // 切换图标
+    });
+  });
+</script>
 </body>
 </html>
