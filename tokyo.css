@@ -1251,15 +1251,16 @@ form input[type="file"] {
 }
 
 .password-container input {
-    width: 100%;
-    padding: 12px 35px 12px 12px;
-    font-size: 16px;
-    box-sizing: border-box;
-    border-radius: 10px;
+  width: 100%;
+  padding: 10px 35px 10px 10px; /* 右边留图标空间，内边距上下保持一致 */
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 6px;
 }
 
 .password-container input:focus {
-    outline: none;
+  border-radius: 6px;
+  outline: none; /* 可选：去掉蓝色外边框 */
 }
 
 .eye-icon {
