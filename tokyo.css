@@ -1143,12 +1143,12 @@ form input[type="file"] {
 }
 
 .login-form {
-    background: white;
-    padding: 60px 80px;
+    background-color: white; /* 保留颜色 */
+    padding: 60px 80px;       /* 与满意版一致 */
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    width: 400px;
     text-align: center;
+    width: 400px;
 }
 
 .login-form h2 {
@@ -1171,12 +1171,16 @@ form input[type="file"] {
     width: 100%;
     padding: 14px;
     margin-top: 20px;
-    background-color: #5b3b1f;
+    background-color: #5b3b1f; /* 保留你原本颜色 */
     color: white;
     border: none;
     border-radius: 10px;
     font-size: 18px;
     cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #3a2613; /* 可选 hover 效果 */
 }
 
 .login-form .link {
@@ -1185,7 +1189,7 @@ form input[type="file"] {
 }
 
 .login-form .link a {
-    color: #5b3b1f;
+    color: #5b3b1f; /* 保留链接颜色 */
     text-decoration: none;
 }
 
@@ -1242,35 +1246,34 @@ form input[type="file"] {
 
 /* 密码容器 */
 .password-container {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .password-container input {
-  width: 100%;
-  padding: 12px 35px 12px 12px; /* 与满意样式统一 */
-  font-size: 16px;
-  box-sizing: border-box;
-  border-radius: 10px;
+    width: 100%;
+    padding: 12px 35px 12px 12px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-radius: 10px;
 }
 
 .password-container input:focus {
-  outline: none;
-  border-radius: 10px;
+    outline: none;
 }
 
 .eye-icon {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-45%);
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  opacity: 0.7;
+    position: absolute;
+    top: 30%; /* ✅ 保留你满意的值 */
+    right: 10px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .eye-icon:hover {
-  opacity: 1;
-  border-radius: 10px;
+    opacity: 1;
+    border-radius: 10px;
 }
