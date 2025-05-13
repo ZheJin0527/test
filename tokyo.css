@@ -1238,3 +1238,37 @@ form input[type="file"] {
 .register-form button:hover {
     background-color: #3a2613;
 }
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding: 10px 35px 10px 10px; /* 右边留图标空间，内边距上下保持一致 */
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
+.password-container input:focus {
+  border-radius: 6px;
+  outline: none; /* 可选：去掉蓝色外边框 */
+}
+
+.eye-icon {
+  position: absolute;
+  top: 30%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 16px;     /* 更小的尺寸 */
+  height: 16px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.eye-icon:hover {
+  opacity: 1;
+  border-radius: 10px;
+}
