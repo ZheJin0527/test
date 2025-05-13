@@ -110,6 +110,10 @@ body {
     padding: 2px 25px;
     font-size: 16px;
     cursor: pointer;
+    display: inline-block; /* 让 <a> 看起来像按钮 */
+    text-align: center;     /* 让文字居中 */
+    text-decoration: none;  /* 移除下划线 */
+    line-height: 26px;
 }
 
 .login-btn:hover {
