@@ -1655,11 +1655,8 @@ form input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* 和注册页统一高度布局 */
+    height: 100vh;
     background-color: #FFE9BA;
-    display: inline-block; /* 让 <a> 看起来像按钮 */
-    text-align: center;     /* 让文字居中 */
-    text-decoration: none;  /* 移除下划线 */
 }
 
 .login-form {
@@ -1713,16 +1710,15 @@ form input[type="file"] {
     text-decoration: none;
 }
 
-/* 注册 */ 
+
+
+/* 注册 */
 .register-section {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: #FFE9BA;
-    display: inline-block; /* 让 <a> 看起来像按钮 */
-    text-align: center;     /* 让文字居中 */
-    text-decoration: none;  /* 移除下划线 */
 }
 
 .register-form {
@@ -1743,7 +1739,7 @@ form input[type="file"] {
 .register-form input {
     width: 100%;
     padding: 12px 16px;
-    margin-bottom: 20px; /* 间距 */
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 16px;
@@ -1753,7 +1749,7 @@ form input[type="file"] {
 .register-form button {
     width: 100%;
     padding: 14px;
-    margin-top: 20px; /* 添加与输入框相同的上间距 */
+    margin-top: 20px;
     background-color: #FF5C00;
     color: white;
     border: none;
