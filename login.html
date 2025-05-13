@@ -34,13 +34,16 @@
   <script src="app.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const togglePassword = document.getElementById("toggle-password");
-    const passwordInput = document.getElementById("password");
+    const toggle = document.getElementById("toggle-password");
+    const password = document.getElementById("password");
 
-    togglePassword.addEventListener("click", function () {
-      const isPassword = passwordInput.type === "password";
-      passwordInput.type = isPassword ? "text" : "password";
-      togglePassword.textContent = isPassword ? "🙈" : "👁️"; // 切换图标
+    let visible = false;
+    toggle.addEventListener("click", function () {
+      visible = !visible;
+      password.type = visible ? "text" : "password";
+
+      // 如果你有第二张图可以加这个（可选）
+      // toggle.src = visible ? "/images/eye-off.png" : "/images/eye.png";
     });
   });
 </script>
