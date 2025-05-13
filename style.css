@@ -1776,7 +1776,7 @@ form input[type="file"] {
 
 .eye-icon {
   position: absolute;
-  top: 50%;
+  top: 10%;
   right: 10px;
   transform: translateY(-50%);
   width: 16px;     /* 更小的尺寸 */
@@ -1786,4 +1786,5 @@ form input[type="file"] {
 }
 .eye-icon:hover {
   opacity: 1;
+  border-radius: 10px;
 }
