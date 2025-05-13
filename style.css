@@ -1660,7 +1660,7 @@ form input[type="file"] {
 }
 
 .login-form {
-    background: white;
+    background: #fff9ef;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
