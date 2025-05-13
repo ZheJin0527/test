@@ -34,34 +34,18 @@
   <script src="app.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // 获取两个密码框和对应的图标
-    const togglePassword = document.getElementById("toggle-password");
+    const toggle = document.getElementById("toggle-password");
     const password = document.getElementById("password");
 
-    const toggleConfirmPassword = document.getElementById("toggle-confirm");
-    const confirmPassword = document.getElementById("confirm_password");
+    let visible = false;
+    toggle.addEventListener("click", function () {
+      visible = !visible;
+      password.type = visible ? "text" : "password";
 
-    // 初始状态为密码隐藏
-    let visiblePassword = false;
-    let visibleConfirmPassword = false;
-
-    // 切换第一个密码框的显示/隐藏
-    togglePassword.addEventListener("click", function () {
-      visiblePassword = !visiblePassword;
-      password.type = visiblePassword ? "text" : "password";
-      // 可选：更换图标
-      // togglePassword.src = visiblePassword ? "images/eye-off.png" : "images/eye.png";
-    });
-
-    // 切换第二个密码框的显示/隐藏
-    toggleConfirmPassword.addEventListener("click", function () {
-      visibleConfirmPassword = !visibleConfirmPassword;
-      confirmPassword.type = visibleConfirmPassword ? "text" : "password";
-      // 可选：更换图标
-      // toggleConfirmPassword.src = visibleConfirmPassword ? "images/eye-off.png" : "images/eye.png";
+      // 如果你有第二张图可以加这个（可选）
+      // toggle.src = visible ? "/images/eye-off.png" : "/images/eye.png";
     });
   });
 </script>
-
 </body>
 </html>
