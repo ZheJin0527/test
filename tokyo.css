@@ -100,16 +100,20 @@ body {
 }
   
 .login-btn {
+    display: inline-block;           /* 让 <a> 看起来像按钮 */
+    text-align: center;              /* 居中文本 */
+    line-height: 36px;               /* 与 height 保持一致，实现垂直居中 */
     width: 100px;
     height: 36px;
     background-color: #8B5E20;
     color: white;
     border: none;
     border-radius: 25px;
-    padding: 2px 25px;
+    padding: 0 25px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none;          /* 去除默认下划线 */
 }
   
 .login-btn:hover {
