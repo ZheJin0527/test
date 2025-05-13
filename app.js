@@ -310,3 +310,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return false; // 仍然阻止表单的提交
   };
 });
+
+document.getElementById('toggle-password').addEventListener('click', function() {
+  const passwordField = document.getElementById('password');
+  const type = passwordField.type === 'password' ? 'text' : 'password';
+  passwordField.type = type;
+});

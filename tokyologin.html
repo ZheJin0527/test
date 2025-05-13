@@ -18,7 +18,11 @@
       <h2>登录到您的账户</h2>
       <form action="tokyologin.php" method="POST">
         <input type="email" name="username" placeholder="请输入 Gmail 地址" pattern=".+@gmail\.com" required>
-        <input type="password" name="password" placeholder="密码" required>
+        <input type="password" name="password" placeholder="密码" required id="password">
+          <button type="button" id="toggle-password" class="eye-button">
+            <!-- 这里可以使用 SVG 图标，或者简单的文本（例如 '👁'） -->
+            👁
+          </button>
         <button type="submit">登录</button>
       </form>
       <div class="link">
