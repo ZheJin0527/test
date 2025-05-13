@@ -18,11 +18,10 @@
       <h2>登录到您的账户</h2>
       <form action="tokyologin.php" method="POST">
         <input type="email" name="username" placeholder="请输入 Gmail 地址" pattern=".+@gmail\.com" required>
-        <input type="password" name="password" placeholder="密码" required id="password">
-          <button type="button" id="toggle-password" class="eye-button">
-            <!-- 这里可以使用 SVG 图标，或者简单的文本（例如 '👁'） -->
-            👁
-          </button>
+        <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="密码" required>
+        <img src="images/images/眼睛.png" id="toggle-password" alt="显示密码" class="eye-icon">
+        </div>
         <button type="submit">登录</button>
       </form>
       <div class="link">
@@ -33,5 +32,20 @@
 
 
   <script src="app.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("toggle-password");
+    const password = document.getElementById("password");
+
+    let visible = false;
+    toggle.addEventListener("click", function () {
+      visible = !visible;
+      password.type = visible ? "text" : "password";
+
+      // 如果你有第二张图可以加这个（可选）
+      // toggle.src = visible ? "/images/eye-off.png" : "/images/eye.png";
+    });
+  });
+</script>
 </body>
 </html>
