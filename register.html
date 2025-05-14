@@ -34,7 +34,7 @@
       </form>
 
       <div id="code-container" style="display:none; margin-top: 20px;">
-        <input type="text" id="verification_code" placeholder="输入验证码" required>
+        <input type="text" id="verification_code" placeholder="输入验证码" maxlength="6" pattern="\d{6}" inputmode="numeric" required>
         <button type="button" id="verify-button">验证并注册</button>
       </div>
     </div>
