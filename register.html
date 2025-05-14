@@ -32,10 +32,17 @@
           title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
         <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
       </div>
-        <button type="submit">注册</button>
-      </form>
+
+      <button type="submit">发送验证码</button>
+    </form>
+
+    <!-- 验证码输入框（初始隐藏） -->
+    <div id="code-container" style="display:none; margin-top: 20px;">
+      <input type="text" id="verification_code" placeholder="输入验证码" required>
+      <button type="button" id="verify-button">验证并注册</button>
     </div>
-  </section>
+  </div>
+</section>
 
   <script src="app.js"></script>
   <script>
@@ -69,30 +76,17 @@
   });
 </script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("register-form");
-    
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // 阻止默认提交行为
-
-      const confirmMsg = "请确认您的注册信息无误，是否继续？";
-      if (confirm(confirmMsg)) {
-        // 用户点击“确定”，手动提交表单
-        form.submit();
-      }
-      // 否则什么都不做
-    });
-  });
-</script>\
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("register-form");
+  const codeContainer = document.getElementById("code-container");
+  const verifyBtn = document.getElementById("verify-button");
+  let formData = null;
 
+  // 监听表单提交
   form.addEventListener("submit", function (e) {
     e.preventDefault(); // 阻止表单默认提交
 
     const email = form.email.value;
-
     if (!email.endsWith("@gmail.com")) {
       alert("只能使用 Gmail 注册！");
       return;
@@ -100,28 +94,66 @@
 
     const confirmMsg = "请确认您的注册信息无误，是否继续？";
     if (confirm(confirmMsg)) {
-      // 发送验证码
+      formData = new FormData(form); // 暂存用户数据
+
+      // 发送验证码请求
       fetch("send_verification.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email })
       })
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => {
         if (data.success) {
-          alert("验证码已发送到您的 Gmail，请查收！");
-          // 你可以弹出一个输入验证码的框
+          alert("验证码已发送，请查收！");
+          codeContainer.style.display = "block"; // 显示验证码输入框
         } else {
-          alert("发送验证码失败，请稍后再试！");
+          alert("验证码发送失败：" + data.message);
         }
       })
       .catch(err => {
         console.error("错误:", err);
-        alert("发生错误，请稍后再试。");
+        alert("发生网络错误！");
       });
     }
+  });
+
+  // 点击验证按钮进行验证码验证
+  verifyBtn.addEventListener("click", function () {
+    const email = form.email.value;
+    const code = document.getElementById("verification_code").value;
+
+    // 发送验证码验证请求
+    fetch("verify_code.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, code: code })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("验证码正确，正在注册...");
+
+        // 验证成功后提交表单
+        fetch("register.php", {
+          method: "POST",
+          body: formData
+        })
+        .then(() => {
+          alert("注册成功！");
+          window.location.href = "login.html"; // 跳转到登录页
+        })
+        .catch(() => {
+          alert("注册失败，请重试！");
+        });
+      } else {
+        alert("验证码错误或已过期！");
+      }
+    })
+    .catch(err => {
+      console.error("错误:", err);
+      alert("发生网络错误，请稍后再试！");
+    });
   });
 });
 </script>
