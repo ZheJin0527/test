@@ -159,12 +159,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const progress = Math.min(elapsed / duration, 1);
       const current = Math.floor(progress * target);
 
-      el.textContent = current.toLocaleString();
+      el.textContent = current;
 
       if (progress < 1) {
         requestAnimationFrame(update);
       } else {
-        el.textContent = target.toLocaleString();
+        el.textContent = target;
         if (el.getAttribute('data-target').includes('+')) {
           el.textContent += '+';
         }
