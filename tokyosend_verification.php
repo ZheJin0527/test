@@ -19,15 +19,15 @@ if (!preg_match('/@gmail\.com$/', $email)) {
 // 生成6位验证码
 $code = rand(100000, 999999);
 
-// 保存验证码到 session，设置10分钟过期
+// 保存验证码到 session，设置5分钟过期
 $_SESSION["verification_code"] = $code;
 $_SESSION["verification_email"] = $email;
-$_SESSION["code_expire_time"] = time() + 600;  // 10分钟
+$_SESSION["code_expire_time"] = time() + 300;  // 5分钟
 
 // 发送邮件
 $to = $email;
 $subject = "TOKYO JAPANESE CUISINE - 邮箱验证码";
-$message = "您的验证码是：$code\n\n有效时间为10分钟。";
+$message = "您的验证码是：$code\n\n有效时间为5分钟。";
 $headers = "From: no-reply@kunzzgroup.com\r\nContent-Type: text/plain; charset=UTF-8";
 
 if (mail($to, $subject, $message, $headers)) {
