@@ -69,13 +69,20 @@
   });
 </script>
 <script>
-document.getElementById("register-form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const confirmMsg = "请确认您的注册信息无误，是否继续？";
-  if (confirm(confirmMsg)) {
-    sendVerificationCode(); // 你的验证码逻辑
-  }
-});
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("register-form");
+    
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // 阻止默认提交行为
+
+      const confirmMsg = "请确认您的注册信息无误，是否继续？";
+      if (confirm(confirmMsg)) {
+        // 用户点击“确定”，手动提交表单
+        form.submit();
+      }
+      // 否则什么都不做
+    });
+  });
 </script>
 
 </body>
