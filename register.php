@@ -1,32 +1,42 @@
 <?php
-// 1. 数据库连接配置
-$host = 'localhost';           // 通常是 localhost
-$dbname = 'u857194726_kunzzgroup';        // 请改成你在 Hostinger 创建的数据库名
-$dbuser = 'u857194726_kunzzgroup';    // 改成你的数据库用户名
-$dbpass = 'Kholdings1688@';      // 改成你的数据库密码
+// 设置响应为 JSON
+header("Content-Type: application/json");
 
-// 2. 连接数据库
+// 1. 数据库连接配置
+$host = 'localhost';
+$dbname = 'u857194726_kunzzgroup';
+$dbuser = 'u857194726_kunzzgroup';
+$dbpass = 'Kholdings1688@';
+
+// 2. 建立数据库连接
 $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
 
-// 检查连接
+// 3. 检查连接是否成功
 if ($conn->connect_error) {
-    die("连接失败: " . $conn->connect_error);
+    echo json_encode(["success" => false, "message" => "数据库连接失败：" . $conn->connect_error]);
+    exit;
 }
 
-// 3. 获取请求数据
+// 4. 解析 JSON 请求数据
 $data = json_decode(file_get_contents("php://input"), true);
-$username = $data['username'];
-$email = $data['email'];
-$password = $data['password'];
-$confirm_password = $data['confirm_password'];
+$username = $data['username'] ?? '';
+$email = $data['email'] ?? '';
+$password = $data['password'] ?? '';
+$confirm_password = $data['confirm_password'] ?? '';
 
-// 4. 验证两次密码是否一致
+// 5. 检查必填字段
+if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+    echo json_encode(["success" => false, "message" => "请填写所有字段"]);
+    exit;
+}
+
+// 6. 检查两次密码是否一致
 if ($password !== $confirm_password) {
     echo json_encode(["success" => false, "message" => "两次输入的密码不一致，请返回修改。"]);
     exit;
 }
 
-// 5. 检查邮箱是否已被注册
+// 7. 检查邮箱是否已经注册
 $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -40,19 +50,20 @@ if ($stmt->num_rows > 0) {
 }
 $stmt->close();
 
-// 6. 加密密码
+// 8. 加密密码
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// 7. 插入用户数据
+// 9. 插入用户信息
 $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $username, $email, $hashed_password);
 
 if ($stmt->execute()) {
-    echo json_encode(["success" => true, "message" => "注册成功！现在你可以<a href='login.html'>登录</a>了。"]);
+    echo json_encode(["success" => true, "message" => "注册成功！现在你可以登录了。"]);
 } else {
     echo json_encode(["success" => false, "message" => "注册失败，请稍后重试。"]);
 }
 
+// 10. 关闭连接
 $stmt->close();
 $conn->close();
 ?>
