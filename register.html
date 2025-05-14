@@ -83,6 +83,47 @@
       // 否则什么都不做
     });
   });
+</script>\
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("register-form");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // 阻止表单默认提交
+
+    const email = form.email.value;
+
+    if (!email.endsWith("@gmail.com")) {
+      alert("只能使用 Gmail 注册！");
+      return;
+    }
+
+    const confirmMsg = "请确认您的注册信息无误，是否继续？";
+    if (confirm(confirmMsg)) {
+      // 发送验证码
+      fetch("send_verification.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: email })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("验证码已发送到您的 Gmail，请查收！");
+          // 你可以弹出一个输入验证码的框
+        } else {
+          alert("发送验证码失败，请稍后再试！");
+        }
+      })
+      .catch(err => {
+        console.error("错误:", err);
+        alert("发生错误，请稍后再试。");
+      });
+    }
+  });
+});
 </script>
 
 </body>
