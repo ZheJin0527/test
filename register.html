@@ -60,13 +60,19 @@
       confirmPassword.type = visibleConfirmPassword ? "text" : "password";
     });
 
-    // 注册表单提交逻辑
     const form = document.getElementById("register-form");
     const codeContainer = document.getElementById("code-container");
     const verifyBtn = document.getElementById("verify-button");
+    const codeInput = document.getElementById("verification_code");
+
     let formData = null;
 
-    // 发送验证码（表单提交）
+    // ⚠️ 限制验证码只能输入 6 位数字
+    codeInput.setAttribute("maxlength", "6");
+    codeInput.setAttribute("pattern", "\\d{6}");
+    codeInput.setAttribute("title", "请输入 6 位数字验证码");
+
+    // 提交表单：发送验证码前检查密码一致性
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       const email = form.email.value;
@@ -74,15 +80,15 @@
       const password = form.password.value;
       const confirmPassword = form.confirm_password.value;
 
-      // 保存完整表单数据，用于注册
-      formData = {
-        username: username,
-        email: email,
-        password: password,
-        confirm_password: confirmPassword
-      };
+      // ⚠️ 检查密码和确认密码是否一致
+      if (password !== confirmPassword) {
+        alert("两次输入的密码不一致，请检查！");
+        return;
+      }
 
-      // 发送验证码
+      // 保存数据用于之后注册使用
+      formData = { username, email, password, confirm_password: confirmPassword };
+
       fetch("send_verification.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -92,23 +98,28 @@
         .then(data => {
           if (data.success) {
             alert("验证码已发送，请查收！");
-            codeContainer.style.display = "block"; // 显示验证码输入框
+            codeContainer.style.display = "block";
           } else {
             alert("验证码发送失败：" + data.message);
           }
         })
         .catch(err => {
-          console.error("发送验证码失败:", err);
+          console.error("错误:", err);
           alert("发生网络错误！请稍后再试。");
         });
     });
 
-    // 验证验证码 + 注册
+    // 验证验证码并注册
     verifyBtn.addEventListener("click", function () {
       const email = form.email.value;
-      const code = document.getElementById("verification_code").value;
+      const code = codeInput.value.trim();
 
-      // 验证验证码
+      // ⚠️ 简单检查验证码格式
+      if (!/^\d{6}$/.test(code)) {
+        alert("请输入 6 位数字验证码！");
+        return;
+      }
+
       fetch("verify_code.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -119,7 +130,6 @@
           if (data.success) {
             alert("验证码正确，正在注册...");
 
-            // 验证通过后，注册用户
             fetch("register.php", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -135,19 +145,20 @@
                 }
               })
               .catch(err => {
-                console.error("注册失败:", err);
-                alert("注册失败，请稍后再试！");
+                console.error("错误:", err);
+                alert("注册失败，请稍后重试！");
               });
           } else {
             alert("验证码错误或已过期！");
           }
         })
         .catch(err => {
-          console.error("验证验证码失败:", err);
-          alert("发生网络错误，请稍后重试！");
+          console.error("错误:", err);
+          alert("发生网络错误，请稍后再试！");
         });
     });
   });
 </script>
+
 </body>
 </html>
