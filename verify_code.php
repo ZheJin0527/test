@@ -2,8 +2,19 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// 包含数据库连接
-include('db_connection.php'); // 确保路径正确
+// 数据库连接配置
+$servername = "localhost";  // 数据库服务器
+$username = "your_username";  // 数据库用户名
+$password = "your_password";  // 数据库密码
+$dbname = "your_database";  // 数据库名称
+
+// 创建数据库连接
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// 检查连接
+if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
+}
 
 // 获取传入的请求数据
 $data = json_decode(file_get_contents("php://input"), true);
@@ -20,14 +31,14 @@ if (empty($email) || empty($code)) {
     exit();
 }
 
-// 连接数据库，查询验证码
+// 查询数据库，获取该邮箱的验证码记录
 $query = "SELECT * FROM verification_codes WHERE email = ? ORDER BY created_at DESC LIMIT 1";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// 调试输出
+// 检查验证码是否存在
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $storedCode = $row['code'];
@@ -37,7 +48,7 @@ if ($result->num_rows > 0) {
     if ($code == $storedCode) {
         $currentTime = time();
         
-        // 检查验证码是否过期
+        // 检查验证码是否过期 (假设验证码有效期为5分钟)
         if ($currentTime - $createdAt <= 300) { // 5分钟有效期
             echo json_encode(["success" => true, "message" => "验证码验证成功"]);
         } else {
