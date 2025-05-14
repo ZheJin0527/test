@@ -15,7 +15,7 @@
   <section class="register-section">
     <div class="register-form">
       <h2>创建新账户</h2>
-      <form action="register.php" method="POST">
+      <form id="register-form" action="register.php" method="POST">
         <input type="text" name="username" placeholder="用户名" pattern="[A-Za-z]{2,}" title="用户名只能包含英文字母，且至少两个字符" required />
         <input type="email" name="email" placeholder="请输入您的 Gmail" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"title="请输入以 @gmail.com 结尾的邮箱地址"/>
         <div class="password-container">
@@ -70,12 +70,10 @@
 </script>
 <script>
 document.getElementById("register-form").addEventListener("submit", function (e) {
-  e.preventDefault(); // 阻止默认提交
-
+  e.preventDefault();
   const confirmMsg = "请确认您的注册信息无误，是否继续？";
   if (confirm(confirmMsg)) {
-    // 用户点击了确认，接下来发送验证码请求（下一步）
-    sendVerificationCode();
+    sendVerificationCode(); // 你的验证码逻辑
   }
 });
 </script>
