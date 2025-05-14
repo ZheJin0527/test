@@ -66,7 +66,7 @@
     const verifyBtn = document.getElementById("verify-button");
     let formData = null;
 
-    // 提交表单：先发送验证码
+    // 发送验证码（表单提交）
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       const email = form.email.value;
@@ -74,9 +74,15 @@
       const password = form.password.value;
       const confirmPassword = form.confirm_password.value;
 
-      const data = { username, email, password, confirm_password: confirmPassword };
+      // 保存完整表单数据，用于注册
+      formData = {
+        username: username,
+        email: email,
+        password: password,
+        confirm_password: confirmPassword
+      };
 
-      // 发送验证码请求
+      // 发送验证码
       fetch("send_verification.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -86,19 +92,18 @@
         .then(data => {
           if (data.success) {
             alert("验证码已发送，请查收！");
-            codeContainer.style.display = "block";  // 显示验证码输入框
-            formData = data;  // 保存表单数据，稍后再注册
+            codeContainer.style.display = "block"; // 显示验证码输入框
           } else {
             alert("验证码发送失败：" + data.message);
           }
         })
         .catch(err => {
-          console.error("错误:", err);
+          console.error("发送验证码失败:", err);
           alert("发生网络错误！请稍后再试。");
         });
     });
 
-    // 验证验证码
+    // 验证验证码 + 注册
     verifyBtn.addEventListener("click", function () {
       const email = form.email.value;
       const code = document.getElementById("verification_code").value;
@@ -114,32 +119,32 @@
           if (data.success) {
             alert("验证码正确，正在注册...");
 
-            // 注册用户
+            // 验证通过后，注册用户
             fetch("register.php", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(formData)  // 传递之前保存的表单数据
+              body: JSON.stringify(formData)
             })
               .then(res => res.json())
               .then(data => {
                 if (data.success) {
                   alert("注册成功！");
-                  window.location.href = "login.html";  // 注册成功后跳转到登录页面
+                  window.location.href = "login.html";
                 } else {
                   alert("注册失败：" + data.message);
                 }
               })
               .catch(err => {
-                console.error("错误:", err);
-                alert("注册失败，请稍后重试！");
+                console.error("注册失败:", err);
+                alert("注册失败，请稍后再试！");
               });
           } else {
             alert("验证码错误或已过期！");
           }
         })
         .catch(err => {
-          console.error("错误:", err);
-          alert("发生网络错误，请稍后再试！");
+          console.error("验证验证码失败:", err);
+          alert("发生网络错误，请稍后重试！");
         });
     });
   });
