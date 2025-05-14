@@ -41,87 +41,98 @@
   </section>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const togglePassword = document.getElementById("toggle-password");
-      const password = document.getElementById("password");
-      const toggleConfirmPassword = document.getElementById("toggle-confirm");
-      const confirmPassword = document.getElementById("confirm_password");
-      let visiblePassword = false;
-      let visibleConfirmPassword = false;
+  document.addEventListener("DOMContentLoaded", function () {
+    // 密码显示切换
+    const togglePassword = document.getElementById("toggle-password");
+    const password = document.getElementById("password");
+    const toggleConfirmPassword = document.getElementById("toggle-confirm");
+    const confirmPassword = document.getElementById("confirm_password");
+    let visiblePassword = false;
+    let visibleConfirmPassword = false;
 
-      togglePassword.addEventListener("click", function () {
-        visiblePassword = !visiblePassword;
-        password.type = visiblePassword ? "text" : "password";
-      });
-
-      toggleConfirmPassword.addEventListener("click", function () {
-        visibleConfirmPassword = !visibleConfirmPassword;
-        confirmPassword.type = visibleConfirmPassword ? "text" : "password";
-      });
+    togglePassword.addEventListener("click", function () {
+      visiblePassword = !visiblePassword;
+      password.type = visiblePassword ? "text" : "password";
     });
-  </script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("register-form");
-      const codeContainer = document.getElementById("code-container");
-      const verifyBtn = document.getElementById("verify-button");
-      let formData = null;
+    toggleConfirmPassword.addEventListener("click", function () {
+      visibleConfirmPassword = !visibleConfirmPassword;
+      confirmPassword.type = visibleConfirmPassword ? "text" : "password";
+    });
 
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const email = form.email.value;
-        if (!email.endsWith("@gmail.com")) {
-          alert("只能使用 Gmail 注册！");
-          return;
-        }
-        if (confirm("请确认您的注册信息无误，是否继续？")) {
-          formData = new FormData(form);
-          fetch("send_verification.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email })
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              alert("验证码已发送，请查收！");
-              codeContainer.style.display = "block";
-            } else {
-              alert("验证码发送失败：" + data.message);
-            }
-          })
-          .catch(err => {
-            console.error("错误:", err);
-            alert("发生网络错误！");
-          });
-        }
-      });
+    // 注册表单提交逻辑
+    const form = document.getElementById("register-form");
+    const codeContainer = document.getElementById("code-container");
+    const verifyBtn = document.getElementById("verify-button");
+    let formData = null;
 
-      verifyBtn.addEventListener("click", function () {
-        const email = form.email.value;
-        const code = document.getElementById("verification_code").value;
+    // 提交表单：先发送验证码
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = form.email.value;
+      const username = form.username.value;
+      const password = form.password.value;
+      const confirmPassword = form.confirm_password.value;
 
-        fetch("verify_code.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: email, code: code })
+      const data = { username, email, password, confirm_password: confirmPassword };
+
+      // 发送验证码请求
+      fetch("send_verification.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert("验证码已发送，请查收！");
+            codeContainer.style.display = "block";  // 显示验证码输入框
+            formData = data;  // 保存表单数据，稍后再注册
+          } else {
+            alert("验证码发送失败：" + data.message);
+          }
         })
+        .catch(err => {
+          console.error("错误:", err);
+          alert("发生网络错误！请稍后再试。");
+        });
+    });
+
+    // 验证验证码
+    verifyBtn.addEventListener("click", function () {
+      const email = form.email.value;
+      const code = document.getElementById("verification_code").value;
+
+      // 验证验证码
+      fetch("verify_code.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, code: code })
+      })
         .then(res => res.json())
         .then(data => {
           if (data.success) {
             alert("验证码正确，正在注册...");
+
+            // 注册用户
             fetch("register.php", {
               method: "POST",
-              body: formData
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(formData)  // 传递之前保存的表单数据
             })
-            .then(() => {
-              alert("注册成功！");
-              window.location.href = "login.html";
-            })
-            .catch(() => {
-              alert("注册失败，请重试！");
-            });
+              .then(res => res.json())
+              .then(data => {
+                if (data.success) {
+                  alert("注册成功！");
+                  window.location.href = "login.html";  // 注册成功后跳转到登录页面
+                } else {
+                  alert("注册失败：" + data.message);
+                }
+              })
+              .catch(err => {
+                console.error("错误:", err);
+                alert("注册失败，请稍后重试！");
+              });
           } else {
             alert("验证码错误或已过期！");
           }
@@ -130,8 +141,8 @@
           console.error("错误:", err);
           alert("发生网络错误，请稍后再试！");
         });
-      });
     });
-  </script>
+  });
+</script>
 </body>
 </html>
