@@ -68,6 +68,17 @@
     });
   });
 </script>
+<script>
+document.getElementById("register-form").addEventListener("submit", function (e) {
+  e.preventDefault(); // 阻止默认提交
+
+  const confirmMsg = "请确认您的注册信息无误，是否继续？";
+  if (confirm(confirmMsg)) {
+    // 用户点击了确认，接下来发送验证码请求（下一步）
+    sendVerificationCode();
+  }
+});
+</script>
 
 </body>
 </html>
