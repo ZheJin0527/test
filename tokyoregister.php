@@ -37,7 +37,7 @@ if ($password !== $confirm_password) {
 }
 
 // 7. 检查邮箱是否已经注册
-$stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+$stmt = $conn->prepare("SELECT id FROM tokyo_users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->store_result();
@@ -54,7 +54,7 @@ $stmt->close();
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 // 9. 插入用户信息
-$stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO tokyo_users (username, email, password) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $username, $email, $hashed_password);
 
 if ($stmt->execute()) {
