@@ -13,32 +13,44 @@
 </head>
 <body>
   <section class="register-section">
-    <div class="register-form">
-      <h2>创建新账户</h2>
-      <form id="register-form">
-        <input type="text" name="username" placeholder="用户名" pattern="[A-Za-z]{2,}" title="用户名只能包含英文字母，且至少两个字符" required />
-        <input type="email" name="email" placeholder="请输入您的 Gmail" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="请输入以 @gmail.com 结尾的邮箱地址" />
-        <div class="password-container">
-          <input type="password" id="password" name="password" placeholder="密码" required
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
-            title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
-          <img src="images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
-        </div>
-        <div class="password-container">
-          <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
-            title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
-          <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
-        </div>
-        <button type="submit">发送验证码</button>
-      </form>
+  <div class="register-form">
+    <h2>创建新账户</h2>
+    <form id="register-form">
+      <input type="text" name="name" placeholder="姓名" required />
 
-      <div id="code-container" style="display:none; margin-top: 20px;">
-        <input type="text" id="verification_code" placeholder="输入验证码" maxlength="6" pattern="\d{6}" inputmode="numeric" required>
-        <button type="button" id="verify-button">验证并注册</button>
+      <input type="email" name="email" placeholder="请输入您的 Gmail" required
+        pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
+        title="请输入以 @gmail.com 结尾的邮箱地址" />
+
+      <input type="text" name="ic_number" placeholder="身份证号码" required
+        pattern="\d{12}" title="请输入12位身份证号码（不含符号）" />
+
+      <input type="text" name="department" placeholder="部门" required />
+      <input type="text" name="position" placeholder="职位" required />
+
+      <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="密码" required
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
+          title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
+        <img src="images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
       </div>
+
+      <div class="password-container">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
+          title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
+        <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
+      </div>
+
+      <button type="submit">发送验证码</button>
+    </form>
+
+    <div id="code-container" style="display:none; margin-top: 20px;">
+      <input type="text" id="verification_code" placeholder="输入验证码" maxlength="6" pattern="\d{6}" inputmode="numeric" required>
+      <button type="button" id="verify-button">验证并注册</button>
     </div>
-  </section>
+  </div>
+</section>
 
   <script src="app.js"></script>
   <script>
