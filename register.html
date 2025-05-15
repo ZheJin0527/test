@@ -40,6 +40,7 @@
     </div>
   </section>
 
+  <script src="app.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function () {
     // 密码显示切换
@@ -66,6 +67,15 @@
     const codeInput = document.getElementById("verification_code");
 
     let formData = null;
+
+    // ⚠️ 禁止用户名、邮箱、密码、确认密码输入中文字符
+    const usernameInput = form.username;
+    const emailInput = form.email;
+    [usernameInput, emailInput, password, confirmPassword].forEach(input => {
+      input.addEventListener("input", function () {
+        this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+      });
+    });
 
     // ⚠️ 限制验证码只能输入 6 位数字（禁止字母和符号）
     codeInput.setAttribute("maxlength", "6");
