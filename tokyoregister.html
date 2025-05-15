@@ -65,19 +65,22 @@
     const codeContainer = document.getElementById("code-container");
     const verifyBtn = document.getElementById("verify-button");
     const codeInput = document.getElementById("verification_code");
-
     let formData = null;
 
-    // 限制验证码只能输入 6 位数字（禁止输入字母和符号）
+    // ⚠️ 禁止用户名和密码输入中文字符
+    const usernameInput = form.username;
+    [usernameInput, password, confirmPassword].forEach(input => {
+      input.addEventListener("input", function () {
+        this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+      });
+    });
+
+    // ⚠️ 限制验证码只能输入 6 位数字
     codeInput.setAttribute("maxlength", "6");
     codeInput.setAttribute("pattern", "\\d{6}");
     codeInput.setAttribute("title", "请输入 6 位数字验证码");
-    codeInput.setAttribute("inputmode", "numeric");
-    codeInput.addEventListener("input", function () {
-      this.value = this.value.replace(/\D/g, '');  // 自动清除非数字
-    });
 
-    // 提交表单前检查密码一致性
+    // 提交表单：发送验证码前检查密码一致性
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       const email = form.email.value;
@@ -85,13 +88,16 @@
       const password = form.password.value;
       const confirmPassword = form.confirm_password.value;
 
+      // ⚠️ 检查密码和确认密码是否一致
       if (password !== confirmPassword) {
         alert("两次输入的密码不一致，请检查！");
         return;
       }
 
+      // 保存数据用于之后注册使用
       formData = { username, email, password, confirm_password: confirmPassword };
 
+      // 向后端发送验证码请求
       fetch("tokyosend_verification.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -101,7 +107,7 @@
         .then(data => {
           if (data.success) {
             alert("验证码已发送，请查收！");
-            codeContainer.style.display = "block";
+            codeContainer.style.display = "block"; // 显示验证码输入框
           } else {
             alert("验证码发送失败：" + data.message);
           }
@@ -112,16 +118,18 @@
         });
     });
 
-    // 点击验证按钮并尝试注册
+    // 验证验证码并注册
     verifyBtn.addEventListener("click", function () {
       const email = form.email.value;
       const code = codeInput.value.trim();
 
+      // ⚠️ 简单检查验证码格式
       if (!/^\d{6}$/.test(code)) {
         alert("请输入 6 位数字验证码！");
         return;
       }
 
+      // 验证验证码
       fetch("tokyoverify_code.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -132,6 +140,7 @@
           if (data.success) {
             alert("验证码正确，正在注册...");
 
+            // 发送注册请求
             fetch("tokyoregister.php", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -141,7 +150,7 @@
               .then(data => {
                 if (data.success) {
                   alert("注册成功！");
-                  window.location.href = "tokyologin.html";
+                  window.location.href = "tokyologin.html"; // 跳转登录页
                 } else {
                   alert("注册失败：" + data.message);
                 }
