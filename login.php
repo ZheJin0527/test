@@ -20,6 +20,7 @@ if ($conn->connect_error) {
 // 获取表单提交的数据
 $email = $_POST['username']; // 实际上是邮箱
 $password = $_POST['password'];
+$remember = isset($_POST['remember_me']); // 是否勾选“记住我”
 
 // 检查邮箱是否存在
 $sql = "SELECT * FROM users WHERE email = ?";
@@ -34,12 +35,19 @@ if ($result->num_rows === 1) {
 
     // 验证密码
     if (password_verify($password, $user['password'])) {
-        // ✅ 登录成功
+        // ✅ 登录成功，设置 session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        $_SESSION['email'] = $user['email']; // ✅ 新增
+        $_SESSION['email'] = $user['email'];
 
-        header("Location: dashboard.php"); // ✅ 登录成功后跳转
+        // ✅ 如果勾选了“记住我”，设置 cookie（30 天有效）
+        if ($remember) {
+            setcookie("user_id", $user['id'], time() + (30 * 24 * 60 * 60), "/");
+            setcookie("username", $user['username'], time() + (30 * 24 * 60 * 60), "/");
+            setcookie("email", $user['email'], time() + (30 * 24 * 60 * 60), "/");
+        }
+
+        header("Location: dashboard.php");
         exit();
     } else {
         // 密码错误
