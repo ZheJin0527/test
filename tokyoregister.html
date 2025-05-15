@@ -67,9 +67,10 @@
     const codeInput = document.getElementById("verification_code");
     let formData = null;
 
-    // ⚠️ 禁止用户名和密码输入中文字符
+    // ⚠️ 禁止用户名、密码、确认密码和邮箱输入中文字符
     const usernameInput = form.username;
-    [usernameInput, password, confirmPassword].forEach(input => {
+    const emailInput = form.email;
+    [usernameInput, emailInput, password, confirmPassword].forEach(input => {
       input.addEventListener("input", function () {
         this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
       });
