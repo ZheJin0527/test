@@ -1,20 +1,10 @@
 <?php
 session_start();
-
-// 如果 session 中没有 email，尝试用 cookie 恢复登录
-if (!isset($_SESSION['email']) && isset($_COOKIE['rememberme'])) {
-    // 这里演示直接赋值cookie的内容到session，真实环境应验证token安全性
-    $_SESSION['email'] = $_COOKIE['rememberme'];
-}
-
-// 如果 session 依然不存在，跳转登录页
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['user_email'])) {
     header("Location: login.html");
     exit();
 }
-
-// 读取登录邮箱
-$userEmail = $_SESSION['email'];
+$userEmail = $_SESSION['user_email'];
 ?>
 
 <!DOCTYPE html>
@@ -213,19 +203,18 @@ $userEmail = $_SESSION['email'];
 
 <script src="app.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const avatar = document.getElementById("user-avatar");
-      const dropdown = document.getElementById("dropdown-menu");
+  document.addEventListener("DOMContentLoaded", function () {
+    const userEmail = localStorage.getItem("userEmail"); // 或从 sessionStorage 获取
+    const avatarDiv = document.getElementById("user-avatar");
 
-      avatar.addEventListener("click", function (e) {
-        e.stopPropagation();
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-      });
-
-      document.addEventListener("click", function () {
-        dropdown.style.display = "none";
-      });
-    });
-  </script>
+    if (userEmail) {
+      const firstLetter = userEmail.trim()[0].toUpperCase();
+      avatarDiv.textContent = firstLetter;
+    } else {
+      // 如果没登录（没有邮箱），可以跳转回登录页面
+      window.location.href = "login.html";
+    }
+  });
+</script>
 </body>
 </html>
