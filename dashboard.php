@@ -1,12 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_email'])) {
-    header("Location: login.html");
-    exit();
-}
-$userEmail = $_SESSION['user_email'];
-?>
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
