@@ -38,6 +38,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("toggle-password");
     const password = document.getElementById("password");
+    const emailInput = document.querySelector('input[name="username"]');
 
     let visible = false;
     toggle.addEventListener("click", function () {
@@ -46,6 +47,13 @@
 
       // 如果你有第二张图可以加这个（可选）
       // toggle.src = visible ? "/images/eye-off.png" : "/images/eye.png";
+    });
+
+    // ⚠️ 禁止密码和邮箱输入中文
+    [emailInput, password].forEach(input => {
+      input.addEventListener("input", function () {
+        this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+      });
     });
   });
 </script>
