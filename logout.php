@@ -1,21 +1,16 @@
 <?php
 session_start();
 
-// 清空所有 session 数据
+// 清除session
 $_SESSION = [];
-
-// 销毁 session
 session_destroy();
 
-// 清除可能存在的 session cookie
-if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params["path"], $params["domain"],
-        $params["secure"], $params["httponly"]
-    );
+// 删除 rememberme cookie
+if (isset($_COOKIE['rememberme'])) {
+    setcookie('rememberme', '', time() - 3600, "/");
 }
 
-// 重定向回登录页面
+// 跳转登录页
 header("Location: login.html");
 exit();
+?>
