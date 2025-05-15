@@ -1,10 +1,20 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_email'])) {
+
+// 如果 session 中没有 email，尝试用 cookie 恢复登录
+if (!isset($_SESSION['email']) && isset($_COOKIE['rememberme'])) {
+    // 这里演示直接赋值cookie的内容到session，真实环境应验证token安全性
+    $_SESSION['email'] = $_COOKIE['rememberme'];
+}
+
+// 如果 session 依然不存在，跳转登录页
+if (!isset($_SESSION['email'])) {
     header("Location: login.html");
     exit();
 }
-$userEmail = $_SESSION['user_email'];
+
+// 读取登录邮箱
+$userEmail = $_SESSION['email'];
 ?>
 
 <!DOCTYPE html>
