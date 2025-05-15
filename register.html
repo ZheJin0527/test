@@ -27,6 +27,24 @@
 
       <input type="text" name="position" placeholder="职位" required />
 
+      <!-- 新增银行选择 -->
+      <select name="bank_name" required>
+        <option value="" disabled selected>请选择银行</option>
+        <option value="Maybank">Maybank</option>
+        <option value="CIMB">CIMB</option>
+        <option value="Public Bank">Public Bank</option>
+        <option value="RHB Bank">RHB Bank</option>
+        <option value="Hong Leong Bank">Hong Leong Bank</option>
+        <option value="Bank Islam">Bank Islam</option>
+        <option value="OCBC">OCBC</option>
+        <option value="HSBC">HSBC</option>
+        <option value="其他">其他</option>
+      </select>
+
+      <!-- 银行户口号码 -->
+      <input type="text" name="bank_account" placeholder="银行户口号码" required
+        pattern="\d{5,20}" title="请输入有效的银行户口号码，仅限数字，长度5-20位" />
+
       <div class="password-container">
         <input type="password" id="password" name="password" placeholder="密码" required
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
