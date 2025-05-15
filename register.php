@@ -1,5 +1,4 @@
 <?php
-// 设置响应为 JSON
 header("Content-Type: application/json");
 
 // 1. 数据库连接配置
@@ -17,53 +16,65 @@ if ($conn->connect_error) {
     exit;
 }
 
-// 4. 解析 JSON 请求数据
+// 4. 获取 JSON 数据
 $data = json_decode(file_get_contents("php://input"), true);
-$username = $data['username'] ?? '';
-$email = $data['email'] ?? '';
+
+// 5. 获取字段
+$name = trim($data['name'] ?? '');
+$email = trim($data['email'] ?? '');
+$phone = trim($data['phone_number'] ?? '');
+$ic = trim($data['ic_number'] ?? '');
+$position = trim($data['position'] ?? '');
+$bank_name = trim($data['bank_name'] ?? '');
+$bank_account = trim($data['bank_account'] ?? '');
 $password = $data['password'] ?? '';
 $confirm_password = $data['confirm_password'] ?? '';
 
-// 5. 检查必填字段
-if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+// 6. 校验字段是否填写完整
+if (
+    empty($name) || empty($email) || empty($phone) || empty($ic) ||
+    empty($position) || empty($bank_name) || empty($bank_account) ||
+    empty($password) || empty($confirm_password)
+) {
     echo json_encode(["success" => false, "message" => "请填写所有字段"]);
     exit;
 }
 
-// 6. 检查两次密码是否一致
+// 7. 检查两次密码是否一致
 if ($password !== $confirm_password) {
-    echo json_encode(["success" => false, "message" => "两次输入的密码不一致，请返回修改。"]);
+    echo json_encode(["success" => false, "message" => "两次输入的密码不一致"]);
     exit;
 }
 
-// 7. 检查邮箱是否已经注册
+// 8. 检查邮箱是否已经存在
 $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows > 0) {
-    echo json_encode(["success" => false, "message" => "该邮箱已被注册，请使用其他 Gmail。"]);
+    echo json_encode(["success" => false, "message" => "该邮箱已被注册，请使用其他 Gmail"]);
     $stmt->close();
     $conn->close();
     exit;
 }
 $stmt->close();
 
-// 8. 加密密码
+// 9. 加密密码
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// 9. 插入用户信息
-$stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $username, $email, $hashed_password);
+// 10. 插入用户信息
+$stmt = $conn->prepare("INSERT INTO users (username, email, phone_number, ic_number, position, bank_name, bank_account, password, created_at)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+$stmt->bind_param("ssssssss", $name, $email, $phone, $ic, $position, $bank_name, $bank_account, $hashed_password);
 
 if ($stmt->execute()) {
-    echo json_encode(["success" => true, "message" => "注册成功！现在你可以登录了。"]);
+    echo json_encode(["success" => true, "message" => "注册成功！"]);
 } else {
-    echo json_encode(["success" => false, "message" => "注册失败，请稍后重试。"]);
+    echo json_encode(["success" => false, "message" => "注册失败：" . $stmt->error]);
 }
 
-// 10. 关闭连接
+// 11. 关闭连接
 $stmt->close();
 $conn->close();
 ?>
