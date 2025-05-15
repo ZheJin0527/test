@@ -1804,7 +1804,7 @@ form input[type="file"] {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #007bff; /* 你可以换颜色 */
+  background-color: #FF5C00; /* 你可以换颜色 */
   color: white;
   display: flex;
   align-items: center;
