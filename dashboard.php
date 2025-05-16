@@ -47,13 +47,25 @@ $avatarLetter = strtoupper($username[0]);
     </nav>    
 
     <div class="right-section">
-      <div class="user-avatar-dropdown">
-    <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
-    <div id="dropdown-menu" class="dropdown-menu">
-      <a href="edit_profile.php">Edit profile</a>  <!-- 新增编辑个人资料 -->
-      <a href="logout.php" class="logout-btn">Logout</a>
-    </div>
+      <div class="user-avatar-sidebar">
+  <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
+</div>
+
+<!-- 右侧滑出栏 -->
+<div id="user-sidebar" class="user-sidebar">
+  <div class="sidebar-header">
+    <span class="avatar-circle"><?php echo $avatarLetter; ?></span>
+    <button id="close-sidebar" class="close-btn">&times;</button>
   </div>
+  <ul class="sidebar-menu">
+    <li><a href="edit_profile.php">Edit Profile</a></li>
+    <li><a href="logout.php">Logout</a></li>
+  </ul>
+</div>
+
+<!-- 背景遮罩 -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
       <div class="language-switch">
         <img src="images/images/翻译.png" alt="Icon" class="icon" />
         <a href="#" class="lang">EN | CN</a> 
@@ -206,18 +218,26 @@ $avatarLetter = strtoupper($username[0]);
 <script src="app.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const avatar = document.getElementById("user-avatar");
-    const dropdown = document.getElementById("dropdown-menu");
+  const avatar = document.getElementById("user-avatar");
+  const sidebar = document.getElementById("user-sidebar");
+  const overlay = document.getElementById("sidebar-overlay");
+  const closeBtn = document.getElementById("close-sidebar");
 
-    avatar.addEventListener("click", (e) => {
-      e.stopPropagation();
-      dropdown.classList.toggle("show");
-    });
-
-    document.addEventListener("click", () => {
-      dropdown.classList.remove("show");
-    });
+  avatar.addEventListener("click", () => {
+    sidebar.classList.add("show");
+    overlay.classList.add("show");
   });
+
+  closeBtn.addEventListener("click", () => {
+    sidebar.classList.remove("show");
+    overlay.classList.remove("show");
+  });
+
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("show");
+    overlay.classList.remove("show");
+  });
+});
 </script>
 
 </body>
