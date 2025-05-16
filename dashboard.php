@@ -203,19 +203,6 @@ $avatarLetter = strtoupper($username[0]);
   </div>
 
 <script src="app.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const userEmail = localStorage.getItem("userEmail"); // 或从 sessionStorage 获取
-    const avatarDiv = document.getElementById("user-avatar");
 
-    if (userEmail) {
-      const firstLetter = userEmail.trim()[0].toUpperCase();
-      avatarDiv.textContent = firstLetter;
-    } else {
-      // 如果没登录（没有邮箱），可以跳转回登录页面
-      window.location.href = "login.html";
-    }
-  });
-</script>
 </body>
 </html>
