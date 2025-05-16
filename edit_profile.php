@@ -65,69 +65,88 @@ $conn->close();
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="edit-section">
-    <h2>编辑个人资料</h2>
+  <div class="edit-section">
+    <div class="edit-title">编辑个人资料</div>
 
     <?php if ($error): ?>
-        <p style="color: red;"><?= htmlspecialchars($error); ?></p>
+      <p style="color: red; text-align: center;"><?= htmlspecialchars($error); ?></p>
     <?php endif; ?>
 
     <?php if ($success): ?>
-        <p style="color: green;"><?= htmlspecialchars($success); ?></p>
+      <p style="color: green; text-align: center;"><?= htmlspecialchars($success); ?></p>
     <?php endif; ?>
 
     <form method="POST" action="edit_profile.php">
-        <div class="section-title">联系资料</div>
+      <div class="edit-section-title">联系资料</div>
+      <div class="edit-grid">
+        <div class="edit-group">
+          <label class="edit-label">用户名:</label>
+          <input class="edit-input" type="text" name="username" value="<?= htmlspecialchars($user['username']); ?>" required>
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">邮箱（不可修改）:</label>
+          <input class="edit-input" type="email" value="<?= htmlspecialchars($user['email']); ?>" readonly>
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">联络号码:</label>
+          <input class="edit-input" type="text" name="phone" value="<?= htmlspecialchars($user['phone_number']); ?>">
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">银行名称:</label>
+          <input class="edit-input" type="text" name="bank_name" value="<?= htmlspecialchars($user['bank_name']); ?>">
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">银行账号:</label>
+          <input class="edit-input" type="text" name="bank_account" value="<?= htmlspecialchars($user['bank_account']); ?>">
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">家庭地址:</label>
+          <input class="edit-input" type="text" name="home_address" value="<?= htmlspecialchars($user['home_address']); ?>">
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">现居地址:</label>
+          <input class="edit-input" type="text" name="current_address" value="<?= htmlspecialchars($user['current_address']); ?>">
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">城市:</label>
+          <input class="edit-input" type="text" name="city" value="<?= htmlspecialchars($user['city']); ?>">
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">州属:</label>
+          <input class="edit-input" type="text" name="state" value="<?= htmlspecialchars($user['state']); ?>">
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">邮编:</label>
+          <input class="edit-input" type="text" name="postcode" value="<?= htmlspecialchars($user['postcode']); ?>">
+        </div>
+      </div>
 
-        <label>用户名:</label>
-        <input type="text" name="username" value="<?= htmlspecialchars($user['username']); ?>" required>
-
-        <label>邮箱（不可修改）:</label>
-        <input type="email" value="<?= htmlspecialchars($user['email']); ?>" readonly>
-
-        <label>联络号码:</label>
-        <input type="text" name="phone" value="<?= htmlspecialchars($user['phone_number']); ?>">
-
-        <label>银行名称:</label>
-        <input type="text" name="bank_name" value="<?= htmlspecialchars($user['bank_name']); ?>">
-
-        <label>银行账号:</label>
-        <input type="text" name="bank_account" value="<?= htmlspecialchars($user['bank_account']); ?>">
-
-        <label>家庭地址:</label>
-        <input type="text" name="home_address" value="<?= htmlspecialchars($user['home_address']); ?>">
-
-        <label>现居地址:</label>
-        <input type="text" name="current_address" value="<?= htmlspecialchars($user['current_address']); ?>">
-
-        <label>城市:</label>
-        <input type="text" name="city" value="<?= htmlspecialchars($user['city']); ?>">
-
-        <label>州属:</label>
-        <input type="text" name="state" value="<?= htmlspecialchars($user['state']); ?>">
-
-        <label>邮编:</label>
-        <input type="text" name="postcode" value="<?= htmlspecialchars($user['postcode']); ?>">
-
-        <div class="section-title">个人资料</div>
-
-        <label>职位（不可修改）:</label>
-        <input type="text" value="<?= htmlspecialchars($user['position']); ?>" readonly>
-
-        <label>出生日期:</label>
-        <input type="date" name="date_of_birth" value="<?= htmlspecialchars($user['date_of_birth']); ?>">
-
-        <label>性别:</label>
-        <select name="gender">
+      <div class="edit-section-title">个人资料</div>
+      <div class="edit-grid">
+        <div class="edit-group">
+          <label class="edit-label">职位（不可修改）:</label>
+          <input class="edit-input" type="text" value="<?= htmlspecialchars($user['position']); ?>" readonly>
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">出生日期:</label>
+          <input class="edit-input" type="date" name="date_of_birth" value="<?= htmlspecialchars($user['date_of_birth']); ?>">
+        </div>
+        <div class="edit-group">
+          <label class="edit-label">性别:</label>
+          <select class="edit-input" name="gender">
             <option value="">请选择</option>
             <option value="男" <?= $user['gender'] === '男' ? 'selected' : '' ?>>男</option>
             <option value="女" <?= $user['gender'] === '女' ? 'selected' : '' ?>>女</option>
             <option value="其他" <?= $user['gender'] === '其他' ? 'selected' : '' ?>>其他</option>
-        </select>
+          </select>
+        </div>
+      </div>
 
-        <button type="submit">保存修改</button>
-        <a href="dashboard.php">返回</a>
+      <div class="edit-actions">
+        <button class="edit-button" type="submit">保存修改</button>
+        <a class="edit-link" href="dashboard.php">返回</a>
+      </div>
     </form>
-</div>
+  </div>
 </body>
 </html>
