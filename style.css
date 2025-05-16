@@ -1863,8 +1863,8 @@ form input[type="file"] {
     }
     .edit-section-title {
       font-size: 18px;
-      color: #4a90e2;
-      border-left: 4px solid #4a90e2;
+      color: #FF5C00;
+      border-left: 4px solid #FF5C00;
       padding-left: 10px;
       margin: 40px 0 20px;
       font-weight: 600;
@@ -1893,7 +1893,7 @@ form input[type="file"] {
       background-color: #fdfdfd;
     }
     .edit-input:focus {
-      border-color: #4a90e2;
+      border-color: #FF5C00;
       box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
       outline: none;
     }
@@ -1907,7 +1907,7 @@ form input[type="file"] {
       text-align: center;
     }
     .edit-button {
-      background-color: #4a90e2;
+      background-color: #FF5C00;
       color: white;
       border: none;
       padding: 12px 24px;
@@ -1917,11 +1917,11 @@ form input[type="file"] {
       transition: background-color 0.3s;
     }
     .edit-button:hover {
-      background-color: #3a78c2;
+      background-color: #FF5C00;
     }
     .edit-link {
       margin-left: 20px;
-      color: #4a90e2;
+      color: #FF5C00;
       font-weight: 500;
       text-decoration: none;
     }
