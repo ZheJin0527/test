@@ -51,7 +51,7 @@ $avatarLetter = strtoupper($username[0]);
     <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
     <div id="dropdown-menu" class="dropdown-menu">
       <a href="edit_profile.php">Edit profile</a>  <!-- 新增编辑个人资料 -->
-      <a href="logout.php" class="logout-btn">登出</a>
+      <a href="logout.php" class="logout-btn">Logout</a>
     </div>
   </div>
       <div class="language-switch">
