@@ -1893,7 +1893,7 @@ form input[type="file"] {
       background-color: #fdfdfd;
     }
     .edit-input:focus {
-      border-color: #FF5C00;
+      border-color: #4a90e2;
       box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
       outline: none;
     }
@@ -1917,7 +1917,7 @@ form input[type="file"] {
       transition: background-color 0.3s;
     }
     .edit-button:hover {
-      background-color: #FF5C00;
+      background-color: #9e3b02;
     }
     .edit-link {
       margin-left: 20px;
