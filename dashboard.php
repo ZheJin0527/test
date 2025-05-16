@@ -4,6 +4,8 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
+$username = $_SESSION['username'];
+$avatarLetter = strtoupper($username[0]);
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +48,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="right-section">
       <div class="user-avatar-dropdown">
-        <div id="user-avatar" class="user-avatar"><?php echo strtoupper($userEmail[0]); ?></div>
+        <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
         <div id="dropdown-menu" class="dropdown-menu">
           <a href="logout.php" class="logout-btn">登出</a>
         </div>
