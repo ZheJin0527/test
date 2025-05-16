@@ -1,11 +1,11 @@
 <?php
 session_start();
-
-// 仅测试用，不跳转也不做权限判断
-echo "<h1>欢迎进入 Dashboard！</h1>";
-echo "<p>当前用户ID: " . ($_SESSION['user_id'] ?? '未设置') . "</p>";
-echo "<p>当前用户名: " . ($_SESSION['username'] ?? '未设置') . "</p>";
-
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit();
+}
+$username = $_SESSION['username'];
+$avatarLetter = strtoupper($username[0]);
 ?>
 
 <!DOCTYPE html>
