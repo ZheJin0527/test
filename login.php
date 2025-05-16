@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -6,8 +7,8 @@ error_reporting(E_ALL);
 // 数据库连接信息
 $host = 'localhost';
 $dbname = 'u857194726_kunzzgroup';          // 你的数据库名称
-$dbuser = 'u857194726_kunzzgroup';      // 你的数据库用户名
-$dbpass = 'Kholdings1688@';           // 你的数据库密码
+$dbuser = 'u857194726_kunzzgroup';           // 你的数据库用户名
+$dbpass = 'Kholdings1688@';                   // 你的数据库密码
 
 // 创建连接
 $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
@@ -18,8 +19,8 @@ if ($conn->connect_error) {
 }
 
 // 获取表单提交的数据
-$email = $_POST['username']; // 前端传来的 input 名叫 username，实际上是邮箱
-$password = $_POST['password'];
+$email = $_POST['username'] ?? '';
+$password = $_POST['password'] ?? '';
 
 // 检查邮箱是否存在
 $sql = "SELECT * FROM users WHERE email = ?";
@@ -37,18 +38,23 @@ if ($result->num_rows === 1) {
         // 登录成功
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        header("Location: dashboard.php"); // 登录后跳转主页或其他页面
+
+        // 确保无输出后跳转
+        header("Location: dashboard.php");
         exit();
     } else {
         // 密码错误
         echo "<script>alert('密码错误'); window.location.href='login.html';</script>";
+        exit();
     }
 } else {
     // 邮箱不存在
     echo "<script>alert('该账号不存在'); window.location.href='login.html';</script>";
+    exit();
 }
 
 // 关闭连接
 $stmt->close();
 $conn->close();
+ob_end_flush();
 ?>
