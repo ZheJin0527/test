@@ -204,6 +204,22 @@ $avatarLetter = strtoupper($username[0]);
   </div>
 
 <script src="app.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const avatar = document.getElementById("user-avatar");
+    const dropdown = document.getElementById("dropdown-menu");
+
+    avatar.addEventListener("click", (e) => {
+      e.stopPropagation(); // 阻止事件冒泡，防止立即关闭菜单
+      dropdown.classList.toggle("show");
+    });
+
+    // 点击页面其他地方关闭菜单
+    document.addEventListener("click", () => {
+      dropdown.classList.remove("show");
+    });
+  });
+</script>
 
 </body>
 </html>
