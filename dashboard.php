@@ -210,11 +210,10 @@ $avatarLetter = strtoupper($username[0]);
     const dropdown = document.getElementById("dropdown-menu");
 
     avatar.addEventListener("click", (e) => {
-      e.stopPropagation(); // 阻止事件冒泡，防止立即关闭菜单
+      e.stopPropagation();
       dropdown.classList.toggle("show");
     });
 
-    // 点击页面其他地方关闭菜单
     document.addEventListener("click", () => {
       dropdown.classList.remove("show");
     });
