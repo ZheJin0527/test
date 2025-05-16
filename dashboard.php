@@ -4,8 +4,8 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
-$username = $_SESSION['username'];
-$avatarLetter = strtoupper($username[0]);
+// 下面是dashboard内容
+echo "欢迎回来，用户：" . htmlspecialchars($_SESSION['username']);
 ?>
 
 <!DOCTYPE html>
