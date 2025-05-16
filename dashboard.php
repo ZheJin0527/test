@@ -48,11 +48,12 @@ $avatarLetter = strtoupper($username[0]);
 
     <div class="right-section">
       <div class="user-avatar-dropdown">
-        <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
-        <div id="dropdown-menu" class="dropdown-menu">
-          <a href="logout.php" class="logout-btn">登出</a>
-        </div>
-      </div>
+    <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
+    <div id="dropdown-menu" class="dropdown-menu">
+      <a href="edit_profile.php">Edit profile</a>  <!-- 新增编辑个人资料 -->
+      <a href="logout.php" class="logout-btn">登出</a>
+    </div>
+  </div>
       <div class="language-switch">
         <img src="images/images/翻译.png" alt="Icon" class="icon" />
         <a href="#" class="lang">EN | CN</a> 
