@@ -26,7 +26,7 @@ $avatarLetter = strtoupper($username[0]);
     <div class="logo-section">
         <img src="images/images/logo.png" alt="Logo" class="logo">
       <div class="company-name">
-        <div>KUNZZ HOLDIjygyjggyNGS</div>
+        <div>KUNZZ HOLDINGS</div>
         <div>SDN BHD</div>
       </div>
     </div>
