@@ -1875,7 +1875,8 @@ form input[type="file"] {
             gap: 20px;
         }
         .form-group {
-            flex: 1 1 45%;
+            flex: 1 1 48%;
+            min-width: 250px;
         }
         .form-group-full {
             flex: 1 1 100%;
