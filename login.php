@@ -37,7 +37,7 @@ if ($result->num_rows === 1) {
         // 登录成功
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        header("Location: dashboard.php"); // 登录后跳转主页或其他页面
+        echo "登录成功，跳转中...";  
         exit();
     } else {
         // 密码错误
