@@ -1800,12 +1800,7 @@ form input[type="file"] {
 
 
 /* 登录后头像和下拉菜单样式 */
-.user-avatar-dropdown {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
+/* 右上角用户头像圆形样式 */
 .user-avatar {
   width: 40px;
   height: 40px;
@@ -1817,35 +1812,68 @@ form input[type="file"] {
   text-align: center;
   border-radius: 50%;
   user-select: none;
+  cursor: pointer;
 }
 
-.dropdown-menu {
-  position: absolute;
-  top: 45px;
+/* 右侧滑出侧边栏 */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; /* 初始隐藏在屏幕右侧 */
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 显示状态，右滑进入 */
+.sidebar.show {
   right: 0;
-  background: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  border-radius: 4px;
-  min-width: 100px;
-  z-index: 1000;
-  display: none;
 }
 
-.dropdown-menu.show {
-  display: block;
+/* 侧边栏顶部标题区域 */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f5f5f5;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
 }
 
-.dropdown-menu a {
-  display: block;
-  padding: 8px 12px;
+/* 关闭按钮样式 */
+.sidebar-header button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+/* 侧边栏链接区域 */
+.sidebar-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content a {
+  padding: 10px 0;
   color: #333;
   text-decoration: none;
+  font-size: 16px;
 }
 
-.dropdown-menu a:hover {
-  background-color: #f0f0f0;
+.sidebar-content a:hover {
+  color: #FF5C00;
+  background-color: #f9f9f9;
 }
+
 
 .edit-section {
   max-width: 1100px;

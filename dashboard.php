@@ -47,13 +47,20 @@ $avatarLetter = strtoupper($username[0]);
     </nav>    
 
     <div class="right-section">
-      <div class="user-avatar-dropdown">
-    <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
-    <div id="dropdown-menu" class="dropdown-menu">
-      <a href="edit_profile.php">Edit profile</a>  <!-- 新增编辑个人资料 -->
+      <div class="user-avatar-bar">
+  <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <span>Edit Profile</span>
+      <button id="close-sidebar">&times;</button>
+    </div>
+    <div class="sidebar-content">
+      <a href="edit_profile.php">Edit profile</a>
       <a href="logout.php" class="logout-btn">Logout</a>
     </div>
   </div>
+</div>
       <div class="language-switch">
         <img src="images/images/翻译.png" alt="Icon" class="icon" />
         <a href="#" class="lang">EN | CN</a> 
@@ -207,15 +214,22 @@ $avatarLetter = strtoupper($username[0]);
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const avatar = document.getElementById("user-avatar");
-    const dropdown = document.getElementById("dropdown-menu");
+    const sidebar = document.getElementById("sidebar");
+    const closeBtn = document.getElementById("close-sidebar");
 
     avatar.addEventListener("click", (e) => {
       e.stopPropagation();
-      dropdown.classList.toggle("show");
+      sidebar.classList.add("show");
     });
 
-    document.addEventListener("click", () => {
-      dropdown.classList.remove("show");
+    closeBtn.addEventListener("click", () => {
+      sidebar.classList.remove("show");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!sidebar.contains(e.target) && !avatar.contains(e.target)) {
+        sidebar.classList.remove("show");
+      }
     });
   });
 </script>
