@@ -1,25 +1,7 @@
 <?php
-session_start();
-require_once 'db_connect.php'; // 你的数据库连接代码
-
-if (isset($_SESSION['user_id'])) {
-    $userId = $_SESSION['user_id'];
-
-    // 清除数据库token
-    $sql = "UPDATE users SET remember_token = NULL, remember_expiry = NULL WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    $stmt->close();
-}
-
-// 清除 session
-$_SESSION = [];
-session_destroy();
-
-// 清除 cookie
-setcookie("rememberme", "", time() - 3600, "/");
-
-header("Location: login.html");
+session_start();            // 启动 session
+session_unset();            // 清空所有 session 变量
+session_destroy();          // 销毁 session
+header("Location: index.html"); // 注销后跳转回首页
 exit();
 ?>
