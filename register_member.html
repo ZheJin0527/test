@@ -40,11 +40,12 @@
     </div>
   </section>
 
+  <script src="app.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const togglePassword = document.getElementById("toggle-password");
+document.addEventListener("DOMContentLoaded", function () {
+  const togglePassword = document.getElementById("toggle-password");
   const password = document.getElementById("password");
-  const toggleConfirmPassword = document.getElementById("toggle-confirm");
+  const toggleConfirmPassword = document.getElementById("toggle-confirm-password");
   const confirmPassword = document.getElementById("confirm_password");
   let visiblePassword = false;
   let visibleConfirmPassword = false;
@@ -52,107 +53,134 @@
   togglePassword.addEventListener("click", function () {
     visiblePassword = !visiblePassword;
     password.type = visiblePassword ? "text" : "password";
+    this.src = visiblePassword ? "images/images/闭眼.png" : "images/images/眼睛.png";
   });
 
   toggleConfirmPassword.addEventListener("click", function () {
     visibleConfirmPassword = !visibleConfirmPassword;
     confirmPassword.type = visibleConfirmPassword ? "text" : "password";
+    this.src = visibleConfirmPassword ? "images/images/闭眼.png" : "images/images/眼睛.png";
   });
 
-      const form = document.getElementById("register-form");
-      const codeContainer = document.getElementById("code-container");
-      const verifyBtn = document.getElementById("verify-button");
-      const codeInput = document.getElementById("verification_code");
+  const form = document.getElementById("register-form");
+  const codeContainer = document.getElementById("code-container");
+  const verifyBtn = document.getElementById("verify-button");
+  const codeInput = document.getElementById("verification_code");
 
-      let formData = null;
+  let formData = null;
 
-      // 禁止 email、密码输入中文
-      ["email", "password", "confirm_password"].forEach(id => {
-        form[id]?.addEventListener("input", function () {
-          this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
-        });
-      });
-
-      codeInput.addEventListener("input", function () {
-        this.value = this.value.replace(/\D/g, '').slice(0, 6);
-      });
-
-      const phoneInput = form.phone_number;
-      phoneInput.setAttribute("maxlength", "12");
-      phoneInput.addEventListener("input", function () {
-        this.value = this.value.replace(/\D/g, '').slice(0, 12);
-      });
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const password = form.password.value;
-        const confirmPassword = form.confirm_password.value;
-
-        if (password !== confirmPassword) {
-          alert("两次输入的密码不一致！");
-          return;
-        }
-
-        formData = {
-          name: form.name.value,
-          email: form.email.value,
-          phone_number: form.phone_number.value,
-          password: password,
-          confirm_password: confirmPassword
-        };
-
-        fetch("send_verification.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: form.email.value })
-        })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              alert("验证码已发送！");
-              codeContainer.style.display = "block";
-            } else {
-              alert("发送失败：" + data.message);
-            }
-          });
-      });
-
-      verifyBtn.addEventListener("click", function () {
-        const code = codeInput.value.trim();
-        if (!/^\d{6}$/.test(code)) {
-          alert("请输入6位数字验证码！");
-          return;
-        }
-
-        fetch("verify_code.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: form.email.value, code: code })
-        })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              fetch("register_member.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-              })
-                .then(res => res.json())
-                .then(data => {
-                  if (data.success) {
-                    alert("注册成功！");
-                    window.location.href = "login.html";
-                  } else {
-                    alert("注册失败：" + data.message);
-                  }
-                });
-            } else {
-              alert("验证码错误或已过期！");
-            }
-          });
-      });
+  // 禁止邮箱、密码输入中文
+  const emailInput = form.email;
+  [emailInput, password, confirmPassword].forEach(input => {
+    input.addEventListener("input", function () {
+      this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
     });
-  </script>
+  });
+
+  // 验证码限制只能输入 6 位数字
+  codeInput.setAttribute("maxlength", "6");
+  codeInput.setAttribute("pattern", "\\d{6}");
+  codeInput.setAttribute("title", "请输入 6 位数字验证码");
+  codeInput.setAttribute("inputmode", "numeric");
+  codeInput.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, '');
+  });
+
+  // 联系电话只能输入 12 位数字
+  const phoneInput = form.phone_number;
+  phoneInput.setAttribute("maxlength", "12");
+  phoneInput.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 12);
+  });
+
+  // 表单提交事件
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const password = form.password.value;
+    const confirmPassword = form.confirm_password.value;
+
+    if (password !== confirmPassword) {
+      alert("两次输入的密码不一致，请检查！");
+      return;
+    }
+
+    // 收集数据
+    formData = {
+      name: form.name.value,
+      email: form.email.value,
+      phone_number: form.phone_number.value,
+      password: password,
+      confirm_password: confirmPassword
+    };
+
+    fetch("send_verification.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: form.email.value })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert("验证码已发送，请查收！");
+          codeContainer.style.display = "block";
+        } else {
+          alert("验证码发送失败：" + data.message);
+        }
+      })
+      .catch(err => {
+        console.error("错误:", err);
+        alert("发生网络错误！请稍后再试。");
+      });
+  });
+
+  // 验证验证码
+  verifyBtn.addEventListener("click", function () {
+    const code = codeInput.value.trim();
+
+    if (!/^\d{6}$/.test(code)) {
+      alert("请输入 6 位数字验证码！");
+      return;
+    }
+
+    fetch("verify_code.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: form.email.value, code: code })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert("验证码正确，正在注册...");
+
+          fetch("register_member.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+          })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                alert("注册成功！");
+                window.location.href = "login.html";
+              } else {
+                alert("注册失败：" + data.message);
+              }
+            })
+            .catch(err => {
+              console.error("错误:", err);
+              alert("注册失败，请稍后重试！");
+            });
+        } else {
+          alert("验证码错误或已过期！");
+        }
+      })
+      .catch(err => {
+        console.error("错误:", err);
+        alert("发生网络错误，请稍后再试！");
+      });
+  });
+});
+</script>
 </body>
 </html>
