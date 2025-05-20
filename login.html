@@ -27,35 +27,67 @@
         <button type="submit">登录</button>
       </form>
       <div class="link">
-        没有账号？<a href="register.html">立即注册</a>
+        没有账号？<a href="#" id="open-register-modal">立即注册</a>
       </div>
     </div>
   </section>
 
+  <!-- 注册选择弹窗 -->
+  <div id="register-modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-modal" class="close-btn">&times;</span>
+        <h3>选择注册类型</h3>
+          <button onclick="location.href='register_staff.html'">注册内部员工</button>
+          <button onclick="location.href='register_member.html'">注册普通会员</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <script src="app.js"></script>
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("toggle-password");
-    const password = document.getElementById("password");
-    const emailInput = document.querySelector('input[name="username"]');
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggle = document.getElementById("toggle-password");
+      const password = document.getElementById("password");
+      const emailInput = document.querySelector('input[name="username"]');
+      const modal = document.getElementById("register-modal");
+      const openBtn = document.getElementById("open-register-modal");
+      const closeBtn = document.getElementById("close-modal");
 
-    let visible = false;
-    toggle.addEventListener("click", function () {
-      visible = !visible;
-      password.type = visible ? "text" : "password";
+      let visible = false;
 
-      // 如果你有第二张图可以加这个（可选）
-      // toggle.src = visible ? "/images/eye-off.png" : "/images/eye.png";
-    });
+      toggle.addEventListener("click", function () {
+        visible = !visible;
+        password.type = visible ? "text" : "password";
+      });
 
-    // ⚠️ 禁止邮箱和密码输入中文
-    [emailInput, password].forEach(input => {
-      input.addEventListener("input", function () {
-        this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+      [emailInput, password].forEach(input => {
+        input.addEventListener("input", function () {
+          this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+        });
+      });
+
+      openBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        modal.classList.remove("hidden");
+      });
+
+      closeBtn.addEventListener("click", function () {
+        modal.classList.add("hidden");
+      });
+
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+          modal.classList.add("hidden");
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          modal.classList.add("hidden");
+        }
       });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
