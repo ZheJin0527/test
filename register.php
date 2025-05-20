@@ -26,6 +26,7 @@ $phone = trim($data['phone_number'] ?? '');
 $ic = trim($data['ic_number'] ?? '');
 $position = trim($data['position'] ?? '');
 $bank_name = trim($data['bank_name'] ?? '');
+$bank_account_holder_en = trim($data['bank_account_holder_en'] ?? '');
 $bank_account = trim($data['bank_account'] ?? '');
 $password = $data['password'] ?? '';
 $confirm_password = $data['confirm_password'] ?? '';
@@ -33,8 +34,8 @@ $confirm_password = $data['confirm_password'] ?? '';
 // 6. 校验字段是否填写完整
 if (
     empty($name) || empty($email) || empty($phone) || empty($ic) ||
-    empty($position) || empty($bank_name) || empty($bank_account) ||
-    empty($password) || empty($confirm_password)
+    empty($position) || empty($bank_name) || empty($bank_account_holder_en) ||
+    empty($bank_account) || empty($password) || empty($confirm_password)
 ) {
     echo json_encode(["success" => false, "message" => "请填写所有字段"]);
     exit;
@@ -63,10 +64,10 @@ $stmt->close();
 // 9. 加密密码
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// 10. 插入用户信息
-$stmt = $conn->prepare("INSERT INTO users (username, email, phone_number, ic_number, position, bank_name, bank_account, password, created_at)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())");
-$stmt->bind_param("ssssssss", $name, $email, $phone, $ic, $position, $bank_name, $bank_account, $hashed_password);
+// 10. 插入用户信息（✅ 添加 bank_account_holder_en 字段）
+$stmt = $conn->prepare("INSERT INTO users (username, email, phone_number, ic_number, position, bank_name, bank_account_holder_en, bank_account, password, created_at)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+$stmt->bind_param("ssssssssss", $name, $email, $phone, $ic, $position, $bank_name, $bank_account_holder_en, $bank_account, $hashed_password);
 
 if ($stmt->execute()) {
     echo json_encode(["success" => true, "message" => "注册成功！"]);
