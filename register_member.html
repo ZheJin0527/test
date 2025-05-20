@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>注册会员 - KUNZZ HOLDINGS</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <section class="register-section">
+    <div class="register-form">
+      <h2>注册会员</h2>
+      <form id="register-form">
+        <input type="text" name="name" placeholder="姓名" required />
+        <input type="email" name="email" placeholder="请输入您的 Gmail" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="请输入以 @gmail.com 结尾的邮箱地址" />
+        <input type="tel" name="phone_number" placeholder="联系电话" pattern="^(\+?\d{1,4}[-.\s]?)?(\d{7,15})$" title="请输入有效的电话号码" required />  
+
+        <div class="password-container">
+          <input type="password" id="password" name="password" placeholder="密码" required
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
+            title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
+        </div>
+
+        <div class="password-container">
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
+            title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
+        </div>
+
+        <button type="submit">发送验证码</button>
+      </form>
+
+      <div id="code-container" style="display:none; margin-top: 20px;">
+        <input type="text" id="verification_code" placeholder="输入验证码" maxlength="6" pattern="\d{6}" inputmode="numeric" required>
+        <button type="button" id="verify-button">验证并注册</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("register-form");
+      const codeContainer = document.getElementById("code-container");
+      const verifyBtn = document.getElementById("verify-button");
+      const codeInput = document.getElementById("verification_code");
+
+      let formData = null;
+
+      // 禁止 email、密码输入中文
+      ["email", "password", "confirm_password"].forEach(id => {
+        form[id]?.addEventListener("input", function () {
+          this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+        });
+      });
+
+      codeInput.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, '').slice(0, 6);
+      });
+
+      const phoneInput = form.phone_number;
+      phoneInput.setAttribute("maxlength", "12");
+      phoneInput.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, '').slice(0, 12);
+      });
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const password = form.password.value;
+        const confirmPassword = form.confirm_password.value;
+
+        if (password !== confirmPassword) {
+          alert("两次输入的密码不一致！");
+          return;
+        }
+
+        formData = {
+          name: form.name.value,
+          email: form.email.value,
+          phone_number: form.phone_number.value,
+          password: password,
+          confirm_password: confirmPassword
+        };
+
+        fetch("send_verification.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: form.email.value })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert("验证码已发送！");
+              codeContainer.style.display = "block";
+            } else {
+              alert("发送失败：" + data.message);
+            }
+          });
+      });
+
+      verifyBtn.addEventListener("click", function () {
+        const code = codeInput.value.trim();
+        if (!/^\d{6}$/.test(code)) {
+          alert("请输入6位数字验证码！");
+          return;
+        }
+
+        fetch("verify_code.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: form.email.value, code: code })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              fetch("register_member.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+              })
+                .then(res => res.json())
+                .then(data => {
+                  if (data.success) {
+                    alert("注册成功！");
+                    window.location.href = "login.html";
+                  } else {
+                    alert("注册失败：" + data.message);
+                  }
+                });
+            } else {
+              alert("验证码错误或已过期！");
+            }
+          });
+      });
+    });
+  </script>
+</body>
+</html>
