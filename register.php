@@ -67,7 +67,7 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 // 10. 插入用户信息（✅ 添加 bank_account_holder_en 字段）
 $stmt = $conn->prepare("INSERT INTO users (username, email, phone_number, ic_number, position, bank_name, bank_account_holder_en, bank_account, password, created_at)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
-$stmt->bind_param("ssssssssss", $name, $email, $phone, $ic, $position, $bank_name, $bank_account_holder_en, $bank_account, $hashed_password);
+$stmt->bind_param("sssssssss", $name, $email, $phone, $ic, $position, $bank_name, $bank_account_holder_en, $bank_account, $hashed_password);
 
 if ($stmt->execute()) {
     echo json_encode(["success" => true, "message" => "注册成功！"]);
