@@ -50,7 +50,6 @@
   let visiblePassword = false;
   let visibleConfirmPassword = false;
 
-  // 密码显示切换按钮（确认密码的切换按钮需你在html里添加id="toggle-confirm"）
   togglePassword.addEventListener("click", function () {
     visiblePassword = !visiblePassword;
     password.type = visiblePassword ? "text" : "password";
@@ -68,27 +67,39 @@
 
   let formData = null;
 
-  // 禁止名字、邮箱、密码、确认密码输入中文
-  [form.name, form.email, password, confirmPassword].forEach(input => {
-    input.addEventListener("input", function () {
-      this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
-    });
+  // 禁止名字、邮箱、联系电话、密码、确认密码输入中文
+  // 名字允许英文字母、数字和空格，不允许中文
+  form.name.addEventListener("input", function () {
+    this.value = this.value.replace(/[\u4e00-\u9fa5]/g, ''); // 纯禁止中文，如果你想只允许英文字母和数字，可换成 /^[a-zA-Z0-9 ]*$/
   });
 
-  // 验证码输入限制：只能6位数字
+  // 邮箱禁止中文
+  form.email.addEventListener("input", function () {
+    this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+  });
+
+  // 联系电话只允许数字
+  form.phone_number.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 12);
+  });
+
+  // 密码禁止中文
+  password.addEventListener("input", function () {
+    this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+  });
+
+  // 确认密码禁止中文
+  confirmPassword.addEventListener("input", function () {
+    this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
+  });
+
+  // 验证码输入限制
   codeInput.setAttribute("maxlength", "6");
   codeInput.setAttribute("pattern", "\\d{6}");
   codeInput.setAttribute("title", "请输入 6 位数字验证码");
   codeInput.setAttribute("inputmode", "numeric");
   codeInput.addEventListener("input", function () {
     this.value = this.value.replace(/\D/g, '');
-  });
-
-  // 联系电话只能输入数字（最多12位）
-  const phoneInput = form.phone_number;
-  phoneInput.setAttribute("maxlength", "12");
-  phoneInput.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, '').slice(0, 12);
   });
 
   form.addEventListener("submit", function (e) {
