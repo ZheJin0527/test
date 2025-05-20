@@ -30,7 +30,8 @@ if ($password !== $confirm_password) {
     exit;
 }
 
-$stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+// 检查 email 是否已注册
+$stmt = $conn->prepare("SELECT id FROM users_member WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->store_result();
@@ -43,9 +44,11 @@ if ($stmt->num_rows > 0) {
 }
 $stmt->close();
 
+// 密码加密
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-$stmt = $conn->prepare("INSERT INTO users (username, email, phone_number, password, created_at)
+// 插入用户数据
+$stmt = $conn->prepare("INSERT INTO users_member (username, email, phone_number, password, created_at)
                         VALUES (?, ?, ?, ?, NOW())");
 $stmt->bind_param("ssss", $name, $email, $phone, $hashed_password);
 
