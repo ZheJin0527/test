@@ -1719,6 +1719,7 @@ form input[type="file"] {
     align-items: center;
     height: 100vh;
     background-color: #FFE9BA;
+    height: 1500px;
 }
 
 .register-form {
