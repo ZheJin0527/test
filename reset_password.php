@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 // 获取 JSON 数据
 $data = json_decode(file_get_contents("php://input"), true);
 $email = $data["email"] ?? "";
-$newPassword = $data["newPassword"] ?? "";
+$newPassword = $data["new_password"] ?? "";
 
 // 检查字段
 if (!$email || !$newPassword) {
