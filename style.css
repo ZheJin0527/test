@@ -1876,12 +1876,12 @@ form input[type="file"] {
 }
 
 .remember-me input[type="checkbox"] {
-  position: relative;
-  top: 1px;
   width: 16px;
   height: 16px;
   accent-color: #007bff;
+  transform: translateY(1px); /* 向下微调 1px，可根据需要调整为 2px */
 }
+
 
 /* 忘记密码 */
 .forgot-password a {
