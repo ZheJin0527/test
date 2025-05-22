@@ -16,9 +16,10 @@ if ($conn->connect_error) {
     die("连接失败: " . $conn->connect_error);
 }
 
-// 获取提交数据，防止未定义警告
+// 获取提交数据
 $email = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
+$remember = isset($_POST['remember']); // true/false
 
 // 检查邮箱是否存在
 $sql = "SELECT * FROM users WHERE email = ?";
@@ -31,15 +32,17 @@ if ($result->num_rows === 1) {
     $user = $result->fetch_assoc();
 
     if (password_verify($password, $user['password'])) {
-        // 登录成功，写入 session
+        // 登录成功，写入session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        // ✅ 设置 cookie，保存 30 天（86400 秒 * 30）
-        setcookie("user_id", $user['id'], time() + (86400 * 30), "/");
-        setcookie("username", $user['username'], time() + (86400 * 30), "/");
+        // ✅ 如果勾选“记住我”，设置30天Cookie
+        if ($remember) {
+            $expire = time() + (86400 * 30); // 30天
+            setcookie('user_id', $user['id'], $expire, "/");
+            setcookie('username', $user['username'], $expire, "/");
+        }
 
-        // 跳转 dashboard.php
         header("Location: dashboard.php");
         exit();
     } else {
@@ -54,4 +57,3 @@ if ($result->num_rows === 1) {
 $stmt->close();
 $conn->close();
 ob_end_flush();
-?>

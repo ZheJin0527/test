@@ -1,9 +1,18 @@
 <?php
 session_start();
+
+// 自动从 Cookie 恢复登录状态
+if (!isset($_SESSION['user_id']) && isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    $_SESSION['user_id'] = $_COOKIE['user_id'];
+    $_SESSION['username'] = $_COOKIE['username'];
+}
+
+// 如果用户未登录，跳转到登录页面
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
+
 $username = $_SESSION['username'];
 $avatarLetter = strtoupper($username[0]);
 ?>
@@ -25,42 +34,34 @@ $avatarLetter = strtoupper($username[0]);
   <header class="navbar">
     <div class="logo-section">
         <img src="images/images/logo.png" alt="Logo" class="logo">
-      <div class="company-name">
-        <div>KUNZZ HOLDINGS</div>
-        <div>SDN BHD</div>
-      </div>
+        <div class="company-name">
+            <div>KUNZZ HOLDINGS</div>
+            <div>SDN BHD</div>
+        </div>
     </div>
 
     <nav class="nav-links">
-      <div class="nav-item">
-        <a href="index.html">首页</a>
-      </div>
-      <div class="nav-item">
-        <a href="about.html">关于我们</a>
-      </div>
-      <div class="nav-item">
-        <a href="tokyo-japanese-cuisine.html">旗下品牌</a>
-      </div>
-      <div class="nav-item">
-        <a href="joinus.html">加入我们</a>
-      </div>
-    </nav>    
+      <div class="nav-item"><a href="index.html">首页</a></div>
+      <div class="nav-item"><a href="about.html">关于我们</a></div>
+      <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
+      <div class="nav-item"><a href="joinus.html">加入我们</a></div>
+    </nav>
 
     <div class="right-section">
       <div class="user-avatar-dropdown">
-    <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
-    <div id="dropdown-menu" class="dropdown-menu">
-      <a href="edit_profile.php">Edit profile</a>  <!-- 新增编辑个人资料 -->
-      <a href="logout.php" class="logout-btn">Logout</a>
-    </div>
-  </div>
+        <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
+        <div id="dropdown-menu" class="dropdown-menu">
+          <a href="edit_profile.php">Edit profile</a>
+          <a href="logout.php" class="logout-btn">Logout</a>
+        </div>
+      </div>
       <div class="language-switch">
         <img src="images/images/翻译.png" alt="Icon" class="icon" />
         <a href="#" class="lang">EN | CN</a> 
       </div>
     </div>
   </header>
-  
+
   <section class="home">
     <div class="home-content">
       <h1>让空间温暖，让团队闪光</h1>
@@ -72,7 +73,7 @@ $avatarLetter = strtoupper($username[0]);
       <a href="#" class="home-button">了解我们</a>
     </div>
   </section>
-  
+
   <section class="stats-section">
     <div class="stat-box">
       <div class="stat-number">2024</div>
@@ -92,16 +93,13 @@ $avatarLetter = strtoupper($username[0]);
 
   <section id="comprofile" class="comprofile-section">
     <div class="comprofile-text">
-        <p class="comprofile-subtitle">
-            <span class="circle"></span>公司简介
+        <p class="comprofile-subtitle"><span class="circle"></span>公司简介</p>
+        <h2 class="comprofile-title">KUNZZ HOLDINGS</h2>
+        <p class="comprofile-description">
+          Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
         </p>
-      <h2 class="comprofile-title">KUNZZ HOLDINGS</h2>
-      <p class="comprofile-description">
-        Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
-      </p>
     </div>
     <div class="comprofile-image">
-      <!-- 你可以换成自己的图片 -->
       <img src="images/images/大logo.png" alt="公司介绍图" />
     </div>
   </section>
@@ -129,23 +127,21 @@ $avatarLetter = strtoupper($username[0]);
         <p>以真诚与责任建立合作与信任，是我们最基本的做人原则</p>
       </div>
     </div>
-  
+
     <div class="culture-right">
-      <h2 class="culture-title">我们的核心价值<br>公司文化</span></h2>
+      <h2 class="culture-title">我们的核心价值<br>公司文化</h2>
       <p class="culture-description">
         在 Kunzz Holdings，我们相信文化决定高度。我们以目标为导向，理念为基石，打造一支具备高效执行力与高度协同精神的团队。我们提倡扁平沟通，尊重每一位成员的成长节奏，鼓励分享、学习与共创。在这里，每一份努力都能被看见，每一次突破都值得被鼓励。
       </p>
       <a href="#" class="culture-button">了解更多 &gt;&gt;</a>
     </div>
   </section>
-  
+
   <footer class="footer">
     <div class="footer-logo">
       <h1><img src="images/images/logo.png" alt="Logo" class="logo" />Kunzz Holdings <br />Sdn. Bhd.</h1>
-      <p>25, Jln Tanjong 3, Taman Desa Cemerlang, <br />
-        81800 Ulu Tiram, Johor Darul Ta'zim.</p>
-      <p>&#128382;&nbsp; +60 123-456 789<br />
-        &#128386;&nbsp; hello@kunzz.com</p>
+      <p>25, Jln Tanjong 3, Taman Desa Cemerlang,<br />81800 Ulu Tiram, Johor Darul Ta'zim.</p>
+      <p>&#128382;&nbsp; +60 123-456 789<br />&#128386;&nbsp; hello@kunzz.com</p>
     </div>
 
     <div class="footer-section">
@@ -182,15 +178,9 @@ $avatarLetter = strtoupper($username[0]);
         <li>
           <span style="font-size: 16px; font-weight: bold; color: white;">关注我们</span>
           <div class="social-icons">
-            <a href="#" target="_blank">
-              <img src="images/images/fbicon.png" alt="Facebook" />
-            </a>
-            <a href="#" target="_blank">
-              <img src="images/images/igicon.png" alt="Instagram" />
-            </a>
-            <a href="#" target="_blank">
-              <img src="images/images/wsicon.png" alt="WhatsApp" />
-            </a>
+            <a href="#" target="_blank"><img src="images/images/fbicon.png" alt="Facebook" /></a>
+            <a href="#" target="_blank"><img src="images/images/igicon.png" alt="Instagram" /></a>
+            <a href="#" target="_blank"><img src="images/images/wsicon.png" alt="WhatsApp" /></a>
           </div>
         </li>
       </ul>
@@ -198,7 +188,7 @@ $avatarLetter = strtoupper($username[0]);
   </footer>
 
   <button id="backToTop" onclick="scrollToTop()">&#8673;</button>
-  
+
   <div class="footer-bottom">
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
