@@ -1858,20 +1858,40 @@ form input[type="file"] {
   border-radius: 10px;
 }
 
-.forgot-password {
-  text-align: right;
-  margin-top: 2px;
+/* form-options：让“记住我”和“忘记密码”在一行两侧 */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 20px;
 }
 
+/* 记住我 */
+.remember-me label {
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #007bff; /* 可根据你的主色调修改 */
+}
+
+/* 忘记密码 */
 .forgot-password a {
-  color: #007BFF;
-  font-size: 0.9rem;
+  font-size: 14px;
+  color: #007bff;
   text-decoration: none;
 }
 
 .forgot-password a:hover {
   text-decoration: underline;
 }
+
 
 /* 重设密码 */
 .reset-password-section {
