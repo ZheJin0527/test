@@ -23,7 +23,7 @@
 
     <nav class="nav-links">
       <div class="nav-item">
-        <a href="index.html">首页</a>
+        <a href="index.php">首页</a>
       </div>
       <div class="nav-item">
         <a href="about.html">关于我们</a>
@@ -133,7 +133,7 @@
     </div>
 
     <div class="footer-section">
-      <h4><a href="index.html">首页</a></h4>
+      <h4><a href="index.php">首页</a></h4>
       <ul>
         <li><a href="#comprofile">公司简介</a></li>
         <li><a href="#culture">核心价值公司文化</a></li>

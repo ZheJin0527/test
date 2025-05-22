@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
         $_SESSION['username'] = $_COOKIE['username'];
     } else {
         // 没有登录状态，也没有“记住我”Cookie，跳回首页（或登录页）
-        header("Location: index.html");  // 或者写成 login.html
+        header("Location: index.php");  // 或者写成 login.html
         exit();
     }
 }
@@ -43,7 +43,7 @@ $avatarLetter = strtoupper($username[0]);
     </div>
 
     <nav class="nav-links">
-      <div class="nav-item"><a href="index.html">首页</a></div>
+      <div class="nav-item"><a href="index.php">首页</a></div>
       <div class="nav-item"><a href="about.html">关于我们</a></div>
       <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
       <div class="nav-item"><a href="joinus.html">加入我们</a></div>
@@ -147,7 +147,7 @@ $avatarLetter = strtoupper($username[0]);
     </div>
 
     <div class="footer-section">
-      <h4><a href="index.html">首页</a></h4>
+      <h4><a href="index.php">首页</a></h4>
       <ul>
         <li><a href="#comprofile">公司简介</a></li>
         <li><a href="#culture">核心价值公司文化</a></li>
