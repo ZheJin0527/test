@@ -1,21 +1,23 @@
 <?php
 session_start();
 
-// 自动从 Cookie 恢复登录状态
-if (!isset($_SESSION['user_id']) && isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
-    $_SESSION['user_id'] = $_COOKIE['user_id'];
-    $_SESSION['username'] = $_COOKIE['username'];
-}
-
-// 如果用户未登录，跳转到首页 index.html
+// 如果没有登录状态，且没有“记住我”Cookie，跳转首页
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.html");
-    exit();
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+        // 只有存在“记住我”Cookie才恢复 Session
+        $_SESSION['user_id'] = $_COOKIE['user_id'];
+        $_SESSION['username'] = $_COOKIE['username'];
+    } else {
+        // 没有登录状态，也没有“记住我”Cookie，跳回首页（或登录页）
+        header("Location: index.html");  // 或者写成 login.html
+        exit();
+    }
 }
 
 $username = $_SESSION['username'];
 $avatarLetter = strtoupper($username[0]);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="zh">

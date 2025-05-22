@@ -32,15 +32,19 @@ if ($result->num_rows === 1) {
     $user = $result->fetch_assoc();
 
     if (password_verify($password, $user['password'])) {
-        // 登录成功，写入session
+        // 登录成功，写入 session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        // ✅ 如果勾选“记住我”，设置30天Cookie
         if ($remember) {
-            $expire = time() + (86400 * 30); // 30天
+            // 记住我，设置30天有效Cookie
+            $expire = time() + (86400 * 30);
             setcookie('user_id', $user['id'], $expire, "/");
             setcookie('username', $user['username'], $expire, "/");
+        } else {
+            // 没勾选记住我，删除旧的Cookie（防止误用）
+            setcookie('user_id', '', time() - 3600, "/");
+            setcookie('username', '', time() - 3600, "/");
         }
 
         header("Location: dashboard.php");
