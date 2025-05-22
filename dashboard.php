@@ -7,9 +7,9 @@ if (!isset($_SESSION['user_id']) && isset($_COOKIE['user_id']) && isset($_COOKIE
     $_SESSION['username'] = $_COOKIE['username'];
 }
 
-// 如果用户未登录，跳转到登录页面
+// 如果用户未登录，跳转到首页 index.html
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.html");
+    header("Location: index.html");
     exit();
 }
 
