@@ -31,9 +31,13 @@ if ($result->num_rows === 1) {
     $user = $result->fetch_assoc();
 
     if (password_verify($password, $user['password'])) {
-        // 登录成功，写入session
+        // 登录成功，写入 session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+
+        // ✅ 设置 cookie，保存 30 天（86400 秒 * 30）
+        setcookie("user_id", $user['id'], time() + (86400 * 30), "/");
+        setcookie("username", $user['username'], time() + (86400 * 30), "/");
 
         // 跳转 dashboard.php
         header("Location: dashboard.php");
