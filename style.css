@@ -1858,37 +1858,32 @@ form input[type="file"] {
   border-radius: 10px;
 }
 
-/* 记住我区域 */
-.remember-me {
+/* form-options：让“记住我”和“忘记密码”在一行两侧 */
+.form-options {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: center;
+  margin: 0;
 }
 
-/* 左边 label（含 checkbox 和文字） */
+/* 记住我 */
 .remember-me label {
-  display: flex;
-  align-items: center;
   font-size: 14px;
   color: #333;
+  display: flex;
+  align-items: center;
   gap: 6px;
-  line-height: 1; /* 让文字行高和 checkbox 高度接近 */
 }
 
 .remember-me input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  accent-color: #007bff;
-  transform: translateY(1px); /* 轻微下移来对齐文本基线 */
+  accent-color: #007bff; /* 可根据你的主色调修改 */
 }
 
-/* 右边 忘记密码 */
-.forgot-password {
-  font-size: 14px;
-}
-
+/* 忘记密码 */
 .forgot-password a {
+  font-size: 14px;
   color: #007bff;
   text-decoration: none;
 }
@@ -1896,7 +1891,6 @@ form input[type="file"] {
 .forgot-password a:hover {
   text-decoration: underline;
 }
-
 
 
 /* 重设密码 */
