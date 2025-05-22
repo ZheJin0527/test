@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// 如果已登录或记住我，跳转到 dashboard
+if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE['username']))) {
+    header("Location: dashboard.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
