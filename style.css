@@ -1870,18 +1870,18 @@ form input[type="file"] {
 .remember-me label {
   font-size: 14px;
   color: #333;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  line-height: 1.5; /* 让文字高度统一 */
 }
 
 .remember-me input[type="checkbox"] {
   width: 16px;
   height: 16px;
   accent-color: #007bff;
-  transform: translateY(1px); /* 向下微调 1px，可根据需要调整为 2px */
+  vertical-align: middle;
 }
-
 
 /* 忘记密码 */
 .forgot-password a {
