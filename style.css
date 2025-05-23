@@ -1656,7 +1656,7 @@ form input[type="file"] {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #FFE9BA;
+    background: linear-gradient(to bottom right, #FFF5E1, #FFE6CC);
 }
 
 .login-form {
