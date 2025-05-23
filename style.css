@@ -1869,17 +1869,20 @@ form input[type="file"] {
 /* 记住我 */
 .remember-me {
   display: flex;
-  align-items: center; /* 垂直对齐中线 */
+  align-items: center;
   font-size: 14px;
   color: #333;
   gap: 6px;
+  line-height: 1;
+  cursor: pointer;
 }
 
 .remember-me input[type="checkbox"] {
   width: 16px;
   height: 16px;
   accent-color: #007bff;
-  margin: 0; /* 移除浏览器默认偏移 */
+  margin: 0;
+  vertical-align: middle;
 }
 
 /* 忘记密码 */
