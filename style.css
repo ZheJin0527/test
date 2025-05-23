@@ -1871,7 +1871,7 @@ form input[type="file"] {
   display: flex;
   align-items: center; /* 垂直对齐中线 */
   font-size: 14px;
-  color: #333;
+  color: #007bff;
   gap: 6px;
 }
 
