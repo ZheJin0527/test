@@ -545,15 +545,16 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 70px 0 80px;
+    padding: 0 40px;  /* 缩小左右padding，留更多空间 */
     box-sizing: border-box;
     max-width: 1920px;
     margin: 0 auto;
-    flex-wrap: nowrap; /* 保证不换行 */
+    flex-wrap: nowrap; /* 不换行 */
 }
 
 .comprofile-text {
-    flex: 1;
+    flex: 1 1 0; /* 允许放大和缩小，优先被压缩 */
+    min-width: 250px; /* 文字最小宽度，防止过窄 */
     padding-right: 40px;
 }
 
@@ -582,7 +583,8 @@ nav {
 }
 
 .comprofile-description {
-    width: clamp(494px, 40vw, 780px);
+    width: 100%;  /* 文字宽度随容器缩放 */
+    max-width: 780px;
     height: clamp(105px, 9vw, 170px);
     font-size: clamp(15px, 1.25vw, 24px);
     font-weight: normal;
@@ -592,10 +594,10 @@ nav {
 }
 
 .comprofile-image {
-    width: 100%;
-    max-width: 884px;
+    flex: 0 0 auto; /* 不放大不缩小 */
+    width: 884px;
+    max-width: 50vw;  /* 图片最大宽度不超过视口一半 */
     aspect-ratio: 884 / 639;
-    flex-shrink: 0;
     padding: 80px 0;
     display: flex;
     justify-content: center;
@@ -614,11 +616,14 @@ nav {
 /* 1280px 以下响应式 */
 @media (max-width: 1280px) {
     .comprofile-section {
-        padding: 0 40px;
+        padding: 0 30px;
     }
 
     .comprofile-text {
         padding-right: 20px;
+        min-width: 150px;   /* 保证最小宽度 */
+        flex-shrink: 1;     /* 允许缩小 */
+        flex-grow: 1;       /* 允许放大 */
     }
 
     .comprofile-subtitle {
@@ -637,31 +642,33 @@ nav {
     }
 
     .comprofile-description {
-        width: 494px;
+        max-width: 100%;    /* 取消固定宽度 */
+        width: auto;        /* 允许自适应宽度 */
         height: 105px;
         font-size: 15px;
     }
 
     .comprofile-image {
-        max-width: 560px;
-        width: 100%;
-        aspect-ratio: 884 / 639;
-        flex-shrink: 0;
+        max-width: 45vw;
+        width: auto;
         padding: 80px 0;
+        flex-shrink: 0;     /* 图片不缩小 */
     }
 }
+
 
 /* 768px 以下响应式 */
 @media (max-width: 768px) {
     .comprofile-section {
-        padding: 40px;
-        gap: 20px;
+        padding: 20px 20px;
+        gap: 15px;
         flex-wrap: nowrap;
     }
 
     .comprofile-text {
         padding-right: 10px;
-        flex: 1;
+        min-width: 150px;
+        flex: 1 1 auto;
     }
 
     .comprofile-subtitle {
@@ -680,9 +687,9 @@ nav {
     }
 
     .comprofile-description {
-        width: auto;
-        font-size: 12px;
+        max-width: 100%;
         height: auto;
+        font-size: 12px;
     }
 
     .comprofile-image {
@@ -691,9 +698,10 @@ nav {
         aspect-ratio: 884 / 639;
         flex-shrink: 0;
         height: auto;
-        padding: 40px 0 40px 0;
+        padding: 40px 0;
     }
 }
+
 
   
 .culture-section {
