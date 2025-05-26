@@ -545,7 +545,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;  /* 缩小左右padding，留更多空间 */
+    padding: 0 80px;  /* 缩小左右padding，留更多空间 */
     box-sizing: border-box;
     max-width: 1920px;
     margin: 0 auto;
@@ -916,19 +916,27 @@ nav {
 
 /* 响应式：1280px 以下 */
 @media (max-width: 1280px) {
+  .aboutus {
+    padding: 60px 20px 0 20px;
+    height: 450px;
+    background-position: center top;
+  }
+
   .aboutus-content h1 {
-    font-size: 70px;
+    font-size: 75px;
   }
 
   .aboutus-content p {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 /* 响应式：768px 以下 */
 @media (max-width: 768px) {
   .aboutus {
-    padding: 60px 20px 0 20px;
+    padding: 40px 20px 0 20px;
+    height: 150px;
+    background-position: center top;
   }
 
   .aboutus-content {
@@ -937,22 +945,11 @@ nav {
   }
 
   .aboutus-content h1 {
-    font-size: 42px;
+    font-size: 28px;
   }
 
   .aboutus-content p {
-    font-size: 16px;
-  }
-}
-
-/* 响应式：480px 以下 */
-@media (max-width: 480px) {
-  .aboutus-content h1 {
-    font-size: 32px;
-  }
-
-  .aboutus-content p {
-    font-size: 14px;
+    font-size: 7px;
   }
 }
 
