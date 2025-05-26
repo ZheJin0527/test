@@ -23,37 +23,38 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 </head>
 <body>
   <header class="navbar">
-    <div class="logo-section">
-        <img src="images/images/logo.png" alt="Logo" class="logo">
-      <div class="company-name">
-        <div>KUNZZ HOLDINGS</div>
-        <div>SDN BHD</div>
-      </div>
+  <!-- 左侧 logo 和公司名 -->
+  <div class="logo-section">
+    <img src="images/images/logo.png" alt="Logo" class="logo">
+    <div class="company-name">
+      <div>KUNZZ HOLDINGS</div>
+      <div>SDN BHD</div>
+    </div>
+  </div>
+
+  <!-- 中间导航（默认显示，大屏） -->
+  <nav class="nav-links" id="navMenu">
+    <div class="nav-item"><a href="index.php">首页</a></div>
+    <div class="nav-item"><a href="about.html">关于我们</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
+    <div class="nav-item"><a href="joinus.html">加入我们</a></div>
+  </nav>
+
+  <!-- 右侧区域 -->
+  <div class="right-section">
+    <!-- 移动端隐藏 login，仅大屏显示 -->
+    <a href="login.html" class="login-btn">LOGIN</a>
+
+    <!-- 翻译按钮始终显示 -->
+    <div class="language-switch">
+      <img src="images/images/翻译.png" alt="Icon" class="icon" />
+      <a href="#" class="lang">EN | CN</a>
     </div>
 
-    <nav class="nav-links">
-      <div class="nav-item">
-        <a href="index.php">首页</a>
-      </div>
-      <div class="nav-item">
-        <a href="about.html">关于我们</a>
-      </div>
-      <div class="nav-item">
-        <a href="tokyo-japanese-cuisine.html">旗下品牌</a>
-      </div>
-      <div class="nav-item">
-        <a href="joinus.html">加入我们</a>
-      </div>
-    </nav>    
-
-    <div class="right-section">
-      <a href="login.html" class="login-btn">LOGIN</a>
-      <div class="language-switch">
-        <img src="images/images/翻译.png" alt="Icon" class="icon" />
-        <a href="#" class="lang">EN | CN</a> 
-      </div>
-    </div>
-  </header>
+    <!-- hamburger 仅在小屏显示 -->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
   
   <section class="home">
     <div class="home-content">
@@ -198,5 +199,36 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
 
 <script src="app.js"></script>
+<script>
+  const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+const loginBtn = document.querySelector('.login-btn');
+
+function moveLoginBtn() {
+  if (window.innerWidth <= 768) {
+    if (!navMenu.contains(loginBtn)) {
+      navMenu.appendChild(loginBtn);
+    }
+  } else {
+    // 如果宽度大于768，确保loginBtn在right-section中
+    const rightSection = document.querySelector('.right-section');
+    if (rightSection && !rightSection.contains(loginBtn)) {
+      rightSection.insertBefore(loginBtn, rightSection.firstChild);
+    }
+  }
+}
+
+// 点击汉堡切换菜单
+hamburger.addEventListener('click', () => {
+  navMenu.classList.toggle('active');
+});
+
+// 页面加载时处理
+window.addEventListener('DOMContentLoaded', moveLoginBtn);
+
+// 窗口大小改变时也处理，防止resize后login位置错乱
+window.addEventListener('resize', moveLoginBtn);
+
+</script>
 </body>
 </html>
