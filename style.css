@@ -378,8 +378,71 @@ nav {
     transition: background 0.3s ease;
 }
   
-  .home-button:hover {
+.home-button:hover {
     background-color: #e04800;
+}
+
+@media (max-width: 1280px) {
+  .home {
+    padding: 40px 0 0 40px;
+    height: 750px;
+    background-position: center top;
+  }
+
+  .home-content {
+    width: 858px;
+    height: 76px;
+    margin-top: 150px;
+  }
+
+  .home h1 {
+    font-size: 75px;
+    line-height: 130%;
+  }
+
+  .home p {
+    font-size: 18px;
+    margin-bottom: 60px;
+  }
+
+  .home-button {
+    width: 186px;
+    height: 53px;
+    font-size: 24px;
+  }
+}
+
+/* 768px 以下：适用于手机或小平板 */
+@media (max-width: 768px) {
+  .home {
+    padding: 40px 40px 0 40px;
+    height: 251px;
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .home-content {
+    width: 322px;
+    height: 28px;
+    margin-top: 50px;
+  }
+
+  .home h1 {
+    font-size: 28px;
+    line-height: 130%;
+    margin-bottom: 20px;
+  }
+
+  .home p {
+    font-size: 7px;
+    margin-bottom: 30px;
+  }
+
+  .home-button {
+    width: 70px;
+    height: 19px;
+    font-size: 9px;
+  }
 }
   
 .stats-section {
