@@ -590,13 +590,15 @@ nav {
   
 .comprofile-image {
     padding: 80px 0;
-    width: clamp(560px, 46vw, 884px);
-    height: clamp(404px, 33vw, 639px);
+    max-width: 884px;
+    width: 100%;
+    aspect-ratio: 884 / 639; /* 保持原始比例 */
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 16px;
     overflow: hidden;
+    flex-shrink: 0; /* 防止被挤压变形 */
 }
   
 .comprofile-image img {
@@ -637,11 +639,14 @@ nav {
   }
 
   .comprofile-image {
-    width: 560px;
-    height: 404px;
+    width: 100%;
+    max-width: 560px;
+    aspect-ratio: 884 / 639;
     padding: 80px 0;
+    flex-shrink: 0;
   }
 }
+
 
 @media (max-width: 768px) {
   .comprofile-section {
@@ -676,9 +681,9 @@ nav {
   }
 
   .comprofile-image {
-    width: 40vw;
-    height: auto;
-    padding: 40px 0;
+    width: 45vw; /* 等比缩小，不能太小 */
+    aspect-ratio: 884 / 639;
+    padding: 0;
   }
 }
   
