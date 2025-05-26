@@ -579,9 +579,9 @@ nav {
 }
   
 .comprofile-description {
-    width: 780px;
-    height: 170px;
-    font-size: 24px;
+    width: clamp(494px, 40vw, 780px);
+    height: clamp(105px, 9vw, 170px);
+    font-size: clamp(15px, 1.25vw, 24px);
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
     color: #888888;
@@ -590,8 +590,8 @@ nav {
   
 .comprofile-image {
     padding: 80px 0;
-    width: 884px;
-    height: 639px;
+    width: clamp(560px, 46vw, 884px);
+    height: clamp(404px, 33vw, 639px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -604,6 +604,82 @@ nav {
     height: 100%;
     object-fit: cover;
     background-color: white;
+}
+
+@media (max-width: 1280px) {
+  .comprofile-section {
+    padding: 0 80px;
+  }
+
+  .comprofile-text {
+    padding-right: 20px;
+  }
+
+  .comprofile-subtitle {
+    font-size: 25px;
+    height: 40px;
+  }
+
+  .circle {
+    width: 21px;
+    height: 21px;
+  }
+
+  .comprofile-title {
+    font-size: 51px;
+    margin: 16px 0 46px 0;
+  }
+
+  .comprofile-description {
+    width: 494px;
+    height: 105px;
+    font-size: 15px;
+  }
+
+  .comprofile-image {
+    width: 560px;
+    height: 404px;
+    padding: 80px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .comprofile-section {
+    padding: 40px;
+    gap: 20px;
+  }
+
+  .comprofile-text {
+    padding-right: 10px;
+    flex: 1;
+  }
+
+  .comprofile-subtitle {
+    font-size: 14px;
+    height: 30px;
+  }
+
+  .circle {
+    width: 12px;
+    height: 12px;
+  }
+
+  .comprofile-title {
+    font-size: 24px;
+    margin: 10px 0 20px 0;
+  }
+
+  .comprofile-description {
+    width: auto;
+    font-size: 12px;
+    height: auto;
+  }
+
+  .comprofile-image {
+    width: 40vw;
+    height: auto;
+    padding: 40px 0;
+  }
 }
   
 .culture-section {
