@@ -436,6 +436,7 @@ nav {
   .home p {
     font-size: 7px;
     margin-bottom: 30px;
+    line-height: 160%;
   }
 
   .home-button {
