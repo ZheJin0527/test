@@ -23,49 +23,37 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 </head>
 <body>
   <header class="navbar">
-  <div class="logo-section">
-    <img src="images/images/logo.png" alt="Logo" class="logo" />
-    <div class="company-name">
-      <div>KUNZZ HOLDINGS</div>
-      <div>SDN BHD</div>
+    <div class="logo-section">
+        <img src="images/images/logo.png" alt="Logo" class="logo">
+      <div class="company-name">
+        <div>KUNZZ HOLDINGS</div>
+        <div>SDN BHD</div>
+      </div>
     </div>
-  </div>
 
-  <nav class="nav-links">
-    <div class="nav-item"><a href="index.php">首页</a></div>
-    <div class="nav-item"><a href="about.html">关于我们</a></div>
-    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
-    <div class="nav-item"><a href="joinus.html">加入我们</a></div>
-  </nav>
+    <nav class="nav-links">
+      <div class="nav-item">
+        <a href="index.php">首页</a>
+      </div>
+      <div class="nav-item">
+        <a href="about.html">关于我们</a>
+      </div>
+      <div class="nav-item">
+        <a href="tokyo-japanese-cuisine.html">旗下品牌</a>
+      </div>
+      <div class="nav-item">
+        <a href="joinus.html">加入我们</a>
+      </div>
+    </nav>    
 
-  <div class="right-section">
-    <a href="login.html" class="login-btn">LOGIN</a>
-    <div class="language-switch">
-      <img src="images/images/翻译.png" alt="Icon" class="icon" />
-      <a href="#" class="lang">EN | CN</a>
-    </div>
-  </div>
-
-  <!-- 移动端右上语言 + 汉堡按钮 -->
-  <div class="mobile-top-right">
-    <div class="language-switch mobile-lang">
-      <img src="images/images/翻译.png" alt="Icon" class="icon" />
-      <a href="#" class="lang">EN | CN</a>
-    </div>
-    <div class="hamburger" id="hamburger">&#9776;</div>
-  </div>
-
-  <!-- 移动端菜单 -->
-  <div class="mobile-menu" id="mobileMenu">
-    <nav class="mobile-nav-links">
-      <a href="index.php">首页</a>
-      <a href="about.html">关于我们</a>
-      <a href="tokyo-japanese-cuisine.html">旗下品牌</a>
-      <a href="joinus.html">加入我们</a>
+    <div class="right-section">
       <a href="login.html" class="login-btn">LOGIN</a>
-    </nav>
-  </div>
-</header>
+      <div class="language-switch">
+        <img src="images/images/翻译.png" alt="Icon" class="icon" />
+        <a href="#" class="lang">EN | CN</a> 
+      </div>
+    </div>
+  </header>
   
   <section class="home">
     <div class="home-content">
@@ -210,24 +198,5 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
 
 <script src="app.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const hamburger = document.getElementById("hamburger");
-  const mobileMenu = document.getElementById("mobileMenu");
-
-  hamburger.addEventListener("click", function () {
-    mobileMenu.classList.toggle("show");
-  });
-
-  // 点击菜单项后自动关闭菜单
-  const mobileLinks = mobileMenu.querySelectorAll("a");
-  mobileLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      mobileMenu.classList.remove("show");
-    });
-  });
-});
-
-</script>
 </body>
 </html>
