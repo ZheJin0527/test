@@ -914,6 +914,48 @@ nav {
     white-space: nowrap;
 }
 
+/* 响应式：1280px 以下 */
+@media (max-width: 1280px) {
+  .aboutus-content h1 {
+    font-size: 70px;
+  }
+
+  .aboutus-content p {
+    font-size: 20px;
+  }
+}
+
+/* 响应式：768px 以下 */
+@media (max-width: 768px) {
+  .aboutus {
+    padding: 60px 20px 0 20px;
+  }
+
+  .aboutus-content {
+    transform: translateY(-40px);
+    margin-top: 40px;
+  }
+
+  .aboutus-content h1 {
+    font-size: 42px;
+  }
+
+  .aboutus-content p {
+    font-size: 16px;
+  }
+}
+
+/* 响应式：480px 以下 */
+@media (max-width: 480px) {
+  .aboutus-content h1 {
+    font-size: 32px;
+  }
+
+  .aboutus-content p {
+    font-size: 14px;
+  }
+}
+
 .intro {
     position: relative;
     height: 416px;
