@@ -1015,7 +1015,7 @@ nav {
 @media (max-width: 768px) {
   .intro {
     height: 180px;
-    padding: 120px 20px;
+    padding: 80px 20px;
   }
 
   .intro-content h1 {
@@ -1024,6 +1024,7 @@ nav {
 
   .intro-content p {
     font-size: 7px;
+    line-height: 160%;
   }
 }
 
