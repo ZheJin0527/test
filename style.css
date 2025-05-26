@@ -934,7 +934,7 @@ nav {
 /* 响应式：768px 以下 */
 @media (max-width: 768px) {
   .aboutus {
-    padding: 40px 20px 0 20px;
+    padding: 60px 20px 0 20px;
     height: 150px;
     background-position: center top;
   }
@@ -996,6 +996,35 @@ nav {
     padding: 0;
     color: #888888;
     white-space: nowrap;
+}
+
+@media (max-width: 1280px) {
+  .intro {
+    height: 316px;
+  }
+  .intro-content h1 {
+    font-size: 60px;
+  }
+
+  .intro-content p {
+    font-size: 18px;
+  }
+}
+
+/* —— 768px 以下 —— */
+@media (max-width: 768px) {
+  .intro {
+    height: 180px;
+    padding: 120px 20px;
+  }
+
+  .intro-content h1 {
+    font-size: 42px;
+  }
+
+  .intro-content p {
+    font-size: 16px;
+  }
 }
 
 .vision {
