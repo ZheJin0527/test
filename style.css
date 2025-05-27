@@ -1504,7 +1504,7 @@ nav {
     /* 渐变色进度条也靠左变细 */
     .timeline-progress {
         left: 20px !important;
-        width: 2px !important;
+        width: 1px !important;
         transform: none !important;
     }
 
