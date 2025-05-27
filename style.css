@@ -1974,25 +1974,6 @@ nav {
   }
 }
 
-@media (max-width: 480px) {
-  .benefits h2 {
-    font-size: 20px;
-  }
-
-  .benefit-item {
-    width: 120px;
-  }
-
-  .benefit-item img {
-    width: 60px;
-    height: 60px;
-  }
-
-  .benefit-item p {
-    font-size: 12px;
-    margin-bottom: 20px;
-  }
-}
 
 .environment-section {
     background: #faf6e0;
