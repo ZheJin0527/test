@@ -2410,6 +2410,69 @@ form input[type="file"] {
 .submit-btn:hover {
     background-color: #cc4a00;
 }
+
+@media (max-width: 1280px) {
+  .modal-content {
+    padding: 24px 30px;
+    max-width: 520px;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="tel"],
+  form input[type="file"],
+  form select,
+  form button {
+    font-size: 15px;
+    padding: 9px 10px;
+  }
+
+  .submit-btn {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 12px 12px;
+    max-width: 90%;
+    border-radius: 8px;
+    transform: scale(0.9); /* 整体缩小 */
+  }
+
+  .close-btn {
+    font-size: 20px;
+    top: 6px;
+    right: 10px;
+  }
+
+  form label {
+    font-size: 12px;
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="tel"],
+  form input[type="file"],
+  form select,
+  form button {
+    font-size: 12px;
+    padding: 6px 8px;
+    margin-bottom: 12px;
+  }
+
+  .submit-btn {
+    font-size: 13px;
+    padding: 7px;
+  }
+
+  .phone-group {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
   
 
 /* 加入我们表单区 */
