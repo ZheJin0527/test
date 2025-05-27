@@ -1483,7 +1483,7 @@ nav {
     }
 
     .timeline-progress {
-        width: 2.5px;
+        width: 3px;
     }
 }
 
@@ -1504,7 +1504,7 @@ nav {
     /* 渐变色进度条也靠左变细 */
     .timeline-progress {
         left: 20px !important;
-        width: 1px !important;
+        width: 2px !important;
         transform: none !important;
     }
 
