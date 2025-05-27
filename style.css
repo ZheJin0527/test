@@ -1980,12 +1980,12 @@ nav {
   }
 
   .benefit-item {
-    width: 400px;
+    width: 120px;
   }
 
   .benefit-item img {
-    width: 30px;
-    height: 30px;
+    width: 80px;
+    height: 80px;
   }
 
   .benefit-item p {
