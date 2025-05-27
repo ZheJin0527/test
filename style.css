@@ -1491,74 +1491,82 @@ nav {
 
 /* 768px 以下：全部靠左布局，缩小所有元素 */
 @media (max-width: 768px) {
-    /* 时间轴线靠左且变细变短 */
-    .timeline::before {
-        left: 20px;
-        margin-left: 0;
-        width: 2px;
-        height: 100%;
-        border-left: 2px solid #FF5C00;
-        top: 0;
-    }
+  /* 整体 timeline 容器往中间靠一点 */
+  .timeline {
+    padding-left: 20px;
+    padding-right: 10px;
+  }
 
-    /* 渐变色进度条也靠左变细 */
-    .timeline-progress {
-        left: 20px !important;
-        width: 2px !important;
-        transform: none !important;
-    }
+  /* 时间轴线靠左但向右偏移一点 */
+  .timeline::before {
+    left: 40px; /* 原来是 20px，往右移20px */
+    margin-left: 0;
+    width: 2px;
+    height: 100%;
+    border-left: 2px solid #FF5C00;
+    top: 0;
+  }
 
-    /* 圆圈靠左且缩小 */
-    .timeline-circle {
-        left: 20px;
-        transform: translateX(0);
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-        border-width: 2px;
-        box-shadow: 0 0 0 2px #FF5C00;
-    }
+  /* 渐变色进度条也偏右 */
+  .timeline-progress {
+    left: 40px !important; /* 同上 */
+    width: 2px !important;
+    transform: none !important;
+  }
 
-    /* 时间点撑满宽度，内容和图片水平排列 */
-    .timeline-item {
-        width: 100% !important;
-        padding-left: 80px !important;
-        padding-right: 20px !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        opacity: 1 !important;
-        filter: none !important;
-        transform: none !important;
-        flex-direction: row;
-        align-items: flex-start;
-    }
+  /* 圆圈跟着偏移 */
+  .timeline-circle {
+    left: 40px;
+    transform: translateX(0);
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    border-width: 2px;
+    box-shadow: 0 0 0 2px #FF5C00;
+  }
 
-    /* 图片缩小，靠右 */
-    .timeline_img {
-        order: 2;
-        width: 35vw;
-        max-width: 180px;
-        height: auto;
-        margin-left: 15px;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-        object-fit: cover;
-    }
+  /* 时间点水平排列 */
+  .timeline-item {
+    width: 100% !important;
+    padding-left: 100px !important;  /* 原 80，右移 */
+    padding-right: 20px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    flex-direction: row;
+    align-items: flex-start;
+  }
 
-    /* 文字部分靠左，宽度剩余 */
-    .timeline_content-title {
-        font-size: 28px !important;
-        margin: 0 0 10px 0 !important;
-    }
-    .timeline_content-desc {
-        font-size: 12px !important;
-        line-height: 18px !important;
-    }
+  /* 图片缩小 */
+  .timeline_img {
+    order: 2;
+    width: 35vw;
+    max-width: 160px;
+    height: auto;
+    margin-left: 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    object-fit: cover;
+  }
 
-    .timeline-item > .timeline_content {
-        order: 1;
-        width: calc(100% - 35vw - 30px);
-    }
+  /* 文字 */
+  .timeline_content-title {
+    font-size: 28px !important;
+    margin: 0 0 10px 0 !important;
+  }
+
+  .timeline_content-desc {
+    font-size: 12px !important;
+    line-height: 18px !important;
+  }
+
+  .timeline-item > .timeline_content {
+    order: 1;
+    width: calc(100% - 35vw - 30px);
+  }
 }
+
 
 /* page下方 */
 .footer {
