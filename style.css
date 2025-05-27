@@ -1963,13 +1963,13 @@ nav {
   }
 
   .benefit-item img {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     margin-bottom: 6px;
   }
 
   .benefit-item p {
-    font-size: 14px;
+    font-size: 10px;
     margin-bottom: 24px;
   }
 }
