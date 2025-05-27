@@ -1946,18 +1946,16 @@ nav {
   }
 }
 
-
-
 @media (max-width: 768px) {
   .benefits {
-    padding: 30px 40px 0 25px;
+    padding: 30px 55px 0 5px;
   }
 
   .benefits h2 {
     font-size: 24px;
     margin-top: 16px;
     margin-bottom: 20px;
-    margin-right: 50px;
+    margin-right: 10px;
   }
 
   .benefit-item {
