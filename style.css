@@ -1844,17 +1844,19 @@ nav {
 
   .joinus-content h1 {
     font-size: 75px;
+    margin-left: 90px;
   }
 
   .joinus-content p {
     font-size: 18px;
+    margin-left: 80px;
   }
 }
 
 /* 响应式：768px 以下 */
 @media (max-width: 768px) {
   .joinus {
-    padding: 60px 40px 0 40px;
+    padding: 60px 40px 0 0px;
     height: 150px;
     background-position: center top;
   }
@@ -1917,17 +1919,19 @@ nav {
 
 @media (max-width: 1280px) {
   .benefits {
-    padding: 30px 90px 0 0px;
+    padding: 30px 40px 0 0px;
   } 
 
   .benefits h2 {
     font-size: 36px;
     margin-top: 24px;
     margin-bottom: 30px;
+    margin-left: 50px;
   }
 
   .benefit-item {
     width: 180px;
+    margin-left: 40px;
   }
 
   .benefit-item img {
@@ -1942,38 +1946,18 @@ nav {
   }
 }
 
-@media (max-width: 992px) {
-  .benefits h2 {
-    font-size: 30px;
-    margin-top: 20px;
-    margin-bottom: 24px;
-  }
 
-  .benefit-item {
-    width: 160px;
-  }
-
-  .benefit-item img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 8px;
-  }
-
-  .benefit-item p {
-    font-size: 16px;
-    margin-bottom: 30px;
-  }
-}
 
 @media (max-width: 768px) {
   .benefits {
-    padding: 30px 60px 0 0px;
+    padding: 30px 40px 0 25px;
   }
 
   .benefits h2 {
     font-size: 24px;
     margin-top: 16px;
     margin-bottom: 20px;
+    margin-right: 50px;
   }
 
   .benefit-item {
@@ -1987,7 +1971,7 @@ nav {
   }
 
   .benefit-item p {
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 24px;
   }
 }
@@ -2007,7 +1991,7 @@ nav {
   }
 
   .benefit-item p {
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 20px;
   }
 }
@@ -2123,6 +2107,7 @@ nav {
   .environment-heading {
     font-size: 36px;
     margin-bottom: 30px;
+    margin-left: 25px;
   }
 
   .swiper-slide {
@@ -2159,7 +2144,7 @@ nav {
   .environment-heading {
     font-size: 28px;
     margin-bottom: 20px;
-    margin-right: 60px;
+    margin-right: 40px;
   }
 
   .swiper-slide {
