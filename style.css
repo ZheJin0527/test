@@ -1491,47 +1491,32 @@ nav {
 
 /* 768px 以下：全部靠左布局，缩小所有元素 */
 @media (max-width: 768px) {
-  /* timeline 整体水平居中显示 */
+  /* 限制整体 timeline 宽度并居中 */
   .timeline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  /* timeline-item 固定宽度并居中 */
-  .timeline-item {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
     width: 90%;
-    max-width: 550px;
-    padding-left: 80px;
-    padding-right: 20px;
-    margin: 0 auto 60px auto;
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
   }
 
-  /* 时间轴线靠 timeline-item 内部的左边 */
+  /* 时间轴线向右移一些但仍靠 timeline 的左边 */
   .timeline::before {
-    left: calc(50% - 225px + 40px); /* 50% - item宽度/2 + left间距 */
+    left: 100px;
+    margin-left: 0;
     width: 2px;
     height: 100%;
     border-left: 2px solid #FF5C00;
     top: 0;
-    margin-left: 0;
   }
 
   .timeline-progress {
-    left: calc(50% - 225px + 40px) !important;
+    left: 100px !important;
     width: 2px !important;
     transform: none !important;
   }
 
   .timeline-circle {
-    left: calc(50% - 225px + 40px);
+    left: 105px;
     transform: translateX(0);
     width: 40px;
     height: 40px;
@@ -1540,14 +1525,27 @@ nav {
     box-shadow: 0 0 0 2px #FF5C00;
   }
 
+  .timeline-item {
+    width: 100% !important;
+    padding-left: 150px !important;
+    padding-right: 20px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
   .timeline_img {
     order: 2;
     width: 32vw;
     max-width: 140px;
     height: auto;
     margin-left: 15px;
-    object-fit: cover;
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    object-fit: cover;
   }
 
   .timeline_content-title {
