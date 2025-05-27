@@ -1491,7 +1491,7 @@ nav {
 
 /* 768px 以下：全部靠左布局，缩小所有元素 */
 @media (max-width: 768px) {
-  /* 限制整体 timeline 宽度并居中 */
+  /* timeline 容器居中 */
   .timeline {
     width: 90%;
     max-width: 600px;
@@ -1499,10 +1499,9 @@ nav {
     position: relative;
   }
 
-  /* 时间轴线向右移一些但仍靠 timeline 的左边 */
+  /* 时间轴线位置保持 */
   .timeline::before {
     left: 100px;
-    margin-left: 0;
     width: 2px;
     height: 100%;
     border-left: 2px solid #FF5C00;
@@ -1526,22 +1525,23 @@ nav {
   }
 
   .timeline-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* 垂直居中对齐所有内容 */
     width: 100% !important;
-    padding-left: 150px !important;
+    padding-left: 160px !important; /* 右移整个文字和图像 */
     padding-right: 20px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
     opacity: 1 !important;
     filter: none !important;
     transform: none !important;
-    flex-direction: row;
-    align-items: flex-start;
   }
 
   .timeline_img {
     order: 2;
-    width: 32vw;
-    max-width: 140px;
+    width: 30vw;
+    max-width: 130px;
     height: auto;
     margin-left: 15px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
@@ -1549,8 +1549,8 @@ nav {
   }
 
   .timeline_content-title {
-    font-size: 26px !important;
-    margin: 0 0 10px 0 !important;
+    font-size: 24px !important;
+    margin: 0 0 8px 0 !important;
   }
 
   .timeline_content-desc {
@@ -1560,9 +1560,13 @@ nav {
 
   .timeline-item > .timeline_content {
     order: 1;
-    width: calc(100% - 32vw - 30px);
+    width: calc(100% - 30vw - 30px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 使标题和描述整体垂直居中 */
   }
 }
+
 
 
 
