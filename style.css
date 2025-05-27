@@ -1510,12 +1510,12 @@ nav {
 
   .timeline-progress {
     left: 100px !important;
-    width: 2px !important;
+    width: 3px !important;
     transform: none !important;
   }
 
   .timeline-circle {
-    left: 102px;
+    left: 90px;
     transform: translateX(0);
     width: 40px;
     height: 40px;
