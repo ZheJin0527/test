@@ -1505,13 +1505,12 @@ nav {
     margin-left: 0;
     width: 2px;
     height: 82%;
-    border-left: 2px solid #FF5C00;
     top: 0;
   }
 
   .timeline-progress {
     left: 100px !important;
-    width: 2px !important;
+    width: 4px !important;
     transform: none !important;
   }
 
