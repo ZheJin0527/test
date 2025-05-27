@@ -1449,6 +1449,9 @@ nav {
 }
   
 @media (max-width: 1280px) and (min-width: 769px) {
+    .timeline-header_title {
+        font-size: 40px;
+    }
     .timeline-content-title {
         font-size: 38px; /* 原本 48px，缩小 */
     }
@@ -1491,6 +1494,9 @@ nav {
 
 /* 768px 以下：全部靠左布局，缩小所有元素 */
 @media (max-width: 768px) {
+  .timeline-header_title {
+    font-size: 22px;
+  }
   /* 限制整体 timeline 宽度并居中 */
   .timeline {
     width: 90%;
