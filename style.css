@@ -1832,7 +1832,46 @@ nav {
     margin: 20px 58px 0 20px;
     padding: 0;
     white-space: nowrap;
-}  
+}
+
+/* 响应式：1280px 以下 */
+@media (max-width: 1280px) {
+  .joinus {
+    padding: 60px 20px 0 20px;
+    height: 450px;
+    background-position: center top;
+  }
+
+  .joinus-content h1 {
+    font-size: 75px;
+  }
+
+  .joinus-content p {
+    font-size: 18px;
+  }
+}
+
+/* 响应式：768px 以下 */
+@media (max-width: 768px) {
+  .joinus {
+    padding: 60px 40px 0 40px;
+    height: 150px;
+    background-position: center top;
+  }
+
+  .joinus-content {
+    transform: translateY(-40px);
+    margin-top: 40px;
+  }
+
+  .joinus-content h1 {
+    font-size: 28px;
+  }
+
+  .joinus-content p {
+    font-size: 7px;
+  }
+}
 
 .benefits {
     text-align: center;
