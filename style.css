@@ -1541,26 +1541,27 @@ nav {
   .timeline_img {
     order: 2;
     width: 32vw;
-    max-width: 140px;
+    max-width: 200px;
     height: auto;
-    margin-left: 15px;
+    margin-left: 30px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
     object-fit: cover;
   }
 
   .timeline_content-title {
     font-size: 26px !important;
-    margin: 0 0 10px 0 !important;
+    margin: 0 0 10px 20px !important;
   }
 
   .timeline_content-desc {
     font-size: 12px !important;
     line-height: 18px !important;
+    margin-left: 30px !important;
   }
 
   .timeline-item > .timeline_content {
     order: 1;
-    width: calc(100% - 32vw - 30px);
+    width: calc(100% - 100px);
   }
 }
 
