@@ -1503,14 +1503,14 @@ nav {
   .timeline::before {
     left: 100px;
     margin-left: 0;
-    width: 2px;
+    width: 1px;
     height: 82%;
     top: 0;
   }
 
   .timeline-progress {
     left: 100px !important;
-    width: 4px !important;
+    width: 2px !important;
     transform: none !important;
   }
 
