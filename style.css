@@ -1959,7 +1959,7 @@ nav {
   }
 
   .benefit-item {
-    width: 140px;
+    width: 80px;
   }
 
   .benefit-item img {
@@ -1971,26 +1971,6 @@ nav {
   .benefit-item p {
     font-size: 12px;
     margin-bottom: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .benefits h2 {
-    font-size: 20px;
-  }
-
-  .benefit-item {
-    width: 120px;
-  }
-
-  .benefit-item img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .benefit-item p {
-    font-size: 8px;
-    margin-bottom: 20px;
   }
 }
 
