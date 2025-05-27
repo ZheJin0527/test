@@ -1448,29 +1448,45 @@ nav {
     font-weight: bold;
 }
   
-/* --------- 响应式 --------- */
-
-/* 1280px 以下但大于768px 调整字体和布局微调 */
 @media (max-width: 1280px) and (min-width: 769px) {
     .timeline-content-title {
-        font-size: 48px;
+        font-size: 38px; /* 原本 48px，缩小 */
     }
+
     .timeline_content-desc {
-        font-size: 16px;
-        line-height: 22px;
+        font-size: 14px; /* 原本 16px */
+        line-height: 20px;
     }
+
     .timeline_img {
-        width: 320px;
-        height: 260px;
+        width: 280px; /* 原本 320px */
+        height: 220px;
     }
+
     .timeline-item {
-        width: calc(50% - 30px);
-        margin-left: -150px;
-        margin-right: -50px;
-        padding: 30px 0;
-        transform: translateY(-50px);
+        width: calc(50% - 20px); /* 原本 -30px，略缩 */
+        margin-left: -100px; /* 原本 -150px，靠中些 */
+        margin-right: -30px; /* 原本 -50px */
+        padding: 20px 0;
+        transform: translateY(-30px);
+    }
+
+    .timeline-circle {
+        width: 55px;
+        height: 55px;
+        font-size: 18px;
+        box-shadow: 0 0 0 2px #FF5C00;
+    }
+
+    .timeline::before {
+        width: 2.5px;
+    }
+
+    .timeline-progress {
+        width: 2.5px;
     }
 }
+
 
 /* 768px 以下：全部靠左布局，缩小所有元素 */
 @media (max-width: 768px) {
