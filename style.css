@@ -1045,7 +1045,7 @@ nav {
 
 .vision-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 80px;
+    font-size: clamp(40px, 6vw, 80px);
     font-weight: bold;
     line-height: 140%;
     letter-spacing: 0.5%;
@@ -1054,7 +1054,7 @@ nav {
 }
 
 .vision-content p {
-    font-size: 24px;
+    font-size: clamp(16px, 1.5vw, 24px);
     font-weight: normal;
     line-height: 150%;
     letter-spacing: 2%;
@@ -1087,7 +1087,7 @@ nav {
     display: inline-block;
     background-color: white;
     color: #FF5C00;
-    font-size: 45px;
+    font-size: clamp(24px, 3vw, 45px);
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     padding: 8px 18px;
@@ -1097,7 +1097,7 @@ nav {
 }
 
 .vision-card h2 {
-    font-size: 45px;
+    font-size: clamp(22px, 2.5vw, 45px);
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
@@ -1107,13 +1107,99 @@ nav {
 }
 
 .vision-card p {
-    font-size: 25px;
+    font-size: clamp(16px, 1.7vw, 25px);
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 150%;
     letter-spacing: 2%;
     margin: 20px 10px;
     color: #888888;
+}
+
+@media (max-width: 1279px) and (min-width: 769px) {
+  .vision {
+    height: auto;
+    padding: 40px;
+  }
+
+  .vision-cards {
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
+
+  .vision-card {
+    flex: 1 1 0; /* 自动伸缩占满空间 */
+    width: auto;
+    height: auto;
+    padding: 24px;
+  }
+
+  .vision-label {
+    font-size: clamp(20px, 3vw, 36px);
+    width: auto;
+  }
+
+  .vision-card h2 {
+    font-size: clamp(20px, 2.5vw, 36px);
+  }
+
+  .vision-card p {
+    font-size: clamp(16px, 1.6vw, 22px);
+  }
+
+  .vision-content p {
+    font-size: clamp(16px, 1.4vw, 20px);
+  }
+
+  .vision-content h1 {
+    font-size: clamp(32px, 4.5vw, 60px);
+  }
+}
+
+
+/* 小屏：768 以下 */
+@media (max-width: 768px) {
+  .vision {
+    height: auto;
+    padding: 40px 20px;
+    flex-direction: column;
+  }
+
+  .vision-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vision-card {
+    width: calc(100% - 80px); /* 40px 左右边距 */
+    max-width: 600px;
+    height: auto;
+    padding: 16px 24px;
+    margin: 0 40px; /* 设置左右间距 */
+    box-sizing: border-box;
+  }
+
+  .vision-label {
+    width: auto;
+    font-size: clamp(14px, 2.5vw, 20px);
+    margin: 8px 10px;
+  }
+
+  .vision-content h1 {
+    font-size: clamp(20px, 3.5vw, 28px); /* 最小 20px，最大 28px */
+  }
+
+  .vision-content p {
+    font-size: clamp(7px, 1.5vw, 10px); /* 最小 7px，最大 14px */
+  }
+
+  .vision-card h2 {
+    font-size: clamp(18px, 3vw, 20px); /* 最小 18px，最大 26px */
+  }
+
+  .vision-card p {
+    font-size: clamp(7px, 1.5vw, 10px); /* 最小 7px，最大 14px */
+  }
 }
 
 .values-section {
