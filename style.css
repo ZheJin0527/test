@@ -1479,7 +1479,7 @@ nav {
     }
 
     .timeline::before {
-        width: 2.5px;
+        width: 2px;
     }
 
     .timeline-progress {
