@@ -934,9 +934,10 @@ nav {
 /* 响应式：768px 以下 */
 @media (max-width: 768px) {
   .aboutus {
-    padding: 60px 20px 0 20px;
+    padding: 60px 40px 0 40px;
     height: 150px;
     background-position: center top;
+    box-sizing: border-box;
   }
 
   .aboutus-content {
@@ -1015,7 +1016,8 @@ nav {
 @media (max-width: 768px) {
   .intro {
     height: 180px;
-    padding: 80px 20px;
+    padding: 80px 40px;
+    box-sizing: border-box;
   }
 
   .intro-content h1 {
