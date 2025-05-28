@@ -959,6 +959,17 @@ nav {
     height: clamp(32px, 14vw, 64px);
     margin-top: 10px;
   }
+
+  .culture-card h3 {
+    font-size: clamp(6px, 3.5vw, 20px); /* 原本最小 10px → 现在最小 6px */
+    margin-bottom: 4px;
+  }
+
+  .culture-card p {
+    font-size: clamp(6px, 2vw, 14px); /* 原本最小 8px → 现在最小 6px */
+    padding: 0 6px;
+    margin-bottom: clamp(10px, 3vw, 20px);
+  }
 }
 
 
