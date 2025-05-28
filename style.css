@@ -1111,6 +1111,11 @@ nav {
   .intro {
     height: 316px;
   }
+
+  .intro-content {
+    margin-left: 0px;
+  }
+  
   .intro-content h1 {
     font-size: 60px;
   }
