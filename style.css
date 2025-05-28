@@ -742,9 +742,9 @@ nav {
 }
 
 .culture-icon {
-    width: clamp(70px, 7vw, 124px);
-    height: clamp(70px, 7vw, 124px);
-    margin: clamp(20px, 3vw, 60px) 0 0 0;
+    width: clamp(40px, 6vw, 124px);
+    height: clamp(40px, 6vw, 124px);
+    margin-top: clamp(12px, 2vw, 60px);
 }
 
 .culture-card h3 {
@@ -833,6 +833,12 @@ nav {
     gap: 16px;
   }
 
+  .culture-icon {
+    width: clamp(50px, 6vw, 100px);
+    height: clamp(50px, 6vw, 100px);
+    margin-top: clamp(12px, 2vw, 40px);
+  }
+
   .culture-card {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -877,6 +883,12 @@ nav {
     margin: 0 30px 40px;
     padding: 16px 80px;
     gap: 24px;
+  }
+
+  .culture-icon {
+    width: clamp(32px, 14vw, 64px);
+    height: clamp(32px, 14vw, 64px);
+    margin-top: clamp(8px, 2vw, 20px);
   }
 
   .culture-right {
