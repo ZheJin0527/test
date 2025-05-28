@@ -1082,7 +1082,7 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 0;
+    margin-left: 50px;
 }
 
 .intro-content h1 {
