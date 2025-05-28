@@ -850,7 +850,7 @@ nav {
   }
 
   .culture-card p {
-    font-size: clamp(8px, 1.2vw, 14px);  /* 原10px -> 8px起 */
+    font-size: clamp(8px, 1vw, 14px);  /* 原10px -> 8px起 */
     padding: 0 4px;
   }
 
@@ -882,13 +882,7 @@ nav {
     width: calc(100% - 60px);
     margin: 0 30px 40px;
     padding: 16px 80px;
-    gap: 24px;
-  }
-
-  .culture-icon {
-    width: clamp(32px, 14vw, 64px);
-    height: clamp(32px, 14vw, 64px);
-    margin-top: clamp(8px, 2vw, 20px);
+    gap: 0;
   }
 
   .culture-right {
@@ -899,38 +893,22 @@ nav {
     text-align: center;
   }
 
-  .culture-title {
-    font-size: clamp(16px, 4.5vw, 32px);
-    margin-bottom: 12px;
-  }
-
-  .culture-description {
-    font-size: clamp(8px, 3.5vw, 14px); /* 段落最小 8px */
-    margin-bottom: 24px;
-  }
-
-  .culture-button {
-    font-size: clamp(10px, 3.5vw, 14px);
-    width: clamp(90px, 40vw, 140px);
-    height: auto;
-    padding: 6px 14px;
-    margin: 0 auto 24px;
-  }
-
   .culture-left {
     order: 2;
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* 两列变一列 */
     gap: 16px;
     margin-left: 0;
-    width: 100%;
     max-width: 600px;
     padding: 0 16px;
     box-sizing: border-box;
+    justify-items: center; /* 保证每张卡片居中 */
   }
 
   .culture-card {
     width: 100%;
     height: 100%;
+    max-width: 280px; /* 控制最大宽度，避免过大 */
     aspect-ratio: 1 / 1;
     padding: clamp(8px, 4vw, 20px);
   }
@@ -942,14 +920,46 @@ nav {
   }
 
   .culture-card h3 {
-    font-size: clamp(10px, 4.5vw, 20px); /* 标题最小 10px */
+    font-size: clamp(10px, 4.5vw, 20px);
     margin-bottom: 6px;
   }
 
   .culture-card p {
-    font-size: clamp(8px, 3vw, 14px); /* 段落最小 8px */
+    font-size: clamp(8px, 3vw, 14px);
     padding: 0 6px;
     margin-bottom: clamp(10px, 3vw, 20px);
+  }
+
+  .culture-title {
+    font-size: clamp(16px, 4.5vw, 32px);
+    margin-bottom: 12px;
+  }
+
+  .culture-description {
+    font-size: clamp(8px, 3.5vw, 14px);
+    margin-bottom: 24px;
+  }
+
+  .culture-button {
+    font-size: clamp(10px, 3.5vw, 14px);
+    width: clamp(90px, 40vw, 140px);
+    height: auto;
+    padding: 6px 14px;
+    margin: 0 auto 24px;
+  }
+}
+
+@media (max-width: 630px) {
+  .culture-left {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-card {
+    width: 100%;
+    height: 100%;
+    max-width: 280px; /* 控制最大宽度，避免过大 */
+    aspect-ratio: 1 / 1;
+    padding: clamp(8px, 4vw, 20px);
   }
 }
 
