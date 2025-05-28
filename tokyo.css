@@ -318,9 +318,9 @@ nav {
 
     .tokyoabout-text {
         padding-right: 20px;
-        min-width: 150px;   /* 保证最小宽度 */
-        flex-shrink: 1;     /* 允许缩小 */
-        flex-grow: 1;       /* 允许放大 */
+        min-width: 150px;
+        flex-shrink: 1;
+        flex-grow: 1;
     }
 
     .tokyoabout-subtitle {
@@ -334,17 +334,18 @@ nav {
     }
 
     .tokyoabout-description {
-        max-width: 100%;    /* 取消固定宽度 */
-        width: auto;        /* 允许自适应宽度 */
-        height: 105px;
+        max-width: 100%;
+        width: auto;
+        height: auto; /* ✅ 关键修改点 */
         font-size: 15px;
+        margin-bottom: 24px; /* ✅ 加这一行保持段落与图片间距 */
     }
 
     .tokyoabout-image {
         max-width: 45vw;
         width: auto;
         padding: 80px 0;
-        flex-shrink: 0;     /* 图片不缩小 */
+        flex-shrink: 0;
     }
 }
 
