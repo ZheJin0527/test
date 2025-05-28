@@ -1313,32 +1313,33 @@ nav {
 
 .values-section {
     max-width: 1760px;
-    width: calc(100% - 160px); /* 保证左右 margin 一致 */
-    height: 920px;
+    width: calc(100% - 160px);
+    min-height: clamp(300px, 48vw, 920px);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     background-color: white;
     border-radius: 16px;
     color: #000;
-    margin: 80px auto 0;
+    margin: 40px 80px 0px;
     box-sizing: border-box;
-    gap: 53px; /* ✅ 左右间距 */
-    flex-wrap: wrap
+    gap: 53px;
+    flex-wrap: nowrap;
+    padding: 32px 0;
 }
 
 .values-left {
     display: grid;
-    grid-template-columns: repeat(2, 416px); /* ✅ 固定格子大小 */
+    grid-template-columns: repeat(2, clamp(250px, 22vw, 416px));
     grid-gap: 32px;
     margin-left: 32px;
 }
 
 .values-card {
-    width: 416px;
-    height: 416px;
+    width: clamp(160px, 22vw, 416px);
+    height: clamp(160px, 22vw, 416px);
     background-color: #FFF1E5;
-    padding: 30px 20px;
+    padding: clamp(15px, 2vw, 30px) clamp(10px, 1.5vw, 20px);
     border-radius: 16px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -1350,13 +1351,13 @@ nav {
 }
 
 .values-icon {
-    width: 124px;
-    height: 124px;
-    margin: 60px 0 0 0;
+    width: clamp(40px, 6vw, 124px);
+    height: clamp(40px, 6vw, 124px);
+    margin-top: clamp(12px, 2vw, 60px);
 }
 
 .values-card h3 {
-    font-size: 45px;
+    font-size: clamp(18px, 2.5vw, 45px);
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
@@ -1364,40 +1365,43 @@ nav {
 }
 
 .values-card p {
-    width: 360px;
-    font-size: 25px;
+    width: clamp(150px, 18vw, 360px);
+    font-size: clamp(12px, 1.3vw, 25px);
     font-weight: normal;
     color: #888888;
     line-height: 140%;
-    padding: 0 28px;
-    margin-bottom: 52px;
+    padding: 0 clamp(10px, 2vw, 28px);
+    margin-bottom: clamp(20px, 5vw, 52px);
 }
 
 .values-right {
-    max-width: 720px;
-    height: 647px;
-    flex-shrink: 0;
+    flex: 1 1 auto;
+    min-width: 320px;
+    max-width: clamp(400px, 50vw, 800px);
+    height: clamp(350px, 40vw, 647px);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-left: clamp(20px, 4vw, 64px);
+    padding-right: clamp(20px, 4vw, 64px);
+    box-sizing: border-box;
 }
 
 .values-title {
-    font-size: 100px;
-    font-weight: bold;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(32px, 4vw, 100px);
     color: black;
-    margin-top: 136.5;
+    font-weight: bold;
+    margin-top: 32px;
     margin-bottom: 32px;
-    line-height: 140%;
 }
 
 .values-description {
-    font-size: 25px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(12px, 1.4vw, 25px);
     color: #888888;
+    margin-bottom: 64px;
     line-height: 140%;
-    margin-bottom: 140px;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 .values-button {
@@ -1408,18 +1412,173 @@ nav {
     padding: 10px 24px;
     border: 2px solid white;
     border-radius: 16px;
-    font-size: 25px;
+    font-size: clamp(14px, 1.5vw, 25px);
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
     text-decoration: none;
-    margin-bottom: 136.5;
+    margin-bottom: 32px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .values-button:hover {
     background-color: #ff5c00;
     color: white;
+}
+
+@media screen and (max-width: 1280px) {
+  .values-section {
+    width: calc(100% - 60px);
+    margin: 50px 30px 0px;
+    flex-wrap: nowrap;
+    gap: 32px;
+  }
+
+  .values-left {
+    width: auto;
+    margin-left: 32px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    gap: 16px;
+  }
+
+  .values-icon {
+    width: clamp(40px, 5.8vw, 100px);
+    height: clamp(40px, 5.8vw, 100px);
+    margin-top: clamp(10px, 1.8vw, 32px);
+  }
+
+  .values-card {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: clamp(6px, 1vw, 16px);
+  }
+
+  .values-card h3 {
+    font-size: clamp(10px, 1.8vw, 18px);
+  }
+
+  .values-card p {
+    font-size: clamp(8px, 1vw, 14px);
+    padding: 0 4px;
+  }
+
+  .values-right {
+    max-width: clamp(280px, 38vw, 560px);
+    padding: 0 clamp(12px, 2.5vw, 28px);
+  }
+
+  .values-title {
+    font-size: clamp(20px, 3.8vw, 46px);
+  }
+
+  .values-description {
+    font-size: clamp(10px, 1.4vw, 16px);
+  }
+
+  .values-button {
+    font-size: clamp(10px, 1.4vw, 16px);
+    width: 100px;
+    height: 28px;
+    padding: 6px 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .values-section {
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 60px);
+    margin: 0 30px 0px;
+    padding: 16px;
+    gap: 0;
+  }
+
+  .values-right {
+    order: 1;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+  .values-left {
+    order: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-left: 0;
+    max-width: 600px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    justify-items: center;
+  }
+
+  .values-card {
+    width: 100%;
+    height: 100%;
+    max-width: 280px;
+    aspect-ratio: 1 / 1;
+    padding: clamp(8px, 4vw, 20px);
+  }
+
+  .values-icon {
+    width: clamp(40px, 18vw, 80px);
+    height: clamp(40px, 18vw, 80px);
+    margin-top: 12px;
+  }
+
+  .values-card h3 {
+    font-size: clamp(10px, 4.5vw, 20px);
+    margin-bottom: 6px;
+  }
+
+  .values-card p {
+    font-size: clamp(8px, 3vw, 14px);
+    padding: 0 6px;
+    margin-bottom: clamp(10px, 3vw, 20px);
+  }
+
+  .values-title {
+    font-size: clamp(16px, 4.5vw, 32px);
+    margin-bottom: 12px;
+  }
+
+  .values-description {
+    font-size: clamp(8px, 3.5vw, 14px);
+    margin-bottom: 24px;
+  }
+
+  .values-button {
+    font-size: clamp(10px, 3.5vw, 14px);
+    width: clamp(90px, 40vw, 140px);
+    height: auto;
+    padding: 6px 14px;
+    margin: 0 auto 24px;
+  }
+}
+
+@media (max-width: 630px) {
+  .values-left {
+    grid-template-columns: 1fr;
+  }
+
+  .values-icon {
+    width: clamp(32px, 14vw, 64px);
+    height: clamp(32px, 14vw, 64px);
+    margin-top: 10px;
+  }
+
+  .values-card h3 {
+    font-size: clamp(6px, 3.5vw, 20px);
+    margin-bottom: 4px;
+  }
+
+  .values-card p {
+    font-size: clamp(6px, 2vw, 14px);
+    padding: 0 6px;
+    margin-bottom: clamp(10px, 3vw, 20px);
+  }
 }
   
 .timeline-container {
