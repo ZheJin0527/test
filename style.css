@@ -549,7 +549,7 @@ nav {
     box-sizing: border-box;
     max-width: 1920px;
     margin: 0 auto;
-    flex-wrap: nowrap; /* 不换行 */
+    flex-wrap: wrap; /* 不换行 */
 }
 
 .comprofile-text {
