@@ -690,7 +690,6 @@ nav {
         max-width: 100%;
         height: auto;
         font-size: 12px;
-        margin-bottom: 10px;
     }
 
     .comprofile-image {
@@ -822,7 +821,7 @@ nav {
   .culture-section {
     width: calc(100% - 60px);
     margin: 0 30px 80px;
-    flex-wrap: nowrap; /* 保持左右结构 */
+    flex-wrap: nowrap;
     gap: 32px;
   }
 
@@ -830,49 +829,49 @@ nav {
     width: auto;
     margin-left: 32px;
     display: grid;
-    grid-template-columns: repeat(2, minmax(100px, 1fr)); /* 保持左右两列 */
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
     gap: 16px;
   }
 
   .culture-icon {
-    width: clamp(50px, 6vw, 100px);
-    height: clamp(50px, 6vw, 100px);
-    margin-top: clamp(12px, 2vw, 40px);
+    width: clamp(40px, 5vw, 90px);
+    height: clamp(40px, 5vw, 90px);
+    margin-top: clamp(10px, 1.8vw, 32px);
   }
 
   .culture-card {
     width: 100%;
     aspect-ratio: 1 / 1;
-    padding: clamp(8px, 1.5vw, 20px);
+    padding: clamp(6px, 1vw, 16px);
   }
 
   .culture-card h3 {
-    font-size: clamp(12px, 2.2vw, 20px);
+    font-size: clamp(10px, 1.8vw, 18px); /* 原12px -> 10px起 */
   }
 
   .culture-card p {
-    font-size: clamp(10px, 1.5vw, 16px);
-    padding: 0 6px;
+    font-size: clamp(8px, 1.2vw, 14px);  /* 原10px -> 8px起 */
+    padding: 0 4px;
   }
 
   .culture-right {
-    max-width: clamp(300px, 40vw, 600px);
-    padding: 0 clamp(16px, 3vw, 32px);
+    max-width: clamp(280px, 38vw, 560px);
+    padding: 0 clamp(12px, 2.5vw, 28px);
   }
 
   .culture-title {
-    font-size: clamp(24px, 3vw, 40px);
+    font-size: clamp(20px, 2.8vw, 36px); /* 原24px -> 20px起 */
   }
 
   .culture-description {
-    font-size: clamp(12px, 1.6vw, 18px);
+    font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
   }
 
   .culture-button {
-    font-size: clamp(12px, 1.5vw, 18px);
-    width: 110px;
-    height: 30px;
-    padding: 8px 16px;
+    font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
+    width: 100px;
+    height: 28px;
+    padding: 6px 14px;
   }
 }
 
