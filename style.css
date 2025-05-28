@@ -712,7 +712,7 @@ nav {
     background-color: #FF5C00;
     border-radius: 16px;
     color: #000;
-    margin: 0 80px 80px;
+    margin: 40px 80px 80px;
     box-sizing: border-box;
     gap: 53px;
     flex-wrap: nowrap; /* 不换行 */
