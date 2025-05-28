@@ -1115,7 +1115,7 @@ nav {
   .intro-content {
     margin-left: 0px;
   }
-  
+
   .intro-content h1 {
     font-size: 60px;
   }
@@ -1135,11 +1135,13 @@ nav {
 
   .intro-content h1 {
     font-size: 28px;
+    margin-left: 48px;
   }
 
   .intro-content p {
     font-size: 7px;
     line-height: 160%;
+    margin-left: 48px;
   }
 }
 
