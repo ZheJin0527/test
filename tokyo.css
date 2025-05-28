@@ -177,7 +177,7 @@ nav {
   
 .home h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 90px;
+    font-size: 100px;
     font-weight: bold;
     margin-bottom: 40px;
     line-height: 100%;
@@ -190,6 +190,59 @@ nav {
     line-height: 140%;
     margin-top: 0; /* 确保p和h1的间距是80px */
     margin-bottom: 90px;
+}
+
+@media (max-width: 1280px) {
+  .home {
+    padding: 40px 0 0 40px;
+    height: 750px;
+    background-position: center top;
+  }
+
+  .home-content {
+    width: 858px;
+    height: 76px;
+    margin-top: 150px;
+  }
+
+  .home h1 {
+    font-size: 56px;
+    line-height: 130%;
+  }
+
+  .home p {
+    font-size: 18px;
+    margin-bottom: 60px;
+  }
+}
+
+/* 768px 以下：适用于手机或小平板 */
+@media (max-width: 768px) {
+  .home {
+    padding: 40px 40px 0 40px;
+    height: 251px;
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .home-content {
+    width: 322px;
+    height: 28px;
+    margin-top: 50px;
+  }
+
+  .home h1 {
+    font-size: 22px;
+    line-height: 130%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  .home p {
+    font-size: 8px;
+    margin-bottom: 30px;
+    line-height: 160%;
+  }
 }
 
 .tokyoabout-section {
