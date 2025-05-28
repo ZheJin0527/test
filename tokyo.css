@@ -249,11 +249,11 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 80px;  /* 缩小左右padding，留更多空间 */
+    padding: 0 80px;
     box-sizing: border-box;
     max-width: 1920px;
     margin: 0 auto 40px;
-    flex-wrap: nowrap; /* 不换行 */
+    flex-wrap: nowrap;
     background-color: #472C03;
 }
   
@@ -280,7 +280,7 @@ nav {
 }
   
 .tokyoabout-description {
-    width: 100%;  /* 文字宽度随容器缩放 */
+    width: 100%;
     max-width: 780px;
     height: clamp(105px, 9vw, 170px);
     font-size: clamp(15px, 1.25vw, 24px);
@@ -291,9 +291,9 @@ nav {
 }
   
 .tokyoabout-image {
-    flex: 0 0 auto; /* 不放大不缩小 */
+    flex: 0 0 auto;
     width: 884px;
-    max-width: 50vw;  /* 图片最大宽度不超过视口一半 */
+    max-width: 50vw;
     aspect-ratio: 884 / 639;
     padding: 80px 0;
     display: flex;
@@ -324,21 +324,21 @@ nav {
     }
 
     .tokyoabout-subtitle {
-        font-size: 25px;
-        height: 40px;
+        font-size: clamp(14px, 2vw, 25px);
+        height: auto;
     }
 
     .tokyoabout-title {
-        font-size: 51px;
-        margin: 16px 0 46px 0;
+        font-size: clamp(20px, 4vw, 51px);
+        margin: 16px 0 32px 0;
     }
 
     .tokyoabout-description {
         max-width: 100%;
         width: auto;
-        height: auto; /* ✅ 关键修改点 */
-        font-size: 15px;
-        margin-bottom: 24px; /* ✅ 加这一行保持段落与图片间距 */
+        height: auto;
+        font-size: clamp(12px, 1.5vw, 15px);
+        margin-bottom: 24px;
     }
 
     .tokyoabout-image {
@@ -348,7 +348,6 @@ nav {
         flex-shrink: 0;
     }
 }
-
 
 /* 768px 以下响应式 */
 @media (max-width: 768px) {
@@ -389,6 +388,7 @@ nav {
         padding: 40px 0;
     }
 }
+
 
 .mission-section {
     height: 800px;
