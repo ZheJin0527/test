@@ -683,13 +683,14 @@ nav {
 
     .comprofile-title {
         font-size: 24px;
-        margin: 10px 0 20px 0;
+        margin: 10px 0 10px 0;
     }
 
     .comprofile-description {
         max-width: 100%;
         height: auto;
         font-size: 12px;
+        margin-bottom: 10px;
     }
 
     .comprofile-image {
