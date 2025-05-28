@@ -1031,20 +1031,21 @@ nav {
 
   .aboutus-content h1 {
     font-size: 75px;
+    margin-left: 90px;
   }
 
   .aboutus-content p {
     font-size: 18px;
+    margin-left: 80px;
   }
 }
 
 /* 响应式：768px 以下 */
 @media (max-width: 768px) {
   .aboutus {
-    padding: 60px 40px 0 40px;
+    padding: 60px 40px 0 0px;
     height: 150px;
     background-position: center top;
-    box-sizing: border-box;
   }
 
   .aboutus-content {
