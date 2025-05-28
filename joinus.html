@@ -392,5 +392,36 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="app.js"></script>
+<script>
+  const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+const loginBtn = document.querySelector('.login-btn');
+
+function moveLoginBtn() {
+  if (window.innerWidth <= 768) {
+    if (!navMenu.contains(loginBtn)) {
+      navMenu.appendChild(loginBtn);
+    }
+  } else {
+    // 如果宽度大于768，确保loginBtn在right-section中
+    const rightSection = document.querySelector('.right-section');
+    if (rightSection && !rightSection.contains(loginBtn)) {
+      rightSection.insertBefore(loginBtn, rightSection.firstChild);
+    }
+  }
+}
+
+// 点击汉堡切换菜单
+hamburger.addEventListener('click', () => {
+  navMenu.classList.toggle('active');
+});
+
+// 页面加载时处理
+window.addEventListener('DOMContentLoaded', moveLoginBtn);
+
+// 窗口大小改变时也处理，防止resize后login位置错乱
+window.addEventListener('resize', moveLoginBtn);
+
+</script>
 </body>
 </html>
