@@ -1188,6 +1188,63 @@ nav {
     margin-bottom: 50px;
 }
 
+@media (max-width: 1280px) {
+  .benefits {
+    padding: 30px 40px 0 0px;
+  } 
+
+  .benefits h2 {
+    font-size: 36px;
+    margin-top: 24px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+  }
+
+  .benefit-item {
+    width: 180px;
+    margin-left: 40px;
+  }
+
+  .benefit-item img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
+  }
+
+  .benefit-item p {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .benefits {
+    padding: 30px 55px 0 5px;
+  }
+
+  .benefits h2 {
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+  }
+
+  .benefit-item {
+    width: 80px;
+  }
+
+  .benefit-item img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 6px;
+  }
+
+  .benefit-item p {
+    font-size: 12px;
+    margin-bottom: 24px;
+  }
+}
+
 .environment-section {
     background: #5b3b1f;
     padding: 60px 80px;
