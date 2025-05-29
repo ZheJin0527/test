@@ -656,7 +656,7 @@ nav {
 .cuisine-section {
     height: 920px;
     background-color: #5b3b1f;
-    padding: 80px;
+    padding: 80px clamp(30px, 5vw, 80px);
     color: #fcebd2;
     text-align: center;
     position: relative;
@@ -664,53 +664,62 @@ nav {
 }
 
 .cuisine-section h1 {
-    font-size: 48px;
+    /* 48px在1920px时，1280px时缩小到大概32px */
+    font-size: clamp(32px, 2vw, 48px);
     margin-top: 0;
     margin-bottom: 10px;
 }
 
 .cuisine-section h2 {
-    font-size: 28px;
+    font-size: clamp(18px, 1.5vw, 28px);
     margin-bottom: 60px;
 }
 
 .dish-row {
     display: flex;
     justify-content: space-evenly;
-    gap: 0;
-    flex-wrap: wrap;
-    width: 100%
+    gap: 40px;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: flex-end;
 }
 
 .dish {
     max-width: 800px;
     color: #fcebd2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .dish img {
-    width: 400px;
-    height: 400px;
+    /* 1920时宽400px，1280时缩小到约270px */
+    width: clamp(270px, 15vw, 400px);
+    height: clamp(270px, 15vw, 400px);
     border-radius: 20px;
     background-color: transparent;
+    object-fit: cover;
 }
 
 .wide-dish img {
-    width: 700px;
-    height: 400px;
+    /* 1920时宽700px，1280时缩小到约470px */
+    width: clamp(470px, 25vw, 700px);
+    height: clamp(270px, 15vw, 400px);
 }
 
 .dish-title-en {
-    font-size: 40px;
+    font-size: clamp(26px, 2vw, 40px);
     margin-top: 20px;
 }
 
 .dish-title-jp {
-    font-size: 38px;
+    font-size: clamp(22px, 2vw, 38px);
     margin-top: 6px;
 }
 
 .dish-description {
-    font-size: 16px;
+    font-size: clamp(10px, 1vw, 16px);
     margin-top: 12px;
     line-height: 1.6;
 }
@@ -719,7 +728,7 @@ nav {
     position: absolute;
     top: 0px;
     right: 0px;
-    width: 300px;
+    width: clamp(150px, 12vw, 300px);
     opacity: 0.8;
 }
 
@@ -727,8 +736,121 @@ nav {
     position: absolute;
     bottom: 0px;
     left: 0px;
-    width: 200px;
+    width: clamp(100px, 12vw, 200px);
     opacity: 0.8;
+}
+
+/* 1280px 以下 */
+@media (max-width: 1280px) {
+    .cuisine-section {
+        height: auto;
+        padding: 5vw clamp(25px, 5vw, 60px);
+    }
+
+    .cuisine-section h1 {
+        font-size: clamp(20px, 4vw, 48px);
+    }
+
+    .cuisine-section h2 {
+        font-size: clamp(12px, 2vw, 28px);
+        margin-bottom: clamp(25px, 4vw, 60px);
+    }
+
+    .dish-row {
+        gap: clamp(20px, 3vw, 30px);
+    }
+
+    .dish img {
+        width: clamp(140px, 18vw, 400px);
+        height: clamp(140px, 18vw, 400px);
+        border-radius: clamp(10px, 1vw, 20px);
+    }
+
+    .wide-dish img {
+        width: clamp(220px, 30vw, 700px);
+        height: clamp(140px, 18vw, 400px);
+    }
+
+    .dish-title-en {
+        font-size: clamp(14px, 3vw, 40px);
+        margin-top: clamp(10px, 2vw, 20px);
+    }
+
+    .dish-title-jp {
+        font-size: clamp(12px, 3vw, 38px);
+        margin-top: clamp(6px, 1vw, 6px);
+    }
+
+    .dish-description {
+        font-size: clamp(7px, 1.5vw, 16px);
+        margin-top: clamp(6px, 1vw, 12px);
+        line-height: 1.4;
+    }
+
+    .sakura-top-right {
+        width: clamp(120px, 12vw, 300px);
+    }
+
+    .sakura-bottom-left {
+        width: clamp(80px, 12vw, 200px);
+    }
+}
+
+/* 768px 以下 */
+@media (max-width: 768px) {
+    .cuisine-section {
+        padding: clamp(15px, 3vw, 30px) clamp(10px, 6vw, 20px);
+        height: auto;
+    }
+
+    .cuisine-section h1 {
+        font-size: clamp(12px, 5vw, 20px);
+    }
+
+    .cuisine-section h2 {
+        font-size: clamp(8px, 3vw, 14px);
+        margin-bottom: clamp(10px, 3vw, 20px);
+    }
+
+    .dish-row {
+        gap: clamp(10px, 4vw, 20px);
+        flex-wrap: nowrap;  /* 保持同行 */
+    }
+
+    .dish img {
+        width: clamp(80px, 18vw, 140px);
+        height: clamp(80px, 18vw, 140px);
+        border-radius: clamp(5px, 2vw, 10px);
+    }
+
+    .wide-dish img {
+        width: clamp(120px, 30vw, 220px);
+        height: clamp(80px, 18vw, 140px);
+    }
+
+    .dish-title-en {
+        font-size: clamp(7px, 3vw, 14px);
+        margin-top: clamp(4px, 2vw, 12px);
+    }
+
+    .dish-title-jp {
+        font-size: clamp(7px, 3vw, 12px);
+        margin-top: clamp(3px, 1vw, 6px);
+    }
+
+    .dish-description {
+        font-size: clamp(6px, 2vw, 10px);
+        margin-top: clamp(3px, 1vw, 6px);
+        line-height: 1.3;
+    }
+
+    .sakura-top-right {
+        width: clamp(40px, 15vw, 100px);
+    }
+
+    .sakura-bottom-left {
+        width: clamp(30px, 15vw, 80px);
+    }
 }
 
 .location-section {
