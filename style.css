@@ -885,6 +885,11 @@ nav {
     border-radius: 0;
     margin: 0 0px 40px -8px; /* 上右下左 */
   }
+
+  .culture-card p {
+    padding: 0 10px;
+  }
+  
   .culture-description {
     font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
   }
