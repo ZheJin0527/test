@@ -694,18 +694,22 @@ nav {
 }
 
 .dish img {
-    /* 1920时宽400px，1280时缩小到约270px */
-    width: clamp(220px, 14vw, 360px);
-    height: clamp(220px, 14vw, 360px);
+    width: clamp(200px, 15vw, 400px);
+    height: clamp(200px, 15vw, 400px);
+    max-width: 100%;
     border-radius: 20px;
     background-color: transparent;
     object-fit: cover;
+    box-sizing: border-box;
 }
 
 .wide-dish img {
-    /* 1920时宽700px，1280时缩小到约470px */
-    width: clamp(360px, 22vw, 600px);
-    height: clamp(220px, 14vw, 360px);
+    width: clamp(300px, 25vw, 700px);
+    height: clamp(200px, 15vw, 400px);
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-sizing: border-box;
 }
 
 .dish-title-en {
