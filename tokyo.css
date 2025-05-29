@@ -677,36 +677,39 @@ nav {
 
 .dish-row {
     display: flex;
-    justify-content: space-evenly;
-    gap: 40px;
+    justify-content: space-between;
     flex-wrap: nowrap;
+    gap: clamp(10px, 3vw, 30px);
+    padding: 0 clamp(10px, 5vw, 80px); /* 添加左右边距，防止被遮挡 */
+    box-sizing: border-box;
     width: 100%;
-    align-items: flex-end;
+    align-items: flex-end; /* 保持底部对齐 */
 }
 
 .dish {
-    max-width: 800px;
+    max-width: clamp(250px, 28vw, 800px); /* 限制最大宽度，防止溢出 */
     color: #fcebd2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    box-sizing: border-box;
+    padding: 0 clamp(5px, 2vw, 20px); /* 每个卡片左右留间距 */
 }
 
 .dish img {
-    /* 1920时宽400px，1280时缩小到约270px */
-    width: clamp(270px, 14vw, 400px);
-    height: clamp(270px, 14vw, 400px);
+    width: clamp(270px, 15vw, 400px);
+    height: clamp(270px, 15vw, 400px);
     border-radius: 20px;
     background-color: transparent;
     object-fit: cover;
 }
 
 .wide-dish img {
-    /* 1920时宽700px，1280时缩小到约470px */
     width: clamp(470px, 25vw, 700px);
     height: clamp(270px, 15vw, 400px);
 }
+
 
 .dish-title-en {
     font-size: clamp(26px, 2vw, 40px);
