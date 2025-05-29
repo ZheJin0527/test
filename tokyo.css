@@ -550,58 +550,117 @@ nav {
 }
 
 .location-section {
-    background-color: #FFE9BA;
-    padding: 80px; /* 给上下加点空间，让内容不会太贴边 */
-    justify-items: center;
+  background-color: #FFE9BA;
+  padding: clamp(40px, 5vw, 80px);
+  display: flex;
+  justify-content: center;
 }
 
 .location-container {
-    display: flex;
-    width: 1648px;    
-    height: 576px;
-    margin: 0 81px 0 191px; /* 上下间距加宽 */
-    background: #FFE9BA;
-    border-radius: 10px;
-    overflow: hidden;
+  display: flex;
+  width: 100%;
+  max-width: 1648px;
+  margin: 0 auto;
+  background: #FFE9BA;
+  border-radius: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .location-info {
-    width: 35%;
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;   /* 垂直居中 */
-    align-items: flex-start;   /* 水平靠左对齐 */
-    padding: 71.5px 35px;           /* 左右内边距 */
+  width: 35%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(30px, 4vw, 60px);
+  box-sizing: border-box;
 }
 
 .location-info h2 {
-    font-size: 60px;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: bold;
-    line-height: 140%;
-    margin: 0 0 32px 0;  /* 只保留底部32px */
-    padding: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 0 0 clamp(16px, 2vw, 32px) 0;
+  font-size: clamp(24px, 4vw, 80px);
 }
 
 .location-info p {
-    font-size: 20px; /* 适中，易读 */
-    margin: 0;
-    padding: 10px 0;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: normal;
-    line-height: 140%; /* 让内容看起来更整齐 */
-    color: #888888;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #888888;
+  margin: 0;
+  padding: clamp(8px, 1.5vw, 16px) 0;
+  font-size: clamp(12px, 2vw, 32px);
 }
 
 .map-container {
-    width: 65%;
+  width: 65%;
+  height: auto;
+  box-sizing: border-box;
 }
 
 .map-container iframe {
-    width: 1012px;    /* 设置宽度为1012px */
-    height: 576px;    /* 设置高度为576px */
-    border: none;
+  width: 100%;
+  height: 100%;
+  min-height: 576px;
+  border: none;
+  display: block;
+}
+
+/* ======= 1280px 以下 ======= */
+@media (max-width: 1280px) {
+  .location-container {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .location-info {
+    padding: 40px 20px;
+  }
+
+  .location-info h2 {
+    /* 比默认再小一点 */
+    font-size: clamp(20px, 3vw, 48px);
+  }
+
+  .location-info p {
+    font-size: clamp(10px, 1.5vw, 20px);
+  }
+
+  .map-container iframe {
+    min-height: 500px;
+  }
+}
+
+/* ======= 768px 以下：垂直布局、地图更高 ======= */
+@media (max-width: 768px) {
+  .location-container {
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 40px auto;
+  }
+
+  .location-info {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 24px 16px;
+  }
+
+  .map-container {
+    width: 100%;
+    height: auto;
+  }
+
+  .map-container iframe {
+    width: 100%;
+    height: 400px;
+    min-height: 400px;
+  }
 }
 
 /* page下方 */
