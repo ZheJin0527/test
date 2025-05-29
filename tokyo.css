@@ -704,7 +704,7 @@ nav {
 
 .wide-dish img {
     /* 1920时宽700px，1280时缩小到约470px */
-    width: clamp(470px, 25vw, 700px);
+    width: clamp(470px, 30vw, 700px);
     height: clamp(270px, 15vw, 400px);
 }
 
