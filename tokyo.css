@@ -694,19 +694,23 @@ nav {
 }
 
 .dish img {
-    /* 1920时宽400px，1280时缩小到约270px */
-    width: clamp(270px, 15vw, 400px);
-    height: clamp(270px, 15vw, 400px);
+    /* 原本最大 400px，调整为最大 360px，缩放更灵活 */
+    width: clamp(220px, 13vw, 360px);
+    height: clamp(220px, 13vw, 360px);
     border-radius: 20px;
     background-color: transparent;
     object-fit: cover;
 }
 
 .wide-dish img {
-    /* 1920时宽700px，1280时缩小到约470px */
-    width: clamp(470px, 25vw, 700px);
-    height: clamp(270px, 15vw, 400px);
+    /* 原本最大 700px，调整为最大 640px，缩放也更紧凑 */
+    width: clamp(420px, 22vw, 640px);
+    height: clamp(220px, 13vw, 360px);
+    border-radius: 20px;
+    background-color: transparent;
+    object-fit: cover;
 }
+
 
 .dish-title-en {
     font-size: clamp(26px, 2vw, 40px);
