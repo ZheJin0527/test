@@ -888,8 +888,8 @@ nav {
     margin: 0 0px 40px -8px; /* 上右下左 */
   }
 
-  .culture-card p {
-    margin: 0 10px;
+  .culture-card {
+    padding: 10px;
   }
   
   .culture-description {
