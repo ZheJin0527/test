@@ -2744,8 +2744,7 @@ form input[type="file"] {
     flex-direction: column;
     gap: 4px;
   }
-}
-  
+} 
 
 /* 加入我们表单区 */
 .join-us-form {
