@@ -679,7 +679,7 @@ nav {
     display: flex;
     justify-content: space-evenly;
     gap: 40px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     width: 100%;
     align-items: flex-end;
 }
@@ -695,8 +695,8 @@ nav {
 
 .dish img {
     /* 1920时宽400px，1280时缩小到约270px */
-    width: clamp(270px, 15vw, 400px);
-    height: clamp(270px, 15vw, 400px);
+    width: clamp(220px, 14vw, 360px);
+    height: clamp(220px, 14vw, 360px);
     border-radius: 20px;
     background-color: transparent;
     object-fit: cover;
@@ -704,8 +704,8 @@ nav {
 
 .wide-dish img {
     /* 1920时宽700px，1280时缩小到约470px */
-    width: clamp(470px, 25vw, 700px);
-    height: clamp(270px, 15vw, 400px);
+    width: clamp(360px, 22vw, 600px);
+    height: clamp(220px, 14vw, 360px);
 }
 
 .dish-title-en {
