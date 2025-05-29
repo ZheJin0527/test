@@ -703,23 +703,23 @@ nav {
 }
 
 .culture-section {
-  /* 移除固定高度，避免缩放后高度溢出 */
-  height: auto;
-  min-height: clamp(300px, 48vw, 920px);
-  max-width: 1760px;
-  width: calc(100% - 160px);
-  margin: 0 80px 80px;
-  padding: 32px 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #FF5C00;
-  border-radius: 16px;
-  color: #000;
-  box-sizing: border-box;
-  gap: 53px;
-  flex-wrap: nowrap;
-  /* 不用 height 固定，配合缩放 */
+    /* 移除固定高度，避免缩放后高度溢出 */
+    height: auto;
+    min-height: clamp(300px, 48vw, 920px);
+    max-width: 1760px;
+    width: calc(100% - 160px);
+    margin: 0 80px 80px;
+    padding: 32px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #FF5C00;
+    border-radius: 16px;
+    color: #000;
+    box-sizing: border-box;
+    gap: 53px;
+    flex-wrap: nowrap;
+    /* 不用 height 固定，配合缩放 */
 }
 
 .culture-left {
@@ -1249,32 +1249,33 @@ nav {
 }
 
 .values-section {
+    height: auto;
+    min-height: clamp(300px, 48vw, 920px);
     max-width: 1760px;
     width: calc(100% - 160px);
-    min-height: clamp(300px, 48vw, 920px);
+    margin: 0 80px 80px;
+    padding: 32px 0;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     background-color: white;
     border-radius: 16px;
     color: #000;
-    margin: 40px 80px 0px;
     box-sizing: border-box;
     gap: 53px;
     flex-wrap: nowrap;
-    padding: 32px 0;
 }
 
 .values-left {
     display: grid;
-    grid-template-columns: repeat(2, clamp(250px, 22vw, 416px));
+    grid-template-columns: repeat(2, clamp(250px, 22vw, 416px)); /* 卡片宽度随屏幕宽度缩放 */
     grid-gap: 32px;
     margin-left: 32px;
 }
 
 .values-card {
-    width: clamp(160px, 22vw, 416px);
-    height: clamp(160px, 22vw, 416px);
+    width: clamp(160px, 22vw, 416px);  /* 卡片宽度随屏幕缩放 */
+    height: clamp(160px, 22vw, 416px); /* 卡片高度等比例缩放 */
     background-color: #FFF1E5;
     padding: clamp(15px, 2vw, 30px) clamp(10px, 1.5vw, 20px);
     border-radius: 16px;
@@ -1325,7 +1326,7 @@ nav {
 }
 
 .values-title {
-    font-size: clamp(32px, 4vw, 100px);
+    font-size: clamp(32px, 3vw, 100px);
     color: black;
     font-weight: bold;
     margin-top: 32px;
@@ -1366,7 +1367,7 @@ nav {
 @media screen and (max-width: 1280px) {
   .values-section {
     width: calc(100% - 60px);
-    margin: 50px 30px 0px;
+    margin: 0 30px 0px;
     flex-wrap: nowrap;
     gap: 32px;
   }
@@ -1423,98 +1424,24 @@ nav {
 
 @media (max-width: 768px) {
   .values-section {
-    flex-direction: column;
-    align-items: center;
-    width: calc(100% - 60px);
-    margin: 0 30px 0px;
-    padding: 16px;
-    gap: 0;
-  }
-
-  .values-right {
-    order: 1;
-    width: 100%;
-    max-width: 600px;
-    padding: 0 16px;
-    text-align: center;
-  }
-
-  .values-left {
-    order: 2;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    margin-left: 0;
-    max-width: 600px;
-    padding: 0 16px;
-    box-sizing: border-box;
-    justify-items: center;
+    transform-origin: top left;
+    transform: scale(0.6);
+    width: 170%;
+    justify-content: center;
+    border-radius: 0;
+    margin: 40px 0px -180px -8px; /* 上右下左 */
   }
 
   .values-card {
-    width: 100%;
-    height: 100%;
-    max-width: 280px;
-    aspect-ratio: 1 / 1;
-    padding: clamp(8px, 4vw, 20px);
-  }
-
-  .values-icon {
-    width: clamp(40px, 18vw, 80px);
-    height: clamp(40px, 18vw, 80px);
-    margin-top: 12px;
-  }
-
-  .values-card h3 {
-    font-size: clamp(10px, 4.5vw, 20px);
-    margin-bottom: 6px;
+    padding: 10px;
   }
 
   .values-card p {
-    font-size: clamp(8px, 3vw, 14px);
-    padding: 0 6px;
-    margin-bottom: clamp(10px, 3vw, 20px);
-  }
-
-  .values-title {
-    font-size: clamp(16px, 4.5vw, 32px);
-    margin-bottom: 12px;
+    width: 120px;
   }
 
   .values-description {
-    font-size: clamp(8px, 3.5vw, 14px);
-    margin-bottom: 24px;
-  }
-
-  .values-button {
-    font-size: clamp(10px, 3.5vw, 14px);
-    width: clamp(90px, 40vw, 140px);
-    height: auto;
-    padding: 6px 14px;
-    margin: 0 auto 24px;
-  }
-}
-
-@media (max-width: 630px) {
-  .values-left {
-    grid-template-columns: 1fr;
-  }
-
-  .values-icon {
-    width: clamp(32px, 14vw, 64px);
-    height: clamp(32px, 14vw, 64px);
-    margin-top: 10px;
-  }
-
-  .values-card h3 {
-    font-size: clamp(6px, 3.5vw, 20px);
-    margin-bottom: 4px;
-  }
-
-  .values-card p {
-    font-size: clamp(6px, 2vw, 14px);
-    padding: 0 6px;
-    margin-bottom: clamp(10px, 3vw, 20px);
+    font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
   }
 }
   
