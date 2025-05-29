@@ -891,30 +891,17 @@ nav {
   .culture-card {
     padding: 10px;
   }
+
+  .culture-card p {
+    width: 130px;
+  }
   
   .culture-description {
     font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
   }
 }
 
-@media (max-width: 500px) {
-  .culture-section {
-    transform-origin: top left;
-    transform: scale(0.4);
-    width: 170%;
-    justify-content: center;
-    border-radius: 0;
-    margin: 0 0px 40px -8px; /* 上右下左 */
-  }
 
-  .culture-card {
-    padding: 10px;
-  }
-  
-  .culture-description {
-    font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
-  }
-}
 
 
 
