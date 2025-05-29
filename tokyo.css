@@ -678,14 +678,14 @@ nav {
 .dish-row {
     display: flex;
     justify-content: space-evenly;
-    gap: 0;
+    gap: 40px;
     flex-wrap: nowrap;
     width: 100%;
     align-items: flex-end;
 }
 
 .dish {
-    max-width: 800px;
+    max-width: 900px;
     color: #fcebd2;
     display: flex;
     flex-direction: column;
@@ -704,7 +704,7 @@ nav {
 
 .wide-dish img {
     /* 1920时宽700px，1280时缩小到约470px */
-    width: clamp(470px, 30vw, 700px);
+    width: clamp(470px, 25vw, 700px);
     height: clamp(270px, 15vw, 400px);
 }
 
