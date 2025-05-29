@@ -678,7 +678,7 @@ nav {
 .dish-row {
     display: flex;
     justify-content: space-evenly;
-    gap: 40px;
+    gap: 0;
     flex-wrap: nowrap;
     width: 100%;
     align-items: flex-end;
