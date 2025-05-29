@@ -685,7 +685,7 @@ nav {
 }
 
 .dish {
-    max-width: 900px;
+    max-width: 800px;
     color: #fcebd2;
     display: flex;
     flex-direction: column;
@@ -695,8 +695,8 @@ nav {
 
 .dish img {
     /* 1920时宽400px，1280时缩小到约270px */
-    width: clamp(270px, 15vw, 400px);
-    height: clamp(270px, 15vw, 400px);
+    width: clamp(270px, 14vw, 400px);
+    height: clamp(270px, 14vw, 400px);
     border-radius: 20px;
     background-color: transparent;
     object-fit: cover;
