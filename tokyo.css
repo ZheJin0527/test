@@ -677,41 +677,45 @@ nav {
 
 .dish-row {
     display: flex;
-    justify-content: space-evenly;
-    gap: 40px;
+    justify-content: space-between; /* 改成space-between */
+    gap: clamp(10px, 3vw, 40px);    /* 适当间距 */
     flex-wrap: nowrap;
     width: 100%;
     align-items: flex-end;
+    box-sizing: border-box;
 }
 
 .dish {
-    max-width: 800px;
-    color: #fcebd2;
+    flex: 0 0 calc((100% - 2 * clamp(10px, 3vw, 40px)) / 3); /* 三个等宽，留间距 */
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    color: #fcebd2;
+    box-sizing: border-box;
 }
 
 .dish img {
-    width: clamp(150px, 10vw, 350px);
-    height: clamp(150px, 10vw, 350px);
-    max-width: 100%;
+    width: 100%; /* 跟父容器宽度 */
+    max-width: 400px; /* 最大宽度限制 */
+    height: auto;
+    aspect-ratio: 1 / 1;
     border-radius: 20px;
     background-color: transparent;
     object-fit: cover;
-    box-sizing: border-box;
 }
 
 .wide-dish img {
-    width: clamp(250px, 15vw, 600px);
-    height: clamp(150px, 10vw, 350px);
-    max-width: 100%;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    aspect-ratio: 7 / 4;
     border-radius: 20px;
     background-color: transparent;
     object-fit: cover;
-    box-sizing: border-box;
 }
+
 
 .dish-title-en {
     font-size: clamp(26px, 2vw, 40px);
