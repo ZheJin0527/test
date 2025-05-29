@@ -656,7 +656,7 @@ nav {
 .cuisine-section {
     height: 920px;
     background-color: #5b3b1f;
-    padding: 80px 5vw;
+    padding: 80px clamp(30px, 5vw, 80px);
     color: #fcebd2;
     text-align: center;
     position: relative;
@@ -679,7 +679,7 @@ nav {
     display: flex;
     justify-content: space-evenly;
     gap: 40px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
     align-items: flex-end;
 }
