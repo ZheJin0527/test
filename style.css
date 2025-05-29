@@ -702,22 +702,24 @@ nav {
     }
 }
 
-
 .culture-section {
-    max-width: 1760px;
-    width: calc(100% - 160px); /* 保持左右间距 */
-    min-height: clamp(300px, 48vw, 920px); /* 高度会根据屏幕大小自动缩放 */
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #FF5C00;
-    border-radius: 16px;
-    color: #000;
-    margin: 40px 80px 80px;
-    box-sizing: border-box;
-    gap: 53px;
-    flex-wrap: nowrap; /* 不换行 */
-    padding: 32px 0; /* 上下最大32px */
+  /* 移除固定高度，避免缩放后高度溢出 */
+  height: auto;
+  min-height: clamp(300px, 48vw, 920px);
+  max-width: 1760px;
+  width: calc(100% - 160px);
+  margin: 0 80px 80px;
+  padding: 32px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #FF5C00;
+  border-radius: 16px;
+  color: #000;
+  box-sizing: border-box;
+  gap: 53px;
+  flex-wrap: nowrap;
+  /* 不用 height 固定，配合缩放 */
 }
 
 .culture-left {
@@ -851,7 +853,7 @@ nav {
   }
 
   .culture-card p {
-    font-size: clamp(8px, 1vw, 14px);  /* 原10px -> 8px起 */
+    font-size: clamp(8px, 1.0vw, 14px);  /* 原10px -> 8px起 */
     padding: 0 4px;
   }
 
@@ -889,7 +891,7 @@ nav {
   .culture-card p {
     padding: 0 20px;
   }
-
+  
   .culture-description {
     font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
   }
