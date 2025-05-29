@@ -22,7 +22,7 @@
       </div>   
         
       <div class="right-section">
-        <div class="nav-links right-nav-links">
+        <div class="nav-links right-nav-links" id="navMenu">
           <div class="nav-item">
             <a href="index.php">首页</a>
           </div>
@@ -359,5 +359,33 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="app.js"></script>
+<script>
+  const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+const loginBtn = document.getElementById('loginBtn');
+const rightSection = document.querySelector('.right-section');
+
+function moveLoginBtn() {
+  if (window.innerWidth <= 768) {
+    if (!navMenu.contains(loginBtn)) {
+      navMenu.appendChild(loginBtn);
+    }
+    loginBtn.classList.add('nav-menu-login-btn');
+  } else {
+    if (!rightSection.contains(loginBtn)) {
+      rightSection.insertBefore(loginBtn, rightSection.querySelector('.language-switch'));
+    }
+    loginBtn.classList.remove('nav-menu-login-btn');
+  }
+}
+
+hamburger.addEventListener('click', () => {
+  navMenu.classList.toggle('active');
+});
+
+window.addEventListener('DOMContentLoaded', moveLoginBtn);
+window.addEventListener('resize', moveLoginBtn);
+
+</script>
 </body>
 </html>
