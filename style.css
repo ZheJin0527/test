@@ -800,18 +800,18 @@ nav {
 
 .culture-button {
     background-color: white;
-    width: 130px;
-    height: 35px;
+    width: clamp(100px, 8vw, 130px);
+    height: clamp(28px, 2.2vw, 35px);
+    padding: clamp(6px, 0.8vw, 10px) clamp(14px, 1.6vw, 24px);
     display: inline-block;
-    padding: 10px 24px;
     border: 2px solid white;
-    border-radius: 16px;
+    border-radius: clamp(10px, 1vw, 16px);
     font-size: clamp(14px, 1.5vw, 25px);
     color: #ff5c00;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
     text-decoration: none;
-    margin-bottom: 32px;
+    margin-bottom: clamp(16px, 2vw, 32px);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -871,10 +871,11 @@ nav {
   }
 
   .culture-button {
-    font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
-    width: 100px;
-    height: 28px;
-    padding: 6px 14px;
+    width: clamp(40px, 10vw, 80px);
+    height: clamp(26px, 2vw, 30px);
+    padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.2vw, 18px);
+    font-size: clamp(12px, 1.2vw, 18px);
+    border-radius: clamp(8px, 0.8vw, 12px);
   }
 }
 
@@ -898,6 +899,14 @@ nav {
   
   .culture-description {
     font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
+  }
+
+  .culture-button {
+    width: clamp(52px, 4vw, 60px);
+    height: clamp(22px, 1.8vw, 26px);
+    padding: clamp(3px, 0.5vw, 6px) clamp(8px, 1vw, 14px);
+    font-size: clamp(10px, 1vw, 14px);
+    border-radius: clamp(6px, 0.6vw, 10px);
   }
 }
 
@@ -1344,18 +1353,18 @@ nav {
 
 .values-button {
     background-color: #ff5c00;
-    width: 130px;
-    height: 35px;
+    width: clamp(100px, 8vw, 130px);
+    height: clamp(28px, 2.2vw, 35px);
+    padding: clamp(6px, 0.8vw, 10px) clamp(14px, 1.6vw, 24px);
     display: inline-block;
-    padding: 10px 24px;
     border: 2px solid white;
-    border-radius: 16px;
+    border-radius: clamp(10px, 1vw, 16px);
     font-size: clamp(14px, 1.5vw, 25px);
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
     text-decoration: none;
-    margin-bottom: 32px;
+    margin-bottom: clamp(16px, 2vw, 32px);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -1415,10 +1424,11 @@ nav {
   }
 
   .values-button {
-    font-size: clamp(10px, 1.4vw, 16px);
-    width: 100px;
-    height: 28px;
-    padding: 6px 14px;
+    width: clamp(40px, 10vw, 80px);
+    height: clamp(26px, 2vw, 30px);
+    padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.2vw, 18px);
+    font-size: clamp(12px, 1.2vw, 18px);
+    border-radius: clamp(8px, 0.8vw, 12px);
   }
 }
 
@@ -1442,6 +1452,14 @@ nav {
 
   .values-description {
     font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
+  }
+
+  .values-button {
+    width: clamp(52px, 4vw, 60px);
+    height: clamp(22px, 1.8vw, 26px);
+    padding: clamp(3px, 0.5vw, 6px) clamp(8px, 1vw, 14px);
+    font-size: clamp(10px, 1vw, 14px);
+    border-radius: clamp(6px, 0.6vw, 10px);
   }
 }
   
