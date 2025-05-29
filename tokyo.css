@@ -1525,7 +1525,69 @@ tr:hover td {
   
 .apply-btn:hover {
     background-color: #8B5E20;
-}  
+}
+
+@media (max-width: 1280px) {
+  .job-table-title {
+    font-size: 36px;
+    margin-top: 60px;
+  }
+
+  table {
+    width: 85%;
+  }
+
+  th {
+    font-size: 16px;
+  }
+
+  td {
+    font-size: 15px;
+  }
+
+  .apply-btn {
+    font-size: 15px;
+    margin-right: 40px;
+  }
+
+  .detail-cell {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .job-table-title {
+    font-size: 26px;
+    margin-top: 40px;
+  }
+
+  table {
+    width: 80%;
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 14px 16px;
+    font-size: 10px;
+  }
+
+  .apply-btn {
+    font-size: 10px;
+    padding: 6px 14px;
+    margin-right: 20px;
+  }
+
+  .detail-cell {
+    font-size: 13px;
+    padding: 16px;
+  }
+
+  .detail-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
 
 /* 弹窗样式 */
 #formModal {
