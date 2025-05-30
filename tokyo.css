@@ -1173,6 +1173,14 @@ nav {
     align-items: flex-start;
   }
 
+  .footer-logo {
+    flex: 1 1 120px;
+  }
+
+  .footer-section {
+    flex: 1 1 110px;
+  }
+
   .footer-logo,
   .footer-section {
     width: 100%;
