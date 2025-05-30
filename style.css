@@ -1975,8 +1975,8 @@ nav {
   }
 
   .footer-logo h1 img.logo {
-    width: clamp(18px, 4vw, 22px);
-    height: clamp(18px, 4vw, 22px);
+    width: clamp(22px, 6vw, 36px);
+    height: clamp(22px, 6vw, 36px);
     margin-bottom: 0; /* 去掉上下边距 */
     margin-right: 8px; /* 增加右边距，和文字分开 */
   }
