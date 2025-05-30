@@ -216,7 +216,7 @@ nav {
     width: 60px;
     height: 17px;
     border-radius: 17px;
-    padding: 2px 17px;
+    padding: 2px 8px;
     font-size: 11px;
     line-height: 18px;
   }
@@ -372,7 +372,7 @@ nav {
 
   .nav-links .login-btn:hover {
     background-color: #d87b00;
-    padding: 6px 0;       /* 和默认状态保持一致 */
+    padding: 0 8px 30px 8px;
     line-height: 30px;    /* 和默认状态保持一致 */
   }
 }
