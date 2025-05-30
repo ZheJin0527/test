@@ -1121,12 +1121,17 @@ nav {
   }
 
   .footer-logo h1 {
-    font-size: clamp(10px, 1vw, 16px);
+    font-size: clamp(6px, 3vw, 12px);
+    flex-direction: row; /* 改成横排 */
+    align-items: center; /* 垂直居中 */
+    margin-bottom: 3px;
   }
 
   .footer-logo h1 img.logo {
-    width: clamp(30px, 2.5vw, 36px);
-    height: clamp(28px, 2.5vw, 36px);
+    width: clamp(18px, 4vw, 22px);
+    height: clamp(18px, 4vw, 22px);
+    margin-bottom: 0; /* 去掉上下边距 */
+    margin-right: 8px; /* 增加右边距，和文字分开 */
   }
 
   .footer-logo p {
