@@ -1945,48 +1945,53 @@ nav {
 @media (max-width: 768px) {
   .footer {
     flex-direction: column;
-    padding: 40px;
+    padding: 24px 32px;
     align-items: flex-start;
   }
 
   .footer-logo,
   .footer-section {
     width: 100%;
-    margin-bottom: 0;
+    margin-bottom: -10px;
   }
 
   .footer-logo h1 {
-    font-size: 16px;
+    font-size: clamp(7px, 4.2vw, 16px); /* 最大值由 18px 降为 16px */
     flex-direction: column;
+    margin-bottom: 6px;
   }
 
   .footer-logo h1 img.logo {
-    margin-bottom: 5px;
+    width: clamp(24px, 6vw, 30px); /* 最大值由 36px 降为 30px */
+    height: clamp(24px, 6vw, 30px);
+    margin-bottom: 4px;
     margin-right: 0;
   }
 
   .footer-logo p {
-    font-size: 10px;
-    line-height: 1.6;
+    font-size: clamp(7px, 3.5vw, 15px); /* 最大从 13px 提升到 15px */
+    line-height: 1.5;
+    margin-bottom: 4px;
   }
 
   .footer-section h4 {
-    font-size: 12px;
-    margin-bottom: 6px;
+    font-size: clamp(7px, 4vw, 16px); /* 最大从 14px 提升到 16px */
+    margin-bottom: 4px;
   }
 
   .footer-section li {
-    font-size: 10px;
-    margin-bottom: 8px;
+    font-size: clamp(7px, 3.8vw, 14px); /* 最大从 12px 提升到 14px */
+    margin-bottom: 3px;
   }
 
   .social-icons {
-    gap: 6px;
+    gap: clamp(4px, 1vw, 6px);
+    margin-top: 6px;
   }
 
   .social-icons a img {
-    width: 24px;
-    height: 24px;
+    width: clamp(18px, 5.5vw, 28px);
+    height: clamp(18px, 5.5vw, 28px);
   }
 }
 
