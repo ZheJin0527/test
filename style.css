@@ -347,8 +347,8 @@ nav {
 /* login 按钮放在菜单底部，样式微调 */
   .nav-links .login-btn {
     width: 100px;
-    height: 30px;
-    padding: 6px 0;
+    height: 20px;
+    padding: 0 8px 30px 8px;
     font-size: 14px;
     margin-top: auto;
     border-radius: 20px;
