@@ -1836,28 +1836,28 @@ nav {
 }
 
 .footer-bottom {
-    position: relative;
-    text-align: center;
-    font-size: 14px;
-    color: #666;
-    background-color: #2F2F2F;
-    padding: 10px;
+  position: relative;
+  text-align: center;
+  font-size: clamp(10px, 1vw, 14px);
+  color: #666;
+  background-color: #2F2F2F;
+  padding: 10px 80px;
 }
-  
+
 .footer-bottom::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 80px;
-    right: 80px;
-    height: 1.2px;
-    background-color: #444;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 80px;
+  right: 80px;
+  height: 1.2px;
+  background-color: #444;
 }
 
 .social-icons {
     margin-top: 10px;
     display: flex;
-    gap: 12px; /* 图标之间的间距 */
+    gap: 12px;
 }
 
 .social-icons a img {
@@ -1867,14 +1867,14 @@ nav {
 }
 
 .social-icons a:hover img {
-    transform: scale(1.2); /* 悬停时轻微放大 */
+    transform: scale(1.2);
 }
 
 #backToTop {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    display: none; /* 初始隐藏 */
+    display: none;
     padding: 10px 18px;
     font-size: 24px;
     border: none;
@@ -1890,9 +1890,10 @@ nav {
 
 .backToTopBtn:hover {
     transform: scale(1.2);
-    opacity: 1; /* 鼠标经过时更明显 */
+    opacity: 1;
 }
 
+/* ✅ 尺寸缩小响应，但保留 1920 版式 */
 @media (max-width: 1280px) and (min-width: 769px) {
   .footer {
     padding: 20px 40px;
@@ -1931,6 +1932,17 @@ nav {
     margin-bottom: 10px;
   }
 
+  .footer-bottom {
+    font-size: clamp(9px, 0.8vw, 12px);
+    padding: 8px 40px;
+  }
+
+  .footer-bottom::before {
+    left: 40px;
+    right: 40px;
+    height: 1px;
+  }
+
   .social-icons {
     gap: clamp(4px, 0.8vw, 8px);
     margin-top: 6px;
@@ -1945,53 +1957,64 @@ nav {
 @media (max-width: 768px) {
   .footer {
     flex-direction: column;
-    padding: 24px 32px;
+    padding: 12px 40px;  /* 上下padding更小 */
     align-items: flex-start;
   }
 
   .footer-logo,
   .footer-section {
     width: 100%;
-    margin-bottom: -10px;
+    margin-bottom: -80px; /* 间距更紧凑 */
   }
 
   .footer-logo h1 {
-    font-size: clamp(7px, 4.2vw, 16px); /* 最大值由 18px 降为 16px */
+    font-size: clamp(6px, 3vw, 12px); /* 最大值更小，最小6px */
     flex-direction: column;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
   }
 
   .footer-logo h1 img.logo {
-    width: clamp(24px, 6vw, 30px); /* 最大值由 36px 降为 30px */
-    height: clamp(24px, 6vw, 30px);
-    margin-bottom: 4px;
+    width: clamp(18px, 4vw, 22px);
+    height: clamp(18px, 4vw, 22px);
+    margin-bottom: 3px;
     margin-right: 0;
   }
 
   .footer-logo p {
-    font-size: clamp(7px, 3.5vw, 15px); /* 最大从 13px 提升到 15px */
-    line-height: 1.5;
-    margin-bottom: 4px;
-  }
-
-  .footer-section h4 {
-    font-size: clamp(7px, 4vw, 16px); /* 最大从 14px 提升到 16px */
-    margin-bottom: 4px;
-  }
-
-  .footer-section li {
-    font-size: clamp(7px, 3.8vw, 14px); /* 最大从 12px 提升到 14px */
+    font-size: clamp(6px, 2.5vw, 10px);
+    line-height: 1.3;
     margin-bottom: 3px;
   }
 
+  .footer-section h4 {
+    font-size: clamp(6px, 3vw, 12px);
+    margin-bottom: 2px;
+  }
+
+  .footer-section li {
+    font-size: clamp(6px, 2.5vw, 10px);
+    margin-bottom: 2px;
+  }
+
+  .footer-bottom {
+    font-size: clamp(7px, 2.5vw, 10px);
+    padding: 6px 24px;
+  }
+  
+  .footer-bottom::before {
+    left: 24px;
+    right: 24px;
+    height: 1px;
+  }
+
   .social-icons {
-    gap: clamp(4px, 1vw, 6px);
-    margin-top: 6px;
+    gap: clamp(2px, 0.8vw, 4px);
+    margin-top: 5px;
   }
 
   .social-icons a img {
-    width: clamp(18px, 5.5vw, 28px);
-    height: clamp(18px, 5.5vw, 28px);
+    width: clamp(14px, 3vw, 20px);
+    height: clamp(14px, 3vw, 20px);
   }
 }
 
