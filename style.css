@@ -1893,40 +1893,52 @@ nav {
     opacity: 1; /* 鼠标经过时更明显 */
 }
 
-@media (max-width: 1280px) and (min-width: 769px) {
+@@media (max-width: 1280px) and (min-width: 769px) {
   .footer {
-    padding: 30px 60px;
+    padding: 20px 40px;
+    gap: 20px;
+    flex-wrap: nowrap; /* 保持在一行 */
+  }
+
+  .footer-logo,
+  .footer-section {
+    flex: 1 1 0;
+    min-width: 0;
+    margin-bottom: 0;
   }
 
   .footer-logo h1 {
-    font-size: clamp(16px, 1.8vw, 20px);
+    font-size: clamp(10px, 1vw, 16px);
   }
 
   .footer-logo h1 img.logo {
-    width: clamp(36px, 3.3vw, 42px);
-    height: clamp(36px, 3.3vw, 42px);
+    width: clamp(30px, 2.5vw, 36px);
+    height: clamp(28px, 2.5vw, 36px);
   }
 
   .footer-logo p {
-    font-size: clamp(10px, 1.2vw, 12px);
+    font-size: clamp(9px, 1vw, 11px);
+    line-height: 1.6;
   }
 
   .footer-section h4 {
-    font-size: clamp(12px, 1.3vw, 14px);
+    font-size: clamp(10px, 1.1vw, 13px);
+    margin-bottom: 8px;
   }
 
   .footer-section li {
-    font-size: clamp(10px, 1.2vw, 13px);
-    margin-bottom: 12px;
+    font-size: clamp(9px, 1vw, 12px);
+    margin-bottom: 10px;
   }
 
   .social-icons {
-    gap: clamp(6px, 1vw, 10px);
+    gap: clamp(4px, 0.8vw, 8px);
+    margin-top: 6px;
   }
 
   .social-icons a img {
-    width: clamp(22px, 2.2vw, 28px);
-    height: clamp(22px, 2.2vw, 28px);
+    width: clamp(18px, 2vw, 24px);
+    height: clamp(18px, 2vw, 24px);
   }
 }
 
