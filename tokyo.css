@@ -1176,7 +1176,7 @@ nav {
   .footer-logo,
   .footer-section {
     width: 100%;
-    margin-bottom: -80px; /* 间距更紧凑 */
+    margin-bottom: 0; /* 间距更紧凑 */
   }
 
   .footer-logo h1 {
