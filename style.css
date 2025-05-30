@@ -179,7 +179,7 @@ nav {
     height: 50px;
     padding: 0 51px;
   }
-  
+
   .logo-section {
     gap: 3px;
   }
@@ -364,6 +364,7 @@ nav {
     padding: 0 8px 30px 8px;
     font-size: 14px;
     margin-top: auto;
+    margin-bottom: 25px;
     border-radius: 20px;
     text-align: center;
     line-height: 30px;
