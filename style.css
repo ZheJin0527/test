@@ -1893,7 +1893,7 @@ nav {
     opacity: 1; /* 鼠标经过时更明显 */
 }
 
-@@media (max-width: 1280px) and (min-width: 769px) {
+@media (max-width: 1280px) and (min-width: 769px) {
   .footer {
     padding: 20px 40px;
     gap: 20px;
