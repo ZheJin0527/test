@@ -13,34 +13,32 @@
 </head>
 <body>
   <header class="navbar">
-    <div class="logo-section">
-        <img src="images/images/tokyo.png" alt="Logo" class="logo">
-      <div class="company-name">
-        <div>TOKYO</div>
-        <div>JAPANESE CUISINE</div>
-      </div>
-    </div>   
-      
-    <div class="right-section">
-      <div class="nav-links right-nav-links" id="navMenu">
-        <div class="nav-item">
-          <a href="index.php">首页</a>
-        </div>
-        <div class="nav-item">
-          <a href="about.html">关于我们</a>
-        </div>
-        <div class="nav-item">
-          <a href="tokyo-japanese-cuisine-joinus.html">加入我们</a>
-        </div>
-      </div>
-        <a href="tokyologin.html" class="login-btn">登入</a>
-        <div class="language-switch">
-          <img src="images/images/tokyo翻译.png" alt="Lang" class="icon" />
-          <a href="#" class="lang">EN | CN</a>
-        </div>
-        <button class="hamburger" id="hamburger">&#9776;</button>
-      </div>
-  </header>
+  <div class="logo-section">
+    <img src="images/images/tokyo.png" alt="Logo" class="logo" />
+    <div class="company-name">
+      <div>TOKYO</div>
+      <div>JAPANESE CUISINE</div>
+    </div>
+  </div>
+
+  <nav class="nav-links" id="navMenu">
+    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">首页</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine-aboutus.html">关于我们</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine-joinus.html">加入我们</a></div>
+  </nav>
+
+  <div class="right-section">
+    <a href="tokyologin.html" class="login-btn">登入</a>
+
+    <!-- 语言切换 -->
+    <div class="language-switch">
+      <img src="images/images/tokyo翻译.png" alt="Lang" class="icon" />
+      <a href="#" class="lang">EN | CN</a>
+    </div>
+    <!-- 汉堡菜单按钮 -->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
 
   <section class="home">
     <div class="home-content">
@@ -197,28 +195,31 @@
   <script>
   const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
-const loginBtn = document.getElementById('loginBtn');
-const rightSection = document.querySelector('.right-section');
+const loginBtn = document.querySelector('.login-btn');
 
 function moveLoginBtn() {
   if (window.innerWidth <= 768) {
     if (!navMenu.contains(loginBtn)) {
       navMenu.appendChild(loginBtn);
     }
-    loginBtn.classList.add('nav-menu-login-btn');
   } else {
-    if (!rightSection.contains(loginBtn)) {
-      rightSection.insertBefore(loginBtn, rightSection.querySelector('.language-switch'));
+    // 如果宽度大于768，确保loginBtn在right-section中
+    const rightSection = document.querySelector('.right-section');
+    if (rightSection && !rightSection.contains(loginBtn)) {
+      rightSection.insertBefore(loginBtn, rightSection.firstChild);
     }
-    loginBtn.classList.remove('nav-menu-login-btn');
   }
 }
 
+// 点击汉堡切换菜单
 hamburger.addEventListener('click', () => {
   navMenu.classList.toggle('active');
 });
 
+// 页面加载时处理
 window.addEventListener('DOMContentLoaded', moveLoginBtn);
+
+// 窗口大小改变时也处理，防止resize后login位置错乱
 window.addEventListener('resize', moveLoginBtn);
 
 </script>

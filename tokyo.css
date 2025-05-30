@@ -26,7 +26,6 @@ body {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    border-bottom: 1px solid #e0e0e0;
     transition: transform 0.3s ease-in-out;
 }
   
@@ -52,11 +51,11 @@ body {
 /* 导航链接 */
 .nav-links {
     height: 80px;
+    font-weight: 500;
     display: flex;
     gap: 30px;
     font-size: 16px;
     align-items: center;
-    font-weight: 500;
     color: black;
 }
   
@@ -69,7 +68,11 @@ body {
     justify-content: center;
     padding: 0 6px;
     white-space: nowrap;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+}
+
+.nav-item {
+    position: relative;
 }
   
 .nav-links a:hover {
@@ -78,76 +81,33 @@ body {
   
 /* 右边登录和语言切换区域 */
 .right-section {
+    width: 221px;
+    height: 26px;
     display: flex;
     align-items: center;
-    gap: 24px;
-}
-  
-.right-nav-links {
-    display: flex;
-    gap: 24px;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: 500;
-}
-  
-.right-nav-links a {
-    color: black;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    height: 80px;
+    gap: 32px;
+    margin: 26px 0 28px 0;
 }
   
 /* 桌面端登录按钮样式 */
 .login-btn {
-  display: inline-block;
-  width: 100px;
-  height: 36px;
-  background-color: #8B5E20;
-  color: white;
-  border-radius: 25px;
-  font-size: 16px;
-  line-height: 36px;
-  text-align: center;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
+    width: 100px;
+    height: 26px;
+    background-color: #8B5E20;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 2px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block; /* 让 <a> 看起来像按钮 */
+    text-align: center;     /* 让文字居中 */
+    text-decoration: none;  /* 移除下划线 */
+    line-height: 26px;
 }
 
 .login-btn:hover {
   background-color: #704B18;
-}
-
-/* 移动端菜单登录按钮单独样式 */
-.nav-menu-login-btn {
-  display: block;
-  width: 100px;
-  height: 36px;
-  margin-top: 20px;
-}
-
-/* 移动端隐藏桌面菜单 */
-@media (max-width: 768px) {
-  .nav-links.right-nav-links {
-    display: none;
-  }
-  .nav-links.active {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 50px;
-    right: 0;
-    width: 200px;
-    height: calc(100vh - 50px);
-    background-color: white;
-    padding: 20px;
-    box-sizing: border-box;
-    gap: 20px;
-    z-index: 1000;
-    transform: translateX(0);
-  }
 }
   
 .language-switch {
@@ -186,7 +146,7 @@ nav {
     transition: transform 0.3s ease-in-out;
 }
 
-/* hamburger 默认隐藏 */
+/* 汉堡菜单按钮，默认隐藏 */
 .hamburger {
     display: none;
     font-size: 28px;
@@ -194,149 +154,200 @@ nav {
     border: none;
     color: black;
     cursor: pointer;
-    padding: 5px 0;
+    padding: 5px 0px;
+}
+
+.mobile-login {
+    display: none;
+}
+.desktop-login {
+    display: inline-block;
 }
 
 /* 1280px 以下尺寸调整 */
 @media (max-width: 1280px) {
     .navbar {
-        height: 60px;
-        padding: 0 50px;
+      height: 50px;
+      padding: 0 51px;
+    }
+
+    .logo-section {
+      gap: 3px;
     }
 
     .logo {
-        width: 30px;
-        height: 30px;
+      width: 30px;
+      height: 30px;
     }
 
     .company-name {
-        font-size: 10px;
+      font-size: 10px;
     }
 
     .nav-links {
-        height: 60px;
-        gap: 20px;
-        font-size: 14px;
+      height: 50px;
+      gap: 20px;
+      font-size: 14px;
+      margin-left: 60px;
     }
 
     .nav-links a {
-        padding: 0 4px;
-    }
-
-    .right-section {
-        gap: 16px;
-    }
-
-    .right-nav-links {
-        gap: 16px;
-        font-size: 14px;
+      padding: 0 4px;
     }
 
     .login-btn {
-        width: 80px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 14px;
+      width: 60px;
+      height: 17px;
+      border-radius: 17px;
+      padding: 2px 8px;
+      font-size: 11px;
+      line-height: 18px;
     }
 
     .language-switch {
-        font-size: 14px;
+      font-size: 11px;
+      gap: 6px;
     }
 
     .language-switch .lang {
-        width: 55px;
-        height: 20px;
+      width: 55px;
+      height: 20px;
     }
 
     .language-switch .icon {
-        width: 18px;
-        height: 18px;
+      width: 18px;
+      height: 18px;
+      margin-right: 4px;
     }
 }
 
 /* 768px 以下移动端菜单 */
 @media (max-width: 768px) {
-    .navbar {
-        height: 50px;
-        padding: 0 30px;
-    }
+  .navbar {
+    height: 47px;
+    padding: 0 40px;
+  }
 
-    .logo {
-        width: 27px;
-        height: 27px;
-    }
+  .logo-section {
+    gap: 3px;
+  }
 
-    .company-name {
-        font-size: 8px;
-    }
+  .logo {
+    width: 27px;
+    height: 27px;
+  }
 
-    .nav-links {
-        display: none;
-        position: fixed;
-        top: 50px;
-        right: 0;
-        width: 200px;
-        height: calc(100vh - 50px);
-        background-color: white;
-        flex-direction: column;
-        padding: 20px;
-        box-sizing: border-box;
-        gap: 20px;
-        z-index: 1000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
-    }
+  .company-name {
+    font-size: 8px;
+  }
 
-    .nav-links.active {
-        display: flex;
-        transform: translateX(0);
-    }
+  /* 导航链接隐藏，转为固定定位竖列菜单 */
+  .nav-links {
+    display: flex;
+    position: fixed;
+    top: 47px;
+    left: 0;
+    margin-top: 0;
+    margin-left: 0;
+    width: 100%;
+    height: 300px;
+    background-color: white;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    gap: 30px;
+    z-index: 1000;
+    transform: translateY(-120%);
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
 
-    .right-section {
-        gap: 12px;
-    }
+  /* 激活时显示菜单 */
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
 
-    .right-nav-links {
-        display: none;
-    }
+  /* 每个菜单项宽度撑满 */
+  .nav-item {
+    width: 100%;
+  }
 
-    .login-btn {
-        display: none;
-    }
+  /* right-section 宽度自适应，内容靠右排列 */
+  .right-section {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+  }
 
-    .nav-links .login-btn {
-        display: block !important;
-        width: 100px;
-        height: 36px;
-        background-color: #8B5E20;
-        color: white;
-        border: none;
-        border-radius: 25px;
-        font-size: 16px;
-        text-align: center;
-        line-height: 36px;
-        text-decoration: none;
-        margin-top: 20px;
-        cursor: pointer;
-    }
+  /* 语言切换按钮 */
+  .language-switch {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 
-    .language-switch {
-        font-size: 14px;
-        gap: 5px;
-    }
+  .language-switch .icon {
+    width: 18px;
+    height: 18px;
+  }
 
-    .language-switch .icon {
-        width: 18px;
-        height: 18px;
-    }
+  .language-switch .lang {
+    font-size: 12px;
+  }
 
-    .language-switch .lang {
-        font-size: 12px;
-    }
+  /* hamburger 靠右边，不要 margin-left:auto */
+  .hamburger {
+    display: block;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    padding: 5px 0;
+  }
 
-    .hamburger {
-        display: block;
-    }
+  .nav-links a {
+    padding: 8px 0 8px 10px; /* 固定 padding，左边 10px，上下 8px */
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: stretch;
+  }
+
+  .nav-links a:hover {
+    text-decoration: underline; /* 保留悬浮效果 */
+  }
+
+  /* login 按钮放在菜单底部，样式微调 */
+  .nav-links .login-btn {
+    width: 100px;
+    height: 20px;
+    padding: 0 8px 30px 8px;
+    font-size: 14px;
+    margin-top: auto;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 30px;
+    color: white
+  }
+
+  .nav-links .login-btn:hover {
+    padding: 0 8px 30px 8px;
+    line-height: 30px;    /* 和默认状态保持一致 */
+  }
 }
 
 .home {
