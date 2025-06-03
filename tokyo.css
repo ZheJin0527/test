@@ -1041,6 +1041,9 @@ nav {
 .footer-logo p {
     font-size: 14px;
     line-height: 2;
+    max-width: 360px; /* ✅ 限制宽度 */
+    margin: 0 auto;   /* ✅ 居中对齐 */
+    word-break: break-word; /* 防止长词溢出 */
 }
 
 .footer-section {
