@@ -387,7 +387,7 @@ nav {
 
 @media (max-width: 1280px) {
   .home {
-    padding: 40px 0 0 40px;
+    padding: 40px 51px 0 51px;
     height: 750px;
     background-position: center top;
   }
@@ -506,7 +506,7 @@ nav {
 /* 1280px 以下响应式 */
 @media (max-width: 1280px) {
     .tokyoabout-section {
-        padding: 0 30px;
+        padding: 0 51px;
     }
 
     .tokyoabout-text {
@@ -545,7 +545,7 @@ nav {
 /* 768px 以下响应式 */
 @media (max-width: 768px) {
     .tokyoabout-section {
-        padding: 20px 20px;
+        padding: 20px 40px;
         gap: 15px;
         flex-wrap: nowrap;
     }
@@ -586,6 +586,7 @@ nav {
     padding: 5vw;
     text-align: center;
     background-color: #fff2dc;
+    padding: 100px 80px;
 }
 
 .mission-cards {
@@ -633,6 +634,10 @@ nav {
 
 /* 1280px 以下 */
 @media (max-width: 1280px) {
+    .mission-section {
+        padding: 60px 51px;
+    }
+
     .mission-content h3 {
         font-size: clamp(32px, 4vw, 51px);
     }
@@ -644,6 +649,10 @@ nav {
 
 /* 768px 以下 */
 @media (max-width: 768px) {
+    .mission-section {
+        padding: 60px 40px;
+    }
+
     .mission-card {
         flex: 0 0 28%;
     }   
