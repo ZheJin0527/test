@@ -1167,7 +1167,7 @@ nav {
 
   .footer-section h4 {
     font-size: clamp(10px, 1.1vw, 13px);
-    margin-bottom: 8px;
+    margin-bottom: 2px;
   }
 
   .footer-section li {
