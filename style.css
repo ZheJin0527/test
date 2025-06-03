@@ -44,7 +44,7 @@ body {
 
 .company-name {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(10px, 0.65vw + 0.3rem, 14px);
+    font-size: clamp(10px, 1.2vw, 13px);
     font-weight: bold;
     line-height: 140%;
 }
@@ -108,7 +108,7 @@ body {
     border: none;
     border-radius: 25px;
     padding: 2px 25px;
-    font-size: clamp(10px, 0.6vw + 0.3rem, 14px);
+    font-size: clamp(12px, 0.7vw + 0.5rem, 16px);
     cursor: pointer;
     display: inline-block; /* 让 <a> 看起来像按钮 */
     text-align: center;     /* 让文字居中 */
@@ -171,6 +171,7 @@ nav {
 .mobile-login {
     display: none;
 }
+
 .desktop-login {
     display: inline-block;
 }
@@ -221,7 +222,7 @@ nav {
     padding: 2px 8px;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 20px;
+    margin-left: 30px;
   }
 
   .language-switch {
