@@ -401,6 +401,7 @@ nav {
   .home h1 {
     font-size: clamp(48px, 6vw, 75px);
     line-height: 130%;
+    margin-top: 0;
   }
 
   .home p {
