@@ -1802,7 +1802,7 @@ nav {
     color: white;
     margin-bottom: 8px;
     display: flex;
-    align-items: center;
+    align-items: start;
 }
 
 .footer-logo h1 img.logo {
