@@ -63,7 +63,6 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
         我们相信，高效源于信任，创新源于自由。<br />
         一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。
       </p>
-      <a href="#" class="home-button">了解我们</a>
     </div>
   </section>
   
@@ -129,7 +128,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <p class="culture-description">
         在 Kunzz Holdings，我们相信文化决定高度。我们以目标为导向，理念为基石，打造一支具备高效执行力与高度协同精神的团队。我们提倡扁平沟通，尊重每一位成员的成长节奏，鼓励分享、学习与共创。在这里，每一份努力都能被看见，每一次突破都值得被鼓励。
       </p>
-      <a href="#" class="culture-button">了解更多 &gt;&gt;</a>
+      <a href="joinus.html" class="culture-button">了解更多 &gt;&gt;</a>
     </div>
   </section>
   
