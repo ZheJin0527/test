@@ -1802,7 +1802,7 @@ nav {
     color: white;
     margin-bottom: 8px;
     display: flex;
-    align-items: start;
+    align-items: center;
 }
 
 .footer-logo h1 img.logo {
@@ -1991,7 +1991,7 @@ nav {
   .footer-logo h1 {
     font-size: clamp(6px, 3vw, 12px);
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 3px;
   }
 
