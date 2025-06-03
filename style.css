@@ -1779,6 +1779,14 @@ nav {
     border-top: 1px solid #444;
 }
 
+.footer-logo,
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 .footer-logo {
     flex: 1 1 250px;
     margin-bottom: 20px;
@@ -1789,7 +1797,8 @@ nav {
     font-weight: bold;
     color: white;
     margin-bottom: 8px;
-    display: flex;   
+    display: flex;
+    align-items: center;
 }
 
 .footer-logo h1 img.logo {
@@ -1898,7 +1907,7 @@ nav {
   .footer {
     padding: 20px 51px;
     gap: 20px;
-    flex-wrap: nowrap; /* 保持在一行 */
+    flex-wrap: nowrap;
   }
 
   .footer-logo,
@@ -1957,8 +1966,8 @@ nav {
 @media (max-width: 768px) {
   .footer {
     flex-direction: column;
-    padding: 12px 40px;  /* 上下padding更小 */
-    align-items: flex-start;
+    padding: 12px 40px;
+    align-items: center;
   }
 
   .footer-logo {
@@ -1972,21 +1981,21 @@ nav {
   .footer-logo,
   .footer-section {
     width: 100%;
-    margin-bottom: 0; /* 间距更紧凑 */
+    margin-bottom: 0;
   }
 
   .footer-logo h1 {
     font-size: clamp(6px, 3vw, 12px);
-    flex-direction: row; /* 改成横排 */
-    align-items: center; /* 垂直居中 */
+    flex-direction: row;
+    align-items: center;
     margin-bottom: 3px;
   }
 
   .footer-logo h1 img.logo {
     width: clamp(22px, 6vw, 36px);
     height: clamp(22px, 6vw, 36px);
-    margin-bottom: 0; /* 去掉上下边距 */
-    margin-right: 8px; /* 增加右边距，和文字分开 */
+    margin-bottom: 0;
+    margin-right: 8px;
   }
 
   .footer-logo p {
@@ -2009,7 +2018,7 @@ nav {
     font-size: clamp(7px, 2.5vw, 10px);
     padding: 6px 24px;
   }
-  
+
   .footer-bottom::before {
     left: 24px;
     right: 24px;
