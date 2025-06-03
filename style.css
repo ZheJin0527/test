@@ -593,7 +593,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 80px;
     box-sizing: border-box;
     max-width: 1920px;
     margin: 0 auto;
