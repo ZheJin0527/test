@@ -38,8 +38,8 @@ body {
 }
 
 .logo {
-    width: clamp(40px, 2vw, 50px);     /* logo大小平滑缩放 */
-    height: clamp(40px, 2vw, 50px);
+    width: clamp(34px, 2vw, 50px);     /* logo大小平滑缩放 */
+    height: clamp(34px, 2vw, 50px);
 }
 
 .company-name {
