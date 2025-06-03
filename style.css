@@ -2010,7 +2010,7 @@ nav {
 
   .footer-section h4 {
     font-size: clamp(6px, 3vw, 12px);
-    margin-bottom: 2px;
+    margin-bottom: -10px;
   }
 
   .footer-section li {
