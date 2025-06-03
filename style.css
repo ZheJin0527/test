@@ -1839,7 +1839,7 @@ nav {
 
 .footer-section li {
     margin-bottom: 20px;
-    font-size: 15px;
+    font-size: 16px;
     color: #ccc;
 }
 
@@ -1941,7 +1941,7 @@ nav {
   }
 
   .footer-section li {
-    font-size: clamp(9px, 1vw, 12px);
+    font-size: clamp(10px, 1.1vw, 13px);
     margin-bottom: 10px;
   }
 
@@ -2014,7 +2014,7 @@ nav {
   }
 
   .footer-section li {
-    font-size: clamp(6px, 2.5vw, 10px);
+    font-size: clamp(6px, 3vw, 12px);
     margin-bottom: 2px;
   }
 
