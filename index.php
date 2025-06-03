@@ -47,7 +47,6 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
     <!-- 翻译按钮始终显示 -->
     <div class="language-switch">
-      <img src="images/images/翻译.png" alt="Icon" class="icon" />
       <a href="#" class="lang">EN | CN</a>
     </div>
 
