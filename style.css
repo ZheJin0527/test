@@ -1896,7 +1896,7 @@ nav {
 /* ✅ 尺寸缩小响应，但保留 1920 版式 */
 @media (max-width: 1280px) and (min-width: 769px) {
   .footer {
-    padding: 20px 40px;
+    padding: 20px 51px;
     gap: 20px;
     flex-wrap: nowrap; /* 保持在一行 */
   }
