@@ -437,7 +437,7 @@ nav {
 @media (max-width: 1280px) {
   .home {
     padding: 40px 0 0 51px;
-    height: 750px;
+    height: clamp(600px, 60vw, 750px);
     background-position: center top;
   }
 
@@ -448,19 +448,19 @@ nav {
   }
 
   .home h1 {
-    font-size: 75px;
+    font-size: clamp(48px, 6vw, 75px);
     line-height: 130%;
   }
 
-  .home p {
-    font-size: 18px;
+.home p {
+    font-size: clamp(14px, 1.6vw, 30px);
     margin-bottom: 60px;
   }
 
-  .home-button {
-    width: 186px;
-    height: 53px;
-    font-size: 24px;
+.home-button {
+    width: clamp(110px, 18vw, 186px);
+    height: clamp(10px, 6vw, 53px);
+    font-size: clamp(10px, 2vw, 24px);
   }
 }
 
