@@ -881,7 +881,7 @@ nav {
     width: calc(100% - 102px);
     margin: 0 51px 80px 51px;
     flex-wrap: nowrap;
-    gap: 32px;
+    gap: 0px;
   }
 
   .culture-left {
