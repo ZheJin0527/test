@@ -959,11 +959,14 @@ nav {
   }
 
   .culture-button {
-    width: clamp(52px, 4vw, 60px);
-    height: clamp(22px, 1.8vw, 26px);
-    padding: clamp(3px, 0.5vw, 6px) clamp(8px, 1vw, 14px);
-    font-size: clamp(10px, 1vw, 14px);
-    border-radius: clamp(6px, 0.6vw, 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(52px, 4vw, 60px);
+  height: clamp(22px, 1.8vw, 26px);
+  font-size: clamp(10px, 1vw, 14px);
+  border-radius: clamp(6px, 0.6vw, 10px);
+  padding: 0 clamp(8px, 1vw, 14px); /* 上下去掉 */
   }
 }
 
