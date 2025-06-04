@@ -2753,14 +2753,15 @@ form input[type="file"] {
 /* 768px 及以下 */
 @media (max-width: 768px) {
     .join-us-form {
-        width: 90%;
+        width: 100%;
         max-width: 700px;
-        padding-left: clamp(20px, 6vw, 40px);
-        padding-right: clamp(20px, 6vw, 40px);
+        padding-left: 40px;
+        padding-right: 40px;
         padding-top: 10px;
         padding-bottom: 15px;
         height: auto;
         white-space: normal;
+        box-sizing: border-box;
     }
 
     .join-us-form h2 {
@@ -2828,10 +2829,11 @@ form input[type="file"] {
     }
 
     .submit-btn {
-        width: 50%;
+        width: 60%;
         font-size: 14px;
         padding: 6px;
         margin-top: 15px;
+        align-self: center;
     }
 }
 
