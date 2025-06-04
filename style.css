@@ -1961,7 +1961,7 @@ nav {
   }
 
   .footer-logo-img {
-    width: clamp(120px, 10vw, 160px); /* 更小屏宽时进一步限制最大宽度 */
+    width: clamp(120px, 10vw, 180px); /* 更小屏宽时进一步限制最大宽度 */
   }
 
   .footer-section h4 {
