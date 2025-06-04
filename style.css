@@ -1837,6 +1837,7 @@ nav {
   height: auto;         /* ✅ 保持宽高比 */
   margin-bottom: 16px;  /* ✅ 和地址信息拉开间距 */
   display: block;
+  margin-bottom: 0;
 }
 
 .footer-section {
