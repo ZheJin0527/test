@@ -2969,7 +2969,8 @@ form input[type="file"] {
   flex-direction: row;
   width: 100%;
   max-width: 1648px;
-  margin: 80px auto 48px auto;
+  height: 500px;
+  margin: 80px auto 70px auto;
   padding-left: clamp(40px, 5vw, 80px);
   padding-right: clamp(40px, 5vw, 80px);
   background: white;
@@ -3025,6 +3026,7 @@ form input[type="file"] {
   .contact-container {
     padding-left: 50px;
     padding-right: 50px;
+    height: 450px;
   }
 
   .contact-info {
