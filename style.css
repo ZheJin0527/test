@@ -2774,7 +2774,7 @@ form input[type="file"] {
     padding-top: 10px;
     padding-left: clamp(40px, 5vw, 80px);
     padding-right: clamp(40px, 5vw, 80px);
-    background: #fff;
+    background: #faf6e0;
     border-radius: 8px;
     font-family: 'Inter', sans-serif;
     white-space: nowrap;
