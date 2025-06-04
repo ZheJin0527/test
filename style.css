@@ -17,7 +17,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: clamp(50px, 5vw, 80px);
+    height: 80px;
     padding: 0 80px;
     font-size: clamp(12px, 1vw + 0.5rem, 16px);
     background-color: #2F2F2F;
