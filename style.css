@@ -1957,7 +1957,7 @@ nav {
 
   .footer-logo p {
     font-size: clamp(9px, 1vw, 11px);
-    line-height: 1.6;
+    line-height: 1.4;
   }
 
   .footer-logo-img {
