@@ -2039,7 +2039,7 @@ nav {
   }
 
   .footer-logo-img {
-    width: clamp(120px, 20vw, 140px); /* 手机屏幕上更小但不失清晰 */
+    width: clamp(130px, 20vw, 140px); /* 手机屏幕上更小但不失清晰 */
   }
 
   .footer-section h4 {
