@@ -13,31 +13,32 @@
 </head>
 <body>
     <header class="navbar">
-    <div class="logo-section">
-      <img src="images/images/tokyo.png" alt="Logo" class="logo" />
-      <div class="company-name">
-        <div>TOKYO</div>
-        <div>JAPANESE CUISINE</div>
-      </div>
+  <div class="logo-section">
+    <img src="images/images/tokyo.png" alt="Logo" class="logo" />
+    <div class="company-name">
+      <div>TOKYO</div>
+      <div>JAPANESE CUISINE</div>
     </div>
+  </div>
 
-     <nav class="nav-links" id="navMenu">
-      <div class="nav-item"><a href="tokyo-japanese-cuisine.html">首页</a></div>
-      <div class="nav-item"><a href="tokyo-japanese-cuisine-aboutus.html">关于我们</a></div>
-      <div class="nav-item"><a href="tokyo-japanese-cuisine-joinus.html">加入我们</a></div>
-    </nav>
+  <nav class="nav-links" id="navMenu">
+    <div class="nav-item"><a href="index.php">返回公司</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">首页</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine-about.html">关于我们</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine-joinus.html">加入我们</a></div>
+  </nav>
 
-    <div class="right-section">
-      <a href="tokyologin.html" class="login-btn">登入</a>
+  <div class="right-section">
+    <a href="tokyologin.html" class="login-btn">登入</a>
 
-      <!-- 语言切换 -->
-      <div class="language-switch">
-        <a href="#" class="lang">EN | CN</a>
-      </div>
-      <!-- 汉堡菜单按钮 -->
-      <button class="hamburger" id="hamburger">&#9776;</button>
+    <!-- 语言切换 -->
+    <div class="language-switch">
+      <a href="#" class="lang">EN | CN</a>
     </div>
-  </header>
+    <!-- 汉堡菜单按钮 -->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
 
   <section id="joinus" class="joinus">
     <div class="joinus-content">
@@ -320,9 +321,9 @@
     <div class="footer-section">
       <h4><a href="tokyo-japanese-cuisine.html">首页</a></h4>
       <ul>
-        <li><a href="tokyo-japanese-cuisine.html#tokyoabout">关于我们</a></li>
-        <li><a href="tokyo-japanese-cuisine.html#mission">使命愿景价值观</a></li>
-        <li><a href="tokyo-japanese-cuisine.html#cuisine">美食</a></li>
+        <li><a href="#tokyoabout">关于我们</a></li>
+        <li><a href="#mission">使命愿景价值观</a></li>
+        <li><a href="#cuisine">美食</a></li>
       </ul>
     </div>
 
@@ -333,9 +334,9 @@
     <div class="footer-section">
       <h4><a href="tokyo-japanese-cuisine-joinus.html">加入我们</a></h4>
       <ul>
-        <li><a href="#benefit">公司福利</a></li>
-        <li><a href="#environment">公司环境</a></li>
-        <li><a href="#job-table-title">招聘</a></li>
+        <li><a href="tokyo-japanese-cuisine-joinus.html#benefit">公司福利</a></li>
+        <li><a href="tokyo-japanese-cuisine-joinus.html#environment">公司环境</a></li>
+        <li><a href="tokyo-japanese-cuisine-joinus.html#job-table-title">招聘</a></li>
         <li><a href="#contact">联系我们</a></li>
         <li>
           <span style="font-size: 16px; font-weight: bold; color: white;">关注我们</span>
@@ -361,9 +362,8 @@
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="app.js"></script>
-<script>
+  <script src="app.js"></script>
+  <script>
   const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 const loginBtn = document.querySelector('.login-btn');

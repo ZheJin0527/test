@@ -12,31 +12,32 @@
 </head>
 <body>
   <header class="navbar">
-    <div class="logo-section">
-      <img src="images/images/tokyo.png" alt="Logo" class="logo" />
-      <div class="company-name">
-        <div>TOKYO</div>
-        <div>JAPANESE CUISINE</div>
-      </div>
+  <div class="logo-section">
+    <img src="images/images/tokyo.png" alt="Logo" class="logo" />
+    <div class="company-name">
+      <div>TOKYO</div>
+      <div>JAPANESE CUISINE</div>
     </div>
+  </div>
 
-     <nav class="nav-links" id="navMenu">
-      <div class="nav-item"><a href="tokyo-japanese-cuisine.html">首页</a></div>
-      <div class="nav-item"><a href="tokyo-japanese-cuisine-aboutus.html">关于我们</a></div>
-      <div class="nav-item"><a href="tokyo-japanese-cuisine-joinus.html">加入我们</a></div>
-    </nav>
+  <nav class="nav-links" id="navMenu">
+    <div class="nav-item"><a href="index.php">返回公司</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">首页</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine-about.html">关于我们</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine-joinus.html">加入我们</a></div>
+  </nav>
 
-    <div class="right-section">
-      <a href="tokyologin.html" class="login-btn">登入</a>
+  <div class="right-section">
+    <a href="tokyologin.html" class="login-btn">登入</a>
 
-      <!-- 语言切换 -->
-      <div class="language-switch">
-        <a href="#" class="lang">EN | CN</a>
-      </div>
-      <!-- 汉堡菜单按钮 -->
-      <button class="hamburger" id="hamburger">&#9776;</button>
+    <!-- 语言切换 -->
+    <div class="language-switch">
+      <a href="#" class="lang">EN | CN</a>
     </div>
-  </header>
+    <!-- 汉堡菜单按钮 -->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
 
   <section class="aboutus">
     <div class="aboutus-content">
@@ -129,44 +130,36 @@
 
   <footer class="footer">
     <div class="footer-logo">
-      <h1><img src="images/images/logo.png" alt="Logo" class="logo" />Kunzz Holdings <br />Sdn. Bhd.</h1>
-      <p>25, Jln Tanjong 3, Taman Desa Cemerlang, <br />
-        81800 Ulu Tiram, Johor Darul Ta'zim</p>
+      <h1><img src="images/images/tokyo.png" alt="Logo" class="logo" />Tokyo Japanese <br />Cuisine</h1>
+      <p>1）T-042 Level 3, Mid Valley, The Mall, Southkey, <br />
+        81100 Johor Bahru, Johor Darul Ta'zim.</p>
+      <p>2）Lot UG-25, Upper Ground Floor, Paradigm Mall, Lbh <br />
+        Skudai, Taman Bukit Mewah, 81200 Johor Bahru, <br />
+        Johor Darul Ta'zim.</p>
       <p>&#128382 +60 123-456 789<br />
         &#128386 hello@kunzz.com</p>
     </div>
 
     <div class="footer-section">
-      <h4><a href="index.php">首页</a></h4>
+      <h4><a href="tokyo-japanese-cuisine.html">首页</a></h4>
       <ul>
-        <li><a href="index.php#comprofile">公司简介</a></li>
-        <li><a href="index.php#culture">核心价值公司文化</a></li>
-        <li><a href="index.php#brands">旗下品牌</a></li>
+        <li><a href="#tokyoabout">关于我们</a></li>
+        <li><a href="#mission">使命愿景价值观</a></li>
+        <li><a href="#cuisine">美食</a></li>
       </ul>
     </div>
 
     <div class="footer-section">
-      <h4><a href="about.html">关于我们</a></h4>
-      <ul>
-        <li><a href="#intro">集团简介</a></li>
-        <li><a href="#vision">信念与方向</a></li>
-        <li><a href="#values">核心价值观</a></li>
-        <li><a href="#timeline-1">发展历史</a></li>
-      </ul>
+      <h4><a href="#">关于我们</a></h4>
     </div>
 
     <div class="footer-section">
-      <h4>旗下品牌</h4>
+      <h4><a href="tokyo-japanese-cuisine-joinus.html">加入我们</a></h4>
       <ul>
-        <li>TOKYO JAPANESE CUISINE</li>
-      </ul>
-    </div>
-
-    <div class="footer-section">
-      <h4><a href="joinus.html">加入我们</a></h4>
-      <ul>
-        <li>招聘</li>
-        <li><a href="joinus.html#contact">联系我们</a></li>
+        <li><a href="tokyo-japanese-cuisine-joinus.html#benefit">公司福利</a></li>
+        <li><a href="tokyo-japanese-cuisine-joinus.html#environment">公司环境</a></li>
+        <li><a href="tokyo-japanese-cuisine-joinus.html#job-table-title">招聘</a></li>
+        <li><a href="#contact">联系我们</a></li>
         <li>
           <span style="font-size: 16px; font-weight: bold; color: white;">关注我们</span>
           <div class="social-icons">
@@ -191,10 +184,8 @@
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
 
-  
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="app.js"></script>
-<script>
+  <script src="app.js"></script>
+  <script>
   const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 const loginBtn = document.querySelector('.login-btn');
