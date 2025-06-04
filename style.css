@@ -1962,6 +1962,7 @@ nav {
 
   .footer-logo-img {
     width: clamp(140px, 12vw, 200px); /* 更小屏宽时进一步限制最大宽度 */
+    margin-top: 0;
   }
 
   .footer-section h4 {
