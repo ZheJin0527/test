@@ -134,7 +134,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   
   <footer class="footer">
     <div class="footer-logo">
-      <img src="images/images/logo.png" alt="Logo" class="logo" />Kunzz Holdings <br />Sdn. Bhd.</h1>
+      <h1><img src="images/images/logo.png" alt="Logo" class="logo" />Kunzz Holdings <br />Sdn. Bhd.</h1>
       <p>25, Jln Tanjong 3, Taman Desa Cemerlang, <br />
         81800 Ulu Tiram, Johor Darul Ta'zim.</p>
       <p>&#128382;&nbsp; +60 123-456 789<br />
