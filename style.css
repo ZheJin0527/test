@@ -1831,6 +1831,13 @@ nav {
     line-height: 2;
 }
 
+.footer-logo-img {
+  width: 220px;         /* ✅ 可根据实际图大小调整 */
+  height: auto;         /* ✅ 保持宽高比 */
+  margin-bottom: 16px;  /* ✅ 和地址信息拉开间距 */
+  display: block;
+}
+
 .footer-section {
     flex: 1 1 200px;
     margin-bottom: 20px;
