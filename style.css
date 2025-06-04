@@ -3134,7 +3134,7 @@ form input[type="file"] {
   padding: 8px 0;
   font-family: 'Source Sans Pro', sans-serif;
   color: #888;
-  line-height: 1.5;
+  line-height: 2;
 }
 
 .map-container {
@@ -3156,15 +3156,23 @@ form input[type="file"] {
   .contact-container {
     padding-left: 50px;
     padding-right: 50px;
-    height: 450px;
+    height: 380px;
   }
 
   .contact-info {
     padding: 40px 20px;
   }
 
+  .contact-info h2 {
+    font-size: clamp(24px, 3vw, 36px);
+  }
+
+  .contact-info p {
+    font-size: clamp(10px, 1.6vw, 16px);
+  }
+
   .map-container iframe {
-    min-height: 500px;
+    min-height: 380px;
   }
 }
 
