@@ -928,7 +928,7 @@ nav {
   color: #888888;
   margin: 0;
   padding: clamp(4px, 1vw, 12px) 0;
-  font-size: clamp(10px, 1.5vw, 24px); /* 字体再小一点 */
+  font-size: clamp(10px, 1.5vw, 19px); /* 字体再小一点 */
 }
 
 .map-container {

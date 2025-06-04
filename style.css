@@ -2998,7 +2998,7 @@ form input[type="file"] {
 }
 
 .contact-info p {
-  font-size: clamp(12px, 2vw, 32px);
+  font-size: clamp(12px, 2vw, 19px);
   margin: 0;
   padding: 8px 0;
   font-family: 'Source Sans Pro', sans-serif;
