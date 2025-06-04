@@ -2531,9 +2531,12 @@ form input[type="file"] {
 /* 加入我们表单区 */
 .join-us-form {
     box-sizing: border-box;
-    width: 100%;
+    width: 50%;
     max-width: 1330px;
+    min-width: 320px;
     margin: 50px auto;
+    height: 720px;
+    padding-top: 10px;
     padding-left: clamp(40px, 5vw, 80px);
     padding-right: clamp(40px, 5vw, 80px);
     background: #FFE9BA;
@@ -2545,22 +2548,22 @@ form input[type="file"] {
 
 .join-us-form h2 {
     text-align: center;
-    font-size: clamp(20px, 3vw, 30px);
+    font-size: clamp(20px, 3vw, 28px);
     margin-bottom: 30px;
 }
 
 /* 表单一般行 */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: -20px;
     display: flex;
     flex-direction: column;
 }
 
 /* 表单两列（中文姓名+性别） */
 .form-group-row {
-    margin-bottom: 20px;
+    margin-bottom: -30px;
     display: flex;
-    gap: 0 60px;
+    gap: 0 40px;
 }
 
 /* 左右半格 */
@@ -2574,9 +2577,10 @@ form input[type="file"] {
 /* label通用 */
 .form-group label,
 .form-group-row label {
+    margin-top: 20px;
     margin-bottom: 8px;
     font-weight: bold;
-    font-size: clamp(12px, 1.5vw, 16px);
+    font-size: clamp(10px, 1.5vw, 14px);
 }
 
 /* input、select、textarea统一 */
@@ -2587,7 +2591,7 @@ form input[type="file"] {
 .form-group-row select,
 .form-group-row textarea {
     padding: 10px;
-    font-size: clamp(12px, 1.5vw, 16px);
+    font-size: clamp(10px, 1.5vw, 14px);
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
@@ -2632,30 +2636,12 @@ form input[type="file"] {
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-  .phone-input {
-    gap: 8px;
-  }
-
-  .phone-input select {
-    flex: 0 0 30%;
-    font-size: 10px;
-    padding: 6px;
-  }
-
-  .phone-input input {
-    flex: 0 0 68%;
-    font-size: 8px;
-    padding: 6px;
-  }
-}
-
 /* 性别选项（radio） */
 .gender-options {
     display: flex;
     align-items: center;
     gap: 0 20px;
-    margin-top: 8px;
+    margin-top: -12px;
 }
 
 .gender-options label {
@@ -2683,10 +2669,170 @@ form input[type="file"] {
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 50px;
 }
 
 .submit-btn:hover {
     background-color: #8B5E20;
+}
+
+.join-us-form {
+    box-sizing: border-box;
+    width: 50%;
+    max-width: 1330px;
+    min-width: 320px;
+    margin: 50px auto;
+    height: 720px;
+    padding-top: 10px;
+    padding-left: clamp(40px, 5vw, 80px);
+    padding-right: clamp(40px, 5vw, 80px);
+    background: #FFE9BA;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    overflow-wrap: break-word;
+}
+
+/* 1280px 及以下 */
+@media (max-width: 1280px) {
+    .join-us-form {
+        width: 70%; /* 变窄 */
+        max-width: 960px; /* 限制最大宽度 */
+        padding-left: clamp(30px, 4vw, 60px);
+        padding-right: clamp(30px, 4vw, 60px);
+    }
+
+    .join-us-form h2 {
+        font-size: clamp(18px, 3vw, 24px);
+    }
+
+    .form-group label,
+    .form-group-row label {
+        font-size: clamp(10px, 1.3vw, 13px);
+        margin-top: 16px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea,
+    .form-group-row input,
+    .form-group-row select,
+    .form-group-row textarea {
+        font-size: clamp(10px, 1.3vw, 13px);
+        padding: 8px;
+    }
+
+    .phone-input select {
+        flex: 0 0 clamp(80px, 12vw, 120px);
+        font-size: clamp(10px, 1.3vw, 14px);
+        padding: 6px;
+    }
+
+    .phone-input input {
+        font-size: clamp(8px, 1.2vw, 14px);
+        padding: 6px;
+    }
+
+    .gender-options label {
+        font-size: clamp(11px, 1.3vw, 14px);
+    }
+
+    .gender-options input[type="radio"] {
+        width: clamp(14px, 1.3vw, 16px);
+        height: clamp(14px, 1.3vw, 16px);
+    }
+
+    .submit-btn {
+        font-size: clamp(14px, 1.3vw, 16px);
+        padding: clamp(7px, 1.3vw, 12px);
+        width: 35%;
+        margin-top: 40px;
+    }
+}
+
+/* 768px 及以下 */
+@media (max-width: 768px) {
+    .join-us-form {
+        width: 90%;
+        max-width: 700px;
+        padding-left: clamp(20px, 6vw, 40px);
+        padding-right: clamp(20px, 6vw, 40px);
+        padding-top: 10px;
+        padding-bottom: 15px;
+        height: auto;
+        white-space: normal;
+    }
+
+    .join-us-form h2 {
+        font-size: clamp(16px, 4vw, 20px);
+        margin-bottom: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 6px;
+    }
+
+    .form-group-row {
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 6px;
+    }
+
+    .form-group label,
+    .form-group-row label {
+        font-size: clamp(10px, 3vw, 12px);
+        margin-top: 4px;
+        margin-bottom: 3px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea,
+    .form-group-row input,
+    .form-group-row select,
+    .form-group-row textarea {
+        font-size: clamp(10px, 3vw, 12px);
+        padding: 5px;
+    }
+
+    .phone-input {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .phone-input select {
+        flex: 0 0 40%;
+        font-size: 10px;
+        padding: 5px;
+    }
+
+    .phone-input input {
+        flex: 1 0 55%;
+        font-size: 10px;
+        padding: 5px;
+    }
+
+    .gender-options {
+        gap: 8px;
+        margin-top: 2px;
+        flex-wrap: wrap;
+    }
+
+    .gender-options label {
+        font-size: 12px;
+    }
+
+    .gender-options input[type="radio"] {
+        width: 14px;
+        height: 14px;
+    }
+
+    .submit-btn {
+        width: 50%;
+        font-size: 14px;
+        padding: 6px;
+        margin-top: 15px;
+    }
 }
 
 .message-box {
