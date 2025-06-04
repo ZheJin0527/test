@@ -3175,6 +3175,7 @@ form input[type="file"] {
     padding-left: 40px;
     padding-right: 40px;
     margin: 40px auto;
+    height: auto;
   }
 
   .contact-info {
