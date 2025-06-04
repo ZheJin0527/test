@@ -1833,7 +1833,7 @@ nav {
 }
 
 .footer-logo-img {
-  width: 240px;
+  width: 220px;
   height: auto;         /* ✅ 保持宽高比 */
   margin-bottom: 16px;  /* ✅ 和地址信息拉开间距 */
   display: block;
