@@ -89,7 +89,6 @@ body {
     color: white;
     padding: 0 40px; /* 在鼠标悬停时增大 padding，使得区域变宽 */
     text-decoration: none;
-    height: clamp(73px, 5vw, 80px);
 }
 
 .right-section {
