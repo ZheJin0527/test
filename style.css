@@ -361,6 +361,10 @@ nav {
     padding: 8px 0 8px 10px; /* 同样固定 padding */
   }
 
+  .login-btn {
+    margin-right: 20px;
+  }
+
 /* login 按钮放在菜单底部，样式微调 */
   .nav-links .login-btn {
     width: 100px;

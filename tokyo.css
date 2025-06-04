@@ -203,6 +203,7 @@ nav {
       padding: 2px 8px;
       font-size: 11px;
       line-height: 18px;
+      margin-left: 30px;
     }
 
     .language-switch {
@@ -329,6 +330,10 @@ nav {
 
   .nav-links a:hover {
     text-decoration: underline; /* 保留悬浮效果 */
+  }
+
+  .login-btn {
+    margin-right: 20px;
   }
 
   /* login 按钮放在菜单底部，样式微调 */
