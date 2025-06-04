@@ -1833,7 +1833,7 @@ nav {
 }
 
 .footer-logo-img {
-  width: clamp(120px, 12vw, 220px);
+  width: clamp(180px, 12vw, 240px);
   height: auto;         /* ✅ 保持宽高比 */
   margin-bottom: 16px;  /* ✅ 和地址信息拉开间距 */
   display: block;
@@ -1959,7 +1959,7 @@ nav {
   }
 
   .footer-logo-img {
-    width: clamp(100px, 20vw, 160px); /* 更小屏宽时进一步限制最大宽度 */
+    width: clamp(120px, 10vw, 160px); /* 更小屏宽时进一步限制最大宽度 */
   }
 
   .footer-section h4 {
@@ -2036,7 +2036,7 @@ nav {
   }
 
   .footer-logo-img {
-    width: clamp(80px, 40vw, 120px); /* 手机屏幕上更小但不失清晰 */
+    width: clamp(140px, 40vw, 200px); /* 手机屏幕上更小但不失清晰 */
   }
 
   .footer-section h4 {
