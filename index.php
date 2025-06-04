@@ -138,8 +138,8 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <p>25, Jln Tanjong 3, Taman Desa <br />
         Cemerlang, 81800 Ulu Tiram,  <br />
         Johor Darul Ta'zim.</p>
-      <p>&#128382;&nbsp; +60 123-456 789<br />
-        &#128386;&nbsp; kunzzholdings@gmail.com</p>
+      <p>&nbsp; +60 123-456 789<br />
+        &nbsp; kunzzholdings@gmail.com</p>
     </div>
 
     <div class="footer-section">
