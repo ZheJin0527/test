@@ -2718,6 +2718,7 @@ form input[type="file"] {
         max-width: 960px; /* 限制最大宽度 */
         padding-left: clamp(30px, 4vw, 60px);
         padding-right: clamp(30px, 4vw, 60px);
+        height: clamp(600px, 75vw, 650px);
     }
 
     .join-us-form h2 {
