@@ -181,6 +181,7 @@ nav {
   .navbar {
     height: 50px;
     padding: 0 51px;
+    padding-right: 51px;
   }
 
   .logo-section {
