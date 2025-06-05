@@ -2754,7 +2754,7 @@ form input[type="file"] {
 @media (max-width: 768px) {
     .join-us-form {
         width: 100%;
-        max-width: 700px;
+        max-width: 650px;
         padding-left: 40px;
         padding-right: 40px;
         padding-top: 10px;
