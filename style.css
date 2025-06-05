@@ -548,32 +548,6 @@ nav {
   flex-shrink: 0;
 }
 
-@media (max-width: 768px) {
-  .stats-section {
-    height: 67px;
-    padding: 0px 57px;
-    gap: 30px;
-  }
-
-  .stat-box {
-    width: 314px;
-    height: 38px;
-  }
-
-  .stat-number {
-    font-size: 22px;
-  }
-
-  .stat-label {
-    font-size: 7px;
-  }
-
-  .divider {
-    height: 40px;
-    width: 1px;
-  }
-}
-
 .comprofile-section {
     display: flex;
     justify-content: space-between;
