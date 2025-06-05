@@ -3146,6 +3146,10 @@ form input[type="file"] {
     padding: 0 16px 24px;
   }
 
+  .contact-info p {
+    line-height: 0.8;
+  }
+
   .map-container {
     width: 100%;
     height: auto;
