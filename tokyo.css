@@ -997,11 +997,6 @@ nav {
     margin-bottom: clamp(10px, 2vw, 16px);
   }
 
-  .location-info p {
-    font-size: clamp(10px, 4vw, 16px);
-    padding: clamp(4px, 2vw, 10px) 0;
-  }
-
   .map-container {
     width: 100%;
     height: auto;
