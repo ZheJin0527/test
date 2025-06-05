@@ -1634,7 +1634,7 @@ nav {
     min-height: clamp(300px, 48vw, 920px);
     max-width: 1760px;
     width: calc(100% - 160px);
-    margin: 0 80px 0px;
+    margin: 0 46px 0px;
     padding: 32px 0;
     display: flex;
     justify-content: flex-start;
@@ -1749,7 +1749,7 @@ nav {
 @media screen and (max-width: 1280px) {
   .values-section {
     width: 100%;
-    margin: 0 8px 0px;
+    margin: 0 7px 0px;
     flex-wrap: nowrap;
     gap: 32px;
   }
@@ -1812,7 +1812,7 @@ nav {
     width: 170%;
     justify-content: center;
     border-radius: 0;
-    margin: 0px 0px -180px -8px; /* 上右下左 */
+    margin: 0px 0px -180px -9px; /* 上右下左 */
   }
 
   .values-card {
