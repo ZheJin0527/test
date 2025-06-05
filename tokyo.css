@@ -1763,7 +1763,7 @@ nav {
 
 @media screen and (max-width: 1280px) {
   .values-section {
-    width: 100%;
+    width: 97%;
     margin: 0 18px 0px;
     flex-wrap: nowrap;
     gap: 32px;
@@ -1823,7 +1823,7 @@ nav {
 @media (max-width: 768px) {
   .values-section {
     transform-origin: top left;
-    transform: scale(0.6);
+    transform: scale(0.59);
     width: 170%;
     height: 250px;
     padding-top: 200px;
