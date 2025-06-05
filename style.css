@@ -1324,7 +1324,7 @@ nav {
 
 .values-card p {
     width: clamp(150px, 18vw, 360px);
-    font-size: clamp(12px, 1.3vw, 25px);
+    font-size: clamp(12px, 1.2vw, 25px);
     font-weight: normal;
     color: #888888;
     line-height: 140%;
