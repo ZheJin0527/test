@@ -2232,7 +2232,7 @@ nav {
 
 table {
     margin: 20px auto;
-    width: 70%;
+    width: 50%;
     border-collapse: separate;
     border-spacing: 0;
     background: #fff2dc;
@@ -2332,7 +2332,7 @@ tr:hover td {
   }
 
   table {
-    width: 85%;
+    width: 70%;
   }
 
   th {
