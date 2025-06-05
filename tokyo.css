@@ -886,16 +886,19 @@ nav {
 
 .location-section {
   background-color: #FFE9BA;
-  padding: clamp(20px, 4vw, 60px); /* 原本是 clamp(40px, 5vw, 80px)，调小点 */
   display: flex;
   justify-content: center;
 }
 
 .location-container {
   display: flex;
+  flex-direction: row;
   width: 100%;
   max-width: 1648px;
-  margin: 0 auto;
+  height: 500px;
+  margin: 80px auto 80px auto;
+  padding-left: clamp(40px, 5vw, 80px);
+  padding-right: clamp(40px, 5vw, 80px);
   background: #FFE9BA;
   border-radius: 10px;
   overflow: hidden;
@@ -909,7 +912,7 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: clamp(20px, 3vw, 40px); /* 调小padding */
+  padding: 60px 30px;
   box-sizing: border-box;
 }
 
@@ -950,6 +953,7 @@ nav {
   .location-container {
     padding-left: 40px;
     padding-right: 40px;
+    height: 380px;
   }
 
   .location-info {
@@ -975,8 +979,10 @@ nav {
 @media (max-width: 768px) {
   .location-container {
     flex-direction: column;
-    padding: 20px;
-    margin: 20px auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 40px auto;
+    height: auto;
   }
 
   .location-info {
