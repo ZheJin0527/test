@@ -228,7 +228,7 @@ nav {
 @media (max-width: 768px) {
   .navbar {
     height: 47px;
-    padding: 0 40px;
+    padding: 0 20px;
   }
 
   .logo-section {
