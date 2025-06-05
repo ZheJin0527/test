@@ -1646,7 +1646,7 @@ nav {
 
 .values-section {
     height: auto;
-    min-height: clamp(300px, 48vw, 920px);
+    min-height: clamp(200px, 48vw, 920px);
     max-width: 1760px;
     width: calc(100% - 160px);
     margin: 0 46px 0px;
@@ -1825,9 +1825,11 @@ nav {
     transform-origin: top left;
     transform: scale(0.6);
     width: 170%;
+    height: 0px;
+    padding-top: 200px;
     justify-content: center;
     border-radius: 0;
-    margin: 0px 0px -180px -9px; /* 上右下左 */
+    margin: 0px 0px 0px -9px; /* 上右下左 */
   }
 
   .values-card {
