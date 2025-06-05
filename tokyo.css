@@ -1546,7 +1546,7 @@ nav {
 @media (max-width: 1279px) and (min-width: 769px) {
   .vision {
     height: auto;
-    padding: 40px;
+    padding: 51px;
   }
 
   .vision-cards {
@@ -1749,7 +1749,7 @@ nav {
 @media screen and (max-width: 1280px) {
   .values-section {
     width: 100%;
-    margin: 0 7px 0px;
+    margin: 0 18px 0px;
     flex-wrap: nowrap;
     gap: 32px;
   }
