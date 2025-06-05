@@ -2136,7 +2136,7 @@ nav {
     flex-wrap: wrap;
     gap: 40px;
     max-width: 1500px;
-    margin: 0 auto;
+    margin: 40px auto;
 }
   
 .benefit-item {
