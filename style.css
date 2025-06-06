@@ -1184,7 +1184,8 @@ nav {
 
   .vision-cards {
     flex-wrap: nowrap;
-    gap: 20px;
+    gap: 30px;
+    padding: 0 20px;
   }
 
   .vision-card {
