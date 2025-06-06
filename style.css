@@ -694,8 +694,7 @@ nav {
     }
 
     .comprofile-image {
-        width: 40vw;
-        max-width: none;
+        width: clamp(180px, 40vw, 350px); /* 最小180px，最大350px，适配安卓和iPhone */
         aspect-ratio: 884 / 639;
         flex-shrink: 0;
         height: auto;
