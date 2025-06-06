@@ -2351,7 +2351,7 @@ tr:hover td {
   }
 
   table {
-    width: 89%;
+    width: 92%;
     font-size: 14px;
   }
 
@@ -2763,7 +2763,7 @@ form input[type="file"] {
 /* 768px 及以下 */
 @media (max-width: 768px) {
     .join-us-form {
-        width: 89%;
+        width: 92%;
         max-width: 650px;
         padding-left: 40px;
         padding-right: 40px;
