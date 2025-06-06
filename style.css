@@ -255,8 +255,8 @@ nav {
   }
 
   .logo {
-    width: 27px;
-    height: 27px;
+    height: 28px;
+    width: auto;
   }
 
   .company-name {
