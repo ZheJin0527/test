@@ -544,7 +544,7 @@ nav {
 /* 768px 以下响应式 */
 @media (max-width: 768px) {
     .tokyoabout-section {
-        padding: 20px 40px;
+        padding: 20px 40px 20px 20px;
         gap: 15px;
         flex-wrap: nowrap;
     }
@@ -650,7 +650,7 @@ nav {
 /* 768px 以下 */
 @media (max-width: 768px) {
     .mission-section {
-        padding: 60px 40px;
+        padding: 60px 20px;
     }
 
     .mission-card {
@@ -970,8 +970,8 @@ nav {
 @media (max-width: 768px) {
   .location-container {
     flex-direction: column;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin: 40px auto;
     height: auto;
   }
