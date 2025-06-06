@@ -1126,7 +1126,7 @@ nav {
 .vision-cards {
     display: flex;
     justify-content: space-between;
-    gap: 40px;
+    gap: 50px;
     padding: 0 40px;
 }
 
