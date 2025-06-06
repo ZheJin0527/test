@@ -25,11 +25,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <header class="navbar">
   <!-- 左侧 logo 和公司名 -->
   <div class="logo-section">
-    <img src="images/images/logo.png" alt="Logo" class="logo">
-    <div class="company-name">
-      <div>KUNZZ HOLDINGS</div>
-      <div>SDN BHD</div>
-    </div>
+    <img src="images/images/KUNZZ.png" alt="Logo" class="logo">
   </div>
 
   <!-- 中间导航（默认显示，大屏） -->
