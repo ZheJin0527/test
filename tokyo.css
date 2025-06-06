@@ -411,7 +411,7 @@ nav {
 /* 768px 以下：适用于手机或小平板 */
 @media (max-width: 768px) {
   .home {
-    padding: 40px 40px 0 40px;
+    padding: 40px 40px 0 20px;
     height: 251px;
     background-position: center top;
     background-size: cover;
