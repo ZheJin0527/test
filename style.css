@@ -3086,7 +3086,7 @@ form input[type="file"] {
 }
 
 .map-container {
-  width: 70%;
+  width: 65%;
   height: auto;
   box-sizing: border-box;
 }
@@ -3128,8 +3128,8 @@ form input[type="file"] {
 @media (max-width: 768px) {
   .contact-container {
     flex-direction: column;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin: 40px auto;
     height: auto;
   }
