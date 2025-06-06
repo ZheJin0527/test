@@ -694,12 +694,16 @@ nav {
     }
 
     .comprofile-image {
-        width: clamp(180px, 40vw, 350px); /* 最小180px，最大350px，适配安卓和iPhone */
-        aspect-ratio: 884 / 639;
-        flex-shrink: 0;
-        height: auto;
-        padding: 40px 0;
+        width: 100%;             /* ✅ 保证响应式 */
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 884 / 639;
+    flex-shrink: 1;
     }
+
+    body {
+    overflow-x: hidden;       /* ✅ 禁止横向滚动，iPhone 专用 */
+  }
 }
 
 .culture-section {
