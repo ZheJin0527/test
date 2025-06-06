@@ -703,32 +703,49 @@ nav {
     }
 }
 
-@media (max-width: 400px) {
-  .comprofile-image {
+@media (max-width: 500px) {
+  .comprofile-section {
+    flex-direction: column;
+    padding: 20px 15px;
+    gap: 20px;
+  }
+
+  .comprofile-text {
+    padding-right: 0;
+    min-width: auto;
     width: 100%;
-    max-width: 100%;
-    aspect-ratio: 884 / 639;
-    height: auto;
-    padding: 20px 0; /* 减少内边距以节省空间 */
-  }
-
-  .comprofile-title {
-    font-size: clamp(16px, 6vw, 22px);
-  }
-
-  .comprofile-description {
-    font-size: clamp(10px, 4vw, 14px);
   }
 
   .comprofile-subtitle {
-    font-size: clamp(10px, 3vw, 12px);
+    font-size: clamp(10px, 4vw, 14px);
+    height: 28px;
   }
 
   .circle {
     width: 10px;
     height: 10px;
   }
+
+  .comprofile-title {
+    font-size: clamp(18px, 6vw, 22px);
+    margin: 10px 0 20px 0;
+  }
+
+  .comprofile-description {
+    font-size: clamp(10px, 4vw, 13px);
+    line-height: 1.4;
+  }
+
+  .comprofile-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 884 / 639;
+    padding: 20px 0;
+    flex-shrink: 1;
+  }
 }
+
 
 .culture-section {
     /* 移除固定高度，避免缩放后高度溢出 */
