@@ -38,8 +38,8 @@ body {
 }
 
 .logo {
-  height: 52px;
-  width: auto;
+    height: 52px;
+    width: auto;
 }
 
 .company-name {
@@ -188,8 +188,8 @@ nav {
   }
 
   .logo {
-    width: 30px;
-    height: 30px;
+    height: 40px;
+    width: auto;
   }
 
   .company-name {
