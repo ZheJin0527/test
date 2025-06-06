@@ -694,15 +694,39 @@ nav {
     }
 
     .comprofile-image {
-        width: 100%;             /* ✅ 保证响应式 */
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 884 / 639;
-    flex-shrink: 1;
+        width: 40vw;
+        max-width: none;
+        aspect-ratio: 884 / 639;
+        flex-shrink: 0;
+        height: auto;
+        padding: 40px 0;
     }
+}
 
-    body {
-    overflow-x: hidden;       /* ✅ 禁止横向滚动，iPhone 专用 */
+@media (max-width: 400px) {
+  .comprofile-image {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 884 / 639;
+    height: auto;
+    padding: 20px 0; /* 减少内边距以节省空间 */
+  }
+
+  .comprofile-title {
+    font-size: clamp(16px, 6vw, 22px);
+  }
+
+  .comprofile-description {
+    font-size: clamp(10px, 4vw, 14px);
+  }
+
+  .comprofile-subtitle {
+    font-size: clamp(10px, 3vw, 12px);
+  }
+
+  .circle {
+    width: 10px;
+    height: 10px;
   }
 }
 
