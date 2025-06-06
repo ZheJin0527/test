@@ -595,7 +595,6 @@ nav {
     gap: 2vw;
     flex-wrap: nowrap;
     overflow: hidden;
-    background-color: #444;
 }
 
 .mission-card {
@@ -604,6 +603,7 @@ nav {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    background-color: #444;
 }
 
 .mission-card img {
