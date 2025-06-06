@@ -1152,12 +1152,12 @@ nav {
     font-family: 'Source Sans Pro', sans-serif;
     padding: 8px 18px;
     border-radius: 32px;
-    margin: 32px 10px 6px;
+    margin: 32px 10px 10px;
     width: 225px;
 }
 
 .vision-card h2 {
-    font-size: clamp(20px, 2.5vw, 40px);
+    font-size: clamp(20px, 2.5vw, 38px);
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
