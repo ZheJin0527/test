@@ -1157,7 +1157,7 @@ nav {
 }
 
 .vision-card h2 {
-    font-size: clamp(22px, 2.5vw, 45px);
+    font-size: clamp(22px, 2.5vw, 40px);
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
@@ -1167,7 +1167,7 @@ nav {
 }
 
 .vision-card p {
-    font-size: clamp(16px, 1.7vw, 25px);
+    font-size: clamp(16px, 1.7vw, 18px);
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 150%;
