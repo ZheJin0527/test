@@ -3070,7 +3070,7 @@ form input[type="file"] {
 }
 
 .contact-info h2 {
-  font-size: clamp(24px, 4vw, 80px);
+  font-size: clamp(24px, 4vw, 50px);
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
   line-height: 1.4;
