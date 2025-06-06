@@ -34,7 +34,6 @@ body {
 .logo-section {
     display: flex;
     align-items: center;
-    gap: 5px;
 }
 
 .logo {
@@ -181,9 +180,7 @@ nav {
   .navbar {
     height: 50px;
     padding: 0 51px;
-  }
-
-  
+  } 
 
   .logo {
     height: 38px;
@@ -246,10 +243,6 @@ nav {
   .navbar {
     height: 47px;
     padding: 0 20px;
-  }
-
-  .logo-section {
-    gap: 3px;
   }
 
   .logo {

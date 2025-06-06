@@ -33,7 +33,6 @@ body {
 .logo-section {
     display: flex;
     align-items: center;
-    gap: 5px;
 }
   
 .logo {
@@ -172,13 +171,9 @@ nav {
       padding: 0 51px;
     }
 
-    .logo-section {
-      gap: 3px;
-    }
-
     .logo {
-      width: 30px;
-      height: 30px;
+      height: 38px;
+      width: auto;
     }
 
     .company-name {
@@ -231,13 +226,9 @@ nav {
     padding: 0 20px;
   }
 
-  .logo-section {
-    gap: 3px;
-  }
-
   .logo {
-    width: 27px;
-    height: 27px;
+    height: 32px;
+    width: auto;
   }
 
   .company-name {
