@@ -199,7 +199,7 @@ nav {
   .nav-links {
     height: 50px;
     gap: 20px;         /* 导航间距变小 */
-    margin-left: clamp(40px, 12vw, 160px);
+    margin-left: clamp(40px, 14vw, 160px);
     font-size: 12px;   /* 字体变小 */
   }
 
