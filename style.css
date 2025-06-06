@@ -3392,7 +3392,7 @@ form input[type="file"] {
 
 .password-container input:focus {
   border-radius: 6px;
-  outline: none; /* 可选：去掉蓝色外边框 */
+  outline: black; /* 可选：去掉蓝色外边框 */
 }
 
 .eye-icon {
