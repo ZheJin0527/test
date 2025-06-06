@@ -603,7 +603,6 @@ nav {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-color: #444;
 }
 
 .mission-card img {
@@ -611,7 +610,7 @@ nav {
     max-width: 530px;
     aspect-ratio: 1 / 1;
     border-radius: 25px;
-    background-color: transparent;
+    background-color: #666;
     margin-bottom: 1.5vw;
     object-fit: cover;
 }
