@@ -62,8 +62,23 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       </p>
     </div>
   </section>
-  
   <section class="about-section">
+  <div class="comprofile-section">
+    <div class="comprofile-text animate-on-scroll slide-in-left">
+        <p class="comprofile-subtitle">
+            <span class="circle"></span>公司简介
+        </p>
+      <h2 class="comprofile-title">KUNZZ HOLDINGS</h2>
+      <p class="comprofile-description">
+        Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
+      </p>
+    </div>
+    <div class="comprofile-image animate-on-scroll slide-in-right">
+      <!-- 你可以换成自己的图片 -->
+      <img src="images/images/大logo.png" alt="公司介绍图" />
+    </div>
+  </div>
+
   <div class="stats-section">
     <div class="stat-box">
       <div class="stat-number">2024</div>
@@ -80,22 +95,6 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <div class="stat-label">员工数量</div>
     </div>
   </div> 
-
-  <div class="comprofile-section">
-    <div class="comprofile-text animate-on-scroll slide-in-left">
-        <p class="comprofile-subtitle">
-            <span class="circle"></span>公司简介
-        </p>
-      <h2 class="comprofile-title">KUNZZ HOLDINGS</h2>
-      <p class="comprofile-description">
-        Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
-      </p>
-    </div>
-    <div class="comprofile-image animate-on-scroll slide-in-right">
-      <!-- 你可以换成自己的图片 -->
-      <img src="images/images/大logo.png" alt="公司介绍图" />
-    </div>
-  </div>
   </section>
 
   <section id="culture" class="culture-section">
