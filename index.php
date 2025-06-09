@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </section>
   
   <section class="about-section">
-  <section class="stats-section">
+  <div class="stats-section">
     <div class="stat-box">
       <div class="stat-number">2024</div>
       <div class="stat-label">成立年份</div>
@@ -78,9 +78,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <div class="stat-number">60+</div>
       <div class="stat-label">员工数量</div>
     </div>
-  </section> 
+  </div> 
 
-  <section id="comprofile" class="comprofile-section">
+  <div class="comprofile-section">
     <div class="comprofile-text">
         <p class="comprofile-subtitle">
             <span class="circle"></span>公司简介
@@ -94,7 +94,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <!-- 你可以换成自己的图片 -->
       <img src="images/images/大logo.png" alt="公司介绍图" />
     </div>
-  </section>
+  </div>
   </section>
 
   <section id="culture" class="culture-section">
