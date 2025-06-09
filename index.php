@@ -16,6 +16,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNZZ HOLDINGS</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animation.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
