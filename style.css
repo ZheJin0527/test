@@ -589,6 +589,7 @@ nav {
     max-width: 1920px;
     margin: 0 auto;
     flex-wrap: nowrap;
+    gap: 160px;
 }
 
 .comprofile-text {
