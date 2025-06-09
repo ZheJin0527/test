@@ -536,7 +536,6 @@ nav {
 }
   
 .stats-section {
-  margin-top: 20px;
     height: 20%;
     background-color: #ff5c00;
     display: flex;
@@ -636,7 +635,7 @@ nav {
 
 .comprofile-image {
     flex: 0 0 auto;
-    width: 800px;
+    width: 600px;
     max-width: 50vw;
     aspect-ratio: 884 / 639;
     padding: 80px 0;
