@@ -62,6 +62,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
   </section>
   
+  <section class="about-section">
   <section class="stats-section">
     <div class="stat-box">
       <div class="stat-number">2024</div>
@@ -93,6 +94,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <!-- 你可以换成自己的图片 -->
       <img src="images/images/大logo.png" alt="公司介绍图" />
     </div>
+  </section>
   </section>
 
   <section id="culture" class="culture-section">
@@ -128,6 +130,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
   </section>
   
+  <section class="scroll-buffer">
   <footer class="footer">
     <div class="footer-logo">
       <img src="images/images/KUNZZ.png" alt="Kunzz Logo" class="footer-logo-img" />
@@ -192,6 +195,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="footer-bottom">
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
+  </section>
 
 <script src="app.js"></script>
 <script>

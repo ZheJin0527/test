@@ -1,15 +1,43 @@
-body {
-    font-family: Arial, sans-serif;
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    font-family: Arial, sans-serif;
     background-color: white;
 }
 
-.container {
-    width: 1920px;
-    margin: 0 auto;
+section {
+    height: 100vh;              /* 每个 section 占满一屏 */
+    scroll-snap-align: start;  /* 滚动对齐到顶部 */
+    width: 100vw;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
 }
+
+/* 内容容器，下移 80px 留出 navbar 空间 */
+.section-content {
+    padding-top: 80px;
+    height: calc(100vh - 80px);  /* 内容区刚好填满 navbar 之下 */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-buffer {
+    height: 38vh;              /* 可调大小，能让你滚到 footer 底部即可 */
+    scroll-snap-align: end;    /* 可以对齐底部 */
+}
+@media (max-width: 1280px) {
+    .scroll-buffer {
+      height: 35vh;              /* 可调大小，能让你滚到 footer 底部即可 */
+  }
+}
+
 
 /* 导航栏 */
 .navbar {
@@ -380,11 +408,10 @@ nav {
 .home {
     position: relative;
     padding: 80px 0 0 80px;
-    height: calc(100vh - 80px); /* 还保持满屏显示 */
+    height: 100vh;
     background: 
   linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%), 
   url('images/images/封面6.png') no-repeat center center/cover;
-
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -435,7 +462,7 @@ nav {
 
 @media (max-width: 1280px) {
   .home {
-    padding: 40px 0 0 51px;
+    padding: 50px 0 0 51px;
     height: clamp(600px, 60vw, 750px);
     background-position: center top;
   }
@@ -496,53 +523,64 @@ nav {
     font-size: 9px;
   }
 }
+
+.about-section {
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 80px 0; /* 预留 navbar 高度 */
+    background-color: white;
+}
   
 .stats-section {
-  height: clamp(80px, 20vw, 300px);
-  background-color: #ff5c00;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(20px, 5vw, 60px);
-  color: white;
-  padding: 0 clamp(20px, 10vw, 257px);
-  flex-wrap: nowrap;
-
+    height: 20%;
+    background-color: #ff5c00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(20px, 5vw, 60px);
+    color: white;
+    padding: 0 clamp(20px, 10vw, 257px);
+    flex-wrap: nowrap;
 }
 
 .stat-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  flex: 1 1 auto;
-  min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1 1 auto;
+    min-width: 100px;
 }
 
 .stat-number {
-  font-size: clamp(18px, 7vw, 100px);
-  font-weight: bold;
-  font-family: 'Inter', sans-serif;
-  line-height: 1.2;
-  white-space: nowrap;
+    font-size: clamp(14px, 4vw, 60px);
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.2;
+    white-space: nowrap;
 }
 
 .stat-label {
-  font-size: clamp(7px, 2vw, 32px);
-  font-family: 'Inter', sans-serif;
-  line-height: 1.2;
-  white-space: nowrap;
+    font-size: clamp(6px, 1.8vw, 20px);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.2;
+    white-space: nowrap;
 }
 
 .divider {
-  width: 2px;
-  height: clamp(40px, 10vw, 120px);
-  background-color: white;
-  flex-shrink: 0;
+    width: 2px;
+    height: clamp(30px, 6vw, 80px);
+    background-color: white;
+    flex-shrink: 0;
 }
 
 .comprofile-section {
+    height: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -596,7 +634,7 @@ nav {
 
 .comprofile-image {
     flex: 0 0 auto;
-    width: 884px;
+    width: 800px;
     max-width: 50vw;
     aspect-ratio: 884 / 639;
     padding: 80px 0;
@@ -746,37 +784,35 @@ nav {
 }
 
 .culture-section {
-    /* 移除固定高度，避免缩放后高度溢出 */
-    height: auto;
+    padding-top: 80px; /* 预留navbar高度 */
+    margin: 0 auto 80px;
+    box-sizing: border-box;
     min-height: clamp(300px, 48vw, 920px);
-    max-width: 1760px;
+    max-width: 1400px; /* 缩小整体最大宽度 */
     width: calc(100% - 160px);
-    margin: 0 80px 80px;
-    padding: 32px 0;
+    padding-bottom: 32px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     background-color: #FF5C00;
     border-radius: 16px;
     color: #000;
-    box-sizing: border-box;
     gap: 53px;
     flex-wrap: nowrap;
-    /* 不用 height 固定，配合缩放 */
 }
 
 .culture-left {
     display: grid;
-    grid-template-columns: repeat(2, clamp(250px, 22vw, 416px)); /* 卡片宽度随屏幕宽度缩放 */
+    grid-template-columns: repeat(2, clamp(250px, 22vw, 350px)); /* 缩小卡片最大宽度 */
     grid-gap: 32px;
     margin-left: 32px;
 }
 
 .culture-card {
-    width: clamp(160px, 22vw, 416px);  /* 卡片宽度随屏幕缩放 */
-    height: clamp(160px, 22vw, 416px); /* 卡片高度等比例缩放 */
+    width: clamp(160px, 22vw, 350px);  /* 卡片宽高缩小 */
+    height: clamp(160px, 22vw, 350px);
     background-color: #FFF1E5;
-    padding: clamp(15px, 2vw, 30px) clamp(10px, 1.5vw, 20px);
+    padding: clamp(15px, 2vw, 24px) clamp(10px, 1.5vw, 16px);
     border-radius: 16px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -794,7 +830,7 @@ nav {
 }
 
 .culture-card h3 {
-    font-size: clamp(18px, 2.5vw, 45px);
+    font-size: clamp(18px, 2.5vw, 38px); /* 缩小最大字体 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
@@ -802,54 +838,54 @@ nav {
 }
 
 .culture-card p {
-    width: clamp(150px, 18vw, 360px);
-    font-size: clamp(12px, 1.3vw, 25px);
+    width: clamp(150px, 18vw, 320px);
+    font-size: clamp(12px, 1.3vw, 20px);
     font-weight: normal;
     color: #888888;
     line-height: 140%;
     padding: 0 clamp(10px, 2vw, 28px);
-    margin-bottom: clamp(20px, 5vw, 52px);
+    margin-bottom: clamp(20px, 5vw, 40px);
 }
 
 .culture-right {
     flex: 1 1 auto;
     min-width: 320px;
-    max-width: clamp(400px, 50vw, 800px);
-    height: clamp(350px, 40vw, 647px);
+    max-width: clamp(350px, 50vw, 600px); /* 缩小最大宽度 */
+    height: clamp(300px, 40vw, 550px); /* 缩小最大高度 */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: clamp(20px, 4vw, 64px);
-    padding-right: clamp(20px, 4vw, 64px);
+    padding-left: clamp(20px, 4vw, 48px);
+    padding-right: clamp(20px, 4vw, 48px);
     box-sizing: border-box;
 }
 
 .culture-title {
-    font-size: clamp(32px, 3vw, 100px);
+    font-size: clamp(28px, 3vw, 70px);
     color: white;
     font-weight: bold;
     margin-top: 32px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .culture-description {
-    font-size: clamp(12px, 1.4vw, 25px);
+    font-size: clamp(12px, 1.4vw, 20px);
     color: white;
-    margin-bottom: 64px;
+    margin-bottom: 48px;
     line-height: 140%;
-    word-break: break-word; /* 防止长词溢出 */
+    word-break: break-word;
     max-width: 100%;
 }
 
 .culture-button {
     background-color: white;
-    width: clamp(100px, 8vw, 130px);
-    height: clamp(28px, 2.2vw, 35px);
-    padding: clamp(6px, 0.8vw, 10px) clamp(14px, 1.6vw, 24px);
+    width: clamp(90px, 8vw, 110px);
+    height: clamp(24px, 2.2vw, 30px);
+    padding: clamp(6px, 0.8vw, 8px) clamp(14px, 1.6vw, 18px);
     display: inline-block;
     border: 2px solid white;
-    border-radius: clamp(10px, 1vw, 16px);
-    font-size: clamp(14px, 1.5vw, 25px);
+    border-radius: clamp(8px, 1vw, 14px);
+    font-size: clamp(14px, 1.5vw, 20px);
     color: #ff5c00;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
