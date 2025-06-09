@@ -1,17 +1,21 @@
+/* 你的现有渐显向上动画 */
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
   animation: fadeInUp 1s ease-out forwards;
 }
 
-.delay-1 {
-  animation-delay: 0.3s;
-}
+/* 动画延迟 */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.7s; }
+.delay-4 { animation-delay: 1.0s; }
+.delay-5 { animation-delay: 0.4s; }  /* 用于右侧整体动画稍晚点 */
+.delay-6 { animation-delay: 1.3s; }
+.delay-7 { animation-delay: 1.6s; }
+.delay-8 { animation-delay: 1.9s; }
 
-.delay-2 {
-  animation-delay: 0.6s;
-}
-
+/* 向上淡入关键帧 */
 @keyframes fadeInUp {
   to {
     opacity: 1;
@@ -19,14 +23,14 @@
   }
 }
 
-/* 初始隐藏状态 */
+/* 初始隐藏状态（兼容你之前代码） */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(20px); /* 可加轻微下移感 */
+  transform: translateY(20px); /* 轻微下移感 */
   transition: all 0.8s ease-out;
 }
 
-/* 滑入动画：进入视口后添加的类 */
+/* 滑入动画（之前用的，不影响这里） */
 .slide-in-left.visible {
   opacity: 1;
   transform: translateX(0);
@@ -37,7 +41,6 @@
   transform: translateX(0);
 }
 
-/* 起始偏移位置 */
 .slide-in-left {
   transform: translateX(-50px);
 }
@@ -46,3 +49,17 @@
   transform: translateX(50px);
 }
 
+/* 新增：整体中间放大渐显动画 */
+.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 0.8s ease forwards;
+}
+
+/* 放大渐显关键帧 */
+@keyframes scaleFadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

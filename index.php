@@ -99,32 +99,32 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </section>
 
   <section id="culture" class="culture-section">
-    <div class="culture-left">
-      <div class="culture-card">
+    <div class="culture-left animate-on-scroll scale-fade-in">
+      <div class="culture-card fade-in-up delay-1">
         <img src="images/images/积极向上 (1).png" alt="icon" class="culture-icon">
         <h3>积极向上</h3>
         <p>始终以正面心态面对挑战，在变化中寻找成长机会</p>
       </div>
-      <div class="culture-card">
+      <div class="culture-card fade-in-up delay-2">
         <img src="images/images/高效执行 (1).png" alt="icon" class="culture-icon">
         <h3>高效执行</h3>
         <p>说到做到，快速响应，追求结果导向与行动力</p>
       </div>
-      <div class="culture-card">
+      <div class="culture-card fade-in-up delay-3">
         <img src="images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
         <h3>灵活应变</h3>
         <p>面对市场变化和问题，保持开放思维，快速调整策略</p>
       </div>
-      <div class="culture-card">
+      <div class="culture-card fade-in-up delay-4">
         <img src="images/images/诚信待人 (1).png" alt="icon" class="culture-icon">
         <h3>诚信待人</h3>
         <p>以真诚与责任建立合作与信任，是我们最基本的做人原则</p>
       </div>
     </div>
   
-    <div class="culture-right">
-      <h2 class="culture-title">我们的核心价值<br>公司文化</span></h2>
-      <p class="culture-description">
+    <div class="culture-right animate-on-scroll scale-fade-in delay-5">
+      <h2 class="culture-title fade-in-up delay-6">我们的核心价值<br>公司文化</span></h2>
+      <p class="culture-description fade-in-up delay-7">
         在 Kunzz Holdings，我们相信文化决定高度。我们以目标为导向，理念为基石，打造一支具备高效执行力与高度协同精神的团队。我们提倡扁平沟通，尊重每一位成员的成长节奏，鼓励分享、学习与共创。在这里，每一份努力都能被看见，每一次突破都值得被鼓励。
       </p>
       <a href="about.html" class="culture-button">了解更多 &gt;&gt;</a>
@@ -230,23 +230,38 @@ window.addEventListener('DOMContentLoaded', moveLoginBtn);
 window.addEventListener('resize', moveLoginBtn);
 
 </script>
-
 <script>
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        // 若只播放一次动画
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.2  // 元素可视区域达到20%时触发
-  });
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const container = entry.target;
 
-  document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    observer.observe(el);
+      // 触发容器动画（假设 .visible 是触发整体动画的class）
+      container.classList.add('visible');
+
+      // 停止观察，避免重复触发
+      observer.unobserve(container);
+
+      // 放大动画时间，比如0.8秒后，触发内部子元素动画
+      setTimeout(() => {
+        container.querySelectorAll('.fade-in-up').forEach(el => {
+          el.style.animationPlayState = 'running'; // 运行子元素动画
+        });
+      }, 50); // 根据动画时长调整
+    }
   });
+}, {
+  threshold: 0.2
+});
+
+// 初始化时先暂停所有子元素动画，等待触发时播放
+document.querySelectorAll('.animate-on-scroll').forEach(container => {
+  container.querySelectorAll('.fade-in-up').forEach(el => {
+    el.style.animationPlayState = 'paused';
+  });
+  observer.observe(container);
+});
+
 </script>
 </body>
 </html>
