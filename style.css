@@ -34,7 +34,7 @@ section {
 }
 @media (max-width: 1280px) {
     .scroll-buffer {
-      height: 35vh;              /* 可调大小，能让你滚到 footer 底部即可 */
+      height: 34vh;              /* 可调大小，能让你滚到 footer 底部即可 */
   }
 }
 
@@ -654,6 +654,10 @@ nav {
 
 /* 1280px 以下响应式 */
 @media (max-width: 1280px) {
+    .about-section {
+        padding: 50px 0; /* navbar 高度适配缩小 */
+    }
+    
     .comprofile-section {
         padding: 0 51px;
     }
