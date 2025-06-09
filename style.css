@@ -411,7 +411,7 @@ nav {
     height: 100vh;
     background: 
   linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%), 
-  url('images/images/封面6.png') no-repeat center center/cover;
+  url('images/images/封面7.png') no-repeat center center/cover;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -657,7 +657,7 @@ nav {
     .about-section {
         padding: 50px 0; /* navbar 高度适配缩小 */
     }
-    
+
     .comprofile-section {
         padding: 0 51px;
     }
