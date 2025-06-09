@@ -53,8 +53,8 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   
   <section class="home">
     <div class="home-content">
-      <h1>让空间温暖，让团队闪光</h1>
-      <p>
+      <h1 class="fade-in-up delay-1">让空间温暖，让团队闪光</h1>
+      <p class="fade-in-up delay-2">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
         我们相信，高效源于信任，创新源于自由。<br />
         一支有温度的团队，才能创造持续的价值，向着行业标杆的方向，稳步前行。
@@ -81,7 +81,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div> 
 
   <div class="comprofile-section">
-    <div class="comprofile-text">
+    <div class="comprofile-text animate-on-scroll slide-in-left">
         <p class="comprofile-subtitle">
             <span class="circle"></span>公司简介
         </p>
@@ -90,7 +90,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
         Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
       </p>
     </div>
-    <div class="comprofile-image">
+    <div class="comprofile-image animate-on-scroll slide-in-right">
       <!-- 你可以换成自己的图片 -->
       <img src="images/images/大logo.png" alt="公司介绍图" />
     </div>
@@ -228,6 +228,24 @@ window.addEventListener('DOMContentLoaded', moveLoginBtn);
 // 窗口大小改变时也处理，防止resize后login位置错乱
 window.addEventListener('resize', moveLoginBtn);
 
+</script>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // 若只播放一次动画
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2  // 元素可视区域达到20%时触发
+  });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
 </script>
 </body>
 </html>
