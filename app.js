@@ -148,7 +148,7 @@ function scrollToTop() {
 document.addEventListener("DOMContentLoaded", function () {
   const statSection = document.querySelector('.stats-section');
   const statNumbers = document.querySelectorAll('.stat-number');
-  let hasAnimated = false; // 防止重复动画
+  let hasAnimated = false;
 
   function animateCountUp(el, target, duration = 1000) {
     let startTime = null;
@@ -174,31 +174,28 @@ document.addEventListener("DOMContentLoaded", function () {
     requestAnimationFrame(update);
   }
 
-  function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top < window.innerHeight &&
-      rect.bottom > 0
-    );
-  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasAnimated) {
+        statNumbers.forEach(el => {
+          const raw = el.textContent;
+          const target = parseInt(raw.replace(/\D/g, ''));
+          if (!isNaN(target)) {
+            el.setAttribute('data-target', raw);
+            el.textContent = "0";
+            animateCountUp(el, target, 1000);
+          }
+        });
+        hasAnimated = true;
+      }
+    });
+  }, {
+    threshold: 0.3 // 进入视口30%时触发动画
+  });
 
-  function handleScroll() {
-    if (!hasAnimated && isInViewport(statSection)) {
-      statNumbers.forEach(el => {
-        const raw = el.textContent;
-        const target = parseInt(raw.replace(/\D/g, '')); // 只取数字部分
-        if (!isNaN(target)) {
-          el.setAttribute('data-target', raw); // 保存原本带+的内容
-          el.textContent = "0"; // 重置成0
-          animateCountUp(el, target, 1000); // 开始动画
-        }
-      });
-      hasAnimated = true;
-    }
+  if (statSection) {
+    observer.observe(statSection);
   }
-
-  window.addEventListener('scroll', handleScroll);
-  handleScroll(); // 预防页面一开始已经在 viewport
 });
 
 
