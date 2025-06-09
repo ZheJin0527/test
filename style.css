@@ -383,7 +383,7 @@ nav {
     height: calc(100vh - 80px); /* 还保持满屏显示 */
     background: 
   linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%), 
-  url('images/images/meetinghome.png') no-repeat center center/cover;
+  url('images/images/封面3.png') no-repeat center center/cover;
 
     display: flex;
     align-items: flex-start;
