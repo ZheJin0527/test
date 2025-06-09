@@ -587,7 +587,7 @@ nav {
     padding: 0 80px;
     box-sizing: border-box;
     max-width: 1920px;
-    margin: 80px auto 0;
+    margin: 40px auto 0;
     flex-wrap: nowrap;
     gap: 160px;
 }
