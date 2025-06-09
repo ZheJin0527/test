@@ -662,6 +662,7 @@ nav {
 
     .comprofile-section {
         padding: 0 51px;
+        gap: 100px;
     }
 
     .comprofile-text {
