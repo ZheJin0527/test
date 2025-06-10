@@ -545,7 +545,7 @@ nav {
   
 .stats-section {
     height: 20%;
-    background: linear-gradient(to right, #eb8807, #FF5C00);
+    background: url('images/images/背景4.png') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
