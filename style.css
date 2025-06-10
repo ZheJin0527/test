@@ -794,11 +794,10 @@ nav {
     margin: 0 auto 80px;
     box-sizing: border-box;
     min-height: clamp(300px, 48vw, 920px);
-    max-width: 1400px; /* 缩小整体最大宽度 */
-    width: calc(100% - 160px);
+    width: 100%;
     padding-bottom: 32px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     background: url('images/images/背景3.jpg') no-repeat center center/cover;
     border-radius: 16px;
