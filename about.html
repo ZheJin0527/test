@@ -268,28 +268,50 @@ window.addEventListener('resize', moveLoginBtn);
       if (entry.isIntersecting) {
         const container = entry.target;
 
-        // 给容器加 visible，触发整体动画（包括 slide-in / scale-fade-in）
-        container.classList.add('visible');
+        // 如果是 .aboutus-content，先触发它，再延迟 intro-content
+        if (container.classList.contains('aboutus-content')) {
+          container.classList.add('visible');
+          container.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.animationPlayState = 'running';
+          });
 
-        // 停止观察，避免重复触发
+          // 延迟触发 intro-content
+          setTimeout(() => {
+            const intro = document.querySelector('.intro-content');
+            intro.classList.add('visible');
+            intro.querySelectorAll('.fade-in-up').forEach(el => {
+              el.style.animationPlayState = 'running';
+            });
+            observer.unobserve(intro); // 不重复触发
+          }, 1000); // 延迟时间（ms），根据动画时长调整
+        }
+
+        // 如果是 .intro-content，直接忽略（因为上面会延迟触发它）
+        if (container.classList.contains('intro-content')) {
+          return;
+        }
+
+        // 其他默认动画
+        if (!container.classList.contains('aboutus-content')) {
+          container.classList.add('visible');
+          container.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.animationPlayState = 'running';
+          });
+        }
+
         observer.unobserve(container);
-
-        // 如果里面有 .fade-in-up 子元素，逐个启用它们的动画
-        container.querySelectorAll('.fade-in-up').forEach(el => {
-          el.style.animationPlayState = 'running';
-        });
       }
     });
   }, {
     threshold: 0.2
   });
 
-  // 初始化：将所有 .fade-in-up 动画先暂停，等待容器触发后才播放
+  // 初始化时：先暂停子元素动画，开始观察
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
     container.querySelectorAll('.fade-in-up').forEach(el => {
       el.style.animationPlayState = 'paused';
     });
-    observer.observe(container); // 监听所有带 .animate-on-scroll 的元素
+    observer.observe(container);
   });
 </script>
 </body>
