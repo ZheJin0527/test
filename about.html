@@ -60,32 +60,32 @@
         </p>
       </div>
     </div>
-  </section>
+    </section>
   
-  <section id="vision" class="vision">
-    <div class="vision-content">
+    <section id="vision" class="vision">
+    <div class="vision-content animate-on-scroll fade-in-down">
       <h1>我们的信念与方向</h1>
       <p>
         我们相信，所有伟大的成就，都始于一份清晰的信念。<br>
         使命、愿景、文化与价值观，是前进的灯塔，也是我们共同坚守的底线。<br>
         在这样的理念指引下，我们持续成长、持续突破、持续成就彼此。
       </p>
-  
+
       <div class="vision-cards">
         <!-- Card 1 -->
-        <div class="vision-card">
+        <div class="vision-card animate-on-scroll slide-in-left">
           <div class="vision-label">我们的使命</div>
           <h2>塑造积极向上和舒适的工作环境</h2>
           <p>
-            在这里，我们相信好的工作环境，能孕育出更好的团队。
-            我们努力打造一个温暖、有温度、有归属感的空间，
-            让每位成员都能安心发挥，共同成长。
+            在这里，我们相信好的工作环境，能孕育出更好的团队。<br>
+            我们努力打造一个温暖、有温度、有归属感的空间，<br>
+            让每位成员都能安心发挥，共同成长。<br>
             在这里，挑战不再冰冷，努力也值得被看见。
           </p>
         </div>
-  
+
         <!-- Card 2 -->
-        <div class="vision-card">
+        <div class="vision-card animate-on-scroll slide-in-right">
           <div class="vision-label">我们的愿景</div>
           <h2>打造高效且创新的团队，为公司不断创造价值，成为行业标杆。</h2>
           <p>
@@ -268,37 +268,38 @@ window.addEventListener('resize', moveLoginBtn);
       if (entry.isIntersecting) {
         const container = entry.target;
 
-        // 如果是 .aboutus-content，先触发它，再延迟 intro-content
+        // 1. 特别处理 aboutus-content：触发后延迟再触发 intro-content
         if (container.classList.contains('aboutus-content')) {
           container.classList.add('visible');
           container.querySelectorAll('.fade-in-up').forEach(el => {
             el.style.animationPlayState = 'running';
           });
+          observer.unobserve(container); // 不再监听
 
-          // 延迟触发 intro-content
+          // 延迟触发 intro-content（手动触发）
           setTimeout(() => {
             const intro = document.querySelector('.intro-content');
-            intro.classList.add('visible');
-            intro.querySelectorAll('.fade-in-up').forEach(el => {
-              el.style.animationPlayState = 'running';
-            });
-            observer.unobserve(intro); // 不重复触发
-          }, 1000); // 延迟时间（ms），根据动画时长调整
+            if (intro) {
+              intro.classList.add('visible');
+              intro.querySelectorAll('.fade-in-up').forEach(el => {
+                el.style.animationPlayState = 'running';
+              });
+              observer.unobserve(intro); // 确保 intro-content 不重复触发
+            }
+          }, 1000); // 延迟时间，可根据实际动画时长调整
+          return; // 提前退出，避免重复处理
         }
 
-        // 如果是 .intro-content，直接忽略（因为上面会延迟触发它）
+        // 2. 忽略 intro-content（已手动触发，不重复自动触发）
         if (container.classList.contains('intro-content')) {
           return;
         }
 
-        // 其他默认动画
-        if (!container.classList.contains('aboutus-content')) {
-          container.classList.add('visible');
-          container.querySelectorAll('.fade-in-up').forEach(el => {
-            el.style.animationPlayState = 'running';
-          });
-        }
-
+        // 3. 其他元素照常触发动画
+        container.classList.add('visible');
+        container.querySelectorAll('.fade-in-up').forEach(el => {
+          el.style.animationPlayState = 'running';
+        });
         observer.unobserve(container);
       }
     });
@@ -306,7 +307,7 @@ window.addEventListener('resize', moveLoginBtn);
     threshold: 0.2
   });
 
-  // 初始化时：先暂停子元素动画，开始观察
+  // 初始化：暂停 .fade-in-up 的动画，开始监听
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
     container.querySelectorAll('.fade-in-up').forEach(el => {
       el.style.animationPlayState = 'paused';
