@@ -1180,7 +1180,7 @@ nav {
 }
 
 .vision {
-    height: 862px;
+    min-height: 100vh;
     background-color: #FF5C00;
     color: white;
     display: flex;
