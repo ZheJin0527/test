@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNZZ HOLDINGS</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animation.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -42,14 +43,14 @@
 
     <section class="aboutus-section">
     <div class="aboutus-banner">
-      <div class="aboutus-content">
+      <div class="aboutus-content animate-on-scroll slide-in-left">
         <h1>关于我们</h1>
         <p>深入了解 Kunzz Holdings 的初心与成长轨迹</p>
       </div>
     </div>
 
     <div class="aboutus-intro">
-      <div class="intro-content">
+      <div class="intro-content animate-on-scroll slide-in-right">
         <h1>集团简介</h1>
         <p>
           Kunzz Holdings 是一家以系统化管理的多元控股集团，总部位于马来西亚。<br>
@@ -260,6 +261,36 @@ window.addEventListener('DOMContentLoaded', moveLoginBtn);
 // 窗口大小改变时也处理，防止resize后login位置错乱
 window.addEventListener('resize', moveLoginBtn);
 
+</script>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const container = entry.target;
+
+        // 给容器加 visible，触发整体动画（包括 slide-in / scale-fade-in）
+        container.classList.add('visible');
+
+        // 停止观察，避免重复触发
+        observer.unobserve(container);
+
+        // 如果里面有 .fade-in-up 子元素，逐个启用它们的动画
+        container.querySelectorAll('.fade-in-up').forEach(el => {
+          el.style.animationPlayState = 'running';
+        });
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  // 初始化：将所有 .fade-in-up 动画先暂停，等待容器触发后才播放
+  document.querySelectorAll('.animate-on-scroll').forEach(container => {
+    container.querySelectorAll('.fade-in-up').forEach(el => {
+      el.style.animationPlayState = 'paused';
+    });
+    observer.observe(container); // 监听所有带 .animate-on-scroll 的元素
+  });
 </script>
 </body>
 </html>
