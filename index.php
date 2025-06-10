@@ -262,5 +262,41 @@ document.querySelectorAll('.animate-on-scroll').forEach(container => {
 });
 
 </script>
+<script>
+  const sections = document.querySelectorAll("section");
+  let currentSection = 0;
+  let lastScrollTime = 0;
+  const scrollDelay = 100; // 滑动节奏最小间隔 ms
+
+  function scrollToSection(index) {
+    if (index < 0 || index >= sections.length) return;
+    currentSection = index;
+    sections[index].scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
+  window.addEventListener('wheel', (e) => {
+    const now = Date.now();
+    if (now - lastScrollTime < scrollDelay) return; // 节流
+    lastScrollTime = now;
+
+    if (e.deltaY > 0) {
+      scrollToSection(currentSection + 1);
+    } else if (e.deltaY < 0) {
+      scrollToSection(currentSection - 1);
+    }
+  }, { passive: true });
+
+  // 初始化当前页面位置（避免刷新出错）
+  window.addEventListener('load', () => {
+    const scrollY = window.scrollY;
+    sections.forEach((section, index) => {
+      if (section.offsetTop <= scrollY + 10) {
+        currentSection = index;
+      }
+    });
+  });
+</script>
 </body>
 </html>
