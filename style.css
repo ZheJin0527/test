@@ -1006,7 +1006,14 @@ nav {
 
 
 /* 关于我们 */
-.aboutus {
+.aboutus-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+}
+
+.aboutus-banner {
     position: relative;
     padding: 80px 0 0 80px;
     height: calc(60vh - 80px); /* 还保持满屏显示 */
@@ -1018,41 +1025,31 @@ nav {
 }
   
 .aboutus-content {
-    margin-top: 76px;
-    width: 402px;
-    height: 140px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 水平居中 */
-    justify-content: center;
-    text-align: center;
-    transform: translateY(-60px); /* 👈 内容整体往上移 60px 可调整 */
+  width: 100%;
+  max-width: 402px;
+  text-align: center;
+  transform: translateY(-40px); /* 可以调整 */
 }
-  
+
 .aboutus-content h1 {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 100px;
-    font-weight: bold;
-    line-height: 1;
-    letter-spacing: 1.4%;
-    margin: 0 58px 0 0;
-    padding: 0;
-    white-space: nowrap;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: clamp(48px, 6vw, 100px);
+  font-weight: bold;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
 }
-  
+
 .aboutus-content p {
-    font-size: 25px;
-    font-weight: normal;
-    line-height: 1.2;
-    letter-spacing: 0.5%;
-    margin: 20px 58px 0 20px; /* 确保p和h1的间距是80px */
-    padding: 0;
-    white-space: nowrap;
+  font-size: clamp(16px, 2vw, 25px);
+  margin-top: 20px;
+  white-space: nowrap;
 }
 
 /* 响应式：1280px 以下 */
 @media (max-width: 1280px) {
-  .aboutus {
+  .aboutus-banner {
     padding: 60px 20px 0 20px;
     height: 450px;
     background-position: center top;
@@ -1071,7 +1068,7 @@ nav {
 
 /* 响应式：768px 以下 */
 @media (max-width: 768px) {
-  .aboutus {
+  .aboutus-banner {
     padding: 60px 40px 0 0px;
     height: 150px;
     background-position: center top;
@@ -1091,53 +1088,37 @@ nav {
   }
 }
 
-.intro {
-    position: relative;
-    height: 416px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    box-sizing: border-box;
-    padding: 80px 60px 80px 80px;
+.aboutus-intro {
+  background-color: white;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .intro-content {
-    width: 402px;
-    height: 140px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-left: 50px;
+  max-width: 900px;
+  text-align: center;
 }
 
 .intro-content h1 {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 80px;
-    font-weight: bold;
-    line-height: 140%;
-    letter-spacing: 0.5%;
-    margin: 0 58px 0 0;
-    padding: 0;
-    color: #FF5C00;
+  font-size: clamp(36px, 5vw, 80px);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  color: #FF5C00;
+  margin-bottom: 20px;
 }
 
 .intro-content p {
-    font-size: 20px;
-    font-weight: normal;
-    line-height: 150%;
-    letter-spacing: 2%;
-    margin: 0 58px 0 0;
-    padding: 0;
-    color: #888888;
-    white-space: nowrap;
+  font-size: clamp(16px, 2vw, 20px);
+  color: #888888;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  white-space: normal;
 }
 
 @media (max-width: 1280px) {
-  .intro {
+  .aboutus-intro {
     height: 316px;
     padding-left: 130px;
   }
@@ -1157,7 +1138,7 @@ nav {
 
 /* —— 768px 以下 —— */
 @media (max-width: 768px) {
-  .intro {
+  .aboutus-intro {
     height: 180px;
     padding: 80px 40px;
     box-sizing: border-box;
