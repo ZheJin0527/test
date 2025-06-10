@@ -931,6 +931,7 @@ nav {
 
   .culture-card {
     width: 100%;
+    height: 95%;
     aspect-ratio: 1 / 1;
     padding: clamp(6px, 1vw, 16px);
   }
