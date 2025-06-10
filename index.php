@@ -75,7 +75,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
     <div class="comprofile-image animate-on-scroll slide-in-right">
       <!-- 你可以换成自己的图片 -->
-      <img src="images/images/大logo.png" alt="公司介绍图" />
+      <img src="images/images/logo.png" alt="公司介绍图" />
     </div>
   </div>
 
