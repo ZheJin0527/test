@@ -1025,26 +1025,36 @@ nav {
 }
   
 .aboutus-content {
-  width: 100%;
-  max-width: 402px;
-  text-align: center;
-  transform: translateY(-40px); /* 可以调整 */
+    margin-top: 76px;
+    width: 402px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    justify-content: center;
+    text-align: center;
+    transform: translateY(-60px); /* 👈 内容整体往上移 60px 可调整 */
 }
-
+  
 .aboutus-content h1 {
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: clamp(48px, 6vw, 100px);
-  font-weight: bold;
-  line-height: 1;
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 100px;
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: 1.4%;
+    margin: 0 58px 0 0;
+    padding: 0;
+    white-space: nowrap;
 }
-
+  
 .aboutus-content p {
-  font-size: clamp(16px, 2vw, 25px);
-  margin-top: 20px;
-  white-space: nowrap;
+    font-size: 25px;
+    font-weight: normal;
+    line-height: 1.2;
+    letter-spacing: 0.5%;
+    margin: 20px 58px 0 20px; /* 确保p和h1的间距是80px */
+    padding: 0;
+    white-space: nowrap;
 }
 
 /* 响应式：1280px 以下 */
