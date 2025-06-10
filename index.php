@@ -17,6 +17,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <title>KUNZZ HOLDINGS</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="animation.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
@@ -52,6 +53,10 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
 </header>
   
+  <div class="swiper">
+  <div class="swiper-wrapper">
+
+  <div class="swiper-slide">
   <section class="home">
     <div class="home-content">
       <h1 class="fade-in-up delay-1">让空间温暖，让团队闪光</h1>
@@ -62,6 +67,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       </p>
     </div>
   </section>
+  </div>
+
+  <div class="swiper-slide">
   <section class="about-section">
   <div class="comprofile-section">
     <div class="comprofile-text animate-on-scroll slide-in-left">
@@ -96,7 +104,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
   </div> 
   </section>
+  </div>
 
+  <div class="swiper-slide">
   <section id="culture" class="culture-section">
     <div class="culture-left animate-on-scroll scale-fade-in">
       <div class="culture-card fade-in-up delay-1">
@@ -129,7 +139,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <a href="about.html" class="culture-button fade-in-up delay-8">了解更多 &gt;&gt;</a>
     </div>
   </section>
+  </div>
   
+  <div class="swiper-slide">
   <section class="scroll-buffer">
   <footer class="footer">
     <div class="footer-logo">
@@ -196,6 +208,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
   </section>
+  </div>
 
 <script src="app.js"></script>
 <script>
@@ -262,40 +275,16 @@ document.querySelectorAll('.animate-on-scroll').forEach(container => {
 });
 
 </script>
-<script>
-  const sections = document.querySelectorAll("section");
-  let currentSection = 0;
-  let lastScrollTime = 0;
-  const scrollDelay = 100; // 滑动节奏最小间隔 ms
-
-  function scrollToSection(index) {
-    if (index < 0 || index >= sections.length) return;
-    currentSection = index;
-    sections[index].scrollIntoView({
-      behavior: 'smooth'
-    });
-  }
-
-  window.addEventListener('wheel', (e) => {
-    const now = Date.now();
-    if (now - lastScrollTime < scrollDelay) return; // 节流
-    lastScrollTime = now;
-
-    if (e.deltaY > 0) {
-      scrollToSection(currentSection + 1);
-    } else if (e.deltaY < 0) {
-      scrollToSection(currentSection - 1);
-    }
-  }, { passive: true });
-
-  // 初始化当前页面位置（避免刷新出错）
-  window.addEventListener('load', () => {
-    const scrollY = window.scrollY;
-    sections.forEach((section, index) => {
-      if (section.offsetTop <= scrollY + 10) {
-        currentSection = index;
-      }
-    });
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+  const swiper = new Swiper('.swiper', {
+    direction: 'vertical',
+    mousewheel: true,
+    speed: 1000, // 动画滑动时间，单位是毫秒，1000 = 1秒
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
   });
 </script>
 </body>
