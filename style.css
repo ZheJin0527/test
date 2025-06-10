@@ -6,7 +6,7 @@ html, body {
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
     font-family: Arial, sans-serif;
-    background-color: white;
+    background: url('images/images/背景2.jpg') no-repeat center center/cover;
 }
 
 section {
