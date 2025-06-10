@@ -800,7 +800,7 @@ nav {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color: #FF5C00;
+    background: url('images/images/背景3.jpg') no-repeat center center/cover;
     border-radius: 16px;
     color: #000;
     gap: 53px;
