@@ -141,8 +141,44 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </section>
   </div>
   
-  <div class="swiper-slide footer-slide">
-  <section class="scroll-buffer">
+  <div class="swiper-slide">
+    <section class="scroll-buffer">
+    <section class="followus-section">
+        <h2 class="followus-title">关注我们 Follow Us</h2>
+        
+        <div class="social-container">
+            <!-- Facebook -->
+            <div class="social-item">
+                <div class="social-icon-container" onclick="openFacebook()">
+                    <img src="images/images/fbicon.png" alt="Facebook" class="social-icon">
+                </div>
+                <div class="qr-code">Facebook QR Code</div>
+                <div class="social-name">Facebook</div>
+                <div class="social-description">关注我们的Facebook页面<br>获取最新动态</div>
+            </div>
+
+            <!-- Instagram -->
+            <div class="social-item">
+                <div class="social-icon-container" onclick="openInstagram()">
+                    <img src="images/images/igicon.png" alt="Instagram" class="social-icon">
+                </div>
+                <div class="qr-code">Instagram QR Code</div>
+                <div class="social-name">Instagram</div>
+                <div class="social-description">关注我们的Instagram<br>查看精彩内容</div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="social-item">
+                <div class="social-icon-container" onclick="openWhatsApp()">
+                    <img src="images/images/wsicon.png" alt="WhatsApp" class="social-icon">
+                </div>
+                <div class="qr-code">WhatsApp QR Code</div>
+                <div class="social-name">WhatsApp</div>
+                <div class="social-description">通过WhatsApp联系我们<br>快速获得回复</div>
+            </div>
+        </div>
+    </section>
+    
   <footer class="footer">
     <div class="footer-logo">
       <img src="images/images/KUNZZ.png" alt="Kunzz Logo" class="footer-logo-img" />
@@ -209,6 +245,8 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
   </section>
   </div>
+  </div> <!-- 关闭 swiper-wrapper -->
+</div> <!-- 关闭 swiper -->
   
 <script src="app.js"></script>
 <script>

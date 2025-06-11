@@ -1031,6 +1031,213 @@ nav {
   }
 }
 
+.followus-section {
+    width: 100%;
+    min-height: 50vh;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: transparent; /* 移除背景样式 */
+}
+
+.followus-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff5c00, #e54900);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.followus-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 3px;
+    background: linear-gradient(45deg, #ff5c00, #e54900);
+    border-radius: 2px;
+}
+
+.social-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px; /* 恢复较大的间距 */
+    max-width: 100%;
+    width: 100%;
+}
+
+.social-item {
+    text-align: center;
+    flex: 0 1 auto; /* 改为不拉伸 */
+    width: 280px; /* 固定宽度 */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 245, 0.9) 100%);
+    backdrop-filter: blur(15px);
+    padding: 30px 20px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(255, 92, 0, 0.25);
+    border: 2px solid rgba(255, 92, 0, 0.3);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 165, 0, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.social-item:hover::before {
+    left: 100%;
+}
+
+.social-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(255, 140, 0, 0.25);
+    border-color: rgba(255, 140, 0, 0.4);
+}
+
+.social-icon-container {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+}
+
+.social-icon-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    transform: translate(-50%, -50%);
+}
+
+.social-icon-container:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.social-icon-container:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(230, 126, 34, 0.4);
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.social-icon {
+    width: 38px;
+    height: 38px;
+    filter: brightness(0) invert(1);
+    z-index: 1;
+    position: relative;
+}
+
+.qr-code {
+    width: 110px; /* 恢复原来的尺寸 */
+    height: 110px;
+    border: 2px solid #ff5c00;
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fffaf8, #ffffff);
+    color: #e54900;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(255, 92, 0, 0.2);
+}
+
+.qr-code:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
+    border-color: #ff6a0d;
+}
+
+.social-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e54900;
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+.social-description {
+    font-size: 13px;
+    color: #b8421a;
+    line-height: 1.4;
+}
+
+        /* 针对不同屏幕尺寸的优化 */
+        @media (max-width: 1200px) {
+            .social-item {
+                width: 250px;
+            }
+            
+            .social-container {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .followus-section {
+                min-height: auto;
+                padding: 30px 15px;
+            }
+            
+            .social-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .social-item {
+                width: 90%;
+                max-width: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .followus-title {
+                font-size: 22px;
+            }
+            
+            .social-item {
+                padding: 25px 15px;
+                width: 95%;
+            }
+        }
+
 
 
 
@@ -1965,22 +2172,6 @@ nav {
   background-color: #444;
 }
 
-.social-icons {
-    margin-top: 10px;
-    display: flex;
-    gap: 12px;
-}
-
-.social-icons a img {
-    width: 34px;
-    height: 34px;
-    transition: transform 0.3s ease;
-}
-
-.social-icons a:hover img {
-    transform: scale(1.2);
-}
-
 #backToTop {
     position: fixed;
     bottom: 20px;
@@ -2058,16 +2249,6 @@ nav {
     right: 40px;
     height: 1px;
   }
-
-  .social-icons {
-    gap: clamp(4px, 0.8vw, 8px);
-    margin-top: 6px;
-  }
-
-  .social-icons a img {
-    width: clamp(18px, 2vw, 24px);
-    height: clamp(18px, 2vw, 24px);
-  }
 }
 
 @media (max-width: 768px) {
@@ -2134,16 +2315,6 @@ nav {
     left: 24px;
     right: 24px;
     height: 1px;
-  }
-
-  .social-icons {
-    gap: clamp(2px, 0.8vw, 4px);
-    margin-top: 5px;
-  }
-
-  .social-icons a img {
-    width: 20px;
-    height: 20px;
   }
 }
 
