@@ -825,7 +825,7 @@ nav {
     padding-top: 80px; /* 预留navbar高度 */
     margin: 30px auto 0;
     box-sizing: border-box;
-    min-height: clamp(300px, 48vw, 920px);
+    height: 96.8vh;
     width: 100%;
     padding-bottom: 32px;
     display: flex;
