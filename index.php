@@ -58,7 +58,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-    <div class="home-content hidden animate-on-scroll">
+    <div class="home-content hidden">
       <h1 class="fade-in-up delay-1">让空间温暖，让团队闪光</h1>
       <p class="fade-in-up delay-2">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
@@ -270,40 +270,34 @@ window.addEventListener('resize', moveLoginBtn);
 <script>
   const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    const container = entry.target;
-
     if (entry.isIntersecting) {
-      // 触发容器动画（假设 .visible 是触发整体动画的 class）
+      const container = entry.target;
+
+      // 触发容器动画（假设 .visible 是触发整体动画的class）
       container.classList.add('visible');
 
-      // 重置并重新触发子元素动画
-      container.querySelectorAll('.fade-in-up').forEach(el => {
-        el.style.animation = 'none'; // 重置动画
-        el.offsetHeight; // 触发重绘
-        el.style.animation = ''; // 恢复动画
-        el.style.animationPlayState = 'running'; // 播放动画
-      });
+      // 停止观察，避免重复触发
+      observer.unobserve(container);
 
-    } else {
-      // 当元素离开视口，暂停动画（可选）
-      container.classList.remove('visible');
-      container.querySelectorAll('.fade-in-up').forEach(el => {
-        el.style.animationPlayState = 'paused';
-      });
+      // 放大动画时间，比如0.8秒后，触发内部子元素动画
+      setTimeout(() => {
+        container.querySelectorAll('.fade-in-up').forEach(el => {
+          el.style.animationPlayState = 'running'; // 运行子元素动画
+        });
+      }, 50); // 根据动画时长调整
     }
   });
 }, {
   threshold: 0.2
 });
 
-// 初始化时先暂停所有子元素动画
+// 初始化时先暂停所有子元素动画，等待触发时播放
 document.querySelectorAll('.animate-on-scroll').forEach(container => {
   container.querySelectorAll('.fade-in-up').forEach(el => {
     el.style.animationPlayState = 'paused';
   });
   observer.observe(container);
 });
-
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
