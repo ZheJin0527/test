@@ -823,9 +823,9 @@ nav {
 
 .culture-section {
     padding-top: 80px; /* 预留navbar高度 */
-    margin: 30px auto 0;
+    margin: 0px auto 0;
     box-sizing: border-box;
-    height: 96.8vh;
+    height: 100vh;
     width: 100%;
     padding-bottom: 32px;
     display: flex;
