@@ -270,34 +270,40 @@ window.addEventListener('resize', moveLoginBtn);
 <script>
   const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const container = entry.target;
+    const container = entry.target;
 
-      // 触发容器动画（假设 .visible 是触发整体动画的class）
+    if (entry.isIntersecting) {
+      // 触发容器动画（假设 .visible 是触发整体动画的 class）
       container.classList.add('visible');
 
-      // 停止观察，避免重复触发
-      observer.unobserve(container);
+      // 重置并重新触发子元素动画
+      container.querySelectorAll('.fade-in-up').forEach(el => {
+        el.style.animation = 'none'; // 重置动画
+        el.offsetHeight; // 触发重绘
+        el.style.animation = ''; // 恢复动画
+        el.style.animationPlayState = 'running'; // 播放动画
+      });
 
-      // 放大动画时间，比如0.8秒后，触发内部子元素动画
-      setTimeout(() => {
-        container.querySelectorAll('.fade-in-up').forEach(el => {
-          el.style.animationPlayState = 'running'; // 运行子元素动画
-        });
-      }, 50); // 根据动画时长调整
+    } else {
+      // 当元素离开视口，暂停动画（可选）
+      container.classList.remove('visible');
+      container.querySelectorAll('.fade-in-up').forEach(el => {
+        el.style.animationPlayState = 'paused';
+      });
     }
   });
 }, {
   threshold: 0.2
 });
 
-// 初始化时先暂停所有子元素动画，等待触发时播放
+// 初始化时先暂停所有子元素动画
 document.querySelectorAll('.animate-on-scroll').forEach(container => {
   container.querySelectorAll('.fade-in-up').forEach(el => {
     el.style.animationPlayState = 'paused';
   });
   observer.observe(container);
 });
+
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
