@@ -21,16 +21,38 @@ html, body {
     padding-top: 0px; /* 给 navbar 留空间 */
 }
 
+.footer-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 保持内容贴底部 */
+  height: 100vh;
+  background: transparent; /* 改为透明，显示上一页内容 */
+  color: white;
+  padding: 0; /* 移除padding让footer完全贴底 */
+  position: relative;
+}
+
+.footer-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
 .scroll-buffer {
-    height: 38vh;              /* 可调大小，能让你滚到 footer 底部即可 */
-    scroll-snap-align: end;    /* 可以对齐底部 */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: flex-end;
 }
 @media (max-width: 1280px) {
     .scroll-buffer {
       height: 34vh;              /* 可调大小，能让你滚到 footer 底部即可 */
   }
 }
-
 
 /* 导航栏 */
 .navbar {
@@ -1827,6 +1849,10 @@ nav {
     flex-wrap: wrap;
     justify-content: space-between;
     border-top: 1px solid #444;
+    margin-top: auto; /* 这个很关键，让footer自动推到底部 */
+    min-height: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .footer-logo,

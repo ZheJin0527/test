@@ -141,7 +141,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </section>
   </div>
   
-  <div class="swiper-slide">
+  <div class="swiper-slide footer-slide">
   <section class="scroll-buffer">
   <footer class="footer">
     <div class="footer-logo">
@@ -209,7 +209,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
   </section>
   </div>
-
+  
 <script src="app.js"></script>
 <script>
   const hamburger = document.getElementById('hamburger');
