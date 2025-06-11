@@ -957,7 +957,7 @@ nav {
 @media screen and (max-width: 1280px) {
   .culture-section {
     width: 100%;
-    margin: 10px 0px 0px 0px;
+    margin: 0;
     height: 100vh;
     flex-wrap: nowrap;
     gap: 0px;
