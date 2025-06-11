@@ -148,7 +148,6 @@ function scrollToTop() {
 document.addEventListener("DOMContentLoaded", function () {
   const statSection = document.querySelector('.stats-section');
   const statNumbers = document.querySelectorAll('.stat-number');
-  let hasAnimated = false;
 
   function animateCountUp(el, target, duration = 1000) {
     let startTime = null;
@@ -165,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(update);
       } else {
         el.textContent = target;
-        if (el.getAttribute('data-target').includes('+')) {
+        if (el.getAttribute('data-target')?.includes('+')) {
           el.textContent += '+';
         }
       }
@@ -176,21 +175,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting && !hasAnimated) {
+      if (entry.isIntersecting) {
         statNumbers.forEach(el => {
-          const raw = el.textContent;
+          const raw = el.getAttribute('data-target') || el.textContent;
           const target = parseInt(raw.replace(/\D/g, ''));
           if (!isNaN(target)) {
-            el.setAttribute('data-target', raw);
+            el.setAttribute('data-target', raw); // 保存原始值
             el.textContent = "0";
             animateCountUp(el, target, 1000);
           }
         });
-        hasAnimated = true;
       }
     });
   }, {
-    threshold: 0.3 // 进入视口30%时触发动画
+    threshold: 0.3 // 当section至少有30%进入视口时触发
   });
 
   if (statSection) {
