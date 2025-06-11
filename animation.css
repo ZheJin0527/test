@@ -33,7 +33,7 @@
 /* 向左滑入动画 */
 .slide-in-left {
   opacity: 0;
-  transform: translateX(-50px);
+  transform: translateX(-500px);
   transition: all 0.8s ease-out;
 }
 
@@ -45,7 +45,7 @@
 /* 向右滑入动画 */
 .slide-in-right {
   opacity: 0;
-  transform: translateX(50px);
+  transform: translateX(500px);
   transition: all 0.8s ease-out;
 }
 
