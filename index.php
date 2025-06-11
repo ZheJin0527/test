@@ -220,20 +220,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <ul>
         <li>招聘</li>
         <li><a href="joinus.html#contact">联系我们</a></li>
-        <li>
-          <span style="font-size: 16px; font-weight: bold; color: white;">关注我们</span>
-          <div class="social-icons">
-            <a href="#" target="_blank">
-              <img src="images/images/fbicon.png" alt="Facebook" />
-            </a>
-            <a href="#" target="_blank">
-              <img src="images/images/igicon.png" alt="Instagram" />
-            </a>
-            <a href="#" target="_blank">
-              <img src="images/images/wsicon.png" alt="WhatsApp" />
-            </a>
-          </div>
-        </li>
+        
       </ul>
     </div>
   </footer>
