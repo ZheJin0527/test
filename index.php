@@ -58,7 +58,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-    <div class="home-content">
+    <div class="home-content hidden">
       <h1 class="fade-in-up delay-1">让空间温暖，让团队闪光</h1>
       <p class="fade-in-up delay-2">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
@@ -312,5 +312,24 @@ document.querySelectorAll('.animate-on-scroll').forEach(container => {
     },
   });
 </script>
+<script>
+  window.addEventListener('load', () => {
+    // 创建一个虚拟图片对象检测背景图是否加载完成
+    const bgImg = new Image();
+    bgImg.src = "images/images/封面7.png";
+
+    bgImg.onload = function () {
+      document.querySelector('.home-content').classList.remove('hidden');
+
+      // 强制触发重绘，重新开始动画（可选，增强兼容性）
+      void document.querySelector('.home-content').offsetWidth;
+
+      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
+      document.querySelector('.home-content h1').classList.add('fade-in-up', 'delay-1');
+      document.querySelector('.home-content p').classList.add('fade-in-up', 'delay-2');
+    };
+  });
+</script>
+
 </body>
 </html>
