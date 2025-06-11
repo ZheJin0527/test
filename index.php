@@ -58,7 +58,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-    <div class="home-content hidden">
+    <div class="home-content hidden animate-on-scroll">
       <h1 class="fade-in-up delay-1">让空间温暖，让团队闪光</h1>
       <p class="fade-in-up delay-2">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
