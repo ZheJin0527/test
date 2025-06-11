@@ -28,6 +28,7 @@ body::-webkit-scrollbar {
     height: 100vh;
     overflow-y: auto; /* 允许每页内容内部滚动 */
     padding-top: 0px; /* 给 navbar 留空间 */
+    overflow: hidden;
 }
 
 .footer-slide {
@@ -1046,7 +1047,7 @@ nav {
     position: relative;
     padding: 80px 0 0 80px;
     height: calc(56vh - 80px); /* 还保持满屏显示 */
-    background: url('images/images/关于封面.jpg') no-repeat center center/cover;
+    background: url('images/images/关于我们bg.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
