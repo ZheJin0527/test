@@ -209,7 +209,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
   </section>
   </div>
-  
+
 <script src="app.js"></script>
 <script>
   const hamburger = document.getElementById('hamburger');
@@ -276,16 +276,19 @@ document.querySelectorAll('.animate-on-scroll').forEach(container => {
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-  const swiper = new Swiper('.swiper', {
-    direction: 'vertical',
-    mousewheel: true,
-    speed: 1000, // 动画滑动时间，单位是毫秒，1000 = 1秒
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-  });
-</script>
+<script>
+        const swiper = new Swiper('.swiper', {
+            direction: 'vertical',
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+            speed: 1000,
+            mousewheel: {
+                sensitivity: 1,
+            },
+            allowTouchMove: false
+        });
+    </script>
 </body>
 </html>
