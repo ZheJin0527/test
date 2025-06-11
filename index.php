@@ -57,7 +57,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-wrapper">
 
   <div class="swiper-slide">
-  <section class="home">
+  <section class="home animate-on-scroll">
     <div class="home-content hidden">
       <h1 class="fade-in-up delay-1">让空间温暖，让团队闪光</h1>
       <p class="fade-in-up delay-2">
@@ -269,42 +269,42 @@ window.addEventListener('resize', moveLoginBtn);
 </script>
 <script>
   const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    const container = entry.target;
+    entries.forEach(entry => {
+      const container = entry.target;
 
-    if (entry.isIntersecting) {
-      // 触发容器动画（假设 .visible 是触发整体动画的 class）
-      container.classList.add('visible');
-
-      // 重置并重新触发子元素动画
-      container.querySelectorAll('.fade-in-up').forEach(el => {
-        el.style.animation = 'none'; // 重置动画
-        el.offsetHeight; // 触发重绘
-        el.style.animation = ''; // 恢复动画
-        el.style.animationPlayState = 'running'; // 播放动画
-      });
-
-    } else {
-      // 当元素离开视口，暂停动画（可选）
-      container.classList.remove('visible');
-      container.querySelectorAll('.fade-in-up').forEach(el => {
-        el.style.animationPlayState = 'paused';
-      });
-    }
+      if (entry.isIntersecting) {
+        container.classList.add('visible');
+        container.querySelectorAll('.fade-in-up').forEach(el => {
+          el.style.animation = 'none';
+          el.offsetHeight; // 触发重绘
+          el.style.animation = '';
+          el.style.animationPlayState = 'running';
+        });
+      } else {
+        container.classList.remove('visible');
+        container.querySelectorAll('.fade-in-up').forEach(el => {
+          el.style.animation = 'none';
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(20px)';
+          el.offsetHeight;
+          el.style.animation = '';
+          el.style.animationPlayState = 'paused';
+        });
+      }
+    });
+  }, {
+    threshold: 0.2
   });
-}, {
-  threshold: 0.2
-});
 
-// 初始化时先暂停所有子元素动画
-document.querySelectorAll('.animate-on-scroll').forEach(container => {
-  container.querySelectorAll('.fade-in-up').forEach(el => {
-    el.style.animationPlayState = 'paused';
+  // 初始化：暂停所有子元素动画并设置为初始样式
+  document.querySelectorAll('.animate-on-scroll').forEach(container => {
+    container.querySelectorAll('.fade-in-up').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+    });
+    observer.observe(container);
   });
-  observer.observe(container);
-});
-
-
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
