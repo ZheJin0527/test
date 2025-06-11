@@ -280,7 +280,7 @@ document.querySelectorAll('.animate-on-scroll').forEach(container => {
   const swiper = new Swiper('.swiper', {
     direction: 'vertical',
     mousewheel: true,
-    speed: 1000, // 动画滑动时间，单位是毫秒，1000 = 1秒
+    speed: 800, // 动画滑动时间，单位是毫秒，1000 = 1秒
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
