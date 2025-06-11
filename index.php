@@ -57,7 +57,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-wrapper">
 
   <div class="swiper-slide">
-  <section class="home">
+  <section class="home animate-on-scroll">
     <div class="home-content hidden">
       <h1 class="fade-in-up delay-1">让空间温暖，让团队闪光</h1>
       <p class="fade-in-up delay-2">
@@ -277,8 +277,8 @@ window.addEventListener('resize', moveLoginBtn);
 
         container.querySelectorAll('.fade-in-up').forEach(el => {
           el.style.animation = 'none'; // 重置动画
-          el.offsetHeight; // 触发重绘
-          el.style.animation = ''; // 重新应用 CSS 动画
+          el.offsetHeight;             // 强制重绘（触发回流）
+          el.style.animation = '';     // 重新应用 CSS 动画
           el.style.animationPlayState = 'running';
         });
 
@@ -287,9 +287,9 @@ window.addEventListener('resize', moveLoginBtn);
 
         container.querySelectorAll('.fade-in-up').forEach(el => {
           el.style.animation = 'none'; // 停止当前动画
-          el.style.opacity = '0'; // 恢复初始状态
-          el.style.transform = 'translateY(20px)';
-          el.offsetHeight; // 强制回流
+          el.style.opacity = '0';      // 重置透明度
+          el.style.transform = 'translateY(20px)'; // 重置位移
+          el.offsetHeight;             // 强制回流
           el.style.animation = '';
           el.style.animationPlayState = 'paused';
         });
@@ -299,7 +299,7 @@ window.addEventListener('resize', moveLoginBtn);
     threshold: 0.2
   });
 
-  // 初始化：暂停动画并设置初始状态
+  // 初始化：暂停所有 fade-in-up 动画并设置初始样式
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
     container.querySelectorAll('.fade-in-up').forEach(el => {
       el.style.animationPlayState = 'paused';
@@ -309,6 +309,7 @@ window.addEventListener('resize', moveLoginBtn);
     observer.observe(container);
   });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
   const swiper = new Swiper('.swiper', {
