@@ -808,11 +808,11 @@ nav {
 
 .culture-section {
     padding-top: 80px; /* 预留navbar高度 */
-    margin: 0 auto;
+    margin: 30px auto 0;
     box-sizing: border-box;
     min-height: clamp(300px, 48vw, 920px);
     width: 100%;
-    padding-bottom: 0px;
+    padding-bottom: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
