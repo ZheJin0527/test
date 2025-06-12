@@ -41,6 +41,10 @@
   </div>
 </header>
 
+<div class="swiper">
+  <div class="swiper-wrapper">
+
+  <div class="swiper-slide">
   <section class="joinus">
     <div class="joinus-content">
       <h1>加入我们</h1>
@@ -80,7 +84,9 @@
       </div>
     </div>
   </div>  
+  </div>
 
+  <div class="swiper-slide">
     <!-- Swiper 环境模块 -->
 <section class="environment-section">
   <h2 class="environment-heading">工作环境</h2>
@@ -228,7 +234,9 @@
       </form>
     </div>
   </div>  
+</div>
 
+<div class="swiper-slide">
   <!-- 意见表格 -->
   <section class="join-us-form"> 
     <h2>请提供您宝贵的意见</h2>
@@ -306,7 +314,9 @@
       </div>
     </form>
 </section>  
+</div>
 
+<div class="swiper-slide">
   <section id="contact" class="contact-container">
     <div class="contact-info">
         <h2>联系我们</h2>
@@ -385,6 +395,9 @@
   <div class="footer-bottom">
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
+  </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="app.js"></script>
@@ -418,6 +431,18 @@ window.addEventListener('DOMContentLoaded', moveLoginBtn);
 // 窗口大小改变时也处理，防止resize后login位置错乱
 window.addEventListener('resize', moveLoginBtn);
 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+  const swiper = new Swiper('.swiper', {
+    direction: 'vertical',
+    mousewheel: true,
+    speed: 800, // 动画滑动时间，单位是毫秒，1000 = 1秒
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
 </script>
 </body>
 </html>
