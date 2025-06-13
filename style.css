@@ -3152,8 +3152,8 @@ form input[type="file"] {
   flex-direction: row;
   width: 100%;
   max-width: 1648px;
-  height: 500px;
-  margin: 80px auto 70px auto;
+  height: 400px;
+  margin: 130px auto 70px auto;
   padding-left: clamp(40px, 5vw, 80px);
   padding-right: clamp(40px, 5vw, 80px);
   background: white;
