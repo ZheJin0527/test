@@ -34,22 +34,79 @@ body::-webkit-scrollbar {
 .footer-slide {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* 保持内容贴底部 */
-  height: 100vh;
-  background: url('images/images/背景5.png') no-repeat center center/cover;
+  justify-content: flex-end;
+  height: 50vh; /* 改为50vh，只占一半高度 */
+  background: transparent;
   color: white;
-  padding: 0; /* 移除padding让footer完全贴底 */
+  padding: 0;
   position: relative;
+  margin-top: 50vh; /* 上边距50vh，让footer从中间开始 */
 }
 
 .footer-slide::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -50vh; /* 向上延伸50vh，覆盖上半部分 */
     left: 0;
     right: 0;
+    height: 50vh;
+    background: transparent; /* 透明背景显示上一页内容 */
     pointer-events: none;
     z-index: 1;
+}
+
+.scroll-buffer {
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh; /* 改为50vh */
+    justify-content: flex-end;
+}
+
+/* 方案2：新的半页footer类（推荐使用这个） */
+.footer-half-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100vh;
+  background: linear-gradient(to bottom, transparent 0%, transparent 50%, #2F2F2F 50%);
+  color: white;
+  padding: 0;
+  position: relative;
+}
+
+.footer-half-content {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: #2F2F2F;
+  margin-top: auto;
+}
+
+/* 方案3：使用transform实现更平滑的效果 */
+.footer-overlay-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100vh;
+  background: transparent;
+  color: white;
+  padding: 0;
+  position: relative;
+}
+
+.footer-overlay-slide .scroll-buffer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50vh;
+  background-color: #2F2F2F;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
 }
 
 .scroll-buffer {
