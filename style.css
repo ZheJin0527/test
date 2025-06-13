@@ -470,15 +470,15 @@ nav {
     line-height: 140%;
     letter-spacing: 1.4%;
     text-shadow:
-        10px 10px 12px rgba(0, 0, 0, 0.9),
-        4px 4px 20px rgba(0, 0, 0, 0.8);
+        10px 10px 12px rgba(0, 0, 0, 0.5),
+        4px 4px 20px rgba(0, 0, 0, 0.5);
 }
   
 .home p {
-    font-size: 30px;
-    font-weight: normal;
+    font-size: 26px;
+    font-weight: lighter;
     letter-spacing: 150%;
-    line-height: 140%;
+    line-height: 165%;
     margin-top: 0; /* 确保p和h1的间距是80px */
     margin-bottom: 90px;
     text-shadow:
