@@ -477,6 +477,7 @@ nav {
 .home p {
     font-size: 24px;
     font-weight: normal;
+    letter-spacing: 150%;
     line-height: 140%;
     margin-top: 0; /* 确保p和h1的间距是80px */
     margin-bottom: 90px;
