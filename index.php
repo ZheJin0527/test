@@ -136,48 +136,37 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
         <p class="culture-description fade-in-up delay-7">
           在 Kunzz Holdings，我们相信文化决定高度。我们以目标为导向，理念为基石，打造一支具备高效执行力与高度协同精神的团队。我们提倡扁平沟通，尊重每一位成员的成长节奏，鼓励分享、学习与共创。在这里，每一份努力都能被看见，每一次突破都值得被鼓励。
       </p>
-      <a href="about.html" class="culture-button fade-in-up delay-8">了解更多 &gt;&gt;</a>
     </div>
   </section>
   </div>
   
   <div class="swiper-slide">
     <section class="scroll-buffer">
-    <section class="followus-section">
-        <h2 class="followus-title">关注我们 Follow Us</h2>
-        
-        <div class="social-container">
-            <!-- Facebook -->
-            <div class="social-item">
-                <div class="social-icon-container" onclick="openFacebook()">
-                    <img src="images/images/fbicon.png" alt="Facebook" class="social-icon">
-                </div>
-                <div class="qr-code">Facebook QR Code</div>
-                <div class="social-name">Facebook</div>
-                <div class="social-description">关注我们的Facebook页面<br>获取最新动态</div>
-            </div>
+    <section id="contact" class="contact-container animate-on-scroll fade-in-down">
+  <div class="contact-info">
+    <h2>联系我们</h2>
+    <p>公司名称：Kunzz Holdings Sdn. Bhd.</p>
+    <p>
+      地址：
+      <a href="javascript:void(0);" onclick="goToLocation()" class="no-style-link">
+        25, Jln Tanjong 3, Taman Desa Cemerlang, 81800 Ulu Tiram, Johor Darul Ta'zim
+      </a>
+    </p>
+    <p>电话：+60 123-456 789</p>
+    <p>邮箱：kunzzholdings@gmail.com</p>
+    <p>营业时间：周一至周五 9AM-6PM</p>
+  </div>
 
-            <!-- Instagram -->
-            <div class="social-item">
-                <div class="social-icon-container" onclick="openInstagram()">
-                    <img src="images/images/igicon.png" alt="Instagram" class="social-icon">
-                </div>
-                <div class="qr-code">Instagram QR Code</div>
-                <div class="social-name">Instagram</div>
-                <div class="social-description">关注我们的Instagram<br>查看精彩内容</div>
-            </div>
+  <div class="map-container">
+    <iframe
+      id="custom-map"
+      src="https://www.google.com/maps/d/embed?mid=11C1m9L_Gcj_n8ynGotoCNc4rzq0FX54&ehbc=2E312F"
+      width="640"
+      height="480"
+    ></iframe>
+  </div>
+</section>
 
-            <!-- WhatsApp -->
-            <div class="social-item">
-                <div class="social-icon-container" onclick="openWhatsApp()">
-                    <img src="images/images/wsicon.png" alt="WhatsApp" class="social-icon">
-                </div>
-                <div class="qr-code">WhatsApp QR Code</div>
-                <div class="social-name">WhatsApp</div>
-                <div class="social-description">通过WhatsApp联系我们<br>快速获得回复</div>
-            </div>
-        </div>
-    </section>
     
   <footer class="footer">
     <div class="footer-logo">
@@ -218,10 +207,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4><a href="joinus.html">加入我们</a></h4>
       <ul>
-        <li><a href="joinus.html#benefit">公司福利</a></li>
-        <li><a href="joinus.html#environment">公司环境</a></li>
         <li>招聘</li>
-        <li><a href="joinus.html#contact">联系我们</a></li>        
+        <li><a href="joinus.html#contact">联系我们</a></li>
+        
       </ul>
     </div>
   </footer>
@@ -233,8 +221,32 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
   </section>
   </div>
+
+  
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
+<div class="social-sidebar">
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
+            <svg viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
+            <svg viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+            </svg>
+        </a>
+    </div>
   
 <script src="app.js"></script>
 <script>
@@ -340,6 +352,13 @@ window.addEventListener('resize', moveLoginBtn);
     };
   });
 </script>
+<script>
+  function goToLocation() {
+    const map = document.getElementById('custom-map');
 
+    // ⚠️ 这里请替换成你 My Maps 中标记具体地点的链接（可以在地图中点击目标点 → 分享 → 嵌入地图 获取新的 URL）
+    map.src = "https://www.google.com/maps/d/embed?mid=11C1m9L_Gcj_n8ynGotoCNc4rzq0FX54&ehbc=2E312F#target-location";
+  }
+</script>
 </body>
 </html>
