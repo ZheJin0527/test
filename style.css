@@ -448,7 +448,7 @@ nav {
     padding: 160px 0 0 0px;
     height: 100vh;
     background: 
-  linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%), 
+  linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%), 
   url('images/images/封面7.png') no-repeat center center/cover;
     display: flex;
     align-items: flex-start;
