@@ -445,10 +445,10 @@ nav {
 
 .home {
     position: relative;
-    padding: 80px 0 0 80px;
+    padding: 160px 0 0 0px;
     height: 100vh;
     background: 
-  linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%), 
+  linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%), 
   url('images/images/封面7.png') no-repeat center center/cover;
     display: flex;
     align-items: flex-start;
@@ -476,15 +476,15 @@ nav {
 }
   
 .home p {
-    font-size: 26px;
-    font-weight: lighter;
-    letter-spacing: 150%;
+    font-size: 20px;
+    font-weight: normal;
+    letter-spacing: 7px;
     line-height: 165%;
-    margin-top: 0; /* 确保p和h1的间距是80px */
+    margin-top: 0px; /* 确保p和h1的间距是80px */
     margin-bottom: 90px;
     text-shadow:
-        3px 3px 3px rgba(0, 0, 0, 0.9),
-        4px 4px 6px rgba(0, 0, 0, 0.8);
+        10px 10px 12px rgba(0, 0, 0, 0.5),
+        4px 4px 20px rgb(0, 0, 0, 0.5);
 }
   
 .home-button {
