@@ -452,7 +452,7 @@ nav {
   url('images/images/封面7.png') no-repeat center center/cover;
     display: flex;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: center;
     color: white;
 }
   
