@@ -1070,6 +1070,331 @@ nav {
   }
 }
 
+/* page下方 */
+.footer {
+    padding: 20px 0px 0px clamp(80px, 10vw, 160px);
+    background-color: #2F2F2F;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid #444;
+    margin-top: auto; /* 这个很关键，让footer自动推到底部 */
+    min-height: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-logo,
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: center;
+}
+
+.footer-logo {
+    flex: 1 1 250px;
+    margin-bottom: 20px;
+}
+
+.footer-logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo h1 img.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.footer-logo p {
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.footer-logo-img {
+  width: 220px;
+  height: auto;
+  margin-bottom: 0;
+  display: block;
+  margin-top: 10px;
+  margin-left: -12px;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.footer-section h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.footer-section h4 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #ccc;
+}
+
+.footer-section li a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-bottom {
+  position: relative;
+  text-align: center;
+  font-size: clamp(10px, 1vw, 14px);
+  color: #666;
+  background-color: #2F2F2F;
+  padding: 10px 80px;
+}
+
+.footer-bottom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 80px;
+  right: 80px;
+  height: 1.2px;
+  background-color: #444;
+}
+
+#backToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    padding: 10px 18px;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0.6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.backToTopBtn:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* ✅ 尺寸缩小响应，但保留 1920 版式 */
+@media (max-width: 1280px) and (min-width: 769px) {
+  .footer {
+    padding: 14px 51px 14px 51px;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+
+  .footer-logo,
+  .footer-section {
+    flex: 1 1 0;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+
+  .footer-logo h1 {
+    font-size: clamp(10px, 1vw, 16px);
+  }
+
+  .footer-logo h1 img.logo {
+    width: clamp(30px, 2.5vw, 36px);
+    height: clamp(28px, 2.5vw, 36px);
+  }
+
+  .footer-logo p {
+    font-size: clamp(9px, 1vw, 11px);
+    line-height: 1.4;
+  }
+
+  .footer-logo-img {
+    width: clamp(140px, 12vw, 200px); /* 更小屏宽时进一步限制最大宽度 */
+    margin-top: 10px;
+  }
+
+  .footer-section h4 {
+    font-size: clamp(10px, 1.1vw, 13px);
+    margin-bottom: 2px;
+  }
+
+  .footer-section li {
+    font-size: clamp(10px, 1.1vw, 13px);
+    margin-bottom: 10px;
+  }
+
+  .footer-bottom {
+    font-size: clamp(9px, 0.8vw, 12px);
+    padding: 8px 40px;
+  }
+
+  .footer-bottom::before {
+    left: 40px;
+    right: 40px;
+    height: 1px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    padding: 12px 40px;
+    align-items: center;
+  }
+
+  .footer-logo {
+    flex: 1 1 120px;
+  }
+
+  .footer-section {
+    flex: 1 1 110px;
+  }
+
+  .footer-logo,
+  .footer-section {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .footer-logo h1 {
+    font-size: clamp(6px, 3vw, 12px);
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 3px;
+  }
+
+  .footer-logo h1 img.logo {
+    width: clamp(22px, 6vw, 36px);
+    height: clamp(22px, 6vw, 36px);
+    margin-bottom: 0;
+    margin-right: 8px;
+  }
+
+  .footer-logo p {
+    font-size: clamp(6px, 3vw, 12px);
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+
+  .footer-logo-img {
+    width: clamp(130px, 20vw, 140px); /* 手机屏幕上更小但不失清晰 */
+  }
+
+  .footer-section h4 {
+    font-size: clamp(6px, 3vw, 12px);
+    margin-bottom: -10px;
+  }
+
+  .footer-section li {
+    font-size: clamp(6px, 3vw, 12px);
+    margin-bottom: 2px;
+  }
+
+  .footer-bottom {
+    font-size: clamp(7px, 2.5vw, 10px);
+    padding: 6px 24px;
+  }
+
+  .footer-bottom::before {
+    left: 24px;
+    right: 24px;
+    height: 1px;
+  }
+}
+
+/* 左侧页面指示器样式 */
+.page-indicator {
+    position: fixed;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    backdrop-filter: blur(10px)
+}
+
+.page-dot {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background-color: rgba(255, 106, 0, 1);
+    border: 2px solid rgba(255, 106, 0, 1);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.page-dot:hover {
+    background-color: rgba(255, 106, 0, 1);
+    border-color: rgba(255, 106, 0, 1);
+    transform: scale(1.3);
+}
+
+.page-dot.active {
+    width: 2px;
+    height: 24px;
+    border-radius: 6px;
+    background-color: rgba(255, 106, 0, 1);
+    border-color: rgba(255, 106, 0, 1);
+}
+
+.page-dot.active:hover {
+    transform: scale(1.12);
+}
+
+@media (max-width: 768px) {
+    .page-indicator {
+        left: 15px;
+        gap: 12px;
+    }
+            
+    .page-dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-indicator {
+        left: 10px;
+        gap: 10px;
+    }
+            
+    .page-dot {
+        width: 8px;
+        height: 8px;
+    }
+}
+
 .social-sidebar {
     position: fixed;
     right: 20px;
@@ -2123,262 +2448,6 @@ nav {
   .timeline-item > .timeline_content {
     order: 1;
     width: calc(100% - 100px);
-  }
-}
-
-/* page下方 */
-.footer {
-    padding: 20px 0px 0px clamp(80px, 10vw, 160px);
-    background-color: #2F2F2F;
-    color: white;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    border-top: 1px solid #444;
-    margin-top: auto; /* 这个很关键，让footer自动推到底部 */
-    min-height: auto;
-    position: relative;
-    z-index: 2;
-}
-
-.footer-logo,
-.footer-section {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    text-align: center;
-}
-
-.footer-logo {
-    flex: 1 1 250px;
-    margin-bottom: 20px;
-}
-
-.footer-logo h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.footer-logo h1 img.logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-}
-
-.footer-logo p {
-    font-size: 16px;
-    line-height: 1.4;
-    text-align: left;
-}
-
-.footer-logo-img {
-  width: 220px;
-  height: auto;
-  margin-bottom: 0;
-  display: block;
-  margin-top: 10px;
-  margin-left: -12px;
-}
-
-.footer-section {
-    flex: 1 1 200px;
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.footer-section h4 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.footer-section h4 a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-section li {
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: #ccc;
-}
-
-.footer-section li a {
-    color: #ccc;
-    text-decoration: none;
-}
-
-.footer-bottom {
-  position: relative;
-  text-align: center;
-  font-size: clamp(10px, 1vw, 14px);
-  color: #666;
-  background-color: #2F2F2F;
-  padding: 10px 80px;
-}
-
-.footer-bottom::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 80px;
-  right: 80px;
-  height: 1.2px;
-  background-color: #444;
-}
-
-#backToTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    padding: 10px 18px;
-    font-size: 24px;
-    border: none;
-    border-radius: 50%;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    z-index: 999;
-    opacity: 0.6;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.backToTopBtn:hover {
-    transform: scale(1.2);
-    opacity: 1;
-}
-
-/* ✅ 尺寸缩小响应，但保留 1920 版式 */
-@media (max-width: 1280px) and (min-width: 769px) {
-  .footer {
-    padding: 14px 51px 14px 51px;
-    gap: 20px;
-    flex-wrap: nowrap;
-  }
-
-  .footer-logo,
-  .footer-section {
-    flex: 1 1 0;
-    min-width: 0;
-    margin-bottom: 0;
-  }
-
-  .footer-logo h1 {
-    font-size: clamp(10px, 1vw, 16px);
-  }
-
-  .footer-logo h1 img.logo {
-    width: clamp(30px, 2.5vw, 36px);
-    height: clamp(28px, 2.5vw, 36px);
-  }
-
-  .footer-logo p {
-    font-size: clamp(9px, 1vw, 11px);
-    line-height: 1.4;
-  }
-
-  .footer-logo-img {
-    width: clamp(140px, 12vw, 200px); /* 更小屏宽时进一步限制最大宽度 */
-    margin-top: 10px;
-  }
-
-  .footer-section h4 {
-    font-size: clamp(10px, 1.1vw, 13px);
-    margin-bottom: 2px;
-  }
-
-  .footer-section li {
-    font-size: clamp(10px, 1.1vw, 13px);
-    margin-bottom: 10px;
-  }
-
-  .footer-bottom {
-    font-size: clamp(9px, 0.8vw, 12px);
-    padding: 8px 40px;
-  }
-
-  .footer-bottom::before {
-    left: 40px;
-    right: 40px;
-    height: 1px;
-  }
-}
-
-@media (max-width: 768px) {
-  .footer {
-    flex-direction: column;
-    padding: 12px 40px;
-    align-items: center;
-  }
-
-  .footer-logo {
-    flex: 1 1 120px;
-  }
-
-  .footer-section {
-    flex: 1 1 110px;
-  }
-
-  .footer-logo,
-  .footer-section {
-    width: 100%;
-    margin-bottom: 0;
-  }
-
-  .footer-logo h1 {
-    font-size: clamp(6px, 3vw, 12px);
-    flex-direction: row;
-    align-items: flex-start;
-    margin-bottom: 3px;
-  }
-
-  .footer-logo h1 img.logo {
-    width: clamp(22px, 6vw, 36px);
-    height: clamp(22px, 6vw, 36px);
-    margin-bottom: 0;
-    margin-right: 8px;
-  }
-
-  .footer-logo p {
-    font-size: clamp(6px, 3vw, 12px);
-    line-height: 1.3;
-    margin-bottom: 3px;
-  }
-
-  .footer-logo-img {
-    width: clamp(130px, 20vw, 140px); /* 手机屏幕上更小但不失清晰 */
-  }
-
-  .footer-section h4 {
-    font-size: clamp(6px, 3vw, 12px);
-    margin-bottom: -10px;
-  }
-
-  .footer-section li {
-    font-size: clamp(6px, 3vw, 12px);
-    margin-bottom: 2px;
-  }
-
-  .footer-bottom {
-    font-size: clamp(7px, 2.5vw, 10px);
-    padding: 6px 24px;
-  }
-
-  .footer-bottom::before {
-    left: 24px;
-    right: 24px;
-    height: 1px;
   }
 }
 

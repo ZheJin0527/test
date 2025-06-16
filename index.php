@@ -52,6 +52,13 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <button class="hamburger" id="hamburger">&#9776;</button>
   </div>
 </header>
+
+<div class="page-indicator">
+        <div class="page-dot active" data-slide="0"></div>
+        <div class="page-dot" data-slide="1"></div>
+        <div class="page-dot" data-slide="2"></div>
+        <div class="page-dot" data-slide="3"></div>
+    </div>
   
   <div class="swiper">
   <div class="swiper-wrapper">
