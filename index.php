@@ -333,16 +333,46 @@ window.addEventListener('resize', moveLoginBtn);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-  const swiper = new Swiper('.swiper', {
-    direction: 'vertical',
-    mousewheel: true,
-    speed: 800, // 动画滑动时间，单位是毫秒，1000 = 1秒
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-  });
-</script>
+        const swiper = new Swiper('.swiper', {
+            direction: 'vertical',
+            mousewheel: true,
+            speed: 800,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            on: {
+                slideChange: function() {
+                    // 更新页面指示器
+                    updatePageIndicator(this.activeIndex);
+                }
+            }
+        });
+
+        // 页面指示器功能
+        const pageDots = document.querySelectorAll('.page-dot');
+        
+        // 点击圆点跳转到对应页面
+        pageDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                swiper.slideTo(index);
+            });
+        });
+
+        // 更新页面指示器状态
+        function updatePageIndicator(activeIndex) {
+            pageDots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // 初始化页面指示器
+        updatePageIndicator(0);
+    </script>
 <script>
   window.addEventListener('load', () => {
     // 创建一个虚拟图片对象检测背景图是否加载完成
