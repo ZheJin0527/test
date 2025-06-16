@@ -202,7 +202,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4>旗下品牌</h4>
       <ul>
-        <li>TOKYO JAPANESE CUISINE</li>
+        <li>TOKYO JAPANESE </br>CUISINE</li>
       </ul>
     </div>
 
