@@ -184,7 +184,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <h4><a href="index.php">首页</a></h4>
       <ul>
         <li><a href="#comprofile">公司简介</a></li>
-        <li><a href="#culture">核心价值公司文化</a></li>
+        <li><a href="#culture">公司文化</a></li>
         <li><a href="#brands">旗下品牌</a></li>
       </ul>
     </div>
