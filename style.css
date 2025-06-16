@@ -2128,7 +2128,7 @@ nav {
 
 /* page下方 */
 .footer {
-    padding: 20px 0px 0px 200px;
+    padding: 20px 0px 0px clamp(80px, 10vw, 160px);
     background-color: #2F2F2F;
     color: white;
     display: flex;
