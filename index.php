@@ -60,7 +60,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
       <h1 class="fade-in-up delay-1">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
-      <div class="decor-line"></div>
+      <div class="decor-line fade-in-up delay-1"></div>
       <p class="fade-in-up delay-2">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
         我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
