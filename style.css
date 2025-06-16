@@ -2177,11 +2177,11 @@ nav {
 
 .footer-logo-img {
   width: 220px;
-  height: auto;         /* ✅ 保持宽高比 */
-  margin-bottom: 16px;  /* ✅ 和地址信息拉开间距 */
+  height: auto;
+  margin-bottom: 0;
   display: block;
   margin-top: 10px;
-  margin-bottom: 0;
+  margin-left: -12px;
 }
 
 .footer-section {
