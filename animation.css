@@ -23,14 +23,14 @@
   }
 }
 
-/* 初始隐藏状态 - 只用于transition动画的元素 */
-.animate-on-scroll:not(.scale-fade-in) {
+/* 初始隐藏状态 - 修复：排除所有特定动画类，避免冲突 */
+.animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down) {
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease-out;
 }
 
-.animate-on-scroll.visible:not(.scale-fade-in) {
+.animate-on-scroll.visible:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down) {
   opacity: 1;
   transform: translateY(0);
 }
@@ -59,7 +59,7 @@
   transform: translateX(0);
 }
 
-/* 修复：给 scale-fade-in 元素单独设置，避免继承 translateY */
+/* 修复:给 scale-fade-in 元素单独设置,避免继承 translateY */
 .scale-fade-in {
   opacity: 0;
   transform: scale(0.8);
@@ -67,7 +67,7 @@
   animation-play-state: paused;
 }
 
-/* 当父容器可见时，启动动画 */
+/* 当父容器可见时,启动动画 */
 .animate-on-scroll.visible .scale-fade-in {
   animation-play-state: running;
 }
@@ -83,7 +83,7 @@
   }
 }
 
-/* 首页所有元素统一，不要延迟 - 一起1.6s出现 */
+/* 首页所有元素统一,不要延迟 - 一起1.6s出现 */
 .home-content .scale-fade-in {
   animation-delay: 0s;
 }
