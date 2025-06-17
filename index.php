@@ -66,9 +66,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
-      <h1 class="fade-in-up delay-1">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
-      <div class="decor-line fade-in-up delay-1"></div>
-      <p class="fade-in-up delay-2">
+      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+      <div class="decor-line scale-fade-in"></div>
+      <p class="scale-fade-in">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
         我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
         才能创造持续的价值，向着行业标杆的方向，稳步前行。
@@ -271,7 +271,7 @@ window.addEventListener('resize', moveLoginBtn);
       if (entry.isIntersecting) {
         container.classList.add('visible');
 
-        container.querySelectorAll('.fade-in-up').forEach(el => {
+        container.querySelectorAll('.scale-fade-in').forEach(el => {
           el.style.animation = 'none'; // 重置动画
           el.offsetHeight; // 触发重绘
           el.style.animation = ''; // 重新应用 CSS 动画
@@ -281,7 +281,7 @@ window.addEventListener('resize', moveLoginBtn);
       } else {
         container.classList.remove('visible');
 
-        container.querySelectorAll('.fade-in-up').forEach(el => {
+        container.querySelectorAll('.scale-fade-in').forEach(el => {
           el.style.animation = 'none'; // 停止当前动画
           el.style.opacity = '0'; // 恢复初始状态
           el.style.transform = 'translateY(20px)';
@@ -297,7 +297,7 @@ window.addEventListener('resize', moveLoginBtn);
 
   // 初始化：暂停动画并设置初始状态
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
-    container.querySelectorAll('.fade-in-up').forEach(el => {
+    container.querySelectorAll('.scale-fade-in').forEach(el => {
       el.style.animationPlayState = 'paused';
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
@@ -380,8 +380,8 @@ updatePageIndicator(0);
       void document.querySelector('.home-content').offsetWidth;
 
       // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
-      document.querySelector('.home-content h1').classList.add('fade-in-up', 'delay-1');
-      document.querySelector('.home-content p').classList.add('fade-in-up', 'delay-2');
+      document.querySelector('.home-content h1').classList.add('scale-fade-in');
+      document.querySelector('.home-content p').classList.add('scale-fade-in');
     };
   });
 </script>

@@ -58,7 +58,7 @@
 .scale-fade-in {
   opacity: 0;
   transform: scale(0.8);
-  animation: scaleFadeIn 0.8s ease forwards;
+  animation: scaleFadeIn 1.6s ease forwards;
 }
 
 @keyframes scaleFadeIn {
