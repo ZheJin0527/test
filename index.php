@@ -152,15 +152,6 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide footer-slide">
     <section class="scroll-buffer">
     <footer class="footer">
-    <div class="footer-logo">
-      <img src="images/images/KUNZZ.png" alt="Kunzz Logo" class="footer-logo-img" />
-      <p>25, Jln Tanjong 3, Taman Desa <br />
-        Cemerlang, 81800 Ulu Tiram,  <br />
-        Johor Darul Ta'zim.</p>
-      <p>📞&nbsp; +60 123-456 789<br />
-        <span style="white-space: nowrap;">📧&nbsp; kunzzholdings@gmail.com</span></p>
-    </div>
-
     <div class="footer-section">
       <h4><a href="index.php">首页</a></h4>
       <ul>
