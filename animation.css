@@ -1,8 +1,16 @@
 /* 渐显向上动画 */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.4s ease-out forwards;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* 动画定义 */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 动画延迟 */
@@ -71,7 +79,7 @@
 /* 👇 新增：向下滑入动画（用于文字从上往下出现） */
 .fade-in-down {
   opacity: 0;
-  transform: translateY(-40px);
+  transform: translateY(-100px);
   transition: all 0.8s ease-out;
 }
 
