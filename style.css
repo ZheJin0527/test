@@ -33,7 +33,7 @@ body::-webkit-scrollbar {
 
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
-    height: 36vh; /* 保持原来的36vh */
+    height: 29vh; /* 保持原来的36vh */
     justify-content: flex-end;
     align-items: center;
     padding: 0;
@@ -48,7 +48,7 @@ body::-webkit-scrollbar {
 .scroll-buffer {
     display: flex;
     flex-direction: column;
-    min-height: 36vh;
+    min-height: 29vh;
     justify-content: flex-end;
     margin: 0;
     padding: 0;
@@ -58,7 +58,7 @@ body::-webkit-scrollbar {
 .swiper-slide.footer-slide::before {
     content: '';
     position: absolute;
-    top: -64vh; /* 向上延伸64vh来遮盖上页内容 */
+    top: -71vh; /* 向上延伸64vh来遮盖上页内容 */
     left: 0;
     right: 0;
     height: 64vh; /* 遮罩高度 */

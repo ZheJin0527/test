@@ -324,7 +324,7 @@ const swiper = new Swiper('.swiper', {
         setTransition: function(duration) {
             // 在过渡结束后检查进度
             setTimeout(() => {
-                if (this.progress > 0.85) {
+                if (this.progress > 0.95) {
                     updatePageIndicator(3); // 滑到最后一页
                 } else {
                     updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
