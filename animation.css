@@ -23,16 +23,25 @@
   }
 }
 
-/* 初始隐藏状态 - 只用于transition动画的元素 */
-.animate-on-scroll:not(.scale-fade-in) {
+/* 初始隐藏状态 - 专门为home-content排除transform */
+.animate-on-scroll {
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease-out;
 }
 
-.animate-on-scroll.visible:not(.scale-fade-in) {
+.animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* 首页内容不要默认的transform效果 */
+.home-content.animate-on-scroll {
+  transform: none; /* 覆盖默认的translateY */
+}
+
+.home-content.animate-on-scroll.visible {
+  transform: none; /* 保持无transform */
 }
 
 /* 向左滑入动画 - 保持原速度 */
