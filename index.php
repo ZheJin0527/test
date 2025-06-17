@@ -303,6 +303,7 @@ const swiper = new Swiper('.swiper', {
     direction: 'vertical',
     mousewheel: true,
     speed: 800,
+    simulateTouch: false,
     pagination: {
         el: '.swiper-pagination',
         clickable: true,
