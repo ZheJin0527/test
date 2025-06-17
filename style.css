@@ -31,33 +31,47 @@ body::-webkit-scrollbar {
     overflow: hidden;
 }
 
-.footer-slide {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* 保持内容贴底部 */
-  height: 100vh;
-  background: url('images/images/背景5.png') no-repeat center center/cover;
-  color: white;
-  padding: 0; /* 移除padding让footer完全贴底 */
-  position: relative;
+/* 专门为最后一页（footer页面）设置样式 */
+.swiper-slide.footer-slide {
+    height: 36vh; /* 保持原来的36vh */
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    /* 关键：添加背景色遮盖上页残影 */
+    background: #2a2a2a; /* 使用footer的深色背景 */
+    position: relative;
 }
 
-.footer-slide::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-    z-index: 1;
-}
-
+/* 保持原来的scroll-buffer */
 .scroll-buffer {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 36vh;
     justify-content: flex-end;
+    margin: 0;
+    padding: 0;
 }
+
+/* 关键修复：为footer-slide添加顶部遮罩 */
+.swiper-slide.footer-slide::before {
+    content: '';
+    position: absolute;
+    top: -64vh; /* 向上延伸64vh来遮盖上页内容 */
+    left: 0;
+    right: 0;
+    height: 64vh; /* 遮罩高度 */
+    background: #2a2a2a; /* 与footer背景色一致 */
+    z-index: 1;
+}
+
+/* 确保footer内容在遮罩之上 */
+.scroll-buffer {
+    position: relative;
+    z-index: 2;
+}
+
 @media (max-width: 1280px) {
     .scroll-buffer {
       height: 34vh;              /* 可调大小，能让你滚到 footer 底部即可 */

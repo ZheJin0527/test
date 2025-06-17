@@ -149,35 +149,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </section>
   </div>
   
-  <div class="swiper-slide">
+  <div class="swiper-slide footer-slide">
     <section class="scroll-buffer">
-    <section id="contact" class="contact-container animate-on-scroll fade-in-down">
-  <div class="contact-info">
-    <h2>联系我们</h2>
-    <p>公司名称：Kunzz Holdings Sdn. Bhd.</p>
-    <p>
-      地址：
-      <a href="javascript:void(0);" onclick="goToLocation()" class="no-style-link">
-        25, Jln Tanjong 3, Taman Desa Cemerlang, 81800 Ulu Tiram, Johor Darul Ta'zim
-      </a>
-    </p>
-    <p>电话：+60 123-456 789</p>
-    <p>邮箱：kunzzholdings@gmail.com</p>
-    <p>营业时间：周一至周五 9AM-6PM</p>
-  </div>
-
-  <div class="map-container">
-    <iframe
-      id="custom-map"
-      src="https://www.google.com/maps/d/embed?mid=11C1m9L_Gcj_n8ynGotoCNc4rzq0FX54&ehbc=2E312F"
-      width="640"
-      height="480"
-    ></iframe>
-  </div>
-</section>
-
-    
-  <footer class="footer">
+    <footer class="footer">
     <div class="footer-logo">
       <img src="images/images/KUNZZ.png" alt="Kunzz Logo" class="footer-logo-img" />
       <p>25, Jln Tanjong 3, Taman Desa <br />
@@ -333,45 +307,65 @@ window.addEventListener('resize', moveLoginBtn);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        const swiper = new Swiper('.swiper', {
-            direction: 'vertical',
-            mousewheel: true,
-            speed: 800,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            on: {
-                slideChange: function() {
-                    // 更新页面指示器
-                    updatePageIndicator(this.activeIndex);
-                }
-            }
-        });
-
-        // 页面指示器功能
-        const pageDots = document.querySelectorAll('.page-dot');
-        
-        // 点击圆点跳转到对应页面
-        pageDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                swiper.slideTo(index);
-            });
-        });
-
-        // 更新页面指示器状态
-        function updatePageIndicator(activeIndex) {
-            pageDots.forEach((dot, index) => {
-                if (index === activeIndex) {
-                    dot.classList.add('active');
+        // 恢复到你原来的配置，只添加最小的修改
+const swiper = new Swiper('.swiper', {
+    direction: 'vertical',
+    mousewheel: true,
+    speed: 800,
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    // 添加这个配置来处理不同高度的slide
+    slidesPerView: 'auto',
+    spaceBetween: 0,
+    on: {
+        slideChange: function() {
+            // 更新页面指示器
+            updatePageIndicator(this.activeIndex);
+        },
+        // 添加这个事件来处理最后一页的特殊情况
+        reachEnd: function() {
+            // 确保最后一页正确显示
+            this.allowTouchMove = true;
+        },
+        // 添加进度监听来处理最后一页的双向滑动
+        setTransition: function(duration) {
+            // 在过渡结束后检查进度
+            setTimeout(() => {
+                if (this.progress > 0.85) {
+                    updatePageIndicator(3); // 滑到最后一页
                 } else {
-                    dot.classList.remove('active');
+                    updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
                 }
-            });
+            }, duration + 50);
         }
+    }
+});
 
-        // 初始化页面指示器
-        updatePageIndicator(0);
+// 页面指示器功能
+const pageDots = document.querySelectorAll('.page-dot');
+
+// 点击圆点跳转到对应页面
+pageDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        swiper.slideTo(index);
+    });
+});
+
+// 更新页面指示器状态
+function updatePageIndicator(activeIndex) {
+    pageDots.forEach((dot, index) => {
+        if (index === activeIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// 初始化页面指示器
+updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
