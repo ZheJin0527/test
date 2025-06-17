@@ -59,11 +59,10 @@
   transform: translateX(0);
 }
 
-/* 修复后的中间放大渐显动画 - 保持原速度 */
+/* 修复后的中间渐显动画 - 只要淡入效果，不要缩放 */
 .scale-fade-in {
   opacity: 0;
-  transform: scale(0.8);
-  animation: scaleFadeIn 1.6s ease forwards;
+  animation: simpleFadeIn 1.6s ease forwards;
   animation-play-state: paused; /* 初始暂停 */
 }
 
@@ -72,10 +71,9 @@
   animation-play-state: running;
 }
 
-@keyframes scaleFadeIn {
+@keyframes simpleFadeIn {
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -84,11 +82,10 @@
   animation-delay: 0s;
 }
 
-/* 装饰线条也使用统一的scale-fade-in动画 */
+/* 装饰线条使用相同的简单淡入 */
 .decor-line.scale-fade-in {
   opacity: 0;
-  transform: scale(0.8);
-  animation: scaleFadeIn 1.6s ease forwards;
+  animation: simpleFadeIn 1.6s ease forwards;
   animation-play-state: paused;
 }
 
