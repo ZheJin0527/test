@@ -59,12 +59,12 @@
   transform: translateX(0);
 }
 
-/* 从中心向外展开的动画效果 */
+/* 修复：给 scale-fade-in 元素单独设置，避免继承 translateY */
 .scale-fade-in {
   opacity: 0;
-  transform: scale(0);
-  animation: centerExpand 1.6s ease forwards;
-  animation-play-state: paused; /* 初始暂停 */
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
 }
 
 /* 当父容器可见时，启动动画 */
@@ -72,12 +72,12 @@
   animation-play-state: running;
 }
 
-@keyframes centerExpand {
-  0% {
+@keyframes scaleFadeIn {
+  from {
     opacity: 0;
-    transform: scale(0);
+    transform: scale(0.8);
   }
-  100% {
+  to {
     opacity: 1;
     transform: scale(1);
   }
@@ -88,11 +88,11 @@
   animation-delay: 0s;
 }
 
-/* 装饰线条使用相同的从中心展开效果 */
+/* 装饰线条使用相同的从中间放大效果 */
 .decor-line.scale-fade-in {
   opacity: 0;
-  transform: scale(0);
-  animation: centerExpand 1.6s ease forwards;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
   animation-play-state: paused;
 }
 
