@@ -5,15 +5,15 @@
   animation: fadeInUp 0.4s ease-out forwards;
 }
 
-/* 动画延迟 */
+/* 动画延迟 - 保持原设置 */
 .delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-.delay-6 { animation-delay: 0.6s; }
-.delay-7 { animation-delay: 0.7s; }
-.delay-8 { animation-delay: 0.8s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.1s; }
+.delay-4 { animation-delay: 0.1s; }
+.delay-5 { animation-delay: 0.1s; }
+.delay-6 { animation-delay: 0.1s; }
+.delay-7 { animation-delay: 0.1s; }
+.delay-8 { animation-delay: 0.1s; }
 
 /* 向上淡入关键帧 */
 @keyframes fadeInUp {
@@ -35,7 +35,7 @@
   transform: translateY(0);
 }
 
-/* 向左滑入动画 */
+/* 向左滑入动画 - 保持原速度 */
 .slide-in-left {
   opacity: 0;
   transform: translateX(-300px);
@@ -47,7 +47,7 @@
   transform: translateX(0);
 }
 
-/* 向右滑入动画 */
+/* 向右滑入动画 - 保持原速度 */
 .slide-in-right {
   opacity: 0;
   transform: translateX(300px);
@@ -59,11 +59,11 @@
   transform: translateX(0);
 }
 
-/* 修复后的中间放大渐显动画 */
+/* 修复后的中间放大渐显动画 - 保持原速度 */
 .scale-fade-in {
   opacity: 0;
-  transform: scale(0.8) translateY(20px);
-  animation: scaleFadeIn 1.2s ease-out forwards;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
   animation-play-state: paused; /* 初始暂停 */
 }
 
@@ -73,13 +73,9 @@
 }
 
 @keyframes scaleFadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8) translateY(20px);
-  }
-  100% {
+  to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(1);
   }
 }
 
