@@ -691,7 +691,7 @@ nav {
     color: black;
     font-size: 25px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: -10px;
 }
 
 .circle {
@@ -705,7 +705,7 @@ nav {
 .comprofile-title {
     font-size: 72px;
     color: #ff5c00;
-    margin: 20px 0 38px 0;
+    margin: 0px 0 38px 0;
 }
 
 .comprofile-description {
