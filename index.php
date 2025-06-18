@@ -82,12 +82,12 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="about-section">
   <div class="comprofile-section">
-    <div class="comprofile-text animate-on-scroll slide-in-left">
-        <p class="comprofile-subtitle">
+    <div class="comprofile-text">
+        <p class="comprofile-subtitle animate-on-scroll slide-in-left delay-1">
             <span class="circle"></span>公司简介
         </p>
-      <h2 class="comprofile-title">KUNZZ HOLDINGS</h2>
-      <p class="comprofile-description">
+      <h2 class="comprofile-title animate-on-scroll slide-in-left delay-2">KUNZZ HOLDINGS</h2>
+      <p class="comprofile-description animate-on-scroll slide-in-left delay-3">
         Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
       </p>
     </div>
