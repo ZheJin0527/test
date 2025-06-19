@@ -1078,6 +1078,7 @@ nav {
     font-size: clamp(6px, 1.2vw, 14px); /* 从8px-14px减小到6px-11px */
     padding: 0 2px; /* 从4px减小到2px */
     line-height: 1.2;
+    margin-bottom: 20px;
   }
 
   .culture-right {
@@ -1233,7 +1234,7 @@ nav {
 /* ✅ 尺寸缩小响应，但保留 1920 版式 */
 @media (max-width: 1280px) and (min-width: 769px) {
   .footer {
-    padding: 14px 51px 14px 51px;
+    padding: 14px 51px 14px 181px;
     gap: 20px;
     flex-wrap: nowrap;
   }
