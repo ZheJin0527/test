@@ -89,11 +89,11 @@ body::-webkit-scrollbar {
     }
     
     .swiper-slide.footer-slide {
-        height: 32vh;
+        height: 32.1vh;
     }
     
     .swiper-slide.footer-slide::before {
-        top: -68vh; /* 75vh = 100vh - 25vh */
+        top: -67.9vh;
     }
 }
 
