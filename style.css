@@ -1036,12 +1036,12 @@ nav {
   }
 
   .culture-card h3 {
-    font-size: clamp(8px, 1.6vw, 16px); /* 从10px-18px减小到8px-14px */
+    font-size: clamp(8px, 1.6vw, 18px); /* 从10px-18px减小到8px-14px */
     margin-bottom: clamp(2px, 0.4vw, 6px);
   }
 
   .culture-card p {
-    font-size: clamp(6px, 1vw, 12px); /* 从8px-14px减小到6px-11px */
+    font-size: clamp(6px, 1.2vw, 14px); /* 从8px-14px减小到6px-11px */
     padding: 0 2px; /* 从4px减小到2px */
     line-height: 1.2;
   }
