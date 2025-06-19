@@ -1008,57 +1008,66 @@ nav {
     height: 100vh;
     flex-wrap: nowrap;
     gap: 0px;
+    gap: 10px;
+    padding-top: 80px;
+    box-sizing: border-box;
   }
 
   .culture-left {
     width: auto;
-    margin-left: 32px;
+    margin-left: 24px;
     display: grid;
-    grid-template-columns: repeat(2, minmax(100px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(2, minmax(80px, 1fr));
+    gap: 12px;
   }
 
   .culture-icon {
-    width: clamp(40px, 5.8vw, 100px);
-    height: clamp(40px, 5.8vw, 100px);
-    margin-top: clamp(10px, 1.8vw, 32px);
+    width: clamp(32px, 4.5vw, 80px);
+    height: clamp(32px, 4.5vw, 80px);
+    margin-top: clamp(8px, 1.2vw, 20px);
   }
 
   .culture-card {
-    width: 100%;
+    width: 95%;
     height: 95%;
-    aspect-ratio: 1 / 1;
-    padding: clamp(6px, 1vw, 16px);
+    aspect-ratio: 1 / 1; /* 保持正方形 */
+    padding: clamp(4px, 0.8vw, 12px); /* 从6px-16px减小到4px-12px */
+    box-sizing: border-box;
   }
 
   .culture-card h3 {
-    font-size: clamp(10px, 1.8vw, 18px); /* 原12px -> 10px起 */
+    font-size: clamp(8px, 1.4vw, 14px); /* 从10px-18px减小到8px-14px */
+    margin-bottom: clamp(2px, 0.4vw, 6px);
   }
 
   .culture-card p {
-    font-size: clamp(8px, 1.0vw, 14px);  /* 原10px -> 8px起 */
-    padding: 0 4px;
+    font-size: clamp(6px, 0.8vw, 11px); /* 从8px-14px减小到6px-11px */
+    padding: 0 2px; /* 从4px减小到2px */
+    line-height: 1.2;
   }
 
   .culture-right {
-    max-width: clamp(280px, 38vw, 560px);
-    padding: 0 clamp(12px, 2.5vw, 28px);
+    max-width: clamp(240px, 32vw, 480px); /* 从280px-560px减小到240px-480px */
+    padding: 0 clamp(10px, 2vw, 20px); /* 从12px-28px减小到10px-20px */
   }
 
   .culture-title {
-    font-size: clamp(20px, 3.8vw, 46px); /* 原24px -> 20px起 */
+    font-size: clamp(16px, 3vw, 36px); /* 从20px-46px减小到16px-36px */
+    margin-bottom: clamp(8px, 1.2vw, 16px);
   }
 
   .culture-description {
-    font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
+    font-size: clamp(8px, 1.1vw, 13px); /* 从10px-16px减小到8px-13px */
+    line-height: 1.3;
+    margin-bottom: clamp(12px, 2vw, 20px);
   }
 
   .culture-button {
-    width: clamp(40px, 10vw, 80px);
-    height: clamp(26px, 2vw, 30px);
-    padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.2vw, 18px);
-    font-size: clamp(12px, 1.2vw, 18px);
-    border-radius: clamp(8px, 0.8vw, 12px);
+    width: clamp(35px, 8vw, 70px); /* 从40px-80px减小到35px-70px */
+    height: clamp(22px, 1.6vw, 26px); /* 从26px-30px减小到22px-26px */
+    padding: clamp(3px, 0.4vw, 6px) clamp(8px, 1vw, 14px); /* 减小内边距 */
+    font-size: clamp(10px, 1vw, 15px); /* 从12px-18px减小到10px-15px */
+    border-radius: clamp(6px, 0.6vw, 10px); /* 从8px-12px减小到6px-10px */
   }
 }
 
