@@ -748,7 +748,7 @@ nav {
 }
 
 .comprofile-title {
-    font-size: 72px;
+    font-size: clamp(60px, 4vw, 72px);
     color: #ff5c00;
     margin: 0px 0 38px 0;
 }
