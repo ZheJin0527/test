@@ -1400,27 +1400,33 @@ nav {
     transform: scale(1.12);
 }
 
-@media (max-width: 768px) {
+/* 1280px以下屏幕 */
+@media (max-width: 1280px) {
     .page-indicator {
-        left: 15px;
-        gap: 12px;
+        left: 16px;
+        padding: 12px 6px;
+        gap: 8px;
+        border-radius: 20px;
     }
-            
+    
     .page-dot {
-        width: 10px;
-        height: 10px;
+        width: 3px;
+        height: 3px;
+        border: 1.5px solid rgba(255, 255, 255, 0.8);
     }
-}
-
-@media (max-width: 480px) {
-    .page-indicator {
-        left: 10px;
-        gap: 10px;
+    
+    .page-dot:hover {
+        transform: scale(1.25);
     }
-            
-    .page-dot {
-        width: 8px;
-        height: 8px;
+    
+    .page-dot.active {
+        width: 3px;
+        height: 20px;
+        border-radius: 5px;
+    }
+    
+    .page-dot.active:hover {
+        transform: scale(1.1);
     }
 }
 
