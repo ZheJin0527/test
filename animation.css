@@ -347,7 +347,7 @@ img.image-3d-rotate:hover,
 .rotate-3d-full {
   opacity: 0 !important;
   transform: perspective(1000px) rotateY(360deg) scale(0.6) !important;
-  transition: all 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
   transform-origin: center;
   transform-style: preserve-3d;
 }
