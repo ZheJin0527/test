@@ -118,7 +118,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section id="culture" class="culture-section">
-    <div class="culture-left animate-on-scroll slide-in-left">
+    <div class="culture-left animate-on-scroll card-tilt-in-left">
       <div class="culture-card">
         <img src="images/images/积极向上 (1).png" alt="icon" class="culture-icon">
         <h3>积极向上</h3>
