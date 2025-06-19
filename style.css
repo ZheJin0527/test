@@ -52,6 +52,8 @@ body::-webkit-scrollbar {
     justify-content: flex-end;
     margin: 0;
     padding: 0;
+    position: relative;
+    z-index: 2;
 }
 
 /* 关键修复：为footer-slide添加顶部遮罩 */
@@ -66,16 +68,48 @@ body::-webkit-scrollbar {
     z-index: 1;
 }
 
-/* 确保footer内容在遮罩之上 */
-.scroll-buffer {
-    position: relative;
-    z-index: 2;
-}
-
 @media (max-width: 1280px) {
     .scroll-buffer {
-      height: 34vh;              /* 可调大小，能让你滚到 footer 底部即可 */
-  }
+        min-height: 29vh; /* 调整scroll-buffer高度 */
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 29vh; /* 对应调整footer-slide高度 */
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -71vh; /* 调整遮罩位置，66vh = 100vh - 34vh */
+    }
+}
+
+/* 针对1280x720屏幕的响应式样式 */
+@media (max-width: 1280px) and (max-height: 720px) {
+    .scroll-buffer {
+        min-height: 3vh; /* 适合720px高度的设置 */
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 32vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -68vh; /* 75vh = 100vh - 25vh */
+    }
+}
+
+/* 针对1280x600屏幕的响应式样式 */
+@media (max-width: 1280px) and (max-height: 600px) {
+    .scroll-buffer {
+        min-height: 22vh; /* 适合600px高度的设置 */
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 38vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -52vh; /* 78vh = 100vh - 22vh */
+    }
 }
 
 .animate-on-scroll {
