@@ -757,6 +757,7 @@ nav {
     }
 
     .comprofile-section {
+        margin-top: 20px;
         padding: 0 51px;
         gap: 50px;
     }
@@ -769,32 +770,32 @@ nav {
     }
 
     .comprofile-subtitle {
-        font-size: clamp(18px, 2vw, 25px);
+        font-size: clamp(16px, 2vw, 25px);
         height: 40px;
     }
 
     .circle {
-        width: clamp(14px, 2vw, 21px);
-        height: clamp(14px, 2vw, 21px);
+        width: clamp(12px, 2vw, 21px);
+        height: clamp(12px, 2vw, 21px);
     }
 
     .comprofile-title {
-        font-size: clamp(32px, 4vw, 51px);
-        margin: 16px 0 46px 0;
+        font-size: clamp(28px, 4vw, 51px);
+        margin: 12px 0 32px 0;
     }
 
     .comprofile-description {
         max-width: 100%;
         width: auto;
         height: auto;
-        font-size: clamp(11px, 1.6vw, 15px);
-        margin-bottom: 24px;
+        font-size: clamp(10px, 1.6vw, 15px);
+        margin-bottom: 18px;
     }
 
     .comprofile-image {
-        max-width: 45vw;
+        max-width: 35vw;
         width: auto;
-        padding: 80px 0;
+        padding: 50px 0;
         flex-shrink: 0;
     }
 }
