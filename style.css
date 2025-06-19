@@ -559,6 +559,19 @@ nav {
   pointer-events: none;
 }
 
+.decor-line {
+  width: 1200px;
+  height: 2px;
+  margin: 40px auto 50px;
+  background: linear-gradient(to right,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.4) 25%,
+    rgba(255,255,255,1) 50%,
+    rgba(255,255,255,0.4) 75%,
+    rgba(255,255,255,0) 100%);
+  position: relative;
+}
+
 @media (max-width: 1280px) {
   .home {
     padding: clamp(20px, 3vh, 50px) 0 0 clamp(20px, 4vw, 51px);
@@ -632,19 +645,6 @@ nav {
     height: 19px;
     font-size: 9px;
   }
-}
-
-.decor-line {
-  width: 1200px;
-  height: 2px;
-  margin: 40px auto 50px;
-  background: linear-gradient(to right,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.4) 25%,
-    rgba(255,255,255,1) 50%,
-    rgba(255,255,255,0.4) 75%,
-    rgba(255,255,255,0) 100%);
-  position: relative;
 }
 
 .about-section {
