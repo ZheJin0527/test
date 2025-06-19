@@ -1281,8 +1281,8 @@ nav {
   }
 
   .footer-bottom::before {
-    left: 40px;
-    right: 40px;
+    left: 51px;
+    right: 51px;
     height: 1px;
   }
 }
