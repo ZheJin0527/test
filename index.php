@@ -67,7 +67,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-    <div class="home-content hidden animate-on-scroll light-scan">
+    <div class="home-content hidden animate-on-scroll">
       <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
       <div class="decor-line scale-fade-in"></div>
       <p class="scale-fade-in">
@@ -364,35 +364,21 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-  // 创建一个虚拟图片对象检测背景图是否加载完成
-  const bgImg = new Image();
-  bgImg.src = "images/images/封面7.png";
+    // 创建一个虚拟图片对象检测背景图是否加载完成
+    const bgImg = new Image();
+    bgImg.src = "images/images/封面7.png";
 
-  bgImg.onload = function () {
-    const homeContent = document.querySelector('.home-content');
-    
-    // 显示内容并开始初始动画
-    homeContent.classList.remove('hidden');
+    bgImg.onload = function () {
+      document.querySelector('.home-content').classList.remove('hidden');
 
-    // 强制触发重绘，重新开始动画（可选，增强兼容性）
-    void homeContent.offsetWidth;
+      // 强制触发重绘，重新开始动画（可选，增强兼容性）
+      void document.querySelector('.home-content').offsetWidth;
 
-    // 添加动画类（如果你的 scale-fade-in 是靠 JavaScript 加载）
-    homeContent.querySelector('h1').classList.add('scale-fade-in');
-    homeContent.querySelector('p').classList.add('scale-fade-in');
-    
-    // 在 scale-fade-in 动画完成后触发灯光扫描效果
-    // scale-fade-in 动画时长是 1.6s，所以在 1.8s 后开始灯光扫描
-    setTimeout(() => {
-      homeContent.classList.add('scanning');
-      
-      // 2秒后移除扫描类，为下次可能的触发做准备
-      setTimeout(() => {
-        homeContent.classList.remove('scanning');
-      }, 2000);
-    }, 1800);
-  };
-});
+      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
+      document.querySelector('.home-content h1').classList.add('scale-fade-in');
+      document.querySelector('.home-content p').classList.add('scale-fade-in');
+    };
+  });
 </script>
 <script>
   function goToLocation() {
