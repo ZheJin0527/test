@@ -132,59 +132,6 @@
   animation-delay: 0s;
 }
 
-/* ========== 新增：文字内部灯光扫描效果 ========== */
-/* 为需要灯光扫描的文字添加背景渐变和遮罩 */
-.text-light-scan {
-  position: relative;
-  background: linear-gradient(
-    90deg,
-    #333 0%,
-    #333 40%,
-    #fff 50%,
-    #333 60%,
-    #333 100%
-  );
-  background-size: 300% 100%;
-  background-position: 100% 0;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: background-position 0.1s ease;
-}
-
-/* 灯光扫描动画 */
-.text-light-scan.scanning {
-  animation: textLightSweep 2s ease-in-out;
-}
-
-@keyframes textLightSweep {
-  0% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: -100% 0;
-  }
-}
-
-/* 段落文字的灯光扫描效果 */
-.text-light-scan.paragraph {
-  background: linear-gradient(
-    90deg,
-    #666 0%,
-    #666 40%,
-    #ddd 50%,
-    #666 60%,
-    #666 100%
-  );
-  background-size: 300% 100%;
-  background-position: 100% 0;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-
-
 /* 装饰线条使用相同的从中间放大效果 */
 .decor-line.scale-fade-in {
   opacity: 0;
