@@ -363,120 +363,7 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
 
-/* ========== 新增：H1标题光束扫描特效（在字体内部） ========== */
-/* H1标题光束扫描 - 在字体内部进行 */
-.h1-beam-scan {
-  position: relative;
-  /* 为扫描效果设置基础背景 */
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.9) 50%, 
-    transparent 100%);
-  background-size: 200% 100%;
-  background-position: -200% 0;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* 动画在scale-fade-in完成后开始 */
-  animation: h1BeamScan 2.5s ease-out forwards;
-  animation-delay: 1.6s; /* 等待scale-fade-in完成 */
-}
-
-/* 在扫描前保持原有文字颜色 */
-.h1-beam-scan::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  -webkit-text-fill-color: inherit;
-  color: inherit;
-  z-index: -1;
-  opacity: 1;
-  animation: hideOriginalText 0.1s ease forwards;
-  animation-delay: 1.6s;
-}
-
-@keyframes h1BeamScan {
-  0% { 
-    background-position: -200% 0;
-    -webkit-text-fill-color: rgba(255, 255, 255, 0.3);
-  }
-  10% {
-    -webkit-text-fill-color: transparent;
-  }
-  50% { 
-    background-position: 0% 0;
-    -webkit-text-fill-color: transparent;
-  }
-  90% {
-    background-position: 200% 0;
-    -webkit-text-fill-color: transparent;
-  }
-  100% { 
-    background-position: 200% 0;
-    -webkit-text-fill-color: inherit; /* 恢复原有颜色 */
-  }
-}
-
-@keyframes hideOriginalText {
-  to {
-    opacity: 0;
-  }
-}
-
-/* 增强版H1光束扫描（可选，更炫酷的效果） */
-.h1-beam-scan-enhanced {
-  position: relative;
-  overflow: hidden;
-}
-
-.h1-beam-scan-enhanced::after {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -150px;
-  width: 100px;
-  height: calc(100% + 10px);
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 20%,
-    rgba(255, 255, 255, 0.2) 30%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.2) 70%,
-    transparent 80%,
-    transparent 100%
-  );
-  animation: h1LightSweep 2.8s ease-out;
-  animation-delay: 1.6s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-  transform: skewX(-15deg);
-  filter: blur(1px);
-}
-
-@keyframes h1LightSweep {
-  0% {
-    left: -150px;
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% + 50px);
-    opacity: 0;
-  }
-}
-
-/* ========== 灯光扫描特效（保留原有特效） ========== */
+/* ========== 灯光扫描特效 ========== */
 /* 新增：灯光扫描效果 */
 .light-scan-text {
   position: relative;
@@ -527,6 +414,12 @@ img.image-3d-rotate:hover,
   100% {
     background-position: 200% 0;
     -webkit-text-fill-color: inherit; /* 恢复原有颜色 */
+  }
+}
+
+@keyframes hideOriginalText {
+  to {
+    opacity: 0;
   }
 }
 
