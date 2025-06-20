@@ -68,7 +68,10 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
-      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+      <h1 class="scale-fade-in light-sweep-text">
+  <span class="light-sweep">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</span>
+</h1>
+
       <div class="decor-line scale-fade-in"></div>
       <p class="scale-fade-in">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
@@ -259,45 +262,45 @@ window.addEventListener('resize', moveLoginBtn);
 </script>
 <script>
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const container = entry.target;
+  entries.forEach(entry => {
+    const container = entry.target;
 
-      if (entry.isIntersecting) {
-        container.classList.add('visible');
+    if (entry.isIntersecting) {
+      container.classList.add('visible');
 
-        container.querySelectorAll('.scale-fade-in').forEach(el => {
-          el.style.animation = 'none'; // 重置动画
-          el.offsetHeight; // 触发重绘
-          el.style.animation = ''; // 重新应用 CSS 动画
-          el.style.animationPlayState = 'running';
-        });
+      container.querySelectorAll('.scale-fade-in').forEach(el => {
+        el.style.animation = 'none'; // 重置动画
+        el.offsetHeight; // 触发重绘
+        el.style.animation = ''; // 重新应用 CSS 动画
+        el.style.animationPlayState = 'running';
+      });
 
-      } else {
-        container.classList.remove('visible');
+    } else {
+      container.classList.remove('visible');
 
-        container.querySelectorAll('.scale-fade-in').forEach(el => {
-          el.style.animation = 'none'; // 停止当前动画
-          el.style.opacity = '0'; // 恢复初始状态
-          el.style.transform = 'translateY(20px)';
-          el.offsetHeight; // 强制回流
-          el.style.animation = '';
-          el.style.animationPlayState = 'paused';
-        });
-      }
-    });
-  }, {
-    threshold: 0.2
+      container.querySelectorAll('.scale-fade-in').forEach(el => {
+        el.style.animation = 'none';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.offsetHeight;
+        el.style.animation = '';
+        el.style.animationPlayState = 'paused';
+      });
+    }
   });
+}, {
+  threshold: 0.2
+});
 
-  // 初始化：暂停动画并设置初始状态
-  document.querySelectorAll('.animate-on-scroll').forEach(container => {
-    container.querySelectorAll('.scale-fade-in').forEach(el => {
-      el.style.animationPlayState = 'paused';
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-    });
-    observer.observe(container);
+document.querySelectorAll('.animate-on-scroll').forEach(container => {
+  container.querySelectorAll('.scale-fade-in').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
   });
+  observer.observe(container);
+});
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
