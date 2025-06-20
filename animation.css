@@ -539,50 +539,95 @@ img.image-3d-rotate:hover,
   }
 }
 
-/* 专门为标题设计的扫描效果 */
-.title-light-scan {
+/* H1标题文字内部灯光扫描效果 */
+.h1-text-light-scan {
   position: relative;
-  overflow: hidden;
-}
-
-.title-light-scan::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -200px;
-  width: 120px;
-  height: calc(100% + 10px);
   background: linear-gradient(
     90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 20%,
-    rgba(255, 255, 255, 0.3) 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.3) 60%,
-    rgba(255, 255, 255, 0.05) 80%,
-    transparent 100%
+    currentColor 0%,
+    currentColor 30%,
+    rgba(255, 255, 255, 0.9) 50%,
+    currentColor 70%,
+    currentColor 100%
   );
-  animation: titleLightScan 3s ease-out;
+  background-size: 300% 100%;
+  background-position: 0% 0%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: h1TextLightScan 2.5s ease-in-out;
   animation-delay: 1.8s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  transform: skewX(-15deg);
-  mix-blend-mode: overlay;
+  animation-fill-mode: both;
 }
 
-@keyframes titleLightScan {
+/* 保持原始文字颜色直到扫描开始 */
+.h1-text-light-scan::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+  z-index: -1;
+  animation: fadeOutOriginal 0.1s ease forwards;
+  animation-delay: 1.8s;
+}
+
+@keyframes h1TextLightScan {
   0% {
-    left: -200px;
-    opacity: 0;
+    background-position: -100% 0%;
+    -webkit-text-fill-color: transparent;
   }
   10% {
-    opacity: 1;
+    -webkit-text-fill-color: transparent;
   }
-  90% {
-    opacity: 1;
+  50% {
+    background-position: 100% 0%;
+    -webkit-text-fill-color: transparent;
   }
   100% {
-    left: calc(100% + 100px);
+    background-position: 200% 0%;
+    -webkit-text-fill-color: inherit;
+    background: none;
+  }
+}
+
+@keyframes fadeOutOriginal {
+  to {
     opacity: 0;
+  }
+}
+
+/* 更简洁的文字内部扫描版本 */
+.text-inner-scan {
+  background: linear-gradient(
+    90deg,
+    currentColor 0%,
+    currentColor 40%,
+    #ffffff 50%,
+    currentColor 60%,
+    currentColor 100%
+  );
+  background-size: 200% 100%;
+  background-position: -100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: textInnerScan 2.2s ease-out;
+  animation-delay: 1.8s;
+  animation-fill-mode: both;
+}
+
+@keyframes textInnerScan {
+  0% {
+    background-position: -100% 0;
+  }
+  70% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+    background: none;
   }
 }
