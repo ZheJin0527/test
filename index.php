@@ -68,9 +68,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
-      <h1 class="glow-flash">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
-      <div class="decor-line glow-flash"></div>
-      <p class="glow-flash">
+      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+      <div class="decor-line scale-fade-in"></div>
+      <p class="scale-fade-in">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
         我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
         才能创造持续的价值，向着行业标杆的方向，稳步前行。
@@ -369,25 +369,14 @@ updatePageIndicator(0);
     bgImg.src = "images/images/封面7.png";
 
     bgImg.onload = function () {
-      // 移除隐藏类，显示容器
       document.querySelector('.home-content').classList.remove('hidden');
-      
-      // 添加 visible 类来触发发光闪烁动画
-      document.querySelector('.home-content').classList.add('visible');
 
-      // 强制触发重绘，确保动画正常播放（可选，增强兼容性）
+      // 强制触发重绘，重新开始动画（可选，增强兼容性）
       void document.querySelector('.home-content').offsetWidth;
 
-      // 确保所有发光闪烁元素都有正确的类
-      document.querySelector('.home-content h1').classList.add('glow-flash');
-      document.querySelector('.home-content .decor-line').classList.add('glow-flash');
-      document.querySelector('.home-content p').classList.add('glow-flash');
-    };
-    
-    // 如果图片加载失败，仍然显示内容
-    bgImg.onerror = function () {
-      document.querySelector('.home-content').classList.remove('hidden');
-      document.querySelector('.home-content').classList.add('visible');
+      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
+      document.querySelector('.home-content h1').classList.add('scale-fade-in');
+      document.querySelector('.home-content p').classList.add('scale-fade-in');
     };
   });
 </script>

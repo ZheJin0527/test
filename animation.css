@@ -29,13 +29,13 @@
 }
 
 /* 初始隐藏状态 - 修复：排除所有特定动画类，避免冲突 */
-.animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full):not(.glow-flash) {
+.animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease-out;
 }
 
-.animate-on-scroll.visible:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full):not(.glow-flash) {
+.animate-on-scroll.visible:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
   opacity: 1;
   transform: translateY(0);
 }
@@ -127,100 +127,27 @@
   }
 }
 
-/* ========== 新增：发光闪烁进入效果 ========== */
-.glow-flash {
-  opacity: 0;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0);
-  animation: glowFlash 2s ease-out forwards;
-  animation-play-state: paused;
-}
-
-/* 当父容器可见时,启动发光闪烁动画 */
-.animate-on-scroll.visible .glow-flash {
-  animation-play-state: running;
-}
-
-/* 当父容器不可见时,重置发光闪烁动画 */
-.animate-on-scroll:not(.visible) .glow-flash {
-  animation-play-state: paused;
-  opacity: 0;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0);
-}
-
-/* 发光闪烁关键帧 */
-@keyframes glowFlash {
-  0% {
-    opacity: 0;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0);
-  }
-  30% {
-    opacity: 0.8;
-    text-shadow: 0 0 40px rgba(255, 255, 255, 1),
-                0 0 60px rgba(255, 255, 255, 0.8),
-                0 0 80px rgba(255, 255, 255, 0.6);
-  }
-  60% {
-    opacity: 1;
-    text-shadow: 0 0 50px rgba(255, 255, 255, 1.2),
-                0 0 70px rgba(255, 255, 255, 0.9),
-                0 0 90px rgba(255, 255, 255, 0.7);
-  }
-  100% {
-    opacity: 1;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-}
-
-/* 发光闪烁动画延迟类 */
-.glow-flash.delay-1 { animation-delay: 0.2s; }
-.glow-flash.delay-2 { animation-delay: 0.4s; }
-.glow-flash.delay-3 { animation-delay: 0.6s; }
-.glow-flash.delay-4 { animation-delay: 0.8s; }
-.glow-flash.delay-5 { animation-delay: 1.0s; }
-
-/* 首页发光闪烁内容统一,不要延迟 - 一起2s出现 */
-.home-content .glow-flash {
+/* 首页所有元素统一,不要延迟 - 一起1.6s出现 */
+.home-content .scale-fade-in {
   animation-delay: 0s;
 }
 
-/* 装饰线条也可以使用发光闪烁效果 */
-.decor-line.glow-flash {
+/* 装饰线条使用相同的从中间放大效果 */
+.decor-line.scale-fade-in {
   opacity: 0;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0);
-  animation: glowFlashLine 2s ease-out forwards;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
   animation-play-state: paused;
 }
 
-.animate-on-scroll.visible .decor-line.glow-flash {
+.animate-on-scroll.visible .decor-line.scale-fade-in {
   animation-play-state: running;
 }
 
-.animate-on-scroll:not(.visible) .decor-line.glow-flash {
+.animate-on-scroll:not(.visible) .decor-line.scale-fade-in {
   animation-play-state: paused;
   opacity: 0;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0);
-}
-
-/* 装饰线条发光闪烁关键帧 */
-@keyframes glowFlashLine {
-  0% {
-    opacity: 0;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0);
-  }
-  30% {
-    opacity: 0.8;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
-               0 0 40px rgba(255, 255, 255, 0.6);
-  }
-  60% {
-    opacity: 1;
-    box-shadow: 0 0 40px rgba(255, 255, 255, 1),
-               0 0 50px rgba(255, 255, 255, 0.8);
-  }
-  100% {
-    opacity: 1;
-    box-shadow: none;
-  }
+  transform: scale(0.8);
 }
 
 /* 向下滑入动画 */
