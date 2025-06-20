@@ -132,6 +132,69 @@
   animation-delay: 0s;
 }
 
+/* ========== 新增：文字内部灯光扫描效果 ========== */
+/* 为需要灯光扫描的文字添加背景渐变和遮罩 - 默认状态保持正常颜色 */
+.text-light-scan {
+  position: relative;
+  /* 默认状态不使用背景裁剪，保持正常文字颜色 */
+}
+
+/* 只有在扫描时才应用特殊效果 */
+.text-light-scan.scanning {
+  background: linear-gradient(
+    90deg,
+    #333 0%,
+    #333 30%,
+    #fff 40%,
+    #fff 60%,
+    #333 70%,
+    #333 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textLightSweep 2s ease-in-out forwards;
+}
+
+@keyframes textLightSweep {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* 段落文字的扫描效果 - 只在扫描时生效 */
+.text-light-scan.paragraph.scanning {
+  background: linear-gradient(
+    90deg,
+    #666 0%,
+    #666 30%,
+    #ccc 40%,
+    #ccc 60%,
+    #666 70%,
+    #666 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 扫描完成后恢复正常状态 */
+.text-light-scan:not(.scanning) {
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+}
+
+
+
 /* 装饰线条使用相同的从中间放大效果 */
 .decor-line.scale-fade-in {
   opacity: 0;
