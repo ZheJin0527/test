@@ -587,32 +587,3 @@ img.image-3d-rotate:hover,
   }
 }
 
-/* 光束扫描动画 */
-@keyframes scan-light {
-  0% {
-    background-position: -100% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* h1 的淡入缩放 + 光束扫描效果 */
-.home-content h1.scale-fade-in {
-  background: linear-gradient(120deg, #ffffff 30%, #FFD700 50%, #ffffff 70%);
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: scaleFadeIn 1.6s ease forwards, scan-light 2.5s linear infinite;
-  animation-play-state: paused;
-}
-
-/* 响应式下禁用光束扫描动画（可选） */
-@media (max-width: 768px) {
-  .home-content h1.scale-fade-in {
-    animation: scaleFadeIn 1.6s ease forwards !important;
-    background: none !important;
-    -webkit-text-fill-color: inherit !important;
-  }
-}
