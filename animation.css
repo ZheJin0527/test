@@ -363,42 +363,37 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
 
-/* 扫光动画：从左到右 */
-@keyframes lightBeam {
+/* 字体内部扫描光束 */
+@keyframes textShine {
   0% {
-    left: -60%;
+    background-position: -200% 0;
   }
   100% {
-    left: 120%;
+    background-position: 200% 0;
   }
 }
 
-/* h1 外层加伪元素扫光 */
-.lightbeam-text {
-  position: relative;
-  color: white; /* 保持字体白色 */
+.light-scan-text {
   display: inline-block;
-  overflow: hidden;
-}
-
-/* 光线效果：用 ::after 模拟一道灯光扫过 */
-.lightbeam-text::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 50%;
-  height: 100%;
   background: linear-gradient(
     120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0) 100%
+    white 0%,
+    white 20%,
+    #ffffff 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    white 60%,
+    white 100%
   );
-  transform: skewX(-20deg);
-  pointer-events: none;
-  mix-blend-mode: screen; /* 关键点：光线只增强白色，不会变黑 */
-  animation: lightBeam 1s ease-out 1 forwards;
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  background-position: -200% 0;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: textShine 1.2s ease-out 1 forwards;
   animation-delay: 1.6s;
-  opacity: 1;
 }
