@@ -362,3 +362,38 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-1 { transition-delay: 0.2s; }
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
+
+/* 光线扫描动画 */
+@keyframes light-sweep {
+  0% {
+    left: -60%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+/* h1 字体内部扫描效果容器（不改变文字颜色） */
+.home-content h1.scale-fade-in {
+  position: relative;
+  display: inline-block;
+  color: white; /* 或你原来的颜色 */
+  overflow: hidden;
+}
+
+/* 添加伪元素作为光束 */
+.home-content h1.scale-fade-in::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: light-sweep 1s ease-out 1 forwards;
+  animation-delay: 1.6s; /* 与文字淡入动画同步后播放 */
+  opacity: 1;
+}
