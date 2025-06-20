@@ -362,3 +362,126 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-1 { transition-delay: 0.2s; }
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
+
+/* ========== 灯光扫描效果 ========== */
+/* 灯光扫描容器 */
+.light-scan {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: none;
+}
+
+/* 灯光扫描激活状态 */
+.light-scan.active {
+  animation: lightScan 3s ease-in-out;
+}
+
+/* 灯光扫描关键帧 */
+@keyframes lightScan {
+  0% {
+    background-position: -200% 0;
+  }
+  50% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 为标题添加灯光扫描效果的基础样式 */
+.home-content h1.light-scan {
+  background: linear-gradient(90deg, 
+    #333 0%, 
+    #333 30%, 
+    rgba(255, 255, 255, 0.9) 50%, 
+    #333 70%, 
+    #333 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: none;
+}
+
+/* 激活灯光扫描时的动画 */
+.home-content h1.light-scan.active {
+  animation: lightScan 2.5s ease-in-out;
+}
+
+/* 扫描完成后恢复原始颜色 */
+.home-content h1.light-scan.completed {
+  background: none;
+  color: #333;
+  animation: none;
+}
+
+/* 为段落文字添加灯光扫描效果 */
+.home-content p.light-scan {
+  background: linear-gradient(90deg, 
+    #666 0%, 
+    #666 30%, 
+    rgba(255, 255, 255, 0.8) 50%, 
+    #666 70%, 
+    #666 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: none;
+}
+
+.home-content p.light-scan.active {
+  animation: lightScan 2.8s ease-in-out;
+}
+
+.home-content p.light-scan.completed {
+  background: none;
+  color: #666;
+  animation: none;
+}
+
+/* 优化灯光扫描效果 - 更明显的光效 */
+@keyframes brightLightScan {
+  0% {
+    background-position: -200% 0;
+  }
+  30% {
+    background-position: -50% 0;
+  }
+  70% {
+    background-position: 150% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 增强版灯光扫描 */
+.light-scan-enhanced {
+  position: relative;
+  background: linear-gradient(90deg, 
+    currentColor 0%, 
+    currentColor 20%, 
+    rgba(255, 255, 255, 1) 40%,
+    rgba(255, 255, 255, 1) 60%,
+    currentColor 80%, 
+    currentColor 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: none;
+}
+
+.light-scan-enhanced.active {
+  animation: brightLightScan 2.5s ease-in-out;
+}

@@ -68,9 +68,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
-      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+      <h1 class="scale-fade-in light-scan">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
       <div class="decor-line scale-fade-in"></div>
-      <p class="scale-fade-in">
+      <p class="scale-fade-in light-scan">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
         我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
         才能创造持续的价值，向着行业标杆的方向，稳步前行。
@@ -364,21 +364,79 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-    // 创建一个虚拟图片对象检测背景图是否加载完成
-    const bgImg = new Image();
-    bgImg.src = "images/images/封面7.png";
+  // 创建一个虚拟图片对象检测背景图是否加载完成
+  const bgImg = new Image();
+  bgImg.src = "images/images/封面7.png";
 
-    bgImg.onload = function () {
-      document.querySelector('.home-content').classList.remove('hidden');
+  bgImg.onload = function () {
+    const homeContent = document.querySelector('.home-content');
+    const title = document.querySelector('.home-content h1');
+    const paragraph = document.querySelector('.home-content p');
 
-      // 强制触发重绘，重新开始动画（可选，增强兼容性）
-      void document.querySelector('.home-content').offsetWidth;
+    // 显示内容
+    homeContent.classList.remove('hidden');
 
-      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
-      document.querySelector('.home-content h1').classList.add('scale-fade-in');
-      document.querySelector('.home-content p').classList.add('scale-fade-in');
-    };
+    // 强制触发重绘，重新开始动画（可选，增强兼容性）
+    void homeContent.offsetWidth;
+
+    // 添加动画类
+    title.classList.add('scale-fade-in');
+    paragraph.classList.add('scale-fade-in');
+
+    // 等待 scale-fade-in 动画完成后开始灯光扫描
+    setTimeout(() => {
+      // 开始标题的灯光扫描
+      title.classList.add('active');
+      
+      // 监听标题动画结束
+      title.addEventListener('animationend', function titleAnimationEnd(e) {
+        if (e.animationName === 'lightScan') {
+          title.classList.remove('active');
+          title.classList.add('completed');
+          title.removeEventListener('animationend', titleAnimationEnd);
+        }
+      });
+
+      // 延迟0.5秒后开始段落的灯光扫描
+      setTimeout(() => {
+        paragraph.classList.add('active');
+        
+        // 监听段落动画结束
+        paragraph.addEventListener('animationend', function paragraphAnimationEnd(e) {
+          if (e.animationName === 'lightScan') {
+            paragraph.classList.remove('active');
+            paragraph.classList.add('completed');
+            paragraph.removeEventListener('animationend', paragraphAnimationEnd);
+          }
+        });
+      }, 500);
+
+    }, 1600); // 等待 scale-fade-in 动画完成 (1.6s)
+  };
+
+  // 可选：添加鼠标悬停时重新触发灯光扫描效果
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightScanElements = document.querySelectorAll('.light-scan');
+    
+    lightScanElements.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        // 如果已经完成过扫描，可以重新触发
+        if (element.classList.contains('completed')) {
+          element.classList.remove('completed');
+          element.classList.add('active');
+          
+          element.addEventListener('animationend', function hoverAnimationEnd(e) {
+            if (e.animationName === 'lightScan') {
+              element.classList.remove('active');
+              element.classList.add('completed');
+              element.removeEventListener('animationend', hoverAnimationEnd);
+            }
+          });
+        }
+      });
+    });
   });
+});
 </script>
 <script>
   function goToLocation() {
