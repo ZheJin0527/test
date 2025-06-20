@@ -68,7 +68,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
-      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+      <h1 class="scale-fade-in title-light-scan">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
       <div class="decor-line scale-fade-in"></div>
       <p class="scale-fade-in light-scan-luxury">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
@@ -272,14 +272,6 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animationPlayState = 'running';
         });
 
-        // 触发光束扫描（只对 h1）
-        const h1 = container.querySelector('h1.scale-fade-in');
-        if (h1 && !h1.classList.contains('shine')) {
-          setTimeout(() => {
-            h1.classList.add('shine');
-          }, 1600); // 等淡入完成再扫光
-        }
-
       } else {
         container.classList.remove('visible');
 
@@ -291,12 +283,6 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animation = '';
           el.style.animationPlayState = 'paused';
         });
-
-        // 重置光束扫描状态
-        const h1 = container.querySelector('h1.scale-fade-in');
-        if (h1) {
-          h1.classList.remove('shine');
-        }
       }
     });
   }, {
@@ -378,26 +364,19 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
+    // 创建一个虚拟图片对象检测背景图是否加载完成
     const bgImg = new Image();
     bgImg.src = "images/images/封面7.png";
 
     bgImg.onload = function () {
-      const homeContent = document.querySelector('.home-content');
-      homeContent.classList.remove('hidden');
+      document.querySelector('.home-content').classList.remove('hidden');
 
-      void homeContent.offsetWidth;
+      // 强制触发重绘，重新开始动画（可选，增强兼容性）
+      void document.querySelector('.home-content').offsetWidth;
 
-      // 添加动画类
-      const h1 = homeContent.querySelector('h1');
-      const p = homeContent.querySelector('p');
-
-      h1.classList.add('scale-fade-in');
-      p.classList.add('scale-fade-in');
-
-      // 触发光束扫描（确保加载时也能扫一次）
-      setTimeout(() => {
-        h1.classList.add('shine');
-      }, 1600);
+      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
+      document.querySelector('.home-content h1').classList.add('scale-fade-in');
+      document.querySelector('.home-content p').classList.add('scale-fade-in');
     };
   });
 </script>
