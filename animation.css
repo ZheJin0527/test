@@ -127,44 +127,6 @@
   }
 }
 
-/* ========== 光束扫描效果 ========== */
-/* H1标题光束扫描容器 */
-.home-content h1 {
-  position: relative;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 1);
-  background-size: 200% 100%;
-  background-position: -100% 0;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: scaleFadeIn 1.6s ease forwards;
-}
-
-/* 光束扫描动画 - 延迟到文字显示完成后开始 */
-.home-content h1.beam-scan {
-  animation: scaleFadeIn 1.6s ease forwards, beamScan 2s ease-in-out 1s forwards;
-}
-
-/* 光束扫描关键帧 */
-@keyframes beamScan {
-  0% {
-    background-position: -100% 0;
-    color: transparent;
-  }
-  50% {
-    background-position: 100% 0;
-    color: transparent;
-  }
-  100% {
-    background-position: 200% 0;
-    color: inherit; /* 恢复原始文字颜色 */
-    background: none; /* 移除背景渐变 */
-  }
-}
-
-
-
 /* 首页所有元素统一,不要延迟 - 一起1.6s出现 */
 .home-content .scale-fade-in {
   animation-delay: 0s;
@@ -396,3 +358,7 @@ img.image-3d-rotate:hover,
 .rotate-3d-full:not(.visible) { 
   transition-delay: 0s !important; 
 }
+
+.rotate-3d-full.delay-1 { transition-delay: 0.2s; }
+.rotate-3d-full.delay-2 { transition-delay: 0.4s; }
+.rotate-3d-full.delay-3 { transition-delay: 0.6s; }
