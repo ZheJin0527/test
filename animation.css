@@ -363,226 +363,65 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
 
-/* ========== 灯光扫描特效 ========== */
-/* 新增：灯光扫描效果 */
-.light-scan-text {
+/* ========== H1标题专用文字内部灯光扫描特效 ========== */
+/* 文字内部灯光扫描效果 - 只用于h1标题 */
+.title-light-scan {
   position: relative;
-  overflow: hidden;
   background: linear-gradient(
     90deg,
-    transparent 0%,
-    transparent 30%,
-    rgba(255, 255, 255, 0.8) 50%,
-    transparent 70%,
-    transparent 100%
+    currentColor 0%,
+    currentColor 40%,
+    rgba(255, 255, 255, 0.9) 50%,
+    currentColor 60%,
+    currentColor 100%
   );
-  background-size: 200% 100%;
+  background-size: 300% 100%;
   background-position: -100% 0;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: lightScan 2s ease-in-out;
+  animation: textLightScan 2.5s ease-in-out;
   animation-delay: 1.8s; /* 在scale-fade-in完成后开始 */
-  animation-fill-mode: forwards;
+  animation-fill-mode: both;
 }
 
-/* 在扫描前保持原有文字颜色 */
-.light-scan-text::before {
+/* 扫描前显示原文字颜色 */
+.title-light-scan::before {
   content: attr(data-text);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: transparent;
-  -webkit-text-fill-color: inherit;
   color: inherit;
+  -webkit-text-fill-color: currentColor;
   z-index: -1;
-  animation: hideOriginalText 0.1s ease forwards;
+  animation: hideTextBeforeScan 0.1s ease forwards;
   animation-delay: 1.8s;
 }
 
-@keyframes lightScan {
+/* 文字内部扫描动画关键帧 */
+@keyframes textLightScan {
   0% {
     background-position: -100% 0;
+    -webkit-text-fill-color: currentColor;
+  }
+  1% {
     -webkit-text-fill-color: transparent;
   }
-  50% {
-    background-position: 100% 0;
+  99% {
     -webkit-text-fill-color: transparent;
+    background-position: 200% 0;
   }
   100% {
     background-position: 200% 0;
-    -webkit-text-fill-color: inherit; /* 恢复原有颜色 */
+    -webkit-text-fill-color: currentColor;
   }
 }
 
-@keyframes hideOriginalText {
+/* 隐藏底层文字动画 */
+@keyframes hideTextBeforeScan {
   to {
-    opacity: 0;
-  }
-}
-
-/* 增强版灯光扫描效果（更亮的光束） */
-.light-scan-enhanced {
-  position: relative;
-  overflow: hidden;
-}
-
-.light-scan-enhanced::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 20%,
-    rgba(255, 255, 255, 0.3) 30%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.3) 70%,
-    transparent 80%,
-    transparent 100%
-  );
-  animation: lightSweep 2.5s ease-in-out;
-  animation-delay: 1.8s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-}
-
-@keyframes lightSweep {
-  0% {
-    left: -100%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
-/* 豪华版灯光扫描 - 多层光效 */
-.light-scan-luxury {
-  position: relative;
-  overflow: hidden;
-}
-
-/* 主光束 */
-.light-scan-luxury::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -150%;
-  width: 80px;
-  height: calc(100% + 4px);
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 10%,
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(255, 255, 255, 0.1) 90%,
-    transparent 100%
-  );
-  animation: luxuryLightScan 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation-delay: 1.8s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  transform: skewX(-20deg);
-  filter: blur(1px);
-}
-
-/* 次光束 */
-.light-scan-luxury::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 40px;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.9) 50%,
-    transparent 100%
-  );
-  animation: luxuryLightScan 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation-delay: 1.9s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  transform: skewX(-20deg);
-  mix-blend-mode: overlay;
-}
-
-@keyframes luxuryLightScan {
-  0% {
-    left: -150%;
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% + 50px);
-    opacity: 0;
-  }
-}
-
-/* 专门为标题设计的扫描效果 */
-.title-light-scan {
-  position: relative;
-  overflow: hidden;
-}
-
-.title-light-scan::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -200px;
-  width: 120px;
-  height: calc(100% + 10px);
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 20%,
-    rgba(255, 255, 255, 0.3) 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.3) 60%,
-    rgba(255, 255, 255, 0.05) 80%,
-    transparent 100%
-  );
-  animation: titleLightScan 3s ease-out;
-  animation-delay: 1.8s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  transform: skewX(-15deg);
-  mix-blend-mode: overlay;
-}
-
-@keyframes titleLightScan {
-  0% {
-    left: -200px;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% + 100px);
     opacity: 0;
   }
 }
