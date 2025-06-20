@@ -275,10 +275,10 @@ window.addEventListener('resize', moveLoginBtn);
         // 为h1标题添加光束扫描效果 - 延迟到文字显示完成后
         const h1Title = container.querySelector('.beam-scan-title');
         if (h1Title) {
-          // 延迟1.8秒后开始光束扫描（与CSS动画延迟时间匹配）
+          // 延迟2秒后开始光束扫描
           setTimeout(() => {
             h1Title.classList.add('beam-scan');
-          }, 1800);
+          }, 2000);
         }
 
       } else {
@@ -297,9 +297,6 @@ window.addEventListener('resize', moveLoginBtn);
         const h1Title = container.querySelector('.beam-scan-title');
         if (h1Title) {
           h1Title.classList.remove('beam-scan');
-          // 重置样式
-          h1Title.style.color = '';
-          h1Title.style.background = '';
         }
       }
     });
