@@ -363,37 +363,42 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
 
-/* 光线扫描动画 */
-@keyframes light-sweep {
+/* 光束滑过动画 */
+@keyframes lightSweep {
   0% {
-    left: -60%;
+    background-position: -150% 0;
   }
   100% {
-    left: 120%;
+    background-position: 150% 0;
   }
 }
 
-/* h1 字体内部扫描效果容器（不改变文字颜色） */
-.home-content h1.scale-fade-in {
+/* 包住文字，防止溢出 */
+.light-sweep-text {
   position: relative;
   display: inline-block;
-  color: white; /* 或你原来的颜色 */
   overflow: hidden;
 }
 
-/* 添加伪元素作为光束 */
-.home-content h1.scale-fade-in::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
-  transform: skewX(-20deg);
-  pointer-events: none;
-  mix-blend-mode: screen;
-  animation: light-sweep 1s ease-out 1 forwards;
-  animation-delay: 1.6s; /* 与文字淡入动画同步后播放 */
-  opacity: 1;
+/* 字体内部光束扫描，只扫一次 */
+.light-sweep {
+  display: inline-block;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.9) 45%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  background-position: -150% 0;
+
+  /* 核心：光只显示在字体内部 */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+
+  animation: lightSweep 1.2s ease-out 1 forwards;
+  animation-delay: 1.6s;
 }
+
