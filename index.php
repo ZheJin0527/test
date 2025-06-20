@@ -388,27 +388,21 @@ updatePageIndicator(0);
       // 开始标题的灯光扫描
       title.classList.add('active');
       
-      // 监听标题动画结束
-      title.addEventListener('animationend', function titleAnimationEnd(e) {
-        if (e.animationName === 'lightScan') {
-          title.classList.remove('active');
-          title.classList.add('completed');
-          title.removeEventListener('animationend', titleAnimationEnd);
-        }
-      });
+      // 2.5秒后移除标题的active类并标记为完成
+      setTimeout(() => {
+        title.classList.remove('active');
+        title.classList.add('completed');
+      }, 2500);
 
       // 延迟0.5秒后开始段落的灯光扫描
       setTimeout(() => {
         paragraph.classList.add('active');
         
-        // 监听段落动画结束
-        paragraph.addEventListener('animationend', function paragraphAnimationEnd(e) {
-          if (e.animationName === 'lightScan') {
-            paragraph.classList.remove('active');
-            paragraph.classList.add('completed');
-            paragraph.removeEventListener('animationend', paragraphAnimationEnd);
-          }
-        });
+        // 2.8秒后移除段落的active类并标记为完成
+        setTimeout(() => {
+          paragraph.classList.remove('active');
+          paragraph.classList.add('completed');
+        }, 2800);
       }, 500);
 
     }, 1600); // 等待 scale-fade-in 动画完成 (1.6s)
@@ -425,13 +419,12 @@ updatePageIndicator(0);
           element.classList.remove('completed');
           element.classList.add('active');
           
-          element.addEventListener('animationend', function hoverAnimationEnd(e) {
-            if (e.animationName === 'lightScan') {
-              element.classList.remove('active');
-              element.classList.add('completed');
-              element.removeEventListener('animationend', hoverAnimationEnd);
-            }
-          });
+          // 根据元素类型设置不同的持续时间
+          const duration = element.tagName === 'H1' ? 2500 : 2800;
+          setTimeout(() => {
+            element.classList.remove('active');
+            element.classList.add('completed');
+          }, duration);
         }
       });
     });
