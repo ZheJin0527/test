@@ -297,6 +297,9 @@ window.addEventListener('resize', moveLoginBtn);
         const h1Title = container.querySelector('.beam-scan-title');
         if (h1Title) {
           h1Title.classList.remove('beam-scan');
+          // 重置样式
+          h1Title.style.color = '';
+          h1Title.style.background = '';
         }
       }
     });
@@ -314,7 +317,6 @@ window.addEventListener('resize', moveLoginBtn);
     observer.observe(container);
   });
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // 恢复到你原来的配置，只添加最小的修改
