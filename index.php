@@ -68,9 +68,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
-      <h1 class="scale-fade-in title-light-scan">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+      <h1 class="scale-fade-in title-beam-scan">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
       <div class="decor-line scale-fade-in"></div>
-      <p class="scale-fade-in light-scan-luxury">
+      <p class="scale-fade-in text-beam-scan">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
         我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
         才能创造持续的价值，向着行业标杆的方向，稳步前行。
@@ -370,13 +370,23 @@ updatePageIndicator(0);
 
     bgImg.onload = function () {
       document.querySelector('.home-content').classList.remove('hidden');
+      
+      // 添加visible类来触发动画
+      document.querySelector('.home-content').classList.add('visible');
 
       // 强制触发重绘，重新开始动画（可选，增强兼容性）
       void document.querySelector('.home-content').offsetWidth;
 
-      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
-      document.querySelector('.home-content h1').classList.add('scale-fade-in');
-      document.querySelector('.home-content p').classList.add('scale-fade-in');
+      // 确保动画类已经添加（这些类已经在HTML中了，但可以用JS确认）
+      const h1Element = document.querySelector('.home-content h1');
+      const pElement = document.querySelector('.home-content p');
+      
+      if (h1Element && !h1Element.classList.contains('scale-fade-in')) {
+        h1Element.classList.add('scale-fade-in');
+      }
+      if (pElement && !pElement.classList.contains('scale-fade-in')) {
+        pElement.classList.add('scale-fade-in');
+      }
     };
   });
 </script>
