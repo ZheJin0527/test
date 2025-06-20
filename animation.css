@@ -148,7 +148,7 @@
 
 /* 光束扫描动画 - 延迟到文字显示完成后开始 */
 .home-content h1.beam-scan {
-  animation: scaleFadeIn 1.6s ease forwards, beamScan 2s ease-in-out 1.8s forwards;
+  animation: scaleFadeIn 1s ease forwards, beamScan 2s ease-in-out 1.8s forwards;
 }
 
 /* 光束扫描关键帧 */
