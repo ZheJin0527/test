@@ -67,18 +67,16 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-  <div class="home-content hidden animate-on-scroll">
-    <h1 class="scale-fade-in" id="animated-heading">
-      让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光
-    </h1>
-    <div class="decor-line scale-fade-in"></div>
-    <p class="scale-fade-in">
-      我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
-      我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
-      才能创造持续的价值，向着行业标杆的方向，稳步前行。
-    </p>
-  </div>
-</section>
+    <div class="home-content hidden animate-on-scroll">
+      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+      <div class="decor-line scale-fade-in"></div>
+      <p class="scale-fade-in">
+        我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
+        我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
+        才能创造持续的价值，向着行业标杆的方向，稳步前行。
+      </p>
+    </div>
+  </section>
   </div>
 
   <div class="swiper-slide">
@@ -260,7 +258,6 @@ window.addEventListener('resize', moveLoginBtn);
 
 </script>
 <script>
-  // Scroll Observer：进入视口时添加/移除 visible 类，并控制 scale-fade-in 动画
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const container = entry.target;
@@ -269,9 +266,9 @@ window.addEventListener('resize', moveLoginBtn);
         container.classList.add('visible');
 
         container.querySelectorAll('.scale-fade-in').forEach(el => {
-          el.style.animation = 'none';
-          el.offsetHeight;
-          el.style.animation = '';
+          el.style.animation = 'none'; // 重置动画
+          el.offsetHeight; // 触发重绘
+          el.style.animation = ''; // 重新应用 CSS 动画
           el.style.animationPlayState = 'running';
         });
 
@@ -279,10 +276,10 @@ window.addEventListener('resize', moveLoginBtn);
         container.classList.remove('visible');
 
         container.querySelectorAll('.scale-fade-in').forEach(el => {
-          el.style.animation = 'none';
-          el.style.opacity = '0';
+          el.style.animation = 'none'; // 停止当前动画
+          el.style.opacity = '0'; // 恢复初始状态
           el.style.transform = 'translateY(20px)';
-          el.offsetHeight;
+          el.offsetHeight; // 强制回流
           el.style.animation = '';
           el.style.animationPlayState = 'paused';
         });
@@ -292,7 +289,7 @@ window.addEventListener('resize', moveLoginBtn);
     threshold: 0.2
   });
 
-  // 初始化所有 animate-on-scroll 元素
+  // 初始化：暂停动画并设置初始状态
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
     container.querySelectorAll('.scale-fade-in').forEach(el => {
       el.style.animationPlayState = 'paused';
@@ -302,7 +299,6 @@ window.addEventListener('resize', moveLoginBtn);
     observer.observe(container);
   });
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // 恢复到你原来的配置，只添加最小的修改
@@ -368,28 +364,22 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
+    // 创建一个虚拟图片对象检测背景图是否加载完成
     const bgImg = new Image();
     bgImg.src = "images/images/封面7.png";
 
     bgImg.onload = function () {
-      const homeContent = document.querySelector('.home-content');
-      const h1 = document.getElementById('animated-heading');
+      document.querySelector('.home-content').classList.remove('hidden');
 
-      homeContent.classList.remove('hidden');
-      void homeContent.offsetWidth;
+      // 强制触发重绘，重新开始动画（可选，增强兼容性）
+      void document.querySelector('.home-content').offsetWidth;
 
-      homeContent.querySelectorAll('.scale-fade-in').forEach(el => {
-        el.classList.add('scale-fade-in');
-      });
-
-      // 延迟触发光束扫描
-      setTimeout(() => {
-        h1.classList.add('h1-beam-scan');
-      }, 1800); // 等淡入动画结束后开始
+      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
+      document.querySelector('.home-content h1').classList.add('scale-fade-in');
+      document.querySelector('.home-content p').classList.add('scale-fade-in');
     };
   });
 </script>
-
 <script>
   function goToLocation() {
     const map = document.getElementById('custom-map');

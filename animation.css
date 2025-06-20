@@ -362,28 +362,3 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-1 { transition-delay: 0.2s; }
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
-
-/* ===== 光束扫描效果样式 - 应用于 h1内部笔画 ===== */
-@keyframes textBeamScan {
-  0% {
-    background-position: -100%;
-  }
-  100% {
-    background-position: 200%;
-  }
-}
-
-.h1-beam-scan {
-  background: linear-gradient(120deg, transparent 0%, #ffffff66 50%, transparent 100%);
-  background-size: 200% 100%;
-  background-position: -100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-
-  animation: textBeamScan 2s linear infinite;
-  animation-delay: 2s; /* 等 scale-fade-in 完成后触发 */
-  opacity: 1;
-}
