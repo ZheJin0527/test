@@ -363,226 +363,118 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
 
-/* ========== 灯光扫描特效 ========== */
-/* 新增：灯光扫描效果 */
-.light-scan-text {
+/* ========== H1标题专用光束扫描特效 - 字体内部光束 ========== */
+/* H1标题光束扫描特效 - 结合缩放渐显 */
+.h1-with-light-scan {
+  opacity: 0;
+  transform: scale(0.8);
   position: relative;
   overflow: hidden;
   background: linear-gradient(
     90deg,
-    transparent 0%,
-    transparent 30%,
-    rgba(255, 255, 255, 0.8) 50%,
-    transparent 70%,
-    transparent 100%
+    currentColor 0%,
+    currentColor 30%,
+    rgba(255, 255, 255, 0.9) 50%,
+    currentColor 70%,
+    currentColor 100%
   );
   background-size: 200% 100%;
-  background-position: -100% 0;
+  background-position: 0% 0;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: lightScan 2s ease-in-out;
-  animation-delay: 1.8s; /* 在scale-fade-in完成后开始 */
-  animation-fill-mode: forwards;
+  animation: scaleFadeInWithLightScan 3.2s ease forwards;
+  animation-play-state: paused;
 }
 
-/* 在扫描前保持原有文字颜色 */
-.light-scan-text::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  -webkit-text-fill-color: inherit;
-  color: inherit;
-  z-index: -1;
-  animation: hideOriginalText 0.1s ease forwards;
-  animation-delay: 1.8s;
+/* 当父容器可见时启动H1光束动画 */
+.animate-on-scroll.visible .h1-with-light-scan {
+  animation-play-state: running;
 }
 
-@keyframes lightScan {
+/* 当父容器不可见时重置H1动画 */
+.animate-on-scroll:not(.visible) .h1-with-light-scan {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+  background-position: 0% 0;
+}
+
+/* H1缩放渐显 + 光束扫描组合动画 */
+@keyframes scaleFadeInWithLightScan {
+  /* 0-50%: 缩放渐显阶段 */
   0% {
-    background-position: -100% 0;
+    opacity: 0;
+    transform: scale(0.8);
+    background-position: 0% 0;
     -webkit-text-fill-color: transparent;
   }
   50% {
+    opacity: 1;
+    transform: scale(1);
+    background-position: 0% 0;
+    -webkit-text-fill-color: transparent;
+  }
+  /* 50-85%: 光束扫描阶段 */
+  55% {
+    background-position: -100% 0;
+    -webkit-text-fill-color: transparent;
+  }
+  70% {
+    background-position: 0% 0;
+    -webkit-text-fill-color: transparent;
+  }
+  85% {
     background-position: 100% 0;
     -webkit-text-fill-color: transparent;
   }
+  /* 85-100%: 恢复原色阶段 */
   100% {
+    opacity: 1;
+    transform: scale(1);
     background-position: 200% 0;
-    -webkit-text-fill-color: inherit; /* 恢复原有颜色 */
+    -webkit-text-fill-color: currentColor;
   }
 }
 
-@keyframes hideOriginalText {
-  to {
-    opacity: 0;
-  }
-}
-
-/* 增强版灯光扫描效果（更亮的光束） */
-.light-scan-enhanced {
-  position: relative;
-  overflow: hidden;
-}
-
-.light-scan-enhanced::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 20%,
-    rgba(255, 255, 255, 0.3) 30%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.3) 70%,
-    transparent 80%,
-    transparent 100%
-  );
-  animation: lightSweep 2.5s ease-in-out;
-  animation-delay: 1.8s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-}
-
-@keyframes lightSweep {
-  0% {
-    left: -100%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
-/* 豪华版灯光扫描 - 多层光效 */
-.light-scan-luxury {
-  position: relative;
-  overflow: hidden;
-}
-
-/* 主光束 */
-.light-scan-luxury::before {
+/* 备用方案：如果webkit不支持，使用伪元素覆盖光束 */
+.h1-with-light-scan::before {
   content: '';
   position: absolute;
   top: -2px;
-  left: -150%;
+  left: -100%;
   width: 80px;
   height: calc(100% + 4px);
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.1) 10%,
+    rgba(255, 255, 255, 0.1) 20%,
     rgba(255, 255, 255, 0.6) 50%,
-    rgba(255, 255, 255, 0.1) 90%,
+    rgba(255, 255, 255, 0.1) 80%,
     transparent 100%
   );
-  animation: luxuryLightScan 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation-delay: 1.8s;
-  animation-fill-mode: forwards;
+  transform: skewX(-15deg);
   pointer-events: none;
-  transform: skewX(-20deg);
-  filter: blur(1px);
-}
-
-/* 次光束 */
-.light-scan-luxury::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 40px;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.9) 50%,
-    transparent 100%
-  );
-  animation: luxuryLightScan 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation-delay: 1.9s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  transform: skewX(-20deg);
   mix-blend-mode: overlay;
+  animation: h1LightBeam 1.5s ease-out;
+  animation-delay: 1.6s;
+  animation-fill-mode: forwards;
+  opacity: 0;
 }
 
-@keyframes luxuryLightScan {
+@keyframes h1LightBeam {
   0% {
-    left: -150%;
+    left: -100px;
     opacity: 0;
   }
-  15% {
+  20% {
     opacity: 1;
   }
-  85% {
+  80% {
     opacity: 1;
   }
   100% {
     left: calc(100% + 50px);
-    opacity: 0;
-  }
-}
-
-/* 专门为标题设计的扫描效果 */
-.title-light-scan {
-  position: relative;
-  overflow: hidden;
-}
-
-.title-light-scan::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -200px;
-  width: 120px;
-  height: calc(100% + 10px);
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 20%,
-    rgba(255, 255, 255, 0.3) 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.3) 60%,
-    rgba(255, 255, 255, 0.05) 80%,
-    transparent 100%
-  );
-  animation: titleLightScan 3s ease-out;
-  animation-delay: 1.8s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-  transform: skewX(-15deg);
-  mix-blend-mode: overlay;
-}
-
-@keyframes titleLightScan {
-  0% {
-    left: -200px;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% + 100px);
     opacity: 0;
   }
 }
