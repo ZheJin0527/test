@@ -363,116 +363,226 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
 
-/* ========== 字体内部扫描特效 ========== */
-/* 字体内部扫描效果 - 专为h1标题设计 */
-.text-inner-scan {
+/* ========== 灯光扫描特效 ========== */
+/* 新增：灯光扫描效果 */
+.light-scan-text {
   position: relative;
+  overflow: hidden;
   background: linear-gradient(
     90deg,
-    currentColor 0%,
-    currentColor 100%
+    transparent 0%,
+    transparent 30%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 70%,
+    transparent 100%
   );
+  background-size: 200% 100%;
+  background-position: -100% 0;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: textInnerScan 3s ease-in-out;
-  animation-delay: 1.8s;
+  animation: lightScan 2s ease-in-out;
+  animation-delay: 1.8s; /* 在scale-fade-in完成后开始 */
   animation-fill-mode: forwards;
 }
 
-/* 在扫描动画执行前，显示正常的文字颜色 */
-.text-inner-scan::before {
+/* 在扫描前保持原有文字颜色 */
+.light-scan-text::before {
   content: attr(data-text);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  color: inherit;
+  background: transparent;
   -webkit-text-fill-color: inherit;
-  background: none;
-  z-index: 1;
-  animation: hideText 0.1s ease forwards;
+  color: inherit;
+  z-index: -1;
+  animation: hideOriginalText 0.1s ease forwards;
   animation-delay: 1.8s;
 }
 
-@keyframes textInnerScan {
+@keyframes lightScan {
   0% {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      transparent 100%
-    );
+    background-position: -100% 0;
     -webkit-text-fill-color: transparent;
   }
-  1% {
-    background: linear-gradient(
-      90deg,
-      currentColor 0%,
-      currentColor 0%,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.8) 5%,
-      currentColor 5%,
-      currentColor 100%
-    );
-  }
-  25% {
-    background: linear-gradient(
-      90deg,
-      currentColor 0%,
-      currentColor 20%,
-      rgba(255, 255, 255, 0.9) 20%,
-      rgba(255, 255, 255, 0.9) 30%,
-      currentColor 30%,
-      currentColor 100%
-    );
-  }
   50% {
-    background: linear-gradient(
-      90deg,
-      currentColor 0%,
-      currentColor 45%,
-      rgba(255, 255, 255, 0.9) 45%,
-      rgba(255, 255, 255, 0.9) 55%,
-      currentColor 55%,
-      currentColor 100%
-    );
-  }
-  75% {
-    background: linear-gradient(
-      90deg,
-      currentColor 0%,
-      currentColor 70%,
-      rgba(255, 255, 255, 0.9) 70%,
-      rgba(255, 255, 255, 0.9) 80%,
-      currentColor 80%,
-      currentColor 100%
-    );
-  }
-  99% {
-    background: linear-gradient(
-      90deg,
-      currentColor 0%,
-      currentColor 95%,
-      rgba(255, 255, 255, 0.8) 95%,
-      rgba(255, 255, 255, 0.8) 100%,
-      currentColor 100%,
-      currentColor 100%
-    );
+    background-position: 100% 0;
+    -webkit-text-fill-color: transparent;
   }
   100% {
-    background: linear-gradient(
-      90deg,
-      currentColor 0%,
-      currentColor 100%
-    );
-    -webkit-text-fill-color: inherit;
+    background-position: 200% 0;
+    -webkit-text-fill-color: inherit; /* 恢复原有颜色 */
   }
 }
 
-@keyframes hideText {
+@keyframes hideOriginalText {
   to {
     opacity: 0;
-    z-index: -1;
+  }
+}
+
+/* 增强版灯光扫描效果（更亮的光束） */
+.light-scan-enhanced {
+  position: relative;
+  overflow: hidden;
+}
+
+.light-scan-enhanced::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 20%,
+    rgba(255, 255, 255, 0.3) 30%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.3) 70%,
+    transparent 80%,
+    transparent 100%
+  );
+  animation: lightSweep 2.5s ease-in-out;
+  animation-delay: 1.8s;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+@keyframes lightSweep {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* 豪华版灯光扫描 - 多层光效 */
+.light-scan-luxury {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 主光束 */
+.light-scan-luxury::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -150%;
+  width: 80px;
+  height: calc(100% + 4px);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 10%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.1) 90%,
+    transparent 100%
+  );
+  animation: luxuryLightScan 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-delay: 1.8s;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+  transform: skewX(-20deg);
+  filter: blur(1px);
+}
+
+/* 次光束 */
+.light-scan-luxury::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.9) 50%,
+    transparent 100%
+  );
+  animation: luxuryLightScan 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-delay: 1.9s;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+  transform: skewX(-20deg);
+  mix-blend-mode: overlay;
+}
+
+@keyframes luxuryLightScan {
+  0% {
+    left: -150%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 50px);
+    opacity: 0;
+  }
+}
+
+/* 专门为标题设计的扫描效果 */
+.title-light-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.title-light-scan::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -200px;
+  width: 120px;
+  height: calc(100% + 10px);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.3) 60%,
+    rgba(255, 255, 255, 0.05) 80%,
+    transparent 100%
+  );
+  animation: titleLightScan 3s ease-out;
+  animation-delay: 1.8s;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+  transform: skewX(-15deg);
+  mix-blend-mode: overlay;
+}
+
+@keyframes titleLightScan {
+  0% {
+    left: -200px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 100px);
+    opacity: 0;
   }
 }
