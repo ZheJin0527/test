@@ -68,8 +68,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
-      <h1 class="scale-fade-in" id="animated-heading">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
-
+      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
       <div class="decor-line scale-fade-in"></div>
       <p class="scale-fade-in">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
@@ -259,7 +258,6 @@ window.addEventListener('resize', moveLoginBtn);
 
 </script>
 <script>
-  // 观察器：用于触发动画进入视口时的class变换
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const container = entry.target;
@@ -269,7 +267,7 @@ window.addEventListener('resize', moveLoginBtn);
 
         container.querySelectorAll('.scale-fade-in').forEach(el => {
           el.style.animation = 'none'; // 重置动画
-          el.offsetHeight; // 强制重绘
+          el.offsetHeight; // 触发重绘
           el.style.animation = ''; // 重新应用 CSS 动画
           el.style.animationPlayState = 'running';
         });
@@ -278,10 +276,10 @@ window.addEventListener('resize', moveLoginBtn);
         container.classList.remove('visible');
 
         container.querySelectorAll('.scale-fade-in').forEach(el => {
-          el.style.animation = 'none';
-          el.style.opacity = '0';
+          el.style.animation = 'none'; // 停止当前动画
+          el.style.opacity = '0'; // 恢复初始状态
           el.style.transform = 'translateY(20px)';
-          el.offsetHeight;
+          el.offsetHeight; // 强制回流
           el.style.animation = '';
           el.style.animationPlayState = 'paused';
         });
@@ -291,7 +289,7 @@ window.addEventListener('resize', moveLoginBtn);
     threshold: 0.2
   });
 
-  // 初始化：为所有动画容器设置初始状态
+  // 初始化：暂停动画并设置初始状态
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
     container.querySelectorAll('.scale-fade-in').forEach(el => {
       el.style.animationPlayState = 'paused';
@@ -300,34 +298,7 @@ window.addEventListener('resize', moveLoginBtn);
     });
     observer.observe(container);
   });
-
-  // 背景图加载后启动动画 & 光束扫描延迟触发
-  window.addEventListener('load', () => {
-    const bgImg = new Image();
-    bgImg.src = "images/images/封面7.png";
-
-    bgImg.onload = function () {
-      const homeContent = document.querySelector('.home-content');
-      const h1 = document.getElementById('animated-heading');
-
-      homeContent.classList.remove('hidden');
-
-      // 强制重绘（重新触发 scale-fade-in 动画）
-      void homeContent.offsetWidth;
-
-      // 重新应用动画类
-      homeContent.querySelectorAll('.scale-fade-in').forEach(el => {
-        el.classList.add('scale-fade-in');
-      });
-
-      // 延迟触发光束扫描特效
-      setTimeout(() => {
-        h1.classList.add('h1-beam-scan');
-      }, 1800); // 原 scale-fade-in 动画 1.6s + 缓冲 0.2s
-    };
-  });
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // 恢复到你原来的配置，只添加最小的修改
