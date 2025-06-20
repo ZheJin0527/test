@@ -168,10 +168,7 @@
   }
 }
 
-/* 为了确保光束效果更明显，添加文字阴影 */
-.home-content h1.beam-scan {
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
+
 
 /* 首页所有元素统一,不要延迟 - 一起1.6s出现 */
 .home-content .scale-fade-in {
