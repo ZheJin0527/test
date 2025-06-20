@@ -68,7 +68,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
     <div class="home-content hidden animate-on-scroll">
-      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+      <h1 class="scale-fade-in beam-scan-title">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
       <div class="decor-line scale-fade-in"></div>
       <p class="scale-fade-in">
         我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
@@ -272,6 +272,15 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animationPlayState = 'running';
         });
 
+        // 为h1标题添加光束扫描效果 - 延迟到文字显示完成后
+        const h1Title = container.querySelector('.beam-scan-title');
+        if (h1Title) {
+          // 延迟1.8秒后开始光束扫描（与CSS动画延迟时间匹配）
+          setTimeout(() => {
+            h1Title.classList.add('beam-scan');
+          }, 1800);
+        }
+
       } else {
         container.classList.remove('visible');
 
@@ -283,6 +292,15 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animation = '';
           el.style.animationPlayState = 'paused';
         });
+
+        // 重置h1光束扫描效果
+        const h1Title = container.querySelector('.beam-scan-title');
+        if (h1Title) {
+          h1Title.classList.remove('beam-scan');
+          // 重置样式
+          h1Title.style.color = '';
+          h1Title.style.background = '';
+        }
       }
     });
   }, {
