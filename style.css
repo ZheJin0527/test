@@ -1846,7 +1846,7 @@ nav {
 
 .vision {
     min-height: 100vh;
-    background-color: #FF5C00;
+    background: url('images/images/背景4.png') no-repeat center center/cover;
     color: white;
     display: flex;
     align-items: center;
