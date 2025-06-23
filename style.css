@@ -1765,7 +1765,7 @@ nav {
 
 .aboutus-intro {
   background: url('images/images/背景3.jpg') no-repeat center center/cover;
-  padding: 60px 20px;
+  padding: 0px 20px 90px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1773,7 +1773,7 @@ nav {
 
 .intro-content {
     width: 402px;
-    height: 140px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     align-items: center;
