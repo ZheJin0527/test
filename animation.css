@@ -547,7 +547,6 @@ img.image-3d-rotate:hover,
 /* 加载完成后显示 */
 .page-indicator.indicator-loaded {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* 可选：添加每个点的依次出现效果 */
