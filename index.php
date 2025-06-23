@@ -369,6 +369,9 @@ updatePageIndicator(0);
     bgImg.src = "images/images/封面7.png";
 
     bgImg.onload = function () {
+
+      document.querySelector('.home').classList.add('gradient-loaded');
+      
       document.querySelector('.home-content').classList.remove('hidden');
 
       // 强制触发重绘，重新开始动画（可选，增强兼容性）
