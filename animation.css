@@ -368,10 +368,15 @@ img.image-3d-rotate:hover,
 .rotate-3d-full.delay-2 { transition-delay: 0.4s; }
 .rotate-3d-full.delay-3 { transition-delay: 0.6s; }
 
-/* ========== Navbar 延迟淡入特效 ========== */
+/* ========== Navbar 延迟淡入特效 - 等待加载完成后触发 ========== */
 .navbar {
   opacity: 0;
   transform: translateY(-20px);
+  /* 移除自动动画，等待JavaScript触发 */
+}
+
+/* 只有当添加了 navbar-loaded 类后才开始动画 */
+.navbar.navbar-loaded {
   animation: navbarFadeIn 1.2s ease-out forwards;
   animation-delay: 0.5s; /* 延迟0.5秒开始 */
 }
@@ -387,21 +392,30 @@ img.image-3d-rotate:hover,
   }
 }
 
-/* 为navbar子元素添加渐进淡入效果 */
+/* 为navbar子元素添加渐进淡入效果 - 同样等待触发 */
 .navbar .logo-section {
   opacity: 0;
+}
+
+.navbar.navbar-loaded .logo-section {
   animation: fadeInElement 0.8s ease-out forwards;
   animation-delay: 0.8s; /* logo先出现 */
 }
 
 .navbar .nav-links {
   opacity: 0;
+}
+
+.navbar.navbar-loaded .nav-links {
   animation: fadeInElement 0.8s ease-out forwards;
   animation-delay: 1.0s; /* 导航菜单稍后出现 */
 }
 
 .navbar .right-section {
   opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section {
   animation: fadeInElement 0.8s ease-out forwards;
   animation-delay: 1.2s; /* 右侧区域最后出现 */
 }
@@ -420,29 +434,41 @@ img.image-3d-rotate:hover,
 /* 导航项目逐个淡入效果 */
 .nav-links .nav-item {
   opacity: 0;
+}
+
+.navbar.navbar-loaded .nav-links .nav-item {
   animation: fadeInElement 0.6s ease-out forwards;
 }
 
-.nav-links .nav-item:nth-child(1) { animation-delay: 1.1s; }
-.nav-links .nav-item:nth-child(2) { animation-delay: 1.2s; }
-.nav-links .nav-item:nth-child(3) { animation-delay: 1.3s; }
-.nav-links .nav-item:nth-child(4) { animation-delay: 1.4s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(1) { animation-delay: 1.1s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(2) { animation-delay: 1.2s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(3) { animation-delay: 1.3s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(4) { animation-delay: 1.4s; }
 
 /* 右侧元素逐个淡入 */
 .right-section .login-btn {
   opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .login-btn {
   animation: fadeInElement 0.6s ease-out forwards;
   animation-delay: 1.3s;
 }
 
 .right-section .language-switch {
   opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .language-switch {
   animation: fadeInElement 0.6s ease-out forwards;
   animation-delay: 1.4s;
 }
 
 .right-section .hamburger {
   opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .hamburger {
   animation: fadeInElement 0.6s ease-out forwards;
   animation-delay: 1.4s;
 }
