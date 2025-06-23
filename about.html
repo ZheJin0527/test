@@ -280,68 +280,108 @@ window.addEventListener('resize', moveLoginBtn);
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      const container = entry.target;
+
       if (entry.isIntersecting) {
-        const container = entry.target;
-
-        // 1. 特别处理 aboutus-content：触发后延迟再触发 intro-content
-        if (container.classList.contains('aboutus-content')) {
-          container.classList.add('visible');
-          container.querySelectorAll('.fade-in-up').forEach(el => {
-            el.style.animationPlayState = 'running';
-          });
-          observer.unobserve(container); // 不再监听
-
-          // 延迟触发 intro-content（手动触发）
-          setTimeout(() => {
-            const intro = document.querySelector('.intro-content');
-            if (intro) {
-              intro.classList.add('visible');
-              intro.querySelectorAll('.fade-in-up').forEach(el => {
-                el.style.animationPlayState = 'running';
-              });
-              observer.unobserve(intro); // 确保 intro-content 不重复触发
-            }
-          }, 1000); // 延迟时间，可根据实际动画时长调整
-          return; // 提前退出，避免重复处理
-        }
-
-        // 2. 忽略 intro-content（已手动触发，不重复自动触发）
-        if (container.classList.contains('intro-content')) {
-          return;
-        }
-
-        // 3. 其他元素照常触发动画
         container.classList.add('visible');
-        container.querySelectorAll('.fade-in-up').forEach(el => {
+
+        container.querySelectorAll('.scale-fade-in').forEach(el => {
+          el.style.animation = 'none'; // 重置动画
+          el.offsetHeight; // 触发重绘
+          el.style.animation = ''; // 重新应用 CSS 动画
           el.style.animationPlayState = 'running';
         });
-        observer.unobserve(container);
+
+      } else {
+        container.classList.remove('visible');
+
+        container.querySelectorAll('.scale-fade-in').forEach(el => {
+          el.style.animation = 'none'; // 停止当前动画
+          el.style.opacity = '0'; // 恢复初始状态
+          el.style.transform = 'translateY(20px)';
+          el.offsetHeight; // 强制回流
+          el.style.animation = '';
+          el.style.animationPlayState = 'paused';
+        });
       }
     });
   }, {
     threshold: 0.2
   });
 
-  // 初始化：暂停 .fade-in-up 的动画，开始监听
+  // 初始化：暂停动画并设置初始状态
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
-    container.querySelectorAll('.fade-in-up').forEach(el => {
+    container.querySelectorAll('.scale-fade-in').forEach(el => {
       el.style.animationPlayState = 'paused';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
     });
     observer.observe(container);
   });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-  const swiper = new Swiper('.swiper', {
+        // 恢复到你原来的配置，只添加最小的修改
+const swiper = new Swiper('.swiper', {
     direction: 'vertical',
     mousewheel: true,
-    speed: 800, // 动画滑动时间，单位是毫秒，1000 = 1秒
+    speed: 800,
+    simulateTouch: false,
     pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
+        el: '.swiper-pagination',
+        clickable: true,
     },
-  });
-</script>
+    // 添加这个配置来处理不同高度的slide
+    slidesPerView: 'auto',
+    spaceBetween: 0,
+    on: {
+        slideChange: function() {
+            // 更新页面指示器
+            updatePageIndicator(this.activeIndex);
+        },
+        // 添加这个事件来处理最后一页的特殊情况
+        reachEnd: function() {
+            // 确保最后一页正确显示
+            this.allowTouchMove = true;
+        },
+        // 添加进度监听来处理最后一页的双向滑动
+        setTransition: function(duration) {
+            // 在过渡结束后检查进度
+            setTimeout(() => {
+                if (this.progress > 0.95) {
+                    updatePageIndicator(3); // 滑到最后一页
+                } else {
+                    updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
+                }
+            }, duration + 50);
+        }
+    }
+});
+
+// 页面指示器功能
+const pageDots = document.querySelectorAll('.page-dot');
+
+// 点击圆点跳转到对应页面
+pageDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        swiper.slideTo(index);
+    });
+});
+
+// 更新页面指示器状态
+function updatePageIndicator(activeIndex) {
+    pageDots.forEach((dot, index) => {
+        if (index === activeIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// 初始化页面指示器
+updatePageIndicator(0);
+    </script>
 <script>
   window.addEventListener('load', () => {
     // 创建一个虚拟图片对象检测背景图是否加载完成
