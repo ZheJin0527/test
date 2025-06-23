@@ -129,12 +129,12 @@
 
 /* 首页所有元素统一,延迟1秒后开始1.6s动画 */
 .home-content .scale-fade-in {
-  animation-delay: 0.8s;
+  animation-delay: 1s;
 }
 
 /* 装饰线条也使用相同的1秒延迟 */
 .home-content .decor-line.scale-fade-in {
-  animation-delay: 0.8s;
+  animation-delay: 1s;
 }
 
 /* 装饰线条使用相同的从中间放大效果 */
