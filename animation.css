@@ -507,17 +507,9 @@ img.image-3d-rotate:hover,
     transition-delay: 1s; /* 延迟1秒开始，持续3秒 */
 }
 
-/* 初始状态 - 隐藏社交侧边栏 */
-.social-sidebar {
-  opacity: 0;
-  transform: translateX(-100%);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
 /* 加载完成后显示 */
 .social-sidebar.social-loaded {
   opacity: 1;
-  transform: translateX(0);
 }
 
 /* 可选：添加延迟效果，让每个图标依次出现 */
