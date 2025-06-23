@@ -543,3 +543,41 @@ img.image-3d-rotate:hover,
     transform: translateX(0);
   }
 }
+
+/* 加载完成后显示 */
+.page-indicator.indicator-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 可选：添加每个点的依次出现效果 */
+.page-indicator.indicator-loaded .page-dot {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

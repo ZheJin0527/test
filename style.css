@@ -1369,6 +1369,8 @@ nav {
     backdrop-filter: blur(12px) saturate(160%);
     -webkit-backdrop-filter: blur(12px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.15); /* 轻微边框提升质感 */
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .page-dot {

@@ -386,6 +386,9 @@ updatePageIndicator(0);
       
       // 显示社交侧边栏
       document.querySelector('.social-sidebar').classList.add('social-loaded');
+      
+      // 显示页面指示器
+      document.querySelector('.page-indicator').classList.add('indicator-loaded');
     };
   });
 </script>
