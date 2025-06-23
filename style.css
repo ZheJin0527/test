@@ -1441,6 +1441,7 @@ nav {
     gap: 12px;
     z-index: 1000;
     opacity: 0;
+    visibility: hidden;
 }
 
 .social-icon {

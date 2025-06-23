@@ -510,6 +510,7 @@ img.image-3d-rotate:hover,
 /* 加载完成后显示 */
 .social-sidebar.social-loaded {
   opacity: 1;
+  visibility: visible;
 }
 
 /* 可选：添加延迟效果，让每个图标依次出现 */
