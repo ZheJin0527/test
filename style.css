@@ -1764,7 +1764,7 @@ nav {
 }
 
 .aboutus-intro {
-  background-color: white;
+  background: url('images/images/背景4.png') no-repeat center center/cover;
   padding: 60px 20px;
   display: flex;
   justify-content: center;
