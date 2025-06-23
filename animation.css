@@ -378,7 +378,7 @@ img.image-3d-rotate:hover,
 /* 只有当添加了 navbar-loaded 类后才开始动画 */
 .navbar.navbar-loaded {
   animation: navbarFadeIn 1.2s ease-out forwards;
-  animation-delay: 0.5s; /* 延迟0.5秒开始 */
+  animation-delay: 0.3s; /* 延迟0.3秒开始 */
 }
 
 @keyframes navbarFadeIn {
@@ -399,7 +399,7 @@ img.image-3d-rotate:hover,
 
 .navbar.navbar-loaded .logo-section {
   animation: fadeInElement 0.8s ease-out forwards;
-  animation-delay: 0.8s; /* logo先出现 */
+  animation-delay: 0.6s; /* logo先出现 */
 }
 
 .navbar .nav-links {
@@ -408,7 +408,7 @@ img.image-3d-rotate:hover,
 
 .navbar.navbar-loaded .nav-links {
   animation: fadeInElement 0.8s ease-out forwards;
-  animation-delay: 1.0s; /* 导航菜单稍后出现 */
+  animation-delay: 0.8s; /* 导航菜单稍后出现 */
 }
 
 .navbar .right-section {
@@ -417,7 +417,7 @@ img.image-3d-rotate:hover,
 
 .navbar.navbar-loaded .right-section {
   animation: fadeInElement 0.8s ease-out forwards;
-  animation-delay: 1.2s; /* 右侧区域最后出现 */
+  animation-delay: 1.0s; /* 右侧区域最后出现 */
 }
 
 @keyframes fadeInElement {
@@ -440,10 +440,10 @@ img.image-3d-rotate:hover,
   animation: fadeInElement 0.6s ease-out forwards;
 }
 
-.navbar.navbar-loaded .nav-links .nav-item:nth-child(1) { animation-delay: 1.1s; }
-.navbar.navbar-loaded .nav-links .nav-item:nth-child(2) { animation-delay: 1.2s; }
-.navbar.navbar-loaded .nav-links .nav-item:nth-child(3) { animation-delay: 1.3s; }
-.navbar.navbar-loaded .nav-links .nav-item:nth-child(4) { animation-delay: 1.4s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(1) { animation-delay: 0.9s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(2) { animation-delay: 1.0s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(3) { animation-delay: 1.1s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(4) { animation-delay: 1.2s; }
 
 /* 右侧元素逐个淡入 */
 .right-section .login-btn {
@@ -452,7 +452,7 @@ img.image-3d-rotate:hover,
 
 .navbar.navbar-loaded .right-section .login-btn {
   animation: fadeInElement 0.6s ease-out forwards;
-  animation-delay: 1.3s;
+  animation-delay: 1.1s;
 }
 
 .right-section .language-switch {
@@ -461,7 +461,7 @@ img.image-3d-rotate:hover,
 
 .navbar.navbar-loaded .right-section .language-switch {
   animation: fadeInElement 0.6s ease-out forwards;
-  animation-delay: 1.4s;
+  animation-delay: 1.2s;
 }
 
 .right-section .hamburger {
@@ -470,5 +470,5 @@ img.image-3d-rotate:hover,
 
 .navbar.navbar-loaded .right-section .hamburger {
   animation: fadeInElement 0.6s ease-out forwards;
-  animation-delay: 1.4s;
+  animation-delay: 1.2s;
 }
