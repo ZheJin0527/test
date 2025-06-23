@@ -492,7 +492,7 @@ img.image-3d-rotate:hover,
 /* 当添加loaded类时，渐变开始显示 */
 .home.gradient-loaded::before {
     opacity: 1;
-    transition-delay: 0.5s; /* 延迟0.5秒开始 */
+    transition-delay: 0.2s; /* 延迟0.5秒开始 */
 }
 
 /* 确保home-content在渐变层之上 */
