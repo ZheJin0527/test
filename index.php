@@ -383,6 +383,9 @@ updatePageIndicator(0);
 
       // 启动navbar动画 - 添加一个CSS类来触发动画
       document.querySelector('.navbar').classList.add('navbar-loaded');
+      
+      // 显示社交侧边栏
+      document.querySelector('.social-sidebar').classList.add('social-loaded');
     };
   });
 </script>
