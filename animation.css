@@ -486,7 +486,7 @@ img.image-3d-rotate:hover,
     background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%);
     opacity: 0; /* 初始透明 */
     z-index: 1;
-    transition: opacity 2s ease-in-out; /* 2秒渐变过渡 */
+    transition: opacity 0.8s ease-in-out; /* 2秒渐变过渡 */
 }
 
 /* 当添加loaded类时，渐变开始显示 */
