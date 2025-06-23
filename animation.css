@@ -356,10 +356,12 @@ img.image-3d-rotate:hover,
   transform-origin: center;
   transform-style: preserve-3d;
 }
+
 .rotate-3d-full.visible {
   opacity: 1 !important;
   transform: perspective(1000px) rotateY(0deg) scale(1) !important;
 }
+
 .rotate-3d-full:not(.visible) { 
   transition-delay: 0s !important; 
 }
