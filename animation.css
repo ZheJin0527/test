@@ -463,12 +463,3 @@ img.image-3d-rotate:hover,
   animation: fadeInElement 0.6s ease-out forwards;
   animation-delay: 1.2s;
 }
-
-.right-section .hamburger {
-  opacity: 0;
-}
-
-.navbar.navbar-loaded .right-section .hamburger {
-  animation: fadeInElement 0.6s ease-out forwards;
-  animation-delay: 1.2s;
-}
