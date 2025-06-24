@@ -574,24 +574,22 @@ img.image-3d-rotate:hover,
   }
 }
 
-/* ========== About Banner 从下到上动画 ========== */
+/* ========== About Banner 慢慢淡入显示 ========== */
 .aboutus-banner {
-  /* 初始状态：隐藏并位于屏幕下方 */
+  /* 初始状态：隐藏 */
   opacity: 0;
-  transform: translateY(100vh);
-  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: opacity 1.5s ease-out;
 }
 
 /* Banner 加载完成显示状态 */
 .aboutus-banner.banner-loaded {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* Banner 内容初始隐藏 */
-.aboutus-content {
+.aboutus-banner .aboutus-content {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(30px);
   transition: all 0.8s ease-out;
 }
 
@@ -599,14 +597,14 @@ img.image-3d-rotate:hover,
 .aboutus-banner.banner-loaded .aboutus-content {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.6s; /* Banner 出现后延迟显示内容 */
+  transition-delay: 0.5s; /* Banner 显示后延迟显示内容 */
 }
 
 /* Banner 标题和描述的渐进动画 */
-.aboutus-content h1,
-.aboutus-content p {
+.aboutus-banner .aboutus-content h1,
+.aboutus-banner .aboutus-content p {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px);
   transition: all 0.8s ease-out;
 }
 
@@ -625,7 +623,7 @@ img.image-3d-rotate:hover,
 /* ========== About Intro 延迟显示动画 ========== */
 .aboutus-intro {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(30px);
   transition: all 1.0s ease-out;
 }
 
@@ -635,15 +633,14 @@ img.image-3d-rotate:hover,
   transform: translateY(0);
 }
 
-/* Intro 内容初始隐藏 */
-.intro-content h1,
-.intro-content p {
+/* Intro 内容渐进动画 */
+.aboutus-intro .intro-content h1,
+.aboutus-intro .intro-content p {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px);
   transition: all 0.8s ease-out;
 }
 
-/* Intro 内容显示动画 */
 .aboutus-intro.intro-loaded .intro-content h1 {
   opacity: 1;
   transform: translateY(0);
