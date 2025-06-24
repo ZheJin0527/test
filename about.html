@@ -478,44 +478,99 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-  window.addEventListener('load', () => {
-    // 加载两张图片
-    const bgImg1 = new Image();
-    const bgImg2 = new Image();
-    let loadedCount = 0;
-
-    function checkAllLoaded() {
-      loadedCount++;
-      if (loadedCount === 2) {
-        // 两张都加载完成后才执行动画
-        document.querySelector('.aboutus-banner').classList.add('banner-loaded');
-        document.querySelector('.aboutus-intro').classList.add('intro-loaded');
-
-        // 显示关于我们部分内容
-        document.querySelector('.aboutus-content').classList.remove('hidden');
-        document.querySelector('.intro-content').classList.remove('hidden');
-
-        // 强制触发重绘
-        void document.querySelector('.aboutus-content').offsetWidth;
-        void document.querySelector('.intro-content').offsetWidth;
-
-        // 触发 navbar 动画
-        document.querySelector('.navbar').classList.add('navbar-loaded');
-
-        // 显示社交侧边栏和页面指示器
-        document.querySelector('.social-sidebar').classList.add('social-loaded');
-        document.querySelector('.page-indicator').classList.add('indicator-loaded');
-      }
+  // 改进版本：更可靠的图片预加载和动画控制
+document.addEventListener('DOMContentLoaded', function() {
+  // 确保所有文字元素初始隐藏
+  const banner = document.querySelector('.aboutus-banner');
+  const intro = document.querySelector('.aboutus-intro');
+  
+  // 强制设置初始状态
+  if (banner) {
+    banner.classList.remove('banner-loaded');
+    const bannerContent = banner.querySelector('.aboutus-content');
+    if (bannerContent) {
+      bannerContent.classList.add('hidden');
     }
+  }
+  
+  if (intro) {
+    intro.classList.remove('intro-loaded');
+    const introContent = intro.querySelector('.intro-content');
+    if (introContent) {
+      introContent.classList.add('hidden');
+    }
+  }
 
-    // 第一张背景图
-    bgImg1.src = "images/images/关于我们bg.jpg";
-    bgImg1.onload = checkAllLoaded;
+  // 图片预加载函数
+  function preloadImages(urls) {
+    return Promise.all(urls.map(url => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(url);
+        img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+        img.src = url;
+      });
+    }));
+  }
 
-    // 第二张背景图
-    bgImg2.src = "images/images/背景3.jpg";
-    bgImg2.onload = checkAllLoaded;
-  });
+  // 启动动画的函数
+  function startAnimations() {
+    console.log('所有图片加载完成，开始动画');
+    
+    // 显示内容
+    const bannerContent = document.querySelector('.aboutus-content');
+    const introContent = document.querySelector('.intro-content');
+    
+    if (bannerContent) bannerContent.classList.remove('hidden');
+    if (introContent) introContent.classList.remove('hidden');
+
+    // 强制重绘
+    if (bannerContent) void bannerContent.offsetWidth;
+    if (introContent) void introContent.offsetWidth;
+
+    // 使用 setTimeout 确保 DOM 更新后再添加动画类
+    setTimeout(() => {
+      if (banner) banner.classList.add('banner-loaded');
+      if (intro) intro.classList.add('intro-loaded');
+
+      // 触发其他动画
+      const navbar = document.querySelector('.navbar');
+      const socialSidebar = document.querySelector('.social-sidebar');
+      const pageIndicator = document.querySelector('.page-indicator');
+
+      if (navbar) navbar.classList.add('navbar-loaded');
+      if (socialSidebar) socialSidebar.classList.add('social-loaded');
+      if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
+    }, 100); // 100ms 延迟确保 DOM 更新
+  }
+
+  // 图片URLs
+  const imageUrls = [
+    "images/images/关于我们bg.jpg",
+    "images/images/背景3.jpg"
+  ];
+
+  // 开始预加载
+  console.log('开始预加载图片...');
+  preloadImages(imageUrls)
+    .then(() => {
+      startAnimations();
+    })
+    .catch(error => {
+      console.error('图片加载失败:', error);
+      // 即使图片加载失败，也显示内容（可选）
+      startAnimations();
+    });
+});
+
+// 备用方案：如果 DOMContentLoaded 已经触发
+if (document.readyState === 'loading') {
+  // 文档还在加载中，事件监听器会正常工作
+} else {
+  // 文档已经加载完成，直接执行
+  console.log('文档已加载完成，直接执行预加载');
+  // 这里可以直接调用上面的逻辑
+}
 </script>
 
 <script>
