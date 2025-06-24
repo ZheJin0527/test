@@ -479,13 +479,6 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-    // 确保在开始之前移除可能已存在的类
-    const banner = document.querySelector('.aboutus-banner');
-    const intro = document.querySelector('.aboutus-intro');
-    
-    if (banner) banner.classList.remove('banner-loaded');
-    if (intro) intro.classList.remove('intro-loaded');
-
     // 加载两张图片
     const bgImg1 = new Image();
     const bgImg2 = new Image();
@@ -493,58 +486,38 @@ updatePageIndicator(0);
 
     function checkAllLoaded() {
       loadedCount++;
-      console.log(`图片加载完成: ${loadedCount}/2`);
-      
       if (loadedCount === 2) {
-        console.log('所有图片加载完成，开始动画');
-        
-        // 小延迟确保DOM准备就绪
-        setTimeout(() => {
-          // 两张都加载完成后才执行动画
-          if (banner) banner.classList.add('banner-loaded');
-          if (intro) intro.classList.add('intro-loaded');
+        // 两张都加载完成后才执行动画
+        document.querySelector('.aboutus-banner').classList.add('banner-loaded');
+        document.querySelector('.aboutus-intro').classList.add('intro-loaded');
 
-          // 显示关于我们部分内容
-          const aboutusContent = document.querySelector('.aboutus-content');
-          const introContent = document.querySelector('.intro-content');
-          
-          if (aboutusContent) aboutusContent.classList.remove('hidden');
-          if (introContent) introContent.classList.remove('hidden');
+        // 显示关于我们部分内容
+        document.querySelector('.aboutus-content').classList.remove('hidden');
+        document.querySelector('.intro-content').classList.remove('hidden');
 
-          // 强制触发重绘
-          if (aboutusContent) void aboutusContent.offsetWidth;
-          if (introContent) void introContent.offsetWidth;
+        // 强制触发重绘
+        void document.querySelector('.aboutus-content').offsetWidth;
+        void document.querySelector('.intro-content').offsetWidth;
 
-          // 触发其他动画
-          const navbar = document.querySelector('.navbar');
-          const socialSidebar = document.querySelector('.social-sidebar');
-          const pageIndicator = document.querySelector('.page-indicator');
+        // 触发 navbar 动画
+        document.querySelector('.navbar').classList.add('navbar-loaded');
 
-          if (navbar) navbar.classList.add('navbar-loaded');
-          if (socialSidebar) socialSidebar.classList.add('social-loaded');
-          if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
-        }, 100);
+        // 显示社交侧边栏和页面指示器
+        document.querySelector('.social-sidebar').classList.add('social-loaded');
+        document.querySelector('.page-indicator').classList.add('indicator-loaded');
       }
-    }
-
-    function handleImageError(imageName) {
-      console.error(`图片加载失败: ${imageName}`);
-      checkAllLoaded(); // 即使失败也继续，避免卡住
     }
 
     // 第一张背景图
     bgImg1.src = "images/images/关于我们bg.jpg";
     bgImg1.onload = checkAllLoaded;
-    bgImg1.onerror = () => handleImageError('关于我们bg.jpg');
 
     // 第二张背景图
     bgImg2.src = "images/images/背景3.jpg";
     bgImg2.onload = checkAllLoaded;
-    bgImg2.onerror = () => handleImageError('背景3.jpg');
-    
-    console.log('开始预加载图片...');
   });
 </script>
+
 <script>
         let currentIndex = 0;
         const totalItems = 3;
