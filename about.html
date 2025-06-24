@@ -344,17 +344,39 @@ const aboutObserver = new IntersectionObserver((entries) => {
         target.classList.add('intro-loaded');
       }
     } else {
-      // 离开视窗时移除动画类，重置状态
+      // 离开视窗时立即重置状态，避免延迟残留
       if (target.classList.contains('aboutus-banner')) {
         target.classList.remove('banner-loaded');
       } else if (target.classList.contains('aboutus-intro')) {
         target.classList.remove('intro-loaded');
+        
+        // 强制重置 intro 内容状态，避免阴影残留
+        const h1 = target.querySelector('.intro-content h1');
+        const p = target.querySelector('.intro-content p');
+        
+        if (h1) {
+          h1.style.transitionDelay = '0s';
+          h1.style.opacity = '0';
+          h1.style.transform = 'translateY(20px)';
+        }
+        
+        if (p) {
+          p.style.transitionDelay = '0s';
+          p.style.opacity = '0';
+          p.style.transform = 'translateY(20px)';
+        }
+        
+        // 清理内联样式，让CSS重新接管
+        setTimeout(() => {
+          if (h1) h1.style.transitionDelay = '';
+          if (p) p.style.transitionDelay = '';
+        }, 50);
       }
     }
   });
 }, {
   threshold: 0.2,
-  rootMargin: '0px 0px -10% 0px' // 稍微延迟触发，避免频繁切换
+  rootMargin: '0px 0px -5% 0px' // 减少 margin 让触发更精确
 });
 
 // 通用的 animate-on-scroll observer（保持原有逻辑）
