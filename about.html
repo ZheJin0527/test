@@ -314,22 +314,29 @@ window.addEventListener('resize', moveLoginBtn);
       const container = entry.target;
 
       if (entry.isIntersecting) {
+        // 进入视窗时触发从下往上动画
         container.classList.add('visible');
 
-        container.querySelectorAll('.scale-fade-in').forEach(el => {
+        container.querySelectorAll('.slide-up-from-bottom').forEach((el, index) => {
           el.style.animation = 'none'; // 重置动画
           el.offsetHeight; // 触发重绘
-          el.style.animation = ''; // 重新应用 CSS 动画
+          
+          // 设置延迟，让元素按顺序从下往上出现
+          const delay = index * 0.2; // 每个元素延迟0.2秒
+          el.style.animationDelay = `${delay}s`;
+          el.style.animation = 'slideUpFromBottom 0.8s ease-out forwards';
           el.style.animationPlayState = 'running';
         });
 
       } else {
+        // 离开视窗时重置为下面的隐藏状态
         container.classList.remove('visible');
 
-        container.querySelectorAll('.scale-fade-in').forEach(el => {
+        container.querySelectorAll('.slide-up-from-bottom').forEach(el => {
           el.style.animation = 'none'; // 停止当前动画
           el.style.opacity = '0'; // 恢复初始状态
-          el.style.transform = 'translateY(20px)';
+          el.style.transform = 'translateY(50px)'; // 回到下面的位置
+          el.style.animationDelay = '0s'; // 重置延迟
           el.offsetHeight; // 强制回流
           el.style.animation = '';
           el.style.animationPlayState = 'paused';
@@ -337,15 +344,16 @@ window.addEventListener('resize', moveLoginBtn);
       }
     });
   }, {
-    threshold: 0.2
+    threshold: 0.2, // 当20%的元素进入视窗时触发
+    rootMargin: '0px 0px -50px 0px' // 稍微提前触发动画
   });
 
-  // 初始化：暂停动画并设置初始状态
+  // 初始化：暂停动画并设置初始状态（在下面）
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
-    container.querySelectorAll('.scale-fade-in').forEach(el => {
+    container.querySelectorAll('.slide-up-from-bottom').forEach(el => {
       el.style.animationPlayState = 'paused';
       el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
+      el.style.transform = 'translateY(50px)'; // 初始位置在下面
     });
     observer.observe(container);
   });
