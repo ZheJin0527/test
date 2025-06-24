@@ -576,80 +576,80 @@ img.image-3d-rotate:hover,
 
 /* ========== About Banner 可重复触发动画 ========== */
 .aboutus-banner {
-  /* 初始状态：完全隐藏，等待JS控制 */
-  opacity: 0 !important;
+  /* 初始状态：隐藏 */
+  opacity: 0;
   transition: opacity 0.8s ease-out;
 }
 
 /* Banner 加载完成显示状态 */
 .aboutus-banner.banner-loaded {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 /* Banner 内容初始隐藏 */
 .aboutus-banner .aboutus-content {
-  opacity: 0 !important;
-  transform: translateY(30px) !important;
+  opacity: 0;
+  transform: translateY(30px);
   transition: all 0.4s ease-out;
 }
 
 /* Banner 内容显示动画 */
 .aboutus-banner.banner-loaded .aboutus-content {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  opacity: 1;
+  transform: translateY(0);
   transition-delay: 0.2s;
 }
 
 /* Banner 标题和描述的渐进动画 */
 .aboutus-banner .aboutus-content h1,
 .aboutus-banner .aboutus-content p {
-  opacity: 0 !important;
-  transform: translateY(20px) !important;
+  opacity: 0;
+  transform: translateY(20px);
   transition: all 1s ease-out;
 }
 
 .aboutus-banner.banner-loaded .aboutus-content h1 {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  opacity: 1;
+  transform: translateY(0);
   transition-delay: 0.3s;
 }
 
 .aboutus-banner.banner-loaded .aboutus-content p {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  opacity: 1;
+  transform: translateY(0);
   transition-delay: 0.4s;
 }
 
 /* ========== About Intro 可重复触发动画 ========== */
 .aboutus-intro {
-  opacity: 0 !important;
-  transform: translateY(30px) !important;
+  opacity: 0;
+  transform: translateY(30px);
   transition: all 0.5s ease-out;
 }
 
 /* Intro 显示状态 */
 .aboutus-intro.intro-loaded {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Intro 内容渐进动画 - 恢复原来的延迟时间 */
 .aboutus-intro .intro-content h1,
 .aboutus-intro .intro-content p {
-  opacity: 0 !important;
-  transform: translateY(20px) !important;
+  opacity: 0;
+  transform: translateY(20px);
   transition: all 1s ease-out;
 }
 
 .aboutus-intro.intro-loaded .intro-content h1 {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  opacity: 1;
+  transform: translateY(0);
   transition-delay: 0.7s;
 }
 
 .aboutus-intro.intro-loaded .intro-content p {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  opacity: 1;
+  transform: translateY(0);
   transition-delay: 0.9s;
 }
 

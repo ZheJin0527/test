@@ -479,31 +479,17 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-    // 需要加载的背景图片数组
-    const backgroundImages = [
-      "images/images/关于我们bg.jpg",
-      "images/images/背景3.jpg"
-    ];
-    
-    let loadedCount = 0;
-    const totalImages = backgroundImages.length;
-    
-    // 检查所有图片是否加载完成
-    function checkAllImagesLoaded() {
-      loadedCount++;
+    // 创建一个虚拟图片对象检测背景图是否加载完成
+    const bgImg = new Image();
+    bgImg.src = "images/images/关于我们bg.jpg";
+
+    bgImg.onload = function () {
       
-      // 只有当所有图片都加载完成时才开始动画
-      if (loadedCount === totalImages) {
-        startAboutAnimations();
-      }
-    }
-    
-    // 开始About页面动画的函数
-    function startAboutAnimations() {
-      // 直接开始动画，无延迟
+      // 第一步：About Banner 从下到上滑入
       document.querySelector('.aboutus-banner').classList.add('banner-loaded');
-      document.querySelector('.aboutus-intro').classList.add('intro-loaded');
       
+      document.querySelector('.aboutus-intro').classList.add('intro-loaded');
+
       // 显示关于我们部分的内容（保持原有逻辑）
       document.querySelector('.aboutus-content').classList.remove('hidden');
       document.querySelector('.intro-content').classList.remove('hidden');
@@ -520,15 +506,7 @@ updatePageIndicator(0);
       
       // 显示页面指示器
       document.querySelector('.page-indicator').classList.add('indicator-loaded');
-    }
-    
-    // 为每张图片创建Image对象并监听加载完成事件
-    backgroundImages.forEach(imageSrc => {
-      const img = new Image();
-      img.onload = checkAllImagesLoaded;
-      img.onerror = checkAllImagesLoaded; // 即使加载失败也继续，避免卡住
-      img.src = imageSrc;
-    });
+    };
   });
 </script>
 <script>
