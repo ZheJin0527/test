@@ -151,69 +151,104 @@
   </div>
 
   <div class="swiper-slide">
-  <section class="timeline-container" id="timeline-1">
-    <div class="timeline-header">
-      <h2 class="timeline-header_title">发展历史</h2>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item" data-year="2023">
-        <div class="timeline_content">
-          <img class="timeline_img" src="images/images/2023发展.jpg" alt="2023发展" />
-          <h2 class="timeline_content-title">2023</h2>
-          <p class="timeline_content-desc">Kunzz Holdings 成立，确立发展方向。</p>
+  <section class="timeline-section">
+        <h1>— 我们的发展历史 —</h1>
+        
+        <!-- 横向时间线导航 -->
+        <div class="timeline-nav">
+            <div class="timeline-line"></div>
+            <div class="nav-arrow prev" onclick="navigateTimeline('prev')">‹</div>
+            <div class="nav-arrow next" onclick="navigateTimeline('next')">›</div>
+            
+            <div class="timeline-nav-container">
+                <div class="timeline-nav-item active" data-year="2023">
+                    <div class="timeline-bullet">2023</div>
+                </div>
+                <div class="timeline-nav-item" data-year="2024">
+                    <div class="timeline-bullet">2024</div>
+                </div>
+                <div class="timeline-nav-item" data-year="2025">
+                    <div class="timeline-bullet">2025</div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="timeline-item" data-year="2024">
-        <div class="timeline_content">
-          <img class="timeline_img" src="images/images/2024发展.jpg" alt="2024发展" />
-          <h2 class="timeline_content-title">2024</h2>
-          <p class="timeline_content-desc">拓展业务，新增子公司，提升市场影响力。</p>
-        </div>
-      </div>
-      <div class="timeline-item" data-year="2025">
-        <div class="timeline_content">
-          <img class="timeline_img" src="images/images/2025发展.jpg" alt="2025发展" />
-          <h2 class="timeline_content-title">2025</h2>
-          <p class="timeline_content-desc">计划进入国际市场，推动品牌全球化。</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="scroll-buffer">
-  <footer class="footer">
-    <div class="footer-logo">
-      <img src="images/images/KUNZZ.png" alt="Kunzz Logo" class="footer-logo-img" />
-      <p>25, Jln Tanjong 3, Taman Desa <br />
-        Cemerlang, 81800 Ulu Tiram,  <br />
-        Johor Darul Ta'zim.</p>
-      <p>📞&nbsp; +60 123-456 789<br />
-        <span style="white-space: nowrap;">📧&nbsp; kunzzholdings@gmail.com</span></p>
-    </div>
+        <!-- 内容区域 -->
+        <div class="timeline-content-container">
+            <!-- 2023年内容 -->
+            <div class="timeline-content-item active" data-year="2023">
+                <div class="timeline-content">
+                    <div class="timeline-image">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop" alt="公司成立">
+                    </div>
+                    <div class="timeline-text">
+                        <div class="year-badge">2023年</div>
+                        <h3>梦想起航</h3>
+                        <p>在这个充满希望的年份，我们的创始团队怀着改变世界的梦想，在一间小小的办公室里开始了我们的创业之路。</p>
+                        <p>虽然起步艰难，但我们坚信技术能够创造更美好的未来，这份初心至今仍指引着我们前进的方向。从最初的想法到第一行代码，每一步都充满了挑战与机遇。</p>
+                    </div>
+                </div>
+            </div>
 
+            <!-- 2024年内容 -->
+            <div class="timeline-content-item" data-year="2024">
+                <div class="timeline-content">
+                    <div class="timeline-image">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" alt="团队扩张">
+                    </div>
+                    <div class="timeline-text">
+                        <div class="year-badge">2024年</div>
+                        <h3>团队壮大</h3>
+                        <p>经过四年的努力，我们的团队从最初的5人发展到50多人的规模，同时获得了第一轮天使投资。</p>
+                        <p>这一年，我们推出了第一个重要产品，在市场上获得了积极的反响，为公司未来的发展奠定了坚实的基础。团队文化也在这一年正式确立。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2025年内容 -->
+            <div class="timeline-content-item" data-year="2025">
+                <div class="timeline-content">
+                    <div class="timeline-image">
+                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=400&fit=crop" alt="规范化管理">
+                    </div>
+                    <div class="timeline-text">
+                        <div class="year-badge">2025年</div>
+                        <h3>规范化管理</h3>
+                        <p>正式设立集团管控体系，走向正规餐饮管理与规划。建立了标准化的运营流程和质量管理体系。</p>
+                        <p>这一重要转折点标志着我们从初创企业向成熟企业的转变，为后续的快速发展打下了坚实的管理基础。引入了现代化的办公环境和工作流程。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+  </div>
+
+  <div class="swiper-slide footer-slide">
+    <section class="scroll-buffer">
+    <footer class="footer">
     <div class="footer-section">
       <h4><a href="index.php">首页</a></h4>
       <ul>
-        <li><a href="index.php#comprofile">公司简介</a></li>
-        <li><a href="index.php#culture">核心价值公司文化</a></li>
-        <li><a href="index.php#brands">旗下品牌</a></li>
+        <li><a href="#comprofile">公司简介</a></li>
+        <li><a href="#culture">公司文化</a></li>
+        <li><a href="#brands">旗下品牌</a></li>
       </ul>
     </div>
 
     <div class="footer-section">
       <h4><a href="about.html">关于我们</a></h4>
       <ul>
-        <li><a href="#intro">集团简介</a></li>
-        <li><a href="#vision">信念与方向</a></li>
-        <li><a href="#values">核心价值观</a></li>
-        <li><a href="#timeline-1">发展历史</a></li>
+        <li><a href="about.html#intro">集团简介</a></li>
+        <li><a href="about.html#vision">信念与方向</a></li>
+        <li><a href="about.html#values">核心价值观</a></li>
+        <li><a href="about.html#timeline-1">发展历史</a></li>
       </ul>
     </div>
 
     <div class="footer-section">
       <h4>旗下品牌</h4>
       <ul>
-        <li>TOKYO JAPANESE CUISINE</li>
+        <li>TOKYO JAPANESE </br>CUISINE</li>
       </ul>
     </div>
 
@@ -222,33 +257,22 @@
       <ul>
         <li>招聘</li>
         <li><a href="joinus.html#contact">联系我们</a></li>
-        <li>
-          <span style="font-size: 16px; font-weight: bold; color: white;">关注我们</span>
-          <div class="social-icons">
-            <a href="#" target="_blank">
-              <img src="images/images/fbicon.png" alt="Facebook" />
-            </a>
-            <a href="#" target="_blank">
-              <img src="images/images/igicon.png" alt="Instagram" />
-            </a>
-            <a href="#" target="_blank">
-              <img src="images/images/wsicon.png" alt="WhatsApp" />
-            </a>
-          </div>
-        </li>
+        
       </ul>
     </div>
   </footer>
 
   <button id="backToTop" onclick="scrollToTop()">&#8673;</button>
-
+  
   <div class="footer-bottom">
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
   </section>
   </div>
-  </div>
-</div>
+
+  
+  </div> <!-- 关闭 swiper-wrapper -->
+</div> <!-- 关闭 swiper -->
 
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -424,5 +448,55 @@ updatePageIndicator(0);
     };
   });
 </script>
+<script>
+        let currentIndex = 0;
+        const totalItems = 3;
+
+        function navigateTimeline(direction) {
+            if (direction === 'next') {
+                currentIndex = (currentIndex + 1) % totalItems;
+            } else {
+                currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+            }
+            
+            const years = ['2023', '2024', '2025'];
+            showTimelineItem(years[currentIndex]);
+        }
+
+        function showTimelineItem(year) {
+            // 移除所有活动状态
+            document.querySelectorAll('.timeline-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelectorAll('.timeline-content-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // 添加活动状态
+            document.querySelector(`[data-year="${year}"]`).classList.add('active');
+            document.querySelector(`.timeline-content-item[data-year="${year}"]`).classList.add('active');
+            
+            // 更新当前索引
+            const years = ['2023', '2024', '2025'];
+            currentIndex = years.indexOf(year);
+        }
+
+        // 点击导航项时切换
+        document.querySelectorAll('.timeline-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const year = item.getAttribute('data-year');
+                showTimelineItem(year);
+            });
+        });
+
+        // 键盘导航
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                navigateTimeline('prev');
+            } else if (e.key === 'ArrowRight') {
+                navigateTimeline('next');
+            }
+        });
+    </script>
 </body>
 </html>
