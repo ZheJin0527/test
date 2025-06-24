@@ -340,8 +340,8 @@ window.addEventListener('resize', moveLoginBtn);
 
         container.querySelectorAll('.scale-fade-in').forEach(el => {
           el.style.animation = 'none'; // 重置动画
-          el.offsetHeight; // 触发重绘（强制刷新）
-          el.style.animation = el.dataset.animation || ''; // 恢复之前设置的动画名
+          el.offsetHeight; // 触发重绘
+          el.style.animation = ''; // 重新应用 CSS 动画
           el.style.animationPlayState = 'running';
         });
 
@@ -352,7 +352,7 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animation = 'none'; // 停止当前动画
           el.style.opacity = '0'; // 恢复初始状态
           el.style.transform = 'translateY(20px)';
-          el.offsetHeight;
+          el.offsetHeight; // 强制回流
           el.style.animation = '';
           el.style.animationPlayState = 'paused';
         });
@@ -362,11 +362,9 @@ window.addEventListener('resize', moveLoginBtn);
     threshold: 0.2
   });
 
-  // 初始化：记录原本的 animation 动画名 + 初始状态
+  // 初始化：暂停动画并设置初始状态
   document.querySelectorAll('.animate-on-scroll').forEach(container => {
     container.querySelectorAll('.scale-fade-in').forEach(el => {
-      const computed = getComputedStyle(el);
-      el.dataset.animation = computed.animationName !== 'none' ? computed.animation : '';
       el.style.animationPlayState = 'paused';
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
