@@ -57,15 +57,15 @@
     <section class="aboutus-section">
     <div class="aboutus-banner">
       <div class="aboutus-content animate-on-scroll slide-in-left">
-        <h1 class="slide-up-from-bottom">关于我们</h1>
-        <p class="slide-up-from-bottom">深入了解 Kunzz Holdings 的初心与成长轨迹</p>
+        <h1 class="fade-in-up delay-1">关于我们</h1>
+        <p class="fade-in-up delay-2">深入了解 Kunzz Holdings 的初心与成长轨迹</p>
       </div>
     </div>
 
     <div class="aboutus-intro">
       <div class="intro-content animate-on-scroll slide-in-right">
-        <h1 class="slide-up-from-bottom">集团简介</h1>
-        <p class="slide-up-from-bottom">
+        <h1 class="fade-in-up delay-1">集团简介</h1>
+        <p class="fade-in-up delay-2">
           Kunzz Holdings 是一家以系统化管理的多元控股集团，总部位于马来西亚。<br>
           我们致力于整合资源、提升效率，为旗下多个公司提供战略支持与运营协同。<br>
           我们坚信，每一个品牌都值得被用心打造，每一个团队都拥有无限潜力。<br>
@@ -73,7 +73,7 @@
         </p>
       </div>
     </div>
-</section>
+    </section>
     </div>
   
     <div class="swiper-slide">
@@ -429,16 +429,13 @@ updatePageIndicator(0);
       void document.querySelector('.aboutus-content').offsetWidth;
       void document.querySelector('.intro-content').offsetWidth;
 
-      // 添加从下往上的动画类到关于我们横幅内容（替换scale-fade-in）
-      document.querySelector('.aboutus-content h1').classList.add('slide-up-fade-in');
-      document.querySelector('.aboutus-content p').classList.add('slide-up-fade-in-delay');
+      // 添加动画类到关于我们横幅内容
+      document.querySelector('.aboutus-content h1').classList.add('scale-fade-in');
+      document.querySelector('.aboutus-content p').classList.add('scale-fade-in');
 
-      // 延迟一点时间后再显示简介内容
-      setTimeout(() => {
-        // 添加从下往上的动画类到简介内容（替换scale-fade-in）
-        document.querySelector('.intro-content h1').classList.add('slide-up-fade-in');
-        document.querySelector('.intro-content p').classList.add('slide-up-fade-in-delay');
-      }, 800); // 0.8秒后开始intro动画
+      // 添加动画类到简介内容
+      document.querySelector('.intro-content h1').classList.add('scale-fade-in');
+      document.querySelector('.intro-content p').classList.add('scale-fade-in');
 
       // 启动navbar动画 - 添加一个CSS类来触发动画
       document.querySelector('.navbar').classList.add('navbar-loaded');
