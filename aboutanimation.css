@@ -643,11 +643,9 @@ img.image-3d-rotate:hover,
 .aboutus-intro.intro-loaded .intro-content h1 {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.15s;
 }
 
 .aboutus-intro.intro-loaded .intro-content p {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.25s;
 }
