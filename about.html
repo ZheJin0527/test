@@ -56,16 +56,16 @@
   <div class="swiper-slide">
     <section class="aboutus-section">
     <div class="aboutus-banner">
-      <div class="aboutus-content animate-on-scroll slide-in-left">
-        <h1 class="fade-in-up delay-1">关于我们</h1>
-        <p class="fade-in-up delay-2">深入了解 Kunzz Holdings 的初心与成长轨迹</p>
+      <div class="aboutus-content">
+        <h1>关于我们</h1>
+        <p>深入了解 Kunzz Holdings 的初心与成长轨迹</p>
       </div>
     </div>
 
     <div class="aboutus-intro">
-      <div class="intro-content animate-on-scroll slide-in-right">
-        <h1 class="fade-in-up delay-1">集团简介</h1>
-        <p class="fade-in-up delay-2">
+      <div class="intro-content">
+        <h1>集团简介</h1>
+        <p>
           Kunzz Holdings 是一家以系统化管理的多元控股集团，总部位于马来西亚。<br>
           我们致力于整合资源、提升效率，为旗下多个公司提供战略支持与运营协同。<br>
           我们坚信，每一个品牌都值得被用心打造，每一个团队都拥有无限潜力。<br>
@@ -73,7 +73,7 @@
         </p>
       </div>
     </div>
-    </section>
+</section>
     </div>
   
     <div class="swiper-slide">
@@ -421,7 +421,15 @@ updatePageIndicator(0);
 
     bgImg.onload = function () {
       
-      // 显示关于我们部分的内容
+      // 第一步：About Banner 从下到上滑入
+      document.querySelector('.aboutus-banner').classList.add('banner-loaded');
+      
+      // 第二步：1.5秒后显示 About Intro
+      setTimeout(() => {
+        document.querySelector('.aboutus-intro').classList.add('intro-loaded');
+      }, 1500);
+
+      // 显示关于我们部分的内容（保持原有逻辑）
       document.querySelector('.aboutus-content').classList.remove('hidden');
       document.querySelector('.intro-content').classList.remove('hidden');
 
@@ -429,11 +437,11 @@ updatePageIndicator(0);
       void document.querySelector('.aboutus-content').offsetWidth;
       void document.querySelector('.intro-content').offsetWidth;
 
-      // 添加动画类到关于我们横幅内容
+      // 添加动画类到关于我们横幅内容（如果需要scale-fade-in效果）
       document.querySelector('.aboutus-content h1').classList.add('scale-fade-in');
       document.querySelector('.aboutus-content p').classList.add('scale-fade-in');
 
-      // 添加动画类到简介内容
+      // 添加动画类到简介内容（如果需要scale-fade-in效果）
       document.querySelector('.intro-content h1').classList.add('scale-fade-in');
       document.querySelector('.intro-content p').classList.add('scale-fade-in');
 
@@ -448,7 +456,6 @@ updatePageIndicator(0);
     };
   });
 </script>
-<script>
         let currentIndex = 0;
         const totalItems = 3;
 
