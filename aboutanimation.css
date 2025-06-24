@@ -633,7 +633,7 @@ img.image-3d-rotate:hover,
   transform: translateY(0);
 }
 
-/* Intro 内容渐进动画 */
+/* Intro 内容渐进动画 - 恢复原来的延迟时间 */
 .aboutus-intro .intro-content h1,
 .aboutus-intro .intro-content p {
   opacity: 0;
@@ -651,4 +651,13 @@ img.image-3d-rotate:hover,
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.9s;
+}
+
+/* 当失去intro-loaded类时，立即重置但保持平滑过渡 */
+.aboutus-intro:not(.intro-loaded) .intro-content h1,
+.aboutus-intro:not(.intro-loaded) .intro-content p {
+  transition: all 0.3s ease-out !important; /* 快速重置，无延迟 */
+  transition-delay: 0s !important;
+  opacity: 0 !important;
+  transform: translateY(20px) !important;
 }
