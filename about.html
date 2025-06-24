@@ -331,7 +331,7 @@ window.addEventListener('resize', moveLoginBtn);
 
 </script>
 <script>
-  // About Section 可重复触发的 IntersectionObserver
+// About Section 可重复触发的 IntersectionObserver
 const aboutObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     const target = entry.target;
@@ -354,7 +354,7 @@ const aboutObserver = new IntersectionObserver((entries) => {
   });
 }, {
   threshold: 0.2,
-  rootMargin: '0px 0px -10% 0px' // 稍微延迟触发，避免频繁切换
+  rootMargin: '0px 0px -5% 0px' // 减少 margin 让触发更精确
 });
 
 // 通用的 animate-on-scroll observer（保持原有逻辑）
