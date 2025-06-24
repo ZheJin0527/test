@@ -479,45 +479,36 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-    // 加载两张图片
-    const bgImg1 = new Image();
-    const bgImg2 = new Image();
-    let loadedCount = 0;
+    // 创建一个虚拟图片对象检测背景图是否加载完成
+    const bgImg = new Image();
+    bgImg.src = "images/images/关于我们bg.jpg";
 
-    function checkAllLoaded() {
-      loadedCount++;
-      if (loadedCount === 2) {
-        // 两张都加载完成后才执行动画
-        document.querySelector('.aboutus-banner').classList.add('banner-loaded');
-        document.querySelector('.aboutus-intro').classList.add('intro-loaded');
+    bgImg.onload = function () {
+      
+      // 第一步：About Banner 从下到上滑入
+      document.querySelector('.aboutus-banner').classList.add('banner-loaded');
+      
+      document.querySelector('.aboutus-intro').classList.add('intro-loaded');
 
-        // 显示关于我们部分内容
-        document.querySelector('.aboutus-content').classList.remove('hidden');
-        document.querySelector('.intro-content').classList.remove('hidden');
+      // 显示关于我们部分的内容（保持原有逻辑）
+      document.querySelector('.aboutus-content').classList.remove('hidden');
+      document.querySelector('.intro-content').classList.remove('hidden');
 
-        // 强制触发重绘
-        void document.querySelector('.aboutus-content').offsetWidth;
-        void document.querySelector('.intro-content').offsetWidth;
+      // 强制触发重绘，重新开始动画（可选，增强兼容性）
+      void document.querySelector('.aboutus-content').offsetWidth;
+      void document.querySelector('.intro-content').offsetWidth;
 
-        // 触发 navbar 动画
-        document.querySelector('.navbar').classList.add('navbar-loaded');
-
-        // 显示社交侧边栏和页面指示器
-        document.querySelector('.social-sidebar').classList.add('social-loaded');
-        document.querySelector('.page-indicator').classList.add('indicator-loaded');
-      }
-    }
-
-    // 第一张背景图
-    bgImg1.src = "images/images/关于我们bg.jpg";
-    bgImg1.onload = checkAllLoaded;
-
-    // 第二张背景图
-    bgImg2.src = "images/images/背景3.jpg";
-    bgImg2.onload = checkAllLoaded;
+      // 启动navbar动画 - 添加一个CSS类来触发动画
+      document.querySelector('.navbar').classList.add('navbar-loaded');
+      
+      // 显示社交侧边栏
+      document.querySelector('.social-sidebar').classList.add('social-loaded');
+      
+      // 显示页面指示器
+      document.querySelector('.page-indicator').classList.add('indicator-loaded');
+    };
   });
 </script>
-
 <script>
         let currentIndex = 0;
         const totalItems = 3;
