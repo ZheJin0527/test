@@ -574,6 +574,7 @@ img.image-3d-rotate:hover,
   }
 }
 
+/* ========== About Banner 可重复触发动画 ========== */
 .aboutus-banner {
   /* 初始状态：隐藏 */
   opacity: 0;
@@ -596,7 +597,7 @@ img.image-3d-rotate:hover,
 .aboutus-banner.banner-loaded .aboutus-content {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.2s; /* 更短延迟 */
+  transition-delay: 0.2s;
 }
 
 /* Banner 标题和描述的渐进动画 */
@@ -619,7 +620,7 @@ img.image-3d-rotate:hover,
   transition-delay: 0.4s;
 }
 
-/* ========== About Intro 延迟显示动画 ========== */
+/* ========== About Intro 可重复触发动画 ========== */
 .aboutus-intro {
   opacity: 0;
   transform: translateY(30px);
@@ -643,11 +644,11 @@ img.image-3d-rotate:hover,
 .aboutus-intro.intro-loaded .intro-content h1 {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.7s; /* 字体延迟出现 */
+  transition-delay: 0.7s;
 }
 
 .aboutus-intro.intro-loaded .intro-content p {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.9s; /* 字体延迟出现 */
+  transition-delay: 0.9s;
 }
