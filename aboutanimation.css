@@ -574,90 +574,97 @@ img.image-3d-rotate:hover,
   }
 }
 
-/* ========== About Banner 可重复触发动画 ========== */
+/* About Banner 初始状态 - 隐藏并向下偏移 */
 .aboutus-banner {
-  /* 初始状态：隐藏 */
   opacity: 0;
-  transition: opacity 0.8s ease-out;
+  transform: translateY(50px);
+  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Banner 加载完成显示状态 */
+/* About Banner 加载完成后的动画 */
 .aboutus-banner.banner-loaded {
   opacity: 1;
+  transform: translateY(0);
 }
 
-/* Banner 内容初始隐藏 */
-.aboutus-banner .aboutus-content {
+/* About Banner 内容初始状态 */
+.aboutus-content {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.4s ease-out;
+  transition: all 0.8s ease-out;
 }
 
-/* Banner 内容显示动画 */
+/* About Banner 内容动画 - 稍微延迟 */
 .aboutus-banner.banner-loaded .aboutus-content {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.2s;
-}
-
-/* Banner 标题和描述的渐进动画 */
-.aboutus-banner .aboutus-content h1,
-.aboutus-banner .aboutus-content p {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 1s ease-out;
-}
-
-.aboutus-banner.banner-loaded .aboutus-content h1 {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.3s;
 }
 
-.aboutus-banner.banner-loaded .aboutus-content p {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.4s;
-}
-
-/* ========== About Intro 可重复触发动画 ========== */
+/* About Intro 初始状态 */
 .aboutus-intro {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.5s ease-out;
+  transform: translateY(40px);
+  transition: all 1.0s ease-out;
 }
 
-/* Intro 显示状态 */
+/* About Intro 加载完成后的动画 */
 .aboutus-intro.intro-loaded {
   opacity: 1;
   transform: translateY(0);
+  transition-delay: 0.6s; /* 在banner动画之后开始 */
 }
 
-/* Intro 内容渐进动画 - 恢复原来的延迟时间 */
-.aboutus-intro .intro-content h1,
-.aboutus-intro .intro-content p {
+/* Intro 内容初始状态 */
+.intro-content {
   opacity: 0;
   transform: translateY(20px);
-  transition: all 1s ease-out;
+  transition: all 0.8s ease-out;
 }
 
-.aboutus-intro.intro-loaded .intro-content h1 {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.7s;
-}
-
-.aboutus-intro.intro-loaded .intro-content p {
+/* Intro 内容动画 - 更多延迟 */
+.aboutus-intro.intro-loaded .intro-content {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.9s;
 }
 
-/* 当失去intro-loaded类时，立即重置但保持平滑过渡 */
-.aboutus-intro:not(.intro-loaded) .intro-content h1,
-.aboutus-intro:not(.intro-loaded) .intro-content p {
-  transition: all 0.3s ease-out !important; /* 快速重置，无延迟 */
-  transition-delay: 0s !important;
-  opacity: 0 !important;
-  transform: translateY(20px) !important;
+/* 标题和段落的渐进动画 */
+.aboutus-content h1,
+.intro-content h1 {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.aboutus-content p,
+.intro-content p {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.6s ease-out;
+}
+
+/* 当父容器加载完成后，子元素依次出现 */
+.aboutus-banner.banner-loaded .aboutus-content h1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
+
+.aboutus-banner.banner-loaded .aboutus-content p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.7s;
+}
+
+.aboutus-intro.intro-loaded .intro-content h1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 1.1s;
+}
+
+.aboutus-intro.intro-loaded .intro-content p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 1.3s;
 }

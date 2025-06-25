@@ -484,35 +484,66 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-    // 创建一个虚拟图片对象检测背景图是否加载完成
-    const bgImg = new Image();
-    bgImg.src = "images/images/关于我们bg.jpg";
-
-    bgImg.onload = function () {
-      
-      // 第一步：About Banner 从下到上滑入
-      document.querySelector('.aboutus-banner').classList.add('banner-loaded');
-      
-      document.querySelector('.aboutus-intro').classList.add('intro-loaded');
-
-      // 显示关于我们部分的内容（保持原有逻辑）
-      document.querySelector('.aboutus-content').classList.remove('hidden');
-      document.querySelector('.intro-content').classList.remove('hidden');
-
-      // 强制触发重绘，重新开始动画（可选，增强兼容性）
-      void document.querySelector('.aboutus-content').offsetWidth;
-      void document.querySelector('.intro-content').offsetWidth;
-
-      // 启动navbar动画 - 添加一个CSS类来触发动画
-      document.querySelector('.navbar').classList.add('navbar-loaded');
-      
-      // 显示社交侧边栏
-      document.querySelector('.social-sidebar').classList.add('social-loaded');
-      
-      // 显示页面指示器
-      document.querySelector('.page-indicator').classList.add('indicator-loaded');
-    };
+  // 需要加载的背景图片列表
+  const backgroundImages = [
+    "images/images/关于我们bg.jpg",
+    "images/images/背景3.jpg"
+  ];
+  
+  let loadedCount = 0;
+  const totalImages = backgroundImages.length;
+  
+  // 启动动画的函数
+  function startAnimations() {
+    console.log('所有背景图片加载完成，立即开始所有动画');
+    
+    // 立即启动所有动画，不等待
+    document.querySelector('.aboutus-banner').classList.add('banner-loaded');
+    document.querySelector('.aboutus-intro').classList.add('intro-loaded');
+    document.querySelector('.navbar').classList.add('navbar-loaded');
+    document.querySelector('.social-sidebar').classList.add('social-loaded');
+    document.querySelector('.page-indicator').classList.add('indicator-loaded');
+  }
+  
+  // 图片加载完成的回调函数
+  function onImageLoad(imageSrc) {
+    loadedCount++;
+    console.log(`图片 ${imageSrc} 加载完成 (${loadedCount}/${totalImages})`);
+    
+    // 当所有图片都加载完成时启动动画
+    if (loadedCount === totalImages) {
+      startAnimations();
+    }
+  }
+  
+  // 图片加载失败的回调函数
+  function onImageError(imageSrc) {
+    loadedCount++;
+    console.log(`图片 ${imageSrc} 加载失败，继续执行 (${loadedCount}/${totalImages})`);
+    
+    // 即使图片加载失败，也要继续检查是否所有图片都处理完了
+    if (loadedCount === totalImages) {
+      console.log('所有图片处理完成（包含失败的），启动动画');
+      startAnimations();
+    }
+  }
+  
+  // 为每张图片创建Image对象并开始加载
+  backgroundImages.forEach(imageSrc => {
+    const img = new Image();
+    img.onload = () => onImageLoad(imageSrc);
+    img.onerror = () => onImageError(imageSrc);
+    img.src = imageSrc;
   });
+  
+  // 添加超时保护机制，防止图片加载时间过长
+  setTimeout(() => {
+    if (loadedCount < totalImages) {
+      console.log('图片加载超时，强制启动动画');
+      startAnimations();
+    }
+  }, 5000); // 5秒超时
+});
 </script>
 <script>
         let currentIndex = 0;
