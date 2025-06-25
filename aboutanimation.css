@@ -545,7 +545,6 @@ img.image-3d-rotate:hover,
 .aboutus-banner {
             opacity: 1; /* 背景直接显示 */
             transform: translateY(0); /* 背景无位移 */
-            background-image: url('images/images/关于我们bg.jpg');
             background-size: cover;
             background-position: center;
             min-height: 400px;
@@ -576,8 +575,7 @@ img.image-3d-rotate:hover,
 
         /* About Intro 初始状态 */
         .aboutus-intro {
-            padding: 60px 20px;
-            background-image: url('images/images/背景3.jpg');
+            padding: 80px 20px;
             background-size: cover;
             background-position: center;
         }
