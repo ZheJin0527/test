@@ -374,8 +374,8 @@ window.addEventListener('resize', moveLoginBtn);
                 const target = entry.target;
 
                 if (entry.isIntersecting) {
-                    // 只有在背景图加载完成后才触发动画
-                    if (window.aboutUsImagesLoaded) {
+                    // 只有在背景图渲染完成后才触发动画
+                    if (window.aboutUsImagesRendered) {
                         if (target.classList.contains('aboutus-banner')) {
                             target.classList.add('content-loaded');
                         } else if (target.classList.contains('aboutus-intro')) {
@@ -485,31 +485,34 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-        // 页面加载完成后的处理
+        // 页面加载和图片渲染检测
         window.addEventListener('load', () => {
-            // 全局标记，表示背景图是否加载完成
-            window.aboutUsImagesLoaded = false;
+            // 全局标记，表示背景图是否渲染完成
+            window.aboutUsImagesRendered = false;
             
-            // 创建虚拟图片对象检测两张背景图是否都加载完成
-            const bgImg1 = new Image();
-            const bgImg2 = new Image();
-            let loadedCount = 0;
-            
-            bgImg1.src = "images/images/关于我们bg.jpg";
-            bgImg2.src = "images/images/背景3.jpg";
-
-            // 检查是否两张图都加载完成
-            function checkAllImagesLoaded() {
-                loadedCount++;
-                console.log(`图片加载进度: ${loadedCount}/2`); // 调试用
-                if (loadedCount === 2) {
-                    console.log('两张背景图都加载完成，启用滚动特效'); // 调试用
-                    // 设置全局标记
-                    window.aboutUsImagesLoaded = true;
-                    
-                    // 检查当前是否有元素在视窗内需要立即显示
+            // 检测背景图片渲染完成的函数
+            function checkBackgroundImagesRendered() {
+                const banner = document.querySelector('.aboutus-banner');
+                const intro = document.querySelector('.aboutus-intro');
+                
+                if (!banner || !intro) {
+                    console.log('AboutUs 元素未找到，直接启用特效');
+                    window.aboutUsImagesRendered = true;
                     triggerVisibleAnimations();
+                    return;
                 }
+
+                // 使用 requestAnimationFrame 确保样式已经应用并渲染
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        // 再次延迟确保渲染完成
+                        setTimeout(() => {
+                            console.log('背景图片渲染检测完成，启用滚动特效');
+                            window.aboutUsImagesRendered = true;
+                            triggerVisibleAnimations();
+                        }, 100); // 100ms 延迟确保渲染完成
+                    });
+                });
             }
 
             function triggerVisibleAnimations() {
@@ -539,30 +542,6 @@ updatePageIndicator(0);
                 );
             }
 
-            // 监听两张图片的加载完成事件
-            bgImg1.onload = checkAllImagesLoaded;
-            bgImg2.onload = checkAllImagesLoaded;
-
-            // 监听加载失败的情况
-            bgImg1.onerror = () => {
-                console.log('图片1加载失败，但继续执行');
-                checkAllImagesLoaded();
-            };
-            bgImg2.onerror = () => {
-                console.log('图片2加载失败，但继续执行');
-                checkAllImagesLoaded();
-            };
-
-            // 如果图片已经缓存，onload 可能不会触发，需要检查 complete 属性
-            if (bgImg1.complete) {
-                console.log('图片1已缓存');
-                checkAllImagesLoaded();
-            }
-            if (bgImg2.complete) {
-                console.log('图片2已缓存');
-                checkAllImagesLoaded();
-            }
-
             // 启动navbar动画 - 页面加载完成就可以开始
             const navbar = document.querySelector('.navbar');
             if (navbar) navbar.classList.add('navbar-loaded');
@@ -575,14 +554,8 @@ updatePageIndicator(0);
             const pageIndicator = document.querySelector('.page-indicator');
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
 
-            // 设置备用超时，防止图片加载问题导致内容永远不显示
-            setTimeout(() => {
-                if (loadedCount < 2) {
-                    console.log('图片加载超时，强制启用滚动特效');
-                    window.aboutUsImagesLoaded = true;
-                    triggerVisibleAnimations();
-                }
-            }, 5000); // 5秒超时
+            // 开始检测背景图片渲染
+            checkBackgroundImagesRendered();
         });
     </script>
 <script>
