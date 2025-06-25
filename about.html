@@ -364,35 +364,48 @@ const aboutObserver = new IntersectionObserver((entries) => {
 
 // 通用的 animate-on-scroll observer（保持原有逻辑）
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    const container = entry.target;
+            entries.forEach(entry => {
+                const container = entry.target;
 
-    if (entry.isIntersecting) {
-      container.classList.add('visible');
+                if (entry.isIntersecting) {
+                    container.classList.add('visible');
 
-      container.querySelectorAll('.scale-fade-in').forEach(el => {
-        el.style.animation = 'none';
-        el.offsetHeight;
-        el.style.animation = '';
-        el.style.animationPlayState = 'running';
-      });
+                    container.querySelectorAll('.scale-fade-in').forEach(el => {
+                        el.style.animation = 'none';
+                        el.offsetHeight;
+                        el.style.animation = '';
+                        el.style.animationPlayState = 'running';
+                    });
 
-    } else {
-      container.classList.remove('visible');
+                } else {
+                    container.classList.remove('visible');
 
-      container.querySelectorAll('.scale-fade-in').forEach(el => {
-        el.style.animation = 'none';
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.offsetHeight;
-        el.style.animation = '';
-        el.style.animationPlayState = 'paused';
-      });
-    }
-  });
-}, {
-  threshold: 0.2
-});
+                    container.querySelectorAll('.scale-fade-in').forEach(el => {
+                        el.style.animation = 'none';
+                        el.style.opacity = '0';
+                        el.style.transform = 'translateY(20px)';
+                        el.offsetHeight;
+                        el.style.animation = '';
+                        el.style.animationPlayState = 'paused';
+                    });
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        // 初始化通用 animate-on-scroll 观察器
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化通用 animate-on-scroll 观察器
+            document.querySelectorAll('.animate-on-scroll').forEach(container => {
+                container.querySelectorAll('.scale-fade-in').forEach(el => {
+                    el.style.animationPlayState = 'paused';
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                });
+                observer.observe(container);
+            });
+        });
 
 // 初始化 about section 观察器
 document.addEventListener('DOMContentLoaded', () => {
@@ -483,53 +496,57 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-      window.addEventListener('load', () => {
-        // 创建虚拟图片对象检测两张背景图是否都加载完成
-        const bgImg1 = new Image();
-        const bgImg2 = new Image();
-        let loadedCount = 0;
-        
-        bgImg1.src = "images/images/关于我们bg.jpg";
-        bgImg2.src = "images/images/背景3.jpg";
+        // 页面加载完成后的处理
+        window.addEventListener('load', () => {
+            // 创建虚拟图片对象检测两张背景图是否都加载完成
+            const bgImg1 = new Image();
+            const bgImg2 = new Image();
+            let loadedCount = 0;
+            
+            bgImg1.src = "images/images/关于我们bg.jpg";
+            bgImg2.src = "images/images/背景3.jpg";
 
-        // 检查是否两张图都加载完成
-        function checkAllImagesLoaded() {
-          loadedCount++;
-          if (loadedCount === 2) {
-            // 两张背景图都加载完成后，开始字体特效
-            startTextAnimations();
-          }
-        }
+            // 检查是否两张图都加载完成
+            function checkAllImagesLoaded() {
+                loadedCount++;
+                if (loadedCount === 2) {
+                    // 两张背景图都加载完成后，开始字体特效
+                    startTextAnimations();
+                }
+            }
 
-        function startTextAnimations() {
-          // About Banner 内容开始动画（背景已经直接显示）
-          document.querySelector('.aboutus-banner').classList.add('content-loaded');
-          
-          // Intro 部分动画
-          document.querySelector('.aboutus-intro').classList.add('intro-loaded');
+            function startTextAnimations() {
+                // About Banner 内容开始动画（背景已经直接显示）
+                document.querySelector('.aboutus-banner').classList.add('content-loaded');
+                
+                // Intro 部分动画 - 关键修改：直接添加类而不是通过 IntersectionObserver
+                document.querySelector('.aboutus-intro').classList.add('intro-loaded');
 
-          // 显示关于我们部分的内容（保持原有逻辑）
-          document.querySelector('.aboutus-content').classList.remove('hidden');
-          document.querySelector('.intro-content').classList.remove('hidden');
+                // 强制触发重绘，重新开始动画（可选，增强兼容性）
+                void document.querySelector('.aboutus-content').offsetWidth;
+                void document.querySelector('.intro-content').offsetWidth;
+            }
 
-          // 强制触发重绘，重新开始动画（可选，增强兼容性）
-          void document.querySelector('.aboutus-content').offsetWidth;
-          void document.querySelector('.intro-content').offsetWidth;
-        }
+            // 监听两张图片的加载完成事件
+            bgImg1.onload = checkAllImagesLoaded;
+            bgImg2.onload = checkAllImagesLoaded;
 
-        // 监听两张图片的加载完成事件
-        bgImg1.onload = checkAllImagesLoaded;
-        bgImg2.onload = checkAllImagesLoaded;
+            // 如果图片已经缓存，onload 可能不会触发，需要检查 complete 属性
+            if (bgImg1.complete) checkAllImagesLoaded();
+            if (bgImg2.complete) checkAllImagesLoaded();
 
-        // 启动navbar动画 - 页面加载完成就可以开始
-        document.querySelector('.navbar').classList.add('navbar-loaded');
-        
-        // 显示社交侧边栏
-        document.querySelector('.social-sidebar').classList.add('social-loaded');
-        
-        // 显示页面指示器
-        document.querySelector('.page-indicator').classList.add('indicator-loaded');
-      });
+            // 启动navbar动画 - 页面加载完成就可以开始
+            const navbar = document.querySelector('.navbar');
+            if (navbar) navbar.classList.add('navbar-loaded');
+            
+            // 显示社交侧边栏
+            const socialSidebar = document.querySelector('.social-sidebar');
+            if (socialSidebar) socialSidebar.classList.add('social-loaded');
+            
+            // 显示页面指示器
+            const pageIndicator = document.querySelector('.page-indicator');
+            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
+        });
     </script>
 <script>
         let currentIndex = 0;
