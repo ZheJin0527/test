@@ -83,7 +83,7 @@
 .slide-in-right {
   opacity: 0 !important;
   transform: translateX(300px) !important;
-  transition: all 0.4s ease-out;
+  transition: all 0.8s ease-out;
   animation: none !important;
 }
 
