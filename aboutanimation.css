@@ -542,8 +542,7 @@ img.image-3d-rotate:hover,
   }
 }
 
-/* About Banner 背景直接显示 - 无特效 */
-        .aboutus-banner {
+.aboutus-banner {
           opacity: 1; /* 背景直接显示 */
           transform: translateY(0); /* 背景无位移 */
           background-image: url('images/images/关于我们bg.jpg');
@@ -579,7 +578,7 @@ img.image-3d-rotate:hover,
         .aboutus-intro.intro-loaded {
           opacity: 1;
           transform: translateY(0);
-          /* 移除自动延迟，改为在JS中控制时序 */
+          transition-delay: 0.6s; /* 在banner内容动画之后开始 */
         }
 
         /* Intro 内容初始状态 */
