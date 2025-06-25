@@ -601,8 +601,8 @@ img.image-3d-rotate:hover,
 .aboutus-content h1,
 .aboutus-content p {
   opacity: 0;
-  transform: translateY(-20px); /* 改为负值，从上方开始 */
-  transition: all 0.6s ease-out;
+  transform: translateY(-60px); /* 增加偏移量，让从上往下的效果更明显 */
+  transition: all 0.8s ease-out;
 }
 
 /* Intro 标题和段落保持原来的从下往上 */
