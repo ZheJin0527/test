@@ -505,8 +505,12 @@ updatePageIndicator(0);
           // About Banner 内容开始动画（背景已经直接显示）
           document.querySelector('.aboutus-banner').classList.add('content-loaded');
           
-          // Intro 部分动画
-          document.querySelector('.aboutus-intro').classList.add('intro-loaded');
+          // 计算banner完整动画时间：
+          // banner内容delay: 0.3s + banner文字h1 delay: 0.5s + banner文字p delay: 0.7s + 动画duration: 0.8s = 1.5s
+          // 再加一点缓冲时间，确保banner完全显示完成
+          setTimeout(() => {
+            document.querySelector('.aboutus-intro').classList.add('intro-loaded');
+          }, 1600); // 1.6秒后开始intro动画，确保banner完全显示完成
 
           // 显示关于我们部分的内容（保持原有逻辑）
           document.querySelector('.aboutus-content').classList.remove('hidden');
