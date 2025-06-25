@@ -169,7 +169,7 @@ body::-webkit-scrollbar {
     display: flex;
     gap: 30px; /* 减少项间距 */
     font-size: clamp(12px, 0.8vw + 0.3rem, 16px);
-    margin-left: 76px; /* 这里控制 .nav-links 左侧的偏移量 */
+    margin-left: 56px; /* 这里控制 .nav-links 左侧的偏移量 */
 }
 
 /* 每个导航项的样式 */
