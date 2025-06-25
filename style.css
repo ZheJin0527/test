@@ -1709,7 +1709,7 @@ nav {
     font-weight: bold;
     line-height: 1;
     letter-spacing: 1.4%;
-    margin: -100px 58px 0 0;
+    margin: -100px 100px 0 0;
     padding: 0;
     white-space: nowrap;
     text-shadow:
@@ -1722,7 +1722,7 @@ nav {
     font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.5%;
-    margin: 20px 58px 0 20px; /* 确保p和h1的间距是80px */
+    margin: 20px 120px 0 20px; /* 确保p和h1的间距是80px */
     padding: 0;
     white-space: nowrap;
     text-shadow:
