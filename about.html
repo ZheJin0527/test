@@ -335,37 +335,215 @@ window.addEventListener('DOMContentLoaded', moveLoginBtn);
 window.addEventListener('resize', moveLoginBtn);
 
 </script>
-<script>
-        // 通用的 animate-on-scroll observer（保持原有逻辑）
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们</title>
+    <style>
+        /* 基础样式 */
+        .aboutus-banner {
+            opacity: 1; /* 背景直接显示 */
+            transform: translateY(0); /* 背景无位移 */
+            background-image: url('images/images/关于我们bg.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 400px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* 移除transition，背景不需要动画 */
+        }
+
+        /* About Banner 内容初始状态 - 强制隐藏 */
+        .aboutus-content {
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: all 0.8s ease-out;
+            text-align: center;
+            color: white;
+            visibility: hidden;
+        }
+
+        /* About Banner 内容动画 - 只有添加 content-loaded 类才显示 */
+        .aboutus-banner.content-loaded .aboutus-content {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible;
+            transition-delay: 0.3s;
+        }
+
+        /* About Intro 初始状态 */
+        .aboutus-intro {
+            padding: 60px 20px;
+            background-image: url('images/images/背景3.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Intro 内容初始状态 - 强制隐藏 */
+        .intro-content {
+            opacity: 0 !important;
+            transform: translateY(40px) !important;
+            transition: all 1.0s ease-out;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            visibility: hidden;
+        }
+
+        /* Intro 内容动画 - 只有添加 intro-loaded 类才显示 */
+        .aboutus-intro.intro-loaded .intro-content {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible;
+            transition-delay: 0.6s;
+        }
+
+        /* Banner 标题和段落的渐进动画 - 强制隐藏初始状态 */
+        .aboutus-content h1,
+        .aboutus-content p {
+            opacity: 0 !important;
+            transform: translateY(-60px) !important;
+            transition: all 0.8s ease-out;
+            visibility: hidden;
+        }
+
+        /* Intro 标题和段落强制隐藏初始状态 */
+        .intro-content h1 {
+            opacity: 0 !important;
+            transform: translateY(20px) !important;
+            transition: all 0.6s ease-out;
+            visibility: hidden;
+        }
+
+        .intro-content p {
+            opacity: 0 !important;
+            transform: translateY(15px) !important;
+            transition: all 0.6s ease-out;
+            visibility: hidden;
+        }
+
+        /* Banner 当内容准备好后，子元素依次从上往下出现 */
+        .aboutus-banner.content-loaded .aboutus-content h1 {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible;
+            transition-delay: 0.5s;
+        }
+
+        .aboutus-banner.content-loaded .aboutus-content p {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible;
+            transition-delay: 0.7s;
+        }
+
+        /* Intro 保持原来的从下往上动画 */
+        .aboutus-intro.intro-loaded .intro-content h1 {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible;
+            transition-delay: 1.1s;
+        }
+
+        .aboutus-intro.intro-loaded .intro-content p {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible;
+            transition-delay: 1.3s;
+        }
+
+        /* 其他必要样式 */
+        .navbar, .social-sidebar, .page-indicator {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .navbar.navbar-loaded,
+        .social-sidebar.social-loaded,
+        .page-indicator.indicator-loaded {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <!-- 导航内容 -->
+    </nav>
+
+    <!-- 社交侧边栏 -->
+    <div class="social-sidebar">
+        <!-- 社交图标 -->
+    </div>
+
+    <!-- 页面指示器 -->
+    <div class="page-indicator">
+        <!-- 指示器内容 -->
+    </div>
+
+    <!-- 关于我们部分 -->
+    <section class="aboutus-section">
+        <div class="aboutus-banner">
+            <div class="aboutus-content">
+                <h1>关于我们</h1>
+                <p>深入了解 Kunzz Holdings 的初心与成长轨迹</p>
+            </div>
+        </div>
+
+        <div class="aboutus-intro">
+            <div class="intro-content">
+                <h1>集团简介</h1>
+                <p>
+                    Kunzz Holdings 是一家以系统化管理的多元控股集团，总部位于马来西亚。<br>
+                    我们致力于整合资源、提升效率，为旗下多个公司提供战略支持与运营协同。<br>
+                    我们坚信，每一个品牌都值得被用心打造，每一个团队都拥有无限潜力。<br>
+                    Kunzz Holdings 正是连接梦想与实现的桥梁，助力企业在激烈市场中脱颖而出。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 通用的 animate-on-scroll observer（可重复触发）
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const container = entry.target;
 
                 if (entry.isIntersecting) {
+                    // 进入视窗时添加visible类并启动动画
                     container.classList.add('visible');
 
                     container.querySelectorAll('.scale-fade-in').forEach(el => {
+                        // 重置并重新启动动画
                         el.style.animation = 'none';
-                        el.offsetHeight;
+                        el.offsetHeight; // 强制重绘
                         el.style.animation = '';
                         el.style.animationPlayState = 'running';
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
                     });
 
                 } else {
+                    // 离开视窗时移除visible类并重置状态
                     container.classList.remove('visible');
 
                     container.querySelectorAll('.scale-fade-in').forEach(el => {
+                        // 重置到初始状态，为下次进入做准备
                         el.style.animation = 'none';
                         el.style.opacity = '0';
                         el.style.transform = 'translateY(20px)';
-                        el.offsetHeight;
-                        el.style.animation = '';
                         el.style.animationPlayState = 'paused';
+                        el.offsetHeight; // 强制重绘
                     });
                 }
             });
         }, {
-            threshold: 0.2
+            threshold: 0.2,
+            rootMargin: '0px 0px -10% 0px' // 稍微延迟触发，避免频繁切换
         });
 
         // 初始化通用 animate-on-scroll 观察器
