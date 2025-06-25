@@ -574,13 +574,6 @@ img.image-3d-rotate:hover,
   }
 }
 
-/* ========== About Us 页面动画修复 ========== */
-
-/* 内容完全隐藏类 - 在图片加载完成前使用 */
-.content-hidden {
-  display: none !important;
-}
-
 /* About Banner 初始状态 - 隐藏并向下偏移 */
 .aboutus-banner {
   opacity: 0;
