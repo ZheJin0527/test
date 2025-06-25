@@ -156,71 +156,75 @@
         
         <!-- 横向时间线导航 -->
         <div class="timeline-nav">
-            <div class="timeline-line"></div>
             <div class="nav-arrow prev" onclick="navigateTimeline('prev')">‹</div>
             <div class="nav-arrow next" onclick="navigateTimeline('next')">›</div>
             
-            <div class="timeline-nav-container">
-                <div class="timeline-nav-item active" data-year="2023">
-                    <div class="timeline-bullet">2023</div>
-                </div>
-                <div class="timeline-nav-item" data-year="2024">
-                    <div class="timeline-bullet">2024</div>
-                </div>
-                <div class="timeline-nav-item" data-year="2025">
-                    <div class="timeline-bullet">2025</div>
+            <div class="timeline-scroll-container">
+                <div class="timeline-track"></div>
+                <div class="timeline-items-container" id="timelineContainer">
+                    <div class="timeline-item active" data-year="2023">
+                        <div class="timeline-bullet">2023</div>
+                    </div>
+                    <div class="timeline-item" data-year="2024">
+                        <div class="timeline-bullet">2024</div>
+                    </div>
+                    <div class="timeline-item" data-year="2025">
+                        <div class="timeline-bullet">2025</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 内容区域 -->
+        <!-- 卡片容器 -->
         <div class="timeline-content-container">
-            <!-- 2023年内容 -->
-            <div class="timeline-content-item active" data-year="2023">
-                <div class="timeline-content">
-                    <div class="timeline-image">
-                        <img src="images/images/2023发展.jpg" alt="公司成立">
-                    </div>
-                    <div class="timeline-text">
-                        <div class="year-badge">2023年</div>
-                        <h3>梦想起航</h3>
-                        <p>在这个充满希望的年份，我们的创始团队怀着改变世界的梦想，在一间小小的办公室里开始了我们的创业之路。</p>
-                        <p>虽然起步艰难，但我们坚信技术能够创造更美好的未来，这份初心至今仍指引着我们前进的方向。从最初的想法到第一行代码，每一步都充满了挑战与机遇。</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2024年内容 -->
-            <div class="timeline-content-item" data-year="2024">
-                <div class="timeline-content">
-                    <div class="timeline-image">
-                        <img src="images/images/2024发展.jpg" alt="团队扩张">
-                    </div>
-                    <div class="timeline-text">
-                        <div class="year-badge">2024年</div>
-                        <h3>团队壮大</h3>
-                        <p>经过四年的努力，我们的团队从最初的5人发展到50多人的规模，同时获得了第一轮天使投资。</p>
-                        <p>这一年，我们推出了第一个重要产品，在市场上获得了积极的反响，为公司未来的发展奠定了坚实的基础。团队文化也在这一年正式确立。</p>
+            <div class="timeline-cards-wrapper">
+                <!-- 2023年内容 -->
+                <div class="timeline-content-item active" data-year="2023" data-index="0">
+                    <div class="timeline-content" onclick="selectCard(2023)">
+                        <div class="timeline-image">
+                            <img src="images/images/2023发展.jpg" alt="公司成立">
+                        </div>
+                        <div class="timeline-text">
+                            <div class="year-badge">2023年</div>
+                            <h3>梦想起航</h3>
+                            <p>在这个充满希望的年份，我们的创始团队怀着改变世界的梦想，在一间小小的办公室里开始了我们的创业之路。</p>
+                            <p>虽然起步艰难，但我们坚信技术能够创造更美好的未来，这份初心至今仍指引着我们前进的方向。</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 2025年内容 -->
-            <div class="timeline-content-item" data-year="2025">
-                <div class="timeline-content">
-                    <div class="timeline-image">
-                        <img src="images/images/2025发展.jpg" alt="规范化管理">
+                <!-- 2024年内容 -->
+                <div class="timeline-content-item next" data-year="2024" data-index="1">
+                    <div class="timeline-content" onclick="selectCard(2024)">
+                        <div class="timeline-image">
+                            <img src="images/images/2024发展.jpg" alt="团队扩张">
+                        </div>
+                        <div class="timeline-text">
+                            <div class="year-badge">2024年</div>
+                            <h3>团队壮大</h3>
+                            <p>经过四年的努力，我们的团队从最初的5人发展到50多人的规模，同时获得了第一轮天使投资。</p>
+                            <p>这一年，我们推出了第一个重要产品，在市场上获得了积极的反响，为公司未来的发展奠定了坚实的基础。</p>
+                        </div>
                     </div>
-                    <div class="timeline-text">
-                        <div class="year-badge">2025年</div>
-                        <h3>规范化管理</h3>
-                        <p>正式设立集团管控体系，走向正规餐饮管理与规划。建立了标准化的运营流程和质量管理体系。</p>
-                        <p>这一重要转折点标志着我们从初创企业向成熟企业的转变，为后续的快速发展打下了坚实的管理基础。引入了现代化的办公环境和工作流程。</p>
+                </div>
+
+                <!-- 2025年内容 -->
+                <div class="timeline-content-item hidden" data-year="2025" data-index="2">
+                    <div class="timeline-content" onclick="selectCard(2025)">
+                        <div class="timeline-image">
+                            <img src="images/images/2025发展.jpg" alt="规范化管理">
+                        </div>
+                        <div class="timeline-text">
+                            <div class="year-badge">2025年</div>
+                            <h3>规范化管理</h3>
+                            <p>正式设立集团管控体系，走向正规餐饮管理与规划。建立了标准化的运营流程和质量管理体系。</p>
+                            <p>这一重要转折点标志着我们从初创企业向成熟企业的转变，为后续的快速发展打下了坚实的管理基础。</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-      </section>
+    </section>
   </div>
 
   <div class="swiper-slide footer-slide">
@@ -444,7 +448,7 @@ const swiper = new Swiper('.swiper', {
             // 在过渡结束后检查进度
             setTimeout(() => {
                 if (this.progress > 0.95) {
-                    updatePageIndicator(3); // 滑到最后一页
+                    updatePageIndicator(4); // 滑到最后一页
                 } else {
                     updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
                 }
@@ -512,6 +516,48 @@ updatePageIndicator(0);
 <script>
         let currentIndex = 0;
         const totalItems = 3;
+        const years = ['2023', '2024', '2025'];
+        const navItems = document.querySelectorAll('.timeline-item');
+        const container = document.getElementById('timelineContainer');
+
+        // 拖拽相关变量
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+        let dragThreshold = 40; // 拖拽切换的最小距离
+
+        function updateTimelineNav() {
+            // 更新导航状态
+            navItems.forEach((item, index) => {
+                item.classList.toggle('active', index === currentIndex);
+            });
+
+            // 计算居中位置
+            const containerWidth = container.parentElement.offsetWidth;
+            const itemWidth = 120; // 每个项目的宽度
+            const centerOffset = containerWidth / 2 - itemWidth / 2;
+            const translateX = centerOffset - (currentIndex * itemWidth);
+            
+            container.style.transform = `translateX(${translateX}px)`;
+        }
+
+        function updateCardPositions() {
+            const cards = document.querySelectorAll('.timeline-content-item');
+            
+            cards.forEach((card, index) => {
+                card.classList.remove('active', 'prev', 'next', 'hidden');
+                
+                if (index === currentIndex) {
+                    card.classList.add('active');
+                } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+                    card.classList.add('prev');
+                } else if (index === (currentIndex + 1) % totalItems) {
+                    card.classList.add('next');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
 
         function navigateTimeline(direction) {
             if (direction === 'next') {
@@ -520,34 +566,128 @@ updatePageIndicator(0);
                 currentIndex = (currentIndex - 1 + totalItems) % totalItems;
             }
             
-            const years = ['2023', '2024', '2025'];
             showTimelineItem(years[currentIndex]);
         }
 
-        function showTimelineItem(year) {
-            // 移除所有活动状态
-            document.querySelectorAll('.timeline-nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelectorAll('.timeline-content-item').forEach(item => {
-                item.classList.remove('active');
-            });
+        function selectCard(year) {
+            const index = years.indexOf(year.toString());
+            if (index !== -1 && index !== currentIndex) {
+                currentIndex = index;
+                showTimelineItem(year.toString());
+            }
+        }
 
-            // 添加活动状态
-            document.querySelector(`[data-year="${year}"]`).classList.add('active');
-            document.querySelector(`.timeline-content-item[data-year="${year}"]`).classList.add('active');
+        function showTimelineItem(year) {
+            // 更新导航和卡片
+            updateTimelineNav();
+            updateCardPositions();
             
             // 更新当前索引
-            const years = ['2023', '2024', '2025'];
             currentIndex = years.indexOf(year);
         }
 
-        // 点击导航项时切换
-        document.querySelectorAll('.timeline-nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const year = item.getAttribute('data-year');
-                showTimelineItem(year);
+        // 拖拽事件处理
+        function handleDragStart(e) {
+            isDragging = true;
+            startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+            
+            // 添加拖拽类以禁用过渡动画
+            const cards = document.querySelectorAll('.timeline-content-item');
+            cards.forEach(card => card.classList.add('dragging'));
+            
+            // 改变光标样式
+            document.body.style.cursor = 'grabbing';
+            
+            // 阻止默认行为
+            e.preventDefault();
+        }
+
+        function handleDragMove(e) {
+            if (!isDragging) return;
+            
+            currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+            const deltaX = currentX - startX;
+            
+            // 实时更新卡片位置
+            const cards = document.querySelectorAll('.timeline-content-item');
+            cards.forEach(card => {
+                if (card.classList.contains('active')) {
+                    card.style.transform = `translateX(${deltaX}px) scale(1)`;
+                }
             });
+            
+            e.preventDefault();
+        }
+
+        function handleDragEnd(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            const deltaX = currentX - startX;
+            
+            // 移除拖拽类以恢复过渡动画
+            const cards = document.querySelectorAll('.timeline-content-item');
+            cards.forEach(card => {
+                card.classList.remove('dragging');
+                card.style.transform = ''; // 清除内联样式
+            });
+            
+            // 恢复光标样式
+            document.body.style.cursor = '';
+            
+            // 判断是否需要切换
+            if (Math.abs(deltaX) > dragThreshold) {
+                if (deltaX > 0) {
+                    // 向右拖拽，显示上一个
+                    navigateTimeline('prev');
+                } else {
+                    // 向左拖拽，显示下一个
+                    navigateTimeline('next');
+                }
+            }
+            
+            // 重置变量
+            startX = 0;
+            currentX = 0;
+        }
+
+        // 鼠标事件
+        document.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.timeline-content')) {
+                handleDragStart(e);
+            }
+        });
+
+        document.addEventListener('mousemove', handleDragMove);
+        document.addEventListener('mouseup', handleDragEnd);
+
+        // 触摸事件
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.timeline-content')) {
+                handleDragStart(e);
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchmove', handleDragMove, { passive: false });
+        document.addEventListener('touchend', handleDragEnd);
+
+        // 点击导航项时切换
+        navItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                if (!isDragging) {
+                    currentIndex = index;
+                    showTimelineItem(years[currentIndex]);
+                }
+            });
+        });
+
+        // 点击侧边卡片切换
+        document.addEventListener('click', (e) => {
+            const card = e.target.closest('.timeline-content-item');
+            if (card && !card.classList.contains('active') && !isDragging) {
+                const year = card.getAttribute('data-year');
+                selectCard(year);
+            }
         });
 
         // 键盘导航
@@ -557,6 +697,24 @@ updatePageIndicator(0);
             } else if (e.key === 'ArrowRight') {
                 navigateTimeline('next');
             }
+        });
+
+        // 防止拖拽时选中文本
+        document.addEventListener('selectstart', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+            }
+        });
+
+        // 初始化
+        updateTimelineNav();
+        updateCardPositions();
+
+        // 窗口大小改变时重新计算位置
+        window.addEventListener('resize', () => {
+            setTimeout(() => {
+                updateTimelineNav();
+            }, 100);
         });
     </script>
 </body>
