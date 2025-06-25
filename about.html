@@ -336,6 +336,32 @@ window.addEventListener('resize', moveLoginBtn);
 
 </script>
 <script>
+        // About Section 可重复触发的 IntersectionObserver
+        const aboutObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const target = entry.target;
+
+                if (entry.isIntersecting) {
+                    // 进入视窗时添加动画类
+                    if (target.classList.contains('aboutus-banner')) {
+                        target.classList.add('content-loaded');
+                    } else if (target.classList.contains('aboutus-intro')) {
+                        target.classList.add('intro-loaded');
+                    }
+                } else {
+                    // 离开视窗时移除动画类，重置状态
+                    if (target.classList.contains('aboutus-banner')) {
+                        target.classList.remove('content-loaded');
+                    } else if (target.classList.contains('aboutus-intro')) {
+                        target.classList.remove('intro-loaded');
+                    }
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -10% 0px' // 稍微延迟触发，避免频繁切换
+        });
+
         // 通用的 animate-on-scroll observer（保持原有逻辑）
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -368,8 +394,20 @@ window.addEventListener('resize', moveLoginBtn);
             threshold: 0.2
         });
 
-        // 初始化通用 animate-on-scroll 观察器
+        // 初始化观察器
         document.addEventListener('DOMContentLoaded', () => {
+            // 观察 about section 元素 - 可重复触发
+            const aboutBanner = document.querySelector('.aboutus-banner');
+            const aboutIntro = document.querySelector('.aboutus-intro');
+            
+            if (aboutBanner) {
+                aboutObserver.observe(aboutBanner);
+            }
+            
+            if (aboutIntro) {
+                aboutObserver.observe(aboutIntro);
+            }
+
             // 初始化通用 animate-on-scroll 观察器
             document.querySelectorAll('.animate-on-scroll').forEach(container => {
                 container.querySelectorAll('.scale-fade-in').forEach(el => {
@@ -447,74 +485,6 @@ updatePageIndicator(0);
 <script>
         // 页面加载完成后的处理
         window.addEventListener('load', () => {
-            // 创建虚拟图片对象检测两张背景图是否都加载完成
-            const bgImg1 = new Image();
-            const bgImg2 = new Image();
-            let loadedCount = 0;
-            
-            bgImg1.src = "images/images/关于我们bg.jpg";
-            bgImg2.src = "images/images/背景3.jpg";
-
-            // 检查是否两张图都加载完成
-            function checkAllImagesLoaded() {
-                loadedCount++;
-                console.log(`图片加载进度: ${loadedCount}/2`); // 调试用
-                if (loadedCount === 2) {
-                    console.log('两张背景图都加载完成，开始动画'); // 调试用
-                    // 两张背景图都加载完成后，开始字体特效
-                    setTimeout(startTextAnimations, 100); // 稍微延迟确保DOM准备好
-                }
-            }
-
-            function startTextAnimations() {
-                console.log('开始文字动画'); // 调试用
-                // About Banner 内容开始动画（背景已经直接显示）
-                const banner = document.querySelector('.aboutus-banner');
-                const intro = document.querySelector('.aboutus-intro');
-                
-                if (banner) {
-                    banner.classList.add('content-loaded');
-                    console.log('Banner 动画已触发'); // 调试用
-                }
-                
-                // Intro 部分动画 - 关键修改：直接添加类而不是通过 IntersectionObserver
-                if (intro) {
-                    intro.classList.add('intro-loaded');
-                    console.log('Intro 动画已触发'); // 调试用
-                }
-
-                // 强制触发重绘，重新开始动画（可选，增强兼容性）
-                const aboutContent = document.querySelector('.aboutus-content');
-                const introContent = document.querySelector('.intro-content');
-                
-                if (aboutContent) void aboutContent.offsetWidth;
-                if (introContent) void introContent.offsetWidth;
-            }
-
-            // 监听两张图片的加载完成事件
-            bgImg1.onload = checkAllImagesLoaded;
-            bgImg2.onload = checkAllImagesLoaded;
-
-            // 监听加载失败的情况
-            bgImg1.onerror = () => {
-                console.log('图片1加载失败，但继续执行动画');
-                checkAllImagesLoaded();
-            };
-            bgImg2.onerror = () => {
-                console.log('图片2加载失败，但继续执行动画');
-                checkAllImagesLoaded();
-            };
-
-            // 如果图片已经缓存，onload 可能不会触发，需要检查 complete 属性
-            if (bgImg1.complete) {
-                console.log('图片1已缓存');
-                checkAllImagesLoaded();
-            }
-            if (bgImg2.complete) {
-                console.log('图片2已缓存');
-                checkAllImagesLoaded();
-            }
-
             // 启动navbar动画 - 页面加载完成就可以开始
             const navbar = document.querySelector('.navbar');
             if (navbar) navbar.classList.add('navbar-loaded');
@@ -526,14 +496,6 @@ updatePageIndicator(0);
             // 显示页面指示器
             const pageIndicator = document.querySelector('.page-indicator');
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
-
-            // 设置备用超时，防止图片加载问题导致内容永远不显示
-            setTimeout(() => {
-                if (loadedCount < 2) {
-                    console.log('图片加载超时，强制启动动画');
-                    startTextAnimations();
-                }
-            }, 5000); // 5秒超时
         });
     </script>
 <script>
