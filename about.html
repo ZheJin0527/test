@@ -483,53 +483,83 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-      window.addEventListener('load', () => {
-        // 创建虚拟图片对象检测两张背景图是否都加载完成
-        const bgImg1 = new Image();
-        const bgImg2 = new Image();
-        let loadedCount = 0;
-        
-        bgImg1.src = "images/images/关于我们bg.jpg";
-        bgImg2.src = "images/images/背景3.jpg";
+        window.addEventListener('load', () => {
+            // 显示加载指示器
+            document.getElementById('loadingIndicator').classList.add('show');
+            
+            // 创建虚拟图片对象检测两张背景图是否都加载完成
+            const bgImg1 = new Image();
+            const bgImg2 = new Image();
+            let loadedCount = 0;
+            
+            // 使用您的实际图片路径
+            bgImg1.src = "images/images/关于我们bg.jpg";
+            bgImg2.src = "images/images/背景3.jpg";
 
-        // 检查是否两张图都加载完成
-        function checkAllImagesLoaded() {
-          loadedCount++;
-          if (loadedCount === 2) {
-            // 两张背景图都加载完成后，开始字体特效
-            startTextAnimations();
-          }
-        }
+            // 检查是否两张图都加载完成
+            function checkAllImagesLoaded() {
+                loadedCount++;
+                console.log(`图片加载进度: ${loadedCount}/2`);
+                
+                if (loadedCount === 2) {
+                    // 隐藏加载指示器
+                    document.getElementById('loadingIndicator').classList.remove('show');
+                    
+                    // 两张背景图都加载完成后，开始所有动画
+                    startAllAnimations();
+                }
+            }
 
-        function startTextAnimations() {
-          // About Banner 内容开始动画（背景已经直接显示）
-          document.querySelector('.aboutus-banner').classList.add('content-loaded');
-          
-          // Intro 部分动画
-          document.querySelector('.aboutus-intro').classList.add('intro-loaded');
+            function startAllAnimations() {
+                console.log('开始启动所有动画');
+                
+                // 1. About Banner 内容开始动画（背景已经直接显示）
+                document.querySelector('.aboutus-banner').classList.add('content-loaded');
+                
+                // 2. Intro 部分动画 - 确保在背景图加载完成后才开始
+                document.querySelector('.aboutus-intro').classList.add('intro-loaded');
 
-          // 显示关于我们部分的内容（保持原有逻辑）
-          document.querySelector('.aboutus-content').classList.remove('hidden');
-          document.querySelector('.intro-content').classList.remove('hidden');
+                // 3. 显示 intro-content（移除 hidden 类）
+                document.querySelector('.intro-content').classList.remove('hidden');
 
-          // 强制触发重绘，重新开始动画（可选，增强兼容性）
-          void document.querySelector('.aboutus-content').offsetWidth;
-          void document.querySelector('.intro-content').offsetWidth;
-        }
+                // 4. 启动navbar动画
+                document.querySelector('.navbar').classList.add('navbar-loaded');
+                
+                // 5. 显示社交侧边栏
+                document.querySelector('.social-sidebar').classList.add('social-loaded');
+                
+                // 6. 显示页面指示器
+                document.querySelector('.page-indicator').classList.add('indicator-loaded');
 
-        // 监听两张图片的加载完成事件
-        bgImg1.onload = checkAllImagesLoaded;
-        bgImg2.onload = checkAllImagesLoaded;
+                // 强制触发重绘，确保动画正常执行
+                void document.querySelector('.aboutus-content').offsetWidth;
+                void document.querySelector('.intro-content').offsetWidth;
+            }
 
-        // 启动navbar动画 - 页面加载完成就可以开始
-        document.querySelector('.navbar').classList.add('navbar-loaded');
-        
-        // 显示社交侧边栏
-        document.querySelector('.social-sidebar').classList.add('social-loaded');
-        
-        // 显示页面指示器
-        document.querySelector('.page-indicator').classList.add('indicator-loaded');
-      });
+            // 监听两张图片的加载完成事件
+            bgImg1.onload = checkAllImagesLoaded;
+            bgImg2.onload = checkAllImagesLoaded;
+            
+            // 处理图片加载失败的情况
+            bgImg1.onerror = () => {
+                console.warn('背景图1加载失败，继续执行动画');
+                checkAllImagesLoaded();
+            };
+            
+            bgImg2.onerror = () => {
+                console.warn('背景图2加载失败，继续执行动画');
+                checkAllImagesLoaded();
+            };
+
+            // 设置超时机制，防止图片加载过慢影响用户体验
+            setTimeout(() => {
+                if (loadedCount < 2) {
+                    console.warn('图片加载超时，强制启动动画');
+                    document.getElementById('loadingIndicator').classList.remove('show');
+                    startAllAnimations();
+                }
+            }, 5000); // 5秒超时
+        });
     </script>
 <script>
         let currentIndex = 0;
