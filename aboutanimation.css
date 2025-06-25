@@ -221,49 +221,34 @@ img.image-3d-rotate:hover,
   transition-delay: 0s !important;
 }
 
-/* ========== Culture 特效（新增） ========== */
-/* 左卡片组整体进入：带倾斜翻转 + 缩放 */
-.card-tilt-in-left {
+/* 修改现有的左侧卡片动画 - 只影响前两张卡片 */
+.card-tilt-in-left .values-card:nth-child(3),
+.card-tilt-in-left .values-card:nth-child(4) {
+  /* 重置第3、4张卡片，让它们使用右侧动画 */
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* 右侧卡片（第3、4张）从右边倾斜进入 */
+.card-tilt-in-left .values-card:nth-child(3),
+.card-tilt-in-left .values-card:nth-child(4) {
   opacity: 0 !important;
-  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
-  transform-origin: left center;
+  transform: perspective(1000px) translateX(120px) rotateY(-25deg) translateY(30px) !important;
+  transform-origin: right center;
   transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.card-tilt-in-left.visible {
+.card-tilt-in-left.visible .values-card:nth-child(3) {
   opacity: 1 !important;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) !important;
-}
-
-/* 卡片单独延迟进入 */
-.culture-card {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.card-tilt-in-left.visible .culture-card:nth-child(1) {
-  transition-delay: 0.2s;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card-tilt-in-left.visible .culture-card:nth-child(2) {
-  transition-delay: 0.4s;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card-tilt-in-left.visible .culture-card:nth-child(3) {
+  transform: perspective(1000px) translateX(0) rotateY(0deg) translateY(0) !important;
   transition-delay: 0.6s;
-  opacity: 1;
-  transform: translateY(0);
 }
 
-.card-tilt-in-left.visible .culture-card:nth-child(4) {
+.card-tilt-in-left.visible .values-card:nth-child(4) {
+  opacity: 1 !important;
+  transform: perspective(1000px) translateX(0) rotateY(0deg) translateY(0) !important;
   transition-delay: 0.8s;
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* 右侧文字缩放滑入 */
