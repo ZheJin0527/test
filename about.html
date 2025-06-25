@@ -344,14 +344,14 @@ const aboutObserver = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       // 进入视窗时添加动画类
       if (target.classList.contains('aboutus-banner')) {
-        target.classList.add('banner-loaded');
+        target.classList.add('content-loaded');
       } else if (target.classList.contains('aboutus-intro')) {
         target.classList.add('intro-loaded');
       }
     } else {
       // 离开视窗时移除动画类，重置状态
       if (target.classList.contains('aboutus-banner')) {
-        target.classList.remove('banner-loaded');
+        target.classList.remove('content-loaded');
       } else if (target.classList.contains('aboutus-intro')) {
         target.classList.remove('intro-loaded');
       }
