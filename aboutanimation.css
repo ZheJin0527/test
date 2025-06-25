@@ -636,3 +636,46 @@ img.image-3d-rotate:hover,
   transform: translateY(0);
   transition-delay: 1.3s;
 }
+
+/* Vision Content 从上面滑下特效 */
+.vision-slide-down {
+  opacity: 0 !important;
+  transform: translateY(-60px) !important;
+  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: none !important;
+}
+
+.vision-slide-down.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.vision-slide-down:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* Vision Content 内容元素渐进出现 */
+.vision-slide-down h1 {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.8s ease-out;
+}
+
+.vision-slide-down p {
+  opacity: 0;
+  transform: translateY(-15px);
+  transition: all 0.8s ease-out;
+}
+
+/* 当父容器可见时，子元素依次出现 */
+.vision-slide-down.visible h1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+.vision-slide-down.visible p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
