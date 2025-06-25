@@ -576,6 +576,7 @@ img.image-3d-rotate:hover,
         /* About Intro 初始状态 */
         .aboutus-intro {
             padding: 80px 20px;
+            background-image: url('images/images/背景3.jpg');
             background-size: cover;
             background-position: center;
         }
