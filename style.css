@@ -1684,7 +1684,7 @@ nav {
     position: relative;
     padding: 80px 0 0 80px;
     height: calc(56vh - 80px); /* 还保持满屏显示 */
-    background: url('images/images/关于我们bg7.jpg') no-repeat center center/cover;
+    background: url('images/images/关于我们bg6.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
