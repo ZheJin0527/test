@@ -57,14 +57,14 @@
   <div class="swiper-slide">
     <section class="aboutus-section">
     <div class="aboutus-banner">
-      <div class="aboutus-content">
+      <div class="aboutus-content hidden">
         <h1>关于我们</h1>
         <p>深入了解 Kunzz Holdings 的初心与成长轨迹</p>
       </div>
     </div>
 
     <div class="aboutus-intro">
-      <div class="intro-content">
+      <div class="intro-content hidden">
         <h1>集团简介</h1>
         <p>
           Kunzz Holdings 是一家以系统化管理的多元控股集团，总部位于马来西亚。<br>
@@ -484,35 +484,110 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-    // 创建一个虚拟图片对象检测背景图是否加载完成
-    const bgImg = new Image();
-    bgImg.src = "images/images/关于我们bg.jpg";
-
-    bgImg.onload = function () {
-      
-      // 第一步：About Banner 从下到上滑入
-      document.querySelector('.aboutus-banner').classList.add('banner-loaded');
-      
-      document.querySelector('.aboutus-intro').classList.add('intro-loaded');
-
-      // 显示关于我们部分的内容（保持原有逻辑）
-      document.querySelector('.aboutus-content').classList.remove('hidden');
-      document.querySelector('.intro-content').classList.remove('hidden');
-
-      // 强制触发重绘，重新开始动画（可选，增强兼容性）
-      void document.querySelector('.aboutus-content').offsetWidth;
-      void document.querySelector('.intro-content').offsetWidth;
-
-      // 启动navbar动画 - 添加一个CSS类来触发动画
-      document.querySelector('.navbar').classList.add('navbar-loaded');
-      
-      // 显示社交侧边栏
-      document.querySelector('.social-sidebar').classList.add('social-loaded');
-      
-      // 显示页面指示器
-      document.querySelector('.page-indicator').classList.add('indicator-loaded');
+  // 需要加载的背景图片列表
+  const backgroundImages = [
+    "images/images/关于我们bg.jpg",
+    "images/images/背景3.jpg"
+  ];
+  
+  let loadedCount = 0;
+  let errorCount = 0;
+  const totalImages = backgroundImages.length;
+  let animationStarted = false; // 防止重复启动
+  
+  // 启动动画的函数
+  function startAnimations() {
+    if (animationStarted) return; // 防止重复执行
+    animationStarted = true;
+    
+    console.log('开始启动所有动画');
+    
+    // 移除hidden类并添加动画类
+    const aboutusContent = document.querySelector('.aboutus-content');
+    const introContent = document.querySelector('.intro-content');
+    
+    if (aboutusContent) {
+      aboutusContent.classList.remove('hidden');
+    }
+    if (introContent) {
+      introContent.classList.remove('hidden');
+    }
+    
+    // 立即启动所有动画
+    const banner = document.querySelector('.aboutus-banner');
+    const intro = document.querySelector('.aboutus-intro');
+    const navbar = document.querySelector('.navbar');
+    const sidebar = document.querySelector('.social-sidebar');
+    const indicator = document.querySelector('.page-indicator');
+    
+    if (banner) banner.classList.add('banner-loaded');
+    if (intro) intro.classList.add('intro-loaded');
+    if (navbar) navbar.classList.add('navbar-loaded');
+    if (sidebar) sidebar.classList.add('social-loaded');
+    if (indicator) indicator.classList.add('indicator-loaded');
+  }
+  
+  // 检查是否所有图片都处理完成
+  function checkAllImagesProcessed() {
+    const processedCount = loadedCount + errorCount;
+    console.log(`图片处理进度: ${processedCount}/${totalImages} (成功:${loadedCount}, 失败:${errorCount})`);
+    
+    if (processedCount >= totalImages) {
+      console.log('所有图片处理完成，启动动画');
+      startAnimations();
+    }
+  }
+  
+  // 图片加载成功的回调
+  function onImageLoad(imageSrc) {
+    loadedCount++;
+    console.log(`✓ 图片加载成功: ${imageSrc}`);
+    checkAllImagesProcessed();
+  }
+  
+  // 图片加载失败的回调
+  function onImageError(imageSrc) {
+    errorCount++;
+    console.log(`✗ 图片加载失败: ${imageSrc}`);
+    checkAllImagesProcessed();
+  }
+  
+  // 预加载所有背景图片
+  console.log('开始加载背景图片...');
+  backgroundImages.forEach((imageSrc, index) => {
+    const img = new Image();
+    
+    // 设置超时机制，单张图片最多等待3秒
+    const timeout = setTimeout(() => {
+      console.log(`图片 ${imageSrc} 加载超时`);
+      img.onload = null;
+      img.onerror = null;
+      onImageError(imageSrc);
+    }, 3000);
+    
+    img.onload = function() {
+      clearTimeout(timeout);
+      onImageLoad(imageSrc);
     };
+    
+    img.onerror = function() {
+      clearTimeout(timeout);
+      onImageError(imageSrc);
+    };
+    
+    // 开始加载图片
+    img.src = imageSrc;
+    console.log(`正在加载图片 ${index + 1}: ${imageSrc}`);
   });
+  
+  // 全局超时保护，最多等待8秒
+  setTimeout(() => {
+    if (!animationStarted) {
+      console.log('全局超时，强制启动动画');
+      startAnimations();
+    }
+  }, 8000);
+});
 </script>
 <script>
         let currentIndex = 0;
