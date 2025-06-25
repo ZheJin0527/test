@@ -1712,6 +1712,9 @@ nav {
     margin: -100px 58px 0 0;
     padding: 0;
     white-space: nowrap;
+    text-shadow:
+        10px 10px 12px rgba(0, 0, 0, 0.3),
+        4px 4px 20px rgba(0, 0, 0, 0.3);
 }
   
 .aboutus-content p {
@@ -1722,6 +1725,9 @@ nav {
     margin: 20px 58px 0 20px; /* 确保p和h1的间距是80px */
     padding: 0;
     white-space: nowrap;
+    text-shadow:
+        10px 10px 12px rgba(0, 0, 0, 0.3),
+        4px 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* 响应式：1280px 以下 */
