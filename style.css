@@ -2051,7 +2051,7 @@ nav {
     justify-content: center;
     align-items: center;
     text-align: center;
-    max-width: clamp(350px, 50vw, 750px);
+    max-width: clamp(350px, 50vw, 850px);
     padding: 0 clamp(20px, 4vw, 48px);
     box-sizing: border-box;
 }
