@@ -303,6 +303,7 @@ img.image-3d-rotate:hover,
 .values-scale-fade.visible {
   opacity: 1 !important;
   transform: scale(1) !important;
+  transition: all 1.0s ease !important;
 }
 
 .values-scale-fade:not(.visible) { 
