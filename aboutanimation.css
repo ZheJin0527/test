@@ -664,6 +664,7 @@ img.image-3d-rotate:hover,
 .vision-slide-down.visible {
   opacity: 1 !important;
   transform: translateY(0) !important;
+  transition-delay: 0.5s !important;
 }
 
 .vision-slide-down:not(.visible) {
