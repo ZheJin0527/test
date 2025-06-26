@@ -223,7 +223,7 @@ img.image-3d-rotate:hover,
   transition-delay: 0s !important;
 }
 
-/* ========== Culture 特效（新增） ========== */
+/* ========== values 特效（新增） ========== */
 /* 左卡片组整体进入：带倾斜翻转 + 缩放 */
 .card-tilt-in-left {
   opacity: 0 !important;
@@ -238,31 +238,31 @@ img.image-3d-rotate:hover,
 }
 
 /* 卡片单独延迟进入 */
-.culture-card {
+.values-card {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease-out;
 }
 
-.card-tilt-in-left.visible .culture-card:nth-child(1) {
+.card-tilt-in-left.visible .values-card:nth-child(1) {
   transition-delay: 0.2s;
   opacity: 1;
   transform: translateY(0);
 }
 
-.card-tilt-in-left.visible .culture-card:nth-child(2) {
+.card-tilt-in-left.visible .values-card:nth-child(2) {
   transition-delay: 0.4s;
   opacity: 1;
   transform: translateY(0);
 }
 
-.card-tilt-in-left.visible .culture-card:nth-child(3) {
+.card-tilt-in-left.visible .values-card:nth-child(3) {
   transition-delay: 0.6s;
   opacity: 1;
   transform: translateY(0);
 }
 
-.card-tilt-in-left.visible .culture-card:nth-child(4) {
+.card-tilt-in-left.visible .values-card:nth-child(4) {
   transition-delay: 0.8s;
   opacity: 1;
   transform: translateY(0);
@@ -292,61 +292,61 @@ img.image-3d-rotate:hover,
   transition-delay: 0.9s;
 }
 
-/* ========== Culture 内容缩放渐显特效（类似 home 的 scale-fade-in） ========== */
-.culture-scale-fade {
+/* ========== values 内容缩放渐显特效（类似 home 的 scale-fade-in） ========== */
+.values-scale-fade {
   opacity: 0 !important;
   transform: scale(0.8) !important;
   transition: all 1.6s ease;
   animation: none !important;
 }
 
-.culture-scale-fade.visible {
+.values-scale-fade.visible {
   opacity: 1 !important;
   transform: scale(1) !important;
 }
 
-.culture-scale-fade:not(.visible) { 
+.values-scale-fade:not(.visible) { 
   transition-delay: 0s !important; 
 }
 
-/* 为 culture 标题和描述添加渐进延迟 - 精确控制 */
-.culture-scale-fade.delay-1.visible {
+/* 为 values 标题和描述添加渐进延迟 - 精确控制 */
+.values-scale-fade.delay-1.visible {
   transition-delay: 0.1s !important;
 }
 
-.culture-scale-fade.delay-2.visible {
+.values-scale-fade.delay-2.visible {
   transition-delay: 0.2s !important;
 }
 
-.culture-scale-fade.delay-3.visible {
+.values-scale-fade.delay-3.visible {
   transition-delay: 0.3s !important;
 }
 
-.culture-scale-fade.delay-4.visible {
+.values-scale-fade.delay-4.visible {
   transition-delay: 0.4s !important;
 }
 
-.culture-scale-fade.delay-5.visible {
+.values-scale-fade.delay-5.visible {
   transition-delay: 0.5s !important;
 }
 
-.culture-scale-fade.delay-6.visible {
+.values-scale-fade.delay-6.visible {
   transition-delay: 0.6s !important;
 }
 
-.culture-scale-fade.delay-7.visible {
+.values-scale-fade.delay-7.visible {
   transition-delay: 0.7s !important;
 }
 
-.culture-scale-fade.delay-8.visible {
+.values-scale-fade.delay-8.visible {
   transition-delay: 0.8s !important;
 }
 
-.culture-scale-fade.delay-9.visible {
+.values-scale-fade.delay-9.visible {
   transition-delay: 0.9s !important;
 }
 
-.culture-scale-fade.delay-10.visible {
+.values-scale-fade.delay-10.visible {
   transition-delay: 1.0s !important;
 }
 
