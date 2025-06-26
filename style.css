@@ -2137,7 +2137,7 @@ nav {
 }
   
 .timeline-section {
-    background: url('https://kunzzgroup.com/images/images/%E8%83%8C%E6%99%AF3.jpg') no-repeat center center/cover;
+    background: url('images/images/背景4.png') no-repeat center center/cover;
     padding: 50px 20px;
     position: relative;
     height: 100vh;
@@ -2150,7 +2150,7 @@ nav {
 .timeline-section h1 {
     text-align: center;
     font-size: 2.5rem;
-    background: #FF5C00;
+    background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -2237,12 +2237,7 @@ nav {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, 
-        #FFD1A1 0%,     
-        #FFB84D 25%,    
-        #FFA500 50%,    
-        #FF7A00 75%,    
-        #FF5C00 100%);
+    background: white;
     transform: translateY(-50%);
     border-radius: 2px;
     z-index: 1;
@@ -2293,16 +2288,15 @@ nav {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #ddd, #bbb);
+    background: rgb(204, 198, 198);
     color: #666;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
     transition: all 0.4s ease;
-    border: 3px solid white;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 3;
@@ -2310,8 +2304,8 @@ nav {
 
 /* 活动状态的圆圈 */
 .timeline-item.active .timeline-bullet {
-    background: linear-gradient(135deg, #ff6b35, #f7931e);
-    color: white;
+    background: rgb(255, 255, 255);
+    color: #ff5c00;
     transform: scale(1.2);
     border-color: #fff;
 }
@@ -2357,7 +2351,7 @@ nav {
 }
 
 .nav-arrow:hover {
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    background: white;
     color: #2c3e50;
     transform: translateY(-50%) scale(1.1);
     box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
