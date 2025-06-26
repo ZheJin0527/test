@@ -51,6 +51,7 @@
 .slide-in-left.visible {
   opacity: 1 !important;
   transform: translateX(0) !important;
+  transition-delay: 0.5s !important;
 }
 
 /* 为slide-in-left添加延迟类支持 */
@@ -90,6 +91,7 @@
 .slide-in-right.visible {
   opacity: 1 !important;
   transform: translateX(0) !important;
+  transition-delay: 0.5s !important;
 }
 
 .slide-in-right:not(.visible) {
