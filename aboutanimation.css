@@ -700,17 +700,41 @@ img.image-3d-rotate:hover,
     }
 }
 
-/* 时间线轨道初始状态 - 默认缩放为0 */
-.timeline-track {
-    transform-origin: center;
-    transform: translateY(-50%) scaleX(0);
+/* 时间线标题初始状态 - 默认隐藏 */
+.timeline-section h1 {
+    opacity: 0;
+    transform: translateY(20px);
     animation: none; /* 默认不播放动画 */
 }
 
-/* 只有当时间线激活时才播放轨道动画 */
+/* 时间线标题动画（提前） */
+.timeline-section.timeline-active h1 {
+    animation: titleFadeIn 0.8s ease-out forwards;
+    animation-delay: 0s; /* 原本 0.3s → 立即开始 */
+}
+
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 时间线轨道初始状态 */
+.timeline-track {
+    transform-origin: center;
+    transform: translateY(-50%) scaleX(0);
+    animation: none;
+}
+
+/* 时间线轨道动画（提前） */
 .timeline-section.timeline-active .timeline-track {
-    animation: trackExpand 1.0s ease-out forwards;
-    animation-delay: 0.8s;
+    animation: trackExpand 0.8s ease-out forwards;
+    animation-delay: 0.4s; /* 原本 0.8s → 提前 */
 }
 
 @keyframes trackExpand {
@@ -722,21 +746,21 @@ img.image-3d-rotate:hover,
     }
 }
 
-/* 轨道光效延迟 - 只在激活状态下播放 */
+/* 光效延迟（提前） */
 .timeline-section.timeline-active .timeline-track::before {
-    animation-delay: 2.0s;
+    animation-delay: 1.6s; /* 原本 2.0s */
 }
 
-/* 时间线项目容器初始状态 - 默认隐藏 */
+/* 时间线项目容器初始状态 */
 .timeline-items-container {
     opacity: 0;
-    animation: none; /* 默认不播放动画 */
+    animation: none;
 }
 
-/* 只有当时间线激活时才播放容器动画 */
+/* 时间线项目容器动画（提前） */
 .timeline-section.timeline-active .timeline-items-container {
     animation: itemsFadeIn 0.8s ease-out forwards;
-    animation-delay: 1.7s;
+    animation-delay: 1.3s; /* 原本 1.7s */
 }
 
 @keyframes itemsFadeIn {
@@ -748,36 +772,37 @@ img.image-3d-rotate:hover,
     }
 }
 
-/* 时间线圆点初始状态 - 默认隐藏和缩小 */
+/* 时间线圆点初始状态 */
 .timeline-item {
     opacity: 0;
     transform: scale(0.5) translateY(20px);
-    animation: none; /* 默认不播放动画 */
+    animation: none;
 }
 
-/* 只有当时间线激活时才播放圆点动画 */
+/* 圆点动画设置 */
 .timeline-section.timeline-active .timeline-item {
     animation: bulletAppear 0.6s ease-out forwards;
 }
 
+/* 圆点延迟整体提前 */
 .timeline-section.timeline-active .timeline-item:nth-child(1) {
-    animation-delay: 1.4s;
+    animation-delay: 0.8s;
 }
 
 .timeline-section.timeline-active .timeline-item:nth-child(2) {
-    animation-delay: 1.6s;
+    animation-delay: 1.0s;
 }
 
 .timeline-section.timeline-active .timeline-item:nth-child(3) {
-    animation-delay: 1.8s;
+    animation-delay: 1.2s;
 }
 
 .timeline-section.timeline-active .timeline-item:nth-child(4) {
-    animation-delay: 2.0s;
+    animation-delay: 1.4s;
 }
 
 .timeline-section.timeline-active .timeline-item:nth-child(5) {
-    animation-delay: 2.2s;
+    animation-delay: 1.6s;
 }
 
 @keyframes bulletAppear {
@@ -791,17 +816,17 @@ img.image-3d-rotate:hover,
     }
 }
 
-/* 导航箭头初始状态 - 默认隐藏 */
+/* 导航箭头初始状态 */
 .nav-arrow {
     opacity: 0;
     transform: translateY(-50%) scale(0.8);
-    animation: none; /* 默认不播放动画 */
+    animation: none;
 }
 
-/* 只有当时间线激活时才播放箭头动画 */
+/* 导航箭头动画（提前） */
 .timeline-section.timeline-active .nav-arrow {
     animation: arrowFadeIn 0.5s ease-out forwards;
-    animation-delay: 1.5s;
+    animation-delay: 1.0s; /* 原本 1.5s */
 }
 
 @keyframes arrowFadeIn {
