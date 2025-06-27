@@ -1803,7 +1803,7 @@ nav {
 }
 
 .intro-content p {
-    font-size: 25px;
+    font-size: clamp(15px, 1.25vw, 20px);
     font-weight: normal;
     line-height: 150%;
     letter-spacing: 2%;
