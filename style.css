@@ -1780,7 +1780,7 @@ nav {
 }
 
 .intro-content {
-    width: 402px;
+    width: 502px;
     height: 280px;
     display: flex;
     flex-direction: column;
@@ -1793,7 +1793,7 @@ nav {
 
 .intro-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 80px;
+    font-size: 100px;
     font-weight: bold;
     line-height: 140%;
     letter-spacing: 0.5%;
@@ -1803,7 +1803,7 @@ nav {
 }
 
 .intro-content p {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: normal;
     line-height: 150%;
     letter-spacing: 2%;
