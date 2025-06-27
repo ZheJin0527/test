@@ -2534,7 +2534,7 @@ nav {
     border-radius: 25px;
     font-weight: bolder;
     font-size: 1.1rem;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
     letter-spacing: 1px;
 }
