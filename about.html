@@ -162,11 +162,11 @@
             <div class="timeline-scroll-container">
                 <div class="timeline-track"></div>
                 <div class="timeline-items-container" id="timelineContainer">
-                    <div class="timeline-item active" data-year="2023">
-                        <div class="timeline-bullet">2023</div>
+                    <div class="timeline-item active" data-year="2022">
+                        <div class="timeline-bullet">2022</div>
                     </div>
-                    <div class="timeline-item" data-year="2024">
-                        <div class="timeline-bullet">2024</div>
+                    <div class="timeline-item" data-year="2023">
+                        <div class="timeline-bullet">2023</div>
                     </div>
                     <div class="timeline-item" data-year="2025">
                         <div class="timeline-bullet">2025</div>
@@ -179,13 +179,13 @@
         <div class="timeline-content-container">
             <div class="timeline-cards-wrapper">
                 <!-- 2023年内容 -->
-                <div class="timeline-content-item active" data-year="2023" data-index="0">
-                    <div class="timeline-content" onclick="selectCard(2023)">
+                <div class="timeline-content-item active" data-year="2022" data-index="0">
+                    <div class="timeline-content" onclick="selectCard(2022)">
                         <div class="timeline-image">
-                            <img src="images/images/2023发展.jpg" alt="公司成立">
+                            <img src="images/images/2022发展.jpg" alt="公司成立">
                         </div>
                         <div class="timeline-text">
-                            <div class="year-badge">2023年</div>
+                            <div class="year-badge">2022年</div>
                             <h3>梦想起航</h3>
                             <p>在这个充满希望的年份，我们的创始团队怀着改变世界的梦想，在一间小小的办公室里开始了我们的创业之路。</p>
                             <p>虽然起步艰难，但我们坚信技术能够创造更美好的未来，这份初心至今仍指引着我们前进的方向。</p>
@@ -194,13 +194,13 @@
                 </div>
 
                 <!-- 2024年内容 -->
-                <div class="timeline-content-item next" data-year="2024" data-index="1">
-                    <div class="timeline-content" onclick="selectCard(2024)">
+                <div class="timeline-content-item next" data-year="2023" data-index="1">
+                    <div class="timeline-content" onclick="selectCard(2023)">
                         <div class="timeline-image">
                             <img src="images/images/2024发展.jpg" alt="团队扩张">
                         </div>
                         <div class="timeline-text">
-                            <div class="year-badge">2024年</div>
+                            <div class="year-badge">2023年</div>
                             <h3>团队壮大</h3>
                             <p>经过四年的努力，我们的团队从最初的5人发展到50多人的规模，同时获得了第一轮天使投资。</p>
                             <p>这一年，我们推出了第一个重要产品，在市场上获得了积极的反响，为公司未来的发展奠定了坚实的基础。</p>
@@ -614,7 +614,7 @@ updatePageIndicator(0);
 <script>
         let currentIndex = 0;
 const totalItems = 3;
-const years = ['2023', '2024', '2025'];
+const years = ['2022', '2023', '2025'];
 const navItems = document.querySelectorAll('.timeline-item');
 const container = document.getElementById('timelineContainer');
 
