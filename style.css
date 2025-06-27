@@ -2057,7 +2057,7 @@ nav {
 }
 
 .values-title {
-    font-size: clamp(40px, 6vw, 80px);
+    font-size: clamp(40px, 6vw, 86px);
     color: black;
     font-weight: bold;
     margin-top: 32px;
@@ -2065,7 +2065,7 @@ nav {
 }
 
 .values-description {
-    font-size: clamp(16px, 1.5vw, 24px);
+    font-size: clamp(16px, 1.5vw, 20px);
     color: #888888;
     margin-bottom: 48px;
     line-height: 140%;
