@@ -1705,7 +1705,7 @@ nav {
   
 .aboutus-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 100px;
+    font-size: 72px;
     font-weight: bold;
     line-height: 1;
     letter-spacing: 1.4%;
@@ -1718,7 +1718,7 @@ nav {
 }
   
 .aboutus-content p {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.5%;
@@ -1793,7 +1793,7 @@ nav {
 
 .intro-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 100px;
+    font-size: 72px;
     font-weight: bold;
     line-height: 140%;
     letter-spacing: 0.5%;
