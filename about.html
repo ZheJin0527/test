@@ -394,6 +394,81 @@ window.addEventListener('resize', moveLoginBtn);
             rootMargin: '0px 0px -10% 0px'
         });
 
+        // 时间线专用的 IntersectionObserver - 支持重复触发
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const timelineSection = entry.target;
+
+                if (entry.isIntersecting) {
+                    // 进入视窗时启动时间线动画
+                    timelineSection.classList.add('timeline-active');
+                    resetAndStartTimelineAnimation(timelineSection);
+                } else {
+                    // 离开视窗时重置动画状态
+                    timelineSection.classList.remove('timeline-active');
+                    resetTimelineAnimation(timelineSection);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '0px 0px -20% 0px'
+        });
+
+        // 重置并启动时间线动画
+        function resetAndStartTimelineAnimation(timelineSection) {
+            const title = timelineSection.querySelector('h1');
+            const track = timelineSection.querySelector('.timeline-track');
+            const container = timelineSection.querySelector('.timeline-items-container');
+            const items = timelineSection.querySelectorAll('.timeline-item');
+            const arrows = timelineSection.querySelectorAll('.nav-arrow');
+
+            // 重置所有元素的动画
+            [title, track, container, ...items, ...arrows].forEach(el => {
+                if (el) {
+                    el.style.animation = 'none';
+                    el.offsetHeight; // 强制重排
+                    el.style.animation = ''; // 恢复原始动画
+                }
+            });
+        }
+
+        // 重置时间线动画状态
+        function resetTimelineAnimation(timelineSection) {
+            const title = timelineSection.querySelector('h1');
+            const track = timelineSection.querySelector('.timeline-track');
+            const container = timelineSection.querySelector('.timeline-items-container');
+            const items = timelineSection.querySelectorAll('.timeline-item');
+            const arrows = timelineSection.querySelectorAll('.nav-arrow');
+
+            // 重置标题
+            if (title) {
+                title.style.opacity = '0';
+                title.style.transform = 'translateY(20px)';
+            }
+
+            // 重置轨道
+            if (track) {
+                track.style.transform = 'translateY(-50%) scaleX(0)';
+            }
+
+            // 重置容器
+            if (container) {
+                container.style.opacity = '0';
+            }
+
+            // 重置项目
+            items.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.5) translateY(20px)';
+            });
+
+            // 重置箭头
+            arrows.forEach(arrow => {
+                arrow.style.opacity = '0';
+                arrow.style.transform = 'translateY(-50%) scale(0.8)';
+            });
+        }
+
         // 初始化观察器
         document.addEventListener('DOMContentLoaded', () => {
             // 初始化通用 animate-on-scroll 观察器
@@ -418,10 +493,19 @@ window.addEventListener('resize', moveLoginBtn);
                 aboutObserver.observe(aboutIntro);
             }
 
+            // 初始化时间线观察器
+            const timelineSection = document.querySelector('.timeline-section');
+            if (timelineSection) {
+                // 初始化时间线元素状态
+                resetTimelineAnimation(timelineSection);
+                timelineObserver.observe(timelineSection);
+            }
+
             // 页面加载完成后立即检查可见元素并触发动画
             setTimeout(() => {
                 const banner = document.querySelector('.aboutus-banner');
                 const intro = document.querySelector('.aboutus-intro');
+                const timeline = document.querySelector('.timeline-section');
                 
                 if (banner && isElementInViewport(banner)) {
                     banner.classList.add('content-loaded');
@@ -429,6 +513,11 @@ window.addEventListener('resize', moveLoginBtn);
                 
                 if (intro && isElementInViewport(intro)) {
                     intro.classList.add('intro-loaded');
+                }
+
+                if (timeline && isElementInViewport(timeline)) {
+                    timeline.classList.add('timeline-active');
+                    resetAndStartTimelineAnimation(timeline);
                 }
             }, 100); // 给DOM一点时间完成渲染
         });
