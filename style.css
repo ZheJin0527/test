@@ -1803,10 +1803,10 @@ nav {
 }
 
 .intro-content p {
-    font-size: clamp(15px, 1.25vw, 20px);
+    font-size: 20px;
     font-weight: normal;
-    line-height: 150%;
-    letter-spacing: 2%;
+    line-height: 170%;
+    letter-spacing: 3px;
     margin: 0 58px 0 0;
     padding: 0;
     color: #888888;
