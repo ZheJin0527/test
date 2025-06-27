@@ -2377,7 +2377,7 @@ nav {
     position: relative;
     width: 100%;
     max-width: 1600px;
-    height: 800px;
+    height: 1000px;
     overflow: hidden;
     perspective: 1000px;
 }
