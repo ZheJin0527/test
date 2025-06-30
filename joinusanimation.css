@@ -683,27 +683,80 @@ img.image-3d-rotate:hover,
     transition-delay: 0.3s;
 }
 
-/* 标题和段落的从上方左到右进场特效 */
+/* 定义波浪下落的关键帧动画 */
+@keyframes waveDropIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px) translateX(-30px);
+    }
+    30% {
+        opacity: 0.3;
+        transform: translateY(-50px) translateX(-15px);
+    }
+    60% {
+        opacity: 0.7;
+        transform: translateY(-20px) translateX(-5px);
+    }
+    80% {
+        opacity: 0.9;
+        transform: translateY(-5px) translateX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+}
+
+/* 标题和段落的初始状态 */
 .joinus-content h1,
 .joinus-content p {
     opacity: 0 !important;
-    transform: translateY(-80px) translateX(-60px) !important;
-    transition: all 1.0s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateY(-100px) translateX(-30px) !important;
     visibility: hidden;
 }
 
-/* 标题先从左上方滑入 */
+/* 标题的波浪下来动画 */
 .joinus-banner.joinus-loaded .joinus-content h1 {
     opacity: 1 !important;
     transform: translateY(0) translateX(0) !important;
     visibility: visible;
-    transition-delay: 0.6s;
+    animation: waveDropIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.6s;
 }
 
-/* 段落稍后从左上方滑入 */
+/* 段落的波浪下来动画 - 稍微延迟 */
 .joinus-banner.joinus-loaded .joinus-content p {
     opacity: 1 !important;
     transform: translateY(0) translateX(0) !important;
     visibility: visible;
-    transition-delay: 0.9s;
+    animation: waveDropIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.9s;
+}
+
+/* 如果你想要更明显的波浪效果，可以添加这个变体 */
+@keyframes waveDropInStrong {
+    0% {
+        opacity: 0;
+        transform: translateY(-120px) translateX(-50px) rotate(-5deg);
+    }
+    25% {
+        opacity: 0.2;
+        transform: translateY(-80px) translateX(-30px) rotate(-3deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(-40px) translateX(-15px) rotate(-1deg);
+    }
+    70% {
+        opacity: 0.8;
+        transform: translateY(-15px) translateX(-5px) rotate(0deg);
+    }
+    85% {
+        opacity: 0.95;
+        transform: translateY(-5px) translateX(2px) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
 }
