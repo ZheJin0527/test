@@ -716,7 +716,7 @@ img.image-3d-rotate:hover,
 .benefits-wrapper.benefits-loaded h2 {
     opacity: 1 !important;
     transform: translateY(0) !important;
-    transition-delay: 0.3s;
+    transition-delay: 0.8s;
 }
 
 /* 福利项目初始状态 - 全部隐藏且缩小 */
@@ -736,19 +736,19 @@ img.image-3d-rotate:hover,
 /* 中间的第3和第4个首先出现 (0.5s) */
 .benefits-wrapper.benefits-loaded .benefit-item:nth-child(3),
 .benefits-wrapper.benefits-loaded .benefit-item:nth-child(4) {
-    transition-delay: 0.5s;
+    transition-delay: 0.8s;
 }
 
 /* 第2和第5个稍后出现 (0.7s) */
 .benefits-wrapper.benefits-loaded .benefit-item:nth-child(2),
 .benefits-wrapper.benefits-loaded .benefit-item:nth-child(5) {
-    transition-delay: 0.7s;
+    transition-delay: 1s;
 }
 
 /* 最外侧的第1和第6个最后出现 (0.9s) */
 .benefits-wrapper.benefits-loaded .benefit-item:nth-child(1),
 .benefits-wrapper.benefits-loaded .benefit-item:nth-child(6) {
-    transition-delay: 0.9s;
+    transition-delay: 1.2s;
 }
 
 /* 福利项目悬浮效果 - 保持原有样式 */
@@ -775,7 +775,9 @@ img.image-3d-rotate:hover,
     transition-delay: 0s !important;
 }
 
-/* 重置延迟 - 当不可见时移除标题延迟 */
+/* 立即重置 h2 状态，防止返回时残影 */
 .benefits-wrapper:not(.benefits-loaded) h2 {
-    transition-delay: 0s !important;
+    opacity: 0 !important;
+    transform: translateY(30px) !important;
+    transition: none !important;
 }
