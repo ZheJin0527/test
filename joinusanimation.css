@@ -683,13 +683,14 @@ img.image-3d-rotate:hover,
     transform: scale(0.5);
 }
 
-/* 触发动画后的状态 */
+/* 标题动画 */
 .joinus-banner.joinus-loaded .joinus-content h1 {
-    animation: scaleIn 0.8s ease-out forwards;
-    animation-delay: 0.6s;
+    animation: scaleIn 1s cubic-bezier(0.42, 0.0, 0.58, 1.0) forwards;
+    animation-delay: 0.3s;
 }
 
+/* 段落动画 */
 .joinus-banner.joinus-loaded .joinus-content p {
-    animation: scaleIn 0.8s ease-out forwards;
-    animation-delay: 0.9s;
+    animation: scaleIn 0.8s cubic-bezier(0.42, 0.0, 0.58, 1.0) forwards;
+    animation-delay: 0.6s;
 }
