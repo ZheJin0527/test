@@ -506,7 +506,7 @@ window.addEventListener('resize', moveLoginBtn);
             threshold: 0.2
         });
 
-        // AboutUs 专用的 IntersectionObserver - 支持重复触发
+        // AboutUs & JoinUs 专用的 IntersectionObserver - 支持重复触发
         const aboutObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const target = entry.target;
@@ -517,6 +517,8 @@ window.addEventListener('resize', moveLoginBtn);
                         target.classList.add('content-loaded');
                     } else if (target.classList.contains('aboutus-intro')) {
                         target.classList.add('intro-loaded');
+                    } else if (target.classList.contains('joinus-banner')) {
+                        target.classList.add('joinus-loaded');
                     }
                 } else {
                     // 离开视窗时移除动画类，重置状态
@@ -524,6 +526,8 @@ window.addEventListener('resize', moveLoginBtn);
                         target.classList.remove('content-loaded');
                     } else if (target.classList.contains('aboutus-intro')) {
                         target.classList.remove('intro-loaded');
+                    } else if (target.classList.contains('joinus-banner')) {
+                        target.classList.remove('joinus-loaded');
                     }
                 }
             });
@@ -619,9 +623,10 @@ window.addEventListener('resize', moveLoginBtn);
                 observer.observe(container);
             });
 
-            // 初始化 aboutus 观察器
+            // 初始化 aboutus & joinus 观察器
             const aboutBanner = document.querySelector('.aboutus-banner');
             const aboutIntro = document.querySelector('.aboutus-intro');
+            const joinusBanner = document.querySelector('.joinus-banner');
             
             if (aboutBanner) {
                 aboutObserver.observe(aboutBanner);
@@ -629,6 +634,10 @@ window.addEventListener('resize', moveLoginBtn);
             
             if (aboutIntro) {
                 aboutObserver.observe(aboutIntro);
+            }
+
+            if (joinusBanner) {
+                aboutObserver.observe(joinusBanner);
             }
 
             // 初始化时间线观察器
@@ -644,6 +653,7 @@ window.addEventListener('resize', moveLoginBtn);
                 const banner = document.querySelector('.aboutus-banner');
                 const intro = document.querySelector('.aboutus-intro');
                 const timeline = document.querySelector('.timeline-section');
+                const joinusBanner = document.querySelector('.joinus-banner');
                 
                 if (banner && isElementInViewport(banner)) {
                     banner.classList.add('content-loaded');
@@ -651,6 +661,10 @@ window.addEventListener('resize', moveLoginBtn);
                 
                 if (intro && isElementInViewport(intro)) {
                     intro.classList.add('intro-loaded');
+                }
+
+                if (joinusBanner && isElementInViewport(joinusBanner)) {
+                    joinusBanner.classList.add('joinus-loaded');
                 }
 
                 if (timeline && isElementInViewport(timeline)) {
