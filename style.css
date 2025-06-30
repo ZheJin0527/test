@@ -2879,16 +2879,30 @@ nav {
             margin: 0;
         }
           
-        /* Swiper controls */
+        /* Swiper controls - 分页器样式 */
+        .environment-wrapper .swiper-pagination {
+            position: relative !important;
+            bottom: auto !important;
+            left: auto !important;
+            transform: none !important;
+            margin-top: 30px !important;
+            text-align: center !important;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+        
         .environment-wrapper .swiper-pagination-bullet {
             height: 13px;
             width: 13px;
             opacity: 0.5;
-            background: white !important; /* 你要改的颜色 */
+            background: #666 !important;
+            margin: 0 8px !important;
         }
           
         .environment-wrapper .swiper-pagination-bullet-active {
             opacity: 1;
+            background: #333 !important;
         }
           
         .environment-wrapper .swiper-button-prev,
