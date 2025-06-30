@@ -668,18 +668,9 @@ img.image-3d-rotate:hover,
 
 /* 加入我们内容容器初始状态 */
 .joinus-content {
-    opacity: 0;
-    transform: translateY(0);
-    transition: all 0.8s ease-out;
-    visibility: hidden;
-}
-
-/* 加入我们内容动画 - 只有添加 joinus-loaded 类才显示 */
-.joinus-banner.joinus-loaded .joinus-content {
     opacity: 1;
     transform: translateY(0);
     visibility: visible;
-    transition-delay: 0.3s;
 }
 
 /* 从小变大的动画 */
