@@ -786,10 +786,3 @@ img.image-3d-rotate:hover,
 }
 
 /* 如果想使用更强烈的波浪效果，可以将上面的动画名称改为 waveDropInStrong */
-
-.joinus-section {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-}
