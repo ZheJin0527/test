@@ -1718,7 +1718,7 @@ nav {
 }
   
 .aboutus-content p {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.5%;
@@ -1803,7 +1803,7 @@ nav {
 }
 
 .intro-content p {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: normal;
     line-height: 170%;
     letter-spacing: 3px;
@@ -1878,7 +1878,7 @@ nav {
 }
 
 .vision-content p {
-    font-size: clamp(16px, 1.5vw, 20px);
+    font-size: 1.25rem;
     font-weight: normal;
     line-height: 150%;
     letter-spacing: 2%;
@@ -2065,7 +2065,7 @@ nav {
 }
 
 .values-description {
-    font-size: clamp(16px, 1.5vw, 20px);
+    font-size: 1.25rem;
     color: #888888;
     margin-bottom: 48px;
     line-height: 140%;
