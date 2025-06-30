@@ -654,3 +654,56 @@ img.image-3d-rotate:hover,
     visibility: visible;
     transition-delay: 1.3s;
 }
+
+/* ========== Join Us 加入我们页面特效 ========== */
+/* 加入我们 Banner 背景直接显示 */
+.joinus-banner {
+    opacity: 1;
+    transform: translateY(0);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 加入我们内容容器初始状态 - 强制隐藏 */
+.joinus-content {
+    opacity: 0 !important;
+    transform: translateY(0) !important;
+    transition: all 0.8s ease-out;
+    visibility: hidden;
+}
+
+/* 加入我们内容动画 - 只有添加 joinus-loaded 类才显示 */
+.joinus-banner.joinus-loaded .joinus-content {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.3s;
+}
+
+/* 标题和段落的从上方左到右进场特效 */
+.joinus-content h1,
+.joinus-content p {
+    opacity: 0 !important;
+    transform: translateY(-80px) translateX(-60px) !important;
+    transition: all 1.0s cubic-bezier(0.25, 0.8, 0.25, 1);
+    visibility: hidden;
+}
+
+/* 标题先从左上方滑入 */
+.joinus-banner.joinus-loaded .joinus-content h1 {
+    opacity: 1 !important;
+    transform: translateY(0) translateX(0) !important;
+    visibility: visible;
+    transition-delay: 0.6s;
+}
+
+/* 段落稍后从左上方滑入 */
+.joinus-banner.joinus-loaded .joinus-content p {
+    opacity: 1 !important;
+    transform: translateY(0) translateX(0) !important;
+    visibility: visible;
+    transition-delay: 0.9s;
+}
