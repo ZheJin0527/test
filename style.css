@@ -2619,10 +2619,16 @@ nav {
 
 
 /* 加入我们 */
-.joinus {
-    position: relative;
-    padding: 80px 0 0 80px;
-    height: calc(60vh - 80px); /* 还保持满屏显示 */
+.joinus-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* 上半部分 60% */
+.joinus-banner {
+    flex: 0 0 60%;
     background: url('images/images/加入封面.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
@@ -2704,10 +2710,12 @@ nav {
   }
 }
 
-.benefits {
+.benefits-wrapper {
+    flex: 0 0 40%;
+    background: #f9fbfc;
     text-align: center;
     padding: 40px 20px;
-    background: #f9fbfc;
+    box-sizing: border-box;
 }
   
 .benefits h2 {
