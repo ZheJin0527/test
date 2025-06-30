@@ -683,39 +683,51 @@ img.image-3d-rotate:hover,
     transition-delay: 0.3s;
 }
 
-/* 定义波浪下落的关键帧动画 - 上下波动着下来 */
+/* 定义真正的波浪下落动画 - 使用sin波函数模拟 */
 @keyframes waveDropIn {
     0% {
         opacity: 0;
-        transform: translateY(-120px);
+        transform: translateY(-120px) translateX(0px);
     }
-    15% {
+    10% {
         opacity: 0.3;
-        transform: translateY(-90px);
+        transform: translateY(-100px) translateX(15px); /* 波浪右 */
+    }
+    20% {
+        opacity: 0.5;
+        transform: translateY(-80px) translateX(0px); /* 波浪中 */
     }
     30% {
-        opacity: 0.5;
-        transform: translateY(-50px);
+        opacity: 0.6;
+        transform: translateY(-60px) translateX(-15px); /* 波浪左 */
     }
-    45% {
+    40% {
         opacity: 0.7;
-        transform: translateY(-70px); /* 波浪向上 */
+        transform: translateY(-40px) translateX(0px); /* 波浪中 */
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-25px) translateX(10px); /* 波浪右 */
     }
     60% {
-        opacity: 0.8;
-        transform: translateY(-30px);
+        opacity: 0.85;
+        transform: translateY(-15px) translateX(0px); /* 波浪中 */
     }
-    75% {
+    70% {
         opacity: 0.9;
-        transform: translateY(-40px); /* 再次波浪向上 */
+        transform: translateY(-8px) translateX(-8px); /* 波浪左 */
+    }
+    80% {
+        opacity: 0.95;
+        transform: translateY(-3px) translateX(0px); /* 波浪中 */
     }
     90% {
-        opacity: 0.95;
-        transform: translateY(-10px);
+        opacity: 0.98;
+        transform: translateY(-1px) translateX(3px); /* 小波浪右 */
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0px) translateX(0px); /* 最终位置 */
     }
 }
 
@@ -727,12 +739,12 @@ img.image-3d-rotate:hover,
     visibility: hidden;
 }
 
-/* 标题的波浪下来动画 */
+/* 标题的波浪下来动画 - 更快速更明显 */
 .joinus-banner.joinus-loaded .joinus-content h1 {
     opacity: 1 !important;
     transform: translateY(0) !important;
     visibility: visible;
-    animation: waveDropIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: waveDropIn 1.0s ease-out forwards;
     animation-delay: 0.6s;
 }
 
@@ -741,48 +753,66 @@ img.image-3d-rotate:hover,
     opacity: 1 !important;
     transform: translateY(0) !important;
     visibility: visible;
-    animation: waveDropIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: waveDropIn 1.0s ease-out forwards;
     animation-delay: 0.9s;
 }
 
-/* 如果你想要更明显的波浪效果，可以使用这个增强版本 */
+/* 更强烈的波浪效果 - 左右摆动更大 */
 @keyframes waveDropInStrong {
     0% {
         opacity: 0;
-        transform: translateY(-150px);
+        transform: translateY(-150px) translateX(0px);
     }
-    10% {
+    8% {
         opacity: 0.2;
-        transform: translateY(-120px);
+        transform: translateY(-130px) translateX(25px); /* 大幅向右 */
     }
-    25% {
+    16% {
         opacity: 0.4;
-        transform: translateY(-80px);
+        transform: translateY(-110px) translateX(0px);
+    }
+    24% {
+        opacity: 0.5;
+        transform: translateY(-90px) translateX(-25px); /* 大幅向左 */
+    }
+    32% {
+        opacity: 0.6;
+        transform: translateY(-70px) translateX(0px);
     }
     40% {
-        opacity: 0.6;
-        transform: translateY(-100px); /* 波浪向上 */
-    }
-    55% {
         opacity: 0.7;
-        transform: translateY(-60px);
+        transform: translateY(-50px) translateX(20px); /* 向右 */
     }
-    70% {
+    48% {
         opacity: 0.8;
-        transform: translateY(-80px); /* 再次波浪向上 */
+        transform: translateY(-35px) translateX(0px);
     }
-    85% {
+    56% {
+        opacity: 0.85;
+        transform: translateY(-25px) translateX(-15px); /* 向左 */
+    }
+    64% {
         opacity: 0.9;
-        transform: translateY(-20px);
+        transform: translateY(-18px) translateX(0px);
     }
-    95% {
+    72% {
+        opacity: 0.93;
+        transform: translateY(-12px) translateX(10px); /* 向右 */
+    }
+    80% {
         opacity: 0.95;
-        transform: translateY(-30px); /* 最后一次小波浪 */
+        transform: translateY(-8px) translateX(0px);
+    }
+    88% {
+        opacity: 0.97;
+        transform: translateY(-4px) translateX(-6px); /* 向左 */
+    }
+    94% {
+        opacity: 0.99;
+        transform: translateY(-2px) translateX(0px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0px) translateX(0px);
     }
 }
-
-/* 如果想使用更强烈的波浪效果，可以将上面的动画名称改为 waveDropInStrong */
