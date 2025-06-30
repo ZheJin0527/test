@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const environmentSwiper = new Swiper('.environment-wrapper', {
             slidesPerView: 3,
-            spaceBetween: 30,
+            spaceBetween: 0, /* 改为0，因为间距通过CSS margin实现 */
             centeredSlides: false,
             loop: true,
             mousewheel: {
@@ -24,15 +24,15 @@ document.addEventListener("DOMContentLoaded", function () {
             breakpoints: {
                 1024: {
                     slidesPerView: 3,
-                    spaceBetween: 30,
+                    spaceBetween: 0,
                 },
                 768: {
                     slidesPerView: 2,
-                    spaceBetween: 20,
+                    spaceBetween: 0,
                 },
                 480: {
                     slidesPerView: 1,
-                    spaceBetween: 10,
+                    spaceBetween: 0,
                 }
             },
             // 防止容器溢出

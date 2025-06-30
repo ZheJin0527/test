@@ -2853,6 +2853,7 @@ nav {
             position: relative;
             overflow: hidden;
             height: 100%;
+            margin: 0 15px; /* 添加左右边距来创建间距 */
         }
           
         .environment-link:hover {
