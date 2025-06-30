@@ -2391,7 +2391,7 @@ nav {
 
 .timeline-content-item {
     position: absolute;
-    width: 800px;
+    width: 920px;
     height: 350px;
     transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
@@ -2490,13 +2490,13 @@ nav {
 
 .timeline-text {
     flex: 1;
-    max-width: 400px;
+    max-width: 500px;
     position: relative;
     z-index: 1;
 }
 
 .timeline-text h3 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     background: #ff5c00;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
