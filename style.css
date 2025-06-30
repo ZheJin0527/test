@@ -2821,7 +2821,7 @@ nav {
 }
 
 .environment-heading {
-    font-size: 45px;
+    font-size: 40px;
     margin-bottom: 20px;
     color: #333;
 }
@@ -3035,8 +3035,8 @@ nav {
 
 .job-table-title {
     text-align: center;
-    font-size: 45px;
-    margin-top: 80px;
+    font-size: 40px;
+    margin-top: 20px;
     margin-bottom: 0;
     font-family: 'Inter', sans-serif;
     color: #333;
