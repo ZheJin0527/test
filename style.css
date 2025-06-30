@@ -1869,7 +1869,7 @@ nav {
 
 .vision-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(40px, 6vw, 86px);
+    font-size: clamp(40px, 6vw, 72px);
     font-weight: bold;
     line-height: 140%;
     letter-spacing: 0.5%;
@@ -2057,7 +2057,7 @@ nav {
 }
 
 .values-title {
-    font-size: clamp(40px, 6vw, 86px);
+    font-size: clamp(40px, 6vw, 72px);
     color: black;
     font-weight: bold;
     margin-top: 32px;
