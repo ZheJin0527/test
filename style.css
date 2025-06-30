@@ -2637,7 +2637,8 @@ nav {
 }
   
 .joinus-content {
-    margin-top: 76px;
+    margin-top: 136px;
+    margin-left: 40px;
     width: 402px;
     height: 140px;
     display: flex;
