@@ -1,26 +1,45 @@
 // ======= Swiper 初始化（工作环境轮播）=======
 document.addEventListener("DOMContentLoaded", function () {
-  const swiper = new Swiper(".environment-wrapper", {
-    loop: true,
-    slidesPerView: 1,
-    spaceBetween: 20,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 2,
-      },
-      1024: {
-        slidesPerView: 3,
-      }
-    }
-  });
+  const environmentSwiper = new Swiper('.environment-wrapper', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            centeredSlides: false,
+            loop: true,
+            mousewheel: {
+                enabled: true,
+                invert: false, // 修复滚轮方向
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.environment-wrapper .swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.environment-wrapper .swiper-button-next',
+                prevEl: '.environment-wrapper .swiper-button-prev',
+            },
+            breakpoints: {
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                480: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                }
+            },
+            // 防止容器溢出
+            watchOverflow: true,
+            observer: true,
+            observeParents: true,
+        });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
