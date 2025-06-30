@@ -1,42 +1,81 @@
-// ======= Swiper 初始化（工作环境轮播）=======
+// ======= 替代方案：完全禁用Swiper滚轮响应 =======
 document.addEventListener("DOMContentLoaded", function () {
-  const environmentSwiper = new Swiper('.environment-wrapper', {
-            slidesPerView: 3,
-            spaceBetween: 0, /* 改为0，因为间距通过CSS margin实现 */
-            centeredSlides: false,
-            loop: true,
-            mousewheel: false, /* 完全禁用滚轮控制 */
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.environment-wrapper .swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.environment-wrapper .swiper-button-next',
-                prevEl: '.environment-wrapper .swiper-button-prev',
-            },
-            breakpoints: {
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 0,
+    const environmentSwiper = new Swiper('.environment-wrapper', {
+        slidesPerView: 3,
+        spaceBetween: 0,
+        centeredSlides: false,
+        loop: true,
+        
+        // 完全禁用滚轮和自动播放
+        mousewheel: false,
+        autoplay: false,
+        
+        pagination: {
+            el: '.environment-wrapper .swiper-pagination',
+            clickable: true,
+        },
+        
+        navigation: {
+            nextEl: '.environment-wrapper .swiper-button-next',
+            prevEl: '.environment-wrapper .swiper-button-prev',
+        },
+        
+        breakpoints: {
+            1024: { slidesPerView: 3, spaceBetween: 0 },
+            768: { slidesPerView: 2, spaceBetween: 0 },
+            480: { slidesPerView: 1, spaceBetween: 0 }
+        },
+        
+        watchOverflow: true,
+        observer: true,
+        observeParents: true,
+        
+        // 允许触摸和鼠标拖拽，但只允许水平方向
+        allowTouchMove: true,
+        touchStartPreventDefault: false,
+        touchMoveStopPropagation: false,
+        simulateTouch: true,  // 允许鼠标拖拽模拟触摸
+        grabCursor: true,     // 显示抓手光标
+    });
+    
+    // 方法1：直接覆盖Swiper的滚轮事件处理
+    setTimeout(() => {
+        if (environmentSwiper.mousewheel) {
+            environmentSwiper.mousewheel.disable();
+        }
+        
+        // 强制移除所有滚轮事件监听器
+        const swiperEl = document.querySelector('.environment-wrapper');
+        if (swiperEl) {
+            // 克隆元素来移除所有事件监听器
+            const newSwiperEl = swiperEl.cloneNode(true);
+            swiperEl.parentNode.replaceChild(newSwiperEl, swiperEl);
+            
+            // 相同的配置，但禁用自动播放和滚轮
+            const newSwiper = new Swiper('.environment-wrapper', {
+                slidesPerView: 3,
+                spaceBetween: 0,
+                loop: true,
+                mousewheel: false, // 确保这个是false
+                autoplay: false,   // 禁用自动播放
+                pagination: { el: '.environment-wrapper .swiper-pagination', clickable: true },
+                navigation: {
+                    nextEl: '.environment-wrapper .swiper-button-next',
+                    prevEl: '.environment-wrapper .swiper-button-prev',
                 },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 0,
+                breakpoints: {
+                    1024: { slidesPerView: 3, spaceBetween: 0 },
+                    768: { slidesPerView: 2, spaceBetween: 0 },
+                    480: { slidesPerView: 1, spaceBetween: 0 }
                 },
-                480: {
-                    slidesPerView: 1,
-                    spaceBetween: 0,
-                }
-            },
-            // 防止容器溢出
-            watchOverflow: true,
-            observer: true,
-            observeParents: true,
-        });
+                allowTouchMove: true,     // 允许拖拽
+                simulateTouch: true,      // 允许鼠标拖拽
+                grabCursor: true,         // 显示抓手光标
+                touchStartPreventDefault: false,
+                touchMoveStopPropagation: false,
+            });
+        }
+    }, 100);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
