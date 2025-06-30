@@ -475,190 +475,200 @@ window.addEventListener('resize', moveLoginBtn);
 </script>
 <script>
         // 通用的 animate-on-scroll observer（保持原有逻辑）
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const container = entry.target;
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        const container = entry.target;
 
-                if (entry.isIntersecting) {
-                    container.classList.add('visible');
+        if (entry.isIntersecting) {
+            container.classList.add('visible');
 
-                    container.querySelectorAll('.scale-fade-in').forEach(el => {
-                        el.style.animation = 'none';
-                        el.offsetHeight;
-                        el.style.animation = '';
-                        el.style.animationPlayState = 'running';
-                    });
-
-                } else {
-                    container.classList.remove('visible');
-
-                    container.querySelectorAll('.scale-fade-in').forEach(el => {
-                        el.style.animation = 'none';
-                        el.style.opacity = '0';
-                        el.style.transform = 'translateY(20px)';
-                        el.offsetHeight;
-                        el.style.animation = '';
-                        el.style.animationPlayState = 'paused';
-                    });
-                }
+            container.querySelectorAll('.scale-fade-in').forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight;
+                el.style.animation = '';
+                el.style.animationPlayState = 'running';
             });
-        }, {
-            threshold: 0.2
-        });
 
-        // AboutUs & JoinUs 专用的 IntersectionObserver - 支持重复触发
-        const aboutObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const target = entry.target;
+        } else {
+            container.classList.remove('visible');
 
-                if (entry.isIntersecting) {
-                    // 直接触发动画，不再等待图片加载
-                    if (target.classList.contains('aboutus-banner')) {
-                        target.classList.add('content-loaded');
-                    } else if (target.classList.contains('aboutus-intro')) {
-                        target.classList.add('intro-loaded');
-                    } else if (target.classList.contains('joinus-banner')) {
-                        target.classList.add('joinus-loaded');
-                    }
-                } else {
-                    // 离开视窗时移除动画类，重置状态
-                    if (target.classList.contains('aboutus-banner')) {
-                        target.classList.remove('content-loaded');
-                    } else if (target.classList.contains('aboutus-intro')) {
-                        target.classList.remove('intro-loaded');
-                    } else if (target.classList.contains('joinus-banner')) {
-                        target.classList.remove('joinus-loaded');
-                    }
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -10% 0px'
-        });
-
-        // 时间线专用的 IntersectionObserver - 支持重复触发
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const timelineSection = entry.target;
-
-                if (entry.isIntersecting) {
-                    // 进入视窗时启动时间线动画
-                    timelineSection.classList.add('timeline-active');
-                    resetAndStartTimelineAnimation(timelineSection);
-                } else {
-                    // 离开视窗时重置动画状态
-                    timelineSection.classList.remove('timeline-active');
-                    resetTimelineAnimation(timelineSection);
-                }
-            });
-        }, {
-            threshold: 0.3,
-            rootMargin: '0px 0px -20% 0px'
-        });
-
-        // 重置并启动时间线动画
-        function resetAndStartTimelineAnimation(timelineSection) {
-            const title = timelineSection.querySelector('h1');
-            const track = timelineSection.querySelector('.timeline-track');
-            const container = timelineSection.querySelector('.timeline-items-container');
-            const items = timelineSection.querySelectorAll('.timeline-item');
-            const arrows = timelineSection.querySelectorAll('.nav-arrow');
-
-            // 重置所有元素的动画
-            [title, track, container, ...items, ...arrows].forEach(el => {
-                if (el) {
-                    el.style.animation = 'none';
-                    el.offsetHeight; // 强制重排
-                    el.style.animation = ''; // 恢复原始动画
-                }
+            container.querySelectorAll('.scale-fade-in').forEach(el => {
+                el.style.animation = 'none';
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.offsetHeight;
+                el.style.animation = '';
+                el.style.animationPlayState = 'paused';
             });
         }
+    });
+}, {
+    threshold: 0.2
+});
 
-        // 重置时间线动画状态
-        function resetTimelineAnimation(timelineSection) {
-            const title = timelineSection.querySelector('h1');
-            const track = timelineSection.querySelector('.timeline-track');
-            const container = timelineSection.querySelector('.timeline-items-container');
-            const items = timelineSection.querySelectorAll('.timeline-item');
-            const arrows = timelineSection.querySelectorAll('.nav-arrow');
+// AboutUs & JoinUs 专用的 IntersectionObserver - 支持重复触发
+const aboutObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        const target = entry.target;
 
-            // 重置标题
-            if (title) {
-                title.style.opacity = '0';
-                title.style.transform = 'translateY(20px)';
+        if (entry.isIntersecting) {
+            // 直接触发动画，不再等待图片加载
+            if (target.classList.contains('aboutus-banner')) {
+                target.classList.add('content-loaded');
+            } else if (target.classList.contains('aboutus-intro')) {
+                target.classList.add('intro-loaded');
+            } else if (target.classList.contains('joinus-banner')) {
+                target.classList.add('joinus-loaded');
+            } else if (target.classList.contains('benefits-wrapper')) {
+                target.classList.add('benefits-loaded');
             }
-
-            // 重置轨道
-            if (track) {
-                track.style.transform = 'translateY(-50%) scaleX(0)';
+        } else {
+            // 离开视窗时移除动画类，重置状态
+            if (target.classList.contains('aboutus-banner')) {
+                target.classList.remove('content-loaded');
+            } else if (target.classList.contains('aboutus-intro')) {
+                target.classList.remove('intro-loaded');
+            } else if (target.classList.contains('joinus-banner')) {
+                target.classList.remove('joinus-loaded');
+            } else if (target.classList.contains('benefits-wrapper')) {
+                target.classList.remove('benefits-loaded');
             }
-
-            // 重置容器
-            if (container) {
-                container.style.opacity = '0';
-            }
-
-            // 重置项目
-            items.forEach(item => {
-                item.style.opacity = '0';
-                item.style.transform = 'scale(0.5) translateY(20px)';
-            });
-
-            // 重置箭头
-            arrows.forEach(arrow => {
-                arrow.style.opacity = '0';
-                arrow.style.transform = 'translateY(-50%) scale(0.8)';
-            });
         }
+    });
+}, {
+    threshold: 0.2,
+    rootMargin: '0px 0px -10% 0px'
+});
 
-        // 初始化观察器
-        document.addEventListener('DOMContentLoaded', () => {
-            // 初始化通用 animate-on-scroll 观察器
-            document.querySelectorAll('.animate-on-scroll').forEach(container => {
-                container.querySelectorAll('.scale-fade-in').forEach(el => {
-                    el.style.animationPlayState = 'paused';
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(20px)';
-                });
-                observer.observe(container);
-            });
+// 时间线专用的 IntersectionObserver - 支持重复触发
+const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        const timelineSection = entry.target;
 
-            // 初始化 aboutus & joinus 观察器
-            const aboutBanner = document.querySelector('.aboutus-banner');
-            const aboutIntro = document.querySelector('.aboutus-intro');
-            const joinusBanner = document.querySelector('.joinus-banner');
-            
-            if (aboutBanner) {
-                aboutObserver.observe(aboutBanner);
-            }
-            
-            if (aboutIntro) {
-                aboutObserver.observe(aboutIntro);
-            }
+        if (entry.isIntersecting) {
+            // 进入视窗时启动时间线动画
+            timelineSection.classList.add('timeline-active');
+            resetAndStartTimelineAnimation(timelineSection);
+        } else {
+            // 离开视窗时重置动画状态
+            timelineSection.classList.remove('timeline-active');
+            resetTimelineAnimation(timelineSection);
+        }
+    });
+}, {
+    threshold: 0.3,
+    rootMargin: '0px 0px -20% 0px'
+});
 
-            if (joinusBanner) {
-                aboutObserver.observe(joinusBanner);
-            }
+// 重置并启动时间线动画
+function resetAndStartTimelineAnimation(timelineSection) {
+    const title = timelineSection.querySelector('h1');
+    const track = timelineSection.querySelector('.timeline-track');
+    const container = timelineSection.querySelector('.timeline-items-container');
+    const items = timelineSection.querySelectorAll('.timeline-item');
+    const arrows = timelineSection.querySelectorAll('.nav-arrow');
 
-            // 初始化时间线观察器
-            const timelineSection = document.querySelector('.timeline-section');
-            if (timelineSection) {
-                // 初始化时间线元素状态
-                resetTimelineAnimation(timelineSection);
-                timelineObserver.observe(timelineSection);
-            }
+    // 重置所有元素的动画
+    [title, track, container, ...items, ...arrows].forEach(el => {
+        if (el) {
+            el.style.animation = 'none';
+            el.offsetHeight; // 强制重排
+            el.style.animation = ''; // 恢复原始动画
+        }
+    });
+}
+
+// 重置时间线动画状态
+function resetTimelineAnimation(timelineSection) {
+    const title = timelineSection.querySelector('h1');
+    const track = timelineSection.querySelector('.timeline-track');
+    const container = timelineSection.querySelector('.timeline-items-container');
+    const items = timelineSection.querySelectorAll('.timeline-item');
+    const arrows = timelineSection.querySelectorAll('.nav-arrow');
+
+    // 重置标题
+    if (title) {
+        title.style.opacity = '0';
+        title.style.transform = 'translateY(20px)';
+    }
+
+    // 重置轨道
+    if (track) {
+        track.style.transform = 'translateY(-50%) scaleX(0)';
+    }
+
+    // 重置容器
+    if (container) {
+        container.style.opacity = '0';
+    }
+
+    // 重置项目
+    items.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'scale(0.5) translateY(20px)';
+    });
+
+    // 重置箭头
+    arrows.forEach(arrow => {
+        arrow.style.opacity = '0';
+        arrow.style.transform = 'translateY(-50%) scale(0.8)';
+    });
+}
+
+// 初始化观察器
+document.addEventListener('DOMContentLoaded', () => {
+    // 初始化通用 animate-on-scroll 观察器
+    document.querySelectorAll('.animate-on-scroll').forEach(container => {
+        container.querySelectorAll('.scale-fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
         });
+        observer.observe(container);
+    });
 
-        // 检查元素是否在视窗内
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.bottom > 0 &&
-                rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
-                rect.right > 0
-            );
-        }
+    // 初始化 aboutus & joinus 观察器
+    const aboutBanner = document.querySelector('.aboutus-banner');
+    const aboutIntro = document.querySelector('.aboutus-intro');
+    const joinusBanner = document.querySelector('.joinus-banner');
+    const benefitsWrapper = document.querySelector('.benefits-wrapper'); // 添加这行
+    
+    if (aboutBanner) {
+        aboutObserver.observe(aboutBanner);
+    }
+    
+    if (aboutIntro) {
+        aboutObserver.observe(aboutIntro);
+    }
+
+    if (joinusBanner) {
+        aboutObserver.observe(joinusBanner);
+    }
+
+    // 添加福利元素的观察器
+    if (benefitsWrapper) {
+        aboutObserver.observe(benefitsWrapper);
+    }
+
+    // 初始化时间线观察器
+    const timelineSection = document.querySelector('.timeline-section');
+    if (timelineSection) {
+        // 初始化时间线元素状态
+        resetTimelineAnimation(timelineSection);
+        timelineObserver.observe(timelineSection);
+    }
+});
+
+// 检查元素是否在视窗内
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom > 0 &&
+        rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
+        rect.right > 0
+    );
+}
     </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
