@@ -5,10 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
             spaceBetween: 0, /* 改为0，因为间距通过CSS margin实现 */
             centeredSlides: false,
             loop: true,
-            mousewheel: {
-                enabled: true,
-                invert: false, // 修复滚轮方向
-            },
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,
