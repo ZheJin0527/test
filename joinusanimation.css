@@ -716,7 +716,7 @@ img.image-3d-rotate:hover,
 .benefits-wrapper.benefits-loaded h2 {
     opacity: 1 !important;
     transform: translateY(0) !important;
-    transition-delay: 0.8s;
+    transition-delay: 1s;
 }
 
 /* 福利项目初始状态 - 全部隐藏且缩小 */
