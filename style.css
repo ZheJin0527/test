@@ -2815,12 +2815,12 @@ nav {
 
 .environment-section {
     background: #faf6e0;
-    padding: 60px 80px;
+    padding: 80px 80px 40px;
     text-align: center;
 }
           
 .environment-heading {
-    font-size: 45px;
+    font-size: 40px;
     margin-bottom: 40px;
     color: #333;
 }
