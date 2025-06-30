@@ -647,31 +647,6 @@ window.addEventListener('resize', moveLoginBtn);
                 resetTimelineAnimation(timelineSection);
                 timelineObserver.observe(timelineSection);
             }
-
-            // 页面加载完成后立即检查可见元素并触发动画
-            setTimeout(() => {
-                const banner = document.querySelector('.aboutus-banner');
-                const intro = document.querySelector('.aboutus-intro');
-                const timeline = document.querySelector('.timeline-section');
-                const joinusBanner = document.querySelector('.joinus-banner');
-                
-                if (banner && isElementInViewport(banner)) {
-                    banner.classList.add('content-loaded');
-                }
-                
-                if (intro && isElementInViewport(intro)) {
-                    intro.classList.add('intro-loaded');
-                }
-
-                if (joinusBanner && isElementInViewport(joinusBanner)) {
-                    joinusBanner.classList.add('joinus-loaded');
-                }
-
-                if (timeline && isElementInViewport(timeline)) {
-                    timeline.classList.add('timeline-active');
-                    resetAndStartTimelineAnimation(timeline);
-                }
-            }, 100); // 给DOM一点时间完成渲染
         });
 
         // 检查元素是否在视窗内

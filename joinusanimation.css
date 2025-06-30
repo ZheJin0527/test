@@ -655,7 +655,7 @@ img.image-3d-rotate:hover,
     transition-delay: 1.3s;
 }
 
-/* ========== Join Us 加入我们页面特效 ========== */
+/* 加入我们 Banner 背景直接显示 */
 .joinus-banner {
     opacity: 1;
     transform: translateY(0);
@@ -666,18 +666,18 @@ img.image-3d-rotate:hover,
     justify-content: center;
 }
 
-/* 加入我们内容容器初始状态 - 强制隐藏 */
+/* 加入我们内容容器初始状态 - 移除 !important */
 .joinus-content {
-    opacity: 0 !important;
-    transform: translateY(0) !important;
+    opacity: 0;
+    transform: translateY(0);
     transition: all 0.8s ease-out;
     visibility: hidden;
 }
 
 /* 加入我们内容动画 - 只有添加 joinus-loaded 类才显示 */
 .joinus-banner.joinus-loaded .joinus-content {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
+    opacity: 1;
+    transform: translateY(0);
     visibility: visible;
     transition-delay: 0.3s;
 }
@@ -694,27 +694,27 @@ img.image-3d-rotate:hover,
     }
 }
 
-/* 标题和段落的初始状态 */
+/* 标题和段落的初始状态 - 移除 !important */
 .joinus-content h1,
 .joinus-content p {
-    opacity: 0 !important;
-    transform: translateY(-80px) !important;
+    opacity: 0;
+    transform: translateY(-80px);
     visibility: hidden;
 }
 
-/* 标题的从上下来动画 */
+/* 标题的从上下来动画 - 移除 !important */
 .joinus-banner.joinus-loaded .joinus-content h1 {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
+    opacity: 1;
+    transform: translateY(0);
     visibility: visible;
     animation: dropIn 0.8s ease-out forwards;
     animation-delay: 0.6s;
 }
 
-/* 段落的从上下来动画 - 稍微延迟 */
+/* 段落的从上下来动画 - 移除 !important */
 .joinus-banner.joinus-loaded .joinus-content p {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
+    opacity: 1;
+    transform: translateY(0);
     visibility: visible;
     animation: dropIn 0.8s ease-out forwards;
     animation-delay: 0.9s;
