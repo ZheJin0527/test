@@ -655,22 +655,13 @@ img.image-3d-rotate:hover,
     transition-delay: 1.3s;
 }
 
-/* 加入我们 Banner 背景直接显示 */
+/* 加入我们 Banner 背景 */
 .joinus-banner {
-    opacity: 1;
-    transform: translateY(0);
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* 加入我们内容容器初始状态 */
-.joinus-content {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
 }
 
 /* 从小变大的动画 */
@@ -685,28 +676,20 @@ img.image-3d-rotate:hover,
     }
 }
 
-/* 标题和段落的初始状态 */
+/* 标题和段落的初始状态：透明且缩小 */
 .joinus-content h1,
 .joinus-content p {
     opacity: 0;
     transform: scale(0.5);
-    visibility: hidden;
 }
 
-/* 标题的从小变大动画 */
+/* 触发动画后的状态 */
 .joinus-banner.joinus-loaded .joinus-content h1 {
-    opacity: 1;
-    transform: scale(1);
-    visibility: visible;
     animation: scaleIn 0.8s ease-out forwards;
     animation-delay: 0.6s;
 }
 
-/* 段落的从小变大动画 */
 .joinus-banner.joinus-loaded .joinus-content p {
-    opacity: 1;
-    transform: scale(1);
-    visibility: visible;
     animation: scaleIn 0.8s ease-out forwards;
     animation-delay: 0.9s;
 }
