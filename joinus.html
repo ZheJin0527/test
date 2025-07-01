@@ -98,6 +98,16 @@
 </div>
 
 <div class="swiper-slide">
+<div class="comphoto-section" id="comphoto-container"></div>
+    <div id="comphoto-modal" class="comphoto-modal">
+        <span class="comphoto-close">&times;</span>
+        <div class="comphoto-modal-content">
+            <img id="comphoto-modal-img" src="" alt="放大的照片">
+        </div>
+    </div>
+  </div>
+
+<div class="swiper-slide">
 <section id="environment" class="environment-section">
   <h2 class="environment-heading">工作环境</h2>
   <div class="swiper environment-wrapper">
@@ -986,5 +996,279 @@ window.addEventListener('resize', () => {
     map.src = "https://www.google.com/maps/d/embed?mid=11C1m9L_Gcj_n8ynGotoCNc4rzq0FX54&ehbc=2E312F#target-location";
   }
 </script>
+<script>
+        // 示例照片数组（使用免费的占位图片服务）
+        const photos = [
+            'https://picsum.photos/400/300?random=1',
+            'https://picsum.photos/400/300?random=2',
+            'https://picsum.photos/400/300?random=3',
+            'https://picsum.photos/400/300?random=4',
+            'https://picsum.photos/400/300?random=5',
+            'https://picsum.photos/400/300?random=6',
+            'https://picsum.photos/400/300?random=7',
+            'https://picsum.photos/400/300?random=8',
+            'https://picsum.photos/400/300?random=9',
+            'https://picsum.photos/400/300?random=10',
+            'https://picsum.photos/400/300?random=11',
+            'https://picsum.photos/400/300?random=12',
+            'https://picsum.photos/400/300?random=13',
+            'https://picsum.photos/400/300?random=14',
+            'https://picsum.photos/400/300?random=15',
+            'https://picsum.photos/400/300?random=16',
+            'https://picsum.photos/400/300?random=17',
+            'https://picsum.photos/400/300?random=18',
+            'https://picsum.photos/400/300?random=19',
+            'https://picsum.photos/400/300?random=20',
+            'https://picsum.photos/400/300?random=21',
+            'https://picsum.photos/400/300?random=22',
+            'https://picsum.photos/400/300?random=23',
+            'https://picsum.photos/400/300?random=24',
+            'https://picsum.photos/400/300?random=25',
+            'https://picsum.photos/400/300?random=26',
+            'https://picsum.photos/400/300?random=27',
+            'https://picsum.photos/400/300?random=28',
+            'https://picsum.photos/400/300?random=29',
+            'https://picsum.photos/400/300?random=30',
+            'https://picsum.photos/400/300?random=31',
+            'https://picsum.photos/400/300?random=32',
+            'https://picsum.photos/400/300?random=33',
+            'https://picsum.photos/400/300?random=34'
+        ];
+
+        const comphotoContainer = document.getElementById('comphoto-container');
+        const comphotoModal = document.getElementById('comphoto-modal');
+        const comphotoModalImg = document.getElementById('comphoto-modal-img');
+        const comphotoModalContent = document.querySelector('.comphoto-modal-content');
+        const comphotoCloseBtn = document.querySelector('.comphoto-close');
+
+        // 存储已占用的位置
+        const comphotoOccupiedPositions = [];
+        let currentClickedImg = null; // 记录当前点击的图片
+        
+        // 检查两个矩形是否重叠
+        function isComphotoOverlapping(pos1, pos2, width, height) {
+            return !(pos1.x + width < pos2.x || 
+                    pos2.x + width < pos1.x || 
+                    pos1.y + height < pos2.y || 
+                    pos2.y + height < pos1.y);
+        }
+        
+        // 生成不重叠的随机位置
+        function getComphotoRandomPosition() {
+            const containerWidth = window.innerWidth;
+            const containerHeight = window.innerHeight - 80; // 减去导航栏高度
+            const navbarHeight = 80; // 导航栏高度
+            const photoWidth = 120;
+            const photoHeight = 80;
+            const margin = 20; // 照片之间的最小间距
+            
+            let attempts = 0;
+            const maxAttempts = 100;
+            
+            while (attempts < maxAttempts) {
+                const pos = {
+                    x: Math.random() * (containerWidth - photoWidth - margin * 2) + margin,
+                    y: Math.random() * (containerHeight - photoHeight - margin * 2) + margin + navbarHeight // 加上导航栏高度偏移
+                };
+                
+                // 检查是否与现有位置重叠
+                let overlaps = false;
+                for (let occupiedPos of comphotoOccupiedPositions) {
+                    if (isComphotoOverlapping(pos, occupiedPos, photoWidth + margin, photoHeight + margin)) {
+                        overlaps = true;
+                        break;
+                    }
+                }
+                
+                if (!overlaps) {
+                    comphotoOccupiedPositions.push(pos);
+                    return pos;
+                }
+                
+                attempts++;
+            }
+            
+            // 如果尝试次数过多，返回一个相对安全的位置
+            const fallbackPos = {
+                x: (comphotoOccupiedPositions.length * 150) % (containerWidth - photoWidth),
+                y: Math.floor((comphotoOccupiedPositions.length * 150) / (containerWidth - photoWidth)) * 100 + navbarHeight
+            };
+            comphotoOccupiedPositions.push(fallbackPos);
+            return fallbackPos;
+        }
+
+        // 丝滑打开模态框
+        function openComphotoModal(clickedImg) {
+            currentClickedImg = clickedImg;
+            
+            // 暂停所有照片的漂浮动画
+            document.querySelectorAll('.comphoto').forEach(photo => {
+                photo.classList.add('comphoto-paused');
+            });
+
+            // 获取点击图片的位置和尺寸
+            const rect = clickedImg.getBoundingClientRect();
+            
+            // 设置模态框图片源
+            comphotoModalImg.src = clickedImg.src;
+            
+            // 显示模态框但保持透明
+            comphotoModal.style.display = 'block';
+            
+            // 设置模态框内容的初始位置和大小（与原图片完全相同）
+            comphotoModalContent.style.left = rect.left + 'px';
+            comphotoModalContent.style.top = rect.top + 'px';
+            comphotoModalContent.style.width = rect.width + 'px';
+            comphotoModalContent.style.height = rect.height + 'px';
+            comphotoModalContent.style.borderRadius = '8px'; // 与原图片相同的圆角
+            
+            // 禁止页面滚动
+            document.body.style.overflow = 'hidden';
+            
+            // 隐藏被点击的原始照片（在模态框显示后）
+            clickedImg.classList.add('comphoto-hidden');
+            
+            // 强制重绘
+            comphotoModalContent.offsetHeight;
+            
+            // 立即开始动画，不需要等待图片加载
+            requestAnimationFrame(() => {
+                // 添加show类来触发背景变暗动画
+                comphotoModal.classList.add('show');
+                
+                // 计算放大后的目标尺寸 - 直接放大小照片
+                const scaleMultiplier = 8; // 放大4倍
+                const targetWidth = rect.width * scaleMultiplier;
+                const targetHeight = rect.height * scaleMultiplier;
+                
+                // 确保不超出屏幕边界
+                const maxWidth = window.innerWidth * 0.9;
+                const maxHeight = window.innerHeight * 0.9;
+                
+                let finalWidth = targetWidth;
+                let finalHeight = targetHeight;
+                
+                // 如果放大后超出屏幕，按比例缩小
+                if (targetWidth > maxWidth || targetHeight > maxHeight) {
+                    const scaleDownRatio = Math.min(
+                        maxWidth / targetWidth,
+                        maxHeight / targetHeight
+                    );
+                    finalWidth = targetWidth * scaleDownRatio;
+                    finalHeight = targetHeight * scaleDownRatio;
+                }
+                
+                // 计算居中位置
+                const targetLeft = (window.innerWidth - finalWidth) / 2;
+                const targetTop = (window.innerHeight - finalHeight) / 1.5;
+                
+                // 应用最终的位置和大小
+                comphotoModalContent.style.left = targetLeft + 'px';
+                comphotoModalContent.style.top = targetTop + 'px';
+                comphotoModalContent.style.width = finalWidth + 'px';
+                comphotoModalContent.style.height = finalHeight + 'px';
+                comphotoModalContent.style.borderRadius = '12px'; // 最终的圆角
+            });
+        }
+
+        // 创建照片元素
+        function createComphoto(src, index) {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'comphoto comphoto-floating';
+            img.loading = 'lazy';
+            
+            const pos = getComphotoRandomPosition();
+            img.style.left = pos.x + 'px';
+            img.style.top = pos.y + 'px';
+            
+            // 设置不同的动画持续时间和延迟，让每张照片移动速度不同
+            const duration = 15 + Math.random() * 20; // 15-35秒
+            const delay = Math.random() * 10; // 0-10秒延迟
+            img.style.animationDuration = duration + 's';
+            img.style.animationDelay = delay + 's';
+            
+            // 点击事件
+            img.addEventListener('click', function() {
+                openComphotoModal(this);
+            });
+            
+            return img;
+        }
+
+        // 初始化照片
+        function initComphoto() {
+            photos.forEach((photo, index) => {
+                const photoElement = createComphoto(photo, index);
+                comphotoContainer.appendChild(photoElement);
+            });
+        }
+
+        // 关闭模态框
+        function closeComphotoModal() {
+            // 如果有记录的点击图片，获取其当前位置
+            if (currentClickedImg) {
+                const rect = currentClickedImg.getBoundingClientRect();
+                
+                // 将模态框内容缩回到原始位置
+                comphotoModalContent.style.left = rect.left + 'px';
+                comphotoModalContent.style.top = rect.top + 'px';
+                comphotoModalContent.style.width = rect.width + 'px';
+                comphotoModalContent.style.height = rect.height + 'px';
+                comphotoModalContent.style.borderRadius = '8px';
+            }
+            
+            // 移除show类开始关闭动画
+            comphotoModal.classList.remove('show');
+            
+            setTimeout(() => {
+                comphotoModal.style.display = 'none';
+                document.body.style.overflow = 'hidden';
+                
+                // 显示原始照片
+                if (currentClickedImg) {
+                    currentClickedImg.classList.remove('comphoto-hidden');
+                }
+                
+                // 恢复所有照片的漂浮动画
+                document.querySelectorAll('.comphoto').forEach(photo => {
+                    photo.classList.remove('comphoto-paused');
+                });
+                
+                currentClickedImg = null;
+            }, 500); // 等待动画完成
+        }
+
+        // 事件监听器
+        comphotoCloseBtn.addEventListener('click', closeComphotoModal);
+        
+        comphotoModal.addEventListener('click', function(e) {
+            if (e.target === comphotoModal) {
+                closeComphotoModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeComphotoModal();
+            }
+        });
+
+        // 窗口大小改变时重新定位照片
+        window.addEventListener('resize', function() {
+            // 清空已占用位置数组
+            comphotoOccupiedPositions.length = 0;
+            
+            const photos = document.querySelectorAll('.comphoto');
+            photos.forEach(photo => {
+                const pos = getComphotoRandomPosition();
+                photo.style.left = pos.x + 'px';
+                photo.style.top = pos.y + 'px';
+            });
+        });
+
+        // 初始化
+        initComphoto();
+    </script>
 </body>
 </html>
