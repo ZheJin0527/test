@@ -672,7 +672,7 @@ img.image-3d-rotate:hover,
     }
     60% {
         opacity: 1;
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
     100% {
         opacity: 1;
