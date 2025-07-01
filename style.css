@@ -2825,7 +2825,7 @@ nav {
     height: 100vh;
     padding-top: 80px; /* 为导航栏留出空间 */
     box-sizing: border-box; /* 确保padding计算在内 */
-    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    background: url('images/images/背景4.png') no-repeat center center/cover;
 }
 
 .comphoto {
