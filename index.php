@@ -99,7 +99,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="stats-section">
     <div class="stat-box">
-      <div class="stat-number">2024</div>
+      <div class="stat-number">2023</div>
       <div class="stat-label">成立年份</div>
     </div>
     <div class="divider"></div>
