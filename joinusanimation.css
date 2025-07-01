@@ -689,7 +689,7 @@ img.image-3d-rotate:hover,
 
 /* 标题动画 */
 .joinus-banner.joinus-loaded .joinus-content h1 {
-    animation: scaleIn 1.8s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+    animation: scaleIn 1.6s cubic-bezier(0.33, 0, 0.2, 1) forwards;
     animation-delay: 0.3s;
 }
 
