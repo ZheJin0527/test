@@ -2823,9 +2823,77 @@ nav {
     position: relative;
     width: 100%;
     height: 100vh;
-    padding-top: 80px; /* 为导航栏留出空间 */
-    box-sizing: border-box; /* 确保padding计算在内 */
-    background: url('images/images/背景4.png') no-repeat center center/cover;
+    padding-top: 80px;
+    box-sizing: border-box;
+    background: linear-gradient(45deg, 
+        #ff6b35, #f7931e, #ffb347, #ff8c42, 
+        #ff7518, #ff9500, #ffab40, #ff6f00);
+    background-size: 400% 400%;
+    animation: comphoto-gradient-shift 8s ease-in-out infinite;
+    overflow: hidden;
+}
+
+@keyframes comphoto-gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    25% {
+        background-position: 100% 50%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    75% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.comphoto-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) perspective(500px) rotateX(15deg);
+    font-size: 8rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 
+        1px 1px 0px #cc5500,
+        2px 2px 0px #b8440a,
+        3px 3px 0px #a43315,
+        4px 4px 0px #902220,
+        5px 5px 10px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    letter-spacing: 0.4em;
+    text-align: center;
+    animation: comphoto-title-3d 3s ease-in-out infinite alternate;
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes comphoto-title-3d {
+    0% {
+        transform: translate(-50%, -50%) perspective(500px) rotateX(15deg);
+        text-shadow: 
+            1px 1px 0px #cc5500,
+            2px 2px 0px #b8440a,
+            3px 3px 0px #a43315,
+            4px 4px 0px #902220,
+            5px 5px 10px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        transform: translate(-50%, -50%) perspective(500px) rotateX(12deg) scale(1.02);
+        text-shadow: 
+            1px 1px 0px #cc5500,
+            2px 2px 0px #b8440a,
+            3px 3px 0px #a43315,
+            4px 4px 0px #902220,
+            5px 5px 0px #7a1f2a,
+            6px 6px 15px rgba(0, 0, 0, 0.5),
+            0 0 25px rgba(255, 255, 255, 0.3);
+    }
 }
 
 .comphoto {
@@ -2838,12 +2906,14 @@ nav {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     object-fit: cover;
     border: 3px solid rgba(255, 255, 255, 0.8);
+    z-index: 20;
 }
 
 .comphoto:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     border-color: rgba(255, 255, 255, 1);
+    z-index: 30;
 }
 
 .comphoto-modal {
@@ -2881,7 +2951,7 @@ nav {
 
 .comphoto-close {
     position: absolute;
-    top: 100px; /* 调整位置，避免被navbar遮挡 */
+    top: 100px;
     right: 30px;
     color: #fff;
     font-size: 40px;
@@ -2911,34 +2981,33 @@ nav {
     transform: scale(1.1);
 }
 
-@keyframes comphoto-float {
-    0% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    33% {
-        transform: translate(30px, -30px) rotate(1deg);
-    }
-    66% {
-        transform: translate(-20px, 20px) rotate(-1deg);
-    }
-    100% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-}
-
-.comphoto-floating {
-    animation: comphoto-float linear infinite;
-}
-
-/* 放大时暂停漂浮动画 */
-.comphoto-paused {
-    animation-play-state: paused;
-}
-
-/* 隐藏原始照片，避免重复显示 */
 .comphoto-hidden {
     opacity: 0;
     pointer-events: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .comphoto-title {
+        font-size: 2.5rem;
+        letter-spacing: 0.1em;
+    }
+            
+    .comphoto {
+        width: 100px;
+        height: 66px;
+    }
+}
+
+@media (max-width: 480px) {
+    .comphoto-title {
+        font-size: 2rem;
+    }
+            
+    .comphoto {
+        width: 80px;
+        height: 53px;
+    }
 }
 
 
