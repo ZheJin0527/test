@@ -2970,7 +2970,7 @@ nav {
             0 0 30px rgba(255, 165, 0, 0.5);
     }
     100% {
-        transform: translate(-50%, -50%) perspective(500px) rotateX(12deg) scale(1.05);
+        transform: translate(-50%, -50%) perspective(500px) rotateX(12deg) scale(1.08);
         text-shadow: 
             1px 1px 0px #cc5500,
             2px 2px 0px #b8440a,
