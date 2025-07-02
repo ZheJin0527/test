@@ -775,3 +775,26 @@ img.image-3d-rotate:hover,
     transition: none !important;
     animation: none !important;
 }
+
+/* ========== 我们的足迹标题特效 - 透明到清晰 ========== */
+/* 初始状态：完全透明 */
+.comphoto-title {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 2s ease-out;
+}
+
+/* 当容器添加 comphoto-loaded 类时显示 */
+#comphoto-container.comphoto-loaded .comphoto-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+/* 当容器移除 comphoto-loaded 类时快速重置 - 避免残影 */
+#comphoto-container:not(.comphoto-loaded) .comphoto-title {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}

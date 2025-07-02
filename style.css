@@ -2825,20 +2825,72 @@ nav {
     height: 100vh;
     padding-top: 80px;
     box-sizing: border-box;
+    
+    /* 无缝循环的橙色渐变背景 */
     background: linear-gradient(45deg, 
-        #ff6b35, #f7931e, #ffb347, #ff8c42, 
-        #ff7518, #ff9500, #ffab40, #ff6f00);
-    background-size: 400% 400%;
-    animation: comphoto-gradient-shift 8s ease-in-out infinite;
+        #ff6b35,
+        #ff8c42,
+        #ffb347,
+        #ffa726,
+        #ff9800,
+        #ff7043,
+        #ff5722,
+        #ff6b35,
+        #ff8c42,
+        #ffb347,
+        #ffa726,
+        #ff9800
+    );
+    background-size: 600% 600%;
+    animation: comphoto-gradient-shift 20s linear infinite;
     overflow: hidden;
 }
 
+/* 添加温暖光晕效果层 */
+.comphoto-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 165, 0, 0.4) 0%, transparent 50%);
+    z-index: 1;
+    pointer-events: none;
+    animation: glow-pulse 10s ease-in-out infinite;
+}
+
+/* 添加动态粒子效果层 */
+.comphoto-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.8) 4px, transparent 4px),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.6) 3px, transparent 3px),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 3.5px, transparent 3.5px),
+        radial-gradient(circle at 10% 60%, rgba(255, 165, 0, 0.4) 2.5px, transparent 2.5px),
+        radial-gradient(circle at 90% 40%, rgba(255, 165, 0, 0.3) 2px, transparent 2px);
+    background-size: 200px 200px, 250px 250px, 150px 150px, 180px 180px, 220px 220px;
+    z-index: 2;
+    pointer-events: none;
+    animation: particles-float 25s linear infinite;
+    opacity: 0.7;
+}
+
+/* 完美无缝循环的渐变动画 */
 @keyframes comphoto-gradient-shift {
     0% {
-        background-position: 0% 50%;
+        background-position: 0% 0%;
     }
     25% {
-        background-position: 100% 50%;
+        background-position: 100% 0%;
     }
     50% {
         background-position: 100% 100%;
@@ -2847,7 +2899,39 @@ nav {
         background-position: 0% 100%;
     }
     100% {
-        background-position: 0% 50%;
+        background-position: 0% 0%;
+    }
+}
+
+/* 光晕脉冲动画 - 无缝循环 */
+@keyframes glow-pulse {
+    0% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.9;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+}
+
+/* 粒子漂浮动画 - 更慢更自然 */
+@keyframes particles-float {
+    0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+    }
+    33% {
+        transform: translateY(-50px) rotate(120deg) translateX(20px);
+    }
+    66% {
+        transform: translateY(-80px) rotate(240deg) translateX(-10px);
+    }
+    100% {
+        transform: translateY(-120px) rotate(360deg) translateX(0);
     }
 }
 
@@ -2864,7 +2948,8 @@ nav {
         2px 2px 0px #b8440a,
         3px 3px 0px #a43315,
         4px 4px 0px #902220,
-        5px 5px 10px rgba(0, 0, 0, 0.4);
+        5px 5px 10px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 165, 0, 0.5); /* 添加橙色光晕 */
     z-index: 10;
     letter-spacing: 0.4em;
     text-align: center;
@@ -2881,7 +2966,8 @@ nav {
             2px 2px 0px #b8440a,
             3px 3px 0px #a43315,
             4px 4px 0px #902220,
-            5px 5px 10px rgba(0, 0, 0, 0.4);
+            5px 5px 10px rgba(0, 0, 0, 0.4),
+            0 0 30px rgba(255, 165, 0, 0.5);
     }
     100% {
         transform: translate(-50%, -50%) perspective(500px) rotateX(12deg) scale(1.02);
@@ -2892,7 +2978,8 @@ nav {
             4px 4px 0px #902220,
             5px 5px 0px #7a1f2a,
             6px 6px 15px rgba(0, 0, 0, 0.5),
-            0 0 25px rgba(255, 255, 255, 0.3);
+            0 0 40px rgba(255, 165, 0, 0.7), /* 增强橙色光晕 */
+            0 0 80px rgba(255, 255, 255, 0.3);
     }
 }
 
@@ -2901,9 +2988,11 @@ nav {
     width: 120px;
     height: 80px;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 165, 0, 0.3); /* 添加橙色阴影 */
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     object-fit: cover;
     border: 3px solid rgba(255, 255, 255, 0.8);
     z-index: 20;
@@ -2911,7 +3000,10 @@ nav {
 
 .comphoto:hover {
     transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 165, 0, 0.6), /* 悬停时增强橙色光晕 */
+        0 0 50px rgba(255, 255, 255, 0.3);
     border-color: rgba(255, 255, 255, 1);
     z-index: 30;
 }
@@ -2937,7 +3029,9 @@ nav {
 .comphoto-modal-content {
     position: absolute;
     border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(255, 165, 0, 0.3); /* 模态框也添加橙色光晕 */
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     overflow: hidden;
 }
@@ -2976,9 +3070,10 @@ nav {
 }
 
 .comphoto-close:hover {
-    color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.2);
+    color: #ff9800; /* 改为橙色 */
+    background: rgba(255, 152, 0, 0.2); /* 橙色背景 */
     transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.5); /* 橙色光晕 */
 }
 
 .comphoto-hidden {

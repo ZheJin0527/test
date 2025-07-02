@@ -518,7 +518,7 @@ const observer = new IntersectionObserver((entries) => {
     threshold: 0.2
 });
 
-// AboutUs & JoinUs 专用的 IntersectionObserver - 支持重复触发
+// AboutUs & JoinUs & CompPhoto 专用的 IntersectionObserver - 支持重复触发
 const aboutObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         const target = entry.target;
@@ -533,6 +533,9 @@ const aboutObserver = new IntersectionObserver((entries) => {
                 target.classList.add('joinus-loaded');
             } else if (target.classList.contains('benefits-wrapper')) {
                 target.classList.add('benefits-loaded');
+            } else if (target.id === 'comphoto-container') {
+                // 为"我们的足迹"容器添加动画类
+                target.classList.add('comphoto-loaded');
             }
         } else {
             // 离开视窗时移除动画类，重置状态
@@ -544,6 +547,9 @@ const aboutObserver = new IntersectionObserver((entries) => {
                 target.classList.remove('joinus-loaded');
             } else if (target.classList.contains('benefits-wrapper')) {
                 target.classList.remove('benefits-loaded');
+            } else if (target.id === 'comphoto-container') {
+                // 离开视窗时移除动画类
+                target.classList.remove('comphoto-loaded');
             }
         }
     });
@@ -639,11 +645,12 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(container);
     });
 
-    // 初始化 aboutus & joinus 观察器
+    // 初始化 aboutus & joinus & comphoto 观察器
     const aboutBanner = document.querySelector('.aboutus-banner');
     const aboutIntro = document.querySelector('.aboutus-intro');
     const joinusBanner = document.querySelector('.joinus-banner');
-    const benefitsWrapper = document.querySelector('.benefits-wrapper'); // 添加这行
+    const benefitsWrapper = document.querySelector('.benefits-wrapper');
+    const compPhotoContainer = document.querySelector('#comphoto-container');
     
     if (aboutBanner) {
         aboutObserver.observe(aboutBanner);
@@ -657,9 +664,13 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutObserver.observe(joinusBanner);
     }
 
-    // 添加福利元素的观察器
     if (benefitsWrapper) {
         aboutObserver.observe(benefitsWrapper);
+    }
+
+    // 添加"我们的足迹"容器的观察器
+    if (compPhotoContainer) {
+        aboutObserver.observe(compPhotoContainer);
     }
 
     // 初始化时间线观察器
