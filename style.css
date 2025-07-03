@@ -3375,7 +3375,7 @@ nav {
     backdrop-filter: blur(20px);
     border-radius: 20px;
     width: 300px;
-    padding: 35px 0px 35px 35px;
+    padding: 35px 20px;
     color: white;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -3386,6 +3386,7 @@ nav {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    cursor: pointer; /* 添加手型光标 */
 }
 
 .job-card::before {
@@ -3421,7 +3422,7 @@ nav {
 
 .job-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* 改为居中，因为不需要space-between了 */
     align-items: flex-start;
     margin-bottom: 25px;
     position: relative;
@@ -3470,31 +3471,6 @@ nav {
     min-width: 50px;
     color: #ff5c00;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-.expand-icon {
-    cursor: pointer;
-    font-size: 20px;
-    padding: 8px 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.4s cubic-bezier(0.68, -0.35, 0.265, 1.35);
-    user-select: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.expand-icon:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.rotate {
-    transform: rotate(180deg) scale(1.1);
-    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-    color: white;
 }
 
 .job-details {
