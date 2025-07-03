@@ -3553,14 +3553,17 @@ nav {
 }
 
 .job-description {
-    flex: 1;
+    text-align: start;
     font-size: 16px;
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.95);
 }
 
 .apply-btn {
-    padding: 14px 28px;
+    display: inline-flex;               /* 改为 flex 布局 */
+    justify-content: center;           /* 水平居中 */
+    align-items: center; 
+    padding: 10px 24px;
     background: #FF5C00;
     color: white;
     border: none;
