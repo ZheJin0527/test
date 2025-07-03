@@ -3341,6 +3341,7 @@ nav {
     font-weight: 700;
     margin-top: 80px;
     margin-bottom: 100px;
+    margin-right: 40px;
     background: #ff5c00;
     background-size: 300% 300%;
     -webkit-background-clip: text;
@@ -3366,6 +3367,7 @@ nav {
     gap: 35px;
     margin: 0 auto;
     max-width: 1300px;
+    margin-left: 240px;
 }
 
 .job-card {
