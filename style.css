@@ -3371,7 +3371,7 @@ nav {
 }
 
 .job-card {
-    background: #fa7a2f;
+    background: linear-gradient(120deg, #ff5c00 0%, #ff8000 100%);
     backdrop-filter: blur(20px);
     border-radius: 20px;
     width: 300px;
@@ -3478,7 +3478,7 @@ nav {
     top: 100%;
     left: 0;
     right: 0;
-    background: linear-gradient(145deg, #f1752e 50%, #f7b95c 80%);
+    background: linear-gradient(145deg, #ff5c00 0%, #ff8000 100%);
     backdrop-filter: blur(25px);
     border-radius: 20px;
     padding: 25px 30px;
@@ -3541,8 +3541,8 @@ nav {
     justify-content: center;           /* 水平居中 */
     align-items: center; 
     padding: 10px 24px;
-    background: #FF5C00;
-    color: white;
+    background: white;
+    color: #FF5C00;
     border: none;
     border-radius: 50px;
     font-size: 12px;
