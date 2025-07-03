@@ -110,152 +110,149 @@
   </div>
 
 <div class="swiper-slide">
-<section id="environment" class="environment-section">
-  <h2 class="environment-heading">工作环境</h2>
-  <div class="swiper environment-wrapper">
-    <ul class="environment-list swiper-wrapper">
-      <li class="environment-item swiper-slide">
-        <div class="environment-link">
-          <img src="images/images/会议室.jpg" alt="会议室" class="environment-image">
-          <h2 class="environment-title">会议室</h2>
-        </div>
-      </li>
-      <li class="environment-item swiper-slide">
-        <div class="environment-link">
-          <img src="images/images/办公区.jpg" alt="办公区" class="environment-image">
-          <h2 class="environment-title">办公区</h2>
-        </div>
-      </li>
-      <li class="environment-item swiper-slide">
-        <div class="environment-link">
-          <img src="images/images/2023发展.jpg" alt="2023发展" class="environment-image">
-          <h2 class="environment-title">员工餐厅</h2>
-        </div>
-      </li>
-      <li class="environment-item swiper-slide">
-        <div class="environment-link">
-          <img src="images/images/2024发展.jpg" alt="2024发展" class="environment-image">
-          <h2 class="environment-title">公司办公室</h2>
-        </div>
-      </li>
-      <li class="environment-item swiper-slide">
-        <div class="environment-link">
-          <img src="images/images/2025发展.jpg" alt="2025发展" class="environment-image">
-          <h2 class="environment-title">新安大厦</h2>
-        </div>
-      </li>
-    </ul>
+  <div class="particles" id="particles"></div>
 
-    <!-- Swiper 导航与分页 -->
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
-</section>
+    <div class="job-section">
+        <h2 class="job-table-title">目前在招聘的职位</h2>
+        <div class="jobs-grid">
+            <!-- 职位1 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">研发工程师</div>
+                        <div class="job-meta">
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#128101; 人数:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">1人</span>
+                            </div>
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#127891; 学历:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">博士</span>
+                            </div>
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#128197; 发布:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">2025-04-26</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="expand-icon" onclick="toggleDetail(this)">▼</span>
+                </div>
+                <div class="job-details">
+                    <div class="detail-content">
+                        <div class="job-description">
+                            <strong>职位详情：</strong>负责sdwdw，能吃苦耐劳，服从安排。
+                        </div>
+                        <button class="apply-btn" onclick="openForm('研发工程师')">申请职位</button>
+                    </div>
+                </div>
+            </div>
 
-  <h2 class="job-table-title">目前在招聘的职位</h2>
+            <!-- 职位2 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">行政助理</div>
+                        <div class="job-meta">
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#128101; 人数:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">2人</span>
+                            </div>
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#127891; 学历:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">硕士</span>
+                            </div>
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#128197; 发布:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">2025-04-30</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="expand-icon" onclick="toggleDetail(this)">▼</span>
+                </div>
+                <div class="job-details">
+                    <div class="detail-content">
+                        <div class="job-description">
+                            <strong>职位详情：</strong>协助行政事务处理，整理文件资料，沟通协调。
+                        </div>
+                        <button class="apply-btn" onclick="openForm('行政助理')">申请职位</button>
+                    </div>
+                </div>
+            </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>职位名称</th>
-        <th>人数</th>
-        <th>学历</th>
-        <th>发布时间</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>员</td>
-        <td>1</td>
-        <td>博士</td>
-        <td>2025-04-26</td>
-        <td><span class="expand-icon" onclick="toggleDetail(this)">▼</span></td>
-      </tr>
-      <tr class="detail-row">
-        <td colspan="5">
-          <div class="detail-content">
-            <div><strong>职位详情：</strong>负责sdwdw，能吃苦耐劳，服从安排。</div>
-            <button class="apply-btn" onclick="openForm('员')">申请</button>
-          </div>
-        </td>
-      </tr>
-
-      <tr>
-        <td>员</td>
-        <td>2</td>
-        <td>硕士</td>
-        <td>2025-04-30</td>
-        <td><span class="expand-icon" onclick="toggleDetail(this)">▼</span></td>
-      </tr>
-      <tr class="detail-row">
-        <td colspan="5">
-          <div class="detail-content">
-            <div><strong>职位详情：</strong>协助行政事务处理，整理文件资料，沟通协调。</div>
-            <button class="apply-btn" onclick="openForm('行政助理')">申请</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <!-- 弹窗表单 -->
-  <div id="formModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeForm()">&times;</span>
-      <form id="jobApplicationForm" action="https://formsubmit.co/joeytan801@gmail.com" method="POST" enctype="multipart/form-data">
-        
-        <input type="hidden" name="_redirect" value="https://kunzzgroup.com/success.html">
-        <input type="hidden" name="_captcha" value="false">
-  
-        <h2>申请职位</h2>
-  
-        <label>职位名称：</label>
-        <input type="text" id="formPosition" name="position" readonly>
-  
-        <label>中文姓名：</label>
-        <input type="text" name="chinese_name" required 
-               pattern="[\u4e00-\u9fa5]{2,}" 
-               title="请输入中文姓名（至少两个汉字）">
-  
-        <label>英文姓名：</label>
-        <input type="text" name="english_name" required 
-               pattern="[A-Za-z ]{2,}" 
-               title="请输入英文姓名（只限英文字母）">
-  
-        <label>电子邮箱：</label>
-        <input type="email" name="email" required>
-  
-        <label>电话号码：</label>
-        <div class="phone-group">
-          <select name="country_code" required>
-            <option value="+60">马来西亚 (+60)</option>
-            <option value="+65">新加坡 (+65)</option>
-            <option value="+86">中国 (+86)</option>
-            <option value="+852">香港 (+852)</option>
-            <option value="+81">日本 (+81)</option>
-          </select>
-          <input type="tel" name="phone" required 
-                 pattern="\d{1,10}" maxlength="10" 
-                 title="请输入最多10位数字的电话号码">
+            <!-- 职位3 - 新增示例 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">UI设计师</div>
+                        <div class="job-meta">
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#128101; 人数:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">1人</span>
+                            </div>
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#127891; 学历:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">本科</span>
+                            </div>
+                            <div class="job-meta-item">
+                                <span class="job-meta-label">&#128197; 发布:</span>
+                                <span style="color: #FF5C00; font-weight: 600;">2025-05-01</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="expand-icon" onclick="toggleDetail(this)">▼</span>
+                </div>
+                <div class="job-details">
+                    <div class="detail-content">
+                        <div class="job-description">
+                            <strong>职位详情：</strong>负责产品界面设计，用户体验优化，具备良好的审美能力和创意思维。
+                        </div>
+                        <button class="apply-btn" onclick="openForm('UI设计师')">申请职位</button>
+                    </div>
+                </div>
+            </div>
         </div>
-  
-        <label>性别：</label>
-        <select name="gender" required>
-          <option value="">请选择</option>
-          <option value="male">男</option>
-          <option value="female">女</option>
-          <option value="other">其他</option>
-        </select>
-  
-        <label>上传简历（PDF，≤3MB）：</label>
-        <input type="file" name="resume" id="resume" accept=".pdf" required>
-  
-        <button type="submit" class="submit-btn">提交申请</button>
-      </form>
     </div>
-  </div>
+
+    <!-- 弹窗表单 -->
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeForm()">&times;</span>
+            <form id="jobApplicationForm" action="https://formsubmit.co/joeytan801@gmail.com" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_redirect" value="https://kunzzgroup.com/success.html">
+                <input type="hidden" name="_captcha" value="false">
+                <h2>申请职位</h2>
+                <label>职位名称：</label>
+                <input type="text" id="formPosition" name="position" readonly>
+                <label>中文姓名：</label>
+                <input type="text" name="chinese_name" required pattern="[\u4e00-\u9fa5]{2,}" title="请输入中文姓名（至少两个汉字）">
+                <label>英文姓名：</label>
+                <input type="text" name="english_name" required pattern="[A-Za-z ]{2,}" title="请输入英文姓名（只限英文字母）">
+                <label>电子邮箱：</label>
+                <input type="email" name="email" required>
+                <label>电话号码：</label>
+                <div class="phone-group">
+                    <select name="country_code" required>
+                        <option value="+60">马来西亚 (+60)</option>
+                        <option value="+65">新加坡 (+65)</option>
+                        <option value="+86">中国 (+86)</option>
+                        <option value="+852">香港 (+852)</option>
+                        <option value="+81">日本 (+81)</option>
+                    </select>
+                    <input type="tel" name="phone" required pattern="\d{1,10}" maxlength="10" title="请输入最多10位数字的电话号码">
+                </div>
+                <label>性别：</label>
+                <select name="gender" required>
+                    <option value="">请选择</option>
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                    <option value="other">其他</option>
+                </select>
+                <label>上传简历（PDF，≤3MB）：</label>
+                <input type="file" name="resume" id="resume" accept=".pdf" required>
+                <button type="submit" class="submit-btn">提交申请</button>
+            </form>
+        </div>
+    </div>
   </div>    
 
   <!-- 意见表格 -->
@@ -1427,6 +1424,67 @@ window.addEventListener('resize', () => {
 
         // 初始化
         initComphoto();
+    </script>
+    <script>
+        // 粒子动画初始化
+        function initParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        function toggleDetail(element) {
+            const card = element.closest('.job-card');
+            const details = card.querySelector('.job-details');
+            
+            // 关闭其他已展开的卡片
+            document.querySelectorAll('.job-details.show').forEach(detail => {
+                if (detail !== details) {
+                    detail.classList.remove('show');
+                    const otherCard = detail.closest('.job-card');
+                    otherCard.classList.remove('expanded');
+                    otherCard.querySelector('.expand-icon').classList.remove('rotate');
+                }
+            });
+            
+            // 切换当前卡片
+            details.classList.toggle('show');
+            element.classList.toggle('rotate');
+            card.classList.toggle('expanded');
+        }
+
+        function openForm(position) {
+            document.getElementById('formPosition').value = position;
+            document.getElementById('formModal').style.display = 'flex';
+        }
+
+        function closeForm() {
+            document.getElementById('formModal').style.display = 'none';
+        }
+
+        // 点击弹窗外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('formModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initParticles();
+        });
     </script>
 </body>
 </html>
