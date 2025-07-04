@@ -1521,5 +1521,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
     </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".job-card");
+  cards.forEach(card => {
+    card.addEventListener("transitionend", (e) => {
+      // 只在transform或opacity动画结束后添加 interactive 类
+      if (e.propertyName === "transform" || e.propertyName === "opacity") {
+        card.classList.add("interactive");
+      }
+    }, { once: true }); // once 确保只触发一次
+  });
+});
+</script>
 </body>
 </html>

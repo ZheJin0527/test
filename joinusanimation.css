@@ -715,9 +715,22 @@ img.image-3d-rotate:hover,
 /* ========== 职位卡片从下往上显示特效 ========== */
 /* 初始状态：在下方且透明 */
 .job-card {
+    pointer-events: none; /* 初始不能点击 */
     opacity: 0;
     transform: translateY(60px);
-    transition: all 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: opacity 2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 动画结束后允许点击 */
+.job-card.interactive {
+    pointer-events: auto;
+}
+
+/* hover 效果照常写 */
+.job-card.interactive:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* 当jobs-grid添加 jobs-loaded 类时显示 */
