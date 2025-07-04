@@ -745,11 +745,11 @@ img.image-3d-rotate:hover,
 }
 
 .jobs-grid.jobs-loaded .job-card:nth-child(2) {
-    transition-delay: 0.8s;
+    transition-delay: 0.6s;
 }
 
 .jobs-grid.jobs-loaded .job-card:nth-child(3) {
-    transition-delay: 1.0s;
+    transition-delay: 0.6s;
 }
 
 .jobs-grid.jobs-loaded .job-card:nth-child(4) {
