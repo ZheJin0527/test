@@ -255,6 +255,8 @@
   </div>    
 
   <!-- 意见表格 -->
+  <div class="swiper-slide">
+  <div class="form-wrapper">
   <section class="join-us-form"> 
     <h2>请提供您宝贵的意见</h2>
     <form id="jobApplicationForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
@@ -282,18 +284,6 @@
         <div class="half-width">
           <label for="englishName">英文姓名*</label>
           <input type="text" id="englishName" name="englishName" placeholder="请输入英文姓名" required pattern="[A-Za-z ]{2,}" title="请输入英文姓名（只限字母）">
-        </div>
-
-        <div class="half-width">
-          <label for="jobCategory">职位类别*</label>
-          <select id="jobCategory" name="jobCategory" required>
-            <option value="developer">开发人员</option>
-            <option value="designer">设计师</option>
-            <option value="manager">经理</option>
-            <option value="marketing">市场营销</option>
-            <option value="sales">销售</option>
-            <!-- 可以根据需求添加更多选项 -->
-          </select>
         </div>
       </div>
 
@@ -330,7 +320,9 @@
         <button type="submit" class="submit-btn">提交</button>
       </div>
     </form>
-</section>  
+</section>
+</div>
+</div>  
 
   <section id="contact" class="contact-container animate-on-scroll fade-in-down">
   <div class="contact-info">

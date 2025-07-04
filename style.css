@@ -3778,39 +3778,58 @@ form select:focus {
 
 
 /* 加入我们表单区 */
+.form-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    padding: 50px 0;
+    background: url('https://kunzzgroup.com/images/images/%E8%83%8C%E6%99%AF4.png') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .join-us-form {
     box-sizing: border-box;
-    width: 50%;
+    width: 35%;
     max-width: 1330px;
     min-width: 320px;
-    margin: 50px auto;
-    height: 720px;
+    margin: 90px auto 0px;
+    height: 740px;
     padding-top: 10px;
-    padding-left: clamp(40px, 5vw, 80px);
-    padding-right: clamp(40px, 5vw, 80px);
-    background: #faf6e0;
-    border-radius: 8px;
+    padding-left: clamp(40px, 5vw, 60px);
+    padding-right: clamp(40px, 5vw, 60px);
+    background: #f5f5f5;
+    border-radius: 20px;
     font-family: 'Inter', sans-serif;
     white-space: nowrap;
     overflow-wrap: break-word;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
 }
 
 .join-us-form h2 {
+    color: #333;
     text-align: center;
     font-size: clamp(20px, 3vw, 28px);
-    margin-bottom: 30px;
+    margin-bottom: 0px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.4;
 }
 
 /* 表单一般行 */
 .form-group {
-    margin-bottom: -20px;
+    margin-bottom: -10px;
     display: flex;
     flex-direction: column;
 }
 
 /* 表单两列（中文姓名+性别） */
 .form-group-row {
-    margin-bottom: -30px;
+    margin-bottom: -15px;
     display: flex;
     gap: 0 40px;
 }
@@ -3826,10 +3845,14 @@ form select:focus {
 /* label通用 */
 .form-group label,
 .form-group-row label {
-    margin-top: 20px;
-    margin-bottom: 8px;
-    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    font-weight: 600;
     font-size: clamp(10px, 1.5vw, 14px);
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
 }
 
 /* input、select、textarea统一 */
@@ -3839,18 +3862,37 @@ form select:focus {
 .form-group-row input,
 .form-group-row select,
 .form-group-row textarea {
-    padding: 10px;
+    padding: 12px;
     font-size: clamp(12px, 1.5vw, 14px);
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid rgba(255, 107, 107, 0.2);
+    border-radius: 12px;
     width: 100%;
     box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    color: #374151;
+    line-height: 1.5;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.form-group-row input:focus,
+.form-group-row select:focus,
+.form-group-row textarea:focus {
+    outline: none;
+    border-color: #FF6B6B;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-1px);
 }
 
 .form-group-row textarea {
-  height: 100%;
-  resize: vertical;
-  font-family: 'Inter', sans-serif;
+    height: 100%;
+    resize: vertical;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
 }
 
 /* 确保 .half-width 下的 input 和 textarea 都正常布局 */
@@ -3868,21 +3910,40 @@ form select:focus {
 
 .phone-input select {
     flex: 0 0 clamp(100px, 15vw, 150px);
-    font-size: clamp(12px, 1.5vw, 16px);
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    font-size: clamp(12px, 1.5vw, 14px);
+    padding: 10px;
+    border: 2px solid rgba(255, 107, 107, 0.2);
+    border-radius: 12px;
     box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    color: #374151;
+    transition: all 0.3s ease;
+    line-height: 1.4;
 }
 
 .phone-input input {
     flex: 1 1 auto;
     min-width: 0;
     font-size: clamp(8px, 1.3vw, 16px);
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 10px;
+    border: 2px solid rgba(255, 107, 107, 0.2);
+    border-radius: 12px;
     box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    color: #374151;
+    transition: all 0.3s ease;
+    line-height: 1.4;
+}
+
+.phone-input select:focus,
+.phone-input input:focus {
+    outline: none;
+    border-color: #FF6B6B;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-1px);
 }
 
 /* 性别选项（radio） */
@@ -3890,7 +3951,7 @@ form select:focus {
     display: flex;
     align-items: center;
     gap: 0 20px;
-    margin-top: -12px;
+    margin-top: -8px;
 }
 
 .gender-options label {
@@ -3899,30 +3960,41 @@ form select:focus {
     align-items: center;
     gap: 5px;
     cursor: pointer;
+    color: #444;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    line-height: 1.4;
 }
 
 .gender-options input[type="radio"] {
     width: clamp(14px, 1.5vw, 18px);
     height: clamp(14px, 1.5vw, 18px);
-    accent-color: #FF5C00; /* 橘色小圆圈 */
+    accent-color: #FF6B6B;
+    cursor: pointer;
 }
 
 /* 提交按钮 */
 .submit-btn {
-    width: 30%;
-    padding: clamp(8px, 1.5vw, 15px);
-    background-color: #FF5C00;
+    width: 20%;
+    padding: clamp(10px, 1.5vw, 16px);
+    background: linear-gradient(145deg, #ff5c00 0%, #ff8000 100%);
     color: white;
-    font-size: clamp(14px, 1.5vw, 18px);
+    font-size: clamp(10px, 1.5vw, 14px);
+    font-weight: 600;
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 50px;
+    transition: all 0.3s ease;
+    margin-top: 25px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
 }
 
 .submit-btn:hover {
-    background-color: #a07933;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
 }
 
 /* 1280px 及以下 */
