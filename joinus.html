@@ -324,7 +324,9 @@
 </div>
 </div>  
 
-  <section id="contact" class="contact-container animate-on-scroll fade-in-down">
+<div class="swiper-slide">
+  <div class="contact-section-wrapper">
+  <section class="contact-container">
   <div class="contact-info">
     <h2>联系我们</h2>
     <p>公司名称：Kunzz Holdings Sdn. Bhd.</p>
@@ -334,7 +336,7 @@
         25, Jln Tanjong 3, Taman Desa Cemerlang, 81800 Ulu Tiram, Johor Darul Ta'zim
       </a>
     </p>
-    <p>电话：+60 123-456 789</p>
+    <p>电话：+60 13-553 5355</p>
     <p>邮箱：kunzzholdings@gmail.com</p>
     <p>营业时间：周一至周五 9AM-6PM</p>
   </div>
@@ -348,6 +350,7 @@
     ></iframe>
   </div>
 </section>
+</div>
 
   <footer class="footer">
     <div class="footer-logo">
@@ -412,6 +415,7 @@
 
   <div class="footer-bottom">
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
+  </div>
   </div>
 
   </div> <!-- 关闭 swiper-wrapper -->
@@ -506,7 +510,7 @@ const observer = new IntersectionObserver((entries) => {
     threshold: 0.2
 });
 
-// AboutUs & JoinUs & CompPhoto & JobTable & JobCards 专用的 IntersectionObserver - 支持重复触发
+// AboutUs & JoinUs & CompPhoto & JobTable & JobCards & Contact 专用的 IntersectionObserver - 支持重复触发
 const aboutObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         const target = entry.target;
@@ -530,6 +534,9 @@ const aboutObserver = new IntersectionObserver((entries) => {
             } else if (target.classList.contains('jobs-grid')) {
                 // 为职位卡片网格添加动画类
                 target.classList.add('jobs-loaded');
+            } else if (target.classList.contains('contact-section-wrapper')) {
+                // 为联系我们区域添加动画类
+                target.classList.add('contact-loaded');
             }
         } else {
             // 离开视窗时移除动画类，重置状态
@@ -550,6 +557,9 @@ const aboutObserver = new IntersectionObserver((entries) => {
             } else if (target.classList.contains('jobs-grid')) {
                 // 离开视窗时移除动画类
                 target.classList.remove('jobs-loaded');
+            } else if (target.classList.contains('contact-section-wrapper')) {
+                // 离开视窗时移除动画类
+                target.classList.remove('contact-loaded');
             }
         }
     });
@@ -645,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(container);
     });
 
-    // 初始化 aboutus & joinus & comphoto & jobtable & jobcards 观察器
+    // 初始化 aboutus & joinus & comphoto & jobtable & jobcards & contact 观察器
     const aboutBanner = document.querySelector('.aboutus-banner');
     const aboutIntro = document.querySelector('.aboutus-intro');
     const joinusBanner = document.querySelector('.joinus-banner');
@@ -653,6 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const compPhotoContainer = document.querySelector('#comphoto-container');
     const jobTableContainer = document.querySelector('.job-table-container');
     const jobsGrid = document.querySelector('.jobs-grid');
+    const contactWrapper = document.querySelector('.contact-section-wrapper');
     
     if (aboutBanner) {
         aboutObserver.observe(aboutBanner);
@@ -685,6 +696,11 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutObserver.observe(jobsGrid);
     }
 
+    // 添加联系我们区域的观察器
+    if (contactWrapper) {
+        aboutObserver.observe(contactWrapper);
+    }
+
     // 初始化时间线观察器
     const timelineSection = document.querySelector('.timeline-section');
     if (timelineSection) {
@@ -704,7 +720,7 @@ function isElementInViewport(el) {
         rect.right > 0
     );
 }
-    </script>
+</script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // 恢复到你原来的配置，只添加最小的修改

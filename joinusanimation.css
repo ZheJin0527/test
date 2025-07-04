@@ -779,3 +779,26 @@ img.image-3d-rotate:hover,
     transition: all 0.3s ease !important;
     transition-delay: 0s !important;
 }
+
+/* ========== 联系我们区域特效 - 从透明到清晰 ========== */
+/* 初始状态：完全透明 */
+.contact-section-wrapper {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+/* 当容器添加 contact-loaded 类时显示 */
+.contact-section-wrapper.contact-loaded {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+/* 当容器移除 contact-loaded 类时快速重置 - 避免残影 */
+.contact-section-wrapper:not(.contact-loaded) {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
