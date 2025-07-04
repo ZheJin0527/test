@@ -688,3 +688,26 @@ img.image-3d-rotate:hover,
     transition: all 0.3s ease-out;
     transition-delay: 0s;
 }
+
+/* ========== 招聘职位标题特效 - 从下往上滑入 ========== */
+/* 初始状态：在下方且透明 */
+.job-table-title {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 当父容器添加 job-table-loaded 类时显示 */
+.job-table-container.job-table-loaded .job-table-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+/* 重置状态 - 当不可见时快速重置 */
+.job-table-container:not(.job-table-loaded) .job-table-title {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
