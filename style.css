@@ -3491,7 +3491,7 @@ nav {
     left: 30px;
     width: 16px;
     height: 16px;
-    background: inherit;
+    background: linear-gradient(145deg, #f1752e 50%, #f7b95c 80%);
     border: inherit;
     border-bottom: none;
     border-right: none;
