@@ -3807,8 +3807,7 @@ form select:focus {
     width: 35%;
     max-width: 1330px;
     min-width: 320px;
-    margin: 90px auto 0px;
-    height: 740px;
+    height: 680px;
     padding-top: 10px;
     padding-left: clamp(40px, 5vw, 60px);
     padding-right: clamp(40px, 5vw, 60px);
