@@ -3784,8 +3784,22 @@ form select:focus {
     padding: 50px 0;
     background: url('https://kunzzgroup.com/images/images/%E8%83%8C%E6%99%AF4.png') no-repeat center center/cover;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+}
+
+.main-title {
+    color: #333;
+    text-align: center;
+    font-size: clamp(24px, 4vw, 36px);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+    font-weight: 700;
+    color: white;
+    background-clip: text;
+    line-height: 1.4;
+    font-family: 'Inter', sans-serif;
 }
 
 .join-us-form {
@@ -3805,19 +3819,6 @@ form select:focus {
     overflow-wrap: break-word;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-}
-
-.join-us-form h2 {
-    color: #333;
-    text-align: center;
-    font-size: clamp(20px, 3vw, 28px);
-    margin-bottom: 0px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.4;
 }
 
 /* 表单一般行 */
