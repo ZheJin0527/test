@@ -3795,6 +3795,7 @@ form select:focus {
     font-size: clamp(24px, 4vw, 36px);
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     margin-bottom: 30px;
+    margin-right: 20px;
     font-weight: 700;
     color: white;
     background-clip: text;
@@ -3808,6 +3809,7 @@ form select:focus {
     max-width: 1330px;
     min-width: 320px;
     height: 680px;
+    margin-right: 20px;
     padding-top: 10px;
     padding-left: clamp(40px, 5vw, 60px);
     padding-right: clamp(40px, 5vw, 60px);
