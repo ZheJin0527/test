@@ -514,7 +514,7 @@ const observer = new IntersectionObserver((entries) => {
     threshold: 0.2
 });
 
-// AboutUs & JoinUs & CompPhoto & JobTable 专用的 IntersectionObserver - 支持重复触发
+// AboutUs & JoinUs & CompPhoto & JobTable & JobCards 专用的 IntersectionObserver - 支持重复触发
 const aboutObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         const target = entry.target;
@@ -535,6 +535,9 @@ const aboutObserver = new IntersectionObserver((entries) => {
             } else if (target.classList.contains('job-table-container')) {
                 // 为招聘职位容器添加动画类
                 target.classList.add('job-table-loaded');
+            } else if (target.classList.contains('jobs-grid')) {
+                // 为职位卡片网格添加动画类
+                target.classList.add('jobs-loaded');
             }
         } else {
             // 离开视窗时移除动画类，重置状态
@@ -552,6 +555,9 @@ const aboutObserver = new IntersectionObserver((entries) => {
             } else if (target.classList.contains('job-table-container')) {
                 // 离开视窗时移除动画类
                 target.classList.remove('job-table-loaded');
+            } else if (target.classList.contains('jobs-grid')) {
+                // 离开视窗时移除动画类
+                target.classList.remove('jobs-loaded');
             }
         }
     });
@@ -647,13 +653,14 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(container);
     });
 
-    // 初始化 aboutus & joinus & comphoto & jobtable 观察器
+    // 初始化 aboutus & joinus & comphoto & jobtable & jobcards 观察器
     const aboutBanner = document.querySelector('.aboutus-banner');
     const aboutIntro = document.querySelector('.aboutus-intro');
     const joinusBanner = document.querySelector('.joinus-banner');
     const benefitsWrapper = document.querySelector('.benefits-wrapper');
     const compPhotoContainer = document.querySelector('#comphoto-container');
     const jobTableContainer = document.querySelector('.job-table-container');
+    const jobsGrid = document.querySelector('.jobs-grid');
     
     if (aboutBanner) {
         aboutObserver.observe(aboutBanner);
@@ -679,6 +686,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 添加招聘职位容器的观察器
     if (jobTableContainer) {
         aboutObserver.observe(jobTableContainer);
+    }
+
+    // 添加职位卡片网格的观察器
+    if (jobsGrid) {
+        aboutObserver.observe(jobsGrid);
     }
 
     // 初始化时间线观察器

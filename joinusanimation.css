@@ -711,3 +711,58 @@ img.image-3d-rotate:hover,
     transition: all 0.3s ease-out;
     transition-delay: 0s;
 }
+
+/* ========== 职位卡片从下往上显示特效 ========== */
+/* 初始状态：在下方且透明 */
+.job-card {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 当jobs-grid添加 jobs-loaded 类时显示 */
+.jobs-grid.jobs-loaded .job-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 逐个延迟显示 - 创建瀑布式效果 */
+.jobs-grid.jobs-loaded .job-card:nth-child(1) {
+    transition-delay: 0.6s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(2) {
+    transition-delay: 0.8s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(3) {
+    transition-delay: 1.0s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(4) {
+    transition-delay: 1.2s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(5) {
+    transition-delay: 1.4s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(6) {
+    transition-delay: 1.6s;
+}
+
+/* 重置状态 - 当不可见时快速重置 */
+.jobs-grid:not(.jobs-loaded) .job-card {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
+
+/* 保持卡片原有的悬浮效果 */
+.job-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+    transition: all 0.3s ease !important;
+    transition-delay: 0s !important;
+}
