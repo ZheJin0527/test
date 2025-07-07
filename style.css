@@ -714,67 +714,67 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 80px 80px 0;
+    padding: clamp(40px, 6vw, 80px) clamp(40px, 6vw, 80px) 0; /* 上左右内边距响应 */
     box-sizing: border-box;
     max-width: 1920px;
     margin: 0 auto;
     flex-wrap: nowrap;
-    gap: 160px;
+    gap: clamp(60px, 8vw, 160px); /* 子元素间距响应 */
 }
 
 .comprofile-text {
     flex: 1 1 0;
-    min-width: 250px;
-    padding-right: 40px;
+    min-width: 200px; /* 最小宽度缩小一点 */
+    padding-right: clamp(20px, 2vw, 40px); /* 右内边距响应 */
 }
 
 .comprofile-subtitle {
     display: flex;
     align-items: center;
-    height: 56px;
+    height: clamp(36px, 3vw, 56px); /* 高度响应 */
     color: black;
-    font-size: 25px;
+    font-size: clamp(16px, 1.5vw, 25px); /* 字号响应 */
     font-weight: bold;
-    margin-bottom: -10px;
+    margin-bottom: clamp(-5px, -1vw, -10px); /* 下边距响应 */
 }
 
 .circle {
-    width: 28px;
-    height: 28px;
+    width: clamp(18px, 1.8vw, 28px); /* 圆形大小响应 */
+    height: clamp(18px, 1.8vw, 28px);
     border-radius: 50%;
     background-color: #ff5c00;
-    margin-right: 10px;
-    margin-left: 5px;
+    margin-right: clamp(5px, 1vw, 10px);
+    margin-left: clamp(2px, 0.5vw, 5px);
 }
 
 .comprofile-title {
-    font-size: clamp(60px, 4vw, 72px);
+    font-size: clamp(40px, 4vw, 72px); /* 标题响应 */
     color: #ff5c00;
-    margin: 0px 0 10px 0;
+    margin: 0px 0 clamp(5px, 1vw, 10px) 0;
 }
 
 .comprofile-description {
     width: 100%;
     max-width: 780px;
-    height: clamp(105px, 9vw, 170px);
-    font-size: clamp(15px, 1.25vw, 20px);
+    height: clamp(80px, 8vw, 170px); /* 高度响应 */
+    font-size: clamp(14px, 1.25vw, 20px); /* 字号响应 */
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
     color: #888888;
     line-height: 1.6;
-    margin-left: 4px;
+    margin-left: clamp(2px, 0.5vw, 4px);
 }
 
 .comprofile-image {
     flex: 0 0 auto;
-    width: 600px;
+    width: clamp(320px, 30vw, 600px); /* 图片宽度响应 */
     max-width: 50vw;
     aspect-ratio: 884 / 639;
-    padding: 80px 0;
+    padding: clamp(40px, 6vw, 80px) 0; /* 上下内边距响应 */
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 16px;
+    border-radius: clamp(8px, 1vw, 16px); /* 圆角响应 */
     overflow: hidden;
 }
 
@@ -806,31 +806,31 @@ nav {
 
     .comprofile-subtitle {
         font-size: clamp(16px, 2vw, 25px);
-        height: 40px;
+        height: 32px; /* 从40px减小到32px */
     }
 
     .circle {
-        width: clamp(12px, 2vw, 21px);
+        width: clamp(12px, 2vw, 21px); /* 从14px减小到12px */
         height: clamp(12px, 2vw, 21px);
     }
 
     .comprofile-title {
-        font-size: clamp(28px, 4vw, 51px);
-        margin: 12px 0 32px 0;
+        font-size: clamp(28px, 4vw, 51px); /* 从32px减小到28px */
+        margin: 12px 0 32px 0; /* 从16px 0 46px 0改为12px 0 32px 0 */
     }
 
     .comprofile-description {
         max-width: 100%;
         width: auto;
         height: auto;
-        font-size: clamp(10px, 1.6vw, 15px);
-        margin-bottom: 18px;
-    }
+        font-size: clamp(10px, 1.6vw, 15px); /* 从11px减小到10px */
+        margin-bottom: 18px; /* 从24px减小到18px */
+}
 
     .comprofile-image {
-        max-width: 35vw;
+        max-width: 35vw; /* 从45vw大幅减小到35vw */
         width: auto;
-        padding: 50px 0;
+        padding: 50px 0; /* 从80px 0减小到50px 0 */
         flex-shrink: 0;
     }
 }
