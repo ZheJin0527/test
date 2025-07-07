@@ -493,11 +493,9 @@ nav {
 
 .home {
     position: relative;
-    padding: clamp(80px, 8vh, 160px) 0 0 0px; /* 上内边距响应式 */
+    padding: clamp(80px, 8vw, 160px) 0 0 0px; /* 上内边距响应式 */
     height: 100vh;
-    background: 
-      linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%), 
-      url('https://kunzzgroup.com/images/images/%E5%B0%81%E9%9D%A27.png') no-repeat center center/cover;
+    background: url('images/images/封面7.png') no-repeat center center/cover;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -505,18 +503,18 @@ nav {
 }
   
 .home-content {
-    margin-top: clamp(40px, 8vh, 108px); /* 内容上边距响应式 */
+    margin-top: 108px;
     text-align: center;
     width: 1144px;
-    height: 101px; /* ✅ 保留原始固定高度 */
+    height: 101px;
 }
   
 .home h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(60px, 5vw, 100px); /* 标题字体响应式缩放 */
+    font-size: 100px;
     font-weight: bold;
-    margin-bottom: clamp(10px, 2vh, 20px); /* h1 和 p 之间响应间距 */
-    line-height: clamp(110%, 6vh, 140%);
+    margin-bottom: 10px;
+    line-height: 140%;
     letter-spacing: 1.4%;
     text-shadow:
         10px 10px 12px rgba(0, 0, 0, 0.5),
@@ -524,29 +522,29 @@ nav {
 }
   
 .home p {
-    font-size: clamp(16px, 1.8vw, 20px); /* p 字体响应式 */
+    font-size: 20px;
     font-weight: normal;
-    letter-spacing: clamp(3px, 0.5vw, 7px);
-    line-height: clamp(140%, 4vh, 165%);
-    margin-top: clamp(5px, 1vh, 10px); 
-    margin-bottom: clamp(40px, 5vh, 90px);
+    letter-spacing: 7px;
+    line-height: 165%;
+    margin-top: 0px; /* 确保p和h1的间距是80px */
+    margin-bottom: 90px;
     text-shadow:
         10px 10px 12px rgba(0, 0, 0, 0.5),
-        4px 4px 20px rgba(0, 0, 0, 0.5);
+        4px 4px 20px rgb(0, 0, 0, 0.5);
 }
   
 .home-button {
-    width: clamp(180px, 14vw, 248px); /* 按钮宽度响应式 */
-    height: clamp(50px, 5vh, 70px); /* 按钮高度响应式 */
+    width: 248px;
+    height: 70px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center;     /* 水平居中 */
+    align-items: center;         /* 垂直居中 */
     background-color: #ff5c00;
     color: white;
-    font-size: clamp(18px, 2.2vw, 32px); /* 按钮文字响应式 */
+    font-size: 32px;
     font-weight: bold;
     text-decoration: none;
-    border-radius: clamp(6px, 1vw, 10px);
+    border-radius: 10px;
     transition: background 0.3s ease;
 }
   
@@ -560,10 +558,10 @@ nav {
 }
 
 .decor-line {
-    width: clamp(600px, 60vw, 1200px); /* 装饰线宽度响应式 */
+    width: 1200px;
     height: 2px;
-    margin: clamp(20px, 4vh, 40px) auto clamp(30px, 5vh, 50px);
-    margin-left: calc(50% - clamp(300px, 30vw, 600px) + -10px); /* ✅ 保留原始偏移 */
+    margin: 40px auto 50px;
+    margin-left: calc(50% - 600px + -10px); /* 左移50px */
     background: linear-gradient(to right,
       rgba(255,255,255,0) 0%,
       rgba(255,255,255,0.4) 25%,
