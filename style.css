@@ -825,7 +825,7 @@ nav {
         height: auto;
         font-size: clamp(10px, 1.6vw, 15px); /* 从11px减小到10px */
         margin-bottom: 18px; /* 从24px减小到18px */
-}
+    }
 
     .comprofile-image {
         max-width: 35vw; /* 从45vw大幅减小到35vw */
