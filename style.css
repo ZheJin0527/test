@@ -1855,7 +1855,7 @@ nav {
 
 .vision {
     min-height: 100vh;
-    background: url('images/images/背景4.png') no-repeat center center/cover;
+    background-color: #FF5C00;
     color: white;
     display: flex;
     align-items: center;
@@ -1870,16 +1870,16 @@ nav {
 
 .vision-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(40px, 6vw, 72px);
+    font-size: clamp(20px, 3.75vw, 70px);
     font-weight: bold;
     line-height: 140%;
     letter-spacing: 0.5%;
-    margin-bottom: 24px;
-    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .vision-content p {
-    font-size: 1.25rem;
+    font-size: clamp(10px, 1.1vw, 20px);
     font-weight: normal;
     line-height: 150%;
     letter-spacing: 2%;
@@ -1896,11 +1896,11 @@ nav {
 }
 
 .vision-card {
-    width: 870px;
-    height: 410px;
+    width: clamp(500px, 45vw, 870px);
+    height: clamp(280px, 22vw, 410px);
     background-color: #FFF3E6;
     border-radius: 20px;
-    padding: 0 32px;
+    padding: 0 clamp(0px, 1.2vw, 32px);
     text-align: left;
     color: #888888;
     box-shadow: 
@@ -1912,27 +1912,28 @@ nav {
     display: inline-block;
     background-color: white;
     color: #FF5C00;
-    font-size: clamp(24px, 3vw, 45px);
+    font-size: clamp(24px, 2.4vw, 45px);
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     padding: 8px 18px;
     border-radius: 32px;
-    margin: 32px 10px 10px;
-    width: 225px;
+    margin: clamp(10px, 1.7vw, 32px) 10px 10px;
+    width: clamp(100px, 12vw, 225px);
 }
 
 .vision-card h2 {
-    font-size: clamp(20px, 2.5vw, 38px);
+    font-size: clamp(20px, 2vw, 38px);
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
     letter-spacing: 2%;
-    margin: 20px 10px;
+    margin: clamp(10px, 1vw, 20px) 10px;
     color: black;
+    width: clamp(400px, 36vw, 700px)
 }
 
 .vision-card p {
-    font-size: clamp(16px, 1.7vw, 18px);
+    font-size: clamp(16px, 1vw, 18px);
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 150%;
