@@ -493,7 +493,7 @@ nav {
 
 .home {
     position: relative;
-    padding: 160px 0 0 0px;
+    padding: clamp(80px, 8vw, 160px) 0 0 0px; /* 上内边距响应式 */
     height: 100vh;
     background: url('images/images/封面7.png') no-repeat center center/cover;
     display: flex;
@@ -553,22 +553,22 @@ nav {
 }
 
 .hidden {
-  opacity: 0;
-  pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .decor-line {
-  width: 1200px;
-  height: 2px;
-  margin: 40px auto 50px;
-  margin-left: calc(50% - 600px + -10px); /* 左移50px */
-  background: linear-gradient(to right,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.4) 25%,
-    rgba(255,255,255,1) 50%,
-    rgba(255,255,255,0.4) 75%,
-    rgba(255,255,255,0) 100%);
-  position: relative;
+    width: 1200px;
+    height: 2px;
+    margin: 40px auto 50px;
+    margin-left: calc(50% - 600px + -10px); /* 左移50px */
+    background: linear-gradient(to right,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.4) 25%,
+      rgba(255,255,255,1) 50%,
+      rgba(255,255,255,0.4) 75%,
+      rgba(255,255,255,0) 100%);
+    position: relative;
 }
 
 @media (max-width: 1280px) {
@@ -588,13 +588,13 @@ nav {
   }
 
   .home h1 {
-    font-size: clamp(48px, 6vw, 75px);
+    font-size: clamp(48px, 6vw, 80px);
     line-height: 130%;
     margin-bottom: clamp(15px, 2vh, 25px); /* 优化间距 */
   }
 
   .home p {
-    font-size: clamp(14px, 1.6vw, 30px);
+    font-size: clamp(12px, 1.4vw, 30px);
     margin-bottom: clamp(30px, 4vh, 60px); /* 使用vh单位适应高度 */
     letter-spacing: clamp(2px, 0.5vw, 7px); /* 调整字间距 */
   }
@@ -607,7 +607,7 @@ nav {
   }
 
   .decor-line {
-    width: clamp(600px, 75vw, 900px);
+    width: clamp(600px, 70vw, 900px);
     margin: clamp(20px, 3vh, 40px) auto clamp(25px, 4vh, 50px);
   }
 }
