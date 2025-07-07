@@ -2659,8 +2659,8 @@ nav {
     padding: 0;
     white-space: nowrap;
     text-shadow:
-        10px 10px 12px rgba(0, 0, 0, 0.3),
-        4px 4px 20px rgba(0, 0, 0, 0.3);
+        10px 10px 12px rgba(0, 0, 0, 0.5),
+        4px 4px 20px rgba(0, 0, 0, 0.5);
 }
   
 .joinus-content p {
@@ -2731,6 +2731,7 @@ nav {
     margin-bottom: 40px;
     margin-right: 20px;
     color: #333;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .benefits-wrapper .benefits-grid {
@@ -4226,6 +4227,7 @@ form select:focus {
     font-weight: bold;
     line-height: 1.4;
     margin: 0 0 24px 0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .contact-info p {
@@ -4235,6 +4237,7 @@ form select:focus {
   font-family: 'Source Sans Pro', sans-serif;
   color: #888;
   line-height: 2;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .map-container {
