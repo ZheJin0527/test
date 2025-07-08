@@ -550,7 +550,7 @@ img.image-3d-rotate:hover,
     transform: translateY(0); /* 背景无位移 */
     background-size: cover;
     background-position: center;
-    min-height: 400px;
+    min-height: 200px;
     position: relative;
     display: flex;
     align-items: center;
