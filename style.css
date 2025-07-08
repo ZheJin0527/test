@@ -2653,7 +2653,7 @@ nav {
   
 .joinus-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 86px;
+    font-size: clamp(50px, 4.5vw, 86px);
     font-weight: bold;
     line-height: 1;
     letter-spacing: 1.4%;
@@ -2666,7 +2666,7 @@ nav {
 }
   
 .joinus-content p {
-    font-size: 20px;
+    font-size: clamp(12px, 1.05vw, 20px);
     font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.5%;
@@ -2723,14 +2723,13 @@ nav {
     flex: 0 0 40%;
     background: url('images/images/背景3.jpg') no-repeat center center/cover;
     text-align: center;
-    padding: 40px 20px;
+    padding: clamp(0px, 1.8vw, 40px) 20px;
     box-sizing: border-box;
 }
 
 .benefits-wrapper h2 {
-    font-size: 40px;
+    font-size: clamp(30px, 2.1vw, 40px);
     margin-top: 8px;
-    margin-bottom: 40px;
     margin-right: 20px;
     color: #333;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
@@ -2742,24 +2741,24 @@ nav {
     flex-wrap: wrap;
     gap: 40px;
     max-width: 1500px;
-    margin: 40px auto;
+    margin: 30px auto 40px;
 }
 
 .benefits-wrapper .benefit-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
+    width: clamp(150px, 10.4vw, 200px);
 }
 
 .benefits-wrapper .benefit-item img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 12px;
+    width: clamp(50px, 5.2vw, 100px);
+    width: clamp(50px, 5.2vw, 100px);
+    margin-bottom: clamp(4px, 0.63vw, 12px);
 }
 
 .benefits-wrapper .benefit-item p {
-    font-size: 20px;
+    font-size: clamp(12px, 1.05vw, 20px);
     font-weight: bold;
     color: black;
     margin-bottom: 50px;
