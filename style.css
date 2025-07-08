@@ -1678,13 +1678,14 @@ nav {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100vh;
     overflow: hidden;
 }
 
 .aboutus-banner {
     position: relative;
     padding: 80px 0 0 80px;
-    height: clamp(250px, 23vw, 450px);
+    flex: 0 0 50%;
     background: url('images/images/关于我们bg8.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
@@ -1778,17 +1779,17 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 0 0 40%;
 }
 
 .intro-content {
     width: 502px;
-    height: clamp(200px, 18.3vw, 350px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: clamp(0px, 0.2vw, 60px) 0 100px 50px;
+    padding: clamp(20px, 3vw, 60px) 0 100px 50px;
     margin-left: 50px;
 }
 
