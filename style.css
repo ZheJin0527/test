@@ -3629,11 +3629,11 @@ nav {
 .modal-content {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
     backdrop-filter: blur(20px);
+    height: clamp(500px, 36.5vw, 700px);
     margin: 100px auto 20px auto;
-    padding: 20px 25px;
+    padding: 0px 25px;
     border-radius: 15px;
-    width: 90%;
-    max-width: 500px;
+    width: clamp(300px, 26vw, 500px);
     font-family: 'Inter', sans-serif;
     box-shadow: 
         0 25px 60px rgba(0, 0, 0, 0.2),
@@ -3676,7 +3676,7 @@ nav {
 form h2 {
     color: #333;
     margin-bottom: 15px;
-    font-size: 22px;
+    font-size: clamp(16px, 1.15vw, 22px);
     text-align: center;
     background: linear-gradient(135deg, #FF6B6B, #FF8E53);
     -webkit-background-clip: text;
@@ -3694,6 +3694,7 @@ form label {
     margin-bottom: 4px;
     font-weight: 600;
     color: #444;
+    font-size: clamp(10px, 0.8vw, 16px);
 }
 
 form input[type="text"],
@@ -3702,12 +3703,12 @@ form input[type="tel"],
 form input[type="file"],
 form select {
     width: 100%;
-    padding: 8px 12px;
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     border: 2px solid rgba(255, 107, 107, 0.2);
     border-radius: 10px;
-    font-size: 14px;
+    font-size: clamp(8px, 0.73vw, 14px);
     box-sizing: border-box;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
@@ -3732,20 +3733,6 @@ form select:focus {
 
 .phone-group input {
     flex: 2;
-}
-
-.submit-btn {
-    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-    color: white;
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 8px;
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
 }
 
 .submit-btn:hover {
@@ -3980,11 +3967,11 @@ form select:focus {
 
 /* 提交按钮 */
 .submit-btn {
-    width: 20%;
-    padding: clamp(10px, 1.5vw, 16px);
+    width: clamp(80px, 6vw, 120px);
+    padding: clamp(6px, 1vw, 16px);
     background: linear-gradient(145deg, #ff5c00 0%, #ff8000 100%);
     color: white;
-    font-size: clamp(10px, 1.5vw, 14px);
+    font-size: clamp(8px, 0.8vw, 14px);
     font-weight: 600;
     border: none;
     border-radius: 12px;
