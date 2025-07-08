@@ -2294,7 +2294,7 @@ nav {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 16px;
+    font-size: clamp(10px, 0.8vw, 16px);
     cursor: pointer;
     transition: all 0.4s ease;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
@@ -2408,14 +2408,14 @@ nav {
 
 /* 左侧卡片 */
 .timeline-content-item.prev {
-    transform: translateX(-400px) scale(0.80);
+    transform: translateX(-280px) scale(0.80);
     z-index: 1;
     opacity: 0.8;
 }
 
 /* 右侧卡片 */
 .timeline-content-item.next {
-    transform: translateX(400px) scale(0.80);
+    transform: translateX(280px) scale(0.80);
     z-index: 1;
     opacity: 0.8;
 }
