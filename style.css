@@ -2044,7 +2044,7 @@ nav {
     background-color: white;
     border-radius: 16px;
     color: #000;
-    gap: 53px;
+    gap: clamp(0px, 2.8vw, 53px);
 }
 
 .values-top {
@@ -2059,34 +2059,33 @@ nav {
 }
 
 .values-title {
-    font-size: clamp(40px, 6vw, 72px);
+    font-size: clamp(20px, 3.75vw, 70px);
     color: black;
     font-weight: bold;
-    margin-top: 32px;
-    margin-bottom: 24px;
+    margin-top: 24px;
+    margin-bottom: 16px;
 }
 
 .values-description {
-    font-size: 1.25rem;
+    font-size: clamp(10px, 1.1vw, 20px);
     color: #888888;
-    margin-bottom: 48px;
-    line-height: 140%;
+    margin-top: 0px;
+    margin-bottom: clamp(0px, 1.2vw, 24px);
+    line-height: 150%;
     word-break: break-word;
     max-width: 100%;
-    margin-top: 0px;
-    margin-bottom: 10px;
 }
 
 .values-bottom {
     display: grid;
     grid-template-columns: repeat(4, clamp(220px, 22vw, 350px));
-    grid-gap: 32px;
+    gap: clamp(16px, 1.6vw, 32px);
     justify-content: center;
 }
 
 .values-card {
-    width: clamp(160px, 22vw, 350px); 
-    height: clamp(160px, 22vw, 350px);
+    width: clamp(260px, 18vw, 350px); 
+    height: clamp(260px, 18vw, 350px);
     background-color: #FFF1E5;
     padding: clamp(15px, 2vw, 24px) clamp(10px, 1.5vw, 16px);
     border-radius: 16px;
@@ -2100,13 +2099,13 @@ nav {
 }
 
 .values-icon {
-    width: clamp(40px, 6vw, 100px);
-    height: clamp(40px, 6vw, 100px);
-    margin-top: clamp(12px, 2vw, 40px);
+    width: clamp(80px, 5.2vw, 100px);
+    height: clamp(80px, 5.2vw, 100px);
+    margin-top: clamp(30px, 2vw, 40px);
 }
 
 .values-card h3 {
-    font-size: clamp(18px, 2.5vw, 38px);
+    font-size: clamp(18px, 2vw, 38px);
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
@@ -2114,8 +2113,8 @@ nav {
 }
 
 .values-card p {
-    width: clamp(150px, 18vw, 320px);
-    font-size: clamp(12px, 1.2vw, 20px);
+    width: clamp(200px, 17vw, 320px);
+    font-size: clamp(12px, 1.1vw, 20px);
     font-weight: normal;
     color: #888888;
     line-height: 140%;
