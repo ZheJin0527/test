@@ -1684,7 +1684,7 @@ nav {
 .aboutus-banner {
     position: relative;
     padding: 80px 0 0 80px;
-    height: calc(56vh - 80px); /* 还保持满屏显示 */
+    height: clamp(250px, 23vw, 450px);
     background: url('images/images/关于我们bg8.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
@@ -1706,7 +1706,7 @@ nav {
   
 .aboutus-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 86px;
+    font-size: clamp(50px, 4.5vw, 86px);
     font-weight: bold;
     line-height: 1;
     letter-spacing: 1.4%;
@@ -1719,7 +1719,7 @@ nav {
 }
   
 .aboutus-content p {
-    font-size: 1.25rem;
+    font-size: clamp(12px, 1.05vw, 20px);
     font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.5%;
@@ -1782,19 +1782,19 @@ nav {
 
 .intro-content {
     width: 502px;
-    height: 280px;
+    height: clamp(200px, 18.3vw, 350px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    padding: clamp(0px, 0.2vw, 60px) 0 100px 50px;
     margin-left: 50px;
-    margin-top: 60px;
 }
 
 .intro-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 86px;
+    font-size: clamp(50px, 4.5vw, 86px);
     font-weight: bold;
     line-height: 140%;
     letter-spacing: 0.5%;
@@ -1804,7 +1804,7 @@ nav {
 }
 
 .intro-content p {
-    font-size: 1.25rem;
+    font-size: clamp(12px, 1.05vw, 20px);
     font-weight: normal;
     line-height: 170%;
     letter-spacing: 3px;
