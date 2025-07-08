@@ -3336,15 +3336,14 @@ nav {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
     height: 100vh;
+    margin: 0 auto;
 }
 
 .job-table-title {
     text-align: center;
-    font-size: 60px;
+    font-size: clamp(40px, 3.13vw, 60px);
     font-weight: 700;
-    margin-top: 80px;
-    margin-bottom: 100px;
-    margin-right: 40px;
+    margin: clamp(0px, 4vw, 100px) auto clamp(20px, 4vw, 100px);
     background: #ff5c00;
     background-size: 300% 300%;
     -webkit-background-clip: text;
@@ -3361,12 +3360,13 @@ nav {
     }
 
 .jobs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 35px;
+    display: flex;
+    flex-wrap: nowrap;         /* 不换行！强制一行内 */
+    justify-content: center;   /* 水平居中 */
+    gap: clamp(50px, 5.2vw, 100px);
     max-width: 1300px;
+    width: 100%;
     margin: 0 auto;
-    justify-content: center;
     padding: 0 20px;
 }
 
@@ -3374,8 +3374,9 @@ nav {
     background: linear-gradient(120deg, #ff5c00 0%, #ff8000 100%);
     backdrop-filter: blur(20px);
     border-radius: 20px;
-    width: 300px;
-    padding: 35px 20px;
+    width: clamp(200px, 15vw, 300px);
+    height: clamp(150px, 12vw, 250px);
+    padding: clamp(0px, 1.2vw, 35px) clamp(16px, 1.4vw, 20px) 30px;
     color: white;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -3429,10 +3430,10 @@ nav {
 }
 
 .job-title {
-    font-size: 32px;
+    font-size: clamp(20px, 1.7vw, 32px);
     font-weight: bolder;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 14px;
     background: linear-gradient(135deg, #ffffff, #f0f0f0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -3444,7 +3445,7 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    font-size: 16px;
+    font-size: clamp(12px, 0.8vw, 16px);
     font-weight: normal;
 }
 
@@ -3452,7 +3453,7 @@ nav {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px 16px;
+    padding: 8px clamp(10px, 0.8vw, 16px);
     background: rgba(255, 255, 255, 1);
     border-radius: 25px;
     backdrop-filter: blur(10px);
@@ -3481,7 +3482,7 @@ nav {
     background: linear-gradient(145deg, #ff5c00 0%, #ff8000 100%);
     backdrop-filter: blur(25px);
     border-radius: 20px;
-    padding: 25px 30px;
+    padding: clamp(8px, 1.3vw, 25px) clamp(13px, 1.53vw, 30px);
     margin-top: 15px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     z-index: 1000;
@@ -3531,7 +3532,7 @@ nav {
 
 .job-description {
     text-align: start;
-    font-size: 14px;
+    font-size: clamp(10px, 0.73vw, 14px);
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.95);
 }
@@ -3540,12 +3541,12 @@ nav {
     display: inline-flex;               /* 改为 flex 布局 */
     justify-content: center;           /* 水平居中 */
     align-items: center; 
-    padding: 10px 24px;
+    padding: clamp(6px, 0.52vw, 10px) clamp(20px, 1.25vw, 24px);
     background: white;
     color: #FF5C00;
     border: none;
     border-radius: 50px;
-    font-size: 12px;
+    font-size: clamp(8px, 0.625vw, 12px);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
