@@ -4194,7 +4194,7 @@ form select:focus {
     width: 100%;
     max-width: 1648px;
     height: 400px;
-    margin: 130px auto 70px auto;
+    margin: clamp(100px, 6.7vw, 130px) auto 70px auto;
     padding-left: clamp(40px, 5vw, 80px);
     padding-right: clamp(40px, 5vw, 80px);
     background: transparent;
@@ -4215,7 +4215,7 @@ form select:focus {
 }
 
 .contact-info h2 {
-    font-size: clamp(24px, 4vw, 50px);
+    font-size: clamp(40px, 2.6vw, 50px);
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
     line-height: 1.4;
@@ -4224,27 +4224,26 @@ form select:focus {
 }
 
 .contact-info p {
-  font-size: clamp(12px, 2vw, 19px);
-  margin: 0;
-  padding: 8px 0;
-  font-family: 'Source Sans Pro', sans-serif;
-  color: #888;
-  line-height: 2;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    font-size: clamp(12px, 1.04vw, 20px);
+    margin: 0;
+    padding: 8px 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #888;
+    line-height: 2;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .map-container {
-  width: 60%;
-  height: auto;
-  box-sizing: border-box;
+    width: 60%;
+    height: auto;
+    box-sizing: border-box;
 }
 
 .map-container iframe {
-  width: 100%;
-  height: 100%;
-  min-height: 576px;
-  border: none;
-  display: block;
+    width: clamp(700px, 45vw, 900px);
+    height: clamp(380px, 25vw, 500px);
+    border: none;
+    display: block;
 }
 
 /* ======= 1280px 以下 ======= */
