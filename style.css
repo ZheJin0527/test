@@ -2744,7 +2744,7 @@ nav {
   
 .joinus-content {
     margin-top: 176px;
-    margin-left: 40px;
+    margin-left: -20px;
     width: 402px;
     height: 140px;
     display: flex;
@@ -2787,6 +2787,10 @@ nav {
   .joinus-banner {
     padding: 60px 20px 0 20px;
     background-position: center top;
+  }
+
+  .joinus-content {
+    margin-left: -50px;
   }
 
   .joinus-content h1 {
