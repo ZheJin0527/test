@@ -2905,13 +2905,13 @@ nav {
   }
 
   .benefits-wrapper .benefit-item img {
-    width: clamp(40px, 7vw, 80px);
-    height: clamp(40px, 7vw, 80px);
+    width: clamp(30px, 5vw, 60px);
+    height: clamp(30px, 5vw, 60px);
     margin-bottom: clamp(4px, 1.5vw, 10px);
   }
 
   .benefits-wrapper .benefit-item p {
-    font-size: clamp(10px, 1.5vw, 16px);
+    font-size: clamp(10px, 1.3vw, 14px);
     margin-bottom: 24px;
   }
 }
