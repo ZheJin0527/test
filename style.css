@@ -2733,7 +2733,7 @@ nav {
 /* 上半部分 60% */
 .joinus-banner {
     flex: 0 0 60%;
-    background: url('images/images/加入封面.jpg') no-repeat center center/cover;
+    background: url('images/images/加入我们bg1.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
