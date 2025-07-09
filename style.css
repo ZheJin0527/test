@@ -3713,6 +3713,50 @@ nav {
     50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
 }
 
+@media (max-width: 1280px) {
+  .job-table-title {
+    font-size: clamp(20px, 3.13vw, 40px);
+  }
+
+  .jobs-grid {
+    gap: clamp(40px, 5.2vw, 100px);
+    padding: 0px;
+  }
+
+  .job-card {
+    width: clamp(150px, 15vw, 200px);
+    height: clamp(120px, 12vw, 150px);
+    padding: clamp(0px, 1.2vw, 35px) clamp(6px, 0.8vw, 10px) 30px;
+  }
+
+  .job-title {
+    font-size: clamp(12px, 1.6vw, 20px);
+  }
+
+  .job-meta {
+    gap: 10px;
+    font-size: clamp(10px, 0.8vw, 12px);
+  }
+
+  .job-meta-item {
+    gap: 8px;
+    padding: clamp(1px, 0.5vw, 6px) clamp(10px, 0.8vw, 16px);
+  }
+
+  .detail-content {
+    gap: 4px;
+  }
+
+  .job-description {
+    font-size: clamp(8px, 0.73vw, 12px);
+  }
+
+  .apply-btn {
+    padding: clamp(4px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
+    font-size: clamp(8px, 0.625vw, 10px);
+  }
+}
+
 /* 弹窗样式美化 */
 #formModal {
     position: fixed;
