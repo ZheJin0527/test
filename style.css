@@ -2661,11 +2661,11 @@ nav {
     }
 
     .nav-arrow.prev {
-      left: 140px;
+      left: 200px;
     }
 
     .nav-arrow.next {
-      right: 140px;
+      right: 200px;
     }
 }
 
