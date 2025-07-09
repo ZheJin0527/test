@@ -1834,7 +1834,7 @@ nav {
   .aboutus-intro {
     height: 316px;
     padding-left: 20px;
-    padding-top: 20px;
+    padding-top: 10px;
   }
 
   .intro-content {
@@ -1846,7 +1846,7 @@ nav {
   }
 
   .intro-content p {
-    font-size: clamp(12px, 1.1vw, 14px);
+    font-size: clamp(10px, 1.1vw, 14px);
   }
 }
 
