@@ -2872,31 +2872,38 @@ nav {
 }
 
 @media (max-width: 1280px) {
-  .benefits {
-    padding: 30px 40px 0 0px;
-  } 
-
-  .benefits h2 {
-    font-size: 36px;
-    margin-top: 24px;
-    margin-bottom: 30px;
-    margin-left: 50px;
+  .benefits-wrapper {
+    flex: 0 0 100%;
+    padding: clamp(12px, 4vw, 20px) 16px;
   }
 
-  .benefit-item {
-    width: 180px;
-    margin-left: 40px;
+  .benefits-wrapper h2 {
+    font-size: clamp(24px, 3vw, 32px);
+    margin-right: 20px;
+    text-align: center;
+    margin-top: -10px;
   }
 
-  .benefit-item img {
-    width: 90px;
-    height: 90px;
-    margin-bottom: 10px;
+  .benefits-wrapper .benefits-grid {
+    gap: 0px;
+    padding-bottom: 12px;
+    margin: 0 auto 40px;
   }
 
-  .benefit-item p {
-    font-size: 18px;
-    margin-bottom: 40px;
+  .benefits-wrapper .benefit-item {
+    flex: 0 0 auto;
+    width: clamp(100px, 15vw, 160px); /* 更小更紧凑 */
+  }
+
+  .benefits-wrapper .benefit-item img {
+    width: clamp(40px, 7vw, 80px);
+    height: clamp(40px, 7vw, 80px);
+    margin-bottom: clamp(4px, 1.5vw, 10px);
+  }
+
+  .benefits-wrapper .benefit-item p {
+    font-size: clamp(10px, 1.5vw, 16px);
+    margin-bottom: 24px;
   }
 }
 
