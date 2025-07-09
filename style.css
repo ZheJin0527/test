@@ -1448,8 +1448,8 @@ nav {
 }
 
 .social-icon {
-    width: 45px;
-    height: 45px;
+    width: clamp(40px, 2.3vw, 45px);
+    height: clamp(40px, 2.3vw, 45px);
     border-radius: 12px;
     display: flex;
     align-items: center;
