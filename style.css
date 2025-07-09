@@ -3199,16 +3199,10 @@ nav {
 }
 
 /* 响应式设计 */
-@media (max-width: 768px) {
-    .comphoto-title {
-        font-size: 2.5rem;
-        letter-spacing: 0.1em;
-    }
-            
-    .comphoto {
-        width: 100px;
-        height: 66px;
-    }
+@media (max-width: 1280px) {
+  .comphoto-title {
+    font-size: clamp(40px, 6.7vw, 128px);
+  }
 }
 
 @media (max-width: 480px) {
