@@ -493,18 +493,16 @@ nav {
 
 .home {
     position: relative;
-    padding: clamp(100px, 8vw, 160px) 0 0 0px;
+    padding: clamp(20px, 1.6vw, 30px) 0 0 0px;
     height: 100vh;
     background: url('images/images/封面7.png') no-repeat center center/cover;
     display: flex;
-    align-items: flex-start;
+    align-items: center; /* 垂直居中 */
     justify-content: center;
     color: white;
 }
 
 .home-content {
-    /* 上边距响应式缩小 */
-    margin-top: clamp(60px, 5vw, 108px);
     text-align: center;
     width: 1144px;
     height: auto; /* 允许高度自适应 */
