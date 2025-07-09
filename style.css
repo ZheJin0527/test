@@ -2149,7 +2149,7 @@ nav {
 @media (max-width: 1280px) {
   .values-title {
     font-size: clamp(20px, 3.65vw, 70px);
-    margin-top: clamp(16px, 4vh, 32px);
+    margin-top: 0;
     margin-bottom: clamp(12px, 2vh, 24px);
   }
 
@@ -2163,8 +2163,8 @@ nav {
   }
 
   .values-card {
-    width: clamp(180px, 22vw, 300px);
-    height: clamp(180px, 22vw, 300px);
+    width: clamp(160px, 22vw, 300px);
+    height: clamp(160px, 22vw, 300px);
     padding: clamp(16px, 3vw, 24px);
   }
 
@@ -2175,11 +2175,11 @@ nav {
   }
 
   .values-card h3 {
-    font-size: clamp(18px, 2vw, 28px);
+    font-size: clamp(16px, 2vw, 28px);
   }
 
   .values-card p {
-    width: clamp(160px, 16vw, 240px);
+    width: clamp(150px, 16vw, 240px);
     font-size: clamp(12px, 1.2vw, 18px);
     padding: 0 clamp(8px, 2vw, 24px);
     margin-bottom: clamp(16px, 4vw, 32px);
