@@ -1752,17 +1752,16 @@ nav {
 @media (max-width: 1280px) {
   .aboutus-banner {
     padding: 60px 20px 0 20px;
-    height: 450px;
     background-position: center top;
   }
 
   .aboutus-content h1 {
-    font-size: 75px;
+    font-size: clamp(40px, 4vw, 50px);
     margin-left: 90px;
   }
 
   .aboutus-content p {
-    font-size: 18px;
+    font-size: clamp(12px, 1.1vw, 14px);
     margin-left: 80px;
   }
 }
@@ -1834,7 +1833,8 @@ nav {
 @media (max-width: 1280px) {
   .aboutus-intro {
     height: 316px;
-    padding-left: 130px;
+    padding-left: 20px;
+    padding-top: 20px;
   }
 
   .intro-content {
@@ -1842,11 +1842,11 @@ nav {
   }
 
   .intro-content h1 {
-    font-size: 60px;
+    font-size: clamp(40px, 4vw, 50px);
   }
 
   .intro-content p {
-    font-size: 18px;
+    font-size: clamp(12px, 1.1vw, 14px);
   }
 }
 
