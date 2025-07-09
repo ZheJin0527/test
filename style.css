@@ -707,6 +707,22 @@ nav {
   .stats-section {
     margin-bottom: -50px;
   }
+
+  .stat-number {
+        /* 1920px=60px，1281px=40px，屏幕变窄会早缩小 */
+        font-size: clamp(30px, 3.125vw, 60px);
+        font-weight: bold;
+        font-family: 'Inter', sans-serif;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+
+   .divider {
+        width: 2px;
+        height: clamp(30px, 4.2vw, 80px);
+        background-color: white;
+        flex-shrink: 0;
+    }
 }
 
 .comprofile-section {
@@ -805,22 +821,22 @@ nav {
     }
 
     .comprofile-subtitle {
-        font-size: clamp(16px, 2vw, 25px);
+        font-size: clamp(16px, 1.3vw, 25px);
         height: 32px; /* 从40px减小到32px */
     }
 
     .circle {
-        width: clamp(12px, 2vw, 21px); /* 从14px减小到12px */
-        height: clamp(12px, 2vw, 21px);
+        width: clamp(14px, 1.1vw, 21px); /* 从14px减小到12px */
+        height: clamp(14px, 1.1vw, 21px);
     }
 
     .comprofile-title {
-        font-size: clamp(28px, 4vw, 51px); /* 从32px减小到28px */
-        margin: 12px 0 32px 0; /* 从16px 0 46px 0改为12px 0 32px 0 */
+        font-size: clamp(28px, 2.66vw, 51px); /* 从32px减小到28px */
+        margin: 12px 0 26px 0; /* 从16px 0 46px 0改为12px 0 32px 0 */
     }
 
     .comprofile-description {
-        max-width: 100%;
+        max-width: 550px;
         width: auto;
         height: auto;
         font-size: clamp(10px, 1.6vw, 15px); /* 从11px减小到10px */
