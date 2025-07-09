@@ -2099,10 +2099,12 @@ nav {
 }
 
 .values-bottom {
-    display: grid;
-    grid-template-columns: repeat(4, clamp(220px, 22vw, 350px));
-    gap: clamp(16px, 1.6vw, 32px);
-    justify-content: center;
+    display: flex;
+    flex-wrap: nowrap;     
+    gap: 32px;  
+    padding: 0 20px;
+    justify-content: flex-start;
+    scroll-behavior: smooth;
 }
 
 .values-card {
@@ -2144,11 +2146,44 @@ nav {
     margin-bottom: clamp(20px, 5vw, 40px);
 }
 
-/* 响应式设计 - 在小屏幕上改为2x2布局 */
-@media (max-width: 1200px) {
-    .values-bottom {
-        grid-template-columns: repeat(2, clamp(220px, 22vw, 350px));
-    }
+@media (max-width: 1280px) {
+  .values-title {
+    font-size: clamp(20px, 3.65vw, 70px);
+    margin-top: clamp(16px, 4vh, 32px);
+    margin-bottom: clamp(12px, 2vh, 24px);
+  }
+
+  .values-description {
+    font-size: clamp(10px, 1.04vw, 20px);
+    margin-bottom: 0;
+  }
+
+  .values-bottom { 
+    gap: 15px;  
+  }
+
+  .values-card {
+    width: clamp(180px, 22vw, 300px);
+    height: clamp(180px, 22vw, 300px);
+    padding: clamp(16px, 3vw, 24px);
+  }
+
+  .values-icon {
+    width: clamp(50px, 6vw, 120px);    /* ✅ 最大图标放大至 120px */
+    height: clamp(50px, 6vw, 120px);
+    margin-top: clamp(20px, 3vw, 40px);
+  }
+
+  .values-card h3 {
+    font-size: clamp(18px, 2vw, 28px);
+  }
+
+  .values-card p {
+    width: clamp(160px, 16vw, 240px);
+    font-size: clamp(12px, 1.2vw, 18px);
+    padding: 0 clamp(8px, 2vw, 24px);
+    margin-bottom: clamp(16px, 4vw, 32px);
+  }
 }
 
 /* 在更小屏幕上改为单列布局 */
