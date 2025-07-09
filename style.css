@@ -1907,9 +1907,10 @@ nav {
 
 .vision-cards {
     display: flex;
-    justify-content: space-between;
-    gap: 30px;
+    justify-content: center;   /* 或 flex-start */
+    gap: 30px;                 /* 固定间距 */
     padding: 0 40px;
+    flex-wrap: nowrap;         /* ✅ 不允许换行 */
 }
 
 .vision-card {
@@ -1959,10 +1960,22 @@ nav {
     color: #888888;
 }
 
-@media (max-width: 1279px) and (min-width: 769px) {
+@media (max-width: 1280px) {
   .vision {
     height: auto;
     padding: 51px;
+  }
+
+  .vision-content h1 {
+    font-size: clamp(20px, 3.65vw, 70px);
+    margin-bottom: 10px;
+    margin-top: -80px;
+  }
+
+    .vision-content p {
+    font-size: clamp(10px, 1.04vw, 20px);
+    margin-top: 0px;
+    margin-bottom: 40px;
   }
 
   .vision-cards {
@@ -1972,31 +1985,23 @@ nav {
   }
 
   .vision-card {
-    flex: 1 1 0; /* 自动伸缩占满空间 */
-    width: auto;
-    height: auto;
-    padding: 24px;
+    width: clamp(320px, 40vw, 800px);
+    height: clamp(180px, 21vw, 400px);
+    padding: 12px;
   }
 
   .vision-label {
-    font-size: clamp(20px, 3vw, 36px);
+    font-size: clamp(16px, 1.9vw, 36px);
+    margin: clamp(10px, 1.7vw, 32px) 10px 10px;
     width: auto;
   }
 
   .vision-card h2 {
-    font-size: clamp(20px, 2.5vw, 36px);
+    font-size: clamp(16px, 1.9vw, 36px);
   }
 
   .vision-card p {
-    font-size: clamp(16px, 1.6vw, 22px);
-  }
-
-  .vision-content p {
-    font-size: clamp(16px, 1.4vw, 20px);
-  }
-
-  .vision-content h1 {
-    font-size: clamp(32px, 4.5vw, 60px);
+    font-size: clamp(6px, 1.25vw, 24px);
   }
 }
 
