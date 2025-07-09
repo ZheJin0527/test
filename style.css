@@ -2782,19 +2782,18 @@ nav {
 
 /* 响应式：1280px 以下 */
 @media (max-width: 1280px) {
-  .joinus {
+  .joinus-banner {
     padding: 60px 20px 0 20px;
-    height: 450px;
     background-position: center top;
   }
 
   .joinus-content h1 {
-    font-size: 75px;
+    font-size: clamp(40px, 4vw, 50px);
     margin-left: 90px;
   }
 
   .joinus-content p {
-    font-size: 18px;
+    font-size: clamp(12px, 1.1vw, 14px);
     margin-left: 80px;
   }
 }
