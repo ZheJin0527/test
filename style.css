@@ -1212,7 +1212,7 @@ nav {
 .footer-bottom {
     position: relative;
     text-align: center;
-    font-size: clamp(10px, 0.84vw, 16px);
+    font-size: clamp(10px, 0.84vw, 14px);
     color: #666;
     background-color: #2F2F2F;
     padding: 10px 80px; /* 去掉左右 padding */
