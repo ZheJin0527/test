@@ -2781,6 +2781,7 @@ nav {
         5px 5px 6px rgba(85, 44, 16, 0.3),
         6px 6px 6px rgba(59, 30, 12, 0.3),
         7px 7px 10px rgba(0, 0, 0, 0.3);
+    z-index: 10;
 }
   
 .joinus-content p {
@@ -2792,10 +2793,11 @@ nav {
     padding: 0;
     white-space: nowrap;
     text-shadow:
-        0.5px 0.5px 2px rgba(111, 58, 18, 0.3),   /* 原 #6f3a12 */
-        1px 1px 2px rgba(85, 44, 16, 0.3),       /* 原 #552c10 */
-        1.5px 1.5px 2px rgba(59, 30, 12, 0.3),    /* 原 #3b1e0c */
-        2px 2px 10px rgba(0, 0, 0, 0.3);          /* 黑色光晕 */
+        0.5px 0.5px 2px rgba(111, 58, 18, 0.3),
+        1px 1px 2px rgba(85, 44, 16, 0.3),
+        1.5px 1.5px 2px rgba(59, 30, 12, 0.3),
+        2px 2px 10px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(2px 1px 1px rgba(0, 0, 0, 0.6));
 }
 
 /* 响应式：1280px 以下 */
