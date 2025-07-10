@@ -308,7 +308,7 @@ nav {
   .nav-links {
     height: 50px;
     gap: 20px;
-    margin-left: clamp(10px, 12vw, 160px);
+    margin-left: clamp(10px, 12vw, 110px);
     font-size: 12px;
   }
 
