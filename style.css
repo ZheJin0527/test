@@ -2067,7 +2067,6 @@ nav {
     justify-content: center;
     align-items: center;
     background-color: white;
-    border-radius: 16px;
     color: #000;
     gap: clamp(0px, 2.8vw, 53px);
 }
