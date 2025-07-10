@@ -3212,6 +3212,15 @@ nav {
   .comphoto-title {
     font-size: clamp(40px, 6.7vw, 128px);
   }
+
+  .comphoto-modal {
+    margin-top: 16px;
+  }
+
+  .comphoto-modal img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 @media (max-width: 480px) {
