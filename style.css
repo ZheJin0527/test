@@ -4465,26 +4465,44 @@ form select:focus {
 
 /* ======= 1280px 以下 ======= */
 @media (max-width: 1280px) {
+  .contact-section-wrapper {
+    height: 61%;
+    padding: 30px 0;
+  }
+
   .contact-container {
-    padding-left: 50px;
-    padding-right: 50px;
-    height: 380px;
+    max-width: 1200px;
+    height: auto;
+    padding-left: clamp(20px, 4vw, 60px);
+    padding-right: clamp(20px, 4vw, 60px);
+    margin: clamp(60px, 5vw, 100px) auto 50px auto;
   }
 
   .contact-info {
-    padding: 40px 20px;
+    width: 40%;
+    padding: 40px 20px 10px;
   }
 
   .contact-info h2 {
-    font-size: clamp(24px, 3vw, 36px);
+    font-size: clamp(16px, 3vw, 36px);
+    margin-bottom: 18px;
   }
 
   .contact-info p {
-    font-size: clamp(10px, 1.6vw, 16px);
+    font-size: clamp(9px, 0.95vw, 18px);
+    line-height: 1.8;
+    padding: 4px 0;
+  }
+
+  .map-container {
+    margin-top: 45px;
+    margin-left: 30px;
+    width: 60%;
   }
 
   .map-container iframe {
-    min-height: 380px;
+    width: 90%;
+    height: clamp(200px, 25vw, 280px);
   }
 }
 
