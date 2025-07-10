@@ -4206,10 +4206,9 @@ form select:focus {
     }
 
     .submit-btn {
-        font-size: clamp(14px, 1.3vw, 16px);
-        padding: clamp(7px, 1.3vw, 12px);
-        width: 35%;
-        margin-top: 40px;
+        font-size: clamp(6px, 0.8vw, 10px);
+        padding: clamp(4px, 0.8vw, 8px);
+        margin-top: 10px;
     }
 }
 
