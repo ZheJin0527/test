@@ -21,7 +21,7 @@ body::-webkit-scrollbar {
 }
 
 .swiper-slide {
-    background-color: #2F2F2F;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: start;
