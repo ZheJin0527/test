@@ -1163,6 +1163,7 @@ nav {
 /* page下方 */
 .footer {
     padding: 20px 0 20px 100px; /* 去掉左右 padding */
+    height: clamp(150px, 10.5vw, 200px);
     background-color: #2F2F2F;
     color: white;
     display: flex;
@@ -1182,7 +1183,7 @@ nav {
 }
 
 .footer-section h4 {
-    font-size: 16px;
+    font-size: clamp(10px, 0.84vw, 16px);
     margin-bottom: 0;
     color: #fff;
 }
@@ -1199,7 +1200,7 @@ nav {
 
 .footer-section li {
     margin-bottom: 8px;
-    font-size: 16px;
+    font-size: clamp(10px, 0.84vw, 16px);
     color: #ccc;
 }
 
@@ -1211,7 +1212,7 @@ nav {
 .footer-bottom {
     position: relative;
     text-align: center;
-    font-size: clamp(10px, 1vw, 14px);
+    font-size: clamp(10px, 0.84vw, 16px);
     color: #666;
     background-color: #2F2F2F;
     padding: 10px 80px; /* 去掉左右 padding */
