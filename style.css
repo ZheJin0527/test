@@ -3727,7 +3727,7 @@ nav {
     padding: clamp(80px, 10vw, 120px);
     margin: 0 auto;
   }
-  
+
   .job-table-title {
     font-size: clamp(20px, 3.13vw, 40px);
     margin: 0 auto clamp(20px, 4vw, 100px);
@@ -4176,59 +4176,79 @@ form select:focus {
 
 /* 1280px 及以下 */
 @media (max-width: 1280px) {
-    .join-us-form {
-        width: 70%;
-        max-width: 960px; /* 限制最大宽度 */
-        padding-left: clamp(30px, 4vw, 60px);
-        padding-right: clamp(30px, 4vw, 60px);
-        height: clamp(600px, 75vw, 650px);
-    }
+  .form-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px 0;
+  }
 
-    .join-us-form h2 {
-        font-size: clamp(18px, 3vw, 24px);
-    }
+  .main-title {
+    font-size: clamp(20px, 2.1vw, 36px);
+    margin-bottom: 0px;
+    margin-right: 20px;
+    margin-top: 0;
+  }
 
-    .form-group label,
-    .form-group-row label {
-        font-size: clamp(10px, 1.3vw, 13px);
-        margin-top: 16px;
-    }
+  .join-us-form {
+    width: 35%;
+    max-width: 960px; /* 限制最大宽度 */
+    padding: 0px 25px;
+    height: clamp(250px, 34vw, 430px);
+  }
 
-    .form-group input,
-    .form-group select,
-    .form-group textarea,
-    .form-group-row input,
-    .form-group-row select,
-    .form-group-row textarea {
-        font-size: clamp(10px, 1.3vw, 13px);
-        padding: 8px;
-    }
+  .join-us-form h2 {
+    font-size: clamp(18px, 3vw, 24px);
+  }
 
-    .phone-input select {
-        flex: 0 0 clamp(120px, 12vw, 150px);
-        font-size: clamp(10px, 1.3vw, 14px);
-        padding: 6px;
-    }
+  .form-group label,
+  .form-group-row label {
+    font-size: clamp(6px, 0.8vw, 14px);
+    margin-top: clamp(6px, 2vw, 26px);
+  }
 
-    .phone-input input {
-        font-size: clamp(8px, 1.2vw, 14px);
-        padding: 6px;
-    }
+  .form-group input,
+  .form-group select,
+  .form-group-row input,
+  .form-group-row select,
+  .form-group-row textarea {
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    font-size: clamp(6px, 0.73vw, 10px);
+  }
 
-    .gender-options label {
-        font-size: clamp(11px, 1.3vw, 14px);
-    }
+  .form-group textarea {
+    margin-bottom: 10px;
+    font-size: clamp(6px, 0.73vw, 10px);
+  }
 
-    .gender-options input[type="radio"] {
-        width: clamp(14px, 1.3vw, 16px);
-        height: clamp(14px, 1.3vw, 16px);
-    }
+  .phone-input select {
+    flex: 0 0 clamp(120px, 12vw, 150px);
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    font-size: clamp(6px, 0.73vw, 10px);
+  }
 
-    .submit-btn {
-        font-size: clamp(6px, 0.8vw, 10px);
-        padding: clamp(4px, 0.8vw, 8px);
-        margin-top: 10px;
-    }
+  .phone-input input {
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    font-size: clamp(6px, 0.73vw, 10px);
+  }
+
+  .gender-options {
+    margin-top: clamp(-30px, -1.5vw, -16px);
+  }
+
+  .gender-options label {
+    font-size: clamp(6px, 0.73vw, 10px);
+  }
+
+  .gender-options input[type="radio"] {
+    width: clamp(14px, 1.3vw, 16px);
+    height: clamp(14px, 1.3vw, 16px);
+  }
+
+  .submit-btn {
+    font-size: clamp(6px, 0.8vw, 10px);
+    padding: clamp(4px, 0.8vw, 8px);
+    margin-top: 10px;
+  }
 }
 
 /* 768px 及以下 */
