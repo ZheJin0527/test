@@ -3902,31 +3902,48 @@ form select:focus {
     box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
 }
 
+@media (max-width: 1280px) {
+  .modal-content {
+    height: clamp(300px, 39vw, 500px);
+    margin: 70px auto 20px auto;
+    padding: 0px 25px;
+    width: clamp(300px, 26vw, 500px);
+  }
+
+  form label {
+    margin-top: 8px;
+    margin-bottom: 2px;
+    font-weight: 600;
+    color: #444;
+    font-size: clamp(10px, 0.8vw, 16px);
+  }
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
-    .job-section {
-        padding: 30px 20px;
-    }
+  .job-section {
+    padding: 30px 20px;
+  }
             
-    .jobs-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
+  .jobs-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
             
-    .job-card {
-        padding: 25px;
-    }
+  .job-card {
+    padding: 25px;
+  }
             
-    .job-table-title {
-        font-size: 36px;
-        margin-bottom: 40px;
-    }
+  .job-table-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
             
-    .detail-content {
-        flex-direction: column;
-        gap: 20px;
-        align-items: stretch;
-    }
+  .detail-content {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+  }
 }
 
 
