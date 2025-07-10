@@ -21,6 +21,7 @@ body::-webkit-scrollbar {
 }
 
 .swiper-slide {
+    background-color: #2F2F2F;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -46,6 +47,7 @@ body::-webkit-scrollbar {
 
 /* 保持原来的scroll-buffer */
 .scroll-buffer {
+    background-color: #2F2F2F;
     display: flex;
     flex-direction: column;
     min-height: 29vh;
@@ -1166,7 +1168,6 @@ nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* 让内容整体居中 */
-    border-top: 1px solid #444;
     margin-top: auto;
     min-height: auto;
     position: relative;
