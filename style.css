@@ -1621,27 +1621,27 @@ nav {
 }
 
 /* 响应式设计 */
-@media (max-width: 768px) {
-    .social-sidebar {
-        right: 15px;
-        bottom: 15px;
-        gap: 10px;
-    }
+@media (max-width: 1280px) {
+  .social-sidebar {
+    right: 15px;
+    bottom: 15px;
+    gap: 10px;
+  }
             
-    .social-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-    }
-            
-    .social-icon svg {
-        width: 20px;
-        height: 20px;
-    }
+  .social-icon {
+    width: clamp(28px, 3vw, 38px);
+    height: clamp(28px, 3vw, 38px);
+    border-radius: 10px;
+  }
 
-    .social-icon:hover {
-        transform: translateY(-4px) scale(1.08);
-    }
+  .social-icon svg {
+    width: clamp(18px, 2vw, 24px);
+    height: clamp(18px, 2vw, 24px);
+  }
+
+  .social-icon:hover {
+    transform: translateY(-4px) scale(1.08);
+  }
 }
 
 /* 额外的视觉效果 */
