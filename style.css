@@ -3761,6 +3761,13 @@ nav {
     font-size: clamp(8px, 0.73vw, 12px);
   }
 
+  .job-details::before {
+    top: -6px;
+    left: 30px;
+    width: 12px;
+    height: 12px;
+  }
+
   .apply-btn {
     padding: clamp(4px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
     font-size: clamp(8px, 0.625vw, 10px);
