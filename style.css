@@ -3472,6 +3472,11 @@ nav {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
     height: 100vh;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 .job-table-title {
