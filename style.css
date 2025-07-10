@@ -2837,11 +2837,15 @@ nav {
 }
 
 .benefits-wrapper {
-    flex: 0 0 40%;
     background: url('images/images/背景3.jpg') no-repeat center center/cover;
-    text-align: center;
     padding: clamp(0px, 1.8vw, 40px) 20px;
+    text-align: center;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
 }
 
 .benefits-wrapper h2 {
@@ -2883,7 +2887,6 @@ nav {
 
 @media (max-width: 1280px) {
   .benefits-wrapper {
-    flex: 0 0 100%;
     padding: clamp(12px, 4vw, 20px) 16px;
   }
 
