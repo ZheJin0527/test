@@ -3723,6 +3723,11 @@ nav {
 }
 
 @media (max-width: 1280px) {
+  .job-section {
+    padding: clamp(80px, 10vw, 120px);
+    margin: 0 auto;
+  }
+  
   .job-table-title {
     font-size: clamp(20px, 3.13vw, 40px);
     margin: 0 auto clamp(20px, 4vw, 100px);
@@ -3940,33 +3945,6 @@ form select:focus {
   form select {
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(6px, 0.73vw, 10px);
-  }
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .job-section {
-    padding: 30px 20px;
-  }
-            
-  .jobs-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-            
-  .job-card {
-    padding: 25px;
-  }
-            
-  .job-table-title {
-    font-size: 36px;
-    margin-bottom: 40px;
-  }
-            
-  .detail-content {
-    flex-direction: column;
-    gap: 20px;
-    align-items: stretch;
   }
 }
 
