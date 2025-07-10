@@ -3904,18 +3904,35 @@ form select:focus {
 
 @media (max-width: 1280px) {
   .modal-content {
-    height: clamp(300px, 39vw, 500px);
+    height: clamp(300px, 39vw, 480px);
     margin: 70px auto 20px auto;
     padding: 0px 25px;
-    width: clamp(300px, 26vw, 500px);
+    width: clamp(250px, 26vw, 500px);
+  }
+
+  .close-btn {
+    font-size: 18px;
+  }
+
+  form h2 {
+    margin-bottom: clamp(8px, 1vw, 15px);
+    font-size: clamp(8px, 1.4vw, 18px);
   }
 
   form label {
-    margin-top: 8px;
+    margin-top: clamp(0px, 0.4vw, 10px);
     margin-bottom: 2px;
     font-weight: 600;
-    color: #444;
-    font-size: clamp(10px, 0.8vw, 16px);
+    font-size: clamp(6px, 0.8vw, 14px);
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="tel"],
+  form input[type="file"],
+  form select {
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    font-size: clamp(6px, 0.73vw, 10px);
   }
 }
 
