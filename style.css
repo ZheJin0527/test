@@ -100,7 +100,7 @@ body::-webkit-scrollbar {
 }
 
 /* 针对1280x600屏幕的响应式样式 */
-@media (max-width: 1280px) and (max-height: 594px) {
+@media (max-width: 1280px) and (max-height: 600px) {
     .scroll-buffer {
         min-height: 22vh; /* 适合600px高度的设置 */
     }
