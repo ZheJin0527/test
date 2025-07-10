@@ -1183,7 +1183,7 @@ nav {
 }
 
 .footer-section h4 {
-    font-size: clamp(10px, 0.84vw, 16px);
+    font-size: clamp(14px, 0.84vw, 16px);
     margin-bottom: 0;
     color: #fff;
 }
@@ -1200,7 +1200,7 @@ nav {
 
 .footer-section li {
     margin-bottom: 8px;
-    font-size: clamp(10px, 0.84vw, 16px);
+    font-size: clamp(14px, 0.84vw, 16px);
     color: #ccc;
 }
 
@@ -4419,7 +4419,7 @@ form select:focus {
     width: 100%;
     max-width: 1648px;
     height: 400px;
-    margin: clamp(100px, 6.7vw, 130px) auto 70px auto;
+    margin: clamp(100px, 6.7vw, 130px) auto 70px 60px;
     padding-left: clamp(40px, 5vw, 80px);
     padding-right: clamp(40px, 5vw, 80px);
     background: transparent;
@@ -4465,7 +4465,7 @@ form select:focus {
 }
 
 .map-container iframe {
-    width: clamp(700px, 45vw, 900px);
+    width: clamp(600px, 45vw, 900px);
     height: clamp(380px, 25vw, 500px);
     border: none;
     display: block;
