@@ -4426,7 +4426,7 @@ form select:focus {
     width: 100%;
     max-width: 1648px;
     height: 400px;
-    margin: clamp(100px, 6.7vw, 130px) auto 70px clamp(40px, 7vw, 160px);
+    margin: clamp(100px, 6.7vw, 130px) clamp(40px, 7vw, 160px) 70px clamp(40px, 7vw, 160px);
     padding-left: clamp(40px, 5vw, 80px);
     padding-right: clamp(40px, 5vw, 80px);
     background: transparent;
