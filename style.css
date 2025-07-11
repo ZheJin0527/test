@@ -4160,8 +4160,8 @@ form select:focus {
 
 /* 提交按钮 */
 .submit-btn {
-    width: clamp(80px, 6vw, 120px);
-    padding: clamp(6px, 1vw, 16px);
+    width: clamp(60px, 6vw, 100px);
+    padding: clamp(2px, 1vw, 12px);
     background: linear-gradient(145deg, #ff5c00 0%, #ff8000 100%);
     color: white;
     font-size: clamp(8px, 0.8vw, 14px);
