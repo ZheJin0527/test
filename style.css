@@ -1462,8 +1462,7 @@ nav {
     flex-direction: column;
     gap: 12px;
     z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
+    animation: pulse 4s ease-in-out infinite;
 }
 
 .social-icon {
@@ -1480,6 +1479,12 @@ nav {
     backdrop-filter: blur(15px);
     border: 1px solid rgba(0, 0, 0, 0.2);
     transform-style: preserve-3d;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.3), 
+        rgba(0, 0, 0, 0.2));
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .social-icon::before {
@@ -1511,8 +1516,8 @@ nav {
 }
 
 .social-icon:hover::after {
-    width: 200px;
-    height: 200px;
+    width: 20px;
+    height: 20px;
 }
 
 .social-icon:hover {
@@ -1528,74 +1533,48 @@ nav {
     transform: translateY(-4px) scale(1.05);
 }
 
-/* Facebook 样式 - 黑色透明 */
-.facebook {
-    background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.3), 
-        rgba(0, 0, 0, 0.2));
-    box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
+        
+/* Facebook 悬停样式 */
 .facebook:hover {
     background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.4), 
-        rgba(0, 0, 0, 0.3));
+        rgba(24, 119, 242, 0.9), 
+        rgba(24, 119, 242, 0.7));
     box-shadow: 
-        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 15px 30px rgba(24, 119, 242, 0.4),
         0 0 0 4px rgba(24, 119, 242, 0.2),
         0 0 0 8px rgba(24, 119, 242, 0.1),
         0 0 20px rgba(24, 119, 242, 0.3);
 }
 
-/* Instagram 样式 - 黑色透明 */
-.instagram {
-    background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.3), 
-        rgba(0, 0, 0, 0.2));
-    box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
+/* Instagram 悬停样式 */
 .instagram:hover {
     background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.4), 
-        rgba(0, 0, 0, 0.3));
+        rgba(253, 29, 29, 0.9), 
+        rgba(131, 58, 180, 0.9));
     box-shadow: 
-        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 15px 30px rgba(253, 29, 29, 0.4),
         0 0 0 4px rgba(253, 29, 29, 0.2),
         0 0 0 8px rgba(131, 58, 180, 0.1),
         0 0 20px rgba(131, 58, 180, 0.3);
 }
 
-/* WhatsApp 样式 - 黑色透明 */
-.whatsapp {
-    background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.3), 
-        rgba(0, 0, 0, 0.2));
-    box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
+/* WhatsApp 悬停样式 */
 .whatsapp:hover {
     background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.4), 
-        rgba(0, 0, 0, 0.3));
+        rgba(37, 211, 102, 0.9), 
+        rgba(37, 211, 102, 0.7));
     box-shadow: 
-        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 15px 30px rgba(37, 211, 102, 0.4),
         0 0 0 4px rgba(37, 211, 102, 0.2),
         0 0 0 8px rgba(37, 211, 102, 0.1),
         0 0 20px rgba(37, 211, 102, 0.3);
 }
 
-/* 图标 SVG 样式 */
+/* 图标 SVG 样式 - 默认灰色 */
 .social-icon svg {
     width: 22px;
     height: 22px;
-    fill: white;
+    fill: white; /* 默认灰色 */
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
     transition: all 0.4s ease;
     z-index: 2;
@@ -1605,6 +1584,7 @@ nav {
 .social-icon:hover svg {
     transform: scale(1.15) rotateZ(-3deg);
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    fill: white; /* 悬停时变为白色 */
 }
 
 /* 脉冲动画 */
@@ -1617,11 +1597,7 @@ nav {
         transform: scale(1.05);
         opacity: 0.8;
     }
-}
-
-.social-sidebar {
-    animation: pulse 4s ease-in-out infinite;
-}
+  }
 
 /* 响应式设计 */
 @media (max-width: 1280px) {
