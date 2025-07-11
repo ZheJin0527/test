@@ -24,6 +24,10 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <audio id="bgMusic" loop>
+  <source src="audio/audio/music.mp3" type="audio/mpeg">
+  您的浏览器不支持音频播放。
+</audio>
   <header class="navbar">
   <!-- 左侧 logo 和公司名 -->
   <div class="logo-section">
@@ -400,5 +404,16 @@ updatePageIndicator(0);
     map.src = "https://www.google.com/maps/d/embed?mid=11C1m9L_Gcj_n8ynGotoCNc4rzq0FX54&ehbc=2E312F#target-location";
   }
 </script>
+<script>
+    // ✅ 用户点击后播放
+    window.addEventListener('DOMContentLoaded', () => {
+      const bgMusic = document.getElementById('bgMusic');
+      const playMusic = () => {
+        bgMusic.play().catch(() => {});
+        document.removeEventListener('click', playMusic);
+      };
+      document.addEventListener('click', playMusic);
+    });
+  </script>
 </body>
 </html>
