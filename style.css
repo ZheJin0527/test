@@ -1693,8 +1693,8 @@ nav {
 }
 
 .social-icon {
-    width: clamp(38px, 2.3vw, 45px);
-    height: clamp(38px, 2.3vw, 45px);
+    width: clamp(36px, 2.24vw, 43px);
+    height: clamp(36px, 2.24vw, 43px);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -1713,7 +1713,7 @@ nav {
         0 6px 20px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     /* 添加半透明效果 */
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .social-icon::before {
@@ -1800,11 +1800,11 @@ nav {
         0 0 20px rgba(37, 211, 102, 0.3);
 }
 
-/* 图标 PNG 样式 - 保持白色部分 */
+/* 图标 PNG 样式 - 默认灰色滤镜 */
 .social-icon img {
-    width: clamp(37px, 2.3vw, 44px);
-    height: clamp(37px, 2.3vw, 44px);
-    filter: brightness(0.85) contrast(1.2) drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    width: clamp(35px, 2.2vw, 42px);
+    height: clamp(35px, 2.2vw, 42px);
+    filter: grayscale(100%) brightness(0.7) drop-shadow(0 1px 2px rgba(0,0,0,0.5));
     transition: all 0.4s ease;
     z-index: 2;
     position: relative;
@@ -1812,7 +1812,7 @@ nav {
 
 .social-icon:hover img {
     transform: scale(1.15) rotateZ(-3deg);
-    filter: brightness(1) contrast(1) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    filter: grayscale(0%) brightness(1) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
 }
 
 /* 脉冲动画 */
