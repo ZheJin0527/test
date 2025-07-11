@@ -337,6 +337,10 @@ body::-webkit-scrollbar {
     }
 }
 
+.music-player {
+  display: none;
+}
+
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(20px);

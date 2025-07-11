@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <iframe src="music.html" class="music-player" allow="autoplay"></iframe>
   <header class="navbar">
   <!-- 左侧 logo 和公司名 -->
   <div class="logo-section">
@@ -835,5 +836,18 @@ window.addEventListener('resize', () => {
     }
 });
     </script>
+    <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const bgMusic = document.getElementById('bgMusic');
+    if (bgMusic) {
+      const playMusic = () => {
+        bgMusic.play().catch(() => {});
+        document.removeEventListener('click', playMusic);
+      };
+      document.addEventListener('click', playMusic);
+    }
+  });
+</script>
+
 </body>
 </html>
