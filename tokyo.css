@@ -1993,34 +1993,36 @@ nav {
 }
 
 .environment-section {
-    background: #5b3b1f;
-    padding: 60px 80px;
+    background: #faf6e0;
+    padding: 60px 80px 20px;
     text-align: center;
 }
-  
+
 .environment-heading {
-    font-size: 45px;
-    margin-bottom: 40px;
-    color: white;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #333;
 }
-  
+
 .environment-swiper {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px 10px;
     overflow: hidden;
+    /* 防止滚动事件传播 */
+    touch-action: pan-y; /* 只允许垂直平移 */
 }
-  
+
 .environment-list {
     padding: 0;
     margin: 0;
 }
-  
+
 .environment-item {
     list-style: none;
     height: 100%;
 }
-  
+
 .environment-link {
     user-select: none;
     display: block;
@@ -2032,19 +2034,24 @@ nav {
     position: relative;
     overflow: hidden;
     height: 100%;
+    margin: 0 15px;
+    /* 确保图片容器不会影响滚动 */
+    pointer-events: auto;
 }
-  
+
 .environment-link:hover {
     border-color: #5372F0;
 }
-  
+
 .environment-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
+    /* 防止图片本身响应鼠标事件 */
+    pointer-events: none;
 }
-  
+
 .environment-title {
     position: absolute;
     bottom: 20px;
@@ -2056,43 +2063,77 @@ nav {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     text-align: center;
     margin: 0;
+    /* 防止标题文字影响滚动 */
+    pointer-events: none;
 }
-  
-/* Swiper controls */
+
+/* Swiper控件样式 */
+.environment-wrapper {
+    /* 确保Swiper容器正确处理滚动 */
+    overflow: visible;
+}
+
+.environment-wrapper .swiper-pagination {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin-top: 30px !important;
+    text-align: center !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
 .environment-wrapper .swiper-pagination-bullet {
     height: 13px;
     width: 13px;
     opacity: 0.5;
-    background: white !important; 
+    background: #666 !important;
+    margin: 0 8px !important;
 }
-  
+
 .environment-wrapper .swiper-pagination-bullet-active {
     opacity: 1;
+    background: #333 !important;
 }
-  
+
 .environment-wrapper .swiper-button-prev,
 .environment-wrapper .swiper-button-next {
-  background: rgba(255, 255, 255, 0.8) !important;
-  border-radius: 50%;
-  padding: 10px;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
+    background: rgba(0, 0, 0, 0.6) !important;
+    border-radius: 50%;
+    padding: 10px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
 }
 
-/* Swiper箭头图标样式 */
 .environment-wrapper .swiper-button-prev::after,
 .environment-wrapper .swiper-button-next::after {
-  font-size: 26px !important;
-  color: black !important;
-  font-weight: 900 !important;
+    font-size: 26px !important;
+    color: white !important;
+    font-weight: 900 !important;
 }
 
-.swiper-slide {
+/* 重置Swiper样式 */
+.environment-wrapper .swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    /* 确保不会阻止页面滚动 */
+    touch-action: pan-y;
+}
+
+.environment-wrapper .swiper-slide {
     height: 350px;
+    display: block !important;
+    flex-direction: initial !important;
+    justify-content: initial !important;
+    align-items: initial !important;
+    overflow: visible !important;
+    padding-top: 0 !important;
 }
   
 @media (max-width: 1280px) {
