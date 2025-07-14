@@ -5,17 +5,18 @@
   <title>背景音乐</title>
 </head>
 <body>
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" loop autoplay>
     <source src="audio/audio/music.mp3" type="audio/mpeg" />
-    您的浏览器不支持音频播放。
   </audio>
 
   <script>
-    // 尝试自动播放（某些浏览器允许）——大部分会失败
     const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.5;
+    
+    // 尝试播放
     bgMusic.play().catch(() => {});
-
-    // 当用户任意点击页面时，强制播放
+    
+    // 用户点击时播放
     document.addEventListener('click', () => {
       bgMusic.play().catch(() => {});
     });
