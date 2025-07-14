@@ -1713,7 +1713,6 @@ nav {
         0 6px 20px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     /* 添加半透明效果 */
-    animation: pulse 4s ease-in-out infinite;
     opacity: 0.5;
 }
 
@@ -1758,8 +1757,7 @@ nav {
         0 0 0 8px rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.3);
     /* 悬停时完全不透明 */
-    animation-play-state: paused;
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .social-icon:active {
