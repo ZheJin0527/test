@@ -46,7 +46,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <!-- 右侧区域 -->
   <div class="right-section">
     <!-- 移动端隐藏 login，仅大屏显示 -->
-    <a href="login.html" class="login-btn">LOGIN</a>
+    
 
     <!-- 翻译按钮始终显示 -->
     <div class="language-switch">
