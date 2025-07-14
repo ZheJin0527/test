@@ -1757,7 +1757,8 @@ nav {
         0 0 0 8px rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.3);
     /* 悬停时完全不透明 */
-    opacity: 1 !important;
+    animation-play-state: paused;
+    opacity: 1;
 }
 
 .social-icon:active {
@@ -1819,11 +1820,9 @@ nav {
 @keyframes pulse {
     0%, 100% { 
         transform: scale(1);
-        opacity: 0.5;
     }
     50% { 
         transform: scale(1.05);
-        opacity: 0.5;
     }
 }
 /* 响应式设计 */
