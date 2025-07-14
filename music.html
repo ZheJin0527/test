@@ -13,6 +13,12 @@
     const bgMusic = document.getElementById('bgMusic');
     bgMusic.volume = 0.5;
     
+    // 从localStorage恢复播放进度
+    const savedTime = localStorage.getItem('musicCurrentTime');
+    if (savedTime) {
+      bgMusic.currentTime = parseFloat(savedTime);
+    }
+    
     // 多次尝试播放
     function tryPlay() {
       bgMusic.play().catch(() => {});
@@ -25,6 +31,13 @@
     setTimeout(tryPlay, 100);
     setTimeout(tryPlay, 500);
     setTimeout(tryPlay, 1000);
+    
+    // 定期保存播放进度
+    setInterval(() => {
+      if (!bgMusic.paused) {
+        localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
+      }
+    }, 1000);
     
     // 用户任何交互都会触发播放
     document.addEventListener('click', tryPlay);
