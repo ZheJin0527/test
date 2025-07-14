@@ -25,7 +25,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 </head>
 <body>
   <audio id="bgMusic" loop>
-    <source src="audio/audio/music1.mp3" type="audio/mpeg" />
+    <source src="audio/audio/music.mp3" type="audio/mpeg" />
   </audio>
   <header class="navbar">
   <!-- 左侧 logo 和公司名 -->
@@ -401,7 +401,7 @@ updatePageIndicator(0);
   const bgMusic = document.getElementById('bgMusic');
 
   // 设置固定音量（例如 0.3 表示 30%）
-  bgMusic.volume = 0.1;
+  bgMusic.volume = 0.3;
 
   // 从 localStorage 恢复播放进度和状态
   const savedTime = localStorage.getItem('musicCurrentTime');
