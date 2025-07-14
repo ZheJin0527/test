@@ -1774,7 +1774,6 @@ nav {
         0 0 0 4px rgba(24, 119, 242, 0.2),
         0 0 0 8px rgba(24, 119, 242, 0.1),
         0 0 20px rgba(24, 119, 242, 0.3);
-        opacity: 1;
 }
 
 /* Instagram 悬停样式 */
@@ -1787,8 +1786,6 @@ nav {
         0 0 0 4px rgba(253, 29, 29, 0.2),
         0 0 0 8px rgba(131, 58, 180, 0.1),
         0 0 20px rgba(131, 58, 180, 0.3);
-        opacity: 1;
-
 }
 
 /* WhatsApp 悬停样式 */
@@ -1801,7 +1798,6 @@ nav {
         0 0 0 4px rgba(37, 211, 102, 0.2),
         0 0 0 8px rgba(37, 211, 102, 0.1),
         0 0 20px rgba(37, 211, 102, 0.3);
-        opacity: 1;
 }
 
 /* 图标 PNG 样式 - 默认灰色滤镜 */
@@ -1812,7 +1808,6 @@ nav {
     transition: all 0.4s ease;
     z-index: 2;
     position: relative;
-    opacity: 0.5;
 }
 
 .social-icon:hover img {
@@ -1824,9 +1819,11 @@ nav {
 @keyframes pulse {
     0%, 100% { 
         transform: scale(1);
+        opacity: 0.5;
     }
     50% { 
         transform: scale(1.05);
+        opacity: 0.5;
     }
 }
 /* 响应式设计 */
