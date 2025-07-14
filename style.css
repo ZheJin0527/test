@@ -1712,7 +1712,6 @@ nav {
     box-shadow: 
         0 6px 20px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    /* 移除整体透明度 */
 }
 
 .social-icon::before {
@@ -1805,7 +1804,7 @@ nav {
     transition: all 0.4s ease;
     z-index: 2;
     position: relative;
-    opacity: 0.6; /* 只对图片应用透明度 */
+    opacity: 0.5; /* 只对图片应用透明度 */
 }
 
 .social-icon:hover img {
