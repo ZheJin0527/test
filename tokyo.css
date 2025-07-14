@@ -905,7 +905,7 @@ nav {
 }
 
 .location-section {
-  background-color: #FFE9BA;
+  background-color: transparent;
   display: flex;
   justify-content: center;
 }
