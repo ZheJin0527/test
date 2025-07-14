@@ -919,7 +919,7 @@ nav {
   margin: 80px auto 80px auto;
   padding-left: clamp(40px, 5vw, 80px);
   padding-right: clamp(40px, 5vw, 80px);
-  background: #FFE9BA;
+  background: transparent;
   border-radius: 10px;
   overflow: hidden;
   box-sizing: border-box;
