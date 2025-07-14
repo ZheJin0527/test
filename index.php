@@ -401,7 +401,7 @@ updatePageIndicator(0);
   const bgMusic = document.getElementById('bgMusic');
 
   // 设置固定音量（例如 0.3 表示 30%）
-  bgMusic.volume = 0.2;
+  bgMusic.volume = 0.3;
 
   // 从 localStorage 恢复播放进度和状态
   const savedTime = localStorage.getItem('musicCurrentTime');
