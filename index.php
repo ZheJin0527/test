@@ -25,7 +25,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 </head>
 <body>
   <audio id="bgMusic" loop>
-    <source src="audio/audio/music.mp3" type="audio/mpeg" controls="controls" autoplay loop="true" hidden="true"/>
+    <source src="audio/audio/music.mp3" type="audio/mpeg" />
   </audio>
   <header class="navbar">
   <!-- 左侧 logo 和公司名 -->
