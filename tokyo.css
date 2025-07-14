@@ -920,7 +920,7 @@ nav {
     flex-direction: row;
     width: 100%;
     max-width: 1648px;
-    height: 400px;
+    height: 450px;
     margin: clamp(100px, 6.7vw, 130px) auto 70px;
     padding-left: clamp(40px, 5vw, 80px);
     padding-right: clamp(40px, 5vw, 80px);
@@ -932,7 +932,7 @@ nav {
 
 .location-info {
     width: 35%;
-    background: #fff;
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
