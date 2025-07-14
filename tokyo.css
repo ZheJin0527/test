@@ -2537,6 +2537,31 @@ form input[type="file"] {
 }
 
 /* 加入我们表单区 */
+.form-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px 0;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-title {
+    color: #3a1f00;
+    text-align: center;
+    font-size: clamp(24px, 2.1vw, 40px);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0px;
+    margin-right: 20px;
+    margin-top: clamp(30px, 3vw, 68px);
+    font-weight: 700;
+    background-clip: text;
+    line-height: 1.4;
+    font-family: 'Inter', sans-serif;
+}
+        
 .join-us-form {
     box-sizing: border-box;
     width: clamp(400px, 31.25vw, 600px);
