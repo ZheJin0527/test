@@ -24,7 +24,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <iframe id="musicPlayer" src="music.html"></iframe>
+  <audio id="bgMusic" loop>
+    <source src="audio/audio/music.mp3" type="audio/mpeg" />
+  </audio>
   <header class="navbar">
   <!-- 左侧 logo 和公司名 -->
   <div class="logo-section">
@@ -396,28 +398,45 @@ updatePageIndicator(0);
   }
 </script>
 <script>
-    // 页面加载后触发音乐播放
-    window.addEventListener('load', function() {
-      const musicPlayer = document.getElementById('musicPlayer');
-      
-      // 等待iframe加载完成
-      musicPlayer.addEventListener('load', function() {
-        // 通知音乐播放器开始播放
-        musicPlayer.contentWindow.postMessage('play', '*');
-      });
-      
-      // 用户任何交互都会触发音乐播放
-      document.addEventListener('click', function() {
-        musicPlayer.contentWindow.postMessage('play', '*');
-      });
-      
-      document.addEventListener('keydown', function() {
-        musicPlayer.contentWindow.postMessage('play', '*');
-      });
-      
-      document.addEventListener('touchstart', function() {
-        musicPlayer.contentWindow.postMessage('play', '*');
-      });
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.5;
+    
+    // 从localStorage恢复播放进度和状态
+    const savedTime = localStorage.getItem('musicCurrentTime');
+    const savedPlaying = localStorage.getItem('musicPlaying');
+    
+    if (savedTime) {
+      bgMusic.currentTime = parseFloat(savedTime);
+    }
+    
+    function tryPlay() {
+      bgMusic.play().catch(() => {});
+      localStorage.setItem('musicPlaying', 'true');
+    }
+    
+    // 如果之前在播放，立即继续播放
+    if (savedPlaying === 'true') {
+      // 稍微延迟以确保音频加载完成
+      setTimeout(tryPlay, 50);
+    }
+    
+    // 用户交互时开始播放
+    document.addEventListener('click', tryPlay, { once: true });
+    document.addEventListener('keydown', tryPlay, { once: true });
+    document.addEventListener('touchstart', tryPlay, { once: true });
+    
+    // 定期保存播放进度
+    setInterval(() => {
+      if (!bgMusic.paused) {
+        localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
+        localStorage.setItem('musicPlaying', 'true');
+      }
+    }, 500);
+    
+    // 页面卸载前保存状态
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
+      localStorage.setItem('musicPlaying', bgMusic.paused ? 'false' : 'true');
     });
   </script>
 
