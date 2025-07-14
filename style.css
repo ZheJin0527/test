@@ -1749,7 +1749,7 @@ nav {
     height: 20px;
 }
 
-/* 悬停时完全不透明 - 提高优先级 */
+/* 悬停时完全不透明 */
 .social-icon:hover {
     transform: translateY(-5px) translateX(-3px) rotateY(5deg) scale(1.1);
     box-shadow: 
@@ -1757,12 +1757,12 @@ nav {
         0 0 0 4px rgba(0, 0, 0, 0.1),
         0 0 0 8px rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.3);
-    opacity: 1 !important; /* 使用 !important 确保优先级 */
+    opacity: 1;
 }
 
 .social-icon:active {
     transform: translateY(-4px) scale(1.05);
-    opacity: 1 !important; /* 点击时也保持不透明 */
+    opacity: 1;
 }
 
 /* Facebook 悬停样式 */
@@ -1775,7 +1775,7 @@ nav {
         0 0 0 4px rgba(24, 119, 242, 0.2),
         0 0 0 8px rgba(24, 119, 242, 0.1),
         0 0 20px rgba(24, 119, 242, 0.3);
-    opacity: 1 !important;
+    opacity: 1;
 }
 
 /* Instagram 悬停样式 */
@@ -1788,7 +1788,7 @@ nav {
         0 0 0 4px rgba(253, 29, 29, 0.2),
         0 0 0 8px rgba(131, 58, 180, 0.1),
         0 0 20px rgba(131, 58, 180, 0.3);
-    opacity: 1 !important;
+    opacity: 1;
 }
 
 /* WhatsApp 悬停样式 */
@@ -1801,7 +1801,7 @@ nav {
         0 0 0 4px rgba(37, 211, 102, 0.2),
         0 0 0 8px rgba(37, 211, 102, 0.1),
         0 0 20px rgba(37, 211, 102, 0.3);
-    opacity: 1 !important;
+    opacity: 1;
 }
 
 /* 图标 PNG 样式 - 默认灰色滤镜 */
