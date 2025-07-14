@@ -841,22 +841,26 @@ window.addEventListener('resize', () => {
 <script>
     const bgMusic = document.getElementById('bgMusic');
     bgMusic.volume = 0.5;
+    bgMusic.playbackRate = 0.5; // 设置为0.5倍速播放
     
-    // 从localStorage恢复播放进度和状态
-    const savedTime = localStorage.getItem('musicCurrentTime');
-    const savedPlaying = localStorage.getItem('musicPlaying');
+    // 使用内存变量存储状态（替代localStorage）
+    let musicState = {
+      currentTime: 0,
+      isPlaying: false
+    };
     
-    if (savedTime) {
-      bgMusic.currentTime = parseFloat(savedTime);
+    // 从内存恢复播放进度和状态
+    if (musicState.currentTime > 0) {
+      bgMusic.currentTime = musicState.currentTime;
     }
     
     function tryPlay() {
       bgMusic.play().catch(() => {});
-      localStorage.setItem('musicPlaying', 'true');
+      musicState.isPlaying = true;
     }
     
     // 如果之前在播放，立即继续播放
-    if (savedPlaying === 'true') {
+    if (musicState.isPlaying) {
       // 稍微延迟以确保音频加载完成
       setTimeout(tryPlay, 50);
     }
@@ -866,18 +870,18 @@ window.addEventListener('resize', () => {
     document.addEventListener('keydown', tryPlay, { once: true });
     document.addEventListener('touchstart', tryPlay, { once: true });
     
-    // 定期保存播放进度
+    // 定期保存播放进度到内存
     setInterval(() => {
       if (!bgMusic.paused) {
-        localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
-        localStorage.setItem('musicPlaying', 'true');
+        musicState.currentTime = bgMusic.currentTime;
+        musicState.isPlaying = true;
       }
     }, 500);
     
-    // 页面卸载前保存状态
+    // 页面卸载前保存状态到内存
     window.addEventListener('beforeunload', () => {
-      localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
-      localStorage.setItem('musicPlaying', bgMusic.paused ? 'false' : 'true');
+      musicState.currentTime = bgMusic.currentTime;
+      musicState.isPlaying = !bgMusic.paused;
     });
   </script>
 
