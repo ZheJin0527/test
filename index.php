@@ -396,17 +396,30 @@ updatePageIndicator(0);
   }
 </script>
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const bgMusic = document.getElementById('bgMusic');
-    if (bgMusic) {
-      const playMusic = () => {
-        bgMusic.play().catch(() => {});
-        document.removeEventListener('click', playMusic);
-      };
-      document.addEventListener('click', playMusic);
-    }
-  });
-</script>
+    // 页面加载后触发音乐播放
+    window.addEventListener('load', function() {
+      const musicPlayer = document.getElementById('musicPlayer');
+      
+      // 等待iframe加载完成
+      musicPlayer.addEventListener('load', function() {
+        // 通知音乐播放器开始播放
+        musicPlayer.contentWindow.postMessage('play', '*');
+      });
+      
+      // 用户任何交互都会触发音乐播放
+      document.addEventListener('click', function() {
+        musicPlayer.contentWindow.postMessage('play', '*');
+      });
+      
+      document.addEventListener('keydown', function() {
+        musicPlayer.contentWindow.postMessage('play', '*');
+      });
+      
+      document.addEventListener('touchstart', function() {
+        musicPlayer.contentWindow.postMessage('play', '*');
+      });
+    });
+  </script>
 
 </body>
 </html>

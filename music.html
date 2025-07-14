@@ -13,12 +13,30 @@
     const bgMusic = document.getElementById('bgMusic');
     bgMusic.volume = 0.5;
     
-    // 尝试播放
-    bgMusic.play().catch(() => {});
-    
-    // 用户点击时播放
-    document.addEventListener('click', () => {
+    // 多次尝试播放
+    function tryPlay() {
       bgMusic.play().catch(() => {});
+    }
+    
+    // 页面加载后立即尝试
+    tryPlay();
+    
+    // 延迟再次尝试
+    setTimeout(tryPlay, 100);
+    setTimeout(tryPlay, 500);
+    setTimeout(tryPlay, 1000);
+    
+    // 用户任何交互都会触发播放
+    document.addEventListener('click', tryPlay);
+    document.addEventListener('keydown', tryPlay);
+    document.addEventListener('touchstart', tryPlay);
+    document.addEventListener('mousemove', tryPlay);
+    
+    // 接收父页面的播放指令
+    window.addEventListener('message', function(event) {
+      if (event.data === 'play') {
+        tryPlay();
+      }
     });
   </script>
 </body>
