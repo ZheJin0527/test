@@ -2495,6 +2495,7 @@ nav {
 }
 
 .environment-wrapper .swiper-slide {
+    background: #faf6e0;
     height: 350px;
     display: block !important;
     flex-direction: initial !important;
