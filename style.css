@@ -1914,7 +1914,7 @@ nav {
     position: relative;
     padding: 80px 0 0 80px;
     flex: 0 0 50%;
-    background: url('images/images/关于我们bg8.jpg') no-repeat center center/cover;
+    background-image: url('images/images/关于我们bg8.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2001,7 +2001,7 @@ nav {
 }
 
 .aboutus-intro {
-    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    background-image: url('images/images/背景3.jpg') no-repeat center center/cover;
     padding: 0px 20px 90px 20px;
     display: flex;
     justify-content: center;
