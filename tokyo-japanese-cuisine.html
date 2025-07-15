@@ -91,7 +91,7 @@
   </div>  
   
   <div class="swiper-slide">
-  <section id="mission" class="mission-section">
+  <section id="mission" class="mission-section mission-tilt-in-left">
     <div class="mission-cards">
       <div class="mission-card">
         <img src="" alt="图1">
@@ -630,8 +630,8 @@ window.addEventListener('resize', moveLoginBtn);
         });
 
         // 新增：mission 元素处理
-        if (container.classList.contains('mission-section')) {
-          container.classList.add('mission-loaded');
+        if (container.classList.contains('mission-tilt-in-left')) {
+          container.classList.add('visible');
         }
 
       } else {
@@ -648,8 +648,8 @@ window.addEventListener('resize', moveLoginBtn);
         });
 
         // 新增：mission 元素处理
-        if (container.classList.contains('mission-section')) {
-          container.classList.remove('mission-loaded');
+        if (container.classList.contains('mission-tilt-in-left')) {
+          container.classList.remove('visible');
         }
       }
     });
@@ -668,7 +668,7 @@ window.addEventListener('resize', moveLoginBtn);
   });
 
   // 新增：mission section 的观察器
-  document.querySelectorAll('.mission-section').forEach(container => {
+  document.querySelectorAll('.mission-tilt-in-left').forEach(container => {
     observer.observe(container);
   });
 </script>
