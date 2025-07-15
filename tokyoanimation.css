@@ -426,3 +426,61 @@ img.image-3d-rotate:hover,
     transform: translateY(0);
   }
 }
+
+/* 使命区域包装器初始状态 */
+.mission-section {
+    opacity: 1;
+}
+
+/* 使命卡片初始状态 */
+.mission-section .mission-card {
+    opacity: 0;
+    transform: translateX(-100px);
+}
+
+/* 使命卡片显示动画 - 使用 slideInLeft 动画 */
+.mission-section.mission-loaded .mission-card {
+    animation: slideInLeft 2s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+/* 依次延迟：第一个最先，后面逐渐延迟 */
+.mission-section.mission-loaded .mission-card:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.mission-section.mission-loaded .mission-card:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.mission-section.mission-loaded .mission-card:nth-child(3) {
+    animation-delay: 0.9s;
+}
+
+/* 悬浮效果保持 */
+.mission-section .mission-card:hover {
+    transform: translateY(-5px) !important;
+    transition: all 0.3s ease !important;
+    transition-delay: 0s !important;
+}
+
+.mission-section .mission-card:hover img {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.mission-section .mission-card:hover h3 {
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+.mission-section .mission-card:hover p {
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+/* 不可见时立即重置 */
+.mission-section:not(.mission-loaded) .mission-card {
+    opacity: 0 !important;
+    transform: translateX(-100px) !important;
+    animation: none !important;
+}
