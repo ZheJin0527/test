@@ -120,35 +120,93 @@
   </div>
 
   <div class="swiper-slide">
-  <section class="cuisine-section">
-    <img class="sakura-top-right" src="images/images/樱花1.png" alt="Sakura">
-    <img class="sakura-bottom-left" src="images/images/樱花2.png" alt="Sakura">
+  <section class="tokyomenu-section">
+  <div class="tokyomenu-container">
+    <div class="tokyomenu-book" id="tokyomenu-book">
 
-    <h1>Exquisite Cuisine, Crafted with Passion</h1>
-    <h2>精致美食，匠心呈现</h2>
-
-    <div class="dish-row">
-      <div class="dish">
-        <img src="images/images/生蚝.png" alt="Kaki Moriwase">
-        <div class="dish-title-en">KAKI MORIWASE</div>
-        <div class="dish-title-jp">牡蠣盛り</div>
-        <div class="dish-description">严选每日新鲜现开生蚝，冰镇上桌，保留天然海洋鲜味，壳净肉分，入口鲜甜滑嫩。</div>
+      <!-- 封面左页 -->
+      <div class="tokyomenu-page tokyomenu-page-left" id="tokyomenu-page-left" style="z-index: 2;">
+        <div class="tokyomenu-page-front">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/cover.jpg" class="tokyomenu-image" alt="封面">
+            <div class="tokyomenu-number">封面</div>
+          </div>
+        </div>
       </div>
 
-      <div class="dish wide-dish">
-        <img src="images/images/虾卷.png" alt="Shiro Ebi Mentai Roll">
-        <div class="dish-title-en">SHIROのEBI MENTAI ROLL</div>
-        <div class="dish-title-jp">白金枪鱼の虾卷</div>
-        <div class="dish-description">以白金枪鱼包裹鲜甜虾仁与明太子酱，入口柔滑香浓，点缀金箔，奢华非凡，每一口都是匠心之作。</div>
+      <!-- 翻页内容（4 张 page，每张包含正反面，即 8 页） -->
+      <!-- 第1页-2页 -->
+      <div class="tokyomenu-page tokyomenu-page-right" id="tokyomenu-page-1" style="z-index: 6;">
+        <div class="tokyomenu-page-front">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/menu1.jpg" class="tokyomenu-image" alt="菜单1">
+            <div class="tokyomenu-number">1</div>
+          </div>
+        </div>
+        <div class="tokyomenu-page-back">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/menu2.jpg" class="tokyomenu-image" alt="菜单2">
+            <div class="tokyomenu-number">2</div>
+          </div>
+        </div>
       </div>
 
-      <div class="dish">
-        <img src="images/images/鲑鱼沙律.png" alt="Shake Oyako Sarada">
-        <div class="dish-title-en">SHAKE OYAKO SARADA</div>
-        <div class="dish-title-jp">鲑鱼沙律</div>
-        <div class="dish-description">新鲜鲑鱼刺身搭配鲑鱼卵与爽脆蔬菜，色泽丰富，营养均衡，带来一份清新又满足的沙律享受。</div>
+      <!-- 第3页-4页 -->
+      <div class="tokyomenu-page tokyomenu-page-right" id="tokyomenu-page-2" style="z-index: 5;">
+        <div class="tokyomenu-page-front">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/menu3.jpg" class="tokyomenu-image" alt="菜单3">
+            <div class="tokyomenu-number">3</div>
+          </div>
+        </div>
+        <div class="tokyomenu-page-back">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/menu4.jpg" class="tokyomenu-image" alt="菜单4">
+            <div class="tokyomenu-number">4</div>
+          </div>
+        </div>
       </div>
+
+      <!-- 第5页-6页 -->
+      <div class="tokyomenu-page tokyomenu-page-right" id="tokyomenu-page-3" style="z-index: 4;">
+        <div class="tokyomenu-page-front">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/menu5.jpg" class="tokyomenu-image" alt="菜单5">
+            <div class="tokyomenu-number">5</div>
+          </div>
+        </div>
+        <div class="tokyomenu-page-back">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/menu6.jpg" class="tokyomenu-image" alt="菜单6">
+            <div class="tokyomenu-number">6</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第7页-8页 -->
+      <div class="tokyomenu-page tokyomenu-page-right" id="tokyomenu-page-4" style="z-index: 3;">
+        <div class="tokyomenu-page-front">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/menu7.jpg" class="tokyomenu-image" alt="菜单7">
+            <div class="tokyomenu-number">7</div>
+          </div>
+        </div>
+        <div class="tokyomenu-page-back">
+          <div class="tokyomenu-content">
+            <img src="/images/tokyomenu/menu8.jpg" class="tokyomenu-image" alt="菜单8">
+            <div class="tokyomenu-number">8</div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- 翻页按钮 -->
+    <div class="tokyomenu-nav">
+      <button class="tokyomenu-nav-btn" id="tokyomenu-prev" onclick="tokyomenuPrev()">◀ 上一页</button>
+      <button class="tokyomenu-nav-btn" id="tokyomenu-next" onclick="tokyomenuNext()">下一页 ▶</button>
+    </div>
+  </div>
   </section>
   </div>
 
@@ -539,5 +597,61 @@ updatePageIndicator(0);
     map.src = "https://www.google.com/maps/d/embed?mid=11C1m9L_Gcj_n8ynGotoCNc4rzq0FX54&ehbc=2E312F#target-location";
   }
 </script>
+<script>
+    let tokyomenuCurrentPage = 1;
+    const tokyomenuTotalPages = 4;
+    let tokyomenuAnimating = false;
+
+    function tokyomenuUpdateNav() {
+      document.getElementById('tokyomenu-prev').disabled = tokyomenuCurrentPage === 1;
+      document.getElementById('tokyomenu-next').disabled = tokyomenuCurrentPage === tokyomenuTotalPages;
+    }
+
+    function tokyomenuNext() {
+      if (tokyomenuCurrentPage < tokyomenuTotalPages && !tokyomenuAnimating) {
+        tokyomenuAnimating = true;
+        const page = document.getElementById(`tokyomenu-page-${tokyomenuCurrentPage}`);
+        page.classList.add('tokyomenu-turning');
+        page.style.transform = 'rotateY(-180deg)';
+        setTimeout(() => {
+          page.classList.remove('tokyomenu-turning');
+          tokyomenuCurrentPage++;
+          tokyomenuUpdateNav();
+          tokyomenuAnimating = false;
+        }, 1200);
+      }
+    }
+
+    function tokyomenuPrev() {
+      if (tokyomenuCurrentPage > 1 && !tokyomenuAnimating) {
+        tokyomenuAnimating = true;
+        tokyomenuCurrentPage--;
+        const page = document.getElementById(`tokyomenu-page-${tokyomenuCurrentPage}`);
+        page.classList.add('tokyomenu-turning');
+        page.style.transform = 'rotateY(0deg)';
+        setTimeout(() => {
+          page.classList.remove('tokyomenu-turning');
+          tokyomenuUpdateNav();
+          tokyomenuAnimating = false;
+        }, 1200);
+      }
+    }
+
+    // 点击页面也能翻页
+    document.querySelectorAll('.tokyomenu-page').forEach(page => {
+      page.addEventListener('click', function() {
+        if (!this.classList.contains('tokyomenu-page-left')) {
+          tokyomenuNext();
+        }
+      });
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') tokyomenuPrev();
+      if (e.key === 'ArrowRight') tokyomenuNext();
+    });
+
+    tokyomenuUpdateNav();
+  </script>
 </body>
 </html>
