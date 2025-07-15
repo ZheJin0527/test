@@ -693,67 +693,84 @@ window.addEventListener('resize', moveLoginBtn);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // 恢复到你原来的配置，只添加最小的修改
-const swiper = new Swiper('.swiper', {
-    direction: 'vertical',
-    mousewheel: true,
-    speed: 800,
-    simulateTouch: false,
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    // 添加这个配置来处理不同高度的slide
-    slidesPerView: 'auto',
-    spaceBetween: 0,
-    on: {
-        slideChange: function() {
-            // 更新页面指示器
-            updatePageIndicator(this.activeIndex);
+// 确保DOM加载完成后再执行
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // 恢复到你原来的配置，只添加最小的修改
+    const swiper = new Swiper('.swiper', {
+        direction: 'vertical',
+        mousewheel: true,
+        speed: 800,
+        simulateTouch: false,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
-        // 添加这个事件来处理最后一页的特殊情况
-        reachEnd: function() {
-            // 确保最后一页正确显示
-            this.allowTouchMove = true;
-        },
-        // 添加进度监听来处理最后一页的双向滑动
-        setTransition: function(duration) {
-            // 在过渡结束后检查进度
-            setTimeout(() => {
-                if (this.progress > 0.95) {
-                    updatePageIndicator(7); // 滑到最后一页
+        // 添加这个配置来处理不同高度的slide
+        slidesPerView: 'auto',
+        spaceBetween: 0,
+        on: {
+            slideChange: function() {
+                // 更新页面指示器
+                updatePageIndicator(this.activeIndex);
+            },
+            // 添加这个事件来处理最后一页的特殊情况
+            reachEnd: function() {
+                // 确保最后一页正确显示
+                this.allowTouchMove = true;
+            },
+            // 添加进度监听来处理最后一页的双向滑动
+            setTransition: function(duration) {
+                // 在过渡结束后检查进度
+                setTimeout(() => {
+                    if (this.progress > 0.95) {
+                        updatePageIndicator(7); // 滑到最后一页
+                    } else {
+                        updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
+                    }
+                }, duration + 50);
+            }
+        }
+    });
+
+    // 页面指示器功能 - 确保DOM元素存在
+    const pageDots = document.querySelectorAll('.page-dot');
+    
+    // 调试：检查是否找到了页面指示器元素
+    console.log('找到的页面指示器数量:', pageDots.length);
+    
+    // 只有当找到指示器元素时才添加事件监听
+    if (pageDots.length > 0) {
+        // 点击圆点跳转到对应页面
+        pageDots.forEach((dot, index) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault(); // 防止默认行为
+                console.log('点击了第', index, '个指示器'); // 调试信息
+                swiper.slideTo(index);
+            });
+        });
+        
+        // 初始化页面指示器
+        updatePageIndicator(0);
+    } else {
+        console.warn('未找到页面指示器元素 (.page-dot)');
+    }
+
+    // 更新页面指示器状态
+    function updatePageIndicator(activeIndex) {
+        if (pageDots.length > 0) {
+            pageDots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('active');
                 } else {
-                    updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
+                    dot.classList.remove('active');
                 }
-            }, duration + 50);
+            });
         }
     }
+    
 });
-
-// 页面指示器功能
-const pageDots = document.querySelectorAll('.page-dot');
-
-// 点击圆点跳转到对应页面
-pageDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        swiper.slideTo(index);
-    });
-});
-
-// 更新页面指示器状态
-function updatePageIndicator(activeIndex) {
-    pageDots.forEach((dot, index) => {
-        if (index === activeIndex) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
-    });
-}
-
-// 初始化页面指示器
-updatePageIndicator(0);
-    </script>
+</script>
 <script>
   window.addEventListener('load', () => {
     // 创建一个虚拟图片对象检测背景图是否加载完成
