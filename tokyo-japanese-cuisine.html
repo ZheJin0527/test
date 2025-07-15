@@ -621,6 +621,7 @@ window.addEventListener('resize', moveLoginBtn);
       if (entry.isIntersecting) {
         container.classList.add('visible');
 
+        // 原有的 scale-fade-in 元素处理
         container.querySelectorAll('.scale-fade-in').forEach(el => {
           el.style.animation = 'none'; // 重置动画
           el.offsetHeight; // 触发重绘
@@ -628,9 +629,15 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animationPlayState = 'running';
         });
 
+        // 新增：mission 元素处理
+        if (container.classList.contains('mission-section')) {
+          container.classList.add('mission-loaded');
+        }
+
       } else {
         container.classList.remove('visible');
 
+        // 原有的 scale-fade-in 元素处理
         container.querySelectorAll('.scale-fade-in').forEach(el => {
           el.style.animation = 'none'; // 停止当前动画
           el.style.opacity = '0'; // 恢复初始状态
@@ -639,6 +646,11 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animation = '';
           el.style.animationPlayState = 'paused';
         });
+
+        // 新增：mission 元素处理
+        if (container.classList.contains('mission-section')) {
+          container.classList.remove('mission-loaded');
+        }
       }
     });
   }, {
@@ -652,6 +664,11 @@ window.addEventListener('resize', moveLoginBtn);
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
     });
+    observer.observe(container);
+  });
+
+  // 新增：mission section 的观察器
+  document.querySelectorAll('.mission-section').forEach(container => {
     observer.observe(container);
   });
 </script>
