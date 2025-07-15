@@ -718,7 +718,7 @@ nav {
 
 .home {
     position: relative;
-    padding: 80px 0 0 80px;
+    padding: 80px 0 0 0px;
     height: calc(100vh - 80px); /* 还保持满屏显示 */
     background: linear-gradient(to right, rgb(228, 176, 103), rgba(204, 116, 0, 0)), 
             url('images/images/j1餐厅.jpg') no-repeat center center/cover;
