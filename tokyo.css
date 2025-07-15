@@ -734,27 +734,40 @@ nav {
     height: 101px;
 }
 
+.home-logo-container {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  justify-content: center; /* 水平居中整组内容 */
+  gap: 20px; /* logo 和文字之间的距离 */
+  flex-wrap: wrap; /* 小屏时自动换行 */
+}
+
 .home-logo {
-    width: 300px; /* 根据你的logo调整大小 */
+    width: 180px; /* 根据你的logo调整大小 */
     height: auto;
-    margin-bottom: 40px;
+    margin-top: 100px;
+    margin-bottom: 40px;         
 }
   
 .home h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 100px;
+    font-size: 80px;
     font-weight: bold;
+    margin-top: 100px;
     margin-bottom: 40px;
     line-height: 100%;
     letter-spacing: 1.4%;
+    filter: drop-shadow(10px 8px 2px rgb(109, 77, 29));
 }
   
 .home p {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: normal;
     line-height: 140%;
     margin-top: 0; /* 确保p和h1的间距是80px */
     margin-bottom: 90px;
+    margin-left: 370px;
+    filter: drop-shadow(4px 4px 2px rgb(109, 77, 29));
 }
 
 @media (max-width: 1280px) {
