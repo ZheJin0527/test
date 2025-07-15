@@ -3585,7 +3585,7 @@ form input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #1a0f08; /* 可选背景 */
+    background: #5b3b1f; /* 可选背景 */
     overflow: hidden;
 }
 
