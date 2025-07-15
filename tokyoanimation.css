@@ -416,64 +416,31 @@ img.image-3d-rotate:hover,
   animation-delay: 0.4s;
 }
 
-/* ========== 使命愿景价值观特效 - 从左边倾斜进入 ========== */
+/* ========== 使命愿景价值观卡片特效 - 从左边倾斜进入 ========== */
 
-/* 使命区域包装器初始状态 */
-.mission-tilt-in-left {
-  opacity: 0 !important;
-  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
+/* 使命卡片初始状态 - 从左边倾斜进入 */
+.mission-card {
+  opacity: 0;
+  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) translateY(30px);
   transform-origin: left center;
   transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.mission-tilt-in-left.visible {
-  opacity: 1 !important;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) !important;
-}
-
-/* 使命卡片单独延迟进入 */
-.mission-card {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.mission-tilt-in-left.visible .mission-card:nth-child(1) {
+/* 当父容器可见时，卡片逐个进入 */
+.mission-section.visible .mission-card:nth-child(1) {
   transition-delay: 0.2s;
   opacity: 1;
-  transform: translateY(0);
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0);
 }
 
-.mission-tilt-in-left.visible .mission-card:nth-child(2) {
+.mission-section.visible .mission-card:nth-child(2) {
   transition-delay: 0.4s;
   opacity: 1;
-  transform: translateY(0);
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0);
 }
 
-.mission-tilt-in-left.visible .mission-card:nth-child(3) {
+.mission-section.visible .mission-card:nth-child(3) {
   transition-delay: 0.6s;
   opacity: 1;
-  transform: translateY(0);
-}
-
-/* 悬浮效果保持 */
-.mission-tilt-in-left .mission-card:hover {
-    transform: translateY(-5px) !important;
-    transition: all 0.3s ease !important;
-    transition-delay: 0s !important;
-}
-
-.mission-tilt-in-left .mission-card:hover img {
-    transform: scale(1.1);
-    transition: all 0.3s ease;
-}
-
-.mission-tilt-in-left .mission-card:hover h3 {
-    color: #007bff;
-    transition: all 0.3s ease;
-}
-
-.mission-tilt-in-left .mission-card:hover p {
-    color: #666;
-    transition: all 0.3s ease;
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0);
 }
