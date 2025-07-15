@@ -629,8 +629,8 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animationPlayState = 'running';
         });
 
-        // 新增：mission 元素处理
-        if (container.classList.contains('mission-tilt-in-left')) {
+        // 新增：mission section 元素处理
+        if (container.classList.contains('mission-section')) {
           container.classList.add('visible');
         }
 
@@ -647,9 +647,14 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animationPlayState = 'paused';
         });
 
-        // 新增：mission 元素处理
-        if (container.classList.contains('mission-tilt-in-left')) {
+        // 新增：mission section 元素处理 - 重置卡片状态
+        if (container.classList.contains('mission-section')) {
           container.classList.remove('visible');
+          // 重置所有卡片到初始状态
+          container.querySelectorAll('.mission-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) translateY(30px)';
+          });
         }
       }
     });
@@ -667,8 +672,13 @@ window.addEventListener('resize', moveLoginBtn);
     observer.observe(container);
   });
 
-  // 新增：mission section 的观察器
-  document.querySelectorAll('.mission-tilt-in-left').forEach(container => {
+  // 新增：mission section 的观察器和初始化
+  document.querySelectorAll('.mission-section').forEach(container => {
+    // 初始化卡片状态
+    container.querySelectorAll('.mission-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) translateY(30px)';
+    });
     observer.observe(container);
   });
 </script>
