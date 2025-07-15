@@ -456,28 +456,6 @@ img.image-3d-rotate:hover,
     animation-delay: 0.9s;
 }
 
-/* 悬浮效果保持 */
-.mission-section .mission-card:hover {
-    transform: translateY(-5px) !important;
-    transition: all 0.3s ease !important;
-    transition-delay: 0s !important;
-}
-
-.mission-section .mission-card:hover img {
-    transform: scale(1.1);
-    transition: all 0.3s ease;
-}
-
-.mission-section .mission-card:hover h3 {
-    color: #007bff;
-    transition: all 0.3s ease;
-}
-
-.mission-section .mission-card:hover p {
-    color: #666;
-    transition: all 0.3s ease;
-}
-
 /* 不可见时立即重置 */
 .mission-section:not(.mission-loaded) .mission-card {
     opacity: 0 !important;
