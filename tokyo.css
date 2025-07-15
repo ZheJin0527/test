@@ -3106,23 +3106,6 @@ form input[type="file"] {
     background-color: #8B5E20;
 }
 
-.join-us-form {
-    box-sizing: border-box;
-    width: 50%;
-    max-width: 1330px;
-    min-width: 320px;
-    margin: 50px auto;
-    height: 720px;
-    padding-top: 10px;
-    padding-left: clamp(40px, 5vw, 80px);
-    padding-right: clamp(40px, 5vw, 80px);
-    background: #FFE9BA;
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
-    overflow-wrap: break-word;
-}
-
 /* 1280px 及以下 */
 @media (max-width: 1280px) {
     .join-us-form {
