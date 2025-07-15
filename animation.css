@@ -473,6 +473,7 @@ img.image-3d-rotate:hover,
     left: 0;
     right: 0;
     bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%);
     opacity: 0; /* 初始透明 */
     z-index: 1;
     transition: opacity 0.8s ease-in-out; /* 2秒渐变过渡 */
