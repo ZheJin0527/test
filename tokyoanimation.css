@@ -122,6 +122,19 @@
   animation-delay: 0.15s;
 }
 
+/* 为不同的p元素添加不同的延迟 */
+.home-content .scale-fade-in:nth-of-type(1) {
+  animation-delay: 0.15s;
+}
+
+.home-content .scale-fade-in:nth-of-type(2) {
+  animation-delay: 0.45s; /* 第二个p元素延迟0.45秒 */
+}
+
+.home-content .scale-fade-in:nth-of-type(3) {
+  animation-delay: 0.75s; /* 第三个p元素延迟0.75秒 */
+}
+
 /* 装饰线条也使用相同的0.3秒延迟 */
 .home-content .decor-line.scale-fade-in {
   animation-delay: 0.15s;
