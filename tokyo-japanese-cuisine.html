@@ -44,6 +44,17 @@
   </div>
 </header>
 
+<div class="page-indicator">
+    <div class="page-dot active" data-slide="0"></div>
+    <div class="page-dot" data-slide="1"></div>
+    <div class="page-dot" data-slide="2"></div>
+    <div class="page-dot" data-slide="3"></div>
+  </div>
+
+  <div class="swiper">
+  <div class="swiper-wrapper">
+
+  <div class="swiper-slide">
   <section class="home">
     <div class="home-content">
       <h1>TOKYO JAPANESE<br />
@@ -54,7 +65,9 @@
       </p>
     </div>
   </section>
+  </div>
 
+  <div class="swiper-slide">
   <section id="tokyoabout" class="tokyoabout-section">
     <div class="tokyoabout-text">
         <p class="tokyoabout-subtitle">
@@ -69,8 +82,10 @@
       <!-- 你可以换成自己的图片 -->
       <img src="images/images/2023发展.jpg" alt="餐厅" />
     </div>
-  </section>  
+  </section>
+  </div>  
   
+  <div class="swiper-slide">
   <section id="mission" class="mission-section">
     <div class="mission-cards">
       <div class="mission-card">
@@ -97,7 +112,9 @@
       </div>
     </div>
   </section>
+  </div>
 
+  <div class="swiper-slide">
   <section class="cuisine-section">
     <img class="sakura-top-right" src="images/images/樱花1.png" alt="Sakura">
     <img class="sakura-bottom-left" src="images/images/樱花2.png" alt="Sakura">
@@ -128,7 +145,9 @@
       </div>
     </div>
   </section>
+  </div>
 
+  <div class="swiper-slide">
   <section id="environment" class="environment-section">
   <h2 class="environment-heading">工作环境</h2>
   <div class="swiper environment-wrapper">
@@ -171,7 +190,9 @@
     <div class="swiper-button-next"></div>
   </div>
 </section>
+</div>
 
+<div class="swiper-slide">
 <div class="form-wrapper">
   <h2 class="main-title">请提供您宝贵的意见</h2>
   <section class="join-us-form"> 
@@ -250,7 +271,9 @@
     </form>
 </section>
 </div>
+</div>
 
+<div class="swiper-slide">
   <section class="location-section">
     <div class="location-container">
       <div class="location-info">
@@ -265,7 +288,10 @@
       </div>
     </div>
   </section>
+  </div>
 
+<div class="swiper-slide footer-slide">
+  <section class="scroll-buffer">
   <footer class="footer">
     <div class="footer-section">
       <h4><a href="index.php">首页</a></h4>
@@ -308,6 +334,12 @@
   <div class="footer-bottom">
     © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
   </div>
+  </section>
+  </div>
+
+  
+  </div> <!-- 关闭 swiper-wrapper -->
+</div> <!-- 关闭 swiper -->
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="app.js"></script>
@@ -341,6 +373,149 @@ window.addEventListener('DOMContentLoaded', moveLoginBtn);
 // 窗口大小改变时也处理，防止resize后login位置错乱
 window.addEventListener('resize', moveLoginBtn);
 
+</script>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const container = entry.target;
+
+      if (entry.isIntersecting) {
+        container.classList.add('visible');
+
+        container.querySelectorAll('.scale-fade-in').forEach(el => {
+          el.style.animation = 'none'; // 重置动画
+          el.offsetHeight; // 触发重绘
+          el.style.animation = ''; // 重新应用 CSS 动画
+          el.style.animationPlayState = 'running';
+        });
+
+      } else {
+        container.classList.remove('visible');
+
+        container.querySelectorAll('.scale-fade-in').forEach(el => {
+          el.style.animation = 'none'; // 停止当前动画
+          el.style.opacity = '0'; // 恢复初始状态
+          el.style.transform = 'translateY(20px)';
+          el.offsetHeight; // 强制回流
+          el.style.animation = '';
+          el.style.animationPlayState = 'paused';
+        });
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  // 初始化：暂停动画并设置初始状态
+  document.querySelectorAll('.animate-on-scroll').forEach(container => {
+    container.querySelectorAll('.scale-fade-in').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+    });
+    observer.observe(container);
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // 恢复到你原来的配置，只添加最小的修改
+const swiper = new Swiper('.swiper', {
+    direction: 'vertical',
+    mousewheel: true,
+    speed: 800,
+    simulateTouch: false,
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    // 添加这个配置来处理不同高度的slide
+    slidesPerView: 'auto',
+    spaceBetween: 0,
+    on: {
+        slideChange: function() {
+            // 更新页面指示器
+            updatePageIndicator(this.activeIndex);
+        },
+        // 添加这个事件来处理最后一页的特殊情况
+        reachEnd: function() {
+            // 确保最后一页正确显示
+            this.allowTouchMove = true;
+        },
+        // 添加进度监听来处理最后一页的双向滑动
+        setTransition: function(duration) {
+            // 在过渡结束后检查进度
+            setTimeout(() => {
+                if (this.progress > 0.95) {
+                    updatePageIndicator(3); // 滑到最后一页
+                } else {
+                    updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
+                }
+            }, duration + 50);
+        }
+    }
+});
+
+// 页面指示器功能
+const pageDots = document.querySelectorAll('.page-dot');
+
+// 点击圆点跳转到对应页面
+pageDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        swiper.slideTo(index);
+    });
+});
+
+// 更新页面指示器状态
+function updatePageIndicator(activeIndex) {
+    pageDots.forEach((dot, index) => {
+        if (index === activeIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// 初始化页面指示器
+updatePageIndicator(0);
+    </script>
+<script>
+  window.addEventListener('load', () => {
+    // 创建一个虚拟图片对象检测背景图是否加载完成
+    const bgImg = new Image();
+    bgImg.src = "images/images/封面7.png";
+
+    bgImg.onload = function () {
+
+      document.querySelector('.home').classList.add('gradient-loaded');
+      
+      document.querySelector('.home-content').classList.remove('hidden');
+
+      // 强制触发重绘，重新开始动画（可选，增强兼容性）
+      void document.querySelector('.home-content').offsetWidth;
+
+      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
+      document.querySelector('.home-content h1').classList.add('scale-fade-in');
+      document.querySelector('.home-content p').classList.add('scale-fade-in');
+
+      // 启动navbar动画 - 添加一个CSS类来触发动画
+      document.querySelector('.navbar').classList.add('navbar-loaded');
+      
+      // 显示社交侧边栏
+      document.querySelector('.social-sidebar').classList.add('social-loaded');
+      
+      // 显示页面指示器
+      document.querySelector('.page-indicator').classList.add('indicator-loaded');
+    };
+  });
+</script>
+<script>
+  function goToLocation() {
+    const map = document.getElementById('custom-map');
+
+    // ⚠️ 这里请替换成你 My Maps 中标记具体地点的链接（可以在地图中点击目标点 → 分享 → 嵌入地图 获取新的 URL）
+    map.src = "https://www.google.com/maps/d/embed?mid=11C1m9L_Gcj_n8ynGotoCNc4rzq0FX54&ehbc=2E312F#target-location";
+  }
 </script>
 </body>
 </html>

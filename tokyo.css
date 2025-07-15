@@ -1,14 +1,353 @@
-body {
-    font-family: Arial, sans-serif;
+html, body {
     margin: 0;
     padding: 0;
-    scroll-behavior: smooth;
-    background-color: #fff2dc;
+    height: 100%;
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden; /* 禁止默认滚动，交给 Swiper 控制 */
 }
-  
-.container {
-    width: 1920px;
-    margin: 0 auto;
+
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    background-color: #2F2F2F;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto; /* 允许每页内容内部滚动 */
+    padding-top: 0px; /* 给 navbar 留空间 */
+    overflow: hidden;
+}
+
+/* 专门为最后一页（footer页面）设置样式 */
+.swiper-slide.footer-slide {
+    height: 29vh; /* 保持原来的36vh */
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    /* 关键：添加背景色遮盖上页残影 */
+    background: #2F2F2F; /* 使用footer的深色背景 */
+    position: relative;
+}
+
+/* 保持原来的scroll-buffer */
+.scroll-buffer {
+    background-color: #2F2F2F;
+    display: flex;
+    flex-direction: column;
+    min-height: 29vh;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* 关键修复：为footer-slide添加顶部遮罩 */
+.swiper-slide.footer-slide::before {
+    content: '';
+    position: absolute;
+    top: -71vh;
+    left: 0;
+    right: 0;
+    height: 64vh;
+    background: #2a2a2a;
+    z-index: 1;
+}
+
+@media(max-height: 760px) {
+  .scroll-buffer {
+        min-height: 32vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 32vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -68vh;
+    }
+}
+
+@media(max-height: 680px) {
+  .scroll-buffer {
+        min-height: 36vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 36vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -64vh;
+    }
+}
+
+@media(max-height: 610px) {
+  .scroll-buffer {
+        min-height: 40vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 40vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -60vh;
+    }
+}
+
+@media (max-width: 1280px) {
+    .scroll-buffer {
+        min-height: 29vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 29vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -71vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 770px) {
+    .scroll-buffer {
+        min-height: 3vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 30vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -70vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 740px) {
+    .scroll-buffer {
+        min-height: 3vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 31vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -69vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 720px) {
+    .scroll-buffer {
+        min-height: 3vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 32.1vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -67.9vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 690px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 34vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -66vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 640px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 36vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -64vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 620px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 38vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -62vh;
+    }
+}
+
+/* 针对1280x600屏幕的响应式样式 */
+@media (max-width: 1280px) and (max-height: 600px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 39vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -51vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 570px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 40vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -60vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 530px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 43vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -57vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 520px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 45vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -55vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 500px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 47vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -53vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 480px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 49vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -51vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 460px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 51vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -49vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 440px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 53vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -47vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 420px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 55vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -45vh;
+    }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+  pointer-events: none;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
   
 /* 导航栏 */
