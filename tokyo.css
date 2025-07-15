@@ -720,8 +720,10 @@ nav {
     position: relative;
     padding: 80px 0 0 80px;
     height: calc(100vh - 80px); /* 还保持满屏显示 */
-    background: linear-gradient(to right, rgba(139, 94, 32, 1), rgba(204, 116, 0, 0)), 
-            url('images/images/j1餐厅.jpg') no-repeat center center/cover;
+    background-image: linear-gradient(to right, rgba(139, 94, 32, 1), rgba(204, 116, 0, 0)), url('images/images/j1餐厅.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
