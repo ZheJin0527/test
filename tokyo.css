@@ -2797,6 +2797,7 @@ form label {
     font-weight: 500;
 }
 
+/*join-us-form的选项*/
 form input[type="text"],
 form input[type="email"],
 form input[type="tel"],
@@ -2804,12 +2805,15 @@ form input[type="file"],
 form select,
 form button {
     width: 100%;
-    padding: 10px 12px;
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 10px;
+    font-size: clamp(8px, 0.73vw, 14px);
     box-sizing: border-box;
-    margin-bottom: 20px;
+    margin-bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
 form input[type="file"] {
