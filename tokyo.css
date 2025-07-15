@@ -733,6 +733,13 @@ nav {
     width: 1144px;
     height: 101px;
 }
+
+.home-logo {
+    width: 300px; /* 根据你的logo调整大小 */
+    height: auto;
+    margin-bottom: 40px;
+    filter: brightness(0) invert(1); /* 如果logo需要变成白色 */
+}
   
 .home h1 {
     font-family: 'Source Sans Pro', sans-serif;
