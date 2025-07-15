@@ -953,6 +953,7 @@ nav {
 }
 
 .mission-section {
+    height: 100vh;
     padding: 5vw;
     text-align: center;
     background-color: #fff2dc;
