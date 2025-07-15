@@ -419,28 +419,57 @@ img.image-3d-rotate:hover,
 /* ========== 使命愿景价值观卡片特效 - 从左边倾斜进入 ========== */
 
 /* 使命卡片初始状态 - 从左边倾斜进入 */
-.mission-card {
+.mission-section .mission-card {
   opacity: 0;
   transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) translateY(30px);
   transform-origin: left center;
   transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* 如果没有 visible 类，确保卡片仍然可见（备用方案） */
+.mission-card {
+  opacity: 1;
+  transform: none;
+  transition: all 0.3s ease;
+}
+
 /* 当父容器可见时，卡片逐个进入 */
 .mission-section.visible .mission-card:nth-child(1) {
   transition-delay: 0.2s;
-  opacity: 1;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0);
+  opacity: 1 !important;
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0) !important;
 }
 
 .mission-section.visible .mission-card:nth-child(2) {
   transition-delay: 0.4s;
-  opacity: 1;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0);
+  opacity: 1 !important;
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0) !important;
 }
 
 .mission-section.visible .mission-card:nth-child(3) {
   transition-delay: 0.6s;
-  opacity: 1;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0);
+  opacity: 1 !important;
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0) !important;
+}
+
+/* 悬浮效果保持 */
+.mission-section .mission-card:hover {
+    transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(-5px) !important;
+    transition: all 0.3s ease !important;
+    transition-delay: 0s !important;
+}
+
+.mission-section .mission-card:hover img {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.mission-section .mission-card:hover h3 {
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+.mission-section .mission-card:hover p {
+    color: #666;
+    transition: all 0.3s ease;
 }

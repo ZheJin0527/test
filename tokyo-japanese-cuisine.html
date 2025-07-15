@@ -650,11 +650,7 @@ window.addEventListener('resize', moveLoginBtn);
         // 新增：mission section 元素处理 - 重置卡片状态
         if (container.classList.contains('mission-section')) {
           container.classList.remove('visible');
-          // 重置所有卡片到初始状态
-          container.querySelectorAll('.mission-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) translateY(30px)';
-          });
+          // 让CSS自然控制状态，不强制重置
         }
       }
     });
@@ -674,11 +670,7 @@ window.addEventListener('resize', moveLoginBtn);
 
   // 新增：mission section 的观察器和初始化
   document.querySelectorAll('.mission-section').forEach(container => {
-    // 初始化卡片状态
-    container.querySelectorAll('.mission-card').forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) translateY(30px)';
-    });
+    // 不强制设置初始状态，让CSS来控制
     observer.observe(container);
   });
 </script>
