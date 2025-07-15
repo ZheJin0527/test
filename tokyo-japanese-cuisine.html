@@ -629,9 +629,14 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animationPlayState = 'running';
         });
 
-        // 新增：mission section 元素处理
+        // mission section 元素处理
         if (container.classList.contains('mission-section')) {
           container.classList.add('visible');
+        }
+
+        // 新增：location section 元素处理
+        if (container.classList.contains('location-section')) {
+          container.classList.add('contact-loaded');
         }
 
       } else {
@@ -647,10 +652,15 @@ window.addEventListener('resize', moveLoginBtn);
           el.style.animationPlayState = 'paused';
         });
 
-        // 新增：mission section 元素处理 - 重置卡片状态
+        // mission section 元素处理 - 重置卡片状态
         if (container.classList.contains('mission-section')) {
           container.classList.remove('visible');
           // 让CSS自然控制状态，不强制重置
+        }
+
+        // 新增：location section 元素处理 - 移除 contact-loaded 类
+        if (container.classList.contains('location-section')) {
+          container.classList.remove('contact-loaded');
         }
       }
     });
@@ -668,9 +678,15 @@ window.addEventListener('resize', moveLoginBtn);
     observer.observe(container);
   });
 
-  // 新增：mission section 的观察器和初始化
+  // mission section 的观察器和初始化
   document.querySelectorAll('.mission-section').forEach(container => {
     // 不强制设置初始状态，让CSS来控制
+    observer.observe(container);
+  });
+
+  // 新增：location section 的观察器和初始化
+  document.querySelectorAll('.location-section').forEach(container => {
+    // 让CSS控制初始状态，不需要强制设置
     observer.observe(container);
   });
 </script>

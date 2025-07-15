@@ -451,3 +451,27 @@ img.image-3d-rotate:hover,
   opacity: 1 !important;
   transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0) !important;
 }
+
+.location-info,
+.map-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+/* 当 contact-loaded 类加到 wrapper 上时，让内部内容显示 */
+.location-section.contact-loaded .location-info,
+.location-section.contact-loaded .map-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+/* 非加载状态下的复位 */
+.location-section:not(.contact-loaded) .location-info,
+.location-section:not(.contact-loaded) .map-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
