@@ -2911,6 +2911,7 @@ form input[type="file"] {
 
 /* 加入我们表单区 */
 .form-wrapper {
+    background: #5b3b1f;
     width: 100%;
     min-height: 100vh;
     padding: 20px 0;
@@ -2922,7 +2923,7 @@ form input[type="file"] {
 }
 
 .main-title {
-    color: #3a1f00;
+    color: #FFE9BA;
     text-align: center;
     font-size: clamp(24px, 2.1vw, 40px);
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
