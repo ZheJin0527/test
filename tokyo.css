@@ -976,20 +976,21 @@ nav {
     padding: 5vw;
     text-align: center;
     background-color: #fff2dc;
-    padding: 180px 80px;
+    padding: 180px 0px;
     margin-top: -40px;
 }
 
 .mission-cards {
     display: flex;
-    justify-content: space-between;
-    gap: 2vw;
+    justify-content: center;
+    gap: 2vw; /* 更小的间距 */
     flex-wrap: nowrap;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .mission-card {
-    flex: 0 0 30%;
+    flex: 0 0 30%; /* 稍微增加卡片宽度 */
     display: flex;
     flex-direction: column;
     align-items: center;
