@@ -4783,6 +4783,14 @@ form select:focus {
     width: 400px;
 }
 
+.login-form label.input-label {
+    display: block;
+    font-size: 16px; /* 你可以调整文字大小 */
+    color: #333;     /* 设置文字颜色 */
+    margin-bottom: 5px; /* 和输入框的间距 */
+    text-align: left; /* 确保文字靠左 */
+}
+
 .login-form h2 {
     font-size: 28px;
     margin-bottom: 40px;
