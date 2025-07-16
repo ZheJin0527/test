@@ -496,21 +496,13 @@
     <div class="location-container">
       <div class="location-info">
         <h2>我们在这</h2>
-        <p>首家：
-          <a href="javascript:void(0);" onclick="goToLocation('midvalley')" class="no-style-link">
-              T-042 Level 3, Mid Valley, The Mall, Southkey, 81100 Johor Bahru, Johor Darul Ta'zim
-          </a>
-          </p>
+        <p>首家：T-042 Level 3, Mid Valley, The Mall, Southkey, 81100 Johor Bahru, Johor Darul Ta'zim</p>
         <p>电话：+60 123-456 789</p>
-        <p>第二家：
-          <a href="javascript:void(0);" onclick="goToLocation('paradigm')" class="no-style-link">
-              Lot UG-25, Upper Ground Floor, Paradigm Mall, Lbh Skudai, Taman Bukit Mewah, 81200 Johor Bahru, Johor Darul Ta'zim
-          </a>
-          </p>
+        <p>第二家：Lot UG-25, Upper Ground Floor, Paradigm Mall, Lbh Skudai, Taman Bukit Mewah, 81200 Johor Bahru, Johor Darul Ta'zim</p>
         <p>电话：+60 123-456 789</p>
       </div>
       <div class="map-container">
-        <iframe id="custom-map" src="https://www.google.com/maps/d/embed?mid=1H0dUMmKC2N8DqeTOfx3ueTNAze-YJ5U&ehbc=2E312F" width="640" height="480"></iframe>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1H0dUMmKC2N8DqeTOfx3ueTNAze-YJ5U&ehbc=2E312F" width="640" height="480"></iframe>
       </div>
     </div>
   </section>
@@ -788,23 +780,13 @@ updatePageIndicator(0);
   });
 </script>
 <script>
-  function goToLocation(place) {
+  function goToLocation() {
     const map = document.getElementById('custom-map');
 
-    if (!map) return;
-
-    let url = '';
-
-    if (place === 'midvalley') {
-      url = "https://www.google.com/maps?q=1.4822,103.7643&z=17&output=embed"; // Mid Valley Southkey 坐标
-    } else if (place === 'paradigm') {
-      url = "https://www.google.com/maps?q=1.5185,103.6705&z=17&output=embed"; // Paradigm Mall 坐标
-    }
-
-    map.src = url;
+    // ⚠️ 这里请替换成你 My Maps 中标记具体地点的链接（可以在地图中点击目标点 → 分享 → 嵌入地图 获取新的 URL）
+    map.src = "https://www.google.com/maps/d/embed?mid=11C1m9L_Gcj_n8ynGotoCNc4rzq0FX54&ehbc=2E312F#target-location";
   }
 </script>
-
 <script>
     let tokyomenuCurrentPage = 1;
     const tokyomenuTotalPages = 14;
