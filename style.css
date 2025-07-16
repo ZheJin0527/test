@@ -4820,7 +4820,7 @@ form select:focus {
     display: block;
     font-size: 16px;
     color: #333;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 5px;
     text-align: left;
 }
@@ -5110,42 +5110,70 @@ form select:focus {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #FFE9BA;
+    background: url('images/images/loginbg.jpg') no-repeat center center/cover;
 }
 
 .reset-password-form {
-    background-color: #fff9ef;
-    padding: 60px 80px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(15px);
     border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     text-align: center;
-    width: 400px;
+    padding: 20px 80px 60px;
+    width: 350px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+form.reset-password-form input[type="text"],
+form select {
+    width: 100%;
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    border: 2px solid #fab259;
+    border-radius: 10px;
+    font-size: clamp(8px, 0.73vw, 14px);
+    box-sizing: border-box;
+    margin-bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
 .reset-password-form h2 {
-    font-size: 28px;
-    margin-bottom: 40px;
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 10px; /* 减少标题下边距 */
     color: black;
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
 }
 
 .reset-password-form input {
     width: 100%;
-    padding: 12px 16px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    border: 2px solid rgba(15, 13, 13, 0.2);
     border-radius: 10px;
-    font-size: 16px;
+    font-size: clamp(8px, 0.73vw, 14px);
     box-sizing: border-box;
+    margin-top: 10px; /* 减少上边距，从20px改为10px */
+    margin-bottom: 0px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
-.reset-password-form button {
+.reset-password-form button[type="submit"] {
     width: 100%;
-    padding: 14px;
-    margin-top: 10px;
-    background-color: #FF5C00;
+    padding: 8px;
+    margin-top: 15px; /* 减少按钮上边距 */
+    background: linear-gradient(to right, #ff8c00 20%, #ffd700);
     color: white;
     border: none;
     border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(223, 121, 5, 0.8);
     font-size: 18px;
     cursor: pointer;
 }
@@ -5158,11 +5186,70 @@ form select:focus {
     display: none;
 }
 
-/* 可选：输入框未通过验证时添加红色边框 */
-.reset-password-form input:invalid {
-    border-color: red;
+.password-note {
+    font-size: 10px;
+    color: black;
+    margin: 5px 0 15px 0;
+    text-align: left;
+    line-height: 1.4;
 }
 
+.code-input-container {
+    margin-top: 10px; /* 减少上边距，从16px改为10px */
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0px;
+    background: white;
+    width: 100%;
+    box-sizing: border-box;
+    height: 35px;
+}
+
+.code-input-container input {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    padding: 0 16px; /* 移除上下内边距 */
+    font-size: 16px;
+    outline: none;
+    margin: 0; /* 移除所有外边距 */
+    background: transparent;
+    box-sizing: border-box;
+    height: 100%; /* 让输入框高度填满容器 */
+}
+
+.code-input-container input:focus {
+    outline: none;
+}
+
+.code-input-container #sendCodeBtn {
+    background: linear-gradient(to right, #ff8c00 35%, #ffd700) !important;
+    color: white !important;
+    border: none !important;
+    border-left: 1px solid #ddd !important;
+    padding: 0 16px !important; /* 移除上下内边距 */
+    font-size: 14px !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    min-width: 100px !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    margin: 0 !important; /* 移除所有外边距 */
+    height: 100% !important; /* 让按钮高度填满容器 */
+}
+
+.code-input-container #sendCodeBtn:hover {
+    background: linear-gradient(to right, #FF5C00, #ffcc00) !important;
+}
+
+.code-input-container #sendCodeBtn:disabled {
+    background: #f0f0f0 !important;
+    color: #999 !important;
+    cursor: not-allowed !important;
+    border-left: 1px solid #ddd !important;
+}
 
 
 
