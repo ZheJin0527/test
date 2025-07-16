@@ -3797,38 +3797,6 @@ form input[type="file"] {
       cursor: not-allowed;
     }
 
-    .tokyomenu-upload {
-      border: 2px dashed #8b7355;
-      border-radius: 8px;
-      padding: 40px;
-      text-align: center;
-      background: radial-gradient(circle at center, rgba(139, 115, 85, 0.1), transparent);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 85%;
-      height: 70%;
-    }
-
-    .tokyomenu-upload:hover {
-      border-color: #654321;
-      background: radial-gradient(circle at center, rgba(139, 115, 85, 0.2), transparent);
-    }
-
-    .tokyomenu-upload-text {
-      font-size: 18px;
-      color: #8b4513;
-      margin-bottom: 10px;
-    }
-
-    .tokyomenu-upload-hint {
-      font-size: 14px;
-      color: #a0522d;
-    }
-
-    .tokyomenu-file {
-      display: none;
-    }
-
     .tokyomenu-page-front::before,
     .tokyomenu-page-back::before {
       content: '';
