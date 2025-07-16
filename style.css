@@ -5032,6 +5032,14 @@ form select:focus {
     background-color: #FF5C00;
 }
 
+.register-form .password-note {
+    font-size: 10px;
+    color: black;
+    margin: 5px 0 0px 0;
+    text-align: center;
+    line-height: 1.4;
+}
+
 /* 注册弹窗 */
 /* 注册模态框风格保持一致 */
 .register-modal {
