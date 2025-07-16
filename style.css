@@ -4850,6 +4850,7 @@ form select:focus {
     color: white;
     border: none;
     border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(223, 121, 5, 0.8);
     font-size: 18px;
     cursor: pointer;
 }
@@ -5061,7 +5062,7 @@ form select:focus {
 .password-container input {
     width: 100%;
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
-    border: 2px solid rgba(255, 107, 107, 0.2);
+    border: 2px solid rgba(15, 13, 13, 0.2);
     border-radius: 10px;
     font-size: clamp(8px, 0.73vw, 14px);
     box-sizing: border-box;
@@ -5076,9 +5077,20 @@ form select:focus {
   outline: none; /* 可选：去掉蓝色外边框 */
 }
 
-.eye-icon {
+.login-form .eye-icon {
   position: absolute;
-  top: 30%;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 16px;     /* 更小的尺寸 */
+  height: 16px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.reset-password-form .eye-icon {
+  position: absolute;
+  top: 60%;
   right: 10px;
   transform: translateY(-50%);
   width: 16px;     /* 更小的尺寸 */
