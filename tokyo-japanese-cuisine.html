@@ -802,6 +802,31 @@ updatePageIndicator(0);
       document.getElementById('tokyomenu-next').disabled = tokyomenuCurrentPage === tokyomenuTotalPages;
     }
 
+    function tokyomenuUpdateZIndex() {
+            // 更新封面的z-index
+            const coverPage = document.getElementById('tokyomenu-page-left');
+            if (tokyomenuCurrentPage === 1) {
+                coverPage.style.zIndex = 50; // 第一页时封面在较高层
+            } else {
+                coverPage.style.zIndex = 1; // 翻页后封面在最低层
+            }
+            
+            // 更新所有页面的z-index
+            for (let i = 1; i <= tokyomenuTotalPages; i++) {
+                const page = document.getElementById(`tokyomenu-page-${i}`);
+                if (i < tokyomenuCurrentPage) {
+                    // 已翻过的页面，z-index设为较低值
+                    page.style.zIndex = 1;
+                } else if (i === tokyomenuCurrentPage) {
+                    // 当前要翻的页面，z-index设为最高
+                    page.style.zIndex = 100;
+                } else {
+                    // 未翻的页面，按原来的顺序
+                    page.style.zIndex = tokyomenuTotalPages - i + 10;
+                }
+            }
+        }
+        
     function tokyomenuNext() {
       if (tokyomenuCurrentPage < tokyomenuTotalPages && !tokyomenuAnimating) {
         tokyomenuAnimating = true;
