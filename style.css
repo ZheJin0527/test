@@ -4775,25 +4775,60 @@ form select:focus {
 }
 
 .login-form {
-    background-color: #fff9ef;
-    padding: 60px 80px;
+    background: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
+    backdrop-filter: blur(3px);          /* 磨砂模糊效果 */
+    -webkit-backdrop-filter: blur(15px);  /* 兼容 Safari */
     border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* 加深阴影，让玻璃感更明显 */
     text-align: center;
+    padding: 20px 80px 60px;
     width: 400px;
+    border: 4px solid rgba(255, 255, 255, 0.3); /* 微弱的白色边框增强玻璃感 */
+    position: relative; /* 为返回按钮提供定位参考 */
+}
+
+/* 返回按钮样式 */
+.back-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0); /* 透明背景 */
+    border: 2px solid black;      /* 加黑色边框 */
+    border-radius: 50%;           /* 圆形 */
+    color: black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+
+.back-button:hover {
+    background: rgba(255, 123, 0, 0.8);
+    transform: scale(1.1);
+}
+
+.back-button:active {
+    transform: scale(0.95);
 }
 
 .login-form label.input-label {
     display: block;
-    font-size: 16px; /* 你可以调整文字大小 */
-    color: #333;     /* 设置文字颜色 */
-    margin-bottom: 5px; /* 和输入框的间距 */
-    text-align: left; /* 确保文字靠左 */
+    font-size: 16px;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    text-align: left;
 }
 
 .login-form h2 {
-    font-size: 28px;
-    margin-bottom: 40px;
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
     color: black;
 }
 
@@ -4807,11 +4842,11 @@ form select:focus {
     box-sizing: border-box;
 }
 
-.login-form button {
+.login-form button[type="submit"] {
     width: 100%;
-    padding: 14px;
+    padding: 8px;
     margin-top: 20px;
-    background-color: #FF5C00;
+    background: linear-gradient(to right, #ff8c00 20%, #ffd700);
     color: white;
     border: none;
     border-radius: 10px;
@@ -4819,20 +4854,20 @@ form select:focus {
     cursor: pointer;
 }
 
-.login-form button:hover {
-    background-color: #FF5C00;
+.login-form button[type="submit"]:hover {
+    background: linear-gradient(to right, #FF5C00, #ffcc00);
 }
 
 .login-form .link {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 3px;
     font-size: 14px;
 }
 
 .login-form .link a {
     color: black; /* 文字颜色 */
     text-decoration: none;
-    border: 1px solid #FF6B6B; /* 橙色边框 */
+    border: 1px solid #ff8c00; /* 橙色边框 */
     padding: 1px 18px;           /* 内边距，让边框和文字有间距 */
     border-radius: 5px;         /* 圆角边框，可调整 */
     transition: all 0.3s ease;  /* 添加过渡动画 */
@@ -4884,6 +4919,7 @@ form select:focus {
   gap: 6px;
   line-height: 1;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .remember-me input[type="checkbox"] {
