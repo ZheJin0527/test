@@ -4782,7 +4782,7 @@ form select:focus {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* 加深阴影，让玻璃感更明显 */
     text-align: center;
     padding: 20px 80px 60px;
-    width: 400px;
+    width: 350px;
     border: 4px solid rgba(255, 255, 255, 0.3); /* 微弱的白色边框增强玻璃感 */
     position: relative; /* 为返回按钮提供定位参考 */
 }
