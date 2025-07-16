@@ -4833,6 +4833,30 @@ form select:focus {
     text-decoration: none;
 }
 
+.form-links {
+    display: flex;
+    justify-content: space-between; /* 左右分开 */
+    align-items: center;
+    margin-top: 15px;
+}
+
+.form-links .link {
+    text-align: left; /* 左边文字靠左 */
+}
+
+.form-links .forgot-password {
+    text-align: right; /* 右边文字靠右 */
+}
+
+.form-links a {
+    color: #FF5C00;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+}
 
 
 /* 注册 */
