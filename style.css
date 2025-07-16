@@ -4826,11 +4826,17 @@ form select:focus {
 .login-form .link {
     text-align: center;
     margin-top: 15px;
+    font-size: 14px;
 }
 
 .login-form .link a {
-    color: #FF5C00;
+    color: black; /* 文字颜色 */
     text-decoration: none;
+    border: 1px solid #FF6B6B; /* 橙色边框 */
+    padding: 1px 18px;           /* 内边距，让边框和文字有间距 */
+    border-radius: 5px;         /* 圆角边框，可调整 */
+    transition: all 0.3s ease;  /* 添加过渡动画 */
+    font-size: 14px;
 }
 
 .form-links {
@@ -4873,7 +4879,7 @@ form select:focus {
 .remember-me {
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 10px;
   color: #333;
   gap: 6px;
   line-height: 1;
