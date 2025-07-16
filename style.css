@@ -4948,24 +4948,29 @@ form select:focus {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #FFE9BA;
-    height: 1080px;
+    background: url('images/images/loginbg.jpg') no-repeat center center/cover;
 }
 
 .register-form {
-    background-color: #fff9ef;
-    padding: 60px 80px;
+    background: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
+    backdrop-filter: blur(3px);          /* 磨砂模糊效果 */
+    -webkit-backdrop-filter: blur(15px);  /* 兼容 Safari */
     border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* 加深阴影，让玻璃感更明显 */
     text-align: center;
-    width: 400px;
+    padding: 20px 80px 60px;
+    width: 350px;
+    border: 4px solid rgba(255, 255, 255, 0.3); /* 微弱的白色边框增强玻璃感 */
+    position: relative; /* 为返回按钮提供定位参考 */
 }
 
 .register-form h2 {
-    font-size: 28px;
-    margin-bottom: 40px;
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
     color: black;
 }
+
 
 .register-form input {
     width: 100%;
@@ -4977,19 +4982,53 @@ form select:focus {
     box-sizing: border-box;
 }
 
-.register-form button {
+/* 性别和身份证号码同行样式 */
+.register-form .gender-id-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 0px;
+}
+
+.register-form .gender-container {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form .gender-select {
+    margin-top: 10px;
     width: 100%;
-    padding: 14px;
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    border: 2px solid #fab259;
+    border-radius: 10px;
+    font-size: clamp(8px, 0.73vw, 14px);
+    box-sizing: border-box;
+    margin-bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.register-form .id-container {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form button[type="submit"] {
+    width: 100%;
+    padding: 8px;
     margin-top: 20px;
-    background-color: #FF5C00;
+    background: linear-gradient(to right, #ff8c00 20%, #ffd700);
     color: white;
     border: none;
     border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(223, 121, 5, 0.8);
     font-size: 18px;
     cursor: pointer;
 }
 
-.register-form button:hover {
+.register-form button[type="submit"]:hover {
     background-color: #FF5C00;
 }
 
@@ -5052,6 +5091,17 @@ form select:focus {
 
 .hidden {
   display: none;
+}
+
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
+    margin-top: 10px;
+    text-align: center; /* 让输入内容居中 */
+}
+
+.register-form input::placeholder {
+    text-align: center; /* 让 placeholder 居中 */
 }
 
 .password-container {
