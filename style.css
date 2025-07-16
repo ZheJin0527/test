@@ -4771,7 +4771,7 @@ form select:focus {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #fff7e6, #ffe4e1);
+    background: url('images/images/loginbg.jpg') no-repeat center center/cover;
 }
 
 .login-form {
