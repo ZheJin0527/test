@@ -4945,11 +4945,16 @@ form select:focus {
 }
 
 .password-container input {
-  width: 100%;
-  padding: 10px 35px 10px 10px; /* 右边留图标空间，内边距上下保持一致 */
-  font-size: 16px;
-  box-sizing: border-box;
-  border-radius: 6px;
+    width: 100%;
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    border: 2px solid rgba(255, 107, 107, 0.2);
+    border-radius: 10px;
+    font-size: clamp(8px, 0.73vw, 14px);
+    box-sizing: border-box;
+    margin-bottom: 0px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
 .password-container input:focus {
