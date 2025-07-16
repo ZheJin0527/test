@@ -5080,10 +5080,10 @@ form select:focus {
 .login-form .eye-icon {
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 15px;
   transform: translateY(-50%);
   width: 16px;     /* 更小的尺寸 */
-  height: 16px;
+  height: 12px;
   cursor: pointer;
   opacity: 0.7;
 }
@@ -5091,10 +5091,10 @@ form select:focus {
 .reset-password-form .eye-icon {
   position: absolute;
   top: 60%;
-  right: 10px;
+  right: 15px;
   transform: translateY(-50%);
   width: 16px;     /* 更小的尺寸 */
-  height: 16px;
+  height: 12px;
   cursor: pointer;
   opacity: 0.7;
 }
