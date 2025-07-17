@@ -1309,6 +1309,7 @@ nav {
     font-size: clamp(40px, 2.6vw, 50px);
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
+    color: #3a1f00;
     line-height: 1.4;
     margin: 0 0 24px 0;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
@@ -1319,7 +1320,7 @@ nav {
     margin: 0;
     padding: 8px 0;
     font-family: 'Source Sans Pro', sans-serif;
-    color: #888888;
+    color: #3a1f00;
     line-height: 2;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
