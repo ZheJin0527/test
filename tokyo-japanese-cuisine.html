@@ -713,32 +713,45 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const homeContent = document.querySelector('.home-content');
+    
+    // 强制隐藏，使用内联样式确保优先级
+    homeContent.style.opacity = '0';
+    homeContent.style.visibility = 'hidden';
+    homeContent.style.transform = 'translateY(30px)';
+    
+    console.log('开始加载背景图...');
+    
     const bgImg = new Image();
     bgImg.src = "images/images/j1餐厅.jpg";
 
     bgImg.onload = function () {
+        console.log('背景图加载完成！');
+        
         document.querySelector('.home').classList.add('gradient-loaded');
-        document.querySelector('.home-content').classList.remove('hidden');
         
-        void document.querySelector('.home-content').offsetWidth;
+        // 使用内联样式显示内容
+        homeContent.style.opacity = '1';
+        homeContent.style.visibility = 'visible';
+        homeContent.style.transform = 'translateY(0)';
+        homeContent.style.transition = 'all 0.8s ease-out';
         
-        // 按照你的HTML结构添加动画类
-        document.querySelector('.home-logo-container').classList.add('scale-fade-in');
-        document.querySelector('.home-logo').classList.add('scale-fade-in');
-        document.querySelector('.home-content h1').classList.add('scale-fade-in');
-        document.querySelector('.home-content p').classList.add('scale-fade-in');
+        // 移除hidden类
+        homeContent.classList.remove('hidden');
         
-        // 这些动画现在会在背景图加载完就立即触发
+        // 显示其他界面元素
         document.querySelector('.navbar').classList.add('navbar-loaded');
         document.querySelector('.social-sidebar').classList.add('social-loaded');
         document.querySelector('.page-indicator').classList.add('indicator-loaded');
     };
     
-    // 添加错误处理
     bgImg.onerror = function () {
         console.error('背景图加载失败');
-        // 即使图片加载失败也显示界面元素
-        document.querySelector('.home-content').classList.remove('hidden');
+        homeContent.style.opacity = '1';
+        homeContent.style.visibility = 'visible';
+        homeContent.style.transform = 'translateY(0)';
+        homeContent.classList.remove('hidden');
+        
         document.querySelector('.navbar').classList.add('navbar-loaded');
         document.querySelector('.social-sidebar').classList.add('social-loaded');
         document.querySelector('.page-indicator').classList.add('indicator-loaded');
