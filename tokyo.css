@@ -835,7 +835,7 @@ nav {
     margin: 0 auto;
     flex-wrap: nowrap;
     gap: clamp(60px, 8vw, 160px); /* 子元素间距响应 */
-    background-color: #472C03;
+    background: url('images/images/brown.jpg') no-repeat center center/cover;
 }
 
 .tokyoabout-text {
