@@ -853,17 +853,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 点击页面也能翻页
     document.querySelectorAll('.tokyomenu-page').forEach(page => {
-        page.addEventListener('click', function() {
-            if (!this.classList.contains('tokyomenu-page-left')) {
-                tokyomenuNext();
-            }
-        });
+    page.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const pageWidth = rect.width;
+        
+        // 点击左半部分上一页，右半部分下一页
+        if (clickX < pageWidth / 2) {
+            tokyomenuPrev();
+        } else {
+            tokyomenuNext();
+        }
     });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft') tokyomenuPrev();
-        if (e.key === 'ArrowRight') tokyomenuNext();
-    });
+});
 
     tokyomenuUpdateNav();
 </script>
