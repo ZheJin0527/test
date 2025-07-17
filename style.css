@@ -4816,6 +4816,15 @@ form select:focus {
     transform: scale(0.95);
 }
 
+.reset-password-form .back-button:hover {
+    background: rgba(255, 123, 0, 0.8);
+    transform: scale(1.1);
+}
+
+.reset-password-form .back-button:active {
+    transform: scale(0.95);
+}
+
 .login-form label.input-label {
     display: block;
     font-size: 16px;
@@ -4869,7 +4878,7 @@ form select:focus {
     color: black; /* 文字颜色 */
     text-decoration: none;
     border: 1px solid #ff8c00; /* 橙色边框 */
-    padding: 1px 18px;           /* 内边距，让边框和文字有间距 */
+    padding: 4px 24px;            /* 内边距，让边框和文字有间距 */
     border-radius: 5px;         /* 圆角边框，可调整 */
     transition: all 0.3s ease;  /* 添加过渡动画 */
     font-size: 14px;
