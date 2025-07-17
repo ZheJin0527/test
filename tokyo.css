@@ -2662,7 +2662,7 @@ nav {
 }
 
 .environment-section {
-    background: url('images/images/BGA.jpg') no-repeat center center/cover;
+    background: url('images/images/mountain.jpg') no-repeat center center/cover;
     padding: 60px 80px 20px;
     text-align: center;
     min-height: calc(100vh - 80px); /* 关键：减去 navbar 高度 */
