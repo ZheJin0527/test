@@ -3698,15 +3698,13 @@ form input[type="file"] {
 .tokyomenu-page-left {
     left: 0;
     transform-origin: right center;
-    border-radius: 8px 0 0 8px;
-    box-shadow: inset -3px 0 10px rgba(0,0,0,0.1), 0 0 20px rgba(0,0,0,0.2);
+    border-radius: 8px 0 0 8px;    
 }
 
 .tokyomenu-page-right {
     right: 0;
     transform-origin: left center;
-    border-radius: 0 8px 8px 0;
-    box-shadow: inset 3px 0 10px rgba(0,0,0,0.1), 0 0 20px rgba(0,0,0,0.2);
+    border-radius: 0 8px 8px 0;    
 }
 
 .tokyomenu-turning {
