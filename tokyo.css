@@ -834,7 +834,7 @@ nav {
     max-width: 1920px;
     margin: 0 auto;
     flex-wrap: nowrap;
-    gap: clamp(20px, 2.1vw, 40px);
+    gap: clamp(10px, 1.6vw, 30px);
     background: url('images/images/BGA.jpg') no-repeat center center/cover;
 }
 
