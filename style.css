@@ -4875,6 +4875,12 @@ form select:focus {
     font-size: 14px;
 }
 
+.login-form .link a:hover {
+    color: black; /* 文字颜色 */
+    background-color: #ff8c00;
+    border: 1px solid #ff8c00; /* 橙色边框 */  
+}
+
 .form-links {
     display: flex;
     justify-content: space-between; /* 左右分开 */
@@ -4894,10 +4900,6 @@ form select:focus {
     color: #FF5C00;
     text-decoration: none;
     font-size: 14px;
-}
-
-.form-links a:hover {
-    text-decoration: underline;
 }
 
 .form-divider {
