@@ -831,7 +831,6 @@ nav {
     align-items: center;
     padding: clamp(40px, 6vw, 80px) clamp(40px, 6vw, 80px) 0; /* 上左右内边距响应 */
     box-sizing: border-box;
-    max-width: 1920px;
     margin: 0 auto;
     flex-wrap: nowrap;
     gap: clamp(10px, 1.6vw, 30px);
@@ -976,7 +975,7 @@ nav {
     height: 100vh;
     padding: 5vw;
     text-align: center;
-    background: url('images/images/mountain.jpg') no-repeat center center/cover;
+    background-color: #fff2dc;
     padding: 180px 0px;
     margin-top: -40px;
 }
@@ -2663,7 +2662,7 @@ nav {
 }
 
 .environment-section {
-    background: #faf6e0;
+    background: url('images/images/BGA.jpg') no-repeat center center/cover;
     padding: 60px 80px 20px;
     text-align: center;
     min-height: calc(100vh - 80px); /* 关键：减去 navbar 高度 */
