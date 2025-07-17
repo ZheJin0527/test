@@ -834,7 +834,7 @@ nav {
     max-width: 1920px;
     margin: 0 auto;
     flex-wrap: nowrap;
-    gap: clamp(60px, 8vw, 160px); /* 子元素间距响应 */
+    gap: clamp(20px, 2.1vw, 40px);
     background: url('images/images/BGA.jpg') no-repeat center center/cover;
 }
 
@@ -842,6 +842,7 @@ nav {
     flex: 1 1 0;
     min-width: 200px; /* 最小宽度缩小一点 */
     padding-right: clamp(20px, 2vw, 40px); /* 右内边距响应 */
+    margin-left: 100px;
 }
 
 .tokyoabout-subtitle {
@@ -886,8 +887,8 @@ nav {
 }
 
 .tokyoabout-image img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     object-fit: cover;
     background-color: white;
 }
