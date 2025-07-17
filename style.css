@@ -4935,8 +4935,8 @@ form select:focus {
 }
 
 .remember-me input[type="checkbox"] {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   accent-color: #007bff;
   margin: 0;
   vertical-align: middle;
