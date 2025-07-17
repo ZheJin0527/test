@@ -5116,6 +5116,7 @@ form select:focus {
 .register-form input[type="text"],
 .register-form input[type="email"],
 .register-form input[type="password"] {
+    height: 40px;
     margin-top: 10px;
     text-align: center; /* 让输入内容居中 */
 }
@@ -5131,6 +5132,7 @@ form select:focus {
 
 .password-container input {
     width: 100%;
+    height: 40px;
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     border: 2px solid rgba(15, 13, 13, 0.2);
     border-radius: 10px;
@@ -5222,6 +5224,7 @@ form select:focus {
 form.reset-password-form input[type="text"],
 form select {
     width: 100%;
+    height: 40px;
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     border: 2px solid #fab259;
     border-radius: 10px;
