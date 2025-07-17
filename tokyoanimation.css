@@ -430,11 +430,24 @@ img.image-3d-rotate:hover,
 
 /* ========== 使命愿景价值观卡片特效 - 从左边倾斜进入 ========== */
 
-/* 使命卡片初始状态 - 从左边倾斜进入 */
+/* 使命卡片初始状态 - 从上面下来 */
 .mission-section .mission-card {
   opacity: 0;
-  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) translateY(30px);
-  transform-origin: left center;
+  transform: translateY(-15px) scale(0.98);
+  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 卡片内容（文字）初始状态 - 从下面上来 */
+.mission-section .mission-content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 图片初始状态 - 从上面下来 */
+.mission-section .mission-card img {
+  opacity: 0;
+  transform: translateY(-10px);
   transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -445,23 +458,67 @@ img.image-3d-rotate:hover,
   transition: all 0.3s ease;
 }
 
-/* 当父容器可见时，卡片逐个进入 */
+.mission-content {
+  opacity: 1;
+  transform: none;
+  transition: all 0.3s ease;
+}
+
+/* 当父容器可见时，第一个卡片进入 */
 .mission-section.visible .mission-card:nth-child(1) {
   transition-delay: 0.2s;
   opacity: 1 !important;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0) !important;
+  transform: translateY(0) scale(1) !important;
 }
 
+.mission-section.visible .mission-card:nth-child(1) img {
+  transition-delay: 0.3s;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.mission-section.visible .mission-card:nth-child(1) .mission-content {
+  transition-delay: 0.5s;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* 当父容器可见时，第二个卡片进入 */
 .mission-section.visible .mission-card:nth-child(2) {
   transition-delay: 0.4s;
   opacity: 1 !important;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0) !important;
+  transform: translateY(0) scale(1) !important;
 }
 
+.mission-section.visible .mission-card:nth-child(2) img {
+  transition-delay: 0.5s;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.mission-section.visible .mission-card:nth-child(2) .mission-content {
+  transition-delay: 0.7s;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* 当父容器可见时，第三个卡片进入 */
 .mission-section.visible .mission-card:nth-child(3) {
   transition-delay: 0.6s;
   opacity: 1 !important;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) translateY(0) !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+.mission-section.visible .mission-card:nth-child(3) img {
+  transition-delay: 0.7s;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.mission-section.visible .mission-card:nth-child(3) .mission-content {
+  transition-delay: 0.9s;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .location-info,
