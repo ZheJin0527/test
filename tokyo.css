@@ -856,7 +856,7 @@ nav {
 
 .tokyoabout-title {
     font-size: clamp(40px, 4vw, 72px);
-    color: #FFE9BA;
+    color: #3a1f00;
     margin: 0px 0 clamp(5px, 2.6vw, 50px) 0;
 }
 
@@ -867,7 +867,7 @@ nav {
     font-size: clamp(14px, 1.25vw, 20px); /* 字号响应 */
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
-    color: #FFE9BA;
+    color: #3a1f00;
     line-height: 1.6;
     margin-left: clamp(2px, 0.5vw, 4px);
 }
