@@ -4876,7 +4876,7 @@ form select:focus {
 }
 
 .login-form .link a:hover {
-    color: black; /* 文字颜色 */
+    color: white; /* 文字颜色 */
     background-color: #ff8c00;
     border: 1px solid #ff8c00; /* 橙色边框 */  
 }
