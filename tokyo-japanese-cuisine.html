@@ -606,66 +606,110 @@ window.addEventListener('resize', moveLoginBtn);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // 恢复到你原来的配置，只添加最小的修改
-const swiper = new Swiper('.swiper', {
-    direction: 'vertical',
-    mousewheel: true,
-    speed: 800,
-    simulateTouch: false,
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    // 添加这个配置来处理不同高度的slide
-    slidesPerView: 'auto',
-    spaceBetween: 0,
-    on: {
-        slideChange: function() {
-            // 更新页面指示器
-            updatePageIndicator(this.activeIndex);
+        // 等待DOM完全加载
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. 先初始化主要的全屏垂直滑动Swiper
+    const mainSwiper = new Swiper('.swiper:not(.environment-wrapper)', {
+        direction: 'vertical',
+        mousewheel: true,
+        speed: 800,
+        simulateTouch: false,
+        allowTouchMove: true, // 允许程序控制
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
-        // 添加这个事件来处理最后一页的特殊情况
-        reachEnd: function() {
-            // 确保最后一页正确显示
-            this.allowTouchMove = true;
-        },
-        // 添加进度监听来处理最后一页的双向滑动
-        setTransition: function(duration) {
-            // 在过渡结束后检查进度
-            setTimeout(() => {
-                if (this.progress > 0.95) {
-                    updatePageIndicator(6); // 滑到最后一页
-                } else {
-                    updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
-                }
-            }, duration + 50);
+        slidesPerView: 'auto',
+        spaceBetween: 0,
+        on: {
+            slideChange: function() {
+                console.log('主Swiper切换到:', this.activeIndex);
+                updatePageIndicator(this.activeIndex);
+            },
+            reachEnd: function() {
+                this.allowTouchMove = true;
+            },
+            setTransition: function(duration) {
+                setTimeout(() => {
+                    if (this.progress > 0.95) {
+                        updatePageIndicator(6); // 滑到最后一页
+                    } else {
+                        updatePageIndicator(this.activeIndex);
+                    }
+                }, duration + 50);
+            }
         }
-    }
-});
-
-// 页面指示器功能
-const pageDots = document.querySelectorAll('.page-dot');
-
-// 点击圆点跳转到对应页面
-pageDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        swiper.slideTo(index);
     });
-});
 
-// 更新页面指示器状态
-function updatePageIndicator(activeIndex) {
+    // 2. 然后初始化工作环境中的水平滑动Swiper
+    const environmentSwiper = new Swiper('.environment-wrapper', {
+        direction: 'horizontal',
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 20,
+        centeredSlides: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.environment-wrapper .swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.environment-wrapper .swiper-button-next',
+            prevEl: '.environment-wrapper .swiper-button-prev',
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            }
+        }
+    });
+
+    // 3. 页面指示器功能 - 确保只控制主Swiper
+    const pageDots = document.querySelectorAll('.page-dot');
+
+    // 点击圆点跳转到对应页面
     pageDots.forEach((dot, index) => {
-        if (index === activeIndex) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
+        dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            console.log(`点击了第${index}个圆点`);
+            
+            // 确保使用主Swiper实例
+            if (mainSwiper && mainSwiper.slideTo) {
+                mainSwiper.slideTo(index, 800);
+                console.log('主Swiper跳转到:', index);
+            } else {
+                console.error('主Swiper未正确初始化');
+            }
+        });
     });
-}
 
-// 初始化页面指示器
-updatePageIndicator(0);
+    // 4. 更新页面指示器状态
+    function updatePageIndicator(activeIndex) {
+        console.log('更新页面指示器，当前页:', activeIndex);
+        pageDots.forEach((dot, index) => {
+            if (index === activeIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    // 5. 初始化页面指示器
+    updatePageIndicator(0);
+    
+    // 6. 验证两个Swiper实例
+    console.log('主Swiper实例:', mainSwiper);
+    console.log('环境Swiper实例:', environmentSwiper);
+});
     </script>
 <script>
   window.addEventListener('load', () => {
