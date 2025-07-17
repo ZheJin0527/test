@@ -72,7 +72,7 @@
 /* 向右滑入动画 - 保持原速度 */
 .slide-in-right {
   opacity: 0 !important;
-  transform: translateX(-300px) !important;
+  transform: translateX(300px) !important;
   transition: all 0.8s ease-out;
   animation: none !important; /* 确保没有其他动画干扰 */
 }
