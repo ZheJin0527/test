@@ -990,7 +990,7 @@ nav {
 
 .mission-section {
     height: 100vh;
-    background:url('images/images/wood.jpg') no-repeat center center/cover;
+    background:url('images/images/fuji.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1001,13 +1001,13 @@ nav {
 .mission-cards {
     display: flex;
     flex-wrap: nowrap; /* 禁止换行 */
-    gap: clamp(30px, 4vw, 60px);
+    gap: clamp(30px, 5vw, 100px);
 }
 
 .mission-card {
-    flex: 0 0 clamp(260px, 26vw, 420px); /* 卡片宽度响应式 */
+    flex: 0 0 clamp(260px, 24vw, 420px); /* 卡片宽度响应式 */
     aspect-ratio: 1 / 1; /* 保持正方形 */
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 30px;
     padding: 10px;
     display: flex;
@@ -1015,7 +1015,7 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(6px);
     transition: transform 0.3s ease;
     flex-shrink: 0; /* 防止被压缩 */
