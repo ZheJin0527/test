@@ -366,6 +366,37 @@
   </section>
   </div>
 
+  <div class="swiper-slide">
+  <div class="tokyodish-menu-container">
+        <div class="tokyodish-header">
+            <h1>日式料理菜单</h1>
+        </div>
+
+        <div class="tokyodish-category-nav">
+            <button class="tokyodish-category-btn active" data-category="刺身">刺身</button>
+            <button class="tokyodish-category-btn" data-category="寿司">寿司</button>
+            <button class="tokyodish-category-btn" data-category="细卷">细卷</button>
+            <button class="tokyodish-category-btn" data-category="一品">一品</button>
+            <button class="tokyodish-category-btn" data-category="手卷">手卷</button>
+            <button class="tokyodish-category-btn" data-category="寿司卷">寿司卷</button>
+            <button class="tokyodish-category-btn" data-category="沙律">沙律</button>
+        </div>
+
+        <div class="tokyodish-menu-display">
+            <div class="tokyodish-menu-image-container tokyodish-fade-in" id="tokyodishImageContainer">
+                <div class="tokyodish-category-title" id="tokyodishCategoryTitle">刺身</div>
+                <div class="tokyodish-no-image">
+                    <div class="tokyodish-upload-icon">📷</div>
+                    <div>请上传菜单照片</div>
+                    <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.7;">
+                        将您的菜单照片放入相应的分类中
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="swiper-slide">
   <section class="location-section">
     <div class="location-container">
@@ -826,5 +857,82 @@ document.addEventListener('DOMContentLoaded', function() {
 
     tokyomenuUpdateNav();
 </script>
+<script>
+        // 菜单数据存储 - 直接设置您的图片链接
+        const menuData = {
+            '刺身': 'images/images/menu1.png',  // 替换为您的刺身菜单图片
+            '寿司': 'images/images/menu1.png',  // 替换为您的寿司菜单图片
+            '细卷': 'images/images/menu1.png',  // 替换为您的细卷菜单图片
+            '一品': 'images/images/menu1.png',  // 替换为您的一品菜单图片
+            '手卷': 'images/images/menu1.png',  // 替换为您的手卷菜单图片
+            '寿司卷': 'images/images/menu1.png',  // 替换为您的寿司卷菜单图片
+            '沙律': 'images/images/menu1.png'   // 替换为您的沙律菜单图片
+        };
+
+        let currentCategory = '刺身';
+
+        // 获取DOM元素
+        const tokyodishCategoryBtns = document.querySelectorAll('.tokyodish-category-btn');
+        const tokyodishImageContainer = document.getElementById('tokyodishImageContainer');
+        const tokyodishCategoryTitle = document.getElementById('tokyodishCategoryTitle');
+
+        // 分类切换功能
+        tokyodishCategoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // 更新按钮状态
+                tokyodishCategoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 切换显示内容
+                switchCategory(category);
+            });
+        });
+
+        function switchCategory(category) {
+            currentCategory = category;
+            tokyodishCategoryTitle.textContent = category;
+            
+            // 添加淡入效果
+            tokyodishImageContainer.classList.remove('tokyodish-fade-in');
+            
+            setTimeout(() => {
+                updateDisplay();
+                tokyodishImageContainer.classList.add('tokyodish-fade-in');
+            }, 100);
+        }
+
+        function updateDisplay() {
+            const imageData = menuData[currentCategory];
+            
+            if (imageData) {
+                tokyodishImageContainer.innerHTML = `
+                    <div class="tokyodish-category-title">${currentCategory}</div>
+                    <img src="${imageData}" alt="${currentCategory}菜单" class="tokyodish-menu-image" onerror="this.parentElement.innerHTML='<div class=tokyodish-category-title>${currentCategory}</div><div class=tokyodish-no-image><div class=tokyodish-upload-icon>❌</div><div>图片加载失败</div><div style=font-size:0.9rem;margin-top:10px;opacity:0.7;>请检查图片路径是否正确</div></div>'">
+                `;
+            } else {
+                tokyodishImageContainer.innerHTML = `
+                    <div class="tokyodish-category-title">${currentCategory}</div>
+                    <div class="tokyodish-no-image">
+                        <div class="tokyodish-upload-icon">📷</div>
+                        <div>请上传${currentCategory}菜单照片</div>
+                        <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.7;">
+                            将您的菜单照片放入相应的分类中
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // 移除不需要的功能
+        // addMenuImage函数已不需要，图片直接在menuData中设置
+        
+        // 移除拖拽上传功能
+        // 以下拖拽相关代码已移除，因为不再需要上传功能
+
+        // 初始化显示
+        updateDisplay();
+    </script>
 </body>
 </html>
