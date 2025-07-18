@@ -356,45 +356,9 @@
         
       </div>
     </div>
-
-    <!-- 翻页按钮 -->
-    <div class="tokyomenu-nav">
-      <button class="tokyomenu-nav-btn" id="tokyomenu-prev" onclick="tokyomenuPrev()">◀ 上一页</button>
-      <button class="tokyomenu-nav-btn" id="tokyomenu-next" onclick="tokyomenuNext()">下一页 ▶</button>
-    </div>
   </div>
   </section>
   </div>
-
-  <div class="swiper-slide">
-  <div class="tokyodish-menu-container">
-        <div class="tokyodish-header">
-            <h1>日式料理菜单</h1>
-        </div>
-
-        <div class="tokyodish-category-nav">
-            <button class="tokyodish-category-btn active" data-category="刺身">刺身</button>
-            <button class="tokyodish-category-btn" data-category="寿司">寿司</button>
-            <button class="tokyodish-category-btn" data-category="细卷">细卷</button>
-            <button class="tokyodish-category-btn" data-category="一品">一品</button>
-            <button class="tokyodish-category-btn" data-category="手卷">手卷</button>
-            <button class="tokyodish-category-btn" data-category="寿司卷">寿司卷</button>
-            <button class="tokyodish-category-btn" data-category="沙律">沙律</button>
-        </div>
-
-        <div class="tokyodish-menu-display">
-            <div class="tokyodish-menu-image-container tokyodish-fade-in" id="tokyodishImageContainer">
-                <div class="tokyodish-no-image">
-                    <div class="tokyodish-upload-icon">📷</div>
-                    <div>请上传菜单照片</div>
-                    <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.7;">
-                        将您的菜单照片放入相应的分类中
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="swiper-slide">
   <section class="location-section">
@@ -769,83 +733,116 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 </script>
 <script>
-    let tokyomenuCurrentPage = 1;
-    const tokyomenuTotalPages = 14;
-    let tokyomenuAnimating = false;
+let tokyomenuCurrentPage = 1;
+const tokyomenuTotalPages = 14;
+let tokyomenuAnimating = false;
+let autoFlipTimer = null;
+const AUTO_FLIP_INTERVAL = 4000;
+const AUTO_FLIP_PAUSE = 5000;
 
-    function tokyomenuUpdateNav() {
-        document.getElementById('tokyomenu-prev').disabled = tokyomenuCurrentPage === 1;
-        document.getElementById('tokyomenu-next').disabled = tokyomenuCurrentPage === tokyomenuTotalPages;
-    }
+function tokyomenuUpdateNav() {
+    document.getElementById('tokyomenu-prev').disabled = tokyomenuCurrentPage === 1;
+    document.getElementById('tokyomenu-next').disabled = tokyomenuCurrentPage === tokyomenuTotalPages;
+}
 
-    function tokyomenuUpdateZIndex() {
-        // 更新封面的z-index
-        const coverPage = document.getElementById('tokyomenu-page-left');
-        if (tokyomenuCurrentPage === 1) {
-            coverPage.style.zIndex = 50; // 第一页时封面在较高层
+function tokyomenuUpdateZIndex() {
+    const coverPage = document.getElementById('tokyomenu-page-left');
+    coverPage.style.zIndex = tokyomenuCurrentPage === 1 ? 50 : 1;
+
+    for (let i = 1; i <= tokyomenuTotalPages; i++) {
+        const page = document.getElementById(`tokyomenu-page-${i}`);
+        if (i < tokyomenuCurrentPage) {
+            page.style.zIndex = 1;
+        } else if (i === tokyomenuCurrentPage) {
+            page.style.zIndex = 100;
         } else {
-            coverPage.style.zIndex = 1; // 翻页后封面在最低层
-        }
-            
-        // 更新所有页面的z-index
-        for (let i = 1; i <= tokyomenuTotalPages; i++) {
-            const page = document.getElementById(`tokyomenu-page-${i}`);
-            if (i < tokyomenuCurrentPage) {
-                // 已翻过的页面，z-index设为较低值
-                page.style.zIndex = 1;
-            } else if (i === tokyomenuCurrentPage) {
-                // 当前要翻的页面，z-index设为最高
-                page.style.zIndex = 100;
-            } else {
-                // 未翻的页面，按原来的顺序
-                page.style.zIndex = tokyomenuTotalPages - i + 10;
-            }
+            page.style.zIndex = tokyomenuTotalPages - i + 10;
         }
     }
+}
 
-    function tokyomenuNext() {
-        if (tokyomenuCurrentPage < tokyomenuTotalPages && !tokyomenuAnimating) {
-            tokyomenuAnimating = true;
-            const page = document.getElementById(`tokyomenu-page-${tokyomenuCurrentPage}`);
-            page.classList.add('tokyomenu-turning');
-            page.style.transform = 'rotateY(-180deg)';
-                
-            setTimeout(() => {
-                page.classList.remove('tokyomenu-turning');
-                tokyomenuCurrentPage++;
-                tokyomenuUpdateZIndex();
-                tokyomenuUpdateNav();
-    tokyomenuUpdateZIndex(); // 初始化z-index
-                tokyomenuAnimating = false;
-            }, 1200);
-        }
+function tokyomenuNext() {
+    if (tokyomenuCurrentPage < tokyomenuTotalPages && !tokyomenuAnimating) {
+        tokyomenuAnimating = true;
+        const page = document.getElementById(`tokyomenu-page-${tokyomenuCurrentPage}`);
+        page.classList.add('tokyomenu-turning');
+        page.style.transform = 'rotateY(-180deg)';
+
+        setTimeout(() => {
+            page.classList.remove('tokyomenu-turning');
+            tokyomenuCurrentPage++;
+            tokyomenuUpdateZIndex();
+            tokyomenuUpdateNav();
+            tokyomenuAnimating = false;
+        }, 1200);
     }
+}
 
-    function tokyomenuPrev() {
-        if (tokyomenuCurrentPage > 1 && !tokyomenuAnimating) {
-            tokyomenuAnimating = true;
-            tokyomenuCurrentPage--;
-            const page = document.getElementById(`tokyomenu-page-${tokyomenuCurrentPage}`);
-            page.classList.add('tokyomenu-turning');
-            page.style.transform = 'rotateY(0deg)';
-                
-            setTimeout(() => {
-                page.classList.remove('tokyomenu-turning');
-                tokyomenuUpdateZIndex();
-                tokyomenuUpdateNav();
-                tokyomenuAnimating = false;
-            }, 1200);
-        }
+function tokyomenuPrev() {
+    if (tokyomenuCurrentPage > 1 && !tokyomenuAnimating) {
+        tokyomenuAnimating = true;
+        tokyomenuCurrentPage--;
+        const page = document.getElementById(`tokyomenu-page-${tokyomenuCurrentPage}`);
+        page.classList.add('tokyomenu-turning');
+        page.style.transform = 'rotateY(0deg)';
+
+        setTimeout(() => {
+            page.classList.remove('tokyomenu-turning');
+            tokyomenuUpdateZIndex();
+            tokyomenuUpdateNav();
+            tokyomenuAnimating = false;
+        }, 1200);
     }
+}
 
-    // 点击页面也能翻页
-    document.querySelectorAll('.tokyomenu-page').forEach(page => {
-    page.addEventListener('click', function(e) {
+function tokyomenuResetBookInstant() {
+    for (let i = 1; i < tokyomenuTotalPages; i++) {
+        const page = document.getElementById(`tokyomenu-page-${i}`);
+        page.style.transition = 'none';
+        page.style.transform = 'rotateY(0deg)';
+        void page.offsetHeight;
+        page.style.transition = 'transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    }
+    tokyomenuCurrentPage = 1;
+    tokyomenuUpdateZIndex();
+    tokyomenuUpdateNav();
+}
+
+function startAutoFlip() {
+    stopAutoFlip();
+    autoFlipTimer = setInterval(() => {
+        if (tokyomenuAnimating) return;
+
+        if (tokyomenuCurrentPage < tokyomenuTotalPages) {
+            tokyomenuNext();
+        } else {
+            tokyomenuResetBookInstant();
+        }
+    }, AUTO_FLIP_INTERVAL);
+}
+
+function stopAutoFlip() {
+    if (autoFlipTimer) {
+        clearInterval(autoFlipTimer);
+        autoFlipTimer = null;
+    }
+}
+
+// 用户点击时暂停
+document.querySelectorAll('.tokyomenu-page, .tokyomenu-nav-btn').forEach(el => {
+    el.addEventListener('click', () => {
+        stopAutoFlip();
+        setTimeout(startAutoFlip, AUTO_FLIP_PAUSE);
+    });
+});
+
+// 点击页面左右翻页
+document.querySelectorAll('.tokyomenu-page').forEach(page => {
+    page.addEventListener('click', function (e) {
         const rect = this.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
         const pageWidth = rect.width;
-        
-        // 点击左半部分上一页，右半部分下一页
+
         if (clickX < pageWidth / 2) {
             tokyomenuPrev();
         } else {
@@ -854,80 +851,35 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-    tokyomenuUpdateNav();
-</script>
-<script>
-        // 菜单数据存储 - 直接设置您的图片链接
-        const menuData = {
-            '刺身': 'images/images/menu1.png',  // 替换为您的刺身菜单图片
-            '寿司': 'images/images/menu1.png',  // 替换为您的寿司菜单图片
-            '细卷': 'images/images/menu1.png',  // 替换为您的细卷菜单图片
-            '一品': 'images/images/menu1.png',  // 替换为您的一品菜单图片
-            '手卷': 'images/images/menu1.png',  // 替换为您的手卷菜单图片
-            '寿司卷': 'images/images/fujibg.jpg',  // 替换为您的寿司卷菜单图片
-            '沙律': 'images/images/fujibg.jpg'   // 替换为您的沙律菜单图片
-        };
+// 鼠标悬停时暂停自动翻页
+const menuContainer = document.querySelector('.tokyomenu-container');
+if (menuContainer) {
+    menuContainer.addEventListener('mouseenter', () => {
+        stopAutoFlip();
+    });
+    menuContainer.addEventListener('mouseleave', () => {
+        startAutoFlip();
+    });
+}
 
-        let currentCategory = '刺身';
-
-        // 获取DOM元素
-        const tokyodishCategoryBtns = document.querySelectorAll('.tokyodish-category-btn');
-        const tokyodishImageContainer = document.getElementById('tokyodishImageContainer');
-
-        // 分类切换功能
-        tokyodishCategoryBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const category = this.getAttribute('data-category');
-                
-                // 更新按钮状态
-                tokyodishCategoryBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                // 切换显示内容
-                switchCategory(category);
-            });
-        });
-
-        function switchCategory(category) {
-            currentCategory = category;
-            
-            // 添加淡入效果
-            tokyodishImageContainer.classList.remove('tokyodish-fade-in');
-            
-            setTimeout(() => {
-                updateDisplay();
-                tokyodishImageContainer.classList.add('tokyodish-fade-in');
-            }, 100);
-        }
-
-        function updateDisplay() {
-            const imageData = menuData[currentCategory];
-            
-            if (imageData) {
-                tokyodishImageContainer.innerHTML = `
-                    <img src="${imageData}" alt="${currentCategory}菜单" class="tokyodish-menu-image" onerror="this.parentElement.innerHTML='<div class=tokyodish-no-image><div class=tokyodish-upload-icon>❌</div><div>图片加载失败</div><div style=font-size:0.9rem;margin-top:10px;opacity:0.7;>请检查图片路径是否正确</div></div>'">
-                `;
+// 🆕 进入页面时才开始自动翻页（IntersectionObserver）
+const tokyomenuSection = document.querySelector('.tokyomenu-section');
+if (tokyomenuSection) {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startAutoFlip();
             } else {
-                tokyodishImageContainer.innerHTML = `
-                    <div class="tokyodish-no-image">
-                        <div class="tokyodish-upload-icon">📷</div>
-                        <div>请上传${currentCategory}菜单照片</div>
-                        <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.7;">
-                            将您的菜单照片放入相应的分类中
-                        </div>
-                    </div>
-                `;
+                stopAutoFlip();
             }
-        }
+        });
+    }, { threshold: 0.4 }); // 进入40%以上视口才触发
 
-        // 移除不需要的功能
-        // addMenuImage函数已不需要，图片直接在menuData中设置
-        
-        // 移除拖拽上传功能
-        // 以下拖拽相关代码已移除，因为不再需要上传功能
+    observer.observe(tokyomenuSection);
+}
 
-        // 初始化显示
-        updateDisplay();
-    </script>
+// 初始化导航
+tokyomenuUpdateNav();
+</script>
 </body>
 </html>
