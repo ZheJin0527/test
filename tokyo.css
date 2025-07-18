@@ -990,50 +990,56 @@ nav {
 
 .mission-section {
     height: 100vh;
-    padding: 5vw;
-    text-align: center;
     background:url('images/images/wood.jpg') no-repeat center center/cover;
-    padding: 180px 0px;
-    margin-top: -40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px clamp(20px, 5vw, 80px);
+    overflow-x: auto; /* 容器可横向滚动 */
 }
 
 .mission-cards {
     display: flex;
-    justify-content: center;
-    gap: 2vw; /* 更小的间距 */
-    flex-wrap: nowrap;
-    overflow: hidden;
-    margin: 0 auto;
+    flex-wrap: nowrap; /* 禁止换行 */
+    gap: clamp(30px, 4vw, 60px);
 }
 
 .mission-card {
-    flex: 0 0 30%; /* 稍微增加卡片宽度 */
+    flex: 0 0 clamp(260px, 26vw, 420px); /* 卡片宽度响应式 */
+    aspect-ratio: 1 / 1; /* 保持正方形 */
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(6px);
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* 防止被压缩 */
 }
 
 .mission-card img {
     width: 100%;
-    max-width: 530px;
-    aspect-ratio: 1 / 1;
-    border-radius: 25px;
-    background-color: #666;
-    margin-bottom: 1.5vw;
+    height: 100%;
     object-fit: cover;
+    background-color: #666;
+    border-radius: 20px;
+    margin-bottom: clamp(12px, 1.5vw, 20px);
 }
 
 .mission-content h3 {
-    font-size: 64px;
+    font-size: clamp(24px, 2.8vw, 40px);
     font-family: 'Noto Sans SC', sans-serif;
     font-weight: bold;
     color: #3a1f00;
-    margin: 0 0 12px 0;
+    margin: 0 0 clamp(8px, 1vw, 16px) 0;
 }
 
 .mission-content p {
-    font-size: 36px;
+    font-size: clamp(16px, 1.6vw, 24px);
     font-family: 'Noto Sans SC', sans-serif;
     font-weight: 400;
     color: #3a1f00;
@@ -1043,17 +1049,32 @@ nav {
 
 /* 1280px 以下 */
 @media (max-width: 1280px) {
-    .mission-section {
-        padding: 60px 51px;
-    }
+  .mission-section {
+    padding: 20px clamp(20px, 5vw, 80px);
+  }
 
-    .mission-content h3 {
-        font-size: clamp(32px, 4vw, 51px);
-    }
+  .mission-cards {
+    gap: clamp(20px, 3.2vw, 40px);
+  }
 
-    .mission-content p {
-        font-size: clamp(11px, 1.6vw, 15px);
-    }
+  .mission-card {
+    flex: 0 0 clamp(200px, 23vw, 300px); /* 卡片宽度响应式 */
+    aspect-ratio: 1 / 1; /* 保持正方形 */
+    padding: 10px;
+  }
+
+  .mission-card img {
+    margin-bottom: clamp(10px, 1.1vw, 14px);
+  } 
+
+  .mission-content h3 {
+    font-size: clamp(18px, 2.2vw, 28px);
+    margin: 0 0 clamp(8px, 1vw, 16px) 0;
+  }
+
+  .mission-content p {
+    font-size: clamp(10px, 1.4vw, 18px);
+  }
 }
 
 /* 768px 以下 */
