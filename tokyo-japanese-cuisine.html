@@ -864,8 +864,8 @@ document.addEventListener('DOMContentLoaded', function() {
             '细卷': 'images/images/menu1.png',  // 替换为您的细卷菜单图片
             '一品': 'images/images/menu1.png',  // 替换为您的一品菜单图片
             '手卷': 'images/images/menu1.png',  // 替换为您的手卷菜单图片
-            '寿司卷': 'images/images/menu1.png',  // 替换为您的寿司卷菜单图片
-            '沙律': 'images/images/menu1.png'   // 替换为您的沙律菜单图片
+            '寿司卷': 'images/images/fujibg.jpg',  // 替换为您的寿司卷菜单图片
+            '沙律': 'images/images/fujibg.jpg'   // 替换为您的沙律菜单图片
         };
 
         let currentCategory = '刺身';
@@ -873,7 +873,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // 获取DOM元素
         const tokyodishCategoryBtns = document.querySelectorAll('.tokyodish-category-btn');
         const tokyodishImageContainer = document.getElementById('tokyodishImageContainer');
-        const tokyodishCategoryTitle = document.getElementById('tokyodishCategoryTitle');
 
         // 分类切换功能
         tokyodishCategoryBtns.forEach(btn => {
@@ -891,7 +890,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function switchCategory(category) {
             currentCategory = category;
-            tokyodishCategoryTitle.textContent = category;
             
             // 添加淡入效果
             tokyodishImageContainer.classList.remove('tokyodish-fade-in');
@@ -907,12 +905,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (imageData) {
                 tokyodishImageContainer.innerHTML = `
-                    <div class="tokyodish-category-title">${currentCategory}</div>
-                    <img src="${imageData}" alt="${currentCategory}菜单" class="tokyodish-menu-image" onerror="this.parentElement.innerHTML='<div class=tokyodish-category-title>${currentCategory}</div><div class=tokyodish-no-image><div class=tokyodish-upload-icon>❌</div><div>图片加载失败</div><div style=font-size:0.9rem;margin-top:10px;opacity:0.7;>请检查图片路径是否正确</div></div>'">
+                    <img src="${imageData}" alt="${currentCategory}菜单" class="tokyodish-menu-image" onerror="this.parentElement.innerHTML='<div class=tokyodish-no-image><div class=tokyodish-upload-icon>❌</div><div>图片加载失败</div><div style=font-size:0.9rem;margin-top:10px;opacity:0.7;>请检查图片路径是否正确</div></div>'">
                 `;
             } else {
                 tokyodishImageContainer.innerHTML = `
-                    <div class="tokyodish-category-title">${currentCategory}</div>
                     <div class="tokyodish-no-image">
                         <div class="tokyodish-upload-icon">📷</div>
                         <div>请上传${currentCategory}菜单照片</div>
