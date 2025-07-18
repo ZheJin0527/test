@@ -3641,11 +3641,11 @@ form input[type="file"] {
 
 .tokyomenu-section {
     width: 100%;
-    height: 100vh; /* 填满整页 */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('images/images/japanesebg1.jpg') no-repeat center center/cover;
+    background: url('https://kunzzgroup.com/images/images/japanesebg1.jpg') no-repeat center center/cover;
     overflow: hidden;
 }
 
@@ -3654,8 +3654,15 @@ form input[type="file"] {
     perspective: 2000px;
     width: 60%;
     max-width: 1500px;
-    height: 90%;
+    /* 使用vw单位让整个容器按比例缩放，但限制最大值 */
+    height: min(90vh, 48.6vw); /* 48.6vw ≈ 90vh at 1920px */
+    max-height: 972px; /* 1080px * 90% */
     position: relative;
+    min-width: 320px;
+    min-height: 240px;
+    /* 添加缩放变换，让整个书本等比例缩小 */
+    transform: scale(min(1, 100vw/1920));
+    transform-origin: center center;
 }
 
 .tokyomenu-book {
@@ -3788,37 +3795,44 @@ form input[type="file"] {
 
 .tokyomenu-number {
     position: absolute;
-    bottom: 15px;
+    bottom: clamp(6px, 0.8vw, 15px);
     font-size: 12px;
     color: #8b7355;
 }
 
+/* 封面（左页）的页码在左下角 */
 .tokyomenu-page-left .tokyomenu-number {
     left: 20px;
 }
 
-.tokyomenu-page-right .tokyomenu-number {
+/* 右页的正面页码在右下角 */
+.tokyomenu-page-right .tokyomenu-page-front .tokyomenu-number {
     right: 20px;
+}
+
+/* 右页的背面页码在左下角（因为翻转后变成左页视角） */
+.tokyomenu-page-right .tokyomenu-page-back .tokyomenu-number {
+    left: 20px;
 }
 
 .tokyomenu-nav {
     position: absolute;
-    bottom: 10px;
+    bottom: clamp(5px, 0.52vw, 10px);
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 80px;
+    gap: clamp(60px, 4.2vw, 80px);
     z-index: 1000;
 }
 
 .tokyomenu-nav-btn {
-    padding: 8px 18px;
+    padding: clamp(4px, 0.4vw, 8px) clamp(10px, 0.95vw, 18px);
     background: linear-gradient(135deg, #8b4513, #654321);
     color: #f5deb3;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: clamp(8px, 0.75vw, 14px);
     transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     font-family: 'Georgia', serif;
@@ -3847,27 +3861,39 @@ form input[type="file"] {
     pointer-events: none;
 }
 
+/* 小屏幕时的调整 */
+@media (max-width: 1200px) {
+  .tokyomenu-container {
+    /* 让整个书本在小屏幕时有更多上下空间 */
+    height: min(80vh, 43.2vw);
+  }
+}
+
+/* 平板设备优化 */
 @media (max-width: 768px) {
   .tokyomenu-container {
-    width: 95vw;
-    height: 85vh;
+    width: 85%;
+    height: min(75vh, 40.5vw);
+    /* 调整缩放比例 */
+    transform: scale(min(1, 100vw/1920));
   }
+}
 
-  .tokyomenu-page-front, .tokyomenu-page-back {
-    padding: 20px;
+/* 移动设备优化 */
+@media (max-width: 480px) {
+  .tokyomenu-container {
+    width: 90%;
+    height: min(70vh, 37.8vw);
+    /* 保持原始比例但整体缩小 */
+    transform: scale(min(1, 100vw/1920));
   }
+}
 
-  .tokyomenu-title {
-    font-size: 20px;
-  }
-
-  .tokyomenu-text {
-    font-size: 14px;
-  }
-
-  .tokyomenu-nav-btn {
-    padding: 8px 16px;
-    font-size: 12px;
+/* 超大屏幕时锁定最大尺寸 */
+@media (min-width: 1920px) {
+  .tokyomenu-container {
+    transform: scale(1);
+    max-height: 972px;
   }
 }
 
