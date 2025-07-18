@@ -829,6 +829,17 @@ nav {
   }
 }
 
+.about-section {
+    background: url('images/images/BGA.jpg') no-repeat center center/cover;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0; /* 预留 navbar 高度 */
+}
+
 .tokyoabout-section {
     height: 100vh;
     display: flex;
@@ -836,10 +847,10 @@ nav {
     align-items: center;
     padding: clamp(40px, 6vw, 80px) clamp(40px, 6vw, 80px) 0; /* 上左右内边距响应 */
     box-sizing: border-box;
+    max-width: 1920px;
     margin: 0 auto;
     flex-wrap: nowrap;
     gap: clamp(10px, 1.6vw, 30px);
-    background: url('images/images/BGA.jpg') no-repeat center center/cover;
 }
 
 .tokyoabout-text {
@@ -862,7 +873,7 @@ nav {
 .tokyoabout-title {
     font-size: clamp(40px, 4vw, 72px);
     color: #3a1f00;
-    margin: 0px 0 clamp(5px, 1.6vw, 30px) 0;
+    margin: 0px 0 clamp(5px, 1vw, 10px) 0;
 }
 
 .tokyoabout-description {
@@ -899,41 +910,42 @@ nav {
 
 /* 1280px 以下响应式 */
 @media (max-width: 1280px) {
-    .tokyoabout-section {
-        padding: 0 51px;
-    }
+  .tokyoabout-section {
+    padding: 0 51px;
+    gap: 0px;
+  }
 
-    .tokyoabout-text {
-        padding-right: 20px;
-        min-width: 150px;
-        flex-shrink: 1;
-        flex-grow: 1;
-    }
+  .tokyoabout-text {
+    flex: 1 1 0;
+    min-width: 200px; /* 最小宽度缩小一点 */
+    padding-right: clamp(20px, 2vw, 40px); /* 右内边距响应 */
+    margin-left: 100px;
+  }
 
-    .tokyoabout-subtitle {
-        font-size: clamp(18px, 2vw, 25px);
-        height: 40px;
-    }
+  .tokyoabout-subtitle {
+    font-size: clamp(16px, 1.3vw, 25px);
+    height: 32px; /* 从40px减小到32px */
+  }
 
-    .tokyoabout-title {
-        font-size: clamp(32px, 4vw, 51px);
-        margin: 16px 0 46px 0;
-    }
+  .tokyoabout-title {
+    font-size: clamp(26px, 2.66vw, 51px); /* 从32px减小到28px */
+    margin: 12px 0 26px 0; /* 从16px 0 46px 0改为12px 0 32px 0 */
+  }
 
-    .tokyoabout-description {
-        max-width: 100%;
-        width: auto;
-        height: auto;
-        font-size: clamp(11px, 1.6vw, 15px);
-        margin-bottom: 24px;
-    }
+  .tokyoabout-description {
+    max-width: 550px;
+    width: auto;
+    height: auto;
+    font-size: clamp(8px, 1.6vw, 15px); /* 从11px减小到10px */
+    margin-bottom: 18px; /* 从24px减小到18px */
+  }
 
-    .tokyoabout-image {
-        max-width: 45vw;
-        width: auto;
-        padding: 80px 0;
-        flex-shrink: 0;
-    }
+  .tokyoabout-image {
+    flex: 0 0 auto;
+    width: clamp(500px, 46vw, 884px); /* 图片宽度响应 */
+    aspect-ratio: 884 / 639;
+    padding: clamp(40px, 6vw, 80px) 0; /* 上下内边距响应 */
+  }
 }
 
 /* 768px 以下响应式 */
