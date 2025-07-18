@@ -885,7 +885,7 @@ nav {
     font-family: 'Source Sans Pro', sans-serif;
     color: #3a1f00;
     line-height: 1.6;
-    margin-left: clamp(2px, 0.5vw, 4px);
+    margin-left: 0;
 }
 
 .tokyoabout-image {
