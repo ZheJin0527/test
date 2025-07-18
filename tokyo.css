@@ -718,80 +718,85 @@ nav {
 
 .home {
     position: relative;
-    padding: 80px 0 0 0px;
-    height: calc(100vh - 80px); /* 还保持满屏显示 */
+    padding: clamp(40px, 3.2vw, 60px) 0 0 0px;
+    height: 100vh;
     background: linear-gradient(to right, rgb(228, 176, 103), rgba(204, 116, 0, 0)), 
             url('images/images/j1餐厅.jpg') no-repeat center center/cover;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     color: white;
 }
 
 .home-content {
-    margin-top: 158px;
-    width: 1144px;
-    height: 101px;
+    width: 1600px;
+    height: auto; /* 允许高度自适应 */
 }
 
 .home-logo-container {
-  display: flex;
-  align-items: center; /* 垂直居中对齐 */
-  justify-content: center; /* 水平居中整组内容 */
-  gap: 20px; /* logo 和文字之间的距离 */
-  flex-wrap: wrap; /* 小屏时自动换行 */
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: flex-start; /* 水平居中整组内容 */
+    gap: 20px; /* logo 和文字之间的距离 */
+    flex-wrap: wrap; /* 小屏时自动换行 */
+    margin-left: 180px;
 }
 
 .home-logo {
-    width: 180px; /* 根据你的logo调整大小 */
+    width: clamp(100px, 9.4vw, 180px);
     height: auto;
     margin-top: 100px;
-    margin-bottom: 40px;         
+    margin-bottom: 40px;      
 }
   
 .home h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 80px;
+    font-size: clamp(70px, 5vw, 100px);
     font-weight: bold;
     margin-top: 100px;
-    margin-bottom: 40px;
+    margin-bottom: clamp(20px, 2vw, 40px);
     line-height: 100%;
     letter-spacing: 1.4%;
     filter: drop-shadow(10px 8px 2px rgb(175, 124, 47));
 }
   
 .home p {
-    font-size: 28px;
+    font-size: clamp(20px, 1.5vw, 28px);
     font-weight: normal;
     line-height: 140%;
-    margin-top: 0; /* 确保p和h1的间距是80px */
+    margin-top: 0;
     margin-bottom: 90px;
-    margin-left: 370px;
+    margin-left: clamp(330px, 20vw, 380px);
     filter: drop-shadow(4px 4px 2px rgb(109, 77, 29));
 }
 
 @media (max-width: 1280px) {
   .home {
-    padding: 40px 51px 0 51px;
-    height: clamp(600px, 60vw, 750px);
-    background-position: center top;
+    position: relative;
+    padding: 0 0 0 0px;
   }
 
-  .home-content {
-    width: 858px;
-    height: 76px;
-    margin-top: 150px;
+  .home-logo-container {
+    margin-left: clamp(80px, 11vw, 140px);
   }
 
+  .home-logo {
+    width: clamp(80px, 8vw, 100px);
+    height: auto;
+    margin-top: 100px;
+    margin-bottom: 20px;
+  }
+  
   .home h1 {
-    font-size: clamp(48px, 6vw, 75px);
-    line-height: 130%;
-    margin-top: 0;
+    font-size: clamp(40px, 4.7vw, 60px);
+    margin-top: 100px;
+    margin-bottom: clamp(20px, 2vw, 40px);
   }
-
+  
   .home p {
-    font-size: clamp(14px, 1.6vw, 30px);
-    margin-bottom: 60px;
+    font-size: clamp(14px, 1.6vw, 20px);
+    margin-bottom: 90px;
+    margin-left: clamp(190px, 20vw, 260px);
   }
 }
 
