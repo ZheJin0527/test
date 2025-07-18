@@ -3827,21 +3827,14 @@ form input[type="file"] {
 
 .tokyomenu-nav-btn {
     padding: clamp(4px, 0.4vw, 8px) clamp(10px, 0.95vw, 18px);
-    background: linear-gradient(135deg, #8b4513, #654321);
-    color: #f5deb3;
+    background: transparent;
+    color: transparent;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: clamp(8px, 0.75vw, 14px);
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     font-family: 'Georgia', serif;
-}
-
-.tokyomenu-nav-btn:hover {
-    background: linear-gradient(135deg, #a0522d, #8b4513);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
 }
 
 .tokyomenu-nav-btn:disabled {
