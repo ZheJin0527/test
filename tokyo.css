@@ -830,7 +830,8 @@ nav {
 }
 
 .about-section {
-    background: url('images/images/j1餐厅.jpg') no-repeat center center/cover;
+    background: linear-gradient(to right, rgb(228, 176, 103), rgba(204, 116, 0, 0)), 
+            url('images/images/j1餐厅.jpg') no-repeat center center/cover;
     height: 100vh;
     scroll-snap-align: start;
     display: flex;
