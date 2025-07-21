@@ -189,7 +189,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
         <li><a href="joinus.html#benefits">公司福利</li>
         <li><a href="joinus.html#comphoto-container">我们的足迹</li>
         <li><a href="joinus.html#particles">招聘的职位</li>
-        <li><a href="joinus.html#contact">联系我们</a></li>        
+        <li><a href="joinus.html#map">联系我们</a></li>        
       </ul>
     </div>
   </footer>
