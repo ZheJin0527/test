@@ -702,6 +702,9 @@ function isElementInViewport(el) {
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const homeContent = document.querySelector('.home-content');
+    const navbar = document.querySelector('.navbar');
+    const socialSidebar = document.querySelector('.social-sidebar');
+    const pageIndicator = document.querySelector('.page-indicator');
     
     // 强制隐藏，使用内联样式确保优先级
     homeContent.style.opacity = '0';
@@ -716,9 +719,15 @@ function isElementInViewport(el) {
     bgImg.onload = function () {
         console.log('背景图加载完成！');
         
+        // 立即显示导航栏、指示器和社交侧边栏
+        if (navbar) navbar.classList.add('navbar-loaded');
+        if (socialSidebar) socialSidebar.classList.add('social-loaded');
+        if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
+        
+        // 显示背景渐变
         document.querySelector('.home').classList.add('gradient-loaded');
         
-        // 使用内联样式显示内容
+        // 显示主要内容
         homeContent.style.opacity = '1';
         homeContent.style.visibility = 'visible';
         homeContent.style.transform = 'translateY(0)';
@@ -726,24 +735,31 @@ function isElementInViewport(el) {
         
         // 移除hidden类
         homeContent.classList.remove('hidden');
-        
-        // 显示其他界面元素
-        document.querySelector('.navbar').classList.add('navbar-loaded');
-        document.querySelector('.social-sidebar').classList.add('social-loaded');
-        document.querySelector('.page-indicator').classList.add('indicator-loaded');
     };
     
     bgImg.onerror = function () {
-        console.error('背景图加载失败');
+        console.error('背景图加载失败，但仍显示界面元素');
+        
+        // 即使背景图加载失败，也要显示界面元素
+        if (navbar) navbar.classList.add('navbar-loaded');
+        if (socialSidebar) socialSidebar.classList.add('social-loaded');
+        if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
+        
         homeContent.style.opacity = '1';
         homeContent.style.visibility = 'visible';
         homeContent.style.transform = 'translateY(0)';
         homeContent.classList.remove('hidden');
-        
-        document.querySelector('.navbar').classList.add('navbar-loaded');
-        document.querySelector('.social-sidebar').classList.add('social-loaded');
-        document.querySelector('.page-indicator').classList.add('indicator-loaded');
     };
+
+    // 添加超时保护，如果3秒内背景图还没加载完成，强制显示界面元素
+    setTimeout(() => {
+        if (!navbar.classList.contains('navbar-loaded')) {
+            console.log('超时保护：强制显示界面元素');
+            if (navbar) navbar.classList.add('navbar-loaded');
+            if (socialSidebar) socialSidebar.classList.add('social-loaded');
+            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
+        }
+    }, 3000);
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
