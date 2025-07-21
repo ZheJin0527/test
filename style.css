@@ -4244,6 +4244,7 @@ form select:focus {
   form select {
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(6px, 0.73vw, 10px);
+    height: 30px;
   }
 }
 
@@ -4523,6 +4524,7 @@ form select:focus {
     flex: 0 0 clamp(120px, 12vw, 150px);
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(6px, 0.73vw, 10px);
+    height: 30px;
   }
 
   .phone-input input {
