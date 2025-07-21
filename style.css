@@ -612,13 +612,22 @@ nav {
 
   .login-btn {
     width: 60px;
-    height: 17px;
+    height: 18px;
     border-radius: 17px;
-    padding: 2px 8px;
-    font-size: 11px;
+    padding: 0px 12px;
+    font-size: 12px;
     line-height: 18px;
     margin-left: 80px;
     margin-right: -20px;
+  }
+
+  .login-dropdown-menu {
+    left: 80px;
+  }
+
+  .login-dropdown-item {
+    padding: 8px 16px;
+    font-size: 12px;
   }
 
   .language-switch {
