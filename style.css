@@ -5005,12 +5005,6 @@ form select:focus {
     margin-bottom: 10px;
   }
 
-  .login-form input {
-    padding: 12px 16px;
-    margin-bottom: 20px;
-    font-size: 16px;
-  }
-
   .login-form button[type="submit"] {
     font-size: 14px;
   }
