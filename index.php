@@ -83,7 +83,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
 
   <div class="swiper-slide">
-  <section class="about-section">
+  <section id="comprofile" class="about-section">
   <div class="comprofile-section">
     <div class="comprofile-text">
         <p class="comprofile-subtitle animate-on-scroll slide-in-left delay-1">
@@ -163,7 +163,6 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <ul>
         <li><a href="#comprofile">公司简介</a></li>
         <li><a href="#culture">公司文化</a></li>
-        <li><a href="#brands">旗下品牌</a></li>
       </ul>
     </div>
 
