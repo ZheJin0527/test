@@ -388,7 +388,7 @@
     <div class="footer-section">
       <h4><a href="joinus.html">加入我们</a></h4>
       <ul>
-        <li><a href="joinus.html">公司福利</li>
+        <li><a href="#" onclick="goToSlide(0); return false;">公司福利</li>
         <li><a href="#" onclick="goToSlide(1); return false;">我们的足迹</li>
         <li><a href="#" onclick="goToSlide(2); return false;">招聘的职位</li>
         <li><a href="#" onclick="goToSlide(4); return false;">联系我们</a></li>        
@@ -1573,6 +1573,12 @@ function goToSlide(slideIndex) {
 }
 
 // 或者，如果你想要更具体的跳转函数
+function goToBenefits() {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(0);
+  }
+}
+
 function goToComphoto() {
   if (typeof swiper !== 'undefined') {
     swiper.slideTo(1);
