@@ -706,83 +706,6 @@ function isElementInViewport(el) {
     const socialSidebar = document.querySelector('.social-sidebar');
     const pageIndicator = document.querySelector('.page-indicator');
     
-    // 立即使用内联样式强制显示导航元素，不等待任何加载
-    console.log('立即显示导航元素...');
-    
-    if (navbar) {
-        // 强制显示navbar本身
-        navbar.style.setProperty('opacity', '1', 'important');
-        navbar.style.setProperty('visibility', 'visible', 'important');
-        navbar.style.setProperty('transform', 'translateY(0)', 'important');
-        navbar.style.setProperty('transition', 'all 0.3s ease-out', 'important');
-        
-        // 强制显示navbar的所有子元素
-        const logoSection = navbar.querySelector('.logo-section');
-        const navLinks = navbar.querySelector('.nav-links');
-        const rightSection = navbar.querySelector('.right-section');
-        
-        if (logoSection) {
-            logoSection.style.setProperty('opacity', '1', 'important');
-            logoSection.style.setProperty('transform', 'translateY(0)', 'important');
-        }
-        
-        if (navLinks) {
-            navLinks.style.setProperty('opacity', '1', 'important');
-            navLinks.style.setProperty('transform', 'translateY(0)', 'important');
-            
-            // 强制显示所有导航项
-            const navItems = navLinks.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.style.setProperty('opacity', '1', 'important');
-                item.style.setProperty('transform', 'translateY(0)', 'important');
-            });
-        }
-        
-        if (rightSection) {
-            rightSection.style.setProperty('opacity', '1', 'important');
-            rightSection.style.setProperty('transform', 'translateY(0)', 'important');
-            
-            // 强制显示右侧的所有子元素
-            const rightElements = rightSection.querySelectorAll('.login-btn, .language-switch, .hamburger');
-            rightElements.forEach(element => {
-                element.style.setProperty('opacity', '1', 'important');
-                element.style.setProperty('transform', 'translateY(0)', 'important');
-            });
-        }
-        
-        navbar.classList.add('navbar-loaded');
-    }
-    
-    if (socialSidebar) {
-        socialSidebar.style.setProperty('opacity', '1', 'important');
-        socialSidebar.style.setProperty('visibility', 'visible', 'important');
-        socialSidebar.style.setProperty('transform', 'translateX(0)', 'important');
-        
-        // 强制显示所有社交图标
-        const socialIcons = socialSidebar.querySelectorAll('.social-icon');
-        socialIcons.forEach(icon => {
-            icon.style.setProperty('opacity', '1', 'important');
-            icon.style.setProperty('transform', 'translateX(0)', 'important');
-        });
-        
-        socialSidebar.classList.add('social-loaded');
-    }
-    
-    if (pageIndicator) {
-        pageIndicator.style.setProperty('opacity', '1', 'important');
-        pageIndicator.style.setProperty('visibility', 'visible', 'important');
-        pageIndicator.style.setProperty('transform', 'translateY(0)', 'important');
-        
-        // 强制显示所有页面指示点
-        const pageDots = pageIndicator.querySelectorAll('.page-dot');
-        pageDots.forEach(dot => {
-            dot.style.setProperty('opacity', '1', 'important');
-            dot.style.setProperty('transform', 'translateY(0)', 'important');
-        });
-        
-        pageIndicator.classList.add('indicator-loaded');
-    }
-    
     // 强制隐藏主内容，等待背景图加载
     if (homeContent) {
         homeContent.style.opacity = '0';
@@ -796,11 +719,26 @@ function isElementInViewport(el) {
     bgImg.src = "images/images/加入我们bg2.jpg";
 
     bgImg.onload = function () {
-        console.log('背景图加载完成！');
+        console.log('背景图加载完成！开始显示动画');
+        
+        // 背景图加载完成后，立即触发导航栏等元素的动画
+        if (navbar) {
+            navbar.classList.add('navbar-loaded');
+        }
+        
+        if (socialSidebar) {
+            socialSidebar.classList.add('social-loaded');
+        }
+        
+        if (pageIndicator) {
+            pageIndicator.classList.add('indicator-loaded');
+        }
         
         // 显示背景渐变
         const homeSection = document.querySelector('.home');
-        if (homeSection) homeSection.classList.add('gradient-loaded');
+        if (homeSection) {
+            homeSection.classList.add('gradient-loaded');
+        }
         
         // 显示主要内容
         if (homeContent) {
@@ -813,7 +751,20 @@ function isElementInViewport(el) {
     };
     
     bgImg.onerror = function () {
-        console.error('背景图加载失败，显示默认内容');
+        console.error('背景图加载失败，但仍显示界面元素');
+        
+        // 即使背景图加载失败，也要显示界面元素
+        if (navbar) {
+            navbar.classList.add('navbar-loaded');
+        }
+        
+        if (socialSidebar) {
+            socialSidebar.classList.add('social-loaded');
+        }
+        
+        if (pageIndicator) {
+            pageIndicator.classList.add('indicator-loaded');
+        }
         
         if (homeContent) {
             homeContent.style.opacity = '1';
@@ -823,16 +774,23 @@ function isElementInViewport(el) {
         }
     };
 
-    // 1秒后强制显示内容，以防背景图一直不加载
+    // 添加超时保护：如果5秒内背景图还没加载完成，强制显示所有元素
     setTimeout(() => {
-        if (homeContent && homeContent.style.opacity === '0') {
-            console.log('超时保护：强制显示主内容');
-            homeContent.style.opacity = '1';
-            homeContent.style.visibility = 'visible';
-            homeContent.style.transform = 'translateY(0)';
-            homeContent.classList.remove('hidden');
+        if (!navbar || !navbar.classList.contains('navbar-loaded')) {
+            console.log('超时保护：强制开始动画');
+            
+            if (navbar) navbar.classList.add('navbar-loaded');
+            if (socialSidebar) socialSidebar.classList.add('social-loaded');
+            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
+            
+            if (homeContent && homeContent.style.opacity === '0') {
+                homeContent.style.opacity = '1';
+                homeContent.style.visibility = 'visible';
+                homeContent.style.transform = 'translateY(0)';
+                homeContent.classList.remove('hidden');
+            }
         }
-    }, 1000);
+    }, 5000);
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
