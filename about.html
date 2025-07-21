@@ -237,17 +237,16 @@
     <div class="footer-section">
       <h4><a href="index.php">首页</a></h4>
       <ul>
-        <li><a href="#comprofile">公司简介</a></li>
-        <li><a href="#culture">公司文化</a></li>
-        <li><a href="#brands">旗下品牌</a></li>
+        <li><a href="index.php#comprofile">公司简介</a></li>
+        <li><a href="index.php#culture">公司文化</a></li>
       </ul>
     </div>
 
     <div class="footer-section">
       <h4><a href="about.html">关于我们</a></h4>
       <ul>
-        <li><a href="about.html#intro">集团简介</a></li>
-        <li><a href="about.html#vision">信念与方向</a></li>
+        <li><a href="#" onclick="goToSlide(0); return false;">集团简介</a></li>
+        <li><a href="#" onclick="goToSlide(1); return false;">信念与方向</a></li>
         <li><a href="about.html#values">核心价值观</a></li>
         <li><a href="about.html#timeline-1">发展历史</a></li>
       </ul>
@@ -256,16 +255,17 @@
     <div class="footer-section">
       <h4>旗下品牌</h4>
       <ul>
-        <li>TOKYO JAPANESE </br>CUISINE</li>
+        <li><a href="tokyo-japanese-cuisine.html">TOKYO JAPANESE </br>CUISINE</li>
       </ul>
     </div>
 
     <div class="footer-section">
       <h4><a href="joinus.html">加入我们</a></h4>
       <ul>
-        <li>招聘</li>
-        <li><a href="joinus.html#contact">联系我们</a></li>
-        
+        <li><a href="joinus.html#benefits">公司福利</li>
+        <li><a href="joinus.html#comphoto-container">我们的足迹</li>
+        <li><a href="joinus.html#particles">招聘的职位</li>
+        <li><a href="joinus.html#map">联系我们</a></li>        
       </ul>
     </div>
   </footer>
@@ -882,7 +882,33 @@ window.addEventListener('resize', () => {
     localStorage.setItem('musicPlaying', bgMusic.paused ? 'false' : 'true');
   });
 </script>
+<script>
+  // 添加这个函数到你现有的JavaScript代码中
+function goToSlide(slideIndex) {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(slideIndex);
+  }
+}
 
+// 或者，如果你想要更具体的跳转函数
+function goToAboutusIntro() {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(0);
+  }
+}
+
+function goToVision() {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(1); // 跳转到第3个slide（公司文化）
+  }
+}
+
+function goToCulture() {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(2); // 跳转到第3个slide（公司文化）
+  }
+}
+</script>
 
 </body>
 </html>
