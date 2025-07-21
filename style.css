@@ -471,6 +471,54 @@ body::-webkit-scrollbar {
     background-color: #d87b00;
 }
 
+/* 登录下拉菜单样式 */
+.login-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 120px; /* 固定宽度 */
+    background: #2F2F2F;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.login-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.login-dropdown-item {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: background-color 0.2s ease;
+    border: none;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    cursor: pointer;
+}
+
+.login-dropdown-item:hover {
+    background-color: #FF5C00;
+    color: white;
+}
+
+.login-dropdown-item:first-child {
+    border-bottom: 1px solid #444;
+}
+
 .language-switch {
     display: flex;
     align-items: center;

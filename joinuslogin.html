@@ -34,7 +34,13 @@
   <!-- 右侧区域 -->
   <div class="right-section">
     <!-- 移动端隐藏 login，仅大屏显示 -->
-     <a href="login.html" class="login-btn">LOGIN</a>
+     <div class="login-dropdown">
+      <button class="login-btn" id="loginBtn">LOGIN</button>
+        <div class="login-dropdown-menu" id="loginDropdownMenu">
+          <a href="employee-login.html" class="login-dropdown-item">员工登入</a>
+          <a href="member-login.html" class="login-dropdown-item">会员登入</a>
+        </div>
+      </div>
     
 
     <!-- 翻译按钮始终显示 -->
@@ -427,34 +433,79 @@
 <script src="app.js"></script>
 <script>
   const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
-const loginBtn = document.querySelector('.login-btn');
+  const navMenu = document.getElementById('navMenu');
+  const loginBtn = document.querySelector('.login-btn');
+  
+  // 登录下拉菜单元素
+  const loginDropdownMenu = document.getElementById('loginDropdownMenu');
 
-function moveLoginBtn() {
-  if (window.innerWidth <= 768) {
-    if (!navMenu.contains(loginBtn)) {
-      navMenu.appendChild(loginBtn);
-    }
-  } else {
-    // 如果宽度大于768，确保loginBtn在right-section中
-    const rightSection = document.querySelector('.right-section');
-    if (rightSection && !rightSection.contains(loginBtn)) {
-      rightSection.insertBefore(loginBtn, rightSection.firstChild);
+  function moveLoginBtn() {
+    if (window.innerWidth <= 768) {
+      if (!navMenu.contains(loginBtn)) {
+        navMenu.appendChild(loginBtn);
+      }
+    } else {
+      // 如果宽度大于768，确保loginBtn在right-section中
+      const rightSection = document.querySelector('.right-section');
+      if (rightSection && !rightSection.contains(loginBtn)) {
+        rightSection.insertBefore(loginBtn, rightSection.firstChild);
+      }
     }
   }
-}
 
-// 点击汉堡切换菜单
-hamburger.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-});
+  // 点击汉堡切换菜单
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
 
-// 页面加载时处理
-window.addEventListener('DOMContentLoaded', moveLoginBtn);
+  // 登录下拉菜单功能
+  // 点击登录按钮切换下拉菜单显示
+  loginBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // 切换菜单显示状态
+    loginDropdownMenu.classList.toggle('show');
+    loginBtn.classList.toggle('active');
+  });
 
-// 窗口大小改变时也处理，防止resize后login位置错乱
-window.addEventListener('resize', moveLoginBtn);
+  // 点击下拉菜单项时的处理
+  const loginDropdownItems = document.querySelectorAll('.login-dropdown-item');
+  loginDropdownItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      // 这里可以添加具体的跳转逻辑
+      console.log('选择了：', this.textContent);
+      
+      // 关闭下拉菜单
+      loginDropdownMenu.classList.remove('show');
+      loginBtn.classList.remove('active');
+      
+      // 如果需要阻止默认跳转，取消注释下面这行
+      // e.preventDefault();
+    });
+  });
 
+  // 点击页面其他地方关闭下拉菜单
+  document.addEventListener('click', function(e) {
+    if (!loginBtn.contains(e.target) && !loginDropdownMenu.contains(e.target)) {
+      loginDropdownMenu.classList.remove('show');
+      loginBtn.classList.remove('active');
+    }
+  });
+
+  // ESC键关闭下拉菜单
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      loginDropdownMenu.classList.remove('show');
+      loginBtn.classList.remove('active');
+    }
+  });
+
+  // 页面加载时处理
+  window.addEventListener('DOMContentLoaded', moveLoginBtn);
+
+  // 窗口大小改变时也处理，防止resize后login位置错乱
+  window.addEventListener('resize', moveLoginBtn);
 </script>
 <script>
         // 通用的 animate-on-scroll observer（保持原有逻辑）
