@@ -5006,13 +5006,9 @@ form select:focus {
   }
 
   .login-form input {
-    width: 100%;
     padding: 12px 16px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
     font-size: 16px;
-    box-sizing: border-box;
   }
 
   .login-form button[type="submit"] {
