@@ -4490,10 +4490,10 @@ form select:focus {
   }
 
   .join-us-form {
-    width: 35%;
+    width: 30%;
     max-width: 960px; /* 限制最大宽度 */
     padding: 0px 25px;
-    height: clamp(250px, 44vw, 460px);
+    height: clamp(250px, 39vw, 430px);
   }
 
   .join-us-form h2 {
@@ -4521,7 +4521,7 @@ form select:focus {
   }
 
   .phone-input select {
-    flex: 0 0 clamp(120px, 12vw, 150px);
+    flex: 0 0 clamp(70px, 11vw, 150px);
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(6px, 0.73vw, 10px);
     height: 30px;
