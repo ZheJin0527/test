@@ -699,6 +699,53 @@ function isElementInViewport(el) {
     );
 }
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const homeContent = document.querySelector('.home-content');
+    
+    // 强制隐藏，使用内联样式确保优先级
+    homeContent.style.opacity = '0';
+    homeContent.style.visibility = 'hidden';
+    homeContent.style.transform = 'translateY(30px)';
+    
+    console.log('开始加载背景图...');
+    
+    const bgImg = new Image();
+    bgImg.src = "images/images/加入我们bg2.jpg";
+
+    bgImg.onload = function () {
+        console.log('背景图加载完成！');
+        
+        document.querySelector('.home').classList.add('gradient-loaded');
+        
+        // 使用内联样式显示内容
+        homeContent.style.opacity = '1';
+        homeContent.style.visibility = 'visible';
+        homeContent.style.transform = 'translateY(0)';
+        homeContent.style.transition = 'all 0.8s ease-out';
+        
+        // 移除hidden类
+        homeContent.classList.remove('hidden');
+        
+        // 显示其他界面元素
+        document.querySelector('.navbar').classList.add('navbar-loaded');
+        document.querySelector('.social-sidebar').classList.add('social-loaded');
+        document.querySelector('.page-indicator').classList.add('indicator-loaded');
+    };
+    
+    bgImg.onerror = function () {
+        console.error('背景图加载失败');
+        homeContent.style.opacity = '1';
+        homeContent.style.visibility = 'visible';
+        homeContent.style.transform = 'translateY(0)';
+        homeContent.classList.remove('hidden');
+        
+        document.querySelector('.navbar').classList.add('navbar-loaded');
+        document.querySelector('.social-sidebar').classList.add('social-loaded');
+        document.querySelector('.page-indicator').classList.add('indicator-loaded');
+    };
+});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // 恢复到你原来的配置，只添加最小的修改
