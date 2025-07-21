@@ -186,9 +186,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4><a href="joinus.html">加入我们</a></h4>
       <ul>
-        <li><a href="joinus.html#benefits">福利</li>
-        <li><a href="joinus.html#comphoto-container">足迹</li>
-        <li><a href="joinus.html#particles">招聘</li>
+        <li><a href="joinus.html#benefits">公司福利</li>
+        <li><a href="joinus.html#comphoto-container">我们的足迹</li>
+        <li><a href="joinus.html#particles">招聘的职位</li>
         <li><a href="joinus.html#contact">联系我们</a></li>        
       </ul>
     </div>
