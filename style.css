@@ -5066,6 +5066,23 @@ form select:focus {
   text-decoration: underline;
 }
 
+@media (max-width: 1280px) {
+  .remember-me {
+    font-size: 11px;
+    gap: 4px;
+    margin-top: 10px;
+  }
+
+  .remember-me input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+  }
+
+  .forgot-password a {
+    font-size: 12px;
+  }
+}
+
 /* 注册 */
 .register-section {
     display: flex;
