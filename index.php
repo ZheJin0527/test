@@ -161,8 +161,8 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4><a href="index.php">首页</a></h4>
       <ul>
-        <li><a href="#comprofile">公司简介</a></li>
-        <li><a href="#culture">公司文化</a></li>
+        <li><a href="#" onclick="goToSlide(1); return false;">公司简介</a></li>
+        <li><a href="#" onclick="goToSlide(2); return false;">公司文化</a></li>
       </ul>
     </div>
 
@@ -442,5 +442,26 @@ updatePageIndicator(0);
 </script>
 
 
+<script>
+  // 添加这个函数到你现有的JavaScript代码中
+function goToSlide(slideIndex) {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(slideIndex);
+  }
+}
+
+// 或者，如果你想要更具体的跳转函数
+function goToCompanyProfile() {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(1); // 跳转到第2个slide（公司简介）
+  }
+}
+
+function goToCulture() {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(2); // 跳转到第3个slide（公司文化）
+  }
+}
+</script>
 </body>
 </html>
