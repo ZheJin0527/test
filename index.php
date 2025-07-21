@@ -83,7 +83,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
 
   <div class="swiper-slide">
-  <section id="comprofile" class="about-section">
+  <section class="about-section" id="comprofile">
   <div class="comprofile-section">
     <div class="comprofile-text">
         <p class="comprofile-subtitle animate-on-scroll slide-in-left delay-1">
