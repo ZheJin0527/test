@@ -247,8 +247,8 @@
       <ul>
         <li><a href="#" onclick="goToSlide(0); return false;">集团简介</a></li>
         <li><a href="#" onclick="goToSlide(1); return false;">信念与方向</a></li>
-        <li><a href="about.html#values">核心价值观</a></li>
-        <li><a href="about.html#timeline-1">发展历史</a></li>
+        <li><a href="#" onclick="goToSlide(2); return false;">核心价值观</a></li>
+        <li><a href="#" onclick="goToSlide(3); return false;">发展历史</a></li>
       </ul>
     </div>
 
@@ -903,9 +903,15 @@ function goToVision() {
   }
 }
 
-function goToCulture() {
+function goToValues() {
   if (typeof swiper !== 'undefined') {
     swiper.slideTo(2); // 跳转到第3个slide（公司文化）
+  }
+}
+
+function goToTimeline() {
+  if (typeof swiper !== 'undefined') {
+    swiper.slideTo(3); // 跳转到第3个slide（公司文化）
   }
 }
 </script>
