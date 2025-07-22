@@ -4244,7 +4244,7 @@ form select:focus {
   form select {
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(6px, 0.73vw, 10px);
-    height: clamp(30px, 3.2vw, 40px);
+    height: clamp(24px, 2.35vw, 30px);
   }
 }
 
@@ -5259,7 +5259,7 @@ form select:focus {
   }
 
   .register-form .gender-select {
-    height: clamp(30px, 3.2vw, 40px);
+    height: clamp(24px, 2.35vw, 30px);
   }
 
   .register-form button[type="submit"] {
@@ -5274,7 +5274,7 @@ form select:focus {
   .register-form input[type="text"],
   .register-form input[type="email"],
   .register-form input[type="password"] {
-    height: clamp(30px, 3.2vw, 40px);
+    height: clamp(24px, 2.35vw, 30px);
   }    
 }
 
