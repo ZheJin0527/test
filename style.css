@@ -550,8 +550,8 @@ body::-webkit-scrollbar {
 /* 语言切换下拉菜单样式 */
 .language-dropdown-menu {
     position: absolute;
-    top: 60%;
-    right: 40px;
+    top: 100%;
+    right: -60px;
     width: 120px; /* 固定宽度 */
     background: #2F2F2F;
     border-radius: 8px;
@@ -696,7 +696,7 @@ nav {
   }
 
   .language-dropdown-menu {
-    right: 18px;
+    right: 0px;
     width: 100px;
   }
 
