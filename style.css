@@ -4694,7 +4694,7 @@ form select:focus {
     flex-direction: row;
     width: 100%;
     max-width: 1648px;
-    height: 400px;
+    height: 500px;
     margin: clamp(100px, 6.7vw, 130px) clamp(40px, 7vw, 160px) 70px clamp(40px, 7vw, 160px);
     padding-left: clamp(40px, 5vw, 80px);
     padding-right: clamp(40px, 5vw, 80px);
@@ -4742,9 +4742,10 @@ form select:focus {
 
 .map-container iframe {
     width: clamp(600px, 45vw, 900px);
-    height: clamp(380px, 25vw, 500px);
+    height: clamp(380px, 25vw, 400px);
     border: none;
     display: block;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
 }
 
 /* ======= 1280px 以下 ======= */
@@ -4755,7 +4756,7 @@ form select:focus {
 
   .contact-container {
     max-width: 1200px;
-    height: auto;
+    height: 500px;
     padding-left: clamp(20px, 4vw, 60px);
     padding-right: clamp(20px, 4vw, 60px);
     margin: clamp(60px, 5vw, 100px) auto 50px auto;
@@ -4784,8 +4785,15 @@ form select:focus {
   }
 
   .map-container iframe {
+    margin-top: 100px;
     width: 90%;
     height: clamp(200px, 25vw, 280px);
+  }
+}
+
+@media (max-width: 900px) {
+.map-container iframe {
+    margin-top: 120px;
   }
 }
 
