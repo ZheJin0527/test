@@ -696,7 +696,7 @@ nav {
   }
 
   .language-dropdown-menu {
-    right: 0px;
+    right: -20px;
     width: 100px;
   }
 
