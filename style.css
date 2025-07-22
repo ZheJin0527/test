@@ -4397,6 +4397,7 @@ form select:focus {
     color: #374151;
     transition: all 0.3s ease;
     line-height: 1.4;
+    height: 40px;
 }
 
 .phone-input input {
@@ -4524,7 +4525,7 @@ form select:focus {
     flex: 0 0 clamp(70px, 11vw, 150px);
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(6px, 0.73vw, 10px);
-    height: 30px;
+    height: clamp(24px, 2.35vw, 30px);
   }
 
   .phone-input input {
