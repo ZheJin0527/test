@@ -5102,7 +5102,6 @@ form select:focus {
     color: black;
 }
 
-
 .register-form input {
     width: 100%;
     padding: 12px 16px;
@@ -5170,6 +5169,32 @@ form select:focus {
     text-align: center;
     line-height: 1.4;
 }
+
+@media (max-width: 1280px) {
+  .register-form {
+    padding: 10px 80px 40px;
+    width: 280px;
+  }
+
+  .register-form h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+
+  .register-form .gender-id-row {
+    gap: 10px;
+  }
+
+  .register-form button[type="submit"] {
+    font-size: 14px;
+  }
+
+  .register-form .password-note {
+    font-size: 8px;
+    margin: 3px 0 0px 0;
+  }
+}
+
 
 /* 注册弹窗 */
 /* 注册模态框风格保持一致 */
