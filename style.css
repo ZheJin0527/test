@@ -4729,9 +4729,8 @@ form select:focus {
     margin: 0;
     padding: 8px 0;
     font-family: 'Source Sans Pro', sans-serif;
-    color: #888;
+    color: #000000;
     line-height: 2;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .map-container {
@@ -4741,6 +4740,7 @@ form select:focus {
 }
 
 .map-container iframe {
+    margin-top: 50px;
     width: clamp(600px, 45vw, 900px);
     height: clamp(380px, 25vw, 400px);
     border: none;
