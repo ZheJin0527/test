@@ -4244,7 +4244,7 @@ form select:focus {
   form select {
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(6px, 0.73vw, 10px);
-    height: 30px;
+    height: clamp(30px, 3.2vw, 40px);
   }
 }
 
@@ -5170,32 +5170,6 @@ form select:focus {
     line-height: 1.4;
 }
 
-@media (max-width: 1280px) {
-  .register-form {
-    padding: 10px 80px 40px;
-    width: 280px;
-  }
-
-  .register-form h2 {
-    font-size: 40px;
-    margin-bottom: 10px;
-  }
-
-  .register-form .gender-id-row {
-    gap: 10px;
-  }
-
-  .register-form button[type="submit"] {
-    font-size: 14px;
-  }
-
-  .register-form .password-note {
-    font-size: 8px;
-    margin: 3px 0 0px 0;
-  }
-}
-
-
 /* 注册弹窗 */
 /* 注册模态框风格保持一致 */
 .register-modal {
@@ -5267,6 +5241,41 @@ form select:focus {
 
 .register-form input::placeholder {
     text-align: center; /* 让 placeholder 居中 */
+}
+
+@media (max-width: 1280px) {
+  .register-form {
+    padding: 10px 80px 40px;
+    width: 280px;
+  }
+
+  .register-form h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+
+  .register-form .gender-id-row {
+    gap: 10px;
+  }
+
+  .register-form .gender-select {
+    height: clamp(30px, 3.2vw, 40px);
+  }
+
+  .register-form button[type="submit"] {
+    font-size: 14px;
+  }
+
+  .register-form .password-note {
+    font-size: 8px;
+    margin: 3px 0 0px 0;
+  }
+
+  .register-form input[type="text"],
+  .register-form input[type="email"],
+  .register-form input[type="password"] {
+    height: clamp(30px, 3.2vw, 40px);
+  }    
 }
 
 .password-container {
