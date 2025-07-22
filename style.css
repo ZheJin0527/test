@@ -5006,7 +5006,8 @@ form select:focus {
   }
 
   .login-form button[type="submit"] {
-    font-size: 14px;
+    padding: 4px;
+    font-size: clamp(8px, 1.1vw, 14px);
   }
 
   .login-form .link {
@@ -5263,7 +5264,8 @@ form select:focus {
   }
 
   .register-form button[type="submit"] {
-    font-size: 14px;
+    padding: 4px;
+    font-size: clamp(8px, 1.1vw, 14px);
   }
 
   .register-form .password-note {
