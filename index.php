@@ -46,7 +46,13 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <!-- 右侧区域 -->
   <div class="right-section">
     <!-- 移动端隐藏 login，仅大屏显示 -->
-    
+    <div class="login-dropdown">
+      <button class="login-btn" id="loginBtn">LOGIN</button>
+        <div class="login-dropdown-menu" id="loginDropdownMenu">
+          <a href="login.html" class="login-dropdown-item">员工登入</a>
+          <a href="login.html" class="login-dropdown-item">会员登入</a>
+        </div>
+      </div>
 
     <!-- 翻译按钮始终显示 -->
     <div class="language-switch">
@@ -228,6 +234,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 const navMenu = document.getElementById('navMenu');
 const loginBtn = document.querySelector('.login-btn');
 
+// 登录下拉菜单元素
+const loginDropdownMenu = document.getElementById('loginDropdownMenu');
+
 function moveLoginBtn() {
   if (window.innerWidth <= 768) {
     if (!navMenu.contains(loginBtn)) {
@@ -247,12 +256,73 @@ hamburger.addEventListener('click', () => {
   navMenu.classList.toggle('active');
 });
 
+// 登录下拉菜单功能 - 改为鼠标悬停触发
+let hoverTimeout;
+
+// 鼠标进入登录按钮区域时显示下拉菜单
+loginBtn.addEventListener('mouseenter', function() {
+  // 清除可能存在的隐藏延时
+  clearTimeout(hoverTimeout);
+  
+  // 显示菜单
+  loginDropdownMenu.classList.add('show');
+  loginBtn.classList.add('active');
+});
+
+// 鼠标离开登录按钮区域时延迟隐藏下拉菜单
+loginBtn.addEventListener('mouseleave', function() {
+  // 设置延时隐藏，给用户时间移动到下拉菜单
+  hoverTimeout = setTimeout(() => {
+    loginDropdownMenu.classList.remove('show');
+    loginBtn.classList.remove('active');
+  }, 200); // 200ms延迟
+});
+
+// 鼠标进入下拉菜单时保持显示
+loginDropdownMenu.addEventListener('mouseenter', function() {
+  // 清除隐藏延时
+  clearTimeout(hoverTimeout);
+  
+  // 确保菜单保持显示
+  loginDropdownMenu.classList.add('show');
+  loginBtn.classList.add('active');
+});
+
+// 鼠标离开下拉菜单时隐藏
+loginDropdownMenu.addEventListener('mouseleave', function() {
+  loginDropdownMenu.classList.remove('show');
+  loginBtn.classList.remove('active');
+});
+
+// 点击下拉菜单项时的处理
+const loginDropdownItems = document.querySelectorAll('.login-dropdown-item');
+loginDropdownItems.forEach(item => {
+  item.addEventListener('click', function(e) {
+    // 这里可以添加具体的跳转逻辑
+    console.log('选择了：', this.textContent);
+    
+    // 关闭下拉菜单
+    loginDropdownMenu.classList.remove('show');
+    loginBtn.classList.remove('active');
+    
+    // 如果需要阻止默认跳转，取消注释下面这行
+    // e.preventDefault();
+  });
+});
+
+// ESC键关闭下拉菜单
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    loginDropdownMenu.classList.remove('show');
+    loginBtn.classList.remove('active');
+  }
+});
+
 // 页面加载时处理
 window.addEventListener('DOMContentLoaded', moveLoginBtn);
 
 // 窗口大小改变时也处理，防止resize后login位置错乱
 window.addEventListener('resize', moveLoginBtn);
-
 </script>
 <script>
   const observer = new IntersectionObserver((entries) => {
