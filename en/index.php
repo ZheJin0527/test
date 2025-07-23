@@ -171,8 +171,8 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4><a href="index.php">Home</a></h4>
       <ul>
-        <li><a href="#" onclick="goToSlide(1); return false;">公司简介</a></li>
-        <li><a href="#" onclick="goToSlide(2); return false;">公司文化</a></li>
+        <li><a href="#" onclick="goToSlide(1); return false;">Company Profile</a></li>
+        <li><a href="#" onclick="goToSlide(2); return false;">Company Culture</a></li>
       </ul>
     </div>
 
