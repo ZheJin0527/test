@@ -5052,7 +5052,7 @@ form select:focus {
 
 @media (max-width: 1280px) {
   .login-form {
-    padding: 10px 80px 40px;
+    padding: 10px 60px 40px;
     width: 280px;
   }
 
@@ -5314,7 +5314,7 @@ form select:focus {
 
 @media (max-width: 1280px) {
   .register-form {
-    padding: 10px 80px 40px;
+    padding: 10px 60px 40px;
     width: 280px;
   }
 
@@ -5599,7 +5599,7 @@ form select {
 
 @media (max-width: 1280px) {
   .reset-password-form {
-    padding: 10px 80px 40px;
+    padding: 10px 60px 40px;
     width: 280px;
   }
 
