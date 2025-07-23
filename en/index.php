@@ -113,17 +113,17 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="stats-section">
     <div class="stat-box">
       <div class="stat-number">2023</div>
-      <div class="stat-label">成立年份</div>
+      <div class="stat-label">Year of Establishment</div>
     </div>
     <div class="divider"></div>
     <div class="stat-box">
       <div class="stat-number">3</div>
-      <div class="stat-label">子公司数量</div>
+      <div class="stat-label">Number of Subsidiaries</div>
     </div>
     <div class="divider"></div>
     <div class="stat-box">
       <div class="stat-number">60+</div>
-      <div class="stat-label">员工数量</div>
+      <div class="stat-label">Number of Employees</div>
     </div>
   </div> 
   </section>
