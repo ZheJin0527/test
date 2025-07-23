@@ -519,7 +519,7 @@ updatePageIndicator(0);
   window.addEventListener('load', () => {
     // 创建一个虚拟图片对象检测背景图是否加载完成
     const bgImg = new Image();
-    bgImg.src = "images/images/封面7.png";
+    bgImg.src = "https://kunzzgroup.com/images/images/封面7.png";
 
     bgImg.onload = function () {
 
