@@ -84,9 +84,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <h1 class="scale-fade-in">Make The Space Warm<br>Let The Team Shine</h1>
       <div class="decor-line scale-fade-in"></div>
       <p class="scale-fade-in">
-        我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
-        我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
-        才能创造持续的价值，向着行业标杆的方向，稳步前行。
+        We build a comfortable atmosphere with details and nourish every passion and dedication in a positive culture.<br />
+        We believe that efficiency comes from trust and innovation comes from freedom. A team with warmth, <br />
+        can create sustained value and move steadily forward in the direction of the industry benchmark.
       </p>
     </div>
   </section>
