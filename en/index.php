@@ -58,8 +58,8 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="language-switch">
       <a href="#" class="lang" id="languageBtn">EN | CN</a>
         <div class="language-dropdown-menu" id="languageDropdownMenu">
-          <a href="#" class="language-dropdown-item" data-lang="en">英文</a>
-          <a href="#" class="language-dropdown-item" data-lang="cn">中文</a>
+          <a href="/en/" class="language-dropdown-item" data-lang="en">英文</a>
+          <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
         </div>
       </div>
 
