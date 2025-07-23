@@ -1457,27 +1457,27 @@ nav {
   }
 
   .culture-right {
-    max-width: clamp(240px, 32vw, 480px); /* 从280px-560px减小到240px-480px */
-    padding: 0 clamp(10px, 2vw, 20px); /* 从12px-28px减小到10px-20px */
+    max-width: clamp(240px, 32vw, 480px);
+    padding: 0 clamp(10px, 2vw, 20px);
   }
 
   .culture-title {
-    font-size: clamp(20px, 1.9vw, 36px); /* 从20px-46px减小到16px-36px */
+    font-size: clamp(20px, 1.9vw, 36px);
     margin-bottom: clamp(8px, 1.2vw, 16px);
   }
 
   .culture-description {
-    font-size: clamp(8px, 1.1vw, 13px); /* 从10px-16px减小到8px-13px */
+    font-size: clamp(8px, 1.1vw, 13px);
     line-height: 1.3;
     margin-bottom: clamp(12px, 2vw, 20px);
   }
 
   .culture-button {
-    width: clamp(50px, 4.3vw, 55px); /* 从40px-80px减小到35px-70px */
-    height: clamp(15px, 2.03vw, 26px); /* 从26px-30px减小到22px-26px */
-    padding: clamp(3px, 0.4vw, 6px) clamp(8px, 1vw, 14px); /* 减小内边距 */
-    font-size: clamp(9px, 0.7vw, 15px); /* 从12px-18px减小到10px-15px */
-    border-radius: clamp(6px, 0.6vw, 10px); /* 从8px-12px减小到6px-10px */
+    width: clamp(50px, 4.3vw, 55px);
+    height: clamp(15px, 2.03vw, 26px);
+    padding: clamp(3px, 0.4vw, 6px) clamp(8px, 1vw, 14px);
+    font-size: clamp(9px, 0.7vw, 15px);
+    border-radius: clamp(6px, 0.6vw, 10px);
   }
 }
 
