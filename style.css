@@ -5062,7 +5062,7 @@ form select:focus {
   }
 
   .login-form label.input-label {
-    font-size: 14px;
+    font-size: clamp(12px, 1.1vw, 14px);
     color: #333;
     margin-top: 10px;
     margin-bottom: 5px;
