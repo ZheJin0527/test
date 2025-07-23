@@ -880,7 +880,7 @@ nav {
     /* 字体大小响应式缩小 */
     font-size: clamp(16px, 1.8vw, 20px);
     font-weight: normal;
-    letter-spacing: clamp(3px, 0.4vw, 7px);
+    letter-spacing: clamp(0.5px, 0.06vw, 1px);
     line-height: 165%;
     margin-top: 0px;
     margin-bottom: clamp(50px, 5vw, 90px);
