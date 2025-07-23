@@ -2203,7 +2203,7 @@ nav {
 
 .vision {
     min-height: 100vh;
-    background: url('images/images/背景4.png') no-repeat center center/cover;
+    background: url('https://kunzzgroup.com/images/images/背景4.png') no-repeat center center/cover;
     color: white;
     display: flex;
     align-items: center;
@@ -2267,7 +2267,7 @@ nav {
     padding: 8px 18px;
     border-radius: 32px;
     margin: clamp(10px, 1.7vw, 32px) 10px 10px;
-    width: clamp(100px, 12vw, 225px);
+    width: clamp(100px, 13vw, 250px);
 }
 
 .vision-card h2 {
