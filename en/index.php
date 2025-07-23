@@ -218,17 +218,17 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 <div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="images/images/fbicon.png" alt="Facebook">
+        <img src="https://kunzzgroup.com/images/images/fbicon.png" alt="Facebook">
     </a>
 
     <!-- Instagram -->
     <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="images/images/igicon.png" alt="Instagram">
+        <img src="https://kunzzgroup.com/images/images/igicon.png" alt="Instagram">
     </a>
 
     <!-- WhatsApp -->
     <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="images/images/wsicon.png" alt="WhatsApp">
+        <img src="https://kunzzgroup.com/images/images/wsicon.png" alt="WhatsApp">
     </a>
 </div>
   
