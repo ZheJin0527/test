@@ -169,7 +169,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <section class="scroll-buffer">
     <footer class="footer">
     <div class="footer-section">
-      <h4><a href="index.php">首页</a></h4>
+      <h4><a href="index.php">Home</a></h4>
       <ul>
         <li><a href="#" onclick="goToSlide(1); return false;">公司简介</a></li>
         <li><a href="#" onclick="goToSlide(2); return false;">公司文化</a></li>
@@ -177,7 +177,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
 
     <div class="footer-section">
-      <h4><a href="about.html">关于我们</a></h4>
+      <h4><a href="about.html">About Us</a></h4>
       <ul>
         <li><a href="about.html#intro">集团简介</a></li>
         <li><a href="about.html#vision">信念与方向</a></li>
@@ -187,14 +187,14 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
 
     <div class="footer-section">
-      <h4>旗下品牌</h4>
+      <h4>Brands</h4>
       <ul>
         <li><a href="tokyo-japanese-cuisine.html">TOKYO JAPANESE </br>CUISINE</li>
       </ul>
     </div>
 
     <div class="footer-section">
-      <h4><a href="joinus.html">加入我们</a></h4>
+      <h4><a href="joinus.html">Join Us</a></h4>
       <ul>
         <li><a href="joinus.html">公司福利</li>
         <li><a href="joinus.html#comphoto-container">我们的足迹</li>
