@@ -283,7 +283,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
             loginHoverTimeout = setTimeout(() => {
                 loginDropdownMenu.classList.remove('show');
                 loginBtn.classList.remove('active');
-            }, 200); // 200ms延迟
+            }, 100); // 200ms延迟
         });
 
         // 鼠标进入登录下拉菜单时保持显示
