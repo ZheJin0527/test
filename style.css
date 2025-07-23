@@ -5431,18 +5431,18 @@ form select:focus {
   }
 
   .login-form .eye-icon {
-    width: 14px;
-    height: 10px;
+    width: 12px;
+    height: 9px;
   }
 
   .reset-password-form .eye-icon {
-    width: 14px;     /* 更小的尺寸 */
-    height: 10px;
+    width: 12px;
+    height: 9px;
   }
 
   .register-form .eye-icon {
-    width: 14px;
-    height: 10px;
+    width: 12px;
+    height: 9px;
   }
 }
 
