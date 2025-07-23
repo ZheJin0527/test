@@ -155,10 +155,10 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
 
     <div class="culture-right animate-on-scroll">
-      <h2 class="culture-title animate-on-scroll culture-scale-fade delay-6">我们的核心价值<br>公司文化</h2>
+      <h2 class="culture-title animate-on-scroll culture-scale-fade delay-6">Our Core Values<br>Company Culture</h2>
       <p class="culture-description animate-on-scroll culture-scale-fade delay-7">
-        在 Kunzz Holdings，我们相信文化决定高度。我们以目标为导向，理念为基石，打造一支具备高效执行力与高度协同精神的团队。
-        我们提倡扁平沟通，尊重每一位成员的成长节奏，鼓励分享、学习与共创。在这里，每一份努力都能被看见，每一次突破都值得被鼓励。
+        At Kunzz Holdings, we believe that culture determines height. We are goal-oriented and based on ideas to build a team with efficient execution and high collaborative spirit.
+        We advocate flat communication, respect the growth rhythm of each member, and encourage sharing, learning and co-creation. Here, every effort can be seen and every breakthrough is worth encouraging.
       </p>
       <a href="about.html" class="culture-button animate-on-scroll culture-scale-fade delay-8">了解更多 &gt;&gt;</a>
     </div>
