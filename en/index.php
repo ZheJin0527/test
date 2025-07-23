@@ -37,10 +37,10 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <!-- 中间导航（默认显示，大屏） -->
   <nav class="nav-links" id="navMenu">
-    <div class="nav-item"><a href="index.php">首页</a></div>
-    <div class="nav-item"><a href="about.html">关于我们</a></div>
-    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
-    <div class="nav-item"><a href="joinus.html">加入我们</a></div>
+    <div class="nav-item"><a href="index.php">Home</a></div>
+    <div class="nav-item"><a href="about.html">About Us</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">Brands</a></div>
+    <div class="nav-item"><a href="joinus.html">Join Us</a></div>
   </nav>
 
   <!-- 右侧区域 -->
