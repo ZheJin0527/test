@@ -160,7 +160,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
         At Kunzz Holdings, we believe that culture determines height. We are goal-oriented and based on ideas to build a team with efficient execution and high collaborative spirit.
         We advocate flat communication, respect the growth rhythm of each member, and encourage sharing, learning and co-creation. Here, every effort can be seen and every breakthrough is worth encouraging.
       </p>
-      <a href="about.html" class="culture-button animate-on-scroll culture-scale-fade delay-8">了解更多 &gt;&gt;</a>
+      <a href="about.html" class="culture-button animate-on-scroll culture-scale-fade delay-8">Learn More &gt;&gt;</a>
     </div>
   </section>
   </div>
