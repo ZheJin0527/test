@@ -140,7 +140,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <div class="culture-card">
         <img src="https://kunzzgroup.com/images/images/高效执行 (1).png" alt="icon" class="culture-icon">
         <h3>Efficient</h3>
-        <p>说到做到，快速响应<br>追求结果导向与行动力</p>
+        <p>Say it, do it. Respond fast.<br>Be result-driven and action-oriented.</p>
       </div>
       <div class="culture-card">
         <img src="https://kunzzgroup.com/images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
