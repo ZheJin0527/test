@@ -97,16 +97,16 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="comprofile-section">
     <div class="comprofile-text">
         <p class="comprofile-subtitle animate-on-scroll slide-in-left delay-1">
-            <span class="circle"></span>公司简介
+            <span class="circle"></span>Company Profile
         </p>
       <h2 class="comprofile-title animate-on-scroll slide-in-left delay-2">KUNZZ HOLDINGS</h2>
       <p class="comprofile-description animate-on-scroll slide-in-left delay-3">
-        Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
+        Kunzz Holdings was established in 2024 with the original intention of establishing a unified management platform for its businesses and improving the efficiency of resource integration. We adhere to the mission of "creating a positive and comfortable working environment", continue to promote the construction of organizational atmosphere, and achieve a warmer corporate culture. We believe in the core spirit of positivity, efficiency, flexibility, and integrity, always take goal orientation and consistent concepts as the criteria, pursue excellence, and be innovative.
       </p>
     </div>
     <div class="comprofile-image animate-on-scroll rotate-3d-full">
       <!-- 你可以换成自己的图片 -->
-      <img src="images/images/logo.png" alt="公司介绍图" />
+      <img src="https://kunzzgroup.com/images/images/logo.png" alt="公司介绍图" />
     </div>
   </div>
 
