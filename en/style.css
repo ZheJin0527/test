@@ -870,7 +870,7 @@ nav {
     font-weight: bold;
     margin-bottom: clamp(20px, 2vw, 40px);
     line-height: 140%;
-    letter-spacing: 1.4%;
+    letter-spacing: 1.4px;
     text-shadow:
         10px 10px 12px rgba(0, 0, 0, 0.5),
         4px 4px 20px rgba(0, 0, 0, 0.5);
@@ -1131,6 +1131,7 @@ nav {
     font-family: 'Source Sans Pro', sans-serif;
     color: #888888;
     line-height: 1.6;
+    letter-spacing: 0.5px;
     margin-left: clamp(2px, 0.5vw, 4px);
 }
 
