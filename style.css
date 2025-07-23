@@ -4805,7 +4805,7 @@ form select:focus {
     height: clamp(380px, 25vw, 400px);
     border: none;
     display: block;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.8);
 }
 
 /* ======= 1280px 以下 ======= */
