@@ -56,7 +56,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
     <!-- 翻译按钮始终显示 -->
     <div class="language-switch">
-      <a href="#" class="lang" id="languageBtn">EN | CN</a>
+      <button class="lang" id="languageBtn">EN | CN</button>
         <div class="language-dropdown-menu" id="languageDropdownMenu">
           <a href="/en/" class="language-dropdown-item" data-lang="en">英文</a>
           <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
