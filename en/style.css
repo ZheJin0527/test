@@ -1473,7 +1473,7 @@ nav {
   }
 
   .culture-button {
-    width: clamp(50px, 4.65vw, 90px);
+    width: clamp(55px, 5.65vw, 90px);
     height: clamp(20px, 1.6vw, 26px);
     padding: clamp(0px, 0.4vw, 5px) clamp(8px, 1vw, 14px);
     font-size: clamp(9px, 0.7vw, 15px);
