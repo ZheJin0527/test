@@ -133,23 +133,23 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <section id="culture" class="culture-section">
     <div class="culture-left animate-on-scroll card-tilt-in-left">
       <div class="culture-card">
-        <img src="images/images/积极向上 (1).png" alt="icon" class="culture-icon">
-        <h3>积极向上</h3>
-        <p>始终以正面心态面对挑战<br>在变化中寻找成长机会</p>
+        <img src="https://kunzzgroup.com/images/images/积极向上 (1).png" alt="icon" class="culture-icon">
+        <h3>Positive</h3>
+        <p>Stay positive in the face of challenges<br>Embrace change as an opportunity to grow</p>
       </div>
       <div class="culture-card">
-        <img src="images/images/高效执行 (1).png" alt="icon" class="culture-icon">
-        <h3>高效执行</h3>
+        <img src="https://kunzzgroup.com/images/images/高效执行 (1).png" alt="icon" class="culture-icon">
+        <h3>Efficient</h3>
         <p>说到做到，快速响应<br>追求结果导向与行动力</p>
       </div>
       <div class="culture-card">
-        <img src="images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
-        <h3>灵活应变</h3>
+        <img src="https://kunzzgroup.com/images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
+        <h3>Flexible</h3>
         <p>面对市场变化和问题<br>保持开放思维，快速调整策略</p>
       </div>
       <div class="culture-card">
-        <img src="images/images/诚信待人 (1).png" alt="icon" class="culture-icon">
-        <h3>诚信待人</h3>
+        <img src="https://kunzzgroup.com/images/images/诚信待人 (1).png" alt="icon" class="culture-icon">
+        <h3>Honesty</h3>
         <p>以真诚与责任建立合作与信任<br>是我们最基本的做人原则</p>
       </div>
     </div>
