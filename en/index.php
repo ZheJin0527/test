@@ -135,22 +135,22 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
       <div class="culture-card">
         <img src="https://kunzzgroup.com/images/images/积极向上 (1).png" alt="icon" class="culture-icon">
         <h3>Positive</h3>
-        <p>Stay positive in the face of challenges<br>Embrace change as an opportunity to grow</p>
+        <p>Stay Positive in Challenges<br>Embrace Change to Grow</p>
       </div>
       <div class="culture-card">
         <img src="https://kunzzgroup.com/images/images/高效执行 (1).png" alt="icon" class="culture-icon">
         <h3>Efficient</h3>
-        <p>Say it, do it. Respond fast.<br>Be result-driven and action-oriented.</p>
+        <p>Say it, do it. Respond fast.<br>Result-Driven & Action-Oriented</p>
       </div>
       <div class="culture-card">
         <img src="https://kunzzgroup.com/images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
         <h3>Flexible</h3>
-        <p>面对市场变化和问题<br>保持开放思维，快速调整策略</p>
+        <p>Face Change and Challenges<br>Stay Open and Adjust Fast</p>
       </div>
       <div class="culture-card">
         <img src="https://kunzzgroup.com/images/images/诚信待人 (1).png" alt="icon" class="culture-icon">
         <h3>Honesty</h3>
-        <p>以真诚与责任建立合作与信任<br>是我们最基本的做人原则</p>
+        <p>Build Trust with Sincerity<br>is Our Core Principle</p>
       </div>
     </div>
 
