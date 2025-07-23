@@ -1381,6 +1381,7 @@ nav {
     color: white;
     margin-bottom: clamp(24px, 4vh, 48px);
     line-height: 140%;
+    letter-spacing: 0.5px;
     word-break: break-word;
     max-width: 100%;
 }
