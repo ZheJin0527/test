@@ -5599,7 +5599,7 @@ form select {
 
 @media (max-width: 1280px) {
   .reset-password-form {
-    padding: 10px 60px 40px;
+    padding: 10px 60px 30px;
     width: 280px;
   }
 
