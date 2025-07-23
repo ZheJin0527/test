@@ -4303,7 +4303,7 @@ form select:focus {
   form select {
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(8px, 0.73vw, 10px);
-    height: clamp(24px, 2.35vw, 30px);
+    height: clamp(28px, 2.35vw, 30px);
   }
 }
 
@@ -5075,7 +5075,7 @@ form select:focus {
 
   .login-form button[type="submit"] {
     padding: 4px;
-    font-size: clamp(8px, 1.1vw, 14px);
+    font-size: clamp(10px, 1.1vw, 14px);
   }
 
   .login-form .link {
@@ -5328,12 +5328,12 @@ form select:focus {
   }
 
   .register-form .gender-select {
-    height: clamp(24px, 2.35vw, 30px);
+    height: clamp(28px, 2.35vw, 30px);
   }
 
   .register-form button[type="submit"] {
     padding: 4px;
-    font-size: clamp(8px, 1.1vw, 14px);
+    font-size: clamp(10px, 1.1vw, 14px);
   }
 
   .register-form .password-note {
@@ -5344,7 +5344,7 @@ form select:focus {
   .register-form input[type="text"],
   .register-form input[type="email"],
   .register-form input[type="password"] {
-    height: clamp(24px, 2.35vw, 30px);
+    height: clamp(28px, 2.35vw, 30px);
   }    
 }
 
@@ -5420,7 +5420,7 @@ form select:focus {
 
 @media (max-width: 1280px) {
   .password-container input {
-    height: clamp(24px, 2.35vw, 30px);
+    height: clamp(28px, 2.35vw, 30px);
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(8px, 0.73vw, 10px);
   }
@@ -5616,12 +5616,12 @@ form select {
   .reset-password-form input {
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     font-size: clamp(8px, 0.73vw, 10px);
-    height: clamp(24px, 2.35vw, 30px);
+    height: clamp(28px, 2.35vw, 30px);
   }
 
   .reset-password-form button[type="submit"] {
     padding: 4px;
-    font-size: clamp(8px, 1.1vw, 14px);
+    font-size: clamp(10px, 1.1vw, 14px);
   }
 
   .password-note {
@@ -5630,7 +5630,7 @@ form select {
   }
 
   .code-input-container {
-    height: clamp(24px, 2.35vw, 30px);
+    height: clamp(28px, 2.35vw, 30px);
   }
 
   .code-input-container #sendCodeBtn {
