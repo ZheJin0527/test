@@ -2246,7 +2246,7 @@ nav {
 
 .vision-card {
     width: clamp(500px, 45vw, 870px);
-    height: clamp(280px, 22vw, 410px);
+    height: clamp(350px, 22vw, 410px);
     background-color: #FFF3E6;
     border-radius: 20px;
     padding: 0 clamp(0px, 1.2vw, 32px);
@@ -2317,7 +2317,7 @@ nav {
 
   .vision-card {
     width: clamp(320px, 40vw, 800px);
-    height: clamp(180px, 21vw, 400px);
+    height: clamp(200px, 26vw, 330px);
     padding: 12px;
   }
 
