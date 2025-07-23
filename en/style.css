@@ -2129,7 +2129,7 @@ nav {
 }
 
 .intro-content {
-    width: 502px;
+    width: 602px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2144,7 +2144,7 @@ nav {
     font-size: clamp(50px, 4.5vw, 86px);
     font-weight: bold;
     line-height: 140%;
-    letter-spacing: 0.5%;
+    letter-spacing: 0.5px;
     margin: 0 58px 0 0;
     padding: 0;
     color: #FF5C00;
@@ -2154,7 +2154,7 @@ nav {
     font-size: clamp(12px, 1.05vw, 20px);
     font-weight: normal;
     line-height: 170%;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
     margin: 0 58px 0 0;
     padding: 0;
     color: #888888;
