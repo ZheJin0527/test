@@ -5349,8 +5349,8 @@ form select:focus {
 }
 
 .password-container {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .password-container input {
@@ -5368,56 +5368,83 @@ form select:focus {
 }
 
 .password-container input:focus {
-  border-radius: 6px;
-  outline: none; /* 可选：去掉蓝色外边框 */
+    border-radius: 6px;
+    outline: none; /* 可选：去掉蓝色外边框 */
 }
 
 .login-form .eye-icon {
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  width: 16px;     /* 更小的尺寸 */
-  height: 12px;
-  cursor: pointer;
-  opacity: 0.7;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 14px;     /* 更小的尺寸 */
+    height: 10px;
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .reset-password-form .eye-icon {
-  position: absolute;
-  top: 60%;
-  right: 15px;
-  transform: translateY(-50%);
-  width: 16px;     /* 更小的尺寸 */
-  height: 12px;
-  cursor: pointer;
-  opacity: 0.7;
+    position: absolute;
+    top: 60%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 14px;     /* 更小的尺寸 */
+    height: 10px;
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .register-form .eye-icon {
-  position: absolute;
-  top: 60%;
-  right: 15px;
-  transform: translateY(-50%);
-  width: 16px;     /* 更小的尺寸 */
-  height: 12px;
-  cursor: pointer;
-  opacity: 0.7;
+    position: absolute;
+    top: 60%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 14px;     /* 更小的尺寸 */
+    height: 10px;
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .eye-icon:hover {
-  opacity: 1;
-  border-radius: 10px;
+    opacity: 1;
+    border-radius: 10px;
 }
 
 /* form-options：让“记住我”和“忘记密码”在一行两侧 */
 .form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
 }
 
+@media (max-width: 1280px) {
+  .password-container input {
+    height: clamp(24px, 2.35vw, 30px);
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    font-size: clamp(8px, 0.73vw, 10px);
+  }
+
+  .password-container input:focus {
+    border-radius: 6px;
+    outline: none; /* 可选：去掉蓝色外边框 */
+  }
+
+  .login-form .eye-icon {
+    width: 14px;
+    height: 10px;
+  }
+
+  .reset-password-form .eye-icon {
+    width: 14px;     /* 更小的尺寸 */
+    height: 10px;
+  }
+
+  .register-form .eye-icon {
+    width: 14px;
+    height: 10px;
+  }
+}
 
 
 
@@ -5570,6 +5597,59 @@ form select {
     border-left: 1px solid #ddd !important;
 }
 
+@media (max-width: 1280px) {
+  .reset-password-form {
+    padding: 10px 80px 40px;
+    width: 280px;
+  }
+
+  form.reset-password-form input[type="text"],
+  form select {
+    height: 24px;
+    font-size: clamp(8px, 0.73vw, 10px);
+  }
+
+  .reset-password-form h2 {
+    font-size: clamp(30px, 3.125vw, 40px);
+  }
+
+  .reset-password-form input {
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
+    font-size: clamp(8px, 0.73vw, 10px);
+    height: clamp(24px, 2.35vw, 30px);
+  }
+
+  .reset-password-form button[type="submit"] {
+    padding: 4px;
+    font-size: clamp(8px, 1.1vw, 14px);
+  }
+
+  .password-note {
+    font-size: clamp(8px, 0.8vw, 10px);
+    margin: 5px 0 5px 0;
+  }
+
+  .code-input-container {
+    height: clamp(24px, 2.35vw, 30px);
+  }
+
+  .code-input-container #sendCodeBtn {
+    padding: 0px !important; /* 移除上下内边距 */
+    font-size: clamp(8px, 1.1vw, 14px) !important;
+    height: 100% !important; /* 让按钮高度填满容器 */
+  }
+
+  .code-input-container #sendCodeBtn:hover {
+    background: linear-gradient(to right, #FF5C00, #ffcc00) !important;
+  }
+
+  .code-input-container #sendCodeBtn:disabled {
+    background: #f0f0f0 !important;
+    color: #999 !important;
+    cursor: not-allowed !important;
+    border-left: 1px solid #ddd !important;
+  }
+}
 
 
 
