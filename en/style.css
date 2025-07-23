@@ -497,7 +497,7 @@ body::-webkit-scrollbar {
 
 .login-dropdown-item {
     display: block;
-    padding: 10px 20px;
+    padding: 10px 10px;
     color: white;
     text-decoration: none;
     font-size: 14px;
