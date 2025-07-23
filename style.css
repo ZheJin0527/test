@@ -5543,7 +5543,7 @@ form select {
 .code-input-container {
     margin-top: 10px; /* 减少上边距，从16px改为10px */
     display: flex;
-    border: 1px solid #ccc;
+    border: 2px solid rgba(15, 13, 13, 0.2);
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 0px;
