@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="images/images/logo.png">
+    <link rel="icon" type="image/png" href="https://kunzzgroup.com/images/images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNZZ HOLDINGS</title>
@@ -31,7 +31,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <!-- 左侧 logo 和公司名 -->
   <div class="logo-section">
     <a href="index.php">
-    <img src="images/images/KUNZZ.png" alt="Logo" class="logo">
+    <img src="https://kunzzgroup.com/images/images/KUNZZ.png" alt="Logo" class="logo">
     </a>
   </div>
 
@@ -56,7 +56,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
     <!-- 翻译按钮始终显示 -->
     <div class="language-switch">
-      <a href="#" class="lang" id="languageBtn">EN | CN</a>
+      <button class="lang" id="languageBtn">EN | CN</button>
         <div class="language-dropdown-menu" id="languageDropdownMenu">
           <a href="/en/" class="language-dropdown-item" data-lang="en">英文</a>
           <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
@@ -355,9 +355,12 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
         // 点击语言下拉菜单项时的处理
         const languageDropdownItems = document.querySelectorAll('.language-dropdown-item');
         languageDropdownItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
+            item.addEventListener('click', function() {
                 console.log('选择了语言：', this.textContent);
+
+                // 关闭下拉菜单（这仍然可以保留）
+                languageDropdownMenu.classList.remove('show');
+                languageBtn.classList.remove('active');
                 
                 // 更新语言按钮显示
                 const selectedLang = this.getAttribute('data-lang');

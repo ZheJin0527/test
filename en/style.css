@@ -850,7 +850,7 @@ nav {
     position: relative;
     padding: clamp(20px, 1.6vw, 30px) 0 0 0px;
     height: 100vh;
-    background: url('images/images/封面7.png') no-repeat center center/cover;
+    background: url('https://kunzzgroup.com/images/images/封面7.png') no-repeat center center/cover;
     display: flex;
     align-items: center; /* 垂直居中 */
     justify-content: center;
