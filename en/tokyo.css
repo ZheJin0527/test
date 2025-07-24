@@ -946,7 +946,7 @@ nav {
 }
 
 .about-section {
-    background: url('images/images/tokyoabout.jpg') no-repeat center center/cover;
+    background: url('https://kunzzgroup.com/images/images/tokyoabout.jpg') no-repeat center center/cover;
     height: 100vh;
     scroll-snap-align: start;
     display: flex;
