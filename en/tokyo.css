@@ -837,7 +837,7 @@ nav {
     padding: clamp(40px, 3.2vw, 60px) 0 0 0px;
     height: 100vh;
     background: linear-gradient(to right, rgb(228, 176, 103), rgba(204, 116, 0, 0)), 
-            url('images/images/j2餐厅1.jpg') no-repeat center center/cover;
+            url('https://kunzzgroup.com/images/images/j2餐厅1.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -974,6 +974,7 @@ nav {
     min-width: 200px; /* 最小宽度缩小一点 */
     padding-right: clamp(20px, 2vw, 40px); /* 右内边距响应 */
     margin-left: 100px;
+    margin-top: clamp(-100px, -2vw, 0px);
 }
 
 .tokyoabout-subtitle {
