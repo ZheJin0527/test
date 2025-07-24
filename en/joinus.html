@@ -273,24 +273,24 @@
   <!-- 意见表格 -->
   <div class="swiper-slide">
   <div class="form-wrapper">
-  <h2 class="main-title">请提供您宝贵的意见</h2>
+  <h2 class="main-title">Kindly Provide Your Feedback</h2>
   <section class="join-us-form"> 
     <form id="jobApplicationForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
 
       <!-- 中文姓名 + 性别 -->
       <div class="form-group-row">
         <div class="half-width">
-          <label for="chineseName">中文姓名*</label>
+          <label for="chineseName">Chinese Name*</label>
           <input type="hidden" name="access_key" value="a18bc4c6-2f16-4861-8d10-a3de747cab50">
           <input type="hidden" name="redirect" value="https://kunzzgroup.com/success.html">
-          <input type="text" id="chineseName" name="chineseName" placeholder="请输入中文姓名" required pattern="[\u4e00-\u9fa5]{2,}" title="请输入中文姓名（至少两个汉字）">
+          <input type="text" id="chineseName" name="chineseName" placeholder="Please enter your Chinese name" required pattern="[\u4e00-\u9fa5]{2,}" title="请输入中文姓名（至少两个汉字）">
         </div>
 
         <div class="half-width">
-          <label>性别*</label>
+          <label>Gender*</label>
           <div class="gender-options">
-            <label><input type="radio" name="gender" value="male" required> 男</label>
-            <label><input type="radio" name="gender" value="female" required> 女</label>
+            <label><input type="radio" name="gender" value="male" required> Male</label>
+            <label><input type="radio" name="gender" value="female" required> Female</label>
           </div>
         </div>
       </div>
@@ -298,42 +298,42 @@
       <!-- 英文姓名 + 职位类别 -->
       <div class="form-group-row">
         <div class="half-width">
-          <label for="englishName">英文姓名*</label>
-          <input type="text" id="englishName" name="englishName" placeholder="请输入英文姓名" required pattern="[A-Za-z ]{2,}" title="请输入英文姓名（只限字母）">
+          <label for="englishName">English Name*</label>
+          <input type="text" id="englishName" name="englishName" placeholder="Please enter your English name" required pattern="[A-Za-z ]{2,}" title="请输入英文姓名（只限字母）">
         </div>
       </div>
 
       <!-- 手机号码 -->
       <div class="form-group">
-        <label for="phone">手机号码*</label>
+        <label for="phone">Phone Number*</label>
         <div class="phone-input">
           <select id="countryCode" name="countryCode" required>
-            <option value="+60">马来西亚 (+60)</option>
-            <option value="+65">新加坡 (+65)</option>
-            <option value="+86">中国 (+86)</option>
-            <option value="+852">香港 (+852)</option>
-            <option value="+81">日本 (+81)</option>
+            <option value="+60">Malaysia (+60)</option>
+            <option value="+65">Singapore (+65)</option>
+            <option value="+86">China (+86)</option>
+            <option value="+852">Hong Kong (+852)</option>
+            <option value="+81">Japan (+81)</option>
             <!-- 可以加更多国家 -->
           </select>
-          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="请输入电话号码" required pattern="\d{1,10}" maxlength="10" inputmode="numeric" title="请输入正确手机号">
+          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Please enter your phone number" required pattern="\d{1,10}" maxlength="10" inputmode="numeric" title="请输入正确手机号">
         </div>
       </div>
 
       <!-- 电子邮箱 -->
       <div class="form-group">
-        <label for="email">电子邮箱*</label>
-        <input type="email" id="email" name="email" placeholder="请输入邮箱地址" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" title="请输入正确邮箱地址">
+        <label for="email">Email Address*</label>
+        <input type="email" id="email" name="email" placeholder="Please enter your Email Address" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" title="请输入正确邮箱地址">
       </div>
 
       <!-- 信息 -->
       <div class="form-group">
-        <label for="message">信息*</label>
+        <label for="message">Message*</label>
         <textarea id="message" name="message" rows="5" required></textarea>
       </div>
 
       <!-- 提交按钮 -->
       <div class="form-group">
-        <button type="submit" class="submit-btn">提交</button>
+        <button type="submit" class="submit-btn">Submit</button>
       </div>
     </form>
 </section>
