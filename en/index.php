@@ -182,7 +182,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
         <li><a href="about.html#intro">Group Profile</a></li>
         <li><a href="about.html#vision">Beliefs & Direction</a></li>
         <li><a href="about.html#values">Our Core Values</a></li>
-        <li><a href="about.html#timeline-1">Our Journey</a></li>
+        <li><a href="about.html#timeline-1">Milestones</a></li>
       </ul>
     </div>
 
@@ -196,8 +196,8 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4><a href="joinus.html">Join Us</a></h4>
       <ul>
-        <li><a href="joinus.html">公司福利</li>
-        <li><a href="joinus.html#comphoto-container">我们的足迹</li>
+        <li><a href="joinus.html">Benefits</li>
+        <li><a href="joinus.html#comphoto-container">Our Journey</li>
         <li><a href="joinus.html#particles">招聘的职位</li>
         <li><a href="joinus.html#map">联系我们</a></li>        
       </ul>
