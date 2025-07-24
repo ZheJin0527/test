@@ -130,7 +130,7 @@
 
     <div class="job-section">
         <div class="job-table-container">
-        <h2 class="job-table-title">目前在招聘的职位</h2>
+        <h2 class="job-table-title">Open Positions</h2>
         </div>
         <div class="jobs-grid">
             <!-- 职位1 -->
@@ -159,7 +159,7 @@
                         <div class="job-description">
                             <strong>职位详情：</strong>负责sdwdw，能吃苦耐劳，服从安排。
                         </div>
-                        <button class="apply-btn" onclick="openForm('研发工程师')">申请职位</button>
+                        <button class="apply-btn" onclick="openForm('研发工程师')">Apply</button>
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@
                         <div class="job-description">
                             <strong>职位详情：</strong>协助行政事务处理，整理文件资料，沟通协调。
                         </div>
-                        <button class="apply-btn" onclick="openForm('行政助理')">申请职位</button>
+                        <button class="apply-btn" onclick="openForm('行政助理')">Apply</button>
                     </div>
                 </div>
             </div>
@@ -221,7 +221,7 @@
                         <div class="job-description">
                             <strong>职位详情：</strong>负责产品界面设计，用户体验优化，具备良好的审美能力和创意思维。
                         </div>
-                        <button class="apply-btn" onclick="openForm('UI设计师')">申请职位</button>
+                        <button class="apply-btn" onclick="openForm('UI设计师')">Apply</button>
                     </div>
                 </div>
             </div>
@@ -235,36 +235,36 @@
             <form id="jobApplicationForm" action="https://formsubmit.co/joeytan801@gmail.com" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_redirect" value="https://kunzzgroup.com/success.html">
                 <input type="hidden" name="_captcha" value="false">
-                <h2>申请职位</h2>
-                <label>职位名称：</label>
+                <h2>Job Application</h2>
+                <label>Job Title：</label>
                 <input type="text" id="formPosition" name="position" readonly>
-                <label>中文姓名：</label>
+                <label>Chinese Name：</label>
                 <input type="text" name="chinese_name" required pattern="[\u4e00-\u9fa5]{2,}" title="请输入中文姓名（至少两个汉字）">
-                <label>英文姓名：</label>
+                <label>English Name：</label>
                 <input type="text" name="english_name" required pattern="[A-Za-z ]{2,}" title="请输入英文姓名（只限英文字母）">
-                <label>电子邮箱：</label>
+                <label>Email Address：</label>
                 <input type="email" name="email" required>
-                <label>电话号码：</label>
+                <label>Phone Number：</label>
                 <div class="phone-group">
                     <select name="country_code" required>
-                        <option value="+60">马来西亚 (+60)</option>
-                        <option value="+65">新加坡 (+65)</option>
-                        <option value="+86">中国 (+86)</option>
-                        <option value="+852">香港 (+852)</option>
-                        <option value="+81">日本 (+81)</option>
+                        <option value="+60">Malaysia (+60)</option>
+                        <option value="+65">Singapore (+65)</option>
+                        <option value="+86">China (+86)</option>
+                        <option value="+852">Hong Kong (+852)</option>
+                        <option value="+81">Japan (+81)</option>
                     </select>
                     <input type="tel" name="phone" required pattern="\d{1,10}" maxlength="10" title="请输入最多10位数字的电话号码">
                 </div>
-                <label>性别：</label>
+                <label>Gender：</label>
                 <select name="gender" required>
-                    <option value="">请选择</option>
-                    <option value="male">男</option>
-                    <option value="female">女</option>
-                    <option value="other">其他</option>
+                    <option value="">Please select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
                 </select>
-                <label>上传简历（PDF，≤3MB）：</label>
+                <label>Upload Resume（PDF，≤3MB）：</label>
                 <input type="file" name="resume" id="resume" accept=".pdf" required>
-                <button type="submit" class="submit-btn">提交申请</button>
+                <button type="submit" class="submit-btn">Submit</button>
             </form>
         </div>
     </div>
