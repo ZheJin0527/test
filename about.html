@@ -435,9 +435,12 @@
         // 点击语言下拉菜单项时的处理
         const languageDropdownItems = document.querySelectorAll('.language-dropdown-item');
         languageDropdownItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
+            item.addEventListener('click', function() {
                 console.log('选择了语言：', this.textContent);
+
+                // 关闭下拉菜单（这仍然可以保留）
+                languageDropdownMenu.classList.remove('show');
+                languageBtn.classList.remove('active');
                 
                 // 更新语言按钮显示
                 const selectedLang = this.getAttribute('data-lang');
