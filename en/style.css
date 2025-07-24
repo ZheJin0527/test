@@ -3416,7 +3416,7 @@ nav {
         5px 5px 10px rgba(0, 0, 0, 0.4),
         0 0 30px rgba(255, 165, 0, 0.5); /* 添加橙色光晕 */
     z-index: 10;
-    letter-spacing: 0.4em;
+    letter-spacing: 2px;
     text-align: center;
     animation: comphoto-title-3d 3s ease-in-out infinite alternate;
     user-select: none;
