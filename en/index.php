@@ -189,7 +189,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4>Brands</h4>
       <ul>
-        <li><a href="tokyo-japanese-cuisine.html">TOKYO JAPANESE </br>CUISINE</li>
+        <li><a href="tokyo-japanese-cuisine.html">Tokyo Japanese </br>Cuisine</li>
       </ul>
     </div>
 
