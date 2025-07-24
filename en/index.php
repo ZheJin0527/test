@@ -179,10 +179,10 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4><a href="about.html">About Us</a></h4>
       <ul>
-        <li><a href="about.html#intro">集团简介</a></li>
-        <li><a href="about.html#vision">信念与方向</a></li>
-        <li><a href="about.html#values">核心价值观</a></li>
-        <li><a href="about.html#timeline-1">发展历史</a></li>
+        <li><a href="about.html#intro">Group Profile</a></li>
+        <li><a href="about.html#vision">Beliefs & Direction</a></li>
+        <li><a href="about.html#values">Our Core Values</a></li>
+        <li><a href="about.html#timeline-1">Our Journey</a></li>
       </ul>
     </div>
 
