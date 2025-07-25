@@ -60,7 +60,7 @@
       <p class="password-note">请输入相同的新密码</p>
 
       <div id="code-container">
-      <input type="text" id="verification_code" placeholder="输入申请码" maxlength="6" pattern="\d{6}" inputmode="numeric" required>
+      <input type="text" id="verification_code" name="application_code" placeholder="输入申请码" maxlength="6" pattern="\d{6}" inputmode="numeric" required>
       </div>
       <button type="submit">注册</button>
     </form>
@@ -69,175 +69,73 @@
 
   <script src="app.js"></script>
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const togglePassword = document.getElementById("toggle-password");
-  const password = document.getElementById("password");
-  const toggleConfirmPassword = document.getElementById("toggle-confirm");
-  const confirmPassword = document.getElementById("confirm_password");
-  let visiblePassword = false;
-  let visibleConfirmPassword = false;
+document.getElementById("register-form").addEventListener("submit", function (event) {
+  event.preventDefault();
 
-  togglePassword.addEventListener("click", function () {
-    visiblePassword = !visiblePassword;
-    password.type = visiblePassword ? "text" : "password";
-  });
+  const form = event.target;
 
-  toggleConfirmPassword.addEventListener("click", function () {
-    visibleConfirmPassword = !visibleConfirmPassword;
-    confirmPassword.type = visibleConfirmPassword ? "text" : "password";
-  });
+  const email = form.email.value.trim();
+  const password = form.password.value.trim();
+  const confirmPassword = form.confirm_password.value.trim();
+  const applicationCode = form.application_code.value.trim();
 
-  const form = document.getElementById("register-form");
-  const codeContainer = document.getElementById("code-container");
-  const verifyBtn = document.getElementById("verify-button");
-  const codeInput = document.getElementById("verification_code");
+  // 验证邮箱必须是 Gmail
+  if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email)) {
+    alert("请输入有效的 Gmail 地址。");
+    return;
+  }
 
-  let formData = null;
+  // 验证密码强度（至少8位，至少一个字母和数字）
+  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+    alert("密码必须至少8位，包含字母和数字。");
+    return;
+  }
 
-  // ⚠️ 禁止用户名、邮箱、密码、确认密码输入中文字符
-  const emailInput = form.email;
-  [emailInput, password, confirmPassword].forEach(input => {
-    input.addEventListener("input", function () {
-      this.value = this.value.replace(/[\u4e00-\u9fa5]/g, '');
-    });
-  });
+  // 验证密码不包含中文
+  if (/[\u4e00-\u9fa5]/.test(password)) {
+    alert("密码不能包含中文字符。");
+    return;
+  }
 
-  // ⚠️ 限制验证码只能输入 6 位数字
-  codeInput.setAttribute("maxlength", "6");
-  codeInput.setAttribute("pattern", "\\d{6}");
-  codeInput.setAttribute("title", "请输入 6 位数字验证码");
-  codeInput.setAttribute("inputmode", "numeric");
-  codeInput.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, '');
-  });
+  // 验证两次密码一致
+  if (password !== confirmPassword) {
+    alert("两次输入的密码不一致。");
+    return;
+  }
 
-  // ✅ 新增输入限制：
-  // 身份证号码只能输入 12 位数字
-  const icInput = form.ic_number;
-  icInput.setAttribute("maxlength", "12");
-  icInput.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, '').slice(0, 12);
-  });
+  // 验证申请码是否填写
+  if (!applicationCode) {
+    alert("请输入申请码。");
+    return;
+  }
 
-  // 联系电话只能输入 12 位数字
-  const phoneInput = form.phone_number;
-  phoneInput.setAttribute("maxlength", "12");
-  phoneInput.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, '').slice(0, 12);
-  });
-
-  // 职位只能输入中英文，不允许数字和特殊符号
-  const positionInput = form.position;
-  positionInput.addEventListener("input", function () {
-    this.value = this.value.replace(/[^a-zA-Z\u4e00-\u9fa5\s]/g, '');
-  });
-
-  // 银行户口名字只能输入英文
-  const accountHolderEnInput = form.bank_account_holder_en;
-  accountHolderEnInput.addEventListener("input", function () {
-  this.value = this.value.replace(/[^A-Za-z\s]/g, '');
-  });
-
-  // 银行户口只能输入最多 20 位数字
-  const bankAccountInput = form.bank_account;
-  bankAccountInput.setAttribute("maxlength", "20");
-  bankAccountInput.addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, '').slice(0, 20);
-  });
-
-  // 表单提交：先验证密码一致性再发送验证码
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const password = form.password.value;
-    const confirmPassword = form.confirm_password.value;
-
-    if (password !== confirmPassword) {
-      alert("两次输入的密码不一致，请检查！");
-      return;
-    }
-
-    // 收集表单数据（除了验证码）
-    formData = {
-      name: form.name.value,
-      email: form.email.value,
-      phone_number: form.phone_number.value,
-      ic_number: form.ic_number.value,
-      position: form.position.value,
-      bank_name: form.bank_name.value,
-      bank_account_holder_en: form.bank_account_holder_en.value,
-      bank_account: form.bank_account.value,
+  // 发送到后端进行注册
+  fetch("register.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
       password: password,
-      confirm_password: confirmPassword
-    };
-
-    fetch("send_verification.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: form.email.value })
+      application_code: applicationCode,
+    }),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      if (data === "success") {
+        alert("注册成功！");
+        window.location.href = "login.html";
+      } else {
+        alert("注册失败：" + data);
+      }
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          alert("验证码已发送，请查收！");
-          codeContainer.style.display = "block";
-        } else {
-          alert("验证码发送失败：" + data.message);
-        }
-      })
-      .catch(err => {
-        console.error("错误:", err);
-        alert("发生网络错误！请稍后再试。");
-      });
-  });
-
-  // 验证验证码
-  verifyBtn.addEventListener("click", function () {
-    const code = codeInput.value.trim();
-
-    if (!/^\d{6}$/.test(code)) {
-      alert("请输入 6 位数字验证码！");
-      return;
-    }
-
-    fetch("verify_code.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: form.email.value, code: code })
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          alert("验证码正确，正在注册...");
-
-          fetch("register.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData)
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (data.success) {
-                alert("注册成功！");
-                window.location.href = "login.html";
-              } else {
-                alert("注册失败：" + data.message);
-              }
-            })
-            .catch(err => {
-              console.error("错误:", err);
-              alert("注册失败，请稍后重试！");
-            });
-        } else {
-          alert("验证码错误或已过期！");
-        }
-      })
-      .catch(err => {
-        console.error("错误:", err);
-        alert("发生网络错误，请稍后再试！");
-      });
-  });
+    .catch((error) => {
+      console.error("错误:", error);
+      alert("注册请求失败，请稍后再试。");
+    });
 });
+
 </script>
 
 </body>
