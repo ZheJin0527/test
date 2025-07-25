@@ -42,22 +42,19 @@
         title="请输入以 @gmail.com 结尾的邮箱地址" />
 
       <div class="password-container">
-        <input type="password" id="password" name="password" placeholder="输入密码" required
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
-          title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
-        <img src="images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
-      </div>
+  <input type="password" id="password" name="password" placeholder="输入密码" required
+    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
+    title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
+  <img src="images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
+</div>
 
-      <p class="password-note">密码至少包含1个大写字母、小写字母、数字、特殊符号，且不少于8位</p>
+<p class="password-note">密码至少包含1个大写字母、小写字母、数字、特殊符号，且不少于8位</p>
 
-      <div class="password-container">
-        <input type="text" id="verification_code" name="application_code"
-          placeholder="输入申请码"
-          maxlength="16" pattern="[A-Za-z0-9]{4,16}"
-          title="申请码只能包含英文字母和数字，长度4-16位"
-          required>
-        <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
-      </div>
+<!-- 确认密码（新增） -->
+<div class="password-container">
+  <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required>
+  <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
+</div>
 
       <p class="password-note">请输入相同的新密码</p>
 
@@ -70,6 +67,26 @@
 </section>
 
   <script src="app.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const togglePassword = document.getElementById("toggle-password");
+  const password = document.getElementById("password");
+  const toggleConfirmPassword = document.getElementById("toggle-confirm");
+  const confirmPassword = document.getElementById("confirm_password");
+
+  togglePassword.addEventListener("click", function () {
+    const isVisible = password.type === "text";
+    password.type = isVisible ? "password" : "text";
+    this.classList.toggle("active", !isVisible);
+  });
+
+  toggleConfirmPassword.addEventListener("click", function () {
+    const isVisible = confirmPassword.type === "text";
+    confirmPassword.type = isVisible ? "password" : "text";
+    this.classList.toggle("active", !isVisible);
+  });
+});
+</script>
   <script>
 document.getElementById("register-form").addEventListener("submit", function (event) {
   event.preventDefault();
