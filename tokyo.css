@@ -515,6 +515,7 @@ body::-webkit-scrollbar {
 }
 
 .language-switch .lang {
+    all: unset;
     display: flex;
     justify-content: center;
     align-items: center;
