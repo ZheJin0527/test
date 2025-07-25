@@ -105,13 +105,13 @@ document.getElementById("register-form").addEventListener("submit", function (ev
     return;
   }
 
-  // 验证密码强度（至少8位，至少一个字母和数字）
+  // 验证密码强度（至少8位，包含字母和数字）
   if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
     alert("密码必须至少8位，包含字母和数字。");
     return;
   }
 
-  // 验证密码不包含中文
+  // 验证密码不能包含中文
   if (/[\u4e00-\u9fa5]/.test(password)) {
     alert("密码不能包含中文字符。");
     return;
@@ -123,10 +123,22 @@ document.getElementById("register-form").addEventListener("submit", function (ev
     return;
   }
 
-  // 验证申请码是否填写
-  if (!/^[A-Za-z0-9]{4,16}$/.test(applicationCode)) {
-    alert("申请码只能包含英文字母和数字，长度4~16位。");
+  // 验证申请码格式
+  if (!/^[a-zA-Z0-9-_]{4,32}$/.test(applicationCode)) {
+    alert("申请码只能包含字母、数字、连字符和下划线，长度4~32位。");
     return;
+  }
+
+  // 从申请码解析账号类型，例如：admin-xxxx、dep1-xxxx、user-xxxx
+  let accountType = "user"; // 默认类型
+  if (applicationCode.startsWith("admin-")) {
+    accountType = "admin";
+  } else if (applicationCode.startsWith("dep1-")) {
+    accountType = "department1";
+  } else if (applicationCode.startsWith("dep2-")) {
+    accountType = "department2";
+  } else {
+    accountType = "user"; // 可根据你定义的规则继续扩展
   }
 
   // 发送到后端进行注册
@@ -139,6 +151,7 @@ document.getElementById("register-form").addEventListener("submit", function (ev
       email: email,
       password: password,
       application_code: applicationCode,
+      account_type: accountType // 新增字段
     }),
   })
     .then((response) => response.text())
@@ -155,8 +168,8 @@ document.getElementById("register-form").addEventListener("submit", function (ev
       alert("注册请求失败，请稍后再试。");
     });
 });
-
 </script>
+
 
 </body>
 </html>

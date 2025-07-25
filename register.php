@@ -25,24 +25,15 @@ $email = trim($data['email'] ?? '');
 $gender = trim($data['gender'] ?? '');
 $application_code = trim($data['application_code'] ?? '');
 $password = $data['password'] ?? '';
-$confirm_password = $data['confirm_password'] ?? '';
+$account_type = trim($data['account_type'] ?? 'user'); // 新字段，默认 user
 
 // 6. 校验字段是否填写完整
-if (
-    empty($name) || empty($email) || empty($gender) ||
-    empty($application_code) || empty($password) || empty($confirm_password)
-) {
+if (empty($name) || empty($email) || empty($gender) || empty($application_code) || empty($password)) {
     echo json_encode(["success" => false, "message" => "请填写所有字段"]);
     exit;
 }
 
-// 7. 检查两次密码是否一致
-if ($password !== $confirm_password) {
-    echo json_encode(["success" => false, "message" => "两次输入的密码不一致"]);
-    exit;
-}
-
-// 8. 检查邮箱是否已注册
+// 7. 检查邮箱是否已注册
 $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -56,7 +47,7 @@ if ($stmt->num_rows > 0) {
 }
 $stmt->close();
 
-// 9. 检查申请码是否有效
+// 8. 检查申请码是否有效并未使用
 $stmt = $conn->prepare("SELECT id, used FROM application_codes WHERE code = ?");
 $stmt->bind_param("s", $application_code);
 $stmt->execute();
@@ -78,15 +69,15 @@ if ($codeData['used']) {
 }
 $stmt->close();
 
-// 10. 加密密码
+// 9. 加密密码
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// 11. 插入用户信息（新增 gender 字段）
-$stmt = $conn->prepare("INSERT INTO users (username, email, gender, password, created_at) VALUES (?, ?, ?, ?, NOW())");
-$stmt->bind_param("ssss", $name, $email, $gender, $hashed_password);
+// 10. 插入用户信息（插入 account_type 字段）
+$stmt = $conn->prepare("INSERT INTO users (username, email, gender, password, account_type, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+$stmt->bind_param("sssss", $name, $email, $gender, $hashed_password, $account_type);
 
 if ($stmt->execute()) {
-    // 12. 更新申请码为“已使用”
+    // 11. 更新申请码为“已使用”
     $codeId = $codeData['id'];
     $updateStmt = $conn->prepare("UPDATE application_codes SET used = 1, used_at = NOW() WHERE id = ?");
     $updateStmt->bind_param("i", $codeId);
@@ -98,7 +89,7 @@ if ($stmt->execute()) {
     echo json_encode(["success" => false, "message" => "注册失败：" . $stmt->error]);
 }
 
-// 13. 关闭连接
+// 12. 关闭连接
 $stmt->close();
 $conn->close();
 ?>
