@@ -106,8 +106,8 @@ document.getElementById("register-form").addEventListener("submit", function (ev
   }
 
   // 验证密码强度（至少8位，包含字母和数字）
-  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
-    alert("密码必须至少8位，包含字母和数字。");
+  if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$/.test(password)) {
+    alert("密码必须至少包含一个大写字母、小写字母、数字和特殊符号，且不少于8位，不能包含中文字符。");
     return;
   }
 
