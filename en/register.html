@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <link rel="icon" type="image/png" href="images/images/logo.png">
+  <link rel="icon" type="image/png" href="https://kunzzgroup.com/images/images/logo.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>注册 - KUNZZ HOLDINGS</title>
@@ -19,50 +19,50 @@
         <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       </button>
-    <h2>注册账号</h2>
+    <h2>Sign Up</h2>
     <form id="register-form">
-      <input type="text" name="name" placeholder="请输入您的姓名" required />
+      <input type="text" name="name" placeholder="Please enter your Chinese name" required />
 
       <div class="gender-id-row">
         <div class="gender-container">
           <select name="gender" class="gender-select" required>
-            <option value="">选择性别</option>
-            <option value="male">男</option>
-            <option value="female">女</option>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
       <div class="id-container">
-      <input type="text" name="ic_number" placeholder="身份证号码" required
+      <input type="text" name="ic_number" placeholder="IC Number" required
         pattern="\d{12}" title="请输入12位身份证号码（不含符号）" />
         </div>
       </div>
 
-      <input type="email" name="email" placeholder="请输入您的 Gmail" required
+      <input type="email" name="email" placeholder="Please enter your Email Address" required
         pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
         title="请输入以 @gmail.com 结尾的邮箱地址" />
 
       <div class="password-container">
-        <input type="password" id="password" name="password" placeholder="输入密码" required
+        <input type="password" id="password" name="password" placeholder="Enter password" required
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
           title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
         <img src="https://kunzzgroup.com/images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
       </div>
 
-      <p class="password-note">密码至少包含1个大写字母、小写字母、数字、特殊符号，且不少于8位</p>
+      <p class="password-note">Password must include uppercase and lowercase letters, a number, a special character, and be at least 8 characters</p>
 
       <div class="password-container">
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password" required
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
           title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
         <img src="https://kunzzgroup.com/images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
       </div>
 
-      <p class="password-note">请输入相同的新密码</p>
+      <p class="password-note">Please enter the same new password</p>
 
       <div id="code-container">
       <input type="text" id="verification_code" placeholder="输入申请码" maxlength="6" pattern="\d{6}" inputmode="numeric" required>
       </div>
-      <button type="submit">注册</button>
+      <button type="submit">Sign Up</button>
     </form>
   </div>
 </section>
