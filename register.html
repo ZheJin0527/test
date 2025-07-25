@@ -42,24 +42,25 @@
         title="请输入以 @gmail.com 结尾的邮箱地址" />
 
       <div class="password-container">
-  <input type="password" id="password" name="password" placeholder="输入密码" required
-    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
-    title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
-  <img src="images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
-</div>
+      <input type="password" id="password" name="password" placeholder="输入密码" required
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
+        title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
+      <img src="images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
+    </div>
 
-<p class="password-note">密码至少包含1个大写字母、小写字母、数字、特殊符号，且不少于8位</p>
+    <p class="password-note">密码至少包含1个大写字母、小写字母、数字、特殊符号，且不少于8位</p>
 
-<!-- 确认密码（新增） -->
-<div class="password-container">
-  <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required>
-  <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
-</div>
+    <!-- 确认密码（新增） -->
+    <div class="password-container">
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required>
+      <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
+    </div>
 
       <p class="password-note">请输入相同的新密码</p>
 
       <div id="code-container">
-      <input type="text" id="verification_code" name="application_code" placeholder="输入申请码" maxlength="6" pattern="\d{6}" inputmode="numeric" required>
+      <input type="text" id="verification_code" name="application_code" placeholder="输入申请码"
+        maxlength="16" pattern="[A-Za-z0-9]{4,16}" required>
       </div>
       <button type="submit">注册</button>
     </form>
