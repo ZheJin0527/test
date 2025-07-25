@@ -4902,7 +4902,7 @@ form select:focus {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('images/images/loginbg.jpg') no-repeat center center/cover;
+    background: url('https://kunzzgroup.com/images/images/loginbg.jpg') no-repeat center center/cover;
 }
 
 .login-form {
@@ -4966,7 +4966,7 @@ form select:focus {
 }
 
 .login-form h2 {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     margin-bottom: 20px;
     color: black;
@@ -5009,7 +5009,7 @@ form select:focus {
     color: black; /* 文字颜色 */
     text-decoration: none;
     border: 1px solid #ff8c00; /* 橙色边框 */
-    padding: 4px 24px;            /* 内边距，让边框和文字有间距 */
+    padding: 4px 20px;            /* 内边距，让边框和文字有间距 */
     border-radius: 5px;         /* 圆角边框，可调整 */
     transition: all 0.3s ease;  /* 添加过渡动画 */
     font-size: 14px;
@@ -5151,7 +5151,7 @@ form select:focus {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('images/images/loginbg.jpg') no-repeat center center/cover;
+    background: url('https://kunzzgroup.com/images/images/loginbg.jpg') no-repeat center center/cover;
 }
 
 .register-form {
@@ -5459,7 +5459,7 @@ form select:focus {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('images/images/loginbg.jpg') no-repeat center center/cover;
+    background: url('https://kunzzgroup.com/images/images/loginbg.jpg') no-repeat center center/cover;
 }
 
 .reset-password-form {
