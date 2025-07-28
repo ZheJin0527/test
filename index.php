@@ -81,7 +81,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <div class="swiper-slide">
   <section class="home">
   <video class="background-video" autoplay muted loop playsinline>
-    <source src="video/video/Cover2.mp4" type="video/mp4" />
+    <source src="video/video/Cover3.mp4" type="video/mp4" />
   </video>
 
   <div class="home-content hidden animate-on-scroll">
