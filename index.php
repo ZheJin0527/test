@@ -94,7 +94,6 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </p>
   </div>
 </section>
-
   </div>
 
   <div class="swiper-slide">
