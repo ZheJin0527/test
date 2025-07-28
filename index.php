@@ -522,23 +522,23 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-    const video = document.querySelector('.background-video');
+  const video = document.querySelector('.background-video');
 
-    video.addEventListener('loadeddata', function () {
-      // 内容显示
-      document.querySelector('.home-content').classList.remove('hidden');
+  video.addEventListener('loadedmetadata', function () {
+    // 内容显示
+    document.querySelector('.home-content').classList.remove('hidden');
 
-      // 触发动画
-      void document.querySelector('.home-content').offsetWidth;
-      document.querySelector('.home-content h1').classList.add('scale-fade-in');
-      document.querySelector('.home-content p').classList.add('scale-fade-in');
+    // 触发动画
+    void document.querySelector('.home-content').offsetWidth;
+    document.querySelector('.home-content h1').classList.add('scale-fade-in');
+    document.querySelector('.home-content p').classList.add('scale-fade-in');
 
-      // 显示导航栏、社交栏、页面指示器
-      document.querySelector('.navbar').classList.add('navbar-loaded');
-      document.querySelector('.social-sidebar').classList.add('social-loaded');
-      document.querySelector('.page-indicator').classList.add('indicator-loaded');
-    });
+    // 显示导航栏、社交栏、页面指示器
+    document.querySelector('.navbar').classList.add('navbar-loaded');
+    document.querySelector('.social-sidebar').classList.add('social-loaded');
+    document.querySelector('.page-indicator').classList.add('indicator-loaded');
   });
+});
 </script>
 
 <script>
