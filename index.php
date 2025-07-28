@@ -80,9 +80,9 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-  <video class="background-video" autoplay muted loop playsinline preload="metadata">
-  <source src="video/video/Cover.mp4" type="video/mp4" />
-</video>
+  <video class="background-video" autoplay muted loop playsinline>
+    <source src="video/video/Cover.mp4" type="video/mp4" />
+  </video>
 
   <div class="home-content hidden animate-on-scroll">
     <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
@@ -521,40 +521,24 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-  <script>
   window.addEventListener('load', () => {
     const video = document.querySelector('.background-video');
 
-    // 监听 metadata 加载（首帧封面）
-    video.addEventListener('loadedmetadata', function () {
-      // 显示 home 内容
-      document.querySelector('.home-content')?.classList.remove('hidden');
+    video.addEventListener('loadeddata', function () {
+      // 内容显示
+      document.querySelector('.home-content').classList.remove('hidden');
 
       // 触发动画
       void document.querySelector('.home-content').offsetWidth;
-      document.querySelector('.home-content h1')?.classList.add('scale-fade-in');
-      document.querySelector('.home-content p')?.classList.add('scale-fade-in');
+      document.querySelector('.home-content h1').classList.add('scale-fade-in');
+      document.querySelector('.home-content p').classList.add('scale-fade-in');
 
-      // 显示其他区域
-      document.querySelector('.navbar')?.classList.add('navbar-loaded');
-      document.querySelector('.social-sidebar')?.classList.add('social-loaded');
-      document.querySelector('.page-indicator')?.classList.add('indicator-loaded');
+      // 显示导航栏、社交栏、页面指示器
+      document.querySelector('.navbar').classList.add('navbar-loaded');
+      document.querySelector('.social-sidebar').classList.add('social-loaded');
+      document.querySelector('.page-indicator').classList.add('indicator-loaded');
     });
-
-    // 最长等 3 秒 fallback（保险机制）
-    setTimeout(() => {
-      if (document.querySelector('.home-content')?.classList.contains('hidden')) {
-        document.querySelector('.home-content')?.classList.remove('hidden');
-        document.querySelector('.home-content h1')?.classList.add('scale-fade-in');
-        document.querySelector('.home-content p')?.classList.add('scale-fade-in');
-        document.querySelector('.navbar')?.classList.add('navbar-loaded');
-        document.querySelector('.social-sidebar')?.classList.add('social-loaded');
-        document.querySelector('.page-indicator')?.classList.add('indicator-loaded');
-      }
-    }, 3000); // 最多等3秒就强制显示
   });
-</script>
-
 </script>
 
 <script>
