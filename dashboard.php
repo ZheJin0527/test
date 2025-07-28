@@ -46,10 +46,6 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-// ✅ 到这里说明用户是登录状态
-echo "欢迎回来，" . htmlspecialchars($_SESSION['username']);
-
-
 $username = $_SESSION['username'];
 $avatarLetter = strtoupper($username[0]);
 ?>
