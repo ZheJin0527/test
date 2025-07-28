@@ -524,18 +524,16 @@ updatePageIndicator(0);
   window.addEventListener('load', () => {
     const video = document.querySelector('.background-video');
 
-    // 等待视频完全加载好可以播放
-    video.addEventListener('canplaythrough', function () {
+    video.addEventListener('loadeddata', function () {
+      // 内容显示
       document.querySelector('.home-content').classList.remove('hidden');
 
-      // 强制触发重绘，确保动画重新开始
+      // 触发动画
       void document.querySelector('.home-content').offsetWidth;
-
-      // 添加动画类
       document.querySelector('.home-content h1').classList.add('scale-fade-in');
       document.querySelector('.home-content p').classList.add('scale-fade-in');
 
-      // 启动 navbar、社交栏、页面指示器
+      // 显示导航栏、社交栏、页面指示器
       document.querySelector('.navbar').classList.add('navbar-loaded');
       document.querySelector('.social-sidebar').classList.add('social-loaded');
       document.querySelector('.page-indicator').classList.add('indicator-loaded');
