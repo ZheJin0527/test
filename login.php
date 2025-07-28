@@ -45,9 +45,9 @@ if ($result->num_rows === 1) {
             setcookie('remember_token', '1', $expire, "/");
         } else {
             // ❌ 没勾选记住我，清除残留 cookie
-            setcookie('user_id', '', time() - 60, "/");
-            setcookie('username', '', time() - 60, "/");
-            setcookie('remember_token', '', time() - 60, "/");
+            setcookie('user_id', '', time() - 3600, "/");
+            setcookie('username', '', time() - 3600, "/");
+            setcookie('remember_token', '', time() - 3600, "/");
         }
 
         header("Location: dashboard.php");

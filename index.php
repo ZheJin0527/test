@@ -80,16 +80,24 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-    <div class="home-content hidden animate-on-scroll">
-      <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
-      <div class="decor-line scale-fade-in"></div>
-      <p class="scale-fade-in">
-        我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
-        我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
-        才能创造持续的价值，向着行业标杆的方向，稳步前行。
-      </p>
-    </div>
-  </section>
+  <!-- 背景视频 -->
+  <video autoplay muted loop playsinline class="background-video">
+    <source src="video/video/Cover.mp4" type="video/mp4" />
+    您的浏览器不支持 video 标签。
+  </video>
+
+  <!-- 文字内容层 -->
+  <div class="home-content hidden animate-on-scroll">
+    <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+    <div class="decor-line scale-fade-in"></div>
+    <p class="scale-fade-in">
+      我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
+      我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
+      才能创造持续的价值，向着行业标杆的方向，稳步前行。
+    </p>
+  </div>
+</section>
+
   </div>
 
   <div class="swiper-slide">
