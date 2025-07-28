@@ -522,25 +522,34 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-  const video = document.querySelector('.background-video');
+    // 创建一个虚拟图片对象检测背景图是否加载完成
+    const bgImg = new Image();
+    bgImg.src = "images/images/封面7.png";
 
-  video.addEventListener('loadedmetadata', function () {
-    // 内容显示
-    document.querySelector('.home-content').classList.remove('hidden');
+    bgImg.onload = function () {
 
-    // 触发动画
-    void document.querySelector('.home-content').offsetWidth;
-    document.querySelector('.home-content h1').classList.add('scale-fade-in');
-    document.querySelector('.home-content p').classList.add('scale-fade-in');
+      document.querySelector('.home').classList.add('gradient-loaded');
+      
+      document.querySelector('.home-content').classList.remove('hidden');
 
-    // 显示导航栏、社交栏、页面指示器
-    document.querySelector('.navbar').classList.add('navbar-loaded');
-    document.querySelector('.social-sidebar').classList.add('social-loaded');
-    document.querySelector('.page-indicator').classList.add('indicator-loaded');
+      // 强制触发重绘，重新开始动画（可选，增强兼容性）
+      void document.querySelector('.home-content').offsetWidth;
+
+      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
+      document.querySelector('.home-content h1').classList.add('scale-fade-in');
+      document.querySelector('.home-content p').classList.add('scale-fade-in');
+
+      // 启动navbar动画 - 添加一个CSS类来触发动画
+      document.querySelector('.navbar').classList.add('navbar-loaded');
+      
+      // 显示社交侧边栏
+      document.querySelector('.social-sidebar').classList.add('social-loaded');
+      
+      // 显示页面指示器
+      document.querySelector('.page-indicator').classList.add('indicator-loaded');
+    };
   });
-});
 </script>
-
 <script>
   function goToLocation() {
     const map = document.getElementById('custom-map');
