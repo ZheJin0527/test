@@ -43,8 +43,8 @@ if ($result->num_rows === 1) {
             setcookie('username', $user['username'], $expire, "/");
         } else {
             // 没勾选记住我，删除旧的Cookie（防止误用）
-            setcookie('user_id', '', time() - 3600, "/");
-            setcookie('username', '', time() - 3600, "/");
+            setcookie('user_id', '', time() - 60, "/");
+            setcookie('username', '', time() - 60, "/");
         }
 
         header("Location: dashboard.php");
