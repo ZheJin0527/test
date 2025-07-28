@@ -80,13 +80,10 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-  <!-- 背景视频 -->
-  <video autoplay muted loop playsinline class="background-video">
+  <video class="background-video" autoplay muted loop playsinline>
     <source src="video/video/Cover.mp4" type="video/mp4" />
-    您的浏览器不支持 video 标签。
   </video>
 
-  <!-- 文字内容层 -->
   <div class="home-content hidden animate-on-scroll">
     <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
     <div class="decor-line scale-fade-in"></div>
@@ -525,34 +522,27 @@ updatePageIndicator(0);
     </script>
 <script>
   window.addEventListener('load', () => {
-    // 创建一个虚拟图片对象检测背景图是否加载完成
-    const bgImg = new Image();
-    bgImg.src = "images/images/封面7.png";
+    const video = document.querySelector('.background-video');
 
-    bgImg.onload = function () {
-
-      document.querySelector('.home').classList.add('gradient-loaded');
-      
+    // 等待视频完全加载好可以播放
+    video.addEventListener('canplaythrough', function () {
       document.querySelector('.home-content').classList.remove('hidden');
 
-      // 强制触发重绘，重新开始动画（可选，增强兼容性）
+      // 强制触发重绘，确保动画重新开始
       void document.querySelector('.home-content').offsetWidth;
 
-      // 添加动画类（如果你的 fade-in-up 是靠 JavaScript 加载）
+      // 添加动画类
       document.querySelector('.home-content h1').classList.add('scale-fade-in');
       document.querySelector('.home-content p').classList.add('scale-fade-in');
 
-      // 启动navbar动画 - 添加一个CSS类来触发动画
+      // 启动 navbar、社交栏、页面指示器
       document.querySelector('.navbar').classList.add('navbar-loaded');
-      
-      // 显示社交侧边栏
       document.querySelector('.social-sidebar').classList.add('social-loaded');
-      
-      // 显示页面指示器
       document.querySelector('.page-indicator').classList.add('indicator-loaded');
-    };
+    });
   });
 </script>
+
 <script>
   function goToLocation() {
     const map = document.getElementById('custom-map');
