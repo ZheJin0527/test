@@ -473,7 +473,7 @@ img.image-3d-rotate:hover,
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7); /* 0.4 可根据需要调整透明度 */
+    background: rgba(0, 0, 0, 0.5); /* 0.4 可根据需要调整透明度 */
 
     opacity: 0; /* 初始透明 */
     z-index: 1;
