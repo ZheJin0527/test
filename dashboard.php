@@ -88,7 +88,7 @@ $avatarLetter = strtoupper($username[0]);
 
     <div class="right-section">
       <div class="user-avatar-dropdown">
-            <div id="user-avatar" class="user-avatar">U</div>
+            <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
         </div>
       <div class="language-switch">
       <button class="lang" id="languageBtn">EN | CN</button>
