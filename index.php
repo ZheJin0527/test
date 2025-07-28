@@ -524,8 +524,8 @@ updatePageIndicator(0);
   window.addEventListener('load', () => {
     const video = document.querySelector('.background-video');
 
-    video.addEventListener('loadeddata', function () {
-      // 内容显示
+    video.addEventListener('canplaythrough', function () {
+      // 显示内容
       document.querySelector('.home-content').classList.remove('hidden');
 
       // 触发动画
@@ -534,12 +534,13 @@ updatePageIndicator(0);
       document.querySelector('.home-content p').classList.add('scale-fade-in');
 
       // 显示导航栏、社交栏、页面指示器
-      document.querySelector('.navbar').classList.add('navbar-loaded');
-      document.querySelector('.social-sidebar').classList.add('social-loaded');
-      document.querySelector('.page-indicator').classList.add('indicator-loaded');
+      document.querySelector('.navbar')?.classList.add('navbar-loaded');
+      document.querySelector('.social-sidebar')?.classList.add('social-loaded');
+      document.querySelector('.page-indicator')?.classList.add('indicator-loaded');
     });
   });
 </script>
+
 
 <script>
   function goToLocation() {
