@@ -1,18 +1,54 @@
 <?php
 session_start();
 
-// 如果没有登录状态，且没有“记住我”Cookie，跳转首页
-if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
-        // 只有存在“记住我”Cookie才恢复 Session
-        $_SESSION['user_id'] = $_COOKIE['user_id'];
-        $_SESSION['username'] = $_COOKIE['username'];
-    } else {
-        // 没有登录状态，也没有“记住我”Cookie，跳回首页（或登录页）
-        header("Location: index.php");  // 或者写成 login.html
+// 超时时间（秒）
+define('SESSION_TIMEOUT', 60);
+
+// 如果 session 存在，检查是否过期
+if (isset($_SESSION['user_id'])) {
+
+    // 如果超过 1 分钟没活动，并且没有记住我
+    if (
+        isset($_SESSION['last_activity']) &&
+        (time() - $_SESSION['last_activity'] > SESSION_TIMEOUT) &&
+        (!isset($_COOKIE['remember_token']) || $_COOKIE['remember_token'] !== '1')
+    ) {
+        // 清除 session
+        session_unset();
+        session_destroy();
+
+        // 清除 cookie（可选）
+        setcookie('user_id', '', time() - 60, "/");
+        setcookie('username', '', time() - 60, "/");
+        setcookie('remember_token', '', time() - 60, "/");
+
+        // 跳转登录页
+        header("Location: index.php");
         exit();
     }
+
+    // 更新活动时间戳
+    $_SESSION['last_activity'] = time();
+
+} elseif (
+    isset($_COOKIE['user_id']) &&
+    isset($_COOKIE['username']) &&
+    isset($_COOKIE['remember_token']) &&
+    $_COOKIE['remember_token'] === '1'
+) {
+    // 记住我逻辑（恢复 session）
+    $_SESSION['user_id'] = $_COOKIE['user_id'];
+    $_SESSION['username'] = $_COOKIE['username'];
+    $_SESSION['last_activity'] = time();
+} else {
+    // 没有 session，也没有有效 cookie
+    header("Location: index.php");
+    exit();
 }
+
+// ✅ 到这里说明用户是登录状态
+echo "欢迎回来，" . htmlspecialchars($_SESSION['username']);
+
 
 $username = $_SESSION['username'];
 $avatarLetter = strtoupper($username[0]);

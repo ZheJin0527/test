@@ -21,7 +21,7 @@ $email = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
 $remember = isset($_POST['remember']); // true/false
 
-// 检查邮箱是否存在
+// 查询用户
 $sql = "SELECT * FROM users WHERE email = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $email);
@@ -32,27 +32,32 @@ if ($result->num_rows === 1) {
     $user = $result->fetch_assoc();
 
     if (password_verify($password, $user['password'])) {
-        // 登录成功，写入 session
+        // ✅ 登录成功，设置 Session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+        $_SESSION['last_activity'] = time(); // ➤ 当前登录时间（用于 1 分钟自动登出）
 
         if ($remember) {
-            // 记住我，设置30天有效Cookie
+            // ✅ 勾选了“记住我”，设置 cookie（30天）
             $expire = time() + (86400 * 30);
             setcookie('user_id', $user['id'], $expire, "/");
             setcookie('username', $user['username'], $expire, "/");
+            setcookie('remember_token', '1', $expire, "/");
         } else {
-            // 没勾选记住我，删除旧的Cookie（防止误用）
+            // ❌ 没勾选记住我，清除残留 cookie
             setcookie('user_id', '', time() - 60, "/");
             setcookie('username', '', time() - 60, "/");
+            setcookie('remember_token', '', time() - 60, "/");
         }
 
         header("Location: dashboard.php");
         exit();
+
     } else {
         echo "<script>alert('密码错误'); window.location.href='login.html';</script>";
         exit();
     }
+
 } else {
     echo "<script>alert('该账号不存在'); window.location.href='login.html';</script>";
     exit();
