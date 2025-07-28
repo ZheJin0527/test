@@ -95,7 +95,6 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   </div>
 </section>
 
-
   </div>
 
   <div class="swiper-slide">
@@ -524,34 +523,26 @@ updatePageIndicator(0);
 <script>
   window.addEventListener('load', () => {
     const video = document.querySelector('.background-video');
-    const homeContent = document.querySelector('.home-content');
-    const navbar = document.querySelector('.navbar');
-    const sidebar = document.querySelector('.social-sidebar');
-    const indicator = document.querySelector('.page-indicator');
 
-    let contentShown = false;
+    // 只要首帧加载完，就开始显示内容
+    video.addEventListener('loadedmetadata', function () {
+      // 显示内容
+      document.querySelector('.home-content')?.classList.remove('hidden');
 
-    function showContent() {
-      if (contentShown) return;
-      contentShown = true;
+      // 触发动画
+      void document.querySelector('.home-content').offsetWidth;
+      document.querySelector('.home-content h1')?.classList.add('scale-fade-in');
+      document.querySelector('.home-content p')?.classList.add('scale-fade-in');
 
-      homeContent.classList.remove('hidden');
-      void homeContent.offsetWidth;
-      homeContent.querySelector('h1').classList.add('scale-fade-in');
-      homeContent.querySelector('p').classList.add('scale-fade-in');
-
-      navbar?.classList.add('navbar-loaded');
-      sidebar?.classList.add('social-loaded');
-      indicator?.classList.add('indicator-loaded');
-    }
-
-    // 1. 优先等第一帧加载出来（封面）
-    video.addEventListener('loadeddata', showContent);
-
-    // 2. 加兜底：最多等 2 秒就强制显示内容，防止某些浏览器卡住
-    setTimeout(showContent, 2000);
+      // 显示 navbar / social / indicator
+      document.querySelector('.navbar')?.classList.add('navbar-loaded');
+      document.querySelector('.social-sidebar')?.classList.add('social-loaded');
+      document.querySelector('.page-indicator')?.classList.add('indicator-loaded');
+    });
   });
 </script>
+
+
 
 <script>
   function goToLocation() {
