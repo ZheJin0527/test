@@ -5,13 +5,13 @@ header("Content-Type: application/json");
 ini_set('display_errors', 0);
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
-// 1. 数据库配置
+// 数据库配置
 $host = 'localhost';
 $dbname = 'u857194726_kunzzgroup';
 $dbuser = 'u857194726_kunzzgroup';
 $dbpass = 'Kholdings1688@';
 
-// 2. 数据库连接
+// 数据库连接
 $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
 if ($conn->connect_error) {
     ob_end_clean();
@@ -19,10 +19,10 @@ if ($conn->connect_error) {
     exit;
 }
 
-// 3. 获取 JSON 数据
+// 获取 JSON 数据
 $data = json_decode(file_get_contents("php://input"), true);
 
-// 4. 获取字段
+// 获取字段
 $name = trim($data['name'] ?? '');
 $email = trim($data['email'] ?? '');
 $gender = trim($data['gender'] ?? '');
@@ -36,14 +36,14 @@ $bank_account = $data['bank_account'] ?? null;
 $phone_number = $data['phone_number'] ?? null;
 $bank_account_holder_en = $data['bank_account_holder_en'] ?? null;
 
-// 5. 字段校验
+// 必填字段校验
 if (empty($name) || empty($email) || empty($gender) || empty($application_code) || empty($password)) {
     ob_end_clean();
     echo json_encode(["success" => false, "message" => "请填写所有字段"]);
     exit;
 }
 
-// 6. 邮箱唯一性检查
+// 邮箱唯一性检查
 $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -58,7 +58,7 @@ if ($stmt->num_rows > 0) {
 }
 $stmt->close();
 
-// 7. 验证申请码是否存在、是否已使用，并获取账号类型
+// ✅ 验证申请码是否存在，并包含 id 字段
 $stmt = $conn->prepare("SELECT id, used, account_type FROM application_codes WHERE code = ?");
 $stmt->bind_param("s", $application_code);
 $stmt->execute();
@@ -82,12 +82,13 @@ if ($codeData['used']) {
     exit;
 }
 
-$account_type = $codeData['account_type']; // ✅ 正确使用数据库里的 account_type
+$account_type = $codeData['account_type'];
+$codeId = $codeData['id'];
 
-// 8. 加密密码
+// 加密密码
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// 9. 插入用户信息
+// 插入用户信息
 $stmt = $conn->prepare("
     INSERT INTO users 
     (username, email, gender, password, account_type, ic_number, position, bank_name, bank_account, phone_number, bank_account_holder_en, created_at) 
@@ -100,8 +101,7 @@ $stmt->bind_param("sssssssssss",
 );
 
 if ($stmt->execute()) {
-    // 更新申请码为已使用
-    $codeId = $codeData['id'];
+    // ✅ 更新申请码为已使用
     $updateStmt = $conn->prepare("UPDATE application_codes SET used = 1 WHERE id = ?");
     $updateStmt->bind_param("i", $codeId);
     $updateStmt->execute();
