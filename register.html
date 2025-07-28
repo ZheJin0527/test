@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
-  <script>
+<script>
 document.getElementById("register-form").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -150,8 +150,7 @@ document.getElementById("register-form").addEventListener("submit", function (ev
       ic_number: icNumber,
       email: email,
       password: password,
-      application_code: applicationCode,
-      account_type: accountType
+      application_code: applicationCode
     }),
   })
     .then((response) => response.json())
@@ -169,6 +168,7 @@ document.getElementById("register-form").addEventListener("submit", function (ev
     });
 });
 </script>
+
 
 
 
