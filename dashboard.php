@@ -276,7 +276,7 @@ $avatarLetter = strtoupper($username[0]);
                         <div class="submenu-header">
                             <div class="submenu-title">我的账号</div>
                         </div>
-                        <a href="#" class="submenu-item">个人资料</a>
+                        <a href="edit_profile.php" class="submenu-item">个人资料</a>
                         <a href="#" class="submenu-item">修改资料</a>
                         <a href="#" class="submenu-item">消息</a>
                     </div>
