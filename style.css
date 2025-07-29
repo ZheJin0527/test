@@ -6096,3 +6096,34 @@ form select {
     font-size: 20px;
     font-weight: bold;
 }
+
+.logout-btn {
+    width: 160px;
+    background: #ff5c00;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+
+.logout-btn:hover {
+    background: #ff7700;
+    transform: translateY(-1px);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+.informationmenu-footer {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}

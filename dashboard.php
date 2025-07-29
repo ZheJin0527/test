@@ -314,6 +314,12 @@ $avatarLetter = strtoupper($username[0]);
                     </a>                    
                 </div>
             </div>
+
+            <div class="informationmenu-footer">
+            <button class="logout-btn" onclick="location.href='logout.php'">
+                登出
+            </button>
+          </div>
         </div>
     </div>
 
