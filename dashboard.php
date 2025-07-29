@@ -276,8 +276,8 @@ $avatarLetter = strtoupper($username[0]);
                         <div class="submenu-header">
                             <div class="submenu-title">我的账号</div>
                         </div>
-                        <a href="edit_profile.php" class="submenu-item">个人资料</a>
-                        <a href="#" class="submenu-item">修改资料</a>
+                        <a href="#" class="submenu-item">个人资料</a>
+                        <a href="edit_profile.php" class="submenu-item">修改资料</a>
                         <a href="#" class="submenu-item">消息</a>
                     </div>
                 </div>
@@ -878,136 +878,156 @@ function goToCulture() {
   });
 </script>
 <script>
-        const sidebar = document.querySelector('.informationmenu');
-        const overlay = document.querySelector('.informationmenu-overlay');
-        const userAvatar = document.getElementById('user-avatar');
-        const closeBtn = document.querySelector('.informationmenu-close-btn');
+const sidebar = document.querySelector('.informationmenu');
+const overlay = document.querySelector('.informationmenu-overlay');
+const userAvatar = document.getElementById('user-avatar');
+const closeBtn = document.querySelector('.informationmenu-close-btn');
 
-        // 点击用户头像显示菜单
-        userAvatar.addEventListener('click', function() {
-            sidebar.classList.add('show');
-            overlay.classList.add('show');
-        });
+// 点击用户头像显示菜单
+userAvatar?.addEventListener('click', function() {
+    sidebar.classList.add('show');
+    overlay.classList.add('show');
+});
 
-        // 关闭菜单
-        function closeSidebar() {
-            sidebar.classList.remove('show');
-            overlay.classList.remove('show');
+// 关闭菜单
+function closeSidebar() {
+    sidebar.classList.remove('show');
+    overlay.classList.remove('show');
+}
+
+closeBtn?.addEventListener('click', closeSidebar);
+overlay?.addEventListener('click', closeSidebar);
+
+// ESC键关闭菜单
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSidebar();
+    }
+});
+
+// 菜单项点击效果
+document.querySelectorAll('.informationmenu-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // 移除其他active状态
+        document.querySelectorAll('.informationmenu-item').forEach(i => i.classList.remove('active'));
+        
+        // 添加active状态到当前项
+        this.classList.add('active');
+    });
+});
+
+// 修复后的子菜单项点击效果
+document.querySelectorAll('.submenu-item:not(.expandable)').forEach(item => {
+    item.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        
+        // 检查是否有真实的链接
+        if (href && href !== '#' && !href.startsWith('javascript:')) {
+            // 有真实链接，允许正常跳转
+            console.log('跳转到: ' + href);
+            return; // 不阻止默认行为
         }
+        
+        // 没有真实链接的项目，阻止默认行为并显示提示
+        e.preventDefault();
+        const itemText = this.textContent.replace('→', '').trim();
+        alert('点击了子菜单项: ' + itemText);
+    });
+});
 
-        closeBtn.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
-
-        // ESC键关闭菜单
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeSidebar();
+// 多级展开功能
+document.querySelectorAll('.submenu-item.expandable').forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const targetId = this.getAttribute('data-target');
+        const targetOptions = document.getElementById(targetId);
+        
+        // 收起所有其他的子选项
+        document.querySelectorAll('.sub-options').forEach(options => {
+            if (options.id !== targetId) {
+                options.classList.remove('expanded');
             }
         });
-
-        // 菜单项点击效果
-        document.querySelectorAll('.informationmenu-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // 移除其他active状态
-                document.querySelectorAll('.informationmenu-item').forEach(i => i.classList.remove('active'));
-                
-                // 添加active状态到当前项
-                this.classList.add('active');
-            });
-        });
-
-        // 子菜单项点击效果
-        document.querySelectorAll('.submenu-item:not(.expandable)').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const itemText = this.textContent.replace('→', '').trim();
-                alert('点击了子菜单项: ' + itemText);
-            });
-        });
-
-        // 多级展开功能
-        document.querySelectorAll('.submenu-item.expandable').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const targetId = this.getAttribute('data-target');
-                const targetOptions = document.getElementById(targetId);
-                
-                // 收起所有其他的子选项
-                document.querySelectorAll('.sub-options').forEach(options => {
-                    if (options.id !== targetId) {
-                        options.classList.remove('expanded');
-                    }
-                });
-                
-                // 移除所有其他expandable项的expanded类
-                document.querySelectorAll('.submenu-item.expandable').forEach(expandableItem => {
-                    if (expandableItem !== this) {
-                        expandableItem.classList.remove('expanded');
-                    }
-                });
-                
-                // 切换当前项的展开状态
-                this.classList.toggle('expanded');
-                targetOptions.classList.toggle('expanded');
-            });
-        });
-
-        // 子选项点击效果
-        document.querySelectorAll('.sub-option').forEach(option => {
-            option.addEventListener('click', function(e) {
-                e.preventDefault();
-                const optionText = this.textContent.replace('·', '').trim();
-                alert('点击了子选项: ' + optionText);
-            });
-        });
-
-        // 增强子菜单hover效果
-        document.querySelectorAll('.menu-item-wrapper').forEach(wrapper => {
-            const submenu = wrapper.querySelector('.submenu');
-            if (submenu) {
-                // 鼠标进入菜单项区域
-                wrapper.addEventListener('mouseenter', function() {
-                    submenu.style.opacity = '1';
-                    submenu.style.visibility = 'visible';
-                    submenu.style.transform = 'translateX(0)';
-                    submenu.style.pointerEvents = 'auto';
-                });
-
-                // 鼠标离开整个区域时隐藏
-                wrapper.addEventListener('mouseleave', function(e) {
-                    // 检查鼠标是否移向子菜单
-                    setTimeout(() => {
-                        if (!submenu.matches(':hover') && !wrapper.matches(':hover')) {
-                            submenu.style.opacity = '0';
-                            submenu.style.visibility = 'hidden';
-                            submenu.style.transform = 'translateX(-50px)';
-                            submenu.style.pointerEvents = 'none';
-                        }
-                    }, 100);
-                });
-
-                // 鼠标在子菜单上时保持显示
-                submenu.addEventListener('mouseenter', function() {
-                    this.style.opacity = '1';
-                    this.style.visibility = 'visible';
-                    this.style.transform = 'translateX(0)';
-                    this.style.pointerEvents = 'auto';
-                });
-
-                submenu.addEventListener('mouseleave', function() {
-                    this.style.opacity = '0';
-                    this.style.visibility = 'hidden';
-                    this.style.transform = 'translateX(-50px)';
-                    this.style.pointerEvents = 'none';
-                });
+        
+        // 移除所有其他expandable项的expanded类
+        document.querySelectorAll('.submenu-item.expandable').forEach(expandableItem => {
+            if (expandableItem !== this) {
+                expandableItem.classList.remove('expanded');
             }
         });
+        
+        // 切换当前项的展开状态
+        this.classList.toggle('expanded');
+        targetOptions?.classList.toggle('expanded');
+    });
+});
 
-        console.log('多级菜单系统已加载完成');
-    </script>
+// 子选项点击效果
+document.querySelectorAll('.sub-option').forEach(option => {
+    option.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        
+        // 检查是否有真实的链接
+        if (href && href !== '#' && !href.startsWith('javascript:')) {
+            // 有真实链接，允许正常跳转
+            console.log('跳转到: ' + href);
+            return; // 不阻止默认行为
+        }
+        
+        // 没有真实链接的项目
+        e.preventDefault();
+        const optionText = this.textContent.replace('·', '').trim();
+        alert('点击了子选项: ' + optionText);
+    });
+});
+
+// 增强子菜单hover效果
+document.querySelectorAll('.menu-item-wrapper').forEach(wrapper => {
+    const submenu = wrapper.querySelector('.submenu');
+    if (submenu) {
+        // 鼠标进入菜单项区域
+        wrapper.addEventListener('mouseenter', function() {
+            submenu.style.opacity = '1';
+            submenu.style.visibility = 'visible';
+            submenu.style.transform = 'translateX(0)';
+            submenu.style.pointerEvents = 'auto';
+        });
+
+        // 鼠标离开整个区域时隐藏
+        wrapper.addEventListener('mouseleave', function(e) {
+            // 检查鼠标是否移向子菜单
+            setTimeout(() => {
+                if (!submenu.matches(':hover') && !wrapper.matches(':hover')) {
+                    submenu.style.opacity = '0';
+                    submenu.style.visibility = 'hidden';
+                    submenu.style.transform = 'translateX(-50px)';
+                    submenu.style.pointerEvents = 'none';
+                }
+            }, 100);
+        });
+
+        // 鼠标在子菜单上时保持显示
+        submenu.addEventListener('mouseenter', function() {
+            this.style.opacity = '1';
+            this.style.visibility = 'visible';
+            this.style.transform = 'translateX(0)';
+            this.style.pointerEvents = 'auto';
+        });
+
+        submenu.addEventListener('mouseleave', function() {
+            this.style.opacity = '0';
+            this.style.visibility = 'hidden';
+            this.style.transform = 'translateX(-50px)';
+            this.style.pointerEvents = 'none';
+        });
+    }
+});
+
+console.log('多级菜单系统已加载完成，链接功能已修复');
+</script>
 </body>
 </html>
