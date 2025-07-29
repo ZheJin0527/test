@@ -155,10 +155,11 @@ $avatarLetter = strtoupper($username[0]);
                             <span class="expand-arrow">▼</span>
                         </a>
                         <div class="sub-options" id="j1-options">
-                            <a href="#" class="sub-option">J1 - 财务部门</a>
-                            <a href="#" class="sub-option">J1 - 市场部门</a>
-                            <a href="#" class="sub-option">J1 - 技术部门</a>
-                            <a href="#" class="sub-option">J1 - 人事部门</a>
+                            <a href="#" class="sub-option">企业蓝图</a>
+                            <a href="#" class="sub-option">组织结构图</a>
+                            <a href="#" class="sub-option">公司规则</a>
+                            <a href="#" class="sub-option">公司福利</a>
+                            <a href="#" class="sub-option">绩效考核</a>
                         </div>
 
                         <!-- J2 - 保持原有样式的可展开菜单项 -->
@@ -167,11 +168,11 @@ $avatarLetter = strtoupper($username[0]);
                             <span class="expand-arrow">▼</span>
                         </a>
                         <div class="sub-options" id="j2-options">
-                            <a href="#" class="sub-option">J2 - 研发中心</a>
-                            <a href="#" class="sub-option">J2 - 生产部门</a>
-                            <a href="#" class="sub-option">J2 - 质量控制</a>
-                            <a href="#" class="sub-option">J2 - 供应链</a>
-                            <a href="#" class="sub-option">J2 - 客户服务</a>
+                            <a href="#" class="sub-option">企业蓝图</a>
+                            <a href="#" class="sub-option">组织结构图</a>
+                            <a href="#" class="sub-option">公司规则</a>
+                            <a href="#" class="sub-option">公司福利</a>
+                            <a href="#" class="sub-option">绩效考核</a>
                         </div>
 
                         <!-- J3 - 保持原有样式的可展开菜单项 -->
@@ -180,9 +181,11 @@ $avatarLetter = strtoupper($username[0]);
                             <span class="expand-arrow">▼</span>
                         </a>
                         <div class="sub-options" id="j3-options">
-                            <a href="#" class="sub-option">J3 - 销售团队</a>
-                            <a href="#" class="sub-option">J3 - 区域管理</a>
-                            <a href="#" class="sub-option">J3 - 客户关系</a>
+                            <a href="#" class="sub-option">企业蓝图</a>
+                            <a href="#" class="sub-option">组织结构图</a>
+                            <a href="#" class="sub-option">公司规则</a>
+                            <a href="#" class="sub-option">公司福利</a>
+                            <a href="#" class="sub-option">绩效考核</a>
                         </div>
                     </div>
                 </div>
