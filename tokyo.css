@@ -2535,7 +2535,7 @@ nav {
     height: clamp(300px, 20.85vw, 400px);
     object-fit: cover;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     transition: all 0.5s ease;
     margin-left: 100px;
 }
