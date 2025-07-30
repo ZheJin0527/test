@@ -1012,7 +1012,7 @@ nav {
 }
 
 .tokyoabout-title {
-    font-size: clamp(40px, 4vw, 72px);
+    font-size: clamp(40px, 4.2vw, 80px);
     color: #3a1f00;
     margin: 0px 0 clamp(5px, 1vw, 10px) 0;
     letter-spacing: 2px;
