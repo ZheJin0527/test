@@ -111,7 +111,8 @@ $avatarLetter = strtoupper($username[0]);
     </div>
 
     <div class="informationmenu-overlay"></div>
-    
+
+    <!-- 侧边菜单 -->
     <div class="informationmenu">
         <div class="informationmenu-header">
             <div class="informationmenu-logo">★</div>
@@ -120,207 +121,239 @@ $avatarLetter = strtoupper($username[0]);
 
         <div class="informationmenu-content">
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title">公司架构管理</div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        Kunzz Holdings
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">Kunzz Holdings</div>
-                        </div>
-                        <a href="#" class="submenu-item">企业蓝图</a>
-                        <a href="#" class="submenu-item">组织结构图</a>
-                        <a href="#" class="submenu-item">公司规划</a>
-                        <a href="#" class="submenu-item">公司福利</a>
-                        <a href="#" class="submenu-item">绩效考核</a>
-                    </div>
+                <div class="informationmenu-section-title" data-target="company-items">
+                    公司架构管理
+                    <span class="section-arrow">▼</span>
                 </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        子公司
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">子公司</div>
-                        </div>
-                        
-                        <!-- J1 - 保持原有样式的可展开菜单项 -->
-                        <a href="#" class="submenu-item expandable" data-target="j1-options">
-                            J1
-                            <span class="expand-arrow">▼</span>
+                <div class="dropdown-menu-items" id="company-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            Kunzz Holdings
+                            <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="sub-options" id="j1-options">
-                            <a href="#" class="sub-option">企业蓝图</a>
-                            <a href="#" class="sub-option">组织结构图</a>
-                            <a href="#" class="sub-option">公司规则</a>
-                            <a href="#" class="sub-option">公司福利</a>
-                            <a href="#" class="sub-option">绩效考核</a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">Kunzz Holdings</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">企业蓝图</a>
+                                <a href="#" class="submenu-item">组织结构图</a>
+                                <a href="#" class="submenu-item">公司规划</a>
+                                <a href="#" class="submenu-item">公司福利</a>
+                                <a href="#" class="submenu-item">绩效考核</a>
+                            </div>
                         </div>
-
-                        <!-- J2 - 保持原有样式的可展开菜单项 -->
-                        <a href="#" class="submenu-item expandable" data-target="j2-options">
-                            J2
-                            <span class="expand-arrow">▼</span>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            子公司
+                            <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="sub-options" id="j2-options">
-                            <a href="#" class="sub-option">企业蓝图</a>
-                            <a href="#" class="sub-option">组织结构图</a>
-                            <a href="#" class="sub-option">公司规则</a>
-                            <a href="#" class="sub-option">公司福利</a>
-                            <a href="#" class="sub-option">绩效考核</a>
-                        </div>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">子公司</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item expandable" data-target="j1-options">
+                                    J1
+                                    <span class="expand-arrow">▼</span>
+                                </a>
+                                <div class="sub-options" id="j1-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
 
-                        <!-- J3 - 保持原有样式的可展开菜单项 -->
-                        <a href="#" class="submenu-item expandable" data-target="j3-options">
-                            J3
-                            <span class="expand-arrow">▼</span>
+                                <a href="#" class="submenu-item expandable" data-target="j2-options">
+                                    J2
+                                    <span class="expand-arrow">▼</span>
+                                </a>
+                                <div class="sub-options" id="j2-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
+
+                                <a href="#" class="submenu-item expandable" data-target="j3-options">
+                                    J3
+                                    <span class="expand-arrow">▼</span>
+                                </a>
+                                <div class="sub-options" id="j3-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="analytics-items">
+                    运营分析与报表
+                    <span class="section-arrow">▼</span>
+                </div>
+                <div class="dropdown-menu-items" id="analytics-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            仪表盘
+                            <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="sub-options" id="j3-options">
-                            <a href="#" class="sub-option">企业蓝图</a>
-                            <a href="#" class="sub-option">组织结构图</a>
-                            <a href="#" class="sub-option">公司规则</a>
-                            <a href="#" class="sub-option">公司福利</a>
-                            <a href="#" class="sub-option">绩效考核</a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">仪表盘</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="kpi.html" class="submenu-item">集团概览</a>
+                                <a href="#" class="submenu-item">工作表</a>
+                                <a href="kpiedit.html" class="submenu-item">KPI数据上传</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            报表系统
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">报表系统</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">财务</a>
+                                <a href="#" class="submenu-item">业绩</a>
+                                <a href="#" class="submenu-item">桌子</a>
+                                <a href="#" class="submenu-item">工资</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title">运营分析与报表</div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        仪表盘
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">仪表盘</div>
+                <div class="informationmenu-section-title" data-target="hr-items">
+                    人事与资源管理
+                    <span class="section-arrow">▼</span>
+                </div>
+                <div class="dropdown-menu-items" id="hr-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            假期管理
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">假期管理</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">申请请求</a>
+                                <a href="#" class="submenu-item">假期报表</a>
+                            </div>
                         </div>
-                        <a href="kpi.html" class="submenu-item">集团概览</a>
-                        <a href="#" class="submenu-item">工作表</a>
-                        <a href="kpiedit.html" class="submenu-item">KPI数据上传</a>
                     </div>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        报表系统
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">报表系统</div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            资源申请
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">资源申请</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">资源请求</a>
+                                <a href="#" class="submenu-item">分配状态</a>
+                            </div>
                         </div>
-                        <a href="#" class="submenu-item">财务</a>
-                        <a href="#" class="submenu-item">业绩</a>
-                        <a href="#" class="submenu-item">桌子</a>
-                        <a href="#" class="submenu-item">工资</a>
                     </div>
-                </div>
-            </div>
-
-            <div class="informationmenu-section">
-                <div class="informationmenu-section-title">人事与资源管理</div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        假期管理
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">假期管理</div>
-                        </div>
-                        <a href="#" class="submenu-item">申请请求</a>
-                        <a href="#" class="submenu-item">假期报表</a>
-                    </div>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        资源申请
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">资源申请</div>
-                        </div>
-                        <a href="#" class="submenu-item">资源请求</a>
-                        <a href="#" class="submenu-item">分配状态</a>
-                    </div>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        资源库存
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="informationmenu-section">
-                <div class="informationmenu-section-title">用户与权限管理</div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        我的账号
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">我的账号</div>
-                        </div>
-                        <a href="#" class="submenu-item">个人资料</a>
-                        <a href="edit_profile.php" class="submenu-item">修改资料</a>
-                        <a href="#" class="submenu-item">消息</a>
-                    </div>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        系统设置
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">系统设置</div>
-                        </div>
-                        <a href="#" class="submenu-item">语言</a>
-                        <a href="#" class="submenu-item">权限</a>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            资源库存
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title">帮助与支持</div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        使用教学
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
+                <div class="informationmenu-section-title" data-target="user-items">
+                    用户与权限管理
+                    <span class="section-arrow">▼</span>
                 </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        问题库
-                        <span class="informationmenu-arrow">›</span>
-                    </a>                    
+                <div class="dropdown-menu-items" id="user-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            我的账号
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">我的账号</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">个人资料</a>
+                                <a href="edit_profile.php" class="submenu-item">修改资料</a>
+                                <a href="#" class="submenu-item">消息</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            系统设置
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">系统设置</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">语言</a>
+                                <a href="#" class="submenu-item">权限</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="help-items">
+                    帮助与支持
+                    <span class="section-arrow">▼</span>
+                </div>
+                <div class="dropdown-menu-items" id="help-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            使用教学
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            问题库
+                            <span class="informationmenu-arrow">›</span>
+                        </a>                    
+                    </div>
                 </div>
             </div>
 
             <div class="informationmenu-footer">
-            <button class="logout-btn" onclick="location.href='logout.php'">
-                登出
-            </button>
-          </div>
+                <button class="logout-btn" onclick="location.href='logout.php'">
+                    登出
+                </button>
+            </div>
         </div>
     </div>
 
@@ -885,156 +918,189 @@ function goToCulture() {
   });
 </script>
 <script>
-const sidebar = document.querySelector('.informationmenu');
-const overlay = document.querySelector('.informationmenu-overlay');
-const userAvatar = document.getElementById('user-avatar');
-const closeBtn = document.querySelector('.informationmenu-close-btn');
+        const sidebar = document.querySelector('.informationmenu');
+        const overlay = document.querySelector('.informationmenu-overlay');
+        const userAvatar = document.getElementById('user-avatar');
+        const closeBtn = document.querySelector('.informationmenu-close-btn');
 
-// 点击用户头像显示菜单
-userAvatar?.addEventListener('click', function() {
-    sidebar.classList.add('show');
-    overlay.classList.add('show');
-});
+        // 点击用户头像显示菜单
+        userAvatar?.addEventListener('click', function() {
+            sidebar.classList.add('show');
+            overlay.classList.add('show');
+        });
 
-// 关闭菜单
-function closeSidebar() {
-    sidebar.classList.remove('show');
-    overlay.classList.remove('show');
-}
-
-closeBtn?.addEventListener('click', closeSidebar);
-overlay?.addEventListener('click', closeSidebar);
-
-// ESC键关闭菜单
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeSidebar();
-    }
-});
-
-// 菜单项点击效果
-document.querySelectorAll('.informationmenu-item').forEach(item => {
-    item.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // 移除其他active状态
-        document.querySelectorAll('.informationmenu-item').forEach(i => i.classList.remove('active'));
-        
-        // 添加active状态到当前项
-        this.classList.add('active');
-    });
-});
-
-// 修复后的子菜单项点击效果
-document.querySelectorAll('.submenu-item:not(.expandable)').forEach(item => {
-    item.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        
-        // 检查是否有真实的链接
-        if (href && href !== '#' && !href.startsWith('javascript:')) {
-            // 有真实链接，允许正常跳转
-            console.log('跳转到: ' + href);
-            return; // 不阻止默认行为
+        // 关闭菜单
+        function closeSidebar() {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+            // 关闭所有下拉菜单
+            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+            document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+                title.classList.remove('active');
+            });
         }
-        
-        // 没有真实链接的项目，阻止默认行为并显示提示
-        e.preventDefault();
-        const itemText = this.textContent.replace('→', '').trim();
-        alert('点击了子菜单项: ' + itemText);
-    });
-});
 
-// 多级展开功能
-document.querySelectorAll('.submenu-item.expandable').forEach(item => {
-    item.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const targetId = this.getAttribute('data-target');
-        const targetOptions = document.getElementById(targetId);
-        
-        // 收起所有其他的子选项
-        document.querySelectorAll('.sub-options').forEach(options => {
-            if (options.id !== targetId) {
-                options.classList.remove('expanded');
+        closeBtn?.addEventListener('click', closeSidebar);
+        overlay?.addEventListener('click', closeSidebar);
+
+        // ESC键关闭菜单
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSidebar();
             }
         });
-        
-        // 移除所有其他expandable项的expanded类
-        document.querySelectorAll('.submenu-item.expandable').forEach(expandableItem => {
-            if (expandableItem !== this) {
-                expandableItem.classList.remove('expanded');
-            }
-        });
-        
-        // 切换当前项的展开状态
-        this.classList.toggle('expanded');
-        targetOptions?.classList.toggle('expanded');
-    });
-});
 
-// 子选项点击效果
-document.querySelectorAll('.sub-option').forEach(option => {
-    option.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        
-        // 检查是否有真实的链接
-        if (href && href !== '#' && !href.startsWith('javascript:')) {
-            // 有真实链接，允许正常跳转
-            console.log('跳转到: ' + href);
-            return; // 不阻止默认行为
-        }
-        
-        // 没有真实链接的项目
-        e.preventDefault();
-        const optionText = this.textContent.replace('·', '').trim();
-        alert('点击了子选项: ' + optionText);
-    });
-});
-
-// 增强子菜单hover效果
-document.querySelectorAll('.menu-item-wrapper').forEach(wrapper => {
-    const submenu = wrapper.querySelector('.submenu');
-    if (submenu) {
-        // 鼠标进入菜单项区域
-        wrapper.addEventListener('mouseenter', function() {
-            submenu.style.opacity = '1';
-            submenu.style.visibility = 'visible';
-            submenu.style.transform = 'translateX(0)';
-            submenu.style.pointerEvents = 'auto';
+        // Section标题点击事件
+        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+            title.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetDropdown = document.getElementById(targetId);
+                
+                // 关闭其他section的下拉菜单
+                document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                    if (dropdown.id !== targetId) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+                
+                // 移除其他section title的active状态
+                document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+                    if (t !== this) {
+                        t.classList.remove('active');
+                    }
+                });
+                
+                // 切换当前section
+                this.classList.toggle('active');
+                targetDropdown?.classList.toggle('show');
+            });
         });
 
-        // 鼠标离开整个区域时隐藏
-        wrapper.addEventListener('mouseleave', function(e) {
-            // 检查鼠标是否移向子菜单
-            setTimeout(() => {
-                if (!submenu.matches(':hover') && !wrapper.matches(':hover')) {
-                    submenu.style.opacity = '0';
-                    submenu.style.visibility = 'hidden';
-                    submenu.style.transform = 'translateX(-50px)';
-                    submenu.style.pointerEvents = 'none';
+        // 菜单项点击效果
+        document.querySelectorAll('.informationmenu-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 移除其他active状态
+                document.querySelectorAll('.informationmenu-item').forEach(i => i.classList.remove('active'));
+                
+                // 添加active状态到当前项
+                this.classList.add('active');
+            });
+        });
+
+        // 修复后的子菜单项点击效果
+        document.querySelectorAll('.submenu-item:not(.expandable)').forEach(item => {
+            item.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // 检查是否有真实的链接
+                if (href && href !== '#' && !href.startsWith('javascript:')) {
+                    // 有真实链接，允许正常跳转
+                    console.log('跳转到: ' + href);
+                    return; // 不阻止默认行为
                 }
-            }, 100);
+                
+                // 没有真实链接的项目，阻止默认行为并显示提示
+                e.preventDefault();
+                const itemText = this.textContent.replace('→', '').trim();
+                alert('点击了子菜单项: ' + itemText);
+            });
         });
 
-        // 鼠标在子菜单上时保持显示
-        submenu.addEventListener('mouseenter', function() {
-            this.style.opacity = '1';
-            this.style.visibility = 'visible';
-            this.style.transform = 'translateX(0)';
-            this.style.pointerEvents = 'auto';
+        // 多级展开功能
+        document.querySelectorAll('.submenu-item.expandable').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const targetId = this.getAttribute('data-target');
+                const targetOptions = document.getElementById(targetId);
+                
+                // 收起所有其他的子选项
+                document.querySelectorAll('.sub-options').forEach(options => {
+                    if (options.id !== targetId) {
+                        options.classList.remove('expanded');
+                    }
+                });
+                
+                // 移除所有其他expandable项的expanded类
+                document.querySelectorAll('.submenu-item.expandable').forEach(expandableItem => {
+                    if (expandableItem !== this) {
+                        expandableItem.classList.remove('expanded');
+                    }
+                });
+                
+                // 切换当前项的展开状态
+                this.classList.toggle('expanded');
+                targetOptions?.classList.toggle('expanded');
+            });
         });
 
-        submenu.addEventListener('mouseleave', function() {
-            this.style.opacity = '0';
-            this.style.visibility = 'hidden';
-            this.style.transform = 'translateX(-50px)';
-            this.style.pointerEvents = 'none';
+        // 子选项点击效果
+        document.querySelectorAll('.sub-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // 检查是否有真实的链接
+                if (href && href !== '#' && !href.startsWith('javascript:')) {
+                    // 有真实链接，允许正常跳转
+                    console.log('跳转到: ' + href);
+                    return; // 不阻止默认行为
+                }
+                
+                // 没有真实链接的项目
+                e.preventDefault();
+                const optionText = this.textContent.replace('·', '').trim();
+                alert('点击了子选项: ' + optionText);
+            });
         });
-    }
-});
 
-console.log('多级菜单系统已加载完成，链接功能已修复');
-</script>
+        // 增强子菜单hover效果
+        document.querySelectorAll('.menu-item-wrapper').forEach(wrapper => {
+            const submenu = wrapper.querySelector('.submenu');
+            if (submenu) {
+                // 鼠标进入菜单项区域
+                wrapper.addEventListener('mouseenter', function() {
+                    submenu.style.opacity = '1';
+                    submenu.style.visibility = 'visible';
+                    submenu.style.transform = 'translateX(0)';
+                    submenu.style.pointerEvents = 'auto';
+                });
+
+                // 鼠标离开整个区域时隐藏
+                wrapper.addEventListener('mouseleave', function(e) {
+                    // 检查鼠标是否移向子菜单
+                    setTimeout(() => {
+                        if (!submenu.matches(':hover') && !wrapper.matches(':hover')) {
+                            submenu.style.opacity = '0';
+                            submenu.style.visibility = 'hidden';
+                            submenu.style.transform = 'translateX(-50px)';
+                            submenu.style.pointerEvents = 'none';
+                        }
+                    }, 100);
+                });
+
+                // 鼠标在子菜单上时保持显示
+                submenu.addEventListener('mouseenter', function() {
+                    this.style.opacity = '1';
+                    this.style.visibility = 'visible';
+                    this.style.transform = 'translateX(0)';
+                    this.style.pointerEvents = 'auto';
+                });
+
+                submenu.addEventListener('mouseleave', function() {
+                    this.style.opacity = '0';
+                    this.style.visibility = 'hidden';
+                    this.style.transform = 'translateX(-50px)';
+                    this.style.pointerEvents = 'none';
+                });
+            }
+        });
+
+        console.log('点击Section + 悬停Submenu系统已加载完成');
+    </script>
 </body>
 </html>
