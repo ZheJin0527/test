@@ -993,10 +993,12 @@ nav {
 }
 
 .tokyoabout-text {
+    text-align: right;
     flex: 1 1 0;
-    min-width: 200px; /* 最小宽度缩小一点 */
+    max-width: 520px; /* 最小宽度缩小一点 */
     padding-right: clamp(20px, 2vw, 40px); /* 右内边距响应 */
-    margin-left: 100px;
+    margin-left: 1000px;
+    margin-top: clamp(-100px, -2vw, 0px);
 }
 
 .tokyoabout-subtitle {
@@ -1004,7 +1006,7 @@ nav {
     align-items: center;
     height: clamp(36px, 3vw, 56px); /* 高度响应 */
     color: #FFE9BA;
-    font-size: clamp(20px, 2vw, 40px);;
+    font-size: clamp(20px, 2vw, 40px);
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -1013,6 +1015,7 @@ nav {
     font-size: clamp(40px, 4vw, 72px);
     color: #3a1f00;
     margin: 0px 0 clamp(5px, 1vw, 10px) 0;
+    letter-spacing: 2px;
 }
 
 .tokyoabout-description {
@@ -1022,9 +1025,11 @@ nav {
     font-size: clamp(14px, 1.25vw, 20px); /* 字号响应 */
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 2px;
     color: #3a1f00;
     line-height: 1.6;
     margin-left: 0;
+    text-align: right;
 }
 
 .tokyoabout-image {
