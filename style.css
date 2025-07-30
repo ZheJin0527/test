@@ -5969,12 +5969,6 @@ form select {
     color: #1976d2;
 }
 
-.informationmenu-item.active {
-    background-color: #e3f2fd;
-    color: #1976d2;
-    border-right: 3px solid #1976d2;
-}
-
 .informationmenu-arrow {
     font-size: 12px;
     color: #999;
