@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>餐厅KPI管理系统</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #111827;
+        }
+        
+        .header p {
+            color: #6b7280;
+            margin-top: 8px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        
+        .btn-success {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #059669;
+        }
+        
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .card-body {
+            padding: 24px;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+        
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .grid-cols-5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+        
+        @media (max-width: 1024px) {
+            .grid-cols-5 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .grid-cols-5,
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .kpi-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .kpi-card .icon {
+            width: 32px;
+            height: 32px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+        }
+        
+        .kpi-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th,
+        .table td {
+            padding: 12px 24px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .table th {
+            background-color: #f9fafb;
+            font-weight: 500;
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+            max-width: 672px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .required {
+            color: #ef4444;
+        }
+        
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .date-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .text-green {
+            color: #10b981;
+        }
+        
+        .text-red {
+            color: #ef4444;
+        }
+        
+        .text-orange {
+            color: #f59e0b;
+        }
+        
+        .btn-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: #6b7280;
+            transition: color 0.2s;
+        }
+        
+        .btn-icon:hover {
+            color: #374151;
+        }
+        
+        .btn-icon.text-blue {
+            color: #3b82f6;
+        }
+        
+        .btn-icon.text-red {
+            color: #ef4444;
+        }
+        
+        .btn-icon.text-blue:hover {
+            color: #2563eb;
+        }
+        
+        .btn-icon.text-red:hover {
+            color: #dc2626;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 48px;
+            color: #6b7280;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="container">
+            <div class="header">
+                <div>
+                    <h1>公司餐厅KPI仪表板</h1>
+                </div>
+                <button class="btn btn-primary" onclick="switchToAdmin()">
+                    <i class="fas fa-cog"></i>
+                    数据管理
+                </button>
+            </div>
+            
+            <!-- Date Controls -->
+            <div class="card" style="margin-bottom: 32px;">
+                <div class="card-body">
+                    <div class="date-controls">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-calendar" style="color: #6b7280;"></i>
+                            <label class="form-label" style="margin: 0;">选择月份:</label>
+                            <input type="month" id="month-selector" class="form-input" style="width: auto;" onchange="handleMonthChange()">
+                        </div>
+                        
+                        <div style="width: 1px; height: 24px; background-color: #d1d5db;"></div>
+                        
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label class="form-label" style="margin: 0;">开始日期:</label>
+                            <input type="date" id="start-date" class="form-input" style="width: auto;" onchange="updateDateRange()">
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label class="form-label" style="margin: 0;">结束日期:</label>
+                            <input type="date" id="end-date" class="form-input" style="width: auto;" onchange="updateDateRange()">
+                        </div>
+                        
+                        <div id="date-info" style="font-size: 0.875rem; color: #6b7280;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-5" style="margin-bottom: 32px;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="kpi-card">
+                            <div>
+                                <p class="kpi-label">总销售额</p>
+                                <p class="kpi-value" id="total-sales">¥0</p>
+                            </div>
+                            <div class="icon text-green">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="kpi-card">
+                            <div>
+                                <p class="kpi-label">净销售额</p>
+                                <p class="kpi-value" id="net-sales">¥0</p>
+                            </div>
+                            <div class="icon text-green">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="kpi-card">
+                            <div>
+                                <p class="kpi-label">桌子总数</p>
+                                <p class="kpi-value" id="total-tables">0</p>
+                            </div>
+                            <div class="icon" style="color: #8b5cf6;">
+                                <i class="fas fa-table"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="kpi-card">
+                            <div>
+                                <p class="kpi-label">人数总数</p>
+                                <p class="kpi-value" id="total-diners">0</p>
+                            </div>
+                            <div class="icon" style="color: #3b82f6;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="kpi-card">
+                            <div>
+                                <p class="kpi-label">人均消费</p>
+                                <p class="kpi-value" id="avg-per-diner">¥0</p>
+                            </div>
+                            <div class="icon" style="color: #f59e0b;">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="grid grid-cols-2" style="margin-bottom: 32px;">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">销售趋势</h3>
+                        <div class="chart-container">
+                            <canvas id="sales-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数趋势</h3>
+                        <div class="chart-container">
+                            <canvas id="diners-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detail Table -->
+            <div class="card">
+                <div class="card-body" style="padding-bottom: 0;">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 24px;">详细数据</h3>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="table" id="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>总销售额</th>
+                                <th>净销售额</th>
+                                <th>用餐人数</th>
+                                <th>使用桌数</th>
+                                <th>人均消费</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Admin View -->
+        <div id="admin-view" class="container hidden">
+            <div class="header">
+                <div>
+                    <h1>餐厅数据管理后台</h1>
+                    <p>管理餐厅日常运营数据，包括销售额、成本、折扣等信息</p>
+                </div>
+                <button class="btn btn-success" onclick="switchToDashboard()">
+                    <i class="fas fa-chart-bar"></i>
+                    查看仪表板
+                </button>
+            </div>
+            
+            <!-- Alert Messages -->
+            <div id="alert-container"></div>
+            
+            <!-- Toolbar -->
+            <div class="card" style="margin-bottom: 24px;">
+                <div class="card-body">
+                    <div class="toolbar">
+                        <div>
+                            <button class="btn btn-primary" onclick="openModal()">
+                                <i class="fas fa-plus"></i>
+                                添加新记录
+                            </button>
+                        </div>
+                        
+                        <div class="search-box">
+                            <i class="fas fa-search" style="color: #6b7280;"></i>
+                            <input type="date" id="search-date" class="form-input" placeholder="搜索日期" onchange="filterAdminData()">
+                            <button class="btn-icon" onclick="clearSearch()" id="clear-search" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Admin Table -->
+            <div class="card">
+                <div style="overflow-x: auto;">
+                    <table class="table" id="admin-table">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>总销售额</th>
+                                <th>成本</th>
+                                <th>折扣</th>
+                                <th>净销售额</th>
+                                <th>用餐人数</th>
+                                <th>使用桌数</th>
+                                <th>人均消费</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div id="empty-state" class="empty-state hidden">
+                    <div class="loading" id="loading-spinner" style="display: none;"></div>
+                    <p id="empty-message">暂无数据</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">添加新记录</h2>
+            </div>
+            
+            <div class="card-body">
+                <div class="grid grid-cols-2">
+                    <div class="form-group">
+                        <label class="form-label">日期 <span class="required">*</span></label>
+                        <input type="date" id="form-date" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">总销售额 (¥) <span class="required">*</span></label>
+                        <input type="number" id="form-gross-sales" class="form-input" min="0" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">成本 (¥)</label>
+                        <input type="number" id="form-costs" class="form-input" min="0" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">折扣 (¥)</label>
+                        <input type="number" id="form-discounts" class="form-input" min="0" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">用餐人数 <span class="required">*</span></label>
+                        <input type="number" id="form-diners" class="form-input" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">使用桌数</label>
+                        <input type="number" id="form-tables" class="form-input" min="0" max="50">
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 16px; margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveRecord()" id="save-btn">
+                        <i class="fas fa-save"></i>
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API 配置
+        const API_BASE_URL = 'api.php'; // 根据您的实际PHP文件路径调整
+        
+        // 应用状态
+        let currentView = 'dashboard';
+        let actualData = [];
+        let editingItem = null;
+        let searchDate = '';
+        let dateRange = {
+            startDate: getTodayMinusMonth(),
+            endDate: getToday()
+        };
+        let selectedMonth = getCurrentMonth();
+        
+        let salesChart = null;
+        let dinersChart = null;
+
+        // 工具函数
+        function getToday() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function getTodayMinusMonth() {
+            const date = new Date();
+            date.setMonth(date.getMonth() - 1);
+            return date.toISOString().split('T')[0];
+        }
+
+        function getCurrentMonth() {
+            return new Date().toISOString().slice(0, 7);
+        }
+
+        // API 调用函数
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.message || '请求失败');
+                }
+                
+                return data;
+            } catch (error) {
+                console.error('API调用失败:', error);
+                showAlert(error.message || '网络错误，请稍后重试', 'error');
+                throw error;
+            }
+        }
+
+        // 数据获取
+        async function loadData(params = {}) {
+            showLoading(true);
+            try {
+                const queryParams = new URLSearchParams({
+                    action: 'list',
+                    ...params
+                });
+                
+                const result = await apiCall(`?${queryParams}`);
+                actualData = result.data || [];
+                return actualData;
+            } catch (error) {
+                actualData = [];
+                return [];
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function loadSummary(startDate, endDate) {
+            try {
+                const queryParams = new URLSearchParams({
+                    action: 'summary',
+                    start_date: startDate,
+                    end_date: endDate
+                });
+                
+                const result = await apiCall(`?${queryParams}`);
+                return result.data;
+            } catch (error) {
+                return {};
+            }
+        }
+
+        // UI 辅助函数
+        function showAlert(message, type = 'success') {
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
+            
+            const alertElement = document.createElement('div');
+            alertElement.className = `alert ${alertClass}`;
+            alertElement.textContent = message;
+            
+            alertContainer.appendChild(alertElement);
+            
+            setTimeout(() => {
+                alertElement.remove();
+            }, 5000);
+        }
+
+        function showLoading(show) {
+            const spinner = document.getElementById('loading-spinner');
+            const emptyMessage = document.getElementById('empty-message');
+            
+            if (show) {
+                spinner.style.display = 'inline-block';
+                emptyMessage.textContent = '加载中...';
+            } else {
+                spinner.style.display = 'none';
+                emptyMessage.textContent = '暂无数据';
+            }
+        }
+
+        // 初始化应用
+        async function initApp() {
+            document.getElementById('month-selector').value = selectedMonth;
+            document.getElementById('start-date').value = dateRange.startDate;
+            document.getElementById('end-date').value = dateRange.endDate;
+            
+            await loadData();
+            updateDashboard();
+            updateAdminTable();
+        }
+
+        // 视图切换
+        function switchToDashboard() {
+            document.getElementById('dashboard-view').classList.remove('hidden');
+            document.getElementById('admin-view').classList.add('hidden');
+            currentView = 'dashboard';
+            updateDashboard();
+        }
+
+        async function switchToAdmin() {
+            document.getElementById('dashboard-view').classList.add('hidden');
+            document.getElementById('admin-view').classList.remove('hidden');
+            currentView = 'admin';
+            await loadData();
+            updateAdminTable();
+        }
+
+        // 日期处理
+        async function handleMonthChange() {
+            const month = document.getElementById('month-selector').value;
+            selectedMonth = month;
+            
+            const year = month.split('-')[0];
+            const monthNum = month.split('-')[1];
+            const firstDay = `${year}-${monthNum}-01`;
+            const lastDay = new Date(year, monthNum, 0).getDate();
+            const lastDayFormatted = `${year}-${monthNum}-${lastDay.toString().padStart(2, '0')}`;
+            
+            dateRange = {
+                startDate: firstDay,
+                endDate: lastDayFormatted
+            };
+            
+            document.getElementById('start-date').value = dateRange.startDate;
+            document.getElementById('end-date').value = dateRange.endDate;
+            
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
+            updateDashboard();
+        }
+
+        async function updateDateRange() {
+            dateRange = {
+                startDate: document.getElementById('start-date').value,
+                endDate: document.getElementById('end-date').value
+            };
+            
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
+            updateDashboard();
+        }
+
+        // 数据转换和过滤
+        function convertToKPIFormat(data) {
+            return data.map(item => ({
+                date: item.date,
+                totalSales: parseFloat(item.gross_sales),
+                netSales: parseFloat(item.net_sales),
+                diners: parseInt(item.diners),
+                tablesUsed: parseInt(item.tables_used),
+                avgSalesPerDiner: parseFloat(item.avg_per_diner)
+            }));
+        }
+
+        function getFilteredKPIData() {
+            const kpiData = convertToKPIFormat(actualData);
+            return kpiData.filter(item => {
+                const itemDate = new Date(item.date);
+                const start = new Date(dateRange.startDate);
+                const end = new Date(dateRange.endDate);
+                return itemDate >= start && itemDate <= end;
+            }).sort((a, b) => new Date(a.date) - new Date(b.date));
+        }
+
+        // 更新仪表板
+        async function updateDashboard() {
+            const summary = await loadSummary(dateRange.startDate, dateRange.endDate);
+            const filteredData = getFilteredKPIData();
+            
+            // 更新KPI卡片
+            document.getElementById('total-sales').textContent = `¥${(summary.total_gross_sales || 0).toLocaleString()}`;
+            document.getElementById('net-sales').textContent = `¥${(summary.total_net_sales || 0).toLocaleString()}`;
+            document.getElementById('total-tables').textContent = (summary.total_tables || 0).toLocaleString();
+            document.getElementById('total-diners').textContent = (summary.total_diners || 0).toLocaleString();
+            document.getElementById('avg-per-diner').textContent = `¥${summary.avg_per_diner || 0}`;
+            
+            // 更新日期信息
+            document.getElementById('date-info').textContent = `已选择 ${summary.total_days || 0} 天的数据`;
+            
+            // 更新图表
+            updateCharts(filteredData);
+            
+            // 更新详细表格
+            updateDashboardTable(filteredData);
+        }
+
+        function updateCharts(data) {
+            const ctx1 = document.getElementById('sales-chart').getContext('2d');
+            const ctx2 = document.getElementById('diners-chart').getContext('2d');
+            
+            // 销售趋势图
+            if (salesChart) {
+                salesChart.destroy();
+            }
+            
+            salesChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: data.map(item => new Date(item.date).getDate().toString()),
+                    datasets: [{
+                        label: '销售额',
+                        data: data.map(item => item.totalSales),
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '¥' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return '销售额: ¥' + context.parsed.y.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 用餐人数图
+            if (dinersChart) {
+                dinersChart.destroy();
+            }
+            
+            dinersChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => new Date(item.date).getDate().toString()),
+                    datasets: [{
+                        label: '用餐人数',
+                        data: data.map(item => item.diners),
+                        backgroundColor: '#10b981'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return '用餐人数: ' + context.parsed.y + '人';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateDashboardTable(data) {
+            const tbody = document.querySelector('#dashboard-table tbody');
+            tbody.innerHTML = '';
+            
+            // 显示最近10条数据
+            const recentData = data.slice(-10);
+            
+            recentData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.date}</td>
+                    <td>¥${item.totalSales.toLocaleString()}</td>
+                    <td>¥${item.netSales.toLocaleString()}</td>
+                    <td>${item.diners}</td>
+                    <td>${item.tablesUsed}</td>
+                    <td>¥${item.avgSalesPerDiner}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 后台管理
+        function updateAdminTable() {
+            const tbody = document.querySelector('#admin-table tbody');
+            const emptyState = document.getElementById('empty-state');
+            tbody.innerHTML = '';
+            
+            let filteredData = actualData;
+            if (searchDate) {
+                filteredData = actualData.filter(item => item.date.includes(searchDate));
+            }
+            
+            filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            if (filteredData.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            
+            filteredData.forEach(item => {
+                const netSales = parseFloat(item.gross_sales) - parseFloat(item.costs) - parseFloat(item.discounts);
+                const avgPerDiner = item.diners > 0 ? Math.round(item.gross_sales / item.diners) : 0;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.date}</td>
+                    <td>¥${parseFloat(item.gross_sales).toLocaleString()}</td>
+                    <td class="text-red">¥${parseFloat(item.costs).toLocaleString()}</td>
+                    <td class="text-orange">¥${parseFloat(item.discounts).toLocaleString()}</td>
+                    <td class="text-green" style="font-weight: 600;">¥${netSales.toLocaleString()}</td>
+                    <td>${item.diners}</td>
+                    <td>${item.tables_used}</td>
+                    <td>¥${avgPerDiner}</td>
+                    <td>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-icon text-blue" onclick="editRecord(${item.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon text-red" onclick="deleteRecord(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function filterAdminData() {
+            searchDate = document.getElementById('search-date').value;
+            const clearButton = document.getElementById('clear-search');
+            
+            if (searchDate) {
+                clearButton.style.display = 'block';
+                await loadData({ search_date: searchDate });
+            } else {
+                clearButton.style.display = 'none';
+                await loadData();
+            }
+            
+            updateAdminTable();
+        }
+
+        async function clearSearch() {
+            document.getElementById('search-date').value = '';
+            document.getElementById('clear-search').style.display = 'none';
+            searchDate = '';
+            await loadData();
+            updateAdminTable();
+        }
+
+        // 模态框操作
+        function openModal() {
+            editingItem = null;
+            document.getElementById('modal-title').textContent = '添加新记录';
+            clearForm();
+            document.getElementById('modal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+            clearForm();
+            editingItem = null;
+        }
+
+        function clearForm() {
+            document.getElementById('form-date').value = '';
+            document.getElementById('form-gross-sales').value = '';
+            document.getElementById('form-costs').value = '';
+            document.getElementById('form-discounts').value = '';
+            document.getElementById('form-diners').value = '';
+            document.getElementById('form-tables').value = '';
+        }
+
+        function editRecord(id) {
+            const item = actualData.find(data => data.id == id);
+            if (!item) return;
+            
+            editingItem = item;
+            document.getElementById('modal-title').textContent = '编辑记录';
+            
+            document.getElementById('form-date').value = item.date;
+            document.getElementById('form-gross-sales').value = item.gross_sales;
+            document.getElementById('form-costs').value = item.costs;
+            document.getElementById('form-discounts').value = item.discounts;
+            document.getElementById('form-diners').value = item.diners;
+            document.getElementById('form-tables').value = item.tables_used;
+            
+            document.getElementById('modal').classList.add('show');
+        }
+
+        async function deleteRecord(id) {
+            if (!confirm('确定要删除这条记录吗？')) {
+                return;
+            }
+            
+            try {
+                await apiCall(`?id=${id}`, { method: 'DELETE' });
+                showAlert('记录删除成功');
+                await loadData();
+                updateAdminTable();
+                if (currentView === 'dashboard') {
+                    updateDashboard();
+                }
+            } catch (error) {
+                // 错误已在apiCall中处理
+            }
+        }
+
+        async function saveRecord() {
+            const date = document.getElementById('form-date').value;
+            const grossSales = document.getElementById('form-gross-sales').value;
+            const diners = document.getElementById('form-diners').value;
+            
+            if (!date || !grossSales || !diners) {
+                showAlert('请填写必填字段：日期、总销售额、用餐人数', 'error');
+                return;
+            }
+            
+            const saveBtn = document.getElementById('save-btn');
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<div class="loading"></div> 保存中...';
+            saveBtn.disabled = true;
+            
+            try {
+                const recordData = {
+                    date: date,
+                    gross_sales: parseFloat(grossSales) || 0,
+                    costs: parseFloat(document.getElementById('form-costs').value) || 0,
+                    discounts: parseFloat(document.getElementById('form-discounts').value) || 0,
+                    diners: parseInt(diners) || 0,
+                    tables_used: parseInt(document.getElementById('form-tables').value) || 0
+                };
+                
+                if (editingItem) {
+                    recordData.id = editingItem.id;
+                    await apiCall('', {
+                        method: 'PUT',
+                        body: JSON.stringify(recordData)
+                    });
+                    showAlert('记录更新成功');
+                } else {
+                    await apiCall('', {
+                        method: 'POST',
+                        body: JSON.stringify(recordData)
+                    });
+                    showAlert('记录添加成功');
+                }
+                
+                closeModal();
+                await loadData();
+                updateAdminTable();
+                if (currentView === 'dashboard') {
+                    updateDashboard();
+                }
+            } catch (error) {
+                // 错误已在apiCall中处理
+            } finally {
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+            }
+        }
+
+        // 点击模态框外部关闭
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // 键盘事件
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

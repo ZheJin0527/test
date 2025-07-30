@@ -1,0 +1,270 @@
+<?php
+ob_start();
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+// 处理预检请求
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    ob_end_clean();
+    http_response_code(200);
+    exit;
+}
+
+ini_set('display_errors', 0);
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
+// 数据库配置
+$host = 'localhost';
+$dbname = 'u857194726_kunzzgroup';
+$dbuser = 'u857194726_kunzzgroup';
+$dbpass = 'Kholdings1688@';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    ob_end_clean();
+    echo json_encode(["success" => false, "message" => "数据库连接失败：" . $e->getMessage()]);
+    exit;
+}
+
+// 获取请求方法和数据
+$method = $_SERVER['REQUEST_METHOD'];
+$data = json_decode(file_get_contents("php://input"), true);
+
+function sendResponse($success, $message = "", $data = null) {
+    ob_end_clean();
+    echo json_encode([
+        "success" => $success,
+        "message" => $message,
+        "data" => $data
+    ]);
+    exit;
+}
+
+// 路由处理
+switch ($method) {
+    case 'GET':
+        handleGet();
+        break;
+    case 'POST':
+        handlePost();
+        break;
+    case 'PUT':
+        handlePut();
+        break;
+    case 'DELETE':
+        handleDelete();
+        break;
+    default:
+        sendResponse(false, "不支持的请求方法");
+}
+
+// 处理 GET 请求 - 获取数据
+function handleGet() {
+    global $pdo;
+    
+    $action = $_GET['action'] ?? 'list';
+    
+    switch ($action) {
+        case 'list':
+            // 获取所有数据
+            $startDate = $_GET['start_date'] ?? null;
+            $endDate = $_GET['end_date'] ?? null;
+            $searchDate = $_GET['search_date'] ?? null;
+            
+            $sql = "SELECT * FROM j1data_view WHERE 1=1";
+            $params = [];
+            
+            if ($searchDate) {
+                $sql .= " AND date = ?";
+                $params[] = $searchDate;
+            } elseif ($startDate && $endDate) {
+                $sql .= " AND date BETWEEN ? AND ?";
+                $params[] = $startDate;
+                $params[] = $endDate;
+            }
+            
+            $sql .= " ORDER BY date DESC";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            sendResponse(true, "数据获取成功", $records);
+            break;
+            
+        case 'summary':
+            // 获取汇总数据
+            $startDate = $_GET['start_date'] ?? null;
+            $endDate = $_GET['end_date'] ?? null;
+            
+            $sql = "SELECT 
+                        COUNT(*) as total_days,
+                        SUM(gross_sales) as total_gross_sales,
+                        SUM(net_sales) as total_net_sales,
+                        SUM(diners) as total_diners,
+                        SUM(tables_used) as total_tables,
+                        ROUND(AVG(avg_per_diner), 0) as avg_per_diner
+                    FROM j1data_view WHERE 1=1";
+            $params = [];
+            
+            if ($startDate && $endDate) {
+                $sql .= " AND date BETWEEN ? AND ?";
+                $params[] = $startDate;
+                $params[] = $endDate;
+            }
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $summary = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            sendResponse(true, "汇总数据获取成功", $summary);
+            break;
+            
+        case 'single':
+            // 获取单条记录
+            $id = $_GET['id'] ?? null;
+            if (!$id) {
+                sendResponse(false, "缺少记录ID");
+            }
+            
+            $stmt = $pdo->prepare("SELECT * FROM j1data WHERE id = ?");
+            $stmt->execute([$id]);
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($record) {
+                sendResponse(true, "记录获取成功", $record);
+            } else {
+                sendResponse(false, "记录不存在");
+            }
+            break;
+            
+        default:
+            sendResponse(false, "无效的操作");
+    }
+}
+
+// 处理 POST 请求 - 添加新记录
+function handlePost() {
+    global $pdo, $data;
+    
+    if (!$data) {
+        sendResponse(false, "无效的数据格式");
+    }
+    
+    // 验证必填字段
+    if (empty($data['date']) || !isset($data['gross_sales']) || !isset($data['diners'])) {
+        sendResponse(false, "缺少必填字段：日期、总销售额、用餐人数");
+    }
+    
+    try {
+        $stmt = $pdo->prepare("
+            INSERT INTO j1data (date, gross_sales, costs, discounts, diners, tables_used) 
+            VALUES (?, ?, ?, ?, ?, ?)
+        ");
+        
+        $stmt->execute([
+            $data['date'],
+            $data['gross_sales'] ?? 0,
+            $data['costs'] ?? 0,
+            $data['discounts'] ?? 0,
+            $data['diners'] ?? 0,
+            $data['tables_used'] ?? 0
+        ]);
+        
+        $newId = $pdo->lastInsertId();
+        
+        // 获取新插入的记录
+        $stmt = $pdo->prepare("SELECT * FROM j1data_view WHERE id = ?");
+        $stmt->execute([$newId]);
+        $newRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        sendResponse(true, "记录添加成功", $newRecord);
+        
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {
+            sendResponse(false, "该日期的记录已存在");
+        } else {
+            sendResponse(false, "添加记录失败：" . $e->getMessage());
+        }
+    }
+}
+
+// 处理 PUT 请求 - 更新记录
+function handlePut() {
+    global $pdo, $data;
+    
+    if (!$data || !isset($data['id'])) {
+        sendResponse(false, "缺少记录ID");
+    }
+    
+    // 验证必填字段
+    if (empty($data['date']) || !isset($data['gross_sales']) || !isset($data['diners'])) {
+        sendResponse(false, "缺少必填字段：日期、总销售额、用餐人数");
+    }
+    
+    try {
+        $stmt = $pdo->prepare("
+            UPDATE j1data 
+            SET date = ?, gross_sales = ?, costs = ?, discounts = ?, diners = ?, tables_used = ?
+            WHERE id = ?
+        ");
+        
+        $result = $stmt->execute([
+            $data['date'],
+            $data['gross_sales'] ?? 0,
+            $data['costs'] ?? 0,
+            $data['discounts'] ?? 0,
+            $data['diners'] ?? 0,
+            $data['tables_used'] ?? 0,
+            $data['id']
+        ]);
+        
+        if ($stmt->rowCount() > 0) {
+            // 获取更新后的记录
+            $stmt = $pdo->prepare("SELECT * FROM j1data_view WHERE id = ?");
+            $stmt->execute([$data['id']]);
+            $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            sendResponse(true, "记录更新成功", $updatedRecord);
+        } else {
+            sendResponse(false, "记录不存在或无变化");
+        }
+        
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {
+            sendResponse(false, "该日期的记录已存在");
+        } else {
+            sendResponse(false, "更新记录失败：" . $e->getMessage());
+        }
+    }
+}
+
+// 处理 DELETE 请求 - 删除记录
+function handleDelete() {
+    global $pdo;
+    
+    $id = $_GET['id'] ?? null;
+    
+    if (!$id) {
+        sendResponse(false, "缺少记录ID");
+    }
+    
+    try {
+        $stmt = $pdo->prepare("DELETE FROM j1data WHERE id = ?");
+        $result = $stmt->execute([$id]);
+        
+        if ($stmt->rowCount() > 0) {
+            sendResponse(true, "记录删除成功");
+        } else {
+            sendResponse(false, "记录不存在");
+        }
+        
+    } catch (PDOException $e) {
+        sendResponse(false, "删除记录失败：" . $e->getMessage());
+    }
+}
+?>
