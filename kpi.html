@@ -672,11 +672,11 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.date}</td>
-                    <td>¥${item.totalSales.toLocaleString()}</td>
-                    <td>¥${item.netSales.toLocaleString()}</td>
+                    <td>RM ${item.totalSales.toLocaleString()}</td>
+                    <td>RM ${item.netSales.toLocaleString()}</td>
                     <td>${item.diners}</td>
                     <td>${item.tablesUsed}</td>
-                    <td>¥${item.avgSalesPerDiner}</td>
+                    <td>RM ${item.avgSalesPerDiner}</td>
                 `;
                 tbody.appendChild(row);
             });
