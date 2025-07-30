@@ -53,6 +53,7 @@
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
+            text-decoration: none;
         }
         
         .btn-primary {
@@ -71,15 +72,6 @@
         
         .btn-success:hover {
             background-color: #059669;
-        }
-        
-        .btn-secondary {
-            background-color: #6b7280;
-            color: white;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #4b5563;
         }
         
         .card {
@@ -171,46 +163,6 @@
             background-color: #f9fafb;
         }
         
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 50;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        
-        .modal.show {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
-            max-width: 672px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
-            padding: 24px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .modal-header h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #111827;
-        }
-        
-        .form-group {
-            margin-bottom: 24px;
-        }
-        
         .form-label {
             display: block;
             font-size: 0.875rem;
@@ -234,25 +186,6 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         
-        .required {
-            color: #ef4444;
-        }
-        
-        .toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
         .date-controls {
             display: flex;
             flex-wrap: wrap;
@@ -266,10 +199,6 @@
             width: 100%;
         }
         
-        .hidden {
-            display: none;
-        }
-        
         .text-green {
             color: #10b981;
         }
@@ -280,41 +209,6 @@
         
         .text-orange {
             color: #f59e0b;
-        }
-        
-        .btn-icon {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-            color: #6b7280;
-            transition: color 0.2s;
-        }
-        
-        .btn-icon:hover {
-            color: #374151;
-        }
-        
-        .btn-icon.text-blue {
-            color: #3b82f6;
-        }
-        
-        .btn-icon.text-red {
-            color: #ef4444;
-        }
-        
-        .btn-icon.text-blue:hover {
-            color: #2563eb;
-        }
-        
-        .btn-icon.text-red:hover {
-            color: #dc2626;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 48px;
-            color: #6b7280;
         }
         
         .loading {
@@ -354,16 +248,11 @@
 </head>
 <body>
     <div id="app">
-        <!-- Dashboard View -->
-        <div id="dashboard-view" class="container">
+        <div class="container">
             <div class="header">
                 <div>
                     <h1>公司餐厅KPI仪表板</h1>
                 </div>
-                <button class="btn btn-primary" onclick="switchToAdmin()">
-                    <i class="fas fa-cog"></i>
-                    数据管理
-                </button>
             </div>
             
             <!-- Date Controls -->
@@ -509,136 +398,14 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Admin View -->
-        <div id="admin-view" class="container hidden">
-            <div class="header">
-                <div>
-                    <h1>餐厅数据管理后台</h1>
-                    <p>管理餐厅日常运营数据，包括销售额、成本、折扣等信息</p>
-                </div>
-                <button class="btn btn-success" onclick="switchToDashboard()">
-                    <i class="fas fa-chart-bar"></i>
-                    查看仪表板
-                </button>
-            </div>
-            
-            <!-- Alert Messages -->
-            <div id="alert-container"></div>
-            
-            <!-- Toolbar -->
-            <div class="card" style="margin-bottom: 24px;">
-                <div class="card-body">
-                    <div class="toolbar">
-                        <div>
-                            <button class="btn btn-primary" onclick="openModal()">
-                                <i class="fas fa-plus"></i>
-                                添加新记录
-                            </button>
-                        </div>
-                        
-                        <div class="search-box">
-                            <i class="fas fa-search" style="color: #6b7280;"></i>
-                            <input type="date" id="search-date" class="form-input" placeholder="搜索日期" onchange="filterAdminData()">
-                            <button class="btn-icon" onclick="clearSearch()" id="clear-search" style="display: none;">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Admin Table -->
-            <div class="card">
-                <div style="overflow-x: auto;">
-                    <table class="table" id="admin-table">
-                        <thead>
-                            <tr>
-                                <th>日期</th>
-                                <th>总销售额</th>
-                                <th>成本</th>
-                                <th>折扣</th>
-                                <th>净销售额</th>
-                                <th>用餐人数</th>
-                                <th>使用桌数</th>
-                                <th>人均消费</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div id="empty-state" class="empty-state hidden">
-                    <div class="loading" id="loading-spinner" style="display: none;"></div>
-                    <p id="empty-message">暂无数据</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">添加新记录</h2>
-            </div>
-            
-            <div class="card-body">
-                <div class="grid grid-cols-2">
-                    <div class="form-group">
-                        <label class="form-label">日期 <span class="required">*</span></label>
-                        <input type="date" id="form-date" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">总销售额 (¥) <span class="required">*</span></label>
-                        <input type="number" id="form-gross-sales" class="form-input" min="0" step="0.01" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">成本 (¥)</label>
-                        <input type="number" id="form-costs" class="form-input" min="0" step="0.01">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">折扣 (¥)</label>
-                        <input type="number" id="form-discounts" class="form-input" min="0" step="0.01">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">用餐人数 <span class="required">*</span></label>
-                        <input type="number" id="form-diners" class="form-input" min="0" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">使用桌数</label>
-                        <input type="number" id="form-tables" class="form-input" min="0" max="50">
-                    </div>
-                </div>
-                
-                <div style="display: flex; justify-content: flex-end; gap: 16px; margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">
-                        <i class="fas fa-times"></i>
-                        取消
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="saveRecord()" id="save-btn">
-                        <i class="fas fa-save"></i>
-                        保存
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
         // API 配置
-        const API_BASE_URL = 'api.php'; // 根据您的实际PHP文件路径调整
+        const API_BASE_URL = 'api.php';
         
         // 应用状态
-        let currentView = 'dashboard';
         let actualData = [];
-        let editingItem = null;
-        let searchDate = '';
         let dateRange = {
             startDate: getTodayMinusMonth(),
             endDate: getToday()
@@ -683,14 +450,12 @@
                 return data;
             } catch (error) {
                 console.error('API调用失败:', error);
-                showAlert(error.message || '网络错误，请稍后重试', 'error');
                 throw error;
             }
         }
 
         // 数据获取
         async function loadData(params = {}) {
-            showLoading(true);
             try {
                 const queryParams = new URLSearchParams({
                     action: 'list',
@@ -703,8 +468,6 @@
             } catch (error) {
                 actualData = [];
                 return [];
-            } finally {
-                showLoading(false);
             }
         }
 
@@ -723,35 +486,6 @@
             }
         }
 
-        // UI 辅助函数
-        function showAlert(message, type = 'success') {
-            const alertContainer = document.getElementById('alert-container');
-            const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
-            
-            const alertElement = document.createElement('div');
-            alertElement.className = `alert ${alertClass}`;
-            alertElement.textContent = message;
-            
-            alertContainer.appendChild(alertElement);
-            
-            setTimeout(() => {
-                alertElement.remove();
-            }, 5000);
-        }
-
-        function showLoading(show) {
-            const spinner = document.getElementById('loading-spinner');
-            const emptyMessage = document.getElementById('empty-message');
-            
-            if (show) {
-                spinner.style.display = 'inline-block';
-                emptyMessage.textContent = '加载中...';
-            } else {
-                spinner.style.display = 'none';
-                emptyMessage.textContent = '暂无数据';
-            }
-        }
-
         // 初始化应用
         async function initApp() {
             document.getElementById('month-selector').value = selectedMonth;
@@ -760,23 +494,6 @@
             
             await loadData();
             updateDashboard();
-            updateAdminTable();
-        }
-
-        // 视图切换
-        function switchToDashboard() {
-            document.getElementById('dashboard-view').classList.remove('hidden');
-            document.getElementById('admin-view').classList.add('hidden');
-            currentView = 'dashboard';
-            updateDashboard();
-        }
-
-        async function switchToAdmin() {
-            document.getElementById('dashboard-view').classList.add('hidden');
-            document.getElementById('admin-view').classList.remove('hidden');
-            currentView = 'admin';
-            await loadData();
-            updateAdminTable();
         }
 
         // 日期处理
@@ -964,204 +681,6 @@
                 tbody.appendChild(row);
             });
         }
-
-        // 后台管理
-        function updateAdminTable() {
-            const tbody = document.querySelector('#admin-table tbody');
-            const emptyState = document.getElementById('empty-state');
-            tbody.innerHTML = '';
-            
-            let filteredData = actualData;
-            if (searchDate) {
-                filteredData = actualData.filter(item => item.date.includes(searchDate));
-            }
-            
-            filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            if (filteredData.length === 0) {
-                emptyState.classList.remove('hidden');
-                return;
-            }
-            
-            emptyState.classList.add('hidden');
-            
-            filteredData.forEach(item => {
-                const netSales = parseFloat(item.gross_sales) - parseFloat(item.costs) - parseFloat(item.discounts);
-                const avgPerDiner = item.diners > 0 ? Math.round(item.gross_sales / item.diners) : 0;
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.date}</td>
-                    <td>¥${parseFloat(item.gross_sales).toLocaleString()}</td>
-                    <td class="text-red">¥${parseFloat(item.costs).toLocaleString()}</td>
-                    <td class="text-orange">¥${parseFloat(item.discounts).toLocaleString()}</td>
-                    <td class="text-green" style="font-weight: 600;">¥${netSales.toLocaleString()}</td>
-                    <td>${item.diners}</td>
-                    <td>${item.tables_used}</td>
-                    <td>¥${avgPerDiner}</td>
-                    <td>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn-icon text-blue" onclick="editRecord(${item.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn-icon text-red" onclick="deleteRecord(${item.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        async function filterAdminData() {
-            searchDate = document.getElementById('search-date').value;
-            const clearButton = document.getElementById('clear-search');
-            
-            if (searchDate) {
-                clearButton.style.display = 'block';
-                await loadData({ search_date: searchDate });
-            } else {
-                clearButton.style.display = 'none';
-                await loadData();
-            }
-            
-            updateAdminTable();
-        }
-
-        async function clearSearch() {
-            document.getElementById('search-date').value = '';
-            document.getElementById('clear-search').style.display = 'none';
-            searchDate = '';
-            await loadData();
-            updateAdminTable();
-        }
-
-        // 模态框操作
-        function openModal() {
-            editingItem = null;
-            document.getElementById('modal-title').textContent = '添加新记录';
-            clearForm();
-            document.getElementById('modal').classList.add('show');
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('show');
-            clearForm();
-            editingItem = null;
-        }
-
-        function clearForm() {
-            document.getElementById('form-date').value = '';
-            document.getElementById('form-gross-sales').value = '';
-            document.getElementById('form-costs').value = '';
-            document.getElementById('form-discounts').value = '';
-            document.getElementById('form-diners').value = '';
-            document.getElementById('form-tables').value = '';
-        }
-
-        function editRecord(id) {
-            const item = actualData.find(data => data.id == id);
-            if (!item) return;
-            
-            editingItem = item;
-            document.getElementById('modal-title').textContent = '编辑记录';
-            
-            document.getElementById('form-date').value = item.date;
-            document.getElementById('form-gross-sales').value = item.gross_sales;
-            document.getElementById('form-costs').value = item.costs;
-            document.getElementById('form-discounts').value = item.discounts;
-            document.getElementById('form-diners').value = item.diners;
-            document.getElementById('form-tables').value = item.tables_used;
-            
-            document.getElementById('modal').classList.add('show');
-        }
-
-        async function deleteRecord(id) {
-            if (!confirm('确定要删除这条记录吗？')) {
-                return;
-            }
-            
-            try {
-                await apiCall(`?id=${id}`, { method: 'DELETE' });
-                showAlert('记录删除成功');
-                await loadData();
-                updateAdminTable();
-                if (currentView === 'dashboard') {
-                    updateDashboard();
-                }
-            } catch (error) {
-                // 错误已在apiCall中处理
-            }
-        }
-
-        async function saveRecord() {
-            const date = document.getElementById('form-date').value;
-            const grossSales = document.getElementById('form-gross-sales').value;
-            const diners = document.getElementById('form-diners').value;
-            
-            if (!date || !grossSales || !diners) {
-                showAlert('请填写必填字段：日期、总销售额、用餐人数', 'error');
-                return;
-            }
-            
-            const saveBtn = document.getElementById('save-btn');
-            const originalText = saveBtn.innerHTML;
-            saveBtn.innerHTML = '<div class="loading"></div> 保存中...';
-            saveBtn.disabled = true;
-            
-            try {
-                const recordData = {
-                    date: date,
-                    gross_sales: parseFloat(grossSales) || 0,
-                    costs: parseFloat(document.getElementById('form-costs').value) || 0,
-                    discounts: parseFloat(document.getElementById('form-discounts').value) || 0,
-                    diners: parseInt(diners) || 0,
-                    tables_used: parseInt(document.getElementById('form-tables').value) || 0
-                };
-                
-                if (editingItem) {
-                    recordData.id = editingItem.id;
-                    await apiCall('', {
-                        method: 'PUT',
-                        body: JSON.stringify(recordData)
-                    });
-                    showAlert('记录更新成功');
-                } else {
-                    await apiCall('', {
-                        method: 'POST',
-                        body: JSON.stringify(recordData)
-                    });
-                    showAlert('记录添加成功');
-                }
-                
-                closeModal();
-                await loadData();
-                updateAdminTable();
-                if (currentView === 'dashboard') {
-                    updateDashboard();
-                }
-            } catch (error) {
-                // 错误已在apiCall中处理
-            } finally {
-                saveBtn.innerHTML = originalText;
-                saveBtn.disabled = false;
-            }
-        }
-
-        // 点击模态框外部关闭
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // 键盘事件
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initApp);
