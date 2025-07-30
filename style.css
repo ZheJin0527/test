@@ -5916,13 +5916,13 @@ form select {
 }
 
 .informationmenu-section-title:hover {
-    background-color: #f8f9fa;
-    color: #1976d2;
+    background-color: #ffffff;
+    color: #ee8a17;
 }
 
 .informationmenu-section-title.active {
-    background-color: #e3f2fd;
-    color: #1976d2;
+    background-color: #e97d18;
+    color: #ffffff;
 }
 
 .section-arrow {
@@ -6012,8 +6012,8 @@ form select {
 /* 保持菜单项高亮当子菜单被hover时 */
 .menu-item-wrapper:hover .informationmenu-item,
 .submenu:hover ~ .informationmenu-item {
-    background-color: #e3f2fd;
-    color: #1976d2;
+    background-color: #ffffff;
+    color: #ee8a17;
 }
 
 .submenu-header {
@@ -6131,16 +6131,19 @@ form select {
 
 .logout-btn {
     width: 160px;
-    background: #ff5c00;
+    background: linear-gradient(to bottom, #ff9850, #e97d18); /* 更橙：上亮橙 → 下品牌橙 */
     border: none;
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 12px 20px;
     color: white;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-family: 'Microsoft YaHei', sans-serif;
+    box-shadow: 
+      4px 4px 10px rgba(0, 0, 0, 0.3),     
+      -4px -4px 10px rgba(255, 200, 150, 0.5); /* 更暖的高光 */
+    transition: all 0.3s ease;
 }
 
 .logout-btn:hover {
