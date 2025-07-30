@@ -203,7 +203,7 @@ $avatarLetter = strtoupper($username[0]);
                         <div class="submenu-header">
                             <div class="submenu-title">仪表盘</div>
                         </div>
-                        <a href="#" class="submenu-item">集团概览</a>
+                        <a href="kpi.html" class="submenu-item">集团概览</a>
                         <a href="#" class="submenu-item">工作表</a>
                     </div>
                 </div>
