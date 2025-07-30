@@ -123,7 +123,7 @@ $avatarLetter = strtoupper($username[0]);
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
                     公司架构管理
-                    <span class="section-arrow">▼</span>
+                    <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="company-items">
                     <div class="menu-item-wrapper">
@@ -157,7 +157,7 @@ $avatarLetter = strtoupper($username[0]);
                             <div class="submenu-content">
                                 <a href="#" class="submenu-item expandable" data-target="j1-options">
                                     J1
-                                    <span class="expand-arrow">▼</span>
+                                    <span class="expand-arrow">⮞</span>
                                 </a>
                                 <div class="sub-options" id="j1-options">
                                     <a href="#" class="sub-option">企业蓝图</a>
@@ -169,7 +169,7 @@ $avatarLetter = strtoupper($username[0]);
 
                                 <a href="#" class="submenu-item expandable" data-target="j2-options">
                                     J2
-                                    <span class="expand-arrow">▼</span>
+                                    <span class="expand-arrow">⮞</span>
                                 </a>
                                 <div class="sub-options" id="j2-options">
                                     <a href="#" class="sub-option">企业蓝图</a>
@@ -181,7 +181,7 @@ $avatarLetter = strtoupper($username[0]);
 
                                 <a href="#" class="submenu-item expandable" data-target="j3-options">
                                     J3
-                                    <span class="expand-arrow">▼</span>
+                                    <span class="expand-arrow">⮞</span>
                                 </a>
                                 <div class="sub-options" id="j3-options">
                                     <a href="#" class="sub-option">企业蓝图</a>
@@ -199,7 +199,7 @@ $avatarLetter = strtoupper($username[0]);
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="analytics-items">
                     运营分析与报表
-                    <span class="section-arrow">▼</span>
+                    <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="analytics-items">
                     <div class="menu-item-wrapper">
@@ -242,7 +242,7 @@ $avatarLetter = strtoupper($username[0]);
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="hr-items">
                     人事与资源管理
-                    <span class="section-arrow">▼</span>
+                    <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="hr-items">
                     <div class="menu-item-wrapper">
@@ -289,7 +289,7 @@ $avatarLetter = strtoupper($username[0]);
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="user-items">
                     用户与权限管理
-                    <span class="section-arrow">▼</span>
+                    <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="user-items">
                     <div class="menu-item-wrapper">
@@ -330,7 +330,7 @@ $avatarLetter = strtoupper($username[0]);
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="help-items">
                     帮助与支持
-                    <span class="section-arrow">▼</span>
+                    <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="help-items">
                     <div class="menu-item-wrapper">

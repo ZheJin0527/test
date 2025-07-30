@@ -5931,7 +5931,7 @@ form select {
 }
 
 .informationmenu-section-title.active .section-arrow {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
 }
 
 /* 下拉显示的菜单项区域 */
@@ -6088,7 +6088,7 @@ form select {
 }
 
 .submenu-item.expandable.expanded .expand-arrow {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
 }
 
 /* 子选项容器 */
