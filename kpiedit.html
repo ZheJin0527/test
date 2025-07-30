@@ -533,13 +533,13 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.date}</td>
-                    <td>¥${parseFloat(item.gross_sales).toLocaleString()}</td>
-                    <td class="text-red">¥${parseFloat(item.costs).toLocaleString()}</td>
-                    <td class="text-orange">¥${parseFloat(item.discounts).toLocaleString()}</td>
-                    <td class="text-green" style="font-weight: 600;">¥${netSales.toLocaleString()}</td>
+                    <td>RM${parseFloat(item.gross_sales).toLocaleString()}</td>
+                    <td class="text-red">RM${parseFloat(item.costs).toLocaleString()}</td>
+                    <td class="text-orange">RM${parseFloat(item.discounts).toLocaleString()}</td>
+                    <td class="text-green" style="font-weight: 600;">RM${netSales.toLocaleString()}</td>
                     <td>${item.diners}</td>
                     <td>${item.tables_used}</td>
-                    <td>¥${avgPerDiner}</td>
+                    <td>RM${avgPerDiner}</td>
                     <td>
                         <div style="display: flex; gap: 8px;">
                             <button class="btn-icon text-blue" onclick="editRecord(${item.id})">
