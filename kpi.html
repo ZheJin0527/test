@@ -599,8 +599,8 @@
             const filteredData = getFilteredKPIData();
             
             // 更新KPI卡片
-            document.getElementById('total-sales').textContent = `RM ${(summary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('net-sales').textContent = `RM ${(summary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('total-sales').textContent = `RM ${parseFloat(summary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('net-sales').textContent = `RM ${parseFloat(summary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('total-tables').textContent = (summary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (summary.total_diners || 0).toLocaleString();
             document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(summary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
