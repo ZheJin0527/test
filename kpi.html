@@ -599,11 +599,11 @@
             const filteredData = getFilteredKPIData();
             
             // 更新KPI卡片
-            document.getElementById('total-sales').textContent = `RM ${(summary.total_gross_sales || 0).toLocaleString()}`;
-            document.getElementById('net-sales').textContent = `RM ${(summary.total_net_sales || 0).toLocaleString()}`;
+            document.getElementById('total-sales').textContent = `RM ${(summary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('net-sales').textContent = `RM ${(summary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('total-tables').textContent = (summary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (summary.total_diners || 0).toLocaleString();
-            document.getElementById('avg-per-diner').textContent = `RM ${summary.avg_per_diner || 0}`;
+            document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(summary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${summary.total_days || 0} 天的数据`;
@@ -644,7 +644,7 @@
                             beginAtZero: true,
                             ticks: {
                                 callback: function(value) {
-                                    return 'RM ' + value.toLocaleString();
+                                    return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                                 }
                             }
                         }
@@ -653,7 +653,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return '销售额: RM ' + context.parsed.y.toLocaleString();
+                                    return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                                 }
                             }
                         }
@@ -708,11 +708,11 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.date}</td>
-                    <td>RM ${item.totalSales.toLocaleString()}</td>
-                    <td>RM ${item.netSales.toLocaleString()}</td>
+                    <td>RM ${item.totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td>RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                     <td>${item.diners}</td>
                     <td>${item.tablesUsed}</td>
-                    <td>RM ${item.avgSalesPerDiner}</td>
+                    <td>RM ${item.avgSalesPerDiner.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                 `;
                 tbody.appendChild(row);
             });
