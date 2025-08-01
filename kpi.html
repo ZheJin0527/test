@@ -500,12 +500,12 @@
                         </div>
                     </div>
                     
-                    <!-- 老顾客 -->
+                    <!-- 回头客 -->
                     <div class="card">
                         <div class="card-body">
                             <div class="kpi-card">
                                 <div>
-                                    <p class="kpi-label">老顾客</p>
+                                    <p class="kpi-label">回头客</p>
                                     <p class="kpi-value" id="total-returning">0</p>
                                 </div>
                                 <div class="icon text-blue">
@@ -580,9 +580,9 @@
                                 <th>用餐人数</th>
                                 <th>使用桌数</th>
                                 <th>人均消费</th>
-                                <th>老顾客</th>
+                                <th>回头客</th>
                                 <th>新顾客</th>
-                                <th>老顾客率</th>
+                                <th>回头客率</th>
                                 <th>新顾客率</th>
                             </tr>
                         </thead>
@@ -814,7 +814,7 @@
                 总销售额: displaySummary.total_gross_sales,
                 总人数: displaySummary.total_diners, 
                 人均消费: displaySummary.avg_per_diner,
-                老顾客: displaySummary.total_returning_customers,
+                回头客: displaySummary.total_returning_customers,
                 新顾客: displaySummary.total_new_customers,
                 计算结果: displaySummary.total_gross_sales / displaySummary.total_diners
             });
@@ -932,7 +932,7 @@
                     labels: data.map(item => new Date(item.date).getDate().toString()),
                     datasets: [
                         {
-                            label: '老顾客',
+                            label: '回头客',
                             data: data.map(item => item.returningCustomers),
                             backgroundColor: '#805906',
                             borderColor: '#805906'
@@ -977,7 +977,7 @@
                                             const newRate = ((item.newCustomers / totalCustomers) * 100).toFixed(1);
                                             return [
                                                 '',
-                                                `老顾客率: ${returningRate}%`,
+                                                `回头客率: ${returningRate}%`,
                                                 `新顾客率: ${newRate}%`
                                             ];
                                         }
