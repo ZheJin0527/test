@@ -42,12 +42,6 @@
             margin-top: 8px;
         }
 
-        .header .controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
         /* 餐厅选择器样式 */
         .restaurant-selector {
             background: white;
@@ -83,32 +77,6 @@
         .restaurant-btn:hover:not(.active) {
             background: rgba(88, 62, 4, 0.1);
             transform: translateY(-1px);
-        }
-
-        .back-button {
-            background-color: #583e04;
-            color: white;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-        
-        .back-button:hover {
-            background-color: #462d03;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
-        }
-        
-        .back-button:active {
-            transform: translateY(0);
         }
         
         .btn {
@@ -184,11 +152,6 @@
                 flex-direction: column;
                 gap: 16px;
                 align-items: flex-start;
-            }
-            .header .controls {
-                flex-wrap: wrap;
-                justify-content: center;
-                width: 100%;
             }
             .restaurant-selector {
                 flex-direction: column;
@@ -437,22 +400,16 @@
                     <h1>餐厅数据管理后台</h1>
                     <p>管理餐厅日常运营数据，包括销售额、成本、折扣、顾客类型等信息</p>
                 </div>
-                <div class="controls">
-                    <!-- 餐厅选择器 -->
-                    <div class="restaurant-selector">
-                        <button class="restaurant-btn active" data-restaurant="j1" onclick="switchRestaurant('j1')">
-                            J1分店
-                        </button>
-                        <button class="restaurant-btn" data-restaurant="j2" onclick="switchRestaurant('j2')">
-                            J2分店
-                        </button>
-                        <button class="restaurant-btn" data-restaurant="j3" onclick="switchRestaurant('j3')">
-                            J3分店
-                        </button>
-                    </div>
-                    <button class="back-button" onclick="goBack()">
-                        <i class="fas fa-arrow-left"></i>
-                        返回上一页
+                <!-- 餐厅选择器 -->
+                <div class="restaurant-selector">
+                    <button class="restaurant-btn active" data-restaurant="j1" onclick="switchRestaurant('j1')">
+                        J1分店
+                    </button>
+                    <button class="restaurant-btn" data-restaurant="j2" onclick="switchRestaurant('j2')">
+                        J2分店
+                    </button>
+                    <button class="restaurant-btn" data-restaurant="j3" onclick="switchRestaurant('j3')">
+                        J3分店
                     </button>
                 </div>
             </div>
@@ -615,15 +572,6 @@
             }
         };
 
-        // 返回上一页功能
-        function goBack() {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = '/';
-            }
-        }
-
         // 切换餐厅
         function switchRestaurant(restaurant) {
             if (currentRestaurant === restaurant) return;
@@ -659,10 +607,6 @@
             // 更新餐厅选择器边框色
             const selector = document.querySelector('.restaurant-selector');
             selector.style.borderColor = config.colors.primary;
-            
-            // 更新返回按钮颜色
-            const backButton = document.querySelector('.back-button');
-            backButton.style.backgroundColor = config.colors.primary;
         }
 
         // API 调用函数
