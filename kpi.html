@@ -598,15 +598,49 @@
             const summary = await loadSummary(dateRange.startDate, dateRange.endDate);
             const filteredData = getFilteredKPIData();
             
+            // 使用前端数据重新计算精确的汇总统计
+            let displaySummary;
+            if (filteredData.length > 0) {
+                displaySummary = {
+                    total_gross_sales: filteredData.reduce((sum, item) => sum + item.totalSales, 0),
+                    total_net_sales: filteredData.reduce((sum, item) => sum + item.netSales, 0),
+                    total_tables: filteredData.reduce((sum, item) => sum + item.tablesUsed, 0),
+                    total_diners: filteredData.reduce((sum, item) => sum + item.diners, 0),
+                    total_days: filteredData.length
+                };
+                // 重新计算真正的平均每人消费
+                displaySummary.avg_per_diner = displaySummary.total_diners > 0 ? 
+                    displaySummary.total_gross_sales / displaySummary.total_diners : 0;
+            } else {
+                // 如果没有过滤数据，使用API数据但重新计算平均值
+                displaySummary = {
+                    total_gross_sales: parseFloat(summary.total_gross_sales || 0),
+                    total_net_sales: parseFloat(summary.total_net_sales || 0),
+                    total_tables: parseInt(summary.total_tables || 0),
+                    total_diners: parseInt(summary.total_diners || 0),
+                    total_days: parseInt(summary.total_days || 0)
+                };
+                // 重新计算平均每人消费，不使用API的avg_per_diner
+                displaySummary.avg_per_diner = displaySummary.total_diners > 0 ? 
+                    displaySummary.total_gross_sales / displaySummary.total_diners : 0;
+            }
+            
+            console.log('计算详情:', {
+                总销售额: displaySummary.total_gross_sales,
+                总人数: displaySummary.total_diners, 
+                人均消费: displaySummary.avg_per_diner,
+                计算结果: displaySummary.total_gross_sales / displaySummary.total_diners
+            });
+            
             // 更新KPI卡片
-            document.getElementById('total-sales').textContent = `RM ${parseFloat(summary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('net-sales').textContent = `RM ${parseFloat(summary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('total-tables').textContent = (summary.total_tables || 0).toLocaleString();
-            document.getElementById('total-diners').textContent = (summary.total_diners || 0).toLocaleString();
-            document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(summary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('total-sales').textContent = `RM ${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('net-sales').textContent = `RM ${parseFloat(displaySummary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
+            document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
+            document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             
             // 更新日期信息
-            document.getElementById('date-info').textContent = `已选择 ${summary.total_days || 0} 天的数据`;
+            document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据`;
             
             // 更新图表
             updateCharts(filteredData);
