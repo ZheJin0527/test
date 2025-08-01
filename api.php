@@ -107,7 +107,7 @@ function handleGet() {
                         SUM(net_sales) as total_net_sales,
                         SUM(diners) as total_diners,
                         SUM(tables_used) as total_tables,
-                        ROUND(AVG(avg_per_diner), 0) as avg_per_diner
+                        AVG(avg_per_diner) as avg_per_diner
                     FROM j1data_view WHERE 1=1";
             $params = [];
             
