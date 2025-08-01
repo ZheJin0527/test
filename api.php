@@ -30,6 +30,25 @@ try {
     exit;
 }
 
+// 餐厅配置
+$restaurantConfig = [
+    'j1' => [
+        'data_table' => 'j1data',
+        'view_table' => 'j1data_view',
+        'name' => 'J1分店'
+    ],
+    'j2' => [
+        'data_table' => 'j2data',
+        'view_table' => 'j2data_view',
+        'name' => 'J2分店'
+    ],
+    'j3' => [
+        'data_table' => 'j3data',
+        'view_table' => 'j3data_view',
+        'name' => 'J3分店'
+    ]
+];
+
 // 获取请求方法和数据
 $method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents("php://input"), true);
@@ -42,6 +61,16 @@ function sendResponse($success, $message = "", $data = null) {
         "data" => $data
     ]);
     exit;
+}
+
+function getRestaurantConfig($restaurant) {
+    global $restaurantConfig;
+    
+    if (!isset($restaurantConfig[$restaurant])) {
+        sendResponse(false, "无效的餐厅标识：" . $restaurant);
+    }
+    
+    return $restaurantConfig[$restaurant];
 }
 
 // 路由处理
@@ -67,6 +96,8 @@ function handleGet() {
     global $pdo;
     
     $action = $_GET['action'] ?? 'list';
+    $restaurant = $_GET['restaurant'] ?? 'j1';
+    $config = getRestaurantConfig($restaurant);
     
     switch ($action) {
         case 'list':
@@ -75,7 +106,7 @@ function handleGet() {
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
             
-            $sql = "SELECT * FROM j1data_view WHERE 1=1";
+            $sql = "SELECT * FROM " . $config['view_table'] . " WHERE 1=1";
             $params = [];
             
             if ($searchDate) {
@@ -110,7 +141,7 @@ function handleGet() {
                         SUM(returning_customers) as total_returning_customers,
                         SUM(new_customers) as total_new_customers,
                         AVG(avg_per_diner) as avg_per_diner
-                    FROM j1data_view WHERE 1=1";
+                    FROM " . $config['view_table'] . " WHERE 1=1";
             $params = [];
             
             if ($startDate && $endDate) {
@@ -133,7 +164,7 @@ function handleGet() {
                 sendResponse(false, "缺少记录ID");
             }
             
-            $stmt = $pdo->prepare("SELECT * FROM j1data WHERE id = ?");
+            $stmt = $pdo->prepare("SELECT * FROM " . $config['data_table'] . " WHERE id = ?");
             $stmt->execute([$id]);
             $record = $stmt->fetch(PDO::FETCH_ASSOC);
             
@@ -157,16 +188,20 @@ function handlePost() {
         sendResponse(false, "无效的数据格式");
     }
     
+    $restaurant = $data['restaurant'] ?? 'j1';
+    $config = getRestaurantConfig($restaurant);
+    
     // 验证必填字段
     if (empty($data['date']) || !isset($data['gross_sales']) || !isset($data['diners'])) {
         sendResponse(false, "缺少必填字段：日期、总销售额、用餐人数");
     }
     
     try {
-        $stmt = $pdo->prepare("
-            INSERT INTO j1data (date, gross_sales, costs, discounts, diners, tables_used, returning_customers, new_customers) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+        $sql = "INSERT INTO " . $config['data_table'] . " 
+                (date, gross_sales, costs, discounts, diners, tables_used, returning_customers, new_customers) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $stmt = $pdo->prepare($sql);
         
         $stmt->execute([
             $data['date'],
@@ -182,15 +217,15 @@ function handlePost() {
         $newId = $pdo->lastInsertId();
         
         // 获取新插入的记录
-        $stmt = $pdo->prepare("SELECT * FROM j1data_view WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT * FROM " . $config['view_table'] . " WHERE id = ?");
         $stmt->execute([$newId]);
         $newRecord = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        sendResponse(true, "记录添加成功", $newRecord);
+        sendResponse(true, $config['name'] . "记录添加成功", $newRecord);
         
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) {
-            sendResponse(false, "该日期的记录已存在");
+            sendResponse(false, "该日期在" . $config['name'] . "的记录已存在");
         } else {
             sendResponse(false, "添加记录失败：" . $e->getMessage());
         }
@@ -205,17 +240,21 @@ function handlePut() {
         sendResponse(false, "缺少记录ID");
     }
     
+    $restaurant = $data['restaurant'] ?? 'j1';
+    $config = getRestaurantConfig($restaurant);
+    
     // 验证必填字段
     if (empty($data['date']) || !isset($data['gross_sales']) || !isset($data['diners'])) {
         sendResponse(false, "缺少必填字段：日期、总销售额、用餐人数");
     }
     
     try {
-        $stmt = $pdo->prepare("
-            UPDATE j1data 
-            SET date = ?, gross_sales = ?, costs = ?, discounts = ?, diners = ?, tables_used = ?, returning_customers = ?, new_customers = ?
-            WHERE id = ?
-        ");
+        $sql = "UPDATE " . $config['data_table'] . " 
+                SET date = ?, gross_sales = ?, costs = ?, discounts = ?, diners = ?, 
+                    tables_used = ?, returning_customers = ?, new_customers = ?
+                WHERE id = ?";
+        
+        $stmt = $pdo->prepare($sql);
         
         $result = $stmt->execute([
             $data['date'],
@@ -231,18 +270,18 @@ function handlePut() {
         
         if ($stmt->rowCount() > 0) {
             // 获取更新后的记录
-            $stmt = $pdo->prepare("SELECT * FROM j1data_view WHERE id = ?");
+            $stmt = $pdo->prepare("SELECT * FROM " . $config['view_table'] . " WHERE id = ?");
             $stmt->execute([$data['id']]);
             $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            sendResponse(true, "记录更新成功", $updatedRecord);
+            sendResponse(true, $config['name'] . "记录更新成功", $updatedRecord);
         } else {
             sendResponse(false, "记录不存在或无变化");
         }
         
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) {
-            sendResponse(false, "该日期的记录已存在");
+            sendResponse(false, "该日期在" . $config['name'] . "的记录已存在");
         } else {
             sendResponse(false, "更新记录失败：" . $e->getMessage());
         }
@@ -254,17 +293,19 @@ function handleDelete() {
     global $pdo;
     
     $id = $_GET['id'] ?? null;
+    $restaurant = $_GET['restaurant'] ?? 'j1';
+    $config = getRestaurantConfig($restaurant);
     
     if (!$id) {
         sendResponse(false, "缺少记录ID");
     }
     
     try {
-        $stmt = $pdo->prepare("DELETE FROM j1data WHERE id = ?");
+        $stmt = $pdo->prepare("DELETE FROM " . $config['data_table'] . " WHERE id = ?");
         $result = $stmt->execute([$id]);
         
         if ($stmt->rowCount() > 0) {
-            sendResponse(true, "记录删除成功");
+            sendResponse(true, $config['name'] . "记录删除成功");
         } else {
             sendResponse(false, "记录不存在");
         }
