@@ -629,8 +629,8 @@
                 data: {
                     labels: data.map(item => new Date(item.date).getDate().toString()),
                     datasets: [{
-                        label: '销售额',
-                        data: data.map(item => item.totalSales),
+                        label: '净销售额',
+                        data: data.map(item => item.netSales),
                         borderColor: '#3b82f6',
                         backgroundColor: 'rgba(59, 130, 246, 0.1)',
                         tension: 0.1
