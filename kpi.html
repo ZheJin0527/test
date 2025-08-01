@@ -43,13 +43,13 @@
         }
         
         .header .logo {
-            height: 60px;
+            height: 100px;
             width: auto;
             object-fit: contain;
         }
         
         .header .title-text {
-            font-size: 1.5rem;
+            font-size: 60px;
             font-weight: bold;
             color: #111827;
         }
@@ -286,8 +286,8 @@
         <div class="container">
             <div class="header">
                 <div class="logo-container">
-                    <img src="images/images/logo.png" alt="Company Logo" class="logo">
-                    <span class="title-text">餐厅KPI仪表板</span>
+                    <img src="images/images/tokyo.png" alt="Company Logo" class="logo">
+                    <span class="title-text">TOKYO JAPANESE CUISINE</span>
                 </div>
             </div>
             
@@ -395,7 +395,7 @@
             <div class="grid grid-cols-2" style="margin-bottom: 32px;">
                 <div class="card">
                     <div class="card-body">
-                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">销售趋势</h3>
                         <div class="chart-container">
                             <canvas id="sales-chart"></canvas>
                         </div>
@@ -599,11 +599,11 @@
             const filteredData = getFilteredKPIData();
             
             // 更新KPI卡片
-            document.getElementById('total-sales').textContent = `RM ${(summary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('net-sales').textContent = `RM ${(summary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('total-sales').textContent = `RM ${(summary.total_gross_sales || 0).toLocaleString()}`;
+            document.getElementById('net-sales').textContent = `RM ${(summary.total_net_sales || 0).toLocaleString()}`;
             document.getElementById('total-tables').textContent = (summary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (summary.total_diners || 0).toLocaleString();
-            document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(summary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('avg-per-diner').textContent = `RM ${summary.avg_per_diner || 0}`;
             
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${summary.total_days || 0} 天的数据`;
@@ -644,7 +644,7 @@
                             beginAtZero: true,
                             ticks: {
                                 callback: function(value) {
-                                    return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    return 'RM ' + value.toLocaleString();
                                 }
                             }
                         }
@@ -653,7 +653,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    return '销售额: RM ' + context.parsed.y.toLocaleString();
                                 }
                             }
                         }
@@ -708,11 +708,11 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.date}</td>
-                    <td>RM ${item.totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                    <td>RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td>RM ${item.totalSales.toLocaleString()}</td>
+                    <td>RM ${item.netSales.toLocaleString()}</td>
                     <td>${item.diners}</td>
                     <td>${item.tablesUsed}</td>
-                    <td>RM ${item.avgSalesPerDiner.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td>RM ${item.avgSalesPerDiner}</td>
                 `;
                 tbody.appendChild(row);
             });
