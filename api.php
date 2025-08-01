@@ -107,6 +107,8 @@ function handleGet() {
                         SUM(net_sales) as total_net_sales,
                         SUM(diners) as total_diners,
                         SUM(tables_used) as total_tables,
+                        SUM(returning_customers) as total_returning_customers,
+                        SUM(new_customers) as total_new_customers,
                         AVG(avg_per_diner) as avg_per_diner
                     FROM j1data_view WHERE 1=1";
             $params = [];
@@ -162,8 +164,8 @@ function handlePost() {
     
     try {
         $stmt = $pdo->prepare("
-            INSERT INTO j1data (date, gross_sales, costs, discounts, diners, tables_used) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO j1data (date, gross_sales, costs, discounts, diners, tables_used, returning_customers, new_customers) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ");
         
         $stmt->execute([
@@ -172,7 +174,9 @@ function handlePost() {
             $data['costs'] ?? 0,
             $data['discounts'] ?? 0,
             $data['diners'] ?? 0,
-            $data['tables_used'] ?? 0
+            $data['tables_used'] ?? 0,
+            $data['returning_customers'] ?? 0,
+            $data['new_customers'] ?? 0
         ]);
         
         $newId = $pdo->lastInsertId();
@@ -209,7 +213,7 @@ function handlePut() {
     try {
         $stmt = $pdo->prepare("
             UPDATE j1data 
-            SET date = ?, gross_sales = ?, costs = ?, discounts = ?, diners = ?, tables_used = ?
+            SET date = ?, gross_sales = ?, costs = ?, discounts = ?, diners = ?, tables_used = ?, returning_customers = ?, new_customers = ?
             WHERE id = ?
         ");
         
@@ -220,6 +224,8 @@ function handlePut() {
             $data['discounts'] ?? 0,
             $data['diners'] ?? 0,
             $data['tables_used'] ?? 0,
+            $data['returning_customers'] ?? 0,
+            $data['new_customers'] ?? 0,
             $data['id']
         ]);
         

@@ -116,12 +116,29 @@
             grid-template-columns: repeat(2, 1fr);
         }
         
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
         .grid-cols-5 {
             grid-template-columns: repeat(5, 1fr);
         }
         
+        .grid-cols-7 {
+            grid-template-columns: repeat(7, 1fr);
+        }
+        
+        @media (max-width: 1200px) {
+            .grid-cols-7 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
         @media (max-width: 1024px) {
             .grid-cols-5 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-cols-3 {
                 grid-template-columns: repeat(2, 1fr);
             }
             .header .logo {
@@ -134,6 +151,7 @@
         
         @media (max-width: 640px) {
             .grid-cols-5,
+            .grid-cols-3,
             .grid-cols-2 {
                 grid-template-columns: 1fr;
             }
@@ -238,6 +256,14 @@
             color: #583e04;
         }
         
+        .text-blue {
+            color: #583e04;
+        }
+        
+        .text-purple {
+            color: #583e04;
+        }
+        
         .text-red {
             color: #583e04;
         }
@@ -319,7 +345,7 @@
             </div>
             
             <!-- KPI Cards -->
-            <div class="grid grid-cols-5" style="margin-bottom: 32px;">
+            <div class="grid grid-cols-7" style="margin-bottom: 32px;">
                 <div class="card">
                     <div class="card-body">
                         <div class="kpi-card">
@@ -389,10 +415,38 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="kpi-card">
+                            <div>
+                                <p class="kpi-label">老顾客</p>
+                                <p class="kpi-value" id="total-returning">0</p>
+                            </div>
+                            <div class="icon text-blue">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="kpi-card">
+                            <div>
+                                <p class="kpi-label">新顾客</p>
+                                <p class="kpi-value" id="total-new">0</p>
+                            </div>
+                            <div class="icon text-purple">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- Charts -->
-            <div class="grid grid-cols-2" style="margin-bottom: 32px;">
+            <div class="grid grid-cols-3" style="margin-bottom: 32px;">
                 <div class="card">
                     <div class="card-body">
                         <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
@@ -407,6 +461,15 @@
                         <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数趋势</h3>
                         <div class="chart-container">
                             <canvas id="diners-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">顾客类型分布</h3>
+                        <div class="chart-container">
+                            <canvas id="customers-chart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -427,6 +490,9 @@
                                 <th>用餐人数</th>
                                 <th>使用桌数</th>
                                 <th>人均消费</th>
+                                <th>老顾客</th>
+                                <th>新顾客</th>
+                                <th>老顾客率</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -450,6 +516,7 @@
         
         let salesChart = null;
         let dinersChart = null;
+        let customersChart = null;
 
         // 工具函数
         function getToday() {
@@ -579,6 +646,8 @@
                 netSales: parseFloat(item.net_sales) || 0,
                 diners: parseInt(item.diners) || 0,
                 tablesUsed: parseInt(item.tables_used) || 0,
+                returningCustomers: parseInt(item.returning_customers) || 0,
+                newCustomers: parseInt(item.new_customers) || 0,
                 avgSalesPerDiner: item.diners > 0 ? (parseFloat(item.gross_sales) || 0) / (parseInt(item.diners) || 1) : 0
             }));
         }
@@ -606,6 +675,8 @@
                     total_net_sales: filteredData.reduce((sum, item) => sum + item.netSales, 0),
                     total_tables: filteredData.reduce((sum, item) => sum + item.tablesUsed, 0),
                     total_diners: filteredData.reduce((sum, item) => sum + item.diners, 0),
+                    total_returning_customers: filteredData.reduce((sum, item) => sum + item.returningCustomers, 0),
+                    total_new_customers: filteredData.reduce((sum, item) => sum + item.newCustomers, 0),
                     total_days: filteredData.length
                 };
                 // 重新计算真正的平均每人消费
@@ -618,6 +689,8 @@
                     total_net_sales: parseFloat(summary.total_net_sales || 0),
                     total_tables: parseInt(summary.total_tables || 0),
                     total_diners: parseInt(summary.total_diners || 0),
+                    total_returning_customers: parseInt(summary.total_returning_customers || 0),
+                    total_new_customers: parseInt(summary.total_new_customers || 0),
                     total_days: parseInt(summary.total_days || 0)
                 };
                 // 重新计算平均每人消费，不使用API的avg_per_diner
@@ -629,6 +702,8 @@
                 总销售额: displaySummary.total_gross_sales,
                 总人数: displaySummary.total_diners, 
                 人均消费: displaySummary.avg_per_diner,
+                老顾客: displaySummary.total_returning_customers,
+                新顾客: displaySummary.total_new_customers,
                 计算结果: displaySummary.total_gross_sales / displaySummary.total_diners
             });
             
@@ -638,6 +713,8 @@
             document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
             document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('total-returning').textContent = (displaySummary.total_returning_customers || 0).toLocaleString();
+            document.getElementById('total-new').textContent = (displaySummary.total_new_customers || 0).toLocaleString();
             
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据`;
@@ -652,6 +729,7 @@
         function updateCharts(data) {
             const ctx1 = document.getElementById('sales-chart').getContext('2d');
             const ctx2 = document.getElementById('diners-chart').getContext('2d');
+            const ctx3 = document.getElementById('customers-chart').getContext('2d');
             
             // 销售趋势图
             if (salesChart) {
@@ -731,6 +809,54 @@
                     }
                 }
             });
+            
+            // 顾客类型图表
+            if (customersChart) {
+                customersChart.destroy();
+            }
+            
+            customersChart = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => new Date(item.date).getDate().toString()),
+                    datasets: [
+                        {
+                            label: '老顾客',
+                            data: data.map(item => item.returningCustomers),
+                            backgroundColor: '#3b82f6',
+                            borderColor: '#3b82f6'
+                        },
+                        {
+                            label: '新顾客',
+                            data: data.map(item => item.newCustomers),
+                            backgroundColor: '#8b5cf6',
+                            borderColor: '#8b5cf6'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + '人';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         function updateDashboardTable(data) {
@@ -741,6 +867,9 @@
             const recentData = data.slice(-10);
             
             recentData.forEach(item => {
+                const totalCustomers = item.returningCustomers + item.newCustomers;
+                const returningRate = totalCustomers > 0 ? ((item.returningCustomers / totalCustomers) * 100).toFixed(1) : 0;
+                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.date}</td>
@@ -749,6 +878,9 @@
                     <td>${item.diners}</td>
                     <td>${item.tablesUsed}</td>
                     <td>RM ${item.avgSalesPerDiner.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td>${item.returningCustomers}</td>
+                    <td>${item.newCustomers}</td>
+                    <td>${returningRate}%</td>
                 `;
                 tbody.appendChild(row);
             });
