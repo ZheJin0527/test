@@ -41,6 +41,43 @@
             color: #6b7280;
             margin-top: 8px;
         }
+
+        /* 餐厅选择器样式 */
+        .restaurant-selector {
+            background: white;
+            border-radius: 12px;
+            padding: 6px;
+            display: flex;
+            gap: 4px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+        }
+
+        .restaurant-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #583e04;
+            position: relative;
+            min-width: 80px;
+        }
+
+        .restaurant-btn.active {
+            background: #583e04;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.25);
+        }
+
+        .restaurant-btn:hover:not(.active) {
+            background: rgba(88, 62, 4, 0.1);
+            transform: translateY(-1px);
+        }
         
         .btn {
             padding: 8px 16px;
@@ -110,6 +147,18 @@
             .grid-cols-3,
             .grid-cols-2 {
                 grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            .restaurant-selector {
+                flex-direction: column;
+                width: 100%;
+            }
+            .restaurant-btn {
+                min-width: auto;
             }
         }
         
@@ -312,15 +361,56 @@
             color: #991b1b;
             border: 1px solid #fca5a5;
         }
+
+        /* 餐厅特定的颜色主题 */
+        .restaurant-j1 {
+            --primary-color: #583e04;
+            --secondary-color: #805906;
+        }
+
+        .restaurant-j2 {
+            --primary-color: #1e40af;
+            --secondary-color: #3b82f6;
+        }
+
+        .restaurant-j3 {
+            --primary-color: #7c2d12;
+            --secondary-color: #dc2626;
+        }
+
+        /* 动态应用颜色 */
+        .dynamic-color {
+            color: var(--primary-color) !important;
+        }
+
+        .dynamic-bg {
+            background-color: var(--primary-color) !important;
+        }
+
+        .dynamic-border {
+            border-color: var(--primary-color) !important;
+        }
     </style>
 </head>
-<body>
+<body class="restaurant-j1">
     <div id="app">
         <div class="container">
             <div class="header">
                 <div>
                     <h1>餐厅数据管理后台</h1>
                     <p>管理餐厅日常运营数据，包括销售额、成本、折扣、顾客类型等信息</p>
+                </div>
+                <!-- 餐厅选择器 -->
+                <div class="restaurant-selector">
+                    <button class="restaurant-btn active" data-restaurant="j1" onclick="switchRestaurant('j1')">
+                        J1分店
+                    </button>
+                    <button class="restaurant-btn" data-restaurant="j2" onclick="switchRestaurant('j2')">
+                        J2分店
+                    </button>
+                    <button class="restaurant-btn" data-restaurant="j3" onclick="switchRestaurant('j3')">
+                        J3分店
+                    </button>
                 </div>
             </div>
             
@@ -452,6 +542,72 @@
         let actualData = [];
         let editingItem = null;
         let searchDate = '';
+        let currentRestaurant = 'j1';
+
+        // 餐厅配置
+        const restaurantConfig = {
+            j1: {
+                name: 'J1分店',
+                tableName: 'j1data',
+                colors: {
+                    primary: '#583e04',
+                    secondary: '#805906'
+                }
+            },
+            j2: {
+                name: 'J2分店',
+                tableName: 'j2data',
+                colors: {
+                    primary: '#1e40af',
+                    secondary: '#3b82f6'
+                }
+            },
+            j3: {
+                name: 'J3分店',
+                tableName: 'j3data',
+                colors: {
+                    primary: '#7c2d12',
+                    secondary: '#dc2626'
+                }
+            }
+        };
+
+        // 切换餐厅
+        function switchRestaurant(restaurant) {
+            if (currentRestaurant === restaurant) return;
+            
+            currentRestaurant = restaurant;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.restaurant-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.restaurant === restaurant) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // 更新页面主题色
+            document.body.className = `restaurant-${restaurant}`;
+            updateThemeColors(restaurant);
+            
+            // 重新加载数据
+            loadData().then(() => {
+                updateAdminTable();
+            });
+        }
+
+        // 更新主题颜色
+        function updateThemeColors(restaurant) {
+            const config = restaurantConfig[restaurant];
+            const root = document.documentElement;
+            
+            root.style.setProperty('--primary-color', config.colors.primary);
+            root.style.setProperty('--secondary-color', config.colors.secondary);
+            
+            // 更新餐厅选择器边框色
+            const selector = document.querySelector('.restaurant-selector');
+            selector.style.borderColor = config.colors.primary;
+        }
 
         // API 调用函数
         async function apiCall(endpoint, options = {}) {
@@ -484,6 +640,7 @@
             try {
                 const queryParams = new URLSearchParams({
                     action: 'list',
+                    restaurant: currentRestaurant,
                     ...params
                 });
                 
@@ -523,12 +680,15 @@
                 emptyMessage.textContent = '加载中...';
             } else {
                 spinner.style.display = 'none';
-                emptyMessage.textContent = '暂无数据';
+                emptyMessage.textContent = `暂无${restaurantConfig[currentRestaurant].name}数据`;
             }
         }
 
         // 初始化应用
         async function initApp() {
+            // 初始化主题色
+            updateThemeColors(currentRestaurant);
+            
             await loadData();
             updateAdminTable();
         }
@@ -615,7 +775,7 @@
         // 模态框操作
         function openModal() {
             editingItem = null;
-            document.getElementById('modal-title').textContent = '添加新记录';
+            document.getElementById('modal-title').textContent = `添加新记录 - ${restaurantConfig[currentRestaurant].name}`;
             clearForm();
             document.getElementById('modal').classList.add('show');
         }
@@ -642,7 +802,7 @@
             if (!item) return;
             
             editingItem = item;
-            document.getElementById('modal-title').textContent = '编辑记录';
+            document.getElementById('modal-title').textContent = `编辑记录 - ${restaurantConfig[currentRestaurant].name}`;
             
             document.getElementById('form-date').value = item.date;
             document.getElementById('form-gross-sales').value = item.gross_sales;
@@ -657,12 +817,12 @@
         }
 
         async function deleteRecord(id) {
-            if (!confirm('确定要删除这条记录吗？')) {
+            if (!confirm(`确定要删除这条${restaurantConfig[currentRestaurant].name}的记录吗？`)) {
                 return;
             }
             
             try {
-                await apiCall(`?id=${id}`, { method: 'DELETE' });
+                await apiCall(`?id=${id}&restaurant=${currentRestaurant}`, { method: 'DELETE' });
                 showAlert('记录删除成功');
                 await loadData();
                 updateAdminTable();
@@ -695,7 +855,8 @@
                     diners: parseInt(diners) || 0,
                     tables_used: parseInt(document.getElementById('form-tables').value) || 0,
                     returning_customers: parseInt(document.getElementById('form-returning-customers').value) || 0,
-                    new_customers: parseInt(document.getElementById('form-new-customers').value) || 0
+                    new_customers: parseInt(document.getElementById('form-new-customers').value) || 0,
+                    restaurant: currentRestaurant
                 };
                 
                 if (editingItem) {
@@ -704,13 +865,13 @@
                         method: 'PUT',
                         body: JSON.stringify(recordData)
                     });
-                    showAlert('记录更新成功');
+                    showAlert(`${restaurantConfig[currentRestaurant].name}记录更新成功`);
                 } else {
                     await apiCall('', {
                         method: 'POST',
                         body: JSON.stringify(recordData)
                     });
-                    showAlert('记录添加成功');
+                    showAlert(`${restaurantConfig[currentRestaurant].name}记录添加成功`);
                 }
                 
                 closeModal();
