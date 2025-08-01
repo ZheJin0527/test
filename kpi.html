@@ -469,7 +469,7 @@
                 
                 <div class="card">
                     <div class="card-body">
-                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">顾客类型分布</h3>
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">顾客类型分布及比率</h3>
                         <div class="chart-container">
                             <canvas id="customers-chart"></canvas>
                         </div>
@@ -765,6 +765,48 @@
                     maintainAspectRatio: false,
                     scales: {
                         y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 用餐人数图
+            if (dinersChart) {
+                dinersChart.destroy();
+            }
+            
+            dinersChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => new Date(item.date).getDate().toString()),
+                    datasets: [{
+                        label: '用餐人数',
+                        data: data.map(item => item.diners),
+                        borderColor: '#805906',
+                        backgroundColor: '#805906',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
                             beginAtZero: true
                         }
                     },
@@ -780,7 +822,7 @@
                 }
             });
             
-            // 顾客类型分布图 - 简化为只显示柱状图
+            // 顾客类型及比率图表 - 组合图表
             if (customersChart) {
                 customersChart.destroy();
             }
@@ -794,29 +836,75 @@
                             label: '老顾客',
                             data: data.map(item => item.returningCustomers),
                             backgroundColor: '#3b82f6',
-                            borderColor: '#3b82f6'
+                            borderColor: '#3b82f6',
+                            yAxisID: 'y'
                         },
                         {
                             label: '新顾客',
                             data: data.map(item => item.newCustomers),
                             backgroundColor: '#8b5cf6',
-                            borderColor: '#8b5cf6'
+                            borderColor: '#8b5cf6',
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '老顾客率',
+                            data: data.map(item => item.returningRate),
+                            type: 'line',
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            yAxisID: 'y1',
+                            tension: 0.1
+                        },
+                        {
+                            label: '新顾客率',
+                            data: data.map(item => item.newCustomersRate),
+                            type: 'line',
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            yAxisID: 'y1',
+                            tension: 0.1
                         }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
                     scales: {
                         x: {
                             stacked: true
                         },
                         y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
                             stacked: true,
                             beginAtZero: true,
                             title: {
                                 display: true,
                                 text: '顾客数量'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '比率 (%)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                drawOnChartArea: false
                             }
                         }
                     },
@@ -824,24 +912,11 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.y + '人';
-                                },
-                                afterBody: function(tooltipItems) {
-                                    if (tooltipItems.length > 0) {
-                                        const dataIndex = tooltipItems[0].dataIndex;
-                                        const item = data[dataIndex];
-                                        const totalCustomers = item.returningCustomers + item.newCustomers;
-                                        if (totalCustomers > 0) {
-                                            const returningRate = ((item.returningCustomers / totalCustomers) * 100).toFixed(1);
-                                            const newRate = ((item.newCustomers / totalCustomers) * 100).toFixed(1);
-                                            return [
-                                                '',
-                                                `老顾客率: ${returningRate}%`,
-                                                `新顾客率: ${newRate}%`
-                                            ];
-                                        }
+                                    if (context.dataset.label.includes('率')) {
+                                        return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                                    } else {
+                                        return context.dataset.label + ': ' + context.parsed.y + '人';
                                     }
-                                    return [];
                                 }
                             }
                         }
