@@ -120,6 +120,8 @@
             grid-template-columns: repeat(3, 1fr);
         }
         
+
+        
         .grid-cols-5 {
             grid-template-columns: repeat(5, 1fr);
         }
@@ -467,7 +469,7 @@
                 
                 <div class="card">
                     <div class="card-body">
-                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">顾客类型分布</h3>
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">顾客类型分布及比率</h3>
                         <div class="chart-container">
                             <canvas id="customers-chart"></canvas>
                         </div>
@@ -493,6 +495,7 @@
                                 <th>老顾客</th>
                                 <th>新顾客</th>
                                 <th>老顾客率</th>
+                                <th>新顾客率</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -640,16 +643,25 @@
 
         // 数据转换和过滤
         function convertToKPIFormat(data) {
-            return data.map(item => ({
-                date: item.date,
-                totalSales: parseFloat(item.gross_sales) || 0,
-                netSales: parseFloat(item.net_sales) || 0,
-                diners: parseInt(item.diners) || 0,
-                tablesUsed: parseInt(item.tables_used) || 0,
-                returningCustomers: parseInt(item.returning_customers) || 0,
-                newCustomers: parseInt(item.new_customers) || 0,
-                avgSalesPerDiner: item.diners > 0 ? (parseFloat(item.gross_sales) || 0) / (parseInt(item.diners) || 1) : 0
-            }));
+            return data.map(item => {
+                const diners = parseInt(item.diners) || 0;
+                const returningCustomers = parseInt(item.returning_customers) || 0;
+                const newCustomers = parseInt(item.new_customers) || 0;
+                const totalCustomers = returningCustomers + newCustomers;
+                
+                return {
+                    date: item.date,
+                    totalSales: parseFloat(item.gross_sales) || 0,
+                    netSales: parseFloat(item.net_sales) || 0,
+                    diners: diners,
+                    tablesUsed: parseInt(item.tables_used) || 0,
+                    returningCustomers: returningCustomers,
+                    newCustomers: newCustomers,
+                    avgSalesPerDiner: diners > 0 ? (parseFloat(item.gross_sales) || 0) / diners : 0,
+                    returningRate: totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0,
+                    newCustomersRate: totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0
+                };
+            });
         }
 
         function getFilteredKPIData() {
@@ -810,7 +822,7 @@
                 }
             });
             
-            // 顾客类型图表
+            // 顾客类型及比率图表 - 组合图表
             if (customersChart) {
                 customersChart.destroy();
             }
@@ -824,33 +836,87 @@
                             label: '老顾客',
                             data: data.map(item => item.returningCustomers),
                             backgroundColor: '#3b82f6',
-                            borderColor: '#3b82f6'
+                            borderColor: '#3b82f6',
+                            yAxisID: 'y'
                         },
                         {
                             label: '新顾客',
                             data: data.map(item => item.newCustomers),
                             backgroundColor: '#8b5cf6',
-                            borderColor: '#8b5cf6'
+                            borderColor: '#8b5cf6',
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '老顾客率',
+                            data: data.map(item => item.returningRate),
+                            type: 'line',
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            yAxisID: 'y1',
+                            tension: 0.1
+                        },
+                        {
+                            label: '新顾客率',
+                            data: data.map(item => item.newCustomersRate),
+                            type: 'line',
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            yAxisID: 'y1',
+                            tension: 0.1
                         }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
                     scales: {
                         x: {
                             stacked: true
                         },
                         y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
                             stacked: true,
-                            beginAtZero: true
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '顾客数量'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '比率 (%)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
                         }
                     },
                     plugins: {
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.y + '人';
+                                    if (context.dataset.label.includes('率')) {
+                                        return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                                    } else {
+                                        return context.dataset.label + ': ' + context.parsed.y + '人';
+                                    }
                                 }
                             }
                         }
@@ -869,6 +935,7 @@
             recentData.forEach(item => {
                 const totalCustomers = item.returningCustomers + item.newCustomers;
                 const returningRate = totalCustomers > 0 ? ((item.returningCustomers / totalCustomers) * 100).toFixed(1) : 0;
+                const newCustomersRate = totalCustomers > 0 ? ((item.newCustomers / totalCustomers) * 100).toFixed(1) : 0;
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -881,6 +948,7 @@
                     <td>${item.returningCustomers}</td>
                     <td>${item.newCustomers}</td>
                     <td>${returningRate}%</td>
+                    <td>${newCustomersRate}%</td>
                 `;
                 tbody.appendChild(row);
             });
