@@ -120,28 +120,61 @@
             grid-template-columns: repeat(3, 1fr);
         }
         
-
-        
-        .grid-cols-5 {
-            grid-template-columns: repeat(5, 1fr);
+        /* 主要布局网格 */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
         }
         
-        .grid-cols-7 {
-            grid-template-columns: repeat(7, 1fr);
+        /* KPI 网格 - 左侧 */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(4, 1fr);
+            gap: 16px;
+        }
+        
+        /* 总销售额卡片 - 占两列 */
+        .total-sales-card {
+            grid-column: 1 / -1;
+        }
+        
+        /* 图表容器 - 右侧 */
+        .main-chart-container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 下方图表网格 */
+        .bottom-charts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
         }
         
         @media (max-width: 1200px) {
-            .grid-cols-7 {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .kpi-grid {
                 grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: auto;
+            }
+            
+            .total-sales-card {
+                grid-column: 1 / -1;
             }
         }
         
         @media (max-width: 1024px) {
-            .grid-cols-5 {
+            .kpi-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .grid-cols-3 {
-                grid-template-columns: repeat(2, 1fr);
+            .bottom-charts {
+                grid-template-columns: 1fr;
             }
             .header .logo {
                 height: 50px;
@@ -152,9 +185,7 @@
         }
         
         @media (max-width: 640px) {
-            .grid-cols-5,
-            .grid-cols-3,
-            .grid-cols-2 {
+            .kpi-grid {
                 grid-template-columns: 1fr;
             }
             .header .logo {
@@ -346,118 +377,131 @@
                 </div>
             </div>
             
-            <!-- KPI Cards -->
-            <div class="grid grid-cols-7" style="margin-bottom: 32px;">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="kpi-card">
-                            <div>
-                                <p class="kpi-label">总销售额</p>
-                                <p class="kpi-value" id="total-sales">RM 0</p>
+            <!-- Main Layout: KPI Cards + Main Chart -->
+            <div class="main-layout">
+                <!-- KPI Cards Grid - Left Side -->
+                <div class="kpi-grid">
+                    <!-- 总销售额 - 占两列 -->
+                    <div class="card total-sales-card">
+                        <div class="card-body">
+                            <div class="kpi-card">
+                                <div>
+                                    <p class="kpi-label">总销售额</p>
+                                    <p class="kpi-value" id="total-sales">RM 0</p>
+                                </div>
+                                <div class="icon text-green">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
                             </div>
-                            <div class="icon text-green">
-                                <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- 净销售额 -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="kpi-card">
+                                <div>
+                                    <p class="kpi-label">净销售额</p>
+                                    <p class="kpi-value" id="net-sales">RM 0</p>
+                                </div>
+                                <div class="icon text-green">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 桌子总数 -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="kpi-card">
+                                <div>
+                                    <p class="kpi-label">桌子总数</p>
+                                    <p class="kpi-value" id="total-tables">0</p>
+                                </div>
+                                <div class="icon" style="color: #583e04;">
+                                    <i class="fas fa-table"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 人数总数 -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="kpi-card">
+                                <div>
+                                    <p class="kpi-label">人数总数</p>
+                                    <p class="kpi-value" id="total-diners">0</p>
+                                </div>
+                                <div class="icon" style="color: #583e04;">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 人均消费 -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="kpi-card">
+                                <div>
+                                    <p class="kpi-label">人均消费</p>
+                                    <p class="kpi-value" id="avg-per-diner">RM 0</p>
+                                </div>
+                                <div class="icon" style="color: #583e04;">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 老顾客 -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="kpi-card">
+                                <div>
+                                    <p class="kpi-label">老顾客</p>
+                                    <p class="kpi-value" id="total-returning">0</p>
+                                </div>
+                                <div class="icon text-blue">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 新顾客 -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="kpi-card">
+                                <div>
+                                    <p class="kpi-label">新顾客</p>
+                                    <p class="kpi-value" id="total-new">0</p>
+                                </div>
+                                <div class="icon text-purple">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="kpi-card">
-                            <div>
-                                <p class="kpi-label">净销售额</p>
-                                <p class="kpi-value" id="net-sales">RM 0</p>
-                            </div>
-                            <div class="icon text-green">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <div class="kpi-card">
-                            <div>
-                                <p class="kpi-label">桌子总数</p>
-                                <p class="kpi-value" id="total-tables">0</p>
-                            </div>
-                            <div class="icon" style="color: #583e04;">
-                                <i class="fas fa-table"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <div class="kpi-card">
-                            <div>
-                                <p class="kpi-label">人数总数</p>
-                                <p class="kpi-value" id="total-diners">0</p>
-                            </div>
-                            <div class="icon" style="color: #583e04;">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <div class="kpi-card">
-                            <div>
-                                <p class="kpi-label">人均消费</p>
-                                <p class="kpi-value" id="avg-per-diner">RM 0</p>
-                            </div>
-                            <div class="icon" style="color: #583e04;">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <div class="kpi-card">
-                            <div>
-                                <p class="kpi-label">老顾客</p>
-                                <p class="kpi-value" id="total-returning">0</p>
-                            </div>
-                            <div class="icon text-blue">
-                                <i class="fas fa-user-check"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <div class="kpi-card">
-                            <div>
-                                <p class="kpi-label">新顾客</p>
-                                <p class="kpi-value" id="total-new">0</p>
-                            </div>
-                            <div class="icon text-purple">
-                                <i class="fas fa-user-plus"></i>
+                <!-- Main Chart - Right Side -->
+                <div class="main-chart-container">
+                    <div class="card" style="height: 100%;">
+                        <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
+                            <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
+                            <div class="chart-container" style="flex: 1;">
+                                <canvas id="sales-chart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Charts -->
-            <div class="grid grid-cols-3" style="margin-bottom: 32px;">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
-                        <div class="chart-container">
-                            <canvas id="sales-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
+            <!-- Bottom Charts -->
+            <div class="bottom-charts" style="margin-bottom: 32px;">
                 <div class="card">
                     <div class="card-body">
                         <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数趋势</h3>
