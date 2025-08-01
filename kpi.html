@@ -54,15 +54,10 @@
             color: #583e04;
         }
         
-        .header h1 {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #111827;
-        }
-        
-        .header p {
-            color: #6b7280;
-            margin-top: 8px;
+        .header .controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
         
         .btn {
@@ -129,6 +124,60 @@
         
         .back-button:active {
             transform: translateY(0);
+        }
+
+        /* 餐厅选择器样式 */
+        .restaurant-selector {
+            background: rgb(248, 245, 235);
+            border-radius: 12px;
+            padding: 6px;
+            display: flex;
+            gap: 4px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+        }
+
+        .restaurant-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #583e04;
+            position: relative;
+            min-width: 80px;
+        }
+
+        .restaurant-btn.active {
+            background: #583e04;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.25);
+        }
+
+        .restaurant-btn:hover:not(.active) {
+            background: rgba(88, 62, 4, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .restaurant-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .restaurant-btn.active::before {
+            opacity: 1;
         }
         
         .card {
@@ -217,6 +266,15 @@
             .header .title-text {
                 font-size: 1.25rem;
             }
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: center;
+            }
+            .header .controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
         
         @media (max-width: 640px) {
@@ -229,10 +287,12 @@
             .header .title-text {
                 font-size: 1.125rem;
             }
-            .header {
+            .restaurant-selector {
                 flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
+                width: 100%;
+            }
+            .restaurant-btn {
+                min-width: auto;
             }
         }
         
@@ -278,10 +338,10 @@
         .table th {
             background-color: rgb(248, 245, 235);
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 13px;
             color: #6b7280;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.8px;
         }
         
         .table tbody tr:hover {
@@ -290,7 +350,7 @@
         
         .form-label {
             display: block;
-            font-size: 0.875rem;
+            font-size: 14px;
             font-weight: 500;
             color: #374151;
             margin-bottom: 8px;
@@ -378,9 +438,38 @@
             color: #991b1b;
             border: 1px solid #fca5a5;
         }
+
+        /* 餐厅特定的颜色主题 */
+        .restaurant-j1 {
+            --primary-color: #583e04;
+            --secondary-color: #805906;
+        }
+
+        .restaurant-j2 {
+            --primary-color: #583e04;
+            --secondary-color: #805906;
+        }
+
+        .restaurant-j3 {
+            --primary-color: #583e04;
+            --secondary-color: #805906;
+        }
+
+        /* 动态应用颜色 */
+        .dynamic-color {
+            color: var(--primary-color) !important;
+        }
+
+        .dynamic-bg {
+            background-color: var(--primary-color) !important;
+        }
+
+        .dynamic-border {
+            border-color: var(--primary-color) !important;
+        }
     </style>
 </head>
-<body>
+<body class="restaurant-j1">
     <div id="app">
         <div class="container">
             <div class="header">
@@ -388,10 +477,24 @@
                     <img src="images/images/tokyo.png" alt="Company Logo" class="logo">
                     <span class="title-text">TOKYO JAPANESE CUISINE</span>
                 </div>
-                <button class="back-button" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i>
-                    返回上一页
-                </button>
+                <div class="controls">
+                    <!-- 餐厅选择器 -->
+                    <div class="restaurant-selector">
+                        <button class="restaurant-btn active" data-restaurant="j1" onclick="switchRestaurant('j1')">
+                            J1
+                        </button>
+                        <button class="restaurant-btn" data-restaurant="j2" onclick="switchRestaurant('j2')">
+                            J2
+                        </button>
+                        <button class="restaurant-btn" data-restaurant="j3" onclick="switchRestaurant('j3')">
+                            J3
+                        </button>
+                    </div>
+                    <button class="back-button" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                        返回上一页
+                    </button>
+                </div>
             </div>
             
             <!-- Date Controls -->
@@ -463,7 +566,7 @@
                                     <p class="kpi-label">桌子总数</p>
                                     <p class="kpi-value" id="total-tables">0</p>
                                 </div>
-                                <div class="icon" style="color: #583e04;">
+                                <div class="icon dynamic-color">
                                     <i class="fas fa-table"></i>
                                 </div>
                             </div>
@@ -478,7 +581,7 @@
                                     <p class="kpi-label">人数总数</p>
                                     <p class="kpi-value" id="total-diners">0</p>
                                 </div>
-                                <div class="icon" style="color: #583e04;">
+                                <div class="icon dynamic-color">
                                     <i class="fas fa-users"></i>
                                 </div>
                             </div>
@@ -493,7 +596,7 @@
                                     <p class="kpi-label">人均消费</p>
                                     <p class="kpi-value" id="avg-per-diner">RM 0</p>
                                 </div>
-                                <div class="icon" style="color: #583e04;">
+                                <div class="icon dynamic-color">
                                     <i class="fas fa-clock"></i>
                                 </div>
                             </div>
@@ -599,6 +702,7 @@
         
         // 应用状态
         let actualData = [];
+        let currentRestaurant = 'j1';
         let dateRange = {
             startDate: getTodayMinusMonth(),
             endDate: getToday()
@@ -609,14 +713,76 @@
         let dinersChart = null;
         let customersChart = null;
 
+        // 餐厅配置
+        const restaurantConfig = {
+            j1: {
+                name: 'J1分店',
+                tableName: 'j1data_view',
+                colors: {
+                    primary: '#583e04',
+                    secondary: '#805906'
+                }
+            },
+            j2: {
+                name: 'J2分店',
+                tableName: 'j2data_view',
+                colors: {
+                    primary: '#583e04',
+                    secondary: '#805906'
+                }
+            },
+            j3: {
+                name: 'J3分店',
+                tableName: 'j3data_view',
+                colors: {
+                    primary: '#583e04',
+                    secondary: '#805906'
+                }
+            }
+        };
+
+        // 切换餐厅
+        function switchRestaurant(restaurant) {
+            if (currentRestaurant === restaurant) return;
+            
+            currentRestaurant = restaurant;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.restaurant-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.restaurant === restaurant) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // 更新页面主题色
+            document.body.className = `restaurant-${restaurant}`;
+            updateThemeColors(restaurant);
+            
+            // 重新加载数据
+            loadData().then(() => {
+                updateDashboard();
+            });
+        }
+
+        // 更新主题颜色
+        function updateThemeColors(restaurant) {
+            const config = restaurantConfig[restaurant];
+            const root = document.documentElement;
+            
+            root.style.setProperty('--primary-color', config.colors.primary);
+            root.style.setProperty('--secondary-color', config.colors.secondary);
+            
+            // 更新餐厅选择器边框色
+            const selector = document.querySelector('.restaurant-selector');
+            selector.style.borderColor = config.colors.primary;
+        }
+
         // 返回上一页功能
         function goBack() {
-            // 尝试使用浏览器历史记录返回
             if (window.history.length > 1) {
                 window.history.back();
             } else {
-                // 如果没有历史记录，可以重定向到主页或默认页面
-                // 你可以根据需要修改这里的URL
                 window.location.href = '/';
             }
         }
@@ -665,6 +831,7 @@
             try {
                 const queryParams = new URLSearchParams({
                     action: 'list',
+                    restaurant: currentRestaurant,
                     ...params
                 });
                 
@@ -681,6 +848,7 @@
             try {
                 const queryParams = new URLSearchParams({
                     action: 'summary',
+                    restaurant: currentRestaurant,
                     start_date: startDate,
                     end_date: endDate
                 });
@@ -697,6 +865,9 @@
             document.getElementById('month-selector').value = selectedMonth;
             document.getElementById('start-date').value = dateRange.startDate;
             document.getElementById('end-date').value = dateRange.endDate;
+            
+            // 初始化主题色
+            updateThemeColors(currentRestaurant);
             
             await loadData();
             updateDashboard();
@@ -811,6 +982,7 @@
             }
             
             console.log('计算详情:', {
+                餐厅: restaurantConfig[currentRestaurant].name,
                 总销售额: displaySummary.total_gross_sales,
                 总人数: displaySummary.total_diners, 
                 人均消费: displaySummary.avg_per_diner,
@@ -829,7 +1001,7 @@
             document.getElementById('total-new').textContent = (displaySummary.total_new_customers || 0).toLocaleString();
             
             // 更新日期信息
-            document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据`;
+            document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
             
             // 更新图表
             updateCharts(filteredData);
@@ -843,6 +1015,8 @@
             const ctx2 = document.getElementById('diners-chart').getContext('2d');
             const ctx3 = document.getElementById('customers-chart').getContext('2d');
             
+            const config = restaurantConfig[currentRestaurant];
+            
             // 销售趋势图
             if (salesChart) {
                 salesChart.destroy();
@@ -855,8 +1029,8 @@
                     datasets: [{
                         label: '净销售额',
                         data: data.map(item => item.netSales),
-                        borderColor: '#583e04',
-                        backgroundColor: '#583e04',
+                        borderColor: config.colors.primary,
+                        backgroundColor: config.colors.primary,
                         tension: 0.1
                     }]
                 },
@@ -897,8 +1071,8 @@
                     datasets: [{
                         label: '用餐人数',
                         data: data.map(item => item.diners),
-                        borderColor: '#805906',
-                        backgroundColor: '#805906'
+                        borderColor: config.colors.secondary,
+                        backgroundColor: config.colors.secondary
                     }]
                 },
                 options: {
@@ -934,14 +1108,14 @@
                         {
                             label: '回头客',
                             data: data.map(item => item.returningCustomers),
-                            backgroundColor: '#805906',
-                            borderColor: '#805906'
+                            backgroundColor: config.colors.secondary,
+                            borderColor: config.colors.secondary
                         },
                         {
                             label: '新顾客',
                             data: data.map(item => item.newCustomers),
-                            backgroundColor: '#583e04',
-                            borderColor: '#583e04'
+                            backgroundColor: config.colors.primary,
+                            borderColor: config.colors.primary
                         }
                     ]
                 },
