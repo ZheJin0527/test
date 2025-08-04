@@ -1292,8 +1292,31 @@
                         plugins: {
                             tooltip: {
                                 callbacks: {
+                                    title: function(context) {
+                                        if (context.length > 0) {
+                                            const date = comparisonData.dates[context[0].dataIndex];
+                                            return `${date} (${new Date(date).getDate()}号)`;
+                                        }
+                                        return '';
+                                    },
                                     label: function(context) {
                                         return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    },
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const j1Sales = comparisonData.restaurants.j1[dataIndex].netSales;
+                                            const j2Sales = comparisonData.restaurants.j2[dataIndex].netSales;
+                                            const j3Sales = comparisonData.restaurants.j3[dataIndex].netSales;
+                                            const totalSales = j1Sales + j2Sales + j3Sales;
+                                            
+                                            return [
+                                                '',
+                                                '--- 当日汇总 ---',
+                                                `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
+                                            ];
+                                        }
+                                        return [];
                                     }
                                 }
                             },
@@ -1335,8 +1358,30 @@
                         plugins: {
                             tooltip: {
                                 callbacks: {
+                                    title: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const item = data[dataIndex];
+                                            return `${item.date} (${new Date(item.date).getDate()}号)`;
+                                        }
+                                        return '';
+                                    },
                                     label: function(context) {
                                         return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    },
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const item = data[dataIndex];
+                                            
+                                            return [
+                                                '',
+                                                '--- 当日详情 ---',
+                                                `总销售额: RM ${item.totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                                                `净销售额: RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
+                                            ];
+                                        }
+                                        return [];
                                     }
                                 }
                             }
