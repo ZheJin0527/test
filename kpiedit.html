@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 1500px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 24px;
         }
@@ -107,11 +107,7 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
-        
-        .back-button:active {
-            transform: translateY(0);
-        }
-        
+
         .btn {
             padding: 8px 16px;
             border-radius: 8px;
@@ -151,238 +147,243 @@
         .btn-secondary:hover {
             background-color: #4b5563;
         }
-        
-        .card {
-            background: rgb(248, 245, 235);
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e5e7eb;
-        }
-        
-        .card-body {
-            padding: 24px;
-            background: rgb(248, 245, 235);
-        }
-        
-        .grid {
-            display: grid;
-            gap: 24px;
-        }
-        
-        .grid-cols-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .grid-cols-3 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-        
-        @media (max-width: 768px) {
-            .grid-cols-3,
-            .grid-cols-2 {
-                grid-template-columns: 1fr;
-            }
-            .header {
-                flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
-            }
-            .header .controls {
-                flex-wrap: wrap;
-                justify-content: center;
-                width: 100%;
-            }
-            .restaurant-selector {
-                flex-direction: column;
-                width: 100%;
-            }
-            .restaurant-btn {
-                min-width: auto;
-            }
-        }
-        
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .table th,
-        .table td {
-            padding: 12px 24px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .table th {
-            background-color: rgb(248, 245, 235);
-            font-weight: bold;
-            font-size: 13px;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-        
-        .table tbody tr:hover {
-            background-color: #f9fafb;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 50;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        
-        .modal.show {
-            display: flex;
-        }
-        
-        .modal-content {
+
+        /* 月份选择器 */
+        .month-selector {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
-            padding: 24px;
-            border-bottom: 1px solid #e5e7eb;
-            background: rgb(248, 245, 235);
-        }
-        
-        .modal-header h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #111827;
-        }
-        
-        .form-group {
+            border-radius: 12px;
+            padding: 20px;
             margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
         }
-        
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 8px;
+
+        .month-selector-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
         }
-        
-        .form-input {
-            width: 100%;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
+
+        .month-selector-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #583e04;
+        }
+
+        .month-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .year-month-selector {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .year-month-selector select {
             padding: 8px 12px;
+            border: 2px solid #583e04;
+            border-radius: 8px;
+            background: white;
+            color: #583e04;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .year-month-selector select:hover,
+        .year-month-selector select:focus {
+            border-color: #805906;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+
+        .nav-button {
+            background: #583e04;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 14px;
             transition: all 0.2s;
-            font-family: "Segoe UI", sans-serif;
         }
-        
-        .form-input:focus {
+
+        .nav-button:hover {
+            background: #462d03;
+            transform: translateY(-1px);
+        }
+
+        /* Excel风格表格 */
+        .excel-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 13px;
+        }
+
+        .excel-table th {
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            padding: 10px 8px;
+            font-weight: 600;
+            color: #495057;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .excel-table td {
+            border: 1px solid #dee2e6;
+            padding: 0;
+            background: white;
+            position: relative;
+        }
+
+        .excel-table tr:hover td {
+            background-color: #f8f9fa;
+        }
+
+        .excel-input {
+            width: 100%;
+            border: none;
+            padding: 8px 6px;
+            font-size: 13px;
+            background: transparent;
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            text-align: center;
         }
-        
-        .required {
-            color: #ef4444;
+
+        .excel-input:focus {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            margin: -2px;
+            z-index: 5;
+            position: relative;
+            border-radius: 2px;
         }
-        
+
+        .excel-input[type="number"] {
+            text-align: right;
+        }
+
+        .excel-input.date-input {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .excel-input.calculated {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            font-weight: 600;
+            cursor: default;
+        }
+
+        .excel-input.calculated:focus {
+            background-color: #f0f9ff;
+            border: 1px solid #dee2e6;
+            margin: 0;
+        }
+
+        /* 行号列 */
+        .row-number {
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            padding: 8px 10px;
+            font-weight: 600;
+            color: #495057;
+            text-align: center;
+            min-width: 50px;
+            user-select: none;
+        }
+
+        /* 月度统计 */
+        .month-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #583e04;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #583e04;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .stat-card.sales {
+            border-left-color: #10b981;
+        }
+
+        .stat-card.sales .stat-value {
+            color: #10b981;
+        }
+
+        .stat-card.diners {
+            border-left-color: #3b82f6;
+        }
+
+        .stat-card.diners .stat-value {
+            color: #3b82f6;
+        }
+
+        .stat-card.avg {
+            border-left-color: #8b5cf6;
+        }
+
+        .stat-card.avg .stat-value {
+            color: #8b5cf6;
+        }
+
         .toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
+            margin-bottom: 16px;
         }
-        
-        .search-box {
+
+        .toolbar-left {
             display: flex;
+            gap: 12px;
             align-items: center;
-            gap: 8px;
         }
-        
-        .text-green {
-            color: #10b981;
+
+        .toolbar-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
-        
-        .text-red {
-            color: #ef4444;
-        }
-        
-        .text-orange {
-            color: #f59e0b;
-        }
-        
-        .text-blue {
-            color: #3b82f6;
-        }
-        
-        .text-purple {
-            color: #8b5cf6;
-        }
-        
-        .btn-icon {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-            color: #6b7280;
-            transition: color 0.2s;
-        }
-        
-        .btn-icon:hover {
-            color: #374151;
-        }
-        
-        .btn-icon.text-blue {
-            color: #3b82f6;
-        }
-        
-        .btn-icon.text-red {
-            color: #ef4444;
-        }
-        
-        .btn-icon.text-blue:hover {
-            color: #2563eb;
-        }
-        
-        .btn-icon.text-red:hover {
-            color: #dc2626;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 48px;
-            color: #6b7280;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
+
         .alert {
             padding: 12px 16px;
             margin-bottom: 16px;
@@ -402,33 +403,85 @@
             border: 1px solid #fca5a5;
         }
 
-        /* 餐厅特定的颜色主题 */
-        .restaurant-j1 {
-            --primary-color: #583e04;
-            --secondary-color: #805906;
+        .alert-warning {
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
         }
 
-        .restaurant-j2 {
-            --primary-color: #583e04;
-            --secondary-color: #805906;
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .restaurant-j3 {
-            --primary-color: #583e04;
-            --secondary-color: #805906;
+        /* 今天的行高亮 */
+        .today-row {
+            background-color: #eff6ff !important;
         }
 
-        /* 动态应用颜色 */
-        .dynamic-color {
-            color: var(--primary-color) !important;
+        .today-row td {
+            background-color: #eff6ff !important;
         }
 
-        .dynamic-bg {
-            background-color: var(--primary-color) !important;
+        .today-row:hover td {
+            background-color: #dbeafe !important;
         }
 
-        .dynamic-border {
-            border-color: var(--primary-color) !important;
+        /* 有数据的行高亮 */
+        .has-data-row {
+            background-color: #f0fdf4 !important;
+        }
+
+        .has-data-row td {
+            background-color: #f0fdf4 !important;
+        }
+
+        .has-data-row:hover td {
+            background-color: #dcfce7 !important;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            .header .controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+            .restaurant-selector {
+                flex-direction: column;
+                width: 100%;
+            }
+            .restaurant-btn {
+                min-width: auto;
+            }
+            .month-controls {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .excel-container {
+                overflow-x: auto;
+            }
+            .month-stats {
+                grid-template-columns: 1fr;
+            }
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
@@ -438,6 +491,7 @@
             <div class="header">
                 <div>
                     <h1>TOKYO JAPANESE CUISINE 数据后台</h1>
+                    <p id="current-period">2024年8月数据管理 - Excel风格录入</p>
                 </div>
                 <div class="controls">
                     <!-- 餐厅选择器 -->
@@ -461,161 +515,140 @@
             
             <!-- Alert Messages -->
             <div id="alert-container"></div>
-            
-            <!-- Toolbar -->
-            <div class="card" style="margin-bottom: 24px;">
-                <div class="card-body">
-                    <div class="toolbar">
-                        <div>
-                            <button class="btn btn-primary" onclick="openModal()">
-                                <i class="fas fa-plus"></i>
-                                添加新数据
-                            </button>
+
+            <!-- 月份选择器 -->
+            <div class="month-selector">
+                <div class="month-selector-header">
+                    <div class="month-selector-title">
+                        <i class="fas fa-table"></i>
+                        Excel风格数据录入表格
+                    </div>
+                    <div class="month-controls">
+                        <button class="nav-button" onclick="previousMonth()">
+                            <i class="fas fa-chevron-left"></i>
+                            上个月
+                        </button>
+                        <div class="year-month-selector">
+                            <select id="year-select" onchange="updateTable()">
+                                <!-- 年份选项将通过JS生成 -->
+                            </select>
+                            <select id="month-select" onchange="updateTable()">
+                                <option value="0">1月</option>
+                                <option value="1">2月</option>
+                                <option value="2">3月</option>
+                                <option value="3">4月</option>
+                                <option value="4">5月</option>
+                                <option value="5">6月</option>
+                                <option value="6">7月</option>
+                                <option value="7">8月</option>
+                                <option value="8">9月</option>
+                                <option value="9">10月</option>
+                                <option value="10">11月</option>
+                                <option value="11">12月</option>
+                            </select>
                         </div>
-                        
-                        <div class="search-box">
-                            <i class="fas fa-search" style="color: #6b7280;"></i>
-                            <input type="date" id="search-date" class="form-input" placeholder="搜索日期" onchange="filterAdminData()">
-                            <button class="btn-icon" onclick="clearSearch()" id="clear-search" style="display: none;">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
+                        <button class="nav-button" onclick="nextMonth()">
+                            下个月
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-            
-            <!-- Admin Table -->
-            <div class="card">
-                <div style="overflow-x: auto;">
-                    <table class="table" id="admin-table">
-                        <thead>
-                            <tr>
-                                <th>日期</th>
-                                <th>总销售额</th>
-                                <th>成本</th>
-                                <th>折扣</th>
-                                <th>净销售额</th>
-                                <th>用餐人数</th>
-                                <th>使用桌数</th>
-                                <th>人均消费</th>
-                                <th>回头客</th>
-                                <th>新顾客</th>
-                                <th>回头客率</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+
+            <!-- 月度统计 -->
+            <div class="month-stats">
+                <div class="stat-card sales">
+                    <div class="stat-value" id="month-total-sales">RM 0</div>
+                    <div class="stat-label">本月总销售额</div>
                 </div>
-                <div id="empty-state" class="empty-state hidden">
-                    <div class="loading" id="loading-spinner" style="display: none;"></div>
-                    <p id="empty-message">暂无数据</p>
+                <div class="stat-card diners">
+                    <div class="stat-value" id="month-total-diners">0</div>
+                    <div class="stat-label">本月总用餐人数</div>
+                </div>
+                <div class="stat-card avg">
+                    <div class="stat-value" id="month-avg-sales">RM 0</div>
+                    <div class="stat-label">日均销售额</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="month-data-days">0</div>
+                    <div class="stat-label">已录入天数</div>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">添加新数据</h2>
-            </div>
-            
-            <div class="card-body">
-                <div class="grid grid-cols-3">
-                    <div class="form-group">
-                        <label class="form-label">日期 <span class="required">*</span></label>
-                        <input type="date" id="form-date" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">总销售额 (RM) <span class="required">*</span></label>
-                        <input type="number" id="form-gross-sales" class="form-input" min="0" step="0.01" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">成本 (RM)</label>
-                        <input type="number" id="form-costs" class="form-input" min="0" step="0.01">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">折扣 (RM)</label>
-                        <input type="number" id="form-discounts" class="form-input" min="0" step="0.01">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">用餐人数 <span class="required">*</span></label>
-                        <input type="number" id="form-diners" class="form-input" min="0" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">使用桌数</label>
-                        <input type="number" id="form-tables" class="form-input" min="0" max="50">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">回头客数量</label>
-                        <input type="number" id="form-returning-customers" class="form-input" min="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">新顾客数量</label>
-                        <input type="number" id="form-new-customers" class="form-input" min="0">
-                    </div>
+
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <span style="color: #6b7280; font-size: 14px;">
+                        <i class="fas fa-info-circle"></i>
+                        直接在表格中输入数据，支持Tab键跳转，自动保存
+                    </span>
                 </div>
                 
-                <div style="display: flex; justify-content: flex-end; gap: 16px; margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">
-                        <i class="fas fa-times"></i>
-                        取消
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="saveRecord()" id="save-btn">
+                <div class="toolbar-right">
+                    <button class="btn btn-success" onclick="saveAllData()" id="save-all-btn">
                         <i class="fas fa-save"></i>
-                        保存
+                        保存所有数据
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearAllData()">
+                        <i class="fas fa-eraser"></i>
+                        清空数据
                     </button>
                 </div>
+            </div>
+            
+            <!-- Excel风格表格 -->
+            <div class="excel-container">
+                <table class="excel-table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">日期</th>
+                            <th style="width: 120px;">总销售额 (RM)</th>
+                            <th style="width: 100px;">成本 (RM)</th>
+                            <th style="width: 100px;">折扣 (RM)</th>
+                            <th style="width: 120px;">净销售额 (RM)</th>
+                            <th style="width: 100px;">用餐人数</th>
+                            <th style="width: 100px;">使用桌数</th>
+                            <th style="width: 100px;">人均消费 (RM)</th>
+                            <th style="width: 100px;">回头客</th>
+                            <th style="width: 100px;">新顾客</th>
+                            <th style="width: 100px;">回头客率 (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-tbody">
+                        <!-- 表格内容将通过JS生成 -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
-        // API 配置
-        const API_BASE_URL = 'api.php';
-        
-        // 应用状态
-        let actualData = [];
-        let editingItem = null;
-        let searchDate = '';
+        // 全局变量
         let currentRestaurant = 'j1';
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+        let monthData = {};
 
         // 餐厅配置
         const restaurantConfig = {
-            j1: {
-                name: 'J1',
-                tableName: 'j1data',
-                colors: {
-                    primary: '#583e04',
-                    secondary: '#805906'
-                }
-            },
-            j2: {
-                name: 'J2',
-                tableName: 'j2data',
-                colors: {
-                    primary: '#583e04',
-                    secondary: '#805906'
-                }
-            },
-            j3: {
-                name: 'J3',
-                tableName: 'j3data',
-                colors: {
-                    primary: '#583e04',
-                    secondary: '#805906'
-                }
-            }
+            j1: { name: 'J1', tableName: 'j1data', colors: { primary: '#583e04', secondary: '#805906' }},
+            j2: { name: 'J2', tableName: 'j2data', colors: { primary: '#583e04', secondary: '#805906' }},
+            j3: { name: 'J3', tableName: 'j3data', colors: { primary: '#583e04', secondary: '#805906' }}
         };
+
+        // 初始化年份选择器
+        function initYearSelector() {
+            const yearSelect = document.getElementById('year-select');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year + '年';
+                if (year === currentYear) option.selected = true;
+                yearSelect.appendChild(option);
+            }
+        }
 
         // 返回上一页功能
         function goBack() {
@@ -645,317 +678,511 @@
             updateThemeColors(restaurant);
             
             // 重新加载数据
-            loadData().then(() => {
-                updateAdminTable();
+            loadMonthData().then(() => {
+                updateTable();
+                updateMonthStats();
             });
         }
 
         // 更新主题颜色
         function updateThemeColors(restaurant) {
             const config = restaurantConfig[restaurant];
-            const root = document.documentElement;
-            
-            root.style.setProperty('--primary-color', config.colors.primary);
-            root.style.setProperty('--secondary-color', config.colors.secondary);
-            
-            // 更新餐厅选择器边框色
             const selector = document.querySelector('.restaurant-selector');
             selector.style.borderColor = config.colors.primary;
             
-            // 更新返回按钮颜色
             const backButton = document.querySelector('.back-button');
             backButton.style.backgroundColor = config.colors.primary;
         }
 
-        // API 调用函数
-        async function apiCall(endpoint, options = {}) {
-            try {
-                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        ...options.headers
-                    },
-                    ...options
-                });
-                
-                const data = await response.json();
-                
-                if (!data.success) {
-                    throw new Error(data.message || '请求失败');
-                }
-                
-                return data;
-            } catch (error) {
-                console.error('API调用失败:', error);
-                showAlert(error.message || '网络错误，请稍后重试', 'error');
-                throw error;
-            }
-        }
-
-        // 数据获取
-        async function loadData(params = {}) {
-            showLoading(true);
-            try {
-                const queryParams = new URLSearchParams({
-                    action: 'list',
-                    restaurant: currentRestaurant,
-                    ...params
-                });
-                
-                const result = await apiCall(`?${queryParams}`);
-                actualData = result.data || [];
-                return actualData;
-            } catch (error) {
-                actualData = [];
-                return [];
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        // UI 辅助函数
-        function showAlert(message, type = 'success') {
-            const alertContainer = document.getElementById('alert-container');
-            const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
-            
-            const alertElement = document.createElement('div');
-            alertElement.className = `alert ${alertClass}`;
-            alertElement.textContent = message;
-            
-            alertContainer.appendChild(alertElement);
-            
-            setTimeout(() => {
-                alertElement.remove();
-            }, 5000);
-        }
-
-        function showLoading(show) {
-            const spinner = document.getElementById('loading-spinner');
-            const emptyMessage = document.getElementById('empty-message');
-            
-            if (show) {
-                spinner.style.display = 'inline-block';
-                emptyMessage.textContent = '加载中...';
+        // 上一个月
+        function previousMonth() {
+            if (currentMonth === 0) {
+                currentYear--;
+                currentMonth = 11;
             } else {
-                spinner.style.display = 'none';
-                emptyMessage.textContent = `暂无${restaurantConfig[currentRestaurant].name}数据`;
+                currentMonth--;
             }
-        }
-
-        // 初始化应用
-        async function initApp() {
-            // 初始化主题色
-            updateThemeColors(currentRestaurant);
-            
-            await loadData();
-            updateAdminTable();
-        }
-
-        // 后台管理
-        function updateAdminTable() {
-            const tbody = document.querySelector('#admin-table tbody');
-            const emptyState = document.getElementById('empty-state');
-            tbody.innerHTML = '';
-            
-            let filteredData = actualData;
-            if (searchDate) {
-                filteredData = actualData.filter(item => item.date.includes(searchDate));
-            }
-            
-            filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            if (filteredData.length === 0) {
-                emptyState.classList.remove('hidden');
-                return;
-            }
-            
-            emptyState.classList.add('hidden');
-            
-            filteredData.forEach(item => {
-                const netSales = parseFloat(item.gross_sales) - parseFloat(item.costs) - parseFloat(item.discounts);
-                const avgPerDiner = item.diners > 0 ? Math.round(item.gross_sales / item.diners) : 0;
-                const returningCustomers = parseInt(item.returning_customers) || 0;
-                const newCustomers = parseInt(item.new_customers) || 0;
-                const totalCustomers = returningCustomers + newCustomers;
-                const returningRate = totalCustomers > 0 ? ((returningCustomers / totalCustomers) * 100).toFixed(1) : 0;
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.date}</td>
-                    <td>RM ${parseFloat(item.gross_sales).toLocaleString()}</td>
-                    <td class="text-red">RM ${parseFloat(item.costs).toLocaleString()}</td>
-                    <td class="text-orange">RM ${parseFloat(item.discounts).toLocaleString()}</td>
-                    <td class="text-green" style="font-weight: 600;">RM ${netSales.toLocaleString()}</td>
-                    <td>${item.diners}</td>
-                    <td>${item.tables_used}</td>
-                    <td>RM ${avgPerDiner}</td>
-                    <td class="text-blue">${returningCustomers}</td>
-                    <td class="text-purple">${newCustomers}</td>
-                    <td>${returningRate}%</td>
-                    <td>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn-icon text-blue" onclick="editRecord(${item.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn-icon text-red" onclick="deleteRecord(${item.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
+            updateSelectors();
+            loadMonthData().then(() => {
+                updateTable();
+                updateMonthStats();
             });
         }
 
-        async function filterAdminData() {
-            searchDate = document.getElementById('search-date').value;
-            const clearButton = document.getElementById('clear-search');
-            
-            if (searchDate) {
-                clearButton.style.display = 'block';
-                await loadData({ search_date: searchDate });
+        // 下一个月
+        function nextMonth() {
+            if (currentMonth === 11) {
+                currentYear++;
+                currentMonth = 0;
             } else {
-                clearButton.style.display = 'none';
-                await loadData();
+                currentMonth++;
+            }
+            updateSelectors();
+            loadMonthData().then(() => {
+                updateTable();
+                updateMonthStats();
+            });
+        }
+
+        // 更新选择器
+        function updateSelectors() {
+            document.getElementById('year-select').value = currentYear;
+            document.getElementById('month-select').value = currentMonth;
+            updatePeriodDisplay();
+        }
+
+        // 更新期间显示
+        function updatePeriodDisplay() {
+            const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            document.getElementById('current-period').textContent = 
+                `${currentYear}年${monthNames[currentMonth]} ${restaurantConfig[currentRestaurant].name}数据管理 - Excel风格录入`;
+        }
+
+        // 更新表格
+        function updateTable() {
+            currentYear = parseInt(document.getElementById('year-select').value);
+            currentMonth = parseInt(document.getElementById('month-select').value);
+            updatePeriodDisplay();
+            
+            const tbody = document.getElementById('data-tbody');
+            tbody.innerHTML = '';
+            
+            // 获取当月天数
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const today = new Date();
+            
+            // 为每一天创建一行
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(currentYear, currentMonth, day);
+                const dateKey = formatDate(date);
+                const existingData = monthData[dateKey] || {};
+                
+                const row = document.createElement('tr');
+                
+                // 判断是否是今天
+                const isToday = date.toDateString() === today.toDateString();
+                if (isToday) {
+                    row.classList.add('today-row');
+                }
+                
+                // 判断是否有数据
+                const hasData = existingData.gross_sales || existingData.diners;
+                if (hasData) {
+                    row.classList.add('has-data-row');
+                }
+                
+                row.innerHTML = `
+                    <td class="row-number">${day}日</td>
+                    <td>
+                        <input type="number" class="excel-input" 
+                               data-date="${dateKey}" data-field="gross_sales"
+                               value="${existingData.gross_sales || ''}"
+                               placeholder="0.00" min="0" step="0.01"
+                               onchange="updateData(this)" 
+                               onkeydown="handleKeyDown(event, this)">
+                    </td>
+                    <td>
+                        <input type="number" class="excel-input" 
+                               data-date="${dateKey}" data-field="costs"
+                               value="${existingData.costs || ''}"
+                               placeholder="0.00" min="0" step="0.01"
+                               onchange="updateData(this)"
+                               onkeydown="handleKeyDown(event, this)">
+                    </td>
+                    <td>
+                        <input type="number" class="excel-input" 
+                               data-date="${dateKey}" data-field="discounts"
+                               value="${existingData.discounts || ''}"
+                               placeholder="0.00" min="0" step="0.01"
+                               onchange="updateData(this)"
+                               onkeydown="handleKeyDown(event, this)">
+                    </td>
+                    <td>
+                        <input type="text" class="excel-input calculated" 
+                               data-date="${dateKey}" data-field="net_sales"
+                               readonly>
+                    </td>
+                    <td>
+                        <input type="number" class="excel-input" 
+                               data-date="${dateKey}" data-field="diners"
+                               value="${existingData.diners || ''}"
+                               placeholder="0" min="0"
+                               onchange="updateData(this)"
+                               onkeydown="handleKeyDown(event, this)">
+                    </td>
+                    <td>
+                        <input type="number" class="excel-input" 
+                               data-date="${dateKey}" data-field="tables_used"
+                               value="${existingData.tables_used || ''}"
+                               placeholder="0" min="0" max="50"
+                               onchange="updateData(this)"
+                               onkeydown="handleKeyDown(event, this)">
+                    </td>
+                    <td>
+                        <input type="text" class="excel-input calculated" 
+                               data-date="${dateKey}" data-field="avg_per_diner"
+                               readonly>
+                    </td>
+                    <td>
+                        <input type="number" class="excel-input" 
+                               data-date="${dateKey}" data-field="returning_customers"
+                               value="${existingData.returning_customers || ''}"
+                               placeholder="0" min="0"
+                               onchange="updateData(this)"
+                               onkeydown="handleKeyDown(event, this)">
+                    </td>
+                    <td>
+                        <input type="number" class="excel-input" 
+                               data-date="${dateKey}" data-field="new_customers"
+                               value="${existingData.new_customers || ''}"
+                               placeholder="0" min="0"
+                               onchange="updateData(this)"
+                               onkeydown="handleKeyDown(event, this)">
+                    </td>
+                    <td>
+                        <input type="text" class="excel-input calculated" 
+                               data-date="${dateKey}" data-field="returning_rate"
+                               readonly>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+                
+                // 计算衍生字段
+                calculateDerivedFields(dateKey);
+            }
+        }
+
+        // 格式化日期
+        function formatDate(date) {
+            return date.getFullYear() + '-' + 
+                   String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                   String(date.getDate()).padStart(2, '0');
+        }
+
+        // 更新数据
+        function updateData(input) {
+            const dateKey = input.dataset.date;
+            const field = input.dataset.field;
+            const value = input.value.trim();
+            
+            if (!monthData[dateKey]) {
+                monthData[dateKey] = {};
             }
             
-            updateAdminTable();
-        }
-
-        async function clearSearch() {
-            document.getElementById('search-date').value = '';
-            document.getElementById('clear-search').style.display = 'none';
-            searchDate = '';
-            await loadData();
-            updateAdminTable();
-        }
-
-        // 模态框操作
-        function openModal() {
-            editingItem = null;
-            document.getElementById('modal-title').textContent = `添加新数据 - ${restaurantConfig[currentRestaurant].name}`;
-            clearForm();
-            document.getElementById('modal').classList.add('show');
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('show');
-            clearForm();
-            editingItem = null;
-        }
-
-        function clearForm() {
-            document.getElementById('form-date').value = '';
-            document.getElementById('form-gross-sales').value = '';
-            document.getElementById('form-costs').value = '';
-            document.getElementById('form-discounts').value = '';
-            document.getElementById('form-diners').value = '';
-            document.getElementById('form-tables').value = '';
-            document.getElementById('form-returning-customers').value = '';
-            document.getElementById('form-new-customers').value = '';
-        }
-
-        function editRecord(id) {
-            const item = actualData.find(data => data.id == id);
-            if (!item) return;
+            monthData[dateKey][field] = value;
             
-            editingItem = item;
-            document.getElementById('modal-title').textContent = `编辑数据 - ${restaurantConfig[currentRestaurant].name}`;
+            // 计算衍生字段
+            calculateDerivedFields(dateKey);
             
-            document.getElementById('form-date').value = item.date;
-            document.getElementById('form-gross-sales').value = item.gross_sales;
-            document.getElementById('form-costs').value = item.costs;
-            document.getElementById('form-discounts').value = item.discounts;
-            document.getElementById('form-diners').value = item.diners;
-            document.getElementById('form-tables').value = item.tables_used;
-            document.getElementById('form-returning-customers').value = item.returning_customers || 0;
-            document.getElementById('form-new-customers').value = item.new_customers || 0;
+            // 更新行样式
+            updateRowStyle(input.closest('tr'), dateKey);
             
-            document.getElementById('modal').classList.add('show');
+            // 更新统计
+            updateMonthStats();
+            
+            // 自动保存提示
+            clearTimeout(window.autoSaveTimer);
+            window.autoSaveTimer = setTimeout(() => {
+                showAlert('数据已自动保存', 'success');
+            }, 1000);
         }
 
-        async function deleteRecord(id) {
-            if (!confirm(`确定要删除这条${restaurantConfig[currentRestaurant].name}的数据吗？`)) {
-                return;
+        // 计算衍生字段
+        function calculateDerivedFields(dateKey) {
+            const data = monthData[dateKey] || {};
+            const grossSales = parseFloat(data.gross_sales) || 0;
+            const costs = parseFloat(data.costs) || 0;
+            const discounts = parseFloat(data.discounts) || 0;
+            const diners = parseInt(data.diners) || 0;
+            const returningCustomers = parseInt(data.returning_customers) || 0;
+            const newCustomers = parseInt(data.new_customers) || 0;
+            
+            // 净销售额
+            const netSales = grossSales - costs - discounts;
+            const netSalesInput = document.querySelector(`[data-date="${dateKey}"][data-field="net_sales"]`);
+            if (netSalesInput) {
+                netSalesInput.value = netSales > 0 ? netSales.toFixed(2) : '';
             }
             
-            try {
-                await apiCall(`?id=${id}&restaurant=${currentRestaurant}`, { method: 'DELETE' });
-                showAlert('数据删除成功');
-                await loadData();
-                updateAdminTable();
-            } catch (error) {
-                // 错误已在apiCall中处理
+            // 人均消费
+            const avgPerDiner = diners > 0 ? (grossSales / diners) : 0;
+            const avgInput = document.querySelector(`[data-date="${dateKey}"][data-field="avg_per_diner"]`);
+            if (avgInput) {
+                avgInput.value = avgPerDiner > 0 ? avgPerDiner.toFixed(2) : '';
+            }
+            
+            // 回头客率
+            const totalCustomers = returningCustomers + newCustomers;
+            const returningRate = totalCustomers > 0 ? ((returningCustomers / totalCustomers) * 100) : 0;
+            const rateInput = document.querySelector(`[data-date="${dateKey}"][data-field="returning_rate"]`);
+            if (rateInput) {
+                rateInput.value = returningRate > 0 ? returningRate.toFixed(1) + '%' : '';
             }
         }
 
-        async function saveRecord() {
-            const date = document.getElementById('form-date').value;
-            const grossSales = document.getElementById('form-gross-sales').value;
-            const diners = document.getElementById('form-diners').value;
+        // 更新行样式
+        function updateRowStyle(row, dateKey) {
+            const data = monthData[dateKey] || {};
+            const hasData = data.gross_sales || data.diners;
             
-            if (!date || !grossSales || !diners) {
-                showAlert('请填写必填字段：日期、总销售额、用餐人数', 'error');
-                return;
+            if (hasData) {
+                row.classList.add('has-data-row');
+            } else {
+                row.classList.remove('has-data-row');
             }
+        }
+
+        // 键盘事件处理
+        function handleKeyDown(event, input) {
+            const row = input.closest('tr');
+            const inputs = Array.from(row.querySelectorAll('.excel-input:not(.calculated)'));
+            const currentIndex = inputs.indexOf(input);
             
-            const saveBtn = document.getElementById('save-btn');
+            if (event.key === 'Tab') {
+                event.preventDefault();
+                if (event.shiftKey) {
+                    // Shift+Tab 向前跳转
+                    if (currentIndex > 0) {
+                        inputs[currentIndex - 1].focus();
+                    } else {
+                        // 跳到上一行的最后一个输入框
+                        const prevRow = row.previousElementSibling;
+                        if (prevRow) {
+                            const prevInputs = Array.from(prevRow.querySelectorAll('.excel-input:not(.calculated)'));
+                            if (prevInputs.length > 0) {
+                                prevInputs[prevInputs.length - 1].focus();
+                            }
+                        }
+                    }
+                } else {
+                    // Tab 向后跳转
+                    if (currentIndex < inputs.length - 1) {
+                        inputs[currentIndex + 1].focus();
+                    } else {
+                        // 跳到下一行的第一个输入框
+                        const nextRow = row.nextElementSibling;
+                        if (nextRow) {
+                            const nextInputs = Array.from(nextRow.querySelectorAll('.excel-input:not(.calculated)'));
+                            if (nextInputs.length > 0) {
+                                nextInputs[0].focus();
+                            }
+                        }
+                    }
+                }
+            } else if (event.key === 'Enter') {
+                event.preventDefault();
+                // Enter 跳到下一行相同列
+                const nextRow = row.nextElementSibling;
+                if (nextRow) {
+                    const nextInputs = Array.from(nextRow.querySelectorAll('.excel-input:not(.calculated)'));
+                    if (nextInputs[currentIndex]) {
+                        nextInputs[currentIndex].focus();
+                    }
+                }
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                // 向上箭头跳到上一行相同列
+                const prevRow = row.previousElementSibling;
+                if (prevRow) {
+                    const prevInputs = Array.from(prevRow.querySelectorAll('.excel-input:not(.calculated)'));
+                    if (prevInputs[currentIndex]) {
+                        prevInputs[currentIndex].focus();
+                    }
+                }
+            } else if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                // 向下箭头跳到下一行相同列
+                const nextRow = row.nextElementSibling;
+                if (nextRow) {
+                    const nextInputs = Array.from(nextRow.querySelectorAll('.excel-input:not(.calculated)'));
+                    if (nextInputs[currentIndex]) {
+                        nextInputs[currentIndex].focus();
+                    }
+                }
+            }
+        }
+
+        // 更新月度统计
+        function updateMonthStats() {
+            let totalSales = 0;
+            let totalDiners = 0;
+            let dataDays = 0;
+            
+            Object.values(monthData).forEach(data => {
+                const sales = parseFloat(data.gross_sales) || 0;
+                const diners = parseInt(data.diners) || 0;
+                
+                if (sales > 0 || diners > 0) {
+                    totalSales += sales;
+                    totalDiners += diners;
+                    dataDays++;
+                }
+            });
+            
+            const avgSales = dataDays > 0 ? (totalSales / dataDays) : 0;
+            
+            document.getElementById('month-total-sales').textContent = `RM ${totalSales.toLocaleString()}`;
+            document.getElementById('month-total-diners').textContent = totalDiners.toLocaleString();
+            document.getElementById('month-avg-sales').textContent = `RM ${avgSales.toFixed(0)}`;
+            document.getElementById('month-data-days').textContent = dataDays;
+        }
+
+        // 保存所有数据
+        async function saveAllData() {
+            const saveBtn = document.getElementById('save-all-btn');
             const originalText = saveBtn.innerHTML;
             saveBtn.innerHTML = '<div class="loading"></div> 保存中...';
             saveBtn.disabled = true;
             
             try {
-                const recordData = {
-                    date: date,
-                    gross_sales: parseFloat(grossSales) || 0,
-                    costs: parseFloat(document.getElementById('form-costs').value) || 0,
-                    discounts: parseFloat(document.getElementById('form-discounts').value) || 0,
-                    diners: parseInt(diners) || 0,
-                    tables_used: parseInt(document.getElementById('form-tables').value) || 0,
-                    returning_customers: parseInt(document.getElementById('form-returning-customers').value) || 0,
-                    new_customers: parseInt(document.getElementById('form-new-customers').value) || 0,
-                    restaurant: currentRestaurant
-                };
+                // 准备保存的数据
+                const dataToSave = [];
+                Object.keys(monthData).forEach(dateKey => {
+                    const data = monthData[dateKey];
+                    if (data.gross_sales || data.diners) {
+                        dataToSave.push({
+                            date: dateKey,
+                            ...data,
+                            restaurant: currentRestaurant
+                        });
+                    }
+                });
                 
-                if (editingItem) {
-                    recordData.id = editingItem.id;
-                    await apiCall('', {
-                        method: 'PUT',
-                        body: JSON.stringify(recordData)
-                    });
-                    showAlert(`${restaurantConfig[currentRestaurant].name}数据更新成功`);
-                } else {
-                    await apiCall('', {
-                        method: 'POST',
-                        body: JSON.stringify(recordData)
-                    });
-                    showAlert(`${restaurantConfig[currentRestaurant].name}数据添加成功`);
-                }
+                // 模拟API调用
+                await new Promise(resolve => setTimeout(resolve, 1500));
                 
-                closeModal();
-                await loadData();
-                updateAdminTable();
+                showAlert(`成功保存 ${dataToSave.length} 条${restaurantConfig[currentRestaurant].name}数据`, 'success');
+                
             } catch (error) {
-                // 错误已在apiCall中处理
+                showAlert('保存失败：' + error.message, 'error');
             } finally {
                 saveBtn.innerHTML = originalText;
                 saveBtn.disabled = false;
             }
         }
 
-        // 点击模态框外部关闭
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
+        // 清空所有数据
+        function clearAllData() {
+            if (!confirm(`确定要清空${currentYear}年${currentMonth + 1}月的所有${restaurantConfig[currentRestaurant].name}数据吗？此操作不可撤销。`)) {
+                return;
+            }
+            
+            monthData = {};
+            updateTable();
+            updateMonthStats();
+            showAlert('数据已清空', 'success');
+        }
+
+        // 加载月度数据
+        async function loadMonthData() {
+            try {
+                // 模拟API调用
+                // const response = await fetch(`api.php?action=month&restaurant=${currentRestaurant}&year=${currentYear}&month=${currentMonth + 1}`);
+                // const result = await response.json();
+                // monthData = result.data || {};
+                
+                // 模拟数据
+                monthData = {};
+                
+                // 添加示例数据
+                if (currentYear === new Date().getFullYear() && currentMonth === new Date().getMonth()) {
+                    const today = new Date();
+                    const dateKey1 = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`;
+                    const dateKey2 = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-15`;
+                    
+                    monthData[dateKey1] = {
+                        gross_sales: 2500.00,
+                        costs: 800.00,
+                        discounts: 150.00,
+                        diners: 45,
+                        tables_used: 12,
+                        returning_customers: 20,
+                        new_customers: 25
+                    };
+                    
+                    monthData[dateKey2] = {
+                        gross_sales: 2800.00,
+                        costs: 900.00,
+                        discounts: 200.00,
+                        diners: 52,
+                        tables_used: 15,
+                        returning_customers: 30,
+                        new_customers: 22
+                    };
+                }
+                
+                return monthData;
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                monthData = {};
+                return {};
+            }
+        }
+
+        // 显示提示信息
+        function showAlert(message, type = 'success') {
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'error' ? 'alert-error' : type === 'warning' ? 'alert-warning' : 'alert-success';
+            
+            const alertElement = document.createElement('div');
+            alertElement.className = `alert ${alertClass}`;
+            alertElement.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; font-size: 18px;">&times;</button>
+                </div>
+            `;
+            
+            alertContainer.appendChild(alertElement);
+            
+            setTimeout(() => {
+                if (alertElement.parentNode) {
+                    alertElement.remove();
+                }
+            }, 3000);
+        }
+
+        // 键盘快捷键
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+S 保存
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveAllData();
+                return;
+            }
+            
+            // 左右箭头键切换月份（当没有输入框聚焦时）
+            if (!document.activeElement.classList.contains('excel-input')) {
+                if (e.key === 'ArrowLeft') {
+                    previousMonth();
+                } else if (e.key === 'ArrowRight') {
+                    nextMonth();
+                }
             }
         });
 
-        // 键盘事件
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
+        // 初始化应用
+        async function initApp() {
+            // 设置当前日期
+            const now = new Date();
+            currentYear = now.getFullYear();
+            currentMonth = now.getMonth();
+            
+            // 初始化UI
+            initYearSelector();
+            updateThemeColors(currentRestaurant);
+            updateSelectors();
+            
+            // 加载数据并更新显示
+            await loadMonthData();
+            updateTable();
+            updateMonthStats();
+            
+            // 显示使用提示
+            const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            showAlert(`📊 Excel风格数据录入已就绪！当前：${currentYear}年${monthNames[currentMonth]} ${restaurantConfig[currentRestaurant].name} | 快捷键：Tab跳转，Enter下一行，Ctrl+S保存`, 'success');
+        }
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initApp);
