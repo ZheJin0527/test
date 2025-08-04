@@ -326,6 +326,11 @@
             .restaurant-btn {
                 min-width: auto;
             }
+            .date-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
         }
         
         .kpi-card {
@@ -404,63 +409,230 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
-        /* 自定义日期选择器样式 */
-        .custom-date-picker {
+        /* 改进的日期选择器样式 */
+        .enhanced-date-picker {
             display: flex;
             align-items: center;
-            gap: 6px;
+            background: white;
             border: 1px solid #d1d5db;
             border-radius: 8px;
             padding: 8px 12px;
-            background: white;
+            gap: 8px;
+            min-width: 240px;
             transition: all 0.2s;
-            min-width: 200px;
+            position: relative;
         }
 
-        .custom-date-picker:focus-within {
+        .enhanced-date-picker:focus-within {
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
-        .custom-date-picker select {
-            border: none;
+        .enhanced-date-picker:hover {
+            border-color: #9ca3af;
+        }
+
+        /* 日期选择部分 */
+        .date-part {
+            position: relative;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            min-width: 60px;
+            text-align: center;
+            user-select: none;
             background: transparent;
-            padding: 2px 4px;
+            border: 1px solid transparent;
             font-size: 14px;
             color: #374151;
-            outline: none;
-            cursor: pointer;
-            font-family: "Segoe UI", sans-serif;
         }
 
-        .custom-date-picker select:focus {
-            background-color: rgba(59, 130, 246, 0.05);
-            border-radius: 4px;
+        .date-part:hover {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
         }
 
-        .custom-date-picker .year-select {
-            min-width: 70px;
+        .date-part.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
         }
 
-        .custom-date-picker .month-select {
-            min-width: 50px;
-        }
-
-        .custom-date-picker .day-select {
-            min-width: 45px;
-        }
-
-        .custom-date-picker .separator {
+        .date-separator {
             color: #9ca3af;
             font-weight: 500;
             user-select: none;
+            margin: 0 2px;
         }
-        
+
+        /* 下拉选择面板 */
+        .date-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            margin-top: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .date-dropdown.show {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease-out;
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 年份选择网格 */
+        .year-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            padding: 8px;
+        }
+
+        /* 月份选择网格 */
+        .month-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            padding: 8px;
+        }
+
+        /* 日期选择网格 */
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            padding: 8px;
+        }
+
+        /* 选择项通用样式 */
+        .date-option {
+            padding: 8px 12px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #374151;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .date-option:hover {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .date-option.selected {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .date-option.today {
+            background-color: #fef3c7;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .date-option.today.selected {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        /* 日期网格的星期标题 */
+        .day-header {
+            padding: 4px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        /* 日期控制区域 */
         .date-controls {
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
             align-items: center;
+        }
+
+        /* 月份选择器保持原样 */
+        .month-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .month-selector input[type="month"] {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            transition: all 0.2s;
+            font-family: "Segoe UI", sans-serif;
+            min-width: 160px;
+        }
+
+        .month-selector input[type="month"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* 日期信息样式 */
+        .date-info {
+            font-size: 14px;
+            font-weight: bold;
+            color: #6b7280;
+            padding: 8px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* 分隔线 */
+        .divider {
+            width: 1px;
+            height: 24px;
+            background-color: #d1d5db;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .enhanced-date-picker {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .date-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            
+            .month-selector {
+                justify-content: center;
+            }
         }
         
         .chart-container {
@@ -556,21 +728,6 @@
         .dynamic-border {
             border-color: var(--primary-color) !important;
         }
-
-        /* 响应式优化 */
-        @media (max-width: 768px) {
-            .date-controls {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            
-            .custom-date-picker {
-                min-width: auto;
-                width: 100%;
-                justify-content: center;
-            }
-        }
     </style>
 </head>
 <body class="restaurant-j1">
@@ -608,73 +765,64 @@
             <div class="card" style="margin-bottom: 32px;">
                 <div class="card-body">
                     <div class="date-controls">
-                        <div style="display: flex; align-items: center; gap: 8px;">
+                        <!-- 月份选择器 -->
+                        <div class="month-selector">
                             <i class="fas fa-calendar" style="color: #6b7280;"></i>
                             <label class="form-label" style="margin: 0;">选择月份:</label>
-                            <input type="month" id="month-selector" class="form-input" style="width: auto;" onchange="handleMonthChange()">
+                            <input type="month" id="month-selector" onchange="handleMonthChange()">
                         </div>
                         
-                        <div style="width: 1px; height: 24px; background-color: #d1d5db;"></div>
+                        <div class="divider"></div>
                         
+                        <!-- 开始日期选择器 -->
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <label class="form-label" style="margin: 0;">开始日期:</label>
-                            <div class="custom-date-picker" id="start-date-picker">
-                                <select class="year-select" id="start-year">
-                                    <!-- 年份选项将通过JavaScript动态生成 -->
-                                </select>
-                                <span class="separator">年</span>
-                                <select class="month-select" id="start-month">
-                                    <option value="01">1</option>
-                                    <option value="02">2</option>
-                                    <option value="03">3</option>
-                                    <option value="04">4</option>
-                                    <option value="05">5</option>
-                                    <option value="06">6</option>
-                                    <option value="07">7</option>
-                                    <option value="08">8</option>
-                                    <option value="09">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                                <span class="separator">月</span>
-                                <select class="day-select" id="start-day">
-                                    <!-- 日期选项将根据年月动态生成 -->
-                                </select>
-                                <span class="separator">日</span>
+                            <div class="enhanced-date-picker" id="start-date-picker">
+                                <div class="date-part" data-type="year" onclick="showDateDropdown('start', 'year')">
+                                    <span id="start-year-display">2024</span>
+                                </div>
+                                <span class="date-separator">年</span>
+                                <div class="date-part" data-type="month" onclick="showDateDropdown('start', 'month')">
+                                    <span id="start-month-display">01</span>
+                                </div>
+                                <span class="date-separator">月</span>
+                                <div class="date-part" data-type="day" onclick="showDateDropdown('start', 'day')">
+                                    <span id="start-day-display">01</span>
+                                </div>
+                                <span class="date-separator">日</span>
+                                
+                                <!-- 下拉选择面板 -->
+                                <div class="date-dropdown" id="start-dropdown">
+                                    <!-- 动态内容将在这里生成 -->
+                                </div>
                             </div>
                         </div>
                         
+                        <!-- 结束日期选择器 -->
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <label class="form-label" style="margin: 0;">结束日期:</label>
-                            <div class="custom-date-picker" id="end-date-picker">
-                                <select class="year-select" id="end-year">
-                                    <!-- 年份选项将通过JavaScript动态生成 -->
-                                </select>
-                                <span class="separator">年</span>
-                                <select class="month-select" id="end-month">
-                                    <option value="01">1</option>
-                                    <option value="02">2</option>
-                                    <option value="03">3</option>
-                                    <option value="04">4</option>
-                                    <option value="05">5</option>
-                                    <option value="06">6</option>
-                                    <option value="07">7</option>
-                                    <option value="08">8</option>
-                                    <option value="09">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                                <span class="separator">月</span>
-                                <select class="day-select" id="end-day">
-                                    <!-- 日期选项将根据年月动态生成 -->
-                                </select>
-                                <span class="separator">日</span>
+                            <div class="enhanced-date-picker" id="end-date-picker">
+                                <div class="date-part" data-type="year" onclick="showDateDropdown('end', 'year')">
+                                    <span id="end-year-display">2024</span>
+                                </div>
+                                <span class="date-separator">年</span>
+                                <div class="date-part" data-type="month" onclick="showDateDropdown('end', 'month')">
+                                    <span id="end-month-display">01</span>
+                                </div>
+                                <span class="date-separator">月</span>
+                                <div class="date-part" data-type="day" onclick="showDateDropdown('end', 'day')">
+                                    <span id="end-day-display">01</span>
+                                </div>
+                                <span class="date-separator">日</span>
+                                
+                                <!-- 下拉选择面板 -->
+                                <div class="date-dropdown" id="end-dropdown">
+                                    <!-- 动态内容将在这里生成 -->
+                                </div>
                             </div>
                         </div>
                         
-                        <div id="date-info" style="font-size: 14px; font-weight: bold; color: #6b7280;"></div>
+                        <div id="date-info" class="date-info"></div>
                     </div>
                 </div>
             </div>
@@ -858,6 +1006,12 @@
         
         let salesChart = null;
         let combinedChart = null;
+        
+        // 日期选择器状态
+        let currentDatePicker = null;
+        let currentDateType = null;
+        let startDateValue = { year: null, month: null, day: null };
+        let endDateValue = { year: null, month: null, day: null };
 
         // 餐厅配置
         const restaurantConfig = {
@@ -895,114 +1049,265 @@
             }
         };
 
-        // 日期选择器相关函数
-        function initDatePickers() {
-            // 生成年份选项（从2020年到明年）
-            const currentYear = new Date().getFullYear();
-            const startYear = 2020;
-            const endYear = currentYear + 1;
-            
-            const startYearSelect = document.getElementById('start-year');
-            const endYearSelect = document.getElementById('end-year');
-            
-            for (let year = startYear; year <= endYear; year++) {
-                const option1 = new Option(year, year);
-                const option2 = new Option(year, year);
-                startYearSelect.add(option1);
-                endYearSelect.add(option2);
-            }
-            
-            // 设置初始日期
+        // 工具函数
+        function getToday() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function getTodayMinusMonth() {
+            const date = new Date();
+            date.setMonth(date.getMonth() - 1);
+            return date.toISOString().split('T')[0];
+        }
+
+        function getCurrentMonth() {
+            return new Date().toISOString().slice(0, 7);
+        }
+
+        // 增强的日期选择器功能
+        function initEnhancedDatePickers() {
             const startDate = new Date(dateRange.startDate);
             const endDate = new Date(dateRange.endDate);
             
-            setCustomDateValue('start', startDate);
-            setCustomDateValue('end', endDate);
+            // 设置初始值
+            startDateValue = {
+                year: startDate.getFullYear(),
+                month: startDate.getMonth() + 1,
+                day: startDate.getDate()
+            };
             
-            // 绑定事件监听器
-            bindDatePickerEvents();
+            endDateValue = {
+                year: endDate.getFullYear(),
+                month: endDate.getMonth() + 1,
+                day: endDate.getDate()
+            };
+            
+            // 更新显示
+            updateDateDisplay('start');
+            updateDateDisplay('end');
+            
+            // 绑定全局点击事件以关闭下拉框
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.enhanced-date-picker')) {
+                    hideAllDropdowns();
+                }
+            });
         }
 
-        function setCustomDateValue(prefix, date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
+        function updateDateDisplay(prefix) {
+            const dateValue = prefix === 'start' ? startDateValue : endDateValue;
             
-            document.getElementById(`${prefix}-year`).value = year;
-            document.getElementById(`${prefix}-month`).value = month;
-            
-            // 更新日期选项
-            updateDayOptions(prefix, year, parseInt(month));
-            
-            document.getElementById(`${prefix}-day`).value = day;
+            document.getElementById(`${prefix}-year-display`).textContent = dateValue.year;
+            document.getElementById(`${prefix}-month-display`).textContent = String(dateValue.month).padStart(2, '0');
+            document.getElementById(`${prefix}-day-display`).textContent = String(dateValue.day).padStart(2, '0');
         }
 
-        function getCustomDateValue(prefix) {
-            const year = document.getElementById(`${prefix}-year`).value;
-            const month = document.getElementById(`${prefix}-month`).value;
-            const day = document.getElementById(`${prefix}-day`).value;
+        function showDateDropdown(prefix, type) {
+            // 隐藏其他下拉框
+            hideAllDropdowns();
             
-            return `${year}-${month}-${day}`;
+            const dropdown = document.getElementById(`${prefix}-dropdown`);
+            const datePicker = document.getElementById(`${prefix}-date-picker`);
+            
+            // 设置当前状态
+            currentDatePicker = prefix;
+            currentDateType = type;
+            
+            // 移除所有active状态
+            datePicker.querySelectorAll('.date-part').forEach(part => {
+                part.classList.remove('active');
+            });
+            
+            // 添加当前选中的active状态
+            datePicker.querySelector(`[data-type="${type}"]`).classList.add('active');
+            
+            // 生成下拉内容
+            generateDropdownContent(prefix, type);
+            
+            // 显示下拉框
+            dropdown.classList.add('show');
         }
 
-        function updateDayOptions(prefix, year, month) {
-            const daySelect = document.getElementById(`${prefix}-day`);
-            const currentDay = daySelect.value;
+        function hideAllDropdowns() {
+            document.querySelectorAll('.date-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
             
-            // 清空现有选项
-            daySelect.innerHTML = '';
+            document.querySelectorAll('.date-part').forEach(part => {
+                part.classList.remove('active');
+            });
             
-            // 计算该月的天数
-            const daysInMonth = new Date(year, month, 0).getDate();
+            currentDatePicker = null;
+            currentDateType = null;
+        }
+
+        function generateDropdownContent(prefix, type) {
+            const dropdown = document.getElementById(`${prefix}-dropdown`);
+            const dateValue = prefix === 'start' ? startDateValue : endDateValue;
+            const today = new Date();
             
-            // 添加日期选项
-            for (let day = 1; day <= daysInMonth; day++) {
-                const option = new Option(day, String(day).padStart(2, '0'));
-                daySelect.add(option);
+            dropdown.innerHTML = '';
+            
+            if (type === 'year') {
+                // 生成年份选择
+                const yearGrid = document.createElement('div');
+                yearGrid.className = 'year-grid';
+                
+                const currentYear = today.getFullYear();
+                const startYear = 2020;
+                const endYear = currentYear + 1;
+                
+                for (let year = startYear; year <= endYear; year++) {
+                    const yearOption = document.createElement('div');
+                    yearOption.className = 'date-option';
+                    yearOption.textContent = year;
+                    
+                    if (year === dateValue.year) {
+                        yearOption.classList.add('selected');
+                    }
+                    
+                    if (year === currentYear) {
+                        yearOption.classList.add('today');
+                    }
+                    
+                    yearOption.addEventListener('click', function() {
+                        selectDateValue(prefix, 'year', year);
+                    });
+                    
+                    yearGrid.appendChild(yearOption);
+                }
+                
+                dropdown.appendChild(yearGrid);
+                
+            } else if (type === 'month') {
+                // 生成月份选择
+                const monthGrid = document.createElement('div');
+                monthGrid.className = 'month-grid';
+                
+                const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+                
+                months.forEach((monthName, index) => {
+                    const monthValue = index + 1;
+                    const monthOption = document.createElement('div');
+                    monthOption.className = 'date-option';
+                    monthOption.textContent = monthName;
+                    
+                    if (monthValue === dateValue.month) {
+                        monthOption.classList.add('selected');
+                    }
+                    
+                    if (dateValue.year === today.getFullYear() && monthValue === today.getMonth() + 1) {
+                        monthOption.classList.add('today');
+                    }
+                    
+                    monthOption.addEventListener('click', function() {
+                        selectDateValue(prefix, 'month', monthValue);
+                    });
+                    
+                    monthGrid.appendChild(monthOption);
+                });
+                
+                dropdown.appendChild(monthGrid);
+                
+            } else if (type === 'day') {
+                // 生成日期选择
+                const dayGrid = document.createElement('div');
+                dayGrid.className = 'day-grid';
+                
+                // 添加星期标题
+                const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+                weekdays.forEach(day => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'day-header';
+                    dayHeader.textContent = day;
+                    dayGrid.appendChild(dayHeader);
+                });
+                
+                // 计算当月信息
+                const year = dateValue.year;
+                const month = dateValue.month;
+                const firstDay = new Date(year, month - 1, 1);
+                const lastDay = new Date(year, month, 0);
+                const daysInMonth = lastDay.getDate();
+                const startDayOfWeek = firstDay.getDay();
+                
+                // 添加空白日期（上个月的）
+                for (let i = 0; i < startDayOfWeek; i++) {
+                    const emptyDay = document.createElement('div');
+                    dayGrid.appendChild(emptyDay);
+                }
+                
+                // 添加当月日期
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayOption = document.createElement('div');
+                    dayOption.className = 'date-option';
+                    dayOption.textContent = day;
+                    
+                    if (day === dateValue.day) {
+                        dayOption.classList.add('selected');
+                    }
+                    
+                    if (year === today.getFullYear() && 
+                        month === today.getMonth() + 1 && 
+                        day === today.getDate()) {
+                        dayOption.classList.add('today');
+                    }
+                    
+                    dayOption.addEventListener('click', function() {
+                        selectDateValue(prefix, 'day', day);
+                    });
+                    
+                    dayGrid.appendChild(dayOption);
+                }
+                
+                dropdown.appendChild(dayGrid);
+            }
+        }
+
+        function selectDateValue(prefix, type, value) {
+            const dateValue = prefix === 'start' ? startDateValue : endDateValue;
+            
+            // 更新值
+            dateValue[type] = value;
+            
+            // 如果选择了年份或月份，需要验证日期的有效性
+            if (type === 'year' || type === 'month') {
+                const daysInMonth = new Date(dateValue.year, dateValue.month, 0).getDate();
+                if (dateValue.day > daysInMonth) {
+                    dateValue.day = daysInMonth;
+                }
             }
             
-            // 尝试保持原来的日期选择
-            if (currentDay && parseInt(currentDay) <= daysInMonth) {
-                daySelect.value = currentDay;
-            } else {
-                daySelect.value = '01';
-            }
+            // 更新显示
+            updateDateDisplay(prefix);
+            
+            // 隐藏下拉框
+            hideAllDropdowns();
+            
+            // 更新日期范围并重新加载数据
+            updateDateRangeFromPickers();
         }
 
-        function bindDatePickerEvents() {
-            // 开始日期事件
-            document.getElementById('start-year').addEventListener('change', function() {
-                const year = parseInt(this.value);
-                const month = parseInt(document.getElementById('start-month').value);
-                updateDayOptions('start', year, month);
-                updateDateRange();
+        async function updateDateRangeFromPickers() {
+            const startDateStr = `${startDateValue.year}-${String(startDateValue.month).padStart(2, '0')}-${String(startDateValue.day).padStart(2, '0')}`;
+            const endDateStr = `${endDateValue.year}-${String(endDateValue.month).padStart(2, '0')}-${String(endDateValue.day).padStart(2, '0')}`;
+            
+            // 验证日期有效性
+            if (new Date(startDateStr) > new Date(endDateStr)) {
+                alert('开始日期不能晚于结束日期');
+                return;
+            }
+            
+            dateRange = {
+                startDate: startDateStr,
+                endDate: endDateStr
+            };
+            
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
             });
-            
-            document.getElementById('start-month').addEventListener('change', function() {
-                const year = parseInt(document.getElementById('start-year').value);
-                const month = parseInt(this.value);
-                updateDayOptions('start', year, month);
-                updateDateRange();
-            });
-            
-            document.getElementById('start-day').addEventListener('change', updateDateRange);
-            
-            // 结束日期事件
-            document.getElementById('end-year').addEventListener('change', function() {
-                const year = parseInt(this.value);
-                const month = parseInt(document.getElementById('end-month').value);
-                updateDayOptions('end', year, month);
-                updateDateRange();
-            });
-            
-            document.getElementById('end-month').addEventListener('change', function() {
-                const year = parseInt(document.getElementById('end-year').value);
-                const month = parseInt(this.value);
-                updateDayOptions('end', year, month);
-                updateDateRange();
-            });
-            
-            document.getElementById('end-day').addEventListener('change', updateDateRange);
+            updateDashboard();
         }
 
         // 切换餐厅
@@ -1049,21 +1354,6 @@
             } else {
                 window.location.href = '/';
             }
-        }
-
-        // 工具函数
-        function getToday() {
-            return new Date().toISOString().split('T')[0];
-        }
-
-        function getTodayMinusMonth() {
-            const date = new Date();
-            date.setMonth(date.getMonth() - 1);
-            return date.toISOString().split('T')[0];
-        }
-
-        function getCurrentMonth() {
-            return new Date().toISOString().slice(0, 7);
         }
 
         // API 调用函数
@@ -1222,8 +1512,8 @@
         async function initApp() {
             document.getElementById('month-selector').value = selectedMonth;
             
-            // 初始化自定义日期选择器
-            initDatePickers();
+            // 初始化增强日期选择器
+            initEnhancedDatePickers();
             
             // 初始化主题色
             updateThemeColors(currentRestaurant);
@@ -1248,31 +1538,21 @@
                 endDate: lastDayFormatted
             };
             
-            // 更新自定义日期选择器
-            setCustomDateValue('start', new Date(dateRange.startDate));
-            setCustomDateValue('end', new Date(dateRange.endDate));
-            
-            await loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            });
-            updateDashboard();
-        }
-
-        async function updateDateRange() {
-            const startDate = getCustomDateValue('start');
-            const endDate = getCustomDateValue('end');
-            
-            // 验证日期有效性
-            if (new Date(startDate) > new Date(endDate)) {
-                alert('开始日期不能晚于结束日期');
-                return;
-            }
-            
-            dateRange = {
-                startDate: startDate,
-                endDate: endDate
+            // 更新增强日期选择器的值
+            startDateValue = {
+                year: parseInt(year),
+                month: parseInt(monthNum),
+                day: 1
             };
+            
+            endDateValue = {
+                year: parseInt(year),
+                month: parseInt(monthNum),
+                day: lastDay
+            };
+            
+            updateDateDisplay('start');
+            updateDateDisplay('end');
             
             await loadData({
                 start_date: dateRange.startDate,
@@ -1349,16 +1629,6 @@
                 displaySummary.avg_per_diner = displaySummary.total_diners > 0 ? 
                     displaySummary.total_gross_sales / displaySummary.total_diners : 0;
             }
-            
-            console.log('计算详情:', {
-                餐厅: restaurantConfig[currentRestaurant].name,
-                总销售额: displaySummary.total_gross_sales,
-                总人数: displaySummary.total_diners, 
-                人均消费: displaySummary.avg_per_diner,
-                回头客: displaySummary.total_returning_customers,
-                新顾客: displaySummary.total_new_customers,
-                计算结果: displaySummary.total_gross_sales / displaySummary.total_diners
-            });
             
             // 更新KPI卡片
             document.getElementById('total-sales').textContent = `RM ${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
@@ -1564,7 +1834,6 @@
                     }
                 });
             } else {
-
                 // 单店模式：显示单店数据
                 salesChart = new Chart(ctx1, {
                     type: 'line',
