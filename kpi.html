@@ -973,9 +973,9 @@
                                 <th>日期</th>
                                 <th>总销售额</th>
                                 <th>净销售额</th>
-                                <th>顾客人数</th>
-                                <th>使用桌数</th>
                                 <th>人均消费</th>
+                                <th>使用桌数</th>
+                                <th>顾客人数</th>
                                 <th>常客</th>
                                 <th>新客人</th>
                                 <th>常客率</th>
@@ -2161,9 +2161,9 @@
                     <td>${item.date}</td>
                     <td>RM ${item.totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                     <td>RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                    <td>${item.diners}</td>
-                    <td>${item.tablesUsed}</td>
                     <td>RM ${item.avgSalesPerDiner.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td>${item.tablesUsed}</td>
+                    <td>${item.diners}</td>
                     <td>${item.returningCustomers}</td>
                     <td>${item.newCustomers}</td>
                     <td>${returningRate}%</td>
