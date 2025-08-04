@@ -179,6 +179,38 @@
         .restaurant-btn.active::before {
             opacity: 1;
         }
+
+        /* 总计按钮特殊样式 - 未激活时透明 */
+        .restaurant-btn[data-restaurant="total"] {
+            font-weight: 700;
+        }
+
+        /* 总计按钮默认状态（未激活） - 透明背景 */
+        .restaurant-btn[data-restaurant="total"]:not(.active) {
+            background: transparent !important;
+            color: #583e04 !important;
+            transform: none !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        /* 总计按钮激活状态 */
+        .restaurant-btn[data-restaurant="total"].active {
+            background: linear-gradient(135deg, #583e04, #805906) !important;
+            color: white !important;
+            box-shadow: 0 4px 16px rgba(88, 62, 4, 0.4) !important;
+            transform: translateY(-2px) !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+
+        /* 总计按钮悬停状态（仅在非激活时） */
+        .restaurant-btn[data-restaurant="total"]:not(.active):hover {
+            background: rgba(88, 62, 4, 0.1) !important;
+            color: #583e04 !important;
+            transform: translateY(-1px) !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
         
         .card {
             background: rgb(248, 245, 235);
@@ -231,10 +263,10 @@
             flex-direction: column;
         }
         
-        /* 下方图表网格 */
+        /* 下方图表网格 - 现在只有一个图表 */
         .bottom-charts {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 24px;
         }
         
@@ -455,6 +487,11 @@
             --secondary-color: #805906;
         }
 
+        .restaurant-total {
+            --primary-color: #583e04;
+            --secondary-color: #805906;
+        }
+
         /* 动态应用颜色 */
         .dynamic-color {
             color: var(--primary-color) !important;
@@ -488,6 +525,9 @@
                         </button>
                         <button class="restaurant-btn" data-restaurant="j3" onclick="switchRestaurant('j3')">
                             J3
+                        </button>
+                        <button class="restaurant-btn" data-restaurant="total" onclick="switchRestaurant('total')">
+                            总计
                         </button>
                     </div>
                     <button class="back-button" onclick="goBack()">
@@ -638,7 +678,7 @@
                 <div class="main-chart-container">
                     <div class="card" style="height: 100%;">
                         <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
-                            <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
+                            <h3 id="main-chart-title" style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
                             <div class="chart-container" style="flex: 1;">
                                 <canvas id="sales-chart"></canvas>
                             </div>
@@ -647,22 +687,13 @@
                 </div>
             </div>
             
-            <!-- Bottom Charts -->
+            <!-- Bottom Charts - 合并后的图表 -->
             <div class="bottom-charts" style="margin-bottom: 32px;">
                 <div class="card">
                     <div class="card-body">
-                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数趋势</h3>
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数与顾客类型分析</h3>
                         <div class="chart-container">
-                            <canvas id="diners-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">顾客类型分布</h3>
-                        <div class="chart-container">
-                            <canvas id="customers-chart"></canvas>
+                            <canvas id="combined-chart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -676,7 +707,7 @@
                 <div style="overflow-x: auto;">
                     <table class="table" id="dashboard-table">
                         <thead>
-                            <tr>
+                            <tr id="table-header">
                                 <th>日期</th>
                                 <th>总销售额</th>
                                 <th>净销售额</th>
@@ -702,6 +733,7 @@
         
         // 应用状态
         let actualData = [];
+        let allRestaurantsData = {}; // 存储所有餐厅的数据
         let currentRestaurant = 'j1';
         let dateRange = {
             startDate: getTodayMinusMonth(),
@@ -710,8 +742,7 @@
         let selectedMonth = getCurrentMonth();
         
         let salesChart = null;
-        let dinersChart = null;
-        let customersChart = null;
+        let combinedChart = null;
 
         // 餐厅配置
         const restaurantConfig = {
@@ -734,6 +765,14 @@
             j3: {
                 name: 'J3',
                 tableName: 'j3data_view',
+                colors: {
+                    primary: '#583e04',
+                    secondary: '#805906'
+                }
+            },
+            total: {
+                name: '总计',
+                tableName: 'all_restaurants',
                 colors: {
                     primary: '#583e04',
                     secondary: '#805906'
@@ -826,17 +865,94 @@
             }
         }
 
+        // 加载所有餐厅数据
+        async function loadAllRestaurantsData(params = {}) {
+            try {
+                const restaurants = ['j1', 'j2', 'j3'];
+                const promises = restaurants.map(async (restaurant) => {
+                    const queryParams = new URLSearchParams({
+                        action: 'list',
+                        restaurant: restaurant,
+                        ...params
+                    });
+                    
+                    try {
+                        const result = await apiCall(`?${queryParams}`);
+                        return { restaurant, data: result.data || [] };
+                    } catch (error) {
+                        console.error(`加载${restaurant}数据失败:`, error);
+                        return { restaurant, data: [] };
+                    }
+                });
+                
+                const results = await Promise.all(promises);
+                
+                // 存储各餐厅数据
+                allRestaurantsData = {};
+                results.forEach(({ restaurant, data }) => {
+                    allRestaurantsData[restaurant] = data;
+                });
+                
+                return allRestaurantsData;
+            } catch (error) {
+                console.error('加载所有餐厅数据失败:', error);
+                allRestaurantsData = {};
+                return {};
+            }
+        }
+
+        // 合并所有餐厅数据
+        function mergeAllRestaurantsData() {
+            const dateMap = new Map();
+            
+            // 遍历所有餐厅数据
+            Object.values(allRestaurantsData).forEach(restaurantData => {
+                restaurantData.forEach(item => {
+                    const date = item.date;
+                    if (!dateMap.has(date)) {
+                        dateMap.set(date, {
+                            date: date,
+                            gross_sales: 0,
+                            net_sales: 0,
+                            diners: 0,
+                            tables_used: 0,
+                            returning_customers: 0,
+                            new_customers: 0
+                        });
+                    }
+                    
+                    const existing = dateMap.get(date);
+                    existing.gross_sales += parseFloat(item.gross_sales) || 0;
+                    existing.net_sales += parseFloat(item.net_sales) || 0;
+                    existing.diners += parseInt(item.diners) || 0;
+                    existing.tables_used += parseInt(item.tables_used) || 0;
+                    existing.returning_customers += parseInt(item.returning_customers) || 0;
+                    existing.new_customers += parseInt(item.new_customers) || 0;
+                });
+            });
+            
+            // 转换为数组并排序
+            return Array.from(dateMap.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
+        }
+
         // 数据获取
         async function loadData(params = {}) {
             try {
-                const queryParams = new URLSearchParams({
-                    action: 'list',
-                    restaurant: currentRestaurant,
-                    ...params
-                });
-                
-                const result = await apiCall(`?${queryParams}`);
-                actualData = result.data || [];
+                if (currentRestaurant === 'total') {
+                    // 加载所有餐厅数据
+                    await loadAllRestaurantsData(params);
+                    actualData = mergeAllRestaurantsData();
+                } else {
+                    // 加载单个餐厅数据
+                    const queryParams = new URLSearchParams({
+                        action: 'list',
+                        restaurant: currentRestaurant,
+                        ...params
+                    });
+                    
+                    const result = await apiCall(`?${queryParams}`);
+                    actualData = result.data || [];
+                }
                 return actualData;
             } catch (error) {
                 actualData = [];
@@ -846,15 +962,32 @@
 
         async function loadSummary(startDate, endDate) {
             try {
-                const queryParams = new URLSearchParams({
-                    action: 'summary',
-                    restaurant: currentRestaurant,
-                    start_date: startDate,
-                    end_date: endDate
-                });
-                
-                const result = await apiCall(`?${queryParams}`);
-                return result.data;
+                if (currentRestaurant === 'total') {
+                    // 为总计模式计算汇总数据
+                    const filteredData = getFilteredKPIData();
+                    if (filteredData.length > 0) {
+                        return {
+                            total_gross_sales: filteredData.reduce((sum, item) => sum + item.totalSales, 0),
+                            total_net_sales: filteredData.reduce((sum, item) => sum + item.netSales, 0),
+                            total_tables: filteredData.reduce((sum, item) => sum + item.tablesUsed, 0),
+                            total_diners: filteredData.reduce((sum, item) => sum + item.diners, 0),
+                            total_returning_customers: filteredData.reduce((sum, item) => sum + item.returningCustomers, 0),
+                            total_new_customers: filteredData.reduce((sum, item) => sum + item.newCustomers, 0),
+                            total_days: filteredData.length
+                        };
+                    }
+                    return {};
+                } else {
+                    const queryParams = new URLSearchParams({
+                        action: 'summary',
+                        restaurant: currentRestaurant,
+                        start_date: startDate,
+                        end_date: endDate
+                    });
+                    
+                    const result = await apiCall(`?${queryParams}`);
+                    return result.data;
+                }
             } catch (error) {
                 return {};
             }
@@ -1003,6 +1136,14 @@
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
             
+            // 更新图表标题（总计模式下显示特殊标题）
+            const chartTitle = document.getElementById('main-chart-title');
+            if (currentRestaurant === 'total') {
+                chartTitle.textContent = '净销售额趋势 (三店合计)';
+            } else {
+                chartTitle.textContent = '净销售额趋势';
+            }
+            
             // 更新图表
             updateCharts(filteredData);
             
@@ -1010,169 +1151,482 @@
             updateDashboardTable(filteredData);
         }
 
+        // 准备分餐厅对比数据
+        function prepareComparisonData() {
+            if (currentRestaurant !== 'total' || !allRestaurantsData) {
+                return null;
+            }
+            
+            const dateSet = new Set();
+            Object.values(allRestaurantsData).forEach(data => {
+                data.forEach(item => dateSet.add(item.date));
+            });
+            
+            const sortedDates = Array.from(dateSet).sort();
+            const filteredDates = sortedDates.filter(date => {
+                const itemDate = new Date(date);
+                const start = new Date(dateRange.startDate);
+                const end = new Date(dateRange.endDate);
+                return itemDate >= start && itemDate <= end;
+            });
+            
+            const restaurants = ['j1', 'j2', 'j3'];
+            const comparisonData = {
+                dates: filteredDates,
+                restaurants: {}
+            };
+            
+            restaurants.forEach(restaurant => {
+                const restaurantData = allRestaurantsData[restaurant] || [];
+                comparisonData.restaurants[restaurant] = filteredDates.map(date => {
+                    const dayData = restaurantData.find(item => item.date === date);
+                    return dayData ? {
+                        totalSales: parseFloat(dayData.gross_sales) || 0,
+                        netSales: parseFloat(dayData.net_sales) || 0,
+                        diners: parseInt(dayData.diners) || 0,
+                        tablesUsed: parseInt(dayData.tables_used) || 0,
+                        returningCustomers: parseInt(dayData.returning_customers) || 0,
+                        newCustomers: parseInt(dayData.new_customers) || 0
+                    } : {
+                        totalSales: 0,
+                        netSales: 0,
+                        diners: 0,
+                        tablesUsed: 0,
+                        returningCustomers: 0,
+                        newCustomers: 0
+                    };
+                });
+            });
+            
+            return comparisonData;
+        }
+
         function updateCharts(data) {
             const ctx1 = document.getElementById('sales-chart').getContext('2d');
-            const ctx2 = document.getElementById('diners-chart').getContext('2d');
-            const ctx3 = document.getElementById('customers-chart').getContext('2d');
+            const ctx2 = document.getElementById('combined-chart').getContext('2d');
             
             const config = restaurantConfig[currentRestaurant];
+            
+            // 餐厅颜色配置
+            const restaurantColors = {
+                j1: { 
+                    primary: '#583e04', 
+                    secondary: '#805906',
+                    returning: '#583e04',
+                    new: '#805906'
+                },
+                j2: { 
+                    primary: '#d97706', 
+                    secondary: '#f59e0b',
+                    returning: '#d97706',
+                    new: '#f59e0b'
+                },
+                j3: { 
+                    primary: '#dc2626', 
+                    secondary: '#f87171',
+                    returning: '#dc2626',
+                    new: '#f87171'
+                }
+            };
             
             // 销售趋势图
             if (salesChart) {
                 salesChart.destroy();
             }
             
-            salesChart = new Chart(ctx1, {
-                type: 'line',
-                data: {
-                    labels: data.map(item => new Date(item.date).getDate().toString()),
-                    datasets: [{
-                        label: '净销售额',
-                        data: data.map(item => item.netSales),
-                        borderColor: config.colors.primary,
-                        backgroundColor: config.colors.primary,
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                }
+            if (currentRestaurant === 'total') {
+                // 总计模式：显示三间餐厅的对比数据
+                const comparisonData = prepareComparisonData();
+                
+                salesChart = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: comparisonData.dates.map(date => new Date(date).getDate().toString()),
+                        datasets: [
+                            {
+                                label: 'J1 净销售额',
+                                data: comparisonData.restaurants.j1.map(item => item.netSales),
+                                borderColor: restaurantColors.j1.primary,
+                                backgroundColor: restaurantColors.j1.primary + '20',
+                                tension: 0.1,
+                                borderWidth: 2,
+                                fill: false
+                            },
+                            {
+                                label: 'J2 净销售额',
+                                data: comparisonData.restaurants.j2.map(item => item.netSales),
+                                borderColor: restaurantColors.j2.primary,
+                                backgroundColor: restaurantColors.j2.primary + '20',
+                                tension: 0.1,
+                                borderWidth: 2,
+                                fill: false
+                            },
+                            {
+                                label: 'J3 净销售额',
+                                data: comparisonData.restaurants.j3.map(item => item.netSales),
+                                borderColor: restaurantColors.j3.primary,
+                                backgroundColor: restaurantColors.j3.primary + '20',
+                                tension: 0.1,
+                                borderWidth: 2,
+                                fill: false
                             }
-                        }
+                        ]
                     },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // 用餐人数图
-            if (dinersChart) {
-                dinersChart.destroy();
-            }
-            
-            dinersChart = new Chart(ctx2, {
-                type: 'bar',
-                data: {
-                    labels: data.map(item => new Date(item.date).getDate().toString()),
-                    datasets: [{
-                        label: '用餐人数',
-                        data: data.map(item => item.diners),
-                        borderColor: config.colors.secondary,
-                        backgroundColor: config.colors.secondary
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return '用餐人数: ' + context.parsed.y + '人';
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // 顾客类型分布图 - 简化为只显示柱状图
-            if (customersChart) {
-                customersChart.destroy();
-            }
-            
-            customersChart = new Chart(ctx3, {
-                type: 'bar',
-                data: {
-                    labels: data.map(item => new Date(item.date).getDate().toString()),
-                    datasets: [
-                        {
-                            label: '回头客',
-                            data: data.map(item => item.returningCustomers),
-                            backgroundColor: config.colors.secondary,
-                            borderColor: config.colors.secondary
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
                         },
-                        {
-                            label: '新顾客',
-                            data: data.map(item => item.newCustomers),
-                            backgroundColor: config.colors.primary,
-                            borderColor: config.colors.primary
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            stacked: true
-                        },
-                        y: {
-                            stacked: true,
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: '顾客数量'
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    }
+                                }
                             }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.y + '人';
-                                },
-                                afterBody: function(tooltipItems) {
-                                    if (tooltipItems.length > 0) {
-                                        const dataIndex = tooltipItems[0].dataIndex;
-                                        const item = data[dataIndex];
-                                        const totalCustomers = item.returningCustomers + item.newCustomers;
-                                        if (totalCustomers > 0) {
-                                            const returningRate = ((item.returningCustomers / totalCustomers) * 100).toFixed(1);
-                                            const newRate = ((item.newCustomers / totalCustomers) * 100).toFixed(1);
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        if (context.length > 0) {
+                                            const date = comparisonData.dates[context[0].dataIndex];
+                                            return `${date} (${new Date(date).getDate()}号)`;
+                                        }
+                                        return '';
+                                    },
+                                    label: function(context) {
+                                        return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    },
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const j1Sales = comparisonData.restaurants.j1[dataIndex].netSales;
+                                            const j2Sales = comparisonData.restaurants.j2[dataIndex].netSales;
+                                            const j3Sales = comparisonData.restaurants.j3[dataIndex].netSales;
+                                            const totalSales = j1Sales + j2Sales + j3Sales;
+                                            
                                             return [
                                                 '',
-                                                `回头客率: ${returningRate}%`,
-                                                `新顾客率: ${newRate}%`
+                                                '--- 当日汇总 ---',
+                                                `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
                                             ];
                                         }
+                                        return [];
                                     }
-                                    return [];
+                                }
+                            },
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+            } else {
+                // 单店模式：显示单店数据
+                salesChart = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: data.map(item => new Date(item.date).getDate().toString()),
+                        datasets: [{
+                            label: '净销售额',
+                            data: data.map(item => item.netSales),
+                            borderColor: config.colors.primary,
+                            backgroundColor: config.colors.primary,
+                            tension: 0.1,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const item = data[dataIndex];
+                                            return `${item.date} (${new Date(item.date).getDate()}号)`;
+                                        }
+                                        return '';
+                                    },
+                                    label: function(context) {
+                                        return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    },
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const item = data[dataIndex];
+                                            
+                                            return [
+                                                '',
+                                                '--- 当日详情 ---',
+                                                `总销售额: RM ${item.totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                                                `净销售额: RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
+                                            ];
+                                        }
+                                        return [];
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
+            
+            // 合并的用餐人数与顾客类型图表
+            if (combinedChart) {
+                combinedChart.destroy();
+            }
+            
+            if (currentRestaurant === 'total') {
+                // 总计模式：显示三间餐厅的对比数据
+                const comparisonData = prepareComparisonData();
+                
+                combinedChart = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: comparisonData.dates.map(date => new Date(date).getDate().toString()),
+                        datasets: [
+                            {
+                                label: 'J1 回头客',
+                                data: comparisonData.restaurants.j1.map(item => item.returningCustomers),
+                                backgroundColor: restaurantColors.j1.returning,
+                                borderColor: restaurantColors.j1.returning,
+                                stack: 'j1'
+                            },
+                            {
+                                label: 'J1 新顾客',
+                                data: comparisonData.restaurants.j1.map(item => item.newCustomers),
+                                backgroundColor: restaurantColors.j1.new,
+                                borderColor: restaurantColors.j1.new,
+                                stack: 'j1'
+                            },
+                            {
+                                label: 'J2 回头客',
+                                data: comparisonData.restaurants.j2.map(item => item.returningCustomers),
+                                backgroundColor: restaurantColors.j2.returning,
+                                borderColor: restaurantColors.j2.returning,
+                                stack: 'j2'
+                            },
+                            {
+                                label: 'J2 新顾客',
+                                data: comparisonData.restaurants.j2.map(item => item.newCustomers),
+                                backgroundColor: restaurantColors.j2.new,
+                                borderColor: restaurantColors.j2.new,
+                                stack: 'j2'
+                            },
+                            {
+                                label: 'J3 回头客',
+                                data: comparisonData.restaurants.j3.map(item => item.returningCustomers),
+                                backgroundColor: restaurantColors.j3.returning,
+                                borderColor: restaurantColors.j3.returning,
+                                stack: 'j3'
+                            },
+                            {
+                                label: 'J3 新顾客',
+                                data: comparisonData.restaurants.j3.map(item => item.newCustomers),
+                                backgroundColor: restaurantColors.j3.new,
+                                borderColor: restaurantColors.j3.new,
+                                stack: 'j3'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '顾客数量'
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                filter: function(tooltipItem) {
+                                    return tooltipItem.parsed.y > 0;
+                                },
+                                callbacks: {
+                                    title: function(context) {
+                                        if (context.length > 0) {
+                                            const date = comparisonData.dates[context[0].dataIndex];
+                                            return `${date} (${new Date(date).getDate()}号)`;
+                                        }
+                                        return '';
+                                    },
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.y + '人';
+                                    },
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const j1Data = comparisonData.restaurants.j1[dataIndex];
+                                            const j2Data = comparisonData.restaurants.j2[dataIndex];
+                                            const j3Data = comparisonData.restaurants.j3[dataIndex];
+                                            
+                                            const j1Total = j1Data.returningCustomers + j1Data.newCustomers;
+                                            const j2Total = j2Data.returningCustomers + j2Data.newCustomers;
+                                            const j3Total = j3Data.returningCustomers + j3Data.newCustomers;
+                                            const grandTotal = j1Total + j2Total + j3Total;
+                                            
+                                            const j1Diners = j1Data.diners;
+                                            const j2Diners = j2Data.diners;
+                                            const j3Diners = j3Data.diners;
+                                            const totalDiners = j1Diners + j2Diners + j3Diners;
+                                            
+                                            let summary = ['', '--- 当日汇总 ---'];
+                                            summary.push(`总用餐人数: ${totalDiners}人`);
+                                            summary.push(`总顾客数: ${grandTotal}人`);
+                                            
+                                            if (j1Total > 0) {
+                                                const j1RetRate = ((j1Data.returningCustomers / j1Total) * 100).toFixed(1);
+                                                summary.push(`J1: ${j1Diners}人用餐, ${j1Total}位顾客 (${j1RetRate}%回头客)`);
+                                            }
+                                            if (j2Total > 0) {
+                                                const j2RetRate = ((j2Data.returningCustomers / j2Total) * 100).toFixed(1);
+                                                summary.push(`J2: ${j2Diners}人用餐, ${j2Total}位顾客 (${j2RetRate}%回头客)`);
+                                            }
+                                            if (j3Total > 0) {
+                                                const j3RetRate = ((j3Data.returningCustomers / j3Total) * 100).toFixed(1);
+                                                summary.push(`J3: ${j3Diners}人用餐, ${j3Total}位顾客 (${j3RetRate}%回头客)`);
+                                            }
+                                            
+                                            return summary;
+                                        }
+                                        return [];
+                                    }
+                                }
+                            },
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+            } else {
+                // 单店模式：显示用餐人数和顾客类型的合并数据
+                combinedChart = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(item => new Date(item.date).getDate().toString()),
+                        datasets: [
+                            {
+                                label: '回头客',
+                                data: data.map(item => item.returningCustomers),
+                                backgroundColor: config.colors.primary,
+                                borderColor: config.colors.primary,
+                                stack: 'customers'
+                            },
+                            {
+                                label: '新顾客',
+                                data: data.map(item => item.newCustomers),
+                                backgroundColor: config.colors.secondary,
+                                borderColor: config.colors.secondary,
+                                stack: 'customers'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '顾客数量'
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const item = data[dataIndex];
+                                            return `${item.date} (${new Date(item.date).getDate()}号)`;
+                                        }
+                                        return '';
+                                    },
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.y + '人';
+                                    },
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const item = data[dataIndex];
+                                            const totalCustomers = item.returningCustomers + item.newCustomers;
+                                            
+                                            let summary = ['', '--- 当日详情 ---'];
+                                            summary.push(`用餐人数: ${item.diners}人`);
+                                            summary.push(`顾客总数: ${totalCustomers}人`);
+                                            
+                                            if (totalCustomers > 0) {
+                                                const returningRate = ((item.returningCustomers / totalCustomers) * 100).toFixed(1);
+                                                const newRate = ((item.newCustomers / totalCustomers) * 100).toFixed(1);
+                                                summary.push(`回头客率: ${returningRate}%`);
+                                                summary.push(`新顾客率: ${newRate}%`);
+                                            }
+                                            
+                                            summary.push(`使用桌数: ${item.tablesUsed}桌`);
+                                            summary.push(`人均消费: RM ${item.avgSalesPerDiner.toFixed(2)}`);
+                                            
+                                            return summary;
+                                        }
+                                        return [];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
         }
 
         function updateDashboardTable(data) {
             const tbody = document.querySelector('#dashboard-table tbody');
             tbody.innerHTML = '';
             
-            // 显示最近10条数据
-            const recentData = data.slice(-10);
+            // 更新表头（总计模式下添加标识）
+            const tableHeader = document.getElementById('table-header');
+            const firstHeader = tableHeader.querySelector('th');
+            if (currentRestaurant === 'total') {
+                firstHeader.textContent = '日期 (三店合计)';
+            } else {
+                firstHeader.textContent = '日期';
+            }
             
-            recentData.forEach(item => {
+            // 显示所有选择的数据，而不是限制为10条
+            data.forEach(item => {
                 const totalCustomers = item.returningCustomers + item.newCustomers;
                 const returningRate = totalCustomers > 0 ? ((item.returningCustomers / totalCustomers) * 100).toFixed(1) : 0;
                 const newCustomersRate = totalCustomers > 0 ? ((item.newCustomers / totalCustomers) * 100).toFixed(1) : 0;
