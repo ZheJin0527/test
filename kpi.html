@@ -403,6 +403,58 @@
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
+
+        /* 自定义日期选择器样式 */
+        .custom-date-picker {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: white;
+            transition: all 0.2s;
+            min-width: 200px;
+        }
+
+        .custom-date-picker:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .custom-date-picker select {
+            border: none;
+            background: transparent;
+            padding: 2px 4px;
+            font-size: 14px;
+            color: #374151;
+            outline: none;
+            cursor: pointer;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .custom-date-picker select:focus {
+            background-color: rgba(59, 130, 246, 0.05);
+            border-radius: 4px;
+        }
+
+        .custom-date-picker .year-select {
+            min-width: 70px;
+        }
+
+        .custom-date-picker .month-select {
+            min-width: 50px;
+        }
+
+        .custom-date-picker .day-select {
+            min-width: 45px;
+        }
+
+        .custom-date-picker .separator {
+            color: #9ca3af;
+            font-weight: 500;
+            user-select: none;
+        }
         
         .date-controls {
             display: flex;
@@ -504,6 +556,21 @@
         .dynamic-border {
             border-color: var(--primary-color) !important;
         }
+
+        /* 响应式优化 */
+        @media (max-width: 768px) {
+            .date-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            
+            .custom-date-picker {
+                min-width: auto;
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body class="restaurant-j1">
@@ -551,12 +618,60 @@
                         
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <label class="form-label" style="margin: 0;">开始日期:</label>
-                            <input type="date" id="start-date" class="form-input" style="width: auto;" onchange="updateDateRange()">
+                            <div class="custom-date-picker" id="start-date-picker">
+                                <select class="year-select" id="start-year">
+                                    <!-- 年份选项将通过JavaScript动态生成 -->
+                                </select>
+                                <span class="separator">年</span>
+                                <select class="month-select" id="start-month">
+                                    <option value="01">1</option>
+                                    <option value="02">2</option>
+                                    <option value="03">3</option>
+                                    <option value="04">4</option>
+                                    <option value="05">5</option>
+                                    <option value="06">6</option>
+                                    <option value="07">7</option>
+                                    <option value="08">8</option>
+                                    <option value="09">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <span class="separator">月</span>
+                                <select class="day-select" id="start-day">
+                                    <!-- 日期选项将根据年月动态生成 -->
+                                </select>
+                                <span class="separator">日</span>
+                            </div>
                         </div>
                         
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <label class="form-label" style="margin: 0;">结束日期:</label>
-                            <input type="date" id="end-date" class="form-input" style="width: auto;" onchange="updateDateRange()">
+                            <div class="custom-date-picker" id="end-date-picker">
+                                <select class="year-select" id="end-year">
+                                    <!-- 年份选项将通过JavaScript动态生成 -->
+                                </select>
+                                <span class="separator">年</span>
+                                <select class="month-select" id="end-month">
+                                    <option value="01">1</option>
+                                    <option value="02">2</option>
+                                    <option value="03">3</option>
+                                    <option value="04">4</option>
+                                    <option value="05">5</option>
+                                    <option value="06">6</option>
+                                    <option value="07">7</option>
+                                    <option value="08">8</option>
+                                    <option value="09">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <span class="separator">月</span>
+                                <select class="day-select" id="end-day">
+                                    <!-- 日期选项将根据年月动态生成 -->
+                                </select>
+                                <span class="separator">日</span>
+                            </div>
                         </div>
                         
                         <div id="date-info" style="font-size: 14px; font-weight: bold; color: #6b7280;"></div>
@@ -780,6 +895,116 @@
             }
         };
 
+        // 日期选择器相关函数
+        function initDatePickers() {
+            // 生成年份选项（从2020年到明年）
+            const currentYear = new Date().getFullYear();
+            const startYear = 2020;
+            const endYear = currentYear + 1;
+            
+            const startYearSelect = document.getElementById('start-year');
+            const endYearSelect = document.getElementById('end-year');
+            
+            for (let year = startYear; year <= endYear; year++) {
+                const option1 = new Option(year, year);
+                const option2 = new Option(year, year);
+                startYearSelect.add(option1);
+                endYearSelect.add(option2);
+            }
+            
+            // 设置初始日期
+            const startDate = new Date(dateRange.startDate);
+            const endDate = new Date(dateRange.endDate);
+            
+            setCustomDateValue('start', startDate);
+            setCustomDateValue('end', endDate);
+            
+            // 绑定事件监听器
+            bindDatePickerEvents();
+        }
+
+        function setCustomDateValue(prefix, date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            
+            document.getElementById(`${prefix}-year`).value = year;
+            document.getElementById(`${prefix}-month`).value = month;
+            
+            // 更新日期选项
+            updateDayOptions(prefix, year, parseInt(month));
+            
+            document.getElementById(`${prefix}-day`).value = day;
+        }
+
+        function getCustomDateValue(prefix) {
+            const year = document.getElementById(`${prefix}-year`).value;
+            const month = document.getElementById(`${prefix}-month`).value;
+            const day = document.getElementById(`${prefix}-day`).value;
+            
+            return `${year}-${month}-${day}`;
+        }
+
+        function updateDayOptions(prefix, year, month) {
+            const daySelect = document.getElementById(`${prefix}-day`);
+            const currentDay = daySelect.value;
+            
+            // 清空现有选项
+            daySelect.innerHTML = '';
+            
+            // 计算该月的天数
+            const daysInMonth = new Date(year, month, 0).getDate();
+            
+            // 添加日期选项
+            for (let day = 1; day <= daysInMonth; day++) {
+                const option = new Option(day, String(day).padStart(2, '0'));
+                daySelect.add(option);
+            }
+            
+            // 尝试保持原来的日期选择
+            if (currentDay && parseInt(currentDay) <= daysInMonth) {
+                daySelect.value = currentDay;
+            } else {
+                daySelect.value = '01';
+            }
+        }
+
+        function bindDatePickerEvents() {
+            // 开始日期事件
+            document.getElementById('start-year').addEventListener('change', function() {
+                const year = parseInt(this.value);
+                const month = parseInt(document.getElementById('start-month').value);
+                updateDayOptions('start', year, month);
+                updateDateRange();
+            });
+            
+            document.getElementById('start-month').addEventListener('change', function() {
+                const year = parseInt(document.getElementById('start-year').value);
+                const month = parseInt(this.value);
+                updateDayOptions('start', year, month);
+                updateDateRange();
+            });
+            
+            document.getElementById('start-day').addEventListener('change', updateDateRange);
+            
+            // 结束日期事件
+            document.getElementById('end-year').addEventListener('change', function() {
+                const year = parseInt(this.value);
+                const month = parseInt(document.getElementById('end-month').value);
+                updateDayOptions('end', year, month);
+                updateDateRange();
+            });
+            
+            document.getElementById('end-month').addEventListener('change', function() {
+                const year = parseInt(document.getElementById('end-year').value);
+                const month = parseInt(this.value);
+                updateDayOptions('end', year, month);
+                updateDateRange();
+            });
+            
+            document.getElementById('end-day').addEventListener('change', updateDateRange);
+        }
+
         // 切换餐厅
         function switchRestaurant(restaurant) {
             if (currentRestaurant === restaurant) return;
@@ -996,8 +1221,9 @@
         // 初始化应用
         async function initApp() {
             document.getElementById('month-selector').value = selectedMonth;
-            document.getElementById('start-date').value = dateRange.startDate;
-            document.getElementById('end-date').value = dateRange.endDate;
+            
+            // 初始化自定义日期选择器
+            initDatePickers();
             
             // 初始化主题色
             updateThemeColors(currentRestaurant);
@@ -1022,8 +1248,9 @@
                 endDate: lastDayFormatted
             };
             
-            document.getElementById('start-date').value = dateRange.startDate;
-            document.getElementById('end-date').value = dateRange.endDate;
+            // 更新自定义日期选择器
+            setCustomDateValue('start', new Date(dateRange.startDate));
+            setCustomDateValue('end', new Date(dateRange.endDate));
             
             await loadData({
                 start_date: dateRange.startDate,
@@ -1033,9 +1260,18 @@
         }
 
         async function updateDateRange() {
+            const startDate = getCustomDateValue('start');
+            const endDate = getCustomDateValue('end');
+            
+            // 验证日期有效性
+            if (new Date(startDate) > new Date(endDate)) {
+                alert('开始日期不能晚于结束日期');
+                return;
+            }
+            
             dateRange = {
-                startDate: document.getElementById('start-date').value,
-                endDate: document.getElementById('end-date').value
+                startDate: startDate,
+                endDate: endDate
             };
             
             await loadData({
@@ -1328,6 +1564,7 @@
                     }
                 });
             } else {
+
                 // 单店模式：显示单店数据
                 salesChart = new Chart(ctx1, {
                     type: 'line',
