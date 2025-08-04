@@ -905,12 +905,12 @@
                         </div>
                     </div>
                     
-                    <!-- 回头客 -->
+                    <!-- 常客 -->
                     <div class="card">
                         <div class="card-body">
                             <div class="kpi-card">
                                 <div>
-                                    <p class="kpi-label">回头客</p>
+                                    <p class="kpi-label">常客</p>
                                     <p class="kpi-value" id="total-returning">0</p>
                                 </div>
                                 <div class="icon text-blue">
@@ -920,12 +920,12 @@
                         </div>
                     </div>
                     
-                    <!-- 新顾客 -->
+                    <!-- 新客人 -->
                     <div class="card">
                         <div class="card-body">
                             <div class="kpi-card">
                                 <div>
-                                    <p class="kpi-label">新顾客</p>
+                                    <p class="kpi-label">新客人</p>
                                     <p class="kpi-value" id="total-new">0</p>
                                 </div>
                                 <div class="icon text-purple">
@@ -976,10 +976,10 @@
                                 <th>用餐人数</th>
                                 <th>使用桌数</th>
                                 <th>人均消费</th>
-                                <th>回头客</th>
-                                <th>新顾客</th>
-                                <th>回头客率</th>
-                                <th>新顾客率</th>
+                                <th>常客</th>
+                                <th>新客人</th>
+                                <th>常客率</th>
+                                <th>新客人率</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -1910,42 +1910,42 @@
                         labels: comparisonData.dates.map(date => new Date(date).getDate().toString()),
                         datasets: [
                             {
-                                label: 'J1 回头客',
+                                label: 'J1 常客',
                                 data: comparisonData.restaurants.j1.map(item => item.returningCustomers),
                                 backgroundColor: restaurantColors.j1.returning,
                                 borderColor: restaurantColors.j1.returning,
                                 stack: 'j1'
                             },
                             {
-                                label: 'J1 新顾客',
+                                label: 'J1 新客人',
                                 data: comparisonData.restaurants.j1.map(item => item.newCustomers),
                                 backgroundColor: restaurantColors.j1.new,
                                 borderColor: restaurantColors.j1.new,
                                 stack: 'j1'
                             },
                             {
-                                label: 'J2 回头客',
+                                label: 'J2 常客',
                                 data: comparisonData.restaurants.j2.map(item => item.returningCustomers),
                                 backgroundColor: restaurantColors.j2.returning,
                                 borderColor: restaurantColors.j2.returning,
                                 stack: 'j2'
                             },
                             {
-                                label: 'J2 新顾客',
+                                label: 'J2 新客人',
                                 data: comparisonData.restaurants.j2.map(item => item.newCustomers),
                                 backgroundColor: restaurantColors.j2.new,
                                 borderColor: restaurantColors.j2.new,
                                 stack: 'j2'
                             },
                             {
-                                label: 'J3 回头客',
+                                label: 'J3 常客',
                                 data: comparisonData.restaurants.j3.map(item => item.returningCustomers),
                                 backgroundColor: restaurantColors.j3.returning,
                                 borderColor: restaurantColors.j3.returning,
                                 stack: 'j3'
                             },
                             {
-                                label: 'J3 新顾客',
+                                label: 'J3 新客人',
                                 data: comparisonData.restaurants.j3.map(item => item.newCustomers),
                                 backgroundColor: restaurantColors.j3.new,
                                 borderColor: restaurantColors.j3.new,
@@ -2008,15 +2008,15 @@
                                             
                                             if (j1Total > 0) {
                                                 const j1RetRate = ((j1Data.returningCustomers / j1Total) * 100).toFixed(1);
-                                                summary.push(`J1: ${j1Diners}人用餐, ${j1Total}位顾客 (${j1RetRate}%回头客)`);
+                                                summary.push(`J1: ${j1Diners}人用餐, ${j1Total}位顾客 (${j1RetRate}%常客)`);
                                             }
                                             if (j2Total > 0) {
                                                 const j2RetRate = ((j2Data.returningCustomers / j2Total) * 100).toFixed(1);
-                                                summary.push(`J2: ${j2Diners}人用餐, ${j2Total}位顾客 (${j2RetRate}%回头客)`);
+                                                summary.push(`J2: ${j2Diners}人用餐, ${j2Total}位顾客 (${j2RetRate}%常客)`);
                                             }
                                             if (j3Total > 0) {
                                                 const j3RetRate = ((j3Data.returningCustomers / j3Total) * 100).toFixed(1);
-                                                summary.push(`J3: ${j3Diners}人用餐, ${j3Total}位顾客 (${j3RetRate}%回头客)`);
+                                                summary.push(`J3: ${j3Diners}人用餐, ${j3Total}位顾客 (${j3RetRate}%常客)`);
                                             }
                                             
                                             return summary;
@@ -2040,14 +2040,14 @@
                         labels: data.map(item => new Date(item.date).getDate().toString()),
                         datasets: [
                             {
-                                label: '回头客',
+                                label: '常客',
                                 data: data.map(item => item.returningCustomers),
                                 backgroundColor: config.colors.primary,
                                 borderColor: config.colors.primary,
                                 stack: 'customers'
                             },
                             {
-                                label: '新顾客',
+                                label: '新客人',
                                 data: data.map(item => item.newCustomers),
                                 backgroundColor: config.colors.secondary,
                                 borderColor: config.colors.secondary,
@@ -2098,8 +2098,8 @@
                                             if (totalCustomers > 0) {
                                                 const returningRate = ((item.returningCustomers / totalCustomers) * 100).toFixed(1);
                                                 const newRate = ((item.newCustomers / totalCustomers) * 100).toFixed(1);
-                                                summary.push(`回头客率: ${returningRate}%`);
-                                                summary.push(`新顾客率: ${newRate}%`);
+                                                summary.push(`常客率: ${returningRate}%`);
+                                                summary.push(`新客人率: ${newRate}%`);
                                             }
                                             
                                             summary.push(`使用桌数: ${item.tablesUsed}桌`);
