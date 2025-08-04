@@ -2011,9 +2011,8 @@
                                             const totalNew = j1Data.newCustomers + j2Data.newCustomers + j3Data.newCustomers;
                                             
                                             let summary = ['', '--- 当日汇总 ---'];
-                                            summary.push(`总用餐人数: ${totalDiners}人`);
+                                            summary.push(`总顾客人数: ${totalDiners}人`);
                                             summary.push(`总桌数: ${totalTables}桌`);
-                                            summary.push(`总顾客数: ${grandTotal}人`);
                                             
                                             if (grandTotal > 0) {
                                                 const overallRetRate = ((totalReturning / grandTotal) * 100).toFixed(1);
@@ -2113,7 +2112,7 @@
                                             const totalCustomers = item.returningCustomers + item.newCustomers;
                                             
                                             let summary = ['', '--- 当日详情 ---'];
-                                            summary.push(`用餐人数: ${item.diners}人`);
+                                            summary.push(`顾客人数: ${item.diners}人`);
                                             summary.push(`使用桌数: ${item.tablesUsed}桌`);
                                             
                                             if (totalCustomers > 0) {
