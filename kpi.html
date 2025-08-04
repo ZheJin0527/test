@@ -270,6 +270,251 @@
             gap: 24px;
         }
         
+        /* 自定义日期选择器样式 */
+        .custom-date-picker {
+            position: relative;
+            display: inline-block;
+        }
+
+        .date-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 160px;
+        }
+
+        .date-input-wrapper:hover {
+            border-color: #9ca3af;
+        }
+
+        .date-input-wrapper.active {
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+
+        .date-display {
+            flex: 1;
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .date-display.placeholder {
+            color: #9ca3af;
+        }
+
+        .date-icon {
+            color: #6b7280;
+            margin-left: 8px;
+            font-size: 16px;
+        }
+
+        .date-picker-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #583e04;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(88, 62, 4, 0.15);
+            z-index: 1000;
+            margin-top: 4px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .date-picker-dropdown.show {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .date-picker-header {
+            background: #583e04;
+            color: white;
+            padding: 16px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .date-picker-body {
+            padding: 20px;
+        }
+
+        .date-section {
+            margin-bottom: 20px;
+        }
+
+        .date-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .date-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #583e04;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .date-options {
+            display: grid;
+            gap: 6px;
+        }
+
+        .year-options {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .month-options {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .day-options {
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .date-option {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 8px 4px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .date-option:hover {
+            background: #f3f4f6;
+            border-color: #d1d5db;
+            transform: translateY(-1px);
+        }
+
+        .date-option.selected {
+            background: #583e04;
+            color: white;
+            border-color: #583e04;
+            font-weight: 600;
+        }
+
+        .date-option.selected:hover {
+            background: #462d03;
+            border-color: #462d03;
+        }
+
+        .date-option.disabled {
+            background: #f9fafb;
+            color: #d1d5db;
+            cursor: not-allowed;
+            border-color: #f3f4f6;
+        }
+
+        .date-option.disabled:hover {
+            transform: none;
+            background: #f9fafb;
+        }
+
+        .date-picker-actions {
+            padding: 16px 20px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .date-picker-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+        .date-picker-btn.cancel {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .date-picker-btn.cancel:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .date-picker-btn.confirm {
+            background: #583e04;
+            color: white;
+        }
+
+        .date-picker-btn.confirm:hover {
+            background: #462d03;
+        }
+
+        .date-picker-btn.today {
+            background: #10b981;
+            color: white;
+        }
+
+        .date-picker-btn.today:hover {
+            background: #059669;
+        }
+
+        /* 月份选择器样式优化 */
+        .month-selector-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .month-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 140px;
+        }
+
+        .month-input-wrapper:hover {
+            border-color: #9ca3af;
+        }
+
+        .month-input-wrapper.active {
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+        
         @media (max-width: 1200px) {
             .main-layout {
                 grid-template-columns: 1fr;
@@ -325,6 +570,32 @@
             }
             .restaurant-btn {
                 min-width: auto;
+            }
+
+            .date-controls {
+                flex-direction: column;
+                align-items: stretch !important;
+            }
+
+            .date-picker-dropdown {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90vw;
+                max-width: 400px;
+            }
+
+            .year-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .month-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .day-options {
+                grid-template-columns: repeat(7, 1fr);
             }
         }
         
@@ -541,22 +812,102 @@
             <div class="card" style="margin-bottom: 32px;">
                 <div class="card-body">
                     <div class="date-controls">
+                        <!-- 月份选择器 -->
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-calendar" style="color: #6b7280;"></i>
                             <label class="form-label" style="margin: 0;">选择月份:</label>
-                            <input type="month" id="month-selector" class="form-input" style="width: auto;" onchange="handleMonthChange()">
+                            <div class="month-selector-wrapper">
+                                <div class="month-input-wrapper" onclick="toggleMonthPicker()">
+                                    <span class="date-display" id="month-display">2024年01月</span>
+                                    <i class="fas fa-chevron-down date-icon"></i>
+                                </div>
+                                <div class="date-picker-dropdown" id="month-picker-dropdown">
+                                    <div class="date-picker-header">选择月份</div>
+                                    <div class="date-picker-body">
+                                        <div class="date-section">
+                                            <div class="date-section-title">年份</div>
+                                            <div class="date-options year-options" id="month-year-options"></div>
+                                        </div>
+                                        <div class="date-section">
+                                            <div class="date-section-title">月份</div>
+                                            <div class="date-options month-options" id="month-month-options"></div>
+                                        </div>
+                                    </div>
+                                    <div class="date-picker-actions">
+                                        <button class="date-picker-btn cancel" onclick="cancelMonthPicker()">取消</button>
+                                        <button class="date-picker-btn today" onclick="setCurrentMonth()">本月</button>
+                                        <button class="date-picker-btn confirm" onclick="confirmMonthPicker()">确定</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div style="width: 1px; height: 24px; background-color: #d1d5db;"></div>
                         
+                        <!-- 开始日期选择器 -->
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <label class="form-label" style="margin: 0;">开始日期:</label>
-                            <input type="date" id="start-date" class="form-input" style="width: auto;" onchange="updateDateRange()">
+                            <div class="custom-date-picker">
+                                <div class="date-input-wrapper" onclick="toggleDatePicker('start')">
+                                    <span class="date-display" id="start-date-display">选择日期</span>
+                                    <i class="fas fa-calendar-alt date-icon"></i>
+                                </div>
+                                <div class="date-picker-dropdown" id="start-date-picker">
+                                    <div class="date-picker-header">选择开始日期</div>
+                                    <div class="date-picker-body">
+                                        <div class="date-section">
+                                            <div class="date-section-title">年份</div>
+                                            <div class="date-options year-options" id="start-year-options"></div>
+                                        </div>
+                                        <div class="date-section">
+                                            <div class="date-section-title">月份</div>
+                                            <div class="date-options month-options" id="start-month-options"></div>
+                                        </div>
+                                        <div class="date-section">
+                                            <div class="date-section-title">日期</div>
+                                            <div class="date-options day-options" id="start-day-options"></div>
+                                        </div>
+                                    </div>
+                                    <div class="date-picker-actions">
+                                        <button class="date-picker-btn cancel" onclick="cancelDatePicker('start')">取消</button>
+                                        <button class="date-picker-btn today" onclick="setToday('start')">今天</button>
+                                        <button class="date-picker-btn confirm" onclick="confirmDatePicker('start')">确定</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
+                        <!-- 结束日期选择器 -->
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <label class="form-label" style="margin: 0;">结束日期:</label>
-                            <input type="date" id="end-date" class="form-input" style="width: auto;" onchange="updateDateRange()">
+                            <div class="custom-date-picker">
+                                <div class="date-input-wrapper" onclick="toggleDatePicker('end')">
+                                    <span class="date-display" id="end-date-display">选择日期</span>
+                                    <i class="fas fa-calendar-alt date-icon"></i>
+                                </div>
+                                <div class="date-picker-dropdown" id="end-date-picker">
+                                    <div class="date-picker-header">选择结束日期</div>
+                                    <div class="date-picker-body">
+                                        <div class="date-section">
+                                            <div class="date-section-title">年份</div>
+                                            <div class="date-options year-options" id="end-year-options"></div>
+                                        </div>
+                                        <div class="date-section">
+                                            <div class="date-section-title">月份</div>
+                                            <div class="date-options month-options" id="end-month-options"></div>
+                                        </div>
+                                        <div class="date-section">
+                                            <div class="date-section-title">日期</div>
+                                            <div class="date-options day-options" id="end-day-options"></div>
+                                        </div>
+                                    </div>
+                                    <div class="date-picker-actions">
+                                        <button class="date-picker-btn cancel" onclick="cancelDatePicker('end')">取消</button>
+                                        <button class="date-picker-btn today" onclick="setToday('end')">今天</button>
+                                        <button class="date-picker-btn confirm" onclick="confirmDatePicker('end')">确定</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div id="date-info" style="font-size: 14px; font-weight: bold; color: #6b7280;"></div>
@@ -744,6 +1095,13 @@
         let salesChart = null;
         let combinedChart = null;
 
+        // 日期选择器状态
+        let datePickerState = {
+            start: { year: null, month: null, day: null, tempDate: null },
+            end: { year: null, month: null, day: null, tempDate: null },
+            month: { year: null, month: null, tempDate: null }
+        };
+
         // 餐厅配置
         const restaurantConfig = {
             j1: {
@@ -778,6 +1136,13 @@
                     secondary: '#805906'
                 }
             }
+        };
+
+        // 月份名称映射
+        const monthNames = {
+            1: '01月', 2: '02月', 3: '03月', 4: '04月',
+            5: '05月', 6: '06月', 7: '07月', 8: '08月',
+            9: '09月', 10: '10月', 11: '11月', 12: '12月'
         };
 
         // 切换餐厅
@@ -840,6 +1205,343 @@
         function getCurrentMonth() {
             return new Date().toISOString().slice(0, 7);
         }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}年${month}月${day}日`;
+        }
+
+        function formatMonth(dateStr) {
+            const date = new Date(dateStr + '-01');
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            return `${year}年${month}月`;
+        }
+
+        // 日期选择器功能
+        function toggleDatePicker(type) {
+            const dropdown = document.getElementById(`${type}-date-picker`);
+            const wrapper = dropdown.previousElementSibling;
+            
+            // 关闭其他日期选择器
+            document.querySelectorAll('.date-picker-dropdown').forEach(picker => {
+                if (picker !== dropdown) {
+                    picker.classList.remove('show');
+                    picker.previousElementSibling.classList.remove('active');
+                }
+            });
+            
+            // 关闭月份选择器
+            document.getElementById('month-picker-dropdown').classList.remove('show');
+            document.querySelector('.month-input-wrapper').classList.remove('active');
+            
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+                wrapper.classList.remove('active');
+            } else {
+                dropdown.classList.add('show');
+                wrapper.classList.add('active');
+                initializeDatePicker(type);
+            }
+        }
+
+        function toggleMonthPicker() {
+            const dropdown = document.getElementById('month-picker-dropdown');
+            const wrapper = document.querySelector('.month-input-wrapper');
+            
+            // 关闭其他选择器
+            document.querySelectorAll('.date-picker-dropdown').forEach(picker => {
+                if (picker !== dropdown) {
+                    picker.classList.remove('show');
+                    if (picker.previousElementSibling) {
+                        picker.previousElementSibling.classList.remove('active');
+                    }
+                }
+            });
+            
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+                wrapper.classList.remove('active');
+            } else {
+                dropdown.classList.add('show');
+                wrapper.classList.add('active');
+                initializeMonthPicker();
+            }
+        }
+
+        function initializeDatePicker(type) {
+            const currentDate = new Date();
+            let selectedDate;
+            
+            if (type === 'start') {
+                selectedDate = dateRange.startDate ? new Date(dateRange.startDate) : currentDate;
+            } else {
+                selectedDate = dateRange.endDate ? new Date(dateRange.endDate) : currentDate;
+            }
+            
+            datePickerState[type] = {
+                year: selectedDate.getFullYear(),
+                month: selectedDate.getMonth() + 1,
+                day: selectedDate.getDate(),
+                tempDate: new Date(selectedDate)
+            };
+            
+            renderDatePickerYears(type);
+            renderDatePickerMonths(type);
+            renderDatePickerDays(type);
+        }
+
+        function initializeMonthPicker() {
+            const currentDate = new Date(selectedMonth + '-01');
+            
+            datePickerState.month = {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1,
+                tempDate: new Date(currentDate)
+            };
+            
+            renderMonthPickerYears();
+            renderMonthPickerMonths();
+        }
+
+        function renderDatePickerYears(type) {
+            const container = document.getElementById(`${type}-year-options`);
+            const currentYear = new Date().getFullYear();
+            const startYear = currentYear - 5;
+            const endYear = currentYear + 2;
+            
+            container.innerHTML = '';
+            
+            for (let year = startYear; year <= endYear; year++) {
+                const option = document.createElement('div');
+                option.className = 'date-option';
+                option.textContent = year;
+                
+                if (year === datePickerState[type].year) {
+                    option.classList.add('selected');
+                }
+                
+                option.onclick = () => selectDatePickerYear(type, year);
+                container.appendChild(option);
+            }
+        }
+
+        function renderDatePickerMonths(type) {
+            const container = document.getElementById(`${type}-month-options`);
+            container.innerHTML = '';
+            
+            for (let month = 1; month <= 12; month++) {
+                const option = document.createElement('div');
+                option.className = 'date-option';
+                option.textContent = monthNames[month];
+                
+                if (month === datePickerState[type].month) {
+                    option.classList.add('selected');
+                }
+                
+                option.onclick = () => selectDatePickerMonth(type, month);
+                container.appendChild(option);
+            }
+        }
+
+        function renderDatePickerDays(type) {
+            const container = document.getElementById(`${type}-day-options`);
+            const year = datePickerState[type].year;
+            const month = datePickerState[type].month;
+            
+            container.innerHTML = '';
+            
+            // 添加星期标题
+            const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+            weekDays.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'date-option disabled';
+                header.textContent = day;
+                header.style.fontWeight = 'bold';
+                header.style.fontSize = '11px';
+                container.appendChild(header);
+            });
+            
+            const firstDay = new Date(year, month - 1, 1);
+            const lastDay = new Date(year, month, 0);
+            const daysInMonth = lastDay.getDate();
+            const startWeekDay = firstDay.getDay();
+            
+            // 添加空白日期
+            for (let i = 0; i < startWeekDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'date-option disabled';
+                container.appendChild(empty);
+            }
+            
+            // 添加日期
+            for (let day = 1; day <= daysInMonth; day++) {
+                const option = document.createElement('div');
+                option.className = 'date-option';
+                option.textContent = day;
+                
+                if (day === datePickerState[type].day) {
+                    option.classList.add('selected');
+                }
+                
+                option.onclick = () => selectDatePickerDay(type, day);
+                container.appendChild(option);
+            }
+        }
+
+        function renderMonthPickerYears() {
+            const container = document.getElementById('month-year-options');
+            const currentYear = new Date().getFullYear();
+            const startYear = currentYear - 5;
+            const endYear = currentYear + 2;
+            
+            container.innerHTML = '';
+            
+            for (let year = startYear; year <= endYear; year++) {
+                const option = document.createElement('div');
+                option.className = 'date-option';
+                option.textContent = year;
+                
+                if (year === datePickerState.month.year) {
+                    option.classList.add('selected');
+                }
+                
+                option.onclick = () => selectMonthPickerYear(year);
+                container.appendChild(option);
+            }
+        }
+
+        function renderMonthPickerMonths() {
+            const container = document.getElementById('month-month-options');
+            container.innerHTML = '';
+            
+            for (let month = 1; month <= 12; month++) {
+                const option = document.createElement('div');
+                option.className = 'date-option';
+                option.textContent = monthNames[month];
+                
+                if (month === datePickerState.month.month) {
+                    option.classList.add('selected');
+                }
+                
+                option.onclick = () => selectMonthPickerMonth(month);
+                container.appendChild(option);
+            }
+        }
+
+        function selectDatePickerYear(type, year) {
+            datePickerState[type].year = year;
+            datePickerState[type].tempDate.setFullYear(year);
+            renderDatePickerYears(type);
+            renderDatePickerDays(type);
+        }
+
+        function selectDatePickerMonth(type, month) {
+            datePickerState[type].month = month;
+            datePickerState[type].tempDate.setMonth(month - 1);
+            renderDatePickerMonths(type);
+            renderDatePickerDays(type);
+        }
+
+        function selectDatePickerDay(type, day) {
+            datePickerState[type].day = day;
+            datePickerState[type].tempDate.setDate(day);
+            renderDatePickerDays(type);
+        }
+
+        function selectMonthPickerYear(year) {
+            datePickerState.month.year = year;
+            datePickerState.month.tempDate.setFullYear(year);
+            renderMonthPickerYears();
+        }
+
+        function selectMonthPickerMonth(month) {
+            datePickerState.month.month = month;
+            datePickerState.month.tempDate.setMonth(month - 1);
+            renderMonthPickerMonths();
+        }
+
+        function confirmDatePicker(type) {
+            const tempDate = datePickerState[type].tempDate;
+            const dateStr = tempDate.toISOString().split('T')[0];
+            
+            if (type === 'start') {
+                dateRange.startDate = dateStr;
+                document.getElementById('start-date-display').textContent = formatDate(dateStr);
+                document.getElementById('start-date-display').classList.remove('placeholder');
+            } else {
+                dateRange.endDate = dateStr;
+                document.getElementById('end-date-display').textContent = formatDate(dateStr);
+                document.getElementById('end-date-display').classList.remove('placeholder');
+            }
+            
+            toggleDatePicker(type);
+            updateDateRange();
+        }
+
+        function confirmMonthPicker() {
+            const tempDate = datePickerState.month.tempDate;
+            const year = tempDate.getFullYear();
+            const month = String(tempDate.getMonth() + 1).padStart(2, '0');
+            
+            selectedMonth = `${year}-${month}`;
+            document.getElementById('month-display').textContent = formatMonth(selectedMonth);
+            
+            toggleMonthPicker();
+            handleMonthChange();
+        }
+
+        function cancelDatePicker(type) {
+            toggleDatePicker(type);
+        }
+
+        function cancelMonthPicker() {
+            toggleMonthPicker();
+        }
+
+        function setToday(type) {
+            const today = new Date();
+            datePickerState[type] = {
+                year: today.getFullYear(),
+                month: today.getMonth() + 1,
+                day: today.getDate(),
+                tempDate: new Date(today)
+            };
+            
+            renderDatePickerYears(type);
+            renderDatePickerMonths(type);
+            renderDatePickerDays(type);
+        }
+
+        function setCurrentMonth() {
+            const today = new Date();
+            datePickerState.month = {
+                year: today.getFullYear(),
+                month: today.getMonth() + 1,
+                tempDate: new Date(today.getFullYear(), today.getMonth(), 1)
+            };
+            
+            renderMonthPickerYears();
+            renderMonthPickerMonths();
+        }
+
+        // 点击外部关闭日期选择器
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.custom-date-picker') && !e.target.closest('.month-selector-wrapper')) {
+                document.querySelectorAll('.date-picker-dropdown').forEach(picker => {
+                    picker.classList.remove('show');
+                });
+                
+                document.querySelectorAll('.date-input-wrapper').forEach(wrapper => {
+                    wrapper.classList.remove('active');
+                });
+                
+                document.querySelector('.month-input-wrapper').classList.remove('active');
+            }
+        });
 
         // API 调用函数
         async function apiCall(endpoint, options = {}) {
@@ -995,9 +1697,14 @@
 
         // 初始化应用
         async function initApp() {
-            document.getElementById('month-selector').value = selectedMonth;
-            document.getElementById('start-date').value = dateRange.startDate;
-            document.getElementById('end-date').value = dateRange.endDate;
+            // 初始化日期显示
+            document.getElementById('month-display').textContent = formatMonth(selectedMonth);
+            document.getElementById('start-date-display').textContent = formatDate(dateRange.startDate);
+            document.getElementById('end-date-display').textContent = formatDate(dateRange.endDate);
+            
+            // 移除placeholder类
+            document.getElementById('start-date-display').classList.remove('placeholder');
+            document.getElementById('end-date-display').classList.remove('placeholder');
             
             // 初始化主题色
             updateThemeColors(currentRestaurant);
@@ -1008,11 +1715,8 @@
 
         // 日期处理
         async function handleMonthChange() {
-            const month = document.getElementById('month-selector').value;
-            selectedMonth = month;
-            
-            const year = month.split('-')[0];
-            const monthNum = month.split('-')[1];
+            const year = selectedMonth.split('-')[0];
+            const monthNum = selectedMonth.split('-')[1];
             const firstDay = `${year}-${monthNum}-01`;
             const lastDay = new Date(year, monthNum, 0).getDate();
             const lastDayFormatted = `${year}-${monthNum}-${lastDay.toString().padStart(2, '0')}`;
@@ -1022,8 +1726,9 @@
                 endDate: lastDayFormatted
             };
             
-            document.getElementById('start-date').value = dateRange.startDate;
-            document.getElementById('end-date').value = dateRange.endDate;
+            // 更新显示
+            document.getElementById('start-date-display').textContent = formatDate(dateRange.startDate);
+            document.getElementById('end-date-display').textContent = formatDate(dateRange.endDate);
             
             await loadData({
                 start_date: dateRange.startDate,
@@ -1033,11 +1738,6 @@
         }
 
         async function updateDateRange() {
-            dateRange = {
-                startDate: document.getElementById('start-date').value,
-                endDate: document.getElementById('end-date').value
-            };
-            
             await loadData({
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate
