@@ -2002,21 +2002,42 @@
                                             const j3Diners = j3Data.diners;
                                             const totalDiners = j1Diners + j2Diners + j3Diners;
                                             
+                                            const j1Tables = j1Data.tablesUsed;
+                                            const j2Tables = j2Data.tablesUsed;
+                                            const j3Tables = j3Data.tablesUsed;
+                                            const totalTables = j1Tables + j2Tables + j3Tables;
+                                            
+                                            const totalReturning = j1Data.returningCustomers + j2Data.returningCustomers + j3Data.returningCustomers;
+                                            const totalNew = j1Data.newCustomers + j2Data.newCustomers + j3Data.newCustomers;
+                                            
                                             let summary = ['', '--- 当日汇总 ---'];
                                             summary.push(`总用餐人数: ${totalDiners}人`);
+                                            summary.push(`总桌数: ${totalTables}桌`);
                                             summary.push(`总顾客数: ${grandTotal}人`);
                                             
-                                            if (j1Total > 0) {
-                                                const j1RetRate = ((j1Data.returningCustomers / j1Total) * 100).toFixed(1);
-                                                summary.push(`J1: ${j1Diners}人用餐, ${j1Total}位顾客 (${j1RetRate}%常客)`);
+                                            if (grandTotal > 0) {
+                                                const overallRetRate = ((totalReturning / grandTotal) * 100).toFixed(1);
+                                                const overallNewRate = ((totalNew / grandTotal) * 100).toFixed(1);
+                                                summary.push(`总常客率: ${overallRetRate}%`);
+                                                summary.push(`总新客人率: ${overallNewRate}%`);
                                             }
-                                            if (j2Total > 0) {
-                                                const j2RetRate = ((j2Data.returningCustomers / j2Total) * 100).toFixed(1);
-                                                summary.push(`J2: ${j2Diners}人用餐, ${j2Total}位顾客 (${j2RetRate}%常客)`);
+                                            
+                                            summary.push('', '--- 各店详情 ---');
+                                            
+                                            if (j1Total > 0 || j1Diners > 0) {
+                                                const j1RetRate = j1Total > 0 ? ((j1Data.returningCustomers / j1Total) * 100).toFixed(1) : '0.0';
+                                                const j1NewRate = j1Total > 0 ? ((j1Data.newCustomers / j1Total) * 100).toFixed(1) : '0.0';
+                                                summary.push(`J1: ${j1Diners}人用餐, ${j1Tables}桌, ${j1Total}位顾客 (${j1RetRate}%常客, ${j1NewRate}%新客)`);
                                             }
-                                            if (j3Total > 0) {
-                                                const j3RetRate = ((j3Data.returningCustomers / j3Total) * 100).toFixed(1);
-                                                summary.push(`J3: ${j3Diners}人用餐, ${j3Total}位顾客 (${j3RetRate}%常客)`);
+                                            if (j2Total > 0 || j2Diners > 0) {
+                                                const j2RetRate = j2Total > 0 ? ((j2Data.returningCustomers / j2Total) * 100).toFixed(1) : '0.0';
+                                                const j2NewRate = j2Total > 0 ? ((j2Data.newCustomers / j2Total) * 100).toFixed(1) : '0.0';
+                                                summary.push(`J2: ${j2Diners}人用餐, ${j2Tables}桌, ${j2Total}位顾客 (${j2RetRate}%常客, ${j2NewRate}%新客)`);
+                                            }
+                                            if (j3Total > 0 || j3Diners > 0) {
+                                                const j3RetRate = j3Total > 0 ? ((j3Data.returningCustomers / j3Total) * 100).toFixed(1) : '0.0';
+                                                const j3NewRate = j3Total > 0 ? ((j3Data.newCustomers / j3Total) * 100).toFixed(1) : '0.0';
+                                                summary.push(`J3: ${j3Diners}人用餐, ${j3Tables}桌, ${j3Total}位顾客 (${j3RetRate}%常客, ${j3NewRate}%新客)`);
                                             }
                                             
                                             return summary;
@@ -2092,7 +2113,8 @@
                                             const totalCustomers = item.returningCustomers + item.newCustomers;
                                             
                                             let summary = ['', '--- 当日详情 ---'];
-                                            summary.push(`顾客人数: ${item.diners}人`);
+                                            summary.push(`用餐人数: ${item.diners}人`);
+                                            summary.push(`使用桌数: ${item.tablesUsed}桌`);
                                             
                                             if (totalCustomers > 0) {
                                                 const returningRate = ((item.returningCustomers / totalCustomers) * 100).toFixed(1);
@@ -2101,7 +2123,6 @@
                                                 summary.push(`新客人率: ${newRate}%`);
                                             }
                                             
-                                            summary.push(`使用桌数: ${item.tablesUsed}桌`);
                                             summary.push(`人均消费: RM ${item.avgSalesPerDiner.toFixed(2)}`);
                                             
                                             return summary;
