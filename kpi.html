@@ -1625,10 +1625,8 @@
                 firstHeader.textContent = '日期';
             }
             
-            // 显示最近10条数据
-            const recentData = data.slice(-10);
-            
-            recentData.forEach(item => {
+            // 显示所有选择的数据，而不是限制为10条
+            data.forEach(item => {
                 const totalCustomers = item.returningCustomers + item.newCustomers;
                 const returningRate = totalCustomers > 0 ? ((item.returningCustomers / totalCustomers) * 100).toFixed(1) : 0;
                 const newCustomersRate = totalCustomers > 0 ? ((item.newCustomers / totalCustomers) * 100).toFixed(1) : 0;
