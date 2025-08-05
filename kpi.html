@@ -1647,7 +1647,7 @@
         // 合并所有餐厅数据
         function mergeAllRestaurantsData() {
             const dateMap = new Map();
-            
+    
             // 遍历所有餐厅数据
             Object.values(allRestaurantsData).forEach(restaurantData => {
                 restaurantData.forEach(item => {
@@ -1657,23 +1657,29 @@
                             date: date,
                             gross_sales: 0,
                             net_sales: 0,
+                            discounts: 0,
                             diners: 0,
                             tables_used: 0,
                             returning_customers: 0,
                             new_customers: 0
                         });
                     }
-                    
+            
                     const existing = dateMap.get(date);
-                    existing.gross_sales += parseFloat(item.gross_sales) || 0;
-                    existing.net_sales += parseFloat(item.net_sales) || 0;
+                    const grossSales = parseFloat(item.gross_sales) || 0;
+                    const discounts = parseFloat(item.discounts) || 0;
+                    const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
+            
+                    existing.gross_sales += grossSales;
+                    existing.net_sales += netSales;
+                    existing.discounts += discounts;
                     existing.diners += parseInt(item.diners) || 0;
                     existing.tables_used += parseInt(item.tables_used) || 0;
                     existing.returning_customers += parseInt(item.returning_customers) || 0;
                     existing.new_customers += parseInt(item.new_customers) || 0;
                 });
             });
-            
+    
             // 转换为数组并排序
             return Array.from(dateMap.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
         }
@@ -1761,16 +1767,21 @@
                 const returningCustomers = parseInt(item.returning_customers) || 0;
                 const newCustomers = parseInt(item.new_customers) || 0;
                 const totalCustomers = returningCustomers + newCustomers;
-                
+        
+                // 计算净销售额：总销售额 - 折扣
+                const grossSales = parseFloat(item.gross_sales) || 0;
+                const discounts = parseFloat(item.discounts) || 0;
+                const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
+        
                 return {
                     date: item.date,
-                    totalSales: parseFloat(item.gross_sales) || 0,
-                    netSales: parseFloat(item.net_sales) || 0,
+                    totalSales: grossSales,
+                    netSales: netSales,
                     diners: diners,
                     tablesUsed: parseInt(item.tables_used) || 0,
                     returningCustomers: returningCustomers,
                     newCustomers: newCustomers,
-                    avgSalesPerDiner: diners > 0 ? (parseFloat(item.gross_sales) || 0) / diners : 0,
+                    avgSalesPerDiner: diners > 0 ? grossSales / diners : 0,
                     returningRate: totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0,
                     newCustomersRate: totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0
                 };
@@ -1884,21 +1895,29 @@
                 const restaurantData = allRestaurantsData[restaurant] || [];
                 comparisonData.restaurants[restaurant] = filteredDates.map(date => {
                     const dayData = restaurantData.find(item => item.date === date);
-                    return dayData ? {
-                        totalSales: parseFloat(dayData.gross_sales) || 0,
-                        netSales: parseFloat(dayData.net_sales) || 0,
-                        diners: parseInt(dayData.diners) || 0,
-                        tablesUsed: parseInt(dayData.tables_used) || 0,
-                        returningCustomers: parseInt(dayData.returning_customers) || 0,
-                        newCustomers: parseInt(dayData.new_customers) || 0
-                    } : {
-                        totalSales: 0,
-                        netSales: 0,
-                        diners: 0,
-                        tablesUsed: 0,
-                        returningCustomers: 0,
-                        newCustomers: 0
-                    };
+                    if (dayData) {
+                        const grossSales = parseFloat(dayData.gross_sales) || 0;
+                        const discounts = parseFloat(dayData.discounts) || 0;
+                        const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
+    
+                        return {
+                            totalSales: grossSales,
+                            netSales: netSales,
+                            diners: parseInt(dayData.diners) || 0,
+                            tablesUsed: parseInt(dayData.tables_used) || 0,
+                            returningCustomers: parseInt(dayData.returning_customers) || 0,
+                            newCustomers: parseInt(dayData.new_customers) || 0
+                        };
+                    } else {
+                        return {
+                            totalSales: 0,
+                            netSales: 0,
+                            diners: 0,
+                            tablesUsed: 0,
+                            returningCustomers: 0,
+                            newCustomers: 0
+                        };
+                    }
                 });
             });
             
