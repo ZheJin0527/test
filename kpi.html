@@ -1578,34 +1578,26 @@
 
         // 数据转换和过滤
         function convertToKPIFormat(data) {
-    return data.map(item => {
-        const diners = parseInt(item.diners) || 0;
-        const returningCustomers = parseInt(item.returning_customers) || 0;
-        const newCustomers = parseInt(item.new_customers) || 0;
-        const totalCustomers = returningCustomers + newCustomers;
-        
-        // 按照API的计算方式计算净销售额
-        const grossSales = parseFloat(item.gross_sales) || 0;
-        const discounts = parseFloat(item.discounts) || 0;
-        const serviceFee = parseFloat(item.service_fee) || 0;
-        const tax = parseFloat(item.tax) || 0;
-        const adjAmount = parseFloat(item.adj_amount) || 0;
-        const netSales = grossSales - discounts - serviceFee - tax + adjAmount;
-        
-        return {
-            date: item.date,
-            totalSales: grossSales,
-            netSales: netSales,  // 使用计算出的净销售额
-            diners: diners,
-            tablesUsed: parseInt(item.tables_used) || 0,
-            returningCustomers: returningCustomers,
-            newCustomers: newCustomers,
-            avgSalesPerDiner: diners > 0 ? grossSales / diners : 0,
-            returningRate: totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0,
-            newCustomersRate: totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0
-        };
-    });
-}
+            return data.map(item => {
+                const diners = parseInt(item.diners) || 0;
+                const returningCustomers = parseInt(item.returning_customers) || 0;
+                const newCustomers = parseInt(item.new_customers) || 0;
+                const totalCustomers = returningCustomers + newCustomers;
+                
+                return {
+                    date: item.date,
+                    totalSales: parseFloat(item.gross_sales) || 0,
+                    netSales: parseFloat(item.net_sales) || 0,
+                    diners: diners,
+                    tablesUsed: parseInt(item.tables_used) || 0,
+                    returningCustomers: returningCustomers,
+                    newCustomers: newCustomers,
+                    avgSalesPerDiner: diners > 0 ? (parseFloat(item.gross_sales) || 0) / diners : 0,
+                    returningRate: totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0,
+                    newCustomersRate: totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0
+                };
+            });
+        }
 
         function getFilteredKPIData() {
             const kpiData = convertToKPIFormat(actualData);
