@@ -841,12 +841,7 @@
     
             // 投标金额 = 净销售额 + 税 + 服务费 + 调整金额
             const calculatedTenderAmount = netSales + tax + serviceFee + adjAmount;
-    
-            // 更新投标金额输入框的值
-            const tenderInput = document.querySelector(`input[data-field="tender_amount"][data-day="${day}"]`);
-            if (tenderInput) {
-                tenderInput.value = calculatedTenderAmount.toFixed(2);
-            }
+            document.getElementById(`tender-amount-${day}`).textContent = `RM ${calculatedTenderAmount.toFixed(2)}`;
     
             // 人均消费
             const avgPerDiner = diners > 0 ? grossSales / diners : 0;
@@ -923,7 +918,10 @@
                             tax: parseFloat(getInputValue('tax', day)) || 0,
                             service_fee: parseFloat(getInputValue('service_fee', day)) || 0,
                             adj_amount: parseFloat(getInputValue('adj_amount', day)) || 0,
-                            tender_amount: parseFloat(getInputValue('tender_amount', day)) || 0,
+                            tender_amount: (grossSales - (parseFloat(getInputValue('discounts', day)) || 0)) + 
+                            (parseFloat(getInputValue('tax', day)) || 0) + 
+                            (parseFloat(getInputValue('service_fee', day)) || 0) + 
+                            (parseFloat(getInputValue('adj_amount', day)) || 0),
                             diners: diners,
                             tables_used: parseInt(getInputValue('tables_used', day)) || 0,
                             returning_customers: parseInt(getInputValue('returning_customers', day)) || 0,
