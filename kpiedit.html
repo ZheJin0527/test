@@ -382,6 +382,33 @@
         .hidden {
             display: none;
         }
+
+        /* 删除单日数据按钮 */
+        .delete-day-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 12px;
+            margin: 4px auto;
+        }
+
+        .delete-day-btn:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .delete-day-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -461,6 +488,7 @@
                         <th style="min-width: 100px;">回头客</th>
                         <th style="min-width: 100px;">新顾客</th>
                         <th style="min-width: 100px;">新顾客率 (%)</th>
+                        <th style="min-width: 80px;">操作</th>
                     </tr>
                 </thead>
                 <tbody id="excel-tbody">
@@ -685,6 +713,11 @@
                         value="${existingData.new_customers || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
                     <td class="calculated-cell" id="new-customer-rate-${day}">0%</td>
+                    <td>
+                        <button class="delete-day-btn" onclick="clearDayData(${day})" title="清空${day}日数据">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
                 `;
                 
                 tbody.appendChild(row);
@@ -858,6 +891,24 @@
                 saveBtn.innerHTML = originalText;
                 saveBtn.disabled = false;
             }
+        }
+
+        // 清空单日数据
+        function clearDayData(day) {
+            if (!confirm(`确定要清空${day}日的所有数据吗？此操作不可恢复！`)) {
+                return;
+            }
+            
+            // 清空该日所有输入框
+            const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
+            inputs.forEach(input => {
+                input.value = '';
+            });
+            
+            // 重新计算该日的数据
+            updateCalculations(day);
+            
+            showAlert(`${day}日数据已清空`, 'info');
         }
 
         // 显示提示信息
