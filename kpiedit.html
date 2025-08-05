@@ -460,7 +460,7 @@
                         <th style="min-width: 120px;">人均消费 (RM)</th>
                         <th style="min-width: 100px;">回头客</th>
                         <th style="min-width: 100px;">新顾客</th>
-                        <th style="min-width: 100px;">回头客率 (%)</th>
+                        <th style="min-width: 100px;">新顾客率 (%)</th>
                     </tr>
                 </thead>
                 <tbody id="excel-tbody">
@@ -485,17 +485,9 @@
                 </div>
                 
                 <div style="display: flex; gap: 12px;">
-                    <button class="btn btn-secondary" onclick="clearAllData()">
-                        <i class="fas fa-eraser"></i>
-                        清空本月数据
-                    </button>
                     <button class="btn btn-primary" onclick="saveAllData()">
                         <i class="fas fa-save"></i>
                         保存本月数据
-                    </button>
-                    <button class="btn btn-success" onclick="autoFillMissingDates()">
-                        <i class="fas fa-magic"></i>
-                        自动补全空白日期
                     </button>
                 </div>
             </div>
@@ -692,7 +684,7 @@
                     <td><input type="number" class="excel-input" data-field="new_customers" data-day="${day}" 
                         value="${existingData.new_customers || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
-                    <td class="calculated-cell" id="returning-rate-${day}">0%</td>
+                    <td class="calculated-cell" id="new-customer-rate-${day}">0%</td>
                 `;
                 
                 tbody.appendChild(row);
@@ -719,10 +711,10 @@
             const avgPerDiner = diners > 0 ? grossSales / diners : 0;
             document.getElementById(`avg-per-diner-${day}`).textContent = `RM ${avgPerDiner.toFixed(0)}`;
             
-            // 回头客率
+            // 新顾客率
             const totalCustomers = returningCustomers + newCustomers;
-            const returningRate = totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0;
-            document.getElementById(`returning-rate-${day}`).textContent = `${returningRate.toFixed(1)}%`;
+            const newCustomerRate = totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0;
+            document.getElementById(`new-customer-rate-${day}`).textContent = `${newCustomerRate.toFixed(1)}%`;
             
             // 更新月度统计
             updateMonthStats();
@@ -865,55 +857,6 @@
             } finally {
                 saveBtn.innerHTML = originalText;
                 saveBtn.disabled = false;
-            }
-        }
-
-        // 清空所有数据
-        function clearAllData() {
-            if (!confirm(`确定要清空${restaurantConfig[currentRestaurant].name} ${currentYear}年${currentMonth}月的所有数据吗？此操作不可恢复！`)) {
-                return;
-            }
-            
-            const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
-            
-            for (let day = 1; day <= daysInMonth; day++) {
-                const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
-                inputs.forEach(input => {
-                    input.value = '';
-                });
-                updateCalculations(day);
-            }
-            
-            showAlert('本月数据已清空', 'info');
-        }
-
-        // 自动补全空白日期
-        function autoFillMissingDates() {
-            const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
-            let filledCount = 0;
-            
-            for (let day = 1; day <= daysInMonth; day++) {
-                const grossSales = getInputValue('gross_sales', day);
-                const diners = getInputValue('diners', day);
-                
-                // 如果该天没有数据，填入默认值
-                if (!grossSales && !diners) {
-                    const grossSalesInput = document.querySelector(`input[data-field="gross_sales"][data-day="${day}"]`);
-                    const dinersInput = document.querySelector(`input[data-field="diners"][data-day="${day}"]`);
-                    
-                    if (grossSalesInput && dinersInput) {
-                        grossSalesInput.value = '0';
-                        dinersInput.value = '0';
-                        updateCalculations(day);
-                        filledCount++;
-                    }
-                }
-            }
-            
-            if (filledCount > 0) {
-                showAlert(`已自动补全 ${filledCount} 天的空白数据`, 'success');
-            } else {
-                showAlert('没有需要补全的空白日期', 'info');
             }
         }
 
