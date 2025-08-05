@@ -406,8 +406,16 @@
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
 
-        .delete-day-btn:active {
-            transform: scale(0.95);
+        .delete-day-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .delete-day-btn:disabled:hover {
+            background: #9ca3af;
+            transform: none;
+            box-shadow: none;
         }
     </style>
 </head>
@@ -894,21 +902,50 @@
         }
 
         // 清空单日数据
-        function clearDayData(day) {
+        async function clearDayData(day) {
             if (!confirm(`确定要清空${day}日的所有数据吗？此操作不可恢复！`)) {
                 return;
             }
             
-            // 清空该日所有输入框
-            const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
-            inputs.forEach(input => {
-                input.value = '';
-            });
+            const deleteBtn = event.target.closest('.delete-day-btn');
+            const originalHTML = deleteBtn.innerHTML;
+            deleteBtn.innerHTML = '<div class="loading"></div>';
+            deleteBtn.disabled = true;
             
-            // 重新计算该日的数据
-            updateCalculations(day);
-            
-            showAlert(`${day}日数据已清空`, 'info');
+            try {
+                // 如果该日在数据库中有记录，先删除数据库记录
+                if (monthData[day] && monthData[day].id) {
+                    const result = await apiCall(`?action=delete&id=${monthData[day].id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (result.success) {
+                        // 从本地数据中移除该记录
+                        delete monthData[day];
+                        showAlert(`${day}日数据已从数据库删除`, 'success');
+                    } else {
+                        throw new Error(result.message || '删除失败');
+                    }
+                } else {
+                    showAlert(`${day}日数据已清空`, 'info');
+                }
+                
+                // 清空该日所有输入框
+                const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+                
+                // 重新计算该日的数据
+                updateCalculations(day);
+                
+            } catch (error) {
+                showAlert(`删除${day}日数据失败: ${error.message}`, 'error');
+                console.error('删除数据失败:', error);
+            } finally {
+                deleteBtn.innerHTML = originalHTML;
+                deleteBtn.disabled = false;
+            }
         }
 
         // 显示提示信息
