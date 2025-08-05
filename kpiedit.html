@@ -529,7 +529,7 @@
                         <th style="min-width: 120px;">人均消费</th>
                         <th style="min-width: 100px;">常客人数</th>
                         <th style="min-width: 100px;">新客人数</th>
-                        <th style="min-width: 100px;">新顾客率 (%)</th>
+                        <th style="min-width: 100px;">常客人率 (%)</th>
                         <th style="min-width: 80px;">操作</th>
                     </tr>
                 </thead>
@@ -796,7 +796,7 @@
                     <td><input type="number" class="excel-input" data-field="new_customers" data-day="${day}" 
                         value="${existingData.new_customers || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
-                    <td class="calculated-cell" id="new-customer-rate-${day}">0%</td>
+                    <td class="calculated-cell" id="returning-customer-rate-${day}">0%</td>
                     <td>
                         <button class="delete-day-btn" onclick="clearDayData(${day})" title="清空${day}日数据">
                             <i class="fas fa-trash-alt"></i>
@@ -839,10 +839,10 @@
             const avgPerDiner = diners > 0 ? grossSales / diners : 0;
             document.getElementById(`avg-per-diner-${day}`).textContent = `RM ${avgPerDiner.toFixed(0)}`;
             
-            // 新顾客率
+            // 常客人率
             const totalCustomers = returningCustomers + newCustomers;
-            const newCustomerRate = totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0;
-            document.getElementById(`new-customer-rate-${day}`).textContent = `${newCustomerRate.toFixed(1)}%`;
+            const returningCustomerRate = totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0;
+            document.getElementById(`returning-customer-rate-${day}`).textContent = `${returningCustomerRate.toFixed(1)}%`;
             
             // 更新月度统计
             updateMonthStats();
