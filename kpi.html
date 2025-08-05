@@ -212,6 +212,61 @@
             text-shadow: none !important;
         }
         
+        /* 下拉菜单样式 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #583e04;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+            z-index: 1000;
+            min-width: 100%;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: #583e04;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: left;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(88, 62, 4, 0.1);
+        }
+
+        .dropdown-item:first-child {
+            border-radius: 6px 6px 0 0;
+        }
+
+        .dropdown-item:last-child {
+            border-radius: 0 0 6px 6px;
+        }
+
         .card {
             background: rgb(248, 245, 235);
             border-radius: 8px;
@@ -777,18 +832,17 @@
                 <div class="controls">
                     <!-- 餐厅选择器 -->
                     <div class="restaurant-selector">
-                        <button class="restaurant-btn active" data-restaurant="j1" onclick="switchRestaurant('j1')">
-                            J1
-                        </button>
-                        <button class="restaurant-btn" data-restaurant="j2" onclick="switchRestaurant('j2')">
-                            J2
-                        </button>
-                        <button class="restaurant-btn" data-restaurant="j3" onclick="switchRestaurant('j3')">
-                            J3
-                        </button>
-                        <button class="restaurant-btn" data-restaurant="total" onclick="switchRestaurant('total')">
-                            总计
-                        </button>
+                        <div class="dropdown">
+                            <button class="restaurant-btn dropdown-toggle" onclick="toggleDropdown()">
+                                J1 <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu" id="restaurant-dropdown">
+                                <button class="dropdown-item" onclick="selectRestaurant('j1')">J1</button>
+                                <button class="dropdown-item" onclick="selectRestaurant('j2')">J2</button>
+                                <button class="dropdown-item" onclick="selectRestaurant('j3')">J3</button>
+                                <button class="dropdown-item" onclick="selectRestaurant('total')">总计</button>
+                            </div>
+                        </div>
                     </div>
                     <button class="back-button" onclick="goBack()">
                         <i class="fas fa-arrow-left"></i>
@@ -2146,7 +2200,7 @@
     
                                         return label;
                                     },
-                                    
+
                                     afterBody: function(context) {
                                         if (context.length > 0) {
                                             const dataIndex = context[0].dataIndex;
@@ -2361,6 +2415,33 @@
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+    <script>
+        // 切换下拉菜单
+        function toggleDropdown() {
+            const dropdown = document.getElementById('restaurant-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // 选择餐厅
+        function selectRestaurant(restaurant) {
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const restaurantName = restaurantConfig[restaurant].name;
+            dropdownToggle.innerHTML = `${restaurantName} <i class="fas fa-chevron-down"></i>`;
+    
+            // 关闭下拉菜单
+            document.getElementById('restaurant-dropdown').classList.remove('show');
+    
+            // 切换餐厅
+            switchRestaurant(restaurant);
+        }
+
+        // 点击外部关闭下拉菜单
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                document.getElementById('restaurant-dropdown').classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
