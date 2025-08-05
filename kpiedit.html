@@ -151,7 +151,7 @@
 
         .excel-table {
             width: 100%;
-            min-width: 1400px;
+            min-width: 1600px;
             border-collapse: collapse;
             font-size: 14px;
         }
@@ -522,8 +522,9 @@
                         <th style="min-width: 120px;">总销售额</th>
                         <th style="min-width: 100px;">折扣</th>
                         <th style="min-width: 120px;">净销售额</th>
-                        <th style="min-width: 100px;">服务费</th>
                         <th style="min-width: 100px;">税</th>
+                        <th style="min-width: 100px;">服务费</th>
+                        <th style="min-width: 100px;">调整金额</th>
                         <th style="min-width: 120px;">投标金额</th>
                         <th style="min-width: 100px;">顾客总数</th>
                         <th style="min-width: 100px;">桌数总数</th>
@@ -583,8 +584,8 @@
             j3: { name: 'J3' }
         };
 
-        // 货币字段列表
-        const currencyFields = ['gross_sales', 'discounts', 'service_fee', 'tax', 'tender_amount'];
+        // 货币字段列表 - 添加 adj_amount 字段
+        const currencyFields = ['gross_sales', 'discounts', 'tax', 'service_fee', 'adj_amount', 'tender_amount'];
 
         // 初始化应用
         function initApp() {
@@ -763,6 +764,14 @@
                     <td>
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
+                            <input type="number" class="excel-input currency-input" data-field="tax" data-day="${day}" 
+                                value="${formatCurrencyDisplay(existingData.tax)}" min="0" step="0.01" 
+                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-container">
+                            <span class="currency-prefix">RM</span>
                             <input type="number" class="excel-input currency-input" data-field="service_fee" data-day="${day}" 
                                 value="${formatCurrencyDisplay(existingData.service_fee)}" min="0" step="0.01" 
                                 placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
@@ -771,8 +780,8 @@
                     <td>
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
-                            <input type="number" class="excel-input currency-input" data-field="tax" data-day="${day}" 
-                                value="${formatCurrencyDisplay(existingData.tax)}" min="0" step="0.01" 
+                            <input type="number" class="excel-input currency-input" data-field="adj_amount" data-day="${day}" 
+                                value="${formatCurrencyDisplay(existingData.adj_amount)}" step="0.01" 
                                 placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
                         </div>
                     </td>
@@ -825,8 +834,9 @@
         function updateCalculations(day) {
             const grossSales = parseFloat(getInputValue('gross_sales', day)) || 0;
             const discounts = parseFloat(getInputValue('discounts', day)) || 0;
-            const serviceFee = parseFloat(getInputValue('service_fee', day)) || 0;
             const tax = parseFloat(getInputValue('tax', day)) || 0;
+            const serviceFee = parseFloat(getInputValue('service_fee', day)) || 0;
+            const adjAmount = parseFloat(getInputValue('adj_amount', day)) || 0;
             const tenderAmount = parseFloat(getInputValue('tender_amount', day)) || 0;
             const diners = parseInt(getInputValue('diners', day)) || 0;
             const returningCustomers = parseInt(getInputValue('returning_customers', day)) || 0;
@@ -908,8 +918,9 @@
                             date: dateStr,
                             gross_sales: grossSales,
                             discounts: parseFloat(getInputValue('discounts', day)) || 0,
-                            service_fee: parseFloat(getInputValue('service_fee', day)) || 0,
                             tax: parseFloat(getInputValue('tax', day)) || 0,
+                            service_fee: parseFloat(getInputValue('service_fee', day)) || 0,
+                            adj_amount: parseFloat(getInputValue('adj_amount', day)) || 0,
                             tender_amount: parseFloat(getInputValue('tender_amount', day)) || 0,
                             diners: diners,
                             tables_used: parseInt(getInputValue('tables_used', day)) || 0,
