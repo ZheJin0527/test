@@ -831,8 +831,8 @@
             const returningCustomers = parseInt(getInputValue('returning_customers', day)) || 0;
             const newCustomers = parseInt(getInputValue('new_customers', day)) || 0;
             
-            // 净销售额 = 总销售额 - 折扣 - 服务费 - 税
-            const netSales = grossSales - discounts - serviceFee - tax;
+            // 净销售额 = 总销售额 - 折扣
+            const netSales = grossSales - discounts;
             document.getElementById(`net-sales-${day}`).textContent = `RM ${netSales.toFixed(2)}`;
             
             // 人均消费
