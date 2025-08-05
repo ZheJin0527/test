@@ -106,7 +106,8 @@ function handleGet() {
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
             
-            $sql = "SELECT * FROM " . $config['view_table'] . " WHERE 1=1";
+            // 使用数据表而不是视图表，确保能获取到 adj_amount 字段
+            $sql = "SELECT * FROM " . $config['data_table'] . " WHERE 1=1";
             $params = [];
             
             if ($searchDate) {
@@ -135,16 +136,17 @@ function handleGet() {
             $sql = "SELECT 
                         COUNT(*) as total_days,
                         SUM(gross_sales) as total_gross_sales,
-                        SUM(net_sales) as total_net_sales,
+                        SUM(gross_sales - discounts - service_fee - tax + adj_amount) as total_net_sales,
                         SUM(service_fee) as total_service_fee,
                         SUM(tax) as total_tax,
+                        SUM(adj_amount) as total_adj_amount,
                         SUM(tender_amount) as total_tender_amount,
                         SUM(diners) as total_diners,
                         SUM(tables_used) as total_tables,
                         SUM(returning_customers) as total_returning_customers,
                         SUM(new_customers) as total_new_customers,
-                        AVG(avg_per_diner) as avg_per_diner
-                    FROM " . $config['view_table'] . " WHERE 1=1";
+                        AVG(CASE WHEN diners > 0 THEN gross_sales / diners ELSE 0 END) as avg_per_diner
+                    FROM " . $config['data_table'] . " WHERE 1=1";
             $params = [];
             
             if ($startDate && $endDate) {
@@ -200,9 +202,10 @@ function handlePost() {
     }
     
     try {
+        // 更新SQL语句，包含 adj_amount 字段
         $sql = "INSERT INTO " . $config['data_table'] . " 
-                (date, gross_sales, discounts, service_fee, tax, tender_amount, diners, tables_used, returning_customers, new_customers) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, gross_sales, discounts, service_fee, tax, adj_amount, tender_amount, diners, tables_used, returning_customers, new_customers) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $pdo->prepare($sql);
         
@@ -212,6 +215,7 @@ function handlePost() {
             $data['discounts'] ?? 0,
             $data['service_fee'] ?? 0,
             $data['tax'] ?? 0,
+            $data['adj_amount'] ?? 0,  // 添加四舍五入金额字段
             $data['tender_amount'] ?? 0,
             $data['diners'] ?? 0,
             $data['tables_used'] ?? 0,
@@ -222,7 +226,7 @@ function handlePost() {
         $newId = $pdo->lastInsertId();
         
         // 获取新插入的记录
-        $stmt = $pdo->prepare("SELECT * FROM " . $config['view_table'] . " WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT * FROM " . $config['data_table'] . " WHERE id = ?");
         $stmt->execute([$newId]);
         $newRecord = $stmt->fetch(PDO::FETCH_ASSOC);
         
@@ -254,8 +258,9 @@ function handlePut() {
     }
     
     try {
+        // 更新SQL语句，包含 adj_amount 字段
         $sql = "UPDATE " . $config['data_table'] . " 
-                SET date = ?, gross_sales = ?, discounts = ?, service_fee = ?, tax = ?, tender_amount = ?, diners = ?, 
+                SET date = ?, gross_sales = ?, discounts = ?, service_fee = ?, tax = ?, adj_amount = ?, tender_amount = ?, diners = ?, 
                     tables_used = ?, returning_customers = ?, new_customers = ?
                 WHERE id = ?";
         
@@ -267,6 +272,7 @@ function handlePut() {
             $data['discounts'] ?? 0,
             $data['service_fee'] ?? 0,
             $data['tax'] ?? 0,
+            $data['adj_amount'] ?? 0,  // 添加四舍五入金额字段
             $data['tender_amount'] ?? 0,
             $data['diners'] ?? 0,
             $data['tables_used'] ?? 0,
@@ -277,7 +283,7 @@ function handlePut() {
         
         if ($stmt->rowCount() > 0) {
             // 获取更新后的记录
-            $stmt = $pdo->prepare("SELECT * FROM " . $config['view_table'] . " WHERE id = ?");
+            $stmt = $pdo->prepare("SELECT * FROM " . $config['data_table'] . " WHERE id = ?");
             $stmt->execute([$data['id']]);
             $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
             
