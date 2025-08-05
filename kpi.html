@@ -901,8 +901,8 @@
                         <div class="card-body">
                             <div class="kpi-card">
                                 <div>
-                                    <p class="kpi-label">常客人数</p>
-                                    <p class="kpi-value" id="total-returning">0</p>
+                                    <p class="kpi-label">常客百分比</p>
+                                    <p class="kpi-value" id="total-returning">0%</p>
                                 </div>
                                 <div class="icon text-blue">
                                     <i class="fas fa-user-check"></i>
@@ -911,13 +911,13 @@
                         </div>
                     </div>
                     
-                    <!-- 新客人 -->
+                    <!-- 新客百分比 -->
                     <div class="card">
                         <div class="card-body">
                             <div class="kpi-card">
                                 <div>
-                                    <p class="kpi-label">新客人数</p>
-                                    <p class="kpi-value" id="total-new">0</p>
+                                    <p class="kpi-label">新客百分比</p>
+                                    <p class="kpi-value" id="total-new">0%</p>
                                 </div>
                                 <div class="icon text-purple">
                                     <i class="fas fa-user-plus"></i>
@@ -1651,8 +1651,13 @@
             document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
             document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('total-returning').textContent = (displaySummary.total_returning_customers || 0).toLocaleString();
-            document.getElementById('total-new').textContent = (displaySummary.total_new_customers || 0).toLocaleString();
+            // 计算常客和新客百分比
+            const totalCustomers = (displaySummary.total_returning_customers || 0) + (displaySummary.total_new_customers || 0);
+            const returningPercentage = totalCustomers > 0 ? ((displaySummary.total_returning_customers || 0) / totalCustomers * 100).toFixed(2) : 0;
+            const newPercentage = totalCustomers > 0 ? ((displaySummary.total_new_customers || 0) / totalCustomers * 100).toFixed(2) : 0;
+            
+            document.getElementById('total-returning').textContent = `${returningPercentage}%`;
+            document.getElementById('total-new').textContent = `${newPercentage}%`;
             
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
