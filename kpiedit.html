@@ -985,23 +985,21 @@
         }
 
         // 输入框光标定位处理
-        let lastClickedInput = null;
-        let lastClickTime = 0;
+        let inputFirstClickMap = new Map(); // 记录每个输入框是否已经被点击过
         
         function handleInputFocus(input, isClick = false) {
             // 延迟执行以确保focus事件完成后再设置光标位置
             setTimeout(() => {
                 if (isClick) {
-                    const currentTime = Date.now();
+                    const inputKey = `${input.dataset.field}-${input.dataset.day}`;
                     
-                    // 如果是同一个输入框且在短时间内(1秒)再次点击，不处理光标位置
-                    if (lastClickedInput === input && (currentTime - lastClickTime) < 1000) {
+                    // 如果这个输入框已经被点击过，不处理光标位置
+                    if (inputFirstClickMap.has(inputKey)) {
                         return; // 让浏览器处理正常的点击定位
                     }
                     
-                    // 更新最后点击的输入框和时间
-                    lastClickedInput = input;
-                    lastClickTime = currentTime;
+                    // 标记这个输入框已经被点击过
+                    inputFirstClickMap.set(inputKey, true);
                 }
                 
                 if (input.value) {
@@ -1012,6 +1010,12 @@
                     input.setSelectionRange(0, 0);
                 }
             }, 0);
+        }
+
+        // 重置输入框的首次点击状态（当输入框值发生变化时）
+        function resetInputFirstClick(input) {
+            const inputKey = `${input.dataset.field}-${input.dataset.day}`;
+            inputFirstClickMap.delete(inputKey);
         }
 
         // 键盘快捷键支持
@@ -1056,6 +1060,9 @@
             if (e.target.classList.contains('excel-input')) {
                 const field = e.target.dataset.field;
                 const value = e.target.value;
+                
+                // 重置首次点击状态，因为用户正在输入
+                resetInputFirstClick(e.target);
                 
                 // 金额字段限制小数位数
                 if (['gross_sales', 'discounts', 'service_fee', 'tax', 'tender_amount'].includes(field)) {
