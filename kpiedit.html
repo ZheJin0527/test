@@ -843,7 +843,7 @@
             // 常客人率
             const totalCustomers = returningCustomers + newCustomers;
             const returningCustomerRate = totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0;
-            document.getElementById(`returning-customer-rate-${day}`).textContent = `${returningCustomerRate.toFixed(1)}%`;
+            document.getElementById(`returning-customer-rate-${day}`).textContent = `${returningCustomerRate.toFixed(2)}%`;
             
             // 更新月度统计
             updateMonthStats();
