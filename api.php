@@ -136,6 +136,9 @@ function handleGet() {
                         COUNT(*) as total_days,
                         SUM(gross_sales) as total_gross_sales,
                         SUM(net_sales) as total_net_sales,
+                        SUM(service_fee) as total_service_fee,
+                        SUM(tax) as total_tax,
+                        SUM(tender_amount) as total_tender_amount,
                         SUM(diners) as total_diners,
                         SUM(tables_used) as total_tables,
                         SUM(returning_customers) as total_returning_customers,
@@ -198,16 +201,18 @@ function handlePost() {
     
     try {
         $sql = "INSERT INTO " . $config['data_table'] . " 
-                (date, gross_sales, costs, discounts, diners, tables_used, returning_customers, new_customers) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, gross_sales, discounts, service_fee, tax, tender_amount, diners, tables_used, returning_customers, new_customers) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $pdo->prepare($sql);
         
         $stmt->execute([
             $data['date'],
             $data['gross_sales'] ?? 0,
-            $data['costs'] ?? 0,
             $data['discounts'] ?? 0,
+            $data['service_fee'] ?? 0,
+            $data['tax'] ?? 0,
+            $data['tender_amount'] ?? 0,
             $data['diners'] ?? 0,
             $data['tables_used'] ?? 0,
             $data['returning_customers'] ?? 0,
@@ -250,7 +255,7 @@ function handlePut() {
     
     try {
         $sql = "UPDATE " . $config['data_table'] . " 
-                SET date = ?, gross_sales = ?, costs = ?, discounts = ?, diners = ?, 
+                SET date = ?, gross_sales = ?, discounts = ?, service_fee = ?, tax = ?, tender_amount = ?, diners = ?, 
                     tables_used = ?, returning_customers = ?, new_customers = ?
                 WHERE id = ?";
         
@@ -259,8 +264,10 @@ function handlePut() {
         $result = $stmt->execute([
             $data['date'],
             $data['gross_sales'] ?? 0,
-            $data['costs'] ?? 0,
             $data['discounts'] ?? 0,
+            $data['service_fee'] ?? 0,
+            $data['tax'] ?? 0,
+            $data['tender_amount'] ?? 0,
             $data['diners'] ?? 0,
             $data['tables_used'] ?? 0,
             $data['returning_customers'] ?? 0,
