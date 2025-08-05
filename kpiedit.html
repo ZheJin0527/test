@@ -492,10 +492,10 @@
                         <th style="min-width: 100px;">日期</th>
                         <th style="min-width: 120px;">总销售额 (RM)</th>
                         <th style="min-width: 100px;">折扣 (RM)</th>
+                        <th style="min-width: 120px;">净销售额 (RM)</th>
                         <th style="min-width: 100px;">服务费 (RM)</th>
                         <th style="min-width: 100px;">税 (RM)</th>
                         <th style="min-width: 120px;">投标金额 (RM)</th>
-                        <th style="min-width: 120px;">净销售额 (RM)</th>
                         <th style="min-width: 100px;">用餐人数</th>
                         <th style="min-width: 100px;">使用桌数</th>
                         <th style="min-width: 120px;">人均消费 (RM)</th>
@@ -709,6 +709,7 @@
                     <td><input type="number" class="excel-input" data-field="discounts" data-day="${day}" 
                         value="${existingData.discounts || ''}" min="0" step="0.01" 
                         placeholder="0.00" onchange="updateCalculations(${day})"></td>
+                    <td class="calculated-cell" id="net-sales-${day}">RM 0.00</td>
                     <td><input type="number" class="excel-input" data-field="service_fee" data-day="${day}" 
                         value="${existingData.service_fee || ''}" min="0" step="0.01" 
                         placeholder="0.00" onchange="updateCalculations(${day})"></td>
@@ -718,7 +719,6 @@
                     <td><input type="number" class="excel-input" data-field="tender_amount" data-day="${day}" 
                         value="${existingData.tender_amount || ''}" min="0" step="0.01" 
                         placeholder="0.00" onchange="updateCalculations(${day})"></td>
-                    <td class="calculated-cell" id="net-sales-${day}">RM 0.00</td>
                     <td><input type="number" class="excel-input" data-field="diners" data-day="${day}" 
                         value="${existingData.diners || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
