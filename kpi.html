@@ -432,6 +432,11 @@
             border-color: #9ca3af;
         }
 
+        /* 月份选择器的特殊样式 - 更小的宽度 */
+        .enhanced-date-picker.month-only {
+            min-width: 140px;
+        }
+
         /* 日期选择部分 */
         .date-part {
             position: relative;
@@ -570,29 +575,6 @@
             align-items: center;
         }
 
-        /* 月份选择器保持原样 */
-        .month-selector {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .month-selector input[type="month"] {
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            padding: 8px 12px;
-            font-size: 14px;
-            transition: all 0.2s;
-            font-family: "Segoe UI", sans-serif;
-            min-width: 160px;
-        }
-
-        .month-selector input[type="month"]:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
         /* 日期信息样式 */
         .date-info {
             font-size: 14px;
@@ -617,14 +599,15 @@
                 width: 100%;
             }
             
+            .enhanced-date-picker.month-only {
+                min-width: auto;
+                width: 100%;
+            }
+            
             .date-controls {
                 flex-direction: column;
                 align-items: stretch;
                 gap: 12px;
-            }
-            
-            .month-selector {
-                justify-content: center;
             }
         }
         
@@ -758,11 +741,25 @@
             <div class="card" style="margin-bottom: 32px;">
                 <div class="card-body">
                     <div class="date-controls">
-                        <!-- 月份选择器 -->
-                        <div class="month-selector">
+                        <!-- 月份选择器 - 改为增强型选择器 -->
+                        <div style="display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-calendar" style="color: #6b7280;"></i>
                             <label class="form-label" style="margin: 0;">选择月份:</label>
-                            <input type="month" id="month-selector" onchange="handleMonthChange()">
+                            <div class="enhanced-date-picker month-only" id="month-date-picker">
+                                <div class="date-part" data-type="year" onclick="showDateDropdown('month', 'year')">
+                                    <span id="month-year-display">2024</span>
+                                </div>
+                                <span class="date-separator">年</span>
+                                <div class="date-part" data-type="month" onclick="showDateDropdown('month', 'month')">
+                                    <span id="month-month-display">01</span>
+                                </div>
+                                <span class="date-separator">月</span>
+                                
+                                <!-- 下拉选择面板 -->
+                                <div class="date-dropdown" id="month-dropdown">
+                                    <!-- 动态内容将在这里生成 -->
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="divider"></div>
@@ -995,7 +992,6 @@
             startDate: getTodayMinusMonth(),
             endDate: getToday()
         };
-        let selectedMonth = getCurrentMonth();
         
         let salesChart = null;
         let combinedChart = null;
@@ -1005,6 +1001,7 @@
         let currentDateType = null;
         let startDateValue = { year: null, month: null, day: null };
         let endDateValue = { year: null, month: null, day: null };
+        let monthDateValue = { year: null, month: null }; // 新增月份选择器状态
 
         // 餐厅配置
         const restaurantConfig = {
@@ -1075,9 +1072,16 @@
                 day: endDate.getDate()
             };
             
+            // 设置月份选择器初始值
+            monthDateValue = {
+                year: new Date().getFullYear(),
+                month: new Date().getMonth() + 1
+            };
+            
             // 更新显示
             updateDateDisplay('start');
             updateDateDisplay('end');
+            updateDateDisplay('month');
             
             // 绑定全局点击事件以关闭下拉框
             document.addEventListener('click', function(e) {
@@ -1088,11 +1092,16 @@
         }
 
         function updateDateDisplay(prefix) {
-            const dateValue = prefix === 'start' ? startDateValue : endDateValue;
-            
-            document.getElementById(`${prefix}-year-display`).textContent = dateValue.year;
-            document.getElementById(`${prefix}-month-display`).textContent = String(dateValue.month).padStart(2, '0');
-            document.getElementById(`${prefix}-day-display`).textContent = String(dateValue.day).padStart(2, '0');
+            if (prefix === 'month') {
+                document.getElementById('month-year-display').textContent = monthDateValue.year;
+                document.getElementById('month-month-display').textContent = String(monthDateValue.month).padStart(2, '0');
+            } else {
+                const dateValue = prefix === 'start' ? startDateValue : endDateValue;
+                
+                document.getElementById(`${prefix}-year-display`).textContent = dateValue.year;
+                document.getElementById(`${prefix}-month-display`).textContent = String(dateValue.month).padStart(2, '0');
+                document.getElementById(`${prefix}-day-display`).textContent = String(dateValue.day).padStart(2, '0');
+            }
         }
 
         function showDateDropdown(prefix, type) {
@@ -1136,7 +1145,14 @@
 
         function generateDropdownContent(prefix, type) {
             const dropdown = document.getElementById(`${prefix}-dropdown`);
-            const dateValue = prefix === 'start' ? startDateValue : endDateValue;
+            let dateValue;
+            
+            if (prefix === 'month') {
+                dateValue = monthDateValue;
+            } else {
+                dateValue = prefix === 'start' ? startDateValue : endDateValue;
+            }
+            
             const today = new Date();
             
             dropdown.innerHTML = '';
@@ -1258,13 +1274,19 @@
         }
 
         function selectDateValue(prefix, type, value) {
-            const dateValue = prefix === 'start' ? startDateValue : endDateValue;
+            let dateValue;
+            
+            if (prefix === 'month') {
+                dateValue = monthDateValue;
+            } else {
+                dateValue = prefix === 'start' ? startDateValue : endDateValue;
+            }
             
             // 更新值
             dateValue[type] = value;
             
-            // 如果选择了年份或月份，需要验证日期的有效性
-            if (type === 'year' || type === 'month') {
+            // 如果选择了年份或月份，需要验证日期的有效性（仅对完整日期选择器）
+            if (prefix !== 'month' && (type === 'year' || type === 'month')) {
                 const daysInMonth = new Date(dateValue.year, dateValue.month, 0).getDate();
                 if (dateValue.day > daysInMonth) {
                     dateValue.day = daysInMonth;
@@ -1277,8 +1299,49 @@
             // 隐藏下拉框
             hideAllDropdowns();
             
-            // 更新日期范围并重新加载数据
-            updateDateRangeFromPickers();
+            // 根据选择器类型执行相应的更新
+            if (prefix === 'month') {
+                handleMonthPickerChange();
+            } else {
+                updateDateRangeFromPickers();
+            }
+        }
+
+        // 处理月份选择器变化
+        async function handleMonthPickerChange() {
+            const year = monthDateValue.year;
+            const month = monthDateValue.month;
+            
+            const firstDay = `${year}-${String(month).padStart(2, '0')}-01`;
+            const lastDay = new Date(year, month, 0).getDate();
+            const lastDayFormatted = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
+            
+            dateRange = {
+                startDate: firstDay,
+                endDate: lastDayFormatted
+            };
+            
+            // 更新开始和结束日期选择器的值
+            startDateValue = {
+                year: year,
+                month: month,
+                day: 1
+            };
+            
+            endDateValue = {
+                year: year,
+                month: month,
+                day: lastDay
+            };
+            
+            updateDateDisplay('start');
+            updateDateDisplay('end');
+            
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
+            updateDashboard();
         }
 
         async function updateDateRangeFromPickers() {
@@ -1503,8 +1566,6 @@
 
         // 初始化应用
         async function initApp() {
-            document.getElementById('month-selector').value = selectedMonth;
-            
             // 初始化增强日期选择器
             initEnhancedDatePickers();
             
@@ -1512,45 +1573,6 @@
             updateThemeColors(currentRestaurant);
             
             await loadData();
-            updateDashboard();
-        }
-
-        // 日期处理
-        async function handleMonthChange() {
-            const month = document.getElementById('month-selector').value;
-            selectedMonth = month;
-            
-            const year = month.split('-')[0];
-            const monthNum = month.split('-')[1];
-            const firstDay = `${year}-${monthNum}-01`;
-            const lastDay = new Date(year, monthNum, 0).getDate();
-            const lastDayFormatted = `${year}-${monthNum}-${lastDay.toString().padStart(2, '0')}`;
-            
-            dateRange = {
-                startDate: firstDay,
-                endDate: lastDayFormatted
-            };
-            
-            // 更新增强日期选择器的值
-            startDateValue = {
-                year: parseInt(year),
-                month: parseInt(monthNum),
-                day: 1
-            };
-            
-            endDateValue = {
-                year: parseInt(year),
-                month: parseInt(monthNum),
-                day: lastDay
-            };
-            
-            updateDateDisplay('start');
-            updateDateDisplay('end');
-            
-            await loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            });
             updateDashboard();
         }
 
