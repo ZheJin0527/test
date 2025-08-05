@@ -198,6 +198,25 @@
             color: #dc2626;
         }
 
+        /* 输入框容器样式 */
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 40px;
+        }
+
+        .currency-prefix {
+            position: absolute;
+            left: 8px;
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 2;
+        }
+
         /* 输入框样式 */
         .excel-input {
             width: 100%;
@@ -210,6 +229,12 @@
             transition: all 0.2s;
         }
 
+        .excel-input.currency-input {
+            padding-left: 32px;
+            text-align: right;
+            padding-right: 8px;
+        }
+
         .excel-input:focus {
             background: #fff;
             border: 2px solid #583e04;
@@ -219,6 +244,10 @@
         }
 
         .excel-input:not(:placeholder-shown) {
+            background: #f0fdf4;
+        }
+
+        .excel-input.currency-input:not(:placeholder-shown) {
             background: #f0fdf4;
         }
 
@@ -489,15 +518,15 @@
                 <thead>
                     <tr>
                         <th style="min-width: 100px;">日期</th>
-                        <th style="min-width: 120px;">总销售额 (RM)</th>
-                        <th style="min-width: 100px;">折扣 (RM)</th>
-                        <th style="min-width: 120px;">净销售额 (RM)</th>
-                        <th style="min-width: 100px;">服务费 (RM)</th>
-                        <th style="min-width: 100px;">税 (RM)</th>
-                        <th style="min-width: 120px;">投标金额 (RM)</th>
+                        <th style="min-width: 120px;">总销售额</th>
+                        <th style="min-width: 100px;">折扣</th>
+                        <th style="min-width: 120px;">净销售额</th>
+                        <th style="min-width: 100px;">服务费</th>
+                        <th style="min-width: 100px;">税</th>
+                        <th style="min-width: 120px;">投标金额</th>
                         <th style="min-width: 100px;">顾客总数</th>
                         <th style="min-width: 100px;">桌数总数</th>
-                        <th style="min-width: 120px;">人均消费 (RM)</th>
+                        <th style="min-width: 120px;">人均消费</th>
                         <th style="min-width: 100px;">常客人数</th>
                         <th style="min-width: 100px;">新客人数</th>
                         <th style="min-width: 100px;">新顾客率 (%)</th>
@@ -552,6 +581,9 @@
             j2: { name: 'J2分店' },
             j3: { name: 'J3分店' }
         };
+
+        // 货币字段列表
+        const currencyFields = ['gross_sales', 'discounts', 'service_fee', 'tax', 'tender_amount'];
 
         // 初始化应用
         function initApp() {
@@ -685,6 +717,14 @@
             }
         }
 
+        // 格式化货币输入值显示
+        function formatCurrencyDisplay(value) {
+            if (!value || value === '') return '';
+            const num = parseFloat(value);
+            if (isNaN(num)) return '';
+            return num.toFixed(2);
+        }
+
         // 生成Excel表格
         function generateExcelTable() {
             const tbody = document.getElementById('excel-tbody');
@@ -702,22 +742,47 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td class="date-cell ${isWeekend ? 'weekend' : ''}">${day}日<br><small>${['日', '一', '二', '三', '四', '五', '六'][date.getDay()]}</small></td>
-                    <td><input type="number" class="excel-input" data-field="gross_sales" data-day="${day}" 
-                        value="${existingData.gross_sales || ''}" min="0" step="0.01" 
-                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
-                    <td><input type="number" class="excel-input" data-field="discounts" data-day="${day}" 
-                        value="${existingData.discounts || ''}" min="0" step="0.01" 
-                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
+                    <td>
+                        <div class="input-container">
+                            <span class="currency-prefix">RM</span>
+                            <input type="number" class="excel-input currency-input" data-field="gross_sales" data-day="${day}" 
+                                value="${formatCurrencyDisplay(existingData.gross_sales)}" min="0" step="0.01" 
+                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-container">
+                            <span class="currency-prefix">RM</span>
+                            <input type="number" class="excel-input currency-input" data-field="discounts" data-day="${day}" 
+                                value="${formatCurrencyDisplay(existingData.discounts)}" min="0" step="0.01" 
+                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
+                        </div>
+                    </td>
                     <td class="calculated-cell" id="net-sales-${day}">RM 0.00</td>
-                    <td><input type="number" class="excel-input" data-field="service_fee" data-day="${day}" 
-                        value="${existingData.service_fee || ''}" min="0" step="0.01" 
-                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
-                    <td><input type="number" class="excel-input" data-field="tax" data-day="${day}" 
-                        value="${existingData.tax || ''}" min="0" step="0.01" 
-                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
-                    <td><input type="number" class="excel-input" data-field="tender_amount" data-day="${day}" 
-                        value="${existingData.tender_amount || ''}" min="0" step="0.01" 
-                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
+                    <td>
+                        <div class="input-container">
+                            <span class="currency-prefix">RM</span>
+                            <input type="number" class="excel-input currency-input" data-field="service_fee" data-day="${day}" 
+                                value="${formatCurrencyDisplay(existingData.service_fee)}" min="0" step="0.01" 
+                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-container">
+                            <span class="currency-prefix">RM</span>
+                            <input type="number" class="excel-input currency-input" data-field="tax" data-day="${day}" 
+                                value="${formatCurrencyDisplay(existingData.tax)}" min="0" step="0.01" 
+                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-container">
+                            <span class="currency-prefix">RM</span>
+                            <input type="number" class="excel-input currency-input" data-field="tender_amount" data-day="${day}" 
+                                value="${formatCurrencyDisplay(existingData.tender_amount)}" min="0" step="0.01" 
+                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
+                        </div>
+                    </td>
                     <td><input type="number" class="excel-input" data-field="diners" data-day="${day}" 
                         value="${existingData.diners || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
@@ -743,6 +808,15 @@
                 
                 // 初始计算
                 updateCalculations(day);
+            }
+        }
+
+        // 格式化货币输入（实时格式化为两位小数）
+        function formatCurrencyInput(input) {
+            const value = input.value;
+            if (value && !isNaN(value)) {
+                // 在输入过程中不立即格式化，避免干扰用户输入
+                // 只在失去焦点时格式化
             }
         }
 
@@ -1064,7 +1138,7 @@
                 resetInputFirstClick(e.target);
                 
                 // 金额字段限制小数位数
-                if (['gross_sales', 'discounts', 'service_fee', 'tax', 'tender_amount'].includes(field)) {
+                if (currencyFields.includes(field)) {
                     if (value.includes('.')) {
                         const parts = value.split('.');
                         if (parts[1] && parts[1].length > 2) {
@@ -1081,6 +1155,17 @@
                 }
             }
         });
+
+        // 货币输入框失去焦点时格式化为两位小数
+        document.addEventListener('blur', function(e) {
+            if (e.target.classList.contains('currency-input')) {
+                const value = e.target.value;
+                if (value && !isNaN(value) && value !== '') {
+                    const num = parseFloat(value);
+                    e.target.value = num.toFixed(2);
+                }
+            }
+        }, true);
 
         // 为所有输入框添加focus事件监听
         document.addEventListener('focus', function(e) {
