@@ -151,7 +151,7 @@
 
         .excel-table {
             width: 100%;
-            min-width: 1600px;
+            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
         }
@@ -521,15 +521,15 @@
                         <th style="min-width: 100px;">日期</th>
                         <th style="min-width: 120px;">总销售额</th>
                         <th style="min-width: 100px;">折扣</th>
+                        <th style="min-width: 120px;">净销售额</th>
                         <th style="min-width: 100px;">服务费</th>
                         <th style="min-width: 100px;">税</th>
-                        <th style="min-width: 120px;">四舍五入金额</th>
-                        <th style="min-width: 120px;">净销售额</th>
+                        <th style="min-width: 120px;">投标金额</th>
                         <th style="min-width: 100px;">顾客总数</th>
                         <th style="min-width: 100px;">桌数总数</th>
                         <th style="min-width: 120px;">人均消费</th>
-                        <th style="min-width: 100px;">新客人数</th>
                         <th style="min-width: 100px;">常客人数</th>
+                        <th style="min-width: 100px;">新客人数</th>
                         <th style="min-width: 100px;">常客人率 (%)</th>
                         <th style="min-width: 80px;">操作</th>
                     </tr>
@@ -583,8 +583,8 @@
             j3: { name: 'J3' }
         };
 
-        // 货币字段列表 - 增加了adj_amount
-        const currencyFields = ['gross_sales', 'discounts', 'service_fee', 'tax', 'adj_amount'];
+        // 货币字段列表
+        const currencyFields = ['gross_sales', 'discounts', 'service_fee', 'tax', 'tender_amount'];
 
         // 初始化应用
         function initApp() {
@@ -759,6 +759,7 @@
                                 placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
                         </div>
                     </td>
+                    <td class="calculated-cell" id="net-sales-${day}">RM 0.00</td>
                     <td>
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
@@ -778,12 +779,11 @@
                     <td>
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
-                            <input type="number" class="excel-input currency-input" data-field="adj_amount" data-day="${day}" 
-                                value="${formatCurrencyDisplay(existingData.adj_amount)}" min="0" step="0.01" 
+                            <input type="number" class="excel-input currency-input" data-field="tender_amount" data-day="${day}" 
+                                value="${formatCurrencyDisplay(existingData.tender_amount)}" min="0" step="0.01" 
                                 placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
                         </div>
                     </td>
-                    <td class="calculated-cell" id="net-sales-${day}">RM 0.00</td>
                     <td><input type="number" class="excel-input" data-field="diners" data-day="${day}" 
                         value="${existingData.diners || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
@@ -791,11 +791,11 @@
                         value="${existingData.tables_used || ''}" min="0" max="50" 
                         placeholder="0"></td>
                     <td class="calculated-cell" id="avg-per-diner-${day}">RM 0</td>
-                    <td><input type="number" class="excel-input" data-field="new_customers" data-day="${day}" 
-                        value="${existingData.new_customers || ''}" min="0" 
-                        placeholder="0" onchange="updateCalculations(${day})"></td>
                     <td><input type="number" class="excel-input" data-field="returning_customers" data-day="${day}" 
                         value="${existingData.returning_customers || ''}" min="0" 
+                        placeholder="0" onchange="updateCalculations(${day})"></td>
+                    <td><input type="number" class="excel-input" data-field="new_customers" data-day="${day}" 
+                        value="${existingData.new_customers || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
                     <td class="calculated-cell" id="returning-customer-rate-${day}">0%</td>
                     <td>
@@ -827,7 +827,7 @@
             const discounts = parseFloat(getInputValue('discounts', day)) || 0;
             const serviceFee = parseFloat(getInputValue('service_fee', day)) || 0;
             const tax = parseFloat(getInputValue('tax', day)) || 0;
-            const adjAmount = parseFloat(getInputValue('adj_amount', day)) || 0;
+            const tenderAmount = parseFloat(getInputValue('tender_amount', day)) || 0;
             const diners = parseInt(getInputValue('diners', day)) || 0;
             const returningCustomers = parseInt(getInputValue('returning_customers', day)) || 0;
             const newCustomers = parseInt(getInputValue('new_customers', day)) || 0;
@@ -910,7 +910,7 @@
                             discounts: parseFloat(getInputValue('discounts', day)) || 0,
                             service_fee: parseFloat(getInputValue('service_fee', day)) || 0,
                             tax: parseFloat(getInputValue('tax', day)) || 0,
-                            adj_amount: parseFloat(getInputValue('adj_amount', day)) || 0,
+                            tender_amount: parseFloat(getInputValue('tender_amount', day)) || 0,
                             diners: diners,
                             tables_used: parseInt(getInputValue('tables_used', day)) || 0,
                             returning_customers: parseInt(getInputValue('returning_customers', day)) || 0,
