@@ -5825,14 +5825,21 @@ form select {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
-    opacity: 0;
-    visibility: hidden;
+    /* 修改：默认显示遮罩层 */
+    opacity: 1;
+    visibility: visible;
     transition: all 0.3s ease;
 }
 
 .informationmenu-overlay.show {
     opacity: 1;
     visibility: visible;
+}
+
+/* 如果你想要隐藏遮罩层，可以添加这个类 */
+.informationmenu-overlay.hide {
+    opacity: 0;
+    visibility: hidden;
 }
 
 .informationmenu {
@@ -5845,7 +5852,8 @@ form select {
     top: 0;
     overflow: visible;
     z-index: 1000;
-    transform: translateX(-100%);
+    /* 修改：默认显示菜单（移除负的transform） */
+    transform: translateX(0);
     transition: transform 0.3s ease;
 }
 
@@ -5853,6 +5861,12 @@ form select {
     transform: translateX(0);
 }
 
+/* 如果你想要隐藏菜单，可以添加这个类 */
+.informationmenu.hide {
+    transform: translateX(-100%);
+}
+
+/* 其余样式保持不变 */
 .informationmenu-header {
     padding: 24px;
     border-bottom: 1px solid #e0e0e0;
@@ -6131,7 +6145,7 @@ form select {
 
 .logout-btn {
     width: 160px;
-    background: linear-gradient(to bottom, #ff9850, #e97d18); /* 更橙：上亮橙 → 下品牌橙 */
+    background: linear-gradient(to bottom, #ff9850, #e97d18);
     border: none;
     border-radius: 20px;
     padding: 12px 20px;
@@ -6141,8 +6155,8 @@ form select {
     cursor: pointer;
     font-family: 'Microsoft YaHei', sans-serif;
     box-shadow: 
-      4px 4px 10px rgba(0, 0, 0, 0.3),     
-      -4px -4px 10px rgba(255, 200, 150, 0.5); /* 更暖的高光 */
+        4px 4px 10px rgba(0, 0, 0, 0.3),     
+        -4px -4px 10px rgba(255, 200, 150, 0.5);
     transition: all 0.3s ease;
 }
 
