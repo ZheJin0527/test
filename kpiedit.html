@@ -984,6 +984,36 @@
             }, 5000);
         }
 
+        // 输入框光标定位处理
+        let lastClickedInput = null;
+        let lastClickTime = 0;
+        
+        function handleInputFocus(input, isClick = false) {
+            // 延迟执行以确保focus事件完成后再设置光标位置
+            setTimeout(() => {
+                if (isClick) {
+                    const currentTime = Date.now();
+                    
+                    // 如果是同一个输入框且在短时间内(1秒)再次点击，不处理光标位置
+                    if (lastClickedInput === input && (currentTime - lastClickTime) < 1000) {
+                        return; // 让浏览器处理正常的点击定位
+                    }
+                    
+                    // 更新最后点击的输入框和时间
+                    lastClickedInput = input;
+                    lastClickTime = currentTime;
+                }
+                
+                if (input.value) {
+                    // 如果有值，选择所有内容（便于快速替换）
+                    input.select();
+                } else {
+                    // 如果没有值，将光标设置到开头
+                    input.setSelectionRange(0, 0);
+                }
+            }, 0);
+        }
+
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
             // Ctrl+S 保存数据
@@ -1021,7 +1051,7 @@
             }
         });
 
-        // 输入框自动格式化
+        // 输入框事件处理
         document.addEventListener('input', function(e) {
             if (e.target.classList.contains('excel-input')) {
                 const field = e.target.dataset.field;
@@ -1043,6 +1073,20 @@
                         e.target.value = value.split('.')[0];
                     }
                 }
+            }
+        });
+
+        // 为所有输入框添加focus事件监听
+        document.addEventListener('focus', function(e) {
+            if (e.target.classList.contains('excel-input')) {
+                handleInputFocus(e.target, false);
+            }
+        }, true);
+
+        // 为所有输入框添加click事件监听
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('excel-input')) {
+                handleInputFocus(e.target, true);
             }
         });
 
