@@ -2128,8 +2128,24 @@
                                         return '';
                                     },
                                     label: function(context) {
-                                        return context.dataset.label + ': ' + context.parsed.y + '人';
-                                    },
+    const dataIndex = context.dataIndex;
+    const restaurant = context.dataset.label.includes('J1') ? 'j1' : 
+                      context.dataset.label.includes('J2') ? 'j2' : 'j3';
+    const dayData = comparisonData.restaurants[restaurant][dataIndex];
+    const totalCustomers = dayData.returningCustomers + dayData.newCustomers;
+    
+    let label = context.dataset.label + ': ' + context.parsed.y + '人';
+    
+    // 如果是顾客类型数据，添加百分比
+    if (context.dataset.label.includes('常客') || context.dataset.label.includes('新客')) {
+        if (totalCustomers > 0) {
+            const percentage = ((context.parsed.y / totalCustomers) * 100).toFixed(1);
+            label += ` (${percentage}%)`;
+        }
+    }
+    
+    return label;
+},
                                     afterBody: function(context) {
                                         if (context.length > 0) {
                                             const dataIndex = context[0].dataIndex;
@@ -2260,8 +2276,20 @@
                                         return '';
                                     },
                                     label: function(context) {
-                                        return context.dataset.label + ': ' + context.parsed.y + '人';
-                                    },
+    const dataIndex = context.dataIndex;
+    const item = data[dataIndex];
+    const totalCustomers = item.returningCustomers + item.newCustomers;
+    
+    let label = context.dataset.label + ': ' + context.parsed.y + '人';
+    
+    // 添加百分比
+    if (totalCustomers > 0) {
+        const percentage = ((context.parsed.y / totalCustomers) * 100).toFixed(1);
+        label += ` (${percentage}%)`;
+    }
+    
+    return label;
+},
                                     afterBody: function(context) {
                                         if (context.length > 0) {
                                             const dataIndex = context[0].dataIndex;
