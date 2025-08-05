@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 24px;
         }
@@ -146,10 +146,12 @@
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             overflow: hidden;
             border: 2px solid #583e04;
+            overflow-x: auto;
         }
 
         .excel-table {
             width: 100%;
+            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
         }
@@ -164,6 +166,7 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            white-space: nowrap;
         }
 
         .excel-table td {
@@ -225,6 +228,7 @@
             color: #0369a1;
             font-weight: 600;
             padding: 12px 8px;
+            min-width: 100px;
         }
 
         /* 操作按钮 */
@@ -487,8 +491,10 @@
                     <tr>
                         <th style="min-width: 100px;">日期</th>
                         <th style="min-width: 120px;">总销售额 (RM)</th>
-                        <th style="min-width: 100px;">成本 (RM)</th>
                         <th style="min-width: 100px;">折扣 (RM)</th>
+                        <th style="min-width: 100px;">服务费 (RM)</th>
+                        <th style="min-width: 100px;">税 (RM)</th>
+                        <th style="min-width: 120px;">投标金额 (RM)</th>
                         <th style="min-width: 120px;">净销售额 (RM)</th>
                         <th style="min-width: 100px;">用餐人数</th>
                         <th style="min-width: 100px;">使用桌数</th>
@@ -700,11 +706,17 @@
                     <td><input type="number" class="excel-input" data-field="gross_sales" data-day="${day}" 
                         value="${existingData.gross_sales || ''}" min="0" step="0.01" 
                         placeholder="0.00" onchange="updateCalculations(${day})"></td>
-                    <td><input type="number" class="excel-input" data-field="costs" data-day="${day}" 
-                        value="${existingData.costs || ''}" min="0" step="0.01" 
-                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
                     <td><input type="number" class="excel-input" data-field="discounts" data-day="${day}" 
                         value="${existingData.discounts || ''}" min="0" step="0.01" 
+                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
+                    <td><input type="number" class="excel-input" data-field="service_fee" data-day="${day}" 
+                        value="${existingData.service_fee || ''}" min="0" step="0.01" 
+                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
+                    <td><input type="number" class="excel-input" data-field="tax" data-day="${day}" 
+                        value="${existingData.tax || ''}" min="0" step="0.01" 
+                        placeholder="0.00" onchange="updateCalculations(${day})"></td>
+                    <td><input type="number" class="excel-input" data-field="tender_amount" data-day="${day}" 
+                        value="${existingData.tender_amount || ''}" min="0" step="0.01" 
                         placeholder="0.00" onchange="updateCalculations(${day})"></td>
                     <td class="calculated-cell" id="net-sales-${day}">RM 0.00</td>
                     <td><input type="number" class="excel-input" data-field="diners" data-day="${day}" 
@@ -738,14 +750,16 @@
         // 更新计算字段
         function updateCalculations(day) {
             const grossSales = parseFloat(getInputValue('gross_sales', day)) || 0;
-            const costs = parseFloat(getInputValue('costs', day)) || 0;
             const discounts = parseFloat(getInputValue('discounts', day)) || 0;
+            const serviceFee = parseFloat(getInputValue('service_fee', day)) || 0;
+            const tax = parseFloat(getInputValue('tax', day)) || 0;
+            const tenderAmount = parseFloat(getInputValue('tender_amount', day)) || 0;
             const diners = parseInt(getInputValue('diners', day)) || 0;
             const returningCustomers = parseInt(getInputValue('returning_customers', day)) || 0;
             const newCustomers = parseInt(getInputValue('new_customers', day)) || 0;
             
-            // 净销售额
-            const netSales = grossSales - costs - discounts;
+            // 净销售额 = 总销售额 - 折扣 - 服务费 - 税
+            const netSales = grossSales - discounts - serviceFee - tax;
             document.getElementById(`net-sales-${day}`).textContent = `RM ${netSales.toFixed(2)}`;
             
             // 人均消费
@@ -819,8 +833,10 @@
                         const recordData = {
                             date: dateStr,
                             gross_sales: grossSales,
-                            costs: parseFloat(getInputValue('costs', day)) || 0,
                             discounts: parseFloat(getInputValue('discounts', day)) || 0,
+                            service_fee: parseFloat(getInputValue('service_fee', day)) || 0,
+                            tax: parseFloat(getInputValue('tax', day)) || 0,
+                            tender_amount: parseFloat(getInputValue('tender_amount', day)) || 0,
                             diners: diners,
                             tables_used: parseInt(getInputValue('tables_used', day)) || 0,
                             returning_customers: parseInt(getInputValue('returning_customers', day)) || 0,
@@ -915,7 +931,7 @@
             try {
                 // 如果该日在数据库中有记录，先删除数据库记录
                 if (monthData[day] && monthData[day].id) {
-                    const result = await apiCall(`?action=delete&id=${monthData[day].id}`, {
+                    const result = await apiCall(`?action=delete&id=${monthData[day].id}&restaurant=${currentRestaurant}`, {
                         method: 'DELETE'
                     });
                     
@@ -1012,7 +1028,7 @@
                 const value = e.target.value;
                 
                 // 金额字段限制小数位数
-                if (['gross_sales', 'costs', 'discounts'].includes(field)) {
+                if (['gross_sales', 'discounts', 'service_fee', 'tax', 'tender_amount'].includes(field)) {
                     if (value.includes('.')) {
                         const parts = value.split('.');
                         if (parts[1] && parts[1].length > 2) {
