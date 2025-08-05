@@ -785,14 +785,7 @@
                                 placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
                         </div>
                     </td>
-                    <td>
-                        <div class="input-container">
-                            <span class="currency-prefix">RM</span>
-                            <input type="number" class="excel-input currency-input" data-field="tender_amount" data-day="${day}" 
-                                value="${formatCurrencyDisplay(existingData.tender_amount)}" min="0" step="0.01" 
-                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
-                        </div>
-                    </td>
+                    <td class="calculated-cell" id="tender-amount-${day}">RM 0.00</td>
                     <td><input type="number" class="excel-input" data-field="diners" data-day="${day}" 
                         value="${existingData.diners || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
@@ -841,20 +834,29 @@
             const diners = parseInt(getInputValue('diners', day)) || 0;
             const returningCustomers = parseInt(getInputValue('returning_customers', day)) || 0;
             const newCustomers = parseInt(getInputValue('new_customers', day)) || 0;
-            
+    
             // 净销售额 = 总销售额 - 折扣
             const netSales = grossSales - discounts;
             document.getElementById(`net-sales-${day}`).textContent = `RM ${netSales.toFixed(2)}`;
-            
+    
+            // 投标金额 = 净销售额 + 税 + 服务费 + 调整金额
+            const calculatedTenderAmount = netSales + tax + serviceFee + adjAmount;
+    
+            // 更新投标金额输入框的值
+            const tenderInput = document.querySelector(`input[data-field="tender_amount"][data-day="${day}"]`);
+            if (tenderInput) {
+                tenderInput.value = calculatedTenderAmount.toFixed(2);
+            }
+    
             // 人均消费
             const avgPerDiner = diners > 0 ? grossSales / diners : 0;
             document.getElementById(`avg-per-diner-${day}`).textContent = `RM ${avgPerDiner.toFixed(0)}`;
-            
+    
             // 常客人率
             const totalCustomers = returningCustomers + newCustomers;
             const returningCustomerRate = totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0;
             document.getElementById(`returning-customer-rate-${day}`).textContent = `${returningCustomerRate.toFixed(2)}%`;
-            
+    
             // 更新月度统计
             updateMonthStats();
         }
