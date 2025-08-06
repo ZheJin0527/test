@@ -101,13 +101,13 @@ function handleGet() {
     
     switch ($action) {
         case 'list':
-            // 获取所有数据 - 使用视图表来获取 net_sales
+            // 获取所有数据
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
             
-            // 使用视图表而不是数据表，这样可以获取到 net_sales 字段
-            $sql = "SELECT * FROM " . $config['view_table'] . " WHERE 1=1";
+            // 使用数据表而不是视图表，确保能获取到 adj_amount 字段
+            $sql = "SELECT * FROM " . $config['data_table'] . " WHERE 1=1";
             $params = [];
             
             if ($searchDate) {
@@ -129,23 +129,24 @@ function handleGet() {
             break;
             
         case 'summary':
-            // 获取汇总数据 - 也使用视图表
+            // 获取汇总数据
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
             
             $sql = "SELECT 
                         COUNT(*) as total_days,
                         SUM(gross_sales) as total_gross_sales,
-                        SUM(net_sales) as total_net_sales,  -- 直接使用视图中的 net_sales
+                        SUM(gross_sales - discounts - service_fee - tax + adj_amount) as total_net_sales,
                         SUM(service_fee) as total_service_fee,
                         SUM(tax) as total_tax,
+                        SUM(adj_amount) as total_adj_amount,
                         SUM(tender_amount) as total_tender_amount,
                         SUM(diners) as total_diners,
                         SUM(tables_used) as total_tables,
                         SUM(returning_customers) as total_returning_customers,
                         SUM(new_customers) as total_new_customers,
-                        AVG(avg_per_diner) as avg_per_diner  -- 直接使用视图中的 avg_per_diner
-                    FROM " . $config['view_table'] . " WHERE 1=1";
+                        AVG(CASE WHEN diners > 0 THEN gross_sales / diners ELSE 0 END) as avg_per_diner
+                    FROM " . $config['data_table'] . " WHERE 1=1";
             $params = [];
             
             if ($startDate && $endDate) {
@@ -162,13 +163,12 @@ function handleGet() {
             break;
             
         case 'single':
-            // 获取单条记录 - 为了编辑需要，这里仍然使用数据表
+            // 获取单条记录
             $id = $_GET['id'] ?? null;
             if (!$id) {
                 sendResponse(false, "缺少记录ID");
             }
             
-            // 单条记录编辑时需要使用数据表，因为视图不能直接编辑
             $stmt = $pdo->prepare("SELECT * FROM " . $config['data_table'] . " WHERE id = ?");
             $stmt->execute([$id]);
             $record = $stmt->fetch(PDO::FETCH_ASSOC);
