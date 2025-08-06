@@ -945,7 +945,6 @@ row.innerHTML = `
             let totalTenderAmount = 0; // 投标金额总计
             let totalDiners = 0;
             let totalTables = 0;    // 桌数总计
-            let totalDailyAvgPerDiner = 0; // 每日人均消费的总和
             
             const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
             
@@ -973,17 +972,13 @@ row.innerHTML = `
                 
                 totalDiners += diners;
                 totalTables += tables;
-                
-                // 计算当日人均消费并累加 = (净销售额 + 调整金额) / 顾客人数
-                const dailyAvgPerDiner = diners > 0 ? (netSales + adjAmount) / diners : 0;
-                totalDailyAvgPerDiner += dailyAvgPerDiner;
             }
             
             // 月总销售额 = 净销售额 + 调整金额
             const monthTotalSales = totalNetSales + totalAdjAmount;
             
-            // 月总人均消费 = 每日人均消费总和 ÷ 当月天数
-            const monthlyAvgPerCustomer = daysInMonth > 0 ? totalDailyAvgPerDiner / daysInMonth : 0;
+            // 月总人均消费 = 月总销售额 ÷ 月总顾客人数
+            const monthlyAvgPerCustomer = totalDiners > 0 ? monthTotalSales / totalDiners : 0;
             
             document.getElementById('filled-days').textContent = filledDays;
             document.getElementById('total-sales').textContent = monthTotalSales.toLocaleString();
