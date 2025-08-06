@@ -1806,9 +1806,9 @@
         }
 
         // 数据获取
-        async function loadData(params = {}) {
+        async function loadAllRestaurantsData(params = {}) {
     try {
-        // 如果没有传递日期参数，使用当前的 dateRange
+        // 确保传递日期参数
         if (!params.start_date) {
             params.start_date = dateRange.startDate;
         }
@@ -1816,32 +1816,39 @@
             params.end_date = dateRange.endDate;
         }
         
-        console.log('Loading data with params:', params); // 调试日志
+        console.log('Loading all restaurants data with params:', params); // 调试日志
         
-        if (currentRestaurant === 'total') {
-            // 加载所有餐厅数据
-            await loadAllRestaurantsData(params);
-            actualData = mergeAllRestaurantsData();
-        } else {
-            // 加载单个餐厅数据
+        const restaurants = ['j1', 'j2', 'j3'];
+        const promises = restaurants.map(async (restaurant) => {
             const queryParams = new URLSearchParams({
                 action: 'list',
-                restaurant: currentRestaurant,
-                ...params
+                restaurant: restaurant,
+                ...params // 确保传递日期参数
             });
             
-            const result = await apiCall(`?${queryParams}`);
-            actualData = result.data || [];
-        }
+            try {
+                const result = await apiCall(`?${queryParams}`);
+                return { restaurant, data: result.data || [] };
+            } catch (error) {
+                console.error(`加载${restaurant}数据失败:`, error);
+                return { restaurant, data: [] };
+            }
+        });
         
-        console.log('Loaded data:', actualData); // 调试日志
-        console.log('Date range:', dateRange); // 调试日志
+        const results = await Promise.all(promises);
         
-        return actualData;
+        // 存储各餐厅数据
+        allRestaurantsData = {};
+        results.forEach(({ restaurant, data }) => {
+            allRestaurantsData[restaurant] = data;
+            console.log(`${restaurant} data loaded:`, data.length, 'records'); // 调试日志
+        });
+        
+        return allRestaurantsData;
     } catch (error) {
-        console.error('Load data error:', error);
-        actualData = [];
-        return [];
+        console.error('加载所有餐厅数据失败:', error);
+        allRestaurantsData = {};
+        return {};
     }
 }
 
