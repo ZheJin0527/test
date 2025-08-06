@@ -719,11 +719,11 @@
                         <th style="min-width: 100px;">服务费</th>
                         <th style="min-width: 100px;">调整金额</th>
                         <th style="min-width: 120px;">投标金额</th>
-                        <th style="min-width: 100px;">顾客总数</th>
                         <th style="min-width: 100px;">桌数总数</th>
+                        <th style="min-width: 100px;">顾客总数</th>
                         <th style="min-width: 120px;">人均消费</th>
-                        <th style="min-width: 100px;">常客人数</th>
                         <th style="min-width: 100px;">新客人数</th>
+                        <th style="min-width: 100px;">常客人数</th>
                         <th style="min-width: 100px;">常客人率 (%)</th>
                         <th style="min-width: 80px;">操作</th>
                     </tr>
@@ -955,18 +955,18 @@ row.innerHTML = `
                         </div>
                     </td>
                     <td class="calculated-cell" id="tender-amount-${day}">RM 0.00</td>
-                    <td><input type="number" class="excel-input" data-field="diners" data-day="${day}" 
-                        value="${existingData.diners || ''}" min="0" 
-                        placeholder="0" onchange="updateCalculations(${day})"></td>
                     <td><input type="number" class="excel-input" data-field="tables_used" data-day="${day}" 
                         value="${existingData.tables_used || ''}" min="0" max="50" 
                         placeholder="0"></td>
-                    <td class="calculated-cell" id="avg-per-diner-${day}">RM 0</td>
-                    <td><input type="number" class="excel-input" data-field="returning_customers" data-day="${day}" 
-                        value="${existingData.returning_customers || ''}" min="0" 
+                    <td><input type="number" class="excel-input" data-field="diners" data-day="${day}" 
+                        value="${existingData.diners || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
+                    <td class="calculated-cell" id="avg-per-diner-${day}">RM 0</td>
                     <td><input type="number" class="excel-input" data-field="new_customers" data-day="${day}" 
                         value="${existingData.new_customers || ''}" min="0" 
+                        placeholder="0" onchange="updateCalculations(${day})"></td>
+                    <td><input type="number" class="excel-input" data-field="returning_customers" data-day="${day}" 
+                        value="${existingData.returning_customers || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
                     <td class="calculated-cell" id="returning-customer-rate-${day}">0%</td>
                     <td>
