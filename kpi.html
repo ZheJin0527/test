@@ -1338,13 +1338,13 @@
             const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
             const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
     
-            // 更新dateRange为当月第一天和最后一天
+            // dateRange保持当月第一天和最后一天（用于显示数据）
             dateRange = {
                 startDate: firstDayOfMonth.toISOString().split('T')[0],
                 endDate: lastDayOfMonth.toISOString().split('T')[0]
             };
     
-            // 设置初始值为当月第一天和最后一天
+            // 设置开始和结束日期初始值为当月第一天和最后一天
             startDateValue = {
                 year: currentYear,
                 month: currentMonth,
@@ -1357,10 +1357,10 @@
                 day: lastDayOfMonth.getDate()
             };
     
-            // 设置月份选择器初始值为当前月份
+            // 月份选择器初始值为未选择状态（显示"--"）
             monthDateValue = {
-                year: currentYear,
-                month: currentMonth
+                year: null,
+                month: null
             };
     
             // 更新显示
@@ -1378,11 +1378,13 @@
 
         function updateDateDisplay(prefix) {
             if (prefix === 'month') {
-                document.getElementById('month-year-display').textContent = monthDateValue.year;
-                document.getElementById('month-month-display').textContent = String(monthDateValue.month).padStart(2, '0');
+                // 显示年份，如果未选择显示"--"
+                document.getElementById('month-year-display').textContent = monthDateValue.year || '--';
+                // 显示月份，如果未选择显示"--"
+                document.getElementById('month-month-display').textContent = monthDateValue.month ? String(monthDateValue.month).padStart(2, '0') : '--';
             } else {
                 const dateValue = prefix === 'start' ? startDateValue : endDateValue;
-                
+        
                 document.getElementById(`${prefix}-year-display`).textContent = dateValue.year;
                 document.getElementById(`${prefix}-month-display`).textContent = String(dateValue.month).padStart(2, '0');
                 document.getElementById(`${prefix}-day-display`).textContent = String(dateValue.day).padStart(2, '0');
@@ -1429,165 +1431,175 @@
         }
 
         function generateDropdownContent(prefix, type) {
-            const dropdown = document.getElementById(`${prefix}-dropdown`);
-            let dateValue;
+    const dropdown = document.getElementById(`${prefix}-dropdown`);
+    let dateValue;
+    
+    if (prefix === 'month') {
+        dateValue = monthDateValue;
+    } else {
+        dateValue = prefix === 'start' ? startDateValue : endDateValue;
+    }
+    
+    const today = new Date();
+    
+    dropdown.innerHTML = '';
+    
+    if (type === 'year') {
+        // 生成年份选择
+        const yearGrid = document.createElement('div');
+        yearGrid.className = 'year-grid';
+        
+        const currentYear = today.getFullYear();
+        const startYear = 2020;
+        const endYear = currentYear + 1;
+        
+        for (let year = startYear; year <= endYear; year++) {
+            const yearOption = document.createElement('div');
+            yearOption.className = 'date-option';
+            yearOption.textContent = year;
             
-            if (prefix === 'month') {
-                dateValue = monthDateValue;
-            } else {
-                dateValue = prefix === 'start' ? startDateValue : endDateValue;
+            if (year === dateValue.year) {
+                yearOption.classList.add('selected');
             }
             
-            const today = new Date();
-            
-            dropdown.innerHTML = '';
-            
-            if (type === 'year') {
-                // 生成年份选择
-                const yearGrid = document.createElement('div');
-                yearGrid.className = 'year-grid';
-                
-                const currentYear = today.getFullYear();
-                const startYear = 2020;
-                const endYear = currentYear + 1;
-                
-                for (let year = startYear; year <= endYear; year++) {
-                    const yearOption = document.createElement('div');
-                    yearOption.className = 'date-option';
-                    yearOption.textContent = year;
-                    
-                    if (year === dateValue.year) {
-                        yearOption.classList.add('selected');
-                    }
-                    
-                    if (year === currentYear) {
-                        yearOption.classList.add('today');
-                    }
-                    
-                    yearOption.addEventListener('click', function() {
-                        selectDateValue(prefix, 'year', year);
-                    });
-                    
-                    yearGrid.appendChild(yearOption);
-                }
-                
-                dropdown.appendChild(yearGrid);
-                
-            } else if (type === 'month') {
-                // 生成月份选择
-                const monthGrid = document.createElement('div');
-                monthGrid.className = 'month-grid';
-                
-                const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
-                
-                months.forEach((monthName, index) => {
-                    const monthValue = index + 1;
-                    const monthOption = document.createElement('div');
-                    monthOption.className = 'date-option';
-                    monthOption.textContent = monthName;
-                    
-                    if (monthValue === dateValue.month) {
-                        monthOption.classList.add('selected');
-                    }
-                    
-                    if (dateValue.year === today.getFullYear() && monthValue === today.getMonth() + 1) {
-                        monthOption.classList.add('today');
-                    }
-                    
-                    monthOption.addEventListener('click', function() {
-                        selectDateValue(prefix, 'month', monthValue);
-                    });
-                    
-                    monthGrid.appendChild(monthOption);
-                });
-                
-                dropdown.appendChild(monthGrid);
-                
-            } else if (type === 'day') {
-                // 生成日期选择
-                const dayGrid = document.createElement('div');
-                dayGrid.className = 'day-grid';
-                
-                // 添加星期标题
-                const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
-                weekdays.forEach(day => {
-                    const dayHeader = document.createElement('div');
-                    dayHeader.className = 'day-header';
-                    dayHeader.textContent = day;
-                    dayGrid.appendChild(dayHeader);
-                });
-                
-                // 计算当月信息
-                const year = dateValue.year;
-                const month = dateValue.month;
-                const firstDay = new Date(year, month - 1, 1);
-                const lastDay = new Date(year, month, 0);
-                const daysInMonth = lastDay.getDate();
-                const startDayOfWeek = firstDay.getDay();
-                
-                // 添加空白日期（上个月的）
-                for (let i = 0; i < startDayOfWeek; i++) {
-                    const emptyDay = document.createElement('div');
-                    dayGrid.appendChild(emptyDay);
-                }
-                
-                // 添加当月日期
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dayOption = document.createElement('div');
-                    dayOption.className = 'date-option';
-                    dayOption.textContent = day;
-                    
-                    if (day === dateValue.day) {
-                        dayOption.classList.add('selected');
-                    }
-                    
-                    if (year === today.getFullYear() && 
-                        month === today.getMonth() + 1 && 
-                        day === today.getDate()) {
-                        dayOption.classList.add('today');
-                    }
-                    
-                    dayOption.addEventListener('click', function() {
-                        selectDateValue(prefix, 'day', day);
-                    });
-                    
-                    dayGrid.appendChild(dayOption);
-                }
-                
-                dropdown.appendChild(dayGrid);
+            if (year === currentYear) {
+                yearOption.classList.add('today');
             }
+            
+            yearOption.addEventListener('click', function() {
+                selectDateValue(prefix, 'year', year);
+            });
+            
+            yearGrid.appendChild(yearOption);
         }
+        
+        dropdown.appendChild(yearGrid);
+        
+    } else if (type === 'month') {
+        // 生成月份选择
+        const monthGrid = document.createElement('div');
+        monthGrid.className = 'month-grid';
+        
+        const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+        
+        months.forEach((monthName, index) => {
+            const monthValue = index + 1;
+            const monthOption = document.createElement('div');
+            monthOption.className = 'date-option';
+            monthOption.textContent = monthName;
+            
+            if (monthValue === dateValue.month) {
+                monthOption.classList.add('selected');
+            }
+            
+            if (dateValue.year === today.getFullYear() && monthValue === today.getMonth() + 1) {
+                monthOption.classList.add('today');
+            }
+            
+            monthOption.addEventListener('click', function() {
+                selectDateValue(prefix, 'month', monthValue);
+            });
+            
+            monthGrid.appendChild(monthOption);
+        });
+        
+        dropdown.appendChild(monthGrid);
+        
+    } else if (type === 'day') {
+        // 日期选择逻辑保持不变
+        const dayGrid = document.createElement('div');
+        dayGrid.className = 'day-grid';
+        
+        // 添加星期标题
+        const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+        weekdays.forEach(day => {
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'day-header';
+            dayHeader.textContent = day;
+            dayGrid.appendChild(dayHeader);
+        });
+        
+        // 计算当月信息
+        const year = dateValue.year;
+        const month = dateValue.month;
+        const firstDay = new Date(year, month - 1, 1);
+        const lastDay = new Date(year, month, 0);
+        const daysInMonth = lastDay.getDate();
+        const startDayOfWeek = firstDay.getDay();
+        
+        // 添加空白日期（上个月的）
+        for (let i = 0; i < startDayOfWeek; i++) {
+            const emptyDay = document.createElement('div');
+            dayGrid.appendChild(emptyDay);
+        }
+        
+        // 添加当月日期
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayOption = document.createElement('div');
+            dayOption.className = 'date-option';
+            dayOption.textContent = day;
+            
+            if (day === dateValue.day) {
+                dayOption.classList.add('selected');
+            }
+            
+            if (year === today.getFullYear() && 
+                month === today.getMonth() + 1 && 
+                day === today.getDate()) {
+                dayOption.classList.add('today');
+            }
+            
+            dayOption.addEventListener('click', function() {
+                selectDateValue(prefix, 'day', day);
+            });
+            
+            dayGrid.appendChild(dayOption);
+        }
+        
+        dropdown.appendChild(dayGrid);
+    }
+}
 
         function selectDateValue(prefix, type, value) {
             let dateValue;
-            
+    
             if (prefix === 'month') {
                 dateValue = monthDateValue;
+        
+                // 更新值
+                dateValue[type] = value;
+        
+                // 更新显示
+                updateDateDisplay('month');
+        
+                // 隐藏下拉框
+                hideAllDropdowns();
+        
+                // 处理月份选择器的数据加载逻辑
+                handleMonthPickerChange();
+        
+                return; // 提前返回，不执行后面的日期选择器逻辑
             } else {
                 dateValue = prefix === 'start' ? startDateValue : endDateValue;
-            }
-            
-            // 更新值
-            dateValue[type] = value;
-            
-            // 如果选择了年份或月份，需要验证日期的有效性（仅对完整日期选择器）
-            if (prefix !== 'month' && (type === 'year' || type === 'month')) {
-                const daysInMonth = new Date(dateValue.year, dateValue.month, 0).getDate();
-                if (dateValue.day > daysInMonth) {
-                    dateValue.day = daysInMonth;
+        
+                // 更新值
+                dateValue[type] = value;
+        
+                // 如果选择了年份或月份，需要验证日期的有效性
+                if (type === 'year' || type === 'month') {
+                    const daysInMonth = new Date(dateValue.year, dateValue.month, 0).getDate();
+                    if (dateValue.day > daysInMonth) {
+                        dateValue.day = daysInMonth;
+                    }
                 }
-            }
-            
-            // 更新显示
-            updateDateDisplay(prefix);
-            
-            // 隐藏下拉框
-            hideAllDropdowns();
-            
-            // 根据选择器类型执行相应的更新
-            if (prefix === 'month') {
-                handleMonthPickerChange();
-            } else {
+        
+                // 更新显示
+                updateDateDisplay(prefix);
+        
+                // 隐藏下拉框
+                hideAllDropdowns();
+        
+                // 更新日期范围
                 updateDateRangeFromPickers();
             }
         }
@@ -1596,32 +1608,66 @@
         async function handleMonthPickerChange() {
             const year = monthDateValue.year;
             const month = monthDateValue.month;
-            
-            const firstDay = `${year}-${String(month).padStart(2, '0')}-01`;
-            const lastDay = new Date(year, month, 0).getDate();
-            const lastDayFormatted = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
-            
-            dateRange = {
-                startDate: firstDay,
-                endDate: lastDayFormatted
-            };
-            
-            // 更新开始和结束日期选择器的值
-            startDateValue = {
-                year: year,
-                month: month,
-                day: 1
-            };
-            
-            endDateValue = {
-                year: year,
-                month: month,
-                day: lastDay
-            };
-            
-            updateDateDisplay('start');
-            updateDateDisplay('end');
-            
+    
+            // 如果年份和月份都选择了，显示整个月的数据
+            if (year && month) {
+                const firstDay = `${year}-${String(month).padStart(2, '0')}-01`;
+                const lastDay = new Date(year, month, 0).getDate();
+                const lastDayFormatted = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
+        
+                dateRange = {
+                    startDate: firstDay,
+                    endDate: lastDayFormatted
+                };
+        
+                // 更新开始和结束日期选择器的值
+                startDateValue = {
+                    year: year,
+                    month: month,
+                    day: 1
+                };
+        
+                endDateValue = {
+                    year: year,
+                    month: month,
+                    day: lastDay
+                };
+        
+                updateDateDisplay('start');
+                updateDateDisplay('end');
+            }
+            // 如果只选择了年份，显示整年的数据
+            else if (year && !month) {
+                const firstDay = `${year}-01-01`;
+                const lastDay = `${year}-12-31`;
+        
+                dateRange = {
+                    startDate: firstDay,
+                    endDate: lastDay
+                };
+        
+                // 更新开始和结束日期选择器的值为整年
+                startDateValue = {
+                    year: year,
+                    month: 1,
+                    day: 1
+                };
+        
+                endDateValue = {
+                    year: year,
+                    month: 12,
+                    day: 31
+                };
+        
+                updateDateDisplay('start');
+                updateDateDisplay('end');
+            }
+            // 如果都没选择，不做任何操作
+            else {
+                return;
+            }
+    
+            // 加载数据并更新仪表板
             await loadData({
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate
