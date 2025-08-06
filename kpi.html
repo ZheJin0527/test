@@ -1026,6 +1026,26 @@
                     </div>
                 </div>
             </div>
+
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-clock" style="color: #6b7280;"></i>
+                <label class="form-label" style="margin: 0;">快速选择:</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
+                        <i class="fas fa-calendar-alt"></i>
+                        选择时间段
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="quick-select-dropdown">
+                        <button class="dropdown-item" onclick="selectQuickRange('thisWeek')">本周</button>
+                        <button class="dropdown-item" onclick="selectQuickRange('lastWeek')">上周</button>
+                        <button class="dropdown-item" onclick="selectQuickRange('last30Days')">过去30天</button>
+                        <button class="dropdown-item" onclick="selectQuickRange('lastMonth')">上个月</button>
+                        <button class="dropdown-item" onclick="selectQuickRange('thisYear')">今年</button>
+                        <button class="dropdown-item" onclick="selectQuickRange('lastYear')">去年</button>
+                    </div>
+                </div>
+            </div>
             
             <!-- Main Layout: KPI Cards + Main Chart -->
             <div class="main-layout">
@@ -2917,6 +2937,160 @@ function prepareMonthlyComparisonData() {
         
         return comparisonData;
     }
+}
+    </script>
+    <script>
+        // 快速选择下拉菜单控制
+        function toggleQuickSelectDropdown() {
+            const dropdown = document.getElementById('quick-select-dropdown');
+    
+            // 关闭其他所有下拉菜单
+            hideAllDropdowns();
+    
+            // 切换当前下拉菜单
+            dropdown.classList.toggle('show');
+        }
+
+        // 快速选择时间范围
+        async function selectQuickRange(range) {
+            const today = new Date();
+            let startDate, endDate;
+    
+    switch(range) {
+        case 'thisWeek':
+            // 本周（周一到今天）
+            const thisWeekStart = new Date(today);
+            const dayOfWeek = thisWeekStart.getDay();
+            const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+            thisWeekStart.setDate(thisWeekStart.getDate() - daysToMonday);
+            
+            startDate = thisWeekStart;
+            endDate = new Date(today);
+            break;
+            
+        case 'lastWeek':
+            // 上周（上周一到上周日）
+            const lastWeekEnd = new Date(today);
+            const lastWeekDayOfWeek = lastWeekEnd.getDay();
+            const daysToLastSunday = lastWeekDayOfWeek === 0 ? 0 : lastWeekDayOfWeek;
+            lastWeekEnd.setDate(lastWeekEnd.getDate() - daysToLastSunday - 1);
+            
+            const lastWeekStart = new Date(lastWeekEnd);
+            lastWeekStart.setDate(lastWeekStart.getDate() - 6);
+            
+            startDate = lastWeekStart;
+            endDate = lastWeekEnd;
+            break;
+            
+        case 'last30Days':
+            // 过去30天
+            startDate = new Date(today);
+            startDate.setDate(startDate.getDate() - 29);
+            endDate = new Date(today);
+            break;
+            
+        case 'lastMonth':
+            // 上个月
+            const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+            const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+            
+            startDate = lastMonth;
+            endDate = lastMonthEnd;
+            break;
+            
+        case 'thisYear':
+            // 今年
+            startDate = new Date(today.getFullYear(), 0, 1);
+            endDate = new Date(today);
+            break;
+            
+        case 'lastYear':
+            // 去年
+            startDate = new Date(today.getFullYear() - 1, 0, 1);
+            endDate = new Date(today.getFullYear() - 1, 11, 31);
+            break;
+            
+        default:
+            return;
+    }
+    
+    // 格式化日期为 YYYY-MM-DD 格式
+    const formatDate = (date) => {
+        return date.getFullYear() + '-' + 
+               String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+               String(date.getDate()).padStart(2, '0');
+    };
+    
+    // 更新日期范围
+    dateRange = {
+        startDate: formatDate(startDate),
+        endDate: formatDate(endDate)
+    };
+    
+    // 更新开始和结束日期选择器的值
+    startDateValue = {
+        year: startDate.getFullYear(),
+        month: startDate.getMonth() + 1,
+        day: startDate.getDate()
+    };
+    
+    endDateValue = {
+        year: endDate.getFullYear(),
+        month: endDate.getMonth() + 1,
+        day: endDate.getDate()
+    };
+    
+    // 重置月份选择器（因为我们现在使用的是自定义范围）
+    monthDateValue = {
+        year: null,
+        month: null
+    };
+    
+    // 更新所有日期选择器的显示
+    updateDateDisplay('start');
+    updateDateDisplay('end');
+    updateDateDisplay('month');
+    
+    // 关闭下拉菜单
+    document.getElementById('quick-select-dropdown').classList.remove('show');
+    
+    // 加载数据并更新仪表板
+    await loadData({
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate
+    });
+    updateDashboard();
+}
+
+// 修改现有的document.addEventListener，添加快速选择下拉菜单的关闭逻辑
+document.addEventListener('click', function(e) {
+    // 关闭日期选择器下拉菜单
+    if (!e.target.closest('.enhanced-date-picker')) {
+        hideAllDropdowns();
+    }
+    
+    // 关闭餐厅数字选择下拉菜单
+    if (!e.target.closest('.number-dropdown')) {
+        document.getElementById('number-dropdown').classList.remove('show');
+    }
+    
+    // 关闭快速选择下拉菜单
+    if (!e.target.closest('.dropdown')) {
+        document.getElementById('quick-select-dropdown').classList.remove('show');
+    }
+});
+
+// 获取范围描述文本的辅助函数
+function getRangeDescription(range) {
+    const descriptions = {
+        'thisWeek': '本周',
+        'lastWeek': '上周', 
+        'last30Days': '过去30天',
+        'lastMonth': '上个月',
+        'thisYear': '今年',
+        'lastYear': '去年'
+    };
+    return descriptions[range] || '自定义范围';
 }
     </script>
     <script>
