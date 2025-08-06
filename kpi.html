@@ -1653,35 +1653,38 @@
 
         // 切换餐厅
         function switchRestaurant(restaurant) {
-            if (currentRestaurant === restaurant) return;
-            
-            currentRestaurant = restaurant;
-            
-            // 更新按钮状态
-            document.querySelectorAll('.restaurant-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.restaurant === restaurant) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // 显示或隐藏工具提示选择器
-            const tooltipSelector = document.getElementById('tooltip-selector');
-            if (restaurant === 'total') {
-                tooltipSelector.classList.add('show');
-            } else {
-                tooltipSelector.classList.remove('show');
-            }
-            
-            // 更新页面主题色
-            document.body.className = `restaurant-${restaurant}`;
-            updateThemeColors(restaurant);
-            
-            // 重新加载数据
-            loadData().then(() => {
-                updateDashboard();
-            });
+    if (currentRestaurant === restaurant) return;
+    
+    currentRestaurant = restaurant;
+    
+    // 更新按钮状态
+    document.querySelectorAll('.restaurant-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.restaurant === restaurant) {
+            btn.classList.add('active');
         }
+    });
+    
+    // 显示或隐藏工具提示选择器
+    const tooltipSelector = document.getElementById('tooltip-selector');
+    if (restaurant === 'total') {
+        tooltipSelector.classList.add('show');
+    } else {
+        tooltipSelector.classList.remove('show');
+    }
+    
+    // 更新页面主题色
+    document.body.className = `restaurant-${restaurant}`;
+    updateThemeColors(restaurant);
+    
+    // 重新加载数据 - 确保传递当前日期范围
+    loadData({
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate
+    }).then(() => {
+        updateDashboard();
+    });
+}
 
         // 更新主题颜色
         function updateThemeColors(restaurant) {
@@ -1806,51 +1809,29 @@
         }
 
         // 数据获取
-        async function loadAllRestaurantsData(params = {}) {
-    try {
-        // 确保传递日期参数
-        if (!params.start_date) {
-            params.start_date = dateRange.startDate;
-        }
-        if (!params.end_date) {
-            params.end_date = dateRange.endDate;
-        }
-        
-        console.log('Loading all restaurants data with params:', params); // 调试日志
-        
-        const restaurants = ['j1', 'j2', 'j3'];
-        const promises = restaurants.map(async (restaurant) => {
-            const queryParams = new URLSearchParams({
-                action: 'list',
-                restaurant: restaurant,
-                ...params // 确保传递日期参数
-            });
-            
+        async function loadData(params = {}) {
             try {
-                const result = await apiCall(`?${queryParams}`);
-                return { restaurant, data: result.data || [] };
+                if (currentRestaurant === 'total') {
+                    // 加载所有餐厅数据
+                    await loadAllRestaurantsData(params);
+                    actualData = mergeAllRestaurantsData();
+                } else {
+                    // 加载单个餐厅数据
+                    const queryParams = new URLSearchParams({
+                        action: 'list',
+                        restaurant: currentRestaurant,
+                        ...params
+                    });
+                    
+                    const result = await apiCall(`?${queryParams}`);
+                    actualData = result.data || [];
+                }
+                return actualData;
             } catch (error) {
-                console.error(`加载${restaurant}数据失败:`, error);
-                return { restaurant, data: [] };
+                actualData = [];
+                return [];
             }
-        });
-        
-        const results = await Promise.all(promises);
-        
-        // 存储各餐厅数据
-        allRestaurantsData = {};
-        results.forEach(({ restaurant, data }) => {
-            allRestaurantsData[restaurant] = data;
-            console.log(`${restaurant} data loaded:`, data.length, 'records'); // 调试日志
-        });
-        
-        return allRestaurantsData;
-    } catch (error) {
-        console.error('加载所有餐厅数据失败:', error);
-        allRestaurantsData = {};
-        return {};
-    }
-}
+        }
 
         async function loadSummary(startDate, endDate) {
             try {
