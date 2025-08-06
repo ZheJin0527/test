@@ -964,7 +964,7 @@ row.innerHTML = `
                 // 计算净销售额
                 const netSales = grossSales - discounts;
                 totalNetSales += netSales;
-                totalAdjAmount += adjAmount;
+                totalAdjAmount += Math.abs(adjAmount); // 取绝对值后累加，确保减法正确
                 
                 // 计算投标金额
                 const tenderAmount = netSales + tax + serviceFee + adjAmount;
