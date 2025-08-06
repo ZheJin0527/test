@@ -1865,21 +1865,26 @@
 
         // 初始化应用
         async function initApp() {
-            // 初始化增强日期选择器
-            initEnhancedDatePickers();
-            
-            // 初始化工具提示选择器
-            initTooltipSelector();
-            
-            // 初始化工具提示选项到全局
-            window.tooltipOptions = tooltipOptions;
-            
-            // 初始化主题色
-            updateThemeColors(currentRestaurant);
-            
-            await loadData();
-            updateDashboard();
-        }
+    // 初始化增强日期选择器
+    initEnhancedDatePickers();
+    
+    // 初始化工具提示选择器
+    initTooltipSelector();
+    
+    // 初始化工具提示选项到全局
+    window.tooltipOptions = tooltipOptions;
+    
+    // 初始化主题色
+    updateThemeColors(currentRestaurant);
+    
+    // 传入正确的日期参数来加载数据
+    await loadData({
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate
+    });
+    
+    updateDashboard();
+}
 
         // 数据转换和过滤
         function convertToKPIFormat(data) {
