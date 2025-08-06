@@ -1594,69 +1594,62 @@
 
         // 处理月份选择器变化
         async function handleMonthPickerChange() {
-    const year = monthDateValue.year;
-    const month = monthDateValue.month;
-    
-    const firstDay = `${year}-${String(month).padStart(2, '0')}-01`;
-    const lastDay = new Date(year, month, 0).getDate();
-    const lastDayFormatted = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
-    
-    dateRange = {
-        startDate: firstDay,
-        endDate: lastDayFormatted
-    };
-    
-    console.log('Month changed, new date range:', dateRange); // 调试日志
-    
-    // 更新开始和结束日期选择器的值
-    startDateValue = {
-        year: year,
-        month: month,
-        day: 1
-    };
-    
-    endDateValue = {
-        year: year,
-        month: month,
-        day: lastDay
-    };
-    
-    updateDateDisplay('start');
-    updateDateDisplay('end');
-    
-    // 确保传递日期参数重新加载数据
-    await loadData({
-        start_date: dateRange.startDate,
-        end_date: dateRange.endDate
-    });
-    updateDashboard();
-}
+            const year = monthDateValue.year;
+            const month = monthDateValue.month;
+            
+            const firstDay = `${year}-${String(month).padStart(2, '0')}-01`;
+            const lastDay = new Date(year, month, 0).getDate();
+            const lastDayFormatted = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
+            
+            dateRange = {
+                startDate: firstDay,
+                endDate: lastDayFormatted
+            };
+            
+            // 更新开始和结束日期选择器的值
+            startDateValue = {
+                year: year,
+                month: month,
+                day: 1
+            };
+            
+            endDateValue = {
+                year: year,
+                month: month,
+                day: lastDay
+            };
+            
+            updateDateDisplay('start');
+            updateDateDisplay('end');
+            
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
+            updateDashboard();
+        }
 
-async function updateDateRangeFromPickers() {
-    const startDateStr = `${startDateValue.year}-${String(startDateValue.month).padStart(2, '0')}-${String(startDateValue.day).padStart(2, '0')}`;
-    const endDateStr = `${endDateValue.year}-${String(endDateValue.month).padStart(2, '0')}-${String(endDateValue.day).padStart(2, '0')}`;
-    
-    // 验证日期有效性
-    if (new Date(startDateStr) > new Date(endDateStr)) {
-        alert('开始日期不能晚于结束日期');
-        return;
-    }
-    
-    dateRange = {
-        startDate: startDateStr,
-        endDate: endDateStr
-    };
-    
-    console.log('Date range changed from pickers:', dateRange); // 调试日志
-    
-    // 确保传递日期参数重新加载数据
-    await loadData({
-        start_date: dateRange.startDate,
-        end_date: dateRange.endDate
-    });
-    updateDashboard();
-}
-
+        async function updateDateRangeFromPickers() {
+            const startDateStr = `${startDateValue.year}-${String(startDateValue.month).padStart(2, '0')}-${String(startDateValue.day).padStart(2, '0')}`;
+            const endDateStr = `${endDateValue.year}-${String(endDateValue.month).padStart(2, '0')}-${String(endDateValue.day).padStart(2, '0')}`;
+            
+            // 验证日期有效性
+            if (new Date(startDateStr) > new Date(endDateStr)) {
+                alert('开始日期不能晚于结束日期');
+                return;
+            }
+            
+            dateRange = {
+                startDate: startDateStr,
+                endDate: endDateStr
+            };
+            
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
+            updateDashboard();
+        }
 
         // 切换餐厅
         function switchRestaurant(restaurant) {
