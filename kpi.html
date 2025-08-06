@@ -1807,28 +1807,43 @@
 
         // 数据获取
         async function loadData(params = {}) {
-            try {
-                if (currentRestaurant === 'total') {
-                    // 加载所有餐厅数据
-                    await loadAllRestaurantsData(params);
-                    actualData = mergeAllRestaurantsData();
-                } else {
-                    // 加载单个餐厅数据
-                    const queryParams = new URLSearchParams({
-                        action: 'list',
-                        restaurant: currentRestaurant,
-                        ...params
-                    });
-                    
-                    const result = await apiCall(`?${queryParams}`);
-                    actualData = result.data || [];
-                }
-                return actualData;
-            } catch (error) {
-                actualData = [];
-                return [];
-            }
+    try {
+        // 如果没有传递日期参数，使用当前的 dateRange
+        if (!params.start_date) {
+            params.start_date = dateRange.startDate;
         }
+        if (!params.end_date) {
+            params.end_date = dateRange.endDate;
+        }
+        
+        console.log('Loading data with params:', params); // 调试日志
+        
+        if (currentRestaurant === 'total') {
+            // 加载所有餐厅数据
+            await loadAllRestaurantsData(params);
+            actualData = mergeAllRestaurantsData();
+        } else {
+            // 加载单个餐厅数据
+            const queryParams = new URLSearchParams({
+                action: 'list',
+                restaurant: currentRestaurant,
+                ...params
+            });
+            
+            const result = await apiCall(`?${queryParams}`);
+            actualData = result.data || [];
+        }
+        
+        console.log('Loaded data:', actualData); // 调试日志
+        console.log('Date range:', dateRange); // 调试日志
+        
+        return actualData;
+    } catch (error) {
+        console.error('Load data error:', error);
+        actualData = [];
+        return [];
+    }
+}
 
         async function loadSummary(startDate, endDate) {
             try {
