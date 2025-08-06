@@ -73,7 +73,6 @@ $avatarLetter = strtoupper($username[0]);
     <div class="informationmenu">
         <div class="informationmenu-header">
             <div class="informationmenu-logo">★</div>
-            <button class="informationmenu-close-btn">×</button>
         </div>
 
         <div class="informationmenu-content">
