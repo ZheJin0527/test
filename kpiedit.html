@@ -918,8 +918,8 @@ row.innerHTML = `
             const calculatedTenderAmount = netSales + tax + serviceFee + adjAmount;
             document.getElementById(`tender-amount-${day}`).textContent = `RM ${calculatedTenderAmount.toFixed(2)}`;
     
-            // 人均消费
-            const avgPerDiner = diners > 0 ? grossSales / diners : 0;
+            // 人均消费 = (净销售额 + 调整金额) / 顾客人数
+            const avgPerDiner = diners > 0 ? (netSales + adjAmount) / diners : 0;
             document.getElementById(`avg-per-diner-${day}`).textContent = `RM ${avgPerDiner.toFixed(2)}`;
     
             // 常客人率
@@ -974,8 +974,8 @@ row.innerHTML = `
                 totalDiners += diners;
                 totalTables += tables;
                 
-                // 计算当日人均消费并累加
-                const dailyAvgPerDiner = diners > 0 ? grossSales / diners : 0;
+                // 计算当日人均消费并累加 = (净销售额 + 调整金额) / 顾客人数
+                const dailyAvgPerDiner = diners > 0 ? (netSales + adjAmount) / diners : 0;
                 totalDailyAvgPerDiner += dailyAvgPerDiner;
             }
             
