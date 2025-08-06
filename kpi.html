@@ -1807,35 +1807,28 @@
 
         // 数据获取
         async function loadData(params = {}) {
-    try {
-        // 如果没有传入日期参数，使用当前的dateRange
-        const queryParams = {
-            start_date: dateRange.startDate,
-            end_date: dateRange.endDate,
-            ...params // 允许传入的参数覆盖默认值
-        };
-        
-        if (currentRestaurant === 'total') {
-            // 加载所有餐厅数据
-            await loadAllRestaurantsData(queryParams);
-            actualData = mergeAllRestaurantsData();
-        } else {
-            // 加载单个餐厅数据
-            const apiParams = new URLSearchParams({
-                action: 'list',
-                restaurant: currentRestaurant,
-                ...queryParams
-            });
-            
-            const result = await apiCall(`?${apiParams}`);
-            actualData = result.data || [];
+            try {
+                if (currentRestaurant === 'total') {
+                    // 加载所有餐厅数据
+                    await loadAllRestaurantsData(params);
+                    actualData = mergeAllRestaurantsData();
+                } else {
+                    // 加载单个餐厅数据
+                    const queryParams = new URLSearchParams({
+                        action: 'list',
+                        restaurant: currentRestaurant,
+                        ...params
+                    });
+                    
+                    const result = await apiCall(`?${queryParams}`);
+                    actualData = result.data || [];
+                }
+                return actualData;
+            } catch (error) {
+                actualData = [];
+                return [];
+            }
         }
-        return actualData;
-    } catch (error) {
-        actualData = [];
-        return [];
-    }
-}
 
         async function loadSummary(startDate, endDate) {
             try {
@@ -1884,7 +1877,10 @@
             // 初始化主题色
             updateThemeColors(currentRestaurant);
             
-            await loadData();
+            await loadData({
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate
+    });
             updateDashboard();
         }
 
