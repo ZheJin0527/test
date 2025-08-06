@@ -185,10 +185,49 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="submenu-title">报表系统</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">财务</a>
-                                <a href="#" class="submenu-item">业绩</a>
-                                <a href="#" class="submenu-item">桌子</a>
-                                <a href="#" class="submenu-item">工资</a>
+                                <a href="#" class="submenu-item expandable" data-target="kh-options">
+                                    Kunzz Holdings
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="kh-options">
+                                    <a href="#" class="sub-option">财务</a>
+                                    <a href="#" class="sub-option">业绩</a>
+                                    <a href="#" class="sub-option">桌子</a>
+                                    <a href="#" class="sub-option">工资</a>
+                                </div>
+
+                                <a href="#" class="submenu-item expandable" data-target="j1-options">
+                                    J1
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j1-options">
+                                    <a href="#" class="sub-option">财务</a>
+                                    <a href="#" class="sub-option">业绩</a>
+                                    <a href="#" class="sub-option">桌子</a>
+                                    <a href="#" class="sub-option">工资</a>
+                                </div>
+
+                                <a href="#" class="submenu-item expandable" data-target="j2-options">
+                                    J2
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j2-options">
+                                    <a href="#" class="sub-option">财务</a>
+                                    <a href="#" class="sub-option">业绩</a>
+                                    <a href="#" class="sub-option">桌子</a>
+                                    <a href="#" class="sub-option">工资</a>
+                                </div>
+
+                                <a href="#" class="submenu-item expandable" data-target="j3-options">
+                                    J3
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j3-options">
+                                    <a href="#" class="sub-option">财务</a>
+                                    <a href="#" class="sub-option">业绩</a>
+                                    <a href="#" class="sub-option">桌子</a>
+                                    <a href="#" class="sub-option">工资</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -238,6 +277,15 @@ $avatarLetter = strtoupper($username[0]);
                             资源库存
                             <span class="informationmenu-arrow">›</span>
                         </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">资源库存</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">碗碟</a>
+                                <a href="#" class="submenu-item">食品</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
