@@ -1328,53 +1328,59 @@
         }
 
         // 增强的日期选择器功能
-        function initEnhancedDatePickers() {
-            // 获取当前日期
-            const today = new Date();
-            const currentYear = today.getFullYear();
-            const currentMonth = today.getMonth() + 1; // 月份从0开始，所以+1
+        async function initEnhancedDatePickers() {
+    // 获取当前日期
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1; // 月份从0开始，所以+1
     
-            // 计算本月第一天和最后一天
-            const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
-            const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
+    // 计算本月第一天和最后一天
+    const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
+    const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
     
-            // 更新dateRange为当月第一天和最后一天
-            dateRange = {
-                startDate: firstDayOfMonth.toISOString().split('T')[0],
-                endDate: lastDayOfMonth.toISOString().split('T')[0]
-            };
+    // 更新dateRange为当月第一天和最后一天
+    dateRange = {
+        startDate: firstDayOfMonth.toISOString().split('T')[0],
+        endDate: lastDayOfMonth.toISOString().split('T')[0]
+    };
     
-            // 设置初始值为当月第一天和最后一天
-            startDateValue = {
-                year: currentYear,
-                month: currentMonth,
-                day: 1
-            };
+    // 设置初始值为当月第一天和最后一天
+    startDateValue = {
+        year: currentYear,
+        month: currentMonth,
+        day: 1
+    };
 
-            endDateValue = {
-                year: currentYear,
-                month: currentMonth,
-                day: lastDayOfMonth.getDate()
-            };
+    endDateValue = {
+        year: currentYear,
+        month: currentMonth,
+        day: lastDayOfMonth.getDate()
+    };
     
-            // 设置月份选择器初始值为当前月份
-            monthDateValue = {
-                year: currentYear,
-                month: currentMonth
-            };
+    // 设置月份选择器初始值为当前月份
+    monthDateValue = {
+        year: currentYear,
+        month: currentMonth
+    };
     
-            // 更新显示
-            updateDateDisplay('start');
-            updateDateDisplay('end');
-            updateDateDisplay('month');
+    // 更新显示
+    updateDateDisplay('start');
+    updateDateDisplay('end');
+    updateDateDisplay('month');
     
-            // 绑定全局点击事件以关闭下拉框
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.enhanced-date-picker')) {
-                    hideAllDropdowns();
-                }
-            });
+    // 立即加载当月数据
+    await loadData({
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate
+    });
+    
+    // 绑定全局点击事件以关闭下拉框
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.enhanced-date-picker')) {
+            hideAllDropdowns();
         }
+    });
+}
 
         function updateDateDisplay(prefix) {
             if (prefix === 'month') {
@@ -1877,10 +1883,7 @@
             // 初始化主题色
             updateThemeColors(currentRestaurant);
             
-            await loadData({
-        start_date: dateRange.startDate,
-        end_date: dateRange.endDate
-    });
+            await loadData();
             updateDashboard();
         }
 
