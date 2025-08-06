@@ -128,13 +128,105 @@
 
         /* 餐厅选择器样式 */
         .restaurant-selector {
-            background: rgb(248, 245, 235);
+            background: white;
             border-radius: 12px;
             padding: 6px;
             display: flex;
-            gap: 4px;
+            gap: 0;
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            align-items: center;
+        }
+
+        .restaurant-prefix {
+            background: #583e04;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px 0 0 8px;
+            font-size: 16px;
+            font-weight: 700;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .number-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .number-btn {
+            padding: 10px 16px;
+            border-radius: 0 8px 8px 0;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: white;
+            color: #583e04;
+            min-width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .number-btn:hover {
+            background: rgba(88, 62, 4, 0.1);
+        }
+
+        .number-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 120%;
+            left: 0;
+            background: white;
+            border: 2px solid #583e04;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+            z-index: 1000;
+            padding: 4px;
+            min-width: 120px;
+        }
+
+        .number-dropdown-menu.show {
+            display: block;
+        }
+
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+
+        .number-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            color: #583e04;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .number-item:hover {
+            background: #583e04;
+            color: white;
+            border-color: #583e04;
+            transform: scale(1.05);
+        }
+
+        .number-item.selected {
+            background: #583e04;
+            color: white;
+            border-color: #583e04;
+            font-weight: 600;
         }
 
         .restaurant-btn {
@@ -832,15 +924,18 @@
                 <div class="controls">
                     <!-- 餐厅选择器 -->
                     <div class="restaurant-selector">
-                        <div class="dropdown">
-                            <button class="restaurant-btn dropdown-toggle" onclick="toggleDropdown()">
-                                J1 <i class="fas fa-chevron-down"></i>
+                        <div class="restaurant-prefix">J</div>
+                        <div class="number-dropdown">
+                            <button class="number-btn dropdown-toggle" onclick="toggleNumberDropdown()">
+                                1 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div class="dropdown-menu" id="restaurant-dropdown">
-                                <button class="dropdown-item" onclick="selectRestaurant('j1')">J1</button>
-                                <button class="dropdown-item" onclick="selectRestaurant('j2')">J2</button>
-                                <button class="dropdown-item" onclick="selectRestaurant('j3')">J3</button>
-                                <button class="dropdown-item" onclick="selectRestaurant('total')">总计</button>
+                            <div class="number-dropdown-menu" id="number-dropdown">
+                                <div class="number-grid">
+                                    <button class="number-item" onclick="selectNumber(1)">1</button>
+                                    <button class="number-item" onclick="selectNumber(2)">2</button>
+                                    <button class="number-item" onclick="selectNumber(3)">3</button>
+                                    <button class="number-item total-btn" onclick="selectNumber('total')">总计</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2437,28 +2532,48 @@
     </script>
     <script>
         // 切换下拉菜单
-        function toggleDropdown() {
-            const dropdown = document.getElementById('restaurant-dropdown');
+        function toggleNumberDropdown() {
+            const dropdown = document.getElementById('number-dropdown');
             dropdown.classList.toggle('show');
+    
+            // 更新选中状态
+            updateSelectedNumber();
         }
 
-        // 选择餐厅
-        function selectRestaurant(restaurant) {
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            const restaurantName = restaurantConfig[restaurant].name;
-            dropdownToggle.innerHTML = `${restaurantName} <i class="fas fa-chevron-down"></i>`;
+        // 选择餐厅数字或总计
+        function selectNumber(value) {
+            const numberBtn = document.querySelector('.number-btn');
+    
+            if (value === 'total') {
+                numberBtn.innerHTML = `总计 <i class="fas fa-chevron-down"></i>`;
+                // 切换到总计
+                switchRestaurant('total');
+            } else {
+                numberBtn.innerHTML = `${value} <i class="fas fa-chevron-down"></i>`;
+                // 切换餐厅
+                const restaurant = `j${value}`;
+                switchRestaurant(restaurant);
+            }
     
             // 关闭下拉菜单
-            document.getElementById('restaurant-dropdown').classList.remove('show');
-    
-            // 切换餐厅
-            switchRestaurant(restaurant);
+            document.getElementById('number-dropdown').classList.remove('show');
+        }
+
+        // 更新选中的数字状态
+        function updateSelectedNumber() {
+            const currentNumber = currentRestaurant === 'total' ? 'total' : currentRestaurant.replace('j', '');
+            document.querySelectorAll('.number-item').forEach(item => {
+                item.classList.remove('selected');
+                if (item.textContent === currentNumber || (currentNumber === 'total' && item.textContent === '总计')) {
+                    item.classList.add('selected');
+                }
+            });
         }
 
         // 点击外部关闭下拉菜单
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown')) {
-                document.getElementById('restaurant-dropdown').classList.remove('show');
+            if (!e.target.closest('.number-dropdown')) {
+                document.getElementById('number-dropdown').classList.remove('show');
             }
         });
     </script>
