@@ -377,12 +377,14 @@
             align-items: center;
             font-size: 14px;
             color: #6b7280;
+            flex-wrap: wrap;
         }
 
         .stat-item {
             display: flex;
             align-items: center;
             gap: 8px;
+            min-width: 180px;
         }
 
         .stat-value {
@@ -419,6 +421,11 @@
                 flex-direction: column;
                 gap: 8px;
                 align-items: flex-start;
+            }
+
+            .stat-item {
+                min-width: auto;
+                width: 100%;
             }
         }
 
@@ -607,8 +614,20 @@
                         <span>月总销售额: RM <span class="stat-value" id="total-sales">0</span></span>
                     </div>
                     <div class="stat-item">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>月总投标金额: RM <span class="stat-value" id="total-tender">0</span></span>
+                    </div>
+                    <div class="stat-item">
                         <i class="fas fa-users"></i>
                         <span>月总顾客人数: <span class="stat-value" id="total-diners">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-table"></i>
+                        <span>月总桌数: <span class="stat-value" id="total-tables">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-calculator"></i>
+                        <span>月总人均消费: RM <span class="stat-value" id="avg-per-customer">0</span></span>
                     </div>
                 </div>
                 
@@ -918,29 +937,57 @@ row.innerHTML = `
             return input ? input.value : '';
         }
 
-        // 更新月度统计
+        // 更新月度统计 - 修改计算逻辑
         function updateMonthStats() {
             let filledDays = 0;
-            let totalSales = 0;
+            let totalNetSales = 0;  // 净销售额总计
+            let totalAdjAmount = 0; // 调整金额总计
+            let totalTenderAmount = 0; // 投标金额总计
             let totalDiners = 0;
+            let totalTables = 0;    // 桌数总计
+            let totalGrossSales = 0; // 总销售额（用于计算人均消费）
             
             const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
             
             for (let day = 1; day <= daysInMonth; day++) {
                 const grossSales = parseFloat(getInputValue('gross_sales', day)) || 0;
+                const discounts = parseFloat(getInputValue('discounts', day)) || 0;
+                const adjAmount = parseFloat(getInputValue('adj_amount', day)) || 0;
+                const tax = parseFloat(getInputValue('tax', day)) || 0;
+                const serviceFee = parseFloat(getInputValue('service_fee', day)) || 0;
                 const diners = parseInt(getInputValue('diners', day)) || 0;
+                const tables = parseInt(getInputValue('tables_used', day)) || 0;
                 
                 if (grossSales > 0 || diners > 0) {
                     filledDays++;
                 }
                 
-                totalSales += grossSales;
+                // 计算净销售额
+                const netSales = grossSales - discounts;
+                totalNetSales += netSales;
+                totalAdjAmount += adjAmount;
+                
+                // 计算投标金额
+                const tenderAmount = netSales + tax + serviceFee + adjAmount;
+                totalTenderAmount += tenderAmount;
+                
                 totalDiners += diners;
+                totalTables += tables;
+                totalGrossSales += grossSales;
             }
             
+            // 月总销售额 = 净销售额 + 调整金额
+            const monthTotalSales = totalNetSales + totalAdjAmount;
+            
+            // 月总人均消费 = 总销售额 / 已填写天数（如果有顾客的话）
+            const avgPerCustomer = filledDays > 0 && totalDiners > 0 ? totalGrossSales / filledDays : 0;
+            
             document.getElementById('filled-days').textContent = filledDays;
-            document.getElementById('total-sales').textContent = totalSales.toLocaleString();
+            document.getElementById('total-sales').textContent = monthTotalSales.toLocaleString();
+            document.getElementById('total-tender').textContent = totalTenderAmount.toLocaleString();
             document.getElementById('total-diners').textContent = totalDiners.toLocaleString();
+            document.getElementById('total-tables').textContent = totalTables.toLocaleString();
+            document.getElementById('avg-per-customer').textContent = avgPerCustomer.toFixed(0);
         }
 
         // 保存所有数据 - 修复版本
