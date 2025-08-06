@@ -196,33 +196,33 @@ $avatarLetter = strtoupper($username[0]);
                                     <a href="#" class="sub-option">工资</a>
                                 </div>
 
-                                <a href="#" class="submenu-item expandable" data-target="j1-options">
+                                <a href="#" class="submenu-item expandable" data-target="j1b-options">
                                     J1
                                     <span class="expand-arrow">⮞</span>
                                 </a>
-                                <div class="sub-options" id="j1-options">
+                                <div class="sub-options" id="j1b-options">
                                     <a href="#" class="sub-option">财务</a>
                                     <a href="#" class="sub-option">业绩</a>
                                     <a href="#" class="sub-option">桌子</a>
                                     <a href="#" class="sub-option">工资</a>
                                 </div>
 
-                                <a href="#" class="submenu-item expandable" data-target="j2-options">
+                                <a href="#" class="submenu-item expandable" data-target="j2b-options">
                                     J2
                                     <span class="expand-arrow">⮞</span>
                                 </a>
-                                <div class="sub-options" id="j2-options">
+                                <div class="sub-options" id="j2b-options">
                                     <a href="#" class="sub-option">财务</a>
                                     <a href="#" class="sub-option">业绩</a>
                                     <a href="#" class="sub-option">桌子</a>
                                     <a href="#" class="sub-option">工资</a>
                                 </div>
 
-                                <a href="#" class="submenu-item expandable" data-target="j3-options">
+                                <a href="#" class="submenu-item expandable" data-target="j3b-options">
                                     J3
                                     <span class="expand-arrow">⮞</span>
                                 </a>
-                                <div class="sub-options" id="j3-options">
+                                <div class="sub-options" id="j3b-options">
                                     <a href="#" class="sub-option">财务</a>
                                     <a href="#" class="sub-option">业绩</a>
                                     <a href="#" class="sub-option">桌子</a>
