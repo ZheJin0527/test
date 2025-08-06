@@ -72,7 +72,17 @@ $avatarLetter = strtoupper($username[0]);
     <!-- 侧边菜单 -->
     <div class="informationmenu">
         <div class="informationmenu-header">
-            <div class="informationmenu-logo">★</div>
+            <div class="user-avatar-dropdown">
+            <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
+        </div>
+      <div class="language-switch">
+      <button class="lang" id="languageBtn">EN | CN</button>
+        <div class="language-dropdown-menu" id="languageDropdownMenu">
+          <a href="/en/" class="language-dropdown-item" data-lang="en">英文</a>
+          <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
+        </div>
+      </div>
+
         </div>
 
         <div class="informationmenu-content">
