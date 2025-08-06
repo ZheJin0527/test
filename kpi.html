@@ -1217,8 +1217,8 @@
         let allRestaurantsData = {}; // 存储所有餐厅的数据
         let currentRestaurant = 'j1';
         let dateRange = {
-            startDate: getTodayMinusMonth(),
-            endDate: getToday()
+            startDate: getCurrentMonthFirstDay(),
+            endDate: getCurrentMonthLastDay()
         };
         
         let salesChart = null;
@@ -1288,6 +1288,18 @@
             return new Date().toISOString().slice(0, 7);
         }
 
+        // 新增：获取当前月份的第一天
+        function getCurrentMonthFirstDay() {
+            const date = new Date();
+            return new Date(date.getFullYear(), date.getMonth(), 1).toISOString().split('T')[0];
+        }
+
+        // 新增：获取当前月份的最后一天
+        function getCurrentMonthLastDay() {
+            const date = new Date();
+            return new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().split('T')[0];
+        }
+
         // 工具提示选择器功能
         function initTooltipSelector() {
             const tooltipOptions = document.querySelectorAll('.tooltip-option');
@@ -1317,14 +1329,14 @@
         function initEnhancedDatePickers() {
             const startDate = new Date(dateRange.startDate);
             const endDate = new Date(dateRange.endDate);
-            
-            // 设置初始值
+    
+            // 设置初始值 - 默认为当前月份的第一天和最后一天
             startDateValue = {
                 year: startDate.getFullYear(),
                 month: startDate.getMonth() + 1,
                 day: startDate.getDate()
             };
-            
+    
             endDateValue = {
                 year: endDate.getFullYear(),
                 month: endDate.getMonth() + 1,
