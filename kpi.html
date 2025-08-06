@@ -2127,7 +2127,7 @@
                     if (dayData) {
                         const grossSales = parseFloat(dayData.tender_amount) || 0;
                         const discounts = parseFloat(dayData.discounts) || 0;
-                        const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
+                        const netSales = grossSales - discounts;
     
                         return {
                             totalSales: grossSales,
@@ -2840,7 +2840,7 @@ function prepareMonthlyComparisonData() {
                 if (dayData) {
                     const grossSales = parseFloat(dayData.tender_amount) || 0;
                     const discounts = parseFloat(dayData.discounts) || 0;
-                    const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
+                    const netSales = grossSales - discounts;
                     
                     monthData.restaurants[restaurant].totalSales += grossSales;
                     monthData.restaurants[restaurant].netSales += netSales;
@@ -2877,7 +2877,7 @@ function prepareMonthlyComparisonData() {
                 if (dayData) {
                     const grossSales = parseFloat(dayData.tender_amount) || 0;
                     const discounts = parseFloat(dayData.discounts) || 0;
-                    const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
+                    const netSales = grossSales - discounts;
 
                     return {
                         totalSales: grossSales,
