@@ -755,7 +755,7 @@
 
         .date-option.selected {
             background-color: #3b82f6;
-            color: black;
+            color: white;
             border-color: #3b82f6;
         }
 
@@ -1484,10 +1484,8 @@
                 // 添加"无"选项
                 const noneOption = document.createElement('div');
                 noneOption.className = 'date-option';
-                noneOption.textContent = '无';
+                noneOption.textContent = '--';
                 noneOption.style.gridColumn = '1 / -1'; // 让"无"选项占满整行
-                noneOption.style.backgroundColor = '#f3f4f6';
-                noneOption.style.fontWeight = '500';
 
                 if (!dateValue.month) {
                     noneOption.classList.add('selected');
