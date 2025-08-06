@@ -576,6 +576,42 @@
             </div>
         </div>
         
+        <div class="action-buttons">
+                <div class="stats-info" id="month-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>已填写: <span class="stat-value" id="filled-days">0</span> 天</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>月总净利润额: RM <span class="stat-value" id="total-sales">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>月总利润额: RM <span class="stat-value" id="total-tender">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span>月总顾客人数: <span class="stat-value" id="total-diners">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-table"></i>
+                        <span>月总桌数: <span class="stat-value" id="total-tables">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-calculator"></i>
+                        <span>月总人均消费: RM <span class="stat-value" id="avg-per-customer">0</span></span>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary" onclick="saveAllData()">
+                        <i class="fas fa-save"></i>
+                        保存本月数据
+                    </button>
+                </div>
+            </div>
+            
         <!-- Excel表格 -->
         <div class="excel-container">
             <table class="excel-table" id="excel-table">
