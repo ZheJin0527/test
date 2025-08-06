@@ -1766,13 +1766,15 @@
                     },
                     ...options
                 });
-                
-                const data = await response.json();
-                
-                if (!data.success) {
-                    throw new Error(data.message || '请求失败');
+        
+                // 先检查HTTP状态码
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status}`);
                 }
-                
+        
+                const data = await response.json();
+        
+                // 返回完整的响应数据，让调用者处理success字段
                 return data;
             } catch (error) {
                 console.error('API调用失败:', error);
@@ -1788,26 +1790,28 @@
                     const queryParams = new URLSearchParams({
                         action: 'list',
                         restaurant: restaurant,
-                        ...params
+                        start_date: params.start_date || dateRange.startDate,
+                        end_date: params.end_date || dateRange.endDate
                     });
-                    
+            
                     try {
                         const result = await apiCall(`?${queryParams}`);
+                        // 即使 success 为 false，也可能有数据
                         return { restaurant, data: result.data || [] };
                     } catch (error) {
                         console.error(`加载${restaurant}数据失败:`, error);
                         return { restaurant, data: [] };
                     }
                 });
-                
+        
                 const results = await Promise.all(promises);
-                
+        
                 // 存储各餐厅数据
                 allRestaurantsData = {};
                 results.forEach(({ restaurant, data }) => {
                     allRestaurantsData[restaurant] = data;
                 });
-                
+        
                 return allRestaurantsData;
             } catch (error) {
                 console.error('加载所有餐厅数据失败:', error);
@@ -1819,7 +1823,7 @@
         // 合并所有餐厅数据
         function mergeAllRestaurantsData() {
             const dateMap = new Map();
-    
+
             // 遍历所有餐厅数据
             Object.values(allRestaurantsData).forEach(restaurantData => {
                 restaurantData.forEach(item => {
@@ -1830,28 +1834,36 @@
                             gross_sales: 0,
                             net_sales: 0,
                             discounts: 0,
+                            tax: 0,
+                            service_fee: 0,
+                            adj_amount: 0,
+                            tender_amount: 0,
                             diners: 0,
                             tables_used: 0,
                             returning_customers: 0,
                             new_customers: 0
                         });
                     }
-            
+
                     const existing = dateMap.get(date);
                     const grossSales = parseFloat(item.gross_sales) || 0;
                     const discounts = parseFloat(item.discounts) || 0;
                     const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
-            
+
                     existing.gross_sales += grossSales;
                     existing.net_sales += netSales;
                     existing.discounts += discounts;
+                    existing.tax += parseFloat(item.tax) || 0;
+                    existing.service_fee += parseFloat(item.service_fee) || 0;
+                    existing.adj_amount += parseFloat(item.adj_amount) || 0;
+                    existing.tender_amount += parseFloat(item.tender_amount) || 0;
                     existing.diners += parseInt(item.diners) || 0;
                     existing.tables_used += parseInt(item.tables_used) || 0;
                     existing.returning_customers += parseInt(item.returning_customers) || 0;
                     existing.new_customers += parseInt(item.new_customers) || 0;
                 });
             });
-    
+
             // 转换为数组并排序
             return Array.from(dateMap.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
         }
@@ -1868,14 +1880,18 @@
                     const queryParams = new URLSearchParams({
                         action: 'list',
                         restaurant: currentRestaurant,
-                        ...params
+                        start_date: params.start_date || dateRange.startDate,
+                        end_date: params.end_date || dateRange.endDate
                     });
-                    
+            
                     const result = await apiCall(`?${queryParams}`);
+            
+                    // 即使API返回success: false，也可能有数据
                     actualData = result.data || [];
                 }
                 return actualData;
             } catch (error) {
+                console.error('加载数据失败:', error);
                 actualData = [];
                 return [];
             }
@@ -1899,17 +1915,56 @@
                     }
                     return {};
                 } else {
-                    const queryParams = new URLSearchParams({
-                        action: 'summary',
-                        restaurant: currentRestaurant,
-                        start_date: startDate,
-                        end_date: endDate
-                    });
-                    
-                    const result = await apiCall(`?${queryParams}`);
-                    return result.data;
+                    // 单店模式：尝试从API获取汇总，如果失败则前端计算
+                    try {
+                        const queryParams = new URLSearchParams({
+                            action: 'summary',
+                            restaurant: currentRestaurant,
+                            start_date: startDate,
+                            end_date: endDate
+                        });
+                
+                        const result = await apiCall(`?${queryParams}`);
+                
+                        // 如果API有汇总数据就用API的，否则前端计算
+                        if (result.success && result.data) {
+                            return result.data;
+                        } else {
+                            // 前端计算汇总
+                            const filteredData = getFilteredKPIData();
+                            if (filteredData.length > 0) {
+                                return {
+                                    total_gross_sales: filteredData.reduce((sum, item) => sum + item.totalSales, 0),
+                                    total_net_sales: filteredData.reduce((sum, item) => sum + item.netSales, 0),
+                                    total_tables: filteredData.reduce((sum, item) => sum + item.tablesUsed, 0),
+                                    total_diners: filteredData.reduce((sum, item) => sum + item.diners, 0),
+                                    total_returning_customers: filteredData.reduce((sum, item) => sum + item.returningCustomers, 0),
+                                    total_new_customers: filteredData.reduce((sum, item) => sum + item.newCustomers, 0),
+                                    total_days: filteredData.length
+                                };
+                            }
+                        }
+                    } catch (error) {
+                        console.error('API汇总失败，使用前端计算:', error);
+                        // API失败时使用前端计算
+                        const filteredData = getFilteredKPIData();
+                        if (filteredData.length > 0) {
+                            return {
+                                total_gross_sales: filteredData.reduce((sum, item) => sum + item.totalSales, 0),
+                                total_net_sales: filteredData.reduce((sum, item) => sum + item.netSales, 0),
+                                total_tables: filteredData.reduce((sum, item) => sum + item.tablesUsed, 0),
+                                total_diners: filteredData.reduce((sum, item) => sum + item.diners, 0),
+                                total_returning_customers: filteredData.reduce((sum, item) => sum + item.returningCustomers, 0),
+                                total_new_customers: filteredData.reduce((sum, item) => sum + item.newCustomers, 0),
+                                total_days: filteredData.length
+                            };
+                        }
+                    }
+            
+                    return {};
                 }
             } catch (error) {
+                console.error('加载汇总数据失败:', error);
                 return {};
             }
         }
@@ -1939,12 +1994,12 @@
                 const returningCustomers = parseInt(item.returning_customers) || 0;
                 const newCustomers = parseInt(item.new_customers) || 0;
                 const totalCustomers = returningCustomers + newCustomers;
-        
-                // 计算净销售额：总销售额 - 折扣
+
+                // 计算净销售额：总销售额 - 折扣 (匹配 edit 页面的计算逻辑)
                 const grossSales = parseFloat(item.gross_sales) || 0;
                 const discounts = parseFloat(item.discounts) || 0;
                 const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
-        
+
                 return {
                     date: item.date,
                     totalSales: grossSales,
@@ -1953,7 +2008,8 @@
                     tablesUsed: parseInt(item.tables_used) || 0,
                     returningCustomers: returningCustomers,
                     newCustomers: newCustomers,
-                    avgSalesPerDiner: diners > 0 ? grossSales / diners : 0,
+                    // 人均消费基于净销售额计算 (匹配 edit 页面逻辑)
+                    avgSalesPerDiner: diners > 0 ? netSales / diners : 0,
                     returningRate: totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0,
                     newCustomersRate: totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0
                 };
@@ -1974,8 +2030,8 @@
         async function updateDashboard() {
             const summary = await loadSummary(dateRange.startDate, dateRange.endDate);
             const filteredData = getFilteredKPIData();
-            
-            // 使用前端数据重新计算精确的汇总统计
+    
+            // 使用前端数据重新计算精确的汇总统计 (匹配 edit 页面的计算逻辑)
             let displaySummary;
             if (filteredData.length > 0) {
                 displaySummary = {
@@ -1987,9 +2043,9 @@
                     total_new_customers: filteredData.reduce((sum, item) => sum + item.newCustomers, 0),
                     total_days: filteredData.length
                 };
-                // 重新计算真正的平均每人消费
+                // 重新计算真正的平均每人消费 (基于净销售额，匹配 edit 页面逻辑)
                 displaySummary.avg_per_diner = displaySummary.total_diners > 0 ? 
-                    displaySummary.total_gross_sales / displaySummary.total_diners : 0;
+                    displaySummary.total_net_sales / displaySummary.total_diners : 0;
             } else {
                 // 如果没有过滤数据，使用API数据但重新计算平均值
                 displaySummary = {
@@ -2001,28 +2057,29 @@
                     total_new_customers: parseInt(summary.total_new_customers || 0),
                     total_days: parseInt(summary.total_days || 0)
                 };
-                // 重新计算平均每人消费，不使用API的avg_per_diner
+                // 重新计算平均每人消费，基于净销售额而不是总销售额
                 displaySummary.avg_per_diner = displaySummary.total_diners > 0 ? 
-                    displaySummary.total_gross_sales / displaySummary.total_diners : 0;
+                    displaySummary.total_net_sales / displaySummary.total_diners : 0;
             }
-            
-            // 更新KPI卡片
+    
+            // 更新KPI卡片 (显示格式与 edit 页面保持一致)
             document.getElementById('total-sales').textContent = `RM ${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('net-sales').textContent = `RM ${parseFloat(displaySummary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
             document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    
             // 计算常客和新客百分比
             const totalCustomers = (displaySummary.total_returning_customers || 0) + (displaySummary.total_new_customers || 0);
             const returningPercentage = totalCustomers > 0 ? ((displaySummary.total_returning_customers || 0) / totalCustomers * 100).toFixed(2) : 0;
             const newPercentage = totalCustomers > 0 ? ((displaySummary.total_new_customers || 0) / totalCustomers * 100).toFixed(2) : 0;
-            
+    
             document.getElementById('total-returning').textContent = `${returningPercentage}%`;
             document.getElementById('total-new').textContent = `${newPercentage}%`;
-            
+    
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
-            
+    
             // 更新图表标题（总计模式下显示特殊标题）
             const chartTitle = document.getElementById('main-chart-title');
             if (currentRestaurant === 'total') {
@@ -2030,10 +2087,10 @@
             } else {
                 chartTitle.textContent = '净销售额趋势';
             }
-            
+    
             // 更新图表
             updateCharts(filteredData);
-            
+    
             // 更新详细表格
             updateDashboardTable(filteredData);
         }
