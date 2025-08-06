@@ -1480,35 +1480,48 @@
                 // 生成月份选择
                 const monthGrid = document.createElement('div');
                 monthGrid.className = 'month-grid';
-        
+
+                // 添加"无"选项
+                const noneOption = document.createElement('div');
+                noneOption.className = 'date-option';
+                noneOption.textContent = '无';
+                noneOption.style.gridColumn = '1 / -1'; // 让"无"选项占满整行
+                noneOption.style.backgroundColor = '#f3f4f6';
+                noneOption.style.fontWeight = '500';
+
+                if (!dateValue.month) {
+                    noneOption.classList.add('selected');
+                }
+
+                noneOption.addEventListener('click', function() {
+                    selectDateValue(prefix, 'month', null);
+                });
+
+                monthGrid.appendChild(noneOption);
+
                 const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
-        
+
                 months.forEach((monthName, index) => {
                     const monthValue = index + 1;
                     const monthOption = document.createElement('div');
                     monthOption.className = 'date-option';
                     monthOption.textContent = monthName;
-            
+
                     if (monthValue === dateValue.month) {
                         monthOption.classList.add('selected');
                     }
-            
+
                     if (dateValue.year === today.getFullYear() && monthValue === today.getMonth() + 1) {
                         monthOption.classList.add('today');
                     }
-            
+
                     monthOption.addEventListener('click', function() {
-                        // 如果点击的是已选择的月份，则取消选择（变回"--"）
-                        if (prefix === 'month' && monthValue === dateValue.month) {
-                            selectDateValue(prefix, 'month', null);
-                        } else {
-                            selectDateValue(prefix, 'month', monthValue);
-                        }
+                        selectDateValue(prefix, 'month', monthValue);
                     });
-            
+
                     monthGrid.appendChild(monthOption);
                 });
-        
+
                 dropdown.appendChild(monthGrid);
         
             } else if (type === 'day') {
