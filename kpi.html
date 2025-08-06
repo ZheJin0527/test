@@ -1847,7 +1847,8 @@
 
                     const existing = dateMap.get(date);
                     const grossSales = parseFloat(item.tender_amount) || 0;
-                    const netSales = parseFloat(item.net_sales) || 0;
+                    const discounts = parseFloat(item.discounts) || 0;
+                    const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
 
                     existing.gross_sales += grossSales;
                     existing.net_sales += netSales;
@@ -1996,7 +1997,8 @@
 
                 // 计算净销售额：总销售额 - 折扣 (匹配 edit 页面的计算逻辑)
                 const grossSales = parseFloat(item.tender_amount) || 0;
-                const netSales = parseFloat(item.net_sales) || 0;
+                const discounts = parseFloat(item.discounts) || 0;
+                const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
 
                 return {
                     date: item.date,
@@ -2124,7 +2126,8 @@
                     const dayData = restaurantData.find(item => item.date === date);
                     if (dayData) {
                         const grossSales = parseFloat(dayData.tender_amount) || 0;
-                        const netSales = parseFloat(dayData.net_sales) || 0;
+                        const discounts = parseFloat(dayData.discounts) || 0;
+                        const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
     
                         return {
                             totalSales: grossSales,
@@ -2836,7 +2839,8 @@ function prepareMonthlyComparisonData() {
                 
                 if (dayData) {
                     const grossSales = parseFloat(dayData.tender_amount) || 0;
-                    const netSales = parseFloat(dayData.net_sales) || 0;
+                    const discounts = parseFloat(dayData.discounts) || 0;
+                    const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
                     
                     monthData.restaurants[restaurant].totalSales += grossSales;
                     monthData.restaurants[restaurant].netSales += netSales;
@@ -2872,7 +2876,8 @@ function prepareMonthlyComparisonData() {
                 const dayData = restaurantData.find(item => item.date === date);
                 if (dayData) {
                     const grossSales = parseFloat(dayData.tender_amount) || 0;
-                    const netSales = parseFloat(dayData.net_sales) || 0;
+                    const discounts = parseFloat(dayData.discounts) || 0;
+                    const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
 
                     return {
                         totalSales: grossSales,
