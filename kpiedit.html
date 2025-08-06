@@ -975,7 +975,7 @@ row.innerHTML = `
             }
             
             // 月总销售额 = 净销售额 + 调整金额
-            const monthTotalSales = totalNetSales + totalAdjAmount;
+            const monthTotalSales = totalNetSales - totalAdjAmount;
             
             // 月总人均消费 = 月总销售额 ÷ 月总顾客人数
             const monthlyAvgPerCustomer = totalDiners > 0 ? monthTotalSales / totalDiners : 0;
