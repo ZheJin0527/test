@@ -1867,17 +1867,21 @@
         async function initApp() {
             // 初始化增强日期选择器
             initEnhancedDatePickers();
-            
+    
             // 初始化工具提示选择器
             initTooltipSelector();
-            
+    
             // 初始化工具提示选项到全局
             window.tooltipOptions = tooltipOptions;
-            
+    
             // 初始化主题色
             updateThemeColors(currentRestaurant);
-            
-            await loadData();
+    
+            // 使用正确的日期范围加载数据
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
             updateDashboard();
         }
 
