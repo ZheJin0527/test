@@ -5823,7 +5823,7 @@ form select {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 1);
     z-index: 999;
     /* 修改：默认显示遮罩层 */
     opacity: 1;
