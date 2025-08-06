@@ -1867,21 +1867,17 @@
         async function initApp() {
             // 初始化增强日期选择器
             initEnhancedDatePickers();
-    
+            
             // 初始化工具提示选择器
             initTooltipSelector();
-    
+            
             // 初始化工具提示选项到全局
             window.tooltipOptions = tooltipOptions;
-    
+            
             // 初始化主题色
             updateThemeColors(currentRestaurant);
-    
-            // 使用当前设置的日期范围加载数据
-            await loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            });
+            
+            await loadData();
             updateDashboard();
         }
 
@@ -1926,8 +1922,8 @@
         // 更新仪表板
         async function updateDashboard() {
             const summary = await loadSummary(dateRange.startDate, dateRange.endDate);
-            const filteredData = getFilteredKPIData(); // 这个已经是过滤后的数据
-    
+            const filteredData = getFilteredKPIData();
+            
             // 使用前端数据重新计算精确的汇总统计
             let displaySummary;
             if (filteredData.length > 0) {
@@ -1958,25 +1954,24 @@
                 displaySummary.avg_per_diner = displaySummary.total_diners > 0 ? 
                     displaySummary.total_gross_sales / displaySummary.total_diners : 0;
             }
-    
+            
             // 更新KPI卡片
             document.getElementById('total-sales').textContent = `RM ${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('net-sales').textContent = `RM ${parseFloat(displaySummary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
             document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-    
             // 计算常客和新客百分比
             const totalCustomers = (displaySummary.total_returning_customers || 0) + (displaySummary.total_new_customers || 0);
             const returningPercentage = totalCustomers > 0 ? ((displaySummary.total_returning_customers || 0) / totalCustomers * 100).toFixed(2) : 0;
             const newPercentage = totalCustomers > 0 ? ((displaySummary.total_new_customers || 0) / totalCustomers * 100).toFixed(2) : 0;
-    
+            
             document.getElementById('total-returning').textContent = `${returningPercentage}%`;
             document.getElementById('total-new').textContent = `${newPercentage}%`;
-    
+            
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
-    
+            
             // 更新图表标题（总计模式下显示特殊标题）
             const chartTitle = document.getElementById('main-chart-title');
             if (currentRestaurant === 'total') {
@@ -1984,11 +1979,11 @@
             } else {
                 chartTitle.textContent = '净销售额趋势';
             }
-    
+            
             // 更新图表
             updateCharts(filteredData);
-    
-            // 更新详细表格 - 使用已过滤的数据
+            
+            // 更新详细表格
             updateDashboardTable(filteredData);
         }
 
