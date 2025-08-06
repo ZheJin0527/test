@@ -2095,7 +2095,7 @@
             }
     
             // 更新KPI卡片 (显示格式与 edit 页面保持一致)
-            document.getElementById('total-sales').textContent = `RM ${parseFloat(displaySummary.total-tender || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('total-sales').textContent = `RM ${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('net-sales').textContent = `RM ${parseFloat(displaySummary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
