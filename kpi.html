@@ -398,16 +398,14 @@
             margin-bottom: 32px;
         }
         
-        /* 确保图表容器样式一致 */
-.main-chart-container,
+        /* 下方图表网格 - 现在只有一个图表 */
 .bottom-charts {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 32px;
+    display: block;
+    margin: 0;
 }
 
-.bottom-charts {
-    margin-bottom: 32px;
+.bottom-charts .card {
+    width: 100%;
 }
 
         /* 工具提示选择器样式 */
