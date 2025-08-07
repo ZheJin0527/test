@@ -1288,11 +1288,17 @@
             const today = new Date();
             const currentYear = today.getFullYear();
             const currentMonth = today.getMonth() + 1; // 月份从0开始，所以+1
-
+    
             // 计算本月第一天和最后一天
             const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
             const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
-
+    
+            // dateRange保持当月第一天和最后一天（用于显示数据）
+            dateRange = {
+                startDate: firstDayOfMonth.toISOString().split('T')[0],
+                endDate: lastDayOfMonth.toISOString().split('T')[0]
+            };
+    
             // 设置开始和结束日期初始值为当月第一天和最后一天
             startDateValue = {
                 year: currentYear,
@@ -1305,24 +1311,18 @@
                 month: currentMonth,
                 day: lastDayOfMonth.getDate()
             };
-
-            // 同时更新 dateRange - 这是关键的修复
-            dateRange = {
-                startDate: firstDayOfMonth.toISOString().split('T')[0],
-                endDate: lastDayOfMonth.toISOString().split('T')[0]
-            };
-
+    
             // 月份选择器初始值为未选择状态（显示"--"）
             monthDateValue = {
                 year: null,
                 month: null
             };
-
+    
             // 更新显示
             updateDateDisplay('start');
             updateDateDisplay('end');
             updateDateDisplay('month');
-
+    
             // 绑定全局点击事件以关闭下拉框
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.enhanced-date-picker')) {
@@ -1942,22 +1942,17 @@
         async function initApp() {
             // 初始化增强日期选择器
             initEnhancedDatePickers();
-    
+            
             // 初始化工具提示选择器
             initTooltipSelector();
-    
+            
             // 初始化工具提示选项到全局
             window.tooltipOptions = tooltipOptions;
-    
+            
             // 初始化主题色
             updateThemeColors(currentRestaurant);
-    
-            // 明确传递日期参数
-            console.log('Loading data with dateRange:', dateRange); // 添加调试信息
-            await loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            });
+            
+            await loadData();
             updateDashboard();
         }
 
