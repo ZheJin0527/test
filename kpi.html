@@ -2767,22 +2767,22 @@
                         labels: chartLabels,
                         datasets: [
                             {
-                                label: 'J1 桌数',
-                                data: comparisonData.restaurants.j1.map(item => item.tablesUsed),
+                                label: 'J1 顾客总数',
+                                data: comparisonData.restaurants.j1.map(item => item.diners),
                                 backgroundColor: restaurantColors.j1.primary,
                                 borderColor: restaurantColors.j1.primary,
                                 borderWidth: 1
                             },
                             {
-                                label: 'J2 桌数',
-                                data: comparisonData.restaurants.j2.map(item => item.tablesUsed),
+                                label: 'J2 顾客总数',
+                                data: comparisonData.restaurants.j2.map(item => item.diners),
                                 backgroundColor: restaurantColors.j2.primary,
                                 borderColor: restaurantColors.j2.primary,
                                 borderWidth: 1
                             },
                             {
-                                label: 'J3 桌数',
-                                data: comparisonData.restaurants.j3.map(item => item.tablesUsed),
+                                label: 'J3 顾客总数',
+                                data: comparisonData.restaurants.j3.map(item => item.diners),
                                 backgroundColor: restaurantColors.j3.primary,
                                 borderColor: restaurantColors.j3.primary,
                                 borderWidth: 1
@@ -2831,7 +2831,7 @@
                                         return '';
                                     },
                                     label: function(context) {
-                                        return context.dataset.label + ': ' + context.parsed.y + '桌';
+                                        return context.dataset.label + ': ' + context.parsed.y + '人';
                                     },
                                     afterBody: function(context) {
                                         if (context.length > 0) {
@@ -2839,14 +2839,16 @@
                                             const j1Tables = comparisonData.restaurants.j1[dataIndex].tablesUsed;
                                             const j2Tables = comparisonData.restaurants.j2[dataIndex].tablesUsed;
                                             const j3Tables = comparisonData.restaurants.j3[dataIndex].tablesUsed;
-                                            const totalTables = j1Tables + j2Tables + j3Tables;
+                                            const totalDiners = comparisonData.restaurants.j1[dataIndex].diners + 
+                                            comparisonData.restaurants.j2[dataIndex].diners + 
+                                            comparisonData.restaurants.j3[dataIndex].diners;
                         
                                             const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
                         
                                             return [
                                                 '',
                                                 `--- ${periodText} ---`,
-                                                `总桌数: ${totalTables}桌`
+                                                `总顾客数: ${totalDiners}人`
                                             ];
                                         }
                                         return [];
@@ -2871,8 +2873,8 @@
                     data: {
                         labels: chartLabels,
                         datasets: [{
-                            label: '桌子数',
-                            data: aggregatedData.map(item => item.tablesUsed),
+                            label: '顾客总数',
+                            data: aggregatedData.map(item => item.diners),
                             backgroundColor: config.colors.primary,
                             borderColor: config.colors.primary,
                             borderWidth: 1
@@ -2906,7 +2908,7 @@
                                         return '';
                                     },
                                     label: function(context) {
-                                        return '桌子数: ' + context.parsed.y + '桌';
+                                        return '顾客总数: ' + context.parsed.y + '人';
                                     },
                                     afterBody: function(context) {
                                         if (context.length > 0) {
