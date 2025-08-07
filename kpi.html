@@ -2694,27 +2694,22 @@
                                             const dataIndex = context[0].dataIndex;
                                             const item = aggregatedData[dataIndex];
                                             const totalCustomers = item.returningCustomers + item.newCustomers;
-                                    
+
                                             const periodText = isMonthlyView ? '当月详情' : '当日详情';
                                             const daysText = isMonthlyView ? `${item.daysCount}天` : '';
-                                    
+
                                             let summary = ['', `--- ${periodText} ---`];
                                             summary.push(`顾客人数: ${item.diners}人`);
-                                            summary.push(`桌子总数: ${item.tablesUsed}桌`);
-                                    
-                                            if (totalCustomers > 0) {
-                                                const returningRate = ((item.returningCustomers / totalCustomers) * 100).toFixed(2);
-                                                const newRate = ((item.newCustomers / totalCustomers) * 100).toFixed(2);
-                                                summary.push(`常客率: ${returningRate}%`);
-                                                summary.push(`新客人率: ${newRate}%`);
-                                            }
-                                    
+                                            // 删除了桌子总数这一行
+        
+                                            // 删除了常客率和新客人率的条件判断和显示
+
                                             summary.push(`人均消费: RM ${item.avgSalesPerDiner.toFixed(2)}`);
-                                    
+
                                             if (isMonthlyView && item.daysCount) {
                                                 summary.push(`营业天数: ${daysText}`);
                                             }
-                                    
+
                                             return summary;
                                         }
                                         return [];
