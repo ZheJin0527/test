@@ -2170,14 +2170,8 @@
                 const comparisonData = prepareMonthlyComparisonData();
         
                 const chartLabels = comparisonData.isMonthly ? 
-                comparisonData.dates : 
-                comparisonData.dates.map(date => {
-                    const dateObj = new Date(date);
-                    if (isNaN(dateObj.getTime())) {
-                        return date; // 如果日期无效，返回原始字符串
-                    }
-                    return `${dateObj.getMonth() + 1}/${dateObj.getDate()}`; // 显示为 月/日 格式
-                });
+                    comparisonData.dates : 
+                    comparisonData.dates.map(date => new Date(date).getDate().toString());
         
                 salesChart = new Chart(ctx1, {
                     type: 'line',
@@ -2744,14 +2738,8 @@
                 const comparisonData = prepareMonthlyComparisonData();
     
                 const chartLabels = comparisonData.isMonthly ? 
-                comparisonData.dates : 
-                comparisonData.dates.map(date => {
-                    const dateObj = new Date(date);
-                    if (isNaN(dateObj.getTime())) {
-                        return date; // 如果日期无效，返回原始字符串
-                    }
-                    return `${dateObj.getMonth() + 1}/${dateObj.getDate()}`; // 显示为 月/日 格式
-                });
+                    comparisonData.dates : 
+                    comparisonData.dates.map(date => new Date(date).getDate().toString());
     
                 tablesChart = new Chart(ctx3, {
                     type: 'bar',
@@ -3148,6 +3136,7 @@ function prepareMonthlyComparisonData() {
             });
         });
         
+        comparisonData.dates = comparisonData.dates.map(date => new Date(date).getDate().toString());
         comparisonData.isMonthly = false;
         
         return comparisonData;
