@@ -2676,34 +2676,6 @@
                                     label: function(context) {
                                         return '用餐人数: ' + context.parsed.y + '人';
                                     },
-                                    afterBody: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const item = aggregatedData[dataIndex];
-                    
-                                            const periodText = isMonthlyView ? '当月详情' : '当日详情';
-                                            const daysText = isMonthlyView ? `${item.daysCount}天` : '';
-                    
-                                            let details = [
-                                                '',
-                                                `--- ${periodText} ---`,
-                                                `用餐人数: ${item.diners}人`,
-                                                `桌子数: ${item.tablesUsed}桌`
-                                            ];
-                    
-                                            if (item.diners > 0 && item.tablesUsed > 0) {
-                                                const avgPerTable = (item.diners / item.tablesUsed).toFixed(1);
-                                                details.push(`平均每桌人数: ${avgPerTable}人`);
-                                            }
-                    
-                                            if (isMonthlyView && item.daysCount) {
-                                                details.push(`营业天数: ${daysText}`);
-                                            }
-                    
-                                            return details;
-                                        }
-                                        return [];
-                                    }
                                 }
                             }
                         }
@@ -2920,14 +2892,6 @@
 
                                             let summary = ['', `--- ${periodText} ---`];
                                             summary.push(`总桌数: ${totalCustomers}桌`);
-                                            summary.push(`用餐人数: ${item.diners}人`);
-
-                                            if (totalCustomers > 0) {
-                                                const returningRate = ((item.returningCustomers / totalCustomers) * 100).toFixed(1);
-                                                const newRate = ((item.newCustomers / totalCustomers) * 100).toFixed(1);
-                                                summary.push(`常客率: ${returningRate}%`);
-                                                summary.push(`新客人率: ${newRate}%`);
-                                            }
 
                                             if (item.diners > 0 && totalCustomers > 0) {
                                                 const avgPerTable = (item.diners / totalCustomers).toFixed(1);
