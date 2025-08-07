@@ -2634,18 +2634,27 @@
                         labels: chartLabels,
                         datasets: [
                             {
-                                label: '常客',
-                                data: aggregatedData.map(item => item.returningCustomers),
+                                label: '用餐人数',
+                                data: aggregatedData.map(item => item.diners),
                                 backgroundColor: config.colors.primary,
                                 borderColor: config.colors.primary,
-                                stack: 'customers'
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: '常客',
+                                data: aggregatedData.map(item => item.returningCustomers),
+                                backgroundColor: config.colors.secondary,
+                                borderColor: config.colors.secondary,
+                                stack: 'customers',
+                                yAxisID: 'y1'
                             },
                             {
                                 label: '新客人',
                                 data: aggregatedData.map(item => item.newCustomers),
-                                backgroundColor: config.colors.secondary,
-                                borderColor: config.colors.secondary,
-                                stack: 'customers'
+                                backgroundColor: '#f59e0b',
+                                borderColor: '#f59e0b',
+                                stack: 'customers',
+                                yAxisID: 'y1'
                             }
                         ]
                     },
@@ -2657,14 +2666,30 @@
                             intersect: false
                         },
                         scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: '顾客数量'
-                                }
-                            }
-                        },
+    y: {
+        type: 'linear',
+        display: true,
+        position: 'left',
+        beginAtZero: true,
+        title: {
+            display: true,
+            text: '用餐人数'
+        }
+    },
+    y1: {
+        type: 'linear',
+        display: true,
+        position: 'right',
+        beginAtZero: true,
+        title: {
+            display: true,
+            text: '顾客数量'
+        },
+        grid: {
+            drawOnChartArea: false,
+        },
+    }
+},
                         plugins: {
                             tooltip: {
                                 callbacks: {
