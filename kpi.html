@@ -398,21 +398,12 @@
             margin-bottom: 32px;
         }
         
-        /* 下方图表网格 - 现在有两个图表并排 */
-.bottom-charts {
-    display: grid;
+        /* 下方图表网格 - 现在只有一个图表 */
+        .bottom-charts {
+    display: flex;
+            flex-direction: column;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
-    width: 100%;
-    max-width: none;
-}
-
-/* 确保图表容器与主图表宽度一致 */
-.main-chart-container,
-.bottom-charts,
-.card:has(#dashboard-table) {
-    width: 100%;
-    max-width: none;
 }
 
         /* 工具提示选择器样式 */
