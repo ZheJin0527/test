@@ -2190,19 +2190,49 @@
                                 label: 'J2 净销售额',
                                 data: comparisonData.restaurants.j2.map(item => item.netSales),
                                 borderColor: restaurantColors.j2.primary,
-                                backgroundColor: restaurantColors.j2.primary,
-                                tension: 0.1,
+                                backgroundColor: function(context) {
+                                    const chart = context.chart;
+                                    const {ctx, chartArea} = chart;
+        
+                                    if (!chartArea) {
+                                        return null;
+                                    }
+        
+                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                    gradient.addColorStop(0, 'rgba(217, 119, 6, 0.3)');
+                                    gradient.addColorStop(1, 'rgba(217, 119, 6, 0.05)');
+        
+                                    return gradient;
+                                },
+                                fill: true,
+                                tension: 0.4,
                                 borderWidth: 2,
-                                fill: false
+                                pointRadius: 0,
+                                pointHoverRadius: 6
                             },
                             {
                                 label: 'J3 净销售额',
                                 data: comparisonData.restaurants.j3.map(item => item.netSales),
                                 borderColor: restaurantColors.j3.primary,
-                                backgroundColor: restaurantColors.j3.primary,
-                                tension: 0.1,
+                                backgroundColor: function(context) {
+                                    const chart = context.chart;
+                                    const {ctx, chartArea} = chart;
+        
+                                    if (!chartArea) {
+                                        return null;
+                                    }
+        
+                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                    gradient.addColorStop(0, 'rgba(220, 38, 38, 0.3)');
+                                    gradient.addColorStop(1, 'rgba(220, 38, 38, 0.05)');
+        
+                                    return gradient;
+                                },
+                                fill: true,
+                                tension: 0.4,
                                 borderWidth: 2,
-                                fill: false
+                                pointRadius: 0,
+                                pointHoverRadius: 6
                             }
                         ]
                     },
