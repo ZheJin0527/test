@@ -2020,9 +2020,17 @@
         function getFilteredKPIData() {
             const kpiData = convertToKPIFormat(actualData);
             return kpiData.filter(item => {
-                const itemDate = new Date(item.date);
-                const start = new Date(dateRange.startDate);
-                const end = new Date(dateRange.endDate);
+                const itemDate = new Date(item.date + 'T00:00:00'); // 添加时间部分避免时区问题
+                const start = new Date(dateRange.startDate + 'T00:00:00');
+                const end = new Date(dateRange.endDate + 'T23:59:59'); // 包含结束日期的整天
+        
+                console.log('Filtering:', {
+                    itemDate: item.date,
+                    startDate: dateRange.startDate,
+                    endDate: dateRange.endDate,
+                    included: itemDate >= start && itemDate <= end
+                });
+        
                 return itemDate >= start && itemDate <= end;
             }).sort((a, b) => new Date(a.date) - new Date(b.date));
         }
@@ -2101,9 +2109,9 @@
             
             const sortedDates = Array.from(dateSet).sort();
             const filteredDates = sortedDates.filter(date => {
-                const itemDate = new Date(date);
-                const start = new Date(dateRange.startDate);
-                const end = new Date(dateRange.endDate);
+                const itemDate = new Date(date + 'T00:00:00');
+                const start = new Date(dateRange.startDate + 'T00:00:00');
+                const end = new Date(dateRange.endDate + 'T23:59:59');
                 return itemDate >= start && itemDate <= end;
             });
             
@@ -3058,9 +3066,9 @@ function prepareMonthlyComparisonData() {
     
     const sortedDates = Array.from(dateSet).sort();
     const filteredDates = sortedDates.filter(date => {
-        const itemDate = new Date(date);
-        const start = new Date(dateRange.startDate);
-        const end = new Date(dateRange.endDate);
+        const itemDate = new Date(date + 'T00:00:00');
+        const start = new Date(dateRange.startDate + 'T00:00:00');
+        const end = new Date(dateRange.endDate + 'T23:59:59');
         return itemDate >= start && itemDate <= end;
     });
     
