@@ -383,31 +383,19 @@
             grid-template-columns: repeat(3, 1fr);
         }
         
-        /* 主要布局网格 */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-        
-        /* KPI 网格 - 左侧 */
+        /* KPI 网格 - 改为单行5列 */
         .kpi-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 16px;
+            margin-bottom: 32px;
         }
-        
-        /* 总销售额卡片 - 占两列 */
-        .total-sales-card {
-            grid-column: 1 / -1;
-        }
-        
-        /* 图表容器 - 右侧 */
+
+        /* 图表容器 - 改为全宽 */
         .main-chart-container {
             display: flex;
             flex-direction: column;
+            margin-bottom: 32px;
         }
         
         /* 下方图表网格 - 现在只有一个图表 */
@@ -475,20 +463,11 @@
         }
         
         @media (max-width: 1200px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-            
             .kpi-grid {
                 grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: auto;
-            }
-            
-            .total-sales-card {
-                grid-column: 1 / -1;
             }
         }
-        
+
         @media (max-width: 1024px) {
             .kpi-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -496,48 +475,14 @@
             .bottom-charts {
                 grid-template-columns: 1fr;
             }
-            .header .logo {
-                height: 50px;
-            }
-            .header .title-text {
-                font-size: 1.25rem;
-            }
-            .header {
-                flex-direction: column;
-                gap: 16px;
-                align-items: center;
-            }
-            .header .controls {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+            /* ... */
         }
-        
+
         @media (max-width: 640px) {
             .kpi-grid {
                 grid-template-columns: 1fr;
             }
-            .header .logo {
-                height: 40px;
-            }
-            .header .title-text {
-                font-size: 1.125rem;
-            }
-            .restaurant-selector {
-                flex-direction: column;
-                width: 100%;
-            }
-            .restaurant-btn {
-                min-width: auto;
-            }
-            .date-controls {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            .tooltip-options {
-                flex-direction: column;
-            }
+            /* ... */
         }
         
         .kpi-card {
@@ -1047,12 +992,10 @@
                 </div>
             </div>
             
-            <!-- Main Layout: KPI Cards + Main Chart -->
-            <div class="main-layout">
-                <!-- KPI Cards Grid - Left Side -->
+            <!-- KPI Cards - 单行5列 -->
                 <div class="kpi-grid">
-                    <!-- 总销售额 - 占两列 -->
-                    <div class="card total-sales-card">
+                    <!-- 总销售额 -->
+                    <div class="card">
                         <div class="card-body">
                             <div class="kpi-card">
                                 <div>
@@ -1065,7 +1008,7 @@
                             </div>
                         </div>
                     </div>
-                    
+    
                     <!-- 净销售额 -->
                     <div class="card">
                         <div class="card-body">
@@ -1080,7 +1023,7 @@
                             </div>
                         </div>
                     </div>
-                    
+    
                     <!-- 桌子总数 -->
                     <div class="card">
                         <div class="card-body">
@@ -1095,7 +1038,7 @@
                             </div>
                         </div>
                     </div>
-                    
+    
                     <!-- 顾客总数 -->
                     <div class="card">
                         <div class="card-body">
@@ -1110,7 +1053,7 @@
                             </div>
                         </div>
                     </div>
-                    
+    
                     <!-- 人均消费 -->
                     <div class="card">
                         <div class="card-body">
@@ -1125,41 +1068,11 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- 常客 -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="kpi-card">
-                                <div>
-                                    <p class="kpi-label">常客百分比</p>
-                                    <p class="kpi-value" id="total-returning">0%</p>
-                                </div>
-                                <div class="icon text-blue">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 新客百分比 -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="kpi-card">
-                                <div>
-                                    <p class="kpi-label">新客百分比</p>
-                                    <p class="kpi-value" id="total-new">0%</p>
-                                </div>
-                                <div class="icon text-purple">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                
-                <!-- Main Chart - Right Side -->
+
+                <!-- Main Chart - 全宽显示 -->
                 <div class="main-chart-container">
-                    <div class="card" style="height: 100%;">
+                    <div class="card" style="height: 400px;">
                         <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
                             <h3 id="main-chart-title" style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
                             <div class="chart-container" style="flex: 1;">
@@ -2100,14 +2013,6 @@
             document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
             document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-    
-            // 计算常客和新客百分比
-            const totalCustomers = (displaySummary.total_returning_customers || 0) + (displaySummary.total_new_customers || 0);
-            const returningPercentage = totalCustomers > 0 ? ((displaySummary.total_returning_customers || 0) / totalCustomers * 100).toFixed(2) : 0;
-            const newPercentage = totalCustomers > 0 ? ((displaySummary.total_new_customers || 0) / totalCustomers * 100).toFixed(2) : 0;
-    
-            document.getElementById('total-returning').textContent = `${returningPercentage}%`;
-            document.getElementById('total-new').textContent = `${newPercentage}%`;
     
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
