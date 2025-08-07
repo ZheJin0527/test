@@ -768,14 +768,6 @@
             height: 300px;
             width: 100%;
         }
-
-        /* 渐变背景样式 */
-        .mountain-gradient {
-            background: linear-gradient(180deg, 
-                rgba(88, 62, 4, 0.3) 0%, 
-                rgba(88, 62, 4, 0.1) 50%, 
-                rgba(88, 62, 4, 0.05) 100%);
-        }
         
         .text-green {
             color: #583e04;
@@ -2166,25 +2158,10 @@
                                 label: 'J1 净销售额',
                                 data: comparisonData.restaurants.j1.map(item => item.netSales),
                                 borderColor: restaurantColors.j1.primary,
-                                backgroundColor: function(context) {
-                                    const chart = context.chart;
-                                    const {ctx, chartArea} = chart;
-            
-                                    if (!chartArea) {
-                                        return null;
-                                    }
-            
-                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                                    gradient.addColorStop(0, 'rgba(88, 62, 4, 0.3)');
-                                    gradient.addColorStop(1, 'rgba(88, 62, 4, 0.05)');
-            
-                                    return gradient;
-                                },
-                                fill: true,
-                                tension: 0.4,
+                                backgroundColor: restaurantColors.j1.primary,
+                                tension: 0.1,
                                 borderWidth: 2,
-                                pointRadius: 0,
-                                pointHoverRadius: 6
+                                fill: false
                             },
                             {
                                 label: 'J2 净销售额',
@@ -2488,27 +2465,9 @@
                             label: '净销售额',
                             data: aggregatedData.map(item => item.netSales),
                             borderColor: config.colors.primary,
-                            backgroundColor: function(context) {
-                                const chart = context.chart;
-                                const {ctx, chartArea} = chart;
-                
-                                if (!chartArea) {
-                                    return null;
-                                }
-                
-                                const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                                gradient.addColorStop(0, 'rgba(88, 62, 4, 0.4)');
-                                gradient.addColorStop(0.3, 'rgba(88, 62, 4, 0.2)');
-                                gradient.addColorStop(0.7, 'rgba(88, 62, 4, 0.1)');
-                                gradient.addColorStop(1, 'rgba(88, 62, 4, 0.02)');
-                
-                                return gradient;
-                            },
-                            fill: true,
-                            tension: 0.4,
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            pointHoverRadius: 6
+                            backgroundColor: config.colors.primary,
+                            tension: 0.1,
+                            borderWidth: 2
                         }]
                     },
                     options: {
