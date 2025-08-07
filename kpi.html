@@ -2046,11 +2046,11 @@
             }
     
             // 更新KPI卡片 (显示格式与 edit 页面保持一致)
-            document.getElementById('total-sales').textContent = `RM ${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('net-sales').textContent = `RM ${parseFloat(displaySummary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('total-sales').textContent = `${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('net-sales').textContent = `${parseFloat(displaySummary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
-            document.getElementById('avg-per-diner').textContent = `RM ${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('avg-per-diner').textContent = `${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
     
             // 更新日期信息
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
