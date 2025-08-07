@@ -488,22 +488,24 @@
         .kpi-card {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 12px;
         }
         
         .kpi-card .icon {
-            width: 32px;
-            height: 32px;
-            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
         
         .kpi-value {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: bold;
             color: #111827;
+            margin-bottom: 2px;
         }
         
         .kpi-label {
@@ -1006,12 +1008,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="kpi-card">
+                                <div class="icon text-green">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
                                 <div>
                                     <p class="kpi-label">总销售额</p>
                                     <p class="kpi-value" id="total-sales">RM 0</p>
-                                </div>
-                                <div class="icon text-green">
-                                    <i class="fas fa-dollar-sign"></i>
                                 </div>
                             </div>
                         </div>
