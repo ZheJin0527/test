@@ -398,23 +398,17 @@
             margin-bottom: 32px;
         }
         
-        /* 下方图表容器 - 与上面图表保持一致的样式 */
+        /* 下方图表网格 - 现在只有一个图表 */
         .bottom-charts {
-            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            max-width: 100%;
+            margin: 0 auto;
         }
 
         .bottom-charts .card {
-            height: 400px;
-        }
-
-        .bottom-charts .card-body {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .bottom-charts .chart-container {
-            flex: 1;
+            max-width: 100%;
         }
 
         /* 工具提示选择器样式 */
@@ -1097,16 +1091,29 @@
             
             <!-- Bottom Charts - 合并后的图表 -->
             <div class="bottom-charts" style="margin-bottom: 32px;">
-                <div class="card" style="height: 400px;">
-                    <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
+                <div class="card">
+                    <div class="card-body">
                         <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数与顾客类型分析</h3>
-            
+                        
                         <!-- 工具提示选择器 - 只在总计模式下显示 -->
                         <div class="tooltip-selector" id="tooltip-selector">
-                            <!-- ... -->
+                            <div class="tooltip-selector-label">
+                                <i class="fas fa-info-circle" style="color: #3b82f6;"></i>
+                                鼠标悬停显示选项:
+                            </div>
+                            <div class="tooltip-options">
+                                <label class="tooltip-option active">
+                                    <input type="checkbox" value="summary" checked>
+                                    当日汇总
+                                </label>
+                                <label class="tooltip-option">
+                                    <input type="checkbox" value="details">
+                                    各店详情
+                                </label>
+                            </div>
                         </div>
-            
-                        <div class="chart-container" style="flex: 1;">
+                        
+                        <div class="chart-container">
                             <canvas id="combined-chart"></canvas>
                         </div>
                     </div>
