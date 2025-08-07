@@ -1171,8 +1171,8 @@
         let allRestaurantsData = {}; // 存储所有餐厅的数据
         let currentRestaurant = 'j1';
         let dateRange = {
-            startDate: getCurrentMonthFirstDay(),
-            endDate: getCurrentMonthLastDay()
+            startDate: null,
+            endDate: null
         };
         
         let salesChart = null;
@@ -1287,16 +1287,16 @@
             // 获取当前日期
             const today = new Date();
             const currentYear = today.getFullYear();
-            const currentMonth = today.getMonth() + 1; // 月份从0开始，所以+1
-    
+            const currentMonth = today.getMonth() + 1;
+
             // 计算本月第一天和最后一天
             const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
             const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
-    
-            // dateRange保持当月第一天和最后一天（用于显示数据）
+
+            // 正确设置dateRange为当月第一天和最后一天
             dateRange = {
-                startDate: firstDayOfMonth.toISOString().split('T')[0],
-                endDate: lastDayOfMonth.toISOString().split('T')[0]
+                startDate: `${currentYear}-${String(currentMonth).padStart(2, '0')}-01`,
+                endDate: `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(lastDayOfMonth.getDate()).padStart(2, '0')}`
             };
     
             // 设置开始和结束日期初始值为当月第一天和最后一天
@@ -1752,12 +1752,16 @@
         async function loadAllRestaurantsData(params = {}) {
             try {
                 const restaurants = ['j1', 'j2', 'j3'];
+                // 确保有有效的日期参数
+                const startDate = params.start_date || dateRange.startDate;
+                const endDate = params.end_date || dateRange.endDate;
+        
                 const promises = restaurants.map(async (restaurant) => {
                     const queryParams = new URLSearchParams({
                         action: 'list',
                         restaurant: restaurant,
-                        start_date: params.start_date || dateRange.startDate,
-                        end_date: params.end_date || dateRange.endDate
+                        start_date: startDate,
+                        end_date: endDate
                     });
             
                     try {
@@ -1840,17 +1844,21 @@
         // 数据获取
         async function loadData(params = {}) {
             try {
+                // 确保有有效的日期范围
+                const startDate = params.start_date || dateRange.startDate;
+                const endDate = params.end_date || dateRange.endDate;
+        
                 if (currentRestaurant === 'total') {
                     // 加载所有餐厅数据
-                    await loadAllRestaurantsData(params);
+                    await loadAllRestaurantsData({ start_date: startDate, end_date: endDate });
                     actualData = mergeAllRestaurantsData();
                 } else {
                     // 加载单个餐厅数据
                     const queryParams = new URLSearchParams({
                         action: 'list',
                         restaurant: currentRestaurant,
-                        start_date: params.start_date || dateRange.startDate,
-                        end_date: params.end_date || dateRange.endDate
+                        start_date: startDate,
+                        end_date: endDate
                     });
             
                     const result = await apiCall(`?${queryParams}`);
@@ -1940,8 +1948,12 @@
 
         // 初始化应用
         async function initApp() {
+            console.log('开始初始化应用...');
+    
             // 初始化增强日期选择器
             initEnhancedDatePickers();
+    
+            console.log('初始化后的日期范围:', dateRange);
             
             // 初始化工具提示选择器
             initTooltipSelector();

@@ -105,19 +105,19 @@ function handleGet() {
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
-    
-            // 如果没有提供日期范围，使用当前月份
+
+            // 如果没有提供日期范围，默认使用当月
             if (!$startDate && !$endDate && !$searchDate) {
                 $currentYear = date('Y');
                 $currentMonth = date('m');
-                $startDate = $currentYear . '-' . $currentMonth . '-01';
+                $startDate = "$currentYear-$currentMonth-01";
                 $endDate = date('Y-m-t'); // 当月最后一天
             }
-    
+
             // 使用数据表而不是视图表，确保能获取到 adj_amount 字段
             $sql = "SELECT * FROM " . $config['data_table'] . " WHERE 1=1";
             $params = [];
-    
+            
             if ($searchDate) {
                 $sql .= " AND date = ?";
                 $params[] = $searchDate;
@@ -140,15 +140,7 @@ function handleGet() {
             // 获取汇总数据
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
-    
-            // 如果没有提供日期范围，使用当前月份
-            if (!$startDate && !$endDate) {
-                $currentYear = date('Y');
-                $currentMonth = date('m');
-                $startDate = $currentYear . '-' . $currentMonth . '-01';
-                $endDate = date('Y-m-t'); // 当月最后一天
-            }
-    
+            
             $sql = "SELECT 
                         COUNT(*) as total_days,
                         SUM(gross_sales) as total_gross_sales,
@@ -164,7 +156,7 @@ function handleGet() {
                         AVG(CASE WHEN diners > 0 THEN gross_sales / diners ELSE 0 END) as avg_per_diner
                     FROM " . $config['data_table'] . " WHERE 1=1";
             $params = [];
-    
+            
             if ($startDate && $endDate) {
                 $sql .= " AND date BETWEEN ? AND ?";
                 $params[] = $startDate;
