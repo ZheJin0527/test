@@ -2734,9 +2734,17 @@
             // 更新桌子图表标题
             const tablesChartTitle = document.getElementById('tables-chart-title');
             if (currentRestaurant === 'total') {
-                tablesChartTitle.textContent = '桌子使用分析 (三店合计)';
+                tablesChartTitle.textContent = '用餐人数与顾客类型分析 (三店合计)';
             } else {
-                tablesChartTitle.textContent = '桌子使用分析';
+                tablesChartTitle.textContent = '用餐人数与顾客类型分析';
+            }
+
+            // 更新combinedChart标题
+            const combinedChartTitle = document.getElementById('combined-chart-title');
+            if (currentRestaurant === 'total') {
+                combinedChartTitle.textContent = '桌子使用分析 (三店合计)';
+            } else {
+                combinedChartTitle.textContent = '桌子使用分析';
             }
 
             if (currentRestaurant === 'total') {
