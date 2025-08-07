@@ -1171,8 +1171,8 @@
         let allRestaurantsData = {}; // 存储所有餐厅的数据
         let currentRestaurant = 'j1';
         let dateRange = {
-            startDate: null,
-            endDate: null
+            startDate: getCurrentMonthFirstDay(),
+            endDate: getCurrentMonthLastDay()
         };
         
         let salesChart = null;
@@ -1246,9 +1246,7 @@
         // 新增：获取当前月份的第一天
         function getCurrentMonthFirstDay() {
             const date = new Date();
-            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-            console.log('Current month first day:', firstDay.toISOString().split('T')[0]);
-            return firstDay.toISOString().split('T')[0];
+            return new Date(date.getFullYear(), date.getMonth(), 1).toISOString().split('T')[0];
         }
 
         // 新增：获取当前月份的最后一天
@@ -1256,7 +1254,6 @@
             const date = new Date();
             // 获取下个月的第0天，即本月最后一天
             const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-            console.log('Current month last day:', lastDay.toISOString().split('T')[0]);
             return lastDay.toISOString().split('T')[0];
         }
 
@@ -1301,11 +1298,6 @@
                 startDate: firstDayOfMonth.toISOString().split('T')[0],
                 endDate: lastDayOfMonth.toISOString().split('T')[0]
             };
-
-            // 添加调试日志
-            console.log('Initialized dateRange:', dateRange);
-            console.log('First day of month:', firstDayOfMonth);
-            console.log('Last day of month:', lastDayOfMonth);
     
             // 设置开始和结束日期初始值为当月第一天和最后一天
             startDateValue = {
@@ -1330,11 +1322,6 @@
             updateDateDisplay('start');
             updateDateDisplay('end');
             updateDateDisplay('month');
-
-            dateRange = {
-                startDate: firstDayOfMonth.toISOString().split('T')[0],
-                endDate: lastDayOfMonth.toISOString().split('T')[0]
-            };
     
             // 绑定全局点击事件以关闭下拉框
             document.addEventListener('click', function(e) {
@@ -1708,10 +1695,7 @@
             updateThemeColors(restaurant);
             
             // 重新加载数据
-            loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            }).then(() => {
+            loadData().then(() => {
                 updateDashboard();
             });
         }
@@ -1855,19 +1839,6 @@
 
         // 数据获取
         async function loadData(params = {}) {
-            // 添加调试日志
-            console.log('Loading data with params:', params);
-            console.log('Current dateRange:', dateRange);
-    
-            // 确定实际使用的日期范围
-            const actualStartDate = params.start_date || dateRange.startDate;
-            const actualEndDate = params.end_date || dateRange.endDate;
-    
-            console.log('Actual date range being used:', {
-                startDate: actualStartDate,
-                endDate: actualEndDate
-            });
-    
             try {
                 if (currentRestaurant === 'total') {
                     // 加载所有餐厅数据
@@ -1981,10 +1952,7 @@
             // 初始化主题色
             updateThemeColors(currentRestaurant);
             
-            await loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            });
+            await loadData();
             updateDashboard();
         }
 
@@ -2020,17 +1988,9 @@
         function getFilteredKPIData() {
             const kpiData = convertToKPIFormat(actualData);
             return kpiData.filter(item => {
-                const itemDate = new Date(item.date + 'T00:00:00'); // 添加时间部分避免时区问题
-                const start = new Date(dateRange.startDate + 'T00:00:00');
-                const end = new Date(dateRange.endDate + 'T23:59:59'); // 包含结束日期的整天
-        
-                console.log('Filtering:', {
-                    itemDate: item.date,
-                    startDate: dateRange.startDate,
-                    endDate: dateRange.endDate,
-                    included: itemDate >= start && itemDate <= end
-                });
-        
+                const itemDate = new Date(item.date);
+                const start = new Date(dateRange.startDate);
+                const end = new Date(dateRange.endDate);
                 return itemDate >= start && itemDate <= end;
             }).sort((a, b) => new Date(a.date) - new Date(b.date));
         }
@@ -2109,9 +2069,9 @@
             
             const sortedDates = Array.from(dateSet).sort();
             const filteredDates = sortedDates.filter(date => {
-                const itemDate = new Date(date + 'T00:00:00');
-                const start = new Date(dateRange.startDate + 'T00:00:00');
-                const end = new Date(dateRange.endDate + 'T23:59:59');
+                const itemDate = new Date(date);
+                const start = new Date(dateRange.startDate);
+                const end = new Date(dateRange.endDate);
                 return itemDate >= start && itemDate <= end;
             });
             
@@ -3066,9 +3026,9 @@ function prepareMonthlyComparisonData() {
     
     const sortedDates = Array.from(dateSet).sort();
     const filteredDates = sortedDates.filter(date => {
-        const itemDate = new Date(date + 'T00:00:00');
-        const start = new Date(dateRange.startDate + 'T00:00:00');
-        const end = new Date(dateRange.endDate + 'T23:59:59');
+        const itemDate = new Date(date);
+        const start = new Date(dateRange.startDate);
+        const end = new Date(dateRange.endDate);
         return itemDate >= start && itemDate <= end;
     });
     
