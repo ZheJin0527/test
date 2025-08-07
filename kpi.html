@@ -398,18 +398,17 @@
             margin-bottom: 32px;
         }
         
-        /* 下方图表网格 - 现在只有一个图表 */
-        .bottom-charts {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            max-width: 100%;
-            margin: 0 auto;
-        }
+        /* 确保图表容器样式一致 */
+.main-chart-container,
+.bottom-charts {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+}
 
-        .bottom-charts .card {
-            max-width: 100%;
-        }
+.bottom-charts {
+    margin-bottom: 32px;
+}
 
         /* 工具提示选择器样式 */
         .tooltip-selector {
