@@ -391,37 +391,18 @@
             margin-bottom: 32px;
         }
 
-        /* 统一宽度容器 - 与主图表宽度一致 */
-.charts-and-table-container {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-/* 确保主图表容器宽度作为基准 */
-.main-chart-container {
-    width: 100%;
-    max-width: 100%;
-}
-
-/* 下方图表保持并排布局，但宽度受父容器限制 */
-.bottom-charts {
+        /* 图表容器 - 改为全宽 */
+        .main-chart-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 32px;
+        }
+        
+        /* 下方图表网格 - 现在只有一个图表 */
+        .bottom-charts {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
-    width: 100%;
-}
-
-/* 详细数据表格与图表保持相同宽度 */
-.charts-and-table-container .card {
-    width: 100%;
-}
-
-/* 响应式调整 */
-@media (max-width: 1024px) {
-    .bottom-charts {
-        grid-template-columns: 1fr;
-    }
 }
 
         /* 工具提示选择器样式 */
@@ -1103,8 +1084,6 @@
             </div>
             
             <!-- Bottom Charts - 合并后的图表 -->
-            <!-- Bottom Charts - 桌子数图表和顾客类型分析 -->
-             <div class="charts-and-table-container">
 <div class="bottom-charts" style="margin-bottom: 32px;">
     <!-- 桌子数图表 -->
     <div class="card">
@@ -1169,7 +1148,6 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-                </div>
                 </div>
             </div>
         </div>
