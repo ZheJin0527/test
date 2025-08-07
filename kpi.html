@@ -1322,6 +1322,11 @@
             updateDateDisplay('start');
             updateDateDisplay('end');
             updateDateDisplay('month');
+
+            dateRange = {
+                startDate: firstDayOfMonth.toISOString().split('T')[0],
+                endDate: lastDayOfMonth.toISOString().split('T')[0]
+            };
     
             // 绑定全局点击事件以关闭下拉框
             document.addEventListener('click', function(e) {
@@ -1695,7 +1700,10 @@
             updateThemeColors(restaurant);
             
             // 重新加载数据
-            loadData().then(() => {
+            loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            }).then(() => {
                 updateDashboard();
             });
         }
@@ -1839,6 +1847,10 @@
 
         // 数据获取
         async function loadData(params = {}) {
+            // 添加调试日志
+            console.log('Loading data with params:', params);
+            console.log('Current dateRange:', dateRange);
+    
             try {
                 if (currentRestaurant === 'total') {
                     // 加载所有餐厅数据
@@ -1952,7 +1964,10 @@
             // 初始化主题色
             updateThemeColors(currentRestaurant);
             
-            await loadData();
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
             updateDashboard();
         }
 
