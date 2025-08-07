@@ -1799,6 +1799,7 @@
                             date: date,
                             gross_sales: 0,
                             net_sales: 0,
+                            tender_amount: 0,
                             discounts: 0,
                             tax: 0,
                             service_fee: 0,
@@ -1813,10 +1814,12 @@
 
                     const existing = dateMap.get(date);
                     const grossSales = parseFloat(item.gross_sales) || 0;
+                    const tenderAmount = parseFloat(item.tender_amount) || 0;
                     const discounts = parseFloat(item.discounts) || 0;
                     const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
 
                     existing.gross_sales += grossSales;
+                    existing.tender_amount += tenderAmount;
                     existing.net_sales += netSales;
                     existing.discounts += discounts;
                     existing.tax += parseFloat(item.tax) || 0;
@@ -1968,7 +1971,7 @@
 
                 return {
                     date: item.date,
-                    totalSales: grossSales,
+                    totalSales: parseFloat(item.tender_amount) || 0,
                     netSales: netSales,
                     diners: diners,
                     tablesUsed: parseInt(item.tables_used) || 0,
@@ -2001,7 +2004,7 @@
             let displaySummary;
             if (filteredData.length > 0) {
                 displaySummary = {
-                    total_gross_sales: filteredData.reduce((sum, item) => sum + item.totalSales, 0),
+                    total_gross_sales: filteredData.reduce((sum, item) => sum + item.totalSales, 0), // 这里的 totalSales 现在是 tender_amount
                     total_net_sales: filteredData.reduce((sum, item) => sum + item.netSales, 0),
                     total_tables: filteredData.reduce((sum, item) => sum + item.tablesUsed, 0),
                     total_diners: filteredData.reduce((sum, item) => sum + item.diners, 0),
@@ -2086,6 +2089,7 @@
                         const grossSales = parseFloat(dayData.gross_sales) || 0;
                         const discounts = parseFloat(dayData.discounts) || 0;
                         const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
+                        const tenderAmount = parseFloat(dayData.tender_amount) || 0;
     
                         return {
                             totalSales: grossSales,
@@ -3102,6 +3106,7 @@ function prepareMonthlyComparisonData() {
                     const grossSales = parseFloat(dayData.gross_sales) || 0;
                     const discounts = parseFloat(dayData.discounts) || 0;
                     const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
+                    const tenderAmount = parseFloat(dayData.tender_amount) || 0;
 
                     return {
                         totalSales: grossSales,
