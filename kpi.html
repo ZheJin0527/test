@@ -399,14 +399,11 @@
         }
         
         /* 下方图表网格 - 现在只有一个图表 */
-.bottom-charts {
-    display: block;
-    margin: 0;
-}
-
-.bottom-charts .card {
-    width: 100%;
-}
+        .bottom-charts {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 32px;
+        }
 
         /* 工具提示选择器样式 */
         .tooltip-selector {
@@ -1087,11 +1084,11 @@
             </div>
             
             <!-- Bottom Charts - 合并后的图表 -->
-            <div class="bottom-charts" style="margin-bottom: 32px;">
-                <div class="card">
-                    <div class="card-body">
+            <div class="main-chart-container">
+                <div class="card" style="height: 400px;">
+                    <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
                         <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数与顾客类型分析</h3>
-                        
+            
                         <!-- 工具提示选择器 - 只在总计模式下显示 -->
                         <div class="tooltip-selector" id="tooltip-selector">
                             <div class="tooltip-selector-label">
@@ -1109,8 +1106,8 @@
                                 </label>
                             </div>
                         </div>
-                        
-                        <div class="chart-container">
+            
+                        <div class="chart-container" style="flex: 1;">
                             <canvas id="combined-chart"></canvas>
                         </div>
                     </div>
