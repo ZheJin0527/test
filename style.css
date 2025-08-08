@@ -6226,17 +6226,11 @@ form select {
     border-radius: 1px;
 }
 
-/* 收起状态的动画效果 */
-.sidebar-menu-hamburger.collapsed span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.sidebar-menu-hamburger.collapsed span:nth-child(2) {
-    opacity: 0;
-}
-
-.sidebar-menu-hamburger.collapsed span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+/* 收起状态保持三条横线 */
+.sidebar-menu-hamburger.collapsed span {
+    /* 保持原始状态，不做任何变换 */
+    transform: none;
+    opacity: 1;
 }
 
 /* 提高选择器权重 */
@@ -6302,26 +6296,4 @@ form select {
     padding: 15px 12px !important;
     flex-direction: column;
     gap: 10px;
-    position: relative;
-    z-index: 1001;
-}
-
-/* 收起状态下的hamburger按钮调整 */
-.informationmenu.collapsed .sidebar-menu-hamburger {
-    width: 35px !important;
-    height: 35px !important;
-    background-color: rgba(240, 240, 240, 0.8);
-    border-radius: 6px;
-    position: relative;
-    z-index: 1002;
-}
-
-.informationmenu.collapsed .sidebar-menu-hamburger span {
-    width: 16px !important;
-    height: 2px !important;
-    background-color: #333 !important;
-}
-
-.informationmenu.collapsed .sidebar-menu-hamburger:hover {
-    background-color: rgba(240, 240, 240, 1) !important;
 }
