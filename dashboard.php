@@ -274,11 +274,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="help-items">
+                <div class="informationmenu-section-title" data-target="resource-request-items">
                     资源申请
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="help-items">
+                <div class="dropdown-menu-items" id="resource-request-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             资源请求
@@ -296,11 +296,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="help-items">
+                <div class="informationmenu-section-title" data-target="vacation-items">
                     假期申请
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="help-items">
+                <div class="dropdown-menu-items" id="vacation-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             申请请求
@@ -318,11 +318,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="help-items">
+                <div class="informationmenu-section-title" data-target="account-items">
                     我的账号
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="help-items">
+                <div class="dropdown-menu-items" id="account-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             个人资料
@@ -347,11 +347,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="help-items">
+                <div class="informationmenu-section-title" data-target="system-items">
                     系统设置
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="help-items">
+                <div class="dropdown-menu-items" id="system-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             语言
