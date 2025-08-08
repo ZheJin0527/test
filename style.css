@@ -6252,6 +6252,7 @@ form select {
 .informationmenu.collapsed .logout-btn {
     opacity: 0 !important;
     visibility: hidden !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease !important;
 }
 
 .informationmenu.collapsed .informationmenu-section-title {
@@ -6282,4 +6283,23 @@ form select {
 /* 确保过渡效果 */
 .informationmenu {
     transition: width 0.3s ease !important;
+}
+
+/* 收起状态下的头像样式 */
+.informationmenu.collapsed .user-avatar-dropdown {
+    align-items: center;
+    justify-content: center;
+}
+
+.informationmenu.collapsed .user-avatar {
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 18px !important;
+    line-height: 33px !important;
+}
+
+.informationmenu.collapsed .informationmenu-header {
+    padding: 15px 12px !important;
+    flex-direction: column;
+    gap: 10px;
 }
