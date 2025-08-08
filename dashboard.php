@@ -152,54 +152,63 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="hr-items">
-                    人事与资源管理
+                    子公司
                     <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="hr-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            假期管理
+                            J1
                             <span class="informationmenu-arrow">›</span>
                         </a>
                         <div class="submenu">
                             <div class="submenu-header">
-                                <div class="submenu-title">假期管理</div>
+                                <div class="submenu-title">J1</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">申请请求</a>
-                                <a href="#" class="submenu-item">假期报表</a>
+                                <a href="#" class="submenu-item">蓝图</a>
+                                <a href="#" class="submenu-item">组织结构</a>
+                                <a href="#" class="submenu-item">公司规则</a>
+                                <a href="#" class="submenu-item">公司福利</a>
+                                <a href="#" class="submenu-item">绩效考核</a>
                             </div>
                         </div>
                     </div>
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            资源申请
+                            J2
                             <span class="informationmenu-arrow">›</span>
                         </a>
                         <div class="submenu">
                             <div class="submenu-header">
-                                <div class="submenu-title">资源申请</div>
+                                <div class="submenu-title">J2</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">资源请求</a>
-                                <a href="#" class="submenu-item">分配状态</a>
+                                <a href="#" class="submenu-item">蓝图</a>
+                                <a href="#" class="submenu-item">组织结构</a>
+                                <a href="#" class="submenu-item">公司规则</a>
+                                <a href="#" class="submenu-item">公司福利</a>
+                                <a href="#" class="submenu-item">绩效考核</a>
                             </div>
                         </div>
                     </div>
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            资源库存
+                            J3
                             <span class="informationmenu-arrow">›</span>
                         </a>
                         <div class="submenu">
                             <div class="submenu-header">
-                                <div class="submenu-title">资源库存</div>
+                                <div class="submenu-title">J3</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">碗碟</a>
-                                <a href="#" class="submenu-item">食品</a>
+                                <a href="#" class="submenu-item">蓝图</a>
+                                <a href="#" class="submenu-item">组织结构</a>
+                                <a href="#" class="submenu-item">公司规则</a>
+                                <a href="#" class="submenu-item">公司福利</a>
+                                <a href="#" class="submenu-item">绩效考核</a>
                             </div>
                         </div>
                     </div>
@@ -208,41 +217,153 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="user-items">
-                    用户与权限管理
+                    报表
                     <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="user-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            我的账号
+                            财务
                             <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="submenu">
-                            <div class="submenu-header">
-                                <div class="submenu-title">我的账号</div>
-                            </div>
-                            <div class="submenu-content">
-                                <a href="#" class="submenu-item">个人资料</a>
-                                <a href="edit_profile.php" class="submenu-item">修改资料</a>
-                                <a href="#" class="submenu-item">消息</a>
-                            </div>
-                        </div>
                     </div>
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            系统设置
+                            业绩
                             <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="submenu">
-                            <div class="submenu-header">
-                                <div class="submenu-title">系统设置</div>
-                            </div>
-                            <div class="submenu-content">
-                                <a href="#" class="submenu-item">语言</a>
-                                <a href="#" class="submenu-item">权限</a>
-                            </div>
-                        </div>
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            桌子
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            工资
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="help-items">
+                    资源库
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="help-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            碗碟
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            食品
+                            <span class="informationmenu-arrow">›</span>
+                        </a>                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="help-items">
+                    资源申请
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="help-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            资源请求
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            分配状态
+                            <span class="informationmenu-arrow">›</span>
+                        </a>                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="help-items">
+                    假期申请
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="help-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            申请请求
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            假期报表
+                            <span class="informationmenu-arrow">›</span>
+                        </a>                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="help-items">
+                    我的账号
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="help-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            个人资料
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            消息
+                            <span class="informationmenu-arrow">›</span>
+                        </a>                    
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            资料修改
+                            <span class="informationmenu-arrow">›</span>
+                        </a>                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="help-items">
+                    系统设置
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="help-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            语言
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            权限
+                            <span class="informationmenu-arrow">›</span>
+                        </a>                    
                     </div>
                 </div>
             </div>
