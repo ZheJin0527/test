@@ -71,13 +71,13 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #f1dfbc;
-    color: #000000;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f1dfbc;
+            color: #000000;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
         
         .container {
             max-width: 1500px;
@@ -86,32 +86,32 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         /* 主内容区域样式 */
-.main-content {
-    margin-left: 300px; /* 默认为侧边栏宽度 */
-    transition: margin-left 0.3s ease;
-    min-height: 100vh;
-    position: relative;
-    overflow: visible;
-}
+        .main-content {
+            margin-left: 300px; /* 默认为侧边栏宽度 */
+            transition: margin-left 0.3s ease;
+            min-height: 100vh;
+            position: relative;
+            overflow: visible;
+        }
 
-/* 当侧边栏收起时，主内容区域扩展 */
-.main-content.sidebar-collapsed {
-    margin-left: 60px; /* 收起后的侧边栏宽度 */
-}
+        /* 当侧边栏收起时，主内容区域扩展 */
+        .main-content.sidebar-collapsed {
+            margin-left: 60px; /* 收起后的侧边栏宽度 */
+        }
 
-/* 添加这段新代码 */
-.informationmenu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    z-index: 1000;
-}
+        /* 添加这段新代码 */
+        .informationmenu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 1000;
+        }
 
-html {
-    height: 100%;
-    overflow-x: hidden;
-}
+        html {
+            height: 100%;
+            overflow-x: hidden;
+        }
         
         .header {
             display: flex;
@@ -119,7 +119,7 @@ html {
             align-items: center;
             margin-bottom: 32px;
             background-color: white;
-            padding: 16px 24px;
+            padding: 16px 60px;
             border-radius: 0px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border: 1px solid #d1d5db;
