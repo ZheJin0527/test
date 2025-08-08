@@ -76,6 +76,12 @@ $avatarLetter = strtoupper($username[0]);
                 <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
                 <div class="user-name"><?php echo $username; ?></div>
             </div>
+
+            <button class="sidebar-hamburger-toggle" id="sidebarToggle">
+                    <div class="sidebar-hamburger-line"></div>
+                    <div class="sidebar-hamburger-line"></div>
+                    <div class="sidebar-hamburger-line"></div>
+                </button>
         </div>
 
         <div class="informationmenu-content">
@@ -953,6 +959,92 @@ function goToCulture() {
         });
 
         console.log('点击Section + 悬停Submenu系统已加载完成');
+    </script>
+    <script>
+        // 侧边菜单收起/展开功能
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const overlay = document.querySelector('.informationmenu-overlay');
+
+        sidebarToggle.addEventListener('click', function() {
+            overlay.classList.toggle('collapsed');
+            
+            // 添加一些反馈效果
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
+
+        // 收起状态下点击伪元素区域展开菜单
+        overlay.addEventListener('click', function(e) {
+            if (this.classList.contains('collapsed')) {
+                // 检查点击位置是否在按钮区域内
+                const rect = this.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+                
+                // 按钮区域：left: 9px, top: 24px, width: 32px, height: 32px
+                if (clickX >= 9 && clickX <= 41 && clickY >= 24 && clickY <= 56) {
+                    this.classList.remove('collapsed');
+                    
+                    // 添加反馈效果
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                }
+            }
+        });
+
+        // Section标题点击事件
+        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+            title.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetDropdown = document.getElementById(targetId);
+                
+                // 关闭其他section的下拉菜单
+                document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                    if (dropdown.id !== targetId) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+                
+                // 移除其他section title的active状态
+                document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+                    if (t !== this) {
+                        t.classList.remove('active');
+                    }
+                });
+                
+                // 切换当前section
+                this.classList.toggle('active');
+                targetDropdown?.classList.toggle('show');
+            });
+        });
+
+        // 菜单项点击效果
+        document.querySelectorAll('.informationmenu-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 移除其他active状态
+                document.querySelectorAll('.informationmenu-item').forEach(i => i.classList.remove('active'));
+                
+                // 添加active状态到当前项
+                this.classList.add('active');
+                
+                console.log('点击了菜单项:', this.textContent.trim());
+            });
+        });
+
+        // ESC键收起菜单
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !overlay.classList.contains('collapsed')) {
+                overlay.classList.add('collapsed');
+            }
+        });
+
+        console.log('可收起侧边菜单系统已加载完成');
     </script>
 </body>
 </html>
