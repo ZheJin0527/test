@@ -5850,8 +5850,7 @@ form select {
     position: fixed;
     left: 0;
     top: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     z-index: 1000;
     /* 修改：默认显示菜单（移除负的transform） */
     transform: translateX(0);
