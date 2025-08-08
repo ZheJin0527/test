@@ -961,18 +961,18 @@ function goToCulture() {
         console.log('点击Section + 悬停Submenu系统已加载完成');
     </script>
     <script>
-        // 侧边栏收起/展开功能
+// 侧边栏收起/展开功能
 const sidebarToggle = document.getElementById('sidebarToggle');
-const sidebar = document.querySelector('.informationmenu');
+const sidebarMenu = document.querySelector('.informationmenu'); // 改名避免冲突
 
 sidebarToggle?.addEventListener('click', function(e) {
     e.stopPropagation(); // 防止事件冒泡
     
-    sidebar.classList.toggle('collapsed');
+    sidebarMenu.classList.toggle('collapsed');
     sidebarToggle.classList.toggle('collapsed');
     
     // 如果收起了，关闭所有下拉菜单
-    if (sidebar.classList.contains('collapsed')) {
+    if (sidebarMenu.classList.contains('collapsed')) {
         document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
             dropdown.classList.remove('show');
         });
@@ -984,10 +984,8 @@ sidebarToggle?.addEventListener('click', function(e) {
 
 // 收起状态下点击section标题不展开下拉菜单
 document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-    const originalClickHandler = title.onclick;
-    
     title.addEventListener('click', function(e) {
-        if (sidebar.classList.contains('collapsed')) {
+        if (sidebarMenu.classList.contains('collapsed')) {
             e.preventDefault();
             e.stopPropagation();
             return false;

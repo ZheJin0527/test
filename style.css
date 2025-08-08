@@ -6239,46 +6239,47 @@ form select {
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* 侧边栏收起状态 */
+/* 提高选择器权重 */
 .informationmenu.collapsed {
-    width: 60px;
+    width: 60px !important;
+    overflow: visible;
 }
 
 .informationmenu.collapsed .user-name,
-.informationmenu.collapsed .informationmenu-section-title,
-.informationmenu.collapsed .informationmenu-item span,
-.informationmenu.collapsed .informationmenu-arrow,
+.informationmenu.collapsed .informationmenu-section-title span,
+.informationmenu.collapsed .informationmenu-item .informationmenu-arrow,
 .informationmenu.collapsed .section-arrow,
 .informationmenu.collapsed .logout-btn {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.informationmenu.collapsed .user-avatar-dropdown {
-    flex-direction: column;
-    align-items: center;
-}
-
-.informationmenu.collapsed .informationmenu-header {
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 .informationmenu.collapsed .informationmenu-section-title {
-    padding: 15px 20px;
+    padding: 15px 10px !important;
     text-align: center;
+    font-size: 0; /* 隐藏文字 */
+}
+
+.informationmenu.collapsed .informationmenu-section-title::before {
+    content: '●';
+    font-size: 12px !important;
+    color: #666;
+    display: inline-block;
 }
 
 .informationmenu.collapsed .dropdown-menu-items {
-    display: none;
+    display: none !important;
 }
 
 .informationmenu.collapsed .informationmenu-footer {
-    padding: 10px;
+    padding: 10px !important;
 }
 
-/* 收起状态下的子菜单不显示 */
 .informationmenu.collapsed .submenu {
-    display: none;
+    display: none !important;
+}
+
+/* 确保过渡效果 */
+.informationmenu {
+    transition: width 0.3s ease !important;
 }
