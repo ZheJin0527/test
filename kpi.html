@@ -2100,14 +2100,8 @@
                 const comparisonData = prepareMonthlyComparisonData();
         
                 const chartLabels = comparisonData.isMonthly ? 
-                comparisonData.dates : 
-                comparisonData.dates.map(date => {
-                    const dateObj = new Date(date);
-                    if (isNaN(dateObj.getTime())) {
-                        return date; // 如果日期无效，返回原始字符串
-                    }
-                    return `${dateObj.getMonth() + 1}/${dateObj.getDate()}`; // 显示为 月/日 格式
-                });
+                    comparisonData.dates : 
+                    comparisonData.dates.map(date => new Date(date).getDate().toString());
         
                 salesChart = new Chart(ctx1, {
                     type: 'line',
@@ -2604,14 +2598,8 @@
                 const comparisonData = prepareMonthlyComparisonData();
     
                 const chartLabels = comparisonData.isMonthly ? 
-                comparisonData.dates : 
-                comparisonData.dates.map(date => {
-                    const dateObj = new Date(date);
-                    if (isNaN(dateObj.getTime())) {
-                        return date; // 如果日期无效，返回原始字符串
-                    }
-                    return `${dateObj.getMonth() + 1}/${dateObj.getDate()}`; // 显示为 月/日 格式
-                });
+                    comparisonData.dates : 
+                    comparisonData.dates.map(date => new Date(date).getDate().toString());
     
                 tablesChart = new Chart(ctx3, {
                     type: 'bar',
@@ -2915,13 +2903,24 @@ function aggregateByMonth(data) {
 }
 
 // 为总计模式准备按月聚合的对比数据
+// 为总计模式准备对比数据（与单店模式一致的聚合逻辑）
 function prepareMonthlyComparisonData() {
     if (currentRestaurant !== 'total' || !allRestaurantsData) {
         return null;
     }
     
+    const restaurants = ['j1', 'j2', 'j3'];
+    const restaurantDataConverted = {};
+    
+    // 先转换每个餐厅的数据格式
+    restaurants.forEach(restaurant => {
+        const restaurantData = allRestaurantsData[restaurant] || [];
+        restaurantDataConverted[restaurant] = convertToKPIFormat(restaurantData);
+    });
+    
+    // 获取所有日期并过滤
     const dateSet = new Set();
-    Object.values(allRestaurantsData).forEach(data => {
+    Object.values(restaurantDataConverted).forEach(data => {
         data.forEach(item => dateSet.add(item.date));
     });
     
@@ -2933,107 +2932,73 @@ function prepareMonthlyComparisonData() {
         return itemDate >= start && itemDate <= end;
     });
     
-    // 判断是否需要按月聚合
+    // 为每个餐厅创建过滤后的数据
+    const filteredRestaurantData = {};
+    restaurants.forEach(restaurant => {
+        filteredRestaurantData[restaurant] = restaurantDataConverted[restaurant].filter(item => {
+            const itemDate = new Date(item.date);
+            const start = new Date(dateRange.startDate);
+            const end = new Date(dateRange.endDate);
+            return itemDate >= start && itemDate <= end;
+        }).sort((a, b) => new Date(a.date) - new Date(b.date));
+    });
+    
+    // 判断是否需要按月聚合（与单店模式相同逻辑）
     const startDate = new Date(dateRange.startDate);
     const endDate = new Date(dateRange.endDate);
     const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
     
-    const restaurants = ['j1', 'j2', 'j3'];
-    
     if (daysDiff > 60) {
         // 按月聚合
-        const monthMap = new Map();
-        
-        filteredDates.forEach(date => {
-            const dateObj = new Date(date);
-            const monthKey = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
-            
-            if (!monthMap.has(monthKey)) {
-                monthMap.set(monthKey, {
-                    date: monthKey,
-                    displayDate: `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月`,
-                    restaurants: {
-                        j1: { totalSales: 0, netSales: 0, diners: 0, tablesUsed: 0, returningCustomers: 0, newCustomers: 0 },
-                        j2: { totalSales: 0, netSales: 0, diners: 0, tablesUsed: 0, returningCustomers: 0, newCustomers: 0 },
-                        j3: { totalSales: 0, netSales: 0, diners: 0, tablesUsed: 0, returningCustomers: 0, newCustomers: 0 }
-                    }
-                });
-            }
-            
-            const monthData = monthMap.get(monthKey);
-            
-            restaurants.forEach(restaurant => {
-                const restaurantData = allRestaurantsData[restaurant] || [];
-                const dayData = restaurantData.find(item => item.date === date);
-                
-                if (dayData) {
-                    const grossSales = parseFloat(dayData.gross_sales) || 0;
-                    const discounts = parseFloat(dayData.discounts) || 0;
-                    const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
-                    
-                    monthData.restaurants[restaurant].totalSales += grossSales;
-                    monthData.restaurants[restaurant].netSales += netSales;
-                    monthData.restaurants[restaurant].diners += parseInt(dayData.diners) || 0;
-                    monthData.restaurants[restaurant].tablesUsed += parseInt(dayData.tables_used) || 0;
-                    monthData.restaurants[restaurant].returningCustomers += parseInt(dayData.returning_customers) || 0;
-                    monthData.restaurants[restaurant].newCustomers += parseInt(dayData.new_customers) || 0;
-                }
-            });
+        const aggregatedData = {};
+        restaurants.forEach(restaurant => {
+            aggregatedData[restaurant] = aggregateByMonth(filteredRestaurantData[restaurant]);
         });
         
-        const monthlyData = Array.from(monthMap.values()).sort((a, b) => a.date.localeCompare(b.date));
+        // 获取所有月份
+        const monthSet = new Set();
+        Object.values(aggregatedData).forEach(data => {
+            data.forEach(item => monthSet.add(item.date));
+        });
+        const months = Array.from(monthSet).sort();
         
         return {
-            dates: monthlyData.map(item => item.displayDate),
+            dates: months.map(monthKey => {
+                const [year, month] = monthKey.split('-');
+                return `${year}年${parseInt(month)}月`;
+            }),
             restaurants: {
-                j1: monthlyData.map(item => item.restaurants.j1),
-                j2: monthlyData.map(item => item.restaurants.j2),
-                j3: monthlyData.map(item => item.restaurants.j3)
+                j1: months.map(monthKey => aggregatedData.j1.find(item => item.date === monthKey) || createEmptyDataPoint()),
+                j2: months.map(monthKey => aggregatedData.j2.find(item => item.date === monthKey) || createEmptyDataPoint()),
+                j3: months.map(monthKey => aggregatedData.j3.find(item => item.date === monthKey) || createEmptyDataPoint())
             },
             isMonthly: true
         };
     } else {
-        // 按天显示（原有逻辑）
-        const comparisonData = {
+        // 按天显示
+        return {
             dates: filteredDates,
-            restaurants: {}
+            restaurants: {
+                j1: filteredDates.map(date => filteredRestaurantData.j1.find(item => item.date === date) || createEmptyDataPoint()),
+                j2: filteredDates.map(date => filteredRestaurantData.j2.find(item => item.date === date) || createEmptyDataPoint()),
+                j3: filteredDates.map(date => filteredRestaurantData.j3.find(item => item.date === date) || createEmptyDataPoint())
+            },
+            isMonthly: false
         };
-        
-        restaurants.forEach(restaurant => {
-            const restaurantData = allRestaurantsData[restaurant] || [];
-            comparisonData.restaurants[restaurant] = filteredDates.map(date => {
-                const dayData = restaurantData.find(item => item.date === date);
-                if (dayData) {
-                    const grossSales = parseFloat(dayData.gross_sales) || 0;
-                    const discounts = parseFloat(dayData.discounts) || 0;
-                    const netSales = dayData.net_sales ? parseFloat(dayData.net_sales) : (grossSales - discounts);
-                    const tenderAmount = parseFloat(dayData.tender_amount) || 0;
-
-                    return {
-                        totalSales: grossSales,
-                        netSales: netSales,
-                        diners: parseInt(dayData.diners) || 0,
-                        tablesUsed: parseInt(dayData.tables_used) || 0,
-                        returningCustomers: parseInt(dayData.returning_customers) || 0,
-                        newCustomers: parseInt(dayData.new_customers) || 0
-                    };
-                } else {
-                    return {
-                        totalSales: 0,
-                        netSales: 0,
-                        diners: 0,
-                        tablesUsed: 0,
-                        returningCustomers: 0,
-                        newCustomers: 0
-                    };
-                }
-            });
-        });
-        
-        comparisonData.isMonthly = false;
-        
-        return comparisonData;
     }
+}
+
+// 创建空数据点的辅助函数
+function createEmptyDataPoint() {
+    return {
+        totalSales: 0,
+        netSales: 0,
+        diners: 0,
+        tablesUsed: 0,
+        returningCustomers: 0,
+        newCustomers: 0,
+        avgSalesPerDiner: 0
+    };
 }
     </script>
     <script>
