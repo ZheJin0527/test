@@ -1091,6 +1091,24 @@
                     <div class="card-body">
                         <h3 style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数分析</h3>
 
+                        <!-- 工具提示选择器保持不变 -->
+                        <div class="tooltip-selector" id="tooltip-selector">
+                            <div class="tooltip-selector-label">
+                                <i class="fas fa-info-circle" style="color: #3b82f6;"></i>
+                                鼠标悬停显示选项:
+                            </div>
+                            <div class="tooltip-options">
+                                <label class="tooltip-option active">
+                                    <input type="checkbox" value="summary" checked>
+                                    当日汇总
+                                </label>
+                                <label class="tooltip-option">
+                                    <input type="checkbox" value="details">
+                                    各店详情
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="chart-container">
                             <canvas id="combined-chart"></canvas>
                         </div>
