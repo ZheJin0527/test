@@ -796,29 +796,24 @@ function goToCulture() {
             title.addEventListener('click', function() {
                 const targetId = this.getAttribute('data-target');
                 const targetDropdown = document.getElementById(targetId);
-        
-                // 现有代码保持不变...
-        
+                
+                // 关闭其他section的下拉菜单
+                document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                    if (dropdown.id !== targetId) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+                
+                // 移除其他section title的active状态
+                document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+                    if (t !== this) {
+                        t.classList.remove('active');
+                    }
+                });
+                
                 // 切换当前section
                 this.classList.toggle('active');
                 targetDropdown?.classList.toggle('show');
-        
-                // 添加滚动逻辑
-                if (targetDropdown?.classList.contains('show')) {
-                    setTimeout(() => {
-                        const sectionRect = this.getBoundingClientRect();
-                        const menuRect = document.querySelector('.informationmenu').getBoundingClientRect();
-                        const footerHeight = document.querySelector('.informationmenu-footer').offsetHeight;
-                
-                        // 如果section位置太靠近底部，向上滚动
-                        if (sectionRect.bottom > menuRect.bottom - footerHeight - 100) {
-                            this.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }
-                    }, 100); // 等待下拉动画完成
-                }
             });
         });
 

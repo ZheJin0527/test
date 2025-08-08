@@ -6219,10 +6219,4 @@ form select {
     /* 强制定位到最底部 */
     position: sticky;
     bottom: 0;
-    position: sticky;
-    bottom: 0;
-    background-color: white;
-    border-top: 1px solid #e0e0e0;
-    z-index: 10;
-    margin-top: auto; /* 这会让footer始终在底部 */
 }
