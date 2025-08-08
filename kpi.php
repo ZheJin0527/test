@@ -82,7 +82,7 @@ $avatarLetter = strtoupper($username[0]);
         .container {
             max-width: 1500px;
             margin: 0 auto;
-            padding: 0px 24px 24px;
+            padding: 0px 0px 24px;
         }
 
         /* 主内容区域样式 */
@@ -1275,13 +1275,12 @@ html {
     </div>
     <div id="app">
         <div class="main-content" id="main-content">
-        <div class="container">
             <div class="header">
                 <div class="logo-container">
                     <span class="title-text">KPI DASHBOARD</span>
                 </div>
             </div>
-            
+        <div class="container">           
             <!-- Date Controls -->
             <div class="card" style="margin-bottom: 32px;">
                 <div class="card-body">
