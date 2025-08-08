@@ -820,11 +820,21 @@ function goToCulture() {
         // 菜单项点击效果
         document.querySelectorAll('.informationmenu-item').forEach(item => {
             item.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+        
+                // 检查是否有真实的链接
+                if (href && href !== '#' && !href.startsWith('javascript:')) {
+                    // 有真实链接，允许正常跳转
+                    window.location.href = href;
+                    return;
+                }
+        
+                // 没有真实链接的项目，阻止默认行为
                 e.preventDefault();
-                
+        
                 // 移除其他active状态
                 document.querySelectorAll('.informationmenu-item').forEach(i => i.classList.remove('active'));
-                
+        
                 // 添加active状态到当前项
                 this.classList.add('active');
             });
