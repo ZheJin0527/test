@@ -34,6 +34,11 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
+            background-color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d1d5db;
         }
         
         .header .logo-container {
@@ -52,11 +57,11 @@
             font-size: 24px;
             font-weight: bold;
             color: #000000;
-            background-color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            background-color: transparent; /* 移除单独的白色背景 */
+            padding: 0; /* 移除单独的padding */
+            border-radius: 0; /* 移除单独的圆角 */
+            border: none; /* 移除单独的边框 */
+            box-shadow: none; /* 移除单独的阴影 */
         }
         
         .header .controls {
