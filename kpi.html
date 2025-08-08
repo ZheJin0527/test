@@ -2654,30 +2654,29 @@
                                             const j2Data = comparisonData.restaurants.j2[dataIndex];
                                             const j3Data = comparisonData.restaurants.j3[dataIndex];
 
-                                            let result = [];
-                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
+                                            const periodText = comparisonData.isMonthly ? '当月详情' : '当日详情';
+                                            const daysText = comparisonData.isMonthly ? `${j1Data.daysCount || ''}天` : '';
 
                                             const j1Total = j1Data.returningCustomers + j1Data.newCustomers;
                                             const j2Total = j2Data.returningCustomers + j2Data.newCustomers;
                                             const j3Total = j3Data.returningCustomers + j3Data.newCustomers;
-                                            const grandTotal = j1Total + j2Total + j3Total;
+                                            const totalCustomers = j1Total + j2Total + j3Total;
 
-                                            const totalReturning = j1Data.returningCustomers + j2Data.returningCustomers + j3Data.returningCustomers;
-                                            const totalNew = j1Data.newCustomers + j2Data.newCustomers + j3Data.newCustomers;
+                                            const totalDiners = j1Data.diners + j2Data.diners + j3Data.diners;
 
-                                            result.push('', `--- ${periodText} ---`);
-                                            result.push(`总常客: ${totalReturning}人`);
-                                            result.push(`总新客人: ${totalNew}人`);
-                                            result.push(`总计: ${grandTotal}人`);
+                                            let summary = ['', `--- ${periodText} ---`];
+                                            summary.push(`总桌数: ${totalCustomers}桌`);
 
-                                            if (grandTotal > 0) {
-                                                const overallRetRate = ((totalReturning / grandTotal) * 100).toFixed(1);
-                                                const overallNewRate = ((totalNew / grandTotal) * 100).toFixed(1);
-                                                result.push(`总常客率: ${overallRetRate}%`);
-                                                result.push(`总新客人率: ${overallNewRate}%`);
+                                            if (totalDiners > 0 && totalCustomers > 0) {
+                                                const avgPerTable = (totalDiners / totalCustomers).toFixed(1);
+                                                summary.push(`平均每桌人数: ${avgPerTable}人`);
                                             }
 
-                                            return result;
+                                            if (comparisonData.isMonthly && j1Data.daysCount) {
+                                                summary.push(`营业天数: ${daysText}`);
+                                            }
+
+                                            return summary;
                                         }
                                         return [];
                                     }
