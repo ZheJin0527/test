@@ -73,7 +73,9 @@ $avatarLetter = strtoupper($username[0]);
     <div class="informationmenu">
         <div class="informationmenu-header">
             <div class="user-avatar-dropdown">
-            <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
+                <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
+                <div class="user-name"><?php echo $username; ?></div>
+            </div>
         </div>
         </div>
 
