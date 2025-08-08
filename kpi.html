@@ -509,19 +509,28 @@
             gap: 8px;
         }
 
-        .kpi-logo-container {
-            width: 40px;
-            height: 40px;
+        .kpi-card-vertical .icon {
+            width: 50px;
+            height: 50px;
+            font-size: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            margin-bottom: 4px;
         }
 
-        .kpi-logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        .kpi-card-vertical .kpi-label {
+            font-size: 14px;
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .kpi-card-vertical .kpi-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
         }
 
         .kpi-value {
@@ -1031,11 +1040,13 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="kpi-card-vertical">
-                                <div class="kpi-logo-container">
-                                    <img src="images/images/logo.png" alt="Logo" class="kpi-logo">
+                                <div class="icon text-green">
+                                    <i class="fas fa-dollar-sign"></i>
                                 </div>
-                                <p class="kpi-label">总销售额 (RM)</p>
-                                <p class="kpi-value" id="total-sales">0</p>
+                                <div>
+                                    <p class="kpi-label">总销售额 (RM)</p>
+                                    <p class="kpi-value" id="total-sales">0</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1043,7 +1054,7 @@
                     <!-- 净销售额 -->
                     <div class="card">
                         <div class="card-body">
-                            <div class="kpi-card">
+                            <div class="kpi-card-vertical">
                                 <div class="icon text-green">
                                     <i class="fas fa-chart-line"></i>
                                 </div>
@@ -1058,7 +1069,7 @@
                     <!-- 桌子总数 -->
                     <div class="card">
                         <div class="card-body">
-                            <div class="kpi-card">
+                            <div class="kpi-card-vertical">
                                 <div class="icon dynamic-color">
                                     <i class="fas fa-table"></i>
                                 </div>
@@ -1073,7 +1084,7 @@
                     <!-- 顾客总数 -->
                     <div class="card">
                         <div class="card-body">
-                            <div class="kpi-card">
+                            <div class="kpi-card-vertical">
                                 <div class="icon dynamic-color">
                                     <i class="fas fa-users"></i>
                                 </div>
@@ -1088,7 +1099,7 @@
                     <!-- 人均消费 -->
                     <div class="card">
                         <div class="card-body">
-                            <div class="kpi-card">
+                            <div class="kpi-card-vertical">
                                 <div class="icon dynamic-color">
                                     <i class="fas fa-clock"></i>
                                 </div>
