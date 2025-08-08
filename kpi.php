@@ -962,7 +962,7 @@ html {
                 </div>
                 <div class="dropdown-menu-items" id="analytics-items">
                     <div class="menu-item-wrapper">
-                        <a href="kpi.html" class="informationmenu-item">
+                        <a href="kpi.php" class="informationmenu-item">
                             集团概览
                             <span class="informationmenu-arrow">›</span>
                         </a>
