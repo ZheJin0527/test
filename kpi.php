@@ -905,9 +905,67 @@ $avatarLetter = strtoupper($username[0]);
         .dynamic-border {
             border-color: var(--primary-color) !important;
         }
+
+        /* 新增：包装器样式 */
+.sidebar-wrapper {
+    display: flex;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* 新增：主内容区域 */
+.main-content {
+    flex: 1;
+    transition: margin-left 0.3s ease;
+    margin-left: 0;
+    overflow-x: hidden;
+}
+
+/* 修改：sidebar基础样式 */
+.informationmenu {
+    width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    background: linear-gradient(135deg, #583e04, #805906);
+    position: fixed;
+    left: -280px; /* 默认隐藏 */
+    top: 0;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+/* 新增：sidebar显示状态 */
+.informationmenu.show {
+    left: 0;
+}
+
+/* 新增：主内容推拉效果 */
+.main-content.sidebar-open {
+    margin-left: 280px;
+}
+
+/* 响应式调整 */
+@media (max-width: 1024px) {
+    .main-content.sidebar-open {
+        margin-left: 0; /* 小屏幕不推拉，保持覆盖效果 */
+    }
+    
+    .informationmenu {
+        width: 260px;
+        min-width: 260px;
+        left: -260px;
+    }
+    
+    .informationmenu.show {
+        left: 0;
+    }
+}
     </style>
 </head>
 <body class="restaurant-j1">
+    <div class="sidebar-wrapper">
     <div class="informationmenu">
         <div class="informationmenu-header">
             <div class="user-avatar-dropdown">
@@ -3586,23 +3644,24 @@ function createEmptyDataPoint() {
         const closeBtn = document.querySelector('.informationmenu-close-btn');
 
         // 点击用户头像显示菜单
-        userAvatar?.addEventListener('click', function() {
-            sidebar.classList.add('show');
-            overlay.classList.add('show');
-        });
+userAvatar?.addEventListener('click', function() {
+    sidebar.classList.add('show');
+    document.querySelector('.main-content').classList.add('sidebar-open');
+    if (overlay) overlay.classList.add('show');
+});
 
-        // 关闭菜单
         function closeSidebar() {
-            sidebar.classList.remove('show');
-            overlay.classList.remove('show');
-            // 关闭所有下拉菜单
-            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
-            document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-                title.classList.remove('active');
-            });
-        }
+    sidebar.classList.remove('show');
+    document.querySelector('.main-content').classList.remove('sidebar-open');
+    if (overlay) overlay.classList.remove('show');
+    // 关闭所有下拉菜单
+    document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+        dropdown.classList.remove('show');
+    });
+    document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+        title.classList.remove('active');
+    });
+}
 
         closeBtn?.addEventListener('click', closeSidebar);
         overlay?.addEventListener('click', closeSidebar);
@@ -3782,19 +3841,15 @@ const sidebarToggle = document.getElementById('sidebarToggle');
 const sidebarMenu = document.querySelector('.informationmenu'); // 改名避免冲突
 
 sidebarToggle?.addEventListener('click', function(e) {
-    e.stopPropagation(); // 防止事件冒泡
+    e.stopPropagation();
     
-    sidebarMenu.classList.toggle('collapsed');
-    sidebarToggle.classList.toggle('collapsed');
+    const mainContent = document.querySelector('.main-content');
     
-    // 如果收起了，关闭所有下拉菜单
-    if (sidebarMenu.classList.contains('collapsed')) {
-        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-            dropdown.classList.remove('show');
-        });
-        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-            title.classList.remove('active');
-        });
+    if (sidebarMenu.classList.contains('show')) {
+        closeSidebar();
+    } else {
+        sidebarMenu.classList.add('show');
+        mainContent.classList.add('sidebar-open');
     }
 });
 
@@ -3810,5 +3865,6 @@ document.querySelectorAll('.informationmenu-section-title').forEach(title => {
     });
 });
 </script>
+</div>
 </body>
 </html>
