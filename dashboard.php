@@ -764,14 +764,14 @@ function goToCulture() {
   });
 </script>
 <script>
-        const sidebar = document.querySelector('.informationmenu');
+        const informationSidebar = document.querySelector('.informationmenu'); // 重命名避免冲突
         const overlay = document.querySelector('.informationmenu-overlay');
         const userAvatar = document.getElementById('user-avatar');
         const closeBtn = document.querySelector('.informationmenu-close-btn');
 
         // 点击用户头像显示菜单
         userAvatar?.addEventListener('click', function() {
-            sidebar.classList.add('show');
+            informationSidebar.classList.add('show');
             overlay.classList.add('show');
         });
 
@@ -963,7 +963,7 @@ function goToCulture() {
     <script>
         // 侧边栏收起/展开功能
 const sidebarToggle = document.getElementById('sidebarToggle');
-const sidebar = document.querySelector('.informationmenu');
+const informationSidebar = document.querySelector('.informationmenu'); // 重命名避免冲突
 
 sidebarToggle?.addEventListener('click', function(e) {
     e.stopPropagation(); // 防止事件冒泡
@@ -994,6 +994,41 @@ document.querySelectorAll('.informationmenu-section-title').forEach(title => {
         }
         // 如果不是收起状态，执行原来的点击逻辑
     });
+});
+
+// 侧边栏收起/展开功能 - 修复版本
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const informationSidebar = document.querySelector('.informationmenu'); // 重命名避免冲突
+    
+    console.log('侧边栏切换按钮:', sidebarToggle); // 调试用
+    console.log('侧边栏元素:', sidebar); // 调试用
+    
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            console.log('点击了收起按钮'); // 调试用
+            
+            sidebar.classList.toggle('collapsed');
+            sidebarToggle.classList.toggle('collapsed');
+            
+            console.log('收起状态:', sidebar.classList.contains('collapsed')); // 调试用
+            
+            // 如果收起了，关闭所有下拉菜单
+            if (sidebar.classList.contains('collapsed')) {
+                document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+                document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+                    title.classList.remove('active');
+                });
+            }
+        });
+    } else {
+        console.error('找不到侧边栏切换按钮或侧边栏元素');
+    }
 });
 </script>
 </body>
