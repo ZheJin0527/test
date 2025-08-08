@@ -81,6 +81,18 @@ $avatarLetter = strtoupper($username[0]);
             margin: 0 auto;
             padding: 0px 24px 24px;
         }
+
+        /* 主内容区域样式 */
+.main-content {
+    margin-left: 300px; /* 默认为侧边栏宽度 */
+    transition: margin-left 0.3s ease;
+    min-height: 100vh;
+}
+
+/* 当侧边栏收起时，主内容区域扩展 */
+.main-content.sidebar-collapsed {
+    margin-left: 60px; /* 收起后的侧边栏宽度 */
+}
         
         .header {
             display: flex;
@@ -1243,6 +1255,7 @@ $avatarLetter = strtoupper($username[0]);
         </div>
     </div>
     <div id="app">
+        <div class="main-content" id="main-content">
         <div class="container">
             <div class="header">
                 <div class="logo-container">
@@ -1522,6 +1535,7 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script>
@@ -3578,5 +3592,31 @@ function createEmptyDataPoint() {
             }
         });
     </script>
+    <script>
+        // 侧边栏切换功能
+function toggleSidebar() {
+    const sidebar = document.querySelector('.informationmenu');
+    const mainContent = document.getElementById('main-content');
+    const overlay = document.querySelector('.informationmenu-overlay');
+    
+    sidebar.classList.toggle('collapsed');
+    mainContent.classList.toggle('sidebar-collapsed');
+    
+    // 可选：如果你想要在收起时隐藏遮罩层
+    if (sidebar.classList.contains('collapsed')) {
+        overlay.style.display = 'none';
+    } else {
+        overlay.style.display = 'block';
+    }
+}
+
+// 绑定切换按钮事件
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', toggleSidebar);
+    }
+});
+</script>
 </body>
 </html>
