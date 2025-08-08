@@ -946,11 +946,12 @@
             <div class="card" style="margin-bottom: 32px;">
                 <div class="card-body">
                     <div class="date-controls">
-                        
+    
                         <!-- 开始日期选择器 -->
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <label class="form-label" style="margin: 0;">开始日期:</label>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <label class="form-label" style="margin: 0;">开始日期</label>
                             <div class="enhanced-date-picker" id="start-date-picker">
+                                <!-- 保持原有的日期选择器内容不变 -->
                                 <div class="date-part" data-type="year" onclick="showDateDropdown('start', 'year')">
                                     <span id="start-year-display">2024</span>
                                 </div>
@@ -963,18 +964,19 @@
                                     <span id="start-day-display">01</span>
                                 </div>
                                 <span class="date-separator">日</span>
-                                
+            
                                 <!-- 下拉选择面板 -->
                                 <div class="date-dropdown" id="start-dropdown">
                                     <!-- 动态内容将在这里生成 -->
                                 </div>
                             </div>
                         </div>
-                        
+    
                         <!-- 结束日期选择器 -->
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <label class="form-label" style="margin: 0;">结束日期:</label>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <label class="form-label" style="margin: 0;">结束日期</label>
                             <div class="enhanced-date-picker" id="end-date-picker">
+                                <!-- 保持原有的日期选择器内容不变 -->
                                 <div class="date-part" data-type="year" onclick="showDateDropdown('end', 'year')">
                                     <span id="end-year-display">2024</span>
                                 </div>
@@ -987,7 +989,7 @@
                                     <span id="end-day-display">01</span>
                                 </div>
                                 <span class="date-separator">日</span>
-                                
+            
                                 <!-- 下拉选择面板 -->
                                 <div class="date-dropdown" id="end-dropdown">
                                     <!-- 动态内容将在这里生成 -->
@@ -998,10 +1000,13 @@
                         <div class="divider"></div>
 
                         <!-- 月份选择器 - 改为增强型选择器 -->
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <i class="fas fa-calendar" style="color: #6b7280;"></i>
-                            <label class="form-label" style="margin: 0;">选择年份和月份:</label>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-calendar" style="color: #6b7280;"></i>
+                                选择年份和月份
+                            </label>
                             <div class="enhanced-date-picker month-only" id="month-date-picker">
+                                <!-- 保持原有的月份选择器内容不变 -->
                                 <div class="date-part" data-type="year" onclick="showDateDropdown('month', 'year')">
                                     <span id="month-year-display">2024</span>
                                 </div>
@@ -1010,7 +1015,7 @@
                                     <span id="month-month-display">01</span>
                                 </div>
                                 <span class="date-separator">月</span>
-                                
+            
                                 <!-- 下拉选择面板 -->
                                 <div class="date-dropdown" id="month-dropdown">
                                     <!-- 动态内容将在这里生成 -->
@@ -1018,9 +1023,11 @@
                             </div>
                         </div>
 
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <i class="fas fa-clock" style="color: #6b7280;"></i>
-                            <label class="form-label" style="margin: 0;">快速选择:</label>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-clock" style="color: #6b7280;"></i>
+                                快速选择
+                            </label>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
                                     <i class="fas fa-calendar-alt"></i>
@@ -1037,7 +1044,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+    
                         <div id="date-info" class="date-info"></div>
                     </div>
                 </div>
