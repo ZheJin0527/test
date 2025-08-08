@@ -146,6 +146,7 @@
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             align-items: center;
+            margin-left: auto;
         }
 
         .restaurant-prefix {
@@ -861,23 +862,6 @@
                     <span class="title-text">KPI DASHBOARD</span>
                 </div>
                 <div class="controls">
-                    <!-- 餐厅选择器 -->
-                    <div class="restaurant-selector">
-                        <div class="restaurant-prefix">J</div>
-                        <div class="number-dropdown">
-                            <button class="number-btn dropdown-toggle" onclick="toggleNumberDropdown()">
-                                1 <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="number-dropdown-menu" id="number-dropdown">
-                                <div class="number-grid">
-                                    <button class="number-item" onclick="selectNumber(1)">1</button>
-                                    <button class="number-item" onclick="selectNumber(2)">2</button>
-                                    <button class="number-item" onclick="selectNumber(3)">3</button>
-                                    <button class="number-item total-btn" onclick="selectNumber('total')">总计</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <button class="back-button" onclick="goBack()">
                         <i class="fas fa-arrow-left"></i>
                         返回上一页
@@ -989,6 +973,23 @@
                         </div>
     
                         <div id="date-info" class="date-info"></div>
+                        <!-- 餐厅选择器 -->
+                        <div class="restaurant-selector">
+                            <div class="restaurant-prefix">J</div>
+                            <div class="number-dropdown">
+                                <button class="number-btn dropdown-toggle" onclick="toggleNumberDropdown()">
+                                    1 <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="number-dropdown-menu" id="number-dropdown">
+                                    <div class="number-grid">
+                                        <button class="number-item" onclick="selectNumber(1)">1</button>
+                                        <button class="number-item" onclick="selectNumber(2)">2</button>
+                                        <button class="number-item" onclick="selectNumber(3)">3</button>
+                                        <button class="number-item total-btn" onclick="selectNumber('total')">总计</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
