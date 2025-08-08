@@ -969,8 +969,16 @@ const sidebarToggle = document.getElementById('sidebarToggle');
 if (sidebarToggle) {
     sidebarToggle.addEventListener('click', function(e) {
         e.stopPropagation(); // 防止事件冒泡
-        overlay.classList.toggle('collapsed');
-        
+    
+        // 检查当前状态
+        if (overlay.classList.contains('collapsed')) {
+            // 如果是收起状态，展开菜单
+            overlay.classList.remove('collapsed');
+        } else {
+            // 如果是展开状态，收起菜单
+            overlay.classList.add('collapsed');
+        }
+    
         // 添加一些反馈效果
         this.style.transform = 'scale(0.95)';
         setTimeout(() => {
