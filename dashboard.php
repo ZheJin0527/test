@@ -834,14 +834,16 @@ function goToCulture() {
         document.querySelectorAll('.submenu-item:not(.expandable)').forEach(item => {
             item.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                
+        
                 // 检查是否有真实的链接
                 if (href && href !== '#' && !href.startsWith('javascript:')) {
                     // 有真实链接，允许正常跳转
                     console.log('跳转到: ' + href);
-                    return; // 不阻止默认行为
+                    // 移除 e.preventDefault()，让链接正常工作
+                    window.location.href = href; // 手动跳转
+                    return;
                 }
-                
+        
                 // 没有真实链接的项目，阻止默认行为并显示提示
                 e.preventDefault();
                 const itemText = this.textContent.replace('→', '').trim();
