@@ -6240,7 +6240,6 @@ form select {
 }
 
 .informationmenu.collapsed .user-name,
-.informationmenu.collapsed .user-avatar-dropdown,
 .informationmenu.collapsed .informationmenu-section-title span,
 .informationmenu.collapsed .informationmenu-item .informationmenu-arrow,
 .informationmenu.collapsed .section-arrow,
@@ -6250,15 +6249,6 @@ form select {
     transition: opacity 0.3s ease, visibility 0.3s ease !important;
 }
 
-.informationmenu.collapsed .informationmenu-header {
-    justify-content: center !important;
-    padding: 20px 15px !important;
-}
-
-.informationmenu.collapsed .sidebar-menu-hamburger {
-    margin: 0 auto !important;
-}
-
 .informationmenu.collapsed .informationmenu-section-title {
     padding: 15px 10px !important;
     text-align: center;
@@ -6266,10 +6256,7 @@ form select {
 }
 
 .informationmenu.collapsed .informationmenu-section-title::before {
-    content: '●';
-    font-size: 12px !important;
-    color: #666;
-    display: inline-block;
+    display: none !important;
 }
 
 .informationmenu.collapsed .dropdown-menu-items {
@@ -6287,4 +6274,29 @@ form select {
 /* 确保过渡效果 */
 .informationmenu {
     transition: width 0.3s ease !important;
+}
+
+/* 收起状态下的头像样式 */
+.informationmenu.collapsed .user-avatar-dropdown {
+    align-items: center;
+    justify-content: center;
+}
+
+.informationmenu.collapsed .user-avatar {
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 18px !important;
+    line-height: 33px !important;
+}
+
+.informationmenu.collapsed .informationmenu-header {
+    padding: 15px 12px !important;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.informationmenu.collapsed .informationmenu-section-title {
+    padding: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
 }
