@@ -3829,39 +3829,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log('点击Section + 悬停Submenu系统已加载完成');
     </script>
-    <script>
-// 侧边栏收起/展开功能
-const sidebarToggle = document.getElementById('sidebarToggle');
-const sidebarMenu = document.querySelector('.informationmenu'); // 改名避免冲突
-
-sidebarToggle?.addEventListener('click', function(e) {
-    e.stopPropagation(); // 防止事件冒泡
-    
-    sidebarMenu.classList.toggle('collapsed');
-    sidebarToggle.classList.toggle('collapsed');
-    
-    // 如果收起了，关闭所有下拉菜单
-    if (sidebarMenu.classList.contains('collapsed')) {
-        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-            dropdown.classList.remove('show');
-        });
-        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-            title.classList.remove('active');
-        });
-    }
-});
-
-// 收起状态下点击section标题不展开下拉菜单
-document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-    title.addEventListener('click', function(e) {
-        if (sidebarMenu.classList.contains('collapsed')) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-        }
-        // 如果不是收起状态，执行原来的点击逻辑
-    });
-});
-</script>
 </body>
 </html>
