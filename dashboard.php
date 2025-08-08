@@ -77,7 +77,6 @@ $avatarLetter = strtoupper($username[0]);
                 <div class="user-name"><?php echo $username; ?></div>
             </div>
         </div>
-        </div>
 
         <div class="informationmenu-content">
             <div class="informationmenu-section">
