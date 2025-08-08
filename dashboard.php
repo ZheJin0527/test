@@ -80,158 +80,72 @@ $avatarLetter = strtoupper($username[0]);
         <div class="informationmenu-content">
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
-                    公司架构管理
+                    仪表盘
                     <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="company-items">
                     <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            Kunzz Holdings
+                        <a href="kpi.html" class="informationmenu-item">
+                            集团概览
                             <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="submenu">
-                            <div class="submenu-header">
-                                <div class="submenu-title">Kunzz Holdings</div>
-                            </div>
-                            <div class="submenu-content">
-                                <a href="#" class="submenu-item">企业蓝图</a>
-                                <a href="#" class="submenu-item">组织结构图</a>
-                                <a href="#" class="submenu-item">公司规划</a>
-                                <a href="#" class="submenu-item">公司福利</a>
-                                <a href="#" class="submenu-item">绩效考核</a>
-                            </div>
-                        </div>
                     </div>
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            子公司
+                            工作表
                             <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="submenu">
-                            <div class="submenu-header">
-                                <div class="submenu-title">子公司</div>
-                            </div>
-                            <div class="submenu-content">
-                                <a href="#" class="submenu-item expandable" data-target="j1-options">
-                                    J1
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j1-options">
-                                    <a href="#" class="sub-option">企业蓝图</a>
-                                    <a href="#" class="sub-option">组织结构图</a>
-                                    <a href="#" class="sub-option">公司规则</a>
-                                    <a href="#" class="sub-option">公司福利</a>
-                                    <a href="#" class="sub-option">绩效考核</a>
-                                </div>
+                    </div>
 
-                                <a href="#" class="submenu-item expandable" data-target="j2-options">
-                                    J2
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j2-options">
-                                    <a href="#" class="sub-option">企业蓝图</a>
-                                    <a href="#" class="sub-option">组织结构图</a>
-                                    <a href="#" class="sub-option">公司规则</a>
-                                    <a href="#" class="sub-option">公司福利</a>
-                                    <a href="#" class="sub-option">绩效考核</a>
-                                </div>
-
-                                <a href="#" class="submenu-item expandable" data-target="j3-options">
-                                    J3
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j3-options">
-                                    <a href="#" class="sub-option">企业蓝图</a>
-                                    <a href="#" class="sub-option">组织结构图</a>
-                                    <a href="#" class="sub-option">公司规则</a>
-                                    <a href="#" class="sub-option">公司福利</a>
-                                    <a href="#" class="sub-option">绩效考核</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="menu-item-wrapper">
+                        <a href="kpiedit.html" class="informationmenu-item">
+                            KPI数据上传
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="analytics-items">
-                    运营分析与报表
+                    Kunzz Holdings
                     <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="analytics-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            仪表盘
+                            企业蓝图
                             <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="submenu">
-                            <div class="submenu-header">
-                                <div class="submenu-title">仪表盘</div>
-                            </div>
-                            <div class="submenu-content">
-                                <a href="kpi.html" class="submenu-item">集团概览</a>
-                                <a href="#" class="submenu-item">工作表</a>
-                                <a href="kpiedit.html" class="submenu-item">KPI数据上传</a>
-                            </div>
-                        </div>
                     </div>
-                    
+
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            报表系统
+                            组织结构图
                             <span class="informationmenu-arrow">›</span>
                         </a>
-                        <div class="submenu">
-                            <div class="submenu-header">
-                                <div class="submenu-title">报表系统</div>
-                            </div>
-                            <div class="submenu-content">
-                                <a href="#" class="submenu-item expandable" data-target="kh-options">
-                                    Kunzz Holdings
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="kh-options">
-                                    <a href="#" class="sub-option">财务</a>
-                                    <a href="#" class="sub-option">业绩</a>
-                                    <a href="#" class="sub-option">桌子</a>
-                                    <a href="#" class="sub-option">工资</a>
-                                </div>
+                    </div>
 
-                                <a href="#" class="submenu-item expandable" data-target="j1b-options">
-                                    J1
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j1b-options">
-                                    <a href="#" class="sub-option">财务</a>
-                                    <a href="#" class="sub-option">业绩</a>
-                                    <a href="#" class="sub-option">桌子</a>
-                                    <a href="#" class="sub-option">工资</a>
-                                </div>
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            公司规划
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
 
-                                <a href="#" class="submenu-item expandable" data-target="j2b-options">
-                                    J2
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j2b-options">
-                                    <a href="#" class="sub-option">财务</a>
-                                    <a href="#" class="sub-option">业绩</a>
-                                    <a href="#" class="sub-option">桌子</a>
-                                    <a href="#" class="sub-option">工资</a>
-                                </div>
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            公司福利
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
 
-                                <a href="#" class="submenu-item expandable" data-target="j3b-options">
-                                    J3
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j3b-options">
-                                    <a href="#" class="sub-option">财务</a>
-                                    <a href="#" class="sub-option">业绩</a>
-                                    <a href="#" class="sub-option">桌子</a>
-                                    <a href="#" class="sub-option">工资</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            绩效考核
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
                     </div>
                 </div>
             </div>
