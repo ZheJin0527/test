@@ -6240,6 +6240,7 @@ form select {
 }
 
 .informationmenu.collapsed .user-name,
+.informationmenu.collapsed .user-avatar-dropdown,
 .informationmenu.collapsed .informationmenu-section-title span,
 .informationmenu.collapsed .informationmenu-item .informationmenu-arrow,
 .informationmenu.collapsed .section-arrow,
@@ -6277,23 +6278,4 @@ form select {
 /* 确保过渡效果 */
 .informationmenu {
     transition: width 0.3s ease !important;
-}
-
-/* 收起状态下的头像样式 */
-.informationmenu.collapsed .user-avatar-dropdown {
-    align-items: center;
-    justify-content: center;
-}
-
-.informationmenu.collapsed .user-avatar {
-    width: 35px !important;
-    height: 35px !important;
-    font-size: 18px !important;
-    line-height: 33px !important;
-}
-
-.informationmenu.collapsed .informationmenu-header {
-    padding: 15px 12px !important;
-    flex-direction: column;
-    gap: 10px;
 }
