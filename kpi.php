@@ -1,3 +1,55 @@
+<?php
+session_start();
+
+// 超时时间（秒）
+define('SESSION_TIMEOUT', 60);
+
+// 如果 session 存在，检查是否过期
+if (isset($_SESSION['user_id'])) {
+
+    // 如果超过 1 分钟没活动，并且没有记住我
+    if (
+        isset($_SESSION['last_activity']) &&
+        (time() - $_SESSION['last_activity'] > SESSION_TIMEOUT) &&
+        (!isset($_COOKIE['remember_token']) || $_COOKIE['remember_token'] !== '1')
+    ) {
+        // 清除 session
+        session_unset();
+        session_destroy();
+
+        // 清除 cookie（可选）
+        setcookie('user_id', '', time() - 60, "/");
+        setcookie('username', '', time() - 60, "/");
+        setcookie('remember_token', '', time() - 60, "/");
+
+        // 跳转登录页
+        header("Location: index.php");
+        exit();
+    }
+
+    // 更新活动时间戳
+    $_SESSION['last_activity'] = time();
+
+} elseif (
+    isset($_COOKIE['user_id']) &&
+    isset($_COOKIE['username']) &&
+    isset($_COOKIE['remember_token']) &&
+    $_COOKIE['remember_token'] === '1'
+) {
+    // 记住我逻辑（恢复 session）
+    $_SESSION['user_id'] = $_COOKIE['user_id'];
+    $_SESSION['username'] = $_COOKIE['username'];
+    $_SESSION['last_activity'] = time();
+} else {
+    // 没有 session，也没有有效 cookie
+    header("Location: index.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+$avatarLetter = strtoupper($username[0]);
+?>
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -3527,5 +3579,39 @@ function createEmptyDataPoint() {
             }
         });
     </script>
+    <script>
+// 侧边栏收起/展开功能
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarMenu = document.querySelector('.informationmenu'); // 改名避免冲突
+
+sidebarToggle?.addEventListener('click', function(e) {
+    e.stopPropagation(); // 防止事件冒泡
+    
+    sidebarMenu.classList.toggle('collapsed');
+    sidebarToggle.classList.toggle('collapsed');
+    
+    // 如果收起了，关闭所有下拉菜单
+    if (sidebarMenu.classList.contains('collapsed')) {
+        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+            title.classList.remove('active');
+        });
+    }
+});
+
+// 收起状态下点击section标题不展开下拉菜单
+document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+    title.addEventListener('click', function(e) {
+        if (sidebarMenu.classList.contains('collapsed')) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        // 如果不是收起状态，执行原来的点击逻辑
+    });
+});
+</script>
 </body>
 </html>
