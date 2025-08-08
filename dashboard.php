@@ -79,11 +79,11 @@ $avatarLetter = strtoupper($username[0]);
 
         <div class="informationmenu-content">
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="company-items">
+                <div class="informationmenu-section-title" data-target="analytics-items">
                     仪表盘
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="company-items">
+                <div class="dropdown-menu-items" id="analytics-items">
                     <div class="menu-item-wrapper">
                         <a href="kpi.html" class="informationmenu-item">
                             集团概览
@@ -108,11 +108,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="analytics-items">
+                <div class="informationmenu-section-title" data-target="company-items">
                     Kunzz Holdings
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="analytics-items">
+                <div class="dropdown-menu-items" id="company-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             企业蓝图
@@ -151,11 +151,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="hr-items">
+                <div class="informationmenu-section-title" data-target="subcompany-items">
                     子公司
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="hr-items">
+                <div class="dropdown-menu-items" id="subcompany-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             J1
@@ -216,11 +216,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="user-items">
+                <div class="informationmenu-section-title" data-target="report-items">
                     报表
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="user-items">
+                <div class="dropdown-menu-items" id="report-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             财务
@@ -252,11 +252,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="help-items">
+                <div class="informationmenu-section-title" data-target="stock-items">
                     资源库
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="help-items">
+                <div class="dropdown-menu-items" id="stock-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             碗碟
