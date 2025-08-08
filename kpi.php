@@ -1523,7 +1523,6 @@ $avatarLetter = strtoupper($username[0]);
             </div>
         </div>
     </div>
-    </div>
 
     <script>
         // API 配置
