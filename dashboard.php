@@ -964,27 +964,33 @@ function goToCulture() {
     </script>
     <script>
         // 侧边菜单收起/展开功能 - 添加这整段
+// 调试代码 - 检查元素是否存在
+console.log('sidebarToggle element:', document.getElementById('sidebarToggle'));
+console.log('overlay element:', document.querySelector('.informationmenu-overlay'));
+
 const sidebarToggle = document.getElementById('sidebarToggle');
 
 if (sidebarToggle) {
+    console.log('绑定点击事件到sidebarToggle'); // 调试信息
     sidebarToggle.addEventListener('click', function(e) {
-        e.stopPropagation(); // 防止事件冒泡
-    
-        // 检查当前状态
+        console.log('hamburger按钮被点击了！'); // 调试信息
+        e.stopPropagation();
+        
         if (overlay.classList.contains('collapsed')) {
-            // 如果是收起状态，展开菜单
+            console.log('展开菜单');
             overlay.classList.remove('collapsed');
         } else {
-            // 如果是展开状态，收起菜单
+            console.log('收起菜单');
             overlay.classList.add('collapsed');
         }
-    
-        // 添加一些反馈效果
+        
         this.style.transform = 'scale(0.95)';
         setTimeout(() => {
             this.style.transform = '';
         }, 150);
     });
+} else {
+    console.log('找不到sidebarToggle元素！');
 }
 
 // 收起状态下点击伪元素区域展开菜单 - 添加这整段
