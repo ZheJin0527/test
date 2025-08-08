@@ -1281,12 +1281,6 @@ html {
                 <div class="logo-container">
                     <span class="title-text">KPI DASHBOARD</span>
                 </div>
-                <div class="controls">
-                    <button class="back-button" onclick="goBack()">
-                        <i class="fas fa-arrow-left"></i>
-                        返回上一页
-                    </button>
-                </div>
             </div>
             
             <!-- Date Controls -->
