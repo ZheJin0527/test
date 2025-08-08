@@ -2265,49 +2265,28 @@
                     data: {
                         labels: chartLabels,
                         datasets: [
-                        {
-                            label: 'J1 常客',
-                            data: comparisonData.restaurants.j1.map(item => item.returningCustomers),
-                            backgroundColor: restaurantColors.j1.primary,
-                            borderColor: restaurantColors.j1.primary,
-                            stack: 'j1'
-                        },
-                        {
-                            label: 'J1 新客人',
-                            data: comparisonData.restaurants.j1.map(item => item.newCustomers),
-                            backgroundColor: restaurantColors.j1.secondary,
-                            borderColor: restaurantColors.j1.secondary,
-                            stack: 'j1'
-                        },
-                        {
-                            label: 'J2 常客',
-                            data: comparisonData.restaurants.j2.map(item => item.returningCustomers),
-                            backgroundColor: restaurantColors.j2.primary,
-                            borderColor: restaurantColors.j2.primary,
-                            stack: 'j2'
-                        },
-                        {
-                            label: 'J2 新客人',
-                            data: comparisonData.restaurants.j2.map(item => item.newCustomers),
-                            backgroundColor: restaurantColors.j2.secondary,
-                            borderColor: restaurantColors.j2.secondary,
-                            stack: 'j2'
-                        },
-                        {
-                            label: 'J3 常客',
-                            data: comparisonData.restaurants.j3.map(item => item.returningCustomers),
-                            backgroundColor: restaurantColors.j3.primary,
-                            borderColor: restaurantColors.j3.primary,
-                            stack: 'j3'
-                        },
-                        {
-                            label: 'J3 新客人',
-                            data: comparisonData.restaurants.j3.map(item => item.newCustomers),
-                            backgroundColor: restaurantColors.j3.secondary,
-                            borderColor: restaurantColors.j3.secondary,
-                            stack: 'j3'
-                        }
-                    ]
+                            {
+                                label: 'J1 用餐人数',
+                                data: comparisonData.restaurants.j1.map(item => item.diners),
+                                backgroundColor: restaurantColors.j1.primary,
+                                borderColor: restaurantColors.j1.primary,
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'J2 用餐人数',
+                                data: comparisonData.restaurants.j2.map(item => item.diners),
+                                backgroundColor: restaurantColors.j2.primary,
+                                borderColor: restaurantColors.j2.primary,
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'J3 用餐人数',
+                                data: comparisonData.restaurants.j3.map(item => item.diners),
+                                backgroundColor: restaurantColors.j3.primary,
+                                borderColor: restaurantColors.j3.primary,
+                                borderWidth: 1
+                            }
+                        ]
                     },
                     options: {
                         responsive: true,
@@ -2354,64 +2333,23 @@
                                         return '';
                                     },
                                     label: function(context) {
-                                        const dataIndex = context.dataIndex;
-                                        const restaurant = context.dataset.label.includes('J1') ? 'j1' : 
-                                                        context.dataset.label.includes('J2') ? 'j2' : 'j3';
-                                        const dayData = comparisonData.restaurants[restaurant][dataIndex];
-                                        const totalCustomers = dayData.returningCustomers + dayData.newCustomers;
-
-                                        let label = context.dataset.label + ': ' + context.parsed.y + '人';
-
-                                        if (context.dataset.label.includes('常客') || context.dataset.label.includes('新客')) {
-                                            if (totalCustomers > 0) {
-                                                const percentage = ((context.parsed.y / totalCustomers) * 100).toFixed(1);
-                                                label += ` (${percentage}%)`;
-                                            }
-                                        }
-
-                                        return label;
+                                        return context.dataset.label + ': ' + context.parsed.y + '人';
                                     },
                                     afterBody: function(context) {
                                         if (context.length > 0) {
                                             const dataIndex = context[0].dataIndex;
-                                            const j1Data = comparisonData.restaurants.j1[dataIndex];
-                                            const j2Data = comparisonData.restaurants.j2[dataIndex];
-                                            const j3Data = comparisonData.restaurants.j3[dataIndex];
-                                    
-                                            let result = [];
-                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
-                                    
-                                            // 直接显示汇总信息，删除条件检查
-                                            const j1Total = j1Data.returningCustomers + j1Data.newCustomers;
-                                            const j2Total = j2Data.returningCustomers + j2Data.newCustomers;
-                                            const j3Total = j3Data.returningCustomers + j3Data.newCustomers;
-                                            const grandTotal = j1Total + j2Total + j3Total;
-                                        
-                                            const j1Diners = j1Data.diners;
-                                            const j2Diners = j2Data.diners;
-                                            const j3Diners = j3Data.diners;
+                                            const j1Diners = comparisonData.restaurants.j1[dataIndex].diners;
+                                            const j2Diners = comparisonData.restaurants.j2[dataIndex].diners;
+                                            const j3Diners = comparisonData.restaurants.j3[dataIndex].diners;
                                             const totalDiners = j1Diners + j2Diners + j3Diners;
-                                        
-                                            const j1Tables = j1Data.tablesUsed;
-                                            const j2Tables = j2Data.tablesUsed;
-                                            const j3Tables = j3Data.tablesUsed;
-                                            const totalTables = j1Tables + j2Tables + j3Tables;
-                                        
-                                            const totalReturning = j1Data.returningCustomers + j2Data.returningCustomers + j3Data.returningCustomers;
-                                            const totalNew = j1Data.newCustomers + j2Data.newCustomers + j3Data.newCustomers;
-                                        
-                                            result.push('', `--- ${periodText} ---`);
-                                            result.push(`总顾客人数: ${totalDiners}人`);
-                                            result.push(`总桌数: ${totalTables}桌`);
-                                        
-                                            if (grandTotal > 0) {
-                                                const overallRetRate = ((totalReturning / grandTotal) * 100).toFixed(2);
-                                                const overallNewRate = ((totalNew / grandTotal) * 100).toFixed(2);
-                                                result.push(`总常客率: ${overallRetRate}%`);
-                                                result.push(`总新客人率: ${overallNewRate}%`);
-                                            }
-                                    
-                                            return result;
+
+                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
+
+                                            return [
+                                                '',
+                                                `--- ${periodText} ---`,
+                                                `总用餐人数: ${totalDiners}人`
+                                            ];
                                         }
                                         return [];
                                     }
