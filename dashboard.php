@@ -369,11 +369,11 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="help-items">
+                <div class="informationmenu-section-title" data-target="support-items">
                     帮助与支持
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="help-items">
+                <div class="dropdown-menu-items" id="support-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             使用教学
