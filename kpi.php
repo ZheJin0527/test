@@ -228,6 +228,7 @@ $avatarLetter = strtoupper($username[0]);
         .restaurant-selector {
             position: relative;
             display: inline-block;
+            margin-left: auto;
         }
 
         .restaurant-btn {
@@ -244,6 +245,7 @@ $avatarLetter = strtoupper($username[0]);
             gap: 8px;
             min-width: 80px;
             transition: all 0.3s ease;
+            border-color: var(--primary-color, #583e04) !important; /* 确保边框颜色跟随主题 */
         }
 
         .restaurant-btn:hover {
