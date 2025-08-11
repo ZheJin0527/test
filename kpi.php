@@ -308,15 +308,15 @@ $avatarLetter = strtoupper($username[0]);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            width: 29px;
+            height: 28px;
             border: 1px solid #e5e7eb;
             background: white;
             color: #583e04;
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
-            border-radius: 6px;
+            border-radius: 4px;
             transition: all 0.15s ease;
         }
 
@@ -423,7 +423,7 @@ $avatarLetter = strtoupper($username[0]);
         .restaurant-btn {
             padding: 10px 20px;
             border-radius: 8px;
-            border: none;
+            border: 2px solid #583e04 !important;  /* 添加 !important 确保边框显示 */
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
