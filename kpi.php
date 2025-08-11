@@ -253,40 +253,88 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border: 2px solid #583e04;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
-            z-index: 1000;
-            min-width: 150px;
-            padding: 12px;
-            align-items: center;
-        }
-
-        .restaurant-dropdown-menu.show {
-            display: block;
-        }
-
-        .letter-selection {
-    margin-bottom: 12px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 2px solid #583e04;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+    z-index: 1000;
+    min-width: 200px;
+    padding: 12px;
+    align-items: center;
 }
 
-.number-selection {
-    border-top: 1px solid #e5e7eb;
-    padding-top: 12px;
+.restaurant-selection-container {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
 }
 
-        .section-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: #583e04;
-            margin-bottom: 8px;
-            text-align: center;
-        }
+.letter-section {
+    flex-shrink: 0;
+}
+
+.number-section {
+    flex-shrink: 0;
+}
+
+.letter-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.number-horizontal-grid {
+    display: flex;
+    gap: 4px;
+}
+
+.letter-item,
+.number-item,
+.number-item.total-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 29px;
+    height: 28px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: #583e04;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.letter-item:hover,
+.number-item:hover,
+.number-item.total-option:hover {
+    background: #583e04;
+    color: white;
+    border-color: #583e04;
+    transform: scale(1.05);
+}
+
+.letter-item.selected,
+.number-item.selected,
+.number-item.total-option.selected {
+    background: #583e04;
+    color: white;
+    border-color: #583e04;
+    font-weight: 600;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #583e04;
+    margin-bottom: 8px;
+    text-align: center;
+}
 
         .letter-grid,
         .number-grid {
@@ -1428,20 +1476,22 @@ $avatarLetter = strtoupper($username[0]);
                                 -- <i class="fas fa-chevron-down"></i>
                             </button>
                             <div class="restaurant-dropdown-menu" id="restaurant-dropdown">
-    <div class="letter-selection">
-        <div class="section-title">选择餐厅类型</div>
-        <div class="letter-grid">
-            <button class="letter-item" onclick="selectLetter('J')" onmouseenter="showNumberOptions('J')">J</button>
-            <button class="letter-item" onclick="selectLetter('K')" onmouseenter="showNumberOptions('K')">K</button>
+    <div class="restaurant-selection-container">
+        <div class="letter-section">
+            <div class="section-title">餐厅类型</div>
+            <div class="letter-grid">
+                <button class="letter-item" onclick="selectLetter('J')" onmouseenter="showNumberOptions('J')">J</button>
+                <button class="letter-item" onclick="selectLetter('K')" onmouseenter="showNumberOptions('K')">K</button>
+            </div>
         </div>
-    </div>
-    <div class="number-selection" id="number-selection" style="display: none;">
-        <div class="section-title">选择分店</div>
-        <div class="number-grid">
-            <button class="number-item" onclick="selectRestaurant('1')">1</button>
-            <button class="number-item" onclick="selectRestaurant('2')">2</button>
-            <button class="number-item" onclick="selectRestaurant('3')">3</button>
-            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+        <div class="number-section" id="number-section" style="display: none;">
+            <div class="section-title">分店选择</div>
+            <div class="number-horizontal-grid">
+                <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                <button class="number-item" onclick="selectRestaurant('3')">3</button>
+                <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+            </div>
         </div>
     </div>
 </div>
@@ -3686,7 +3736,48 @@ document.addEventListener('DOMContentLoaded', function() {
     if (sidebarToggle) {
         sidebarToggle.addEventListener('click', toggleSidebar);
     }
+
+    // 修改餐厅下拉菜单的鼠标事件处理
+    const restaurantDropdown = document.getElementById('restaurant-dropdown');
+    let hideTimeout;
+    
+    if (restaurantDropdown) {
+        // 鼠标离开整个下拉菜单时隐藏数字选择
+        restaurantDropdown.addEventListener('mouseleave', function() {
+            hideTimeout = setTimeout(() => {
+                const numberSection = document.getElementById('number-section');
+                if (numberSection) {
+                    numberSection.style.display = 'none';
+                    // 清除字母选中状态
+                    document.querySelectorAll('.letter-item').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                }
+            }, 300); // 增加延迟时间
+        });
+        
+        // 鼠标重新进入时取消隐藏
+        restaurantDropdown.addEventListener('mouseenter', function() {
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+            }
+        });
+    }
+    
+    // 为数字按钮添加点击前的保护
+    document.querySelectorAll('.number-item, .number-item.total-option').forEach(button => {
+        button.addEventListener('mousedown', function(e) {
+            // 阻止隐藏事件在点击时触发
+            e.stopPropagation();
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+            }
+        });
+    });
 });
+
 </script>
 <script>
     document.querySelectorAll('.informationmenu-section-title').forEach(title => {
@@ -3868,16 +3959,25 @@ document.addEventListener('DOMContentLoaded', function() {
             let isRestaurantSelected = false;
 
             // 显示数字选项
+// 修改 showNumberOptions 函数，移除 ID 引用问题
 function showNumberOptions(letter) {
     currentLetter = letter;
-    const numberSelection = document.getElementById('number-selection');
-    const sectionTitle = numberSelection.querySelector('.section-title');
+    const numberSection = document.getElementById('number-section');
+    const sectionTitle = numberSection.querySelector('.section-title');
     
     // 更新标题
-    sectionTitle.textContent = `选择${letter}分店`;
+    sectionTitle.textContent = `${letter}分店选择`;
     
     // 显示数字选择区域
-    numberSelection.style.display = 'block';
+    numberSection.style.display = 'block';
+    
+    // 高亮当前选中的字母
+    document.querySelectorAll('.letter-item').forEach(item => {
+        item.classList.remove('selected');
+        if (item.textContent === letter) {
+            item.classList.add('selected');
+        }
+    });
 }
 
 // 选择具体餐厅
