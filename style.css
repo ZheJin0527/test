@@ -6244,7 +6244,7 @@ form select {
 .section-icon {
     width: 20px;
     height: 20px;
-    margin-right: 10px;
+    margin-right: 25px;
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
@@ -6264,33 +6264,18 @@ form select {
     margin-left: auto; /* 箭头自动推到最右边 */
 }
 
-/* 侧边栏收起状态下的样式 */
-.informationmenu.collapsed .informationmenu-section-title {
-    justify-content: center;
-    padding: 15px 10px; /* 确保有足够的内边距显示图标 */
-}
-
+/* 侧边栏收起状态下的图标样式 */
 .informationmenu.collapsed .section-icon {
     margin-right: 0;
-    display: block; /* 确保图标显示 */
-    width: 24px; /* 收起时图标稍微大一点 */
-    height: 24px;
 }
 
-/* 收起状态下隐藏文字和箭头 */
+/* 收起状态下隐藏文字，只显示图标 */
+.informationmenu.collapsed .informationmenu-section-title {
+    justify-content: center;
+}
+
 .informationmenu.collapsed .informationmenu-section-title .section-arrow {
     display: none;
-}
-
-/* 额外的强制显示图标规则 */
-.informationmenu.collapsed .informationmenu-section-title * {
-    display: none;
-}
-
-.informationmenu.collapsed .section-icon {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
 }
 
 /* 收起状态保持三条横线 */
