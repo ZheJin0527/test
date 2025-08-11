@@ -6240,37 +6240,6 @@ form select {
     border-radius: 1px;
 }
 
-.menu-icon {
-    margin-right: 10px;
-    width: 16px;
-    text-align: center;
-    color: #666;
-    transition: color 0.3s ease;
-}
-
-.informationmenu-section-title {
-    display: flex;
-    align-items: center;
-}
-
-.informationmenu-section-title:hover .menu-icon {
-    color: #007bff;
-}
-
-.informationmenu-section-title.active .menu-icon {
-    color: #007bff;
-}
-
-/* 收起状态下的图标样式 */
-.informationmenu.collapsed .menu-icon {
-    margin-right: 0;
-    font-size: 18px;
-}
-
-.informationmenu.collapsed .informationmenu-section-title {
-    justify-content: center;
-}
-
 /* 收起状态保持三条横线 */
 .sidebar-menu-hamburger.collapsed span {
     /* 保持原始状态，不做任何变换 */
