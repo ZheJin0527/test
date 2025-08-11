@@ -3738,17 +3738,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 添加鼠标离开数字选择区域的事件
-    const numberSection = document.getElementById('number-section');
-    if (numberSection) {
-        numberSection.addEventListener('mouseleave', function() {
-            // 延迟隐藏，防止误触
-            setTimeout(() => {
-                if (!numberSection.matches(':hover')) {
-                    numberSection.style.display = 'none';
-                }
-            }, 200);
-        });
-    }
+const numberSection = document.getElementById('number-section'); // 改为 number-section
+if (numberSection) {
+    numberSection.addEventListener('mouseleave', function() {
+        // 延迟隐藏，防止误触
+        setTimeout(() => {
+            if (!numberSection.matches(':hover')) {
+                numberSection.style.display = 'none';
+            }
+        }, 200);
+    });
+}
     
     // 鼠标重新进入时取消隐藏
     const restaurantDropdown = document.getElementById('restaurant-dropdown');
@@ -3943,9 +3943,10 @@ document.addEventListener('DOMContentLoaded', function() {
             let isRestaurantSelected = false;
 
             // 显示数字选项
+// 显示数字选项
 function showNumberOptions(letter) {
     currentLetter = letter;
-    const numberSection = document.getElementById('number-section');
+    const numberSection = document.getElementById('number-section'); // 改为 number-section
     const sectionTitle = numberSection.querySelector('.section-title');
     
     // 更新标题
