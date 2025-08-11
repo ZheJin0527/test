@@ -1445,14 +1445,14 @@ $avatarLetter = strtoupper($username[0]);
                             </button>
                             <div class="restaurant-dropdown-menu" id="restaurant-dropdown">
                                 <div class="letter-selection">
-                                    <div class="section-title">选择餐厅类型</div>
+                                    <div class="section-title">选择州属</div>
                                     <div class="letter-grid">
                                         <button class="letter-item" onclick="selectLetter('J')" onmouseenter="showNumberOptions('J')">J</button>
                                         <button class="letter-item" onclick="selectLetter('K')" onmouseenter="showNumberOptions('K')">K</button>
                                     </div>
                                 </div>
                                 <div class="number-selection" id="number-selection">
-                                    <div class="section-title">请选择餐厅类型</div>
+                                    <div class="section-title">选择餐厅</div>
                                     <div class="number-grid">
                                         <!-- 默认为空 -->
                                     </div>
