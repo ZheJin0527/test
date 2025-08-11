@@ -334,24 +334,24 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .number-item.total-option {
-    grid-column: span 3; /* 让总计按钮跨越3列，占满整行 */
-    background: linear-gradient(135deg, #583e04, #805906);
-    color: white;
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 0.5px;
-}
+            grid-column: span 3; /* 让总计按钮跨越3列，占满整行 */
+            background: linear-gradient(135deg, #583e04, #805906);
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
 
-.number-item.total-option:hover {
-    background: linear-gradient(135deg, #805906, #583e04);
-    transform: scale(1.02);
-    box-shadow: 0 2px 8px rgba(88, 62, 4, 0.3);
-}
+        .number-item.total-option:hover {
+            background: linear-gradient(135deg, #805906, #583e04);
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.3);
+        }
 
-.number-item.total-option.selected {
-    background: linear-gradient(135deg, #805906, #583e04);
-    box-shadow: 0 2px 12px rgba(88, 62, 4, 0.4);
-}
+        .number-item.total-option.selected {
+            background: linear-gradient(135deg, #805906, #583e04);
+            box-shadow: 0 2px 12px rgba(88, 62, 4, 0.4);
+        }
 
         .number-dropdown {
             position: relative;
@@ -1446,14 +1446,14 @@ $avatarLetter = strtoupper($username[0]);
                                     </div>
                                     <!-- 数字选择区域 -->
                                     <div class="number-section">
-    <div class="section-title">分店</div>
-    <div class="number-grid">
-        <button class="number-item selected" onclick="selectNumber(1)">1</button>
-        <button class="number-item" onclick="selectNumber(2)">2</button>
-        <button class="number-item" onclick="selectNumber(3)">3</button>
-        <button class="number-item total-option" onclick="selectTotal()">总计</button>
-    </div>
-</div>
+                                        <div class="section-title">分店</div>
+                                        <div class="number-grid">
+                                            <button class="number-item selected" onclick="selectNumber(1)">1</button>
+                                            <button class="number-item" onclick="selectNumber(2)">2</button>
+                                            <button class="number-item" onclick="selectNumber(3)">3</button>
+                                            <button class="number-item total-option" onclick="selectTotal()">总计</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2179,11 +2179,20 @@ $avatarLetter = strtoupper($username[0]);
         // 加载所有餐厅数据
         async function loadAllRestaurantsData(params = {}) {
             try {
-                const restaurants = ['j1', 'j2', 'j3'];
+                // 根据当前选择的字母决定要加载哪些餐厅
+                let restaurants;
+                if (currentLetter === 'J') {
+                    restaurants = ['j1', 'j2', 'j3'];
+                } else if (currentLetter === 'K') {
+                    restaurants = ['k1', 'k2', 'k3'];
+                } else {
+                    restaurants = ['j1', 'j2', 'j3']; // 默认
+                }
+
                 // 确保有有效的日期参数
                 const startDate = params.start_date || dateRange.startDate;
                 const endDate = params.end_date || dateRange.endDate;
-        
+
                 const promises = restaurants.map(async (restaurant) => {
                     const queryParams = new URLSearchParams({
                         action: 'list',
@@ -2191,7 +2200,7 @@ $avatarLetter = strtoupper($username[0]);
                         start_date: startDate,
                         end_date: endDate
                     });
-            
+    
                     try {
                         const result = await apiCall(`?${queryParams}`);
                         // 即使 success 为 false，也可能有数据
@@ -2201,15 +2210,15 @@ $avatarLetter = strtoupper($username[0]);
                         return { restaurant, data: [] };
                     }
                 });
-        
+
                 const results = await Promise.all(promises);
-        
+
                 // 存储各餐厅数据
                 allRestaurantsData = {};
                 results.forEach(({ restaurant, data }) => {
                     allRestaurantsData[restaurant] = data;
                 });
-        
+
                 return allRestaurantsData;
             } catch (error) {
                 console.error('加载所有餐厅数据失败:', error);
@@ -2476,12 +2485,12 @@ $avatarLetter = strtoupper($username[0]);
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
     
             // 更新图表标题（总计模式下显示特殊标题）
-            const chartTitle = document.getElementById('main-chart-title');
-            if (currentRestaurant === 'total') {
-                chartTitle.textContent = '净销售额趋势 (三店合计)';
-            } else {
-                chartTitle.textContent = '净销售额趋势';
-            }
+const chartTitle = document.getElementById('main-chart-title');
+if (currentRestaurant === 'total') {
+    chartTitle.textContent = `净销售额趋势 (${currentLetter}系列三店合计)`;
+} else {
+    chartTitle.textContent = '净销售额趋势';
+}
     
             // 更新图表
             updateCharts(filteredData);
@@ -3016,12 +3025,12 @@ $avatarLetter = strtoupper($username[0]);
 }
 
             // 更新桌子图表标题
-            const tablesChartTitle = document.getElementById('tables-chart-title');
-            if (currentRestaurant === 'total') {
-                tablesChartTitle.textContent = '桌子使用分析 - 按顾客类型 (三店合计)';
-            } else {
-                tablesChartTitle.textContent = '桌子使用分析 - 按顾客类型';
-            }
+const tablesChartTitle = document.getElementById('tables-chart-title');
+if (currentRestaurant === 'total') {
+    tablesChartTitle.textContent = `桌子使用分析 - 按顾客类型 (${currentLetter}系列三店合计)`;
+} else {
+    tablesChartTitle.textContent = '桌子使用分析 - 按顾客类型';
+}
 
             if (currentRestaurant === 'total') {
                 // 总计模式：显示三间餐厅的桌子对比数据
@@ -3292,13 +3301,13 @@ $avatarLetter = strtoupper($username[0]);
             tbody.innerHTML = '';
             
             // 更新表头（总计模式下添加标识）
-            const tableHeader = document.getElementById('table-header');
-            const firstHeader = tableHeader.querySelector('th');
-            if (currentRestaurant === 'total') {
-                firstHeader.textContent = '日期 (三店合计)';
-            } else {
-                firstHeader.textContent = '日期';
-            }
+const tableHeader = document.getElementById('table-header');
+const firstHeader = tableHeader.querySelector('th');
+if (currentRestaurant === 'total') {
+    firstHeader.textContent = `日期 (${currentLetter}系列三店合计)`;
+} else {
+    firstHeader.textContent = '日期';
+}
             
             // 显示所有选择的数据，而不是限制为10条
             data.forEach(item => {
@@ -3390,7 +3399,16 @@ function prepareMonthlyComparisonData() {
         return null;
     }
     
-    const restaurants = ['j1', 'j2', 'j3'];
+    // 根据当前选择的字母决定要处理哪些餐厅
+    let restaurants;
+    if (currentLetter === 'J') {
+        restaurants = ['j1', 'j2', 'j3'];
+    } else if (currentLetter === 'K') {
+        restaurants = ['k1', 'k2', 'k3'];
+    } else {
+        restaurants = ['j1', 'j2', 'j3']; // 默认
+    }
+    
     const restaurantDataConverted = {};
     
     // 先转换每个餐厅的数据格式
@@ -3875,94 +3893,95 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // 选择字母
             function selectLetter(letter) {
-    currentLetter = letter;
+                currentLetter = letter;
 
-    // 更新字母选择状态
-    document.querySelectorAll('.letter-item').forEach(item => {
-        item.classList.remove('selected');
-        if (item.textContent === letter) {
-            item.classList.add('selected');
-        }
-    });
+                // 更新字母选择状态
+                document.querySelectorAll('.letter-item').forEach(item => {
+                    item.classList.remove('selected');
+                    if (item.textContent === letter) {
+                        item.classList.add('selected');
+                    }
+                });
 
-    // 如果当前选择的是总计，保持总计状态
-    if (currentNumber !== 'total') {
+                // 如果当前选择的是总计，保持总计状态并切换到对应字母的总计
+                if (currentNumber === 'total') {
+                    // 更新按钮显示
+                    updateRestaurantButton();
+                    // 重新加载总计数据（这样J总计和K总计会有不同的数据）
+                    switchRestaurant('total');
+                } else {
         // 重置为数字1
-        currentNumber = 1;
-        // 更新数字选择状态
-        document.querySelectorAll('.number-item').forEach(item => {
-            item.classList.remove('selected');
-            if (parseInt(item.textContent) === 1) {
-                item.classList.add('selected');
+                    currentNumber = 1;
+                    // 更新数字选择状态
+                    document.querySelectorAll('.number-item').forEach(item => {
+                        item.classList.remove('selected');
+                        if (parseInt(item.textContent) === 1) {
+                            item.classList.add('selected');
+                        }
+                    });
+
+                    // 更新按钮显示
+                    updateRestaurantButton();
+
+                    // 切换餐厅
+                    const restaurant = `${letter.toLowerCase()}${currentNumber}`;
+                    switchRestaurant(restaurant);
+                }
             }
-        });
-    }
-
-    // 更新按钮显示
-    updateRestaurantButton();
-
-    // 切换餐厅
-    if (currentNumber === 'total') {
-        switchRestaurant('total');
-    } else {
-        const restaurant = `${letter.toLowerCase()}${currentNumber}`;
-        switchRestaurant(restaurant);
-    }
-}
 
             // 修改现有的selectNumber函数
             function selectNumber(value) {
-    currentNumber = value;
+                currentNumber = value;
 
-    // 更新数字选择状态
-    document.querySelectorAll('.number-item').forEach(item => {
-        item.classList.remove('selected');
-        if (parseInt(item.textContent) === value) {
-            item.classList.add('selected');
-        }
-    });
+                // 更新数字选择状态
+                document.querySelectorAll('.number-item').forEach(item => {
+                    item.classList.remove('selected');
+                    if (parseInt(item.textContent) === value) {
+                        item.classList.add('selected');
+                    }
+                });
 
-    // 更新按钮显示
-    updateRestaurantButton();
+                // 更新按钮显示
+                updateRestaurantButton();
 
-    // 切换餐厅
-    const restaurant = `${currentLetter.toLowerCase()}${value}`;
-    switchRestaurant(restaurant);
+                // 切换餐厅
+                const restaurant = `${currentLetter.toLowerCase()}${value}`;
+                switchRestaurant(restaurant);
 
-    // 关闭下拉菜单
-    document.getElementById('restaurant-dropdown').classList.remove('show');
-}
+                // 关闭下拉菜单
+                document.getElementById('restaurant-dropdown').classList.remove('show');
+            }
 
-function selectTotal() {
-    currentNumber = 'total';
+            function selectTotal() {
+                currentNumber = 'total';
 
-    // 更新数字选择状态
-    document.querySelectorAll('.number-item').forEach(item => {
-        item.classList.remove('selected');
-        if (item.textContent === '总计') {
-            item.classList.add('selected');
-        }
-    });
+                // 更新数字选择状态
+                document.querySelectorAll('.number-item').forEach(item => {
+                    item.classList.remove('selected');
+                    if (item.textContent === '总计') {
+                        item.classList.add('selected');
+                    }
+                });
 
-    // 更新按钮显示
-    updateRestaurantButton();
+                // 更新按钮显示
+                updateRestaurantButton();
 
-    // 切换到总计
-    switchRestaurant('total');
+                // 切换到总计
+                switchRestaurant('total');
 
-    // 关闭下拉菜单
-    document.getElementById('restaurant-dropdown').classList.remove('show');
-}
+                // 关闭下拉菜单
+                document.getElementById('restaurant-dropdown').classList.remove('show');
+            }
 
             // 更新餐厅按钮显示
             function updateRestaurantButton() {
-    const restaurantBtn = document.querySelector('.restaurant-btn');
-    if (currentNumber === 'total') {
-        restaurantBtn.innerHTML = `${currentLetter}总计 <i class="fas fa-chevron-down"></i>`;
-    } else {
-        restaurantBtn.innerHTML = `${currentLetter}${currentNumber} <i class="fas fa-chevron-down"></i>`;
-    }
-}
+                const restaurantBtn = document.querySelector('.restaurant-btn');
+                if (currentNumber === 'total') {
+                    restaurantBtn.innerHTML = `${currentLetter}总计 <i class="fas fa-chevron-down"></i>`;
+                } else {
+                    restaurantBtn.innerHTML = `${currentLetter}${currentNumber} <i class="fas fa-chevron-down"></i>`;
+                }
+            }
             </script>
 </body>
 </html>
