@@ -177,7 +177,7 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="submenu-title">仪表盘</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="kpi.html" class="submenu-item">集团概览</a>
+                                <a href="kpi.php" class="submenu-item">集团概览</a>
                                 <a href="#" class="submenu-item">工作表</a>
                                 <a href="kpiedit.html" class="submenu-item">KPI数据上传</a>
                             </div>
