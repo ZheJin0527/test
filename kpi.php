@@ -255,14 +255,14 @@ $avatarLetter = strtoupper($username[0]);
         .restaurant-dropdown-menu {
             display: none;
             position: absolute;
-            top: 120%;
+            top: 100%;
             right: 0;
             background: white;
             border: 2px solid #583e04;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            min-width: 200px;
+            min-width: 150px;
             padding: 12px;
         }
 
@@ -1424,7 +1424,6 @@ $avatarLetter = strtoupper($username[0]);
                             <div class="restaurant-dropdown-menu" id="restaurant-dropdown">
                                 <div class="restaurant-selection-grid">
                                     <!-- 字母选择区域 -->
-
                                     <!-- 数字选择区域 -->
                                     <div class="number-section">
                                         <div class="section-title">分店</div>
