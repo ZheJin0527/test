@@ -5688,11 +5688,23 @@ form select {
     user-select: none;
 }
 
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
 .user-name {
-    margin-top: 0px;
+    margin: 0;
     font-size: 14px;
     font-weight: 500;
     color: #333;
+}
+
+.user-position {
+    margin: 2px 0 0 0;
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
 }
 
 .dropdown-menu {
