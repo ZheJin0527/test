@@ -253,7 +253,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
-            display: none;
+ 
             position: absolute;
             top: 100%;
             right: 0;
@@ -264,6 +264,9 @@ $avatarLetter = strtoupper($username[0]);
             z-index: 1000;
             min-width: 150px;
             padding: 12px;
+            display: flex;             /* 用 flex 布局 */
+    flex-direction: column;    /* 垂直排列按钮 */
+    align-items: center;       /* 按钮水平居中 */
         }
 
         .restaurant-dropdown-menu.show {
