@@ -746,24 +746,34 @@ function goToCulture() {
 
         // Section标题点击事件
         document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-            title.addEventListener('click', function() {
+            title.addEventListener('click', function(e) {
+                // 检查侧边栏是否处于收起状态
+                if (sidebarMenu.classList.contains('collapsed')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // 收起状态下点击图标展开侧边栏
+                    sidebarMenu.classList.remove('collapsed');
+                    sidebarToggle.classList.remove('collapsed');
+                    return false;
+                }
+        
                 const targetId = this.getAttribute('data-target');
                 const targetDropdown = document.getElementById(targetId);
-                
+        
                 // 关闭其他section的下拉菜单
                 document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
                     if (dropdown.id !== targetId) {
                         dropdown.classList.remove('show');
                     }
                 });
-                
+        
                 // 移除其他section title的active状态
                 document.querySelectorAll('.informationmenu-section-title').forEach(t => {
                     if (t !== this) {
                         t.classList.remove('active');
                     }
                 });
-                
+        
                 // 切换当前section
                 this.classList.toggle('active');
                 targetDropdown?.classList.toggle('show');
@@ -928,17 +938,6 @@ sidebarToggle?.addEventListener('click', function(e) {
     }
 });
 
-// 收起状态下点击section标题不展开下拉菜单
-document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-    title.addEventListener('click', function(e) {
-        if (sidebarMenu.classList.contains('collapsed')) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-        }
-        // 如果不是收起状态，执行原来的点击逻辑
-    });
-});
 </script>
 </body>
 </html>
