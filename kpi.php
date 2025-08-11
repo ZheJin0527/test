@@ -533,6 +533,13 @@ $avatarLetter = strtoupper($username[0]);
             border-right: 1px solid #e5e7eb;
             padding-right: 12px;
         }
+
+        .letter-item.selected {
+    background: #583e04;
+    color: white;
+    border-color: #583e04;
+    font-weight: 600;
+}
         
         /* 下拉菜单样式 */
         .dropdown {
@@ -1470,8 +1477,8 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="letter-selection">
                                     <div class="section-title">选择餐厅类型</div>
                                     <div class="letter-grid">
-                                        <button class="letter-item" onclick="selectLetter('J')" onmouseenter="showNumberOptions('J')">J</button>
-                                        <button class="letter-item" onclick="selectLetter('K')" onmouseenter="showNumberOptions('K')">K</button>
+                                        <button class="letter-item" onclick="selectLetter('J')">J</button>
+<button class="letter-item" onclick="selectLetter('K')">K</button>
                                     </div>
                                 </div>
                                 <div class="number-selection" id="number-selection" style="display: none;">
@@ -3978,10 +3985,18 @@ function createEmptyDataPoint() {
             }
 
             // 选择字母
-            function selectLetter(letter) {
-                // 这个函数现在只用于显示数字选项
-                showNumberOptions(letter);
-            }
+function selectLetter(letter) {
+    // 更新所有字母按钮的选中状态
+    document.querySelectorAll('.letter-item').forEach(item => {
+        item.classList.remove('selected');
+        if (item.textContent === letter) {
+            item.classList.add('selected');
+        }
+    });
+    
+    // 显示对应的数字选项
+    showNumberOptions(letter);
+}
 
             // 修改现有的selectNumber函数
             function selectNumber(value) {
