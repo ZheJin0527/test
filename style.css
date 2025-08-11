@@ -6240,6 +6240,38 @@ form select {
     border-radius: 1px;
 }
 
+/* 侧边菜单 section 图标样式 */
+.section-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+/* 更新 section-title 的 flexbox 布局 */
+.informationmenu-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* 保持你现有的其他样式 */
+}
+
+/* 侧边栏收起状态下的图标样式 */
+.informationmenu.collapsed .section-icon {
+    margin-right: 0;
+}
+
+/* 收起状态下隐藏文字，只显示图标 */
+.informationmenu.collapsed .informationmenu-section-title {
+    justify-content: center;
+}
+
+.informationmenu.collapsed .informationmenu-section-title .section-arrow {
+    display: none;
+}
+
 /* 收起状态保持三条横线 */
 .sidebar-menu-hamburger.collapsed span {
     /* 保持原始状态，不做任何变换 */

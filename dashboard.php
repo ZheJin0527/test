@@ -95,6 +95,7 @@ $avatarLetter = strtoupper($username[0]);
         <div class="informationmenu-content">
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
+                    <img src="images/images/公司架构管理.png" alt="" class="section-icon">
                     公司架构管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -171,6 +172,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="analytics-items">
+                    <img src="images/images/运营分析与报表.png" alt="" class="section-icon">
                     运营分析与报表
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -214,6 +216,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="hr-items">
+                    <img src="images/images/人事与资源管理.png" alt="" class="section-icon">
                     人事与资源管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -254,6 +257,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="resource-items">
+                    <img src="images/images/资源库管理.png" alt="" class="section-icon">
                     资源库管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -276,6 +280,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="user-items">
+                    <img src="images/images/用户与权限管理.png" alt="" class="section-icon">
                     用户与权限管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -317,6 +322,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="help-items">
+                    <img src="images/images/帮助与支持.png" alt="" class="section-icon">
                     帮助与支持
                     <span class="section-arrow">⮞</span>
                 </div>
