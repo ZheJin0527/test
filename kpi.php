@@ -428,7 +428,7 @@ $avatarLetter = strtoupper($username[0]);
             font-size: 14px;
             font-weight: 600;
             transition: all 0.3s ease;
-            background: transparent;
+            background: white;
             color: #583e04;
             position: relative;
             min-width: 80px;
