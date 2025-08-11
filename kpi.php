@@ -278,11 +278,11 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .letter-selection {
-            flex: 1;
-            border-right: 1px solid #e5e7eb;
-            padding-right: 12px;
-            min-width: 120px; /* 固定最小宽度 */
-        }
+    flex: 1;
+    border-right: 1px solid #e5e7eb;
+    padding-right: 12px;
+    min-width: 140px; /* 稍微增加宽度以容纳横向布局 */
+}
 
         .number-selection {
             flex: 1;
@@ -308,11 +308,12 @@ $avatarLetter = strtoupper($username[0]);
         }       
 
         .letter-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: center;
-        }
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
 
         .number-grid {
             grid-template-columns: repeat(3, 1fr);
