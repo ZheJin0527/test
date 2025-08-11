@@ -34,14 +34,13 @@ if (isset($_SESSION['user_id'])) {
 } elseif (
     isset($_COOKIE['user_id']) &&
     isset($_COOKIE['username']) &&
-    isset($_COOKIE['position']) &&
     isset($_COOKIE['remember_token']) &&
     $_COOKIE['remember_token'] === '1'
 ) {
     // 记住我逻辑（恢复 session）
     $_SESSION['user_id'] = $_COOKIE['user_id'];
     $_SESSION['username'] = $_COOKIE['username'];
-    $_SESSION['position'] = $_COOKIE['position'];
+    $_SESSION['position'] = isset($_COOKIE['position']) ? $_COOKIE['position'] : null;
     $_SESSION['last_activity'] = time();
 } else {
     // 没有 session，也没有有效 cookie
@@ -50,7 +49,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 $username = $_SESSION['username'];
-$position = isset($_SESSION['position']) ? $_SESSION['position'] : 'User'; // 默认值为 'User'
+// 修改这行：检查position是否为空或null
+$position = (!empty($_SESSION['position'])) ? $_SESSION['position'] : 'User';
 $avatarLetter = strtoupper($username[0]);
 ?>
 
