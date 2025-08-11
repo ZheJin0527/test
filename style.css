@@ -6254,8 +6254,14 @@ form select {
 .informationmenu-section-title {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start; /* 改为靠左对齐 */
+    text-align: left;
     /* 保持你现有的其他样式 */
+}
+
+/* 确保箭头在最右边 */
+.informationmenu-section-title .section-arrow {
+    margin-left: auto; /* 箭头自动推到最右边 */
 }
 
 /* 侧边栏收起状态下的图标样式 */
