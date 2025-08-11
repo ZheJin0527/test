@@ -224,115 +224,136 @@ $avatarLetter = strtoupper($username[0]);
             transform: translateY(0);
         }
 
-        /* 餐厅选择器样式 */
-        .restaurant-selector {
-            background: white;
-            border-radius: 12px;
-            padding: 6px;
-            display: flex;
-            gap: 0;
-            border: 2px solid #583e04;
-            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
-            align-items: center;
-            margin-left: auto;
-        }
-
-        .restaurant-prefix {
-            background: #583e04;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 8px 0 0 8px;
-            font-size: 16px;
-            font-weight: 700;
-            min-width: 40px;
-            text-align: center;
-        }
-
-        .number-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* 字母选择器样式 */
-.letter-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.letter-btn {
-    padding: 10px 16px;
-    border-radius: 8px 0 0 8px;
+        /* 新的餐厅选择器样式 */
+.restaurant-btn-main {
+    background: white;
+    color: #583e04;
     border: none;
-    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 8px;
     font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    background: #583e04;
-    color: white;
-    min-width: 50px;
+    font-weight: 700;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
+    transition: all 0.3s ease;
+    min-width: 80px;
+    justify-content: space-between;
 }
 
-.letter-btn:hover {
-    background: #462d03;
+.restaurant-btn-main:hover {
+    background: rgba(88, 62, 4, 0.1);
 }
 
-.letter-dropdown-menu {
+.restaurant-dropdown-menu {
     display: none;
     position: absolute;
     top: 120%;
     left: 0;
     background: white;
     border: 2px solid #583e04;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(88, 62, 4, 0.15);
     z-index: 1000;
-    padding: 4px;
-    min-width: 80px;
+    padding: 12px;
+    min-width: 280px;
 }
 
-.letter-dropdown-menu.show {
+.restaurant-dropdown-menu.show {
     display: block;
 }
 
-.letter-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2px;
+.restaurant-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.letter-item {
+.restaurant-category {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 32px;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.category-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: #583e04;
+    padding: 4px 8px;
+    background: rgba(88, 62, 4, 0.1);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.category-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.restaurant-option {
+    padding: 8px 12px;
     border: 1px solid #e5e7eb;
     background: white;
     color: #583e04;
     cursor: pointer;
     font-size: 14px;
-    font-weight: 600;
-    border-radius: 4px;
-    transition: all 0.15s ease;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    text-align: center;
 }
 
-.letter-item:hover {
+.restaurant-option:hover {
     background: #583e04;
     color: white;
     border-color: #583e04;
-    transform: scale(1.05);
+    transform: translateY(-1px);
 }
 
-.letter-item.selected {
+.restaurant-option.selected {
     background: #583e04;
     color: white;
     border-color: #583e04;
     font-weight: 600;
 }
+
+.total-option {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #583e04, #805906);
+    color: white;
+    border-color: #583e04;
+    font-weight: 600;
+}
+
+.total-option:hover {
+    background: linear-gradient(135deg, #805906, #583e04);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.3);
+}
+
+        .number-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .number-btn {
+            padding: 10px 16px;
+            border-radius: 0 8px 8px 0;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: white;
+            color: #583e04;
+            min-width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
         .number-btn:hover {
             background: rgba(88, 62, 4, 0.1);
@@ -1391,27 +1412,32 @@ $avatarLetter = strtoupper($username[0]);
                         <!-- 餐厅选择器 -->
                         <!-- 餐厅选择器 -->
 <div class="restaurant-selector">
-    <div class="letter-dropdown">
-        <button class="letter-btn dropdown-toggle" onclick="toggleLetterDropdown()">
-            J <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="letter-dropdown-menu" id="letter-dropdown">
-            <div class="letter-grid">
-                <button class="letter-item" onclick="selectLetter('J')">J</button>
-                <button class="letter-item" onclick="selectLetter('K')">K</button>
+    <button class="restaurant-btn-main dropdown-toggle" onclick="toggleRestaurantDropdown()">
+        J <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="restaurant-dropdown-menu" id="restaurant-dropdown">
+        <div class="restaurant-grid">
+            <div class="restaurant-category">
+                <div class="category-header">J系列</div>
+                <div class="category-items">
+                    <button class="restaurant-option" onclick="selectRestaurant('j1')">J1</button>
+                    <button class="restaurant-option" onclick="selectRestaurant('j2')">J2</button>
+                    <button class="restaurant-option" onclick="selectRestaurant('j3')">J3</button>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="number-dropdown">
-        <button class="number-btn dropdown-toggle" onclick="toggleNumberDropdown()">
-            1 <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="number-dropdown-menu" id="number-dropdown">
-            <div class="number-grid" id="number-grid">
-                <button class="number-item" onclick="selectNumber(1)">1</button>
-                <button class="number-item" onclick="selectNumber(2)">2</button>
-                <button class="number-item" onclick="selectNumber(3)">3</button>
-                <button class="number-item total-btn" onclick="selectNumber('total')">总计</button>
+            <div class="restaurant-category">
+                <div class="category-header">K系列</div>
+                <div class="category-items">
+                    <button class="restaurant-option" onclick="selectRestaurant('k1')">K1</button>
+                    <button class="restaurant-option" onclick="selectRestaurant('k2')">K2</button>
+                    <button class="restaurant-option" onclick="selectRestaurant('k3')">K3</button>
+                </div>
+            </div>
+            <div class="restaurant-category">
+                <div class="category-header">汇总</div>
+                <div class="category-items">
+                    <button class="restaurant-option total-option" onclick="selectRestaurant('total')">总计</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1589,19 +1615,65 @@ $avatarLetter = strtoupper($username[0]);
         let monthDateValue = { year: null, month: null }; // 新增月份选择器状态
 
         // 餐厅配置
-        // 餐厅配置
-const restaurantConfig = {
-    j1: { name: 'J1', tableName: 'j1data_view', colors: { primary: '#583e04', secondary: '#805906' } },
-    j2: { name: 'J2', tableName: 'j2data_view', colors: { primary: '#583e04', secondary: '#805906' } },
-    j3: { name: 'J3', tableName: 'j3data_view', colors: { primary: '#583e04', secondary: '#805906' } },
-    k1: { name: 'K1', tableName: 'k1data_view', colors: { primary: '#583e04', secondary: '#805906' } },
-    k2: { name: 'K2', tableName: 'k2data_view', colors: { primary: '#583e04', secondary: '#805906' } },
-    k3: { name: 'K3', tableName: 'k3data_view', colors: { primary: '#583e04', secondary: '#805906' } },
-    total: { name: '总计', tableName: 'all_restaurants', colors: { primary: '#583e04', secondary: '#805906' } }
+        const restaurantConfig = {
+    j1: {
+        name: 'J1',
+        tableName: 'j1data_view',
+        colors: {
+            primary: '#583e04',
+            secondary: '#805906'
+        }
+    },
+    j2: {
+        name: 'J2',
+        tableName: 'j2data_view',
+        colors: {
+            primary: '#583e04',
+            secondary: '#805906'
+        }
+    },
+    j3: {
+        name: 'J3',
+        tableName: 'j3data_view',
+        colors: {
+            primary: '#583e04',
+            secondary: '#805906'
+        }
+    },
+    // 新增K系列
+    k1: {
+        name: 'K1',
+        tableName: 'k1data_view',
+        colors: {
+            primary: '#dc2626',
+            secondary: '#f87171'
+        }
+    },
+    k2: {
+        name: 'K2',
+        tableName: 'k2data_view',
+        colors: {
+            primary: '#dc2626',
+            secondary: '#f87171'
+        }
+    },
+    k3: {
+        name: 'K3',
+        tableName: 'k3data_view',
+        colors: {
+            primary: '#dc2626',
+            secondary: '#f87171'
+        }
+    },
+    total: {
+        name: '总计',
+        tableName: 'all_restaurants',
+        colors: {
+            primary: '#583e04',
+            secondary: '#805906'
+        }
+    }
 };
-
-// 添加当前选择的字母
-let currentLetter = 'J';
 
         // 工具函数
         function getToday() {
@@ -3519,23 +3591,17 @@ function createEmptyDataPoint() {
             updateDashboard();
         }
 
-        // 修改现有的document.addEventListener，添加快速选择下拉菜单的关闭逻辑
         document.addEventListener('click', function(e) {
     // 关闭日期选择器下拉菜单
     if (!e.target.closest('.enhanced-date-picker')) {
         hideAllDropdowns();
     }
-    
-    // 关闭字母选择下拉菜单
-    if (!e.target.closest('.letter-dropdown')) {
-        document.getElementById('letter-dropdown').classList.remove('show');
+
+    // 关闭餐厅选择下拉菜单
+    if (!e.target.closest('.restaurant-selector')) {
+        document.getElementById('restaurant-dropdown').classList.remove('show');
     }
-    
-    // 关闭餐厅数字选择下拉菜单
-    if (!e.target.closest('.number-dropdown')) {
-        document.getElementById('number-dropdown').classList.remove('show');
-    }
-    
+
     // 关闭快速选择下拉菜单
     if (!e.target.closest('.dropdown')) {
         document.getElementById('quick-select-dropdown').classList.remove('show');
@@ -3565,58 +3631,24 @@ function createEmptyDataPoint() {
             updateSelectedNumber();
         }
 
-        // 切换字母下拉菜单
-function toggleLetterDropdown() {
-    const dropdown = document.getElementById('letter-dropdown');
-    dropdown.classList.toggle('show');
+        // 选择餐厅数字或总计
+        function selectNumber(value) {
+            const numberBtn = document.querySelector('.number-btn');
     
-    // 更新选中状态
-    updateSelectedLetter();
-}
-
-// 选择字母
-function selectLetter(letter) {
-    currentLetter = letter;
-    const letterBtn = document.querySelector('.letter-btn');
-    letterBtn.innerHTML = `${letter} <i class="fas fa-chevron-down"></i>`;
+            if (value === 'total') {
+                numberBtn.innerHTML = `总计 <i class="fas fa-chevron-down"></i>`;
+                // 切换到总计
+                switchRestaurant('total');
+            } else {
+                numberBtn.innerHTML = `${value} <i class="fas fa-chevron-down"></i>`;
+                // 切换餐厅
+                const restaurant = `j${value}`;
+                switchRestaurant(restaurant);
+            }
     
-    // 更新数字选择菜单
-    updateNumberGrid();
-    
-    // 关闭下拉菜单
-    document.getElementById('letter-dropdown').classList.remove('show');
-    
-    // 重置为第一个选项
-    const firstNumber = letter === 'J' ? 'j1' : 'k1';
-    switchRestaurant(firstNumber);
-    
-    // 更新数字按钮显示
-    const numberBtn = document.querySelector('.number-btn');
-    numberBtn.innerHTML = `1 <i class="fas fa-chevron-down"></i>`;
-}
-
-// 更新数字网格
-function updateNumberGrid() {
-    const numberGrid = document.getElementById('number-grid');
-    const letter = currentLetter.toLowerCase();
-    
-    numberGrid.innerHTML = `
-        <button class="number-item" onclick="selectNumber(1)">1</button>
-        <button class="number-item" onclick="selectNumber(2)">2</button>
-        <button class="number-item" onclick="selectNumber(3)">3</button>
-        <button class="number-item total-btn" onclick="selectNumber('total')">总计</button>
-    `;
-}
-
-// 更新选中的字母状态
-function updateSelectedLetter() {
-    document.querySelectorAll('.letter-item').forEach(item => {
-        item.classList.remove('selected');
-        if (item.textContent === currentLetter) {
-            item.classList.add('selected');
+            // 关闭下拉菜单
+            document.getElementById('number-dropdown').classList.remove('show');
         }
-    });
-}
 
         // 更新选中的数字状态
         function updateSelectedNumber() {
@@ -3824,5 +3856,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log('点击Section + 悬停Submenu系统已加载完成');
         </script>
+        <script>
+            // 新的餐厅选择器控制
+function toggleRestaurantDropdown() {
+    const dropdown = document.getElementById('restaurant-dropdown');
+    
+    // 关闭其他所有下拉菜单
+    hideAllDropdowns();
+    document.getElementById('quick-select-dropdown').classList.remove('show');
+    
+    // 切换当前下拉菜单
+    dropdown.classList.toggle('show');
+    
+    // 更新选中状态
+    updateSelectedRestaurant();
+}
+
+function selectRestaurant(restaurant) {
+    const mainBtn = document.querySelector('.restaurant-btn-main');
+    
+    // 更新按钮显示文本
+    if (restaurant === 'total') {
+        mainBtn.innerHTML = `总计 <i class="fas fa-chevron-down"></i>`;
+    } else {
+        mainBtn.innerHTML = `${restaurant.toUpperCase()} <i class="fas fa-chevron-down"></i>`;
+    }
+    
+    // 切换餐厅
+    switchRestaurant(restaurant);
+    
+    // 关闭下拉菜单
+    document.getElementById('restaurant-dropdown').classList.remove('show');
+}
+
+function updateSelectedRestaurant() {
+    document.querySelectorAll('.restaurant-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    // 找到对应的选项并标记为选中
+    const targetOption = document.querySelector(`[onclick="selectRestaurant('${currentRestaurant}')"]`);
+    if (targetOption) {
+        targetOption.classList.add('selected');
+    }
+}
+</script>
 </body>
 </html>
