@@ -2866,29 +2866,33 @@ $avatarLetter = strtoupper($username[0]);
                             backgroundColor: function(context) {
                                 const chart = context.chart;
                                 const {ctx, chartArea} = chart;
-                
+
                                 if (!chartArea) {
                                     return null;
                                 }
-                
+
                                 const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
                                 gradient.addColorStop(0, 'rgba(88, 62, 4, 0.4)');
                                 gradient.addColorStop(0.3, 'rgba(88, 62, 4, 0.2)');
                                 gradient.addColorStop(0.7, 'rgba(88, 62, 4, 0.1)');
                                 gradient.addColorStop(1, 'rgba(88, 62, 4, 0.02)');
-                
+
                                 return gradient;
                             },
                             fill: true,
                             tension: 0.4,
                             borderWidth: 2,
                             pointRadius: 0,
-                            pointHoverRadius: 6
+                            pointHoverRadius: 8
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        },
                         scales: {
                             y: {
                                 beginAtZero: true,
