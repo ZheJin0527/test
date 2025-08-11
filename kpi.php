@@ -334,28 +334,24 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .number-item.total-option {
-    grid-column: span 3; /* 让总计按钮跨越3列，占满整行 */
-    background: white; /* 改为白色背景，和其他按钮一样 */
-    color: #583e04; /* 改为和其他按钮一样的颜色 */
-    border: 1px solid #e5e7eb; /* 添加边框 */
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 0.5px;
-}
+            grid-column: span 3; /* 让总计按钮跨越3列，占满整行 */
+            background: linear-gradient(135deg, #583e04, #805906);
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
 
-.number-item.total-option:hover {
-    background: #583e04;
-    color: white;
-    border-color: #583e04;
-    transform: scale(1.05); /* 改为和其他按钮一样的缩放效果 */
-}
+        .number-item.total-option:hover {
+            background: linear-gradient(135deg, #805906, #583e04);
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.3);
+        }
 
-.number-item.total-option.selected {
-    background: #583e04;
-    color: white;
-    border-color: #583e04;
-    font-weight: 600;
-}
+        .number-item.total-option.selected {
+            background: linear-gradient(135deg, #805906, #583e04);
+            box-shadow: 0 2px 12px rgba(88, 62, 4, 0.4);
+        }
 
         .number-dropdown {
             position: relative;
@@ -478,6 +474,38 @@ $avatarLetter = strtoupper($username[0]);
 
         .restaurant-btn.active::before {
             opacity: 1;
+        }
+
+        /* 总计按钮特殊样式 - 未激活时透明 */
+        .restaurant-btn[data-restaurant="total"] {
+            font-weight: 700;
+        }
+
+        /* 总计按钮默认状态（未激活） - 透明背景 */
+        .restaurant-btn[data-restaurant="total"]:not(.active) {
+            background: transparent !important;
+            color: #583e04 !important;
+            transform: none !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        /* 总计按钮激活状态 */
+        .restaurant-btn[data-restaurant="total"].active {
+            background: linear-gradient(135deg, #583e04, #805906) !important;
+            color: white !important;
+            box-shadow: 0 4px 16px rgba(88, 62, 4, 0.4) !important;
+            transform: translateY(-2px) !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+
+        /* 总计按钮悬停状态（仅在非激活时） */
+        .restaurant-btn[data-restaurant="total"]:not(.active):hover {
+            background: rgba(88, 62, 4, 0.1) !important;
+            color: #583e04 !important;
+            transform: translateY(-1px) !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
         }
         
         /* 下拉菜单样式 */
@@ -2349,27 +2377,20 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         // 初始化应用
-        // 添加在文件末尾的 script 标签中
-function updateRestaurantSelectionState() {
-    // 重置所有按钮状态
-    document.querySelectorAll('.restaurant-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
+        async function initApp() {
+            console.log('开始初始化应用...');
     
-    // 重置数字选择状态
-    document.querySelectorAll('.number-item').forEach(item => {
-        item.classList.remove('selected');
-    });
+            // 初始化增强日期选择器
+            initEnhancedDatePickers();
     
-    // 设置初始选中状态（J1）
-    if (currentRestaurant === 'j1') {
-        document.querySelectorAll('.number-item').forEach(item => {
-            if (!item.classList.contains('total-option') && item.textContent === '1') {
-                item.classList.add('selected');
-            }
-        });
-    }
-}
+            console.log('初始化后的日期范围:', dateRange);
+            
+            // 初始化主题色
+            updateThemeColors(currentRestaurant);
+            
+            await loadData();
+            updateDashboard();
+        }
 
         // 数据转换和过滤
         function convertToKPIFormat(data) {
