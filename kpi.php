@@ -283,6 +283,7 @@ $avatarLetter = strtoupper($username[0]);
 
         .number-selection {
             padding-left: 12px;
+            display: none; /* 添加这行，默认隐藏 */
         }
 
         .section-title {
@@ -3717,7 +3718,6 @@ function createEmptyDataPoint() {
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', toggleSidebar);
             }
-            hideNumberOptions();
         });
 </script>
 <script>
@@ -3928,16 +3928,22 @@ function createEmptyDataPoint() {
             <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
         `;
     }
+
+    // 显示数字选择区域
+    numberSelection.style.display = 'block';
+    
+    // 更新下拉菜单的flex布局
+    const dropdown = document.getElementById('restaurant-dropdown');
+    dropdown.style.flexDirection = 'row';
 }
 
             function hideNumberOptions() {
     const numberSelection = document.getElementById('number-selection');
-    const sectionTitle = numberSelection.querySelector('.section-title');
-    const numberGrid = numberSelection.querySelector('.number-grid');
+    const dropdown = document.getElementById('restaurant-dropdown');
     
-    // 清空内容但保持结构
-    sectionTitle.textContent = '选择分店';
-    numberGrid.innerHTML = '';
+    numberSelection.style.display = 'none';
+    // 当隐藏数字选择时，让字母选择区域居中
+    dropdown.style.flexDirection = 'column';
 }
 
             // 选择具体餐厅
