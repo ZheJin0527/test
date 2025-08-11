@@ -5668,117 +5668,118 @@ form select {
 
 /* 登录后头像和下拉菜单样式 */
 .user-avatar-dropdown {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
 }
 
 .user-avatar {
-  width: 50px;
-  height: 50px;
-  background-color: #FF5C00;
-  color: white;
-  font-weight: bold;
-  font-size: 25px;
-  line-height: 48px;
-  text-align: center;
-  border-radius: 50%;
-  user-select: none;
+    width: 50px;
+    height: 50px;
+    background-color: #FF5C00;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 48px;
+    text-align: center;
+    border-radius: 50%;
+    user-select: none;
 }
 
 .user-name {
-    margin-top: 8px;
+    margin-top: 0px;
     font-size: 14px;
     font-weight: 500;
     color: #333;
-    text-align: center;
 }
 
 .dropdown-menu {
-  position: absolute;
-  top: 45px;
-  right: 0;
-  background: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  border-radius: 4px;
-  min-width: 100px;
-  z-index: 1000;
-  display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    min-width: 100px;
+    z-index: 1000;
+    display: none;
 }
 
 .dropdown-menu.show {
-  display: block;
+    display: block;
 }
 
 .dropdown-menu a {
-  display: block;
-  padding: 8px 12px;
-  color: #333;
-  text-decoration: none;
+    display: block;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
 }
 
 .dropdown-menu a:hover {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 .edit-section {
-  max-width: 1100px;
-  margin: auto;
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 40px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    max-width: 1100px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
 }
 
 .edit-title {
-  text-align: center;
-  font-weight: bold;
-  color: #2b3a55;
-  font-size: 28px;
-  margin-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #2b3a55;
+    font-size: 28px;
+    margin-bottom: 30px;
 }
 
 .edit-section-title {
-  font-size: 18px;
-  color: #FF5C00;
-  border-left: 4px solid #FF5C00;
-  padding-left: 10px;
-  margin: 40px 0 20px;
-  font-weight: 600;
+    font-size: 18px;
+    color: #FF5C00;
+    border-left: 4px solid #FF5C00;
+    padding-left: 10px;
+    margin: 40px 0 20px;
+    font-weight: 600;
 }
 
 .edit-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
 }
 
 .edit-group {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .edit-label {
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #555;
-  font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #555;
+    font-weight: 500;
 }
 
 .edit-input {
-  padding: 12px 14px;
-  font-size: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  background-color: #fdfdfd;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: #fdfdfd;
 }
 
 .edit-input:focus {
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
-  outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+    outline: none;
 }
 
 .edit-input[readonly] {
