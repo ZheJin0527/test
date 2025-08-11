@@ -505,27 +505,27 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         /* 当数字选择区域隐藏时，字母选择区域居中显示 */
-.restaurant-dropdown-menu:not(:has(.number-selection[style*="block"])) .letter-selection {
-    border-right: none;
-    padding-right: 0;
-    text-align: center;
-}
+        .restaurant-dropdown-menu:not(:has(.number-selection[style*="block"])) .letter-selection {
+            border-right: none;
+            padding-right: 0;
+            text-align: center;
+        }
 
-/* 或者使用这个更兼容的写法 */
-.restaurant-dropdown-menu {
-    flex-direction: column;
-    align-items: center;
-}
+        /* 或者使用这个更兼容的写法 */
+        .restaurant-dropdown-menu {
+            flex-direction: column;
+            align-items: center;
+        }
 
-.restaurant-dropdown-menu[style*="flex-direction: row"] {
-    flex-direction: row;
-    align-items: stretch;
-}
+        .restaurant-dropdown-menu[style*="flex-direction: row"] {
+            flex-direction: row;
+            align-items: stretch;
+        }
 
-.restaurant-dropdown-menu[style*="flex-direction: row"] .letter-selection {
-    border-right: 1px solid #e5e7eb;
-    padding-right: 12px;
-}
+        .restaurant-dropdown-menu[style*="flex-direction: row"] .letter-selection {
+            border-right: 1px solid #e5e7eb;
+            padding-right: 12px;
+        }
         
         /* 下拉菜单样式 */
         .dropdown {
@@ -4027,44 +4027,43 @@ function createEmptyDataPoint() {
             }
             </script>
             <script>
-                // 鼠标事件控制选择分店区域的显示/隐藏
-// 鼠标事件控制选择分店区域的显示/隐藏
-document.addEventListener('DOMContentLoaded', function() {
-    const letterSelection = document.querySelector('.letter-selection');
-    const numberSelection = document.getElementById('number-selection');
+            // 鼠标事件控制选择分店区域的显示/隐藏
+            document.addEventListener('DOMContentLoaded', function() {
+                const letterSelection = document.querySelector('.letter-selection');
+                const numberSelection = document.getElementById('number-selection');
     
-    // 字母按钮鼠标悬停事件
-    document.querySelectorAll('.letter-item').forEach(letterBtn => {
-        letterBtn.addEventListener('mouseenter', function() {
-            const letter = this.textContent;
-            showNumberOptions(letter);
-        });
-    });
+                // 字母按钮鼠标悬停事件
+                document.querySelectorAll('.letter-item').forEach(letterBtn => {
+                    letterBtn.addEventListener('mouseenter', function() {
+                        const letter = this.textContent;
+                        showNumberOptions(letter);
+                    });
+                });
     
-    // 鼠标离开字母选择区域时的处理
-    letterSelection.addEventListener('mouseleave', function(e) {
-        const relatedTarget = e.relatedTarget;
-        if (!relatedTarget || !numberSelection.contains(relatedTarget)) {
-            setTimeout(() => {
-                if (!numberSelection.matches(':hover')) {
-                    hideNumberOptions();
-                }
-            }, 150);
-        }
-    });
+                // 鼠标离开字母选择区域时的处理
+                letterSelection.addEventListener('mouseleave', function(e) {
+                    const relatedTarget = e.relatedTarget;
+                    if (!relatedTarget || !numberSelection.contains(relatedTarget)) {
+                        setTimeout(() => {
+                            if (!numberSelection.matches(':hover')) {
+                                hideNumberOptions();
+                            }
+                        }, 150);
+                    }
+                });
     
-    // 鼠标离开数字选择区域时隐藏
-    numberSelection.addEventListener('mouseleave', function(e) {
-        const relatedTarget = e.relatedTarget;
-        if (!relatedTarget || !letterSelection.contains(relatedTarget)) {
-            setTimeout(() => {
-                if (!letterSelection.matches(':hover')) {
-                    hideNumberOptions();
-                }
-            }, 150);
-        }
-    });
-});
-</script>
+                // 鼠标离开数字选择区域时隐藏
+                numberSelection.addEventListener('mouseleave', function(e) {
+                    const relatedTarget = e.relatedTarget;
+                    if (!relatedTarget || !letterSelection.contains(relatedTarget)) {
+                        setTimeout(() => {
+                            if (!letterSelection.matches(':hover')) {
+                                hideNumberOptions();
+                            }
+                        }, 150);
+                    }
+                });
+            });
+    </script>
 </body>
 </html>
