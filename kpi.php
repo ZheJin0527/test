@@ -253,23 +253,24 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border: 2px solid #583e04;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
-            z-index: 1000;
-            min-width: 280px;
-            padding: 16px;
-        }
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 2px solid #583e04;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+    z-index: 1000;
+    min-width: 280px;
+    padding: 16px;
+}
 
-        .restaurant-dropdown-menu.show {
-            display: flex;
-            gap: 16px;
-        }
+.restaurant-dropdown-menu.show {
+    display: flex;
+    gap: 16px;
+    flex-direction: row; /* 固定为左右布局 */
+}
 
         .letter-selection,
         .number-selection {
@@ -282,9 +283,15 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .number-selection {
-            padding-left: 12px;
-            display: none; /* 添加这行，默认隐藏 */
-        }
+    padding-left: 12px;
+    display: block; /* 改为始终显示 */
+    opacity: 0.3; /* 添加透明度表示未激活状态 */
+    transition: opacity 0.3s ease; /* 添加过渡效果 */
+}
+
+.number-selection.active {
+    opacity: 1; /* 激活时完全不透明 */
+}
 
         .section-title {
             font-size: 12px;
@@ -3906,6 +3913,9 @@ function createEmptyDataPoint() {
     const sectionTitle = numberSelection.querySelector('.section-title');
     const numberGrid = numberSelection.querySelector('.number-grid');
 
+    // 激活右侧区域
+    numberSelection.classList.add('active');
+
     // 更新标题
     sectionTitle.textContent = `选择${letter}分店`;
 
@@ -3928,22 +3938,19 @@ function createEmptyDataPoint() {
             <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
         `;
     }
-
-    // 显示数字选择区域
-    numberSelection.style.display = 'block';
-    
-    // 更新下拉菜单的flex布局
-    const dropdown = document.getElementById('restaurant-dropdown');
-    dropdown.style.flexDirection = 'row';
 }
 
             function hideNumberOptions() {
     const numberSelection = document.getElementById('number-selection');
-    const dropdown = document.getElementById('restaurant-dropdown');
+    const sectionTitle = numberSelection.querySelector('.section-title');
+    const numberGrid = numberSelection.querySelector('.number-grid');
     
-    numberSelection.style.display = 'none';
-    // 当隐藏数字选择时，让字母选择区域居中
-    dropdown.style.flexDirection = 'column';
+    // 移除激活状态
+    numberSelection.classList.remove('active');
+    
+    // 重置标题和内容
+    sectionTitle.textContent = '选择分店';
+    numberGrid.innerHTML = '';
 }
 
             // 选择具体餐厅
@@ -4029,40 +4036,7 @@ function createEmptyDataPoint() {
             <script>
             // 鼠标事件控制选择分店区域的显示/隐藏
             document.addEventListener('DOMContentLoaded', function() {
-                const letterSelection = document.querySelector('.letter-selection');
-                const numberSelection = document.getElementById('number-selection');
-    
-                // 字母按钮鼠标悬停事件
-                document.querySelectorAll('.letter-item').forEach(letterBtn => {
-                    letterBtn.addEventListener('mouseenter', function() {
-                        const letter = this.textContent;
-                        showNumberOptions(letter);
-                    });
-                });
-    
-                // 鼠标离开字母选择区域时的处理
-                letterSelection.addEventListener('mouseleave', function(e) {
-                    const relatedTarget = e.relatedTarget;
-                    if (!relatedTarget || !numberSelection.contains(relatedTarget)) {
-                        setTimeout(() => {
-                            if (!numberSelection.matches(':hover')) {
-                                hideNumberOptions();
-                            }
-                        }, 150);
-                    }
-                });
-    
-                // 鼠标离开数字选择区域时隐藏
-                numberSelection.addEventListener('mouseleave', function(e) {
-                    const relatedTarget = e.relatedTarget;
-                    if (!relatedTarget || !letterSelection.contains(relatedTarget)) {
-                        setTimeout(() => {
-                            if (!letterSelection.matches(':hover')) {
-                                hideNumberOptions();
-                            }
-                        }, 150);
-                    }
-                });
+        
             });
     </script>
 </body>
