@@ -253,23 +253,24 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border: 2px solid #583e04;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
-            z-index: 1000;
-            min-width: 280px;
-            padding: 16px;
-        }
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 2px solid #583e04;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+    z-index: 1000;
+    min-width: 280px;
+    padding: 16px;
+}
 
-        .restaurant-dropdown-menu.show {
-            display: flex;
-            gap: 16px;
-        }
+.restaurant-dropdown-menu.show {
+    display: flex;
+    gap: 16px;
+    flex-direction: row; /* 强制为行布局 */
+}
 
         .letter-selection,
         .number-selection {
@@ -277,14 +278,18 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .letter-selection {
-            border-right: 1px solid #e5e7eb;
-            padding-right: 12px;
-        }
+    flex: 1;
+    border-right: 1px solid #e5e7eb;
+    padding-right: 12px;
+    min-width: 120px; /* 固定最小宽度 */
+}
 
         .number-selection {
-            padding-left: 12px;
-            display: none; /* 添加这行，默认隐藏 */
-        }
+    flex: 1;
+    padding-left: 12px;
+    min-width: 120px; /* 固定最小宽度 */
+    /* 移除 display: none，让它始终显示但内容为空 */
+}
 
         .section-title {
             font-size: 12px;
@@ -504,28 +509,7 @@ $avatarLetter = strtoupper($username[0]);
             text-shadow: none !important;
         }
 
-        /* 当数字选择区域隐藏时，字母选择区域居中显示 */
-        .restaurant-dropdown-menu:not(:has(.number-selection[style*="block"])) .letter-selection {
-            border-right: none;
-            padding-right: 0;
-            text-align: center;
-        }
-
-        /* 或者使用这个更兼容的写法 */
-        .restaurant-dropdown-menu {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .restaurant-dropdown-menu[style*="flex-direction: row"] {
-            flex-direction: row;
-            align-items: stretch;
-        }
-
-        .restaurant-dropdown-menu[style*="flex-direction: row"] .letter-selection {
-            border-right: 1px solid #e5e7eb;
-            padding-right: 12px;
-        }
+       
         
         /* 下拉菜单样式 */
         .dropdown {
@@ -1467,14 +1451,11 @@ $avatarLetter = strtoupper($username[0]);
                                         <button class="letter-item" onclick="selectLetter('K')" onmouseenter="showNumberOptions('K')">K</button>
                                     </div>
                                 </div>
-                                <div class="number-selection" id="number-selection" style="display: none;">
-                                    <div class="section-title">选择分店</div>
-                                    <div class="number-grid">
-                                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
-                                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
-                                        <button class="number-item" onclick="selectRestaurant('3')">3</button>
-                                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-                                    </div>
+                                <div class="number-selection" id="number-selection">
+                                    <div class="section-title">请选择餐厅类型</div>
+    <div class="number-grid">
+        <!-- 默认为空 -->
+    </div>
                                 </div>
                             </div>
                         </div>
@@ -3929,22 +3910,10 @@ function createEmptyDataPoint() {
         `;
     }
 
-    // 显示数字选择区域
-    numberSelection.style.display = 'block';
-    
-    // 更新下拉菜单的flex布局
-    const dropdown = document.getElementById('restaurant-dropdown');
-    dropdown.style.flexDirection = 'row';
+    // 不需要再动态显示/隐藏，因为现在布局是固定的
 }
 
-            function hideNumberOptions() {
-    const numberSelection = document.getElementById('number-selection');
-    const dropdown = document.getElementById('restaurant-dropdown');
-    
-    numberSelection.style.display = 'none';
-    // 当隐藏数字选择时，让字母选择区域居中
-    dropdown.style.flexDirection = 'column';
-}
+
 
             // 选择具体餐厅
             async function selectRestaurant(number) {
