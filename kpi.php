@@ -225,130 +225,17 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         /* 餐厅选择器样式 */
-        /* 修改餐厅选择器的布局 */
-.restaurant-selector {
-    background: white;
-    border-radius: 12px;
-    padding: 6px;
-    display: flex;
-    gap: 8px;
-    border: 2px solid #583e04;
-    box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
-    align-items: center;
-    margin-left: auto;
-}
-
-/* 品牌下拉菜单样式 */
-.brand-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.brand-btn {
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    background: #583e04;
-    color: white;
-    min-width: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.brand-btn:hover {
-    background: #462d03;
-}
-
-.brand-dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 120%;
-    left: 0;
-    background: white;
-    border: 2px solid #583e04;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
-    z-index: 1000;
-    padding: 4px;
-    min-width: 80px;
-}
-
-.brand-dropdown-menu.show {
-    display: block;
-}
-
-.brand-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.brand-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 32px;
-    border: 1px solid #e5e7eb;
-    background: white;
-    color: #583e04;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 4px;
-    transition: all 0.15s ease;
-}
-
-.brand-item:hover {
-    background: #583e04;
-    color: white;
-    border-color: #583e04;
-    transform: scale(1.02);
-}
-
-.brand-item.selected {
-    background: #583e04;
-    color: white;
-    border-color: #583e04;
-    font-weight: 700;
-}
-
-/* 分隔符样式 */
-.separator {
-    color: #583e04;
-    font-weight: 600;
-    font-size: 16px;
-    margin: 0 4px;
-}
-
-/* 修改数字按钮样式 */
-.number-btn {
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    background: white;
-    color: #583e04;
-    border: 1px solid #583e04;
-    min-width: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.number-btn:hover {
-    background: rgba(88, 62, 4, 0.1);
-}
+        .restaurant-selector {
+            background: white;
+            border-radius: 12px;
+            padding: 6px;
+            display: flex;
+            gap: 0;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            align-items: center;
+            margin-left: auto;
+        }
 
         .restaurant-prefix {
             background: #583e04;
@@ -1439,18 +1326,7 @@ $avatarLetter = strtoupper($username[0]);
                         <div id="date-info" class="date-info"></div>
                         <!-- 餐厅选择器 -->
                         <div class="restaurant-selector">
-                            <div class="brand-dropdown">
-                                <button class="brand-btn dropdown-toggle" onclick="toggleBrandDropdown()">
-                                    J <i class="fas fa-chevron-down"></i>
-                                </button>
-                                <div class="brand-dropdown-menu" id="brand-dropdown">
-                                    <div class="brand-grid">
-                                        <button class="brand-item" onclick="selectBrand('J')">J</button>
-                                        <button class="brand-item" onclick="selectBrand('K')">K</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="separator">/</div>
+                            <div class="restaurant-prefix">J</div>
                             <div class="number-dropdown">
                                 <button class="number-btn dropdown-toggle" onclick="toggleNumberDropdown()">
                                     1 <i class="fas fa-chevron-down"></i>
