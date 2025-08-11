@@ -3877,37 +3877,37 @@ function createEmptyDataPoint() {
 
             // 显示数字选项
             function showNumberOptions(letter) {
-    currentLetter = letter;
-    const numberSelection = document.getElementById('number-selection');
-    const sectionTitle = numberSelection.querySelector('.section-title');
-    const numberGrid = numberSelection.querySelector('.number-grid');
+                currentLetter = letter;
+                const numberSelection = document.getElementById('number-selection');
+                const sectionTitle = numberSelection.querySelector('.section-title');
+                const numberGrid = numberSelection.querySelector('.number-grid');
 
-    // 更新标题
-    sectionTitle.textContent = `选择${letter}分店`;
+                // 更新标题
+                sectionTitle.textContent = `选择${letter}分店`;
 
-    // 清空现有选项
-    numberGrid.innerHTML = '';
+                // 清空现有选项
+                numberGrid.innerHTML = '';
 
-    if (letter === 'J') {
-        // J有1、2、3和总计选项
-        numberGrid.innerHTML = `
-            <button class="number-item" onclick="selectRestaurant('1')">1</button>
-            <button class="number-item" onclick="selectRestaurant('2')">2</button>
-            <button class="number-item" onclick="selectRestaurant('3')">3</button>
-            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-        `;
-    } else if (letter === 'K') {
-        // K只有1、2和总计选项
-        numberGrid.innerHTML = `
-            <button class="number-item" onclick="selectRestaurant('1')">1</button>
-            <button class="number-item" onclick="selectRestaurant('2')">2</button>
-            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-        `;
-    }
+                if (letter === 'J') {
+                    // J有1、2、3和总计选项
+                    numberGrid.innerHTML = `
+                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                        <button class="number-item" onclick="selectRestaurant('3')">3</button>
+                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+                    `;
+                } else if (letter === 'K') {
+                    // K只有1、2和总计选项
+                    numberGrid.innerHTML = `
+                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+                    `;
+                }
 
-    // 显示数字选择区域
-    numberSelection.style.display = 'block';
-}
+                // 显示数字选择区域
+                numberSelection.style.display = 'block';
+            }
 
             function hideNumberOptions() {
                 const numberSelection = document.getElementById('number-selection');
