@@ -253,32 +253,37 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border: 2px solid #583e04;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
-            z-index: 1000;
-            min-width: 150px;
-            padding: 12px;
-            align-items: center;
-        }
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 2px solid #583e04;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+    z-index: 1000;
+    min-width: 280px;
+    padding: 16px;
+}
 
-        .restaurant-dropdown-menu.show {
-            display: block;
-        }
+.restaurant-dropdown-menu.show {
+    display: flex;
+    gap: 16px;
+}
 
-        .letter-selection {
-            margin-bottom: 12px;
-        }
+        .letter-selection,
+.number-selection {
+    flex: 1;
+}
 
-        .number-selection {
-            border-top: 1px solid #e5e7eb;
-            padding-top: 12px;
-        }
+.letter-selection {
+    border-right: 1px solid #e5e7eb;
+    padding-right: 12px;
+}
+
+.number-selection {
+    padding-left: 12px;
+}
 
         .section-title {
             font-size: 12px;
