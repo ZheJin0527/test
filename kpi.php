@@ -253,22 +253,86 @@ $avatarLetter = strtoupper($username[0]);
             display: inline-block;
         }
 
-        .number-btn {
-            padding: 10px 16px;
-            border-radius: 0 8px 8px 0;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            background: white;
-            color: #583e04;
-            min-width: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+        /* 字母选择器样式 */
+.letter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.letter-btn {
+    padding: 10px 16px;
+    border-radius: 8px 0 0 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: #583e04;
+    color: white;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.letter-btn:hover {
+    background: #462d03;
+}
+
+.letter-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 120%;
+    left: 0;
+    background: white;
+    border: 2px solid #583e04;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+    z-index: 1000;
+    padding: 4px;
+    min-width: 80px;
+}
+
+.letter-dropdown-menu.show {
+    display: block;
+}
+
+.letter-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+}
+
+.letter-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 32px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: #583e04;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.letter-item:hover {
+    background: #583e04;
+    color: white;
+    border-color: #583e04;
+    transform: scale(1.05);
+}
+
+.letter-item.selected {
+    background: #583e04;
+    color: white;
+    border-color: #583e04;
+    font-weight: 600;
+}
 
         .number-btn:hover {
             background: rgba(88, 62, 4, 0.1);
@@ -1325,22 +1389,33 @@ $avatarLetter = strtoupper($username[0]);
     
                         <div id="date-info" class="date-info"></div>
                         <!-- 餐厅选择器 -->
-                        <div class="restaurant-selector">
-                            <div class="restaurant-prefix">J</div>
-                            <div class="number-dropdown">
-                                <button class="number-btn dropdown-toggle" onclick="toggleNumberDropdown()">
-                                    1 <i class="fas fa-chevron-down"></i>
-                                </button>
-                                <div class="number-dropdown-menu" id="number-dropdown">
-                                    <div class="number-grid">
-                                        <button class="number-item" onclick="selectNumber(1)">1</button>
-                                        <button class="number-item" onclick="selectNumber(2)">2</button>
-                                        <button class="number-item" onclick="selectNumber(3)">3</button>
-                                        <button class="number-item total-btn" onclick="selectNumber('total')">总计</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- 餐厅选择器 -->
+<div class="restaurant-selector">
+    <div class="letter-dropdown">
+        <button class="letter-btn dropdown-toggle" onclick="toggleLetterDropdown()">
+            J <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="letter-dropdown-menu" id="letter-dropdown">
+            <div class="letter-grid">
+                <button class="letter-item" onclick="selectLetter('J')">J</button>
+                <button class="letter-item" onclick="selectLetter('K')">K</button>
+            </div>
+        </div>
+    </div>
+    <div class="number-dropdown">
+        <button class="number-btn dropdown-toggle" onclick="toggleNumberDropdown()">
+            1 <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="number-dropdown-menu" id="number-dropdown">
+            <div class="number-grid" id="number-grid">
+                <button class="number-item" onclick="selectNumber(1)">1</button>
+                <button class="number-item" onclick="selectNumber(2)">2</button>
+                <button class="number-item" onclick="selectNumber(3)">3</button>
+                <button class="number-item total-btn" onclick="selectNumber('total')">总计</button>
+            </div>
+        </div>
+    </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -1514,40 +1589,19 @@ $avatarLetter = strtoupper($username[0]);
         let monthDateValue = { year: null, month: null }; // 新增月份选择器状态
 
         // 餐厅配置
-        const restaurantConfig = {
-            j1: {
-                name: 'J1',
-                tableName: 'j1data_view',
-                colors: {
-                    primary: '#583e04',
-                    secondary: '#805906'
-                }
-            },
-            j2: {
-                name: 'J2',
-                tableName: 'j2data_view',
-                colors: {
-                    primary: '#583e04',
-                    secondary: '#805906'
-                }
-            },
-            j3: {
-                name: 'J3',
-                tableName: 'j3data_view',
-                colors: {
-                    primary: '#583e04',
-                    secondary: '#805906'
-                }
-            },
-            total: {
-                name: '总计',
-                tableName: 'all_restaurants',
-                colors: {
-                    primary: '#583e04',
-                    secondary: '#805906'
-                }
-            }
-        };
+        // 餐厅配置
+const restaurantConfig = {
+    j1: { name: 'J1', tableName: 'j1data_view', colors: { primary: '#583e04', secondary: '#805906' } },
+    j2: { name: 'J2', tableName: 'j2data_view', colors: { primary: '#583e04', secondary: '#805906' } },
+    j3: { name: 'J3', tableName: 'j3data_view', colors: { primary: '#583e04', secondary: '#805906' } },
+    k1: { name: 'K1', tableName: 'k1data_view', colors: { primary: '#583e04', secondary: '#805906' } },
+    k2: { name: 'K2', tableName: 'k2data_view', colors: { primary: '#583e04', secondary: '#805906' } },
+    k3: { name: 'K3', tableName: 'k3data_view', colors: { primary: '#583e04', secondary: '#805906' } },
+    total: { name: '总计', tableName: 'all_restaurants', colors: { primary: '#583e04', secondary: '#805906' } }
+};
+
+// 添加当前选择的字母
+let currentLetter = 'J';
 
         // 工具函数
         function getToday() {
@@ -3467,21 +3521,26 @@ function createEmptyDataPoint() {
 
         // 修改现有的document.addEventListener，添加快速选择下拉菜单的关闭逻辑
         document.addEventListener('click', function(e) {
-            // 关闭日期选择器下拉菜单
-            if (!e.target.closest('.enhanced-date-picker')) {
-                hideAllDropdowns();
-            }
+    // 关闭日期选择器下拉菜单
+    if (!e.target.closest('.enhanced-date-picker')) {
+        hideAllDropdowns();
+    }
     
-            // 关闭餐厅数字选择下拉菜单
-            if (!e.target.closest('.number-dropdown')) {
-                document.getElementById('number-dropdown').classList.remove('show');
-            }
+    // 关闭字母选择下拉菜单
+    if (!e.target.closest('.letter-dropdown')) {
+        document.getElementById('letter-dropdown').classList.remove('show');
+    }
     
-            // 关闭快速选择下拉菜单
-            if (!e.target.closest('.dropdown')) {
-                document.getElementById('quick-select-dropdown').classList.remove('show');
-            }
-        });
+    // 关闭餐厅数字选择下拉菜单
+    if (!e.target.closest('.number-dropdown')) {
+        document.getElementById('number-dropdown').classList.remove('show');
+    }
+    
+    // 关闭快速选择下拉菜单
+    if (!e.target.closest('.dropdown')) {
+        document.getElementById('quick-select-dropdown').classList.remove('show');
+    }
+});
 
         // 获取范围描述文本的辅助函数
         function getRangeDescription(range) {
@@ -3506,24 +3565,58 @@ function createEmptyDataPoint() {
             updateSelectedNumber();
         }
 
-        // 选择餐厅数字或总计
-        function selectNumber(value) {
-            const numberBtn = document.querySelector('.number-btn');
+        // 切换字母下拉菜单
+function toggleLetterDropdown() {
+    const dropdown = document.getElementById('letter-dropdown');
+    dropdown.classList.toggle('show');
     
-            if (value === 'total') {
-                numberBtn.innerHTML = `总计 <i class="fas fa-chevron-down"></i>`;
-                // 切换到总计
-                switchRestaurant('total');
-            } else {
-                numberBtn.innerHTML = `${value} <i class="fas fa-chevron-down"></i>`;
-                // 切换餐厅
-                const restaurant = `j${value}`;
-                switchRestaurant(restaurant);
-            }
+    // 更新选中状态
+    updateSelectedLetter();
+}
+
+// 选择字母
+function selectLetter(letter) {
+    currentLetter = letter;
+    const letterBtn = document.querySelector('.letter-btn');
+    letterBtn.innerHTML = `${letter} <i class="fas fa-chevron-down"></i>`;
     
-            // 关闭下拉菜单
-            document.getElementById('number-dropdown').classList.remove('show');
+    // 更新数字选择菜单
+    updateNumberGrid();
+    
+    // 关闭下拉菜单
+    document.getElementById('letter-dropdown').classList.remove('show');
+    
+    // 重置为第一个选项
+    const firstNumber = letter === 'J' ? 'j1' : 'k1';
+    switchRestaurant(firstNumber);
+    
+    // 更新数字按钮显示
+    const numberBtn = document.querySelector('.number-btn');
+    numberBtn.innerHTML = `1 <i class="fas fa-chevron-down"></i>`;
+}
+
+// 更新数字网格
+function updateNumberGrid() {
+    const numberGrid = document.getElementById('number-grid');
+    const letter = currentLetter.toLowerCase();
+    
+    numberGrid.innerHTML = `
+        <button class="number-item" onclick="selectNumber(1)">1</button>
+        <button class="number-item" onclick="selectNumber(2)">2</button>
+        <button class="number-item" onclick="selectNumber(3)">3</button>
+        <button class="number-item total-btn" onclick="selectNumber('total')">总计</button>
+    `;
+}
+
+// 更新选中的字母状态
+function updateSelectedLetter() {
+    document.querySelectorAll('.letter-item').forEach(item => {
+        item.classList.remove('selected');
+        if (item.textContent === currentLetter) {
+            item.classList.add('selected');
         }
+    });
+}
 
         // 更新选中的数字状态
         function updateSelectedNumber() {
