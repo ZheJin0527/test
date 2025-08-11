@@ -95,10 +95,9 @@ $avatarLetter = strtoupper($username[0]);
         <div class="informationmenu-content">
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
-    <i class="fas fa-sitemap menu-icon"></i>
-    公司架构管理
-    <span class="section-arrow">⮞</span>
-</div>
+                    公司架构管理
+                    <span class="section-arrow">⮞</span>
+                </div>
                 <div class="dropdown-menu-items" id="company-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
