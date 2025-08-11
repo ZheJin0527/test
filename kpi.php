@@ -1578,10 +1578,9 @@ $avatarLetter = strtoupper($username[0]);
                                 <th>人均消费</th>
                                 <th>桌子总数</th>
                                 <th>顾客总数</th>
-                                <th>常客人数</th>
                                 <th>新客人数</th>
+                                <th>常客人数</th>
                                 <th>常客百分比</th>
-                                <th>新客百分比</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -3303,10 +3302,9 @@ $avatarLetter = strtoupper($username[0]);
                     <td>RM ${item.avgSalesPerDiner.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                     <td>${item.tablesUsed}</td>
                     <td>${item.diners}</td>
-                    <td>${item.returningCustomers}</td>
                     <td>${item.newCustomers}</td>
+                    <td>${item.returningCustomers}</td>
                     <td>${returningRate}%</td>
-                    <td>${newCustomersRate}%</td>
                 `;
                 tbody.appendChild(row);
             });
