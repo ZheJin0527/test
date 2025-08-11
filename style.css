@@ -6244,7 +6244,7 @@ form select {
 .section-icon {
     width: 20px;
     height: 20px;
-    margin-right: 25px;
+    margin-right: 10px;
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
@@ -6264,17 +6264,63 @@ form select {
     margin-left: auto; /* 箭头自动推到最右边 */
 }
 
-/* 侧边栏收起状态下的图标样式 */
-.informationmenu.collapsed .section-icon {
-    margin-right: 0;
+/* 侧边栏收起状态下的样式 */
+.informationmenu.collapsed {
+    width: 60px; /* 收起后的宽度 */
 }
 
-/* 收起状态下隐藏文字，只显示图标 */
 .informationmenu.collapsed .informationmenu-section-title {
     justify-content: center;
+    padding: 12px 0;
+    margin: 8px 0;
+    position: relative;
 }
 
-.informationmenu.collapsed .informationmenu-section-title .section-arrow {
+/* 收起状态下隐藏文字和箭头 */
+.informationmenu.collapsed .informationmenu-section-title .section-arrow,
+.informationmenu.collapsed .informationmenu-section-title {
+    font-size: 0; /* 隐藏文字 */
+}
+
+/* 收起状态下只显示图标 */
+.informationmenu.collapsed .section-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    display: block;
+}
+
+/* 收起状态下隐藏箭头 */
+.informationmenu.collapsed .section-arrow {
+    display: none;
+}
+
+/* 收起状态下的hover提示 */
+.informationmenu.collapsed .informationmenu-section-title::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.informationmenu.collapsed .informationmenu-section-title:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 收起状态下隐藏dropdown菜单内容 */
+.informationmenu.collapsed .dropdown-menu-items {
     display: none;
 }
 
