@@ -301,7 +301,8 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .letter-item,
-        .number-item {
+        .number-item,
+        .number-item.total-option {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -318,7 +319,8 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .letter-item:hover,
-        .number-item:hover {
+        .number-item:hover,
+        .number-item.total-option:hover {
             background: #583e04;
             color: white;
             border-color: #583e04;
@@ -326,32 +328,15 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .letter-item.selected,
-        .number-item.selected {
+        .number-item.selected,
+        .number-item.total-option.selected {
             background: #583e04;
             color: white;
             border-color: #583e04;
             font-weight: 600;
         }
 
-        .number-item.total-option {
-            grid-column: span 3; /* 让总计按钮跨越3列，占满整行 */
-            background: linear-gradient(135deg, #583e04, #805906);
-            color: white;
-            font-weight: 700;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-        }
-
-        .number-item.total-option:hover {
-            background: linear-gradient(135deg, #805906, #583e04);
-            transform: scale(1.02);
-            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.3);
-        }
-
-        .number-item.total-option.selected {
-            background: linear-gradient(135deg, #805906, #583e04);
-            box-shadow: 0 2px 12px rgba(88, 62, 4, 0.4);
-        }
+        
 
         .number-dropdown {
             position: relative;
