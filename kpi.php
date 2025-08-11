@@ -3048,24 +3048,10 @@ $avatarLetter = strtoupper($username[0]);
                                 stack: 'j1'
                             },
                             {
-                                label: 'J1 新客人',
-                                data: comparisonData.restaurants.j1.map(item => item.newCustomers),
-                                backgroundColor: restaurantColors.j1.secondary,
-                                borderColor: restaurantColors.j1.secondary,
-                                stack: 'j1'
-                            },
-                            {
                                 label: 'J2 常客',
                                 data: comparisonData.restaurants.j2.map(item => item.returningCustomers),
                                 backgroundColor: restaurantColors.j2.primary,
                                 borderColor: restaurantColors.j2.primary,
-                                stack: 'j2'
-                            },
-                            {
-                                label: 'J2 新客人',
-                                data: comparisonData.restaurants.j2.map(item => item.newCustomers),
-                                backgroundColor: restaurantColors.j2.secondary,
-                                borderColor: restaurantColors.j2.secondary,
                                 stack: 'j2'
                             },
                             {
@@ -3075,13 +3061,6 @@ $avatarLetter = strtoupper($username[0]);
                                 borderColor: restaurantColors.j3.primary,
                                 stack: 'j3'
                             },
-                            {
-                                label: 'J3 新客人',
-                                data: comparisonData.restaurants.j3.map(item => item.newCustomers),
-                                backgroundColor: restaurantColors.j3.secondary,
-                                borderColor: restaurantColors.j3.secondary,
-                                stack: 'j3'
-                            }
                         ]
                     },
                     options: {
