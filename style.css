@@ -6244,7 +6244,7 @@ form select {
 .section-icon {
     width: 20px;
     height: 20px;
-    margin-right: 10px;
+    margin-right: 25px;
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
@@ -6267,47 +6267,15 @@ form select {
 /* 侧边栏收起状态下的图标样式 */
 .informationmenu.collapsed .section-icon {
     margin-right: 0;
-    position: relative;
-    z-index: 10;
 }
 
-/* 收起状态下的 section title 样式 */
+/* 收起状态下隐藏文字，只显示图标 */
 .informationmenu.collapsed .informationmenu-section-title {
-    justify-content: flex-start;
-    padding-left: 0;
-    overflow: visible;
-    position: relative;
-}
-
-/* 收起状态下隐藏文字和箭头 */
-.informationmenu.collapsed .informationmenu-section-title .section-arrow,
-.informationmenu.collapsed .informationmenu-section-title {
-    color: transparent;
+    justify-content: center;
 }
 
 .informationmenu.collapsed .informationmenu-section-title .section-arrow {
     display: none;
-}
-
-/* 图标突出显示在外面 */
-.informationmenu.collapsed .section-icon {
-    transform: translateX(10px); /* 向右移出一点 */
-    background: white;
-    border-radius: 4px;
-    padding: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* 收起状态下只显示图标部分 */
-.informationmenu.collapsed .informationmenu-section-title::after {
-    content: '';
-    position: absolute;
-    left: 30px;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    background: transparent;
-    pointer-events: none;
 }
 
 /* 收起状态保持三条横线 */
