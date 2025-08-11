@@ -2713,6 +2713,24 @@ $avatarLetter = strtoupper($username[0]);
                                     },
                                     label: function(context) {
                                         return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    },
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const j1Sales = comparisonData.restaurants.j1[dataIndex].netSales;
+                                            const j2Sales = comparisonData.restaurants.j2[dataIndex].netSales;
+                                            const j3Sales = comparisonData.restaurants.j3[dataIndex].netSales;
+                                            const totalSales = j1Sales + j2Sales + j3Sales;
+                                    
+                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
+                                    
+                                            return [
+                                                '',
+                                                `--- ${periodText} ---`,
+                                                `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
+                                            ];
+                                        }
+                                        return [];
                                     }
                                 }
                             },
