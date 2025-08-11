@@ -20,6 +20,7 @@ if (isset($_SESSION['user_id'])) {
         // 清除 cookie（可选）
         setcookie('user_id', '', time() - 60, "/");
         setcookie('username', '', time() - 60, "/");
+        setcookie('position', '', time() - 60, "/");
         setcookie('remember_token', '', time() - 60, "/");
 
         // 跳转登录页
@@ -33,12 +34,14 @@ if (isset($_SESSION['user_id'])) {
 } elseif (
     isset($_COOKIE['user_id']) &&
     isset($_COOKIE['username']) &&
+    isset($_COOKIE['position']) &&
     isset($_COOKIE['remember_token']) &&
     $_COOKIE['remember_token'] === '1'
 ) {
     // 记住我逻辑（恢复 session）
     $_SESSION['user_id'] = $_COOKIE['user_id'];
     $_SESSION['username'] = $_COOKIE['username'];
+    $_SESSION['position'] = $_COOKIE['position'];
     $_SESSION['last_activity'] = time();
 } else {
     // 没有 session，也没有有效 cookie
@@ -47,6 +50,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 $username = $_SESSION['username'];
+$position = isset($_SESSION['position']) ? $_SESSION['position'] : 'User'; // 默认值为 'User'
 $avatarLetter = strtoupper($username[0]);
 ?>
 
