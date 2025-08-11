@@ -3595,6 +3595,20 @@ function createEmptyDataPoint() {
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate
             });
+
+            // 调试输出
+console.log('快速选择后的日期值:', {
+    startDateValue: startDateValue,
+    endDateValue: endDateValue,
+    monthDateValue: monthDateValue
+});
+
+// 强制更新显示
+setTimeout(() => {
+    updateDateDisplay('start');
+    updateDateDisplay('end'); 
+    updateDateDisplay('month');
+}, 100);
             updateDashboard();
         }
 
