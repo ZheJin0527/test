@@ -1056,6 +1056,7 @@ $avatarLetter = strtoupper($username[0]);
         <div class="informationmenu-content">
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
+                    <img src="images/images/公司架构管理.png" alt="" class="section-icon">
                     公司架构管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -1132,6 +1133,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="analytics-items">
+                    <img src="images/images/运营分析与报表.png" alt="" class="section-icon">
                     运营分析与报表
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -1175,6 +1177,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="hr-items">
+                    <img src="images/images/人事与资源管理.png" alt="" class="section-icon">
                     人事与资源管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -1215,6 +1218,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="resource-items">
+                    <img src="images/images/资源库管理.png" alt="" class="section-icon">
                     资源库管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -1237,6 +1241,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="user-items">
+                    <img src="images/images/用户与权限管理.png" alt="" class="section-icon">
                     用户与权限管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -1278,6 +1283,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="help-items">
+                    <img src="images/images/帮助与支持.png" alt="" class="section-icon">
                     帮助与支持
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -3691,24 +3697,35 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script>
     document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-            title.addEventListener('click', function() {
+            title.addEventListener('click', function(e) {
+                const sidebar = document.querySelector('.informationmenu');
+        
+                // 检查侧边栏是否处于收起状态
+                if (sidebar.classList.contains('collapsed')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // 收起状态下点击图标展开侧边栏
+                    toggleSidebar();
+                    return false;
+                }
+        
                 const targetId = this.getAttribute('data-target');
                 const targetDropdown = document.getElementById(targetId);
-                
+        
                 // 关闭其他section的下拉菜单
                 document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
                     if (dropdown.id !== targetId) {
                         dropdown.classList.remove('show');
                     }
                 });
-                
+        
                 // 移除其他section title的active状态
                 document.querySelectorAll('.informationmenu-section-title').forEach(t => {
                     if (t !== this) {
                         t.classList.remove('active');
                     }
                 });
-                
+        
                 // 切换当前section
                 this.classList.toggle('active');
                 targetDropdown?.classList.toggle('show');
