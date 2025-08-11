@@ -1414,7 +1414,7 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="dropdown-menu" id="quick-select-dropdown">
                                     <button class="dropdown-item" onclick="selectQuickRange('thisWeek')">本周</button>
                                     <button class="dropdown-item" onclick="selectQuickRange('lastWeek')">上周</button>
-                                    <button class="dropdown-item" onclick="selectQuickRange('last30Days')">过去30天</button>
+                                    <button class="dropdown-item" onclick="selectQuickRange('thisMonth')">这个月</button>
                                     <button class="dropdown-item" onclick="selectQuickRange('lastMonth')">上个月</button>
                                     <button class="dropdown-item" onclick="selectQuickRange('thisYear')">今年</button>
                                     <button class="dropdown-item" onclick="selectQuickRange('lastYear')">去年</button>
@@ -3519,10 +3519,9 @@ function createEmptyDataPoint() {
                     endDate = lastWeekEnd;
                     break;
             
-                case 'last30Days':
-                    // 过去30天
-                    startDate = new Date(today);
-                    startDate.setDate(startDate.getDate() - 29);
+                case 'thisMonth':
+                    // 这个月（本月1号到今天）
+                    startDate = new Date(today.getFullYear(), today.getMonth(), 1);
                     endDate = new Date(today);
                     break;
             
@@ -3622,7 +3621,7 @@ function createEmptyDataPoint() {
             const descriptions = {
                 'thisWeek': '本周',
                 'lastWeek': '上周', 
-                'last30Days': '过去30天',
+                'thisMonth': '这个月',
                 'lastMonth': '上个月',
                 'thisYear': '今年',
                 'lastYear': '去年'
