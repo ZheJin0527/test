@@ -35,18 +35,21 @@ if ($result->num_rows === 1) {
         // ✅ 登录成功，设置 Session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+        $_SESSION['position'] = $user['position']; // 添加这行
         $_SESSION['last_activity'] = time(); // ➤ 当前登录时间（用于 1 分钟自动登出）
 
         if ($remember) {
-            // ✅ 勾选了“记住我”，设置 cookie（30天）
+            // ✅ 勾选了"记住我"，设置 cookie（30天）
             $expire = time() + (86400 * 30);
             setcookie('user_id', $user['id'], $expire, "/");
             setcookie('username', $user['username'], $expire, "/");
+            setcookie('position', $user['position'], $expire, "/"); // 添加这行
             setcookie('remember_token', '1', $expire, "/");
         } else {
             // ❌ 没勾选记住我，清除残留 cookie
             setcookie('user_id', '', time() - 3600, "/");
             setcookie('username', '', time() - 3600, "/");
+            setcookie('position', '', time() - 3600, "/"); // 添加这行
             setcookie('remember_token', '', time() - 3600, "/");
         }
 
@@ -66,3 +69,4 @@ if ($result->num_rows === 1) {
 $stmt->close();
 $conn->close();
 ob_end_flush();
+?>
