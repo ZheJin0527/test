@@ -3203,13 +3203,6 @@ $avatarLetter = strtoupper($username[0]);
                                 borderColor: config.colors.primary,
                                 stack: 'customers'
                             },
-                            {
-                                label: '新客人',
-                                data: aggregatedData.map(item => item.newCustomers),
-                                backgroundColor: config.colors.secondary,
-                                borderColor: config.colors.secondary,
-                                stack: 'customers'
-                            }
                         ]
                     },
                     options: {
