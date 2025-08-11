@@ -6253,6 +6253,12 @@ form select {
     overflow: visible;
 }
 
+.informationmenu.collapsed .logout-btn {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+
 .informationmenu.collapsed .informationmenu-section-title {
     padding: 15px 10px !important;
     text-align: center;
