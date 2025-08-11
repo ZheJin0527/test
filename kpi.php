@@ -1431,6 +1431,13 @@ $avatarLetter = strtoupper($username[0]);
                             <div class="restaurant-dropdown-menu" id="restaurant-dropdown">
                                 <div class="restaurant-selection-grid">
                                     <!-- 字母选择区域 -->
+                                    <div class="letter-section">
+                                        <div class="section-title">餐厅</div>
+                                        <div class="letter-grid">
+                                            <button class="letter-item selected" onclick="selectLetter('J')">J</button>
+                                            <button class="letter-item" onclick="selectLetter('K')">K</button>
+                                        </div>
+                                    </div>
                                     <!-- 数字选择区域 -->
                                     <div class="number-section">
                                         <div class="section-title">分店</div>
