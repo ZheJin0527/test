@@ -1436,7 +1436,7 @@ $avatarLetter = strtoupper($username[0]);
                                             <button class="number-item selected" onclick="selectNumber(1)">1</button>
                                             <button class="number-item" onclick="selectNumber(2)">2</button>
                                             <button class="number-item" onclick="selectNumber(3)">3</button>
-                                            <button class="number-item total-option" onclick="selectTotal()">总计</button>
+                                            <button class="number-item total-option" onclick="selectTotal()">总</button>
                                         </div>
                                     </div>
                                 </div>
