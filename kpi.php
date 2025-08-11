@@ -253,37 +253,37 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    border: 2px solid #583e04;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
-    z-index: 1000;
-    min-width: 280px;
-    padding: 16px;
-}
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 2px solid #583e04;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+            z-index: 1000;
+            min-width: 280px;
+            padding: 16px;
+        }
 
-.restaurant-dropdown-menu.show {
-    display: flex;
-    gap: 16px;
-}
+        .restaurant-dropdown-menu.show {
+            display: flex;
+            gap: 16px;
+        }
 
         .letter-selection,
-.number-selection {
-    flex: 1;
-}
+        .number-selection {
+            flex: 1;
+        }
 
-.letter-selection {
-    border-right: 1px solid #e5e7eb;
-    padding-right: 12px;
-}
+        .letter-selection {
+            border-right: 1px solid #e5e7eb;
+            padding-right: 12px;
+        }
 
-.number-selection {
-    padding-left: 12px;
-}
+        .number-selection {
+            padding-left: 12px;
+        }
 
         .section-title {
             font-size: 12px;
@@ -3877,12 +3877,17 @@ function createEmptyDataPoint() {
                 currentLetter = letter;
                 const numberSelection = document.getElementById('number-selection');
                 const sectionTitle = numberSelection.querySelector('.section-title');
-    
+
                 // 更新标题
                 sectionTitle.textContent = `选择${letter}分店`;
-    
+
                 // 显示数字选择区域
                 numberSelection.style.display = 'block';
+            }
+
+            function hideNumberOptions() {
+                const numberSelection = document.getElementById('number-selection');
+                numberSelection.style.display = 'none';
             }
 
             // 选择具体餐厅
@@ -3965,5 +3970,44 @@ function createEmptyDataPoint() {
                 restaurantBtn.innerHTML = `${text} <i class="fas fa-chevron-down"></i>`;
             }
             </script>
+            <script>
+                // 鼠标事件控制选择分店区域的显示/隐藏
+document.addEventListener('DOMContentLoaded', function() {
+    const letterSelection = document.querySelector('.letter-selection');
+    const numberSelection = document.getElementById('number-selection');
+    
+    // 鼠标离开字母选择区域时隐藏数字选择
+    letterSelection.addEventListener('mouseleave', function(e) {
+        // 检查鼠标是否移向数字选择区域
+        const relatedTarget = e.relatedTarget;
+        if (!relatedTarget || !numberSelection.contains(relatedTarget)) {
+            setTimeout(() => {
+                if (!numberSelection.matches(':hover') && !letterSelection.matches(':hover')) {
+                    hideNumberOptions();
+                }
+            }, 100);
+        }
+    });
+    
+    // 鼠标离开数字选择区域时隐藏
+    numberSelection.addEventListener('mouseleave', function(e) {
+        const relatedTarget = e.relatedTarget;
+        if (!relatedTarget || !letterSelection.contains(relatedTarget)) {
+            setTimeout(() => {
+                if (!letterSelection.matches(':hover') && !numberSelection.matches(':hover')) {
+                    hideNumberOptions();
+                }
+            }, 100);
+        }
+    });
+    
+    // 鼠标重新进入数字选择区域时保持显示
+    numberSelection.addEventListener('mouseenter', function() {
+        if (currentLetter) {
+            showNumberOptions(currentLetter);
+        }
+    });
+});
+</script>
 </body>
 </html>
