@@ -1426,7 +1426,7 @@ $avatarLetter = strtoupper($username[0]);
                         <!-- 餐厅选择器 -->
                         <div class="restaurant-selector">
                             <button class="restaurant-btn dropdown-toggle" onclick="toggleRestaurantDropdown()">
-                                -- <i class="fas fa-chevron-down"></i>
+                                J <i class="fas fa-chevron-down"></i>
                             </button>
                             <div class="restaurant-dropdown-menu" id="restaurant-dropdown">
                                 <div class="restaurant-selection-grid">
@@ -1434,15 +1434,15 @@ $avatarLetter = strtoupper($username[0]);
                                     <div class="letter-section">
                                         <div class="section-title">餐厅</div>
                                         <div class="letter-grid">
-                                            <button class="letter-item" onclick="selectLetter('J')">J</button>
+                                            <button class="letter-item selected" onclick="selectLetter('J')">J</button>
                                             <button class="letter-item" onclick="selectLetter('K')">K</button>
                                         </div>
                                     </div>
                                     <!-- 数字选择区域 -->
-                                    <div class="number-section" id="number-section" style="display: none;">
+                                    <div class="number-section">
                                         <div class="section-title">分店</div>
                                         <div class="number-grid">
-                                            <button class="number-item" onclick="selectNumber(1)">1</button>
+                                            <button class="number-item selected" onclick="selectNumber(1)">1</button>
                                             <button class="number-item" onclick="selectNumber(2)">2</button>
                                             <button class="number-item" onclick="selectNumber(3)">3</button>
                                             <button class="number-item total-option" onclick="selectTotal()">总</button>
@@ -2380,6 +2380,9 @@ $avatarLetter = strtoupper($username[0]);
             
             // 初始化主题色
             updateThemeColors(currentRestaurant);
+            
+            await loadData();
+            updateDashboard();
         }
 
         // 数据转换和过滤
@@ -3852,8 +3855,8 @@ document.addEventListener('DOMContentLoaded', function() {
         </script>
         <script>
             // 当前选择的字母和数字
-            let currentLetter = null;
-            let currentNumber = null;
+            let currentLetter = 'J';
+            let currentNumber = 1;
 
             // 选择字母
             function selectLetter(letter) {
@@ -3867,20 +3870,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                // 显示数字选择区域
-                document.getElementById('number-section').style.display = 'block';
+                // 如果当前选择的是总计，保持总计状态，但需要重新加载数据
+                if (currentNumber !== 'total') {
+                    // 重置为数字1
+                    currentNumber = 1;
+                    // 更新数字选择状态
+                    document.querySelectorAll('.number-item').forEach(item => {
+                        item.classList.remove('selected');
+                        if (!item.classList.contains('total-option') && parseInt(item.textContent) === 1) {
+                            item.classList.add('selected');
+                        }
+                    });
+                }
 
-                // 重置数字选择状态
-                currentNumber = null;
-                document.querySelectorAll('.number-item').forEach(item => {
-                    item.classList.remove('selected');
-                });
+                // 更新按钮显示
+                updateRestaurantButton();
 
-                // 更新按钮显示为只显示字母
-                const restaurantBtn = document.querySelector('.restaurant-btn');
-                restaurantBtn.innerHTML = `${letter} <i class="fas fa-chevron-down"></i>`;
-
-                // 不自动加载数据，等待用户选择数字
+                // 切换餐厅 - 总计模式也需要重新加载数据以支持不同字母的餐厅组合
+                if (currentNumber === 'total') {
+                    // 总计模式：根据当前字母加载对应的餐厅组合
+                    switchRestaurant('total');
+                } else {
+                    const restaurant = `${letter.toLowerCase()}${currentNumber}`;
+                    switchRestaurant(restaurant);
+                }
             }
 
             // 修改现有的selectNumber函数
@@ -3930,11 +3943,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 更新餐厅按钮显示
             function updateRestaurantButton() {
                 const restaurantBtn = document.querySelector('.restaurant-btn');
-                if (!currentLetter) {
-                    restaurantBtn.innerHTML = `-- <i class="fas fa-chevron-down"></i>`;
-                } else if (!currentNumber) {
-                    restaurantBtn.innerHTML = `${currentLetter} <i class="fas fa-chevron-down"></i>`;
-                } else if (currentNumber === 'total') {
+                if (currentNumber === 'total') {
                     restaurantBtn.innerHTML = `${currentLetter}总计 <i class="fas fa-chevron-down"></i>`;
                 } else {
                     restaurantBtn.innerHTML = `${currentLetter}${currentNumber} <i class="fas fa-chevron-down"></i>`;
