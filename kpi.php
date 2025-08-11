@@ -2179,16 +2179,9 @@ $avatarLetter = strtoupper($username[0]);
         // 加载所有餐厅数据
         async function loadAllRestaurantsData(params = {}) {
             try {
-                // 根据当前选择的字母决定要加载哪些餐厅
-                let restaurants;
-                if (currentLetter === 'J') {
-                    restaurants = ['j1', 'j2', 'j3'];
-                } else if (currentLetter === 'K') {
-                    restaurants = ['k1', 'k2', 'k3'];
-                } else {
-                    restaurants = ['j1', 'j2', 'j3']; // 默认
-                }
-
+                // 根据当前选择的字母确定要加载的餐厅
+                const restaurants = [`${currentLetter.toLowerCase()}1`, `${currentLetter.toLowerCase()}2`, `${currentLetter.toLowerCase()}3`];
+        
                 // 确保有有效的日期参数
                 const startDate = params.start_date || dateRange.startDate;
                 const endDate = params.end_date || dateRange.endDate;
@@ -2485,12 +2478,12 @@ $avatarLetter = strtoupper($username[0]);
             document.getElementById('date-info').textContent = `已选择 ${displaySummary.total_days || 0} 天的数据 - ${restaurantConfig[currentRestaurant].name}`;
     
             // 更新图表标题（总计模式下显示特殊标题）
-const chartTitle = document.getElementById('main-chart-title');
-if (currentRestaurant === 'total') {
-    chartTitle.textContent = `净销售额趋势 (${currentLetter}系列三店合计)`;
-} else {
-    chartTitle.textContent = '净销售额趋势';
-}
+            const chartTitle = document.getElementById('main-chart-title');
+            if (currentRestaurant === 'total') {
+                chartTitle.textContent = '净销售额趋势 (三店合计)';
+            } else {
+                chartTitle.textContent = '净销售额趋势';
+            }
     
             // 更新图表
             updateCharts(filteredData);
@@ -3025,12 +3018,12 @@ if (currentRestaurant === 'total') {
 }
 
             // 更新桌子图表标题
-const tablesChartTitle = document.getElementById('tables-chart-title');
-if (currentRestaurant === 'total') {
-    tablesChartTitle.textContent = `桌子使用分析 - 按顾客类型 (${currentLetter}系列三店合计)`;
-} else {
-    tablesChartTitle.textContent = '桌子使用分析 - 按顾客类型';
-}
+            const tablesChartTitle = document.getElementById('tables-chart-title');
+            if (currentRestaurant === 'total') {
+                tablesChartTitle.textContent = '桌子使用分析 - 按顾客类型 (三店合计)';
+            } else {
+                tablesChartTitle.textContent = '桌子使用分析 - 按顾客类型';
+            }
 
             if (currentRestaurant === 'total') {
                 // 总计模式：显示三间餐厅的桌子对比数据
@@ -3301,13 +3294,13 @@ if (currentRestaurant === 'total') {
             tbody.innerHTML = '';
             
             // 更新表头（总计模式下添加标识）
-const tableHeader = document.getElementById('table-header');
-const firstHeader = tableHeader.querySelector('th');
-if (currentRestaurant === 'total') {
-    firstHeader.textContent = `日期 (${currentLetter}系列三店合计)`;
-} else {
-    firstHeader.textContent = '日期';
-}
+            const tableHeader = document.getElementById('table-header');
+            const firstHeader = tableHeader.querySelector('th');
+            if (currentRestaurant === 'total') {
+                firstHeader.textContent = '日期 (三店合计)';
+            } else {
+                firstHeader.textContent = '日期';
+            }
             
             // 显示所有选择的数据，而不是限制为10条
             data.forEach(item => {
@@ -3399,16 +3392,7 @@ function prepareMonthlyComparisonData() {
         return null;
     }
     
-    // 根据当前选择的字母决定要处理哪些餐厅
-    let restaurants;
-    if (currentLetter === 'J') {
-        restaurants = ['j1', 'j2', 'j3'];
-    } else if (currentLetter === 'K') {
-        restaurants = ['k1', 'k2', 'k3'];
-    } else {
-        restaurants = ['j1', 'j2', 'j3']; // 默认
-    }
-    
+    const restaurants = ['j1', 'j2', 'j3'];
     const restaurantDataConverted = {};
     
     // 先转换每个餐厅的数据格式
@@ -3903,27 +3887,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                // 如果当前选择的是总计，保持总计状态并切换到对应字母的总计
-                if (currentNumber === 'total') {
-                    // 更新按钮显示
-                    updateRestaurantButton();
-                    // 重新加载总计数据（这样J总计和K总计会有不同的数据）
-                    switchRestaurant('total');
-                } else {
-        // 重置为数字1
+                // 如果当前选择的是总计，保持总计状态，但需要重新加载数据
+                if (currentNumber !== 'total') {
+                    // 重置为数字1
                     currentNumber = 1;
                     // 更新数字选择状态
                     document.querySelectorAll('.number-item').forEach(item => {
                         item.classList.remove('selected');
-                        if (parseInt(item.textContent) === 1) {
+                        if (!item.classList.contains('total-option') && parseInt(item.textContent) === 1) {
                             item.classList.add('selected');
                         }
                     });
+                }
 
-                    // 更新按钮显示
-                    updateRestaurantButton();
+                // 更新按钮显示
+                updateRestaurantButton();
 
-                    // 切换餐厅
+                // 切换餐厅 - 总计模式也需要重新加载数据以支持不同字母的餐厅组合
+                if (currentNumber === 'total') {
+                    // 总计模式：根据当前字母加载对应的餐厅组合
+                    switchRestaurant('total');
+                } else {
                     const restaurant = `${letter.toLowerCase()}${currentNumber}`;
                     switchRestaurant(restaurant);
                 }
@@ -3936,7 +3920,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 更新数字选择状态
                 document.querySelectorAll('.number-item').forEach(item => {
                     item.classList.remove('selected');
-                    if (parseInt(item.textContent) === value) {
+                    if (!item.classList.contains('total-option') && parseInt(item.textContent) === value) {
                         item.classList.add('selected');
                     }
                 });
