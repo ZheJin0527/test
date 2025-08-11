@@ -1081,12 +1081,12 @@ $avatarLetter = strtoupper($username[0]);
                 <div class="dropdown-menu-items" id="hr-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            假期管理
+                            假期申请
                             <span class="informationmenu-arrow">›</span>
                         </a>
                         <div class="submenu">
                             <div class="submenu-header">
-                                <div class="submenu-title">假期管理</div>
+                                <div class="submenu-title">假期申请</div>
                             </div>
                             <div class="submenu-content">
                                 <a href="#" class="submenu-item">申请请求</a>
@@ -1110,10 +1110,25 @@ $avatarLetter = strtoupper($username[0]);
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="resource-items">
+                    资源库管理
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="resource-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            碗碟
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            资源库存
+                            食品
                             <span class="informationmenu-arrow">›</span>
                         </a>
                     </div>
