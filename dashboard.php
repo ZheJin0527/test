@@ -65,6 +65,7 @@ $avatarLetter = strtoupper($username[0]);
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="animation.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
@@ -94,9 +95,10 @@ $avatarLetter = strtoupper($username[0]);
         <div class="informationmenu-content">
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
-                    公司架构管理
-                    <span class="section-arrow">⮞</span>
-                </div>
+    <i class="fas fa-sitemap menu-icon"></i>
+    公司架构管理
+    <span class="section-arrow">⮞</span>
+</div>
                 <div class="dropdown-menu-items" id="company-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
