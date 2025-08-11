@@ -253,20 +253,17 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
- 
+            display: none;
             position: absolute;
-            top: 100%;
+            top: 120%;
             right: 0;
             background: white;
             border: 2px solid #583e04;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            min-width: 150px;
+            min-width: 200px;
             padding: 12px;
-            display: flex;             /* 用 flex 布局 */
-    flex-direction: column;    /* 垂直排列按钮 */
-    align-items: center;       /* 按钮水平居中 */
         }
 
         .restaurant-dropdown-menu.show {
@@ -1427,6 +1424,7 @@ $avatarLetter = strtoupper($username[0]);
                             <div class="restaurant-dropdown-menu" id="restaurant-dropdown">
                                 <div class="restaurant-selection-grid">
                                     <!-- 字母选择区域 -->
+
                                     <!-- 数字选择区域 -->
                                     <div class="number-section">
                                         <div class="section-title">分店</div>
