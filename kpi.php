@@ -955,96 +955,24 @@ $avatarLetter = strtoupper($username[0]);
 
         <div class="informationmenu-content">
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="analytics-items">
-                    仪表盘
-                    <span class="section-arrow">⮞</span>
-                </div>
-                <div class="dropdown-menu-items" id="analytics-items">
-                    <div class="menu-item-wrapper">
-                        <a href="kpi.php" class="informationmenu-item">
-                            集团概览
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-                    
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            工作表
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item-wrapper">
-                        <a href="kpiedit.html" class="informationmenu-item">
-                            KPI数据上传
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
-                    Kunzz Holdings
+                    公司架构管理
                     <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="company-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            企业蓝图
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            组织结构图
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            公司规划
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            公司福利
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            绩效考核
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="subcompany-items">
-                    子公司
-                    <span class="section-arrow">⮞</span>
-                </div>
-                <div class="dropdown-menu-items" id="subcompany-items">
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            J1
+                            Kunzz Holdings
                             <span class="informationmenu-arrow">›</span>
                         </a>
                         <div class="submenu">
                             <div class="submenu-header">
-                                <div class="submenu-title">J1</div>
+                                <div class="submenu-title">Kunzz Holdings</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">蓝图</a>
-                                <a href="#" class="submenu-item">组织结构</a>
-                                <a href="#" class="submenu-item">公司规则</a>
+                                <a href="#" class="submenu-item">企业蓝图</a>
+                                <a href="#" class="submenu-item">组织结构图</a>
+                                <a href="#" class="submenu-item">公司规划</a>
                                 <a href="#" class="submenu-item">公司福利</a>
                                 <a href="#" class="submenu-item">绩效考核</a>
                             </div>
@@ -1053,38 +981,92 @@ $avatarLetter = strtoupper($username[0]);
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            J2
+                            子公司
                             <span class="informationmenu-arrow">›</span>
                         </a>
                         <div class="submenu">
                             <div class="submenu-header">
-                                <div class="submenu-title">J2</div>
+                                <div class="submenu-title">子公司</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">蓝图</a>
-                                <a href="#" class="submenu-item">组织结构</a>
-                                <a href="#" class="submenu-item">公司规则</a>
-                                <a href="#" class="submenu-item">公司福利</a>
-                                <a href="#" class="submenu-item">绩效考核</a>
+                                <a href="#" class="submenu-item expandable" data-target="j1-options">
+                                    J1
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j1-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
+
+                                <a href="#" class="submenu-item expandable" data-target="j2-options">
+                                    J2
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j2-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
+
+                                <a href="#" class="submenu-item expandable" data-target="j3-options">
+                                    J3
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j3-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="analytics-items">
+                    运营分析与报表
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="analytics-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            仪表盘
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">仪表盘</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="kpi.html" class="submenu-item">集团概览</a>
+                                <a href="#" class="submenu-item">工作表</a>
+                                <a href="kpiedit.html" class="submenu-item">KPI数据上传</a>
                             </div>
                         </div>
                     </div>
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            J3
+                            报表系统
                             <span class="informationmenu-arrow">›</span>
                         </a>
                         <div class="submenu">
                             <div class="submenu-header">
-                                <div class="submenu-title">J3</div>
+                                <div class="submenu-title">报表系统</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">蓝图</a>
-                                <a href="#" class="submenu-item">组织结构</a>
-                                <a href="#" class="submenu-item">公司规则</a>
-                                <a href="#" class="submenu-item">公司福利</a>
-                                <a href="#" class="submenu-item">绩效考核</a>
+                                <a href="#" class="submenu-item">财务</a>
+                                <a href="#" class="submenu-item">业绩</a>
+                                <a href="#" class="submenu-item">桌子</a>
+                                <a href="#" class="submenu-item">工资</a>
                             </div>
                         </div>
                     </div>
@@ -1092,35 +1074,46 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="report-items">
-                    报表
+                <div class="informationmenu-section-title" data-target="hr-items">
+                    人事与资源管理
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="report-items">
+                <div class="dropdown-menu-items" id="hr-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            财务
+                            假期管理
                             <span class="informationmenu-arrow">›</span>
                         </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">假期管理</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">申请请求</a>
+                                <a href="#" class="submenu-item">假期报表</a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            业绩
+                            资源申请
                             <span class="informationmenu-arrow">›</span>
                         </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">资源申请</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">资源请求</a>
+                                <a href="#" class="submenu-item">分配状态</a>
+                            </div>
+                        </div>
                     </div>
-
+                    
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            桌子
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            工资
+                            资源库存
                             <span class="informationmenu-arrow">›</span>
                         </a>
                     </div>
@@ -1128,128 +1121,52 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="stock-items">
-                    资源库
+                <div class="informationmenu-section-title" data-target="user-items">
+                    用户与权限管理
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="stock-items">
+                <div class="dropdown-menu-items" id="user-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            碗碟
+                            我的账号
                             <span class="informationmenu-arrow">›</span>
                         </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">我的账号</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">个人资料</a>
+                                <a href="edit_profile.php" class="submenu-item">修改资料</a>
+                                <a href="#" class="submenu-item">消息</a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            食品
+                            系统设置
                             <span class="informationmenu-arrow">›</span>
-                        </a>                    
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">系统设置</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">语言</a>
+                                <a href="#" class="submenu-item">权限</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="resource-request-items">
-                    资源申请
-                    <span class="section-arrow">⮞</span>
-                </div>
-                <div class="dropdown-menu-items" id="resource-request-items">
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            资源请求
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-                    
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            分配状态
-                            <span class="informationmenu-arrow">›</span>
-                        </a>                    
-                    </div>
-                </div>
-            </div>
-
-            <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="vacation-items">
-                    假期申请
-                    <span class="section-arrow">⮞</span>
-                </div>
-                <div class="dropdown-menu-items" id="vacation-items">
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            申请请求
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-                    
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            假期报表
-                            <span class="informationmenu-arrow">›</span>
-                        </a>                    
-                    </div>
-                </div>
-            </div>
-
-            <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="account-items">
-                    我的账号
-                    <span class="section-arrow">⮞</span>
-                </div>
-                <div class="dropdown-menu-items" id="account-items">
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            个人资料
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-                    
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            消息
-                            <span class="informationmenu-arrow">›</span>
-                        </a>                    
-                    </div>
-
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            资料修改
-                            <span class="informationmenu-arrow">›</span>
-                        </a>                    
-                    </div>
-                </div>
-            </div>
-
-            <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="system-items">
-                    系统设置
-                    <span class="section-arrow">⮞</span>
-                </div>
-                <div class="dropdown-menu-items" id="system-items">
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            语言
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-                    
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            权限
-                            <span class="informationmenu-arrow">›</span>
-                        </a>                    
-                    </div>
-                </div>
-            </div>
-
-            <div class="informationmenu-section">
-                <div class="informationmenu-section-title" data-target="support-items">
+                <div class="informationmenu-section-title" data-target="help-items">
                     帮助与支持
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="support-items">
+                <div class="dropdown-menu-items" id="help-items">
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             使用教学
