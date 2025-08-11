@@ -352,7 +352,18 @@ $avatarLetter = strtoupper($username[0]);
             font-weight: 600;
         }
 
-        
+        /* 数字选择区域初始隐藏 */
+.number-selection {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* 数字选择区域显示状态 */
+.number-selection.show {
+    visibility: visible;
+    opacity: 1;
+}
 
         .number-dropdown {
             position: relative;
@@ -1447,8 +1458,8 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="letter-selection">
                                     <div class="section-title">选择州属</div>
                                     <div class="letter-grid">
-                                        <button class="letter-item" onclick="selectLetter('J')" onmouseenter="showNumberOptions('J')">J</button>
-                                        <button class="letter-item" onclick="selectLetter('K')" onmouseenter="showNumberOptions('K')">K</button>
+                                        <button class="letter-item" onclick="selectLetter('J')">J</button>
+<button class="letter-item" onclick="selectLetter('K')">K</button>
                                     </div>
                                 </div>
                                 <div class="number-selection" id="number-selection">
@@ -3637,6 +3648,17 @@ function createEmptyDataPoint() {
             dropdown.classList.toggle('show');
         }
 
+        // 修改餐厅下拉菜单关闭事件
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.restaurant-selector')) {
+        const dropdown = document.getElementById('restaurant-dropdown');
+        if (dropdown.classList.contains('show')) {
+            dropdown.classList.remove('show');
+            hideNumberOptions(); // 关闭下拉菜单时隐藏数字选项
+        }
+    }
+});
+
         // 选择餐厅数字或总计
         function selectNumber(value) {
             const numberBtn = document.querySelector('.number-btn');
@@ -3881,36 +3903,45 @@ function createEmptyDataPoint() {
 
             // 显示数字选项
             function showNumberOptions(letter) {
-                currentLetter = letter;
-                const numberSelection = document.getElementById('number-selection');
-                const sectionTitle = numberSelection.querySelector('.section-title');
-                const numberGrid = numberSelection.querySelector('.number-grid');
+    currentLetter = letter;
+    
+    // 更新字母选择状态
+    document.querySelectorAll('.letter-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    document.querySelector(`[onclick*="'${letter}'"]`).classList.add('selected');
+    
+    const numberSelection = document.getElementById('number-selection');
+    const sectionTitle = numberSelection.querySelector('.section-title');
+    const numberGrid = numberSelection.querySelector('.number-grid');
 
-                // 更新标题
-                sectionTitle.textContent = `选择${letter}分店`;
+    // 更新标题
+    sectionTitle.textContent = `选择${letter}分店`;
 
-                // 清空现有选项
-                numberGrid.innerHTML = '';
+    // 清空现有选项
+    numberGrid.innerHTML = '';
 
-                if (letter === 'J') {
-                    // J有1、2、3和总计选项
-                    numberGrid.innerHTML = `
-                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
-                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
-                        <button class="number-item" onclick="selectRestaurant('3')">3</button>
-                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-                    `;
-                } else if (letter === 'K') {
-                    // K只有1、2和总计选项
-                    numberGrid.innerHTML = `
-                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
-                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
-                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-                    `;
-                }
+    if (letter === 'J') {
+        // J有1、2、3和总计选项
+        numberGrid.innerHTML = `
+            <button class="number-item" onclick="selectRestaurant('1')">1</button>
+            <button class="number-item" onclick="selectRestaurant('2')">2</button>
+            <button class="number-item" onclick="selectRestaurant('3')">3</button>
+            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+        `;
+    } else if (letter === 'K') {
+        // K只有1、2和总计选项
+        numberGrid.innerHTML = `
+            <button class="number-item" onclick="selectRestaurant('1')">1</button>
+            <button class="number-item" onclick="selectRestaurant('2')">2</button>
+            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+        `;
+    }
 
-                // 不需要再动态显示/隐藏，因为现在布局是固定的
-            }
+    // 显示数字选择区域
+    numberSelection.style.visibility = 'visible';
+    numberSelection.style.opacity = '1';
+}
 
             // 选择具体餐厅
             async function selectRestaurant(number) {
@@ -3937,10 +3968,31 @@ function createEmptyDataPoint() {
             }
 
             // 选择字母
-            function selectLetter(letter) {
-                // 这个函数现在只用于显示数字选项
-                showNumberOptions(letter);
-            }
+function selectLetter(letter) {
+    showNumberOptions(letter);
+}
+
+// 隐藏数字选项
+function hideNumberOptions() {
+    const numberSelection = document.getElementById('number-selection');
+    const sectionTitle = numberSelection.querySelector('.section-title');
+    const numberGrid = numberSelection.querySelector('.number-grid');
+    
+    // 隐藏数字选择区域
+    numberSelection.style.visibility = 'hidden';
+    numberSelection.style.opacity = '0';
+    
+    // 重置标题和内容
+    sectionTitle.textContent = '选择餐厅';
+    numberGrid.innerHTML = '';
+    
+    // 移除字母选择状态
+    document.querySelectorAll('.letter-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    
+    currentLetter = null;
+}
 
             // 修改现有的selectNumber函数
             function selectNumber(value) {
@@ -3992,44 +4044,6 @@ function createEmptyDataPoint() {
                 restaurantBtn.innerHTML = `${text} <i class="fas fa-chevron-down"></i>`;
             }
             </script>
-            <script>
-            // 鼠标事件控制选择分店区域的显示/隐藏
-            document.addEventListener('DOMContentLoaded', function() {
-                const letterSelection = document.querySelector('.letter-selection');
-                const numberSelection = document.getElementById('number-selection');
-    
-                // 字母按钮鼠标悬停事件
-                document.querySelectorAll('.letter-item').forEach(letterBtn => {
-                    letterBtn.addEventListener('mouseenter', function() {
-                        const letter = this.textContent;
-                        showNumberOptions(letter);
-                    });
-                });
-    
-                // 鼠标离开字母选择区域时的处理
-                letterSelection.addEventListener('mouseleave', function(e) {
-                    const relatedTarget = e.relatedTarget;
-                    if (!relatedTarget || !numberSelection.contains(relatedTarget)) {
-                        setTimeout(() => {
-                            if (!numberSelection.matches(':hover')) {
-                                hideNumberOptions();
-                            }
-                        }, 150);
-                    }
-                });
-    
-                // 鼠标离开数字选择区域时隐藏
-                numberSelection.addEventListener('mouseleave', function(e) {
-                    const relatedTarget = e.relatedTarget;
-                    if (!relatedTarget || !letterSelection.contains(relatedTarget)) {
-                        setTimeout(() => {
-                            if (!letterSelection.matches(':hover')) {
-                                hideNumberOptions();
-                            }
-                        }, 150);
-                    }
-                });
-            });
-    </script>
+            
 </body>
 </html>
