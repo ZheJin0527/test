@@ -145,11 +145,11 @@ $avatarLetter = strtoupper($username[0]);
             font-size: 30px;
             font-weight: bold;
             color: #000000;
-            background-color: transparent; /* 移除单独的白色背景 */
-            padding: 0; /* 移除单独的padding */
-            border-radius: 0; /* 移除单独的圆角 */
-            border: none; /* 移除单独的边框 */
-            box-shadow: none; /* 移除单独的阴影 */
+            background-color: transparent;
+            padding: 0 3px;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
         }
         
         .header .controls {
