@@ -6249,7 +6249,7 @@ form select {
 
 /* 提高选择器权重 */
 .informationmenu.collapsed {
-    width: 100px !important;
+    width: 110px !important;
     overflow: visible;
 }
 
