@@ -1114,32 +1114,32 @@ row.innerHTML = `
                 (parseInt(getInputValue('returning_customers', day)) !== '' && !isNaN(parseInt(getInputValue('returning_customers', day)))) ||
                 (parseInt(getInputValue('new_customers', day)) !== '' && !isNaN(parseInt(getInputValue('new_customers', day))));
 
-if (hasData) {
-                        const dateStr = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                    if (hasData) {
+                                            const dateStr = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
                         
-                        const getNumericValue = (field, day, isInteger = false) => {
-    const value = getInputValue(field, day);
-    if (value === '' || value === null || value === undefined) return 0;
-    const num = isInteger ? parseInt(value) : parseFloat(value);
-    return isNaN(num) ? 0 : num;
-};
+                                            const getNumericValue = (field, day, isInteger = false) => {
+                        const value = getInputValue(field, day);
+                        if (value === '' || value === null || value === undefined) return 0;
+                        const num = isInteger ? parseInt(value) : parseFloat(value);
+                        return isNaN(num) ? 0 : num;
+                    };
 
-const recordData = {
-    date: dateStr,
-    gross_sales: getNumericValue('gross_sales', day),
-    discounts: getNumericValue('discounts', day),
-    tax: getNumericValue('tax', day),
-    service_fee: getNumericValue('service_fee', day),
-    adj_amount: getNumericValue('adj_amount', day),
-    tender_amount: (getNumericValue('gross_sales', day) - getNumericValue('discounts', day)) + 
-                   getNumericValue('tax', day) + getNumericValue('service_fee', day) + 
-                   getNumericValue('adj_amount', day),
-    diners: getNumericValue('diners', day, true),
-    tables_used: getNumericValue('tables_used', day, true),
-    returning_customers: getNumericValue('returning_customers', day, true),
-    new_customers: getNumericValue('new_customers', day, true),
-    restaurant: currentRestaurant
-};
+                    const recordData = {
+                        date: dateStr,
+                        gross_sales: getNumericValue('gross_sales', day),
+                        discounts: getNumericValue('discounts', day),
+                        tax: getNumericValue('tax', day),
+                        service_fee: getNumericValue('service_fee', day),
+                        adj_amount: getNumericValue('adj_amount', day),
+                        tender_amount: (getNumericValue('gross_sales', day) - getNumericValue('discounts', day)) + 
+                                    getNumericValue('tax', day) + getNumericValue('service_fee', day) + 
+                                    getNumericValue('adj_amount', day),
+                        diners: getNumericValue('diners', day, true),
+                        tables_used: getNumericValue('tables_used', day, true),
+                        returning_customers: getNumericValue('returning_customers', day, true),
+                        new_customers: getNumericValue('new_customers', day, true),
+                        restaurant: currentRestaurant
+                    };
                         
                         try {
                             let result;
