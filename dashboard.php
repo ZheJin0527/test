@@ -95,6 +95,7 @@ $avatarLetter = strtoupper($username[0]);
         <div class="informationmenu-content">
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
+                    <i class="fas fa-sitemap menu-icon"></i>
                     公司架构管理
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -171,6 +172,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="analytics-items">
+                    <i class="fas fa-chart-line menu-icon"></i>
                     运营分析与报表
                     <span class="section-arrow">⮞</span>
                 </div>
@@ -214,6 +216,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="hr-items">
+                    <i class="fas fa-users menu-icon"></i>
                     人事与资源管理
                     <span class="section-arrow">⮞</span>
                 </div>
