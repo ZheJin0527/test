@@ -288,7 +288,9 @@ $avatarLetter = strtoupper($username[0]);
             flex: 1;
             padding-left: 12px;
             min-width: 120px; /* 固定最小宽度 */
-            /* 移除 display: none，让它始终显示但内容为空 */
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .section-title {
@@ -352,18 +354,11 @@ $avatarLetter = strtoupper($username[0]);
             font-weight: 600;
         }
 
-        /* 数字选择区域初始隐藏 */
-.number-selection {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-/* 数字选择区域显示状态 */
-.number-selection.show {
-    visibility: visible;
-    opacity: 1;
-}
+        /* 数字选择区域显示状态 */
+        .number-selection.show {
+            visibility: visible;
+            opacity: 1;
+        }
 
         .number-dropdown {
             position: relative;
@@ -1459,7 +1454,7 @@ $avatarLetter = strtoupper($username[0]);
                                     <div class="section-title">选择州属</div>
                                     <div class="letter-grid">
                                         <button class="letter-item" onclick="selectLetter('J')">J</button>
-<button class="letter-item" onclick="selectLetter('K')">K</button>
+                                        <button class="letter-item" onclick="selectLetter('K')">K</button>
                                     </div>
                                 </div>
                                 <div class="number-selection" id="number-selection">
@@ -3649,15 +3644,15 @@ function createEmptyDataPoint() {
         }
 
         // 修改餐厅下拉菜单关闭事件
-document.addEventListener('click', function(e) {
-    if (!e.target.closest('.restaurant-selector')) {
-        const dropdown = document.getElementById('restaurant-dropdown');
-        if (dropdown.classList.contains('show')) {
-            dropdown.classList.remove('show');
-            hideNumberOptions(); // 关闭下拉菜单时隐藏数字选项
-        }
-    }
-});
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.restaurant-selector')) {
+                const dropdown = document.getElementById('restaurant-dropdown');
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                    hideNumberOptions(); // 关闭下拉菜单时隐藏数字选项
+                }
+            }
+        });
 
         // 选择餐厅数字或总计
         function selectNumber(value) {
@@ -3903,45 +3898,45 @@ document.addEventListener('click', function(e) {
 
             // 显示数字选项
             function showNumberOptions(letter) {
-    currentLetter = letter;
+                currentLetter = letter;
     
-    // 更新字母选择状态
-    document.querySelectorAll('.letter-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    document.querySelector(`[onclick*="'${letter}'"]`).classList.add('selected');
+                // 更新字母选择状态
+                document.querySelectorAll('.letter-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                document.querySelector(`[onclick*="'${letter}'"]`).classList.add('selected');
     
-    const numberSelection = document.getElementById('number-selection');
-    const sectionTitle = numberSelection.querySelector('.section-title');
-    const numberGrid = numberSelection.querySelector('.number-grid');
+                const numberSelection = document.getElementById('number-selection');
+                const sectionTitle = numberSelection.querySelector('.section-title');
+                const numberGrid = numberSelection.querySelector('.number-grid');
 
-    // 更新标题
-    sectionTitle.textContent = `选择${letter}分店`;
+                // 更新标题
+                sectionTitle.textContent = `选择${letter}分店`;
 
-    // 清空现有选项
-    numberGrid.innerHTML = '';
+                // 清空现有选项
+                numberGrid.innerHTML = '';
 
-    if (letter === 'J') {
-        // J有1、2、3和总计选项
-        numberGrid.innerHTML = `
-            <button class="number-item" onclick="selectRestaurant('1')">1</button>
-            <button class="number-item" onclick="selectRestaurant('2')">2</button>
-            <button class="number-item" onclick="selectRestaurant('3')">3</button>
-            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-        `;
-    } else if (letter === 'K') {
-        // K只有1、2和总计选项
-        numberGrid.innerHTML = `
-            <button class="number-item" onclick="selectRestaurant('1')">1</button>
-            <button class="number-item" onclick="selectRestaurant('2')">2</button>
-            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-        `;
-    }
+                if (letter === 'J') {
+                    // J有1、2、3和总计选项
+                    numberGrid.innerHTML = `
+                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                        <button class="number-item" onclick="selectRestaurant('3')">3</button>
+                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+                    `;
+                } else if (letter === 'K') {
+                    // K只有1、2和总计选项
+                    numberGrid.innerHTML = `
+                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+                    `;
+                }
 
-    // 显示数字选择区域
-    numberSelection.style.visibility = 'visible';
-    numberSelection.style.opacity = '1';
-}
+                // 显示数字选择区域
+                numberSelection.style.visibility = 'visible';
+                numberSelection.style.opacity = '1';
+            }
 
             // 选择具体餐厅
             async function selectRestaurant(number) {
@@ -3968,31 +3963,31 @@ document.addEventListener('click', function(e) {
             }
 
             // 选择字母
-function selectLetter(letter) {
-    showNumberOptions(letter);
-}
+            function selectLetter(letter) {
+                showNumberOptions(letter);
+            }
 
-// 隐藏数字选项
-function hideNumberOptions() {
-    const numberSelection = document.getElementById('number-selection');
-    const sectionTitle = numberSelection.querySelector('.section-title');
-    const numberGrid = numberSelection.querySelector('.number-grid');
+            // 隐藏数字选项
+            function hideNumberOptions() {
+                const numberSelection = document.getElementById('number-selection');
+                const sectionTitle = numberSelection.querySelector('.section-title');
+                const numberGrid = numberSelection.querySelector('.number-grid');
     
-    // 隐藏数字选择区域
-    numberSelection.style.visibility = 'hidden';
-    numberSelection.style.opacity = '0';
+                // 隐藏数字选择区域
+                numberSelection.style.visibility = 'hidden';
+                numberSelection.style.opacity = '0';
     
-    // 重置标题和内容
-    sectionTitle.textContent = '选择餐厅';
-    numberGrid.innerHTML = '';
+                // 重置标题和内容
+                sectionTitle.textContent = '选择餐厅';
+                numberGrid.innerHTML = '';
     
-    // 移除字母选择状态
-    document.querySelectorAll('.letter-item').forEach(item => {
-        item.classList.remove('selected');
-    });
+                // 移除字母选择状态
+                document.querySelectorAll('.letter-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
     
-    currentLetter = null;
-}
+                currentLetter = null;
+            }
 
             // 修改现有的selectNumber函数
             function selectNumber(value) {
