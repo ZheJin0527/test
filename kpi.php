@@ -264,6 +264,7 @@ $avatarLetter = strtoupper($username[0]);
             z-index: 1000;
             min-width: 150px;
             padding: 12px;
+            align-items: center;
         }
 
         .restaurant-dropdown-menu.show {
