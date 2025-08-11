@@ -2713,24 +2713,6 @@ $avatarLetter = strtoupper($username[0]);
                                     },
                                     label: function(context) {
                                         return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                    },
-                                    afterBody: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const j1Sales = comparisonData.restaurants.j1[dataIndex].netSales;
-                                            const j2Sales = comparisonData.restaurants.j2[dataIndex].netSales;
-                                            const j3Sales = comparisonData.restaurants.j3[dataIndex].netSales;
-                                            const totalSales = j1Sales + j2Sales + j3Sales;
-                                    
-                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
-                                    
-                                            return [
-                                                '',
-                                                `--- ${periodText} ---`,
-                                                `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
-                                            ];
-                                        }
-                                        return [];
                                     }
                                 }
                             },
@@ -2916,29 +2898,6 @@ $avatarLetter = strtoupper($username[0]);
                                     },
                                     label: function(context) {
                                         return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                    },
-                                    afterBody: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const item = aggregatedData[dataIndex];
-                                    
-                                            const periodText = isMonthlyView ? '当月详情' : '当日详情';
-                                            const daysText = isMonthlyView ? `${item.daysCount}天` : '';
-                                    
-                                            let details = [
-                                                '',
-                                                `--- ${periodText} ---`,
-                                                `总销售额: RM ${item.totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `净销售额: RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
-                                            ];
-                                    
-                                            if (isMonthlyView && item.daysCount) {
-                                                details.push(`营业天数: ${daysText}`);
-                                            }
-                                    
-                                            return details;
-                                        }
-                                        return [];
                                     }
                                 }
                             }
@@ -3595,8 +3554,6 @@ function createEmptyDataPoint() {
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate
             });
-
-            
             updateDashboard();
         }
 
