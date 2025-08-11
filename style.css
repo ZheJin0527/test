@@ -6282,13 +6282,15 @@ form select {
     display: none;
 }
 
-/* 如果有文字节点，需要隐藏（但保留图标） */
-.informationmenu.collapsed .informationmenu-section-title {
-    font-size: 0; /* 隐藏文字 */
+/* 额外的强制显示图标规则 */
+.informationmenu.collapsed .informationmenu-section-title * {
+    display: none;
 }
 
 .informationmenu.collapsed .section-icon {
-    font-size: initial; /* 恢复图标的显示 */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* 收起状态保持三条横线 */
