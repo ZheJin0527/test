@@ -3887,13 +3887,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                // 保持当前选择的数字或总计不变，只是切换字母
-                // 不需要重置currentNumber，保持用户的选择
+                // 如果当前选择的是总计，保持总计状态，但需要重新加载数据
+                if (currentNumber !== 'total') {
+                    // 重置为数字1
+                    currentNumber = 1;
+                    // 更新数字选择状态
+                    document.querySelectorAll('.number-item').forEach(item => {
+                        item.classList.remove('selected');
+                        if (!item.classList.contains('total-option') && parseInt(item.textContent) === 1) {
+                            item.classList.add('selected');
+                        }
+                    });
+                }
 
                 // 更新按钮显示
                 updateRestaurantButton();
 
-                // 切换餐厅 - 根据当前选择重新加载数据
+                // 切换餐厅 - 总计模式也需要重新加载数据以支持不同字母的餐厅组合
                 if (currentNumber === 'total') {
                     // 总计模式：根据当前字母加载对应的餐厅组合
                     switchRestaurant('total');
@@ -3907,10 +3917,10 @@ document.addEventListener('DOMContentLoaded', function() {
             function selectNumber(value) {
                 currentNumber = value;
 
-                // 更新数字选择状态 - 清除所有选中状态，然后选中当前项
+                // 更新数字选择状态
                 document.querySelectorAll('.number-item').forEach(item => {
                     item.classList.remove('selected');
-                    if (parseInt(item.textContent) === value) {
+                    if (!item.classList.contains('total-option') && parseInt(item.textContent) === value) {
                         item.classList.add('selected');
                     }
                 });
@@ -3929,10 +3939,10 @@ document.addEventListener('DOMContentLoaded', function() {
             function selectTotal() {
                 currentNumber = 'total';
 
-                // 更新数字选择状态 - 清除所有选中状态，然后选中总计
+                // 更新数字选择状态
                 document.querySelectorAll('.number-item').forEach(item => {
                     item.classList.remove('selected');
-                    if (item.classList.contains('total-option')) {
+                    if (item.textContent === '总计') {
                         item.classList.add('selected');
                     }
                 });
@@ -3956,31 +3966,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     restaurantBtn.innerHTML = `${currentLetter}${currentNumber} <i class="fas fa-chevron-down"></i>`;
                 }
             }
-
-            // 初始化选择状态
-            function initializeSelection() {
-                // 确保初始状态下J和1是选中的
-                document.querySelectorAll('.letter-item').forEach(item => {
-                    item.classList.remove('selected');
-                    if (item.textContent === currentLetter) {
-                        item.classList.add('selected');
-                    }
-                });
-
-                document.querySelectorAll('.number-item').forEach(item => {
-                    item.classList.remove('selected');
-                    if (!item.classList.contains('total-option') && parseInt(item.textContent) === currentNumber) {
-                        item.classList.add('selected');
-                    }
-                });
-
-                updateRestaurantButton();
-            }
-
-            // 页面加载完成后初始化选择状态
-            document.addEventListener('DOMContentLoaded', function() {
-                initializeSelection();
-            });
             </script>
 </body>
 </html>
