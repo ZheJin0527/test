@@ -253,24 +253,24 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    border: 2px solid #583e04;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
-    z-index: 1000;
-    min-width: 280px;
-    padding: 16px;
-}
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 2px solid #583e04;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+            z-index: 1000;
+            min-width: 280px;
+            padding: 16px;
+        }
 
-.restaurant-dropdown-menu.show {
-    display: flex;
-    gap: 16px;
-    flex-direction: row; /* 强制为行布局 */
-}
+        .restaurant-dropdown-menu.show {
+            display: flex;
+            gap: 16px;
+            flex-direction: row; /* 强制为行布局 */
+        }
 
         .letter-selection,
         .number-selection {
@@ -278,18 +278,18 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .letter-selection {
-    flex: 1;
-    border-right: 1px solid #e5e7eb;
-    padding-right: 12px;
-    min-width: 120px; /* 固定最小宽度 */
-}
+            flex: 1;
+            border-right: 1px solid #e5e7eb;
+            padding-right: 12px;
+            min-width: 120px; /* 固定最小宽度 */
+        }
 
         .number-selection {
-    flex: 1;
-    padding-left: 12px;
-    min-width: 120px; /* 固定最小宽度 */
-    /* 移除 display: none，让它始终显示但内容为空 */
-}
+            flex: 1;
+            padding-left: 12px;
+            min-width: 120px; /* 固定最小宽度 */
+            /* 移除 display: none，让它始终显示但内容为空 */
+        }
 
         .section-title {
             font-size: 12px;
@@ -1453,9 +1453,9 @@ $avatarLetter = strtoupper($username[0]);
                                 </div>
                                 <div class="number-selection" id="number-selection">
                                     <div class="section-title">请选择餐厅类型</div>
-    <div class="number-grid">
-        <!-- 默认为空 -->
-    </div>
+                                    <div class="number-grid">
+                                        <!-- 默认为空 -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2379,32 +2379,32 @@ $avatarLetter = strtoupper($username[0]);
 
         // 初始化应用
         async function initApp() {
-    console.log('开始初始化应用...');
+            console.log('开始初始化应用...');
 
-    // 初始化增强日期选择器
-    initEnhancedDatePickers();
+            // 初始化增强日期选择器
+            initEnhancedDatePickers();
     
-    // 如果餐厅未选择，不加载数据
-    if (!isRestaurantSelected) {
-        console.log('等待餐厅选择...');
-        // 清空显示
-        document.getElementById('total-sales').textContent = '--';
-        document.getElementById('net-sales').textContent = '--';
-        document.getElementById('total-tables').textContent = '--';
-        document.getElementById('total-diners').textContent = '--';
-        document.getElementById('avg-per-diner').textContent = '--';
-        document.getElementById('date-info').textContent = '请先选择餐厅';
-        return;
-    }
+            // 如果餐厅未选择，不加载数据
+            if (!isRestaurantSelected) {
+                console.log('等待餐厅选择...');
+                // 清空显示
+                document.getElementById('total-sales').textContent = '--';
+                document.getElementById('net-sales').textContent = '--';
+                document.getElementById('total-tables').textContent = '--';
+                document.getElementById('total-diners').textContent = '--';
+                document.getElementById('avg-per-diner').textContent = '--';
+                document.getElementById('date-info').textContent = '请先选择餐厅';
+                return;
+            }
 
-    console.log('初始化后的日期范围:', dateRange);
+            console.log('初始化后的日期范围:', dateRange);
     
-    // 初始化主题色
-    updateThemeColors(currentRestaurant);
+            // 初始化主题色
+            updateThemeColors(currentRestaurant);
     
-    await loadData();
-    updateDashboard();
-}
+            await loadData();
+            updateDashboard();
+        }
 
         // 数据转换和过滤
         function convertToKPIFormat(data) {
@@ -3379,7 +3379,6 @@ function aggregateByMonth(data) {
     })).sort((a, b) => a.date.localeCompare(b.date));
 }
 
-// 为总计模式准备按月聚合的对比数据
 // 为总计模式准备对比数据（与单店模式一致的聚合逻辑）
 function prepareMonthlyComparisonData() {
     if (currentRestaurant !== 'total' || !allRestaurantsData) {
@@ -3882,38 +3881,36 @@ function createEmptyDataPoint() {
 
             // 显示数字选项
             function showNumberOptions(letter) {
-    currentLetter = letter;
-    const numberSelection = document.getElementById('number-selection');
-    const sectionTitle = numberSelection.querySelector('.section-title');
-    const numberGrid = numberSelection.querySelector('.number-grid');
+                currentLetter = letter;
+                const numberSelection = document.getElementById('number-selection');
+                const sectionTitle = numberSelection.querySelector('.section-title');
+                const numberGrid = numberSelection.querySelector('.number-grid');
 
-    // 更新标题
-    sectionTitle.textContent = `选择${letter}分店`;
+                // 更新标题
+                sectionTitle.textContent = `选择${letter}分店`;
 
-    // 清空现有选项
-    numberGrid.innerHTML = '';
+                // 清空现有选项
+                numberGrid.innerHTML = '';
 
-    if (letter === 'J') {
-        // J有1、2、3和总计选项
-        numberGrid.innerHTML = `
-            <button class="number-item" onclick="selectRestaurant('1')">1</button>
-            <button class="number-item" onclick="selectRestaurant('2')">2</button>
-            <button class="number-item" onclick="selectRestaurant('3')">3</button>
-            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-        `;
-    } else if (letter === 'K') {
-        // K只有1、2和总计选项
-        numberGrid.innerHTML = `
-            <button class="number-item" onclick="selectRestaurant('1')">1</button>
-            <button class="number-item" onclick="selectRestaurant('2')">2</button>
-            <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-        `;
-    }
+                if (letter === 'J') {
+                    // J有1、2、3和总计选项
+                    numberGrid.innerHTML = `
+                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                        <button class="number-item" onclick="selectRestaurant('3')">3</button>
+                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+                    `;
+                } else if (letter === 'K') {
+                    // K只有1、2和总计选项
+                    numberGrid.innerHTML = `
+                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+                    `;
+                }
 
-    // 不需要再动态显示/隐藏，因为现在布局是固定的
-}
-
-
+                // 不需要再动态显示/隐藏，因为现在布局是固定的
+            }
 
             // 选择具体餐厅
             async function selectRestaurant(number) {
