@@ -1596,35 +1596,7 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
             
             
-            <!-- Bottom Charts - 合并后的图表 -->
-            <div class="bottom-charts" style="margin-bottom: 32px;">
-                <!-- 现有的用餐人数与顾客类型分析图表 -->
-                <div class="card">
-                    <div class="card-body">
-                        <h3 style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数分析</h3>
-
-                        <div class="chart-container">
-                            <button class="chart-back-button" id="combined-chart-back" onclick="exitDrillDown()">
-                                <i class="fas fa-arrow-left"></i> 返回年度视图
-                            </button>
-                            <canvas id="combined-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 桌子数图表 -->
-                <div class="card">
-                    <div class="card-body">
-                        <h3 id="tables-chart-title" style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">桌子使用分析</h3>
-                        <div class="chart-container">
-                            <button class="chart-back-button" id="tables-chart-back" onclick="exitDrillDown()">
-                                <i class="fas fa-arrow-left"></i> 返回年度视图
-                            </button>
-                            <canvas id="tables-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             
             <!-- Detail Table -->
             <div class="card">
@@ -1668,8 +1640,6 @@ $avatarLetter = strtoupper($username[0]);
         };
         
         let salesChart = null;
-        let combinedChart = null;
-        let tablesChart = null;
         
         // 日期选择器状态
         let currentDatePicker = null;
@@ -2629,898 +2599,358 @@ if (isDrillDownMode) {
         }
 
         function updateCharts(data) {
-            const ctx1 = document.getElementById('sales-chart').getContext('2d');
-            const ctx2 = document.getElementById('combined-chart').getContext('2d');
-            const ctx3 = document.getElementById('tables-chart').getContext('2d');
-    
-            const config = restaurantConfig[currentRestaurant];
-    
-            // 根据日期范围决定数据聚合方式
-            const aggregatedData = aggregateDataByPeriod(data, dateRange);
-            const isMonthlyView = aggregatedData !== data;
-    
-            // 餐厅颜色配置
-            const restaurantColors = {
-                j1: { 
-                    primary: '#583e04', 
-                    secondary: '#805906',
-                    returning: '#583e04',
-                    new: '#805906'
-                },
-                j2: { 
-                    primary: '#d97706', 
-                    secondary: '#f59e0b',
-                    returning: '#d97706',
-                    new: '#f59e0b'
-                },
-                j3: { 
-                    primary: '#dc2626', 
-                    secondary: '#f87171',
-                    returning: '#dc2626',
-                    new: '#f87171'
-                }
-            };
-    
-            // 销售趋势图
-            if (salesChart) {
-                salesChart.destroy();
-            }
-    
-            if (currentRestaurant === 'total') {
-                // 总计模式：显示三间餐厅的对比数据
-                const comparisonData = prepareMonthlyComparisonData();
-        
-                const chartLabels = comparisonData.isMonthly ? 
-                    comparisonData.dates : 
-                    comparisonData.dates.map(date => new Date(date).getDate().toString());
-        
-                salesChart = new Chart(ctx1, {
-                    type: 'line',
-                    data: {
-                        labels: chartLabels,
-                        datasets: [
-                            {
-                                label: 'J1 净销售额',
-                                data: comparisonData.restaurants.j1.map(item => item.netSales),
-                                borderColor: restaurantColors.j1.primary,
-                                backgroundColor: function(context) {
-                                    const chart = context.chart;
-                                    const {ctx, chartArea} = chart;
-            
-                                    if (!chartArea) {
-                                        return null;
-                                    }
-            
-                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                                    gradient.addColorStop(0, 'rgba(88, 62, 4, 0.3)');
-                                    gradient.addColorStop(1, 'rgba(88, 62, 4, 0.05)');
-            
-                                    return gradient;
-                                },
-                                fill: true,
-                                tension: 0.4,
-                                borderWidth: 2,
-                                pointRadius: 0,
-                                pointHoverRadius: 6
-                            },
-                            {
-                                label: 'J2 净销售额',
-                                data: comparisonData.restaurants.j2.map(item => item.netSales),
-                                borderColor: restaurantColors.j2.primary,
-                                backgroundColor: function(context) {
-                                    const chart = context.chart;
-                                    const {ctx, chartArea} = chart;
-        
-                                    if (!chartArea) {
-                                        return null;
-                                    }
-        
-                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                                    gradient.addColorStop(0, 'rgba(217, 119, 6, 0.3)');
-                                    gradient.addColorStop(1, 'rgba(217, 119, 6, 0.05)');
-        
-                                    return gradient;
-                                },
-                                fill: true,
-                                tension: 0.4,
-                                borderWidth: 2,
-                                pointRadius: 0,
-                                pointHoverRadius: 6
-                            },
-                            {
-                                label: 'J3 净销售额',
-                                data: comparisonData.restaurants.j3.map(item => item.netSales),
-                                borderColor: restaurantColors.j3.primary,
-                                backgroundColor: function(context) {
-                                    const chart = context.chart;
-                                    const {ctx, chartArea} = chart;
-        
-                                    if (!chartArea) {
-                                        return null;
-                                    }
-        
-                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                                    gradient.addColorStop(0, 'rgba(220, 38, 38, 0.3)');
-                                    gradient.addColorStop(1, 'rgba(220, 38, 38, 0.05)');
-        
-                                    return gradient;
-                                },
-                                fill: true,
-                                tension: 0.4,
-                                borderWidth: 2,
-                                pointRadius: 0,
-                                pointHoverRadius: 6
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            intersect: false,
-                            mode: 'index'
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value) {
-                                        return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                    }
-                                }
-                            }
-                        },
+    const ctx1 = document.getElementById('sales-chart').getContext('2d');
+    const config = restaurantConfig[currentRestaurant];
 
-                        onClick: function(event, elements) {
-                        // 只有在年度视图且显示月度数据时才允许钻取
-                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-                            const elementIndex = elements[0].index;
-        
-                            if (currentRestaurant === 'total') {
-                                const comparisonData = prepareMonthlyComparisonData();
-                                if (comparisonData && comparisonData.isMonthly) {
-                                    const monthDisplay = comparisonData.dates[elementIndex];
-                                    // 从显示文本提取年月信息
-                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                                    if (match) {
-                                        const year = match[1];
-                                        const month = String(match[2]).padStart(2, '0');
-                                        const monthKey = `${year}-${month}`;
-                                        enterDrillDownMode(monthKey, monthDisplay);
-                                    }
-                                }
-                            } else {
-                                const item = aggregatedData[elementIndex];
-                                if (item.date.includes('-')) {
-                                    // 这是月度数据
-                                    const monthKey = item.date;
-                                    const monthDisplay = item.displayDate;
-                                    enterDrillDownMode(monthKey, monthDisplay);
-                                }
-                            }
-                        }
-                    },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    title: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            if (comparisonData.isMonthly) {
-                                                return comparisonData.dates[dataIndex];
-                                            } else {
-                                                const originalDates = Object.values(allRestaurantsData).flat()
-                                                    .map(item => item.date)
-                                                    .filter((date, index, self) => self.indexOf(date) === index)
-                                                    .sort();
-                                                const filteredOriginalDates = originalDates.filter(date => {
-                                                    const itemDate = new Date(date);
-                                                    const start = new Date(dateRange.startDate);
-                                                    const end = new Date(dateRange.endDate);
-                                                    return itemDate >= start && itemDate <= end;
-                                                });
-                                                const date = filteredOriginalDates[dataIndex];
-                                                return `${date} (${new Date(date).getDate()}号)`;
-                                            }
-                                        }
-                                        return '';
-                                    },
-                                    label: function(context) {
-                                        return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                    },
-                                    afterBody: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const j1Sales = comparisonData.restaurants.j1[dataIndex].netSales;
-                                            const j2Sales = comparisonData.restaurants.j2[dataIndex].netSales;
-                                            const j3Sales = comparisonData.restaurants.j3[dataIndex].netSales;
-                                            const totalSales = j1Sales + j2Sales + j3Sales;
-                                    
-                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
-                                    
-                                            return [
-                                                '',
-                                                `--- ${periodText} ---`,
-                                                `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
-                                            ];
-                                        }
-                                        return [];
-                                    }
-                                }
-                            },
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            }
-                        }
-                    }
-                });
-        
-                // 总计模式的第二个图表也需要相应调整
-                if (combinedChart) {
-                    combinedChart.destroy();
-                }
-        
-                combinedChart = new Chart(ctx2, {
-                    type: 'bar',
-                    data: {
-                        labels: chartLabels,
-                        datasets: [
-                            {
-                                label: 'J1 用餐人数',
-                                data: comparisonData.restaurants.j1.map(item => item.diners),
-                                backgroundColor: restaurantColors.j1.primary,
-                                borderColor: restaurantColors.j1.primary,
-                                borderWidth: 1
-                            },
-                            {
-                                label: 'J2 用餐人数',
-                                data: comparisonData.restaurants.j2.map(item => item.diners),
-                                backgroundColor: restaurantColors.j2.primary,
-                                borderColor: restaurantColors.j2.primary,
-                                borderWidth: 1
-                            },
-                            {
-                                label: 'J3 用餐人数',
-                                data: comparisonData.restaurants.j3.map(item => item.diners),
-                                backgroundColor: restaurantColors.j3.primary,
-                                borderColor: restaurantColors.j3.primary,
-                                borderWidth: 1
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            mode: 'index',
-                            intersect: false
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: '顾客数量'
-                                }
-                            }
-                        },
-                        onClick: function(event, elements) {
-                        // 只有在年度视图且显示月度数据时才允许钻取
-                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-                            const elementIndex = elements[0].index;
-        
-                            if (currentRestaurant === 'total') {
-                                const comparisonData = prepareMonthlyComparisonData();
-                                if (comparisonData && comparisonData.isMonthly) {
-                                    const monthDisplay = comparisonData.dates[elementIndex];
-                                    // 从显示文本提取年月信息
-                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                                    if (match) {
-                                        const year = match[1];
-                                        const month = String(match[2]).padStart(2, '0');
-                                        const monthKey = `${year}-${month}`;
-                                        enterDrillDownMode(monthKey, monthDisplay);
-                                    }
-                                }
-                            } else {
-                                const item = aggregatedData[elementIndex];
-                                if (item.date.includes('-')) {
-                                    // 这是月度数据
-                                    const monthKey = item.date;
-                                    const monthDisplay = item.displayDate;
-                                    enterDrillDownMode(monthKey, monthDisplay);
-                                }
-                            }
-                        }
-                    },
-                        plugins: {
-                            tooltip: {
-                                filter: function(tooltipItem) {
-                                    return tooltipItem.parsed.y > 0;
-                                },
-                                callbacks: {
-                                    title: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            if (comparisonData.isMonthly) {
-                                                return comparisonData.dates[dataIndex];
-                                            } else {
-                                                const originalDates = Object.values(allRestaurantsData).flat()
-                                                    .map(item => item.date)
-                                                    .filter((date, index, self) => self.indexOf(date) === index)
-                                                    .sort();
-                                                const filteredOriginalDates = originalDates.filter(date => {
-                                                    const itemDate = new Date(date);
-                                                    const start = new Date(dateRange.startDate);
-                                                    const end = new Date(dateRange.endDate);
-                                                    return itemDate >= start && itemDate <= end;
-                                                });
-                                                const date = filteredOriginalDates[dataIndex];
-                                                return `${date} (${new Date(date).getDate()}号)`;
-                                            }
-                                        }
-                                        return '';
-                                    },
-                                    label: function(context) {
-                                        return context.dataset.label + ': ' + context.parsed.y + '人';
-                                    },
-                                    afterBody: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const j1Diners = comparisonData.restaurants.j1[dataIndex].diners;
-                                            const j2Diners = comparisonData.restaurants.j2[dataIndex].diners;
-                                            const j3Diners = comparisonData.restaurants.j3[dataIndex].diners;
-                                            const totalDiners = j1Diners + j2Diners + j3Diners;
+    // 根据日期范围决定数据聚合方式
+    const aggregatedData = aggregateDataByPeriod(data, dateRange);
+    const isMonthlyView = aggregatedData !== data;
 
-                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
-
-                                            return [
-                                                '',
-                                                `--- ${periodText} ---`,
-                                                `总用餐人数: ${totalDiners}人`
-                                            ];
-                                        }
-                                        return [];
-                                    }
-                                }
-                            },
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            }
-                        }
-                    }
-                });
-            } else {
-                // 单店模式
-                const chartLabels = isMonthlyView ? 
-                    aggregatedData.map(item => item.displayDate) :
-                    aggregatedData.map(item => new Date(item.date).getDate().toString());
-        
-                salesChart = new Chart(ctx1, {
-                    type: 'line',
-                    data: {
-                        labels: chartLabels,
-                        datasets: [{
-                            label: '净销售额',
-                            data: aggregatedData.map(item => item.netSales),
-                            borderColor: config.colors.primary,
-                            backgroundColor: function(context) {
-                                const chart = context.chart;
-                                const {ctx, chartArea} = chart;
-
-                                if (!chartArea) {
-                                    return null;
-                                }
-
-                                const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                                gradient.addColorStop(0, 'rgba(88, 62, 4, 0.4)');
-                                gradient.addColorStop(0.3, 'rgba(88, 62, 4, 0.2)');
-                                gradient.addColorStop(0.7, 'rgba(88, 62, 4, 0.1)');
-                                gradient.addColorStop(1, 'rgba(88, 62, 4, 0.02)');
-
-                                return gradient;
-                            },
-                            fill: true,
-                            tension: 0.4,
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            pointHoverRadius: 8
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            intersect: false,
-                            mode: 'index'
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value) {
-                                        return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                    }
-                                }
-                            }
-                        },
-                        onClick: function(event, elements) {
-                        // 只有在年度视图且显示月度数据时才允许钻取
-                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-                            const elementIndex = elements[0].index;
-        
-                            if (currentRestaurant === 'total') {
-                                const comparisonData = prepareMonthlyComparisonData();
-                                if (comparisonData && comparisonData.isMonthly) {
-                                    const monthDisplay = comparisonData.dates[elementIndex];
-                                    // 从显示文本提取年月信息
-                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                                    if (match) {
-                                        const year = match[1];
-                                        const month = String(match[2]).padStart(2, '0');
-                                        const monthKey = `${year}-${month}`;
-                                        enterDrillDownMode(monthKey, monthDisplay);
-                                    }
-                                }
-                            } else {
-                                const item = aggregatedData[elementIndex];
-                                if (item.date.includes('-')) {
-                                    // 这是月度数据
-                                    const monthKey = item.date;
-                                    const monthDisplay = item.displayDate;
-                                    enterDrillDownMode(monthKey, monthDisplay);
-                                }
-                            }
-                        }
-                    },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    title: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const item = aggregatedData[dataIndex];
-                                            if (isMonthlyView) {
-                                                return item.displayDate;
-                                            } else {
-                                                return `${item.date} (${new Date(item.date).getDate()}号)`;
-                                            }
-                                        }
-                                        return '';
-                                    },
-                                    label: function(context) {
-                                        return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-
-                // 单店模式的第二个图表 - 改为用餐人数分析
-                if (combinedChart) {
-                    combinedChart.destroy();
-                }
-
-                combinedChart = new Chart(ctx2, {
-                    type: 'bar',
-                    data: {
-                        labels: chartLabels,
-                        datasets: [
-                            {
-                                label: '用餐人数',
-                                data: aggregatedData.map(item => item.diners),
-                                backgroundColor: config.colors.primary,
-                                borderColor: config.colors.primary,
-                                borderWidth: 1
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            mode: 'index',
-                            intersect: false
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: '用餐人数'
-                                }
-                            }
-                        },
-                        onClick: function(event, elements) {
-                        // 只有在年度视图且显示月度数据时才允许钻取
-                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-                            const elementIndex = elements[0].index;
-        
-                            if (currentRestaurant === 'total') {
-                                const comparisonData = prepareMonthlyComparisonData();
-                                if (comparisonData && comparisonData.isMonthly) {
-                                    const monthDisplay = comparisonData.dates[elementIndex];
-                                    // 从显示文本提取年月信息
-                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                                    if (match) {
-                                        const year = match[1];
-                                        const month = String(match[2]).padStart(2, '0');
-                                        const monthKey = `${year}-${month}`;
-                                        enterDrillDownMode(monthKey, monthDisplay);
-                                    }
-                                }
-                            } else {
-                                const item = aggregatedData[elementIndex];
-                                if (item.date.includes('-')) {
-                                    // 这是月度数据
-                                    const monthKey = item.date;
-                                    const monthDisplay = item.displayDate;
-                                    enterDrillDownMode(monthKey, monthDisplay);
-                                }
-                            }
-                        }
-                    },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    title: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const item = aggregatedData[dataIndex];
-                                            if (isMonthlyView) {
-                                                return item.displayDate;
-                                            } else {
-                                                return `${item.date} (${new Date(item.date).getDate()}号)`;
-                                            }
-                                        }
-                                        return '';
-                                    },
-                                    label: function(context) {
-                                        return '用餐人数: ' + context.parsed.y + '人';
-                                    },
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            if (tablesChart) {
-    tablesChart.destroy();
-}
-
-            // 更新桌子图表标题
-            const tablesChartTitle = document.getElementById('tables-chart-title');
-            if (currentRestaurant === 'total') {
-                tablesChartTitle.textContent = '桌子使用分析 - 按顾客类型 (三店合计)';
-            } else {
-                tablesChartTitle.textContent = '桌子使用分析 - 按顾客类型';
-            }
-
-            if (currentRestaurant === 'total') {
-                // 总计模式：显示三间餐厅的桌子对比数据
-                const comparisonData = prepareMonthlyComparisonData();
-    
-                const chartLabels = comparisonData.isMonthly ? 
-                    comparisonData.dates : 
-                    comparisonData.dates.map(date => new Date(date).getDate().toString());
-    
-                tablesChart = new Chart(ctx3, {
-                    type: 'bar',
-                    data: {
-                        labels: chartLabels,
-                        datasets: [
-                            {
-                                label: 'J1 常客',
-                                data: comparisonData.restaurants.j1.map(item => item.returningCustomers),
-                                backgroundColor: restaurantColors.j1.primary,
-                                borderColor: restaurantColors.j1.primary,
-                                stack: 'j1'
-                            },
-                            {
-                                label: 'J1 新客人',
-                                data: comparisonData.restaurants.j1.map(item => item.newCustomers),
-                                backgroundColor: restaurantColors.j1.secondary,
-                                borderColor: restaurantColors.j1.secondary,
-                                stack: 'j1'
-                            },
-                            {
-                                label: 'J2 常客',
-                                data: comparisonData.restaurants.j2.map(item => item.returningCustomers),
-                                backgroundColor: restaurantColors.j2.primary,
-                                borderColor: restaurantColors.j2.primary,
-                                stack: 'j2'
-                            },
-                            {
-                                label: 'J2 新客人',
-                                data: comparisonData.restaurants.j2.map(item => item.newCustomers),
-                                backgroundColor: restaurantColors.j2.secondary,
-                                borderColor: restaurantColors.j2.secondary,
-                                stack: 'j2'
-                            },
-                            {
-                                label: 'J3 常客',
-                                data: comparisonData.restaurants.j3.map(item => item.returningCustomers),
-                                backgroundColor: restaurantColors.j3.primary,
-                                borderColor: restaurantColors.j3.primary,
-                                stack: 'j3'
-                            },
-                            {
-                                label: 'J3 新客人',
-                                data: comparisonData.restaurants.j3.map(item => item.newCustomers),
-                                backgroundColor: restaurantColors.j3.secondary,
-                                borderColor: restaurantColors.j3.secondary,
-                                stack: 'j3'
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            mode: 'index',
-                            intersect: false
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: '桌子数量'
-                                }
-                            }
-                        },
-                        onClick: function(event, elements) {
-                        // 只有在年度视图且显示月度数据时才允许钻取
-                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-                            const elementIndex = elements[0].index;
-        
-                            if (currentRestaurant === 'total') {
-                                const comparisonData = prepareMonthlyComparisonData();
-                                if (comparisonData && comparisonData.isMonthly) {
-                                    const monthDisplay = comparisonData.dates[elementIndex];
-                                    // 从显示文本提取年月信息
-                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                                    if (match) {
-                                        const year = match[1];
-                                        const month = String(match[2]).padStart(2, '0');
-                                        const monthKey = `${year}-${month}`;
-                                        enterDrillDownMode(monthKey, monthDisplay);
-                                    }
-                                }
-                            } else {
-                                const item = aggregatedData[elementIndex];
-                                if (item.date.includes('-')) {
-                                    // 这是月度数据
-                                    const monthKey = item.date;
-                                    const monthDisplay = item.displayDate;
-                                    enterDrillDownMode(monthKey, monthDisplay);
-                                }
-                            }
-                        }
-                    },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    title: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            if (comparisonData.isMonthly) {
-                                                return comparisonData.dates[dataIndex];
-                                            } else {
-                                                const originalDates = Object.values(allRestaurantsData).flat()
-                                                    .map(item => item.date)
-                                                    .filter((date, index, self) => self.indexOf(date) === index)
-                                                    .sort();
-                                                const filteredOriginalDates = originalDates.filter(date => {
-                                                    const itemDate = new Date(date);
-                                                    const start = new Date(dateRange.startDate);
-                                                    const end = new Date(dateRange.endDate);
-                                                    return itemDate >= start && itemDate <= end;
-                                                });
-                                                const date = filteredOriginalDates[dataIndex];
-                                                return `${date} (${new Date(date).getDate()}号)`;
-                                            }
-                                        }
-                                        return '';
-                                    },
-                                    label: function(context) {
-                                        const dataIndex = context.dataIndex;
-                                        const restaurant = context.dataset.label.includes('J1') ? 'j1' : 
-                                                        context.dataset.label.includes('J2') ? 'j2' : 'j3';
-                                        const dayData = comparisonData.restaurants[restaurant][dataIndex];
-                                        const totalCustomers = dayData.returningCustomers + dayData.newCustomers;
-
-                                        let label = context.dataset.label + ': ' + context.parsed.y + '人';
-
-                                        if (context.dataset.label.includes('常客') || context.dataset.label.includes('新客')) {
-                                            if (totalCustomers > 0) {
-                                                const percentage = ((context.parsed.y / totalCustomers) * 100).toFixed(1);
-                                                label += ` (${percentage}%)`;
-                                            }
-                                        }
-
-                                        return label;
-                                    },
-                                    afterBody: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const j1Data = comparisonData.restaurants.j1[dataIndex];
-                                            const j2Data = comparisonData.restaurants.j2[dataIndex];
-                                            const j3Data = comparisonData.restaurants.j3[dataIndex];
-
-                                            const periodText = comparisonData.isMonthly ? '当月详情' : '当日详情';
-                                            const daysText = comparisonData.isMonthly ? `${j1Data.daysCount || ''}天` : '';
-
-                                            const j1Total = j1Data.returningCustomers + j1Data.newCustomers;
-                                            const j2Total = j2Data.returningCustomers + j2Data.newCustomers;
-                                            const j3Total = j3Data.returningCustomers + j3Data.newCustomers;
-                                            const totalCustomers = j1Total + j2Total + j3Total;
-
-                                            const totalDiners = j1Data.diners + j2Data.diners + j3Data.diners;
-
-                                            let summary = ['', `--- ${periodText} ---`];
-                                            summary.push(`总桌数: ${totalCustomers}桌`);
-
-                                            if (totalDiners > 0 && totalCustomers > 0) {
-                                                const avgPerTable = (totalDiners / totalCustomers).toFixed(1);
-                                                summary.push(`平均每桌人数: ${avgPerTable}人`);
-                                            }
-
-                                            if (comparisonData.isMonthly && j1Data.daysCount) {
-                                                summary.push(`营业天数: ${daysText}`);
-                                            }
-
-                                            return summary;
-                                        }
-                                        return [];
-                                    }
-                                }
-                            },
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            }
-                        }
-                    }
-                });
-            } else {
-                // 单店模式：显示单店的桌子使用情况
-                const chartLabels = isMonthlyView ? 
-                    aggregatedData.map(item => item.displayDate) :
-                    aggregatedData.map(item => new Date(item.date).getDate().toString());
-    
-                tablesChart = new Chart(ctx3, {
-                    type: 'bar',
-                    data: {
-                        labels: chartLabels,
-                        datasets: [
-                            {
-                                label: '常客',
-                                data: aggregatedData.map(item => item.returningCustomers),
-                                backgroundColor: config.colors.primary,
-                                borderColor: config.colors.primary,
-                                stack: 'customers'
-                            },
-                            {
-                                label: '新客人',
-                                data: aggregatedData.map(item => item.newCustomers),
-                                backgroundColor: config.colors.secondary,
-                                borderColor: config.colors.secondary,
-                                stack: 'customers'
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            mode: 'index',
-                            intersect: false
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: '桌子数量 (按顾客类型)'
-                                }
-                            }
-                        },
-                        onClick: function(event, elements) {
-                        // 只有在年度视图且显示月度数据时才允许钻取
-                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-                            const elementIndex = elements[0].index;
-        
-                            if (currentRestaurant === 'total') {
-                                const comparisonData = prepareMonthlyComparisonData();
-                                if (comparisonData && comparisonData.isMonthly) {
-                                    const monthDisplay = comparisonData.dates[elementIndex];
-                                    // 从显示文本提取年月信息
-                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                                    if (match) {
-                                        const year = match[1];
-                                        const month = String(match[2]).padStart(2, '0');
-                                        const monthKey = `${year}-${month}`;
-                                        enterDrillDownMode(monthKey, monthDisplay);
-                                    }
-                                }
-                            } else {
-                                const item = aggregatedData[elementIndex];
-                                if (item.date.includes('-')) {
-                                    // 这是月度数据
-                                    const monthKey = item.date;
-                                    const monthDisplay = item.displayDate;
-                                    enterDrillDownMode(monthKey, monthDisplay);
-                                }
-                            }
-                        }
-                    },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    title: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const item = aggregatedData[dataIndex];
-                                            if (isMonthlyView) {
-                                                return item.displayDate;
-                                            } else {
-                                                return `${item.date} (${new Date(item.date).getDate()}号)`;
-                                            }
-                                        }
-                                        return '';
-                                    },
-                                    label: function(context) {
-                                        const dataIndex = context.dataIndex;
-                                        const item = aggregatedData[dataIndex];
-                                        const totalCustomers = item.returningCustomers + item.newCustomers;
-
-                                        let label = context.dataset.label + ': ' + context.parsed.y + '桌';
-
-                                        // 添加百分比
-                                        if (totalCustomers > 0) {
-                                            const percentage = ((context.parsed.y / totalCustomers) * 100).toFixed(1);
-                                            label += ` (${percentage}%)`;
-                                        }
-
-                                        return label;
-                                    },
-                                    afterBody: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const item = aggregatedData[dataIndex];
-                                            const totalCustomers = item.returningCustomers + item.newCustomers;
-
-                                            const periodText = isMonthlyView ? '当月详情' : '当日详情';
-                                            const daysText = isMonthlyView ? `${item.daysCount}天` : '';
-
-                                            let summary = ['', `--- ${periodText} ---`];
-                                            summary.push(`总桌数: ${totalCustomers}桌`);
-
-                                            if (item.diners > 0 && totalCustomers > 0) {
-                                                const avgPerTable = (item.diners / totalCustomers).toFixed(1);
-                                                summary.push(`平均每桌人数: ${avgPerTable}人`);
-                                            }
-
-                                            if (isMonthlyView && item.daysCount) {
-                                                summary.push(`营业天数: ${daysText}`);
-                                            }
-
-                                            return summary;
-                                        }
-                                        return [];
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
+    // 餐厅颜色配置
+    const restaurantColors = {
+        j1: { 
+            primary: '#583e04', 
+            secondary: '#805906',
+            returning: '#583e04',
+            new: '#805906'
+        },
+        j2: { 
+            primary: '#d97706', 
+            secondary: '#f59e0b',
+            returning: '#d97706',
+            new: '#f59e0b'
+        },
+        j3: { 
+            primary: '#dc2626', 
+            secondary: '#f87171',
+            returning: '#dc2626',
+            new: '#f87171'
         }
+    };
+
+    // 销售趋势图
+    if (salesChart) {
+        salesChart.destroy();
+    }
+
+    if (currentRestaurant === 'total') {
+        // 总计模式：显示三间餐厅的对比数据
+        const comparisonData = prepareMonthlyComparisonData();
+
+        const chartLabels = comparisonData.isMonthly ? 
+            comparisonData.dates : 
+            comparisonData.dates.map(date => new Date(date).getDate().toString());
+
+        salesChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets: [
+                    {
+                        label: 'J1 净销售额',
+                        data: comparisonData.restaurants.j1.map(item => item.netSales),
+                        borderColor: restaurantColors.j1.primary,
+                        backgroundColor: function(context) {
+                            const chart = context.chart;
+                            const {ctx, chartArea} = chart;
+
+                            if (!chartArea) {
+                                return null;
+                            }
+
+                            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                            gradient.addColorStop(0, 'rgba(88, 62, 4, 0.3)');
+                            gradient.addColorStop(1, 'rgba(88, 62, 4, 0.05)');
+
+                            return gradient;
+                        },
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'J2 净销售额',
+                        data: comparisonData.restaurants.j2.map(item => item.netSales),
+                        borderColor: restaurantColors.j2.primary,
+                        backgroundColor: function(context) {
+                            const chart = context.chart;
+                            const {ctx, chartArea} = chart;
+
+                            if (!chartArea) {
+                                return null;
+                            }
+
+                            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                            gradient.addColorStop(0, 'rgba(217, 119, 6, 0.3)');
+                            gradient.addColorStop(1, 'rgba(217, 119, 6, 0.05)');
+
+                            return gradient;
+                        },
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'J3 净销售额',
+                        data: comparisonData.restaurants.j3.map(item => item.netSales),
+                        borderColor: restaurantColors.j3.primary,
+                        backgroundColor: function(context) {
+                            const chart = context.chart;
+                            const {ctx, chartArea} = chart;
+
+                            if (!chartArea) {
+                                return null;
+                            }
+
+                            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                            gradient.addColorStop(0, 'rgba(220, 38, 38, 0.3)');
+                            gradient.addColorStop(1, 'rgba(220, 38, 38, 0.05)');
+
+                            return gradient;
+                        },
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            }
+                        }
+                    }
+                },
+                onClick: function(event, elements) {
+                    // 只有在年度视图且显示月度数据时才允许钻取
+                    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                        const elementIndex = elements[0].index;
+
+                        if (currentRestaurant === 'total') {
+                            const comparisonData = prepareMonthlyComparisonData();
+                            if (comparisonData && comparisonData.isMonthly) {
+                                const monthDisplay = comparisonData.dates[elementIndex];
+                                // 从显示文本提取年月信息
+                                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                                if (match) {
+                                    const year = match[1];
+                                    const month = String(match[2]).padStart(2, '0');
+                                    const monthKey = `${year}-${month}`;
+                                    enterDrillDownMode(monthKey, monthDisplay);
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                if (context.length > 0) {
+                                    const dataIndex = context[0].dataIndex;
+                                    if (comparisonData.isMonthly) {
+                                        return comparisonData.dates[dataIndex];
+                                    } else {
+                                        const originalDates = Object.values(allRestaurantsData).flat()
+                                            .map(item => item.date)
+                                            .filter((date, index, self) => self.indexOf(date) === index)
+                                            .sort();
+                                        const filteredOriginalDates = originalDates.filter(date => {
+                                            const itemDate = new Date(date);
+                                            const start = new Date(dateRange.startDate);
+                                            const end = new Date(dateRange.endDate);
+                                            return itemDate >= start && itemDate <= end;
+                                        });
+                                        const date = filteredOriginalDates[dataIndex];
+                                        return `${date} (${new Date(date).getDate()}号)`;
+                                    }
+                                }
+                                return '';
+                            },
+                            label: function(context) {
+                                return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            },
+                            afterBody: function(context) {
+                                if (context.length > 0) {
+                                    const dataIndex = context[0].dataIndex;
+                                    const j1Data = comparisonData.restaurants.j1[dataIndex];
+                                    const j2Data = comparisonData.restaurants.j2[dataIndex];
+                                    const j3Data = comparisonData.restaurants.j3[dataIndex];
+                                    
+                                    const j1Sales = j1Data.netSales;
+                                    const j2Sales = j2Data.netSales;
+                                    const j3Sales = j3Data.netSales;
+                                    const totalSales = j1Sales + j2Sales + j3Sales;
+                                    
+                                    // 计算桌子数据
+                                    const j1Tables = j1Data.returningCustomers + j1Data.newCustomers;
+                                    const j2Tables = j2Data.returningCustomers + j2Data.newCustomers;
+                                    const j3Tables = j3Data.returningCustomers + j3Data.newCustomers;
+                                    const totalTables = j1Tables + j2Tables + j3Tables;
+                                    
+                                    // 计算常客百分比
+                                    const j1ReturningRate = j1Tables > 0 ? ((j1Data.returningCustomers / j1Tables) * 100).toFixed(1) : '0.0';
+                                    const j2ReturningRate = j2Tables > 0 ? ((j2Data.returningCustomers / j2Tables) * 100).toFixed(1) : '0.0';
+                                    const j3ReturningRate = j3Tables > 0 ? ((j3Data.returningCustomers / j3Tables) * 100).toFixed(1) : '0.0';
+                                    const totalReturningCustomers = j1Data.returningCustomers + j2Data.returningCustomers + j3Data.returningCustomers;
+                                    const totalReturningRate = totalTables > 0 ? ((totalReturningCustomers / totalTables) * 100).toFixed(1) : '0.0';
+                                    
+                                    // 计算人数
+                                    const totalDiners = j1Data.diners + j2Data.diners + j3Data.diners;
+
+                                    const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
+
+                                    return [
+                                        '',
+                                        `--- ${periodText} ---`,
+                                        `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                                        `桌子数量: ${totalTables}桌`,
+                                        `常客 (${totalReturningRate}%): ${totalReturningCustomers}桌`,
+                                        `人数: ${totalDiners}人`
+                                    ];
+                                }
+                                return [];
+                            }
+                        }
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+    } else {
+        // 单店模式
+        const chartLabels = isMonthlyView ? 
+            aggregatedData.map(item => item.displayDate) :
+            aggregatedData.map(item => new Date(item.date).getDate().toString());
+
+        salesChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: '净销售额',
+                    data: aggregatedData.map(item => item.netSales),
+                    borderColor: config.colors.primary,
+                    backgroundColor: function(context) {
+                        const chart = context.chart;
+                        const {ctx, chartArea} = chart;
+
+                        if (!chartArea) {
+                            return null;
+                        }
+
+                        const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                        gradient.addColorStop(0, 'rgba(88, 62, 4, 0.4)');
+                        gradient.addColorStop(0.3, 'rgba(88, 62, 4, 0.2)');
+                        gradient.addColorStop(0.7, 'rgba(88, 62, 4, 0.1)');
+                        gradient.addColorStop(1, 'rgba(88, 62, 4, 0.02)');
+
+                        return gradient;
+                    },
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            }
+                        }
+                    }
+                },
+                onClick: function(event, elements) {
+                    // 只有在年度视图且显示月度数据时才允许钻取
+                    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                        const elementIndex = elements[0].index;
+                        const item = aggregatedData[elementIndex];
+                        if (item.date.includes('-')) {
+                            // 这是月度数据
+                            const monthKey = item.date;
+                            const monthDisplay = item.displayDate;
+                            enterDrillDownMode(monthKey, monthDisplay);
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                if (context.length > 0) {
+                                    const dataIndex = context[0].dataIndex;
+                                    const item = aggregatedData[dataIndex];
+                                    if (isMonthlyView) {
+                                        return item.displayDate;
+                                    } else {
+                                        return `${item.date} (${new Date(item.date).getDate()}号)`;
+                                    }
+                                }
+                                return '';
+                            },
+                            label: function(context) {
+                                return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            },
+                            afterBody: function(context) {
+                                if (context.length > 0) {
+                                    const dataIndex = context[0].dataIndex;
+                                    const item = aggregatedData[dataIndex];
+                                    
+                                    // 计算桌子数量
+                                    const totalTables = item.returningCustomers + item.newCustomers;
+                                    
+                                    // 计算常客百分比
+                                    const returningRate = totalTables > 0 ? ((item.returningCustomers / totalTables) * 100).toFixed(1) : '0.0';
+                                    
+                                    const periodText = isMonthlyView ? '当月详情' : '当日详情';
+
+                                    return [
+                                        '',
+                                        `--- ${periodText} ---`,
+                                        `桌子数量: ${totalTables}桌`,
+                                        `常客 (${returningRate}%): ${item.returningCustomers}桌`,
+                                        `人数: ${item.diners}人`
+                                    ];
+                                }
+                                return [];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
 
         function updateDashboardTable(data) {
             const tbody = document.querySelector('#dashboard-table tbody');
@@ -4441,19 +3871,22 @@ if (isDrillDownMode) {
 
         // 显示返回按钮
         function showBackButtons() {
-            document.querySelectorAll('.chart-back-button').forEach(button => {
-                button.style.display = 'flex';
-                button.textContent = `返回年度视图`;
-                button.innerHTML = '<i class="fas fa-arrow-left"></i> 返回年度视图';
-            });
+    document.querySelectorAll('.chart-back-button').forEach(button => {
+        if (button.id === 'sales-chart-back') {  // 只显示主图表的返回按钮
+            button.style.display = 'flex';
+            button.textContent = `返回年度视图`;
+            button.innerHTML = '<i class="fas fa-arrow-left"></i> 返回年度视图';
         }
+    });
+}
 
-        // 隐藏返回按钮
-        function hideBackButtons() {
-            document.querySelectorAll('.chart-back-button').forEach(button => {
-                button.style.display = 'none';
-            });
+function hideBackButtons() {
+    document.querySelectorAll('.chart-back-button').forEach(button => {
+        if (button.id === 'sales-chart-back') {  // 只隐藏主图表的返回按钮
+            button.style.display = 'none';
         }
+    });
+}
     </script>           
 </body>
 </html>
