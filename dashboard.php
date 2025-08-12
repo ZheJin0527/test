@@ -279,6 +279,14 @@ $avatarLetter = strtoupper($username[0]);
             </div>
 
             <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="photoupload-items">
+                    <img src="images/images/资源库管.png" alt="" class="section-icon">
+                    网页照片上传
+                    <span class="section-arrow">⮞</span>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="user-items">
                     <img src="images/images/用户与权限管理.png" alt="" class="section-icon">
                     用户与权限管理
