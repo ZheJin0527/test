@@ -4686,6 +4686,26 @@ function hideBackButtons() {
                     };
                 case 'returningRate':
                     return function(context) {
+                        if (currentRestaurant === 'total') {
+                            // 总计模式下需要显示具体常客人数
+                            const dataIndex = context.dataIndex;
+                            const comparisonData = prepareMonthlyComparisonData();
+                            
+                            let restaurantData;
+                            if (context.dataset.label.includes('J1')) {
+                                restaurantData = comparisonData.restaurants.j1[dataIndex];
+                            } else if (context.dataset.label.includes('J2')) {
+                                restaurantData = comparisonData.restaurants.j2[dataIndex];
+                            } else if (context.dataset.label.includes('J3')) {
+                                restaurantData = comparisonData.restaurants.j3[dataIndex];
+                            }
+                            
+                            if (restaurantData) {
+                                const returningCustomers = restaurantData.returningCustomers;
+                                const percentage = context.parsed.y.toFixed(1);
+                                return context.dataset.label + ': ' + returningCustomers + ' (' + percentage + '%)';
+                            }
+                        }
                         return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
                     };
                 case 'diners':
