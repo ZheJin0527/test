@@ -3277,380 +3277,380 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         // 8. 修改updateCharts函数
-function updateCharts(data) {
-    const ctx1 = document.getElementById('sales-chart').getContext('2d');
-    const config = restaurantConfig[currentRestaurant];
+        function updateCharts(data) {
+            const ctx1 = document.getElementById('sales-chart').getContext('2d');
+            const config = restaurantConfig[currentRestaurant];
 
-    // 根据日期范围决定数据聚合方式
-    const aggregatedData = aggregateDataByPeriod(data, dateRange);
-    const isMonthlyView = aggregatedData !== data;
+            // 根据日期范围决定数据聚合方式
+            const aggregatedData = aggregateDataByPeriod(data, dateRange);
+            const isMonthlyView = aggregatedData !== data;
 
-    // 餐厅颜色配置
-    const restaurantColors = {
-        j1: { 
-            primary: '#583e04', 
-            secondary: '#805906',
-            returning: '#583e04',
-            new: '#805906'
-        },
-        j2: { 
-            primary: '#d97706', 
-            secondary: '#f59e0b',
-            returning: '#d97706',
-            new: '#f59e0b'
-        },
-        j3: { 
-            primary: '#dc2626', 
-            secondary: '#f87171',
-            returning: '#dc2626',
-            new: '#f87171'
-        }
-    };
-
-    // 销售趋势图
-    if (salesChart) {
-        salesChart.destroy();
-    }
-
-    if (currentRestaurant === 'total') {
-        // 总计模式：显示三间餐厅的对比数据
-        const comparisonData = prepareMonthlyComparisonData();
-
-        const chartLabels = comparisonData.isMonthly ? 
-            comparisonData.dates : 
-            comparisonData.dates.map(date => new Date(date).getDate().toString());
-
-        // 获取数据标签
-        const dataLabels = {
-            netSales: ['J1 净销售额', 'J2 净销售额', 'J3 净销售额'],
-            tables: ['J1 桌子数量', 'J2 桌子数量', 'J3 桌子数量'],
-            returningRate: ['J1 常客%', 'J2 常客%', 'J3 常客%'],
-            diners: ['J1 人数', 'J2 人数', 'J3 人数']
-        };
-
-        salesChart = new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: chartLabels,
-                datasets: [
-                    {
-                        label: dataLabels[currentChartDataType][0],
-                        data: comparisonData.restaurants.j1.map(item => getChartDataByType(item, currentChartDataType)),
-                        borderColor: restaurantColors.j1.primary,
-                        backgroundColor: function(context) {
-                            const chart = context.chart;
-                            const {ctx, chartArea} = chart;
-
-                            if (!chartArea) {
-                                return null;
-                            }
-
-                            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                            gradient.addColorStop(0, 'rgba(88, 62, 4, 0.3)');
-                            gradient.addColorStop(1, 'rgba(88, 62, 4, 0.05)');
-
-                            return gradient;
-                        },
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        pointHoverRadius: 6
-                    },
-                    {
-                        label: dataLabels[currentChartDataType][1],
-                        data: comparisonData.restaurants.j2.map(item => getChartDataByType(item, currentChartDataType)),
-                        borderColor: restaurantColors.j2.primary,
-                        backgroundColor: function(context) {
-                            const chart = context.chart;
-                            const {ctx, chartArea} = chart;
-
-                            if (!chartArea) {
-                                return null;
-                            }
-
-                            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                            gradient.addColorStop(0, 'rgba(217, 119, 6, 0.3)');
-                            gradient.addColorStop(1, 'rgba(217, 119, 6, 0.05)');
-
-                            return gradient;
-                        },
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        pointHoverRadius: 6
-                    },
-                    {
-                        label: dataLabels[currentChartDataType][2],
-                        data: comparisonData.restaurants.j3.map(item => getChartDataByType(item, currentChartDataType)),
-                        borderColor: restaurantColors.j3.primary,
-                        backgroundColor: function(context) {
-                            const chart = context.chart;
-                            const {ctx, chartArea} = chart;
-
-                            if (!chartArea) {
-                                return null;
-                            }
-
-                            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                            gradient.addColorStop(0, 'rgba(220, 38, 38, 0.3)');
-                            gradient.addColorStop(1, 'rgba(220, 38, 38, 0.05)');
-
-                            return gradient;
-                        },
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        pointHoverRadius: 6
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
+            // 餐厅颜色配置
+            const restaurantColors = {
+                j1: { 
+                    primary: '#583e04', 
+                    secondary: '#805906',
+                    returning: '#583e04',
+                    new: '#805906'
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: getYAxisFormatter(currentChartDataType)
+                j2: { 
+                    primary: '#d97706', 
+                    secondary: '#f59e0b',
+                    returning: '#d97706',
+                    new: '#f59e0b'
+                },
+                j3: { 
+                    primary: '#dc2626', 
+                    secondary: '#f87171',
+                    returning: '#dc2626',
+                    new: '#f87171'
+                }
+            };
+
+            // 销售趋势图
+            if (salesChart) {
+                salesChart.destroy();
+            }
+
+            if (currentRestaurant === 'total') {
+                // 总计模式：显示三间餐厅的对比数据
+                const comparisonData = prepareMonthlyComparisonData();
+
+                const chartLabels = comparisonData.isMonthly ? 
+                    comparisonData.dates : 
+                    comparisonData.dates.map(date => new Date(date).getDate().toString());
+
+                // 获取数据标签
+                const dataLabels = {
+                    netSales: ['J1 净销售额', 'J2 净销售额', 'J3 净销售额'],
+                    tables: ['J1 桌子数量', 'J2 桌子数量', 'J3 桌子数量'],
+                    returningRate: ['J1 常客%', 'J2 常客%', 'J3 常客%'],
+                    diners: ['J1 人数', 'J2 人数', 'J3 人数']
+                };
+
+                salesChart = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: chartLabels,
+                        datasets: [
+                            {
+                                label: dataLabels[currentChartDataType][0],
+                                data: comparisonData.restaurants.j1.map(item => getChartDataByType(item, currentChartDataType)),
+                                borderColor: restaurantColors.j1.primary,
+                                backgroundColor: function(context) {
+                                    const chart = context.chart;
+                                    const {ctx, chartArea} = chart;
+
+                                    if (!chartArea) {
+                                        return null;
+                                    }
+
+                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                    gradient.addColorStop(0, 'rgba(88, 62, 4, 0.3)');
+                                    gradient.addColorStop(1, 'rgba(88, 62, 4, 0.05)');
+
+                                    return gradient;
+                                },
+                                fill: true,
+                                tension: 0.4,
+                                borderWidth: 2,
+                                pointRadius: 0,
+                                pointHoverRadius: 6
+                            },
+                            {
+                                label: dataLabels[currentChartDataType][1],
+                                data: comparisonData.restaurants.j2.map(item => getChartDataByType(item, currentChartDataType)),
+                                borderColor: restaurantColors.j2.primary,
+                                backgroundColor: function(context) {
+                                    const chart = context.chart;
+                                    const {ctx, chartArea} = chart;
+
+                                    if (!chartArea) {
+                                        return null;
+                                    }
+
+                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                    gradient.addColorStop(0, 'rgba(217, 119, 6, 0.3)');
+                                    gradient.addColorStop(1, 'rgba(217, 119, 6, 0.05)');
+
+                                    return gradient;
+                                },
+                                fill: true,
+                                tension: 0.4,
+                                borderWidth: 2,
+                                pointRadius: 0,
+                                pointHoverRadius: 6
+                            },
+                            {
+                                label: dataLabels[currentChartDataType][2],
+                                data: comparisonData.restaurants.j3.map(item => getChartDataByType(item, currentChartDataType)),
+                                borderColor: restaurantColors.j3.primary,
+                                backgroundColor: function(context) {
+                                    const chart = context.chart;
+                                    const {ctx, chartArea} = chart;
+
+                                    if (!chartArea) {
+                                        return null;
+                                    }
+
+                                    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                    gradient.addColorStop(0, 'rgba(220, 38, 38, 0.3)');
+                                    gradient.addColorStop(1, 'rgba(220, 38, 38, 0.05)');
+
+                                    return gradient;
+                                },
+                                fill: true,
+                                tension: 0.4,
+                                borderWidth: 2,
+                                pointRadius: 0,
+                                pointHoverRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: getYAxisFormatter(currentChartDataType)
+                                }
+                            }
+                        },
+                        onClick: function(event, elements) {
+                            // 钻取逻辑保持不变
+                            if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                                const elementIndex = elements[0].index;
+
+                                if (currentRestaurant === 'total') {
+                                    const comparisonData = prepareMonthlyComparisonData();
+                                    if (comparisonData && comparisonData.isMonthly) {
+                                        const monthDisplay = comparisonData.dates[elementIndex];
+                                        const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                                        if (match) {
+                                            const year = match[1];
+                                            const month = String(match[2]).padStart(2, '0');
+                                            const monthKey = `${year}-${month}`;
+                                            enterDrillDownMode(monthKey, monthDisplay);
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            if (comparisonData.isMonthly) {
+                                                return comparisonData.dates[dataIndex];
+                                            } else {
+                                                const originalDates = Object.values(allRestaurantsData).flat()
+                                                    .map(item => item.date)
+                                                    .filter((date, index, self) => self.indexOf(date) === index)
+                                                    .sort();
+                                                const filteredOriginalDates = originalDates.filter(date => {
+                                                    const itemDate = new Date(date);
+                                                    const start = new Date(dateRange.startDate);
+                                                    const end = new Date(dateRange.endDate);
+                                                    return itemDate >= start && itemDate <= end;
+                                                });
+                                                const date = filteredOriginalDates[dataIndex];
+                                                return `${date} (${new Date(date).getDate()}号)`;
+                                            }
+                                        }
+                                        return '';
+                                    },
+                                    label: getTooltipFormatter(currentChartDataType),
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const j1Data = comparisonData.restaurants.j1[dataIndex];
+                                            const j2Data = comparisonData.restaurants.j2[dataIndex];
+                                            const j3Data = comparisonData.restaurants.j3[dataIndex];
+
+                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
+
+                                            // 根据当前选择的数据类型显示对应的汇总
+                                            let summaryText = '';
+                                            switch(currentChartDataType) {
+                                                case 'netSales':
+                                                    const totalSales = j1Data.netSales + j2Data.netSales + j3Data.netSales;
+                                                    summaryText = `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                                                    break;
+                                                case 'tables':
+                                                    const j1Tables = j1Data.returningCustomers + j1Data.newCustomers;
+                                                    const j2Tables = j2Data.returningCustomers + j2Data.newCustomers;
+                                                    const j3Tables = j3Data.returningCustomers + j3Data.newCustomers;
+                                                    const totalTables = j1Tables + j2Tables + j3Tables;
+                                                    summaryText = `桌子数量: ${totalTables}桌`;
+                                                    break;
+                                                case 'returningRate':
+                                                    const totalReturningCustomers = j1Data.returningCustomers + j2Data.returningCustomers + j3Data.returningCustomers;
+                                                    const totalAllCustomers = (j1Data.returningCustomers + j1Data.newCustomers) + 
+                                                                            (j2Data.returningCustomers + j2Data.newCustomers) + 
+                                                                            (j3Data.returningCustomers + j3Data.newCustomers);
+                                                    const totalReturningRate = totalAllCustomers > 0 ? ((totalReturningCustomers / totalAllCustomers) * 100).toFixed(1) : '0.0';
+                                                    summaryText = `常客: ${totalReturningCustomers} (${totalReturningRate}%)`;
+                                                    break;
+                                                case 'diners':
+                                                    const totalDiners = j1Data.diners + j2Data.diners + j3Data.diners;
+                                                    summaryText = `人数: ${totalDiners}人`;
+                                                    break;
+                                            }
+
+                                            return [
+                                                '',
+                                                `--- ${periodText} ---`,
+                                                summaryText
+                                            ];
+                                        }
+                                        return [];
+                                    }
+                                }
+                            },
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            }
                         }
                     }
-                },
-                onClick: function(event, elements) {
-                    // 钻取逻辑保持不变
-                    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-                        const elementIndex = elements[0].index;
+                });
+            } else {
+                // 单店模式
+                const chartLabels = isMonthlyView ? 
+                    aggregatedData.map(item => item.displayDate) :
+                    aggregatedData.map(item => new Date(item.date).getDate().toString());
 
-                        if (currentRestaurant === 'total') {
-                            const comparisonData = prepareMonthlyComparisonData();
-                            if (comparisonData && comparisonData.isMonthly) {
-                                const monthDisplay = comparisonData.dates[elementIndex];
-                                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                                if (match) {
-                                    const year = match[1];
-                                    const month = String(match[2]).padStart(2, '0');
-                                    const monthKey = `${year}-${month}`;
+                const dataLabel = {
+                    netSales: '净销售额',
+                    tables: '桌子数量',
+                    returningRate: '常客百分比',
+                    diners: '人数'
+                };
+
+                salesChart = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: chartLabels,
+                        datasets: [{
+                            label: dataLabel[currentChartDataType],
+                            data: aggregatedData.map(item => getChartDataByType(item, currentChartDataType)),
+                            borderColor: config.colors.primary,
+                            backgroundColor: function(context) {
+                                const chart = context.chart;
+                                const {ctx, chartArea} = chart;
+
+                                if (!chartArea) {
+                                    return null;
+                                }
+
+                                const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                gradient.addColorStop(0, 'rgba(88, 62, 4, 0.4)');
+                                gradient.addColorStop(0.3, 'rgba(88, 62, 4, 0.2)');
+                                gradient.addColorStop(0.7, 'rgba(88, 62, 4, 0.1)');
+                                gradient.addColorStop(1, 'rgba(88, 62, 4, 0.02)');
+
+                                return gradient;
+                            },
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: getYAxisFormatter(currentChartDataType)
+                                }
+                            }
+                        },
+                        onClick: function(event, elements) {
+                            // 钻取逻辑保持不变
+                            if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                                const elementIndex = elements[0].index;
+                                const item = aggregatedData[elementIndex];
+                                if (item.date.includes('-')) {
+                                    const monthKey = item.date;
+                                    const monthDisplay = item.displayDate;
                                     enterDrillDownMode(monthKey, monthDisplay);
                                 }
                             }
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            title: function(context) {
-                                if (context.length > 0) {
-                                    const dataIndex = context[0].dataIndex;
-                                    if (comparisonData.isMonthly) {
-                                        return comparisonData.dates[dataIndex];
-                                    } else {
-                                        const originalDates = Object.values(allRestaurantsData).flat()
-                                            .map(item => item.date)
-                                            .filter((date, index, self) => self.indexOf(date) === index)
-                                            .sort();
-                                        const filteredOriginalDates = originalDates.filter(date => {
-                                            const itemDate = new Date(date);
-                                            const start = new Date(dateRange.startDate);
-                                            const end = new Date(dateRange.endDate);
-                                            return itemDate >= start && itemDate <= end;
-                                        });
-                                        const date = filteredOriginalDates[dataIndex];
-                                        return `${date} (${new Date(date).getDate()}号)`;
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const item = aggregatedData[dataIndex];
+                                            if (isMonthlyView) {
+                                                return item.displayDate;
+                                            } else {
+                                                return `${item.date} (${new Date(item.date).getDate()}号)`;
+                                            }
+                                        }
+                                        return '';
+                                    },
+                                    label: getTooltipFormatter(currentChartDataType),
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const item = aggregatedData[dataIndex];
+
+                                            const periodText = isMonthlyView ? '当月详情' : '当日详情';
+
+                                            // 根据当前选择的数据类型显示对应的详情
+                                            let detailText = '';
+                                            switch(currentChartDataType) {
+                                                case 'netSales':
+                                                    detailText = `净销售额: RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                                                    break;
+                                                case 'tables':
+                                                    const totalTables = item.returningCustomers + item.newCustomers;
+                                                    detailText = `桌子数量: ${totalTables}桌`;
+                                                    break;
+                                                case 'returningRate':
+                                                    const totalCustomers = item.returningCustomers + item.newCustomers;
+                                                    const returningRate = totalCustomers > 0 ? ((item.returningCustomers / totalCustomers) * 100).toFixed(1) : '0.0';
+                                                    detailText = `常客: ${item.returningCustomers} (${returningRate}%)`;
+                                                    break;
+                                                case 'diners':
+                                                    detailText = `人数: ${item.diners}人`;
+                                                    break;
+                                            }
+
+                                            return [
+                                                '',
+                                                `--- ${periodText} ---`,
+                                                detailText
+                                            ];
+                                        }
+                                        return [];
                                     }
                                 }
-                                return '';
-                            },
-                            label: getTooltipFormatter(currentChartDataType),
-                            afterBody: function(context) {
-    if (context.length > 0) {
-        const dataIndex = context[0].dataIndex;
-        const j1Data = comparisonData.restaurants.j1[dataIndex];
-        const j2Data = comparisonData.restaurants.j2[dataIndex];
-        const j3Data = comparisonData.restaurants.j3[dataIndex];
-
-        const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
-
-        // 根据当前选择的数据类型显示对应的汇总
-        let summaryText = '';
-        switch(currentChartDataType) {
-            case 'netSales':
-                const totalSales = j1Data.netSales + j2Data.netSales + j3Data.netSales;
-                summaryText = `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                break;
-            case 'tables':
-                const j1Tables = j1Data.returningCustomers + j1Data.newCustomers;
-                const j2Tables = j2Data.returningCustomers + j2Data.newCustomers;
-                const j3Tables = j3Data.returningCustomers + j3Data.newCustomers;
-                const totalTables = j1Tables + j2Tables + j3Tables;
-                summaryText = `桌子数量: ${totalTables}桌`;
-                break;
-            case 'returningRate':
-                const totalReturningCustomers = j1Data.returningCustomers + j2Data.returningCustomers + j3Data.returningCustomers;
-                const totalAllCustomers = (j1Data.returningCustomers + j1Data.newCustomers) + 
-                                        (j2Data.returningCustomers + j2Data.newCustomers) + 
-                                        (j3Data.returningCustomers + j3Data.newCustomers);
-                const totalReturningRate = totalAllCustomers > 0 ? ((totalReturningCustomers / totalAllCustomers) * 100).toFixed(1) : '0.0';
-                summaryText = `常客: ${totalReturningCustomers} (${totalReturningRate}%)`;
-                break;
-            case 'diners':
-                const totalDiners = j1Data.diners + j2Data.diners + j3Data.diners;
-                summaryText = `人数: ${totalDiners}人`;
-                break;
-        }
-
-        return [
-            '',
-            `--- ${periodText} ---`,
-            summaryText
-        ];
-    }
-    return [];
-}
+                            }
                         }
-                    },
-                    legend: {
-                        display: true,
-                        position: 'top'
                     }
-                }
+                });
             }
-        });
-    } else {
-        // 单店模式
-        const chartLabels = isMonthlyView ? 
-            aggregatedData.map(item => item.displayDate) :
-            aggregatedData.map(item => new Date(item.date).getDate().toString());
-
-        const dataLabel = {
-            netSales: '净销售额',
-            tables: '桌子数量',
-            returningRate: '常客百分比',
-            diners: '人数'
-        };
-
-        salesChart = new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: chartLabels,
-                datasets: [{
-                    label: dataLabel[currentChartDataType],
-                    data: aggregatedData.map(item => getChartDataByType(item, currentChartDataType)),
-                    borderColor: config.colors.primary,
-                    backgroundColor: function(context) {
-                        const chart = context.chart;
-                        const {ctx, chartArea} = chart;
-
-                        if (!chartArea) {
-                            return null;
-                        }
-
-                        const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                        gradient.addColorStop(0, 'rgba(88, 62, 4, 0.4)');
-                        gradient.addColorStop(0.3, 'rgba(88, 62, 4, 0.2)');
-                        gradient.addColorStop(0.7, 'rgba(88, 62, 4, 0.1)');
-                        gradient.addColorStop(1, 'rgba(88, 62, 4, 0.02)');
-
-                        return gradient;
-                    },
-                    fill: true,
-                    tension: 0.4,
-                    borderWidth: 2,
-                    pointRadius: 0,
-                    pointHoverRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: getYAxisFormatter(currentChartDataType)
-                        }
-                    }
-                },
-                onClick: function(event, elements) {
-                    // 钻取逻辑保持不变
-                    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-                        const elementIndex = elements[0].index;
-                        const item = aggregatedData[elementIndex];
-                        if (item.date.includes('-')) {
-                            const monthKey = item.date;
-                            const monthDisplay = item.displayDate;
-                            enterDrillDownMode(monthKey, monthDisplay);
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            title: function(context) {
-                                if (context.length > 0) {
-                                    const dataIndex = context[0].dataIndex;
-                                    const item = aggregatedData[dataIndex];
-                                    if (isMonthlyView) {
-                                        return item.displayDate;
-                                    } else {
-                                        return `${item.date} (${new Date(item.date).getDate()}号)`;
-                                    }
-                                }
-                                return '';
-                            },
-                            label: getTooltipFormatter(currentChartDataType),
-                            afterBody: function(context) {
-    if (context.length > 0) {
-        const dataIndex = context[0].dataIndex;
-        const item = aggregatedData[dataIndex];
-
-        const periodText = isMonthlyView ? '当月详情' : '当日详情';
-
-        // 根据当前选择的数据类型显示对应的详情
-        let detailText = '';
-        switch(currentChartDataType) {
-            case 'netSales':
-                detailText = `净销售额: RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                break;
-            case 'tables':
-                const totalTables = item.returningCustomers + item.newCustomers;
-                detailText = `桌子数量: ${totalTables}桌`;
-                break;
-            case 'returningRate':
-                const totalCustomers = item.returningCustomers + item.newCustomers;
-                const returningRate = totalCustomers > 0 ? ((item.returningCustomers / totalCustomers) * 100).toFixed(1) : '0.0';
-                detailText = `常客: ${item.returningCustomers} (${returningRate}%)`;
-                break;
-            case 'diners':
-                detailText = `人数: ${item.diners}人`;
-                break;
         }
-
-        return [
-            '',
-            `--- ${periodText} ---`,
-            detailText
-        ];
-    }
-    return [];
-}
-                        }
-                    }
-                }
-            }
-        });
-    }
-}
 
         function updateDashboardTable(data) {
             const tbody = document.querySelector('#dashboard-table tbody');
@@ -4607,128 +4607,128 @@ function hideBackButtons() {
 }
     </script>
     <script>
-// 格式化日期显示
-function formatDateForDisplay(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}年${month}月${day}日`;
-}
+        // 格式化日期显示
+        function formatDateForDisplay(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            return `${year}年${month}月${day}日`;
+        }
 
-// 更新图表日期范围显示
-function updateChartDateRange() {
-    const chartDateRange = document.getElementById('chart-date-range');
-    if (!chartDateRange) return;
-    
-    const startDateFormatted = formatDateForDisplay(dateRange.startDate);
-    const endDateFormatted = formatDateForDisplay(dateRange.endDate);
-    
-    // 如果是同一天，只显示一个日期
-    if (dateRange.startDate === dateRange.endDate) {
-        chartDateRange.textContent = startDateFormatted;
-    } else {
-        chartDateRange.textContent = `${startDateFormatted} 至 ${endDateFormatted}`;
-    }
-}
-</script>
-<script>
-function switchChartData(dataType) {
-    currentChartDataType = dataType;
-    
-    // 更新按钮状态
-    document.querySelectorAll('.chart-data-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    document.querySelector(`[data-type="${dataType}"]`).classList.add('active');
-    
-    // 更新图表标题
-    const chartTitle = document.getElementById('main-chart-title');
-    const titles = {
-        netSales: '净销售额趋势',
-        tables: '桌子数量趋势',
-        returningRate: '常客百分比趋势',
-        diners: '人数趋势'
-    };
-    
-    let titleText = titles[dataType];
-    if (currentRestaurant === 'total') {
-        titleText += ' (三店合计)';
-    }
-    chartTitle.textContent = titleText;
-    
-    // 重新绘制图表
-    const filteredData = getFilteredKPIData();
-    updateCharts(filteredData);
-}
+        // 更新图表日期范围显示
+        function updateChartDateRange() {
+            const chartDateRange = document.getElementById('chart-date-range');
+            if (!chartDateRange) return;
+            
+            const startDateFormatted = formatDateForDisplay(dateRange.startDate);
+            const endDateFormatted = formatDateForDisplay(dateRange.endDate);
+            
+            // 如果是同一天，只显示一个日期
+            if (dateRange.startDate === dateRange.endDate) {
+                chartDateRange.textContent = startDateFormatted;
+            } else {
+                chartDateRange.textContent = `${startDateFormatted} 至 ${endDateFormatted}`;
+            }
+        }
+    </script>
+    <script>
+        function switchChartData(dataType) {
+            currentChartDataType = dataType;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.chart-data-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-type="${dataType}"]`).classList.add('active');
+            
+            // 更新图表标题
+            const chartTitle = document.getElementById('main-chart-title');
+            const titles = {
+                netSales: '净销售额趋势',
+                tables: '桌子数量趋势',
+                returningRate: '常客百分比趋势',
+                diners: '人数趋势'
+            };
+            
+            let titleText = titles[dataType];
+            if (currentRestaurant === 'total') {
+                titleText += ' (三店合计)';
+            }
+            chartTitle.textContent = titleText;
+            
+            // 重新绘制图表
+            const filteredData = getFilteredKPIData();
+            updateCharts(filteredData);
+        }
 
-// 5. 获取图表数据的辅助函数
-function getChartDataByType(item, dataType) {
-    switch(dataType) {
-        case 'netSales':
-            return item.netSales;
-        case 'tables':
-            return item.returningCustomers + item.newCustomers; // 桌子总数
-        case 'returningRate':
-            const totalCustomers = item.returningCustomers + item.newCustomers;
-            return totalCustomers > 0 ? (item.returningCustomers / totalCustomers) * 100 : 0;
-        case 'diners':
-            return item.diners;
-        default:
-            return item.netSales;
-    }
-}
+        // 5. 获取图表数据的辅助函数
+        function getChartDataByType(item, dataType) {
+            switch(dataType) {
+                case 'netSales':
+                    return item.netSales;
+                case 'tables':
+                    return item.returningCustomers + item.newCustomers; // 桌子总数
+                case 'returningRate':
+                    const totalCustomers = item.returningCustomers + item.newCustomers;
+                    return totalCustomers > 0 ? (item.returningCustomers / totalCustomers) * 100 : 0;
+                case 'diners':
+                    return item.diners;
+                default:
+                    return item.netSales;
+            }
+        }
 
-// 6. 获取Y轴标签格式化函数
-function getYAxisFormatter(dataType) {
-    switch(dataType) {
-        case 'netSales':
-            return function(value) {
-                return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            };
-        case 'tables':
-            return function(value) {
-                return value + '桌';
-            };
-        case 'returningRate':
-            return function(value) {
-                return value.toFixed(1) + '%';
-            };
-        case 'diners':
-            return function(value) {
-                return value + '人';
-            };
-        default:
-            return function(value) {
-                return value.toString();
-            };
-    }
-}
+        // 6. 获取Y轴标签格式化函数
+        function getYAxisFormatter(dataType) {
+            switch(dataType) {
+                case 'netSales':
+                    return function(value) {
+                        return 'RM ' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    };
+                case 'tables':
+                    return function(value) {
+                        return value + '桌';
+                    };
+                case 'returningRate':
+                    return function(value) {
+                        return value.toFixed(1) + '%';
+                    };
+                case 'diners':
+                    return function(value) {
+                        return value + '人';
+                    };
+                default:
+                    return function(value) {
+                        return value.toString();
+                    };
+            }
+        }
 
-function getTooltipFormatter(dataType) {
-    switch(dataType) {
-        case 'netSales':
-            return function(context) {
-                return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            };
-        case 'tables':
-            return function(context) {
-                return context.dataset.label + ': ' + context.parsed.y + '桌';
-            };
-        case 'returningRate':
-            return function(context) {
-                return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
-            };
-        case 'diners':
-            return function(context) {
-                return context.dataset.label + ': ' + context.parsed.y + '人';
-            };
-        default:
-            return function(context) {
-                return context.dataset.label + ': ' + context.parsed.y;
-            };
-    }
-}
-</script>           
+        function getTooltipFormatter(dataType) {
+            switch(dataType) {
+                case 'netSales':
+                    return function(context) {
+                        return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    };
+                case 'tables':
+                    return function(context) {
+                        return context.dataset.label + ': ' + context.parsed.y + '桌';
+                    };
+                case 'returningRate':
+                    return function(context) {
+                        return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                    };
+                case 'diners':
+                    return function(context) {
+                        return context.dataset.label + ': ' + context.parsed.y + '人';
+                    };
+                default:
+                    return function(context) {
+                        return context.dataset.label + ': ' + context.parsed.y;
+                    };
+            }
+        }
+    </script>           
 </body>
 </html>
