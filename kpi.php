@@ -3922,94 +3922,67 @@ if (isDrillDownMode) {
         });
     </script>
     <script>
+        // 侧边栏切换功能
         function toggleSidebar() {
-    const sidebar = document.querySelector('.informationmenu');
-    const mainContent = document.getElementById('main-content');
-    const overlay = document.querySelector('.informationmenu-overlay');
-    const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.informationmenu');
+            const mainContent = document.getElementById('main-content');
+            const overlay = document.querySelector('.informationmenu-overlay');
+    
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('sidebar-collapsed');
+    
+            // 可选：如果你想要在收起时隐藏遮罩层
+            if (sidebar.classList.contains('collapsed')) {
+                overlay.style.display = 'none';
+            } else {
+                overlay.style.display = 'block';
+            }
+        }
 
-    sidebar.classList.toggle('collapsed');
-    sidebarToggle.classList.toggle('collapsed');
-    mainContent.classList.toggle('sidebar-collapsed');
-
-    // 可选：如果你想要在收起时隐藏遮罩层
-    if (sidebar.classList.contains('collapsed')) {
-        overlay.style.display = 'none';
-        // 只在收起时清除激活状态
-        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-            dropdown.classList.remove('show');
+        // 绑定切换按钮事件
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', toggleSidebar);
+            }
         });
-        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-            title.classList.remove('active');
-        });
-        document.querySelectorAll('.informationmenu-item').forEach(item => {
-            item.classList.remove('active');
-        });
-    } else {
-        overlay.style.display = 'block';
-    }
-}
     </script>
     <script>
         document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-    title.addEventListener('click', function(e) {
-        const sidebar = document.querySelector('.informationmenu');
-        const targetId = this.getAttribute('data-target');
-        const targetDropdown = document.getElementById(targetId);
-
-        // 检查侧边栏是否处于收起状态
-        if (sidebar.classList.contains('collapsed')) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // 展开侧边栏
-            sidebar.classList.remove('collapsed');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            sidebarToggle.classList.remove('collapsed');
-            mainContent.classList.remove('sidebar-collapsed');  // 添加这行
-            
-            // 同时展开点击的选项
-            // 关闭其他section的下拉菜单
-            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-                if (dropdown.id !== targetId) {
-                    dropdown.classList.remove('show');
+            title.addEventListener('click', function(e) {
+                const sidebar = document.querySelector('.informationmenu');
+        
+                // 检查侧边栏是否处于收起状态
+                if (sidebar.classList.contains('collapsed')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // 收起状态下点击图标展开侧边栏
+                    toggleSidebar();
+                    return false;
                 }
+        
+                const targetId = this.getAttribute('data-target');
+                const targetDropdown = document.getElementById(targetId);
+        
+                // 关闭其他section的下拉菜单
+                document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                    if (dropdown.id !== targetId) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+        
+                // 移除其他section title的active状态
+                document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+                    if (t !== this) {
+                        t.classList.remove('active');
+                    }
+                });
+        
+                // 切换当前section
+                this.classList.toggle('active');
+                targetDropdown?.classList.toggle('show');
             });
-            
-            // 移除其他section title的active状态
-            document.querySelectorAll('.informationmenu-section-title').forEach(t => {
-                if (t !== this) {
-                    t.classList.remove('active');
-                }
-            });
-            
-            // 激活当前section
-            this.classList.add('active');
-            targetDropdown?.classList.add('show');
-            
-            return false;
-        }
-
-        // 侧边栏已展开时的正常切换逻辑
-        // 关闭其他section的下拉菜单
-        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-            if (dropdown.id !== targetId) {
-                dropdown.classList.remove('show');
-            }
         });
-
-        // 移除其他section title的active状态
-        document.querySelectorAll('.informationmenu-section-title').forEach(t => {
-            if (t !== this) {
-                t.classList.remove('active');
-            }
-        });
-
-        // 切换当前section
-        this.classList.toggle('active');
-        targetDropdown?.classList.toggle('show');
-    });
-});
 
         // 菜单项点击效果
         document.querySelectorAll('.informationmenu-item').forEach(item => {
