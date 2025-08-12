@@ -399,6 +399,14 @@
             background: #f0fdf4 !important;
         }
 
+        /* 确保数字字段（桌数、顾客数等）也有相同背景色 */
+        input[data-field="tables_used"]:not(:placeholder-shown),
+        input[data-field="diners"]:not(:placeholder-shown),
+        input[data-field="new_customers"]:not(:placeholder-shown),
+        input[data-field="returning_customers"]:not(:placeholder-shown) {
+            background: #f0fdf4 !important;
+        }
+
         /* 计算列样式 */
         .calculated-cell {
             background: #f0f9ff !important;
