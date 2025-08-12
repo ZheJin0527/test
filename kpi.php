@@ -115,7 +115,33 @@ $avatarLetter = strtoupper($username[0]);
         html {
             height: 100%;
             overflow-x: hidden;
+            overflow-y: auto; 
         }
+
+        /* 自定义滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Firefox 滚动条样式 */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
         
         .header {
             display: flex;
