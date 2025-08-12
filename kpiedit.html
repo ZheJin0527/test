@@ -366,22 +366,23 @@
         }
 
         /* 输入框样式 */
-        .excel-input {
-            width: 100%;
-            height: 40px;
-            border: none;
-            background: transparent;
-            text-align: center;
-            font-size: 14px;
-            padding: 8px 4px;
-            transition: all 0.2s;
-        }
+.excel-input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: #f0fdf4;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 4px;
+    transition: all 0.2s;
+}
 
-        .excel-input.currency-input {
-            padding-left: 32px;
-            text-align: right;
-            padding-right: 8px;
-        }
+.excel-input.currency-input {
+    padding-left: 32px;
+    text-align: right;
+    padding-right: 8px;
+    background: #f0fdf4;
+}
 
         .excel-input:focus {
             background: #fff;
@@ -391,27 +392,12 @@
             position: relative;
         }
 
-        /* 所有输入框在有数据时显示薄荷绿背景 */
         .excel-input:not(:placeholder-shown) {
-            background: #f0fdf4 !important;
+            background: #f0fdf4;
         }
 
-        /* 确保货币输入框也有相同背景色 */
         .excel-input.currency-input:not(:placeholder-shown) {
-            background: #f0fdf4 !important;
-        }
-
-        /* 确保所有数据字段都有相同背景色 */
-        input[data-field="gross_sales"]:not(:placeholder-shown),
-        input[data-field="discounts"]:not(:placeholder-shown),
-        input[data-field="tax"]:not(:placeholder-shown),
-        input[data-field="service_fee"]:not(:placeholder-shown),
-        input[data-field="adj_amount"]:not(:placeholder-shown),
-        input[data-field="tables_used"]:not(:placeholder-shown),
-        input[data-field="diners"]:not(:placeholder-shown),
-        input[data-field="new_customers"]:not(:placeholder-shown),
-        input[data-field="returning_customers"]:not(:placeholder-shown) {
-            background: #f0fdf4 !important;
+            background: #f0fdf4;
         }
 
         /* 计算列样式 */
