@@ -745,62 +745,62 @@ function goToCulture() {
         });
 
         // Section标题点击事件
-document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-    title.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('data-target');
-        const targetDropdown = document.getElementById(targetId);
+        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+            title.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('data-target');
+                const targetDropdown = document.getElementById(targetId);
         
-        // 检查侧边栏是否处于收起状态
-        if (sidebarMenu.classList.contains('collapsed')) {
-            e.preventDefault();
-            e.stopPropagation();
+                // 检查侧边栏是否处于收起状态
+                if (sidebarMenu.classList.contains('collapsed')) {
+                    e.preventDefault();
+                    e.stopPropagation();
             
-            // 展开侧边栏
-            sidebarMenu.classList.remove('collapsed');
-            sidebarToggle.classList.remove('collapsed');
+                    // 展开侧边栏
+                    sidebarMenu.classList.remove('collapsed');
+                    sidebarToggle.classList.remove('collapsed');
             
-            // 同时展开点击的选项
-            // 关闭其他section的下拉菜单
-            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-                if (dropdown.id !== targetId) {
-                    dropdown.classList.remove('show');
+                    // 同时展开点击的选项
+                    // 关闭其他section的下拉菜单
+                    document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                        if (dropdown.id !== targetId) {
+                            dropdown.classList.remove('show');
+                        }
+                    });
+            
+                    // 移除其他section title的active状态
+                    document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+                        if (t !== this) {
+                            t.classList.remove('active');
+                        }
+                    });
+            
+                    // 激活当前section
+                    this.classList.add('active');
+                    targetDropdown?.classList.add('show');
+            
+                    return false;
                 }
+
+                // 侧边栏已展开时的正常切换逻辑
+                // 关闭其他section的下拉菜单
+                document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                    if (dropdown.id !== targetId) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+
+                // 移除其他section title的active状态
+                document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+                    if (t !== this) {
+                        t.classList.remove('active');
+                    }
+                });
+
+                // 切换当前section
+                this.classList.toggle('active');
+                targetDropdown?.classList.toggle('show');
             });
-            
-            // 移除其他section title的active状态
-            document.querySelectorAll('.informationmenu-section-title').forEach(t => {
-                if (t !== this) {
-                    t.classList.remove('active');
-                }
-            });
-            
-            // 激活当前section
-            this.classList.add('active');
-            targetDropdown?.classList.add('show');
-            
-            return false;
-        }
-
-        // 侧边栏已展开时的正常切换逻辑
-        // 关闭其他section的下拉菜单
-        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-            if (dropdown.id !== targetId) {
-                dropdown.classList.remove('show');
-            }
         });
-
-        // 移除其他section title的active状态
-        document.querySelectorAll('.informationmenu-section-title').forEach(t => {
-            if (t !== this) {
-                t.classList.remove('active');
-            }
-        });
-
-        // 切换当前section
-        this.classList.toggle('active');
-        targetDropdown?.classList.toggle('show');
-    });
-});
 
         // 菜单项点击效果
         document.querySelectorAll('.informationmenu-item').forEach(item => {
@@ -939,33 +939,32 @@ document.querySelectorAll('.informationmenu-section-title').forEach(title => {
         console.log('点击Section + 悬停Submenu系统已加载完成');
     </script>
     <script>
-// 侧边栏收起/展开功能
-const sidebarToggle = document.getElementById('sidebarToggle');
-const sidebarMenu = document.querySelector('.informationmenu'); // 改名避免冲突
+        // 侧边栏收起/展开功能
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarMenu = document.querySelector('.informationmenu'); // 改名避免冲突
 
-sidebarToggle?.addEventListener('click', function(e) {
-    e.stopPropagation(); // 防止事件冒泡
+        sidebarToggle?.addEventListener('click', function(e) {
+            e.stopPropagation(); // 防止事件冒泡
     
-    // 如果正在收起侧边栏，清除所有激活状态
-    if (!sidebarMenu.classList.contains('collapsed')) {
-        // 关闭所有下拉菜单
-        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-            dropdown.classList.remove('show');
-        });
-        // 移除所有section title的active状态
-        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-            title.classList.remove('active');
-        });
-        // 移除所有菜单项的active状态
-        document.querySelectorAll('.informationmenu-item').forEach(item => {
-            item.classList.remove('active');
-        });
-    }
+            // 如果正在收起侧边栏，清除所有激活状态
+            if (!sidebarMenu.classList.contains('collapsed')) {
+                // 关闭所有下拉菜单
+                document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+                // 移除所有section title的active状态
+                document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+                    title.classList.remove('active');
+                });
+                // 移除所有菜单项的active状态
+                document.querySelectorAll('.informationmenu-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
     
-    sidebarMenu.classList.toggle('collapsed');
-    sidebarToggle.classList.toggle('collapsed');
-});
-
-</script>
+            sidebarMenu.classList.toggle('collapsed');
+            sidebarToggle.classList.toggle('collapsed');
+        });
+    </script>
 </body>
 </html>
