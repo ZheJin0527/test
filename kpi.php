@@ -3511,7 +3511,7 @@ $avatarLetter = strtoupper($username[0]);
                                                 '',
                                                 `--- ${periodText} ---`,
                                                 `桌子数量: ${totalTables}桌`,
-                                                `常客 (${returningRate}%): ${item.returningCustomers}桌`,
+                                                `常客: ${item.returningCustomers}(${returningRate}%)`,
                                                 `人数: ${item.diners}人`
                                             ];
                                         }
