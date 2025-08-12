@@ -3503,7 +3503,7 @@ $avatarLetter = strtoupper($username[0]);
                                             const totalTables = item.returningCustomers + item.newCustomers;
                                     
                                             // 计算常客百分比
-                                            const returningRate = totalTables > 0 ? ((item.returningCustomers / totalTables) * 100).toFixed(1) : '0.0';
+                                            const returningRate = totalTables > 0 ? ((item.returningCustomers / totalTables) * 100).toFixed(2) : '0.0';
                                     
                                             const periodText = isMonthlyView ? '当月详情' : '当日详情';
 
@@ -3511,7 +3511,7 @@ $avatarLetter = strtoupper($username[0]);
                                                 '',
                                                 `--- ${periodText} ---`,
                                                 `桌子数量: ${totalTables}桌`,
-                                                `常客: ${item.returningCustomers}(${returningRate}%)`,
+                                                `常客: ${item.returningCustomers} (${returningRate}%)`,
                                                 `人数: ${item.diners}人`
                                             ];
                                         }
