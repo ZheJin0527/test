@@ -3469,44 +3469,87 @@ function updateCharts(data) {
                             },
                             label: getTooltipFormatter(currentChartDataType),
                             afterBody: function(context) {
-                                // tooltip详情保持不变
-                                if (context.length > 0) {
-                                    const dataIndex = context[0].dataIndex;
-                                    const j1Data = comparisonData.restaurants.j1[dataIndex];
-                                    const j2Data = comparisonData.restaurants.j2[dataIndex];
-                                    const j3Data = comparisonData.restaurants.j3[dataIndex];
-                            
-                                    const j1Sales = j1Data.netSales;
-                                    const j2Sales = j2Data.netSales;
-                                    const j3Sales = j3Data.netSales;
-                                    const totalSales = j1Sales + j2Sales + j3Sales;
-                            
-                                    const j1Tables = j1Data.returningCustomers + j1Data.newCustomers;
-                                    const j2Tables = j2Data.returningCustomers + j2Data.newCustomers;
-                                    const j3Tables = j3Data.returningCustomers + j3Data.newCustomers;
-                                    const totalTables = j1Tables + j2Tables + j3Tables;
-                            
-                                    const j1ReturningRate = j1Tables > 0 ? ((j1Data.returningCustomers / j1Tables) * 100).toFixed(1) : '0.0';
-                                    const j2ReturningRate = j2Tables > 0 ? ((j2Data.returningCustomers / j2Tables) * 100).toFixed(1) : '0.0';
-                                    const j3ReturningRate = j3Tables > 0 ? ((j3Data.returningCustomers / j3Tables) * 100).toFixed(1) : '0.0';
-                                    const totalReturningCustomers = j1Data.returningCustomers + j2Data.returningCustomers + j3Data.returningCustomers;
-                                    const totalReturningRate = totalTables > 0 ? ((totalReturningCustomers / totalTables) * 100).toFixed(1) : '0.0';
-                            
-                                    const totalDiners = j1Data.diners + j2Data.diners + j3Data.diners;
+    if (context.length > 0) {
+        const dataIndex = context[0].dataIndex;
+        const j1Data = comparisonData.restaurants.j1[dataIndex];
+        const j2Data = comparisonData.restaurants.j2[dataIndex];
+        const j3Data = comparisonData.restaurants.j3[dataIndex];
 
-                                    const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
+        const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
 
-                                    return [
-                                        '',
-                                        `--- ${periodText} ---`,
-                                        `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                        `桌子数量: ${totalTables}桌`,
-                                        `常客: ${totalReturningCustomers} (${totalReturningRate}%)`,
-                                        `人数: ${totalDiners}人`
-                                    ];
-                                }
-                                return [];
-                            }
+        // 根据当前选择的数据类型显示对应的汇总
+        let summaryText = '';
+        switch(currentChartDataType) {
+            case 'netSales':
+                const totalSales = j1Data.netSales + j2Data.netSales + j3Data.netSales;
+                summaryText = `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                break;
+            case 'tables':
+                const j1Tables = j1Data.returningCustomers + j1Data.newCustomers;
+                const j2Tables = j2Data.returningCustomers + j2Data.newCustomers;
+                const j3Tables = j3Data.returningCustomers + j3Data.newCustomers;
+                const totalTables = j1Tables + j2Tables + j3Tables;
+                summaryText = `桌子数量: ${totalTables}桌`;
+                break;
+            case 'returningRate':
+                const totalReturningCustomers = j1Data.returningCustomers + j2Data.returningCustomers + j3Data.returningCustomers;
+                const totalAllCustomers = (j1Data.returningCustomers + j1Data.newCustomers) + 
+                                        (j2Data.returningCustomers + j2Data.newCustomers) + 
+                                        (j3Data.returningCustomers + j3Data.newCustomers);
+                const totalReturningRate = totalAllCustomers > 0 ? ((totalReturningCustomers / totalAllCustomers) * 100).toFixed(1) : '0.0';
+                summaryText = `常客: ${totalReturningCustomers} (${totalReturningRate}%)`;
+                break;
+            case 'diners':
+                const totalDiners = j1Data.diners + j2Data.diners + j3Data.diners;
+                summaryText = `人数: ${totalDiners}人`;
+                break;
+        }
+
+        return [
+            '',
+            `--- ${periodText} ---`,
+            summaryText
+        ];
+    }
+    return [];
+}
+
+// 对于单店模式的afterBody回调函数，替换为：
+afterBody: function(context) {
+    if (context.length > 0) {
+        const dataIndex = context[0].dataIndex;
+        const item = aggregatedData[dataIndex];
+
+        const periodText = isMonthlyView ? '当月详情' : '当日详情';
+
+        // 根据当前选择的数据类型显示对应的详情
+        let detailText = '';
+        switch(currentChartDataType) {
+            case 'netSales':
+                detailText = `净销售额: RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                break;
+            case 'tables':
+                const totalTables = item.returningCustomers + item.newCustomers;
+                detailText = `桌子数量: ${totalTables}桌`;
+                break;
+            case 'returningRate':
+                const totalCustomers = item.returningCustomers + item.newCustomers;
+                const returningRate = totalCustomers > 0 ? ((item.returningCustomers / totalCustomers) * 100).toFixed(1) : '0.0';
+                detailText = `常客: ${item.returningCustomers} (${returningRate}%)`;
+                break;
+            case 'diners':
+                detailText = `人数: ${item.diners}人`;
+                break;
+        }
+
+        return [
+            '',
+            `--- ${periodText} ---`,
+            detailText
+        ];
+    }
+    return [];
+}
                         }
                     },
                     legend: {
@@ -4684,7 +4727,6 @@ function getYAxisFormatter(dataType) {
     }
 }
 
-// 7. 获取tooltip标签格式化函数
 function getTooltipFormatter(dataType) {
     switch(dataType) {
         case 'netSales':
