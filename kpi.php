@@ -3946,8 +3946,14 @@ if (isDrillDownMode) {
 
     sidebar.classList.toggle('collapsed');
     sidebarToggle.classList.toggle('collapsed');
+    
+    // 确保主内容区域也同步更新
     if (mainContent) {
-        mainContent.classList.toggle('sidebar-collapsed');
+        if (sidebar.classList.contains('collapsed')) {
+            mainContent.classList.add('sidebar-collapsed');
+        } else {
+            mainContent.classList.remove('sidebar-collapsed');
+        }
     }
 
     // 可选：如果你想要在收起时隐藏遮罩层
@@ -3978,35 +3984,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 检查侧边栏是否处于收起状态
         if (sidebar.classList.contains('collapsed')) {
-            e.preventDefault();
-            e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
+
+    // 展开侧边栏
+    sidebar.classList.remove('collapsed');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    sidebarToggle.classList.remove('collapsed');
     
-            // 展开侧边栏
-            sidebar.classList.remove('collapsed');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            sidebarToggle.classList.remove('collapsed');
+    // 确保主内容区域也同步更新
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+        mainContent.classList.remove('sidebar-collapsed');
+    }
     
             // 同时展开点击的选项
             // 关闭其他section的下拉菜单
-            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-                if (dropdown.id !== targetId) {
-                    dropdown.classList.remove('show');
-                }
-            });
-    
-            // 移除其他section title的active状态
-            document.querySelectorAll('.informationmenu-section-title').forEach(t => {
-                if (t !== this) {
-                    t.classList.remove('active');
-                }
-            });
-    
-            // 激活当前section
-            this.classList.add('active');
-            targetDropdown?.classList.add('show');
-    
-            return false;
+    document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+        if (dropdown.id !== targetId) {
+            dropdown.classList.remove('show');
         }
+    });
+
+    // 移除其他section title的active状态
+    document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+        if (t !== this) {
+            t.classList.remove('active');
+        }
+    });
+
+    // 激活当前section
+    this.classList.add('active');
+    targetDropdown?.classList.add('show');
+
+    return false;
+}
 
         // 侧边栏已展开时的正常切换逻辑
         // 关闭其他section的下拉菜单
