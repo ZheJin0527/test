@@ -1664,6 +1664,26 @@ $avatarLetter = strtoupper($username[0]);
         .chart-container {
             position: relative;
         }
+
+        .date-range-display {
+            background: #f9fafb;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .chart-header {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 8px;
+            }
+            
+            .date-range-display {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body class="restaurant-j1">
@@ -2157,19 +2177,22 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
 
                 <!-- Main Chart - 全宽显示 -->
-                <div class="main-chart-container">
-                    <div class="card" style="height: 400px;">
-                        <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
-                            <h3 id="main-chart-title" style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
-                            <div class="chart-container" style="flex: 1;">
-                                <button class="chart-back-button" id="sales-chart-back" onclick="exitDrillDown()">
-                                    <i class="fas fa-arrow-left"></i> 返回年度视图
-                                </button>
-                                <canvas id="sales-chart"></canvas>
-                            </div>
+                <div class="card" style="height: 400px;">
+                <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
+                    <div class="chart-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3 id="main-chart-title" style="font-size: 24px; font-weight: 600; color: #111827; margin: 0;">净销售额趋势</h3>
+                        <div class="date-range-display" id="chart-date-range" style="font-size: 14px; color: #6b7280; font-weight: 500;">
+                            <!-- 日期范围将在这里显示 -->
                         </div>
                     </div>
+                    <div class="chart-container" style="flex: 1;">
+                        <button class="chart-back-button" id="sales-chart-back" onclick="exitDrillDown()">
+                            <i class="fas fa-arrow-left"></i> 返回年度视图
+                        </button>
+                        <canvas id="sales-chart"></canvas>
+                    </div>
                 </div>
+            </div>
                         
             <!-- Detail Table -->
             <div class="card">
@@ -2678,6 +2701,9 @@ $avatarLetter = strtoupper($username[0]);
             });
             updateDashboard();
             document.getElementById('quick-select-text').textContent = '选择时间段';
+
+            // 新增：更新图表日期范围显示
+            updateChartDateRange();
         }
 
         async function updateDateRangeFromPickers() {
@@ -2701,6 +2727,9 @@ $avatarLetter = strtoupper($username[0]);
             });
             updateDashboard();
             document.getElementById('quick-select-text').textContent = '选择时间段';
+
+            // 新增：更新图表日期范围显示
+            updateChartDateRange();
         }
 
         // 切换餐厅
@@ -3110,6 +3139,9 @@ $avatarLetter = strtoupper($username[0]);
     
             // 更新详细表格
             updateDashboardTable(filteredData);
+
+            // 新增：更新图表日期范围显示
+            updateChartDateRange();
         }
 
         // 准备分餐厅对比数据
@@ -3850,6 +3882,9 @@ $avatarLetter = strtoupper($username[0]);
                 end_date: dateRange.endDate
             });
             updateDashboard();
+
+            // 新增：更新图表日期范围显示
+            updateChartDateRange();
         }
 
         // 修改现有的document.addEventListener，添加快速选择下拉菜单的关闭逻辑
@@ -4393,6 +4428,9 @@ $avatarLetter = strtoupper($username[0]);
     
             // 显示返回按钮
             showBackButtons();
+
+            // 新增：更新图表日期范围显示
+            updateChartDateRange();
         }
 
         // 退出钻取模式
@@ -4440,6 +4478,9 @@ $avatarLetter = strtoupper($username[0]);
     
             // 隐藏返回按钮
             hideBackButtons();
+
+            // 新增：更新图表日期范围显示
+            updateChartDateRange();
         }
 
         // 显示返回按钮
@@ -4460,6 +4501,32 @@ function hideBackButtons() {
         }
     });
 }
-    </script>           
+    </script>
+    <script>
+// 格式化日期显示
+function formatDateForDisplay(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}年${month}月${day}日`;
+}
+
+// 更新图表日期范围显示
+function updateChartDateRange() {
+    const chartDateRange = document.getElementById('chart-date-range');
+    if (!chartDateRange) return;
+    
+    const startDateFormatted = formatDateForDisplay(dateRange.startDate);
+    const endDateFormatted = formatDateForDisplay(dateRange.endDate);
+    
+    // 如果是同一天，只显示一个日期
+    if (dateRange.startDate === dateRange.endDate) {
+        chartDateRange.textContent = startDateFormatted;
+    } else {
+        chartDateRange.textContent = `${startDateFormatted} 至 ${endDateFormatted}`;
+    }
+}
+</script>           
 </body>
 </html>
