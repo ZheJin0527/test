@@ -1488,7 +1488,6 @@ $avatarLetter = strtoupper($username[0]);
                                     <div class="section-title">选择州属</div>
                                     <div class="letter-grid">
                                         <button class="letter-item" onclick="selectLetter('J')">J</button>
-                                        <button class="letter-item" onclick="selectLetter('K')">K</button>
                                     </div>
                                 </div>
                                 <div class="number-selection" id="number-selection">
