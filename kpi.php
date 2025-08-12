@@ -1463,7 +1463,7 @@ $avatarLetter = strtoupper($username[0]);
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
                                     <i class="fas fa-calendar-alt"></i>
-                                    选择时间段
+                                    <span id="quick-select-text">选择时间段</span>
                                     <i class="fas fa-chevron-down"></i>
                                 </button>
                                 <div class="dropdown-menu" id="quick-select-dropdown">
@@ -2134,6 +2134,7 @@ $avatarLetter = strtoupper($username[0]);
                 end_date: dateRange.endDate
             });
             updateDashboard();
+            document.getElementById('quick-select-text').textContent = '选择时间段';
         }
 
         async function updateDateRangeFromPickers() {
@@ -2156,6 +2157,7 @@ $avatarLetter = strtoupper($username[0]);
                 end_date: dateRange.endDate
             });
             updateDashboard();
+            document.getElementById('quick-select-text').textContent = '选择时间段';
         }
 
         // 切换餐厅
@@ -3824,6 +3826,18 @@ if (isDrillDownMode) {
             updateDateDisplay('end');
             updateDateDisplay('month');
     
+            // 更新按钮显示文本
+            const quickSelectText = document.getElementById('quick-select-text');
+            const rangeTexts = {
+                'thisWeek': '本周',
+                'lastWeek': '上周',
+                'thisMonth': '这个月',
+                'lastMonth': '上个月',
+                'thisYear': '今年',
+                'lastYear': '去年'
+            };
+            quickSelectText.textContent = rangeTexts[range] || '选择时间段';
+
             // 关闭下拉菜单
             document.getElementById('quick-select-dropdown').classList.remove('show');
     
