@@ -1634,8 +1634,8 @@ $avatarLetter = strtoupper($username[0]);
 
         .chart-back-button {
             position: absolute;
-            top: -35px;
-            right: 15px;
+            top: -50px;
+            right: 250px;
             background: #583e04;
             color: white;
             border: none;
@@ -1666,6 +1666,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .date-range-display {
+            margin-top: 10px;
             background: #f9fafb;
             padding: 6px 12px;
             border-radius: 6px;
