@@ -3445,7 +3445,7 @@ $avatarLetter = strtoupper($username[0]);
                                                 `--- ${periodText} ---`,
                                                 `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
                                                 `桌子数量: ${totalTables}桌`,
-                                                `常客 (${totalReturningRate}%): ${totalReturningCustomers}桌`,
+                                                `常客: ${totalReturningCustomers} (${totalReturningRate}%)`,
                                                 `人数: ${totalDiners}人`
                                             ];
                                         }
