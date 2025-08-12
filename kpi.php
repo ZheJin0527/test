@@ -3324,7 +3324,7 @@ $avatarLetter = strtoupper($username[0]);
                 const dataLabels = {
                     netSales: ['J1 净销售额', 'J2 净销售额', 'J3 净销售额'],
                     tables: ['J1 桌子数量', 'J2 桌子数量', 'J3 桌子数量'],
-                    returningRate: ['J1 常客%', 'J2 常客%', 'J3 常客%'],
+                    returningRate: ['J1 常客', 'J2 常客', 'J3 常客'],
                     diners: ['J1 人数', 'J2 人数', 'J3 人数']
                 };
 
@@ -4704,6 +4704,18 @@ function hideBackButtons() {
                                 const returningCustomers = restaurantData.returningCustomers;
                                 const percentage = context.parsed.y.toFixed(1);
                                 return context.dataset.label + ': ' + returningCustomers + ' (' + percentage + '%)';
+                            }
+                        } else {
+                            // 单店模式下也显示具体常客人数
+                            const dataIndex = context.dataIndex;
+                            const filteredData = getFilteredKPIData();
+                            const aggregatedData = aggregateDataByPeriod(filteredData, dateRange);
+                            const item = aggregatedData[dataIndex];
+                            
+                            if (item) {
+                                const returningCustomers = item.returningCustomers;
+                                const percentage = context.parsed.y.toFixed(1);
+                                return '常客：' + returningCustomers + ' (' + percentage + '%)';
                             }
                         }
                         return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
