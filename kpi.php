@@ -3928,22 +3928,6 @@ if (isDrillDownMode) {
     const overlay = document.querySelector('.informationmenu-overlay');
     const sidebarToggle = document.getElementById('sidebarToggle');
 
-    // 如果正在收起侧边栏，清除所有激活状态
-    if (!sidebar.classList.contains('collapsed')) {
-        // 关闭所有下拉菜单
-        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-            dropdown.classList.remove('show');
-        });
-        // 移除所有section title的active状态
-        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-            title.classList.remove('active');
-        });
-        // 移除所有菜单项的active状态
-        document.querySelectorAll('.informationmenu-item').forEach(item => {
-            item.classList.remove('active');
-        });
-    }
-
     sidebar.classList.toggle('collapsed');
     sidebarToggle.classList.toggle('collapsed');
     mainContent.classList.toggle('sidebar-collapsed');
@@ -3951,21 +3935,20 @@ if (isDrillDownMode) {
     // 可选：如果你想要在收起时隐藏遮罩层
     if (sidebar.classList.contains('collapsed')) {
         overlay.style.display = 'none';
+        // 只在收起时清除激活状态
+        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+            title.classList.remove('active');
+        });
+        document.querySelectorAll('.informationmenu-item').forEach(item => {
+            item.classList.remove('active');
+        });
     } else {
         overlay.style.display = 'block';
     }
 }
-
-        // 绑定切换按钮事件
-document.addEventListener('DOMContentLoaded', function() {
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', function(e) {
-            e.stopPropagation(); // 防止事件冒泡
-            toggleSidebar();
-        });
-    }
-});
     </script>
     <script>
         document.querySelectorAll('.informationmenu-section-title').forEach(title => {
