@@ -3983,6 +3983,7 @@ document.addEventListener('DOMContentLoaded', function() {
             sidebar.classList.remove('collapsed');
             const sidebarToggle = document.getElementById('sidebarToggle');
             sidebarToggle.classList.remove('collapsed');
+            mainContent.classList.remove('sidebar-collapsed');  // 添加这行
             
             // 同时展开点击的选项
             // 关闭其他section的下拉菜单
