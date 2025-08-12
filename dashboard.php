@@ -924,18 +924,24 @@ const sidebarMenu = document.querySelector('.informationmenu'); // 改名避免�
 sidebarToggle?.addEventListener('click', function(e) {
     e.stopPropagation(); // 防止事件冒泡
     
-    sidebarMenu.classList.toggle('collapsed');
-    sidebarToggle.classList.toggle('collapsed');
-    
-    // 如果收起了，关闭所有下拉菜单
-    if (sidebarMenu.classList.contains('collapsed')) {
+    // 如果正在收起侧边栏，清除所有激活状态
+    if (!sidebarMenu.classList.contains('collapsed')) {
+        // 关闭所有下拉菜单
         document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
             dropdown.classList.remove('show');
         });
+        // 移除所有section title的active状态
         document.querySelectorAll('.informationmenu-section-title').forEach(title => {
             title.classList.remove('active');
         });
+        // 移除所有菜单项的active状态
+        document.querySelectorAll('.informationmenu-item').forEach(item => {
+            item.classList.remove('active');
+        });
     }
+    
+    sidebarMenu.classList.toggle('collapsed');
+    sidebarToggle.classList.toggle('collapsed');
 });
 
 </script>
