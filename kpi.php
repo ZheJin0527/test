@@ -2638,31 +2638,31 @@ $avatarLetter = strtoupper($username[0]);
         async function handleMonthPickerChange() {
             const year = monthDateValue.year;
             const month = monthDateValue.month;
-    
+
             // 如果年份和月份都选择了，显示整个月的数据
             if (year && month) {
                 const firstDay = `${year}-${String(month).padStart(2, '0')}-01`;
                 const lastDay = new Date(year, month, 0).getDate();
                 const lastDayFormatted = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
-        
+
                 dateRange = {
                     startDate: firstDay,
                     endDate: lastDayFormatted
                 };
-        
+
                 // 更新开始和结束日期选择器的值
                 startDateValue = {
                     year: year,
                     month: month,
                     day: 1
                 };
-        
+
                 endDateValue = {
                     year: year,
                     month: month,
                     day: lastDay
                 };
-        
+
                 updateDateDisplay('start');
                 updateDateDisplay('end');
             }
@@ -2670,25 +2670,25 @@ $avatarLetter = strtoupper($username[0]);
             else if (year && !month) {
                 const firstDay = `${year}-01-01`;
                 const lastDay = `${year}-12-31`;
-        
+
                 dateRange = {
                     startDate: firstDay,
                     endDate: lastDay
                 };
-        
+
                 // 更新开始和结束日期选择器的值为整年
                 startDateValue = {
                     year: year,
                     month: 1,
                     day: 1
                 };
-        
+
                 endDateValue = {
                     year: year,
                     month: 12,
                     day: 31
                 };
-        
+
                 updateDateDisplay('start');
                 updateDateDisplay('end');
             }
@@ -2696,7 +2696,15 @@ $avatarLetter = strtoupper($username[0]);
             else {
                 return;
             }
-    
+
+            // 新增：退出钻取模式
+            if (isDrillDownMode) {
+                isDrillDownMode = false;
+                drillDownMonth = null;
+                originalDateRange = null;
+                hideBackButtons();
+            }
+
             // 加载数据并更新仪表板
             await loadData({
                 start_date: dateRange.startDate,
@@ -2704,8 +2712,8 @@ $avatarLetter = strtoupper($username[0]);
             });
             updateDashboard();
             document.getElementById('quick-select-text').textContent = '选择时间段';
-
-            // 新增：更新图表日期范围显示
+            
+            // 更新图表日期范围显示
             updateChartDateRange();
         }
 
@@ -2724,14 +2732,22 @@ $avatarLetter = strtoupper($username[0]);
                 endDate: endDateStr
             };
             
+            // 新增：退出钻取模式
+            if (isDrillDownMode) {
+                isDrillDownMode = false;
+                drillDownMonth = null;
+                originalDateRange = null;
+                hideBackButtons();
+            }
+            
             await loadData({
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate
             });
             updateDashboard();
             document.getElementById('quick-select-text').textContent = '选择时间段';
-
-            // 新增：更新图表日期范围显示
+            
+            // 更新图表日期范围显示
             updateChartDateRange();
         }
 
@@ -3769,7 +3785,8 @@ $avatarLetter = strtoupper($username[0]);
         async function selectQuickRange(range) {
             const today = new Date();
             let startDate, endDate;
-    
+
+            // ... 现有的 switch 语句保持不变 ...
             switch(range) {
                 case 'thisWeek':
                     // 本周（周一到今天）
@@ -3826,44 +3843,44 @@ $avatarLetter = strtoupper($username[0]);
                 default:
                     return;
             }
-    
+
             // 格式化日期为 YYYY-MM-DD 格式
             const formatDate = (date) => {
                 return date.getFullYear() + '-' + 
                     String(date.getMonth() + 1).padStart(2, '0') + '-' + 
                     String(date.getDate()).padStart(2, '0');
             };
-    
+
             // 更新日期范围
             dateRange = {
                 startDate: formatDate(startDate),
                 endDate: formatDate(endDate)
             };
-    
+
             // 更新开始和结束日期选择器的值
             startDateValue = {
                 year: startDate.getFullYear(),
                 month: startDate.getMonth() + 1,
                 day: startDate.getDate()
             };
-    
+
             endDateValue = {
                 year: endDate.getFullYear(),
                 month: endDate.getMonth() + 1,
                 day: endDate.getDate()
             };
-    
+
             // 重置月份选择器（因为我们现在使用的是自定义范围）
             monthDateValue = {
                 year: null,
                 month: null
             };
-    
+
             // 更新所有日期选择器的显示
             updateDateDisplay('start');
             updateDateDisplay('end');
             updateDateDisplay('month');
-    
+
             // 更新按钮显示文本
             const quickSelectText = document.getElementById('quick-select-text');
             const rangeTexts = {
@@ -3878,15 +3895,23 @@ $avatarLetter = strtoupper($username[0]);
 
             // 关闭下拉菜单
             document.getElementById('quick-select-dropdown').classList.remove('show');
-    
+
+            // 新增：退出钻取模式
+            if (isDrillDownMode) {
+                isDrillDownMode = false;
+                drillDownMonth = null;
+                originalDateRange = null;
+                hideBackButtons();
+            }
+
             // 加载数据并更新仪表板
             await loadData({
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate
             });
             updateDashboard();
-
-            // 新增：更新图表日期范围显示
+            
+            // 更新图表日期范围显示
             updateChartDateRange();
         }
 
