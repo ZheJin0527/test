@@ -3926,6 +3926,7 @@ if (isDrillDownMode) {
     const sidebar = document.querySelector('.informationmenu');
     const mainContent = document.getElementById('main-content');
     const overlay = document.querySelector('.informationmenu-overlay');
+    const sidebarToggle = document.getElementById('sidebarToggle');
 
     // 如果正在收起侧边栏，清除所有激活状态
     if (!sidebar.classList.contains('collapsed')) {
@@ -3944,6 +3945,7 @@ if (isDrillDownMode) {
     }
 
     sidebar.classList.toggle('collapsed');
+    sidebarToggle.classList.toggle('collapsed');
     mainContent.classList.toggle('sidebar-collapsed');
 
     // 可选：如果你想要在收起时隐藏遮罩层
@@ -3955,12 +3957,15 @@ if (isDrillDownMode) {
 }
 
         // 绑定切换按钮事件
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            if (sidebarToggle) {
-                sidebarToggle.addEventListener('click', toggleSidebar);
-            }
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // 防止事件冒泡
+            toggleSidebar();
         });
+    }
+});
     </script>
     <script>
         document.querySelectorAll('.informationmenu-section-title').forEach(title => {
@@ -3975,7 +3980,9 @@ if (isDrillDownMode) {
             e.stopPropagation();
             
             // 展开侧边栏
-            toggleSidebar();
+            sidebar.classList.remove('collapsed');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            sidebarToggle.classList.remove('collapsed');
             
             // 同时展开点击的选项
             // 关闭其他section的下拉菜单
