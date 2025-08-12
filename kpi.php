@@ -1634,7 +1634,7 @@ $avatarLetter = strtoupper($username[0]);
 
         .chart-back-button {
             position: absolute;
-            top: -35px;
+            top: -10px;
             right: 15px;
             background: #583e04;
             color: white;
@@ -3124,9 +3124,9 @@ $avatarLetter = strtoupper($username[0]);
             const chartTitle = document.getElementById('main-chart-title');
             if (isDrillDownMode) {
                 if (currentRestaurant === 'total') {
-                    chartTitle.textContent = `净销售额趋势 - ${drillDownMonth} (三店合计)`;
+                    chartTitle.textContent = `净销售额趋势 - (三店合计)`;
                 } else {
-                    chartTitle.textContent = `净销售额趋势 - ${drillDownMonth}`;
+                    chartTitle.textContent = `净销售额趋势`;
                 }
             } else {
                 if (currentRestaurant === 'total') {
