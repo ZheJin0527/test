@@ -2597,42 +2597,39 @@ if (isDrillDownMode) {
         }
 
         function updateCharts(data) {
-            const ctx1 = document.getElementById('sales-chart').getContext('2d');
-            const ctx2 = document.getElementById('combined-chart').getContext('2d');
-            const ctx3 = document.getElementById('tables-chart').getContext('2d');
+    const ctx1 = document.getElementById('sales-chart').getContext('2d');
+    const config = restaurantConfig[currentRestaurant];
     
-            const config = restaurantConfig[currentRestaurant];
+    // 根据日期范围决定数据聚合方式
+    const aggregatedData = aggregateDataByPeriod(data, dateRange);
+    const isMonthlyView = aggregatedData !== data;
     
-            // 根据日期范围决定数据聚合方式
-            const aggregatedData = aggregateDataByPeriod(data, dateRange);
-            const isMonthlyView = aggregatedData !== data;
+    // 餐厅颜色配置
+    const restaurantColors = {
+        j1: { 
+            primary: '#583e04', 
+            secondary: '#805906',
+            returning: '#583e04',
+            new: '#805906'
+        },
+        j2: { 
+            primary: '#d97706', 
+            secondary: '#f59e0b',
+            returning: '#d97706',
+            new: '#f59e0b'
+        },
+        j3: { 
+            primary: '#dc2626', 
+            secondary: '#f87171',
+            returning: '#dc2626',
+            new: '#f87171'
+        }
+    };
     
-            // 餐厅颜色配置
-            const restaurantColors = {
-                j1: { 
-                    primary: '#583e04', 
-                    secondary: '#805906',
-                    returning: '#583e04',
-                    new: '#805906'
-                },
-                j2: { 
-                    primary: '#d97706', 
-                    secondary: '#f59e0b',
-                    returning: '#d97706',
-                    new: '#f59e0b'
-                },
-                j3: { 
-                    primary: '#dc2626', 
-                    secondary: '#f87171',
-                    returning: '#dc2626',
-                    new: '#f87171'
-                }
-            };
-    
-            // 销售趋势图
-            if (salesChart) {
-                salesChart.destroy();
-            }
+    // 销售趋势图
+    if (salesChart) {
+        salesChart.destroy();
+    }
     
             if (currentRestaurant === 'total') {
                 // 总计模式：显示三间餐厅的对比数据
