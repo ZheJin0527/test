@@ -3610,40 +3610,9 @@ $avatarLetter = strtoupper($username[0]);
                                     },
                                     label: getTooltipFormatter(currentChartDataType),
                                     afterBody: function(context) {
-                                        if (context.length > 0) {
-                                            const dataIndex = context[0].dataIndex;
-                                            const item = aggregatedData[dataIndex];
-
-                                            const periodText = isMonthlyView ? '当月详情' : '当日详情';
-
-                                            // 根据当前选择的数据类型显示对应的详情
-                                            let detailText = '';
-                                            switch(currentChartDataType) {
-                                                case 'netSales':
-                                                    detailText = `净销售额: RM ${item.netSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                                                    break;
-                                                case 'tables':
-                                                    const totalTables = item.returningCustomers + item.newCustomers;
-                                                    detailText = `桌子数量: ${totalTables}桌`;
-                                                    break;
-                                                case 'returningRate':
-                                                    const totalCustomers = item.returningCustomers + item.newCustomers;
-                                                    const returningRate = totalCustomers > 0 ? ((item.returningCustomers / totalCustomers) * 100).toFixed(1) : '0.0';
-                                                    detailText = `常客: ${item.returningCustomers} (${returningRate}%)`;
-                                                    break;
-                                                case 'diners':
-                                                    detailText = `人数: ${item.diners}人`;
-                                                    break;
-                                            }
-
-                                            return [
-                                                '',
-                                                `--- ${periodText} ---`,
-                                                detailText
-                                            ];
-                                        }
-                                        return [];
-                                    }
+    // 单店模式不显示汇总信息
+    return [];
+}
                                 }
                             }
                         }
