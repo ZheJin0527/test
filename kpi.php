@@ -3497,7 +3497,7 @@ $avatarLetter = strtoupper($username[0]);
                                                                             (j2Data.returningCustomers + j2Data.newCustomers) + 
                                                                             (j3Data.returningCustomers + j3Data.newCustomers);
                                                     const totalReturningRate = totalAllCustomers > 0 ? ((totalReturningCustomers / totalAllCustomers) * 100).toFixed(1) : '0.0';
-                                                    summaryText = `常客: ${totalReturningCustomers} (${totalReturningRate}%)`;
+                                                    summaryText = `常客：${totalReturningCustomers} (${totalReturningRate}%)`;
                                                     break;
                                                 case 'diners':
                                                     const totalDiners = j1Data.diners + j2Data.diners + j3Data.diners;
