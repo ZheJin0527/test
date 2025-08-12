@@ -1057,37 +1057,37 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .chart-back-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #583e04;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 12px;
-    z-index: 10;
-    display: none;
-    align-items: center;
-    gap: 4px;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+            position: absolute;
+            top: -35px;
+            right: 15px;
+            background: #583e04;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 10;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-.chart-back-button:hover {
-    background: #6b4a05;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
+        .chart-back-button:hover {
+            background: #6b4a05;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
 
-.chart-back-button i {
-    font-size: 10px;
-}
+        .chart-back-button i {
+            font-size: 10px;
+        }
 
-.chart-container {
-    position: relative;
-}
+        .chart-container {
+            position: relative;
+        }
     </style>
 </head>
 <body class="restaurant-j1">
@@ -1587,11 +1587,11 @@ $avatarLetter = strtoupper($username[0]);
                         <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
                             <h3 id="main-chart-title" style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
                             <div class="chart-container" style="flex: 1;">
-    <button class="chart-back-button" id="sales-chart-back" onclick="exitDrillDown()">
-        <i class="fas fa-arrow-left"></i> 返回年度视图
-    </button>
-    <canvas id="sales-chart"></canvas>
-</div>
+                                <button class="chart-back-button" id="sales-chart-back" onclick="exitDrillDown()">
+                                    <i class="fas fa-arrow-left"></i> 返回年度视图
+                                </button>
+                                <canvas id="sales-chart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1605,11 +1605,11 @@ $avatarLetter = strtoupper($username[0]);
                         <h3 style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">用餐人数分析</h3>
 
                         <div class="chart-container">
-    <button class="chart-back-button" id="combined-chart-back" onclick="exitDrillDown()">
-        <i class="fas fa-arrow-left"></i> 返回年度视图
-    </button>
-    <canvas id="combined-chart"></canvas>
-</div>
+                            <button class="chart-back-button" id="combined-chart-back" onclick="exitDrillDown()">
+                                <i class="fas fa-arrow-left"></i> 返回年度视图
+                            </button>
+                            <canvas id="combined-chart"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -1618,11 +1618,11 @@ $avatarLetter = strtoupper($username[0]);
                     <div class="card-body">
                         <h3 id="tables-chart-title" style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">桌子使用分析</h3>
                         <div class="chart-container">
-    <button class="chart-back-button" id="tables-chart-back" onclick="exitDrillDown()">
-        <i class="fas fa-arrow-left"></i> 返回年度视图
-    </button>
-    <canvas id="tables-chart"></canvas>
-</div>
+                            <button class="chart-back-button" id="tables-chart-back" onclick="exitDrillDown()">
+                                <i class="fas fa-arrow-left"></i> 返回年度视图
+                            </button>
+                            <canvas id="tables-chart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1678,10 +1678,12 @@ $avatarLetter = strtoupper($username[0]);
         let startDateValue = { year: null, month: null, day: null };
         let endDateValue = { year: null, month: null, day: null };
         let monthDateValue = { year: null, month: null }; // 新增月份选择器状态
-// 钻取状态管理
-let isDrillDownMode = false;
-let originalDateRange = null;
-let drillDownMonth = null;
+
+        // 钻取状态管理
+        let isDrillDownMode = false;
+        let originalDateRange = null;
+        let drillDownMonth = null;
+        
         // 餐厅配置
         const restaurantConfig = {
             j1: {
@@ -2769,34 +2771,34 @@ if (isDrillDownMode) {
                         },
 
                         onClick: function(event, elements) {
-    // 只有在年度视图且显示月度数据时才允许钻取
-    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-        const elementIndex = elements[0].index;
+                        // 只有在年度视图且显示月度数据时才允许钻取
+                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                            const elementIndex = elements[0].index;
         
-        if (currentRestaurant === 'total') {
-            const comparisonData = prepareMonthlyComparisonData();
-            if (comparisonData && comparisonData.isMonthly) {
-                const monthDisplay = comparisonData.dates[elementIndex];
-                // 从显示文本提取年月信息
-                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                if (match) {
-                    const year = match[1];
-                    const month = String(match[2]).padStart(2, '0');
-                    const monthKey = `${year}-${month}`;
-                    enterDrillDownMode(monthKey, monthDisplay);
-                }
-            }
-        } else {
-            const item = aggregatedData[elementIndex];
-            if (item.date.includes('-')) {
-                // 这是月度数据
-                const monthKey = item.date;
-                const monthDisplay = item.displayDate;
-                enterDrillDownMode(monthKey, monthDisplay);
-            }
-        }
-    }
-},
+                            if (currentRestaurant === 'total') {
+                                const comparisonData = prepareMonthlyComparisonData();
+                                if (comparisonData && comparisonData.isMonthly) {
+                                    const monthDisplay = comparisonData.dates[elementIndex];
+                                    // 从显示文本提取年月信息
+                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                                    if (match) {
+                                        const year = match[1];
+                                        const month = String(match[2]).padStart(2, '0');
+                                        const monthKey = `${year}-${month}`;
+                                        enterDrillDownMode(monthKey, monthDisplay);
+                                    }
+                                }
+                            } else {
+                                const item = aggregatedData[elementIndex];
+                                if (item.date.includes('-')) {
+                                    // 这是月度数据
+                                    const monthKey = item.date;
+                                    const monthDisplay = item.displayDate;
+                                    enterDrillDownMode(monthKey, monthDisplay);
+                                }
+                            }
+                        }
+                    },
                         plugins: {
                             tooltip: {
                                 callbacks: {
@@ -2903,34 +2905,34 @@ if (isDrillDownMode) {
                             }
                         },
                         onClick: function(event, elements) {
-    // 只有在年度视图且显示月度数据时才允许钻取
-    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-        const elementIndex = elements[0].index;
+                        // 只有在年度视图且显示月度数据时才允许钻取
+                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                            const elementIndex = elements[0].index;
         
-        if (currentRestaurant === 'total') {
-            const comparisonData = prepareMonthlyComparisonData();
-            if (comparisonData && comparisonData.isMonthly) {
-                const monthDisplay = comparisonData.dates[elementIndex];
-                // 从显示文本提取年月信息
-                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                if (match) {
-                    const year = match[1];
-                    const month = String(match[2]).padStart(2, '0');
-                    const monthKey = `${year}-${month}`;
-                    enterDrillDownMode(monthKey, monthDisplay);
-                }
-            }
-        } else {
-            const item = aggregatedData[elementIndex];
-            if (item.date.includes('-')) {
-                // 这是月度数据
-                const monthKey = item.date;
-                const monthDisplay = item.displayDate;
-                enterDrillDownMode(monthKey, monthDisplay);
-            }
-        }
-    }
-},
+                            if (currentRestaurant === 'total') {
+                                const comparisonData = prepareMonthlyComparisonData();
+                                if (comparisonData && comparisonData.isMonthly) {
+                                    const monthDisplay = comparisonData.dates[elementIndex];
+                                    // 从显示文本提取年月信息
+                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                                    if (match) {
+                                        const year = match[1];
+                                        const month = String(match[2]).padStart(2, '0');
+                                        const monthKey = `${year}-${month}`;
+                                        enterDrillDownMode(monthKey, monthDisplay);
+                                    }
+                                }
+                            } else {
+                                const item = aggregatedData[elementIndex];
+                                if (item.date.includes('-')) {
+                                    // 这是月度数据
+                                    const monthKey = item.date;
+                                    const monthDisplay = item.displayDate;
+                                    enterDrillDownMode(monthKey, monthDisplay);
+                                }
+                            }
+                        }
+                    },
                         plugins: {
                             tooltip: {
                                 filter: function(tooltipItem) {
@@ -3044,34 +3046,34 @@ if (isDrillDownMode) {
                             }
                         },
                         onClick: function(event, elements) {
-    // 只有在年度视图且显示月度数据时才允许钻取
-    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-        const elementIndex = elements[0].index;
+                        // 只有在年度视图且显示月度数据时才允许钻取
+                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                            const elementIndex = elements[0].index;
         
-        if (currentRestaurant === 'total') {
-            const comparisonData = prepareMonthlyComparisonData();
-            if (comparisonData && comparisonData.isMonthly) {
-                const monthDisplay = comparisonData.dates[elementIndex];
-                // 从显示文本提取年月信息
-                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                if (match) {
-                    const year = match[1];
-                    const month = String(match[2]).padStart(2, '0');
-                    const monthKey = `${year}-${month}`;
-                    enterDrillDownMode(monthKey, monthDisplay);
-                }
-            }
-        } else {
-            const item = aggregatedData[elementIndex];
-            if (item.date.includes('-')) {
-                // 这是月度数据
-                const monthKey = item.date;
-                const monthDisplay = item.displayDate;
-                enterDrillDownMode(monthKey, monthDisplay);
-            }
-        }
-    }
-},
+                            if (currentRestaurant === 'total') {
+                                const comparisonData = prepareMonthlyComparisonData();
+                                if (comparisonData && comparisonData.isMonthly) {
+                                    const monthDisplay = comparisonData.dates[elementIndex];
+                                    // 从显示文本提取年月信息
+                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                                    if (match) {
+                                        const year = match[1];
+                                        const month = String(match[2]).padStart(2, '0');
+                                        const monthKey = `${year}-${month}`;
+                                        enterDrillDownMode(monthKey, monthDisplay);
+                                    }
+                                }
+                            } else {
+                                const item = aggregatedData[elementIndex];
+                                if (item.date.includes('-')) {
+                                    // 这是月度数据
+                                    const monthKey = item.date;
+                                    const monthDisplay = item.displayDate;
+                                    enterDrillDownMode(monthKey, monthDisplay);
+                                }
+                            }
+                        }
+                    },
                         plugins: {
                             tooltip: {
                                 callbacks: {
@@ -3132,34 +3134,34 @@ if (isDrillDownMode) {
                             }
                         },
                         onClick: function(event, elements) {
-    // 只有在年度视图且显示月度数据时才允许钻取
-    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-        const elementIndex = elements[0].index;
+                        // 只有在年度视图且显示月度数据时才允许钻取
+                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                            const elementIndex = elements[0].index;
         
-        if (currentRestaurant === 'total') {
-            const comparisonData = prepareMonthlyComparisonData();
-            if (comparisonData && comparisonData.isMonthly) {
-                const monthDisplay = comparisonData.dates[elementIndex];
-                // 从显示文本提取年月信息
-                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                if (match) {
-                    const year = match[1];
-                    const month = String(match[2]).padStart(2, '0');
-                    const monthKey = `${year}-${month}`;
-                    enterDrillDownMode(monthKey, monthDisplay);
-                }
-            }
-        } else {
-            const item = aggregatedData[elementIndex];
-            if (item.date.includes('-')) {
-                // 这是月度数据
-                const monthKey = item.date;
-                const monthDisplay = item.displayDate;
-                enterDrillDownMode(monthKey, monthDisplay);
-            }
-        }
-    }
-},
+                            if (currentRestaurant === 'total') {
+                                const comparisonData = prepareMonthlyComparisonData();
+                                if (comparisonData && comparisonData.isMonthly) {
+                                    const monthDisplay = comparisonData.dates[elementIndex];
+                                    // 从显示文本提取年月信息
+                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                                    if (match) {
+                                        const year = match[1];
+                                        const month = String(match[2]).padStart(2, '0');
+                                        const monthKey = `${year}-${month}`;
+                                        enterDrillDownMode(monthKey, monthDisplay);
+                                    }
+                                }
+                            } else {
+                                const item = aggregatedData[elementIndex];
+                                if (item.date.includes('-')) {
+                                    // 这是月度数据
+                                    const monthKey = item.date;
+                                    const monthDisplay = item.displayDate;
+                                    enterDrillDownMode(monthKey, monthDisplay);
+                                }
+                            }
+                        }
+                    },
                         plugins: {
                             tooltip: {
                                 callbacks: {
@@ -3271,34 +3273,34 @@ if (isDrillDownMode) {
                             }
                         },
                         onClick: function(event, elements) {
-    // 只有在年度视图且显示月度数据时才允许钻取
-    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-        const elementIndex = elements[0].index;
+                        // 只有在年度视图且显示月度数据时才允许钻取
+                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                            const elementIndex = elements[0].index;
         
-        if (currentRestaurant === 'total') {
-            const comparisonData = prepareMonthlyComparisonData();
-            if (comparisonData && comparisonData.isMonthly) {
-                const monthDisplay = comparisonData.dates[elementIndex];
-                // 从显示文本提取年月信息
-                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                if (match) {
-                    const year = match[1];
-                    const month = String(match[2]).padStart(2, '0');
-                    const monthKey = `${year}-${month}`;
-                    enterDrillDownMode(monthKey, monthDisplay);
-                }
-            }
-        } else {
-            const item = aggregatedData[elementIndex];
-            if (item.date.includes('-')) {
-                // 这是月度数据
-                const monthKey = item.date;
-                const monthDisplay = item.displayDate;
-                enterDrillDownMode(monthKey, monthDisplay);
-            }
-        }
-    }
-},
+                            if (currentRestaurant === 'total') {
+                                const comparisonData = prepareMonthlyComparisonData();
+                                if (comparisonData && comparisonData.isMonthly) {
+                                    const monthDisplay = comparisonData.dates[elementIndex];
+                                    // 从显示文本提取年月信息
+                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                                    if (match) {
+                                        const year = match[1];
+                                        const month = String(match[2]).padStart(2, '0');
+                                        const monthKey = `${year}-${month}`;
+                                        enterDrillDownMode(monthKey, monthDisplay);
+                                    }
+                                }
+                            } else {
+                                const item = aggregatedData[elementIndex];
+                                if (item.date.includes('-')) {
+                                    // 这是月度数据
+                                    const monthKey = item.date;
+                                    const monthDisplay = item.displayDate;
+                                    enterDrillDownMode(monthKey, monthDisplay);
+                                }
+                            }
+                        }
+                    },
                         plugins: {
                             tooltip: {
                                 callbacks: {
@@ -3428,34 +3430,34 @@ if (isDrillDownMode) {
                             }
                         },
                         onClick: function(event, elements) {
-    // 只有在年度视图且显示月度数据时才允许钻取
-    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
-        const elementIndex = elements[0].index;
+                        // 只有在年度视图且显示月度数据时才允许钻取
+                        if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+                            const elementIndex = elements[0].index;
         
-        if (currentRestaurant === 'total') {
-            const comparisonData = prepareMonthlyComparisonData();
-            if (comparisonData && comparisonData.isMonthly) {
-                const monthDisplay = comparisonData.dates[elementIndex];
-                // 从显示文本提取年月信息
-                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
-                if (match) {
-                    const year = match[1];
-                    const month = String(match[2]).padStart(2, '0');
-                    const monthKey = `${year}-${month}`;
-                    enterDrillDownMode(monthKey, monthDisplay);
-                }
-            }
-        } else {
-            const item = aggregatedData[elementIndex];
-            if (item.date.includes('-')) {
-                // 这是月度数据
-                const monthKey = item.date;
-                const monthDisplay = item.displayDate;
-                enterDrillDownMode(monthKey, monthDisplay);
-            }
-        }
-    }
-},
+                            if (currentRestaurant === 'total') {
+                                const comparisonData = prepareMonthlyComparisonData();
+                                if (comparisonData && comparisonData.isMonthly) {
+                                    const monthDisplay = comparisonData.dates[elementIndex];
+                                    // 从显示文本提取年月信息
+                                    const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                                    if (match) {
+                                        const year = match[1];
+                                        const month = String(match[2]).padStart(2, '0');
+                                        const monthKey = `${year}-${month}`;
+                                        enterDrillDownMode(monthKey, monthDisplay);
+                                    }
+                                }
+                            } else {
+                                const item = aggregatedData[elementIndex];
+                                if (item.date.includes('-')) {
+                                    // 这是月度数据
+                                    const monthKey = item.date;
+                                    const monthDisplay = item.displayDate;
+                                    enterDrillDownMode(monthKey, monthDisplay);
+                                }
+                            }
+                        }
+                    },
                         plugins: {
                             tooltip: {
                                 callbacks: {
@@ -3571,146 +3573,146 @@ if (isDrillDownMode) {
             }
         }
 
-// 按月聚合数据
-function aggregateByMonth(data) {
-    const monthMap = new Map();
+        // 按月聚合数据
+        function aggregateByMonth(data) {
+            const monthMap = new Map();
     
-    data.forEach(item => {
-        const date = new Date(item.date);
-        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+            data.forEach(item => {
+                const date = new Date(item.date);
+                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
         
-        if (!monthMap.has(monthKey)) {
-            monthMap.set(monthKey, {
-                date: monthKey,
-                displayDate: `${date.getFullYear()}年${date.getMonth() + 1}月`,
+                if (!monthMap.has(monthKey)) {
+                    monthMap.set(monthKey, {
+                        date: monthKey,
+                        displayDate: `${date.getFullYear()}年${date.getMonth() + 1}月`,
+                        totalSales: 0,
+                        netSales: 0,
+                        diners: 0,
+                        tablesUsed: 0,
+                        returningCustomers: 0,
+                        newCustomers: 0,
+                        daysCount: 0
+                    });
+                }
+        
+                const monthData = monthMap.get(monthKey);
+                monthData.totalSales += item.totalSales;
+                monthData.netSales += item.netSales;
+                monthData.diners += item.diners;
+                monthData.tablesUsed += item.tablesUsed;
+                monthData.returningCustomers += item.returningCustomers;
+                monthData.newCustomers += item.newCustomers;
+                monthData.daysCount += 1;
+            });
+    
+            // 转换为数组并计算平均值
+            return Array.from(monthMap.values()).map(item => ({
+                ...item,
+                avgSalesPerDiner: item.diners > 0 ? item.netSales / item.diners : 0,
+                returningRate: (item.returningCustomers + item.newCustomers) > 0 ? 
+                    (item.returningCustomers / (item.returningCustomers + item.newCustomers)) * 100 : 0,
+                newCustomersRate: (item.returningCustomers + item.newCustomers) > 0 ? 
+                    (item.newCustomers / (item.returningCustomers + item.newCustomers)) * 100 : 0
+            })).sort((a, b) => a.date.localeCompare(b.date));
+        }
+
+        // 为总计模式准备对比数据（与单店模式一致的聚合逻辑）
+        function prepareMonthlyComparisonData() {
+            if (currentRestaurant !== 'total' || !allRestaurantsData) {
+                return null;
+            }
+    
+            const restaurants = ['j1', 'j2', 'j3'];
+            const restaurantDataConverted = {};
+    
+            // 先转换每个餐厅的数据格式
+            restaurants.forEach(restaurant => {
+                const restaurantData = allRestaurantsData[restaurant] || [];
+                restaurantDataConverted[restaurant] = convertToKPIFormat(restaurantData);
+            });
+    
+            // 获取所有日期并过滤
+            const dateSet = new Set();
+            Object.values(restaurantDataConverted).forEach(data => {
+                data.forEach(item => dateSet.add(item.date));
+            });
+    
+            const sortedDates = Array.from(dateSet).sort();
+            const filteredDates = sortedDates.filter(date => {
+                const itemDate = new Date(date);
+                const start = new Date(dateRange.startDate);
+                const end = new Date(dateRange.endDate);
+                return itemDate >= start && itemDate <= end;
+            });
+    
+            // 为每个餐厅创建过滤后的数据
+            const filteredRestaurantData = {};
+            restaurants.forEach(restaurant => {
+                filteredRestaurantData[restaurant] = restaurantDataConverted[restaurant].filter(item => {
+                    const itemDate = new Date(item.date);
+                    const start = new Date(dateRange.startDate);
+                    const end = new Date(dateRange.endDate);
+                    return itemDate >= start && itemDate <= end;
+                }).sort((a, b) => new Date(a.date) - new Date(b.date));
+            });
+    
+            // 判断是否需要按月聚合（与单店模式相同逻辑）
+            const startDate = new Date(dateRange.startDate);
+            const endDate = new Date(dateRange.endDate);
+            const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+    
+            if (daysDiff > 60) {
+                // 按月聚合
+                const aggregatedData = {};
+                restaurants.forEach(restaurant => {
+                    aggregatedData[restaurant] = aggregateByMonth(filteredRestaurantData[restaurant]);
+                });
+        
+                // 获取所有月份
+                const monthSet = new Set();
+                Object.values(aggregatedData).forEach(data => {
+                    data.forEach(item => monthSet.add(item.date));
+                });
+                const months = Array.from(monthSet).sort();
+        
+                return {
+                    dates: months.map(monthKey => {
+                        const [year, month] = monthKey.split('-');
+                        return `${year}年${parseInt(month)}月`;
+                    }),
+                    restaurants: {
+                        j1: months.map(monthKey => aggregatedData.j1.find(item => item.date === monthKey) || createEmptyDataPoint()),
+                        j2: months.map(monthKey => aggregatedData.j2.find(item => item.date === monthKey) || createEmptyDataPoint()),
+                        j3: months.map(monthKey => aggregatedData.j3.find(item => item.date === monthKey) || createEmptyDataPoint())
+                    },
+                    isMonthly: true
+                };
+            } else {
+                // 按天显示
+                return {
+                    dates: filteredDates,
+                    restaurants: {
+                        j1: filteredDates.map(date => filteredRestaurantData.j1.find(item => item.date === date) || createEmptyDataPoint()),
+                        j2: filteredDates.map(date => filteredRestaurantData.j2.find(item => item.date === date) || createEmptyDataPoint()),
+                        j3: filteredDates.map(date => filteredRestaurantData.j3.find(item => item.date === date) || createEmptyDataPoint())
+                    },
+                    isMonthly: false
+                };
+            }
+        }
+
+        // 创建空数据点的辅助函数
+        function createEmptyDataPoint() {
+            return {
                 totalSales: 0,
                 netSales: 0,
                 diners: 0,
                 tablesUsed: 0,
                 returningCustomers: 0,
                 newCustomers: 0,
-                daysCount: 0
-            });
+                avgSalesPerDiner: 0
+            };
         }
-        
-        const monthData = monthMap.get(monthKey);
-        monthData.totalSales += item.totalSales;
-        monthData.netSales += item.netSales;
-        monthData.diners += item.diners;
-        monthData.tablesUsed += item.tablesUsed;
-        monthData.returningCustomers += item.returningCustomers;
-        monthData.newCustomers += item.newCustomers;
-        monthData.daysCount += 1;
-    });
-    
-    // 转换为数组并计算平均值
-    return Array.from(monthMap.values()).map(item => ({
-        ...item,
-        avgSalesPerDiner: item.diners > 0 ? item.netSales / item.diners : 0,
-        returningRate: (item.returningCustomers + item.newCustomers) > 0 ? 
-            (item.returningCustomers / (item.returningCustomers + item.newCustomers)) * 100 : 0,
-        newCustomersRate: (item.returningCustomers + item.newCustomers) > 0 ? 
-            (item.newCustomers / (item.returningCustomers + item.newCustomers)) * 100 : 0
-    })).sort((a, b) => a.date.localeCompare(b.date));
-}
-
-// 为总计模式准备对比数据（与单店模式一致的聚合逻辑）
-function prepareMonthlyComparisonData() {
-    if (currentRestaurant !== 'total' || !allRestaurantsData) {
-        return null;
-    }
-    
-    const restaurants = ['j1', 'j2', 'j3'];
-    const restaurantDataConverted = {};
-    
-    // 先转换每个餐厅的数据格式
-    restaurants.forEach(restaurant => {
-        const restaurantData = allRestaurantsData[restaurant] || [];
-        restaurantDataConverted[restaurant] = convertToKPIFormat(restaurantData);
-    });
-    
-    // 获取所有日期并过滤
-    const dateSet = new Set();
-    Object.values(restaurantDataConverted).forEach(data => {
-        data.forEach(item => dateSet.add(item.date));
-    });
-    
-    const sortedDates = Array.from(dateSet).sort();
-    const filteredDates = sortedDates.filter(date => {
-        const itemDate = new Date(date);
-        const start = new Date(dateRange.startDate);
-        const end = new Date(dateRange.endDate);
-        return itemDate >= start && itemDate <= end;
-    });
-    
-    // 为每个餐厅创建过滤后的数据
-    const filteredRestaurantData = {};
-    restaurants.forEach(restaurant => {
-        filteredRestaurantData[restaurant] = restaurantDataConverted[restaurant].filter(item => {
-            const itemDate = new Date(item.date);
-            const start = new Date(dateRange.startDate);
-            const end = new Date(dateRange.endDate);
-            return itemDate >= start && itemDate <= end;
-        }).sort((a, b) => new Date(a.date) - new Date(b.date));
-    });
-    
-    // 判断是否需要按月聚合（与单店模式相同逻辑）
-    const startDate = new Date(dateRange.startDate);
-    const endDate = new Date(dateRange.endDate);
-    const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-    
-    if (daysDiff > 60) {
-        // 按月聚合
-        const aggregatedData = {};
-        restaurants.forEach(restaurant => {
-            aggregatedData[restaurant] = aggregateByMonth(filteredRestaurantData[restaurant]);
-        });
-        
-        // 获取所有月份
-        const monthSet = new Set();
-        Object.values(aggregatedData).forEach(data => {
-            data.forEach(item => monthSet.add(item.date));
-        });
-        const months = Array.from(monthSet).sort();
-        
-        return {
-            dates: months.map(monthKey => {
-                const [year, month] = monthKey.split('-');
-                return `${year}年${parseInt(month)}月`;
-            }),
-            restaurants: {
-                j1: months.map(monthKey => aggregatedData.j1.find(item => item.date === monthKey) || createEmptyDataPoint()),
-                j2: months.map(monthKey => aggregatedData.j2.find(item => item.date === monthKey) || createEmptyDataPoint()),
-                j3: months.map(monthKey => aggregatedData.j3.find(item => item.date === monthKey) || createEmptyDataPoint())
-            },
-            isMonthly: true
-        };
-    } else {
-        // 按天显示
-        return {
-            dates: filteredDates,
-            restaurants: {
-                j1: filteredDates.map(date => filteredRestaurantData.j1.find(item => item.date === date) || createEmptyDataPoint()),
-                j2: filteredDates.map(date => filteredRestaurantData.j2.find(item => item.date === date) || createEmptyDataPoint()),
-                j3: filteredDates.map(date => filteredRestaurantData.j3.find(item => item.date === date) || createEmptyDataPoint())
-            },
-            isMonthly: false
-        };
-    }
-}
-
-// 创建空数据点的辅助函数
-function createEmptyDataPoint() {
-    return {
-        totalSales: 0,
-        netSales: 0,
-        diners: 0,
-        tablesUsed: 0,
-        returningCustomers: 0,
-        newCustomers: 0,
-        avgSalesPerDiner: 0
-    };
-}
     </script>
     <script>
         // 快速选择下拉菜单控制
@@ -3945,9 +3947,9 @@ function createEmptyDataPoint() {
                 sidebarToggle.addEventListener('click', toggleSidebar);
             }
         });
-</script>
-<script>
-    document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+    </script>
+    <script>
+        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
             title.addEventListener('click', function(e) {
                 const sidebar = document.querySelector('.informationmenu');
         
@@ -4118,271 +4120,270 @@ function createEmptyDataPoint() {
         });
 
         console.log('点击Section + 悬停Submenu系统已加载完成');
-        </script>
-        <script>
-            // 当前选择的字母和数字
-            let currentLetter = null;
-            let currentNumber = null;
-            let isRestaurantSelected = false;
+    </script>
+    <script>
+        // 当前选择的字母和数字
+        let currentLetter = null;
+        let currentNumber = null;
+        let isRestaurantSelected = false;
 
-            // 显示数字选项
-            function showNumberOptions(letter) {
-                currentLetter = letter;
+        // 显示数字选项
+        function showNumberOptions(letter) {
+            currentLetter = letter;
     
-                // 更新字母选择状态
-                document.querySelectorAll('.letter-item').forEach(item => {
-                    item.classList.remove('selected');
-                });
-                document.querySelector(`[onclick*="'${letter}'"]`).classList.add('selected');
+            // 更新字母选择状态
+            document.querySelectorAll('.letter-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector(`[onclick*="'${letter}'"]`).classList.add('selected');
     
-                const numberSelection = document.getElementById('number-selection');
-                const sectionTitle = numberSelection.querySelector('.section-title');
-                const numberGrid = numberSelection.querySelector('.number-grid');
+            const numberSelection = document.getElementById('number-selection');
+            const sectionTitle = numberSelection.querySelector('.section-title');
+            const numberGrid = numberSelection.querySelector('.number-grid');
 
-                // 更新标题
-                sectionTitle.textContent = `选择${letter}分店`;
+            // 更新标题
+            sectionTitle.textContent = `选择${letter}分店`;
 
-                // 清空现有选项
-                numberGrid.innerHTML = '';
+            // 清空现有选项
+            numberGrid.innerHTML = '';
 
-                if (letter === 'J') {
-                    // J有1、2、3和总计选项
-                    numberGrid.innerHTML = `
-                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
-                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
-                        <button class="number-item" onclick="selectRestaurant('3')">3</button>
-                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-                    `;
-                } else if (letter === 'K') {
-                    // K只有1、2和总计选项
-                    numberGrid.innerHTML = `
-                        <button class="number-item" onclick="selectRestaurant('1')">1</button>
-                        <button class="number-item" onclick="selectRestaurant('2')">2</button>
-                        <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
-                    `;
+            if (letter === 'J') {
+                // J有1、2、3和总计选项
+                numberGrid.innerHTML = `
+                    <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                    <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                    <button class="number-item" onclick="selectRestaurant('3')">3</button>
+                    <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+                `;
+            } else if (letter === 'K') {
+                // K只有1、2和总计选项
+                numberGrid.innerHTML = `
+                    <button class="number-item" onclick="selectRestaurant('1')">1</button>
+                    <button class="number-item" onclick="selectRestaurant('2')">2</button>
+                    <button class="number-item total-option" onclick="selectRestaurant('total')">总</button>
+                `;
+            }
+
+            // 显示数字选择区域
+            numberSelection.style.visibility = 'visible';
+            numberSelection.style.opacity = '1';
+        }
+
+        // 选择具体餐厅
+        async function selectRestaurant(number) {
+            currentNumber = number;
+            isRestaurantSelected = true;
+    
+            if (number === 'total') {
+                currentRestaurant = 'total';
+                updateRestaurantButton(`${currentLetter}总计`);
+            } else {
+                currentRestaurant = `${currentLetter.toLowerCase()}${number}`;
+                updateRestaurantButton(`${currentLetter}${number}`);
+            }
+    
+            // 关闭下拉菜单
+            document.getElementById('restaurant-dropdown').classList.remove('show');
+    
+            // 更新主题颜色
+            updateThemeColors(currentRestaurant);
+    
+            // 现在加载数据
+            await loadData();
+            updateDashboard();
+        }
+
+        // 选择字母
+        function selectLetter(letter) {
+            showNumberOptions(letter);
+        }
+
+        // 隐藏数字选项
+        function hideNumberOptions() {
+            const numberSelection = document.getElementById('number-selection');
+            const sectionTitle = numberSelection.querySelector('.section-title');
+            const numberGrid = numberSelection.querySelector('.number-grid');
+    
+            // 隐藏数字选择区域
+            numberSelection.style.visibility = 'hidden';
+            numberSelection.style.opacity = '0';
+    
+            // 重置标题和内容
+            sectionTitle.textContent = '选择餐厅';
+            numberGrid.innerHTML = '';
+    
+            // 移除字母选择状态
+            document.querySelectorAll('.letter-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+    
+            currentLetter = null;
+        }
+
+        // 修改现有的selectNumber函数
+        function selectNumber(value) {
+            currentNumber = value;
+
+            // 更新数字选择状态
+            document.querySelectorAll('.number-item').forEach(item => {
+                item.classList.remove('selected');
+                if (!item.classList.contains('total-option') && parseInt(item.textContent) === value) {
+                    item.classList.add('selected');
                 }
+            });
 
-                // 显示数字选择区域
-                numberSelection.style.visibility = 'visible';
-                numberSelection.style.opacity = '1';
-            }
+            // 更新按钮显示
+            updateRestaurantButton();
 
-            // 选择具体餐厅
-            async function selectRestaurant(number) {
-                currentNumber = number;
-                isRestaurantSelected = true;
-    
-                if (number === 'total') {
-                    currentRestaurant = 'total';
-                    updateRestaurantButton(`${currentLetter}总计`);
-                } else {
-                    currentRestaurant = `${currentLetter.toLowerCase()}${number}`;
-                    updateRestaurantButton(`${currentLetter}${number}`);
+            // 切换餐厅
+            const restaurant = `${currentLetter.toLowerCase()}${value}`;
+            switchRestaurant(restaurant);
+
+            // 关闭下拉菜单
+            document.getElementById('restaurant-dropdown').classList.remove('show');
+        }
+
+        function selectTotal() {
+            currentNumber = 'total';
+
+            // 更新数字选择状态
+            document.querySelectorAll('.number-item').forEach(item => {
+                item.classList.remove('selected');
+                if (item.textContent === '总计') {
+                    item.classList.add('selected');
                 }
-    
-                // 关闭下拉菜单
-                document.getElementById('restaurant-dropdown').classList.remove('show');
-    
-                // 更新主题颜色
-                updateThemeColors(currentRestaurant);
-    
-                // 现在加载数据
-                await loadData();
-                updateDashboard();
-            }
+            });
 
-            // 选择字母
-            function selectLetter(letter) {
-                showNumberOptions(letter);
-            }
+            // 更新按钮显示
+            updateRestaurantButton();
 
-            // 隐藏数字选项
-            function hideNumberOptions() {
-                const numberSelection = document.getElementById('number-selection');
-                const sectionTitle = numberSelection.querySelector('.section-title');
-                const numberGrid = numberSelection.querySelector('.number-grid');
-    
-                // 隐藏数字选择区域
-                numberSelection.style.visibility = 'hidden';
-                numberSelection.style.opacity = '0';
-    
-                // 重置标题和内容
-                sectionTitle.textContent = '选择餐厅';
-                numberGrid.innerHTML = '';
-    
-                // 移除字母选择状态
-                document.querySelectorAll('.letter-item').forEach(item => {
-                    item.classList.remove('selected');
-                });
-    
-                currentLetter = null;
-            }
+            // 切换到总计
+            switchRestaurant('total');
 
-            // 修改现有的selectNumber函数
-            function selectNumber(value) {
-                currentNumber = value;
+            // 关闭下拉菜单
+            document.getElementById('restaurant-dropdown').classList.remove('show');
+        }
 
-                // 更新数字选择状态
-                document.querySelectorAll('.number-item').forEach(item => {
-                    item.classList.remove('selected');
-                    if (!item.classList.contains('total-option') && parseInt(item.textContent) === value) {
-                        item.classList.add('selected');
-                    }
-                });
+        // 更新餐厅按钮显示
+        function updateRestaurantButton(text) {
+            const restaurantBtn = document.querySelector('.restaurant-btn');
+            restaurantBtn.innerHTML = `${text} <i class="fas fa-chevron-down"></i>`;
+        }
 
-                // 更新按钮显示
-                updateRestaurantButton();
+        // 进入钻取模式
+        async function enterDrillDownMode(monthKey, monthDisplay) {
+            console.log('进入钻取模式:', monthKey, monthDisplay);
+    
+            // 保存原始日期范围
+            originalDateRange = { ...dateRange };
+    
+            // 设置钻取状态
+            isDrillDownMode = true;
+            drillDownMonth = monthDisplay;
+    
+            // 计算该月的日期范围
+            const [year, month] = monthKey.split('-');
+            const firstDay = `${year}-${month}-01`;
+            const lastDay = new Date(parseInt(year), parseInt(month), 0).getDate();
+            const lastDayFormatted = `${year}-${month}-${String(lastDay).padStart(2, '0')}`;
+    
+            // 更新日期范围为该月
+            dateRange = {
+                startDate: firstDay,
+                endDate: lastDayFormatted
+            };
+    
+            // 更新日期选择器显示
+            startDateValue = {
+                year: parseInt(year),
+                month: parseInt(month),
+                day: 1
+            };
+    
+            endDateValue = {
+                year: parseInt(year),
+                month: parseInt(month),
+                day: lastDay
+            };
+    
+            updateDateDisplay('start');
+            updateDateDisplay('end');
+    
+            // 重新加载数据
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
+    
+            // 更新仪表板
+            updateDashboard();
+    
+            // 显示返回按钮
+            showBackButtons();
+        }
 
-                // 切换餐厅
-                const restaurant = `${currentLetter.toLowerCase()}${value}`;
-                switchRestaurant(restaurant);
-
-                // 关闭下拉菜单
-                document.getElementById('restaurant-dropdown').classList.remove('show');
-            }
-
-            function selectTotal() {
-                currentNumber = 'total';
-
-                // 更新数字选择状态
-                document.querySelectorAll('.number-item').forEach(item => {
-                    item.classList.remove('selected');
-                    if (item.textContent === '总计') {
-                        item.classList.add('selected');
-                    }
-                });
-
-                // 更新按钮显示
-                updateRestaurantButton();
-
-                // 切换到总计
-                switchRestaurant('total');
-
-                // 关闭下拉菜单
-                document.getElementById('restaurant-dropdown').classList.remove('show');
-            }
-
-            // 更新餐厅按钮显示
-            function updateRestaurantButton(text) {
-                const restaurantBtn = document.querySelector('.restaurant-btn');
-                restaurantBtn.innerHTML = `${text} <i class="fas fa-chevron-down"></i>`;
-            }
-
-            // 进入钻取模式
-async function enterDrillDownMode(monthKey, monthDisplay) {
-    console.log('进入钻取模式:', monthKey, monthDisplay);
+        // 退出钻取模式
+        async function exitDrillDown() {
+            console.log('退出钻取模式');
     
-    // 保存原始日期范围
-    originalDateRange = { ...dateRange };
+            // 恢复原始状态
+            isDrillDownMode = false;
+            drillDownMonth = null;
     
-    // 设置钻取状态
-    isDrillDownMode = true;
-    drillDownMonth = monthDisplay;
-    
-    // 计算该月的日期范围
-    const [year, month] = monthKey.split('-');
-    const firstDay = `${year}-${month}-01`;
-    const lastDay = new Date(parseInt(year), parseInt(month), 0).getDate();
-    const lastDayFormatted = `${year}-${month}-${String(lastDay).padStart(2, '0')}`;
-    
-    // 更新日期范围为该月
-    dateRange = {
-        startDate: firstDay,
-        endDate: lastDayFormatted
-    };
-    
-    // 更新日期选择器显示
-    startDateValue = {
-        year: parseInt(year),
-        month: parseInt(month),
-        day: 1
-    };
-    
-    endDateValue = {
-        year: parseInt(year),
-        month: parseInt(month),
-        day: lastDay
-    };
-    
-    updateDateDisplay('start');
-    updateDateDisplay('end');
-    
-    // 重新加载数据
-    await loadData({
-        start_date: dateRange.startDate,
-        end_date: dateRange.endDate
-    });
-    
-    // 更新仪表板
-    updateDashboard();
-    
-    // 显示返回按钮
-    showBackButtons();
-}
-
-// 退出钻取模式
-async function exitDrillDown() {
-    console.log('退出钻取模式');
-    
-    // 恢复原始状态
-    isDrillDownMode = false;
-    drillDownMonth = null;
-    
-    // 恢复原始日期范围
-    if (originalDateRange) {
-        dateRange = { ...originalDateRange };
+            // 恢复原始日期范围
+            if (originalDateRange) {
+                dateRange = { ...originalDateRange };
         
-        // 恢复日期选择器
-        const startDate = new Date(dateRange.startDate);
-        const endDate = new Date(dateRange.endDate);
+                // 恢复日期选择器
+                const startDate = new Date(dateRange.startDate);
+                const endDate = new Date(dateRange.endDate);
         
-        startDateValue = {
-            year: startDate.getFullYear(),
-            month: startDate.getMonth() + 1,
-            day: startDate.getDate()
-        };
+                startDateValue = {
+                    year: startDate.getFullYear(),
+                    month: startDate.getMonth() + 1,
+                    day: startDate.getDate()
+                };
         
-        endDateValue = {
-            year: endDate.getFullYear(),
-            month: endDate.getMonth() + 1,
-            day: endDate.getDate()
-        };
+                endDateValue = {
+                    year: endDate.getFullYear(),
+                    month: endDate.getMonth() + 1,
+                    day: endDate.getDate()
+                };
         
-        updateDateDisplay('start');
-        updateDateDisplay('end');
+                updateDateDisplay('start');
+                updateDateDisplay('end');
         
-        originalDateRange = null;
-    }
+                originalDateRange = null;
+            }
     
-    // 重新加载数据
-    await loadData({
-        start_date: dateRange.startDate,
-        end_date: dateRange.endDate
-    });
+            // 重新加载数据
+            await loadData({
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate
+            });
     
-    // 更新仪表板
-    updateDashboard();
+            // 更新仪表板
+            updateDashboard();
     
-    // 隐藏返回按钮
-    hideBackButtons();
-}
+            // 隐藏返回按钮
+            hideBackButtons();
+        }
 
-// 显示返回按钮
-function showBackButtons() {
-    document.querySelectorAll('.chart-back-button').forEach(button => {
-        button.style.display = 'flex';
-        button.textContent = `返回年度视图`;
-        button.innerHTML = '<i class="fas fa-arrow-left"></i> 返回年度视图';
-    });
-}
+        // 显示返回按钮
+        function showBackButtons() {
+            document.querySelectorAll('.chart-back-button').forEach(button => {
+                button.style.display = 'flex';
+                button.textContent = `返回年度视图`;
+                button.innerHTML = '<i class="fas fa-arrow-left"></i> 返回年度视图';
+            });
+        }
 
-// 隐藏返回按钮
-function hideBackButtons() {
-    document.querySelectorAll('.chart-back-button').forEach(button => {
-        button.style.display = 'none';
-    });
-}
-            </script>
-            
+        // 隐藏返回按钮
+        function hideBackButtons() {
+            document.querySelectorAll('.chart-back-button').forEach(button => {
+                button.style.display = 'none';
+            });
+        }
+    </script>           
 </body>
 </html>
