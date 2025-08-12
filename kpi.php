@@ -2157,22 +2157,19 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
 
                 <!-- Main Chart - 全宽显示 -->
-                <div class="card" style="height: 400px;">
-    <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
-        <div class="chart-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-            <h3 id="main-chart-title" style="font-size: 24px; font-weight: 600; color: #111827; margin: 0;">净销售额趋势</h3>
-            <div class="date-range-display" id="chart-date-range" style="font-size: 14px; color: #6b7280; font-weight: 500;">
-                <!-- 日期范围将在这里显示 -->
-            </div>
-        </div>
-        <div class="chart-container" style="flex: 1;">
-            <button class="chart-back-button" id="sales-chart-back" onclick="exitDrillDown()">
-                <i class="fas fa-arrow-left"></i> 返回年度视图
-            </button>
-            <canvas id="sales-chart"></canvas>
-        </div>
-    </div>
-</div>
+                <div class="main-chart-container">
+                    <div class="card" style="height: 400px;">
+                        <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
+                            <h3 id="main-chart-title" style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">净销售额趋势</h3>
+                            <div class="chart-container" style="flex: 1;">
+                                <button class="chart-back-button" id="sales-chart-back" onclick="exitDrillDown()">
+                                    <i class="fas fa-arrow-left"></i> 返回年度视图
+                                </button>
+                                <canvas id="sales-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                         
             <!-- Detail Table -->
             <div class="card">
