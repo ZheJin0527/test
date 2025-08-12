@@ -2826,45 +2826,26 @@ if (isDrillDownMode) {
                                         return '';
                                     },
                                     label: function(context) {
-                return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            },
-            afterBody: function(context) {
-                if (context.length > 0) {
-                    const dataIndex = context[0].dataIndex;
-                    const j1Data = comparisonData.restaurants.j1[dataIndex];
-                    const j2Data = comparisonData.restaurants.j2[dataIndex];
-                    const j3Data = comparisonData.restaurants.j3[dataIndex];
-                    
-                    const j1Sales = j1Data.netSales;
-                    const j2Sales = j2Data.netSales;
-                    const j3Sales = j3Data.netSales;
-                    const totalSales = j1Sales + j2Sales + j3Sales;
-                    
-                    // 计算桌子和顾客数据
-                    const j1Tables = j1Data.returningCustomers + j1Data.newCustomers;
-                    const j2Tables = j2Data.returningCustomers + j2Data.newCustomers;
-                    const j3Tables = j3Data.returningCustomers + j3Data.newCustomers;
-                    const totalTables = j1Tables + j2Tables + j3Tables;
-                    
-                    const j1Returning = j1Data.returningCustomers;
-                    const j2Returning = j2Data.returningCustomers;
-                    const j3Returning = j3Data.returningCustomers;
-                    const totalReturning = j1Returning + j2Returning + j3Returning;
-                    
-                    const returningRate = totalTables > 0 ? ((totalReturning / totalTables) * 100).toFixed(1) : 0;
-                    
-                    const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
-            
-                    return [
-                        '',
-                        `--- ${periodText} ---`,
-                        `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                        `总桌数: ${totalTables}桌`,
-                        `常客: ${totalReturning}桌 (${returningRate}%)`
-                    ];
-                }
-                return [];
-            }
+                                        return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    },
+                                    afterBody: function(context) {
+                                        if (context.length > 0) {
+                                            const dataIndex = context[0].dataIndex;
+                                            const j1Sales = comparisonData.restaurants.j1[dataIndex].netSales;
+                                            const j2Sales = comparisonData.restaurants.j2[dataIndex].netSales;
+                                            const j3Sales = comparisonData.restaurants.j3[dataIndex].netSales;
+                                            const totalSales = j1Sales + j2Sales + j3Sales;
+                                    
+                                            const periodText = comparisonData.isMonthly ? '当月汇总' : '当日汇总';
+                                    
+                                            return [
+                                                '',
+                                                `--- ${periodText} ---`,
+                                                `总净销售额: RM ${totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
+                                            ];
+                                        }
+                                        return [];
+                                    }
                                 }
                             },
                             legend: {
@@ -3110,27 +3091,8 @@ if (isDrillDownMode) {
                                         return '';
                                     },
                                     label: function(context) {
-                return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            },
-            afterBody: function(context) {
-                if (context.length > 0) {
-                    const dataIndex = context[0].dataIndex;
-                    const item = aggregatedData[dataIndex];
-                    
-                    const totalTables = item.returningCustomers + item.newCustomers;
-                    const returningRate = totalTables > 0 ? ((item.returningCustomers / totalTables) * 100).toFixed(1) : 0;
-                    
-                    const periodText = isMonthlyView ? '当月详情' : '当日详情';
-                    
-                    return [
-                        '',
-                        `--- ${periodText} ---`,
-                        `桌数: ${totalTables}桌`,
-                        `常客: ${item.returningCustomers}桌 (${returningRate}%)`
-                    ];
-                }
-                return [];
-            }
+                                        return '净销售额: RM ' + context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                    }
                                 }
                             }
                         }
