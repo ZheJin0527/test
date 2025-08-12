@@ -1634,7 +1634,7 @@ $avatarLetter = strtoupper($username[0]);
 
         .chart-back-button {
             position: absolute;
-            top: -10px;
+            top: -35px;
             right: 15px;
             background: #583e04;
             color: white;
