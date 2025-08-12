@@ -2902,6 +2902,35 @@ if (isDrillDownMode) {
                                 }
                             }
                         },
+                        onClick: function(event, elements) {
+    // 只有在年度视图且显示月度数据时才允许钻取
+    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+        const elementIndex = elements[0].index;
+        
+        if (currentRestaurant === 'total') {
+            const comparisonData = prepareMonthlyComparisonData();
+            if (comparisonData && comparisonData.isMonthly) {
+                const monthDisplay = comparisonData.dates[elementIndex];
+                // 从显示文本提取年月信息
+                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                if (match) {
+                    const year = match[1];
+                    const month = String(match[2]).padStart(2, '0');
+                    const monthKey = `${year}-${month}`;
+                    enterDrillDownMode(monthKey, monthDisplay);
+                }
+            }
+        } else {
+            const item = aggregatedData[elementIndex];
+            if (item.date.includes('-')) {
+                // 这是月度数据
+                const monthKey = item.date;
+                const monthDisplay = item.displayDate;
+                enterDrillDownMode(monthKey, monthDisplay);
+            }
+        }
+    }
+},
                         plugins: {
                             tooltip: {
                                 filter: function(tooltipItem) {
@@ -3102,6 +3131,35 @@ if (isDrillDownMode) {
                                 }
                             }
                         },
+                        onClick: function(event, elements) {
+    // 只有在年度视图且显示月度数据时才允许钻取
+    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+        const elementIndex = elements[0].index;
+        
+        if (currentRestaurant === 'total') {
+            const comparisonData = prepareMonthlyComparisonData();
+            if (comparisonData && comparisonData.isMonthly) {
+                const monthDisplay = comparisonData.dates[elementIndex];
+                // 从显示文本提取年月信息
+                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                if (match) {
+                    const year = match[1];
+                    const month = String(match[2]).padStart(2, '0');
+                    const monthKey = `${year}-${month}`;
+                    enterDrillDownMode(monthKey, monthDisplay);
+                }
+            }
+        } else {
+            const item = aggregatedData[elementIndex];
+            if (item.date.includes('-')) {
+                // 这是月度数据
+                const monthKey = item.date;
+                const monthDisplay = item.displayDate;
+                enterDrillDownMode(monthKey, monthDisplay);
+            }
+        }
+    }
+},
                         plugins: {
                             tooltip: {
                                 callbacks: {
@@ -3212,6 +3270,35 @@ if (isDrillDownMode) {
                                 }
                             }
                         },
+                        onClick: function(event, elements) {
+    // 只有在年度视图且显示月度数据时才允许钻取
+    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+        const elementIndex = elements[0].index;
+        
+        if (currentRestaurant === 'total') {
+            const comparisonData = prepareMonthlyComparisonData();
+            if (comparisonData && comparisonData.isMonthly) {
+                const monthDisplay = comparisonData.dates[elementIndex];
+                // 从显示文本提取年月信息
+                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                if (match) {
+                    const year = match[1];
+                    const month = String(match[2]).padStart(2, '0');
+                    const monthKey = `${year}-${month}`;
+                    enterDrillDownMode(monthKey, monthDisplay);
+                }
+            }
+        } else {
+            const item = aggregatedData[elementIndex];
+            if (item.date.includes('-')) {
+                // 这是月度数据
+                const monthKey = item.date;
+                const monthDisplay = item.displayDate;
+                enterDrillDownMode(monthKey, monthDisplay);
+            }
+        }
+    }
+},
                         plugins: {
                             tooltip: {
                                 callbacks: {
@@ -3340,6 +3427,35 @@ if (isDrillDownMode) {
                                 }
                             }
                         },
+                        onClick: function(event, elements) {
+    // 只有在年度视图且显示月度数据时才允许钻取
+    if (!isDrillDownMode && isMonthlyView && elements.length > 0) {
+        const elementIndex = elements[0].index;
+        
+        if (currentRestaurant === 'total') {
+            const comparisonData = prepareMonthlyComparisonData();
+            if (comparisonData && comparisonData.isMonthly) {
+                const monthDisplay = comparisonData.dates[elementIndex];
+                // 从显示文本提取年月信息
+                const match = monthDisplay.match(/(\d{4})年(\d+)月/);
+                if (match) {
+                    const year = match[1];
+                    const month = String(match[2]).padStart(2, '0');
+                    const monthKey = `${year}-${month}`;
+                    enterDrillDownMode(monthKey, monthDisplay);
+                }
+            }
+        } else {
+            const item = aggregatedData[elementIndex];
+            if (item.date.includes('-')) {
+                // 这是月度数据
+                const monthKey = item.date;
+                const monthDisplay = item.displayDate;
+                enterDrillDownMode(monthKey, monthDisplay);
+            }
+        }
+    }
+},
                         plugins: {
                             tooltip: {
                                 callbacks: {
