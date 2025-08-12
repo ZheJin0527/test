@@ -3496,7 +3496,7 @@ $avatarLetter = strtoupper($username[0]);
                                                     const totalAllCustomers = (j1Data.returningCustomers + j1Data.newCustomers) + 
                                                                             (j2Data.returningCustomers + j2Data.newCustomers) + 
                                                                             (j3Data.returningCustomers + j3Data.newCustomers);
-                                                    const totalReturningRate = totalAllCustomers > 0 ? ((totalReturningCustomers / totalAllCustomers) * 100).toFixed(1) : '0.0';
+                                                    const totalReturningRate = totalAllCustomers > 0 ? ((totalReturningCustomers / totalAllCustomers) * 100).toFixed(2) : '0.0';
                                                     summaryText = `常客：${totalReturningCustomers} (${totalReturningRate}%)`;
                                                     break;
                                                 case 'diners':
@@ -4661,7 +4661,7 @@ function hideBackButtons() {
                     };
                 case 'returningRate':
                     return function(value) {
-                        return value.toFixed(1) + '%';
+                        return value.toFixed(2) + '%';
                     };
                 case 'diners':
                     return function(value) {
@@ -4702,7 +4702,7 @@ function hideBackButtons() {
                             
                             if (restaurantData) {
                                 const returningCustomers = restaurantData.returningCustomers;
-                                const percentage = context.parsed.y.toFixed(1);
+                                const percentage = context.parsed.y.toFixed(2);
                                 return context.dataset.label + ': ' + returningCustomers + ' (' + percentage + '%)';
                             }
                         } else {
@@ -4714,11 +4714,11 @@ function hideBackButtons() {
                             
                             if (item) {
                                 const returningCustomers = item.returningCustomers;
-                                const percentage = context.parsed.y.toFixed(1);
+                                const percentage = context.parsed.y.toFixed(2);
                                 return '常客：' + returningCustomers + ' (' + percentage + '%)';
                             }
                         }
-                        return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                        return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + '%';
                     };
                 case 'diners':
                     return function(context) {
