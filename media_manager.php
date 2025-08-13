@@ -115,7 +115,7 @@ if (file_exists('media_config.json')) {
         .media-section {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: 30px;
+            padding: 20px 30px;
             margin-bottom: 30px;
             border-left: 5px solid #FF5C00;
         }
