@@ -280,7 +280,7 @@ $avatarLetter = strtoupper($username[0]);
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="photoupload-items">
-                    <img src="images/images/资源库管.png" alt="" class="section-icon">
+                    <img src="images/images/网页照片上传.png" alt="" class="section-icon">
                     网页照片上传
                     <span class="section-arrow">⮞</span>
                 </div>
