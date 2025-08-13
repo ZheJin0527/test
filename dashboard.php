@@ -295,7 +295,7 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="submenu-title">首页</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">第一页</a>
+                                <a href="homepage1upload.php" class="submenu-item">第一页</a>
                             </div>
                         </div>
                     </div>
@@ -310,8 +310,8 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="submenu-title">关于我们</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">第一页</a>
-                                <a href="#" class="submenu-item">第四页</a>
+                                <a href="aboutpage1upload.php" class="submenu-item">第一页</a>
+                                <a href="aboutpage4upload.php" class="submenu-item">第四页</a>
                             </div>
                         </div>
                     </div>
