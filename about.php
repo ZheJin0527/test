@@ -1,4 +1,9 @@
 <?php
+
+// 禁用页面缓存
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 session_start();
 include_once 'media_config.php';
 ?>

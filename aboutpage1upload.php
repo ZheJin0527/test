@@ -46,6 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
             
             file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
             $success = "文件上传成功！";
+
+            // 添加页面重定向，清除缓存
+            echo "<script>
+                setTimeout(function() {
+                    window.location.href = window.location.href + '?updated=' + Date.now();
+                }, 2000);
+            </script>";
         } else {
             $error = "文件上传失败！";
         }

@@ -12,14 +12,14 @@ function getMediaConfig($mediaType) {
             'type' => 'video'
         ],
         'about_background' => [
-            'file' => 'images/images/关于我们bg8.jpg',  // 改为你的默认图片路径
+            'file' => 'images/images/关于我们bg8.jpg',
             'type' => 'image'
         ]
     ];
     
     if (file_exists($configFile)) {
         $config = json_decode(file_get_contents($configFile), true);
-        if ($config && isset($config[$mediaType])) {
+        if ($config && isset($config[$mediaType]) && file_exists($config[$mediaType]['file'])) {
             return $config[$mediaType];
         }
     }
@@ -36,6 +36,10 @@ function getMediaConfig($mediaType) {
 function getMediaHtml($mediaType, $attributes = []) {
     $media = getMediaConfig($mediaType);
     
+    // 添加时间戳防止缓存
+    $timestamp = file_exists($media['file']) ? '?v=' . filemtime($media['file']) : '?v=' . time();
+    $fileUrl = $media['file'] . $timestamp;
+    
     if ($media['type'] === 'video') {
         $defaultAttrs = [
             'class' => 'background-video',
@@ -51,7 +55,7 @@ function getMediaHtml($mediaType, $attributes = []) {
             $attrString .= $value === '' ? " {$key}" : " {$key}=\"{$value}\"";
         }
         
-        return "<video{$attrString}><source src=\"{$media['file']}\" type=\"video/mp4\" /></video>";
+        return "<video{$attrString}><source src=\"{$fileUrl}\" type=\"video/mp4\" /></video>";
     } else {
         $defaultAttrs = [
             'class' => 'background-image',
@@ -64,7 +68,7 @@ function getMediaHtml($mediaType, $attributes = []) {
             $attrString .= " {$key}=\"{$value}\"";
         }
         
-        return "<img src=\"{$media['file']}\" alt=\"Background\"{$attrString}>";
+        return "<img src=\"{$fileUrl}\" alt=\"Background\"{$attrString}>";
     }
 }
 ?>
