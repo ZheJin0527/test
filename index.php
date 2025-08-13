@@ -39,7 +39,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <!-- 中间导航（默认显示，大屏） -->
   <nav class="nav-links" id="navMenu">
     <div class="nav-item"><a href="index.php">首页</a></div>
-    <div class="nav-item"><a href="about.html">关于我们</a></div>
+    <div class="nav-item"><a href="about.php">关于我们</a></div>
     <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
     <div class="nav-item"><a href="joinus.html">加入我们</a></div>
   </nav>
@@ -163,7 +163,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
         在 Kunzz Holdings，我们相信文化决定高度。我们以目标为导向，理念为基石，打造一支具备高效执行力与高度协同精神的团队。
         我们提倡扁平沟通，尊重每一位成员的成长节奏，鼓励分享、学习与共创。在这里，每一份努力都能被看见，每一次突破都值得被鼓励。
       </p>
-      <a href="about.html" class="culture-button animate-on-scroll culture-scale-fade delay-8">了解更多 &gt;&gt;</a>
+      <a href="about.php" class="culture-button animate-on-scroll culture-scale-fade delay-8">了解更多 &gt;&gt;</a>
     </div>
   </section>
   </div>
@@ -180,12 +180,12 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
 
     <div class="footer-section">
-      <h4><a href="about.html">关于我们</a></h4>
+      <h4><a href="about.php">关于我们</a></h4>
       <ul>
-        <li><a href="about.html#intro">集团简介</a></li>
-        <li><a href="about.html#vision">信念与方向</a></li>
-        <li><a href="about.html#values">核心价值观</a></li>
-        <li><a href="about.html#timeline-1">发展历史</a></li>
+        <li><a href="about.php#intro">集团简介</a></li>
+        <li><a href="about.php#vision">信念与方向</a></li>
+        <li><a href="about.php#values">核心价值观</a></li>
+        <li><a href="about.php#timeline-1">发展历史</a></li>
       </ul>
     </div>
 

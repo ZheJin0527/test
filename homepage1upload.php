@@ -302,7 +302,7 @@ if (file_exists('media_config.json')) {
             <div class="media-section">
                 <h2>首页第一页背景视频</h2>
                 <form method="post" enctype="multipart/form-data" class="upload-form">
-                    <input type="hidden" name="media_type" value="home_page1_background">
+                    <input type="hidden" name="media_type" value="home_background">
                     
                     <div class="form-group">
                         <label>上传背景视频/图片</label>
@@ -314,18 +314,18 @@ if (file_exists('media_config.json')) {
                             </div>
                         </div>
                         
-                        <?php if (isset($config['home_page1_background'])): ?>
+                        <?php if (isset($config['home_background'])): ?>
                             <div class="current-file">
-                                <strong>当前文件:</strong> <?php echo basename($config['home_page1_background']['file']); ?><br>
-                                <small>类型: <?php echo $config['home_page1_background']['type']; ?> | 更新时间: <?php echo $config['home_page1_background']['updated']; ?></small>
+                                <strong>当前文件:</strong> <?php echo basename($config['home_background']['file']); ?><br>
+                                <small>类型: <?php echo $config['home_background']['type']; ?> | 更新时间: <?php echo $config['home_background']['updated']; ?></small>
                                 
                                 <div class="preview-container">
-                                    <?php if ($config['home_page1_background']['type'] === 'video'): ?>
+                                    <?php if ($config['home_background']['type'] === 'video'): ?>
                                         <video class="preview-video" controls>
-                                            <source src="<?php echo $config['home_page1_background']['file']; ?>" type="video/mp4">
+                                            <source src="<?php echo $config['home_background']['file']; ?>" type="video/mp4">
                                         </video>
                                     <?php else: ?>
-                                        <img class="preview-image" src="<?php echo $config['home_page1_background']['file']; ?>" alt="当前背景">
+                                        <img class="preview-image" src="<?php echo $config['home_background']['file']; ?>" alt="当前背景">
                                     <?php endif; ?>
                                 </div>
                             </div>
