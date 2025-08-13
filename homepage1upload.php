@@ -131,7 +131,7 @@ if (file_exists('media_config.json')) {
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 30px;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #FF5C00;
         }
         
         .media-section h2 {
@@ -157,18 +157,18 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input {
-            border: 2px dashed #667eea;
+            border: 2px dashed #FF5C00;
             border-radius: 10px;
             padding: 40px;
             text-align: center;
-            background: #f8f9ff;
+            background: #fff9f5;
             transition: all 0.3s ease;
             cursor: pointer;
         }
         
         .file-input:hover {
-            border-color: #5a6fd8;
-            background: #f0f2ff;
+            border-color: #e54a00;
+            background: #fff5f0;
         }
         
         .file-input input {
@@ -186,7 +186,7 @@ if (file_exists('media_config.json')) {
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
-            border-left: 4px solid #17a2b8;
+            border-left: 4px solid #FF5C00;
         }
         
         .current-file strong {
