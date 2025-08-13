@@ -98,7 +98,7 @@ if (file_exists('media_config.json')) {
         }
         
         .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -121,7 +121,7 @@ if (file_exists('media_config.json')) {
         }
         
         .breadcrumb a {
-            color: #4facfe;
+            color: #FF5C00;
             text-decoration: none;
         }
         
@@ -138,7 +138,7 @@ if (file_exists('media_config.json')) {
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 30px;
-            border-left: 5px solid #4facfe;
+            border-left: 5px solid #FF5C00;
         }
         
         .media-section h2 {
@@ -164,18 +164,18 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input {
-            border: 2px dashed #4facfe;
+            border: 2px dashed #FF5C00;
             border-radius: 10px;
             padding: 40px;
             text-align: center;
-            background: #f0f9ff;
+            background: #fff9f5;
             transition: all 0.3s ease;
             cursor: pointer;
         }
         
         .file-input:hover {
-            border-color: #0ea5e9;
-            background: #e0f2fe;
+            border-color: #e54a00;
+            background: #fff5f0;
         }
         
         .file-input input {
@@ -183,7 +183,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input-text {
-            color: #4facfe;
+            color: #FF5C00;
             font-size: 1.1em;
             font-weight: 500;
         }
@@ -193,7 +193,7 @@ if (file_exists('media_config.json')) {
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
-            border-left: 4px solid #4facfe;
+            border-left: 4px solid #FF5C00;
         }
         
         .current-file strong {
@@ -201,7 +201,7 @@ if (file_exists('media_config.json')) {
         }
         
         .btn {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
             padding: 15px 30px;
