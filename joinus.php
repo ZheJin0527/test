@@ -1280,43 +1280,7 @@ window.addEventListener('resize', () => {
 </script>
 <script>
         // 示例照片数组
-        const photos = [
-            'j12tb/j12tb/1.jpg',
-            'j12tb/j12tb/2.jpg',
-            'j12tb/j12tb/3.jpg',
-            'j12tb/j12tb/4.jpg',
-            'j12tb/j12tb/5.jpg',
-            'j12tb/j12tb/6.jpg',
-            'j12tb/j12tb/7.jpg',
-            'j12tb/j12tb/8.jpg',
-            'j12tb/j12tb/9.jpg',
-            'j12tb/j12tb/10.jpg',
-            'khtb/khtb/1.jpg',
-            'khtb/khtb/2.jpg',
-            'khtb/khtb/3.jpg',
-            'khtb/khtb/4.jpg',
-            'https://picsum.photos/400/300?random=15',
-            'https://picsum.photos/400/300?random=16',
-            'https://picsum.photos/400/300?random=17',
-            'https://picsum.photos/400/300?random=18',
-            'https://picsum.photos/400/300?random=19',
-            'https://picsum.photos/400/300?random=20',
-            'https://picsum.photos/400/300?random=21',
-            'https://picsum.photos/400/300?random=22',
-            'https://picsum.photos/400/300?random=23',
-            'https://picsum.photos/400/300?random=24',
-            'https://picsum.photos/400/300?random=25',
-            'https://picsum.photos/400/300?random=26',
-            'https://picsum.photos/400/300?random=27',
-            'https://picsum.photos/400/300?random=28',
-            'https://picsum.photos/400/300?random=29',
-            'https://picsum.photos/400/300?random=30',
-            'https://picsum.photos/400/300?random=31',
-            'https://picsum.photos/400/300?random=32',
-            'https://picsum.photos/400/300?random=33',
-            'https://picsum.photos/400/300?random=34'
-        ];
-
+        const photos = <?php echo json_encode(getCompanyPhotos()); ?>;
         const comphotoContainer = document.getElementById('comphoto-container');
         const comphotoModal = document.getElementById('comphoto-modal');
         const comphotoModalImg = document.getElementById('comphoto-modal-img');

@@ -76,4 +76,38 @@ function getMediaHtml($mediaType, $attributes = []) {
         return "<img src=\"{$fileUrl}\" alt=\"Background\"{$attrString}>";
     }
 }
+
+
+/**
+ * 获取公司照片数组
+ * @return array 照片路径数组
+ */
+function getCompanyPhotos() {
+    $configFile = 'media_config.json';
+    $photos = [];
+    
+    if (file_exists($configFile)) {
+        $config = json_decode(file_get_contents($configFile), true);
+        if ($config) {
+            for ($i = 1; $i <= 34; $i++) {
+                $key = 'comphoto_' . $i;
+                if (isset($config[$key]) && file_exists($config[$key]['file'])) {
+                    $photos[] = $config[$key]['file'] . '?v=' . filemtime($config[$key]['file']);
+                } else {
+                    // 如果照片不存在，可以使用默认占位图
+                    $photos[] = 'https://picsum.photos/400/300?random=' . $i;
+                }
+            }
+        }
+    }
+    
+    // 如果没有配置文件，返回默认照片
+    if (empty($photos)) {
+        for ($i = 1; $i <= 34; $i++) {
+            $photos[] = 'https://picsum.photos/400/300?random=' . $i;
+        }
+    }
+    
+    return $photos;
+}
 ?>
