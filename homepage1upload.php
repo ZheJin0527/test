@@ -309,8 +309,8 @@ if (file_exists('media_config.json')) {
                         <div class="file-input" onclick="document.getElementById('home-page1-file').click()">
                             <input type="file" id="home-page1-file" name="media_file" accept="video/*,image/*">
                             <div class="file-input-text">
-                                点击选择图片或拖拽到此处<br>
-                                <small>支持 JPG, JPEG, PNG, WebP 格式 (建议 1920x1080)</small>
+                                点击选择文件或拖拽到此处<br>
+                                <small>支持 MP4, WebM, MOV, AVI, JPG, PNG, WebP 格式 (1920x1080)</small>
                             </div>
                         </div>
                         
@@ -332,7 +332,7 @@ if (file_exists('media_config.json')) {
                         <?php endif; ?>
                     </div>
                     
-                    <button type="submit" class="btn">上传背景图片</button>
+                    <button type="submit" class="btn">上传文件</button>
                 </form>
             </div>
         </div>
