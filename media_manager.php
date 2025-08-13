@@ -251,7 +251,7 @@ if (file_exists('media_config.json')) {
         }
         
         .page-card:hover {
-            border-color: #667eea;
+            border-color: #FF5C00;
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
             text-decoration: none;
@@ -281,7 +281,7 @@ if (file_exists('media_config.json')) {
             top: 20px;
             right: 20px;
             font-size: 1.5em;
-            color: #667eea;
+            color: #FF5C00;
             transition: transform 0.3s ease;
         }
         
