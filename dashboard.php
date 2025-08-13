@@ -342,7 +342,7 @@ $avatarLetter = strtoupper($username[0]);
                             </div>
                             <div class="submenu-content">
                                 <a href="joinpage1upload.php" class="submenu-item">第一页</a>
-                                <a href="#" class="submenu-item">第二页</a>
+                                <a href="joinpage2upload.php" class="submenu-item">第二页</a>
                             </div>
                         </div>
                     </div>
