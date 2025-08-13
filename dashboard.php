@@ -278,7 +278,7 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
             </div>
 
-            <div class="informationmenu-section">
+            <a href="media_manager.php" class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="photoupload-items">
                     <img src="images/images/网页照片上传.png" alt="" class="section-icon">
                     网页照片上传
