@@ -116,7 +116,7 @@ if (file_exists('media_config.json')) {
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 30px;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #e7820fff;
         }
         
         .media-section h2 {
