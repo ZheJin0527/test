@@ -313,14 +313,7 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="submenu-title">关于我们</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item expandable" data-target="photoupload-items">
-                                    第一页
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="photoupload-items">
-                                    <a href="#" class="sub-option">上半页</a>
-                                    <a href="#" class="sub-option">下半页</a>
-                                </div>
+                                <a href="#" class="submenu-item">第一页</a>
                                 <a href="#" class="submenu-item">第二页</a>
                                 <a href="#" class="submenu-item">第三页</a>
                                 <a href="#" class="submenu-item">第四页</a>
@@ -359,14 +352,7 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="submenu-title">加入我们</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item expandable" data-target="photoupload-items">
-                                    第一页
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="photoupload-items">
-                                    <a href="#" class="sub-option">上半页</a>
-                                    <a href="#" class="sub-option">下半页</a>
-                                </div>
+                                <a href="#" class="submenu-item">第一页</a>
                                 <a href="#" class="submenu-item">第二页</a>
                                 <a href="#" class="submenu-item">第三页</a>
                                 <a href="#" class="submenu-item">第四页</a>
