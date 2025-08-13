@@ -65,15 +65,21 @@ function updateCSSBackground($cssFile, $imagePath) {
     
     $cssContent = file_get_contents($cssFile);
     
-    // 使用正则表达式找到 .aboutus-banner 的背景图片并替换
-    $pattern = '/(.aboutus-banner\s*{[^}]*background:\s*url\()[^)]+(\)[^}]*})/s';
+    // 修正的正则表达式 - 转义点号，更精确的匹配
+    $pattern = '/(\.aboutus-banner\s*\{[^}]*background:[^}]*url\()[^)]+(\)[^}]*\})/s';
     $replacement = '${1}\'' . $imagePath . '\'${2}';
     
     $newCssContent = preg_replace($pattern, $replacement, $cssContent);
     
-    // 如果没有找到匹配，尝试更具体的模式
+    // 如果没有找到匹配，尝试更宽泛的模式
     if ($newCssContent === $cssContent) {
-        $pattern = '/(.aboutus-banner\s*{[^}]*background:\s*url\([\'"]?)[^\'"\)]+([\'"]\)[^}]*})/s';
+        $pattern = '/(\.aboutus-banner\s*\{[^}]*background-image:\s*url\()[^)]+(\)[^}]*\})/s';
+        $newCssContent = preg_replace($pattern, '${1}\'' . $imagePath . '\'${2}', $cssContent);
+    }
+    
+    // 如果还是没找到，尝试包含引号的模式
+    if ($newCssContent === $cssContent) {
+        $pattern = '/(\.aboutus-banner\s*\{[^}]*url\([\'"]?)[^\'"\)]+([\'"]?\)[^}]*\})/s';
         $newCssContent = preg_replace($pattern, '${1}' . $imagePath . '${2}', $cssContent);
     }
     
@@ -89,8 +95,13 @@ function getCurrentBackgroundFromCSS($cssFile) {
     
     $cssContent = file_get_contents($cssFile);
     
-    // 查找 .aboutus-banner 的背景图片
-    if (preg_match('/\.aboutus-banner\s*{[^}]*background:[^}]*url\([\'"]?([^\'"\)]+)[\'"]?\)/s', $cssContent, $matches)) {
+    // 查找 .aboutus-banner 的背景图片 - 转义点号
+    if (preg_match('/\.aboutus-banner\s*\{[^}]*background:[^}]*url\([\'"]?([^\'"\)]+)[\'"]?\)/s', $cssContent, $matches)) {
+        return $matches[1];
+    }
+    
+    // 尝试查找 background-image 属性
+    if (preg_match('/\.aboutus-banner\s*\{[^}]*background-image:\s*url\([\'"]?([^\'"\)]+)[\'"]?\)/s', $cssContent, $matches)) {
         return $matches[1];
     }
     
