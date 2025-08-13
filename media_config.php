@@ -110,4 +110,92 @@ function getCompanyPhotos() {
     
     return $photos;
 }
+
+/**
+ * 获取时间线配置
+ * @param string $year 年份
+ * @return array 时间线数据
+ */
+function getTimelineConfig($year = null) {
+    $configFile = 'timeline_config.json';
+    $defaultTimeline = [
+        '2022' => [
+            'title' => '一味入魂，情暖人间 ✨',
+            'description1' => '在人生的餐桌上，总有一些味道能够唤醒记忆，一些瞬间能够触动心弦。Tokyo Japanese Cuisine，这个名字不仅仅代表着精致的日式料理，更承载着一份对美食与服务的深情承诺。',
+            'description2' => '我们的故事，始于 2022 年，那一年，我们怀揣着一个简单而又宏大的梦想：以热情的服务，让每一位走进Tokyo Japanese Cuisine的顾客，都能享受一场愉悦而难忘的用餐体验。',
+            'image' => 'images/images/2022发展.jpg'
+        ],
+        '2023' => [
+            'title' => '用心铸就，梦想生长 🌱',
+            'description1' => 'Kunzz Holdings Sdn Bhd，一个承载着梦想与温度的名字，犹如一棵在希望沃土上扎根的幼苗，于 2023 年破土而出。我们不仅仅是一家肩负使命的控股公司，更是旗下每一家子公司最坚实的后盾与最真挚的引路人。',
+            'description2' => '我们深信，唯有用心管理，倾力推广，才能让每一个独特的创意与梦想，在时代的舞台上绽放出最璀璨的光芒，成为改变世界的力量。',
+            'image' => 'images/images/2023的发展.jpg'
+        ],
+        '2025' => [
+            'title' => '规范管理，稳健前行 🚀',
+            'description1' => '2025年，我们迎来了规范化管理的新纪元。通过建立完善的管理体系和标准化流程，我们不断提升运营效率，确保每一个项目都能在规范的轨道上稳健发展。',
+            'description2' => '我们始终坚持以客户为中心，以质量为生命，用专业的态度和创新的思维，为客户创造更大价值，为行业树立新的标杆。',
+            'image' => 'images/images/2025的发展.jpg'
+        ]
+    ];
+    
+    $config = $defaultTimeline;
+    
+    if (file_exists($configFile)) {
+        $customConfig = json_decode(file_get_contents($configFile), true);
+        if ($customConfig) {
+            // 合并自定义配置和默认配置
+            foreach ($customConfig as $configYear => $data) {
+                if (isset($defaultTimeline[$configYear])) {
+                    $config[$configYear] = array_merge($defaultTimeline[$configYear], $data);
+                } else {
+                    $config[$configYear] = $data;
+                }
+            }
+        }
+    }
+    
+    // 为图片添加时间戳防止缓存
+    foreach ($config as $configYear => &$data) {
+        if (isset($data['image']) && file_exists($data['image'])) {
+            $data['image_url'] = $data['image'] . '?v=' . filemtime($data['image']);
+        } else {
+            $data['image_url'] = $data['image'] ?? '';
+        }
+    }
+    
+    return $year ? (isset($config[$year]) ? $config[$year] : null) : $config;
+}
+
+/**
+ * 获取时间线HTML内容
+ * @return string HTML内容
+ */
+function getTimelineHtml() {
+    $timeline = getTimelineConfig();
+    $html = '';
+    $index = 0;
+    
+    foreach ($timeline as $year => $data) {
+        $activeClass = $index === 0 ? 'active' : ($index === 1 ? 'next' : 'hidden');
+        
+        $html .= "<div class=\"timeline-content-item {$activeClass}\" data-year=\"{$year}\" data-index=\"{$index}\">";
+        $html .= "<div class=\"timeline-content\" onclick=\"selectCard({$year})\">";
+        $html .= "<div class=\"timeline-image\">";
+        $html .= "<img src=\"{$data['image_url']}\" alt=\"{$year}年发展\">";
+        $html .= "</div>";
+        $html .= "<div class=\"timeline-text\">";
+        $html .= "<div class=\"year-badge\">{$year}年</div>";
+        $html .= "<h3>{$data['title']}</h3>";
+        $html .= "<p>{$data['description1']}</p>";
+        $html .= "<p>{$data['description2']}</p>";
+        $html .= "</div>";
+        $html .= "</div>";
+        $html .= "</div>";
+        
+        $index++;
+    }
+    
+    return $html;
+}
 ?>

@@ -6,6 +6,8 @@ header("Pragma: no-cache");
 header("Expires: 0");
 session_start();
 include_once 'media_config.php';
+// 获取时间线数据
+$timelineData = getTimelineConfig();
 ?>
 
 <!DOCTYPE html>
@@ -188,15 +190,17 @@ include_once 'media_config.php';
             <div class="timeline-scroll-container">
                 <div class="timeline-track"></div>
                 <div class="timeline-items-container" id="timelineContainer">
-                    <div class="timeline-item active" data-year="2022">
-                        <div class="timeline-bullet">2022</div>
+                    <?php 
+                    $index = 0;
+                    foreach ($timelineData as $year => $data): 
+                    ?>
+                    <div class="timeline-item <?php echo $index === 0 ? 'active' : ''; ?>" data-year="<?php echo $year; ?>">
+                        <div class="timeline-bullet"><?php echo $year; ?></div>
                     </div>
-                    <div class="timeline-item" data-year="2023">
-                        <div class="timeline-bullet">2023</div>
-                    </div>
-                    <div class="timeline-item" data-year="2025">
-                        <div class="timeline-bullet">2025</div>
-                    </div>
+                    <?php 
+                    $index++;
+                    endforeach; 
+                    ?>
                 </div>
             </div>
         </div>
@@ -204,51 +208,29 @@ include_once 'media_config.php';
         <!-- 卡片容器 -->
         <div class="timeline-content-container">
             <div class="timeline-cards-wrapper">
-                <!-- 2022年内容 -->
-                <div class="timeline-content-item active" data-year="2022" data-index="0">
-                    <div class="timeline-content" onclick="selectCard(2022)">
+                <?php 
+                $index = 0;
+                foreach ($timelineData as $year => $data): 
+                    $itemClass = $index === 0 ? 'active' : ($index === 1 ? 'next' : 'hidden');
+                ?>
+                <!-- <?php echo $year; ?>年内容 -->
+                <div class="timeline-content-item <?php echo $itemClass; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $index; ?>">
+                    <div class="timeline-content" onclick="selectCard(<?php echo $year; ?>)">
                         <div class="timeline-image">
-                            <img src="images/images/2022发展.jpg" alt="公司成立">
+                            <img src="<?php echo $data['image_url']; ?>" alt="<?php echo $year; ?>年发展">
                         </div>
                         <div class="timeline-text">
-                            <div class="year-badge">2022年</div>
-                            <h3>一味入魂，情暖人间 ✨</h3>
-                            <p>在人生的餐桌上，总有一些味道能够唤醒记忆，一些瞬间能够触动心弦。Tokyo Japanese Cuisine，这个名字不仅仅代表着精致的日式料理，更承载着一份对美食与服务的深情承诺。</p>
-                            <p>我们的故事，始于 2022 年，那一年，我们怀揣着一个简单而又宏大的梦想：以热情的服务，让每一位走进Tokyo Japanese Cuisine的顾客，都能享受一场愉悦而难忘的用餐体验。</p>
+                            <div class="year-badge"><?php echo $year; ?>年</div>
+                            <h3><?php echo htmlspecialchars($data['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($data['description1']); ?></p>
+                            <p><?php echo htmlspecialchars($data['description2']); ?></p>
                         </div>
                     </div>
                 </div>
-
-                <!-- 2023年内容 -->
-                <div class="timeline-content-item next" data-year="2023" data-index="1">
-                    <div class="timeline-content" onclick="selectCard(2023)">
-                        <div class="timeline-image">
-                            <img src="images/images/2023的发展.jpg" alt="团队扩张">
-                        </div>
-                        <div class="timeline-text">
-                            <div class="year-badge">2023年</div>
-                            <h3>用心铸就，梦想生长 🌱</h3>
-                            <p>Kunzz Holdings Sdn Bhd，一个承载着梦想与温度的名字，犹如一棵在希望沃土上扎根的幼苗，于 2023 年破土而出。
-                               我们不仅仅是一家肩负使命的控股公司，更是旗下每一家子公司最坚实的后盾与最真挚的引路人。</p>
-                            <p>我们深信，唯有用心管理，倾力推广，才能让每一个独特的创意与梦想，在时代的舞台上绽放出最璀璨的光芒，成为改变世界的力量。</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2025年内容 -->
-                <div class="timeline-content-item hidden" data-year="2025" data-index="2">
-                    <div class="timeline-content" onclick="selectCard(2025)">
-                        <div class="timeline-image">
-                            <img src="images/images/2025的发展.jpg" alt="规范化管理">
-                        </div>
-                        <div class="timeline-text">
-                            <div class="year-badge">2025年</div>
-                            <h3>一味入魂，情暖人间 ✨</h3>
-                            <p>在人生的餐桌上，总有一些味道能够唤醒记忆，一些瞬间能够触动心弦。Tokyo Japanese Cuisine，这个名字不仅仅代表着精致的日式料理，更承载着一份对美食与服务的深情承诺。</p>
-                            <p>我们的故事，始于 2025 年，那一年，我们怀揣着一个简单而又宏大的梦想：以热情的服务，让每一位走进Tokyo Japanese Cuisine的顾客，都能享受一场愉悦而难忘的用餐体验。</p>
-                        </div>
-                    </div>
-                </div>
+                <?php 
+                $index++;
+                endforeach; 
+                ?>
             </div>
         </div>
     </section>
