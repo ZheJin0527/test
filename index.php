@@ -582,71 +582,69 @@ window.addEventListener('load', () => {
   }
 </script>
 <script>
-  const bgMusic = document.getElementById('bgMusic');
+    const bgMusic = document.getElementById('bgMusic');
 
-  // 设置固定音量（例如 0.3 表示 30%）
-  bgMusic.volume = 0.3;
+    // 设置固定音量（例如 0.3 表示 30%）
+    bgMusic.volume = 0.3;
 
-  // 从 localStorage 恢复播放进度和状态
-  const savedTime = localStorage.getItem('musicCurrentTime');
-  const savedPlaying = localStorage.getItem('musicPlaying');
+    // 从 localStorage 恢复播放进度和状态
+    const savedTime = localStorage.getItem('musicCurrentTime');
+    const savedPlaying = localStorage.getItem('musicPlaying');
 
-  if (savedTime) {
-    bgMusic.currentTime = parseFloat(savedTime);
-  }
+    if (savedTime) {
+      bgMusic.currentTime = parseFloat(savedTime);
+    }
 
-  function tryPlay() {
-    bgMusic.play().catch(() => {});
-    localStorage.setItem('musicPlaying', 'true');
-  }
-
-  // 如果之前在播放，立即继续播放
-  if (savedPlaying === 'true') {
-    // 稍微延迟以确保音频加载完成
-    setTimeout(tryPlay, 50);
-  }
-
-  // 用户交互时开始播放
-  document.addEventListener('click', tryPlay, { once: true });
-  document.addEventListener('keydown', tryPlay, { once: true });
-  document.addEventListener('touchstart', tryPlay, { once: true });
-
-  // 定期保存播放进度
-  setInterval(() => {
-    if (!bgMusic.paused) {
-      localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
+    function tryPlay() {
+      bgMusic.play().catch(() => {});
       localStorage.setItem('musicPlaying', 'true');
     }
-  }, 500);
 
-  // 页面卸载前保存状态
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
-    localStorage.setItem('musicPlaying', bgMusic.paused ? 'false' : 'true');
-  });
+    // 如果之前在播放，立即继续播放
+    if (savedPlaying === 'true') {
+      // 稍微延迟以确保音频加载完成
+      setTimeout(tryPlay, 50);
+    }
+
+    // 用户交互时开始播放
+    document.addEventListener('click', tryPlay, { once: true });
+    document.addEventListener('keydown', tryPlay, { once: true });
+    document.addEventListener('touchstart', tryPlay, { once: true });
+
+    // 定期保存播放进度
+    setInterval(() => {
+      if (!bgMusic.paused) {
+        localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
+        localStorage.setItem('musicPlaying', 'true');
+      }
+    }, 500);
+
+    // 页面卸载前保存状态
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
+      localStorage.setItem('musicPlaying', bgMusic.paused ? 'false' : 'true');
+    });
 </script>
-
-
 <script>
-  // 添加这个函数到你现有的JavaScript代码中
-function goToSlide(slideIndex) {
-  if (typeof swiper !== 'undefined') {
-    swiper.slideTo(slideIndex);
-  }
-}
+    // 添加这个函数到你现有的JavaScript代码中
+    function goToSlide(slideIndex) {
+      if (typeof swiper !== 'undefined') {
+        swiper.slideTo(slideIndex);
+      }
+    }
 
-// 或者，如果你想要更具体的跳转函数
-function goToCompanyProfile() {
-  if (typeof swiper !== 'undefined') {
-    swiper.slideTo(1); // 跳转到第2个slide（公司简介）
-  }
-}
+    // 或者，如果你想要更具体的跳转函数
+    function goToCompanyProfile() {
+      if (typeof swiper !== 'undefined') {
+        swiper.slideTo(1); // 跳转到第2个slide（公司简介）
+      }
+    }
 
-function goToCulture() {
-  if (typeof swiper !== 'undefined') {
-    swiper.slideTo(2); // 跳转到第3个slide（公司文化）
-  }
-}
+    function goToCulture() {
+      if (typeof swiper !== 'undefined') {
+        swiper.slideTo(2); // 跳转到第3个slide（公司文化）
+      }
+    }
 </script>
 </body>
 </html>
