@@ -76,7 +76,8 @@ include_once 'media_config.php';
 
   <div class="swiper-slide">
     <section class="aboutus-section">
-    <div class="aboutus-banner" style="background-image: url('<?php echo $aboutBgPath; ?>');">
+    <div class="aboutus-banner">
+        <?php echo getMediaHtml('about_background'); ?>
       <div class="aboutus-content">
         <h1>关于我们</h1>
         <p>深入了解 Kunzz Holdings 的初心与成长轨迹</p>
