@@ -533,7 +533,6 @@ foreach ($defaultTimeline as $year => $data) {
                             
                             <div class="form-actions">
                                 <button type="submit" class="btn">保存文案</button>
-                                <button type="button" class="btn btn-secondary" onclick="resetForm('<?php echo $year; ?>')">重置</button>
                             </div>
                         </form>
                     </div>
