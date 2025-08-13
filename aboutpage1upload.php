@@ -319,7 +319,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
                     <div class="form-group">
                         <label>上传封面背景图片</label>
                         <div class="file-input" onclick="document.getElementById('about-page1-file').click()">
-<input type="file" id="about-page1-file" name="media_file" accept="video/*,image/*">
+                            <input type="file" id="about-page1-file" name="media_file" accept="video/*,image/*">
                             <div class="file-input-text">
                                 点击选择图片或拖拽到此处<br>
                                 <small>支持 MP4, WebM, MOV, AVI, JPG, PNG, WebP 格式</small>
