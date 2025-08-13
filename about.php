@@ -40,7 +40,7 @@ include_once 'media_config.php';
     <div class="nav-item"><a href="index.php">首页</a></div>
     <div class="nav-item"><a href="about.php">关于我们</a></div>
     <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
-    <div class="nav-item"><a href="joinus.html">加入我们</a></div>
+    <div class="nav-item"><a href="joinus.php">加入我们</a></div>
   </nav>
 
   <!-- 右侧区域 -->
@@ -283,12 +283,12 @@ include_once 'media_config.php';
     </div>
 
     <div class="footer-section">
-      <h4><a href="joinus.html">加入我们</a></h4>
+      <h4><a href="joinus.php">加入我们</a></h4>
       <ul>
-        <li><a href="joinus.html">公司福利</li>
-        <li><a href="joinus.html#comphoto-container">我们的足迹</li>
-        <li><a href="joinus.html#particles">招聘的职位</li>
-        <li><a href="joinus.html#map">联系我们</a></li>        
+        <li><a href="joinus.php">公司福利</li>
+        <li><a href="joinus.php#comphoto-container">我们的足迹</li>
+        <li><a href="joinus.php#particles">招聘的职位</li>
+        <li><a href="joinus.php#map">联系我们</a></li>        
       </ul>
     </div>
   </footer>

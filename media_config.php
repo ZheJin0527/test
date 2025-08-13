@@ -14,6 +14,11 @@ function getMediaConfig($mediaType) {
         'about_background' => [
             'file' => 'images/images/关于我们bg8.jpg',
             'type' => 'image'
+        ],
+        // 添加这个配置
+        'joinus_background' => [
+            'file' => 'images/images/加入我们bg2.jpg',
+            'type' => 'image'
         ]
     ];
     

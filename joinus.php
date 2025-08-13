@@ -1,3 +1,13 @@
+<?php
+session_start();
+include_once 'media_config.php';
+
+// 禁用页面缓存
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+?>
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -30,7 +40,7 @@
     <div class="nav-item"><a href="index.php">首页</a></div>
     <div class="nav-item"><a href="about.php">关于我们</a></div>
     <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
-    <div class="nav-item"><a href="joinus.html">加入我们</a></div>
+    <div class="nav-item"><a href="joinus.php">加入我们</a></div>
   </nav>
 
   <!-- 右侧区域 -->
@@ -398,7 +408,7 @@
     </div>
 
     <div class="footer-section">
-      <h4><a href="joinus.html">加入我们</a></h4>
+      <h4><a href="joinus.php">加入我们</a></h4>
       <ul>
         <li><a href="#" onclick="goToSlide(0); return false;">公司福利</li>
         <li><a href="#" onclick="goToSlide(1); return false;">我们的足迹</li>
