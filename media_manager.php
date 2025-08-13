@@ -152,7 +152,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input:hover {
-            border-color: #5a6fd8;
+            border-color: #9c5707ff;
             background: #f0f2ff;
         }
         
@@ -161,7 +161,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input-text {
-            color: #667eea;
+            color: #e78e28ff;
             font-size: 1.1em;
             font-weight: 500;
         }
