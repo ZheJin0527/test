@@ -28,7 +28,7 @@
   <!-- 中间导航（默认显示，大屏） -->
   <nav class="nav-links" id="navMenu">
     <div class="nav-item"><a href="index.php">首页</a></div>
-    <div class="nav-item"><a href="about.html">关于我们</a></div>
+    <div class="nav-item"><a href="about.php">关于我们</a></div>
     <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
     <div class="nav-item"><a href="joinus.html">加入我们</a></div>
   </nav>
@@ -71,7 +71,7 @@
 
   <div class="swiper-slide">
     <section class="aboutus-section">
-    <div class="aboutus-banner">
+    <div class="aboutus-banner" style="background-image: url('<?php echo $aboutBgPath; ?>');">
       <div class="aboutus-content">
         <h1>关于我们</h1>
         <p>深入了解 Kunzz Holdings 的初心与成长轨迹</p>
@@ -255,7 +255,7 @@
     </div>
 
     <div class="footer-section">
-      <h4><a href="about.html">关于我们</a></h4>
+      <h4><a href="about.php">关于我们</a></h4>
       <ul>
         <li><a href="#" onclick="goToSlide(0); return false;">集团简介</a></li>
         <li><a href="#" onclick="goToSlide(1); return false;">信念与方向</a></li>

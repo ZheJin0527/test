@@ -2042,7 +2042,7 @@ nav {
     position: relative;
     padding: 80px 0 0 80px;
     flex: 0 0 50%;
-    background: url('images/images/关于我们bg8.jpg') no-repeat center center/cover;
+    background: url('<?php echo $aboutBgPath; ?>') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;

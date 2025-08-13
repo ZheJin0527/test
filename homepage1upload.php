@@ -66,7 +66,7 @@ if (file_exists('media_config.json')) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>媒体管理 - KUNZZ HOLDINGS</title>
+    <title>首页媒体管理 - KUNZZ HOLDINGS</title>
     <style>
         * {
             margin: 0;
@@ -105,6 +105,21 @@ if (file_exists('media_config.json')) {
         .header p {
             opacity: 0.9;
             font-size: 1.1em;
+        }
+        
+        .breadcrumb {
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
         }
         
         .content {
@@ -230,71 +245,31 @@ if (file_exists('media_config.json')) {
             transform: translateY(-1px);
         }
         
-        .page-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        .preview-container {
             margin-top: 20px;
-        }
-        
-        .page-card {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 25px;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
-            position: relative;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
             overflow: hidden;
         }
         
-        .page-card:hover {
-            border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
-            text-decoration: none;
-            color: #333;
+        .preview-video {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
         }
         
-        .page-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .page-card h3 {
-            font-size: 1.3em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .page-card p {
-            color: #666;
-            font-size: 0.95em;
-            margin-bottom: 15px;
-        }
-        
-        .page-arrow {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5em;
-            color: #667eea;
-            transition: transform 0.3s ease;
-        }
-        
-        .page-card:hover .page-arrow {
-            transform: translateX(5px);
+        .preview-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
         }
         
         @media (max-width: 768px) {
-            .page-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+            .content {
+                padding: 20px;
             }
             
-            .page-card {
+            .media-section {
                 padding: 20px;
             }
         }
@@ -303,12 +278,18 @@ if (file_exists('media_config.json')) {
 <body>
     <div class="container">
         <div class="header">
-            <h1>媒体管理中心</h1>
-            <p>管理网站背景媒体文件</p>
+            <h1>首页媒体管理</h1>
+            <p>管理首页背景媒体文件</p>
+        </div>
+        
+        <div class="breadcrumb">
+            <a href="dashboard.php">仪表板</a> > 
+            <a href="media_manager.php">媒体管理</a> > 
+            <span>首页媒体</span>
         </div>
         
         <div class="content">
-            <a href="dashboard.php" class="back-btn">← 返回仪表板</a>
+            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
             
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
@@ -318,65 +299,47 @@ if (file_exists('media_config.json')) {
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
             
-            <!-- 页面分类管理 -->
             <div class="media-section">
-                <h2>📁 首页管理</h2>
-                <div class="page-grid">
-                    <a href="homepage1upload.php" class="page-card">
-                        <div class="page-icon">🏠</div>
-                        <h3>首页第一页</h3>
-                        <p>管理首页背景视频/图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="media-section">
-                <h2>📋 关于我们管理</h2>
-                <div class="page-grid">
-                    <a href="aboutpage1upload.php" class="page-card">
-                        <div class="page-icon">📄</div>
-                        <h3>关于我们第一页</h3>
-                        <p>管理封面背景图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                    <a href="aboutpage4upload.php" class="page-card">
-                        <div class="page-icon">📈</div>
-                        <h3>关于我们第四页</h3>
-                        <p>管理发展历史图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="media-section">
-                <h2>🏢 旗下品牌管理</h2>
-                <div class="page-grid">
-                    <a href="brandpage1upload.php" class="page-card">
-                        <div class="page-icon">🍱</div>
-                        <h3>Tokyo Japanese Cuisine</h3>
-                        <p>管理品牌页面图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="media-section">
-                <h2>👥 加入我们管理</h2>
-                <div class="page-grid">
-                    <a href="joinuspage1upload.php" class="page-card">
-                        <div class="page-icon">🤝</div>
-                        <h3>加入我们页面</h3>
-                        <p>管理招聘页面图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
+                <h2>首页第一页背景视频</h2>
+                <form method="post" enctype="multipart/form-data" class="upload-form">
+                    <input type="hidden" name="media_type" value="home_page1_background">
+                    
+                    <div class="form-group">
+                        <label>上传背景视频/图片</label>
+                        <div class="file-input" onclick="document.getElementById('home-page1-file').click()">
+                            <input type="file" id="home-page1-file" name="media_file" accept="video/*,image/*">
+                            <div class="file-input-text">
+                                点击选择文件或拖拽到此处<br>
+                                <small>支持 MP4, WebM, MOV, AVI, JPG, PNG, WebP 格式</small>
+                            </div>
+                        </div>
+                        
+                        <?php if (isset($config['home_page1_background'])): ?>
+                            <div class="current-file">
+                                <strong>当前文件:</strong> <?php echo basename($config['home_page1_background']['file']); ?><br>
+                                <small>类型: <?php echo $config['home_page1_background']['type']; ?> | 更新时间: <?php echo $config['home_page1_background']['updated']; ?></small>
+                                
+                                <div class="preview-container">
+                                    <?php if ($config['home_page1_background']['type'] === 'video'): ?>
+                                        <video class="preview-video" controls>
+                                            <source src="<?php echo $config['home_page1_background']['file']; ?>" type="video/mp4">
+                                        </video>
+                                    <?php else: ?>
+                                        <img class="preview-image" src="<?php echo $config['home_page1_background']['file']; ?>" alt="当前背景">
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <button type="submit" class="btn">上传文件</button>
+                </form>
             </div>
         </div>
     </div>
     
     <script>
-        // 文件拖拽功能
+        // 文件拖拽和选择功能
         document.querySelectorAll('.file-input').forEach(input => {
             input.addEventListener('dragover', (e) => {
                 e.preventDefault();
@@ -399,7 +362,6 @@ if (file_exists('media_config.json')) {
                 input.style.borderColor = '#667eea';
                 input.style.background = '#f8f9ff';
                 
-                // 显示文件名
                 if (files.length > 0) {
                     const textDiv = input.querySelector('.file-input-text');
                     textDiv.innerHTML = `已选择: ${files[0].name}`;
@@ -407,7 +369,6 @@ if (file_exists('media_config.json')) {
             });
         });
         
-        // 文件选择时显示文件名
         document.querySelectorAll('input[type="file"]').forEach(input => {
             input.addEventListener('change', function() {
                 const textDiv = this.parentElement.querySelector('.file-input-text');

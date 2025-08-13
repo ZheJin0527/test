@@ -7,10 +7,11 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// 处理文件上传
+// 处理文件上传和CSS更新
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
-    $uploadDir = 'video/video/';
+    $uploadDir = 'images/images/';
     $configFile = 'media_config.json';
+    $cssFile = 'style.css'; // 你的CSS文件路径
     
     // 确保上传目录存在
     if (!file_exists($uploadDir)) {
@@ -21,12 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
     $mediaType = $_POST['media_type'];
     $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     
-    // 允许的文件类型
-    $allowedVideo = ['mp4', 'webm', 'mov', 'avi'];
+    // 允许的图片类型
     $allowedImage = ['jpg', 'jpeg', 'png', 'webp'];
-    $allowedTypes = array_merge($allowedVideo, $allowedImage);
     
-    if (in_array($fileExtension, $allowedTypes)) {
+    if (in_array($fileExtension, $allowedImage)) {
         // 生成新文件名
         $newFileName = $mediaType . '.' . $fileExtension;
         $targetPath = $uploadDir . $newFileName;
@@ -40,18 +39,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
             
             $config[$mediaType] = [
                 'file' => $targetPath,
-                'type' => in_array($fileExtension, $allowedVideo) ? 'video' : 'image',
+                'type' => 'image',
                 'updated' => date('Y-m-d H:i:s')
             ];
             
             file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-            $success = "文件上传成功！";
+            
+            // 更新CSS文件中的背景图片
+            updateCSSBackground($cssFile, $targetPath);
+            
+            $success = "文件上传成功！CSS已自动更新。";
         } else {
             $error = "文件上传失败！";
         }
     } else {
-        $error = "不支持的文件类型！";
+        $error = "仅支持图片格式：JPG, JPEG, PNG, WebP";
     }
+}
+
+// 更新CSS文件中的背景图片
+function updateCSSBackground($cssFile, $imagePath) {
+    if (!file_exists($cssFile)) {
+        return false;
+    }
+    
+    $cssContent = file_get_contents($cssFile);
+    
+    // 使用正则表达式找到 .aboutus-banner 的背景图片并替换
+    $pattern = '/(.aboutus-banner\s*{[^}]*background:\s*url\()[^)]+(\)[^}]*})/s';
+    $replacement = '${1}\'' . $imagePath . '\'${2}';
+    
+    $newCssContent = preg_replace($pattern, $replacement, $cssContent);
+    
+    // 如果没有找到匹配，尝试更具体的模式
+    if ($newCssContent === $cssContent) {
+        $pattern = '/(.aboutus-banner\s*{[^}]*background:\s*url\([\'"]?)[^\'"\)]+([\'"]\)[^}]*})/s';
+        $newCssContent = preg_replace($pattern, '${1}' . $imagePath . '${2}', $cssContent);
+    }
+    
+    file_put_contents($cssFile, $newCssContent);
+    return true;
+}
+
+// 从CSS文件中读取当前背景图片
+function getCurrentBackgroundFromCSS($cssFile) {
+    if (!file_exists($cssFile)) {
+        return null;
+    }
+    
+    $cssContent = file_get_contents($cssFile);
+    
+    // 查找 .aboutus-banner 的背景图片
+    if (preg_match('/\.aboutus-banner\s*{[^}]*background:[^}]*url\([\'"]?([^\'"\)]+)[\'"]?\)/s', $cssContent, $matches)) {
+        return $matches[1];
+    }
+    
+    return null;
 }
 
 // 读取当前配置
@@ -59,6 +102,9 @@ $config = [];
 if (file_exists('media_config.json')) {
     $config = json_decode(file_get_contents('media_config.json'), true) ?: [];
 }
+
+// 获取当前CSS中的背景图片
+$currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +112,7 @@ if (file_exists('media_config.json')) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>媒体管理 - KUNZZ HOLDINGS</title>
+    <title>关于我们第一页 - KUNZZ HOLDINGS</title>
     <style>
         * {
             margin: 0;
@@ -107,6 +153,21 @@ if (file_exists('media_config.json')) {
             font-size: 1.1em;
         }
         
+        .breadcrumb {
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
         .content {
             padding: 40px;
         }
@@ -116,7 +177,7 @@ if (file_exists('media_config.json')) {
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 30px;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #FF5C00;
         }
         
         .media-section h2 {
@@ -142,18 +203,18 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input {
-            border: 2px dashed #667eea;
+            border: 2px dashed #FF5C00;
             border-radius: 10px;
             padding: 40px;
             text-align: center;
-            background: #f8f9ff;
+            background: #fff9f5;
             transition: all 0.3s ease;
             cursor: pointer;
         }
         
         .file-input:hover {
-            border-color: #5a6fd8;
-            background: #f0f2ff;
+            border-color: #e54a00;
+            background: #fff5f0;
         }
         
         .file-input input {
@@ -161,7 +222,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input-text {
-            color: #667eea;
+            color: #FF5C00;
             font-size: 1.1em;
             font-weight: 500;
         }
@@ -171,7 +232,7 @@ if (file_exists('media_config.json')) {
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
-            border-left: 4px solid #17a2b8;
+            border-left: 4px solid #FF5C00;
         }
         
         .current-file strong {
@@ -179,7 +240,7 @@ if (file_exists('media_config.json')) {
         }
         
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -192,7 +253,7 @@ if (file_exists('media_config.json')) {
         
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
         
         .alert {
@@ -230,71 +291,37 @@ if (file_exists('media_config.json')) {
             transform: translateY(-1px);
         }
         
-        .page-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        .preview-container {
             margin-top: 20px;
-        }
-        
-        .page-card {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 25px;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
-            position: relative;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
             overflow: hidden;
         }
         
-        .page-card:hover {
-            border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
-            text-decoration: none;
-            color: #333;
+        .preview-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
         }
         
-        .page-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            display: block;
+        .css-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
         }
         
-        .page-card h3 {
-            font-size: 1.3em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .page-card p {
-            color: #666;
-            font-size: 0.95em;
-            margin-bottom: 15px;
-        }
-        
-        .page-arrow {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5em;
-            color: #667eea;
-            transition: transform 0.3s ease;
-        }
-        
-        .page-card:hover .page-arrow {
-            transform: translateX(5px);
+        .css-info strong {
+            color: #856404;
         }
         
         @media (max-width: 768px) {
-            .page-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+            .content {
+                padding: 20px;
             }
             
-            .page-card {
+            .media-section {
                 padding: 20px;
             }
         }
@@ -303,12 +330,18 @@ if (file_exists('media_config.json')) {
 <body>
     <div class="container">
         <div class="header">
-            <h1>媒体管理中心</h1>
-            <p>管理网站背景媒体文件</p>
+            <h1>关于我们第一页</h1>
+            <p>管理关于我们第一页的封面背景图片</p>
+        </div>
+        
+        <div class="breadcrumb">
+            <a href="dashboard.php">仪表板</a> > 
+            <a href="media_manager.php">媒体管理</a> > 
+            <span>关于我们第一页</span>
         </div>
         
         <div class="content">
-            <a href="dashboard.php" class="back-btn">← 返回仪表板</a>
+            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
             
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
@@ -318,76 +351,70 @@ if (file_exists('media_config.json')) {
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
             
-            <!-- 页面分类管理 -->
             <div class="media-section">
-                <h2>📁 首页管理</h2>
-                <div class="page-grid">
-                    <a href="homepage1upload.php" class="page-card">
-                        <div class="page-icon">🏠</div>
-                        <h3>首页第一页</h3>
-                        <p>管理首页背景视频/图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
+                <h2>关于我们页面封面图片</h2>
+                <form method="post" enctype="multipart/form-data" class="upload-form">
+                    <input type="hidden" name="media_type" value="about_page1_background">
+                    
+                    <div class="form-group">
+                        <label>上传封面背景图片</label>
+                        <div class="file-input" onclick="document.getElementById('about-page1-file').click()">
+                            <input type="file" id="about-page1-file" name="media_file" accept="image/*">
+                            <div class="file-input-text">
+                                点击选择图片或拖拽到此处<br>
+                                <small>支持 JPG, JPEG, PNG, WebP 格式</small>
+                            </div>
+                        </div>
+                        
+                        <?php if ($currentBgFromCSS): ?>
+                            <div class="current-file">
+                                <strong>当前背景图片:</strong> <?php echo basename($currentBgFromCSS); ?><br>
+                                <?php if (isset($config['about_page1_background'])): ?>
+                                    <small>更新时间: <?php echo $config['about_page1_background']['updated']; ?></small>
+                                <?php endif; ?>
+                                
+                                <div class="preview-container">
+                                    <img class="preview-image" src="<?php echo $currentBgFromCSS; ?>" alt="当前背景">
+                                </div>
+                                
+                                <div class="css-info">
+                                    <strong>CSS路径:</strong> <?php echo $currentBgFromCSS; ?><br>
+                                    <small>该图片路径已写入 style.css 文件中的 .aboutus-banner 样式</small>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <button type="submit" class="btn">上传并更新CSS</button>
+                </form>
             </div>
             
             <div class="media-section">
-                <h2>📋 关于我们管理</h2>
-                <div class="page-grid">
-                    <a href="aboutpage1upload.php" class="page-card">
-                        <div class="page-icon">📄</div>
-                        <h3>关于我们第一页</h3>
-                        <p>管理封面背景图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                    <a href="aboutpage4upload.php" class="page-card">
-                        <div class="page-icon">📈</div>
-                        <h3>关于我们第四页</h3>
-                        <p>管理发展历史图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="media-section">
-                <h2>🏢 旗下品牌管理</h2>
-                <div class="page-grid">
-                    <a href="brandpage1upload.php" class="page-card">
-                        <div class="page-icon">🍱</div>
-                        <h3>Tokyo Japanese Cuisine</h3>
-                        <p>管理品牌页面图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="media-section">
-                <h2>👥 加入我们管理</h2>
-                <div class="page-grid">
-                    <a href="joinuspage1upload.php" class="page-card">
-                        <div class="page-icon">🤝</div>
-                        <h3>加入我们页面</h3>
-                        <p>管理招聘页面图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
+                <h2>说明</h2>
+                <p><strong>重要提示：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>上传的图片将自动替换 CSS 文件中 <code>.aboutus-banner</code> 的背景图片</li>
+                    <li>建议图片尺寸：1920x1080 或更高分辨率</li>
+                    <li>支持格式：JPG, JPEG, PNG, WebP</li>
+                    <li>上传成功后，网站会立即显示新的背景图片</li>
+                </ul>
             </div>
         </div>
     </div>
     
     <script>
-        // 文件拖拽功能
+        // 文件拖拽和选择功能
         document.querySelectorAll('.file-input').forEach(input => {
             input.addEventListener('dragover', (e) => {
                 e.preventDefault();
-                input.style.borderColor = '#5a6fd8';
-                input.style.background = '#f0f2ff';
+                input.style.borderColor = '#e54a00';
+                input.style.background = '#fff5f0';
             });
             
             input.addEventListener('dragleave', (e) => {
                 e.preventDefault();
-                input.style.borderColor = '#667eea';
-                input.style.background = '#f8f9ff';
+                input.style.borderColor = '#FF5C00';
+                input.style.background = '#fff9f5';
             });
             
             input.addEventListener('drop', (e) => {
@@ -396,10 +423,9 @@ if (file_exists('media_config.json')) {
                 const fileInput = input.querySelector('input[type="file"]');
                 fileInput.files = files;
                 
-                input.style.borderColor = '#667eea';
-                input.style.background = '#f8f9ff';
+                input.style.borderColor = '#FF5C00';
+                input.style.background = '#fff9f5';
                 
-                // 显示文件名
                 if (files.length > 0) {
                     const textDiv = input.querySelector('.file-input-text');
                     textDiv.innerHTML = `已选择: ${files[0].name}`;
@@ -407,7 +433,6 @@ if (file_exists('media_config.json')) {
             });
         });
         
-        // 文件选择时显示文件名
         document.querySelectorAll('input[type="file"]').forEach(input => {
             input.addEventListener('change', function() {
                 const textDiv = this.parentElement.querySelector('.file-input-text');
