@@ -310,7 +310,7 @@ if (file_exists('media_config.json')) {
                             <input type="file" id="home-page1-file" name="media_file" accept="video/*,image/*">
                             <div class="file-input-text">
                                 点击选择文件或拖拽到此处<br>
-                                <small>支持 MP4, WebM, MOV, AVI, JPG, PNG, WebP 格式</small>
+                                <small>支持 MP4, WebM, MOV, AVI, JPG, PNG, WebP 格式 (1920x1080)</small>
                             </div>
                         </div>
                         
