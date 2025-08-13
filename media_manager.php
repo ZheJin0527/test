@@ -364,7 +364,7 @@ if (file_exists('media_config.json')) {
             <div class="media-section">
                 <h2>👥 加入我们管理</h2>
                 <div class="page-grid">
-                    <a href="joinuspage1upload.php" class="page-card">
+                    <a href="joinpage1upload.php" class="page-card">
                         <div class="page-icon">🤝</div>
                         <h3>加入我们页面</h3>
                         <p>管理招聘页面图片</p>
