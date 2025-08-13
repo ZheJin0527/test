@@ -1,9 +1,13 @@
 <?php
-session_start();
-include_once 'media_config.php';
+// 获取背景图片路径
+$aboutBgPath = 'images/images/关于我们bg8.jpg'; // 默认背景图片
 
-// 如果已登录或记住我，可以访问管理功能
-$canManage = isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE['username']));
+// 如果有上传的图片，使用上传的图片
+if (file_exists('uploads/about-bg.jpg')) {
+    $aboutBgPath = 'uploads/about-bg.jpg';
+} elseif (file_exists('uploads/about-bg.png')) {
+    $aboutBgPath = 'uploads/about-bg.png';
+}
 ?>
 
 <!DOCTYPE html>

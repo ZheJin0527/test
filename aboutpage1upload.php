@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // 处理文件上传和CSS更新
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
-    $uploadDir = 'video/video/';
+    $uploadDir = 'uploads/';  // 改为 uploads 目录
     $configFile = 'media_config.json';
     $cssFile = 'style.css'; // 你的CSS文件路径
     
@@ -27,15 +27,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
     $mediaType = $_POST['media_type'];
     $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     
-    // 允许的文件类型
-    $allowedVideo = ['mp4', 'webm', 'mov', 'avi'];
+    // 允许的图片类型
     $allowedImage = ['jpg', 'jpeg', 'png', 'webp'];
-    $allowedTypes = array_merge($allowedVideo, $allowedImage);
     
-    if (in_array($fileExtension, $allowedTypes)) {
-        // 生成新文件名
-        $newFileName = $mediaType . '.' . $fileExtension;
+    if (in_array($fileExtension, $allowedImage)) {
+        // 生成新文件名 - 固定为 about-bg
+        $newFileName = 'about-bg.' . $fileExtension;
         $targetPath = $uploadDir . $newFileName;
+
+        // 删除旧的背景图片文件
+        $oldFiles = glob($uploadDir . "about-bg.*");
+        foreach ($oldFiles as $oldFile) {
+            if ($oldFile !== $targetPath) {
+                unlink($oldFile);
+            }
+        }
         
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
             // 更新配置文件
@@ -46,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
             
             $config[$mediaType] = [
                 'file' => $targetPath,
-                'type' => in_array($fileExtension, $allowedVideo) ? 'video' : 'image',
+                'type' => 'image',
                 'updated' => date('Y-m-d H:i:s')
             ];
             
@@ -54,14 +60,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
             
             // 更新CSS文件中的背景图片
             
-            $success = "文件上传成功！";
+            $success = "背景图片上传成功！页面将自动使用新图片。";
         } else {
             $error = "文件上传失败！";
         }
     } else {
-        $error = "不支持的文件类型！";
+        $error = "仅支持图片格式：JPG, JPEG, PNG, WebP";
     }
 }
+
+// 更新CSS文件中的背景图片
+function updateCSSBackground($cssFile, $imagePath) {
+    if (!file_exists($cssFile)) {
+        return false;
+    }
+    
+    $cssContent = file_get_contents($cssFile);
+    
+    // 使用正则表达式找到 .aboutus-banner 的背景图片并替换
+    $pattern = '/(.aboutus-banner\s*{[^}]*background:\s*url\()[^)]+(\)[^}]*})/s';
+    $replacement = '${1}\'' . $imagePath . '\'${2}';
+    
+    $newCssContent = preg_replace($pattern, $replacement, $cssContent);
+    
+    // 如果没有找到匹配，尝试更具体的模式
+    if ($newCssContent === $cssContent) {
+        $pattern = '/(.aboutus-banner\s*{[^}]*background:\s*url\([\'"]?)[^\'"\)]+([\'"]\)[^}]*})/s';
+        $newCssContent = preg_replace($pattern, '${1}' . $imagePath . '${2}', $cssContent);
+    }
+    
+    file_put_contents($cssFile, $newCssContent);
+    return true;
+}
+
+// 从CSS文件中读取当前背景图片
+function getCurrentBackgroundFromCSS($cssFile) {
+    if (!file_exists($cssFile)) {
+        return null;
+    }
+    
+    $cssContent = file_get_contents($cssFile);
+    
+    // 查找 .aboutus-banner 的背景图片
+    if (preg_match('/\.aboutus-banner\s*{[^}]*background:[^}]*url\([\'"]?([^\'"\)]+)[\'"]?\)/s', $cssContent, $matches)) {
+        return $matches[1];
+    }
+    
+    return null;
+}
+
+// 读取当前配置
+$config = [];
+if (file_exists('media_config.json')) {
+    $config = json_decode(file_get_contents('media_config.json'), true) ?: [];
+}
+
+// 获取当前CSS中的背景图片
+$currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
 ?>
 
 <!DOCTYPE html>
@@ -314,31 +369,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
             <div class="media-section">
                 <h2>关于我们页面封面图片</h2>
                 <form method="post" enctype="multipart/form-data" class="upload-form">
-                    <input type="hidden" name="media_type" value="about_background">
+                    <input type="hidden" name="media_type" value="about_page1_background">
                     
                     <div class="form-group">
                         <label>上传封面背景图片</label>
                         <div class="file-input" onclick="document.getElementById('about-page1-file').click()">
-                            <input type="file" id="about-page1-file" name="media_file" accept="video/*,image/*">
+                            <input type="file" id="about-page1-file" name="media_file" accept="image/*">
                             <div class="file-input-text">
                                 点击选择图片或拖拽到此处<br>
-                                <small>支持 MP4, WebM, MOV, AVI, JPG, PNG, WebP 格式</small>
+                                <small>支持 JPG, JPEG, PNG, WebP 格式</small>
                             </div>
                         </div>
                         
-                        <?php if (isset($config['about_background'])): ?>
-                            <div class="current-file">
-                                <strong>当前文件:</strong> <?php echo basename($config['about_background']['file']); ?><br>
-                                <small>类型: <?php echo $config['about_background']['type']; ?> | 更新时间: <?php echo $config['about_background']['updated']; ?></small>
+                        <?php 
+                            // 检查当前上传的背景图片
+                            $currentUploadedBg = null;
+                            if (file_exists('uploads/about-bg.jpg')) {
+                                $currentUploadedBg = 'uploads/about-bg.jpg';
+                            } elseif (file_exists('uploads/about-bg.png')) {
+                                $currentUploadedBg = 'uploads/about-bg.png';
+                            } elseif (file_exists('uploads/about-bg.gif')) {
+                                $currentUploadedBg = 'uploads/about-bg.gif';
+                            } elseif (file_exists('uploads/about-bg.webp')) {
+                                $currentUploadedBg = 'uploads/about-bg.webp';
+                            }
+
+                            if ($currentUploadedBg): ?>
+                                <div class="current-file">
+                                    <strong>当前背景图片:</strong> <?php echo basename($currentUploadedBg); ?><br>
+                                    <small>文件路径: <?php echo $currentUploadedBg; ?></small>
+                                    
+                                    <div class="preview-container">
+                                        <img class="preview-image" src="<?php echo $currentUploadedBg; ?>" alt="当前背景">
+                                    </div>
+                                    
+                                    <div class="css-info">
+                                        <strong>使用方式:</strong> PHP 动态加载<br>
+                                        <small>该图片通过 PHP 代码自动应用到关于我们页面</small>
+                                    </div>
+                                </div>
+                            <?php else: ?>
+                                <div class="current-file" style="background: #fff3cd;">
+                                    <strong>当前使用默认背景图片</strong><br>
+                                    <small>还未上传自定义背景图片</small>
+                                </div>
+                                <?php if (isset($config['about_page1_background'])): ?>
+                                    <small>更新时间: <?php echo $config['about_page1_background']['updated']; ?></small>
+                                <?php endif; ?>
                                 
                                 <div class="preview-container">
-                                    <?php if ($config['about_background']['type'] === 'video'): ?>
-                                        <video class="preview-video" controls>
-                                            <source src="<?php echo $config['about_background']['file']; ?>" type="video/mp4">
-                                        </video>
-                                    <?php else: ?>
-                                        <img class="preview-image" src="<?php echo $config['about_background']['file']; ?>" alt="当前背景">
-                                    <?php endif; ?>
+                                    <img class="preview-image" src="<?php echo $currentBgFromCSS; ?>" alt="当前背景">
+                                </div>
+                                
+                                <div class="css-info">
+                                    <strong>CSS路径:</strong> <?php echo $currentBgFromCSS; ?><br>
+                                    <small>该图片路径已写入 style.css 文件中的 .aboutus-banner 样式</small>
                                 </div>
                             </div>
                         <?php endif; ?>
