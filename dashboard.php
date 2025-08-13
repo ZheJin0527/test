@@ -286,10 +286,94 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
                 <div class="dropdown-menu-items" id="photoupload-items">
                     <div class="menu-item-wrapper">
-                        <a href="media_manager.php" class="informationmenu-item">
-                            编辑网页背景
+                        <a href="#" class="informationmenu-item">
+                            首页
                             <span class="informationmenu-arrow">›</span>
                         </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">首页</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">第一页</a>
+                                <a href="#" class="submenu-item">第二页</a>
+                                <a href="#" class="submenu-item">第三页</a>
+                                <a href="#" class="submenu-item">第四页</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            关于我们
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">关于我们</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item expandable" data-target="photoupload-items">
+                                    第一页
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="photoupload-items">
+                                    <a href="#" class="sub-option">上半页</a>
+                                    <a href="#" class="sub-option">下半页</a>
+                                </div>
+                                <a href="#" class="submenu-item">第二页</a>
+                                <a href="#" class="submenu-item">第三页</a>
+                                <a href="#" class="submenu-item">第四页</a>
+                                <a href="#" class="submenu-item">第五页</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            旗下品牌
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">旗下品牌</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">第一页</a>
+                                <a href="#" class="submenu-item">第二页</a>
+                                <a href="#" class="submenu-item">第三页</a>
+                                <a href="#" class="submenu-item">第四页</a>
+                                <a href="#" class="submenu-item">第五页</a>
+                                <a href="#" class="submenu-item">第六页</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            加入我们
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">加入我们</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item expandable" data-target="photoupload-items">
+                                    第一页
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="photoupload-items">
+                                    <a href="#" class="sub-option">上半页</a>
+                                    <a href="#" class="sub-option">下半页</a>
+                                </div>
+                                <a href="#" class="submenu-item">第二页</a>
+                                <a href="#" class="submenu-item">第三页</a>
+                                <a href="#" class="submenu-item">第四页</a>
+                                <a href="#" class="submenu-item">第五页</a>
+                                <a href="#" class="submenu-item">第六页</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
