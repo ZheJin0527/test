@@ -142,7 +142,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input {
-            border: 2px dashed #667eea;
+            border: 2px dashed #e78e28ff;
             border-radius: 10px;
             padding: 40px;
             text-align: center;
