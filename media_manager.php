@@ -76,7 +76,7 @@ if (file_exists('media_config.json')) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -91,7 +91,7 @@ if (file_exists('media_config.json')) {
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -116,7 +116,7 @@ if (file_exists('media_config.json')) {
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 30px;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #FF5C00;
         }
         
         .media-section h2 {
@@ -142,18 +142,18 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input {
-            border: 2px dashed #667eea;
+            border: 2px dashed #FF5C00;
             border-radius: 10px;
             padding: 40px;
             text-align: center;
-            background: #f8f9ff;
+            background: #fff9f5;
             transition: all 0.3s ease;
             cursor: pointer;
         }
         
         .file-input:hover {
-            border-color: #5a6fd8;
-            background: #f0f2ff;
+            border-color: #e54a00;
+            background: #fff5f0;
         }
         
         .file-input input {
@@ -161,7 +161,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input-text {
-            color: #667eea;
+            color: #FF5C00;
             font-size: 1.1em;
             font-weight: 500;
         }
@@ -171,7 +171,7 @@ if (file_exists('media_config.json')) {
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
-            border-left: 4px solid #17a2b8;
+            border-left: 4px solid #FF5C00;
         }
         
         .current-file strong {
@@ -179,7 +179,7 @@ if (file_exists('media_config.json')) {
         }
         
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -373,7 +373,7 @@ if (file_exists('media_config.json')) {
                 </div>
 
                 <div class="page-grid">
-                    <a href="joinuspage2upload.php" class="page-card">
+                    <a href="joinpage2upload.php" class="page-card">
                         <div class="page-icon">📸</div>
                         <h3>我们的足迹照片</h3>
                         <p>管理34张公司活动照片</p>
