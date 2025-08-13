@@ -83,11 +83,12 @@ header("Expires: 0");
   <div class="swiper-slide">
   <section class="joinus-section">
     <!-- 上半部分：加入我们 -->
-    <div class="joinus-banner" style="background-image: url('<?php echo getMediaConfig('joinus_background')['file']; ?>?v=<?php echo time(); ?>');">
-      <div class="joinus-content">
-        <h1>加入我们</h1>
-        <p>在这里，你的努力不止换来薪资，更参与到品牌建设的每一步，一起迈向更大的舞台。</p>
-      </div>
+    <div class="joinus-banner">
+        <?php echo getMediaHtml('joinus_background', ['style' => 'width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;']); ?>
+        <div class="joinus-content">
+            <h1>加入我们</h1>
+            <p>在这里，你的努力不止换来薪资，更参与到品牌建设的每一步，一起迈向更大的舞台。</p>
+        </div>
     </div>
 
     <!-- 下半部分：员工福利 -->

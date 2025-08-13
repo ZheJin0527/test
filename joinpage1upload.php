@@ -22,9 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
     $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     
     // 允许的文件类型
+    $allowedVideo = ['mp4', 'webm', 'mov', 'avi'];
     $allowedImage = ['jpg', 'jpeg', 'png', 'webp'];
-    
-    if (in_array($fileExtension, $allowedImage)) {
+    $allowedTypes = array_merge($allowedVideo, $allowedImage);
+
+    if (in_array($fileExtension, $allowedTypes)) {
         // 生成新文件名
         $newFileName = $mediaType . '.' . $fileExtension;
         $targetPath = $uploadDir . $newFileName;
@@ -38,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
             
             $config[$mediaType] = [
                 'file' => $targetPath,
-                'type' => 'image',
+                'type' => in_array($fileExtension, $allowedVideo) ? 'video' : 'image',
                 'updated' => date('Y-m-d H:i:s')
             ];
             
@@ -55,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
             $error = "文件上传失败！";
         }
     } else {
-        $error = "不支持的文件类型！只支持 JPG, PNG, WebP 格式";
+        $error = "不支持的文件类型！";
     }
 }
 
@@ -316,10 +318,10 @@ if (file_exists('media_config.json')) {
                     <div class="form-group">
                         <label>上传背景图片</label>
                         <div class="file-input" onclick="document.getElementById('joinus-page1-file').click()">
-                            <input type="file" id="joinus-page1-file" name="media_file" accept="image/*">
+                            <input type="file" id="joinus-page1-file" name="media_file" accept="video/*,image/*">
                             <div class="file-input-text">
                                 点击选择文件或拖拽到此处<br>
-                                <small>支持 JPG, PNG, WebP 格式 (推荐尺寸: 1920x1080)</small>
+                                <small>支持 MP4, WebM, MOV, AVI, JPG, PNG, WebP 格式 (推荐尺寸: 1920x600)</small>
                             </div>
                         </div>
                         
@@ -329,7 +331,13 @@ if (file_exists('media_config.json')) {
                                 <small>类型: <?php echo $config['joinus_background']['type']; ?> | 更新时间: <?php echo $config['joinus_background']['updated']; ?></small>
                                 
                                 <div class="preview-container">
-                                    <img class="preview-image" src="<?php echo $config['joinus_background']['file']; ?>?v=<?php echo time(); ?>" alt="当前背景">
+                                    <?php if ($config['joinus_background']['type'] === 'video'): ?>
+                                        <video class="preview-video" controls style="width: 100%; max-height: 300px; object-fit: cover;">
+                                            <source src="<?php echo $config['joinus_background']['file']; ?>?v=<?php echo time(); ?>" type="video/mp4">
+                                        </video>
+                                    <?php else: ?>
+                                        <img class="preview-image" src="<?php echo $config['joinus_background']['file']; ?>?v=<?php echo time(); ?>" alt="当前背景">
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endif; ?>
