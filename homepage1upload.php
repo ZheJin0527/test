@@ -91,7 +91,7 @@ if (file_exists('media_config.json')) {
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             padding: 30px;
             text-align: center;
