@@ -1934,6 +1934,14 @@ $avatarLetter = strtoupper($username[0]);
                     网页照片上传
                     <span class="section-arrow">⮞</span>
                 </div>
+                <div class="dropdown-menu-items" id="photoupload-items">
+                    <div class="menu-item-wrapper">
+                        <a href="media_manager.php" class="informationmenu-item">
+                            编辑网页背景
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="informationmenu-section">
