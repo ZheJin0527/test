@@ -12,7 +12,7 @@ function getMediaConfig($mediaType) {
             'type' => 'video'
         ],
         'about_background' => [
-            'file' => 'images/images/default-about-bg.jpg',
+            'file' => 'images/images/关于我们bg8.jpg',  // 改为你的默认图片路径
             'type' => 'image'
         ]
     ];

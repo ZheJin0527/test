@@ -1,13 +1,6 @@
 <?php
-// 获取背景图片路径
-$aboutBgPath = 'images/images/关于我们bg8.jpg'; // 默认背景图片
-
-// 如果有上传的图片，使用上传的图片
-if (file_exists('uploads/about-bg.jpg')) {
-    $aboutBgPath = 'uploads/about-bg.jpg';
-} elseif (file_exists('uploads/about-bg.png')) {
-    $aboutBgPath = 'uploads/about-bg.png';
-}
+session_start();
+include_once 'media_config.php';
 ?>
 
 <!DOCTYPE html>

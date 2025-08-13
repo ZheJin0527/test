@@ -1,22 +1,16 @@
 <?php
 session_start();
 
-// 确保 uploads 目录存在
-if (!file_exists('uploads')) {
-    mkdir('uploads', 0777, true);
-}
-
 // 检查是否已登录（根据你的登录系统调整）
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
 
-// 处理文件上传和CSS更新
+// 处理文件上传
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
-    $uploadDir = 'uploads/';  // 改为 uploads 目录
+    $uploadDir = 'video/video/';
     $configFile = 'media_config.json';
-    $cssFile = 'style.css'; // 你的CSS文件路径
     
     // 确保上传目录存在
     if (!file_exists($uploadDir)) {
@@ -27,21 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
     $mediaType = $_POST['media_type'];
     $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     
-    // 允许的图片类型
+    // 允许的文件类型
+    $allowedVideo = ['mp4', 'webm', 'mov', 'avi'];
     $allowedImage = ['jpg', 'jpeg', 'png', 'webp'];
+    $allowedTypes = array_merge($allowedVideo, $allowedImage);
     
-    if (in_array($fileExtension, $allowedImage)) {
-        // 生成新文件名 - 固定为 about-bg
-        $newFileName = 'about-bg.' . $fileExtension;
+    if (in_array($fileExtension, $allowedTypes)) {
+        // 生成新文件名
+        $newFileName = $mediaType . '.' . $fileExtension;
         $targetPath = $uploadDir . $newFileName;
-
-        // 删除旧的背景图片文件
-        $oldFiles = glob($uploadDir . "about-bg.*");
-        foreach ($oldFiles as $oldFile) {
-            if ($oldFile !== $targetPath) {
-                unlink($oldFile);
-            }
-        }
         
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
             // 更新配置文件
@@ -52,61 +40,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
             
             $config[$mediaType] = [
                 'file' => $targetPath,
-                'type' => 'image',
+                'type' => in_array($fileExtension, $allowedVideo) ? 'video' : 'image',
                 'updated' => date('Y-m-d H:i:s')
             ];
             
             file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-            
-            // 更新CSS文件中的背景图片
-            
-            $success = "背景图片上传成功！页面将自动使用新图片。";
+            $success = "文件上传成功！";
         } else {
             $error = "文件上传失败！";
         }
     } else {
-        $error = "仅支持图片格式：JPG, JPEG, PNG, WebP";
+        $error = "不支持的文件类型！";
     }
-}
-
-// 更新CSS文件中的背景图片
-function updateCSSBackground($cssFile, $imagePath) {
-    if (!file_exists($cssFile)) {
-        return false;
-    }
-    
-    $cssContent = file_get_contents($cssFile);
-    
-    // 使用正则表达式找到 .aboutus-banner 的背景图片并替换
-    $pattern = '/(.aboutus-banner\s*{[^}]*background:\s*url\()[^)]+(\)[^}]*})/s';
-    $replacement = '${1}\'' . $imagePath . '\'${2}';
-    
-    $newCssContent = preg_replace($pattern, $replacement, $cssContent);
-    
-    // 如果没有找到匹配，尝试更具体的模式
-    if ($newCssContent === $cssContent) {
-        $pattern = '/(.aboutus-banner\s*{[^}]*background:\s*url\([\'"]?)[^\'"\)]+([\'"]\)[^}]*})/s';
-        $newCssContent = preg_replace($pattern, '${1}' . $imagePath . '${2}', $cssContent);
-    }
-    
-    file_put_contents($cssFile, $newCssContent);
-    return true;
-}
-
-// 从CSS文件中读取当前背景图片
-function getCurrentBackgroundFromCSS($cssFile) {
-    if (!file_exists($cssFile)) {
-        return null;
-    }
-    
-    $cssContent = file_get_contents($cssFile);
-    
-    // 查找 .aboutus-banner 的背景图片
-    if (preg_match('/\.aboutus-banner\s*{[^}]*background:[^}]*url\([\'"]?([^\'"\)]+)[\'"]?\)/s', $cssContent, $matches)) {
-        return $matches[1];
-    }
-    
-    return null;
 }
 
 // 读取当前配置
@@ -114,9 +59,6 @@ $config = [];
 if (file_exists('media_config.json')) {
     $config = json_decode(file_get_contents('media_config.json'), true) ?: [];
 }
-
-// 获取当前CSS中的背景图片
-$currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
 ?>
 
 <!DOCTYPE html>
@@ -124,24 +66,21 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div class="header">
-        <h1>关于我们页面管理</h1>
-        <p>管理关于我们页面的封面背景图片</p>
-    </div>
+    <title>关于我们页面管理 - KUNZZ HOLDINGS</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
             padding: 20px;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -150,43 +89,43 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-
+        
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             padding: 30px;
             text-align: center;
         }
-
+        
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
         }
-
+        
         .header p {
             opacity: 0.9;
             font-size: 1.1em;
         }
-
+        
         .breadcrumb {
             padding: 20px 40px;
             background: #f8f9fa;
             border-bottom: 1px solid #dee2e6;
         }
-
+        
         .breadcrumb a {
-            color: #667eea;
+            color: #FF5C00;
             text-decoration: none;
         }
-
+        
         .breadcrumb a:hover {
             text-decoration: underline;
         }
-
+        
         .content {
             padding: 40px;
         }
-
+        
         .media-section {
             background: #f8f9fa;
             border-radius: 10px;
@@ -194,29 +133,29 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             margin-bottom: 30px;
             border-left: 5px solid #FF5C00;
         }
-
+        
         .media-section h2 {
             color: #333;
             margin-bottom: 20px;
             font-size: 1.8em;
         }
-
+        
         .upload-form {
             display: grid;
             gap: 20px;
         }
-
+        
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-
+        
         .form-group label {
             font-weight: 600;
             color: #555;
         }
-
+        
         .file-input {
             border: 2px dashed #FF5C00;
             border-radius: 10px;
@@ -226,22 +165,22 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             transition: all 0.3s ease;
             cursor: pointer;
         }
-
+        
         .file-input:hover {
             border-color: #e54a00;
             background: #fff5f0;
         }
-
+        
         .file-input input {
             display: none;
         }
-
+        
         .file-input-text {
             color: #FF5C00;
             font-size: 1.1em;
             font-weight: 500;
         }
-
+        
         .current-file {
             margin-top: 15px;
             padding: 15px;
@@ -249,11 +188,11 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             border-radius: 8px;
             border-left: 4px solid #FF5C00;
         }
-
+        
         .current-file strong {
             color: #155724;
         }
-
+        
         .btn {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
@@ -265,31 +204,31 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
+        
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
-
+        
         .alert {
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
             font-weight: 500;
         }
-
+        
         .alert-success {
             background: #d4edda;
             color: #155724;
             border-left: 4px solid #28a745;
         }
-
+        
         .alert-error {
             background: #f8d7da;
             color: #721c24;
             border-left: 4px solid #dc3545;
         }
-
+        
         .back-btn {
             display: inline-block;
             background: #6c757d;
@@ -300,37 +239,31 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
-
+        
         .back-btn:hover {
             background: #5a6268;
             transform: translateY(-1px);
         }
-
+        
         .preview-container {
             margin-top: 20px;
             border: 1px solid #dee2e6;
             border-radius: 8px;
             overflow: hidden;
         }
-
+        
+        .preview-video {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+        }
+        
         .preview-image {
             width: 100%;
             max-height: 300px;
             object-fit: cover;
         }
-
-        .css-info {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-
-        .css-info strong {
-            color: #856404;
-        }
-
+        
         @media (max-width: 768px) {
             .content {
                 padding: 20px;
@@ -345,14 +278,14 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
 <body>
     <div class="container">
         <div class="header">
-            <h1>关于我们第一页</h1>
-            <p>管理关于我们第一页的封面背景图片</p>
+            <h1>关于我们页面管理</h1>
+            <p>管理关于我们页面背景媒体文件</p>
         </div>
         
         <div class="breadcrumb">
             <a href="dashboard.php">仪表板</a> > 
             <a href="media_manager.php">媒体管理</a> > 
-            <span>关于我们第一页</span>
+            <span>关于我们页面</span>
         </div>
         
         <div class="content">
@@ -367,89 +300,40 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             <?php endif; ?>
             
             <div class="media-section">
-                <h2>关于我们页面封面图片</h2>
+                <h2>关于我们页面封面背景视频/图片</h2>
                 <form method="post" enctype="multipart/form-data" class="upload-form">
-                    <input type="hidden" name="media_type" value="about_page1_background">
+                    <input type="hidden" name="media_type" value="about_background">
                     
                     <div class="form-group">
-                        <label>上传封面背景图片</label>
+                        <label>上传背景视频/图片</label>
                         <div class="file-input" onclick="document.getElementById('about-page1-file').click()">
-                            <input type="file" id="about-page1-file" name="media_file" accept="image/*">
+                            <input type="file" id="about-page1-file" name="media_file" accept="video/*,image/*">
                             <div class="file-input-text">
-                                点击选择图片或拖拽到此处<br>
-                                <small>支持 JPG, JPEG, PNG, WebP 格式</small>
+                                点击选择文件或拖拽到此处<br>
+                                <small>支持 MP4, WebM, MOV, AVI, JPG, PNG, WebP 格式 (1920x1080)</small>
                             </div>
                         </div>
                         
-                        <?php 
-                            // 检查当前上传的背景图片
-                            $currentUploadedBg = null;
-                            if (file_exists('uploads/about-bg.jpg')) {
-                                $currentUploadedBg = 'uploads/about-bg.jpg';
-                            } elseif (file_exists('uploads/about-bg.png')) {
-                                $currentUploadedBg = 'uploads/about-bg.png';
-                            } elseif (file_exists('uploads/about-bg.gif')) {
-                                $currentUploadedBg = 'uploads/about-bg.gif';
-                            } elseif (file_exists('uploads/about-bg.webp')) {
-                                $currentUploadedBg = 'uploads/about-bg.webp';
-                            }
-
-                            if ($currentUploadedBg): ?>
-                                <div class="current-file">
-                                    <strong>当前背景图片:</strong> <?php echo basename($currentUploadedBg); ?><br>
-                                    <small>文件路径: <?php echo $currentUploadedBg; ?></small>
-                                    
-                                    <div class="preview-container">
-                                        <img class="preview-image" src="<?php echo $currentUploadedBg; ?>" alt="当前背景">
-                                    </div>
-                                    
-                                    <div class="css-info">
-                                        <strong>使用方式:</strong> PHP 动态加载<br>
-                                        <small>该图片通过 PHP 代码自动应用到关于我们页面</small>
-                                    </div>
-                                </div>
-                            <?php else: ?>
-                                <div class="current-file" style="background: #fff3cd;">
-                                    <strong>当前使用默认背景图片</strong><br>
-                                    <small>还未上传自定义背景图片</small>
-                                </div>
-                                <?php if (isset($config['about_page1_background'])): ?>
-                                    <small>更新时间: <?php echo $config['about_page1_background']['updated']; ?></small>
-                                <?php endif; ?>
+                        <?php if (isset($config['about_background'])): ?>
+                            <div class="current-file">
+                                <strong>当前文件:</strong> <?php echo basename($config['about_background']['file']); ?><br>
+                                <small>类型: <?php echo $config['about_background']['type']; ?> | 更新时间: <?php echo $config['about_background']['updated']; ?></small>
                                 
                                 <div class="preview-container">
-                                    <img class="preview-image" src="<?php echo $currentBgFromCSS; ?>" alt="当前背景">
-                                </div>
-                                
-                                <div class="css-info">
-                                    <strong>CSS路径:</strong> <?php echo $currentBgFromCSS; ?><br>
-                                    <small>该图片路径已写入 style.css 文件中的 .aboutus-banner 样式</small>
+                                    <?php if ($config['about_background']['type'] === 'video'): ?>
+                                        <video class="preview-video" controls>
+                                            <source src="<?php echo $config['about_background']['file']; ?>" type="video/mp4">
+                                        </video>
+                                    <?php else: ?>
+                                        <img class="preview-image" src="<?php echo $config['about_background']['file']; ?>" alt="当前背景">
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endif; ?>
                     </div>
                     
-                    <button type="submit" class="btn">上传并更新CSS</button>
+                    <button type="submit" class="btn">上传文件</button>
                 </form>
-            </div>
-            
-            <div class="media-section">
-                <h2>使用说明</h2>
-                <p><strong>功能说明：</strong></p>
-                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.6;">
-                    <li>上传的图片将自动保存到 uploads 目录</li>
-                    <li>系统会自动删除旧的背景图片</li>
-                    <li>建议图片尺寸：1920x1080 或更高分辨率</li>
-                    <li>支持格式：JPG, JPEG, PNG, WebP</li>
-                    <li>上传成功后，关于我们页面会立即显示新的背景图片</li>
-                </ul>
-                
-                <p style="margin-top: 15px;"><strong>技术细节：</strong></p>
-                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.6;">
-                    <li>图片通过 PHP 动态加载，无需修改 CSS 文件</li>
-                    <li>系统会自动检测 uploads 目录中的图片文件</li>
-                    <li>支持多种图片格式的自动切换</li>
-                </ul>
             </div>
         </div>
     </div>
