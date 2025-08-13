@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once 'media_config.php';
 
 // 如果已登录或记住我，跳转到 dashboard
 if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE['username']))) {
@@ -80,9 +81,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
   <div class="swiper-slide">
   <section class="home">
-  <video class="background-video" autoplay muted loop playsinline>
-    <source src="video/video/Cover4.mp4" type="video/mp4" />
-  </video>
+  <?php echo getMediaHtml('home_background'); ?>
 
   <div class="home-content hidden animate-on-scroll">
     <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
@@ -520,14 +519,13 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-  window.addEventListener('load', () => {
+window.addEventListener('load', () => {
   const video = document.querySelector('.background-video');
+  const bgImage = document.querySelector('.background-image');
   
-  // 监听视频是否可以播放（有足够的数据开始播放）
-  video.addEventListener('canplay', function() {
-    // 视频加载完成，触发所有动画
+  // 触发动画的通用函数
+  function triggerAnimations() {
     document.querySelector('.home').classList.add('gradient-loaded');
-    
     document.querySelector('.home-content').classList.remove('hidden');
 
     // 强制触发重绘，重新开始动画
@@ -545,17 +543,32 @@ updatePageIndicator(0);
     
     // 显示页面指示器
     document.querySelector('.page-indicator').classList.add('indicator-loaded');
-  });
+  }
+  
+  // 处理视频背景
+  if (video) {
+    // 监听视频是否可以播放（有足够的数据开始播放）
+    video.addEventListener('canplay', function() {
+      triggerAnimations();
+    });
+  }
+  
+  // 处理图片背景
+  if (bgImage) {
+    bgImage.addEventListener('load', function() {
+      triggerAnimations();
+    });
+    
+    // 如果图片已经加载完成
+    if (bgImage.complete) {
+      bgImage.dispatchEvent(new Event('load'));
+    }
+  }
 
-  // 备用方案：如果视频加载失败或很慢，设置一个最大等待时间
+  // 备用方案：如果视频/图片加载失败或很慢，设置一个最大等待时间
   setTimeout(() => {
     if (!document.querySelector('.home').classList.contains('gradient-loaded')) {
-      // 如果3秒后还没有触发动画，强制触发
-      document.querySelector('.home').classList.add('gradient-loaded');
-      document.querySelector('.home-content').classList.remove('hidden');
-      document.querySelector('.navbar').classList.add('navbar-loaded');
-      document.querySelector('.social-sidebar').classList.add('social-loaded');
-      document.querySelector('.page-indicator').classList.add('indicator-loaded');
+      triggerAnimations();
     }
   }, 3000);
 });
