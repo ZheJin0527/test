@@ -76,7 +76,7 @@ if (file_exists('media_config.json')) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #cf8026ff 0%, #eca04aff 100%);
+            background: linear-gradient(135deg, #ffffffff 0%, #eca04aff 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -91,7 +91,7 @@ if (file_exists('media_config.json')) {
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e97c17ff 0%, #f7ae50ff 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -179,7 +179,7 @@ if (file_exists('media_config.json')) {
         }
         
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e97c17ff 0%, #f7ae50ff 100%);
             color: white;
             border: none;
             padding: 15px 30px;
