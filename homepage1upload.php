@@ -76,7 +76,7 @@ if (file_exists('media_config.json')) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #eecca6ff 0%, #ebe0d1ff 100%);
+            background: linear-gradient(135deg, #f1e2cfff 0%, #f3eee7ff 100%);
             min-height: 100vh;
             padding: 20px;
         }
