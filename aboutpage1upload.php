@@ -124,21 +124,24 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于我们第一页 - KUNZZ HOLDINGS</title>
+    <div class="header">
+        <h1>关于我们页面管理</h1>
+        <p>管理关于我们页面的封面背景图片</p>
+    </div>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -147,43 +150,43 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-        
+
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 30px;
             text-align: center;
         }
-        
+
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
         }
-        
+
         .header p {
             opacity: 0.9;
             font-size: 1.1em;
         }
-        
+
         .breadcrumb {
             padding: 20px 40px;
             background: #f8f9fa;
             border-bottom: 1px solid #dee2e6;
         }
-        
+
         .breadcrumb a {
             color: #667eea;
             text-decoration: none;
         }
-        
+
         .breadcrumb a:hover {
             text-decoration: underline;
         }
-        
+
         .content {
             padding: 40px;
         }
-        
+
         .media-section {
             background: #f8f9fa;
             border-radius: 10px;
@@ -191,29 +194,29 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             margin-bottom: 30px;
             border-left: 5px solid #FF5C00;
         }
-        
+
         .media-section h2 {
             color: #333;
             margin-bottom: 20px;
             font-size: 1.8em;
         }
-        
+
         .upload-form {
             display: grid;
             gap: 20px;
         }
-        
+
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-        
+
         .form-group label {
             font-weight: 600;
             color: #555;
         }
-        
+
         .file-input {
             border: 2px dashed #FF5C00;
             border-radius: 10px;
@@ -223,22 +226,22 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
+
         .file-input:hover {
             border-color: #e54a00;
             background: #fff5f0;
         }
-        
+
         .file-input input {
             display: none;
         }
-        
+
         .file-input-text {
             color: #FF5C00;
             font-size: 1.1em;
             font-weight: 500;
         }
-        
+
         .current-file {
             margin-top: 15px;
             padding: 15px;
@@ -246,11 +249,11 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             border-radius: 8px;
             border-left: 4px solid #FF5C00;
         }
-        
+
         .current-file strong {
             color: #155724;
         }
-        
+
         .btn {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
@@ -262,31 +265,31 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
-        
+
         .alert {
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
             font-weight: 500;
         }
-        
+
         .alert-success {
             background: #d4edda;
             color: #155724;
             border-left: 4px solid #28a745;
         }
-        
+
         .alert-error {
             background: #f8d7da;
             color: #721c24;
             border-left: 4px solid #dc3545;
         }
-        
+
         .back-btn {
             display: inline-block;
             background: #6c757d;
@@ -297,25 +300,25 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
-        
+
         .back-btn:hover {
             background: #5a6268;
             transform: translateY(-1px);
         }
-        
+
         .preview-container {
             margin-top: 20px;
             border: 1px solid #dee2e6;
             border-radius: 8px;
             overflow: hidden;
         }
-        
+
         .preview-image {
             width: 100%;
             max-height: 300px;
             object-fit: cover;
         }
-        
+
         .css-info {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -323,11 +326,11 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             padding: 15px;
             margin-top: 15px;
         }
-        
+
         .css-info strong {
             color: #856404;
         }
-        
+
         @media (max-width: 768px) {
             .content {
                 padding: 20px;
@@ -431,13 +434,21 @@ $currentBgFromCSS = getCurrentBackgroundFromCSS('style.css');
             </div>
             
             <div class="media-section">
-                <h2>说明</h2>
-                <p><strong>重要提示：</strong></p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>上传的图片将自动替换 CSS 文件中 <code>.aboutus-banner</code> 的背景图片</li>
+                <h2>使用说明</h2>
+                <p><strong>功能说明：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.6;">
+                    <li>上传的图片将自动保存到 uploads 目录</li>
+                    <li>系统会自动删除旧的背景图片</li>
                     <li>建议图片尺寸：1920x1080 或更高分辨率</li>
                     <li>支持格式：JPG, JPEG, PNG, WebP</li>
-                    <li>上传成功后，网站会立即显示新的背景图片</li>
+                    <li>上传成功后，关于我们页面会立即显示新的背景图片</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>技术细节：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.6;">
+                    <li>图片通过 PHP 动态加载，无需修改 CSS 文件</li>
+                    <li>系统会自动检测 uploads 目录中的图片文件</li>
+                    <li>支持多种图片格式的自动切换</li>
                 </ul>
             </div>
         </div>
