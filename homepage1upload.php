@@ -177,7 +177,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input-text {
-            color: #667eea;
+            color: #FF5C00;
             font-size: 1.1em;
             font-weight: 500;
         }
@@ -195,7 +195,7 @@ if (file_exists('media_config.json')) {
         }
         
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
             padding: 15px 30px;
