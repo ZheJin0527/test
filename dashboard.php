@@ -296,9 +296,6 @@ $avatarLetter = strtoupper($username[0]);
                             </div>
                             <div class="submenu-content">
                                 <a href="#" class="submenu-item">第一页</a>
-                                <a href="#" class="submenu-item">第二页</a>
-                                <a href="#" class="submenu-item">第三页</a>
-                                <a href="#" class="submenu-item">第四页</a>
                             </div>
                         </div>
                     </div>
@@ -314,10 +311,7 @@ $avatarLetter = strtoupper($username[0]);
                             </div>
                             <div class="submenu-content">
                                 <a href="#" class="submenu-item">第一页</a>
-                                <a href="#" class="submenu-item">第二页</a>
-                                <a href="#" class="submenu-item">第三页</a>
                                 <a href="#" class="submenu-item">第四页</a>
-                                <a href="#" class="submenu-item">第五页</a>
                             </div>
                         </div>
                     </div>
@@ -333,11 +327,6 @@ $avatarLetter = strtoupper($username[0]);
                             </div>
                             <div class="submenu-content">
                                 <a href="#" class="submenu-item">第一页</a>
-                                <a href="#" class="submenu-item">第二页</a>
-                                <a href="#" class="submenu-item">第三页</a>
-                                <a href="#" class="submenu-item">第四页</a>
-                                <a href="#" class="submenu-item">第五页</a>
-                                <a href="#" class="submenu-item">第六页</a>
                             </div>
                         </div>
                     </div>
@@ -354,10 +343,6 @@ $avatarLetter = strtoupper($username[0]);
                             <div class="submenu-content">
                                 <a href="#" class="submenu-item">第一页</a>
                                 <a href="#" class="submenu-item">第二页</a>
-                                <a href="#" class="submenu-item">第三页</a>
-                                <a href="#" class="submenu-item">第四页</a>
-                                <a href="#" class="submenu-item">第五页</a>
-                                <a href="#" class="submenu-item">第六页</a>
                             </div>
                         </div>
                     </div>
