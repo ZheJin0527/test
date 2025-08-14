@@ -211,8 +211,12 @@ function getTimelineHtml() {
 function getTimelineYears() {
     $config = getTimelineConfig();
     $years = array_keys($config);
-    sort($years, SORT_NUMERIC);
-    return $years;
+    // 确保年份是字符串格式并且正确排序
+    $years = array_map('strval', $years);
+    uksort($config, function($a, $b) {
+        return (int)$a - (int)$b;
+    });
+    return array_keys($config);
 }
 
 /**
