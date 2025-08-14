@@ -215,7 +215,7 @@ $timelineData = getTimelineConfig();
                 ?>
                 <!-- <?php echo $year; ?>年内容 -->
                 <div class="timeline-content-item <?php echo $itemClass; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $index; ?>">
-                    <div class="timeline-content" onclick="selectCard('<?php echo $year; ?>')">
+                    <div class="timeline-content" onclick="selectCard(<?php echo $year; ?>)">
                         <div class="timeline-image">
                             <img src="<?php echo $data['image_url']; ?>" alt="<?php echo $year; ?>年发展">
                         </div>
@@ -862,15 +862,14 @@ updatePageIndicator(0);
             const index = years.indexOf(year.toString());
             if (index !== -1 && index !== currentIndex) {
                 currentIndex = index;
-                updateTimelineNav();
-                updateCardPositions();
+                showTimelineItem(year.toString());
             }
         }
 
         function showTimelineItem(year) {
-            currentIndex = years.indexOf(year.toString());
             updateTimelineNav();
             updateCardPositions();
+            currentIndex = years.indexOf(year);
         }
 
         // 优化后的拖拽处理
