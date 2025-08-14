@@ -144,16 +144,19 @@ function getTimelineConfig($year = null) {
     if (file_exists($configFile)) {
         $customConfig = json_decode(file_get_contents($configFile), true);
         if ($customConfig) {
-            // 合并自定义配置和默认配置
-            foreach ($customConfig as $configYear => $data) {
-                if (isset($defaultTimeline[$configYear])) {
-                    $config[$configYear] = array_merge($defaultTimeline[$configYear], $data);
-                } else {
-                    $config[$configYear] = $data;
+            // 使用自定义配置完全覆盖默认配置
+            $config = $customConfig;
+            // 但保留默认配置中存在但自定义配置中缺失的年份
+            foreach ($defaultTimeline as $defaultYear => $defaultData) {
+                if (!isset($config[$defaultYear])) {
+                    $config[$defaultYear] = $defaultData;
                 }
             }
         }
     }
+    
+    // 按年份排序
+    ksort($config);
     
     // 为图片添加时间戳防止缓存
     foreach ($config as $configYear => &$data) {
