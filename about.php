@@ -762,8 +762,8 @@ updatePageIndicator(0);
     </script>
 <script>
         let currentIndex = 0;
-let years = <?php echo json_encode(getTimelineYears()); ?>;
-let totalItems = years.length;
+const totalItems = 3;
+const years = ['2022', '2023', '2025'];
 const navItems = document.querySelectorAll('.timeline-item');
 const container = document.getElementById('timelineContainer');
 
@@ -777,27 +777,18 @@ let dragStartTime = 0; // 记录拖拽开始时间
 let isAnimating = false; // 防止动画期间的操作冲突
 
 function updateTimelineNav() {
-    const navItems = document.querySelectorAll('.timeline-item');
-    
     // 更新导航状态
     navItems.forEach((item, index) => {
         item.classList.toggle('active', index === currentIndex);
     });
 
-    // 平滑滚动到居中位置
+    // 计算居中位置
     const containerWidth = container.parentElement.offsetWidth;
     const itemWidth = 120;
     const centerOffset = containerWidth / 2 - itemWidth / 2;
     const translateX = centerOffset - (currentIndex * itemWidth);
     
-    // 使用CSS transition实现平滑滚动
-    container.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     container.style.transform = `translateX(${translateX}px)`;
-    
-    // 清除transition，避免影响后续操作
-    setTimeout(() => {
-        container.style.transition = '';
-    }, 500);
 }
 
 function updateCardPositions() {
@@ -805,9 +796,6 @@ function updateCardPositions() {
     
     cards.forEach((card, index) => {
         card.classList.remove('active', 'prev', 'next', 'hidden');
-        
-        // 添加平滑过渡效果
-        card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         
         if (index === currentIndex) {
             card.classList.add('active');
@@ -819,13 +807,6 @@ function updateCardPositions() {
             card.classList.add('hidden');
         }
     });
-    
-    // 清除transition，避免影响后续操作
-    setTimeout(() => {
-        cards.forEach(card => {
-            card.style.transition = '';
-        });
-    }, 600);
 }
 
 function navigateTimeline(direction) {
