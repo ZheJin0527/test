@@ -2994,58 +2994,54 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         // 合并所有餐厅数据
-        function mergeAllRestaurantsData() {
-            const dateMap = new Map();
+        // 合并所有餐厅数据
+function mergeAllRestaurantsData() {
+    const dateMap = new Map();
 
-            // 遍历所有餐厅数据
-            Object.values(allRestaurantsData).forEach(restaurantData => {
-                restaurantData.forEach(item => {
-                    const date = item.date;
-                    if (!dateMap.has(date)) {
-                        dateMap.set(date, {
-                            date: date,
-                            gross_sales: 0,
-                            net_sales: 0,
-                            tender_amount: 0,
-                            discounts: 0,
-                            tax: 0,
-                            service_fee: 0,
-                            adj_amount: 0,
-                            tender_amount: 0,
-                            diners: 0,
-                            tables_used: 0,
-                            returning_customers: 0,
-                            new_customers: 0
-                        });
-                    }
-
-                    const existing = dateMap.get(date);
-                    const tenderAmount = parseFloat(item.tender_amount) || 0;
-const adjAmount = parseFloat(item.adj_amount) || 0;
-const discounts = parseFloat(item.discounts) || 0;
-const netSales = item.net_sales ? parseFloat(item.net_sales) : (tenderAmount - adjAmount - discounts);
-
-// 总销售额 = tender_amount - adj_amount
-const totalSales = tenderAmount - adjAmount;
-
-existing.gross_sales += totalSales;  // 这里存储的是修正后的总销售额
-existing.tender_amount += tenderAmount;
-existing.net_sales += netSales;
-                    existing.discounts += discounts;
-                    existing.tax += parseFloat(item.tax) || 0;
-                    existing.service_fee += parseFloat(item.service_fee) || 0;
-                    existing.adj_amount += parseFloat(item.adj_amount) || 0;
-                    existing.tender_amount += parseFloat(item.tender_amount) || 0;
-                    existing.diners += parseInt(item.diners) || 0;
-                    existing.tables_used += parseInt(item.tables_used) || 0;
-                    existing.returning_customers += parseInt(item.returning_customers) || 0;
-                    existing.new_customers += parseInt(item.new_customers) || 0;
+    // 遍历所有餐厅数据
+    Object.values(allRestaurantsData).forEach(restaurantData => {
+        restaurantData.forEach(item => {
+            const date = item.date;
+            if (!dateMap.has(date)) {
+                dateMap.set(date, {
+                    date: date,
+                    gross_sales: 0,
+                    net_sales: 0,
+                    tender_amount: 0,
+                    discounts: 0,
+                    tax: 0,
+                    service_fee: 0,
+                    adj_amount: 0,
+                    diners: 0,
+                    tables_used: 0,
+                    returning_customers: 0,
+                    new_customers: 0
                 });
-            });
+            }
 
-            // 转换为数组并排序
-            return Array.from(dateMap.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
-        }
+            const existing = dateMap.get(date);
+            const grossSales = parseFloat(item.gross_sales) || 0;
+            const tenderAmount = parseFloat(item.tender_amount) || 0;
+            const discounts = parseFloat(item.discounts) || 0;
+            const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
+
+            existing.gross_sales += grossSales;
+            existing.tender_amount += tenderAmount; // 这里是关键修改
+            existing.net_sales += netSales;
+            existing.discounts += discounts;
+            existing.tax += parseFloat(item.tax) || 0;
+            existing.service_fee += parseFloat(item.service_fee) || 0;
+            existing.adj_amount += parseFloat(item.adj_amount) || 0;
+            existing.diners += parseInt(item.diners) || 0;
+            existing.tables_used += parseInt(item.tables_used) || 0;
+            existing.returning_customers += parseInt(item.returning_customers) || 0;
+            existing.new_customers += parseInt(item.new_customers) || 0;
+        });
+    });
+
+    // 转换为数组并排序
+    return Array.from(dateMap.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
+}
 
         // 数据获取
         async function loadData(params = {}) {
@@ -3194,23 +3190,19 @@ existing.net_sales += netSales;
                 const discounts = parseFloat(item.discounts) || 0;
                 const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
 
-                const tenderAmount = parseFloat(item.tender_amount) || 0;
-const adjAmount = parseFloat(item.adj_amount) || 0;
-const realTotalSales = tenderAmount - adjAmount;
-
-return {
+                return {
     date: item.date,
-    totalSales: realTotalSales,  // 使用修正后的总销售额
+    totalSales: parseFloat(item.tender_amount) || 0, // 使用 tender_amount 作为总销售额
     netSales: netSales,
-                    diners: diners,
-                    tablesUsed: parseInt(item.tables_used) || 0,
-                    returningCustomers: returningCustomers,
-                    newCustomers: newCustomers,
-                    // 人均消费基于净销售额计算 (匹配 edit 页面逻辑)
-                    avgSalesPerDiner: diners > 0 ? netSales / diners : 0,
-                    returningRate: totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0,
-                    newCustomersRate: totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0
-                };
+    diners: diners,
+    tablesUsed: parseInt(item.tables_used) || 0,
+    returningCustomers: returningCustomers,
+    newCustomers: newCustomers,
+    // 人均消费基于净销售额计算
+    avgSalesPerDiner: diners > 0 ? netSales / diners : 0,
+    returningRate: totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0,
+    newCustomersRate: totalCustomers > 0 ? (newCustomers / totalCustomers) * 100 : 0
+};
             });
         }
 
@@ -3233,14 +3225,14 @@ return {
             let displaySummary;
             if (filteredData.length > 0) {
                 displaySummary = {
-                    total_gross_sales: filteredData.reduce((sum, item) => sum + item.totalSales, 0), // 这里的 totalSales 现在是 tender_amount
-                    total_net_sales: filteredData.reduce((sum, item) => sum + item.netSales, 0),
-                    total_tables: filteredData.reduce((sum, item) => sum + item.tablesUsed, 0),
-                    total_diners: filteredData.reduce((sum, item) => sum + item.diners, 0),
-                    total_returning_customers: filteredData.reduce((sum, item) => sum + item.returningCustomers, 0),
-                    total_new_customers: filteredData.reduce((sum, item) => sum + item.newCustomers, 0),
-                    total_days: filteredData.length
-                };
+    total_gross_sales: filteredData.reduce((sum, item) => sum + item.totalSales, 0), // totalSales 现在正确对应 tender_amount
+    total_net_sales: filteredData.reduce((sum, item) => sum + item.netSales, 0),
+    total_tables: filteredData.reduce((sum, item) => sum + item.tablesUsed, 0),
+    total_diners: filteredData.reduce((sum, item) => sum + item.diners, 0),
+    total_returning_customers: filteredData.reduce((sum, item) => sum + item.returningCustomers, 0),
+    total_new_customers: filteredData.reduce((sum, item) => sum + item.newCustomers, 0),
+    total_days: filteredData.length
+};
                 // 重新计算真正的平均每人消费 (基于净销售额，匹配 edit 页面逻辑)
                 displaySummary.avg_per_diner = displaySummary.total_diners > 0 ? 
                     displaySummary.total_net_sales / displaySummary.total_diners : 0;
@@ -3261,8 +3253,8 @@ return {
             }
     
             // 更新KPI卡片 (显示格式与 edit 页面保持一致)
-            document.getElementById('total-sales').textContent = `${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('net-sales').textContent = `${parseFloat(displaySummary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+document.getElementById('total-sales').textContent = `${parseFloat(displaySummary.total_gross_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+document.getElementById('net-sales').textContent = `${parseFloat(displaySummary.total_net_sales || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             document.getElementById('total-tables').textContent = (displaySummary.total_tables || 0).toLocaleString();
             document.getElementById('total-diners').textContent = (displaySummary.total_diners || 0).toLocaleString();
             document.getElementById('avg-per-diner').textContent = `${parseFloat(displaySummary.avg_per_diner || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
