@@ -1,45 +1,4 @@
-.year-management {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }        .timeline-section h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .year-management {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border: 1px solid #dee2e6;
-        }
-        
-        .add-year-form h3,
-        .delete-year-form h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-        }
-        
-        .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        }
-        
-        .btn-danger:hover {
-            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
-        }<?php
+<?php
 session_start();
 
 // 检查是否已登录（根据你的登录系统调整）
@@ -107,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_year'])) {
 }
 
 // 处理文件上传和文案修改
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['timeline_image'])) {
     $uploadDir = 'images/images/';
     $configFile = 'timeline_config.json';
     
@@ -116,69 +75,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mkdir($uploadDir, 0777, true);
     }
     
-    // 处理照片上传
-    if (isset($_FILES['timeline_image']) && $_FILES['timeline_image']['error'] === UPLOAD_ERR_OK) {
-        $file = $_FILES['timeline_image'];
-        $year = $_POST['year'];
-        $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $file = $_FILES['timeline_image'];
+    $year = $_POST['year'];
+    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    
+    // 允许的文件类型
+    $allowedImage = ['jpg', 'jpeg', 'png', 'webp'];
+    
+    if (in_array($fileExtension, $allowedImage)) {
+        // 生成新文件名
+        $newFileName = $year . '发展.' . $fileExtension;
+        $targetPath = $uploadDir . $newFileName;
         
-        // 允许的文件类型
-        $allowedImage = ['jpg', 'jpeg', 'png', 'webp'];
-        
-        if (in_array($fileExtension, $allowedImage)) {
-            // 生成新文件名
-            $newFileName = $year . '发展.' . $fileExtension;
-            $targetPath = $uploadDir . $newFileName;
-            
-            if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-                // 更新配置文件
-                $config = [];
-                if (file_exists($configFile)) {
-                    $config = json_decode(file_get_contents($configFile), true) ?: [];
-                }
-                
-                if (!isset($config[$year])) {
-                    $config[$year] = [];
-                }
-                
-                $config[$year]['image'] = $targetPath;
-                $config[$year]['updated'] = date('Y-m-d H:i:s');
-                
-                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-                $success = "照片上传成功！";
-            } else {
-                $error = "照片上传失败！";
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            // 更新配置文件
+            $config = [];
+            if (file_exists($configFile)) {
+                $config = json_decode(file_get_contents($configFile), true) ?: [];
             }
+            
+            if (!isset($config[$year])) {
+                $config[$year] = [];
+            }
+            
+            $config[$year]['image'] = $targetPath;
+            $config[$year]['updated'] = date('Y-m-d H:i:s');
+            
+            file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
+            $success = "照片上传成功！";
+
+            // 添加页面重定向，清除缓存
+            echo "<script>
+                setTimeout(function() {
+                    window.location.href = window.location.href + '?updated=' + Date.now();
+                }, 2000);
+            </script>";
         } else {
-            $error = "不支持的文件类型！仅支持 JPG, PNG, WebP 格式";
+            $error = "照片上传失败！";
         }
+    } else {
+        $error = "不支持的文件类型！仅支持 JPG, PNG, WebP 格式";
+    }
+}
+
+// 处理文案更新
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_content'])) {
+    $year = $_POST['year'];
+    $title = $_POST['title'];
+    $description1 = $_POST['description1'];
+    $description2 = $_POST['description2'];
+    $configFile = 'timeline_config.json';
+    
+    // 更新配置文件
+    $config = [];
+    if (file_exists($configFile)) {
+        $config = json_decode(file_get_contents($configFile), true) ?: [];
     }
     
-    // 处理文案更新
-    if (isset($_POST['update_content'])) {
-        $year = $_POST['year'];
-        $title = $_POST['title'];
-        $description1 = $_POST['description1'];
-        $description2 = $_POST['description2'];
-        
-        // 更新配置文件
-        $config = [];
-        if (file_exists($configFile)) {
-            $config = json_decode(file_get_contents($configFile), true) ?: [];
-        }
-        
-        if (!isset($config[$year])) {
-            $config[$year] = [];
-        }
-        
-        $config[$year]['title'] = $title;
-        $config[$year]['description1'] = $description1;
-        $config[$year]['description2'] = $description2;
-        $config[$year]['updated'] = date('Y-m-d H:i:s');
-        
-        file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-        $success = "文案更新成功！";
+    if (!isset($config[$year])) {
+        $config[$year] = [];
     }
+    
+    $config[$year]['title'] = $title;
+    $config[$year]['description1'] = $description1;
+    $config[$year]['description2'] = $description2;
+    $config[$year]['updated'] = date('Y-m-d H:i:s');
+    
+    file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
+    $success = "文案更新成功！";
 }
 
 // 读取当前配置并按年份排序
@@ -297,6 +261,15 @@ ksort($config);
             border-left: 5px solid #FF5C00;
         }
         
+        .timeline-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
         .year-management {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -328,6 +301,7 @@ ksort($config);
             display: flex;
             gap: 10px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
         .year-tab {
@@ -553,6 +527,10 @@ ksort($config);
             .year-management {
                 grid-template-columns: 1fr;
                 gap: 15px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
             }
             
             .btn-secondary {
