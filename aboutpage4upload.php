@@ -578,7 +578,9 @@ foreach ($defaultTimeline as $year => $data) {
                 <div class="year-management">
                     <div class="year-tabs">
                         <?php 
-                        $years = getTimelineYears();
+                        $timelineConfig = getTimelineConfig();
+                        $years = array_keys($timelineConfig);
+                        sort($years, SORT_NUMERIC);
                         foreach ($years as $index => $year): 
                         ?>
                             <button class="year-tab <?php echo $index === 0 ? 'active' : ''; ?>" onclick="showYear('<?php echo $year; ?>')"><?php echo $year; ?>年</button>
