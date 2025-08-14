@@ -319,19 +319,6 @@ if (file_exists('media_config.json')) {
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
             
-            <!-- 页面分类管理 -->
-            <div class="media-section">
-                <h2>🏢 旗下品牌管理</h2>
-                <div class="page-grid">
-                    <a href="tokyopage1upload.php" class="page-card">
-                        <div class="page-icon">🍱</div>
-                        <h3>Tokyo Japanese Cuisine</h3>
-                        <p>管理品牌页面首页背景图片</p>
-                        <span class="page-arrow">→</span>
-                    </a>
-                </div>
-            </div>
-            
             <div class="media-section">
                 <h2>📋 关于我们管理</h2>
                 <div class="page-grid">
@@ -350,13 +337,14 @@ if (file_exists('media_config.json')) {
                 </div>
             </div>
             
+            <!-- 页面分类管理 -->
             <div class="media-section">
                 <h2>🏢 旗下品牌管理</h2>
                 <div class="page-grid">
-                    <a href="brandpage1upload.php" class="page-card">
+                    <a href="tokyopage1upload.php" class="page-card">
                         <div class="page-icon">🍱</div>
                         <h3>Tokyo Japanese Cuisine</h3>
-                        <p>管理品牌页面图片</p>
+                        <p>管理品牌页面首页背景图片</p>
                         <span class="page-arrow">→</span>
                     </a>
                 </div>
