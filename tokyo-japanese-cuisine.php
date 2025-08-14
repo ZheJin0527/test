@@ -1,3 +1,13 @@
+<?php
+session_start();
+include_once 'media_config.php';
+
+// 禁用页面缓存
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+?>
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -26,7 +36,7 @@
   <nav class="nav-links" id="navMenu">
     <div class="nav-item"><a href="index.php">首页</a></div>
     <div class="nav-item"><a href="about.php">关于我们</a></div>
-    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine.php">旗下品牌</a></div>
     <div class="nav-item"><a href="joinus.php">加入我们</a></div>
   </nav>
 
@@ -69,6 +79,7 @@
 
   <div class="swiper-slide">
   <section class="home">
+    <?php echo getMediaHtml('tokyo_background', ['style' => 'width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;']); ?>
     <div class="home-content hidden animate-on-scroll">
       <div class="home-logo-container scale-fade-in">
       <img src="images/images/tokyo.png" alt="餐厅Logo" class="home-logo scale-fade-in">
@@ -462,7 +473,7 @@
     <div class="footer-section">
       <h4>旗下品牌</h4>
       <ul>
-        <li><a href="tokyo-japanese-cuisine.html">TOKYO JAPANESE </br>CUISINE</li>
+        <li><a href="tokyo-japanese-cuisine.php">TOKYO JAPANESE </br>CUISINE</li>
       </ul>
     </div>
 

@@ -19,6 +19,10 @@ function getMediaConfig($mediaType) {
         'joinus_background' => [
             'file' => 'images/images/加入我们bg2.jpg',
             'type' => 'image'
+        ],
+        'tokyo_background' => [
+            'file' => 'images/images/tokyo_bg.jpg',
+            'type' => 'image'
         ]
     ];
     

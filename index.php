@@ -40,7 +40,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <nav class="nav-links" id="navMenu">
     <div class="nav-item"><a href="index.php">首页</a></div>
     <div class="nav-item"><a href="about.php">关于我们</a></div>
-    <div class="nav-item"><a href="tokyo-japanese-cuisine.html">旗下品牌</a></div>
+    <div class="nav-item"><a href="tokyo-japanese-cuisine.php">旗下品牌</a></div>
     <div class="nav-item"><a href="joinus.php">加入我们</a></div>
   </nav>
 
@@ -192,7 +192,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <div class="footer-section">
       <h4>旗下品牌</h4>
       <ul>
-        <li><a href="tokyo-japanese-cuisine.html">TOKYO JAPANESE </br>CUISINE</li>
+        <li><a href="tokyo-japanese-cuisine.php">TOKYO JAPANESE </br>CUISINE</li>
       </ul>
     </div>
 
