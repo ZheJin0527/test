@@ -321,12 +321,12 @@ if (file_exists('media_config.json')) {
             
             <!-- 页面分类管理 -->
             <div class="media-section">
-                <h2>📁 首页管理</h2>
+                <h2>🏢 旗下品牌管理</h2>
                 <div class="page-grid">
-                    <a href="homepage1upload.php" class="page-card">
-                        <div class="page-icon">🏠</div>
-                        <h3>首页第一页</h3>
-                        <p>管理首页背景视频/图片</p>
+                    <a href="tokyopage1upload.php" class="page-card">
+                        <div class="page-icon">🍱</div>
+                        <h3>Tokyo Japanese Cuisine</h3>
+                        <p>管理品牌页面首页背景图片</p>
                         <span class="page-arrow">→</span>
                     </a>
                 </div>
