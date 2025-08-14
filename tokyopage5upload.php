@@ -533,7 +533,7 @@ $currentConfig = getTokyoLocationConfig();
                         <div class="form-group">
                             <label>电话号码</label>
                             <input type="text" class="form-input" name="">
-                            <div class="help-text">例如：+60 19-710 8090</div>
+                            <div class="help-text">例如：+60 12-345 6789</div>
                         </div>
                         
                         <div class="form-group">
