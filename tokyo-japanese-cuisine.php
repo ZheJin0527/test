@@ -417,16 +417,37 @@ header("Expires: 0");
   </section>
   </div>
 
-  <div class="swiper-slide">
-    <section class="location-section">
-      <div class="location-container">
-        <?php echo getLocationHtml(); ?>
-        <div class="map-container">
-          <iframe src="https://www.google.com/maps/d/embed?mid=1H0dUMmKC2N8DqeTOfx3ueTNAze-YJ5U&ehbc=2E312F" width="640" height="480"></iframe>
-        </div>
+<div class="swiper-slide">
+  <section class="location-section">
+    <div class="location-container">
+      <div class="location-info">
+        <h2>我们在这</h2>
+        <p>总店：
+        <a
+          href="https://maps.app.goo.gl/VcQp7YGAeQadDNRx9"
+          target="_blank"
+          class="no-style-link">
+          T-042 Level 3, Mid Valley, The Mall, Southkey, 81100 Johor Bahru, Johor Darul Ta'zim
+        </a>
+      </p>
+      <p>电话：+60 19-710 8090</p>
+
+      <p>分店：
+        <a
+          href="https://maps.app.goo.gl/7vDymMQJ3h9Srp4M6"
+          target="_blank"
+          class="no-style-link">
+          Lot UG-25, Upper Ground Floor, Paradigm Mall, Lbh Skudai, Taman Bukit Mewah, 81200 Johor Bahru, Johor Darul Ta'zim
+        </a>
+      </p>
+      <p>电话：+60 18-773 8090</p>
       </div>
-    </section>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/d/embed?mid=1H0dUMmKC2N8DqeTOfx3ueTNAze-YJ5U&ehbc=2E312F" width="640" height="480"></iframe>
+      </div>
     </div>
+  </section>
+  </div>
 
 <div class="swiper-slide footer-slide">
   <section class="scroll-buffer">
