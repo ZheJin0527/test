@@ -810,7 +810,7 @@ function updateCardPositions() {
 }
 
 function navigateTimeline(direction) {
-    if (isAnimating) return; // 防止动画期间重复触发
+    if (isAnimating) return;
     
     isAnimating = true;
     
@@ -820,12 +820,11 @@ function navigateTimeline(direction) {
         currentIndex = (currentIndex - 1 + totalItems) % totalItems;
     }
     
-    showTimelineItem(years[currentIndex]);
+    showTimelineItem(years[currentIndex]); // 这里会传递实际年份如"2022"
     
-    // 动画完成后重置标志
     setTimeout(() => {
         isAnimating = false;
-    }, 300); // 假设动画时长为300ms
+    }, 300);
 }
 
 function selectCard(year) {
@@ -834,14 +833,18 @@ function selectCard(year) {
     const index = years.indexOf(year.toString());
     if (index !== -1 && index !== currentIndex) {
         currentIndex = index;
-        showTimelineItem(year.toString());
+        showTimelineItem(years[currentIndex]); // 使用years数组中的实际年份
     }
 }
 
 function showTimelineItem(year) {
     updateTimelineNav();
     updateCardPositions();
-    currentIndex = years.indexOf(year);
+    // 确保currentIndex指向正确的年份
+    const yearIndex = years.indexOf(year.toString());
+    if (yearIndex !== -1) {
+        currentIndex = yearIndex;
+    }
 }
 
 // 优化后的拖拽处理
