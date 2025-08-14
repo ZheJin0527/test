@@ -3020,14 +3020,17 @@ $avatarLetter = strtoupper($username[0]);
                     }
 
                     const existing = dateMap.get(date);
-                    const grossSales = parseFloat(item.gross_sales) || 0;
                     const tenderAmount = parseFloat(item.tender_amount) || 0;
-                    const discounts = parseFloat(item.discounts) || 0;
-                    const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
+const adjAmount = parseFloat(item.adj_amount) || 0;
+const discounts = parseFloat(item.discounts) || 0;
+const netSales = item.net_sales ? parseFloat(item.net_sales) : (tenderAmount - adjAmount - discounts);
 
-                    existing.gross_sales += grossSales;
-                    existing.tender_amount += tenderAmount;
-                    existing.net_sales += netSales;
+// 总销售额 = tender_amount - adj_amount
+const totalSales = tenderAmount - adjAmount;
+
+existing.gross_sales += totalSales;  // 这里存储的是修正后的总销售额
+existing.tender_amount += tenderAmount;
+existing.net_sales += netSales;
                     existing.discounts += discounts;
                     existing.tax += parseFloat(item.tax) || 0;
                     existing.service_fee += parseFloat(item.service_fee) || 0;
@@ -3191,10 +3194,14 @@ $avatarLetter = strtoupper($username[0]);
                 const discounts = parseFloat(item.discounts) || 0;
                 const netSales = item.net_sales ? parseFloat(item.net_sales) : (grossSales - discounts);
 
-                return {
-                    date: item.date,
-                    totalSales: parseFloat(item.tender_amount) || 0,
-                    netSales: netSales,
+                const tenderAmount = parseFloat(item.tender_amount) || 0;
+const adjAmount = parseFloat(item.adj_amount) || 0;
+const realTotalSales = tenderAmount - adjAmount;
+
+return {
+    date: item.date,
+    totalSales: realTotalSales,  // 使用修正后的总销售额
+    netSales: netSales,
                     diners: diners,
                     tablesUsed: parseInt(item.tables_used) || 0,
                     returningCustomers: returningCustomers,
