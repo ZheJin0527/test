@@ -32,6 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_year'])) {
             
             file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
             $success = "年份 {$newYear} 添加成功！";
+            // 添加页面重定向刷新
+            echo "<script>
+                setTimeout(function() {
+                    window.location.href = 'about.php?updated=' + Date.now();
+                }, 2000);
+            </script>";
         } else {
             $error = "年份 {$newYear} 已存在！";
         }
@@ -59,6 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_year'])) {
             unset($config[$yearToDelete]);
             file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
             $success = "年份 {$yearToDelete} 删除成功！";
+            // 添加页面重定向刷新
+            echo "<script>
+                setTimeout(function() {
+                    window.location.href = 'about.php?updated=' + Date.now();
+                }, 2000);
+            </script>";
         } else {
             $error = "年份 {$yearToDelete} 不存在！";
         }
