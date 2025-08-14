@@ -1,9 +1,5 @@
 <?php
 /**
- * 增强版媒体配置文件 - 支持动态添加店铺信息
- */
-
-/**
  * 读取媒体配置文件
  * @param string $mediaType 媒体类型
  * @return array 媒体信息
@@ -19,12 +15,9 @@ function getMediaConfig($mediaType) {
             'file' => 'images/images/关于我们bg8.jpg',
             'type' => 'image'
         ],
+        // 添加这个配置
         'joinus_background' => [
             'file' => 'images/images/加入我们bg2.jpg',
-            'type' => 'image'
-        ],
-        'tokyo_background' => [
-            'file' => 'images/images/tokyo_bg.jpg',
             'type' => 'image'
         ]
     ];
@@ -83,6 +76,7 @@ function getMediaHtml($mediaType, $attributes = []) {
         return "<img src=\"{$fileUrl}\" alt=\"Background\"{$attrString}>";
     }
 }
+
 
 /**
  * 获取公司照片数组
@@ -145,20 +139,21 @@ function getTimelineConfig($year = null) {
         ]
     ];
     
-    // 读取自定义配置
     $config = $defaultTimeline;
+    
     if (file_exists($configFile)) {
         $customConfig = json_decode(file_get_contents($configFile), true);
         if ($customConfig) {
-            // 合并配置，保留自定义年份
-            $config = array_merge($defaultTimeline, $customConfig);
+            // 合并自定义配置和默认配置
+            foreach ($customConfig as $configYear => $data) {
+                if (isset($defaultTimeline[$configYear])) {
+                    $config[$configYear] = array_merge($defaultTimeline[$configYear], $data);
+                } else {
+                    $config[$configYear] = $data;
+                }
+            }
         }
     }
-    
-    // 按年份排序
-    uksort($config, function($a, $b) {
-        return (int)$a - (int)$b;
-    });
     
     // 为图片添加时间戳防止缓存
     foreach ($config as $configYear => &$data) {
@@ -202,398 +197,5 @@ function getTimelineHtml() {
     }
     
     return $html;
-}
-
-/**
- * 获取排序后的年份数组
- * @return array 排序后的年份数组
- */
-function getTimelineYears() {
-    $config = getTimelineConfig();
-    $years = array_keys($config);
-    sort($years, SORT_NUMERIC);
-    return $years;
-}
-
-/**
- * 添加新年份
- * @param string $year 年份
- * @param array $data 年份数据
- * @return bool 成功返回true
- */
-function addTimelineYear($year, $data) {
-    $configFile = 'timeline_config.json';
-    $config = [];
-    
-    if (file_exists($configFile)) {
-        $config = json_decode(file_get_contents($configFile), true) ?: [];
-    }
-    
-    $config[$year] = array_merge([
-        'title' => '新的里程碑',
-        'description1' => '这是第一段描述...',
-        'description2' => '这是第二段描述...',
-        'image' => 'images/images/default.jpg',
-        'created' => date('Y-m-d H:i:s')
-    ], $data);
-    
-    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false;
-}
-
-/**
- * 删除年份
- * @param string $year 年份
- * @return bool 成功返回true
- */
-function deleteTimelineYear($year) {
-    $configFile = 'timeline_config.json';
-    
-    if (!file_exists($configFile)) {
-        return false;
-    }
-    
-    $config = json_decode(file_get_contents($configFile), true);
-    if (!$config || !isset($config[$year])) {
-        return false;
-    }
-    
-    // 删除对应的图片文件
-    if (isset($config[$year]['image']) && file_exists($config[$year]['image'])) {
-        unlink($config[$year]['image']);
-    }
-    
-    unset($config[$year]);
-    
-    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false;
-}
-
-/**
- * 获取Tokyo位置配置 - 增强版，支持动态添加
- * @return array Tokyo位置信息
- */
-function getTokyoLocationConfig() {
-    $configFile = 'tokyo_location_config.json';
-    $defaultConfig = [
-        'section_title' => '我们在这', // 添加这行
-        'main_store' => [
-            'label' => '总店：',
-            'address' => 'T-042 Level 3, Mid Valley, The Mall, Southkey, 81100 Johor Bahru, Johor Darul Ta\'zim',
-            'phone' => '+60 19-710 8090',
-            'map_url' => 'https://maps.app.goo.gl/VcQp7YGAeQadDNRx9',
-            'order' => 1
-        ],
-        'branch_store' => [
-            'label' => '分店：',
-            'address' => 'Lot UG-25, Upper Ground Floor, Paradigm Mall, Lbh Skudai, Taman Bukit Mewah, 81200 Johor Bahru, Johor Darul Ta\'zim',
-            'phone' => '+60 18-773 8090',
-            'map_url' => 'https://maps.app.goo.gl/7vDymMQJ3h9Srp4M6',
-            'order' => 2
-        ]
-    ];
-    
-    if (file_exists($configFile)) {
-        $config = json_decode(file_get_contents($configFile), true);
-        if ($config && is_array($config)) {
-            // 合并默认配置和自定义配置
-            $mergedConfig = array_merge($defaultConfig, $config);
-            
-            // 按order字段排序，如果没有order字段则使用键名排序
-            uasort($mergedConfig, function($a, $b) {
-                $orderA = isset($a['order']) ? $a['order'] : 999;
-                $orderB = isset($b['order']) ? $b['order'] : 999;
-                return $orderA - $orderB;
-            });
-            
-            return $mergedConfig;
-        }
-    }
-    
-    return $defaultConfig;
-}
-
-/**
- * 保存Tokyo位置配置 - 增强版
- * @param array $config 位置配置数据
- * @return bool 成功返回true
- */
-function saveTokyoLocationConfig($config) {
-    $configFile = 'tokyo_location_config.json';
-    
-    // 检查目录权限
-    $dir = dirname($configFile);
-    if (!is_writable($dir)) {
-        error_log("目录不可写: $dir");
-        return false;
-    }
-    
-    // 验证数据结构
-    if (!is_array($config)) {
-        error_log("配置数据不是数组格式");
-        return false;
-    }
-    
-    // 添加时间戳和排序信息
-    $order = 1;
-    foreach ($config as $key => &$store) {
-        if ($key === 'section_title') continue;
-        
-        if (is_array($store)) {
-            $store['updated'] = date('Y-m-d H:i:s');
-            if (!isset($store['order'])) {
-                $store['order'] = $order++;
-            }
-        }
-    }
-    
-    // 创建备份
-    if (file_exists($configFile)) {
-        copy($configFile, $configFile . '.backup.' . date('Y-m-d-H-i-s'));
-    }
-    
-    // 保存文件
-    $jsonData = json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    if ($jsonData === false) {
-        error_log("JSON编码失败: " . json_last_error_msg());
-        return false;
-    }
-    
-    $result = file_put_contents($configFile, $jsonData);
-    if ($result === false) {
-        error_log("写入文件失败: $configFile");
-        return false;
-    }
-    
-    return true;
-}
-
-/**
- * 添加新的Tokyo店铺
- * @param string $storeKey 店铺键名
- * @param array $storeData 店铺数据
- * @return bool 成功返回true
- */
-function addTokyoStore($storeKey, $storeData) {
-    $config = getTokyoLocationConfig();
-    
-    // 设置默认值
-    $defaultData = [
-        'label' => '新店铺：',
-        'address' => '',
-        'phone' => '',
-        'map_url' => '',
-        'order' => count($config) + 1,
-        'created' => date('Y-m-d H:i:s')
-    ];
-    
-    $config[$storeKey] = array_merge($defaultData, $storeData);
-    
-    return saveTokyoLocationConfig($config);
-}
-
-/**
- * 删除Tokyo店铺
- * @param string $storeKey 店铺键名
- * @return bool 成功返回true
- */
-function deleteTokyoStore($storeKey) {
-    $config = getTokyoLocationConfig();
-    
-    if (!isset($config[$storeKey])) {
-        return false;
-    }
-    
-    // 不允许删除默认的主要店铺
-    if (in_array($storeKey, ['main_store', 'branch_store'])) {
-        return false;
-    }
-    
-    unset($config[$storeKey]);
-    
-    return saveTokyoLocationConfig($config);
-}
-
-/**
- * 生成Tokyo位置信息HTML - 增强版
- * @return string HTML内容
- */
-function getTokyoLocationHtml() {
-    $config = getTokyoLocationConfig();
-    $html = '';
-    
-    // 修改这行，使用配置中的标题
-    $sectionTitle = isset($config['section_title']) ? $config['section_title'] : '我们在这';
-    $html .= '<h2>' . htmlspecialchars($sectionTitle) . '</h2>';
-    
-    foreach ($config as $storeKey => $store) {
-        // 跳过标题配置项
-        if ($storeKey === 'section_title') continue;
-        
-        if (!empty($store['address'])) {
-            $html .= '<p>' . htmlspecialchars($store['label']) . 
-                    '<a href="' . htmlspecialchars($store['map_url']) . '" target="_blank" class="no-style-link">' . 
-                    htmlspecialchars($store['address']) . 
-                    '</a></p>';
-            $html .= '<p>电话：' . htmlspecialchars($store['phone']) . '</p>';
-        }
-    }
-    
-    return $html;
-}
-
-/**
- * 获取店铺统计信息
- * @return array 统计数据
- */
-function getTokyoStoreStats() {
-    $config = getTokyoLocationConfig();
-    
-    return [
-        'total_stores' => count($config),
-        'active_stores' => count(array_filter($config, function($store) {
-            return !empty($store['address']) && !empty($store['phone']);
-        })),
-        'last_updated' => max(array_column($config, 'updated'))
-    ];
-}
-
-/**
- * 验证店铺数据
- * @param array $storeData 店铺数据
- * @return array 验证结果 ['valid' => bool, 'errors' => array]
- */
-function validateTokyoStoreData($storeData) {
-    $errors = [];
-    
-    if (empty($storeData['label'])) {
-        $errors[] = '标签文字不能为空';
-    }
-    
-    if (empty($storeData['address'])) {
-        $errors[] = '地址不能为空';
-    }
-    
-    if (empty($storeData['phone'])) {
-        $errors[] = '电话号码不能为空';
-    }
-    
-    if (empty($storeData['map_url'])) {
-        $errors[] = '地图链接不能为空';
-    } elseif (!filter_var($storeData['map_url'], FILTER_VALIDATE_URL)) {
-        $errors[] = '地图链接格式不正确';
-    }
-    
-    return [
-        'valid' => empty($errors),
-        'errors' => $errors
-    ];
-}
-
-/**
- * 搜索店铺
- * @param string $keyword 搜索关键词
- * @return array 匹配的店铺
- */
-function searchTokyoStores($keyword) {
-    $config = getTokyoLocationConfig();
-    $results = [];
-    
-    foreach ($config as $storeKey => $store) {
-        $searchText = $store['label'] . ' ' . $store['address'] . ' ' . $store['phone'];
-        if (stripos($searchText, $keyword) !== false) {
-            $results[$storeKey] = $store;
-        }
-    }
-    
-    return $results;
-}
-
-/**
- * 导出店铺配置为JSON
- * @return string JSON字符串
- */
-function exportTokyoStoresJson() {
-    $config = getTokyoLocationConfig();
-    return json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-}
-
-/**
- * 从JSON导入店铺配置
- * @param string $jsonData JSON数据
- * @return bool 成功返回true
- */
-function importTokyoStoresJson($jsonData) {
-    $config = json_decode($jsonData, true);
-    
-    if (!$config || !is_array($config)) {
-        return false;
-    }
-    
-    // 验证每个店铺数据
-    foreach ($config as $storeKey => $storeData) {
-        $validation = validateTokyoStoreData($storeData);
-        if (!$validation['valid']) {
-            return false;
-        }
-    }
-    
-    return saveTokyoLocationConfig($config);
-}
-
-/**
- * 生成备份文件名
- * @return string 备份文件名
- */
-function generateTokyoBackupFilename() {
-    return 'tokyo_stores_backup_' . date('Y-m-d_H-i-s') . '.json';
-}
-
-/**
- * 创建店铺配置备份
- * @return string|false 备份文件路径或失败时返回false
- */
-function backupTokyoStores() {
-    $backupDir = 'backups';
-    if (!file_exists($backupDir)) {
-        mkdir($backupDir, 0755, true);
-    }
-    
-    $backupFile = $backupDir . '/' . generateTokyoBackupFilename();
-    $config = getTokyoLocationConfig();
-    
-    if (file_put_contents($backupFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
-        return $backupFile;
-    }
-    
-    return false;
-}
-
-/**
- * 获取所有备份文件
- * @return array 备份文件列表
- */
-function getTokyoBackups() {
-    $backupDir = 'backups';
-    $backups = [];
-    
-    if (file_exists($backupDir) && is_dir($backupDir)) {
-        $files = scandir($backupDir);
-        foreach ($files as $file) {
-            if (strpos($file, 'tokyo_stores_backup_') === 0) {
-                $backups[] = [
-                    'filename' => $file,
-                    'path' => $backupDir . '/' . $file,
-                    'created' => filemtime($backupDir . '/' . $file),
-                    'size' => filesize($backupDir . '/' . $file)
-                ];
-            }
-        }
-        
-        // 按创建时间倒序排列
-        usort($backups, function($a, $b) {
-            return $b['created'] - $a['created'];
-        });
-    }
-    
-    return $backups;
 }
 ?>
