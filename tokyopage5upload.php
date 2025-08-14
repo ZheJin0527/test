@@ -403,10 +403,11 @@ $currentConfig = getTokyoLocationConfig();
                     <?php foreach ($currentConfig as $storeKey => $storeData): ?>
                     <div class="store-section" data-store-key="<?php echo $storeKey; ?>">
                         <h3>
-                            <span>
-                                🏪 <?php echo ucfirst(str_replace('_', ' ', $storeKey)); ?>
-                                <span class="store-counter">#<?php echo array_search($storeKey, array_keys($currentConfig)) + 1; ?></span>
-                            </span>
+                            <h3>
+                                <span>
+                                    <?php echo array_search($storeKey, array_keys($currentConfig)) + 1; ?>
+                                    <span class="store-counter"></span>
+                                </span>
                             <div class="section-actions">
                                 <?php if (!in_array($storeKey, ['main_store', 'branch_store'])): ?>
                                 <button type="button" class="btn btn-danger" onclick="deleteStore('<?php echo $storeKey; ?>')">
@@ -455,10 +456,10 @@ $currentConfig = getTokyoLocationConfig();
             <div class="store-template" id="storeTemplate">
                 <div class="store-section new-store" data-store-key="">
                     <h3>
-                        <span>
-                            🏪 新店铺
-                            <span class="store-counter">#</span>
-                        </span>
+                        <h3>
+                            <span>
+                                <span class="store-counter"></span>
+                            </span>
                         <div class="section-actions">
                             <button type="button" class="btn btn-danger" onclick="removeNewStore(this)">
                                 🗑️ 移除
@@ -522,7 +523,7 @@ $currentConfig = getTokyoLocationConfig();
             
             const storeKey = 'store_' + Date.now();
             newStore.querySelector('.store-section').setAttribute('data-store-key', storeKey);
-            newStore.querySelector('.store-counter').textContent = '#' + storeCounter;
+            newStore.querySelector('.store-section h3 span').firstChild.textContent = storeCounter;
             
             // 更新表单字段名称
             const inputs = newStore.querySelectorAll('input, textarea');
@@ -576,9 +577,9 @@ $currentConfig = getTokyoLocationConfig();
         function updateStoreCounters() {
             const stores = document.querySelectorAll('.store-section');
             stores.forEach((store, index) => {
-                const counter = store.querySelector('.store-counter');
-                if (counter) {
-                    counter.textContent = '#' + (index + 1);
+                const titleSpan = store.querySelector('h3 span');
+                if (titleSpan) {
+                    titleSpan.firstChild.textContent = index + 1;
                 }
             });
             storeCounter = stores.length;
