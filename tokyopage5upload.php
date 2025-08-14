@@ -465,7 +465,7 @@ $currentConfig = getTokyoLocationConfig();
                                 <div class="section-actions">
                                     <?php if (!in_array($storeKey, ['main_store', 'branch_store'])): ?>
                                     <button type="button" class="btn btn-danger" onclick="deleteStore('<?php echo $storeKey; ?>')">
-                                        🗑️ 删除
+                                        删除
                                     </button>
                                     <?php endif; ?>
                                 </div>
