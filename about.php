@@ -190,11 +190,18 @@ $timelineData = getTimelineConfig();
             <div class="timeline-scroll-container">
                 <div class="timeline-track"></div>
                 <div class="timeline-items-container" id="timelineContainer">
-                    <?php foreach ($timelineData as $year => $data): ?>
-                    <div class="timeline-item <?php echo $year === '2022' ? 'active' : ''; ?>" data-year="<?php echo $year; ?>">
+                    <?php 
+                    $years = array_keys($timelineData);
+                    $index = 0;
+                    foreach ($timelineData as $year => $data): 
+                    ?>
+                    <div class="timeline-item <?php echo $index === 0 ? 'active' : ''; ?>" data-year="<?php echo $year; ?>">
                         <div class="timeline-bullet"><?php echo $year; ?></div>
                     </div>
-                    <?php endforeach; ?>
+                    <?php 
+                    $index++;
+                    endforeach; 
+                    ?>
                 </div>
             </div>
         </div>
@@ -203,13 +210,12 @@ $timelineData = getTimelineConfig();
         <div class="timeline-content-container">
             <div class="timeline-cards-wrapper">
                 <?php 
-                $years = array_keys($timelineData);
+                $index = 0;
                 foreach ($timelineData as $year => $data): 
-                    $currentIndex = array_search($year, $years);
-                    $itemClass = $currentIndex === 0 ? 'active' : ($currentIndex === 1 ? 'next' : 'hidden');
+                    $itemClass = $index === 0 ? 'active' : ($index === 1 ? 'next' : 'hidden');
                 ?>
                 <!-- <?php echo $year; ?>年内容 -->
-                <div class="timeline-content-item <?php echo $itemClass; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $currentIndex; ?>">
+                <div class="timeline-content-item <?php echo $itemClass; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $index; ?>">
                     <div class="timeline-content" onclick="selectCard(<?php echo $year; ?>)">
                         <div class="timeline-image">
                             <img src="<?php echo $data['image_url']; ?>" alt="<?php echo $year; ?>年发展">

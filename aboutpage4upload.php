@@ -579,10 +579,9 @@ foreach ($defaultTimeline as $year => $data) {
                     <div class="year-tabs">
                         <?php 
                         $years = getTimelineYears();
-                        $firstYear = reset($years);
-                        foreach ($years as $year): 
+                        foreach ($years as $index => $year): 
                         ?>
-                            <button class="year-tab <?php echo $year === $firstYear ? 'active' : ''; ?>" onclick="showYear('<?php echo $year; ?>')"><?php echo $year; ?>年</button>
+                            <button class="year-tab <?php echo $index === 0 ? 'active' : ''; ?>" onclick="showYear('<?php echo $year; ?>')"><?php echo $year; ?>年</button>
                         <?php endforeach; ?>
                     </div>
                     
@@ -610,11 +609,11 @@ foreach ($defaultTimeline as $year => $data) {
                 
                 <?php 
                 $years = getTimelineYears();
-                $firstYear = reset($years);
+                $isFirst = true;
                 foreach ($years as $year): 
                     $data = $config[$year] ?? [];
                 ?>
-                <div class="timeline-content <?php echo $year == $firstYear ? 'active' : ''; ?>" id="content-<?php echo $year; ?>">
+                <div class="timeline-content <?php echo $year == '2022' ? 'active' : ''; ?>" id="content-<?php echo $year; ?>">
                     <!-- 照片上传表单 -->
                     <form method="post" enctype="multipart/form-data" class="upload-form">
                         <input type="hidden" name="year" value="<?php echo $year; ?>">
