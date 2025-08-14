@@ -12,34 +12,34 @@ if (!isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $config = [
         'main_store' => [
-            'name' => '总店',
-            'address' => $_POST['main_address'] ?? '',
-            'phone' => $_POST['main_phone'] ?? '',
-            'map_url' => $_POST['main_map_url'] ?? ''
+            'label' => trim($_POST['main_label']),
+            'address' => trim($_POST['main_address']),
+            'phone' => trim($_POST['main_phone']),
+            'map_url' => trim($_POST['main_map_url'])
         ],
         'branch_store' => [
-            'name' => '分店',
-            'address' => $_POST['branch_address'] ?? '',
-            'phone' => $_POST['branch_phone'] ?? '',
-            'map_url' => $_POST['branch_map_url'] ?? ''
+            'label' => trim($_POST['branch_label']),
+            'address' => trim($_POST['branch_address']),
+            'phone' => trim($_POST['branch_phone']),
+            'map_url' => trim($_POST['branch_map_url'])
         ]
     ];
     
-    if (saveLocationConfig($config)) {
-        $success = "地址信息更新成功！";
-        // 清除缓存
+    if (saveTokyoLocationConfig($config)) {
+        $success = "位置信息更新成功！";
+        // 添加页面重定向，清除缓存
         echo "<script>
             setTimeout(function() {
                 window.location.href = window.location.href + '?updated=' + Date.now();
             }, 2000);
         </script>";
     } else {
-        $error = "保存失败，请重试！";
+        $error = "更新失败，请重试！";
     }
 }
 
 // 读取当前配置
-$locationConfig = getLocationConfig();
+$currentConfig = getTokyoLocationConfig();
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ $locationConfig = getLocationConfig();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokyo Japanese Cuisine 地址管理 - KUNZZ HOLDINGS</title>
+    <title>Tokyo 位置信息管理 - KUNZZ HOLDINGS</title>
     <style>
         * {
             margin: 0;
@@ -108,7 +108,7 @@ $locationConfig = getLocationConfig();
             padding: 40px;
         }
         
-        .location-section {
+        .form-section {
             background: #f8f9fa;
             border-radius: 10px;
             padding: 30px;
@@ -116,64 +116,51 @@ $locationConfig = getLocationConfig();
             border-left: 5px solid #FF5C00;
         }
         
-        .location-section h2 {
+        .form-section h2 {
             color: #333;
             margin-bottom: 20px;
             font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .store-form {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .store-form h3 {
-            color: #FF5C00;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+        .form-grid {
+            display: grid;
+            gap: 20px;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
         
         .form-group label {
-            display: block;
-            margin-bottom: 8px;
             font-weight: 600;
             color: #555;
+            font-size: 1.1em;
         }
         
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
+        .form-input {
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
             border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: white;
         }
         
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .form-input:focus {
             outline: none;
             border-color: #FF5C00;
             box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1);
         }
         
-        .form-group textarea {
-            resize: vertical;
+        .form-input.textarea {
             min-height: 80px;
-        }
-        
-        .form-group small {
-            display: block;
-            margin-top: 5px;
-            color: #666;
-            font-size: 12px;
+            resize: vertical;
+            font-family: inherit;
         }
         
         .btn {
@@ -186,7 +173,6 @@ $locationConfig = getLocationConfig();
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
             margin-top: 20px;
         }
         
@@ -231,23 +217,67 @@ $locationConfig = getLocationConfig();
         }
         
         .preview-section {
-            background: #e9f7ef;
-            border: 1px solid #c3e6cb;
-            border-radius: 8px;
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
             padding: 20px;
             margin-top: 30px;
         }
         
         .preview-section h3 {
-            color: #155724;
+            color: #333;
             margin-bottom: 15px;
+            font-size: 1.3em;
         }
         
         .preview-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #FF5C00;
+        }
+        
+        .preview-content h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .preview-content p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .preview-content a {
+            color: #FF5C00;
+            text-decoration: none;
+        }
+        
+        .preview-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .store-section {
             background: white;
-            padding: 15px;
-            border-radius: 5px;
-            border-left: 4px solid #28a745;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .store-section h3 {
+            color: #FF5C00;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #FF5C00;
+            padding-bottom: 10px;
+        }
+        
+        .help-text {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+            font-style: italic;
         }
         
         @media (max-width: 768px) {
@@ -255,11 +285,11 @@ $locationConfig = getLocationConfig();
                 padding: 20px;
             }
             
-            .location-section {
+            .form-section {
                 padding: 20px;
             }
             
-            .store-form {
+            .store-section {
                 padding: 20px;
             }
         }
@@ -268,14 +298,14 @@ $locationConfig = getLocationConfig();
 <body>
     <div class="container">
         <div class="header">
-            <h1>Tokyo Japanese Cuisine 地址管理</h1>
-            <p>管理餐厅地址和联系信息</p>
+            <h1>Tokyo 位置信息管理</h1>
+            <p>管理 Tokyo Japanese Cuisine 总店与分店信息</p>
         </div>
         
         <div class="breadcrumb">
             <a href="dashboard.php">仪表板</a> > 
             <a href="media_manager.php">媒体管理</a> > 
-            <span>Tokyo Japanese Cuisine 地址管理</span>
+            <span>Tokyo 位置信息</span>
         </div>
         
         <div class="content">
@@ -289,116 +319,143 @@ $locationConfig = getLocationConfig();
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
             
-            <div class="location-section">
-                <h2>📍 餐厅地址信息管理</h2>
+            <form method="post" class="form-section">
+                <h2>📍 编辑位置信息</h2>
                 
-                <form method="post">
-                    <!-- 总店信息 -->
-                    <div class="store-form">
-                        <h3>🏪 总店信息</h3>
-                        
+                <!-- 总店信息 -->
+                <div class="store-section">
+                    <h3>🏪 总店信息</h3>
+                    <div class="form-grid">
                         <div class="form-group">
-                            <label for="main_address">总店地址*</label>
-                            <textarea id="main_address" name="main_address" required><?php echo htmlspecialchars($locationConfig['main_store']['address'] ?? ''); ?></textarea>
-                            <small>请输入完整的总店地址</small>
+                            <label for="main_label">标签文字</label>
+                            <input type="text" id="main_label" name="main_label" class="form-input" 
+                                   value="<?php echo htmlspecialchars($currentConfig['main_store']['label']); ?>" required>
+                            <div class="help-text">例如：总店：</div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="main_phone">总店电话*</label>
-                            <input type="tel" id="main_phone" name="main_phone" value="<?php echo htmlspecialchars($locationConfig['main_store']['phone'] ?? ''); ?>" required>
-                            <small>格式: +60 19-710 8090</small>
+                            <label for="main_address">地址</label>
+                            <textarea id="main_address" name="main_address" class="form-input textarea" required><?php echo htmlspecialchars($currentConfig['main_store']['address']); ?></textarea>
+                            <div class="help-text">请输入完整的店铺地址</div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="main_map_url">总店地图链接*</label>
-                            <input type="url" id="main_map_url" name="main_map_url" value="<?php echo htmlspecialchars($locationConfig['main_store']['map_url'] ?? ''); ?>" required>
-                            <small>Google Maps 分享链接，例如: https://maps.app.goo.gl/...</small>
-                        </div>
-                    </div>
-                    
-                    <!-- 分店信息 -->
-                    <div class="store-form">
-                        <h3>🏢 分店信息</h3>
-                        
-                        <div class="form-group">
-                            <label for="branch_address">分店地址*</label>
-                            <textarea id="branch_address" name="branch_address" required><?php echo htmlspecialchars($locationConfig['branch_store']['address'] ?? ''); ?></textarea>
-                            <small>请输入完整的分店地址</small>
+                            <label for="main_phone">电话号码</label>
+                            <input type="text" id="main_phone" name="main_phone" class="form-input" 
+                                   value="<?php echo htmlspecialchars($currentConfig['main_store']['phone']); ?>" required>
+                            <div class="help-text">例如：+60 19-710 8090</div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="branch_phone">分店电话*</label>
-                            <input type="tel" id="branch_phone" name="branch_phone" value="<?php echo htmlspecialchars($locationConfig['branch_store']['phone'] ?? ''); ?>" required>
-                            <small>格式: +60 18-773 8090</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="branch_map_url">分店地图链接*</label>
-                            <input type="url" id="branch_map_url" name="branch_map_url" value="<?php echo htmlspecialchars($locationConfig['branch_store']['map_url'] ?? ''); ?>" required>
-                            <small>Google Maps 分享链接，例如: https://maps.app.goo.gl/...</small>
+                            <label for="main_map_url">地图链接</label>
+                            <input type="url" id="main_map_url" name="main_map_url" class="form-input" 
+                                   value="<?php echo htmlspecialchars($currentConfig['main_store']['map_url']); ?>" required>
+                            <div class="help-text">Google Maps 分享链接</div>
                         </div>
                     </div>
-                    
-                    <button type="submit" class="btn">💾 保存地址信息</button>
-                </form>
+                </div>
                 
-                <!-- 预览区域 -->
-                <div class="preview-section">
-                    <h3>📋 当前页面显示预览</h3>
-                    <div class="preview-content">
-                        <?php echo getLocationHtml(); ?>
+                <!-- 分店信息 -->
+                <div class="store-section">
+                    <h3>🏬 分店信息</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="branch_label">标签文字</label>
+                            <input type="text" id="branch_label" name="branch_label" class="form-input" 
+                                   value="<?php echo htmlspecialchars($currentConfig['branch_store']['label']); ?>" required>
+                            <div class="help-text">例如：分店：</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="branch_address">地址</label>
+                            <textarea id="branch_address" name="branch_address" class="form-input textarea" required><?php echo htmlspecialchars($currentConfig['branch_store']['address']); ?></textarea>
+                            <div class="help-text">请输入完整的店铺地址</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="branch_phone">电话号码</label>
+                            <input type="text" id="branch_phone" name="branch_phone" class="form-input" 
+                                   value="<?php echo htmlspecialchars($currentConfig['branch_store']['phone']); ?>" required>
+                            <div class="help-text">例如：+60 18-773 8090</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="branch_map_url">地图链接</label>
+                            <input type="url" id="branch_map_url" name="branch_map_url" class="form-input" 
+                                   value="<?php echo htmlspecialchars($currentConfig['branch_store']['map_url']); ?>" required>
+                            <div class="help-text">Google Maps 分享链接</div>
+                        </div>
                     </div>
+                </div>
+                
+                <button type="submit" class="btn">💾 保存更改</button>
+            </form>
+            
+            <!-- 预览区域 -->
+            <div class="preview-section">
+                <h3>📱 预览效果</h3>
+                <div class="preview-content">
+                    <?php echo getTokyoLocationHtml(); ?>
                 </div>
             </div>
         </div>
     </div>
     
     <script>
+        // 实时预览功能
+        function updatePreview() {
+            const previewContent = document.querySelector('.preview-content');
+            
+            const mainLabel = document.getElementById('main_label').value;
+            const mainAddress = document.getElementById('main_address').value;
+            const mainPhone = document.getElementById('main_phone').value;
+            const mainMapUrl = document.getElementById('main_map_url').value;
+            
+            const branchLabel = document.getElementById('branch_label').value;
+            const branchAddress = document.getElementById('branch_address').value;
+            const branchPhone = document.getElementById('branch_phone').value;
+            const branchMapUrl = document.getElementById('branch_map_url').value;
+            
+            let html = '<h2>我们在这</h2>';
+            
+            // 总店信息
+            if (mainLabel || mainAddress) {
+                html += `<p>${mainLabel}<a href="${mainMapUrl}" target="_blank" class="no-style-link">${mainAddress}</a></p>`;
+                html += `<p>电话：${mainPhone}</p>`;
+            }
+            
+            // 分店信息
+            if (branchLabel || branchAddress) {
+                html += `<p>${branchLabel}<a href="${branchMapUrl}" target="_blank" class="no-style-link">${branchAddress}</a></p>`;
+                html += `<p>电话：${branchPhone}</p>`;
+            }
+            
+            previewContent.innerHTML = html;
+        }
+        
+        // 为所有输入框添加实时预览
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+        
         // 表单验证
         document.querySelector('form').addEventListener('submit', function(e) {
-            const requiredFields = ['main_address', 'main_phone', 'main_map_url', 'branch_address', 'branch_phone', 'branch_map_url'];
+            const requiredFields = document.querySelectorAll('.form-input[required]');
             let isValid = true;
             
-            requiredFields.forEach(fieldName => {
-                const field = document.querySelector(`[name="${fieldName}"]`);
+            requiredFields.forEach(field => {
                 if (!field.value.trim()) {
-                    field.style.borderColor = '#dc3545';
                     isValid = false;
+                    field.style.borderColor = '#dc3545';
                 } else {
-                    field.style.borderColor = '#e0e0e0';
+                    field.style.borderColor = '#e9ecef';
                 }
             });
             
             if (!isValid) {
                 e.preventDefault();
-                alert('请填写所有必填项！');
+                alert('请填写所有必填字段！');
             }
-        });
-        
-        // 电话号码格式验证
-        document.querySelectorAll('input[type="tel"]').forEach(input => {
-            input.addEventListener('blur', function() {
-                const phonePattern = /^\+\d{2}\s\d{2}-\d{3}\s\d{4}$/;
-                if (this.value && !phonePattern.test(this.value)) {
-                    this.style.borderColor = '#ffc107';
-                    this.nextElementSibling.style.color = '#856404';
-                    this.nextElementSibling.textContent = '建议格式: +60 19-710 8090 (不强制要求此格式)';
-                } else {
-                    this.style.borderColor = '#e0e0e0';
-                    this.nextElementSibling.style.color = '#666';
-                }
-            });
-        });
-        
-        // URL格式验证
-        document.querySelectorAll('input[type="url"]').forEach(input => {
-            input.addEventListener('blur', function() {
-                if (this.value && !this.value.startsWith('http')) {
-                    this.style.borderColor = '#dc3545';
-                } else {
-                    this.style.borderColor = '#e0e0e0';
-                }
-            });
         });
     </script>
 </body>

@@ -280,4 +280,78 @@ function deleteTimelineYear($year) {
     
     return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false;
 }
+
+/**
+ * 获取Tokyo位置配置
+ * @return array Tokyo位置信息
+ */
+function getTokyoLocationConfig() {
+    $configFile = 'tokyo_location_config.json';
+    $defaultConfig = [
+        'main_store' => [
+            'label' => '总店：',
+            'address' => 'T-042 Level 3, Mid Valley, The Mall, Southkey, 81100 Johor Bahru, Johor Darul Ta\'zim',
+            'phone' => '+60 19-710 8090',
+            'map_url' => 'https://maps.app.goo.gl/VcQp7YGAeQadDNRx9'
+        ],
+        'branch_store' => [
+            'label' => '分店：',
+            'address' => 'Lot UG-25, Upper Ground Floor, Paradigm Mall, Lbh Skudai, Taman Bukit Mewah, 81200 Johor Bahru, Johor Darul Ta\'zim',
+            'phone' => '+60 18-773 8090',
+            'map_url' => 'https://maps.app.goo.gl/7vDymMQJ3h9Srp4M6'
+        ]
+    ];
+    
+    if (file_exists($configFile)) {
+        $config = json_decode(file_get_contents($configFile), true);
+        if ($config) {
+            return array_merge($defaultConfig, $config);
+        }
+    }
+    
+    return $defaultConfig;
+}
+
+/**
+ * 保存Tokyo位置配置
+ * @param array $config 位置配置数据
+ * @return bool 成功返回true
+ */
+function saveTokyoLocationConfig($config) {
+    $configFile = 'tokyo_location_config.json';
+    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false;
+}
+
+/**
+ * 生成Tokyo位置信息HTML
+ * @return string HTML内容
+ */
+function getTokyoLocationHtml() {
+    $config = getTokyoLocationConfig();
+    $html = '';
+    
+    $html .= '<h2>我们在这</h2>';
+    
+    // 总店信息
+    if (isset($config['main_store'])) {
+        $main = $config['main_store'];
+        $html .= '<p>' . htmlspecialchars($main['label']) . 
+                '<a href="' . htmlspecialchars($main['map_url']) . '" target="_blank" class="no-style-link">' . 
+                htmlspecialchars($main['address']) . 
+                '</a></p>';
+        $html .= '<p>电话：' . htmlspecialchars($main['phone']) . '</p>';
+    }
+    
+    // 分店信息
+    if (isset($config['branch_store'])) {
+        $branch = $config['branch_store'];
+        $html .= '<p>' . htmlspecialchars($branch['label']) . 
+                '<a href="' . htmlspecialchars($branch['map_url']) . '" target="_blank" class="no-style-link">' . 
+                htmlspecialchars($branch['address']) . 
+                '</a></p>';
+        $html .= '<p>电话：' . htmlspecialchars($branch['phone']) . '</p>';
+    }
+    
+    return $html;
+}
 ?>

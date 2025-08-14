@@ -356,8 +356,14 @@ if (file_exists('media_config.json')) {
                 <div class="page-grid">
                     <a href="tokyopage1upload.php" class="page-card">
                         <div class="page-icon">🍱</div>
-                        <h3>Tokyo Japanese Cuisine</h3>
+                        <h3>Tokyo 首页背景</h3>
                         <p>管理品牌页面首页背景图片</p>
+                        <span class="page-arrow">→</span>
+                    </a>
+                    <a href="tokyopage5upload.php" class="page-card">
+                        <div class="page-icon">📍</div>
+                        <h3>Tokyo 位置信息</h3>
+                        <p>管理总店分店地址电话信息</p>
                         <span class="page-arrow">→</span>
                     </a>
                 </div>
