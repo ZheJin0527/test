@@ -194,7 +194,7 @@ $timelineData = getTimelineConfig();
                     $index = 0;
                     foreach ($timelineData as $year => $data): 
                     ?>
-                    <div class="timeline-item <?php echo $index === 0 ? 'active' : ''; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $index; ?>">
+                    <div class="timeline-item <?php echo $index === 0 ? 'active' : ''; ?>" data-year="<?php echo $year; ?>">
                         <div class="timeline-bullet"><?php echo $year; ?></div>
                     </div>
                     <?php 
@@ -1094,81 +1094,5 @@ updatePageIndicator(0);
         }
         }
     </script>
-    <script>
-// 修复时间线年份显示
-function navigateTimeline(direction) {
-    const container = document.getElementById('timelineContainer');
-    const items = container.querySelectorAll('.timeline-item');
-    const contents = document.querySelectorAll('.timeline-content-item');
-    
-    let currentIndex = -1;
-    items.forEach((item, index) => {
-        if (item.classList.contains('active')) {
-            currentIndex = index;
-        }
-    });
-    
-    let newIndex;
-    if (direction === 'next') {
-        newIndex = (currentIndex + 1) % items.length;
-    } else {
-        newIndex = (currentIndex - 1 + items.length) % items.length;
-    }
-    
-    // 移除所有active类
-    items.forEach(item => item.classList.remove('active'));
-    contents.forEach(content => {
-        content.classList.remove('active', 'next', 'prev');
-        content.classList.add('hidden');
-    });
-    
-    // 设置新的active状态
-    items[newIndex].classList.add('active');
-    
-    // 设置内容显示状态
-    if (contents[newIndex]) {
-        contents[newIndex].classList.remove('hidden');
-        contents[newIndex].classList.add('active');
-    }
-    if (contents[newIndex + 1]) {
-        contents[newIndex + 1].classList.remove('hidden');
-        contents[newIndex + 1].classList.add('next');
-    }
-}
-
-function selectCard(year) {
-    const items = document.querySelectorAll('.timeline-item');
-    const contents = document.querySelectorAll('.timeline-content-item');
-    
-    // 找到对应年份的索引
-    let targetIndex = -1;
-    items.forEach((item, index) => {
-        if (item.getAttribute('data-year') == year) {
-            targetIndex = index;
-        }
-    });
-    
-    if (targetIndex >= 0) {
-        // 移除所有active类
-        items.forEach(item => item.classList.remove('active'));
-        contents.forEach(content => {
-            content.classList.remove('active', 'next', 'prev');
-            content.classList.add('hidden');
-        });
-        
-        // 设置新的active状态
-        items[targetIndex].classList.add('active');
-        
-        if (contents[targetIndex]) {
-            contents[targetIndex].classList.remove('hidden');
-            contents[targetIndex].classList.add('active');
-        }
-        if (contents[targetIndex + 1]) {
-            contents[targetIndex + 1].classList.remove('hidden');
-            contents[targetIndex + 1].classList.add('next');
-        }
-    }
-}
-</script>
 </body>
 </html>
