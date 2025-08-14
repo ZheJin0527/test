@@ -833,7 +833,7 @@ updatePageIndicator(0);
                 cards.forEach(card => {
                     card.style.transition = '';
                 });
-            }, 600);
+            }, 300);
         }
 
         function navigateTimeline(direction) {
@@ -853,7 +853,7 @@ updatePageIndicator(0);
             // 动画完成后重置标志
             setTimeout(() => {
                 isAnimating = false;
-            }, 300); // 增加到600ms匹配新的动画时长
+            }, 600); // 增加到600ms匹配新的动画时长
         }
 
         function selectCard(year) {
