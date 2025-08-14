@@ -79,24 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $config[$year]['updated'] = date('Y-m-d H:i:s');
                 
                 file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-                $success = "年份 {$newYear} 添加成功！";
-                // 返回JSON响应用于AJAX
-                if (isset($_POST['ajax'])) {
-                    header('Content-Type: application/json');
-                    echo json_encode([
-                        'success' => true,
-                        'message' => $success,
-                        'year' => $newYear,
-                        'data' => $config[$newYear]
-                    ]);
-                    exit;
-                }
-                // 添加页面重定向刷新
-                echo "<script>
-                    setTimeout(function() {
-                        window.location.href = 'about.php?updated=' + Date.now();
-                    }, 2000);
-                </script>";
+                $success = "照片上传成功！";
             } else {
                 $error = "照片上传失败！";
             }
