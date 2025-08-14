@@ -8,22 +8,33 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// 处理删除店铺
+if (isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['store_key'])) {
+    $currentConfig = getTokyoLocationConfig();
+    unset($currentConfig[$_POST['store_key']]);
+    if (saveTokyoLocationConfig($currentConfig)) {
+        $success = "店铺信息删除成功！";
+    } else {
+        $error = "删除失败，请重试！";
+    }
+}
+
 // 处理表单提交
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $config = [
-        'main_store' => [
-            'label' => trim($_POST['main_label']),
-            'address' => trim($_POST['main_address']),
-            'phone' => trim($_POST['main_phone']),
-            'map_url' => trim($_POST['main_map_url'])
-        ],
-        'branch_store' => [
-            'label' => trim($_POST['branch_label']),
-            'address' => trim($_POST['branch_address']),
-            'phone' => trim($_POST['branch_phone']),
-            'map_url' => trim($_POST['branch_map_url'])
-        ]
-    ];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
+    $config = [];
+    
+    // 处理现有店铺的更新
+    foreach ($_POST as $key => $value) {
+        if (strpos($key, '_label') !== false) {
+            $storeKey = str_replace('_label', '', $key);
+            $config[$storeKey] = [
+                'label' => trim($value),
+                'address' => trim($_POST[$storeKey . '_address']),
+                'phone' => trim($_POST[$storeKey . '_phone']),
+                'map_url' => trim($_POST[$storeKey . '_map_url'])
+            ];
+        }
+    }
     
     if (saveTokyoLocationConfig($config)) {
         $success = "位置信息更新成功！";
@@ -181,6 +192,26 @@ $currentConfig = getTokyoLocationConfig();
             box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
         
+        .btn-secondary {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            margin-left: 10px;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+            padding: 8px 16px;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        
+        .btn-add {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
         .alert {
             padding: 15px;
             border-radius: 8px;
@@ -259,10 +290,16 @@ $currentConfig = getTokyoLocationConfig();
         
         .store-section {
             background: white;
-            border: 1px solid #e9ecef;
+            border: 2px solid #e9ecef;
             border-radius: 8px;
             padding: 25px;
             margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .store-section.new-store {
+            border-color: #17a2b8;
+            background: #f8fdfe;
         }
         
         .store-section h3 {
@@ -271,6 +308,9 @@ $currentConfig = getTokyoLocationConfig();
             font-size: 1.4em;
             border-bottom: 2px solid #FF5C00;
             padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         .help-text {
@@ -278,6 +318,29 @@ $currentConfig = getTokyoLocationConfig();
             color: #6c757d;
             margin-top: 5px;
             font-style: italic;
+        }
+        
+        .section-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .store-counter {
+            background: #FF5C00;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .dynamic-stores {
+            margin-top: 20px;
+        }
+        
+        .store-template {
+            display: none;
         }
         
         @media (max-width: 768px) {
@@ -292,6 +355,16 @@ $currentConfig = getTokyoLocationConfig();
             .store-section {
                 padding: 20px;
             }
+            
+            .section-actions {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .btn-danger {
+                margin-left: 0;
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
@@ -299,7 +372,7 @@ $currentConfig = getTokyoLocationConfig();
     <div class="container">
         <div class="header">
             <h1>Tokyo 位置信息管理</h1>
-            <p>管理 Tokyo Japanese Cuisine 总店与分店信息</p>
+            <p>管理 Tokyo Japanese Cuisine 所有店铺信息</p>
         </div>
         
         <div class="breadcrumb">
@@ -319,134 +392,237 @@ $currentConfig = getTokyoLocationConfig();
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
             
-            <form method="post" class="form-section">
+            <form method="post" id="mainForm" class="form-section">
                 <h2>📍 编辑位置信息</h2>
                 
-                <!-- 总店信息 -->
-                <div class="store-section">
-                    <h3>🏪 总店信息</h3>
+                <button type="button" class="btn btn-add" onclick="addNewStore()">
+                    ➕ 添加新店铺
+                </button>
+                
+                <div id="storesContainer">
+                    <?php foreach ($currentConfig as $storeKey => $storeData): ?>
+                    <div class="store-section" data-store-key="<?php echo $storeKey; ?>">
+                        <h3>
+                            <span>
+                                🏪 <?php echo ucfirst(str_replace('_', ' ', $storeKey)); ?>
+                                <span class="store-counter">#<?php echo array_search($storeKey, array_keys($currentConfig)) + 1; ?></span>
+                            </span>
+                            <div class="section-actions">
+                                <?php if (!in_array($storeKey, ['main_store', 'branch_store'])): ?>
+                                <button type="button" class="btn btn-danger" onclick="deleteStore('<?php echo $storeKey; ?>')">
+                                    🗑️ 删除
+                                </button>
+                                <?php endif; ?>
+                            </div>
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="<?php echo $storeKey; ?>_label">标签文字</label>
+                                <input type="text" id="<?php echo $storeKey; ?>_label" name="<?php echo $storeKey; ?>_label" class="form-input" 
+                                       value="<?php echo htmlspecialchars($storeData['label']); ?>" required>
+                                <div class="help-text">例如：总店：、分店：、三店：</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="<?php echo $storeKey; ?>_address">地址</label>
+                                <textarea id="<?php echo $storeKey; ?>_address" name="<?php echo $storeKey; ?>_address" class="form-input textarea" required><?php echo htmlspecialchars($storeData['address']); ?></textarea>
+                                <div class="help-text">请输入完整的店铺地址</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="<?php echo $storeKey; ?>_phone">电话号码</label>
+                                <input type="text" id="<?php echo $storeKey; ?>_phone" name="<?php echo $storeKey; ?>_phone" class="form-input" 
+                                       value="<?php echo htmlspecialchars($storeData['phone']); ?>" required>
+                                <div class="help-text">例如：+60 19-710 8090</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="<?php echo $storeKey; ?>_map_url">地图链接</label>
+                                <input type="url" id="<?php echo $storeKey; ?>_map_url" name="<?php echo $storeKey; ?>_map_url" class="form-input" 
+                                       value="<?php echo htmlspecialchars($storeData['map_url']); ?>" required>
+                                <div class="help-text">Google Maps 分享链接</div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                
+                <button type="submit" class="btn">💾 保存所有更改</button>
+                <button type="button" class="btn btn-secondary" onclick="updatePreview()">👁️ 实时预览</button>
+            </form>
+            
+            <!-- 隐藏的店铺模板 -->
+            <div class="store-template" id="storeTemplate">
+                <div class="store-section new-store" data-store-key="">
+                    <h3>
+                        <span>
+                            🏪 新店铺
+                            <span class="store-counter">#</span>
+                        </span>
+                        <div class="section-actions">
+                            <button type="button" class="btn btn-danger" onclick="removeNewStore(this)">
+                                🗑️ 移除
+                            </button>
+                        </div>
+                    </h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="main_label">标签文字</label>
-                            <input type="text" id="main_label" name="main_label" class="form-input" 
-                                   value="<?php echo htmlspecialchars($currentConfig['main_store']['label']); ?>" required>
-                            <div class="help-text">例如：总店：</div>
+                            <label>标签文字</label>
+                            <input type="text" class="form-input" name="" required>
+                            <div class="help-text">例如：三店：、四店：、旗舰店：</div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="main_address">地址</label>
-                            <textarea id="main_address" name="main_address" class="form-input textarea" required><?php echo htmlspecialchars($currentConfig['main_store']['address']); ?></textarea>
+                            <label>地址</label>
+                            <textarea class="form-input textarea" name="" required></textarea>
                             <div class="help-text">请输入完整的店铺地址</div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="main_phone">电话号码</label>
-                            <input type="text" id="main_phone" name="main_phone" class="form-input" 
-                                   value="<?php echo htmlspecialchars($currentConfig['main_store']['phone']); ?>" required>
+                            <label>电话号码</label>
+                            <input type="text" class="form-input" name="" required>
                             <div class="help-text">例如：+60 19-710 8090</div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="main_map_url">地图链接</label>
-                            <input type="url" id="main_map_url" name="main_map_url" class="form-input" 
-                                   value="<?php echo htmlspecialchars($currentConfig['main_store']['map_url']); ?>" required>
+                            <label>地图链接</label>
+                            <input type="url" class="form-input" name="" required>
                             <div class="help-text">Google Maps 分享链接</div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- 分店信息 -->
-                <div class="store-section">
-                    <h3>🏬 分店信息</h3>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="branch_label">标签文字</label>
-                            <input type="text" id="branch_label" name="branch_label" class="form-input" 
-                                   value="<?php echo htmlspecialchars($currentConfig['branch_store']['label']); ?>" required>
-                            <div class="help-text">例如：分店：</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="branch_address">地址</label>
-                            <textarea id="branch_address" name="branch_address" class="form-input textarea" required><?php echo htmlspecialchars($currentConfig['branch_store']['address']); ?></textarea>
-                            <div class="help-text">请输入完整的店铺地址</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="branch_phone">电话号码</label>
-                            <input type="text" id="branch_phone" name="branch_phone" class="form-input" 
-                                   value="<?php echo htmlspecialchars($currentConfig['branch_store']['phone']); ?>" required>
-                            <div class="help-text">例如：+60 18-773 8090</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="branch_map_url">地图链接</label>
-                            <input type="url" id="branch_map_url" name="branch_map_url" class="form-input" 
-                                   value="<?php echo htmlspecialchars($currentConfig['branch_store']['map_url']); ?>" required>
-                            <div class="help-text">Google Maps 分享链接</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn">💾 保存更改</button>
-            </form>
+            </div>
             
             <!-- 预览区域 -->
             <div class="preview-section">
-                <h3>📱 预览效果</h3>
-                <div class="preview-content">
+                <h3>📱 实时预览效果</h3>
+                <div class="preview-content" id="previewContent">
                     <?php echo getTokyoLocationHtml(); ?>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- 删除确认表单 -->
+    <form id="deleteForm" method="post" style="display: none;">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="store_key" id="deleteStoreKey">
+    </form>
+    
     <script>
+        let storeCounter = <?php echo count($currentConfig); ?>;
+        
+        // 添加新店铺
+        function addNewStore() {
+            storeCounter++;
+            const template = document.getElementById('storeTemplate');
+            const newStore = template.cloneNode(true);
+            newStore.style.display = 'block';
+            newStore.id = '';
+            
+            const storeKey = 'store_' + Date.now();
+            newStore.querySelector('.store-section').setAttribute('data-store-key', storeKey);
+            newStore.querySelector('.store-counter').textContent = '#' + storeCounter;
+            
+            // 更新表单字段名称
+            const inputs = newStore.querySelectorAll('input, textarea');
+            const labels = newStore.querySelectorAll('label');
+            
+            inputs[0].name = storeKey + '_label';
+            inputs[0].id = storeKey + '_label';
+            labels[0].setAttribute('for', storeKey + '_label');
+            
+            inputs[1].name = storeKey + '_address';
+            inputs[1].id = storeKey + '_address';
+            labels[1].setAttribute('for', storeKey + '_address');
+            
+            inputs[2].name = storeKey + '_phone';
+            inputs[2].id = storeKey + '_phone';
+            labels[2].setAttribute('for', storeKey + '_phone');
+            
+            inputs[3].name = storeKey + '_map_url';
+            inputs[3].id = storeKey + '_map_url';
+            labels[3].setAttribute('for', storeKey + '_map_url');
+            
+            // 添加事件监听
+            inputs.forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+            
+            document.getElementById('storesContainer').appendChild(newStore.firstElementChild);
+            
+            // 滚动到新添加的店铺
+            newStore.firstElementChild.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 移除新店铺（未保存的）
+        function removeNewStore(button) {
+            if (confirm('确定要移除这个新店铺吗？')) {
+                button.closest('.store-section').remove();
+                updateStoreCounters();
+                updatePreview();
+            }
+        }
+        
+        // 删除已保存的店铺
+        function deleteStore(storeKey) {
+            if (confirm('确定要删除这个店铺吗？此操作不可撤销！')) {
+                document.getElementById('deleteStoreKey').value = storeKey;
+                document.getElementById('deleteForm').submit();
+            }
+        }
+        
+        // 更新店铺序号
+        function updateStoreCounters() {
+            const stores = document.querySelectorAll('.store-section');
+            stores.forEach((store, index) => {
+                const counter = store.querySelector('.store-counter');
+                if (counter) {
+                    counter.textContent = '#' + (index + 1);
+                }
+            });
+            storeCounter = stores.length;
+        }
+        
         // 实时预览功能
         function updatePreview() {
-            const previewContent = document.querySelector('.preview-content');
-            
-            const mainLabel = document.getElementById('main_label').value;
-            const mainAddress = document.getElementById('main_address').value;
-            const mainPhone = document.getElementById('main_phone').value;
-            const mainMapUrl = document.getElementById('main_map_url').value;
-            
-            const branchLabel = document.getElementById('branch_label').value;
-            const branchAddress = document.getElementById('branch_address').value;
-            const branchPhone = document.getElementById('branch_phone').value;
-            const branchMapUrl = document.getElementById('branch_map_url').value;
+            const previewContent = document.getElementById('previewContent');
+            const stores = document.querySelectorAll('.store-section');
             
             let html = '<h2>我们在这</h2>';
             
-            // 总店信息
-            if (mainLabel || mainAddress) {
-                html += `<p>${mainLabel}<a href="${mainMapUrl}" target="_blank" class="no-style-link">${mainAddress}</a></p>`;
-                html += `<p>电话：${mainPhone}</p>`;
-            }
-            
-            // 分店信息
-            if (branchLabel || branchAddress) {
-                html += `<p>${branchLabel}<a href="${branchMapUrl}" target="_blank" class="no-style-link">${branchAddress}</a></p>`;
-                html += `<p>电话：${branchPhone}</p>`;
-            }
+            stores.forEach(store => {
+                const storeKey = store.getAttribute('data-store-key');
+                const label = store.querySelector(`input[name="${storeKey}_label"]`)?.value || '';
+                const address = store.querySelector(`textarea[name="${storeKey}_address"]`)?.value || '';
+                const phone = store.querySelector(`input[name="${storeKey}_phone"]`)?.value || '';
+                const mapUrl = store.querySelector(`input[name="${storeKey}_map_url"]`)?.value || '';
+                
+                if (label || address) {
+                    html += `<p>${label}<a href="${mapUrl}" target="_blank" class="no-style-link">${address}</a></p>`;
+                    html += `<p>电话：${phone}</p>`;
+                }
+            });
             
             previewContent.innerHTML = html;
         }
         
-        // 为所有输入框添加实时预览
+        // 为所有现有输入框添加实时预览
         document.querySelectorAll('.form-input').forEach(input => {
             input.addEventListener('input', updatePreview);
         });
         
         // 表单验证
-        document.querySelector('form').addEventListener('submit', function(e) {
+        document.getElementById('mainForm').addEventListener('submit', function(e) {
             const requiredFields = document.querySelectorAll('.form-input[required]');
             let isValid = true;
+            let emptyFields = [];
             
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
                     isValid = false;
                     field.style.borderColor = '#dc3545';
+                    emptyFields.push(field.previousElementSibling.textContent);
                 } else {
                     field.style.borderColor = '#e9ecef';
                 }
@@ -454,7 +630,34 @@ $currentConfig = getTokyoLocationConfig();
             
             if (!isValid) {
                 e.preventDefault();
-                alert('请填写所有必填字段！');
+                alert('请填写所有必填字段：\n' + emptyFields.join('\n'));
+                // 滚动到第一个空字段
+                requiredFields[0].scrollIntoView({ behavior: 'smooth' });
+                requiredFields[0].focus();
+            }
+        });
+        
+        // 页面加载完成后更新计数器
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStoreCounters();
+        });
+        
+        // 键盘快捷键
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+N 添加新店铺
+            if (e.ctrlKey && e.key === 'n') {
+                e.preventDefault();
+                addNewStore();
+            }
+            // Ctrl+S 保存
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                document.getElementById('mainForm').submit();
+            }
+            // Ctrl+P 预览
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                updatePreview();
             }
         });
     </script>
