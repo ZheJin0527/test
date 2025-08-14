@@ -195,7 +195,7 @@ $timelineData = getTimelineConfig();
                     foreach ($timelineData as $year => $data): 
                     ?>
                     <div class="timeline-item <?php echo $index === 0 ? 'active' : ''; ?>" data-year="<?php echo $year; ?>">
-                        <div class="timeline-bullet"><?php echo $year; ?></div>
+                        <div class="timeline-bullet"><?php echo $year; ?>年</div>
                     </div>
                     <?php 
                     $index++;

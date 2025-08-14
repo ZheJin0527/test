@@ -613,7 +613,7 @@ foreach ($defaultTimeline as $year => $data) {
                 foreach ($years as $year): 
                     $data = $config[$year] ?? [];
                 ?>
-                <div class="timeline-content <?php echo $year == '2022' ? 'active' : ''; ?>" id="content-<?php echo $year; ?>">
+                <div class="timeline-content <?php echo $isFirst ? 'active' : ''; ?>" id="content-<?php echo $year; ?>">
                     <!-- 照片上传表单 -->
                     <form method="post" enctype="multipart/form-data" class="upload-form">
                         <input type="hidden" name="year" value="<?php echo $year; ?>">
@@ -653,20 +653,20 @@ foreach ($defaultTimeline as $year => $data) {
                             <div class="form-group">
                                 <label>标题</label>
                                 <input type="text" name="title" class="form-input" 
-                                       value="<?php echo htmlspecialchars($data['title'] ?? ''); ?>" 
-                                       placeholder="输入标题...">
+                                    value="<?php echo htmlspecialchars($data['title'] ?? ''); ?>" 
+                                    placeholder="输入标题...">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label>第一段描述</label>
                                 <textarea name="description1" class="form-textarea" 
-                                          placeholder="输入第一段描述..."><?php echo htmlspecialchars($data['description1'] ?? ''); ?></textarea>
+                                        placeholder="输入第一段描述..."><?php echo htmlspecialchars($data['description1'] ?? ''); ?></textarea>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label>第二段描述</label>
                                 <textarea name="description2" class="form-textarea" 
-                                          placeholder="输入第二段描述..."><?php echo htmlspecialchars($data['description2'] ?? ''); ?></textarea>
+                                        placeholder="输入第二段描述..."><?php echo htmlspecialchars($data['description2'] ?? ''); ?></textarea>
                             </div>
                             
                             <div class="form-actions">
@@ -700,7 +700,10 @@ foreach ($defaultTimeline as $year => $data) {
             });
             
             // 显示选中年份的内容
-            document.getElementById('content-' + year).classList.add('active');
+            const targetContent = document.getElementById('content-' + year);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
             
             // 激活选中的标签
             event.target.classList.add('active');
