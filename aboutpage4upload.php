@@ -884,11 +884,15 @@ document.getElementById('addYearForm').addEventListener('submit', function(e) {
             updateDeleteOptions(data.year);
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('网络请求失败');
+    .then(response => response.text())
+    .then(text => {
+        console.log('服务器返回:', text); // 调试用
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('JSON解析失败:', text);
+            throw new Error('服务器响应格式错误');
         }
-        return response.json();
     })
     .then(data => {
         if (data.success) {
@@ -938,6 +942,7 @@ function addYearTab(year) {
     newTab.textContent = year + '年';
     newTab.onclick = function() { showYear(year); };
     yearTabs.appendChild(newTab);
+    localStorage.setItem('timeline_updated', Date.now().toString());
 }
 
 // 添加年份内容区域
@@ -998,7 +1003,20 @@ function addYearContent(year, data) {
         </div>
     `;
     
-    timelineSection.appendChild(newContent);
+    // 添加这两行来创建对应的卡片
+    addTimelineCard(year, data);
+    
+    // 通知about.php页面刷新时间线数据（如果在同一窗口）
+    if (window.parent && window.parent.refreshTimelineData) {
+        window.parent.refreshTimelineData();
+    }
+}
+
+// 添加新的时间线卡片函数
+function addTimelineCard(year, data) {
+    // 这个函数用于在about.php中添加新卡片
+    // 由于管理页面和显示页面是分开的，这里主要是为了保持一致性
+    console.log('添加时间线卡片:', year, data);
 }
 
 // 更新删除下拉列表

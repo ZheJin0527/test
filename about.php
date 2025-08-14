@@ -764,8 +764,25 @@ updatePageIndicator(0);
         let currentIndex = 0;
         let totalItems = document.querySelectorAll('.timeline-item').length;
         let years = Array.from(document.querySelectorAll('.timeline-item')).map(item => item.dataset.year);
-        const navItems = document.querySelectorAll('.timeline-item');
+        let navItems = document.querySelectorAll('.timeline-item');
         const container = document.getElementById('timelineContainer');
+
+        // 添加刷新函数
+        function refreshTimelineData() {
+            totalItems = document.querySelectorAll('.timeline-item').length;
+            years = Array.from(document.querySelectorAll('.timeline-item')).map(item => item.dataset.year);
+            navItems = document.querySelectorAll('.timeline-item');
+            
+            // 重新绑定导航项点击事件
+            navItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    if (!isDragging && !isAnimating) {
+                        currentIndex = index;
+                        showTimelineItem(years[currentIndex]);
+                    }
+                });
+            });
+        }
 
 // 拖拽相关变量 - 优化后的设置
 let isDragging = false;
@@ -807,6 +824,13 @@ function updateCardPositions() {
             card.classList.add('hidden');
         }
     });
+    
+    // 确保索引在有效范围内
+    if (currentIndex >= totalItems) {
+        currentIndex = 0;
+    } else if (currentIndex < 0) {
+        currentIndex = totalItems - 1;
+    }
 }
 
 function navigateTimeline(direction) {
@@ -1066,6 +1090,34 @@ function goToTimeline() {
   }
 }
 </script>
+<script>
+    // 监听存储变化，当有新年份添加时刷新页面
+window.addEventListener('storage', function(e) {
+    if (e.key === 'timeline_updated') {
+        location.reload();
+    }
+});
 
+// 页面可见性变化时检查是否需要刷新
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        // 检查是否有新的时间线数据
+        const lastCheck = localStorage.getItem('timeline_last_check');
+        const now = Date.now();
+        if (!lastCheck || (now - parseInt(lastCheck)) > 30000) { // 30秒检查一次
+            fetch('media_config.php?check_timeline=1')
+                .then(response => response.json())
+                .then(data => {
+                    const currentCount = document.querySelectorAll('.timeline-item').length;
+                    if (data.count !== currentCount) {
+                        location.reload();
+                    }
+                    localStorage.setItem('timeline_last_check', now.toString());
+                })
+                .catch(e => console.log('检查更新失败'));
+        }
+    }
+});
+</script>
 </body>
 </html>
