@@ -32,12 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_year'])) {
             
             file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
             $success = "年份 {$newYear} 添加成功！";
-            // 添加页面重定向刷新
-            echo "<script>
-                setTimeout(function() {
-                    window.location.href = 'about.php?updated=' + Date.now();
-                }, 2000);
-            </script>";
         } else {
             $error = "年份 {$newYear} 已存在！";
         }
@@ -64,13 +58,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_year'])) {
             
             unset($config[$yearToDelete]);
             file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-            $success = "年份 {$yearToDelete} 删除成功！";
-            // 添加页面重定向刷新
-            echo "<script>
-                setTimeout(function() {
-                    window.location.href = 'about.php?updated=' + Date.now();
-                }, 2000);
-            </script>";
+            $success = "年份 {$newYear} 添加成功！";
+            // 返回JSON响应用于AJAX
+            if (isset($_POST['ajax'])) {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'success' => true,
+                    'message' => $success,
+                    'year' => $newYear,
+                    'data' => $config[$newYear]
+                ]);
+                exit;
+            }
         } else {
             $error = "年份 {$yearToDelete} 不存在！";
         }
@@ -582,11 +581,11 @@ ksort($config);
                 <div class="year-management">
                     <div class="add-year-form">
                         <h3>➕ 添加新年份</h3>
-                        <form method="post" style="display: flex; gap: 10px; align-items: end;">
+                        <form id="addYearForm" method="post" style="display: flex; gap: 10px; align-items: end;">
                             <div class="form-group" style="flex: 1;">
                                 <label>年份</label>
-                                <input type="number" name="new_year" class="form-input" 
-                                       min="2020" max="2050" placeholder="例: 2024" required>
+                                <input type="number" id="newYearInput" name="new_year" class="form-input" 
+                                    min="2020" max="2050" placeholder="例: 2024" required>
                             </div>
                             <button type="submit" name="add_year" class="btn">添加年份</button>
                         </form>
@@ -779,5 +778,137 @@ ksort($config);
             });
         });
     </script>
+    <script>
+// AJAX添加年份功能
+document.getElementById('addYearForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData();
+    formData.append('add_year', '1');
+    formData.append('new_year', document.getElementById('newYearInput').value);
+    formData.append('ajax', '1');
+    
+    fetch('', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // 显示成功消息
+            showAlert(data.message, 'success');
+            
+            // 清空输入框
+            document.getElementById('newYearInput').value = '';
+            
+            // 添加新的年份标签
+            addYearTab(data.year);
+            
+            // 添加新的内容区域
+            addYearContent(data.year, data.data);
+            
+            // 更新删除下拉列表
+            updateDeleteOptions(data.year);
+        }
+    })
+    .catch(error => {
+        showAlert('添加失败：' + error.message, 'error');
+    });
+});
+
+// 显示提示消息
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.textContent = message;
+    
+    const content = document.querySelector('.content');
+    content.insertBefore(alertDiv, content.firstChild);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
+}
+
+// 添加年份标签
+function addYearTab(year) {
+    const yearTabs = document.querySelector('.year-tabs');
+    const newTab = document.createElement('button');
+    newTab.className = 'year-tab';
+    newTab.textContent = year + '年';
+    newTab.onclick = function() { showYear(year); };
+    yearTabs.appendChild(newTab);
+}
+
+// 添加年份内容区域
+function addYearContent(year, data) {
+    const timelineSection = document.querySelector('.timeline-section');
+    const newContent = document.createElement('div');
+    newContent.className = 'timeline-content';
+    newContent.id = 'content-' + year;
+    newContent.innerHTML = `
+        <!-- 照片上传表单 -->
+        <form method="post" enctype="multipart/form-data" class="upload-form">
+            <input type="hidden" name="year" value="${year}">
+            
+            <div class="form-group">
+                <label>上传 ${year} 年照片</label>
+                <div class="file-input" onclick="document.getElementById('image-${year}').click()">
+                    <input type="file" id="image-${year}" name="timeline_image" accept="image/*">
+                    <div class="file-input-text">
+                        点击选择照片或拖拽到此处<br>
+                        <small>支持 JPG, PNG, WebP 格式，建议尺寸 800x600</small>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">上传照片</button>
+        </form>
+        
+        <!-- 文案编辑表单 -->
+        <div class="content-form">
+            <h3>📝 编辑 ${year} 年文案内容</h3>
+            <form method="post">
+                <input type="hidden" name="year" value="${year}">
+                <input type="hidden" name="update_content" value="1">
+                
+                <div class="form-group">
+                    <label>标题</label>
+                    <input type="text" name="title" class="form-input" 
+                           value="${data.title || ''}" placeholder="输入标题...">
+                </div>
+                
+                <div class="form-group">
+                    <label>第一段描述</label>
+                    <textarea name="description1" class="form-textarea" 
+                              placeholder="输入第一段描述...">${data.description1 || ''}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>第二段描述</label>
+                    <textarea name="description2" class="form-textarea" 
+                              placeholder="输入第二段描述...">${data.description2 || ''}</textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn">保存文案</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm('${year}')">重置</button>
+                </div>
+            </form>
+        </div>
+    `;
+    
+    timelineSection.appendChild(newContent);
+}
+
+// 更新删除下拉列表
+function updateDeleteOptions(year) {
+    const deleteSelect = document.querySelector('select[name="year_to_delete"]');
+    const newOption = document.createElement('option');
+    newOption.value = year;
+    newOption.textContent = year + '年';
+    deleteSelect.appendChild(newOption);
+}
+</script>
 </body>
 </html>
