@@ -446,27 +446,27 @@ $currentConfig = getTokyoLocationConfig();
                                 <div class="form-group">
                                     <label for="<?php echo $storeKey; ?>_label">标签文字</label>
                                     <input type="text" id="<?php echo $storeKey; ?>_label" name="<?php echo $storeKey; ?>_label" class="form-input" 
-                                        value="<?php echo htmlspecialchars($storeData['label']); ?>" required>
+                                        value="<?php echo htmlspecialchars($storeData['label']); ?>">
                                     <div class="help-text">例如：总店：、分店：、三店：</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="<?php echo $storeKey; ?>_address">地址</label>
-                                    <textarea id="<?php echo $storeKey; ?>_address" name="<?php echo $storeKey; ?>_address" class="form-input textarea" required><?php echo htmlspecialchars($storeData['address']); ?></textarea>
+                                    <textarea id="<?php echo $storeKey; ?>_address" name="<?php echo $storeKey; ?>_address" class="form-input textarea"><?php echo htmlspecialchars($storeData['address']); ?></textarea>
                                     <div class="help-text">请输入完整的店铺地址</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="<?php echo $storeKey; ?>_phone">电话号码</label>
                                     <input type="text" id="<?php echo $storeKey; ?>_phone" name="<?php echo $storeKey; ?>_phone" class="form-input" 
-                                        value="<?php echo htmlspecialchars($storeData['phone']); ?>" required>
+                                        value="<?php echo htmlspecialchars($storeData['phone']); ?>">
                                     <div class="help-text">例如：+60 19-710 8090</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="<?php echo $storeKey; ?>_map_url">地图链接</label>
                                     <input type="url" id="<?php echo $storeKey; ?>_map_url" name="<?php echo $storeKey; ?>_map_url" class="form-input" 
-                                        value="<?php echo htmlspecialchars($storeData['map_url']); ?>" required>
+                                        value="<?php echo htmlspecialchars($storeData['map_url']); ?>">
                                     <div class="help-text">Google Maps 分享链接</div>
                                 </div>
                             </div>
@@ -491,25 +491,25 @@ $currentConfig = getTokyoLocationConfig();
                     <div class="form-grid">
                         <div class="form-group">
                             <label>标签文字</label>
-                            <input type="text" class="form-input" name="" required>
+                            <input type="text" class="form-input" name="">
                             <div class="help-text">例如：三店：、四店：、旗舰店：</div>
                         </div>
                         
                         <div class="form-group">
                             <label>地址</label>
-                            <textarea class="form-input textarea" name="" required></textarea>
+                            <textarea class="form-input textarea" name=""></textarea>
                             <div class="help-text">请输入完整的店铺地址</div>
                         </div>
                         
                         <div class="form-group">
                             <label>电话号码</label>
-                            <input type="text" class="form-input" name="" required>
+                            <input type="text" class="form-input" name="">
                             <div class="help-text">例如：+60 19-710 8090</div>
                         </div>
                         
                         <div class="form-group">
                             <label>地图链接</label>
-                            <input type="url" class="form-input" name="" required>
+                            <input type="url" class="form-input" name="">
                             <div class="help-text">Google Maps 分享链接</div>
                         </div>
                     </div>
@@ -639,28 +639,46 @@ $currentConfig = getTokyoLocationConfig();
             input.addEventListener('input', updatePreview);
         });
         
-        // 表单验证
+        // 表单验证 - 修改为更宽松的验证
         document.getElementById('mainForm').addEventListener('submit', function(e) {
-            const requiredFields = document.querySelectorAll('.form-input[required]');
-            let isValid = true;
-            let emptyFields = [];
+            // 只验证标题是否填写
+            const sectionTitle = document.getElementById('section_title');
             
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.style.borderColor = '#dc3545';
-                    emptyFields.push(field.previousElementSibling.textContent);
-                } else {
-                    field.style.borderColor = '#e9ecef';
+            if (!sectionTitle.value.trim()) {
+                e.preventDefault();
+                alert('请至少填写标题文字！');
+                sectionTitle.style.borderColor = '#dc3545';
+                sectionTitle.scrollIntoView({ behavior: 'smooth' });
+                sectionTitle.focus();
+                return;
+            }
+            
+            // 重置所有字段的边框颜色
+            document.querySelectorAll('.form-input').forEach(field => {
+                field.style.borderColor = '#e9ecef';
+            });
+            
+            // 可选：检查是否至少有一个店铺有基本信息
+            const stores = document.querySelectorAll('.store-section[data-store-key]');
+            let hasValidStore = false;
+            
+            stores.forEach(store => {
+                const storeKey = store.getAttribute('data-store-key');
+                const label = store.querySelector(`input[name="${storeKey}_label"]`)?.value || '';
+                const address = store.querySelector(`textarea[name="${storeKey}_address"]`)?.value || '';
+                
+                if (label.trim() || address.trim()) {
+                    hasValidStore = true;
                 }
             });
             
-            if (!isValid) {
-                e.preventDefault();
-                alert('请填写所有必填字段：\n' + emptyFields.join('\n'));
-                // 滚动到第一个空字段
-                requiredFields[0].scrollIntoView({ behavior: 'smooth' });
-                requiredFields[0].focus();
+            // 如果没有任何店铺信息，给出警告但仍允许保存
+            if (!hasValidStore) {
+                const confirmSave = confirm('当前没有填写任何店铺信息，确定要保存吗？');
+                if (!confirmSave) {
+                    e.preventDefault();
+                    return;
+                }
             }
         });
         
