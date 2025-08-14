@@ -837,17 +837,29 @@ nav {
     position: relative;
     padding: clamp(40px, 3.2vw, 60px) 0 0 0px;
     height: 100vh;
-    background: linear-gradient(to right, rgb(228, 176, 103), rgba(204, 116, 0, 0)), 
-            url('images/images/j2餐厅1.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     color: white;
 }
 
+.home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgb(228, 176, 103), rgba(204, 116, 0, 0));
+    z-index: 1;
+    pointer-events: none;
+}
+
 .home-content {
     width: 1600px;
     height: auto; /* 允许高度自适应 */
+    position: relative;
+    z-index: 2;
 }
 
 .home-logo-container {

@@ -79,7 +79,7 @@ header("Expires: 0");
 
   <div class="swiper-slide">
   <section class="home">
-    <?php echo getMediaHtml('tokyo_background', ['style' => 'width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;']); ?>
+    <?php echo getMediaHtml('tokyo_background', ['style' => 'width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;']); ?>
     <div class="home-content hidden animate-on-scroll">
       <div class="home-logo-container scale-fade-in">
       <img src="images/images/tokyo.png" alt="餐厅Logo" class="home-logo scale-fade-in">
