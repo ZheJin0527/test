@@ -319,6 +319,19 @@ if (file_exists('media_config.json')) {
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
             
+            <!-- 页面分类管理 -->
+            <div class="media-section">
+                <h2>📁 首页管理</h2>
+                <div class="page-grid">
+                    <a href="homepage1upload.php" class="page-card">
+                        <div class="page-icon">🏠</div>
+                        <h3>首页第一页</h3>
+                        <p>管理首页背景视频/图片</p>
+                        <span class="page-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+            
             <div class="media-section">
                 <h2>📋 关于我们管理</h2>
                 <div class="page-grid">
