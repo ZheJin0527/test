@@ -791,13 +791,13 @@ updatePageIndicator(0);
             const translateX = centerOffset - (currentIndex * itemWidth);
             
             // 使用CSS transition实现平滑滚动
-            container.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            container.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             container.style.transform = `translateX(${translateX}px)`;
             
             // 清除transition，避免影响后续操作
             setTimeout(() => {
                 container.style.transition = '';
-            }, 500);
+            }, 300);
         }
 
         function updateCardPositions() {
@@ -807,7 +807,7 @@ updatePageIndicator(0);
                 card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
                 
                 // 添加平滑过渡效果
-                card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                card.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 
                 if (index === currentIndex) {
                     // 当前活动卡片
@@ -853,7 +853,7 @@ updatePageIndicator(0);
             // 动画完成后重置标志
             setTimeout(() => {
                 isAnimating = false;
-            }, 600); // 增加到600ms匹配新的动画时长
+            }, 300); // 增加到600ms匹配新的动画时长
         }
 
         function selectCard(year) {
@@ -1016,8 +1016,8 @@ updatePageIndicator(0);
                 }, 100);
             }
         });
-            </script>
-        <script>
+    </script>
+    <script>
         const bgMusic = document.getElementById('bgMusic');
 
         // 设置固定音量（例如 0.3 表示 30%）
@@ -1060,8 +1060,8 @@ updatePageIndicator(0);
             localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
             localStorage.setItem('musicPlaying', bgMusic.paused ? 'false' : 'true');
         });
-        </script>
-        <script>
+    </script>
+    <script>
         // 添加这个函数到你现有的JavaScript代码中
         function goToSlide(slideIndex) {
         if (typeof swiper !== 'undefined') {
