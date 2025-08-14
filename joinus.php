@@ -145,6 +145,7 @@ header("Expires: 0");
         </div>
         <div class="jobs-grid">
     <?php echo getJobsHtml(); ?>
+    </div>
 </div>
 
     <!-- 弹窗表单 -->
