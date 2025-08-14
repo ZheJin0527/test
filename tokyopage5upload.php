@@ -405,7 +405,6 @@ $currentConfig = getTokyoLocationConfig();
                         <h3>
                             <span>
                                 <?php echo array_search($storeKey, array_keys($currentConfig)) + 1; ?>
-                                <span class="store-counter"></span>
                             </span>
                             <div class="section-actions">
                                 <?php if (!in_array($storeKey, ['main_store', 'branch_store'])): ?>
@@ -455,9 +454,7 @@ $currentConfig = getTokyoLocationConfig();
             <div class="store-template" id="storeTemplate">
                 <div class="store-section new-store" data-store-key="">
                     <h3>
-                        <span>
-                            <span class="store-counter"></span>
-                        </span>
+                        <span></span>
                         <div class="section-actions">
                             <button type="button" class="btn btn-danger" onclick="removeNewStore(this)">
                                 🗑️ 移除
@@ -521,7 +518,7 @@ $currentConfig = getTokyoLocationConfig();
             
             const storeKey = 'store_' + Date.now();
             newStore.querySelector('.store-section').setAttribute('data-store-key', storeKey);
-            newStore.querySelector('.store-section h3 span').firstChild.textContent = storeCounter;
+            newStore.querySelector('h3 span').textContent = storeCounter;
             
             // 更新表单字段名称
             const inputs = newStore.querySelectorAll('input, textarea');
@@ -577,7 +574,7 @@ $currentConfig = getTokyoLocationConfig();
             stores.forEach((store, index) => {
                 const titleSpan = store.querySelector('h3 span');
                 if (titleSpan) {
-                    titleSpan.firstChild.textContent = index + 1;
+                    titleSpan.textContent = index + 1;
                 }
             });
             storeCounter = stores.length;
