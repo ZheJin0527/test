@@ -2,24 +2,6 @@
 session_start();
 include_once 'media_config.php';
 
-// 添加错误处理和调试
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// 检查必要文件是否存在
-if (!file_exists('media_config.php')) {
-    die('错误：media_config.php 文件不存在！');
-}
-
-// 检查必要函数是否存在
-if (!function_exists('getTokyoLocationConfig')) {
-    die('错误：getTokyoLocationConfig 函数未定义！请检查 media_config.php 文件。');
-}
-
-if (!function_exists('saveTokyoLocationConfig')) {
-    die('错误：saveTokyoLocationConfig 函数未定义！请检查 media_config.php 文件。');
-}
-
 // 检查是否已登录（根据你的登录系统调整）
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
@@ -40,34 +22,40 @@ if (isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['st
 // 处理表单提交
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
     $config = [];
+    
+    // 获取当前配置以保持order
+    $currentConfig = getTokyoLocationConfig();
 
     // 添加标题处理
     if (isset($_POST['section_title'])) {
         $config['section_title'] = trim($_POST['section_title']);
     }
     
-    // 处理现有店铺的更新
+    // 处理所有店铺（包括新添加的）
     foreach ($_POST as $key => $value) {
         if (strpos($key, '_label') !== false) {
             $storeKey = str_replace('_label', '', $key);
             
             // 检查是否所有相关字段都存在
+            $label = trim($value);
             $address = isset($_POST[$storeKey . '_address']) ? trim($_POST[$storeKey . '_address']) : '';
             $phone = isset($_POST[$storeKey . '_phone']) ? trim($_POST[$storeKey . '_phone']) : '';
             $map_url = isset($_POST[$storeKey . '_map_url']) ? trim($_POST[$storeKey . '_map_url']) : '';
             
-            // 保持原有的order值（如果存在）
-            $currentConfig = getTokyoLocationConfig();
-            $order = isset($currentConfig[$storeKey]['order']) ? $currentConfig[$storeKey]['order'] : count($config) + 1;
-            
-            $config[$storeKey] = [
-                'label' => trim($value),
-                'address' => $address,
-                'phone' => $phone,
-                'map_url' => $map_url,
-                'order' => $order,
-                'updated' => date('Y-m-d H:i:s')
-            ];
+            // 如果至少有标签或地址，就保存这个店铺
+            if (!empty($label) || !empty($address)) {
+                // 保持原有的order值（如果存在），否则分配新的order
+                $order = isset($currentConfig[$storeKey]['order']) ? $currentConfig[$storeKey]['order'] : (count($config) + 1);
+                
+                $config[$storeKey] = [
+                    'label' => $label,
+                    'address' => $address,
+                    'phone' => $phone,
+                    'map_url' => $map_url,
+                    'order' => $order,
+                    'updated' => date('Y-m-d H:i:s')
+                ];
+            }
         }
     }
     
@@ -584,41 +572,50 @@ $currentConfig = getTokyoLocationConfig();
             newStore.id = '';
             
             const storeKey = 'store_' + Date.now();
-            newStore.querySelector('.store-section').setAttribute('data-store-key', storeKey);
+            const storeSection = newStore.querySelector('.store-section');
+            storeSection.setAttribute('data-store-key', storeKey);
             
             // 先添加到容器
-            document.getElementById('storesContainer').appendChild(newStore.firstElementChild);
+            document.getElementById('storesContainer').appendChild(storeSection);
             
             // 然后更新所有序号
             updateStoreCounters();
             
-            // 更新表单字段名称的代码保持不变...
-            const inputs = newStore.firstElementChild.querySelectorAll('input, textarea');
-            const labels = newStore.firstElementChild.querySelectorAll('label');
+            // 更新表单字段名称
+            const inputs = storeSection.querySelectorAll('input, textarea');
+            const labels = storeSection.querySelectorAll('label');
             
-            inputs[0].name = storeKey + '_label';
-            inputs[0].id = storeKey + '_label';
-            labels[0].setAttribute('for', storeKey + '_label');
-            
-            inputs[1].name = storeKey + '_address';
-            inputs[1].id = storeKey + '_address';
-            labels[1].setAttribute('for', storeKey + '_address');
-            
-            inputs[2].name = storeKey + '_phone';
-            inputs[2].id = storeKey + '_phone';
-            labels[2].setAttribute('for', storeKey + '_phone');
-            
-            inputs[3].name = storeKey + '_map_url';
-            inputs[3].id = storeKey + '_map_url';
-            labels[3].setAttribute('for', storeKey + '_map_url');
-            
-            // 添加事件监听
-            inputs.forEach(input => {
-                input.addEventListener('input', updatePreview);
-            });
+            // 确保按正确顺序设置字段名
+            if (inputs.length >= 4 && labels.length >= 4) {
+                inputs[0].name = storeKey + '_label';
+                inputs[0].id = storeKey + '_label';
+                labels[0].setAttribute('for', storeKey + '_label');
+                
+                inputs[1].name = storeKey + '_address';
+                inputs[1].id = storeKey + '_address';
+                labels[1].setAttribute('for', storeKey + '_address');
+                
+                inputs[2].name = storeKey + '_phone';
+                inputs[2].id = storeKey + '_phone';
+                labels[2].setAttribute('for', storeKey + '_phone');
+                
+                inputs[3].name = storeKey + '_map_url';
+                inputs[3].id = storeKey + '_map_url';
+                labels[3].setAttribute('for', storeKey + '_map_url');
+                
+                // 为新字段添加默认提示
+                inputs[0].placeholder = '例如：三店：';
+                inputs[2].placeholder = '+60 19-710 8090';
+                inputs[3].placeholder = 'https://maps.app.goo.gl/...';
+                
+                // 添加事件监听
+                inputs.forEach(input => {
+                    input.addEventListener('input', updatePreview);
+                });
+            }
             
             // 滚动到新添加的店铺
-            newStore.firstElementChild.scrollIntoView({ behavior: 'smooth' });
+            storeSection.scrollIntoView({ behavior: 'smooth' });
         }
         
         // 移除新店铺（未保存的）
@@ -680,33 +677,6 @@ $currentConfig = getTokyoLocationConfig();
             input.addEventListener('input', updatePreview);
         });
 
-        // 添加表单提交前的数据验证
-        function validateFormData() {
-            const stores = document.querySelectorAll('.store-section[data-store-key]');
-            let isValid = true;
-            
-            stores.forEach(store => {
-                const storeKey = store.getAttribute('data-store-key');
-                if (!storeKey) {
-                    console.warn('发现没有store-key的店铺元素');
-                    return;
-                }
-                
-                // 检查必要的输入框是否存在
-                const labelInput = store.querySelector(`input[name="${storeKey}_label"]`);
-                const addressInput = store.querySelector(`textarea[name="${storeKey}_address"]`);
-                const phoneInput = store.querySelector(`input[name="${storeKey}_phone"]`);
-                const mapInput = store.querySelector(`input[name="${storeKey}_map_url"]`);
-                
-                if (!labelInput || !addressInput || !phoneInput || !mapInput) {
-                    console.error(`店铺 ${storeKey} 的输入框不完整`);
-                    isValid = false;
-                }
-            });
-            
-            return isValid;
-        }
-        
         // 表单验证 - 修改为更宽松的验证
         document.getElementById('mainForm').addEventListener('submit', function(e) {
             // 只验证标题是否填写
