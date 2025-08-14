@@ -422,7 +422,16 @@ $currentConfig = getTokyoLocationConfig();
                             <!-- 店铺编辑内容保持不变 -->
                             <h3>
                                 <span>
-                                    <?php echo array_search($storeKey, array_keys(array_filter($currentConfig, function($key) { return $key !== 'section_title'; }, ARRAY_FILTER_USE_KEY))) + 1; ?>
+                                    <?php 
+                                    // 获取所有非标题的店铺键名
+                                    $storeKeys = array_filter(array_keys($currentConfig), function($key) { 
+                                        return $key !== 'section_title'; 
+                                    });
+                                    // 重新索引数组，从0开始
+                                    $storeKeys = array_values($storeKeys);
+                                    // 找到当前店铺的位置并+1
+                                    echo array_search($storeKey, $storeKeys) + 1;
+                                    ?>
                                 </span>
                                 <div class="section-actions">
                                     <?php if (!in_array($storeKey, ['main_store', 'branch_store'])): ?>
@@ -524,11 +533,10 @@ $currentConfig = getTokyoLocationConfig();
     </form>
     
     <script>
-        let storeCounter = <?php echo count($currentConfig); ?>;
+        let storeCounter = <?php echo count(array_filter($currentConfig, function($key) { return $key !== 'section_title'; }, ARRAY_FILTER_USE_KEY)); ?>;
         
         // 添加新店铺
         function addNewStore() {
-            storeCounter++;
             const template = document.getElementById('storeTemplate');
             const newStore = template.cloneNode(true);
             newStore.style.display = 'block';
@@ -536,11 +544,16 @@ $currentConfig = getTokyoLocationConfig();
             
             const storeKey = 'store_' + Date.now();
             newStore.querySelector('.store-section').setAttribute('data-store-key', storeKey);
-            newStore.querySelector('h3 span').textContent = storeCounter;
             
-            // 更新表单字段名称
-            const inputs = newStore.querySelectorAll('input, textarea');
-            const labels = newStore.querySelectorAll('label');
+            // 先添加到容器
+            document.getElementById('storesContainer').appendChild(newStore.firstElementChild);
+            
+            // 然后更新所有序号
+            updateStoreCounters();
+            
+            // 更新表单字段名称的代码保持不变...
+            const inputs = newStore.firstElementChild.querySelectorAll('input, textarea');
+            const labels = newStore.firstElementChild.querySelectorAll('label');
             
             inputs[0].name = storeKey + '_label';
             inputs[0].id = storeKey + '_label';
@@ -562,8 +575,6 @@ $currentConfig = getTokyoLocationConfig();
             inputs.forEach(input => {
                 input.addEventListener('input', updatePreview);
             });
-            
-            document.getElementById('storesContainer').appendChild(newStore.firstElementChild);
             
             // 滚动到新添加的店铺
             newStore.firstElementChild.scrollIntoView({ behavior: 'smooth' });
@@ -588,11 +599,11 @@ $currentConfig = getTokyoLocationConfig();
         
         // 更新店铺序号
         function updateStoreCounters() {
-            const stores = document.querySelectorAll('.store-section');
+            const stores = document.querySelectorAll('.store-section[data-store-key]'); // 只选择有data-store-key的店铺
             stores.forEach((store, index) => {
                 const titleSpan = store.querySelector('h3 span');
                 if (titleSpan) {
-                    titleSpan.textContent = index + 1;
+                    titleSpan.textContent = index + 1; // 从1开始计数
                 }
             });
             storeCounter = stores.length;
@@ -600,30 +611,28 @@ $currentConfig = getTokyoLocationConfig();
         
         // 实时预览功能
         function updatePreview() {
-            const previewContent = document.getElementById('previewContent');
-            const stores = document.querySelectorAll('.store-section');
+        const previewContent = document.getElementById('previewContent');
+        const stores = document.querySelectorAll('.store-section[data-store-key]'); // 只选择有data-store-key的店铺
+        
+        // 获取标题
+        const sectionTitle = document.getElementById('section_title')?.value || '我们在这';
+        let html = `<h2>${sectionTitle}</h2>`;
+        
+        stores.forEach(store => {
+            const storeKey = store.getAttribute('data-store-key');
+            const label = store.querySelector(`input[name="${storeKey}_label"]`)?.value || '';
+            const address = store.querySelector(`textarea[name="${storeKey}_address"]`)?.value || '';
+            const phone = store.querySelector(`input[name="${storeKey}_phone"]`)?.value || '';
+            const mapUrl = store.querySelector(`input[name="${storeKey}_map_url"]`)?.value || '';
             
-            // 获取标题
-            const sectionTitle = document.getElementById('section_title')?.value || '我们在这';
-            let html = `<h2>${sectionTitle}</h2>`;
-            
-            stores.forEach(store => {
-                const storeKey = store.getAttribute('data-store-key');
-                const label = store.querySelector(`input[name="${storeKey}_label"]`)?.value || '';
-                const address = store.querySelector(`textarea[name="${storeKey}_address"]`)?.value || '';
-                const phone = store.querySelector(`input[name="${storeKey}_phone"]`)?.value || '';
-                const mapUrl = store.querySelector(`input[name="${storeKey}_map_url"]`)?.value || '';
-                
-                if (!store.getAttribute('data-store-key')) return;
-
-                if (label || address) {
-                    html += `<p>${label}<a href="${mapUrl}" target="_blank" class="no-style-link">${address}</a></p>`;
-                    html += `<p>电话：${phone}</p>`;
-                }
-            });
-            
-            previewContent.innerHTML = html;
-        }
+            if (label || address) {
+                html += `<p>${label}<a href="${mapUrl}" target="_blank" class="no-style-link">${address}</a></p>`;
+                html += `<p>电话：${phone}</p>`;
+            }
+        });
+        
+        previewContent.innerHTML = html;
+    }
         
         // 为所有现有输入框添加实时预览
         document.querySelectorAll('.form-input').forEach(input => {
