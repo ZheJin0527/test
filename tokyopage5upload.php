@@ -399,7 +399,8 @@ $currentConfig = getTokyoLocationConfig();
             
             <form method="post" id="mainForm" class="form-section">
                 <h2>📍 编辑位置信息</h2>
-
+                
+                <!-- 标题编辑区域 -->
                 <div class="store-section">
                     <h3>📝 节标题设置</h3>
                     <div class="form-group">
@@ -416,51 +417,55 @@ $currentConfig = getTokyoLocationConfig();
                 
                 <div id="storesContainer">
                     <?php foreach ($currentConfig as $storeKey => $storeData): ?>
-                    <div class="store-section" data-store-key="<?php echo $storeKey; ?>">
-                        <h3>
-                            <span>
-                                <?php echo array_search($storeKey, array_keys($currentConfig)) + 1; ?>
-                            </span>
-                            <div class="section-actions">
-                                <?php if (!in_array($storeKey, ['main_store', 'branch_store'])): ?>
-                                <button type="button" class="btn btn-danger" onclick="deleteStore('<?php echo $storeKey; ?>')">
-                                    🗑️ 删除
-                                </button>
-                                <?php endif; ?>
-                            </div>
-                        </h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="<?php echo $storeKey; ?>_label">标签文字</label>
-                                <input type="text" id="<?php echo $storeKey; ?>_label" name="<?php echo $storeKey; ?>_label" class="form-input" 
-                                       value="<?php echo htmlspecialchars($storeData['label']); ?>" required>
-                                <div class="help-text">例如：总店：、分店：、三店：</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="<?php echo $storeKey; ?>_address">地址</label>
-                                <textarea id="<?php echo $storeKey; ?>_address" name="<?php echo $storeKey; ?>_address" class="form-input textarea" required><?php echo htmlspecialchars($storeData['address']); ?></textarea>
-                                <div class="help-text">请输入完整的店铺地址</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="<?php echo $storeKey; ?>_phone">电话号码</label>
-                                <input type="text" id="<?php echo $storeKey; ?>_phone" name="<?php echo $storeKey; ?>_phone" class="form-input" 
-                                       value="<?php echo htmlspecialchars($storeData['phone']); ?>" required>
-                                <div class="help-text">例如：+60 19-710 8090</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="<?php echo $storeKey; ?>_map_url">地图链接</label>
-                                <input type="url" id="<?php echo $storeKey; ?>_map_url" name="<?php echo $storeKey; ?>_map_url" class="form-input" 
-                                       value="<?php echo htmlspecialchars($storeData['map_url']); ?>" required>
-                                <div class="help-text">Google Maps 分享链接</div>
+                        <?php if ($storeKey === 'section_title') continue; // 跳过标题配置 ?>
+                        <div class="store-section" data-store-key="<?php echo $storeKey; ?>">
+                            <!-- 店铺编辑内容保持不变 -->
+                            <h3>
+                                <span>
+                                    <?php echo array_search($storeKey, array_keys(array_filter($currentConfig, function($key) { return $key !== 'section_title'; }, ARRAY_FILTER_USE_KEY))) + 1; ?>
+                                </span>
+                                <div class="section-actions">
+                                    <?php if (!in_array($storeKey, ['main_store', 'branch_store'])): ?>
+                                    <button type="button" class="btn btn-danger" onclick="deleteStore('<?php echo $storeKey; ?>')">
+                                        🗑️ 删除
+                                    </button>
+                                    <?php endif; ?>
+                                </div>
+                            </h3>
+                            <!-- 其余店铺表单字段保持不变 -->
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="<?php echo $storeKey; ?>_label">标签文字</label>
+                                    <input type="text" id="<?php echo $storeKey; ?>_label" name="<?php echo $storeKey; ?>_label" class="form-input" 
+                                        value="<?php echo htmlspecialchars($storeData['label']); ?>" required>
+                                    <div class="help-text">例如：总店：、分店：、三店：</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="<?php echo $storeKey; ?>_address">地址</label>
+                                    <textarea id="<?php echo $storeKey; ?>_address" name="<?php echo $storeKey; ?>_address" class="form-input textarea" required><?php echo htmlspecialchars($storeData['address']); ?></textarea>
+                                    <div class="help-text">请输入完整的店铺地址</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="<?php echo $storeKey; ?>_phone">电话号码</label>
+                                    <input type="text" id="<?php echo $storeKey; ?>_phone" name="<?php echo $storeKey; ?>_phone" class="form-input" 
+                                        value="<?php echo htmlspecialchars($storeData['phone']); ?>" required>
+                                    <div class="help-text">例如：+60 19-710 8090</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="<?php echo $storeKey; ?>_map_url">地图链接</label>
+                                    <input type="url" id="<?php echo $storeKey; ?>_map_url" name="<?php echo $storeKey; ?>_map_url" class="form-input" 
+                                        value="<?php echo htmlspecialchars($storeData['map_url']); ?>" required>
+                                    <div class="help-text">Google Maps 分享链接</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <?php endforeach; ?>
                 </div>
                 
+                <!-- 确保这两个按钮在表单内且在 </form> 标签之前 -->
                 <button type="submit" class="btn">💾 保存所有更改</button>
                 <button type="button" class="btn btn-secondary" onclick="updatePreview()">👁️ 实时预览</button>
             </form>
