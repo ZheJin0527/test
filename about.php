@@ -804,19 +804,27 @@ function updateCardPositions() {
     const cards = document.querySelectorAll('.timeline-content-item');
     
     cards.forEach((card, index) => {
-        card.classList.remove('active', 'prev', 'next', 'hidden');
+        card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
         
         // 添加平滑过渡效果
         card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         
         if (index === currentIndex) {
+            // 当前活动卡片
             card.classList.add('active');
+            card.style.zIndex = '10';
         } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+            // 左侧卡片
             card.classList.add('prev');
+            card.style.zIndex = '5';
         } else if (index === (currentIndex + 1) % totalItems) {
+            // 右侧卡片
             card.classList.add('next');
+            card.style.zIndex = '5';
         } else {
-            card.classList.add('hidden');
+            // 其他卡片都隐藏在中间后面，形成堆叠效果
+            card.classList.add('stack-hidden');
+            card.style.zIndex = '1';
         }
     });
     
@@ -829,7 +837,7 @@ function updateCardPositions() {
 }
 
 function navigateTimeline(direction) {
-    if (isAnimating) return; // 防止动画期间重复触发
+    if (isAnimating) return;
     
     isAnimating = true;
     
@@ -839,12 +847,13 @@ function navigateTimeline(direction) {
         currentIndex = (currentIndex - 1 + totalItems) % totalItems;
     }
     
-    showTimelineItem(years[currentIndex]);
+    updateTimelineNav();
+    updateCardPositions();
     
     // 动画完成后重置标志
     setTimeout(() => {
         isAnimating = false;
-    }, 300); // 假设动画时长为300ms
+    }, 600); // 增加到600ms匹配新的动画时长
 }
 
 function selectCard(year) {

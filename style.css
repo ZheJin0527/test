@@ -2790,9 +2790,10 @@ nav {
     position: absolute;
     width: clamp(600px, 45vw, 850px);
     height: clamp(230px, 19vw, 350px);
-    transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-     margin-top: -250px;
+    margin-top: -250px;
+    will-change: transform, opacity, z-index; /* 优化性能 */
 }
 
 /* 当前活动卡片 */
@@ -2821,6 +2822,31 @@ nav {
     transform: translateX(0) scale(0.7);
     z-index: 0;
     opacity: 0;
+}
+
+/* 堆叠隐藏的卡片 - 隐藏在中间卡片后面 */
+.timeline-content-item.stack-hidden {
+    transform: translateX(0) scale(0.95) translateZ(-50px);
+    z-index: 1;
+    opacity: 0.3;
+    pointer-events: none; /* 禁用点击事件，避免误触 */
+}
+
+/* 为堆叠效果添加轻微的随机偏移 */
+.timeline-content-item.stack-hidden:nth-child(4n) {
+    transform: translateX(-5px) scale(0.94) translateZ(-60px) rotate(-0.5deg);
+}
+
+.timeline-content-item.stack-hidden:nth-child(4n+1) {
+    transform: translateX(5px) scale(0.93) translateZ(-70px) rotate(0.5deg);
+}
+
+.timeline-content-item.stack-hidden:nth-child(4n+2) {
+    transform: translateX(-3px) scale(0.92) translateZ(-80px) rotate(-0.3deg);
+}
+
+.timeline-content-item.stack-hidden:nth-child(4n+3) {
+    transform: translateX(3px) scale(0.91) translateZ(-90px) rotate(0.3deg);
 }
 
 .timeline-content {
