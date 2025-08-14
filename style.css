@@ -2947,6 +2947,17 @@ nav {
     transform: translateY(-3px) scale(1.02);
 }
 
+/* 检查是否有这样的CSS，如果有请删除 */
+.timeline-bullet::before,
+.timeline-bullet::after {
+    content: counter(something);
+}
+
+/* 或者 */
+.timeline-item::before {
+    content: attr(data-index);
+}
+
 /* 响应式设计 */
 @media (max-width: 1280px) {
     .timeline-section h1 {
