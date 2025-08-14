@@ -324,7 +324,7 @@ if (file_exists('media_config.json')) {
                 <h2>📁 首页管理</h2>
                 <div class="page-grid">
                     <a href="homepage1upload.php" class="page-card">
-                        <div class="page-icon">🏠</div>
+                        <div class="page-icon"></div>
                         <h3>首页第一页</h3>
                         <p>管理首页背景视频/图片</p>
                         <span class="page-arrow">→</span>
@@ -336,13 +336,13 @@ if (file_exists('media_config.json')) {
                 <h2>📋 关于我们管理</h2>
                 <div class="page-grid">
                     <a href="aboutpage1upload.php" class="page-card">
-                        <div class="page-icon">📄</div>
+                        <div class="page-icon"></div>
                         <h3>关于我们第一页</h3>
                         <p>管理封面背景图片</p>
                         <span class="page-arrow">→</span>
                     </a>
                     <a href="aboutpage4upload.php" class="page-card">
-                        <div class="page-icon">📈</div>
+                        <div class="page-icon"></div>
                         <h3>关于我们第四页</h3>
                         <p>管理发展历史图片</p>
                         <span class="page-arrow">→</span>
@@ -355,13 +355,13 @@ if (file_exists('media_config.json')) {
                 <h2>🏢 旗下品牌管理</h2>
                 <div class="page-grid">
                     <a href="tokyopage1upload.php" class="page-card">
-                        <div class="page-icon">🍱</div>
+                        <div class="page-icon"></div>
                         <h3>Tokyo 首页背景</h3>
                         <p>管理品牌页面首页背景图片</p>
                         <span class="page-arrow">→</span>
                     </a>
                     <a href="tokyopage5upload.php" class="page-card">
-                        <div class="page-icon">📍</div>
+                        <div class="page-icon"></div>
                         <h3>Tokyo 位置信息</h3>
                         <p>管理总店分店地址电话信息</p>
                         <span class="page-arrow">→</span>
@@ -373,13 +373,13 @@ if (file_exists('media_config.json')) {
                 <h2>👥 加入我们管理</h2>
                 <div class="page-grid">
                     <a href="joinpage1upload.php" class="page-card">
-                        <div class="page-icon">🤝</div>
+                        <div class="page-icon"></div>
                         <h3>加入我们页面</h3>
                         <p>管理招聘页面图片</p>
                         <span class="page-arrow">→</span>
                     </a>
                     <a href="joinpage2upload.php" class="page-card">
-                        <div class="page-icon">📸</div>
+                        <div class="page-icon"></div>
                         <h3>我们的足迹照片</h3>
                         <p>管理34张公司活动照片</p>
                         <span class="page-arrow">→</span>
