@@ -606,4 +606,73 @@ function getTokyoBackups() {
     
     return $backups;
 }
+
+/**
+ * 获取招聘职位配置
+ * @return array 职位信息数组
+ */
+function getJobsConfig() {
+    $configFile = 'jobs_config.json';
+    $jobs = [];
+    
+    if (file_exists($configFile)) {
+        $jobs = json_decode(file_get_contents($configFile), true) ?: [];
+    }
+    
+    // 按发布日期排序（最新的在前）
+    uasort($jobs, function($a, $b) {
+        return strtotime($b['publish_date']) - strtotime($a['publish_date']);
+    });
+    
+    return $jobs;
+}
+
+/**
+ * 生成招聘职位HTML
+ * @return string 职位卡片HTML
+ */
+function getJobsHtml() {
+    $jobs = getJobsConfig();
+    $html = '';
+    
+    if (empty($jobs)) {
+        $html = '<div class="no-jobs">暂无招聘职位</div>';
+    } else {
+        foreach ($jobs as $jobId => $job) {
+            if ($job['status'] === 'active') {
+                $html .= '<div class="job-card">';
+                $html .= '<div class="job-header">';
+                $html .= '<div>';
+                $html .= '<div class="job-title">' . htmlspecialchars($job['title']) . '</div>';
+                $html .= '<div class="job-meta">';
+                $html .= '<div class="job-meta-item">';
+                $html .= '<span class="job-meta-label">&#128101; 人数:</span>';
+                $html .= '<span style="color: #FF5C00; font-weight: 600;">' . htmlspecialchars($job['count']) . '</span>';
+                $html .= '</div>';
+                $html .= '<div class="job-meta-item">';
+                $html .= '<span class="job-meta-label">&#128188; 工作经验:</span>';
+                $html .= '<span style="color: #FF5C00; font-weight: 600;">' . htmlspecialchars($job['experience']) . '</span>';
+                $html .= '</div>';
+                $html .= '<div class="job-meta-item">';
+                $html .= '<span class="job-meta-label">&#128197; 发布:</span>';
+                $html .= '<span style="color: #FF5C00; font-weight: 600;">' . $job['publish_date'] . '</span>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '<div class="job-details">';
+                $html .= '<div class="detail-content">';
+                $html .= '<div class="job-description">';
+                $html .= '<strong>职位详情：</strong>' . htmlspecialchars($job['description']);
+                $html .= '</div>';
+                $html .= '<button class="apply-btn" onclick="openForm(\'' . htmlspecialchars($job['title']) . '\')">申请职位</button>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '</div>';
+            }
+        }
+    }
+    
+    return $html;
+}
 ?>

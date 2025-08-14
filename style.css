@@ -4020,6 +4020,16 @@ nav {
     animation: slideDownBounce 0.6s cubic-bezier(0.68, -0.35, 0.265, 1.35);
 }
 
+.no-jobs {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 1.2em;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    border: 2px dashed rgba(255, 92, 0, 0.3);
+}
+
 @keyframes slideDownBounce {
       0% {
         opacity: 0;
