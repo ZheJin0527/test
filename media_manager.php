@@ -384,6 +384,12 @@ if (file_exists('media_config.json')) {
                         <p>管理34张公司活动照片</p>
                         <span class="page-arrow">→</span>
                     </a>
+                    <a href="joinpage3upload.php" class="page-card">
+                        <div class="page-icon"></div>
+                        <h3>招聘资料</h3>
+                        <p>管理招聘职位</p>
+                        <span class="page-arrow">→</span>
+                    </a>
                 </div>
             </div>
         </div>
