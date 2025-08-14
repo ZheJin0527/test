@@ -2,6 +2,24 @@
 session_start();
 include_once 'media_config.php';
 
+// 添加错误处理和调试
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// 检查必要文件是否存在
+if (!file_exists('media_config.php')) {
+    die('错误：media_config.php 文件不存在！');
+}
+
+// 检查必要函数是否存在
+if (!function_exists('getTokyoLocationConfig')) {
+    die('错误：getTokyoLocationConfig 函数未定义！请检查 media_config.php 文件。');
+}
+
+if (!function_exists('saveTokyoLocationConfig')) {
+    die('错误：saveTokyoLocationConfig 函数未定义！请检查 media_config.php 文件。');
+}
+
 // 检查是否已登录（根据你的登录系统调整）
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
@@ -32,26 +50,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
     foreach ($_POST as $key => $value) {
         if (strpos($key, '_label') !== false) {
             $storeKey = str_replace('_label', '', $key);
+            
+            // 检查是否所有相关字段都存在
+            $address = isset($_POST[$storeKey . '_address']) ? trim($_POST[$storeKey . '_address']) : '';
+            $phone = isset($_POST[$storeKey . '_phone']) ? trim($_POST[$storeKey . '_phone']) : '';
+            $map_url = isset($_POST[$storeKey . '_map_url']) ? trim($_POST[$storeKey . '_map_url']) : '';
+            
+            // 保持原有的order值（如果存在）
+            $currentConfig = getTokyoLocationConfig();
+            $order = isset($currentConfig[$storeKey]['order']) ? $currentConfig[$storeKey]['order'] : count($config) + 1;
+            
             $config[$storeKey] = [
                 'label' => trim($value),
-                'address' => trim($_POST[$storeKey . '_address']),
-                'phone' => trim($_POST[$storeKey . '_phone']),
-                'map_url' => trim($_POST[$storeKey . '_map_url'])
+                'address' => $address,
+                'phone' => $phone,
+                'map_url' => $map_url,
+                'order' => $order,
+                'updated' => date('Y-m-d H:i:s')
             ];
         }
     }
     
-    if (saveTokyoLocationConfig($config)) {
-        $success = "位置信息更新成功！";
-        // 添加页面重定向，清除缓存
-        echo "<script>
-            setTimeout(function() {
-                window.location.href = window.location.href + '?updated=' + Date.now();
-            }, 2000);
-        </script>";
-    } else {
-        $error = "更新失败，请重试！";
+    // 确保至少保留标题
+    if (empty($config) || (!isset($config['section_title']) && count($config) == 0)) {
+        $config['section_title'] = '我们在这';
     }
+    
+    try {
+        if (saveTokyoLocationConfig($config)) {
+            $success = "位置信息更新成功！";
+            // 重定向避免重复提交
+            header("Location: " . $_SERVER['PHP_SELF'] . "?success=1&updated=" . time());
+            exit();
+        } else {
+            $error = "更新失败，请重试！";
+        }
+    } catch (Exception $e) {
+        $error = "保存过程中发生错误：" . $e->getMessage();
+    }
+}
+
+// 处理成功消息显示
+if (isset($_GET['success']) && $_GET['success'] == '1') {
+    $success = "位置信息更新成功！";
 }
 
 // 读取当前配置
@@ -638,6 +679,33 @@ $currentConfig = getTokyoLocationConfig();
         document.querySelectorAll('.form-input').forEach(input => {
             input.addEventListener('input', updatePreview);
         });
+
+        // 添加表单提交前的数据验证
+        function validateFormData() {
+            const stores = document.querySelectorAll('.store-section[data-store-key]');
+            let isValid = true;
+            
+            stores.forEach(store => {
+                const storeKey = store.getAttribute('data-store-key');
+                if (!storeKey) {
+                    console.warn('发现没有store-key的店铺元素');
+                    return;
+                }
+                
+                // 检查必要的输入框是否存在
+                const labelInput = store.querySelector(`input[name="${storeKey}_label"]`);
+                const addressInput = store.querySelector(`textarea[name="${storeKey}_address"]`);
+                const phoneInput = store.querySelector(`input[name="${storeKey}_phone"]`);
+                const mapInput = store.querySelector(`input[name="${storeKey}_map_url"]`);
+                
+                if (!labelInput || !addressInput || !phoneInput || !mapInput) {
+                    console.error(`店铺 ${storeKey} 的输入框不完整`);
+                    isValid = false;
+                }
+            });
+            
+            return isValid;
+        }
         
         // 表单验证 - 修改为更宽松的验证
         document.getElementById('mainForm').addEventListener('submit', function(e) {

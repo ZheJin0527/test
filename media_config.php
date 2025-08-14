@@ -319,16 +319,51 @@ function getTokyoLocationConfig() {
 function saveTokyoLocationConfig($config) {
     $configFile = 'tokyo_location_config.json';
     
+    // 检查目录权限
+    $dir = dirname($configFile);
+    if (!is_writable($dir)) {
+        error_log("目录不可写: $dir");
+        return false;
+    }
+    
+    // 验证数据结构
+    if (!is_array($config)) {
+        error_log("配置数据不是数组格式");
+        return false;
+    }
+    
     // 添加时间戳和排序信息
     $order = 1;
     foreach ($config as $key => &$store) {
-        $store['updated'] = date('Y-m-d H:i:s');
-        if (!isset($store['order'])) {
-            $store['order'] = $order++;
+        if ($key === 'section_title') continue;
+        
+        if (is_array($store)) {
+            $store['updated'] = date('Y-m-d H:i:s');
+            if (!isset($store['order'])) {
+                $store['order'] = $order++;
+            }
         }
     }
     
-    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false;
+    // 创建备份
+    if (file_exists($configFile)) {
+        copy($configFile, $configFile . '.backup.' . date('Y-m-d-H-i-s'));
+    }
+    
+    // 保存文件
+    $jsonData = json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    if ($jsonData === false) {
+        error_log("JSON编码失败: " . json_last_error_msg());
+        return false;
+    }
+    
+    $result = file_put_contents($configFile, $jsonData);
+    if ($result === false) {
+        error_log("写入文件失败: $configFile");
+        return false;
+    }
+    
+    return true;
 }
 
 /**
