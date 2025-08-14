@@ -762,27 +762,19 @@ updatePageIndicator(0);
     </script>
 <script>
         let currentIndex = 0;
-const totalItems = 3;
-const years = ['2022', '2023', '2025'];
+const years = <?php echo json_encode(array_keys($timelineData)); ?>;
+const totalItems = years.length;
 const navItems = document.querySelectorAll('.timeline-item');
 const container = document.getElementById('timelineContainer');
 
-// 替换about.php中的时间线JavaScript部分
-
-let currentIndex = 0;
-const timelineData = <?php echo json_encode(array_keys($timelineData)); ?>;
-const totalItems = timelineData.length;
-const navItems = document.querySelectorAll('.timeline-item');
-const container = document.getElementById('timelineContainer');
-
-// 拖拽相关变量
+// 拖拽相关变量 - 优化后的设置
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
-let dragThreshold = 20;
+let dragThreshold = 15; // 增加阈值，减少误触
 let hasTriggered = false;
-let dragStartTime = 0;
-let isAnimating = false;
+let dragStartTime = 0; // 记录拖拽开始时间
+let isAnimating = false; // 防止动画期间的操作冲突
 
 function updateTimelineNav() {
     // 更新导航状态
@@ -790,20 +782,13 @@ function updateTimelineNav() {
         item.classList.toggle('active', index === currentIndex);
     });
 
-    // 计算居中位置 - 改进的滑动效果
+    // 计算居中位置
     const containerWidth = container.parentElement.offsetWidth;
     const itemWidth = 120;
     const centerOffset = containerWidth / 2 - itemWidth / 2;
     const translateX = centerOffset - (currentIndex * itemWidth);
     
-    // 添加平滑过渡
-    container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)';
     container.style.transform = `translateX(${translateX}px)`;
-    
-    // 清除过渡以避免影响后续操作
-    setTimeout(() => {
-        container.style.transition = '';
-    }, 400);
 }
 
 function updateCardPositions() {
@@ -811,9 +796,6 @@ function updateCardPositions() {
     
     cards.forEach((card, index) => {
         card.classList.remove('active', 'prev', 'next', 'hidden');
-        
-        // 添加平滑过渡
-        card.style.transition = 'all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
         
         if (index === currentIndex) {
             card.classList.add('active');
@@ -825,17 +807,10 @@ function updateCardPositions() {
             card.classList.add('hidden');
         }
     });
-    
-    // 清除过渡以避免影响后续操作
-    setTimeout(() => {
-        cards.forEach(card => {
-            card.style.transition = '';
-        });
-    }, 500);
 }
 
 function navigateTimeline(direction) {
-    if (isAnimating) return;
+    if (isAnimating) return; // 防止动画期间重复触发
     
     isAnimating = true;
     
@@ -845,18 +820,18 @@ function navigateTimeline(direction) {
         currentIndex = (currentIndex - 1 + totalItems) % totalItems;
     }
     
-    showTimelineItem(timelineData[currentIndex]);
+    showTimelineItem(years[currentIndex]);
     
     // 动画完成后重置标志
     setTimeout(() => {
         isAnimating = false;
-    }, 500);
+    }, 300); // 假设动画时长为300ms
 }
 
 function selectCard(year) {
     if (isAnimating) return;
     
-    const index = timelineData.indexOf(year.toString());
+    const index = years.indexOf(year.toString());
     if (index !== -1 && index !== currentIndex) {
         currentIndex = index;
         showTimelineItem(year.toString());
@@ -866,10 +841,10 @@ function selectCard(year) {
 function showTimelineItem(year) {
     updateTimelineNav();
     updateCardPositions();
-    currentIndex = timelineData.indexOf(year);
+    currentIndex = years.indexOf(year);
 }
 
-// 改进的拖拽处理
+// 优化后的拖拽处理
 function handleDragStart(e) {
     if (isAnimating) return;
     
@@ -895,7 +870,8 @@ function handleDragMove(e) {
     const deltaX = currentX - startX;
     const dragTime = Date.now() - dragStartTime;
     
-    if (Math.abs(deltaX) >= dragThreshold && dragTime > 100) {
+    // 增加时间限制，避免过快触发
+    if (Math.abs(deltaX) >= dragThreshold && dragTime > 50) {
         hasTriggered = true;
         
         if (deltaX > 0) {
@@ -904,9 +880,10 @@ function handleDragMove(e) {
             navigateTimeline('next');
         }
         
+        // 延迟结束拖拽，给动画时间
         setTimeout(() => {
             handleDragEnd(e);
-        }, 100);
+        }, 50);
     }
     
     e.preventDefault();
@@ -926,13 +903,16 @@ function handleDragEnd(e) {
     currentX = 0;
 }
 
-// 事件监听器保持不变，但添加改进的点击处理
+// 改进的事件监听器
 let clickTimeout;
 
 document.addEventListener('mousedown', (e) => {
     const card = e.target.closest('.timeline-content-item');
     if (card && !isAnimating) {
-        if (clickTimeout) clearTimeout(clickTimeout);
+        // 清除之前的点击超时
+        if (clickTimeout) {
+            clearTimeout(clickTimeout);
+        }
         handleDragStart(e);
     }
 });
@@ -941,6 +921,7 @@ document.addEventListener('mousemove', handleDragMove);
 document.addEventListener('mouseup', handleDragEnd);
 document.addEventListener('mouseleave', handleDragEnd);
 
+// 触摸事件
 document.addEventListener('touchstart', (e) => {
     const card = e.target.closest('.timeline-content-item');
     if (card && !isAnimating) {
@@ -956,23 +937,24 @@ navItems.forEach((item, index) => {
     item.addEventListener('click', () => {
         if (!isDragging && !isAnimating) {
             currentIndex = index;
-            showTimelineItem(timelineData[currentIndex]);
+            showTimelineItem(years[currentIndex]);
         }
     });
 });
 
-// 改进的点击处理
+// 优化的点击处理 - 添加延迟避免与拖拽冲突
 document.addEventListener('click', (e) => {
     if (isDragging || hasTriggered || isAnimating) return;
     
     const card = e.target.closest('.timeline-content-item');
     if (card && !card.classList.contains('active')) {
+        // 添加小延迟确保不是拖拽操作
         clickTimeout = setTimeout(() => {
             if (!isDragging) {
                 const year = card.getAttribute('data-year');
                 selectCard(year);
             }
-        }, 50);
+        }, 10);
     }
 });
 
@@ -1003,7 +985,7 @@ window.addEventListener('resize', () => {
     if (!isAnimating) {
         setTimeout(() => {
             updateTimelineNav();
-        }, 150);
+        }, 100);
     }
 });
     </script>

@@ -139,24 +139,22 @@ function getTimelineConfig($year = null) {
         ]
     ];
     
-    $config = $defaultTimeline;
-    
+    // 从配置文件读取数据
     if (file_exists($configFile)) {
         $customConfig = json_decode(file_get_contents($configFile), true);
         if ($customConfig) {
-            // 使用自定义配置完全覆盖默认配置
-            $config = $customConfig;
-            // 但保留默认配置中存在但自定义配置中缺失的年份
-            foreach ($defaultTimeline as $defaultYear => $defaultData) {
-                if (!isset($config[$defaultYear])) {
-                    $config[$defaultYear] = $defaultData;
-                }
-            }
+            // 合并自定义配置，保持年份排序
+            $config = array_merge($defaultTimeline, $customConfig);
+            // 按年份排序
+            uksort($config, function($a, $b) {
+                return (int)$a - (int)$b;
+            });
+        } else {
+            $config = $defaultTimeline;
         }
+    } else {
+        $config = $defaultTimeline;
     }
-    
-    // 按年份排序
-    ksort($config);
     
     // 为图片添加时间戳防止缓存
     foreach ($config as $configYear => &$data) {
@@ -200,5 +198,66 @@ function getTimelineHtml() {
     }
     
     return $html;
+}
+
+/**
+ * 添加新年份
+ * @param string $year 年份
+ * @param array $data 年份数据
+ * @return bool 成功返回true
+ */
+function addTimelineYear($year, $data) {
+    $configFile = 'timeline_config.json';
+    $config = [];
+    
+    if (file_exists($configFile)) {
+        $config = json_decode(file_get_contents($configFile), true) ?: [];
+    }
+    
+    $config[$year] = $data;
+    $config[$year]['created'] = date('Y-m-d H:i:s');
+    
+    // 按年份排序
+    uksort($config, function($a, $b) {
+        return (int)$a - (int)$b;
+    });
+    
+    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT)) !== false;
+}
+
+/**
+ * 删除年份
+ * @param string $year 年份
+ * @return bool 成功返回true
+ */
+function deleteTimelineYear($year) {
+    $configFile = 'timeline_config.json';
+    
+    if (file_exists($configFile)) {
+        $config = json_decode(file_get_contents($configFile), true) ?: [];
+        
+        if (isset($config[$year])) {
+            // 删除对应的图片文件
+            if (isset($config[$year]['image']) && file_exists($config[$year]['image'])) {
+                unlink($config[$year]['image']);
+            }
+            
+            unset($config[$year]);
+            return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT)) !== false;
+        }
+    }
+    
+    return false;
+}
+
+/**
+ * 获取所有年份列表
+ * @return array 年份数组
+ */
+function getTimelineYears() {
+    $timeline = getTimelineConfig();
+    $years = array_keys($timeline);
+    sort($years);
+    return $years;
 }
 ?>

@@ -7,6 +7,87 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// 处理添加年份
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_year'])) {
+    $newYear = trim($_POST['new_year']);
+    $title = trim($_POST['new_title']);
+    $description1 = trim($_POST['new_description1']);
+    $description2 = trim($_POST['new_description2']);
+    
+    if (!empty($newYear) && !empty($title) && is_numeric($newYear)) {
+        if (!isset($config[$newYear])) {
+            $newData = [
+                'title' => $title,
+                'description1' => $description1,
+                'description2' => $description2,
+                'image' => '',
+                'created' => date('Y-m-d H:i:s')
+            ];
+            
+            if (addTimelineYear($newYear, $newData)) {
+                $success = "年份 {$newYear} 添加成功！";
+                // 重新读取配置
+                $config = [];
+                if (file_exists('timeline_config.json')) {
+                    $config = json_decode(file_get_contents('timeline_config.json'), true) ?: [];
+                }
+                // 合并默认数据
+                foreach ($defaultTimeline as $year => $data) {
+                    if (!isset($config[$year])) {
+                        $config[$year] = $data;
+                    } else {
+                        $config[$year] = array_merge($data, $config[$year]);
+                    }
+                }
+                // 按年份排序
+                uksort($config, function($a, $b) {
+                    return (int)$a - (int)$b;
+                });
+            } else {
+                $error = "添加年份失败！";
+            }
+        } else {
+            $error = "年份 {$newYear} 已存在！";
+        }
+    } else {
+        $error = "请填写有效的年份和标题！";
+    }
+}
+
+// 处理删除年份
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_year'])) {
+    $deleteYear = $_POST['delete_year'];
+    
+    // 防止删除默认年份
+    $protectedYears = ['2022', '2023', '2025'];
+    if (in_array($deleteYear, $protectedYears)) {
+        $error = "无法删除默认年份 {$deleteYear}！";
+    } else {
+        if (deleteTimelineYear($deleteYear)) {
+            $success = "年份 {$deleteYear} 删除成功！";
+            // 重新读取配置
+            $config = [];
+            if (file_exists('timeline_config.json')) {
+                $config = json_decode(file_get_contents('timeline_config.json'), true) ?: [];
+            }
+            // 合并默认数据
+            foreach ($defaultTimeline as $year => $data) {
+                if (!isset($config[$year])) {
+                    $config[$year] = $data;
+                } else {
+                    $config[$year] = array_merge($data, $config[$year]);
+                }
+            }
+            // 按年份排序
+            uksort($config, function($a, $b) {
+                return (int)$a - (int)$b;
+            });
+        } else {
+            $error = "删除年份失败！";
+        }
+    }
+}
+
 // 处理文件上传和文案修改
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uploadDir = 'images/images/';
@@ -79,67 +160,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
         $success = "文案更新成功！";
-    }
-
-    // 处理年份添加
-    if (isset($_POST['add_year'])) {
-        $newYear = $_POST['new_year'];
-        $newTitle = $_POST['new_title'];
-        $newDesc1 = $_POST['new_description1'];
-        $newDesc2 = $_POST['new_description2'];
-        
-        if ($newYear && $newTitle && $newDesc1 && $newDesc2) {
-            // 读取现有配置
-            $config = [];
-            if (file_exists($configFile)) {
-                $config = json_decode(file_get_contents($configFile), true) ?: [];
-            }
-            
-            // 添加新年份
-            $config[$newYear] = [
-                'title' => $newTitle,
-                'description1' => $newDesc1,
-                'description2' => $newDesc2,
-                'image' => 'images/images/' . $newYear . '发展.jpg',
-                'created' => date('Y-m-d H:i:s')
-            ];
-            
-            // 按年份排序
-            ksort($config);
-            
-            file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-            $success = "年份 {$newYear} 添加成功！";
-        } else {
-            $error = "请填写所有必填信息！";
-        }
-    }
-
-    // 处理年份删除
-    if (isset($_POST['delete_year'])) {
-        $deleteYear = $_POST['year_to_delete'];
-        
-        if ($deleteYear) {
-            // 读取现有配置
-            $config = [];
-            if (file_exists($configFile)) {
-                $config = json_decode(file_get_contents($configFile), true) ?: [];
-            }
-            
-            if (isset($config[$deleteYear])) {
-                // 删除相关图片文件
-                if (isset($config[$deleteYear]['image']) && file_exists($config[$deleteYear]['image'])) {
-                    unlink($config[$deleteYear]['image']);
-                }
-                
-                // 从配置中删除
-                unset($config[$deleteYear]);
-                
-                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-                $success = "年份 {$deleteYear} 删除成功！";
-            } else {
-                $error = "年份不存在！";
-            }
-        }
     }
 }
 
@@ -499,6 +519,67 @@ foreach ($defaultTimeline as $year => $data) {
                 margin-left: 0;
             }
         }
+
+        .year-management {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .management-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #FF5C00;
+        }
+
+        .management-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .management-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .add-year-form, .delete-year-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .year-management {
+                padding: 20px;
+            }
+            
+            .management-section {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -526,85 +607,137 @@ foreach ($defaultTimeline as $year => $data) {
             <?php endif; ?>
             
             <div class="timeline-section">
-                <h2>⚙️ 年份管理</h2>
-
-                <!-- 年份选择标签 - 动态生成 -->
+                <h2>📅 时间线内容管理</h2>
+                
+                <!-- 年份选择标签 -->
                 <div class="year-tabs">
                     <?php 
-                    $years = array_keys($config);
-                    $firstYear = !empty($years) ? $years[0] : '';
-                    foreach ($years as $index => $year): 
+                    $isFirst = true;
+                    foreach ($config as $year => $data): 
                     ?>
-                        <button class="year-tab <?php echo $index === 0 ? 'active' : ''; ?>" 
-                                onclick="showYear('<?php echo $year; ?>')"><?php echo $year; ?>年</button>
-                    <?php endforeach; ?>
+                    <button class="year-tab <?php echo $isFirst ? 'active' : ''; ?>" onclick="showYear('<?php echo $year; ?>')"><?php echo $year; ?>年</button>
+                    <?php 
+                    $isFirst = false;
+                    endforeach; 
+                    ?>
+                </div>
+
+                <!-- 年份管理区域 -->
+                <div class="year-management">
+                    <div class="management-section">
+                        <h3>➕ 添加新年份</h3>
+                        <form method="post" class="add-year-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>年份</label>
+                                    <input type="number" name="new_year" class="form-input" placeholder="如: 2024" min="1900" max="2100" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>标题</label>
+                                    <input type="text" name="new_title" class="form-input" placeholder="输入年份标题..." required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>第一段描述</label>
+                                <textarea name="new_description1" class="form-textarea" placeholder="输入第一段描述..." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>第二段描述</label>
+                                <textarea name="new_description2" class="form-textarea" placeholder="输入第二段描述..." required></textarea>
+                            </div>
+                            <button type="submit" name="add_year" class="btn">添加年份</button>
+                        </form>
+                    </div>
+                    
+                    <div class="management-section">
+                        <h3>🗑️ 删除年份</h3>
+                        <form method="post" class="delete-year-form">
+                            <div class="form-group">
+                                <label>选择要删除的年份</label>
+                                <select name="delete_year" class="form-input" required>
+                                    <option value="">选择年份...</option>
+                                    <?php foreach ($config as $year => $data): ?>
+                                        <?php if (!in_array($year, ['2022', '2023', '2025'])): // 防止删除默认年份 ?>
+                                        <option value="<?php echo $year; ?>"><?php echo $year; ?>年</option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <button type="submit" name="delete_year" class="btn btn-danger" onclick="return confirm('确定要删除这个年份吗？此操作无法撤销！')">删除年份</button>
+                        </form>
+                    </div>
                 </div>
                 
-                <!-- 添加新年份 -->
-                <div class="content-form" style="margin-bottom: 30px;">
-                    <h3>➕ 添加新年份</h3>
-                    <form method="post">
-                        <input type="hidden" name="add_year" value="1">
+                <?php foreach ($config as $year => $data): ?>
+                <div class="timeline-content <?php echo $year == '2022' ? 'active' : ''; ?>" id="content-<?php echo $year; ?>">
+                    <!-- 照片上传表单 -->
+                    <form method="post" enctype="multipart/form-data" class="upload-form">
+                        <input type="hidden" name="year" value="<?php echo $year; ?>">
                         
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label>上传 <?php echo $year; ?> 年照片</label>
+                            <div class="file-input" onclick="document.getElementById('image-<?php echo $year; ?>').click()">
+                                <input type="file" id="image-<?php echo $year; ?>" name="timeline_image" accept="image/*">
+                                <div class="file-input-text">
+                                    点击选择照片或拖拽到此处<br>
+                                    <small>支持 JPG, PNG, WebP 格式，建议尺寸 800x600</small>
+                                </div>
+                            </div>
+                            
+                            <?php if (isset($data['image']) && file_exists($data['image'])): ?>
+                                <div class="current-file">
+                                    <strong>当前照片:</strong> <?php echo basename($data['image']); ?><br>
+                                    <small>更新时间: <?php echo $data['updated'] ?? '未知'; ?></small>
+                                    
+                                    <div class="preview-container">
+                                        <img class="preview-image" src="<?php echo $data['image']; ?>?v=<?php echo time(); ?>" alt="<?php echo $year; ?>年照片">
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <button type="submit" class="btn">上传照片</button>
+                    </form>
+                    
+                    <!-- 文案编辑表单 -->
+                    <div class="content-form">
+                        <h3>📝 编辑 <?php echo $year; ?> 年文案内容</h3>
+                        <form method="post">
+                            <input type="hidden" name="year" value="<?php echo $year; ?>">
+                            <input type="hidden" name="update_content" value="1">
+                            
                             <div class="form-group">
-                                <label>年份 <span style="color: red;">*</span></label>
-                                <input type="number" name="new_year" class="form-input" 
-                                    min="2000" max="2100" placeholder="例：2024" required>
+                                <label>标题</label>
+                                <input type="text" name="title" class="form-input" 
+                                       value="<?php echo htmlspecialchars($data['title'] ?? ''); ?>" 
+                                       placeholder="输入标题...">
                             </div>
                             
                             <div class="form-group">
-                                <label>标题 <span style="color: red;">*</span></label>
-                                <input type="text" name="new_title" class="form-input" 
-                                    placeholder="例：创新突破，未来可期 🚀" required>
+                                <label>第一段描述</label>
+                                <textarea name="description1" class="form-textarea" 
+                                          placeholder="输入第一段描述..."><?php echo htmlspecialchars($data['description1'] ?? ''); ?></textarea>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>第一段描述 <span style="color: red;">*</span></label>
-                            <textarea name="new_description1" class="form-textarea" 
-                                    placeholder="输入第一段描述内容..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>第二段描述 <span style="color: red;">*</span></label>
-                            <textarea name="new_description2" class="form-textarea" 
-                                    placeholder="输入第二段描述内容..." required></textarea>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn">添加年份</button>
-                        </div>
-                    </form>
+                            
+                            <div class="form-group">
+                                <label>第二段描述</label>
+                                <textarea name="description2" class="form-textarea" 
+                                          placeholder="输入第二段描述..."><?php echo htmlspecialchars($data['description2'] ?? ''); ?></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn">保存文案</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                
-                <!-- 删除年份 -->
-                <div class="content-form">
-                    <h3>🗑️ 删除年份</h3>
-                    <form method="post" onsubmit="return confirmDelete()">
-                        <input type="hidden" name="delete_year" value="1">
-                        
-                        <div class="form-group">
-                            <label>选择要删除的年份</label>
-                            <select name="year_to_delete" class="form-input" required>
-                                <option value="">请选择年份...</option>
-                                <?php foreach ($config as $year => $data): ?>
-                                    <option value="<?php echo $year; ?>"><?php echo $year; ?>年 - <?php echo htmlspecialchars($data['title']); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn" style="background: #dc3545;">删除年份</button>
-                        </div>
-                    </form>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
     
     <script>
-        // 年份切换功能
+        // 年份切换功能 - 支持动态年份
         function showYear(year) {
             // 隐藏所有内容
             document.querySelectorAll('.timeline-content').forEach(content => {
@@ -617,11 +750,28 @@ foreach ($defaultTimeline as $year => $data) {
             });
             
             // 显示选中年份的内容
-            document.getElementById('content-' + year).classList.add('active');
+            const targetContent = document.getElementById('content-' + year);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
             
             // 激活选中的标签
-            event.target.classList.add('active');
+            const targetTab = document.querySelector(`[onclick="showYear('${year}')"]`);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
         }
+
+        // 动态生成内容区域（在页面加载时调用）
+        document.addEventListener('DOMContentLoaded', function() {
+            // 如果没有找到对应的内容区域，动态创建
+            <?php foreach ($config as $year => $data): ?>
+            if (!document.getElementById('content-<?php echo $year; ?>')) {
+                // 这里可以添加动态创建内容区域的逻辑
+                console.log('Creating content area for year: <?php echo $year; ?>');
+            }
+            <?php endforeach; ?>
+        });
         
         // 重置表单
         function resetForm(year) {
@@ -692,53 +842,5 @@ foreach ($defaultTimeline as $year => $data) {
             });
         });
     </script>
-    <script>
-        // 在现有JavaScript中添加以下函数
-
-// 确认删除年份
-function confirmDelete() {
-    const select = document.querySelector('select[name="year_to_delete"]');
-    const selectedOption = select.options[select.selectedIndex];
-    
-    if (!selectedOption.value) {
-        alert('请先选择要删除的年份！');
-        return false;
-    }
-    
-    const yearText = selectedOption.text;
-    return confirm(`确定要删除 ${yearText} 吗？\n\n删除后将无法恢复，包括相关的图片和文案内容。`);
-}
-
-// 修改showYear函数以支持动态年份
-function showYear(year) {
-    // 隐藏所有内容
-    document.querySelectorAll('.timeline-content').forEach(content => {
-        content.classList.remove('active');
-    });
-    
-    // 移除所有标签的active状态
-    document.querySelectorAll('.year-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // 显示选中年份的内容
-    const targetContent = document.getElementById('content-' + year);
-    if (targetContent) {
-        targetContent.classList.add('active');
-    }
-    
-    // 激活选中的标签
-    event.target.classList.add('active');
-}
-
-// 页面加载时激活第一个年份
-document.addEventListener('DOMContentLoaded', function() {
-    const firstTab = document.querySelector('.year-tab');
-    if (firstTab) {
-        const year = firstTab.textContent.replace('年', '');
-        showYear(year);
-    }
-});
-</script>
 </body>
 </html>
