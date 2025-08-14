@@ -47,27 +47,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
     }
     
     // 处理现有店铺的更新
+    $currentConfig = getTokyoLocationConfig();
+    $processedStores = [];
+
     foreach ($_POST as $key => $value) {
         if (strpos($key, '_label') !== false) {
             $storeKey = str_replace('_label', '', $key);
             
+            // 跳过重复处理
+            if (in_array($storeKey, $processedStores)) {
+                continue;
+            }
+            $processedStores[] = $storeKey;
+            
             // 检查是否所有相关字段都存在
+            $label = isset($_POST[$storeKey . '_label']) ? trim($_POST[$storeKey . '_label']) : '';
             $address = isset($_POST[$storeKey . '_address']) ? trim($_POST[$storeKey . '_address']) : '';
             $phone = isset($_POST[$storeKey . '_phone']) ? trim($_POST[$storeKey . '_phone']) : '';
             $map_url = isset($_POST[$storeKey . '_map_url']) ? trim($_POST[$storeKey . '_map_url']) : '';
             
-            // 保持原有的order值（如果存在）
-            $currentConfig = getTokyoLocationConfig();
-            $order = isset($currentConfig[$storeKey]['order']) ? $currentConfig[$storeKey]['order'] : count($config) + 1;
-            
-            $config[$storeKey] = [
-                'label' => trim($value),
-                'address' => $address,
-                'phone' => $phone,
-                'map_url' => $map_url,
-                'order' => $order,
-                'updated' => date('Y-m-d H:i:s')
-            ];
+            // 只保存有实际内容的店铺
+            if (!empty($label) || !empty($address) || !empty($phone)) {
+                // 保持原有的order值（如果存在），新店铺使用新的order
+                if (isset($currentConfig[$storeKey]) && isset($currentConfig[$storeKey]['order'])) {
+                    $order = $currentConfig[$storeKey]['order'];
+                } else {
+                    // 新店铺，计算新的order值
+                    $maxOrder = 0;
+                    foreach ($currentConfig as $existingStore) {
+                        if (is_array($existingStore) && isset($existingStore['order'])) {
+                            $maxOrder = max($maxOrder, $existingStore['order']);
+                        }
+                    }
+                    $order = $maxOrder + 1;
+                }
+                
+                $config[$storeKey] = [
+                    'label' => $label,
+                    'address' => $address,
+                    'phone' => $phone,
+                    'map_url' => $map_url,
+                    'order' => $order,
+                    'updated' => date('Y-m-d H:i:s')
+                ];
+                
+                // 如果是新店铺，标记为新增
+                if (strpos($storeKey, 'new_store_') !== false || !isset($currentConfig[$storeKey])) {
+                    $config[$storeKey]['created'] = date('Y-m-d H:i:s');
+                }
+            }
         }
     }
     
@@ -583,7 +611,9 @@ $currentConfig = getTokyoLocationConfig();
             newStore.style.display = 'block';
             newStore.id = '';
             
-            const storeKey = 'store_' + Date.now();
+            // 使用更简单的命名方式，避免时间戳过长
+            const existingStores = document.querySelectorAll('.store-section[data-store-key]');
+            const storeKey = 'new_store_' + (existingStores.length + 1);
             newStore.querySelector('.store-section').setAttribute('data-store-key', storeKey);
             
             // 先添加到容器
@@ -721,10 +751,49 @@ $currentConfig = getTokyoLocationConfig();
                 return;
             }
             
+            // 检查新增店铺的表单字段是否正确设置
+            const newStores = document.querySelectorAll('.store-section.new-store');
+            let hasInvalidNewStore = false;
+            
+            newStores.forEach(store => {
+                const storeKey = store.getAttribute('data-store-key');
+                if (!storeKey) {
+                    console.error('发现新店铺没有正确设置 data-store-key');
+                    hasInvalidNewStore = true;
+                    return;
+                }
+                
+                // 检查输入框名称是否正确
+                const labelInput = store.querySelector('input[name$="_label"]');
+                const addressInput = store.querySelector('textarea[name$="_address"]');
+                const phoneInput = store.querySelector('input[name$="_phone"]');
+                const mapInput = store.querySelector('input[name$="_map_url"]');
+                
+                if (!labelInput || !addressInput || !phoneInput || !mapInput) {
+                    console.error(`新店铺 ${storeKey} 的输入框设置不正确`);
+                    hasInvalidNewStore = true;
+                } else {
+                    // 确保输入框名称正确
+                    labelInput.name = storeKey + '_label';
+                    addressInput.name = storeKey + '_address';
+                    phoneInput.name = storeKey + '_phone';
+                    mapInput.name = storeKey + '_map_url';
+                }
+            });
+            
+            if (hasInvalidNewStore) {
+                e.preventDefault();
+                alert('新增店铺的数据设置有误，请刷新页面重试！');
+                return;
+            }
+            
             // 重置所有字段的边框颜色
             document.querySelectorAll('.form-input').forEach(field => {
                 field.style.borderColor = '#e9ecef';
             });
+            
+            console.log('表单提交数据:', new FormData(this));
+        });
             
             // 可选：检查是否至少有一个店铺有基本信息
             const stores = document.querySelectorAll('.store-section[data-store-key]');
