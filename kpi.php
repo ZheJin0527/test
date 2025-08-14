@@ -1976,7 +1976,7 @@ $avatarLetter = strtoupper($username[0]);
                                 <div class="submenu-title">旗下品牌</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">第一页</a>
+                                <a href="tokyopage1upload.php" class="submenu-item">第一页</a>
                             </div>
                         </div>
                     </div>
