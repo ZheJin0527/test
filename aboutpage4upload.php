@@ -12,31 +12,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_year'])) {
     $newYear = $_POST['new_year'];
     $configFile = 'timeline_config.json';
     
-    if (preg_match('/^\d{4}$/', $newYear) && $newYear >= 2020 && $newYear <= 2050) {
-        $config = [];
-        if (file_exists($configFile)) {
-            $config = json_decode(file_get_contents($configFile), true) ?: [];
-        }
-        
-        if (!isset($config[$newYear])) {
-            $config[$newYear] = [
-                'title' => '请输入标题',
-                'description1' => '请输入第一段描述...',
-                'description2' => '请输入第二段描述...',
-                'image' => 'images/images/default-timeline.jpg',
-                'created' => date('Y-m-d H:i:s')
-            ];
+    // 如果是AJAX请求，直接处理并返回JSON
+    if (isset($_POST['ajax'])) {
+        if (preg_match('/^\d{4}$/', $newYear) && $newYear >= 2020 && $newYear <= 2050) {
+            $config = [];
+            if (file_exists($configFile)) {
+                $config = json_decode(file_get_contents($configFile), true) ?: [];
+            }
             
-            // 按年份排序
-            ksort($config);
-            
-            file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-            $success = "年份 {$newYear} 添加成功！";
+            if (!isset($config[$newYear])) {
+                $config[$newYear] = [
+                    'title' => '请输入标题',
+                    'description1' => '请输入第一段描述...',
+                    'description2' => '请输入第二段描述...',
+                    'image' => 'images/images/default-timeline.jpg',
+                    'created' => date('Y-m-d H:i:s')
+                ];
+                
+                // 按年份排序
+                ksort($config);
+                
+                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
+                
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'success' => true,
+                    'message' => "年份 {$newYear} 添加成功！",
+                    'year' => $newYear,
+                    'data' => $config[$newYear]
+                ]);
+                exit;
+            } else {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'success' => false,
+                    'message' => "年份 {$newYear} 已存在！"
+                ]);
+                exit;
+            }
         } else {
-            $error = "年份 {$newYear} 已存在！";
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success' => false,
+                'message' => "请输入有效的年份（2020-2050）！"
+            ]);
+            exit;
         }
     } else {
-        $error = "请输入有效的年份（2020-2050）！";
+        // 非AJAX请求的原有逻辑
+        if (preg_match('/^\d{4}$/', $newYear) && $newYear >= 2020 && $newYear <= 2050) {
+            $config = [];
+            if (file_exists($configFile)) {
+                $config = json_decode(file_get_contents($configFile), true) ?: [];
+            }
+            
+            if (!isset($config[$newYear])) {
+                $config[$newYear] = [
+                    'title' => '请输入标题',
+                    'description1' => '请输入第一段描述...',
+                    'description2' => '请输入第二段描述...',
+                    'image' => 'images/images/default-timeline.jpg',
+                    'created' => date('Y-m-d H:i:s')
+                ];
+                
+                // 按年份排序
+                ksort($config);
+                
+                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
+                $success = "年份 {$newYear} 添加成功！";
+            } else {
+                $error = "年份 {$newYear} 已存在！";
+            }
+        } else {
+            $error = "请输入有效的年份（2020-2050）！";
+        }
     }
 }
 
@@ -811,8 +860,35 @@ document.getElementById('addYearForm').addEventListener('submit', function(e) {
             updateDeleteOptions(data.year);
         }
     })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('网络请求失败');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // 显示成功消息
+            showAlert(data.message, 'success');
+            
+            // 清空输入框
+            document.getElementById('newYearInput').value = '';
+            
+            // 添加新的年份标签
+            addYearTab(data.year);
+            
+            // 添加新的内容区域
+            addYearContent(data.year, data.data);
+            
+            // 更新删除下拉列表
+            updateDeleteOptions(data.year);
+        } else {
+            showAlert(data.message, 'error');
+        }
+    })
     .catch(error => {
-        showAlert('添加失败：' + error.message, 'error');
+        console.error('错误详情:', error);
+        showAlert('添加失败：请检查网络连接', 'error');
     });
 });
 
