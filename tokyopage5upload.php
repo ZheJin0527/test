@@ -544,14 +544,6 @@ $currentConfig = getTokyoLocationConfig();
                     </div>
                 </div>
             </div>
-            
-            <!-- 预览区域 -->
-            <div class="preview-section">
-                <h3>📱 实时预览效果</h3>
-                <div class="preview-content" id="previewContent">
-                    <?php echo getTokyoLocationHtml(); ?>
-                </div>
-            </div>
         </div>
     </div>
     
