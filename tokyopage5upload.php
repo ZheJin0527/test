@@ -402,7 +402,7 @@ $currentConfig = getTokyoLocationConfig();
                 
                 <!-- 标题编辑区域 -->
                 <div class="store-section">
-                    <h3>📝 节标题设置</h3>
+                    <h3>节标题设置</h3>
                     <div class="form-group">
                         <label for="section_title">标题文字</label>
                         <input type="text" id="section_title" name="section_title" class="form-input" 
@@ -465,9 +465,7 @@ $currentConfig = getTokyoLocationConfig();
                     <?php endforeach; ?>
                 </div>
                 
-                <!-- 确保这两个按钮在表单内且在 </form> 标签之前 -->
-                <button type="submit" class="btn">💾 保存所有更改</button>
-                <button type="button" class="btn btn-secondary" onclick="updatePreview()">👁️ 实时预览</button>
+                <button type="submit" class="btn">保存所有更改</button>
             </form>
             
             <!-- 隐藏的店铺模板 -->
