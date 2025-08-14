@@ -139,34 +139,28 @@ function getTimelineConfig($year = null) {
         ]
     ];
     
-    $config = [];
+    $config = $defaultTimeline;
     
-    // 首先加载自定义配置
     if (file_exists($configFile)) {
-        $config = json_decode(file_get_contents($configFile), true) ?: [];
-    }
-    
-    // 如果没有自定义配置，使用默认配置
-    if (empty($config)) {
-        $config = $defaultTimeline;
-    } else {
-        // 合并默认配置到现有配置中（只补充缺失的年份）
-        foreach ($defaultTimeline as $defaultYear => $defaultData) {
-            if (!isset($config[$defaultYear])) {
-                $config[$defaultYear] = $defaultData;
+        $customConfig = json_decode(file_get_contents($configFile), true);
+        if ($customConfig) {
+            // 合并自定义配置和默认配置
+            foreach ($customConfig as $configYear => $data) {
+                if (isset($defaultTimeline[$configYear])) {
+                    $config[$configYear] = array_merge($defaultTimeline[$configYear], $data);
+                } else {
+                    $config[$configYear] = $data;
+                }
             }
         }
     }
-    
-    // 按年份排序
-    ksort($config);
     
     // 为图片添加时间戳防止缓存
     foreach ($config as $configYear => &$data) {
         if (isset($data['image']) && file_exists($data['image'])) {
             $data['image_url'] = $data['image'] . '?v=' . filemtime($data['image']);
         } else {
-            $data['image_url'] = $data['image'] ?? 'images/images/default-timeline.jpg';
+            $data['image_url'] = $data['image'] ?? '';
         }
     }
     

@@ -7,150 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// 处理添加新年份
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_year'])) {
-    $newYear = $_POST['new_year'];
-    $configFile = 'timeline_config.json';
-    
-    // 如果是AJAX请求，直接处理并返回JSON
-    if (isset($_POST['ajax'])) {
-        if (preg_match('/^\d{4}$/', $newYear) && $newYear >= 2020 && $newYear <= 2050) {
-            $config = [];
-            if (file_exists($configFile)) {
-                $config = json_decode(file_get_contents($configFile), true) ?: [];
-            }
-            
-            if (!isset($config[$newYear])) {
-                $config[$newYear] = [
-                    'title' => '请输入标题',
-                    'description1' => '请输入第一段描述...',
-                    'description2' => '请输入第二段描述...',
-                    'image' => 'images/images/default-timeline.jpg',
-                    'created' => date('Y-m-d H:i:s')
-                ];
-                
-                // 按年份排序
-                ksort($config);
-                
-                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-                
-                header('Content-Type: application/json');
-                echo json_encode([
-                    'success' => true,
-                    'message' => "年份 {$newYear} 添加成功！",
-                    'year' => $newYear,
-                    'data' => $config[$newYear]
-                ]);
-                exit;
-            } else {
-                header('Content-Type: application/json');
-                echo json_encode([
-                    'success' => false,
-                    'message' => "年份 {$newYear} 已存在！"
-                ]);
-                exit;
-            }
-        } else {
-            header('Content-Type: application/json');
-            echo json_encode([
-                'success' => false,
-                'message' => "请输入有效的年份（2020-2050）！"
-            ]);
-            exit;
-        }
-    } else {
-        // 非AJAX请求的原有逻辑
-        if (preg_match('/^\d{4}$/', $newYear) && $newYear >= 2020 && $newYear <= 2050) {
-            $config = [];
-            if (file_exists($configFile)) {
-                $config = json_decode(file_get_contents($configFile), true) ?: [];
-            }
-            
-            if (!isset($config[$newYear])) {
-                $config[$newYear] = [
-                    'title' => '请输入标题',
-                    'description1' => '请输入第一段描述...',
-                    'description2' => '请输入第二段描述...',
-                    'image' => 'images/images/default-timeline.jpg',
-                    'created' => date('Y-m-d H:i:s')
-                ];
-                
-                // 按年份排序
-                ksort($config);
-                
-                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-                $success = "年份 {$newYear} 添加成功！";
-            } else {
-                $error = "年份 {$newYear} 已存在！";
-            }
-        } else {
-            $error = "请输入有效的年份（2020-2050）！";
-        }
-    }
-}
-
-// 处理删除年份
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_year'])) {
-    $yearToDelete = $_POST['year_to_delete'];
-    $configFile = 'timeline_config.json';
-    
-    // 如果是AJAX请求，直接处理并返回JSON
-    if (isset($_POST['ajax'])) {
-        if (file_exists($configFile)) {
-            $config = json_decode(file_get_contents($configFile), true) ?: [];
-            
-            if (isset($config[$yearToDelete])) {
-                // 删除对应的图片文件
-                if (isset($config[$yearToDelete]['image']) && 
-                    $config[$yearToDelete]['image'] !== 'images/images/default-timeline.jpg' && 
-                    file_exists($config[$yearToDelete]['image'])) {
-                    unlink($config[$yearToDelete]['image']);
-                }
-                
-                unset($config[$yearToDelete]);
-                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-                
-                header('Content-Type: application/json');
-                echo json_encode([
-                    'success' => true,
-                    'message' => "年份 {$yearToDelete} 删除成功！",
-                    'year' => $yearToDelete
-                ]);
-                exit;
-            } else {
-                header('Content-Type: application/json');
-                echo json_encode([
-                    'success' => false,
-                    'message' => "年份 {$yearToDelete} 不存在！"
-                ]);
-                exit;
-            }
-        }
-    } else {
-        // 非AJAX请求的原有逻辑
-        if (file_exists($configFile)) {
-            $config = json_decode(file_get_contents($configFile), true) ?: [];
-            
-            if (isset($config[$yearToDelete])) {
-                // 删除对应的图片文件
-                if (isset($config[$yearToDelete]['image']) && 
-                    $config[$yearToDelete]['image'] !== 'images/images/default-timeline.jpg' && 
-                    file_exists($config[$yearToDelete]['image'])) {
-                    unlink($config[$yearToDelete]['image']);
-                }
-                
-                unset($config[$yearToDelete]);
-                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-                $success = "年份 {$yearToDelete} 删除成功！";
-            } else {
-                $error = "年份 {$yearToDelete} 不存在！";
-            }
-        }
-    }
-}
-
 // 处理文件上传和文案修改
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['timeline_image'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uploadDir = 'images/images/';
     $configFile = 'timeline_config.json';
     
@@ -159,77 +17,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['timeline_image'])) {
         mkdir($uploadDir, 0777, true);
     }
     
-    $file = $_FILES['timeline_image'];
-    $year = $_POST['year'];
-    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-    
-    // 允许的文件类型
-    $allowedImage = ['jpg', 'jpeg', 'png', 'webp'];
-    
-    if (in_array($fileExtension, $allowedImage)) {
-        // 生成新文件名
-        $newFileName = $year . '发展.' . $fileExtension;
-        $targetPath = $uploadDir . $newFileName;
+    // 处理照片上传
+    if (isset($_FILES['timeline_image']) && $_FILES['timeline_image']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['timeline_image'];
+        $year = $_POST['year'];
+        $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         
-        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            // 更新配置文件
-            $config = [];
-            if (file_exists($configFile)) {
-                $config = json_decode(file_get_contents($configFile), true) ?: [];
+        // 允许的文件类型
+        $allowedImage = ['jpg', 'jpeg', 'png', 'webp'];
+        
+        if (in_array($fileExtension, $allowedImage)) {
+            // 生成新文件名
+            $newFileName = $year . '发展.' . $fileExtension;
+            $targetPath = $uploadDir . $newFileName;
+            
+            if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+                // 更新配置文件
+                $config = [];
+                if (file_exists($configFile)) {
+                    $config = json_decode(file_get_contents($configFile), true) ?: [];
+                }
+                
+                if (!isset($config[$year])) {
+                    $config[$year] = [];
+                }
+                
+                $config[$year]['image'] = $targetPath;
+                $config[$year]['updated'] = date('Y-m-d H:i:s');
+                
+                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
+                $success = "照片上传成功！";
+            } else {
+                $error = "照片上传失败！";
             }
-            
-            if (!isset($config[$year])) {
-                $config[$year] = [];
-            }
-            
-            $config[$year]['image'] = $targetPath;
-            $config[$year]['updated'] = date('Y-m-d H:i:s');
-            
-            file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-            $success = "照片上传成功！";
-
-            // 添加页面重定向，清除缓存
-            echo "<script>
-                setTimeout(function() {
-                    window.location.href = window.location.href + '?updated=' + Date.now();
-                }, 2000);
-            </script>";
         } else {
-            $error = "照片上传失败！";
+            $error = "不支持的文件类型！仅支持 JPG, PNG, WebP 格式";
         }
-    } else {
-        $error = "不支持的文件类型！仅支持 JPG, PNG, WebP 格式";
+    }
+    
+    // 处理文案更新
+    if (isset($_POST['update_content'])) {
+        $year = $_POST['year'];
+        $title = $_POST['title'];
+        $description1 = $_POST['description1'];
+        $description2 = $_POST['description2'];
+        
+        // 更新配置文件
+        $config = [];
+        if (file_exists($configFile)) {
+            $config = json_decode(file_get_contents($configFile), true) ?: [];
+        }
+        
+        if (!isset($config[$year])) {
+            $config[$year] = [];
+        }
+        
+        $config[$year]['title'] = $title;
+        $config[$year]['description1'] = $description1;
+        $config[$year]['description2'] = $description2;
+        $config[$year]['updated'] = date('Y-m-d H:i:s');
+        
+        file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
+        $success = "文案更新成功！";
     }
 }
 
-// 处理文案更新
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_content'])) {
-    $year = $_POST['year'];
-    $title = $_POST['title'];
-    $description1 = $_POST['description1'];
-    $description2 = $_POST['description2'];
-    $configFile = 'timeline_config.json';
-    
-    // 更新配置文件
-    $config = [];
-    if (file_exists($configFile)) {
-        $config = json_decode(file_get_contents($configFile), true) ?: [];
-    }
-    
-    if (!isset($config[$year])) {
-        $config[$year] = [];
-    }
-    
-    $config[$year]['title'] = $title;
-    $config[$year]['description1'] = $description1;
-    $config[$year]['description2'] = $description2;
-    $config[$year]['updated'] = date('Y-m-d H:i:s');
-    
-    file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-    $success = "文案更新成功！";
-}
-
-// 读取当前配置并按年份排序
+// 读取当前配置
 $config = [];
 if (file_exists('timeline_config.json')) {
     $config = json_decode(file_get_contents('timeline_config.json'), true) ?: [];
@@ -257,7 +110,7 @@ $defaultTimeline = [
     ]
 ];
 
-// 合并配置，如果没有自定义配置则使用默认配置
+// 合并配置
 foreach ($defaultTimeline as $year => $data) {
     if (!isset($config[$year])) {
         $config[$year] = $data;
@@ -266,9 +119,6 @@ foreach ($defaultTimeline as $year => $data) {
         $config[$year] = array_merge($data, $config[$year]);
     }
 }
-
-// 按年份排序
-ksort($config);
 ?>
 
 <!DOCTYPE html>
@@ -354,38 +204,10 @@ ksort($config);
             gap: 10px;
         }
         
-        .year-management {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border: 1px solid #dee2e6;
-        }
-        
-        .add-year-form h3,
-        .delete-year-form h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-        }
-        
-        .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        }
-        
-        .btn-danger:hover {
-            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
-        }
-        
         .year-tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 30px;
-            flex-wrap: wrap;
         }
         
         .year-tab {
@@ -608,11 +430,6 @@ ksort($config);
                 flex-wrap: wrap;
             }
             
-            .year-management {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
             .form-actions {
                 flex-direction: column;
             }
@@ -650,48 +467,15 @@ ksort($config);
             <div class="timeline-section">
                 <h2>📅 时间线内容管理</h2>
                 
-                <!-- 年份管理区域 -->
-                <div class="year-management">
-                    <div class="add-year-form">
-                        <h3>➕ 添加新年份</h3>
-                        <form id="addYearForm" method="post" style="display: flex; gap: 10px; align-items: end;">
-                            <div class="form-group" style="flex: 1;">
-                                <label>年份</label>
-                                <input type="number" id="newYearInput" name="new_year" class="form-input" 
-                                    min="2020" max="2050" placeholder="例: 2024" required>
-                            </div>
-                            <button type="submit" name="add_year" class="btn">添加年份</button>
-                        </form>
-                    </div>
-                    
-                    <div class="delete-year-form">
-                        <h3>🗑️ 删除年份</h3>
-                        <form method="post" style="display: flex; gap: 10px; align-items: end;">
-                            <div class="form-group" style="flex: 1;">
-                                <label>选择要删除的年份</label>
-                                <select name="year_to_delete" class="form-input" required>
-                                    <option value="">请选择...</option>
-                                    <?php foreach (array_keys($config) as $year): ?>
-                                        <option value="<?php echo $year; ?>"><?php echo $year; ?>年</option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <button type="submit" name="delete_year" class="btn btn-danger" 
-                                    onclick="return confirm('确定要删除这个年份吗？此操作不可恢复！')">删除年份</button>
-                        </form>
-                    </div>
-                </div>
-                
                 <!-- 年份选择标签 -->
                 <div class="year-tabs">
-                    <?php $firstYear = true; foreach ($config as $year => $data): ?>
-                        <button class="year-tab <?php echo $firstYear ? 'active' : ''; ?>" 
-                                onclick="showYear('<?php echo $year; ?>')"><?php echo $year; ?>年</button>
-                    <?php $firstYear = false; endforeach; ?>
+                    <button class="year-tab active" onclick="showYear('2022')">2022年</button>
+                    <button class="year-tab" onclick="showYear('2023')">2023年</button>
+                    <button class="year-tab" onclick="showYear('2025')">2025年</button>
                 </div>
                 
-                <?php $firstYear = true; foreach ($config as $year => $data): ?>
-                <div class="timeline-content <?php echo $firstYear ? 'active' : ''; ?>" id="content-<?php echo $year; ?>">
+                <?php foreach ($config as $year => $data): ?>
+                <div class="timeline-content <?php echo $year == '2022' ? 'active' : ''; ?>" id="content-<?php echo $year; ?>">
                     <!-- 照片上传表单 -->
                     <form method="post" enctype="multipart/form-data" class="upload-form">
                         <input type="hidden" name="year" value="<?php echo $year; ?>">
@@ -749,18 +533,17 @@ ksort($config);
                             
                             <div class="form-actions">
                                 <button type="submit" class="btn">保存文案</button>
-                                <button type="button" class="btn btn-secondary" onclick="resetForm('<?php echo $year; ?>')">重置</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <?php $firstYear = false; endforeach; ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
     
     <script>
-        // 年份切换功能（动态生成）
+        // 年份切换功能
         function showYear(year) {
             // 隐藏所有内容
             document.querySelectorAll('.timeline-content').forEach(content => {
@@ -773,10 +556,7 @@ ksort($config);
             });
             
             // 显示选中年份的内容
-            const targetContent = document.getElementById('content-' + year);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
+            document.getElementById('content-' + year).classList.add('active');
             
             // 激活选中的标签
             event.target.classList.add('active');
@@ -851,182 +631,5 @@ ksort($config);
             });
         });
     </script>
-    <script>
-// AJAX添加年份功能
-document.getElementById('addYearForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData();
-    formData.append('add_year', '1');
-    formData.append('new_year', document.getElementById('newYearInput').value);
-    formData.append('ajax', '1');
-    
-    fetch('', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // 显示成功消息
-            showAlert(data.message, 'success');
-            
-            // 清空输入框
-            document.getElementById('newYearInput').value = '';
-            
-            // 添加新的年份标签
-            addYearTab(data.year);
-            
-            // 添加新的内容区域
-            addYearContent(data.year, data.data);
-            
-            // 更新删除下拉列表
-            updateDeleteOptions(data.year);
-        }
-    })
-    .then(response => response.text())
-    .then(text => {
-        console.log('服务器返回:', text); // 调试用
-        try {
-            return JSON.parse(text);
-        } catch (e) {
-            console.error('JSON解析失败:', text);
-            throw new Error('服务器响应格式错误');
-        }
-    })
-    .then(data => {
-        if (data.success) {
-            // 显示成功消息
-            showAlert(data.message, 'success');
-            
-            // 清空输入框
-            document.getElementById('newYearInput').value = '';
-            
-            // 添加新的年份标签
-            addYearTab(data.year);
-            
-            // 添加新的内容区域
-            addYearContent(data.year, data.data);
-            
-            // 更新删除下拉列表
-            updateDeleteOptions(data.year);
-        } else {
-            showAlert(data.message, 'error');
-        }
-    })
-    .catch(error => {
-        console.error('错误详情:', error);
-        showAlert('添加失败：请检查网络连接', 'error');
-    });
-});
-
-// 显示提示消息
-function showAlert(message, type) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type}`;
-    alertDiv.textContent = message;
-    
-    const content = document.querySelector('.content');
-    content.insertBefore(alertDiv, content.firstChild);
-    
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 3000);
-}
-
-// 添加年份标签
-function addYearTab(year) {
-    const yearTabs = document.querySelector('.year-tabs');
-    const newTab = document.createElement('button');
-    newTab.className = 'year-tab';
-    newTab.textContent = year + '年';
-    newTab.onclick = function() { showYear(year); };
-    yearTabs.appendChild(newTab);
-    localStorage.setItem('timeline_updated', Date.now().toString());
-}
-
-// 添加年份内容区域
-function addYearContent(year, data) {
-    const timelineSection = document.querySelector('.timeline-section');
-    const newContent = document.createElement('div');
-    newContent.className = 'timeline-content';
-    newContent.id = 'content-' + year;
-    newContent.innerHTML = `
-        <!-- 照片上传表单 -->
-        <form method="post" enctype="multipart/form-data" class="upload-form">
-            <input type="hidden" name="year" value="${year}">
-            
-            <div class="form-group">
-                <label>上传 ${year} 年照片</label>
-                <div class="file-input" onclick="document.getElementById('image-${year}').click()">
-                    <input type="file" id="image-${year}" name="timeline_image" accept="image/*">
-                    <div class="file-input-text">
-                        点击选择照片或拖拽到此处<br>
-                        <small>支持 JPG, PNG, WebP 格式，建议尺寸 800x600</small>
-                    </div>
-                </div>
-            </div>
-            
-            <button type="submit" class="btn">上传照片</button>
-        </form>
-        
-        <!-- 文案编辑表单 -->
-        <div class="content-form">
-            <h3>📝 编辑 ${year} 年文案内容</h3>
-            <form method="post">
-                <input type="hidden" name="year" value="${year}">
-                <input type="hidden" name="update_content" value="1">
-                
-                <div class="form-group">
-                    <label>标题</label>
-                    <input type="text" name="title" class="form-input" 
-                           value="${data.title || ''}" placeholder="输入标题...">
-                </div>
-                
-                <div class="form-group">
-                    <label>第一段描述</label>
-                    <textarea name="description1" class="form-textarea" 
-                              placeholder="输入第一段描述...">${data.description1 || ''}</textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label>第二段描述</label>
-                    <textarea name="description2" class="form-textarea" 
-                              placeholder="输入第二段描述...">${data.description2 || ''}</textarea>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="submit" class="btn">保存文案</button>
-                    <button type="button" class="btn btn-secondary" onclick="resetForm('${year}')">重置</button>
-                </div>
-            </form>
-        </div>
-    `;
-    
-    // 添加这两行来创建对应的卡片
-    addTimelineCard(year, data);
-    
-    // 通知about.php页面刷新时间线数据（如果在同一窗口）
-    if (window.parent && window.parent.refreshTimelineData) {
-        window.parent.refreshTimelineData();
-    }
-}
-
-// 添加新的时间线卡片函数
-function addTimelineCard(year, data) {
-    // 这个函数用于在about.php中添加新卡片
-    // 由于管理页面和显示页面是分开的，这里主要是为了保持一致性
-    console.log('添加时间线卡片:', year, data);
-}
-
-// 更新删除下拉列表
-function updateDeleteOptions(year) {
-    const deleteSelect = document.querySelector('select[name="year_to_delete"]');
-    const newOption = document.createElement('option');
-    newOption.value = year;
-    newOption.textContent = year + '年';
-    deleteSelect.appendChild(newOption);
-}
-</script>
 </body>
 </html>
