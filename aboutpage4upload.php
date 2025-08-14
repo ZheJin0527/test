@@ -7,39 +7,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-include_once 'media_config.php';
-
-// 处理添加新年份
-if (isset($_POST['add_year'])) {
-    $newYear = trim($_POST['new_year']);
-    if ($newYear && is_numeric($newYear) && $newYear >= 1900 && $newYear <= 2100) {
-        $defaultData = [
-            'title' => '新的里程碑 ✨',
-            'description1' => '请在这里填写第一段描述...',
-            'description2' => '请在这里填写第二段描述...',
-            'image' => 'images/images/default.jpg'
-        ];
-        
-        if (addTimelineYear($newYear, $defaultData)) {
-            $success = "年份 {$newYear} 添加成功！";
-        } else {
-            $error = "添加年份失败！";
-        }
-    } else {
-        $error = "请输入有效的年份（1900-2100）！";
-    }
-}
-
-// 处理删除年份
-if (isset($_POST['delete_year'])) {
-    $deleteYear = $_POST['delete_year'];
-    if (deleteTimelineYear($deleteYear)) {
-        $success = "年份 {$deleteYear} 删除成功！";
-    } else {
-        $error = "删除年份失败！";
-    }
-}
-
 // 处理文件上传和文案修改
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uploadDir = 'images/images/';
@@ -471,80 +438,6 @@ foreach ($defaultTimeline as $year => $data) {
                 margin-left: 0;
             }
         }
-
-        .year-management {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .year-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .btn-add {
-            background: #28a745;
-            font-size: 0.9em;
-            padding: 10px 20px;
-        }
-        
-        .btn-add:hover {
-            background: #218838;
-        }
-        
-        .btn-danger {
-            background: #dc3545;
-        }
-        
-        .btn-danger:hover {
-            background: #c82333;
-        }
-        
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .modal-content h3 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        
-        @media (max-width: 768px) {
-            .year-management {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .year-tabs {
-                justify-content: center;
-            }
-            
-            .year-actions {
-                justify-content: center;
-            }
-        }
     </style>
 </head>
 <body>
@@ -574,45 +467,14 @@ foreach ($defaultTimeline as $year => $data) {
             <div class="timeline-section">
                 <h2>📅 时间线内容管理</h2>
                 
-                <!-- 年份管理区域 -->
-                <div class="year-management">
-                    <div class="year-tabs">
-                        <?php 
-                        $years = getTimelineYears();
-                        foreach ($years as $index => $year): 
-                        ?>
-                            <button class="year-tab <?php echo $index === 0 ? 'active' : ''; ?>" onclick="showYear('<?php echo $year; ?>')"><?php echo $year; ?>年</button>
-                        <?php endforeach; ?>
-                    </div>
-                    
-                    <div class="year-actions">
-                        <button type="button" class="btn btn-add" onclick="showAddYearModal()">+ 添加年份</button>
-                    </div>
-                </div>
-
-                <!-- 添加年份模态框 -->
-                <div id="addYearModal" class="modal" style="display: none;">
-                    <div class="modal-content">
-                        <h3>添加新年份</h3>
-                        <form method="post">
-                            <div class="form-group">
-                                <label>年份</label>
-                                <input type="number" name="new_year" class="form-input" min="1900" max="2100" placeholder="输入年份，例如：2024" required>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" name="add_year" class="btn">添加年份</button>
-                                <button type="button" class="btn btn-secondary" onclick="hideAddYearModal()">取消</button>
-                            </div>
-                        </form>
-                    </div>
+                <!-- 年份选择标签 -->
+                <div class="year-tabs">
+                    <button class="year-tab active" onclick="showYear('2022')">2022年</button>
+                    <button class="year-tab" onclick="showYear('2023')">2023年</button>
+                    <button class="year-tab" onclick="showYear('2025')">2025年</button>
                 </div>
                 
-                <?php 
-                $years = getTimelineYears();
-                $isFirst = true;
-                foreach ($years as $year): 
-                    $data = $config[$year] ?? [];
-                ?>
+                <?php foreach ($config as $year => $data): ?>
                 <div class="timeline-content <?php echo $year == '2022' ? 'active' : ''; ?>" id="content-<?php echo $year; ?>">
                     <!-- 照片上传表单 -->
                     <form method="post" enctype="multipart/form-data" class="upload-form">
@@ -671,17 +533,11 @@ foreach ($defaultTimeline as $year => $data) {
                             
                             <div class="form-actions">
                                 <button type="submit" class="btn">保存文案</button>
-                                <?php if (count($years) > 1): ?>
-                                    <button type="button" class="btn btn-danger" onclick="confirmDeleteYear('<?php echo $year; ?>')">删除此年份</button>
-                                <?php endif; ?>
                             </div>
                         </form>
                     </div>
                 </div>
-                <?php 
-                    $isFirst = false;
-                endforeach; 
-                ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -701,55 +557,6 @@ foreach ($defaultTimeline as $year => $data) {
             
             // 显示选中年份的内容
             document.getElementById('content-' + year).classList.add('active');
-            
-            // 激活选中的标签
-            event.target.classList.add('active');
-        }
-
-        // 添加年份模态框功能
-        function showAddYearModal() {
-            document.getElementById('addYearModal').style.display = 'flex';
-        }
-        
-        function hideAddYearModal() {
-            document.getElementById('addYearModal').style.display = 'none';
-        }
-        
-        // 确认删除年份
-        function confirmDeleteYear(year) {
-            if (confirm(`确定要删除 ${year} 年的所有内容吗？此操作不可撤销！`)) {
-                const form = document.createElement('form');
-                form.method = 'post';
-                form.innerHTML = `<input type="hidden" name="delete_year" value="${year}">`;
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
-        
-        // 点击模态框外部关闭
-        document.getElementById('addYearModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideAddYearModal();
-            }
-        });
-        
-        // 修改showYear函数，支持动态年份
-        function showYear(year) {
-            // 隐藏所有内容
-            document.querySelectorAll('.timeline-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // 移除所有标签的active状态
-            document.querySelectorAll('.year-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // 显示选中年份的内容
-            const targetContent = document.getElementById('content-' + year);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
             
             // 激活选中的标签
             event.target.classList.add('active');
