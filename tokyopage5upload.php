@@ -403,11 +403,10 @@ $currentConfig = getTokyoLocationConfig();
                     <?php foreach ($currentConfig as $storeKey => $storeData): ?>
                     <div class="store-section" data-store-key="<?php echo $storeKey; ?>">
                         <h3>
-                            <h3>
-                                <span>
-                                    <?php echo array_search($storeKey, array_keys($currentConfig)) + 1; ?>
-                                    <span class="store-counter"></span>
-                                </span>
+                            <span>
+                                <?php echo array_search($storeKey, array_keys($currentConfig)) + 1; ?>
+                                <span class="store-counter"></span>
+                            </span>
                             <div class="section-actions">
                                 <?php if (!in_array($storeKey, ['main_store', 'branch_store'])): ?>
                                 <button type="button" class="btn btn-danger" onclick="deleteStore('<?php echo $storeKey; ?>')">
@@ -456,10 +455,9 @@ $currentConfig = getTokyoLocationConfig();
             <div class="store-template" id="storeTemplate">
                 <div class="store-section new-store" data-store-key="">
                     <h3>
-                        <h3>
-                            <span>
-                                <span class="store-counter"></span>
-                            </span>
+                        <span>
+                            <span class="store-counter"></span>
+                        </span>
                         <div class="section-actions">
                             <button type="button" class="btn btn-danger" onclick="removeNewStore(this)">
                                 🗑️ 移除
