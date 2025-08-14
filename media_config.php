@@ -213,4 +213,67 @@ function getTimelineHtml() {
     
     return $html;
 }
+
+/**
+ * 获取排序后的年份数组
+ * @return array 排序后的年份数组
+ */
+function getTimelineYears() {
+    $config = getTimelineConfig();
+    $years = array_keys($config);
+    sort($years, SORT_NUMERIC);
+    return $years;
+}
+
+/**
+ * 添加新年份
+ * @param string $year 年份
+ * @param array $data 年份数据
+ * @return bool 成功返回true
+ */
+function addTimelineYear($year, $data) {
+    $configFile = 'timeline_config.json';
+    $config = [];
+    
+    if (file_exists($configFile)) {
+        $config = json_decode(file_get_contents($configFile), true) ?: [];
+    }
+    
+    $config[$year] = array_merge([
+        'title' => '新的里程碑',
+        'description1' => '这是第一段描述...',
+        'description2' => '这是第二段描述...',
+        'image' => 'images/images/default.jpg',
+        'created' => date('Y-m-d H:i:s')
+    ], $data);
+    
+    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false;
+}
+
+/**
+ * 删除年份
+ * @param string $year 年份
+ * @return bool 成功返回true
+ */
+function deleteTimelineYear($year) {
+    $configFile = 'timeline_config.json';
+    
+    if (!file_exists($configFile)) {
+        return false;
+    }
+    
+    $config = json_decode(file_get_contents($configFile), true);
+    if (!$config || !isset($config[$year])) {
+        return false;
+    }
+    
+    // 删除对应的图片文件
+    if (isset($config[$year]['image']) && file_exists($config[$year]['image'])) {
+        unlink($config[$year]['image']);
+    }
+    
+    unset($config[$year]);
+    
+    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false;
+}
 ?>
