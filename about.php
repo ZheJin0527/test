@@ -791,13 +791,13 @@ updatePageIndicator(0);
             const translateX = centerOffset - (currentIndex * itemWidth);
             
             // 使用CSS transition实现平滑滚动
-            container.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             container.style.transform = `translateX(${translateX}px)`;
             
             // 清除transition，避免影响后续操作
             setTimeout(() => {
                 container.style.transition = '';
-            }, 300);
+            }, 400);
         }
 
         function updateCardPositions() {
@@ -807,7 +807,7 @@ updatePageIndicator(0);
                 card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
                 
                 // 添加平滑过渡效果
-                card.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 
                 if (index === currentIndex) {
                     // 当前活动卡片
@@ -833,7 +833,7 @@ updatePageIndicator(0);
                 cards.forEach(card => {
                     card.style.transition = '';
                 });
-            }, 300);
+            }, 400);
         }
 
         function navigateTimeline(direction) {
@@ -853,7 +853,7 @@ updatePageIndicator(0);
             // 动画完成后重置标志
             setTimeout(() => {
                 isAnimating = false;
-            }, 300); // 增加到600ms匹配新的动画时长
+            }, 400); // 增加到600ms匹配新的动画时长
         }
 
         function selectCard(year) {
