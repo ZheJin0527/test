@@ -190,17 +190,11 @@ $timelineData = getTimelineConfig();
             <div class="timeline-scroll-container">
                 <div class="timeline-track"></div>
                 <div class="timeline-items-container" id="timelineContainer">
-                    <?php 
-                    $isFirst = true;
-                    foreach ($timelineData as $year => $data): 
-                    ?>
-                    <div class="timeline-item <?php echo $isFirst ? 'active' : ''; ?>" data-year="<?php echo $year; ?>">
+                    <?php foreach ($timelineData as $year => $data): ?>
+                    <div class="timeline-item <?php echo $year === '2022' ? 'active' : ''; ?>" data-year="<?php echo $year; ?>">
                         <div class="timeline-bullet"><?php echo $year; ?></div>
                     </div>
-                    <?php 
-                    $isFirst = false;
-                    endforeach; 
-                    ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -209,12 +203,13 @@ $timelineData = getTimelineConfig();
         <div class="timeline-content-container">
             <div class="timeline-cards-wrapper">
                 <?php 
-                $index = 0;
+                $years = array_keys($timelineData);
                 foreach ($timelineData as $year => $data): 
-                    $itemClass = $index === 0 ? 'active' : ($index === 1 ? 'next' : 'hidden');
+                    $currentIndex = array_search($year, $years);
+                    $itemClass = $currentIndex === 0 ? 'active' : ($currentIndex === 1 ? 'next' : 'hidden');
                 ?>
                 <!-- <?php echo $year; ?>年内容 -->
-                <div class="timeline-content-item <?php echo $itemClass; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $year; ?>">
+                <div class="timeline-content-item <?php echo $itemClass; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $currentIndex; ?>">
                     <div class="timeline-content" onclick="selectCard(<?php echo $year; ?>)">
                         <div class="timeline-image">
                             <img src="<?php echo $data['image_url']; ?>" alt="<?php echo $year; ?>年发展">
@@ -1094,82 +1089,5 @@ updatePageIndicator(0);
         }
         }
     </script>
-    <script>
-// 修复时间线显示问题
-document.addEventListener('DOMContentLoaded', function() {
-    // 确保时间线导航显示正确的年份
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    timelineItems.forEach(item => {
-        const year = item.getAttribute('data-year');
-        const bullet = item.querySelector('.timeline-bullet');
-        if (bullet && year) {
-            bullet.textContent = year + '年'; // 添加"年"字
-        }
-    });
-    
-    // 修复时间线导航功能
-    window.navigateTimeline = function(direction) {
-        const container = document.getElementById('timelineContainer');
-        const items = container.querySelectorAll('.timeline-item');
-        const contentItems = document.querySelectorAll('.timeline-content-item');
-        let currentIndex = -1;
-        
-        // 找到当前活跃的项目
-        items.forEach((item, index) => {
-            if (item.classList.contains('active')) {
-                currentIndex = index;
-            }
-        });
-        
-        let newIndex = currentIndex;
-        if (direction === 'prev' && currentIndex > 0) {
-            newIndex = currentIndex - 1;
-        } else if (direction === 'next' && currentIndex < items.length - 1) {
-            newIndex = currentIndex + 1;
-        }
-        
-        if (newIndex !== currentIndex) {
-            // 更新导航项
-            items.forEach((item, index) => {
-                item.classList.toggle('active', index === newIndex);
-            });
-            
-            // 更新内容项
-            contentItems.forEach((item, index) => {
-                item.classList.remove('active', 'next', 'hidden');
-                if (index === newIndex) {
-                    item.classList.add('active');
-                } else if (index === newIndex + 1) {
-                    item.classList.add('next');
-                } else {
-                    item.classList.add('hidden');
-                }
-            });
-        }
-    };
-    
-    // 修复卡片选择功能
-    window.selectCard = function(year) {
-        const contentItems = document.querySelectorAll('.timeline-content-item');
-        const timelineItems = document.querySelectorAll('.timeline-item');
-        
-        contentItems.forEach((item, index) => {
-            const itemYear = item.getAttribute('data-year');
-            item.classList.remove('active', 'next', 'hidden');
-            
-            if (itemYear == year) {
-                item.classList.add('active');
-                // 同时激活对应的导航项
-                timelineItems.forEach(navItem => {
-                    const navYear = navItem.getAttribute('data-year');
-                    navItem.classList.toggle('active', navYear == year);
-                });
-            } else {
-                item.classList.add('hidden');
-            }
-        });
-    };
-});
-</script>
 </body>
 </html>
