@@ -274,6 +274,7 @@ function deleteTimelineYear($year) {
 function getTokyoLocationConfig() {
     $configFile = 'tokyo_location_config.json';
     $defaultConfig = [
+        'section_title' => '我们在这', // 添加这行
         'main_store' => [
             'label' => '总店：',
             'address' => 'T-042 Level 3, Mid Valley, The Mall, Southkey, 81100 Johor Bahru, Johor Darul Ta\'zim',
@@ -384,9 +385,14 @@ function getTokyoLocationHtml() {
     $config = getTokyoLocationConfig();
     $html = '';
     
-    $html .= '<h2>我们在这</h2>';
+    // 修改这行，使用配置中的标题
+    $sectionTitle = isset($config['section_title']) ? $config['section_title'] : '我们在这';
+    $html .= '<h2>' . htmlspecialchars($sectionTitle) . '</h2>';
     
     foreach ($config as $storeKey => $store) {
+        // 跳过标题配置项
+        if ($storeKey === 'section_title') continue;
+        
         if (!empty($store['address'])) {
             $html .= '<p>' . htmlspecialchars($store['label']) . 
                     '<a href="' . htmlspecialchars($store['map_url']) . '" target="_blank" class="no-style-link">' . 

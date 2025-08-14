@@ -22,6 +22,11 @@ if (isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['st
 // 处理表单提交
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
     $config = [];
+
+    // 添加标题处理
+    if (isset($_POST['section_title'])) {
+        $config['section_title'] = trim($_POST['section_title']);
+    }
     
     // 处理现有店铺的更新
     foreach ($_POST as $key => $value) {
@@ -394,6 +399,16 @@ $currentConfig = getTokyoLocationConfig();
             
             <form method="post" id="mainForm" class="form-section">
                 <h2>📍 编辑位置信息</h2>
+
+                <div class="store-section">
+                    <h3>📝 节标题设置</h3>
+                    <div class="form-group">
+                        <label for="section_title">标题文字</label>
+                        <input type="text" id="section_title" name="section_title" class="form-input" 
+                            value="<?php echo htmlspecialchars($currentConfig['section_title'] ?? '我们在这'); ?>" required>
+                        <div class="help-text">显示在位置信息顶部的标题</div>
+                    </div>
+                </div>
                 
                 <button type="button" class="btn btn-add" onclick="addNewStore()">
                     ➕ 添加新店铺
@@ -585,7 +600,9 @@ $currentConfig = getTokyoLocationConfig();
             const previewContent = document.getElementById('previewContent');
             const stores = document.querySelectorAll('.store-section');
             
-            let html = '<h2>我们在这</h2>';
+            // 获取标题
+            const sectionTitle = document.getElementById('section_title')?.value || '我们在这';
+            let html = `<h2>${sectionTitle}</h2>`;
             
             stores.forEach(store => {
                 const storeKey = store.getAttribute('data-store-key');
@@ -594,6 +611,8 @@ $currentConfig = getTokyoLocationConfig();
                 const phone = store.querySelector(`input[name="${storeKey}_phone"]`)?.value || '';
                 const mapUrl = store.querySelector(`input[name="${storeKey}_map_url"]`)?.value || '';
                 
+                if (!store.getAttribute('data-store-key')) return;
+
                 if (label || address) {
                     html += `<p>${label}<a href="${mapUrl}" target="_blank" class="no-style-link">${address}</a></p>`;
                     html += `<p>电话：${phone}</p>`;
@@ -638,6 +657,9 @@ $currentConfig = getTokyoLocationConfig();
             updateStoreCounters();
         });
         
+        // 为标题输入框添加实时预览
+        document.getElementById('section_title').addEventListener('input', updatePreview);
+
         // 键盘快捷键
         document.addEventListener('keydown', function(e) {
             // Ctrl+N 添加新店铺
