@@ -194,8 +194,8 @@ $timelineData = getTimelineConfig();
                     $index = 0;
                     foreach ($timelineData as $year => $data): 
                     ?>
-                    <div class="timeline-item <?php echo $index === 0 ? 'active' : ''; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $index; ?>">
-                        <div class="timeline-bullet"><?php echo $year; ?>年</div>
+                    <div class="timeline-item <?php echo $index === 0 ? 'active' : ''; ?>" data-year="<?php echo $year; ?>">
+                        <div class="timeline-bullet"><?php echo $year; ?></div>
                     </div>
                     <?php 
                     $index++;
@@ -762,8 +762,8 @@ updatePageIndicator(0);
     </script>
 <script>
         let currentIndex = 0;
-const years = <?php echo json_encode(array_keys($timelineData)); ?>;
-const totalItems = years.length;
+const totalItems = 3;
+const years = ['2022', '2023', '2025'];
 const navItems = document.querySelectorAll('.timeline-item');
 const container = document.getElementById('timelineContainer');
 
@@ -810,7 +810,7 @@ function updateCardPositions() {
 }
 
 function navigateTimeline(direction) {
-    if (isAnimating) return;
+    if (isAnimating) return; // 防止动画期间重复触发
     
     isAnimating = true;
     
@@ -820,11 +820,12 @@ function navigateTimeline(direction) {
         currentIndex = (currentIndex - 1 + totalItems) % totalItems;
     }
     
-    showTimelineItem(years[currentIndex]); // 这里会传递实际年份如"2022"
+    showTimelineItem(years[currentIndex]);
     
+    // 动画完成后重置标志
     setTimeout(() => {
         isAnimating = false;
-    }, 300);
+    }, 300); // 假设动画时长为300ms
 }
 
 function selectCard(year) {
@@ -833,18 +834,14 @@ function selectCard(year) {
     const index = years.indexOf(year.toString());
     if (index !== -1 && index !== currentIndex) {
         currentIndex = index;
-        showTimelineItem(years[currentIndex]); // 使用years数组中的实际年份
+        showTimelineItem(year.toString());
     }
 }
 
 function showTimelineItem(year) {
     updateTimelineNav();
     updateCardPositions();
-    // 确保currentIndex指向正确的年份
-    const yearIndex = years.indexOf(year.toString());
-    if (yearIndex !== -1) {
-        currentIndex = yearIndex;
-    }
+    currentIndex = years.indexOf(year);
 }
 
 // 优化后的拖拽处理
