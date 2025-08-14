@@ -207,7 +207,7 @@ $timelineData = getTimelineConfig();
 
         <!-- 卡片容器 -->
         <div class="timeline-content-container">
-            <div class="timeline-cards-wrapper">
+            <div class="timeline-cards-wrapper" id="timelineCardsWrapper">
                 <?php 
                 $index = 0;
                 foreach ($timelineData as $year => $data): 
@@ -760,12 +760,12 @@ updatePageIndicator(0);
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
         });
     </script>
-<script>
+    <script>
         let currentIndex = 0;
-const totalItems = 3;
-const years = ['2022', '2023', '2025'];
-const navItems = document.querySelectorAll('.timeline-item');
-const container = document.getElementById('timelineContainer');
+        let totalItems = document.querySelectorAll('.timeline-item').length;
+        let years = Array.from(document.querySelectorAll('.timeline-item')).map(item => item.dataset.year);
+        const navItems = document.querySelectorAll('.timeline-item');
+        const container = document.getElementById('timelineContainer');
 
 // 拖拽相关变量 - 优化后的设置
 let isDragging = false;

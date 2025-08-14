@@ -94,33 +94,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_year'])) {
     $yearToDelete = $_POST['year_to_delete'];
     $configFile = 'timeline_config.json';
     
-    if (file_exists($configFile)) {
-        $config = json_decode(file_get_contents($configFile), true) ?: [];
-        
-        if (isset($config[$yearToDelete])) {
-            // 删除对应的图片文件
-            if (isset($config[$yearToDelete]['image']) && 
-                $config[$yearToDelete]['image'] !== 'images/images/default-timeline.jpg' && 
-                file_exists($config[$yearToDelete]['image'])) {
-                unlink($config[$yearToDelete]['image']);
-            }
+    // 如果是AJAX请求，直接处理并返回JSON
+    if (isset($_POST['ajax'])) {
+        if (file_exists($configFile)) {
+            $config = json_decode(file_get_contents($configFile), true) ?: [];
             
-            unset($config[$yearToDelete]);
-            file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
-            $success = "年份 {$newYear} 添加成功！";
-            // 返回JSON响应用于AJAX
-            if (isset($_POST['ajax'])) {
+            if (isset($config[$yearToDelete])) {
+                // 删除对应的图片文件
+                if (isset($config[$yearToDelete]['image']) && 
+                    $config[$yearToDelete]['image'] !== 'images/images/default-timeline.jpg' && 
+                    file_exists($config[$yearToDelete]['image'])) {
+                    unlink($config[$yearToDelete]['image']);
+                }
+                
+                unset($config[$yearToDelete]);
+                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
+                
                 header('Content-Type: application/json');
                 echo json_encode([
                     'success' => true,
-                    'message' => $success,
-                    'year' => $newYear,
-                    'data' => $config[$newYear]
+                    'message' => "年份 {$yearToDelete} 删除成功！",
+                    'year' => $yearToDelete
+                ]);
+                exit;
+            } else {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'success' => false,
+                    'message' => "年份 {$yearToDelete} 不存在！"
                 ]);
                 exit;
             }
-        } else {
-            $error = "年份 {$yearToDelete} 不存在！";
+        }
+    } else {
+        // 非AJAX请求的原有逻辑
+        if (file_exists($configFile)) {
+            $config = json_decode(file_get_contents($configFile), true) ?: [];
+            
+            if (isset($config[$yearToDelete])) {
+                // 删除对应的图片文件
+                if (isset($config[$yearToDelete]['image']) && 
+                    $config[$yearToDelete]['image'] !== 'images/images/default-timeline.jpg' && 
+                    file_exists($config[$yearToDelete]['image'])) {
+                    unlink($config[$yearToDelete]['image']);
+                }
+                
+                unset($config[$yearToDelete]);
+                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
+                $success = "年份 {$yearToDelete} 删除成功！";
+            } else {
+                $error = "年份 {$yearToDelete} 不存在！";
+            }
         }
     }
 }
