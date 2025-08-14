@@ -139,6 +139,21 @@ function getTimelineConfig($year = null) {
         ]
     ];
     
+    // 读取自定义配置
+    $config = $defaultTimeline;
+    if (file_exists($configFile)) {
+        $customConfig = json_decode(file_get_contents($configFile), true);
+        if ($customConfig) {
+            // 合并配置，保留自定义年份
+            $config = array_merge($defaultTimeline, $customConfig);
+        }
+    }
+    
+    // 按年份排序
+    uksort($config, function($a, $b) {
+        return (int)$a - (int)$b;
+    });
+    
     $config = $defaultTimeline;
     
     if (file_exists($configFile)) {
