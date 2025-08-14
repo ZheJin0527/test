@@ -427,7 +427,7 @@ $currentConfig = getTokyoLocationConfig();
             <?php endif; ?>
             
             <form method="post" id="mainForm" class="form-section">
-                <h2>📍 编辑位置信息</h2>
+                <h2>编辑位置信息</h2>
                 
                 <!-- 标题编辑区域 -->
                 <div class="store-section">

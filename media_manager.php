@@ -378,9 +378,6 @@ if (file_exists('media_config.json')) {
                         <p>管理招聘页面图片</p>
                         <span class="page-arrow">→</span>
                     </a>
-                </div>
-
-                <div class="page-grid">
                     <a href="joinpage2upload.php" class="page-card">
                         <div class="page-icon">📸</div>
                         <h3>我们的足迹照片</h3>
