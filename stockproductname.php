@@ -478,20 +478,12 @@
         <div class="filter-bar">
             <div class="filter-group">
                 <div class="filter-item">
-                    <label>开始日期</label>
-                    <input type="date" class="filter-input" id="start-date">
-                </div>
-                <div class="filter-item">
-                    <label>结束日期</label>
-                    <input type="date" class="filter-input" id="end-date">
-                </div>
-                <div class="filter-item">
-                    <label>供应商</label>
-                    <input type="text" class="filter-input" id="supplier-filter" placeholder="搜索供应商">
-                </div>
-                <div class="filter-item">
                     <label>产品编号</label>
                     <input type="text" class="filter-input" id="product-code-filter" placeholder="搜索产品编号">
+                </div>
+                <div class="filter-item">
+                    <label>产品名字</label>
+                    <input type="text" class="filter-input" id="product-name-filter" placeholder="搜索产品名字">
                 </div>
                 <div class="filter-item">
                     <label>批准状态</label>
@@ -529,10 +521,6 @@
                     <div class="stat-item">
                         <i class="fas fa-clock"></i>
                         <span>待批准: <span class="stat-value" id="pending-count">0</span></span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span>总价值: RM <span class="stat-value" id="total-value">0</span></span>
                     </div>
                 </div>
                 
@@ -581,18 +569,7 @@
 
         // 初始化应用
         function initApp() {
-            initDateFilters();
             loadStockData();
-        }
-
-        // 初始化日期过滤器
-        function initDateFilters() {
-            const today = new Date();
-            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-            const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-            
-            document.getElementById('start-date').value = firstDayOfMonth.toISOString().split('T')[0];
-            document.getElementById('end-date').value = lastDayOfMonth.toISOString().split('T')[0];
         }
 
         // 返回上一页
@@ -634,20 +611,16 @@
             isLoading = true;
             
             try {
-                const startDate = document.getElementById('start-date').value;
-                const endDate = document.getElementById('end-date').value;
-                const supplier = document.getElementById('supplier-filter').value;
                 const productCode = document.getElementById('product-code-filter').value;
+                const productName = document.getElementById('product-name-filter').value;
                 const approvalStatus = document.getElementById('approval-status-filter').value;
-                
+
                 const queryParams = new URLSearchParams({
                     action: 'list'
                 });
-                
-                if (startDate) queryParams.append('start_date', startDate);
-                if (endDate) queryParams.append('end_date', endDate);
-                if (supplier) queryParams.append('supplier', supplier);
+
                 if (productCode) queryParams.append('product_code', productCode);
+                if (productName) queryParams.append('product_name', productName);
                 if (approvalStatus) queryParams.append('approval_status', approvalStatus);
                 
                 const result = await apiCall(`?${queryParams}`);
@@ -962,13 +935,10 @@
 
         // 清空过滤器
         function clearFilters() {
-            document.getElementById('start-date').value = '';
-            document.getElementById('end-date').value = '';
-            document.getElementById('supplier-filter').value = '';
             document.getElementById('product-code-filter').value = '';
+            document.getElementById('product-name-filter').value = '';
             document.getElementById('approval-status-filter').value = '';
             
-            initDateFilters();
             loadStockData();
         }
 
@@ -1092,13 +1062,6 @@
                         }
                     }, 100);
                 }
-            }
-        });
-
-        // 日期过滤器变化时自动搜索
-        document.addEventListener('change', function(e) {
-            if (e.target.id === 'start-date' || e.target.id === 'end-date') {
-                loadStockData();
             }
         });
 
