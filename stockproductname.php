@@ -584,6 +584,8 @@
         // API 调用函数
         async function apiCall(endpoint, options = {}) {
             try {
+                console.log('API调用:', `${API_BASE_URL}${endpoint}`, options);
+                
                 const response = await fetch(`${API_BASE_URL}${endpoint}`, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -592,11 +594,15 @@
                     ...options
                 });
                 
+                const responseText = await response.text();
+                console.log('API响应:', responseText);
+                
                 if (!response.ok) {
-                    throw new Error(`HTTP错误: ${response.status}`);
+                    throw new Error(`HTTP错误: ${response.status} - ${responseText}`);
                 }
                 
-                const data = await response.json();
+                const data = JSON.parse(responseText);
+                console.log('解析后的数据:', data);
                 return data;
             } catch (error) {
                 console.error('API调用失败:', error);

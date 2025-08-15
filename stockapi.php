@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-ini_set('display_errors', 0);
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // 数据库配置
 $host = 'localhost';
@@ -26,7 +26,8 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     ob_end_clean();
-    echo json_encode(["success" => false, "message" => "数据库连接失败：" . $e->getMessage()]);
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "数据库连接失败：" . $e->getMessage(), "error_details" => $e->getMessage()]);
     exit;
 }
 
@@ -127,6 +128,7 @@ function handleGet() {
             
             $stmt = $pdo->prepare($sql);
             $stmt->execute($params);
+            try {
             $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             // 为每条记录添加批准状态
@@ -135,6 +137,9 @@ function handleGet() {
             }
             
             sendResponse(true, "库存数据获取成功", $records);
+        } catch (PDOException $e) {
+            sendResponse(false, "查询数据失败：" . $e->getMessage());
+        }
             break;
             
         case 'summary':
