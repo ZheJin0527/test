@@ -192,6 +192,20 @@
             position: relative;
         }
 
+        /* 只读输入框样式 */
+        .excel-input.readonly {
+            background-color: #f3f4f6 !important;
+            color: #6b7280;
+            cursor: not-allowed;
+            border: 1px solid #d1d5db !important;
+        }
+
+        .excel-input.readonly:focus {
+            background-color: #f3f4f6 !important;
+            border: 1px solid #d1d5db !important;
+            box-shadow: none !important;
+        }
+
         /* 操作按钮 */
         .action-buttons {
             padding: 24px;
@@ -710,12 +724,12 @@
             
             row.innerHTML = `
                 <td>
-                    <input type="date" class="excel-input datetime-input" data-field="date" data-row="${rowId}" 
-                        value="${data.date || ''}" required>
+                    <input type="date" class="excel-input datetime-input readonly" data-field="date" data-row="${rowId}" 
+                        value="${data.date || ''}" required readonly>
                 </td>
                 <td>
-                    <input type="time" class="excel-input datetime-input" data-field="time" data-row="${rowId}" 
-                        value="${data.time || ''}" required>
+                    <input type="time" class="excel-input datetime-input readonly" data-field="time" data-row="${rowId}" 
+                        value="${data.time || ''}" required readonly>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input" data-field="product_code" data-row="${rowId}" 
@@ -1103,7 +1117,7 @@
             
             // Tab键在输入框间移动
             if (e.key === 'Tab') {
-                const inputs = Array.from(document.querySelectorAll('.excel-input'));
+                const inputs = Array.from(document.querySelectorAll('.excel-input:not(.readonly)'));
                 const currentIndex = inputs.indexOf(document.activeElement);
                 
                 if (currentIndex !== -1) {
@@ -1116,7 +1130,7 @@
             }
             
             // Enter键移动到下一行同一列
-            if (e.key === 'Enter' && document.activeElement.classList.contains('excel-input')) {
+            if (e.key === 'Enter' && document.activeElement.classList.contains('excel-input') && !document.activeElement.classList.contains('readonly')) {
                 e.preventDefault();
                 const currentInput = document.activeElement;
                 const field = currentInput.dataset.field;
