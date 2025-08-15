@@ -1014,7 +1014,12 @@
                     if (value.includes('.')) {
                         const parts = value.split('.');
                         if (parts[1] && parts[1].length > 2) {
+                            // 保存当前光标位置
+                            const cursorPosition = e.target.selectionStart;
                             e.target.value = parts[0] + '.' + parts[1].substring(0, 2);
+                            // 恢复光标位置，但不超过新值的长度
+                            const newPosition = Math.min(cursorPosition, e.target.value.length);
+                            e.target.setSelectionRange(newPosition, newPosition);
                         }
                     }
                 }
