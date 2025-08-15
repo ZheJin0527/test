@@ -195,7 +195,7 @@
         .excel-input[readonly] {
             background-color: #f0fdf4 !important;
             font-weight: 600;
-            color: #6b7280;
+            color: #000000ff;
             cursor: not-allowed;
         }
 
