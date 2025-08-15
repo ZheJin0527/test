@@ -42,6 +42,7 @@ header("Expires: 0");
         <a href="tokyo-japanese-cuisine.php" class="nav-dropdown-item">Tokyo Japanese Cuisine</a>
         <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a>
       </div>
+     </div>
     <div class="nav-item"><a href="joinus.php">加入我们</a></div>
   </nav>
 
