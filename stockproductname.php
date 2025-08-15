@@ -783,6 +783,8 @@
         }
 
         function performSearch() {
+            if (isLoading) return;
+            
             showAlert('正在搜索...', 'info');
             loadStockData();
         }
@@ -1061,15 +1063,6 @@
         document.addEventListener('input', function(e) {
             if (e.target.classList.contains('excel-input')) {
                 // ... 现有代码保持不变 ...
-            }
-            
-            // 添加搜索输入框的实时搜索功能
-            if (e.target.classList.contains('filter-input')) {
-                // 防抖处理，避免频繁搜索
-                clearTimeout(window.searchTimeout);
-                window.searchTimeout = setTimeout(() => {
-                    loadStockData();
-                }, 500);
             }
         });
 
