@@ -34,8 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['music_file'])) {
         $newFileName = 'music.' . $fileExtension;
         $targetPath = $uploadDir . $newFileName;
         
-        // 如果存在旧文件且格式不同，需要删除旧文件
-        // 如果存在旧文件，先删除（不管格式是否相同）
+        // 处理旧文件：如果存在旧文件，无论格式是否相同都删除
         if (isset($oldConfig['background_music']['file']) && file_exists($oldConfig['background_music']['file'])) {
             unlink($oldConfig['background_music']['file']);
         }
@@ -573,6 +572,8 @@ function formatFileSize($bytes) {
                 }
                 
                 updateFileInputText(file.name);
+                // 可选：自动提交
+                // setTimeout(() => autoSubmitForm(), 500);
             }
         });
         
@@ -588,6 +589,13 @@ function formatFileSize($bytes) {
                 alert('请先选择要上传的音乐文件');
             }
         });
+
+        // 自动提交表单（可选）
+        function autoSubmitForm() {
+            if (confirm('检测到文件选择，是否立即上传？')) {
+                document.querySelector('form').submit();
+            }
+        }
     </script>
 </body>
 </html>
