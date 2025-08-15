@@ -512,14 +512,14 @@ function formatFileSize($bytes) {
                     
                     <div class="btn-group">
                         <button type="submit" class="btn">
-                            📁 上传新音乐
+                            上传新音乐
                         </button>
                         
                         <?php if (isset($config['background_music'])): ?>
                         <form method="post" style="display: inline;" onsubmit="return confirm('确定要删除当前音乐文件吗？文件将被永久删除。');">
                             <input type="hidden" name="action" value="delete">
                             <button type="submit" class="btn btn-danger">
-                                🗑️ 删除当前音乐
+                                删除当前音乐
                             </button>
                         </form>
                         <?php endif; ?>

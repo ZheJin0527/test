@@ -320,12 +320,17 @@ if (file_exists('media_config.json')) {
             <?php endif; ?>
             
             <!-- 页面分类管理 -->
-            <div class="management-card">
-                <h3>🎵 背景音乐管理</h3>
-                <p>管理网站所有页面的背景音乐</p>
-                <a href="bgmusicupload.php" class="btn">管理背景音乐</a>
-            </div> 
-            
+            <div class="media-section">
+                <h2>🎵 背景音乐管理</h2>
+                <div class="page-grid">
+                    <a href="bgmusicupload.php" class="page-card">
+                        <div class="page-icon"></div>
+                        <h3>管理网站所有页面的背景音乐</h3>
+                        <span class="page-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
             <div class="media-section">
                 <h2>📁 首页管理</h2>
                 <div class="page-grid">
