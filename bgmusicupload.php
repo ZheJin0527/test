@@ -18,58 +18,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['music_file'])) {
     }
     
     $file = $_FILES['music_file'];
-    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     
-    // 允许的音频文件类型
-    $allowedAudio = ['mp3', 'wav', 'ogg', 'm4a'];
-
-    if (in_array($fileExtension, $allowedAudio)) {
-        // 读取旧配置，检查是否需要删除不同格式的旧文件
-        $oldConfig = [];
-        if (file_exists($configFile)) {
-            $oldConfig = json_decode(file_get_contents($configFile), true) ?: [];
-        }
+    // 检查上传错误
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        $error = "文件上传失败，错误代码：" . $file['error'];
+    } else {
+        $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         
-        // 生成新文件名
-        $newFileName = 'music.' . $fileExtension;
-        $targetPath = $uploadDir . $newFileName;
-        
-        // 删除所有旧的音乐文件（不论格式）
-        if (isset($oldConfig['background_music']['file']) && file_exists($oldConfig['background_music']['file'])) {
-            unlink($oldConfig['background_music']['file']);
-        }
+        // 允许的音频文件类型
+        $allowedAudio = ['mp3', 'wav', 'ogg', 'm4a'];
 
-        // 直接上传新文件到目标路径
-        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            // 上传成功后更新配置文件
-            $config = [];
+        if (in_array($fileExtension, $allowedAudio)) {
+            // 读取旧配置并删除所有旧文件
+            $oldConfig = [];
             if (file_exists($configFile)) {
-                $config = json_decode(file_get_contents($configFile), true) ?: [];
+                $oldConfig = json_decode(file_get_contents($configFile), true) ?: [];
             }
             
-            $config['background_music'] = [
-                'file' => $targetPath,
-                'type' => 'audio',
-                'format' => $fileExtension,
-                'updated' => date('Y-m-d H:i:s'),
-                'filesize' => filesize($targetPath),
-                'original_name' => $file['name']
-            ];
+            // 删除所有可能存在的旧音乐文件
+            $possibleExtensions = ['mp3', 'wav', 'ogg', 'm4a'];
+            foreach ($possibleExtensions as $ext) {
+                $oldFile = $uploadDir . 'music.' . $ext;
+                if (file_exists($oldFile)) {
+                    unlink($oldFile);
+                }
+            }
             
-            file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-            $success = "音乐文件上传成功！页面将自动刷新...";
-
-            // 添加页面重定向，清除缓存
-            echo "<script>
-                setTimeout(function() {
-                    window.location.href = window.location.href + '?updated=' + Date.now();
-                }, 2000);
-            </script>";
+            // 如果配置中有旧文件路径，也删除
+            if (isset($oldConfig['background_music']['file']) && file_exists($oldConfig['background_music']['file'])) {
+                unlink($oldConfig['background_music']['file']);
+            }
+            
+            // 生成新文件名并上传
+            $newFileName = 'music.' . $fileExtension;
+            $targetPath = $uploadDir . $newFileName;
+            
+            if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+                // 更新配置文件
+                $config = [];
+                if (file_exists($configFile)) {
+                    $config = json_decode(file_get_contents($configFile), true) ?: [];
+                }
+                
+                $config['background_music'] = [
+                    'file' => $targetPath,
+                    'type' => 'audio',
+                    'format' => $fileExtension,
+                    'updated' => date('Y-m-d H:i:s'),
+                    'filesize' => filesize($targetPath),
+                    'original_name' => $file['name']
+                ];
+                
+                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                $success = "音乐文件上传成功！";
+                
+                // 立即刷新页面以显示新文件
+                echo "<script>window.location.reload();</script>";
+                
+            } else {
+                $error = "文件移动失败！请检查目录权限。";
+            }
         } else {
-            $error = "文件上传失败！";
+            $error = "不支持的文件类型！请上传 MP3、WAV、OGG 或 M4A 格式的音频文件。";
         }
-    } else {
-        $error = "不支持的文件类型！请上传 MP3、WAV、OGG 或 M4A 格式的音频文件。";
     }
 }
 
@@ -483,7 +494,7 @@ function formatFileSize($bytes) {
                                 
                                 <div class="audio-player">
                                     <audio controls preload="metadata">
-                                        <source src="<?php echo $config['background_music']['file']; ?>?v=<?php echo time(); ?>" type="audio/<?php echo $config['background_music']['format']; ?>">
+                                        <source src="<?php echo $config['background_music']['file']; ?>?v=<?php echo filemtime($config['background_music']['file']); ?>" type="audio/<?php echo $config['background_music']['format']; ?>">
                                         您的浏览器不支持音频播放器。
                                     </audio>
                                 </div>
@@ -585,14 +596,6 @@ function formatFileSize($bytes) {
             if (!fileInputElement.files.length) {
                 e.preventDefault();
                 alert('请先选择要上传的音乐文件');
-                return;
-            }
-            
-            // 显示上传进度提示
-            const submitBtn = this.querySelector('button[type="submit"]');
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '🔄 上传中...';
             }
         });
     </script>
