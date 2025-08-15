@@ -270,7 +270,7 @@ $avatarLetter = strtoupper($username[0]);
                     </div>
                     
                     <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
+                        <a href="stockproductname.php" class="informationmenu-item">
                             食品
                             <span class="informationmenu-arrow">›</span>
                         </a>
