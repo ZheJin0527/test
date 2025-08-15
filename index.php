@@ -43,7 +43,13 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
   <nav class="nav-links" id="navMenu">
     <div class="nav-item"><a href="index.php">首页</a></div>
     <div class="nav-item"><a href="about.php">关于我们</a></div>
-    <div class="nav-item"><a href="tokyo-japanese-cuisine.php">旗下品牌</a></div>
+    <div class="nav-item nav-dropdown">
+      <a href="tokyo-japanese-cuisine.php">旗下品牌</a>
+      <div class="nav-dropdown-menu" id="brandsNavDropdownMenu">
+        <a href="tokyo-japanese-cuisine.php" class="nav-dropdown-item">Tokyo Japanese Cuisine</a>
+        <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a>
+      </div>
+    </div>
     <div class="nav-item"><a href="joinus.php">加入我们</a></div>
   </nav>
 
@@ -693,6 +699,21 @@ window.addEventListener('load', () => {
         swiper.slideTo(2); // 跳转到第3个slide（公司文化）
       }
     }
+</script>
+<script>
+  // 导航栏旗下品牌下拉菜单控制
+const navBrandsDropdown = document.querySelector('.nav-item.nav-dropdown');
+const navBrandsDropdownMenu = document.getElementById('brandsNavDropdownMenu');
+
+if (navBrandsDropdown && navBrandsDropdownMenu) {
+    navBrandsDropdown.addEventListener('mouseenter', function() {
+        navBrandsDropdownMenu.classList.add('show');
+    });
+
+    navBrandsDropdown.addEventListener('mouseleave', function() {
+        navBrandsDropdownMenu.classList.remove('show');
+    });
+}
 </script>
 </body>
 </html>
