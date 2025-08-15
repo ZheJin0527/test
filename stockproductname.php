@@ -675,7 +675,17 @@
             const tbody = document.getElementById('excel-tbody');
             tbody.innerHTML = '';
             
-            stockData.forEach((item, index) => {
+            // 按产品名称的第一个字母排序
+            const sortedData = [...stockData].sort((a, b) => {
+                const nameA = (a.product_name || '').trim().toLowerCase();
+                const nameB = (b.product_name || '').trim().toLowerCase();
+                
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+                return 0;
+            });
+            
+            sortedData.forEach((item, index) => {
                 const row = createStockRow(item, index);
                 tbody.appendChild(row);
             });
