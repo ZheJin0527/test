@@ -24,11 +24,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['music_file'])) {
     $allowedAudio = ['mp3', 'wav', 'ogg', 'm4a'];
 
     if (in_array($fileExtension, $allowedAudio)) {
+        // 读取旧配置，检查是否需要删除不同格式的旧文件
+        $oldConfig = [];
+        if (file_exists($configFile)) {
+            $oldConfig = json_decode(file_get_contents($configFile), true) ?: [];
+        }
+        
         // 生成新文件名
         $newFileName = 'music.' . $fileExtension;
         $targetPath = $uploadDir . $newFileName;
         
-        // 先上传新文件
+        // 如果存在旧文件且格式不同，需要删除旧文件
+        if (isset($oldConfig['background_music']['file']) && file_exists($oldConfig['background_music']['file'])) {
+            $oldFormat = $oldConfig['background_music']['format'] ?? '';
+            if ($oldFormat !== $fileExtension) {
+                // 删除不同格式的旧文件
+                unlink($oldConfig['background_music']['file']);
+            }
+        }
+        
+        // 上传新文件（如果是同格式会自动覆盖）
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
             // 上传成功后更新配置文件
             $config = [];
@@ -490,7 +505,7 @@ function formatFileSize($bytes) {
                         </button>
                         
                         <?php if (isset($config['background_music'])): ?>
-                        <form method="post" style="display: inline;" onsubmit="return confirm('确定要删除当前音乐文件吗？删除后将移动到备份文件夹。');">
+                        <form method="post" style="display: inline;" onsubmit="return confirm('确定要删除当前音乐文件吗？文件将被永久删除。');">
                             <input type="hidden" name="action" value="delete">
                             <button type="submit" class="btn btn-danger">
                                 🗑️ 删除当前音乐
