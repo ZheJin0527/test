@@ -157,6 +157,11 @@
         .excel-input.datetime-input {
             padding: 8px;
             text-align: center;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #374151;
         }
 
         .excel-input:focus {
@@ -165,6 +170,54 @@
             outline: none;
             z-index: 5;
             position: relative;
+        }
+
+        /* 日期时间输入框特殊样式 */
+        .excel-input.datetime-input:focus {
+            background: #fff;
+            border: 2px solid #583e04;
+            outline: none;
+            z-index: 5;
+            position: relative;
+            font-weight: 600;
+            color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+
+        .excel-input.datetime-input::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: invert(0.6);
+            transition: all 0.2s;
+        }
+
+        .excel-input.datetime-input:hover::-webkit-calendar-picker-indicator {
+            filter: invert(0.4);
+            transform: scale(1.1);
+        }
+
+        .excel-input.datetime-input::-webkit-datetime-edit {
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            letter-spacing: inherit;
+        }
+
+        .excel-input.datetime-input::-webkit-datetime-edit-fields-wrapper {
+            padding: 0;
+        }
+
+        .excel-input.datetime-input::-webkit-datetime-edit-text {
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .excel-input.datetime-input::-webkit-datetime-edit-month-field,
+        .excel-input.datetime-input::-webkit-datetime-edit-day-field,
+        .excel-input.datetime-input::-webkit-datetime-edit-year-field,
+        .excel-input.datetime-input::-webkit-datetime-edit-hour-field,
+        .excel-input.datetime-input::-webkit-datetime-edit-minute-field {
+            font-weight: 600;
+            color: #374151;
         }
 
         .excel-input:not(:placeholder-shown) {
