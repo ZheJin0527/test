@@ -31,6 +31,10 @@ try {
     exit;
 }
 
+// 调试信息
+error_log("数据库连接成功");
+error_log("请求方法: " . $method);
+
 // 获取请求方法和数据
 $method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents("php://input"), true);
@@ -127,8 +131,8 @@ function handleGet() {
             $sql .= " ORDER BY date DESC, time DESC";
             
             $stmt = $pdo->prepare($sql);
-            $stmt->execute($params);
             try {
+            $stmt->execute($params);
             $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             // 为每条记录添加批准状态

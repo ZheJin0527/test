@@ -560,7 +560,7 @@
 
     <script>
         // API 配置
-        const API_BASE_URL = 'stockapi.php';
+        const API_BASE_URL = './stockapi.php';
         
         // 应用状态
         let stockData = [];
@@ -611,6 +611,7 @@
         }
 
         // 加载库存数据
+        // 加载库存数据
         async function loadStockData() {
             if (isLoading) return;
             
@@ -621,23 +622,42 @@
                 const productName = document.getElementById('product-name-filter').value;
                 const approvalStatus = document.getElementById('approval-status-filter').value;
 
-                const queryParams = new URLSearchParams({
-                    action: 'list'
+                let url = `${API_BASE_URL}?action=list`;
+                
+                if (productCode) url += `&product_code=${encodeURIComponent(productCode)}`;
+                if (productName) url += `&product_name=${encodeURIComponent(productName)}`;
+                if (approvalStatus) url += `&approval_status=${encodeURIComponent(approvalStatus)}`;
+                
+                console.log('请求URL:', url);
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 });
-
-                if (productCode) queryParams.append('product_code', productCode);
-                if (productName) queryParams.append('product_name', productName);
-                if (approvalStatus) queryParams.append('approval_status', approvalStatus);
                 
-                const result = await apiCall(`?${queryParams}`);
+                const responseText = await response.text();
+                console.log('API响应文本:', responseText);
                 
-                stockData = result.data || [];
-                generateStockTable();
-                updateStats();
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status} - ${responseText}`);
+                }
                 
-                showAlert('库存数据加载成功', 'success');
+                const result = JSON.parse(responseText);
+                console.log('解析后的数据:', result);
+                
+                if (result.success) {
+                    stockData = result.data || [];
+                    generateStockTable();
+                    updateStats();
+                    showAlert('库存数据加载成功', 'success');
+                } else {
+                    throw new Error(result.message || '加载失败');
+                }
                 
             } catch (error) {
+                console.error('加载数据失败:', error);
                 stockData = [];
                 generateStockTable();
                 updateStats();
@@ -824,17 +844,25 @@
                         
                         if (rowId.toString().startsWith('new-')) {
                             // 新记录
-                            result = await apiCall('', {
+                            const response = await fetch(API_BASE_URL, {
                                 method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
                                 body: JSON.stringify(rowData)
                             });
+                            const result = await response.json();
                         } else {
                             // 更新现有记录
                             rowData.id = rowId;
-                            result = await apiCall('', {
+                            const response = await fetch(API_BASE_URL, {
                                 method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
                                 body: JSON.stringify(rowData)
                             });
+                            const result = await response.json();
                         }
                         
                         if (result.success) {
