@@ -591,6 +591,40 @@
         let isLoading = false;
         let nextRowId = 1;
 
+        // 输入框光标定位处理
+        let inputFirstClickMap = new Map(); // 记录每个输入框是否已经被点击过
+
+        function handleInputFocus(input, isClick = false) {
+            // 延迟执行以确保focus事件完成后再设置光标位置
+            setTimeout(() => {
+                if (isClick) {
+                    const inputKey = `${input.dataset.field}-${input.dataset.row}`;
+                    
+                    // 如果这个输入框已经被点击过，不处理光标位置
+                    if (inputFirstClickMap.has(inputKey)) {
+                        return; // 让浏览器处理正常的点击定位
+                    }
+                    
+                    // 标记这个输入框已经被点击过
+                    inputFirstClickMap.set(inputKey, true);
+                }
+                
+                if (input.value) {
+                    // 如果有值，选择所有内容（便于快速替换）
+                    input.select();
+                } else {
+                    // 如果没有值，将光标设置到开头
+                    input.setSelectionRange(0, 0);
+                }
+            }, 0);
+        }
+
+        // 重置输入框的首次点击状态（当输入框值发生变化时）
+        function resetInputFirstClick(input) {
+            const inputKey = `${input.dataset.field}-${input.dataset.row}`;
+            inputFirstClickMap.delete(inputKey);
+        }
+
         // 货币字段列表
         const currencyFields = ['price'];
 
@@ -600,14 +634,6 @@
             const num = parseFloat(value);
             if (isNaN(num)) return 0.00;
             return num.toFixed(2);
-        }
-
-        // 格式化货币输入（实时格式化）
-        function formatCurrencyInput(input) {
-            const value = input.value;
-            if (value && !isNaN(value)) {
-                // 在输入过程中不立即格式化，避免干扰用户输入
-            }
         }
 
         // 初始化应用
@@ -1087,6 +1113,8 @@
                 const field = e.target.dataset.field;
                 const value = e.target.value;
                 const row = e.target.closest('tr');
+
+                resetInputFirstClick(e.target);
                 
                 // 价格字段限制小数位数
                 if (field === 'price') {
@@ -1196,6 +1224,20 @@
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && e.target.classList.contains('filter-input')) {
                 loadStockData();
+            }
+        });
+
+        // 为所有输入框添加focus事件监听
+        document.addEventListener('focus', function(e) {
+            if (e.target.classList.contains('excel-input')) {
+                handleInputFocus(e.target, false);
+            }
+        }, true);
+
+        // 为所有输入框添加click事件监听
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('excel-input')) {
+                handleInputFocus(e.target, true);
             }
         });
 
