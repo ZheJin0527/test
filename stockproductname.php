@@ -1019,7 +1019,7 @@
             
             setTimeout(() => {
                 alertElement.remove();
-            }, 5000);
+            }, 2000);
         }
 
         // 输入框事件处理
