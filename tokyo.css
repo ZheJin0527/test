@@ -592,6 +592,75 @@ nav {
     transition: transform 0.3s ease-in-out;
 }
 
+/* 导航栏旗下品牌下拉菜单 */
+.nav-item.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-trigger {
+    color: white;
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.nav-dropdown-trigger:hover {
+    background-color: #FF5C00;
+    color: white;
+    padding: 0 40px;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 90%;
+    left: 0;
+    min-width: 220px;
+    background: #2F2F2F;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.nav-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown-item {
+    display: block;
+    padding: 10px 16px !important;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #444;
+    text-align: left !important;
+    justify-content: flex-start !important;
+}
+
+.nav-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.nav-dropdown-item:hover {
+    background-color: #FF5C00;
+    color: white;
+}
+
 /* 汉堡菜单按钮，默认隐藏 */
 .hamburger {
     display: none;

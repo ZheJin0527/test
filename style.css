@@ -631,7 +631,7 @@ nav {
 
 .nav-dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: 90%;
     left: 0;
     min-width: 220px;
     background: #2F2F2F;
@@ -654,13 +654,15 @@ nav {
 
 .nav-dropdown-item {
     display: block;
-    padding: 12px 20px;
+    padding: 10px 16px !important;
     color: white;
     text-decoration: none;
     font-size: 14px;
     font-weight: 400;
     transition: background-color 0.2s ease;
     border-bottom: 1px solid #444;
+    text-align: left !important;
+    justify-content: flex-start !important;
 }
 
 .nav-dropdown-item:last-child {
@@ -724,6 +726,15 @@ nav {
 
   .nav-links a:hover {
     padding: 0 30px;
+  }
+
+  .nav-dropdown-menu {
+    top: 84%;
+  }
+
+  .nav-dropdown-item {
+    padding: 8px 14px !important;
+    font-size: 12px;
   }
 
   .login-btn {

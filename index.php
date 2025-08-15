@@ -701,19 +701,19 @@ window.addEventListener('load', () => {
     }
 </script>
 <script>
-  // 导航栏旗下品牌下拉菜单控制
-const navBrandsDropdown = document.querySelector('.nav-item.nav-dropdown');
-const navBrandsDropdownMenu = document.getElementById('brandsNavDropdownMenu');
+    // 导航栏旗下品牌下拉菜单控制
+    const navBrandsDropdown = document.querySelector('.nav-item.nav-dropdown');
+    const navBrandsDropdownMenu = document.getElementById('brandsNavDropdownMenu');
 
-if (navBrandsDropdown && navBrandsDropdownMenu) {
-    navBrandsDropdown.addEventListener('mouseenter', function() {
-        navBrandsDropdownMenu.classList.add('show');
-    });
+    if (navBrandsDropdown && navBrandsDropdownMenu) {
+        navBrandsDropdown.addEventListener('mouseenter', function() {
+            navBrandsDropdownMenu.classList.add('show');
+        });
 
-    navBrandsDropdown.addEventListener('mouseleave', function() {
-        navBrandsDropdownMenu.classList.remove('show');
-    });
-}
+        navBrandsDropdown.addEventListener('mouseleave', function() {
+            navBrandsDropdownMenu.classList.remove('show');
+        });
+    }
 </script>
 </body>
 </html>
