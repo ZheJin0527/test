@@ -284,7 +284,14 @@ $avatarLetter = strtoupper($username[0]);
                     网页照片上传
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="photoupload-items">
+                <div class="dropdown-menu-items" id="musicupload-items">
+                    <div class="menu-item-wrapper">
+                        <a href="bgmusicupload.php" class="informationmenu-item">
+                            背景音乐
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             首页
