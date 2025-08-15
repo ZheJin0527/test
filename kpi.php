@@ -1936,6 +1936,12 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
                 <div class="dropdown-menu-items" id="photoupload-items">
                     <div class="menu-item-wrapper">
+                        <a href="bgmusicupload.php" class="informationmenu-item">
+                            背景音乐
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             首页
                             <span class="informationmenu-arrow">›</span>
