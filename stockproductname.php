@@ -455,59 +455,6 @@
             border-color: #583e04;
             box-shadow: 0 0 0 2px rgba(88, 62, 4, 0.1);
         }
-
-        /* 编辑模式样式 */
-        .excel-input:disabled {
-            background-color: #f9fafb;
-            color: #6b7280;
-            cursor: default;
-            border: 1px solid #e5e7eb;
-        }
-
-        .excel-select:disabled {
-            background-color: #f9fafb;
-            color: #6b7280;
-            cursor: default;
-            border: 1px solid #e5e7eb;
-        }
-
-        /* 编辑按钮样式 */
-        .edit-btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            font-size: 12px;
-            margin: 2px;
-        }
-
-        .edit-btn:hover {
-            background: #2563eb;
-            transform: scale(1.1);
-        }
-
-        .edit-btn.editing {
-            background: #10b981;
-        }
-
-        .edit-btn.editing:hover {
-            background: #059669;
-        }
-
-        .action-cell {
-            display: flex;
-            gap: 4px;
-            justify-content: center;
-            align-items: center;
-            padding: 4px;
-        }
     </style>
 </head>
 <body>
@@ -601,7 +548,7 @@
                         <th style="min-width: 120px;">申请人</th>
                         <th style="min-width: 120px;">批准人</th>
                         <th style="min-width: 80px;">状态</th>
-                        <th style="min-width: 100px;">操作</th>
+                        <th style="min-width: 60px;">操作</th>
                     </tr>
                 </thead>
                 <tbody id="excel-tbody">
@@ -764,38 +711,38 @@
             row.innerHTML = `
                 <td>
                     <input type="date" class="excel-input datetime-input" data-field="date" data-row="${rowId}" 
-                        value="${data.date || ''}" required disabled>
+                        value="${data.date || ''}" required>
                 </td>
                 <td>
                     <input type="time" class="excel-input datetime-input" data-field="time" data-row="${rowId}" 
-                        value="${data.time || ''}" required disabled>
+                        value="${data.time || ''}" required>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input" data-field="product_code" data-row="${rowId}" 
-                        value="${data.product_code || ''}" placeholder="产品编号" required disabled>
+                        value="${data.product_code || ''}" placeholder="产品编号" required>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input" data-field="product_name" data-row="${rowId}" 
-                        value="${data.product_name || ''}" placeholder="产品名称" required disabled>
+                        value="${data.product_name || ''}" placeholder="产品名称" required>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input" data-field="supplier" data-row="${rowId}" 
-                        value="${data.supplier || ''}" placeholder="供应商名称" required disabled>
+                        value="${data.supplier || ''}" placeholder="供应商名称" required>
                 </td>
                 <td>
                     <div class="input-container">
                         <span class="currency-prefix">RM</span>
                         <input type="number" class="excel-input currency-input" data-field="price" data-row="${rowId}" 
-                            value="${data.price || ''}" min="0" step="0.01" placeholder="0.00" required disabled>
+                            value="${data.price || ''}" min="0" step="0.01" placeholder="0.00" required>
                     </div>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input" data-field="applicant" data-row="${rowId}" 
-                        value="${data.applicant || ''}" placeholder="申请人" required disabled>
+                        value="${data.applicant || ''}" placeholder="申请人" required>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input" data-field="approver" data-row="${rowId}" 
-                        value="${data.approver || ''}" placeholder="批准人" disabled>
+                        value="${data.approver || ''}" placeholder="批准人">
                 </td>
                 <td style="padding: 8px;">
                     ${data.approver ? 
@@ -804,14 +751,9 @@
                     }
                 </td>
                 <td>
-                    <div class="action-cell">
-                        <button class="edit-btn" onclick="toggleEdit('${rowId}')" title="编辑此行" data-editing="false">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="delete-row-btn" onclick="deleteRow('${rowId}')" title="删除此行">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
+                    <button class="delete-row-btn" onclick="deleteRow('${rowId}')" title="删除此行">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                 </td>
             `;
             
@@ -841,11 +783,11 @@
             const newRow = createStockRow(newData);
             tbody.appendChild(newRow);
             
-            // 新行默认开启编辑模式
-            const rowId = newRow.querySelector('input').dataset.row;
-            setTimeout(() => {
-                toggleEdit(rowId);
-            }, 100);
+            // 聚焦到产品编号输入框
+            const productCodeInput = newRow.querySelector('input[data-field="product_code"]');
+            if (productCodeInput) {
+                productCodeInput.focus();
+            }
             
             updateStats();
         }
@@ -1209,100 +1151,6 @@
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initApp);
-    </script>
-    <script>
-        // 切换编辑模式
-        function toggleEdit(rowId) {
-            const row = document.querySelector(`tr:has(input[data-row="${rowId}"])`);
-            if (!row) return;
-            
-            const editBtn = row.querySelector('.edit-btn');
-            const inputs = row.querySelectorAll('.excel-input, .excel-select');
-            const isEditing = editBtn.dataset.editing === 'true';
-            
-            if (isEditing) {
-                // 退出编辑模式
-                inputs.forEach(input => input.disabled = true);
-                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-                editBtn.title = '编辑此行';
-                editBtn.dataset.editing = 'false';
-                editBtn.classList.remove('editing');
-                
-                // 保存单行数据
-                saveRowData(row, rowId);
-            } else {
-                // 进入编辑模式
-                inputs.forEach(input => input.disabled = false);
-                editBtn.innerHTML = '<i class="fas fa-save"></i>';
-                editBtn.title = '保存此行';
-                editBtn.dataset.editing = 'true';
-                editBtn.classList.add('editing');
-                
-                // 聚焦到第一个输入框
-                const firstInput = inputs[0];
-                if (firstInput) {
-                    firstInput.focus();
-                }
-            }
-        }
-
-        // 保存单行数据
-        async function saveRowData(row, rowId) {
-            const rowData = extractRowData(row);
-            
-            // 验证必填字段
-            if (!rowData.date || !rowData.time || !rowData.product_code || 
-                !rowData.product_name || !rowData.supplier || 
-                !rowData.price || !rowData.applicant) {
-                showAlert('请填写所有必填字段', 'error');
-                return;
-            }
-            
-            try {
-                let result;
-                
-                if (rowId.toString().startsWith('new-')) {
-                    // 新记录
-                    const response = await fetch(API_BASE_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(rowData)
-                    });
-                    const responseText = await response.text();
-                    result = JSON.parse(responseText);
-                    
-                    if (result.success && result.data && result.data.id) {
-                        updateRowId(row, rowId, result.data.id);
-                        showAlert('新记录保存成功', 'success');
-                    }
-                } else {
-                    // 更新现有记录
-                    rowData.id = rowId;
-                    const response = await fetch(API_BASE_URL, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(rowData)
-                    });
-                    const responseText = await response.text();
-                    result = JSON.parse(responseText);
-                    
-                    if (result.success) {
-                        showAlert('记录更新成功', 'success');
-                    }
-                }
-                
-                if (!result.success) {
-                    throw new Error(result.message || '保存失败');
-                }
-                
-            } catch (error) {
-                showAlert('保存失败: ' + error.message, 'error');
-            }
-        }
     </script>
 </body>
 </html>
