@@ -28,13 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['music_file'])) {
         $newFileName = 'music.' . $fileExtension;
         $targetPath = $uploadDir . $newFileName;
         
-        // 直接删除旧文件（如果存在）
-        if (file_exists($targetPath)) {
-            unlink($targetPath);
-        }
-        
+        // 先上传新文件
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            // 更新配置文件
+            // 上传成功后更新配置文件
             $config = [];
             if (file_exists($configFile)) {
                 $config = json_decode(file_get_contents($configFile), true) ?: [];
