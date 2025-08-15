@@ -197,6 +197,7 @@
         .excel-input[readonly] {
             background-color: #f0fdf4 !important;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: bold;
             color: #000000ff;
             cursor: not-allowed;
         }
