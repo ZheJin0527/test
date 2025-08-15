@@ -192,6 +192,18 @@
             position: relative;
         }
 
+        .excel-input[readonly] {
+            background-color: #f0fdf4 !important;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+
+        .excel-input[readonly]:focus {
+            background-color: #f0fdf4 !important;
+            border: 1px solid #f0fdf4 !important;
+        }
+
         /* 操作按钮 */
         .action-buttons {
             padding: 24px;
@@ -455,18 +467,6 @@
             border-color: #583e04;
             box-shadow: 0 0 0 2px rgba(88, 62, 4, 0.1);
         }
-
-        /* 只读输入框样式 */
-.excel-input[readonly] {
-    background-color: #f3f4f6 !important;
-    color: #6b7280;
-    cursor: not-allowed;
-}
-
-.excel-input[readonly]:focus {
-    background-color: #f3f4f6 !important;
-    border: 1px solid #d1d5db !important;
-}
     </style>
 </head>
 <body>
