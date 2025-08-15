@@ -54,28 +54,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['music_file'])) {
             $targetPath = $uploadDir . $newFileName;
             
             if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-                // 更新配置文件
-                $config = [];
-                if (file_exists($configFile)) {
-                    $config = json_decode(file_get_contents($configFile), true) ?: [];
-                }
-                
-                $config['background_music'] = [
-                    'file' => $targetPath,
-                    'type' => 'audio',
-                    'format' => $fileExtension,
-                    'updated' => date('Y-m-d H:i:s'),
-                    'filesize' => filesize($targetPath),
-                    'original_name' => $file['name']
-                ];
-                
-                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-                $success = "音乐文件上传成功！";
-                
-                // 立即刷新页面以显示新文件
-                echo "<script>window.location.reload();</script>";
-                
-            } else {
+            // 更新配置文件
+            $config = [];
+            if (file_exists($configFile)) {
+                $config = json_decode(file_get_contents($configFile), true) ?: [];
+            }
+            
+            $config['background_music'] = [
+                'file' => $targetPath,
+                'type' => 'audio',
+                'format' => $fileExtension,
+                'updated' => date('Y-m-d H:i:s'),
+                'filesize' => filesize($targetPath),
+                'original_name' => $file['name']
+            ];
+            
+            file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+            
+            // 使用HTTP重定向而不是JavaScript
+            header("Location: " . $_SERVER['PHP_SELF'] . "?success=1&t=" . time());
+            exit();
+            
+        } else {
                 $error = "文件移动失败！请检查目录权限。";
             }
         } else {
@@ -439,6 +439,10 @@ function formatFileSize($bytes) {
         <div class="content">
             <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
             
+            <?php if (isset($_GET['success']) && $_GET['success'] == '1'): ?>
+                <div class="alert alert-success">音乐文件上传成功！</div>
+            <?php endif; ?>
+
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
             <?php endif; ?>
