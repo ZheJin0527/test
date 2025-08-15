@@ -801,9 +801,15 @@
         // 从数据库删除记录
         async function deleteFromDatabase(id) {
             try {
-                const result = await apiCall(`?action=delete&id=${id}`, {
-                    method: 'DELETE'
+                const response = await fetch(`${API_BASE_URL}?id=${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 });
+                const responseText = await response.text();
+                console.log('DELETE响应:', responseText);
+                const result = JSON.parse(responseText);
                 
                 if (!result.success) {
                     throw new Error(result.message || '删除失败');
@@ -851,7 +857,9 @@
                                 },
                                 body: JSON.stringify(rowData)
                             });
-                            const result = await response.json();
+                            const responseText = await response.text();
+                            console.log('POST响应:', responseText);
+                            result = JSON.parse(responseText);
                         } else {
                             // 更新现有记录
                             rowData.id = rowId;
@@ -862,7 +870,9 @@
                                 },
                                 body: JSON.stringify(rowData)
                             });
-                            const result = await response.json();
+                            const responseText = await response.text();
+                            console.log('PUT响应:', responseText);
+                            result = JSON.parse(responseText);
                         }
                         
                         if (result.success) {
