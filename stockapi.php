@@ -119,6 +119,12 @@ function handleGet() {
                 $sql .= " AND product_name LIKE ?";
                 $params[] = "%$productName%";
             }
+
+            // 确保产品代码搜索也是模糊匹配
+            if ($productCode) {
+                $sql .= " AND product_code LIKE ?";
+                $params[] = "%$productCode%";
+            }
             
             if ($approvalStatus) {
                 if ($approvalStatus === 'approved') {

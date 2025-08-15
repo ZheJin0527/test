@@ -495,7 +495,7 @@
                 </div>
             </div>
             <div class="filter-group">
-                <button class="btn btn-primary" onclick="loadStockData()">
+                <button class="btn btn-primary" onclick="performSearch()">
                     <i class="fas fa-search"></i>
                     搜索
                 </button>
@@ -611,61 +611,64 @@
         }
 
         // 加载库存数据
-        // 加载库存数据
         async function loadStockData() {
-            if (isLoading) return;
-            
-            isLoading = true;
-            
-            try {
-                const productCode = document.getElementById('product-code-filter').value;
-                const productName = document.getElementById('product-name-filter').value;
-                const approvalStatus = document.getElementById('approval-status-filter').value;
+        if (isLoading) return;
+        
+        isLoading = true;
+        
+        try {
+            // 获取搜索参数
+            const productCode = document.getElementById('product-code-filter').value.trim();
+            const productName = document.getElementById('product-name-filter').value.trim();
+            const approvalStatus = document.getElementById('approval-status-filter').value.trim();
 
-                let url = `${API_BASE_URL}?action=list`;
-                
-                if (productCode) url += `&product_code=${encodeURIComponent(productCode)}`;
-                if (productName) url += `&product_name=${encodeURIComponent(productName)}`;
-                if (approvalStatus) url += `&approval_status=${encodeURIComponent(approvalStatus)}`;
-                
-                console.log('请求URL:', url);
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                const responseText = await response.text();
-                console.log('API响应文本:', responseText);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP错误: ${response.status} - ${responseText}`);
+            // 构建URL参数
+            const params = new URLSearchParams();
+            params.append('action', 'list');
+            
+            if (productCode) params.append('product_code', productCode);
+            if (productName) params.append('product_name', productName);
+            if (approvalStatus) params.append('approval_status', approvalStatus);
+            
+            const url = `${API_BASE_URL}?${params.toString()}`;
+            console.log('请求URL:', url);
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-                
-                const result = JSON.parse(responseText);
-                console.log('解析后的数据:', result);
-                
-                if (result.success) {
-                    stockData = result.data || [];
-                    generateStockTable();
-                    updateStats();
-                    showAlert('库存数据加载成功', 'success');
-                } else {
-                    throw new Error(result.message || '加载失败');
-                }
-                
-            } catch (error) {
-                console.error('加载数据失败:', error);
-                stockData = [];
+            });
+            
+            const responseText = await response.text();
+            console.log('API响应文本:', responseText);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP错误: ${response.status} - ${responseText}`);
+            }
+            
+            const result = JSON.parse(responseText);
+            console.log('解析后的数据:', result);
+            
+            if (result.success) {
+                stockData = result.data || [];
                 generateStockTable();
                 updateStats();
-                showAlert('数据加载失败: ' + error.message, 'error');
-            } finally {
-                isLoading = false;
+                showAlert(`库存数据加载成功，共找到 ${stockData.length} 条记录`, 'success');
+            } else {
+                throw new Error(result.message || '加载失败');
             }
+            
+        } catch (error) {
+            console.error('加载数据失败:', error);
+            stockData = [];
+            generateStockTable();
+            updateStats();
+            showAlert('数据加载失败: ' + error.message, 'error');
+        } finally {
+            isLoading = false;
         }
+    }
 
         // 生成库存表格
         function generateStockTable() {
@@ -777,6 +780,11 @@
             }
             
             updateStats();
+        }
+
+        function performSearch() {
+            showAlert('正在搜索...', 'info');
+            loadStockData();
         }
 
         // 删除行
@@ -988,6 +996,7 @@
             document.getElementById('product-name-filter').value = '';
             document.getElementById('approval-status-filter').value = '';
             
+            showAlert('过滤器已清空，重新加载所有数据', 'info');
             loadStockData();
         }
 
@@ -1045,6 +1054,22 @@
                 }
                 
                 updateStats();
+            }
+        });
+
+        // 输入框事件处理
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('excel-input')) {
+                // ... 现有代码保持不变 ...
+            }
+            
+            // 添加搜索输入框的实时搜索功能
+            if (e.target.classList.contains('filter-input')) {
+                // 防抖处理，避免频繁搜索
+                clearTimeout(window.searchTimeout);
+                window.searchTimeout = setTimeout(() => {
+                    loadStockData();
+                }, 500);
             }
         });
 
