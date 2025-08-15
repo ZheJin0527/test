@@ -147,6 +147,8 @@
             text-align: right;
             padding-right: 8px;
             background: #f0fdf4;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 500;
         }
 
         .excel-input.text-input {
@@ -202,6 +204,16 @@
         .excel-input[readonly]:focus {
             background-color: #f0fdf4 !important;
             border: 1px solid #f0fdf4 !important;
+        }
+
+        .excel-input.currency-input:not(:placeholder-shown) {
+            background: #f0fdf4;
+        }
+
+        /* 数字字体样式 - 与第一个代码保持一致 */
+        .excel-input[type="number"] {
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
         }
 
         /* 操作按钮 */
@@ -579,6 +591,25 @@
         let isLoading = false;
         let nextRowId = 1;
 
+        // 货币字段列表
+        const currencyFields = ['price'];
+
+        // 格式化货币输入值显示
+        function formatCurrencyDisplay(value) {
+            if (!value || value === '') return '';
+            const num = parseFloat(value);
+            if (isNaN(num)) return 0.00;
+            return num.toFixed(2);
+        }
+
+        // 格式化货币输入（实时格式化）
+        function formatCurrencyInput(input) {
+            const value = input.value;
+            if (value && !isNaN(value)) {
+                // 在输入过程中不立即格式化，避免干扰用户输入
+            }
+        }
+
         // 初始化应用
         function initApp() {
             loadStockData();
@@ -745,7 +776,8 @@
                     <div class="input-container">
                         <span class="currency-prefix">RM</span>
                         <input type="number" class="excel-input currency-input" data-field="price" data-row="${rowId}" 
-                            value="${data.price || ''}" min="0" step="0.01" placeholder="0.00" required>
+                            value="${formatCurrencyDisplay(data.price)}" min="0" step="0.01" 
+                            placeholder="0.00" required oninput="formatCurrencyInput(this)">
                     </div>
                 </td>
                 <td>
@@ -951,9 +983,14 @@
                 const field = input.dataset.field;
                 let value = input.value.trim();
                 
-                // 数值字段处理
+                // 价格字段限制小数位数
                 if (field === 'price') {
-                    value = parseFloat(value) || 0;
+                    if (value.includes('.')) {
+                        const parts = value.split('.');
+                        if (parts[1] && parts[1].length > 2) {
+                            e.target.value = parts[0] + '.' + parts[1].substring(0, 2);
+                        }
+                    }
                 }
                 
                 data[field] = value;
@@ -1096,9 +1133,9 @@
                     const num = parseFloat(value);
                     e.target.value = num.toFixed(2);
                 }
-                updateStats(); // 添加这行来更新统计
+                updateStats();
             }
-        });
+        }, true);
 
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
