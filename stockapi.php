@@ -102,10 +102,17 @@ function handleGet() {
                 $sql .= " AND supplier LIKE ?";
                 $params[] = "%$supplier%";
             }
-            
+
             if ($productCode) {
                 $sql .= " AND product_code LIKE ?";
                 $params[] = "%$productCode%";
+            }
+
+            // 添加产品名称搜索支持
+            $productName = $_GET['product_name'] ?? null;
+            if ($productName) {
+                $sql .= " AND product_name LIKE ?";
+                $params[] = "%$productName%";
             }
             
             if ($approvalStatus) {
