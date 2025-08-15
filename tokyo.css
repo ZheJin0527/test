@@ -715,6 +715,15 @@ nav {
     padding: 0 30px;
   }
 
+  .nav-dropdown-menu {
+    top: 84%;
+  }
+
+  .nav-dropdown-item {
+    padding: 8px 14px !important;
+    font-size: 12px;
+  }
+
   .login-btn {
     width: 60px;
     height: 18px;
