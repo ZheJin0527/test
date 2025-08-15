@@ -1,0 +1,604 @@
+<?php
+session_start();
+
+// 检查是否已登录（根据你的登录系统调整）
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit();
+}
+
+// 处理文件上传
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['music_file'])) {
+    $uploadDir = 'audio/audio/';
+    $configFile = 'music_config.json';
+    
+    // 确保上传目录存在
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+    
+    $file = $_FILES['music_file'];
+    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    
+    // 允许的音频文件类型
+    $allowedAudio = ['mp3', 'wav', 'ogg', 'm4a'];
+
+    if (in_array($fileExtension, $allowedAudio)) {
+        // 生成新文件名
+        $newFileName = 'music.' . $fileExtension;
+        $targetPath = $uploadDir . $newFileName;
+        
+        // 备份旧文件
+        if (file_exists($targetPath)) {
+            $backupName = $uploadDir . 'music_backup_' . date('Y-m-d_H-i-s') . '.' . $fileExtension;
+            copy($targetPath, $backupName);
+        }
+        
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            // 更新配置文件
+            $config = [];
+            if (file_exists($configFile)) {
+                $config = json_decode(file_get_contents($configFile), true) ?: [];
+            }
+            
+            $config['background_music'] = [
+                'file' => $targetPath,
+                'type' => 'audio',
+                'format' => $fileExtension,
+                'updated' => date('Y-m-d H:i:s'),
+                'filesize' => filesize($targetPath),
+                'original_name' => $file['name']
+            ];
+            
+            file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+            $success = "音乐文件上传成功！页面将自动刷新...";
+
+            // 添加页面重定向，清除缓存
+            echo "<script>
+                setTimeout(function() {
+                    window.location.href = window.location.href + '?updated=' + Date.now();
+                }, 2000);
+            </script>";
+        } else {
+            $error = "文件上传失败！";
+        }
+    } else {
+        $error = "不支持的文件类型！请上传 MP3、WAV、OGG 或 M4A 格式的音频文件。";
+    }
+}
+
+// 处理音乐删除
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
+    $configFile = 'music_config.json';
+    
+    if (file_exists($configFile)) {
+        $config = json_decode(file_get_contents($configFile), true) ?: [];
+        
+        if (isset($config['background_music']['file']) && file_exists($config['background_music']['file'])) {
+            // 移动到备份文件夹而不是直接删除
+            $backupDir = 'audio/audio/backups/';
+            if (!file_exists($backupDir)) {
+                mkdir($backupDir, 0777, true);
+            }
+            
+            $backupName = $backupDir . 'deleted_' . date('Y-m-d_H-i-s') . '_' . basename($config['background_music']['file']);
+            if (rename($config['background_music']['file'], $backupName)) {
+                unset($config['background_music']);
+                file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                $success = "音乐文件已删除并备份！";
+            } else {
+                $error = "删除文件时出错！";
+            }
+        } else {
+            $error = "文件不存在！";
+        }
+    }
+}
+
+// 读取当前配置
+$config = [];
+if (file_exists('music_config.json')) {
+    $config = json_decode(file_get_contents('music_config.json'), true) ?: [];
+}
+
+// 获取音频文件信息
+function getAudioInfo($filePath) {
+    if (!file_exists($filePath)) {
+        return null;
+    }
+    
+    $info = [];
+    $info['size'] = filesize($filePath);
+    $info['size_formatted'] = formatFileSize($info['size']);
+    $info['modified'] = date('Y-m-d H:i:s', filemtime($filePath));
+    
+    return $info;
+}
+
+function formatFileSize($bytes) {
+    $units = ['B', 'KB', 'MB', 'GB'];
+    $bytes = max($bytes, 0);
+    $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+    $pow = min($pow, count($units) - 1);
+    
+    $bytes /= pow(1024, $pow);
+    
+    return round($bytes, 2) . ' ' . $units[$pow];
+}
+?>
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背景音乐管理 - KUNZZ HOLDINGS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 3px solid #FF5C00;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .breadcrumb {
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .breadcrumb a {
+            color: #FF5C00;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .music-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #FF5C00;
+        }
+        
+        .music-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .music-icon {
+            font-size: 1.2em;
+        }
+        
+        .upload-form {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .file-input {
+            border: 2px dashed #FF5C00;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: #fff9f5;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .file-input:hover {
+            border-color: #e54a00;
+            background: #fff5f0;
+        }
+        
+        .file-input input {
+            display: none;
+        }
+        
+        .file-input-text {
+            color: #FF5C00;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        
+        .current-music {
+            margin-top: 15px;
+            padding: 20px;
+            background: #e8f4f8;
+            border-radius: 8px;
+            border-left: 4px solid #FF5C00;
+        }
+        
+        .current-music strong {
+            color: #155724;
+        }
+        
+        .music-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .info-item {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .info-item .label {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .info-item .value {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .audio-player {
+            margin: 15px 0;
+            width: 100%;
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+        
+        .btn-danger:hover {
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+        
+        .tips {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .tips h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .tips ul {
+            color: #856404;
+            margin-left: 20px;
+        }
+        
+        .tips li {
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .music-section {
+                padding: 20px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .music-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 背景音乐管理</h1>
+            <p>管理网站所有页面的背景音乐</p>
+        </div>
+        
+        <div class="breadcrumb">
+            <a href="dashboard.php">仪表板</a> > 
+            <a href="media_manager.php">媒体管理</a> > 
+            <span>背景音乐</span>
+        </div>
+        
+        <div class="content">
+            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
+            
+            <?php if (isset($success)): ?>
+                <div class="alert alert-success"><?php echo $success; ?></div>
+            <?php endif; ?>
+            
+            <?php if (isset($error)): ?>
+                <div class="alert alert-error"><?php echo $error; ?></div>
+            <?php endif; ?>
+            
+            <div class="music-section">
+                <h2>
+                    <span class="music-icon">🎵</span>
+                    网站背景音乐设置
+                </h2>
+                
+                <form method="post" enctype="multipart/form-data" class="upload-form">
+                    <div class="form-group">
+                        <label>上传音乐文件</label>
+                        <div class="file-input" onclick="document.getElementById('music-file').click()">
+                            <input type="file" id="music-file" name="music_file" accept="audio/*">
+                            <div class="file-input-text">
+                                🎵 点击选择音乐文件或拖拽到此处<br>
+                                <small>支持 MP3, WAV, OGG, M4A 格式 | 建议文件大小不超过 10MB</small>
+                            </div>
+                        </div>
+                        
+                        <?php if (isset($config['background_music'])): ?>
+                            <div class="current-music">
+                                <strong>当前音乐文件:</strong> <?php echo $config['background_music']['original_name'] ?? basename($config['background_music']['file']); ?>
+                                
+                                <?php 
+                                $audioInfo = getAudioInfo($config['background_music']['file']);
+                                if ($audioInfo): 
+                                ?>
+                                <div class="music-info">
+                                    <div class="info-item">
+                                        <div class="label">格式</div>
+                                        <div class="value"><?php echo strtoupper($config['background_music']['format']); ?></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="label">文件大小</div>
+                                        <div class="value"><?php echo $audioInfo['size_formatted']; ?></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="label">上传时间</div>
+                                        <div class="value"><?php echo $config['background_music']['updated']; ?></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="label">最后修改</div>
+                                        <div class="value"><?php echo $audioInfo['modified']; ?></div>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <div class="audio-player">
+                                    <audio controls preload="metadata">
+                                        <source src="<?php echo $config['background_music']['file']; ?>?v=<?php echo time(); ?>" type="audio/<?php echo $config['background_music']['format']; ?>">
+                                        您的浏览器不支持音频播放器。
+                                    </audio>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <div class="current-music">
+                                <strong>状态:</strong> 暂未上传背景音乐文件
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn">
+                            📁 上传新音乐
+                        </button>
+                        
+                        <?php if (isset($config['background_music'])): ?>
+                        <form method="post" style="display: inline;" onsubmit="return confirm('确定要删除当前音乐文件吗？删除后将移动到备份文件夹。');">
+                            <input type="hidden" name="action" value="delete">
+                            <button type="submit" class="btn btn-danger">
+                                🗑️ 删除当前音乐
+                            </button>
+                        </form>
+                        <?php endif; ?>
+                    </div>
+                </form>
+                
+                <div class="tips">
+                    <h4>💡 使用提示</h4>
+                    <ul>
+                        <li>上传新音乐会自动替换当前音乐，旧文件会自动备份</li>
+                        <li>支持的音频格式：MP3（推荐）、WAV、OGG、M4A</li>
+                        <li>建议文件大小控制在 5-10MB 以内，以确保页面加载速度</li>
+                        <li>音乐会在所有页面（首页、关于我们、加入我们）播放</li>
+                        <li>用户可以通过页面交互来控制音乐播放</li>
+                        <li>删除的文件会保存在备份文件夹中，不会完全丢失</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 文件拖拽功能
+        const fileInput = document.querySelector('.file-input');
+        const fileInputElement = document.getElementById('music-file');
+        
+        fileInput.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileInput.style.borderColor = '#e54a00';
+            fileInput.style.background = '#fff5f0';
+        });
+        
+        fileInput.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            fileInput.style.borderColor = '#FF5C00';
+            fileInput.style.background = '#fff9f5';
+        });
+        
+        fileInput.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            
+            if (files.length > 0) {
+                const file = files[0];
+                
+                // 验证文件类型
+                const allowedTypes = ['audio/mp3', 'audio/wav', 'audio/ogg', 'audio/m4a', 'audio/mpeg'];
+                if (!allowedTypes.includes(file.type) && !file.name.match(/\.(mp3|wav|ogg|m4a)$/i)) {
+                    alert('请选择有效的音频文件（MP3, WAV, OGG, M4A）');
+                    return;
+                }
+                
+                // 验证文件大小（10MB）
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('文件大小不能超过 10MB');
+                    return;
+                }
+                
+                fileInputElement.files = files;
+                updateFileInputText(file.name);
+            }
+            
+            fileInput.style.borderColor = '#FF5C00';
+            fileInput.style.background = '#fff9f5';
+        });
+        
+        // 文件选择功能
+        fileInputElement.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                const file = this.files[0];
+                
+                // 验证文件大小
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('文件大小不能超过 10MB');
+                    this.value = '';
+                    return;
+                }
+                
+                updateFileInputText(file.name);
+            }
+        });
+        
+        function updateFileInputText(fileName) {
+            const textDiv = document.querySelector('.file-input-text');
+            textDiv.innerHTML = `🎵 已选择: ${fileName}<br><small>点击"上传新音乐"按钮完成上传</small>`;
+        }
+        
+        // 表单提交验证
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (!fileInputElement.files.length) {
+                e.preventDefault();
+                alert('请先选择要上传的音乐文件');
+            }
+        });
+    </script>
+</body>
+</html>

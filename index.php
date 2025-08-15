@@ -2,6 +2,11 @@
 session_start();
 include_once 'media_config.php';
 
+// 禁用页面缓存
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 // 如果已登录或记住我，跳转到 dashboard
 if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE['username']))) {
     header("Location: dashboard.php");
@@ -25,9 +30,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <audio id="bgMusic" loop>
-    <source src="audio/audio/music.mp3" type="audio/mpeg" />
-  </audio>
+  <?php echo getBgMusicHtml(); ?>
   <header class="navbar">
   <!-- 左侧 logo 和公司名 -->
   <div class="logo-section">
@@ -582,49 +585,94 @@ window.addEventListener('load', () => {
   }
 </script>
 <script>
-    const bgMusic = document.getElementById('bgMusic');
-
-    // 设置固定音量（例如 0.3 表示 30%）
-    bgMusic.volume = 0.3;
-
-    // 从 localStorage 恢复播放进度和状态
-    const savedTime = localStorage.getItem('musicCurrentTime');
-    const savedPlaying = localStorage.getItem('musicPlaying');
-
-    if (savedTime) {
-      bgMusic.currentTime = parseFloat(savedTime);
-    }
-
-    function tryPlay() {
-      bgMusic.play().catch(() => {});
-      localStorage.setItem('musicPlaying', 'true');
-    }
-
-    // 如果之前在播放，立即继续播放
-    if (savedPlaying === 'true') {
-      // 稍微延迟以确保音频加载完成
-      setTimeout(tryPlay, 50);
-    }
-
-    // 用户交互时开始播放
-    document.addEventListener('click', tryPlay, { once: true });
-    document.addEventListener('keydown', tryPlay, { once: true });
-    document.addEventListener('touchstart', tryPlay, { once: true });
-
-    // 定期保存播放进度
-    setInterval(() => {
-      if (!bgMusic.paused) {
-        localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
-        localStorage.setItem('musicPlaying', 'true');
+    document.addEventListener('DOMContentLoaded', function() {
+      const bgMusic = document.getElementById('bgMusic');
+      
+      if (!bgMusic) {
+        console.log('背景音乐元素未找到');
+        return;
       }
-    }, 500);
 
-    // 页面卸载前保存状态
-    window.addEventListener('beforeunload', () => {
-      localStorage.setItem('musicCurrentTime', bgMusic.currentTime);
-      localStorage.setItem('musicPlaying', bgMusic.paused ? 'false' : 'true');
+      // 设置固定音量（例如 0.3 表示 30%）
+      bgMusic.volume = 0.3;
+
+      // 从 localStorage 恢复播放进度和状态
+      const savedTime = localStorage.getItem('musicCurrentTime');
+      const savedPlaying = localStorage.getItem('musicPlaying');
+      const currentPage = window.location.pathname;
+
+      if (savedTime) {
+        bgMusic.currentTime = parseFloat(savedTime);
+      }
+
+      function tryPlay() {
+        bgMusic.play().then(() => {
+          localStorage.setItem('musicPlaying', 'true');
+          localStorage.setItem('musicPage', currentPage);
+        }).catch(error => {
+          console.log('音乐播放失败:', error);
+        });
+      }
+
+      // 如果之前在播放，立即继续播放
+      if (savedPlaying === 'true') {
+        // 稍微延迟以确保音频加载完成
+        setTimeout(tryPlay, 100);
+      }
+
+      // 用户交互时开始播放
+      const startEvents = ['click', 'keydown', 'touchstart'];
+      const startPlay = () => {
+        tryPlay();
+        startEvents.forEach(event => {
+          document.removeEventListener(event, startPlay);
+        });
+      };
+
+      startEvents.forEach(event => {
+        document.addEventListener(event, startPlay, { once: true });
+      });
+
+      // 定期保存播放进度
+      setInterval(() => {
+        if (!bgMusic.paused && bgMusic.currentTime > 0) {
+          localStorage.setItem('musicCurrentTime', bgMusic.currentTime.toString());
+          localStorage.setItem('musicPlaying', 'true');
+          localStorage.setItem('musicPage', currentPage);
+        }
+      }, 1000);
+
+      // 页面卸载前保存状态
+      window.addEventListener('beforeunload', () => {
+        if (bgMusic) {
+          localStorage.setItem('musicCurrentTime', bgMusic.currentTime.toString());
+          localStorage.setItem('musicPlaying', bgMusic.paused ? 'false' : 'true');
+          localStorage.setItem('musicPage', currentPage);
+        }
+      });
+
+      // 页面可见性变化时处理音乐
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          // 页面变为可见时，检查是否应该继续播放
+          const shouldPlay = localStorage.getItem('musicPlaying') === 'true';
+          if (shouldPlay && bgMusic.paused) {
+            tryPlay();
+          }
+        }
+      });
+
+      // 音乐加载错误处理
+      bgMusic.addEventListener('error', (e) => {
+        console.error('音乐加载失败:', e);
+      });
+
+      // 音乐加载成功处理
+      bgMusic.addEventListener('loadeddata', () => {
+        console.log('音乐加载完成');
+      });
     });
-</script>
+    </script>
 <script>
     // 添加这个函数到你现有的JavaScript代码中
     function goToSlide(slideIndex) {

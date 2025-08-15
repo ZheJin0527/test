@@ -675,4 +675,55 @@ function getJobsHtml() {
     
     return $html;
 }
+
+/**
+ * 获取背景音乐配置
+ * @return array 音乐信息
+ */
+function getBgMusicConfig() {
+    $configFile = 'music_config.json';
+    $defaultConfig = [
+        'file' => 'audio/audio/music.mp3',
+        'type' => 'audio',
+        'format' => 'mp3'
+    ];
+    
+    if (file_exists($configFile)) {
+        $config = json_decode(file_get_contents($configFile), true);
+        if ($config && isset($config['background_music']) && file_exists($config['background_music']['file'])) {
+            return $config['background_music'];
+        }
+    }
+    
+    return $defaultConfig;
+}
+
+/**
+ * 获取音乐HTML标签
+ * @param array $attributes 额外的HTML属性
+ * @return string HTML标签
+ */
+function getBgMusicHtml($attributes = []) {
+    $music = getBgMusicConfig();
+    
+    // 添加时间戳防止缓存
+    $timestamp = file_exists($music['file']) ? '?v=' . filemtime($music['file']) : '?v=' . time();
+    $fileUrl = $music['file'] . $timestamp;
+    
+    $defaultAttrs = [
+        'id' => 'bgMusic',
+        'loop' => '',
+        'preload' => 'auto'
+    ];
+    $attrs = array_merge($defaultAttrs, $attributes);
+    
+    $attrString = '';
+    foreach ($attrs as $key => $value) {
+        $attrString .= $value === '' ? " {$key}" : " {$key}=\"{$value}\"";
+    }
+    
+    $mimeType = 'audio/' . ($music['format'] === 'mp3' ? 'mpeg' : $music['format']);
+    
+    return "<audio{$attrString}><source src=\"{$fileUrl}\" type=\"{$mimeType}\" /></audio>";
+}
 ?>
