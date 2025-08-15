@@ -1096,8 +1096,9 @@
                     const num = parseFloat(value);
                     e.target.value = num.toFixed(2);
                 }
+                updateStats(); // 添加这行来更新统计
             }
-        }, true);
+        });
 
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
