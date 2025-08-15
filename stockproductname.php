@@ -157,11 +157,6 @@
         .excel-input.datetime-input {
             padding: 8px;
             text-align: center;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-            font-size: 15px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            color: #374151;
         }
 
         .excel-input:focus {
