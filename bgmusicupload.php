@@ -28,10 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['music_file'])) {
         $newFileName = 'music.' . $fileExtension;
         $targetPath = $uploadDir . $newFileName;
         
-        // 备份旧文件
+        // 直接删除旧文件（如果存在）
         if (file_exists($targetPath)) {
-            $backupName = $uploadDir . 'music_backup_' . date('Y-m-d_H-i-s') . '.' . $fileExtension;
-            copy($targetPath, $backupName);
+            unlink($targetPath);
         }
         
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
@@ -75,17 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $config = json_decode(file_get_contents($configFile), true) ?: [];
         
         if (isset($config['background_music']['file']) && file_exists($config['background_music']['file'])) {
-            // 移动到备份文件夹而不是直接删除
-            $backupDir = 'audio/audio/backups/';
-            if (!file_exists($backupDir)) {
-                mkdir($backupDir, 0777, true);
-            }
-            
-            $backupName = $backupDir . 'deleted_' . date('Y-m-d_H-i-s') . '_' . basename($config['background_music']['file']);
-            if (rename($config['background_music']['file'], $backupName)) {
+            // 直接删除文件
+            if (unlink($config['background_music']['file'])) {
                 unset($config['background_music']);
                 file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-                $success = "音乐文件已删除并备份！";
+                $success = "音乐文件已删除！";
             } else {
                 $error = "删除文件时出错！";
             }
@@ -510,18 +503,6 @@ function formatFileSize($bytes) {
                         <?php endif; ?>
                     </div>
                 </form>
-                
-                <div class="tips">
-                    <h4>💡 使用提示</h4>
-                    <ul>
-                        <li>上传新音乐会自动替换当前音乐，旧文件会自动备份</li>
-                        <li>支持的音频格式：MP3（推荐）、WAV、OGG、M4A</li>
-                        <li>建议文件大小控制在 5-10MB 以内，以确保页面加载速度</li>
-                        <li>音乐会在所有页面（首页、关于我们、加入我们）播放</li>
-                        <li>用户可以通过页面交互来控制音乐播放</li>
-                        <li>删除的文件会保存在备份文件夹中，不会完全丢失</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
