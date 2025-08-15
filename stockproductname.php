@@ -560,7 +560,7 @@
 
     <script>
         // API 配置
-        const API_BASE_URL = './stockapi.php';
+        const API_BASE_URL = 'stockapi.php';  // 如果在同一目录
         
         // 应用状态
         let stockData = [];
@@ -964,7 +964,12 @@
             document.getElementById('total-records').textContent = totalRecords;
             document.getElementById('approved-count').textContent = approvedCount;
             document.getElementById('pending-count').textContent = pendingCount;
-            document.getElementById('total-value').textContent = totalValue.toLocaleString();
+
+            // 检查是否有总价值元素
+            const totalValueElement = document.getElementById('total-value');
+            if (totalValueElement) {
+                totalValueElement.textContent = totalValue.toLocaleString();
+            }
         }
 
         // 清空过滤器
