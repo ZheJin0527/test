@@ -83,6 +83,14 @@ function handleGet() {
             $productCode = $_GET['product_code'] ?? null;
             $approvalStatus = $_GET['approval_status'] ?? null;
 
+            // 如果没有提供日期范围，默认使用当月
+            if (!$startDate && !$endDate && !$searchDate) {
+                $currentYear = date('Y');
+                $currentMonth = date('m');
+                $startDate = "$currentYear-$currentMonth-01";
+                $endDate = date('Y-m-t'); // 当月最后一天
+            }
+
             $sql = "SELECT * FROM stock_data WHERE 1=1";
             $params = [];
             
@@ -111,6 +119,12 @@ function handleGet() {
                 $sql .= " AND product_name LIKE ?";
                 $params[] = "%$productName%";
             }
+
+            // 确保产品代码搜索也是模糊匹配
+            if ($productCode) {
+                $sql .= " AND product_code LIKE ?";
+                $params[] = "%$productCode%";
+            }
             
             if ($approvalStatus) {
                 if ($approvalStatus === 'approved') {
@@ -124,11 +138,7 @@ function handleGet() {
             
             $stmt = $pdo->prepare($sql);
             try {
-                // 添加调试信息
-                error_log("执行SQL: " . $sql);
-                error_log("参数: " . json_encode($params));
-                
-                $stmt->execute($params);
+            $stmt->execute($params);
             $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             // 为每条记录添加批准状态
