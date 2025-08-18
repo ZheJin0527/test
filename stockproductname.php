@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// 检查用户是否登录
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php'); // 重定向到登录页面
+    exit;
+}
+
+// 获取用户权限
+$canApprove = false;
+if (isset($_SESSION['account_type'])) {
+    $allowedTypes = ['support', 'IT', 'design']; // 对应SUPPORT88, IT4567, DESIGN77
+    $canApprove = in_array($_SESSION['account_type'], $allowedTypes);
+}
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -521,11 +537,10 @@
             flex-direction: column;
         }
 
-        /* 无权限状态 */
         .no-permission {
-            color: #6b7280;
-            font-size: 12px;
+            color: #9ca3af;
             font-style: italic;
+            text-align: center;
         }
 
         .approve-btn:disabled {
@@ -639,13 +654,13 @@
 
     <script>
         // API 配置
+        const USER_CAN_APPROVE = <?php echo json_encode($canApprove); ?>;
         const API_BASE_URL = 'stockapi.php';  // 如果在同一目录
         
         // 应用状态
         let stockData = [];
         let isLoading = false;
         let nextRowId = 1;
-        let hasApprovalPermission = false;
 
         // 输入框光标定位处理
         let inputFirstClickMap = new Map(); // 记录每个输入框是否已经被点击过
@@ -693,27 +708,8 @@
         }
 
         // 初始化应用
-        async function initApp() {
-            await checkUserPermission();
+        function initApp() {
             loadStockData();
-        }
-
-        // 检查用户权限
-        async function checkUserPermission() {
-            try {
-                const response = await fetch(`${API_BASE_URL}?action=check_permission`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    hasApprovalPermission = result.data.has_approval_permission;
-                } else {
-                    hasApprovalPermission = false;
-                    console.log('权限检查失败:', result.message);
-                }
-            } catch (error) {
-                console.error('权限检查错误:', error);
-                hasApprovalPermission = false;
-            }
         }
 
         // 返回上一页
@@ -888,11 +884,11 @@
                 <td style="padding: 8px;">
                     ${data.approver ? 
                         `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
-                        (hasApprovalPermission && !isNewRow ? 
+                        (USER_CAN_APPROVE && !isNewRow ? 
                             `<button class="approve-btn" onclick="approveRecord('${rowId}')">
                                 <i class="fas fa-check"></i>
                                 批准
-                            </button>` :
+                            </button>` : 
                             `<span style="color: #92400e; font-weight: 600;">待批准</span>`
                         )
                     }
@@ -1318,8 +1314,8 @@
     <script>
         // 批准记录
         async function approveRecord(rowId) {
-            if (!hasApprovalPermission) {
-                showAlert('您没有批准权限', 'error');
+            if (!USER_CAN_APPROVE) {
+                showAlert('您没有权限执行此操作', 'error');
                 return;
             }
 

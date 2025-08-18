@@ -51,16 +51,6 @@ function sendResponse($success, $message = "", $data = null) {
 
 // 路由处理
 switch ($method) {
-    case 'check_permission':
-        // 检查当前用户是否有批准权限
-        $userId = getCurrentUserId();
-        if (!$userId) {
-            sendResponse(false, "用户未登录");
-        }
-        
-        $hasPermission = hasApprovalPermission($userId);
-        sendResponse(true, "权限检查完成", ["has_approval_permission" => $hasPermission]);
-        break;
     case 'GET':
         // 检查是否是批准请求
         if (($_GET['action'] ?? '') === 'approve') {
@@ -85,42 +75,6 @@ switch ($method) {
         break;
     default:
         sendResponse(false, "不支持的请求方法");
-}
-
-// 检查用户是否有批准权限
-function hasApprovalPermission($userId) {
-    global $pdo;
-    
-    try {
-        // 首先获取用户的account_type
-        $stmt = $pdo->prepare("SELECT account_type FROM users WHERE id = ?");
-        $stmt->execute([$userId]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if (!$user) {
-            return false;
-        }
-        
-        // 然后检查该account_type是否对应允许的代码
-        $stmt = $pdo->prepare("
-            SELECT code FROM application_codes 
-            WHERE account_type = ? AND code IN ('SUPPORT88', 'IT4567', 'DESIGN77')
-        ");
-        $stmt->execute([$user['account_type']]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        return $result !== false;
-        
-    } catch (PDOException $e) {
-        error_log("权限检查错误: " . $e->getMessage());
-        return false;
-    }
-}
-
-// 获取当前用户ID（需要从session或其他认证方式获取）
-function getCurrentUserId() {
-    session_start();
-    return $_SESSION['user_id'] ?? null;
 }
 
 // 处理 GET 请求 - 获取数据
@@ -347,35 +301,28 @@ function handlePost() {
 function handleApprove() {
     global $pdo, $data;
     
+    // 检查用户权限
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        sendResponse(false, "用户未登录");
+    }
+    
+    $allowedTypes = ['support', 'IT', 'design'];
+    if (!isset($_SESSION['account_type']) || !in_array($_SESSION['account_type'], $allowedTypes)) {
+        sendResponse(false, "您没有权限执行此操作");
+    }
+    
     if (!$data || !isset($data['id'])) {
         sendResponse(false, "缺少记录ID");
     }
     
-    // 检查用户权限
-    $userId = getCurrentUserId();
-    if (!$userId) {
-        sendResponse(false, "用户未登录");
-    }
-    
-    if (!hasApprovalPermission($userId)) {
-        sendResponse(false, "您没有批准权限");
-    }
-    
     $id = $data['id'];
+    $approver = $_SESSION['username'] ?? 'System'; // 使用登录用户的用户名
     
     try {
-        // 获取用户信息用作批准人
-        $stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
-        $stmt->execute([$userId]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if (!$user) {
-            sendResponse(false, "用户信息获取失败");
-        }
-        
         $sql = "UPDATE stock_data SET approver = ? WHERE id = ?";
         $stmt = $pdo->prepare($sql);
-        $result = $stmt->execute([$user['username'], $id]);
+        $result = $stmt->execute([$approver, $id]);
         
         if ($stmt->rowCount() > 0) {
             // 获取更新后的记录
