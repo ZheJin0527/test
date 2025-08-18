@@ -370,7 +370,7 @@
             width: 100%;
             height: 40px;
             border: none;
-            background: #e5faeb;
+            background: #f0fdf4;
             text-align: center;
             font-size: 14px;
             padding: 8px 4px;
@@ -397,7 +397,7 @@
         }
 
         .excel-input.currency-input:not(:placeholder-shown) {
-            background: #e5faeb;
+            background: #f0fdf4;
         }
 
         /* 计算列样式 */
@@ -667,6 +667,27 @@
             justify-content: center;
             gap: 4px;
             padding: 4px;
+        }
+
+        /* 编辑行样式 */
+        .excel-table tr.editing-row {
+            background-color: #fff3cd !important;
+        }
+
+        .excel-table tr.editing-row td {
+            background-color: #fff3cd !important;
+        }
+
+        .excel-table tr.editing-row .date-cell {
+            background-color: #fff3cd !important;
+        }
+
+        .excel-table tr.editing-row .calculated-cell {
+            background-color: #fff3cd !important;
+        }
+
+        .excel-table tr.editing-row .weekend {
+            background-color: #fff3cd !important;
         }
     </style>
 </head>
@@ -1068,6 +1089,8 @@ row.innerHTML = `
         // 设置行的只读状态
         function setRowReadonly(day, readonly) {
             const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
+            const row = document.querySelector(`input[data-day="${day}"]`).closest('tr');
+            
             inputs.forEach(input => {
                 if (readonly) {
                     input.classList.add('readonly');
@@ -1079,6 +1102,13 @@ row.innerHTML = `
                     input.removeAttribute('disabled');
                 }
             });
+            
+            // 切换行的编辑样式
+            if (readonly) {
+                row.classList.remove('editing-row');
+            } else {
+                row.classList.add('editing-row');
+            }
         }
 
         // 更新计算字段
