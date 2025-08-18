@@ -978,7 +978,6 @@ if (isset($_SESSION['account_type'])) {
                 product_code: '',
                 product_name: '',
                 supplier: '',
-                price: '',
                 applicant: '',
                 approver: ''
             };
