@@ -480,6 +480,46 @@
             border-color: #583e04;
             box-shadow: 0 0 0 2px rgba(88, 62, 4, 0.1);
         }
+
+        /* 批准按钮样式 */
+        .approve-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 0 auto;
+            min-width: 80px;
+        }
+
+        .approve-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .approve-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .approved-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
@@ -571,7 +611,7 @@
                         <th style="min-width: 150px;">供应商</th>
                         <th style="min-width: 100px;">价格</th>
                         <th style="min-width: 120px;">申请人</th>
-                        <th style="min-width: 120px;">批准人</th>
+                        <th style="min-width: 120px;">批准状态</th>
                         <th style="min-width: 80px;">状态</th>
                         <th style="min-width: 60px;">操作</th>
                     </tr>
@@ -811,9 +851,17 @@
                     <input type="text" class="excel-input text-input" data-field="applicant" data-row="${rowId}" 
                         value="${data.applicant || ''}" placeholder="申请人" required>
                 </td>
-                <td>
-                    <input type="text" class="excel-input text-input" data-field="approver" data-row="${rowId}" 
-                        value="${data.approver || ''}" placeholder="批准人">
+                <td style="padding: 8px;">
+                    ${data.approver ? 
+                        `<div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+                            <span style="color: #065f46; font-weight: 600;">已批准</span>
+                            <small style="color: #6b7280;">${data.approver}</small>
+                        </div>` : 
+                        `<button class="approve-btn" onclick="approveRecord('${rowId}')" ${isNewRow ? 'disabled' : ''}>
+                            <i class="fas fa-check"></i>
+                            批准
+                        </button>`
+                    }
                 </td>
                 <td style="padding: 8px;">
                     ${data.approver ? 
@@ -1132,21 +1180,6 @@
                     }
                 }
                 
-                // 批准人字段变化时更新状态
-                if (field === 'approver') {
-                    const statusCell = row.querySelector('td:nth-child(9)');
-                    if (statusCell) {
-                        if (value.trim()) {
-                            statusCell.innerHTML = '<span style="color: #065f46; font-weight: 600;">已批准</span>';
-                            row.classList.remove('status-pending');
-                            row.classList.add('status-approved');
-                        } else {
-                            statusCell.innerHTML = '<span style="color: #92400e; font-weight: 600;">待批准</span>';
-                            row.classList.remove('status-approved');
-                            row.classList.add('status-pending');
-                        }
-                    }
-                }
                 
                 updateStats();
             }
@@ -1250,5 +1283,79 @@
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
+    <script>
+        // 批准记录
+        async function approveRecord(rowId) {
+            if (!confirm('确定要批准这条记录吗？')) {
+                return;
+            }
+            
+            const approveBtn = document.querySelector(`button[onclick="approveRecord('${rowId}')"]`);
+            const originalText = approveBtn.innerHTML;
+            approveBtn.innerHTML = '<div class="loading"></div> 批准中...';
+            approveBtn.disabled = true;
+            
+            try {
+                // 获取当前用户名（可以从其他地方获取，这里用固定值或提示输入）
+                const approver = prompt('请输入您的姓名：') || 'Admin';
+                
+                if (!approver.trim()) {
+                    showAlert('请输入批准人姓名', 'error');
+                    return;
+                }
+                
+                const response = await fetch(`${API_BASE_URL}?action=approve`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: rowId,
+                        approver: approver.trim()
+                    })
+                });
+                
+                const responseText = await response.text();
+                console.log('批准响应:', responseText);
+                const result = JSON.parse(responseText);
+                
+                if (result.success) {
+                    // 更新界面
+                    const row = approveBtn.closest('tr');
+                    const approverCell = approveBtn.closest('td');
+                    
+                    // 更新批准状态列
+                    approverCell.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+                            <span style="color: #065f46; font-weight: 600;">已批准</span>
+                            <small style="color: #6b7280;">${approver}</small>
+                        </div>
+                    `;
+                    
+                    // 更新状态列
+                    const statusCell = row.querySelector('td:nth-child(9)');
+                    if (statusCell) {
+                        statusCell.innerHTML = '<span style="color: #065f46; font-weight: 600;">已批准</span>';
+                    }
+                    
+                    // 更新行样式
+                    row.classList.remove('status-pending');
+                    row.classList.add('status-approved');
+                    
+                    updateStats();
+                    showAlert('记录已批准', 'success');
+                    
+                } else {
+                    throw new Error(result.message || '批准失败');
+                }
+                
+            } catch (error) {
+                console.error('批准失败:', error);
+                showAlert('批准失败: ' + error.message, 'error');
+                approveBtn.innerHTML = originalText;
+                approveBtn.disabled = false;
+            }
+        }
+</script>
 </body>
 </html>

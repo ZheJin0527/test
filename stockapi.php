@@ -52,13 +52,23 @@ function sendResponse($success, $message = "", $data = null) {
 // 路由处理
 switch ($method) {
     case 'GET':
-        handleGet();
+        // 检查是否是批准请求
+        if (($_GET['action'] ?? '') === 'approve') {
+            handleApprove();
+        } else {
+            handleGet();
+        }
         break;
     case 'POST':
         handlePost();
         break;
     case 'PUT':
-        handlePut();
+        // 检查是否是批准请求
+        if (($_GET['action'] ?? '') === 'approve') {
+            handleApprove();
+        } else {
+            handlePut();
+        }
         break;
     case 'DELETE':
         handleDelete();
@@ -73,6 +83,13 @@ function handleGet() {
     
     $action = $_GET['action'] ?? 'list';
     
+    // 添加这个判断
+    if ($action === 'approve') {
+        // 这是PUT请求，重定向到批准处理
+        handleApprove();
+        return;
+    }
+
     switch ($action) {
         case 'list':
             // 获取所有库存数据
@@ -278,6 +295,43 @@ function handlePost() {
         
     } catch (PDOException $e) {
         sendResponse(false, "添加记录失败：" . $e->getMessage());
+    }
+}
+
+// 处理批准请求
+function handleApprove() {
+    global $pdo, $data;
+    
+    if (!$data || !isset($data['id']) || !isset($data['approver'])) {
+        sendResponse(false, "缺少必要参数");
+    }
+    
+    $id = $data['id'];
+    $approver = trim($data['approver']);
+    
+    if (empty($approver)) {
+        sendResponse(false, "批准人姓名不能为空");
+    }
+    
+    try {
+        $sql = "UPDATE stock_data SET approver = ? WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        $result = $stmt->execute([$approver, $id]);
+        
+        if ($stmt->rowCount() > 0) {
+            // 获取更新后的记录
+            $stmt = $pdo->prepare("SELECT * FROM stock_data WHERE id = ?");
+            $stmt->execute([$id]);
+            $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+            $updatedRecord['approval_status'] = 'approved';
+            
+            sendResponse(true, "记录批准成功", $updatedRecord);
+        } else {
+            sendResponse(false, "记录不存在");
+        }
+        
+    } catch (PDOException $e) {
+        sendResponse(false, "批准失败：" . $e->getMessage());
     }
 }
 
