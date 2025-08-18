@@ -82,14 +82,13 @@ function handleGet() {
     global $pdo;
     
     $action = $_GET['action'] ?? 'list';
-    
-    // 添加这个判断
+
     if ($action === 'approve') {
         // 这是PUT请求，重定向到批准处理
         handleApprove();
         return;
     }
-
+    
     switch ($action) {
         case 'list':
             // 获取所有库存数据
@@ -302,21 +301,17 @@ function handlePost() {
 function handleApprove() {
     global $pdo, $data;
     
-    if (!$data || !isset($data['id']) || !isset($data['approver'])) {
-        sendResponse(false, "缺少必要参数");
+    if (!$data || !isset($data['id'])) {
+        sendResponse(false, "缺少记录ID");
     }
     
     $id = $data['id'];
-    $approver = trim($data['approver']);
-    
-    if (empty($approver)) {
-        sendResponse(false, "批准人姓名不能为空");
-    }
     
     try {
-        $sql = "UPDATE stock_data SET approver = ? WHERE id = ?";
+        // 直接设置批准状态，不需要批准人姓名
+        $sql = "UPDATE stock_data SET approver = 'System' WHERE id = ?";
         $stmt = $pdo->prepare($sql);
-        $result = $stmt->execute([$approver, $id]);
+        $result = $stmt->execute([$id]);
         
         if ($stmt->rowCount() > 0) {
             // 获取更新后的记录

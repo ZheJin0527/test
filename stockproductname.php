@@ -853,10 +853,7 @@
                 </td>
                 <td style="padding: 8px;">
                     ${data.approver ? 
-                        `<div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
-                            <span style="color: #065f46; font-weight: 600;">已批准</span>
-                            <small style="color: #6b7280;">${data.approver}</small>
-                        </div>` : 
+                        `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
                         `<button class="approve-btn" onclick="approveRecord('${rowId}')" ${isNewRow ? 'disabled' : ''}>
                             <i class="fas fa-check"></i>
                             批准
@@ -1179,8 +1176,6 @@
                         }
                     }
                 }
-                
-                
                 updateStats();
             }
         });
@@ -1296,22 +1291,13 @@
             approveBtn.disabled = true;
             
             try {
-                // 获取当前用户名（可以从其他地方获取，这里用固定值或提示输入）
-                const approver = prompt('请输入您的姓名：') || 'Admin';
-                
-                if (!approver.trim()) {
-                    showAlert('请输入批准人姓名', 'error');
-                    return;
-                }
-                
                 const response = await fetch(`${API_BASE_URL}?action=approve`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        id: rowId,
-                        approver: approver.trim()
+                        id: rowId
                     })
                 });
                 
@@ -1326,10 +1312,7 @@
                     
                     // 更新批准状态列
                     approverCell.innerHTML = `
-                        <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
-                            <span style="color: #065f46; font-weight: 600;">已批准</span>
-                            <small style="color: #6b7280;">${approver}</small>
-                        </div>
+                        <span style="color: #065f46; font-weight: 600;">已批准</span>
                     `;
                     
                     // 更新状态列
@@ -1356,6 +1339,6 @@
                 approveBtn.disabled = false;
             }
         }
-</script>
+    </script>
 </body>
 </html>
