@@ -1420,6 +1420,8 @@ if (isset($_SESSION['account_type'])) {
                 editBtn.classList.add('save-mode');
                 editBtn.innerHTML = '<i class="fas fa-save"></i>';
                 editBtn.title = '保存记录';
+                editBtn.disabled = false; // 确保按钮可点击
+                editBtn.style.pointerEvents = 'auto'; // 确保可以接收点击事件
             }
         }
 
@@ -1456,6 +1458,13 @@ if (isset($_SESSION['account_type'])) {
             } else {
                 row.classList.add('editing-row');
             }
+
+            // 确保编辑按钮在编辑模式下可点击
+            const editBtn = document.getElementById(`edit-btn-${rowId}`);
+            if (editBtn && !readonly) {
+                editBtn.disabled = false;
+                editBtn.style.pointerEvents = 'auto';
+            }
         }
 
         // 保存单行数据
@@ -1479,10 +1488,19 @@ if (isset($_SESSION['account_type'])) {
                 const rowData = extractRowData(row);
                 console.log('提取的行数据:', rowData);
                 
-                // 验证必填字段
-                if (!rowData.date || !rowData.time || !rowData.product_code || 
-                    !rowData.product_name || !rowData.supplier || !rowData.applicant) {
-                    throw new Error('请填写所有必填字段');
+                // 验证必填字段 - 对于现有记录，允许某些字段为空
+                const isNewRecord = rowId.toString().startsWith('new-');
+                if (isNewRecord) {
+                    // 新记录需要所有字段
+                    if (!rowData.date || !rowData.time || !rowData.product_code || 
+                        !rowData.product_name || !rowData.supplier || !rowData.applicant) {
+                        throw new Error('请填写所有必填字段');
+                    }
+                } else {
+                    // 现有记录至少需要日期和时间
+                    if (!rowData.date || !rowData.time) {
+                        throw new Error('日期和时间是必填字段');
+                    }
                 }
                 
                 let result;
