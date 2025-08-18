@@ -260,10 +260,10 @@ function handlePost() {
     try {
         $sql = "INSERT INTO stock_data 
                 (date, time, product_code, product_name, supplier, applicant, approver) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+
         $stmt = $pdo->prepare($sql);
-        
+
         $stmt->execute([
             $data['date'],
             $data['time'],
@@ -361,9 +361,9 @@ function handlePut() {
                 SET date = ?, time = ?, product_code = ?, product_name = ?, supplier = ?, 
                     applicant = ?, approver = ?
                 WHERE id = ?";
-        
+
         $stmt = $pdo->prepare($sql);
-        
+
         $result = $stmt->execute([
             $data['date'],
             $data['time'],
