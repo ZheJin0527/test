@@ -307,7 +307,7 @@ function handleApprove() {
         sendResponse(false, "用户未登录");
     }
     
-    $allowedTypes = ['support', 'IT', 'design'];
+    $allowedTypes = ['support', 'IT'];
     if (!isset($_SESSION['account_type']) || !in_array($_SESSION['account_type'], $allowedTypes)) {
         sendResponse(false, "您没有权限执行此操作");
     }
