@@ -755,6 +755,12 @@
                 <span>当前: <span class="stat-value">J1</span></span>
             </div>
         </div>
+
+        <!-- 在 month-selector div 后面添加 -->
+<div class="alert alert-info" style="margin-bottom: 16px;">
+    <i class="fas fa-info-circle"></i>
+    <span>提示：可以直接从Excel复制整行数据，然后在任意输入框中按 Ctrl+V 粘贴到对应日期行</span>
+</div>
         
         <!-- Excel表格 -->
         <div class="excel-container">
@@ -1066,12 +1072,25 @@ row.innerHTML = `
                 
                 tbody.appendChild(row);
 
-                // 强制设置所有输入框为只读状态
-                setTimeout(() => {
-                    for (let day = 1; day <= daysInMonth; day++) {
-                        setRowReadonly(day, true);
-                    }
-                }, 0);
+// 为该行的输入框添加粘贴事件监听
+const rowInputs = row.querySelectorAll('.excel-input');
+rowInputs.forEach(input => {
+    input.addEventListener('paste', function(e) {
+        const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+        if (pasteData.includes('\t')) {
+            e.preventDefault();
+            const day = parseInt(this.dataset.day);
+            handlePasteData(day, pasteData);
+        }
+    });
+});
+
+// 强制设置所有输入框为只读状态
+setTimeout(() => {
+    for (let day = 1; day <= daysInMonth; day++) {
+        setRowReadonly(day, true);
+    }
+}, 0);
                 
                 // 初始计算
                 updateCalculations(day);
@@ -1436,11 +1455,32 @@ row.innerHTML = `
 
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
-            // Ctrl+S 保存数据
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                saveAllData();
+    // Ctrl+S 保存数据
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        saveAllData();
+    }
+    
+    // Ctrl+V 粘贴数据
+    if (e.ctrlKey && e.key === 'v' && document.activeElement.classList.contains('excel-input')) {
+        e.preventDefault();
+        const currentInput = document.activeElement;
+        const day = parseInt(currentInput.dataset.day);
+        
+        // 读取剪贴板内容
+        navigator.clipboard.readText().then(text => {
+            if (text.includes('\t')) {
+                // 如果包含制表符，说明是从Excel复制的行数据
+                handlePasteData(day, text);
+            } else {
+                // 否则只是普通的单个值粘贴
+                currentInput.value = text.trim();
+                updateCalculations(day);
             }
+        }).catch(err => {
+            showAlert('无法读取剪贴板内容', 'error');
+        });
+    }
             
             // Tab键在输入框间移动
             if (e.key === 'Tab') {
@@ -1528,6 +1568,54 @@ row.innerHTML = `
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
     <script>
+
+        // 处理粘贴数据
+function handlePasteData(day, pasteData) {
+    // 移除首尾的制表符和换行符，然后按制表符分割
+    const values = pasteData.trim().split('\t');
+    
+    // 定义字段映射（按Excel表格列的顺序，只到顾客总数）
+    const fieldMapping = [
+        null,           // 0: 日期列（跳过）
+        'gross_sales',  // 1: 总销售额
+        'discounts',    // 2: 折扣
+        null,           // 3: 净销售额（计算得出，跳过）
+        'tax',          // 4: 税
+        'service_fee',  // 5: 服务费
+        'adj_amount',   // 6: 调整金额
+        null,           // 7: 投标金额（计算得出，跳过）
+        'tables_used',  // 8: 桌数总数
+        'diners'        // 9: 顾客总数（到这里就结束）
+    ];
+    
+    // 填入数据到对应的输入框（只处理前10列）
+    const maxColumns = Math.min(values.length, fieldMapping.length);
+    for (let index = 0; index < maxColumns; index++) {
+        const field = fieldMapping[index];
+        const value = values[index];
+        
+        if (field && value.trim() !== '') {
+            const input = document.querySelector(`input[data-field="${field}"][data-day="${day}"]`);
+            if (input) {
+                // 清理数据：移除货币符号和逗号
+                let cleanValue = value.trim()
+                    .replace(/^RM\s*/i, '')  // 移除开头的RM
+                    .replace(/,/g, '')       // 移除逗号
+                    .replace(/[^\d.-]/g, ''); // 只保留数字、小数点和负号
+                
+                // 确保数值有效
+                if (cleanValue && !isNaN(cleanValue)) {
+                    input.value = cleanValue;
+                }
+            }
+        }
+    }
+    
+    // 重新计算该行
+    updateCalculations(day);
+    showAlert(`${day}日数据已粘贴（到顾客总数）`, 'success');
+}
+
         // 切换数字下拉菜单
         function toggleNumberDropdown() {
             const dropdown = document.getElementById('number-dropdown');
