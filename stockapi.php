@@ -375,8 +375,13 @@ function handlePut() {
             $data['id']
         ]);
         
-        if ($stmt->rowCount() > 0) {
-            // 获取更新后的记录
+        // 检查记录是否存在
+        $checkStmt = $pdo->prepare("SELECT * FROM stock_data WHERE id = ?");
+        $checkStmt->execute([$data['id']]);
+        $existingRecord = $checkStmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($existingRecord) {
+            // 记录存在，获取更新后的记录（可能没有变化也没关系）
             $stmt = $pdo->prepare("SELECT * FROM stock_data WHERE id = ?");
             $stmt->execute([$data['id']]);
             $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -384,7 +389,7 @@ function handlePut() {
             
             sendResponse(true, "库存记录更新成功", $updatedRecord);
         } else {
-            sendResponse(false, "记录不存在或无变化");
+            sendResponse(false, "记录不存在");
         }
         
     } catch (PDOException $e) {
