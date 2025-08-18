@@ -892,76 +892,76 @@ if (isset($_SESSION['account_type'])) {
 
         // 创建库存行
         function createStockRow(data = {}, index = -1) {
-            const row = document.createElement('tr');
-            const isNewRow = index === -1;
-            const rowId = isNewRow ? `new-${nextRowId++}` : data.id || index;
-            
-            if (isNewRow) {
-                row.classList.add('new-row');
+    const row = document.createElement('tr');
+    const isNewRow = index === -1;
+    const rowId = isNewRow ? `new-${nextRowId++}` : data.id || index;
+    
+    if (isNewRow) {
+        row.classList.add('new-row');
+    }
+    
+    // 根据批准状态设置行样式
+    if (data.approver) {
+        row.classList.add('status-approved');
+    } else if (!isNewRow) {
+        row.classList.add('status-pending');
+    }
+    
+    row.innerHTML = `
+        <td>
+            <input type="date" class="excel-input datetime-input readonly" data-field="date" data-row="${rowId}" 
+                value="${data.date || ''}" required readonly disabled>
+        </td>
+        <td>
+            <input type="time" class="excel-input datetime-input readonly" data-field="time" data-row="${rowId}" 
+                value="${data.time || ''}" required readonly disabled>
+        </td>
+        <td>
+            <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_code" data-row="${rowId}" 
+                value="${data.product_code || ''}" placeholder="产品编号" required ${!isNewRow ? 'readonly disabled' : ''}>
+        </td>
+        <td>
+            <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_name" data-row="${rowId}" 
+                value="${data.product_name || ''}" placeholder="产品名称" required ${!isNewRow ? 'readonly disabled' : ''}>
+        </td>
+        <td>
+            <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="supplier" data-row="${rowId}" 
+                value="${data.supplier || ''}" placeholder="供应商名称" required ${!isNewRow ? 'readonly disabled' : ''}>
+        </td>
+        <td>
+            <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="applicant" data-row="${rowId}" 
+                value="${data.applicant || ''}" placeholder="申请人" required ${!isNewRow ? 'readonly disabled' : ''}>
+        </td>
+        <td style="padding: 8px;">
+            ${data.approver ? 
+                `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
+                (USER_CAN_APPROVE && !isNewRow ? 
+                    `<button class="approve-btn" onclick="approveRecord('${rowId}')">
+                        <i class="fas fa-check"></i>
+                        批准
+                    </button>` : 
+                    `<span style="color: #92400e; font-weight: 600;">待批准</span>`
+                )
             }
-            
-            // 根据批准状态设置行样式
-            if (data.approver) {
-                row.classList.add('status-approved');
-            } else if (!isNewRow) {
-                row.classList.add('status-pending');
+        </td>
+        <td style="padding: 8px;">
+            ${data.approver ? 
+                '<span style="color: #065f46; font-weight: 600;">已批准</span>' : 
+                '<span style="color: #92400e; font-weight: 600;">待批准</span>'
             }
-            
-            row.innerHTML = `
-                <td>
-                    <input type="date" class="excel-input datetime-input readonly" data-field="date" data-row="${rowId}" 
-                        value="${data.date || ''}" required readonly disabled>
-                </td>
-                <td>
-                    <input type="time" class="excel-input datetime-input readonly" data-field="time" data-row="${rowId}" 
-                        value="${data.time || ''}" required readonly disabled>
-                </td>
-                <td>
-                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_code" data-row="${rowId}" 
-                        value="${data.product_code || ''}" placeholder="产品编号" required ${!isNewRow ? 'readonly' : ''}>
-                </td>
-                <td>
-                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_name" data-row="${rowId}" 
-                        value="${data.product_name || ''}" placeholder="产品名称" required ${!isNewRow ? 'readonly' : ''}>
-                </td>
-                <td>
-                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="supplier" data-row="${rowId}" 
-                        value="${data.supplier || ''}" placeholder="供应商名称" required ${!isNewRow ? 'readonly' : ''}>
-                </td>
-                <td>
-                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="applicant" data-row="${rowId}" 
-                        value="${data.applicant || ''}" placeholder="申请人" required ${!isNewRow ? 'readonly' : ''}>
-                </td>
-                <td style="padding: 8px;">
-                    ${data.approver ? 
-                        `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
-                        (USER_CAN_APPROVE && !isNewRow ? 
-                            `<button class="approve-btn" onclick="approveRecord('${rowId}')">
-                                <i class="fas fa-check"></i>
-                                批准
-                            </button>` : 
-                            `<span style="color: #92400e; font-weight: 600;">待批准</span>`
-                        )
-                    }
-                </td>
-                <td style="padding: 8px;">
-                    ${data.approver ? 
-                        '<span style="color: #065f46; font-weight: 600;">已批准</span>' : 
-                        '<span style="color: #92400e; font-weight: 600;">待批准</span>'
-                    }
-                </td>
-                <td class="action-cell">
-                    <button class="edit-btn" id="edit-btn-${rowId}" onclick="toggleEdit('${rowId}')" title="编辑记录">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="delete-row-btn" onclick="deleteRow('${rowId}')" title="删除此行">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </td>
-            `;
-            
-            return row;
-        }
+        </td>
+        <td class="action-cell">
+            <button class="edit-btn" id="edit-btn-${rowId}" onclick="toggleEdit('${rowId}')" title="编辑记录">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="delete-row-btn" onclick="deleteRow('${rowId}')" title="删除此行">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </td>
+    `;
+    
+    return row;
+}
 
         // 添加新行
         function addNewRow() {
@@ -1394,25 +1394,35 @@ if (isset($_SESSION['account_type'])) {
         // 切换编辑模式
         function toggleEdit(rowId) {
             const editBtn = document.getElementById(`edit-btn-${rowId}`);
-            const inputs = document.querySelectorAll(`input[data-row="${rowId}"]`);
+            if (!editBtn) {
+                console.error(`找不到编辑按钮: edit-btn-${rowId}`);
+                return;
+            }
+            
             const isEditing = editBtn.classList.contains('save-mode');
             
             if (isEditing) {
                 // 保存模式 - 保存这一行
                 saveSingleRowData(rowId);
             } else {
+                // 切换到编辑模式
                 setRowReadonly(rowId, false);
                 
                 editBtn.classList.add('save-mode');
                 editBtn.innerHTML = '<i class="fas fa-save"></i>';
-                editBtn.title = `保存记录`;
+                editBtn.title = '保存记录';
             }
         }
 
         // 设置行的只读状态
         function setRowReadonly(rowId, readonly) {
             const inputs = document.querySelectorAll(`input[data-row="${rowId}"]`);
-            const row = document.querySelector(`input[data-row="${rowId}"]`).closest('tr');
+            const row = document.querySelector(`input[data-row="${rowId}"]`)?.closest('tr');
+            
+            if (!row) {
+                console.error(`找不到行: ${rowId}`);
+                return;
+            }
             
             inputs.forEach(input => {
                 // 跳过日期和时间字段，它们始终保持只读
@@ -1442,13 +1452,23 @@ if (isset($_SESSION['account_type'])) {
         // 保存单行数据
         async function saveSingleRowData(rowId) {
             const editBtn = document.getElementById(`edit-btn-${rowId}`);
+            if (!editBtn) {
+                console.error(`找不到编辑按钮: edit-btn-${rowId}`);
+                return;
+            }
+            
             const originalHTML = editBtn.innerHTML;
             editBtn.innerHTML = '<div class="loading"></div>';
             editBtn.disabled = true;
             
             try {
-                const row = document.querySelector(`input[data-row="${rowId}"]`).closest('tr');
+                const row = document.querySelector(`input[data-row="${rowId}"]`)?.closest('tr');
+                if (!row) {
+                    throw new Error('找不到对应的行');
+                }
+                
                 const rowData = extractRowData(row);
+                console.log('提取的行数据:', rowData);
                 
                 // 验证必填字段
                 if (!rowData.date || !rowData.time || !rowData.product_code || 
@@ -1457,7 +1477,9 @@ if (isset($_SESSION['account_type'])) {
                 }
                 
                 let result;
-                if (rowId.toString().startsWith('new-')) {
+                const isNewRecord = rowId.toString().startsWith('new-');
+                
+                if (isNewRecord) {
                     // 新记录
                     const response = await fetch(API_BASE_URL, {
                         method: 'POST',
@@ -1467,10 +1489,15 @@ if (isset($_SESSION['account_type'])) {
                         body: JSON.stringify(rowData)
                     });
                     const responseText = await response.text();
+                    console.log('POST响应:', responseText);
                     result = JSON.parse(responseText);
                     
                     if (result.success && result.data && result.data.id) {
-                        updateRowId(row, rowId, result.data.id);
+                        // 更新行ID和相关元素
+                        const newId = result.data.id;
+                        updateRowIdComplete(row, rowId, newId);
+                        // 更新当前使用的rowId变量
+                        rowId = newId;
                     }
                 } else {
                     // 更新现有记录
@@ -1483,6 +1510,7 @@ if (isset($_SESSION['account_type'])) {
                         body: JSON.stringify(rowData)
                     });
                     const responseText = await response.text();
+                    console.log('PUT响应:', responseText);
                     result = JSON.parse(responseText);
                 }
                 
@@ -1490,11 +1518,16 @@ if (isset($_SESSION['account_type'])) {
                     showAlert('记录保存成功', 'success');
                     
                     // 切换回只读模式
-                    setRowReadonly(rowId.toString().startsWith('new-') && result.data ? result.data.id : rowId, true);
+                    setRowReadonly(rowId, true);
                     
-                    editBtn.classList.remove('save-mode');
-                    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-                    editBtn.title = '编辑记录';
+                    // 更新编辑按钮状态
+                    const currentEditBtn = document.getElementById(`edit-btn-${rowId}`);
+                    if (currentEditBtn) {
+                        currentEditBtn.classList.remove('save-mode');
+                        currentEditBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                        currentEditBtn.title = '编辑记录';
+                        currentEditBtn.disabled = false;
+                    }
                     
                     updateStats();
                 } else {
@@ -1502,15 +1535,51 @@ if (isset($_SESSION['account_type'])) {
                 }
                 
             } catch (error) {
-                showAlert('保存失败: ' + error.message, 'error');
                 console.error('保存数据失败:', error);
-            } finally {
+                showAlert('保存失败: ' + error.message, 'error');
+                
+                // 恢复按钮状态
+                editBtn.innerHTML = originalHTML;
                 editBtn.disabled = false;
-                if (!editBtn.classList.contains('save-mode')) {
-                    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-                }
             }
         }
+
+        // 完整更新行ID（修复版本）
+function updateRowIdComplete(row, oldId, newId) {
+    console.log(`更新行ID: ${oldId} -> ${newId}`);
+    
+    // 更新所有input的data-row属性
+    const inputs = row.querySelectorAll('input');
+    inputs.forEach(input => {
+        if (input.dataset.row === oldId) {
+            input.dataset.row = newId;
+        }
+    });
+    
+    // 更新编辑按钮的ID和事件
+    const editBtn = row.querySelector(`#edit-btn-${oldId}`);
+    if (editBtn) {
+        editBtn.id = `edit-btn-${newId}`;
+        editBtn.setAttribute('onclick', `toggleEdit('${newId}')`);
+    }
+    
+    // 更新删除按钮的事件
+    const deleteBtn = row.querySelector('.delete-row-btn');
+    if (deleteBtn) {
+        deleteBtn.setAttribute('onclick', `deleteRow('${newId}')`);
+    }
+    
+    // 更新批准按钮的事件（如果存在）
+    const approveBtn = row.querySelector(`button[onclick*="approveRecord('${oldId}')"]`);
+    if (approveBtn) {
+        approveBtn.setAttribute('onclick', `approveRecord('${newId}')`);
+    }
+    
+    // 移除新行样式
+    row.classList.remove('new-row');
+    
+    console.log(`行ID更新完成: ${oldId} -> ${newId}`);
+}
 </script>
 </body>
 </html>
