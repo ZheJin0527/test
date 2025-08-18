@@ -370,7 +370,7 @@
             width: 100%;
             height: 40px;
             border: none;
-            background: #162019;
+            background: #f0fdf4;
             text-align: center;
             font-size: 14px;
             padding: 8px 4px;
@@ -668,6 +668,31 @@
             gap: 4px;
             padding: 4px;
         }
+
+        /* 编辑模式行样式 */
+.excel-table tr.editing-mode {
+    background-color: #fff7ed !important;
+}
+
+.excel-table tr.editing-mode td {
+    background-color: #fff7ed !important;
+    border-color: #f59e0b !important;
+}
+
+.excel-table tr.editing-mode .date-cell {
+    background-color: #fed7aa !important;
+    border-color: #f59e0b !important;
+}
+
+.excel-table tr.editing-mode .calculated-cell {
+    background-color: #fef3c7 !important;
+    border-color: #f59e0b !important;
+}
+
+.excel-table tr.editing-mode .weekend {
+    background-color: #fecaca !important;
+    border-color: #f59e0b !important;
+}
     </style>
 </head>
 <body>
@@ -1066,20 +1091,35 @@ row.innerHTML = `
         }
 
         // 设置行的只读状态
-        function setRowReadonly(day, readonly) {
-            const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
-            inputs.forEach(input => {
-                if (readonly) {
-                    input.classList.add('readonly');
-                    input.setAttribute('readonly', 'readonly');
-                    input.setAttribute('disabled', 'disabled');
-                } else {
-                    input.classList.remove('readonly');
-                    input.removeAttribute('readonly');
-                    input.removeAttribute('disabled');
-                }
-            });
+function setRowReadonly(day, readonly) {
+    const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
+    const row = document.querySelector(`tr`).parentNode.children[day]; // 找到对应的行
+    
+    // 更准确地找到对应的行
+    const allRows = document.querySelectorAll('#excel-tbody tr');
+    const targetRow = allRows[day - 1]; // day从1开始，数组从0开始
+    
+    inputs.forEach(input => {
+        if (readonly) {
+            input.classList.add('readonly');
+            input.setAttribute('readonly', 'readonly');
+            input.setAttribute('disabled', 'disabled');
+        } else {
+            input.classList.remove('readonly');
+            input.removeAttribute('readonly');
+            input.removeAttribute('disabled');
         }
+    });
+    
+    // 切换行的编辑模式样式
+    if (targetRow) {
+        if (readonly) {
+            targetRow.classList.remove('editing-mode');
+        } else {
+            targetRow.classList.add('editing-mode');
+        }
+    }
+}
 
         // 更新计算字段
         function updateCalculations(day) {
@@ -1636,7 +1676,7 @@ row.innerHTML = `
                 // 切换回只读模式
                 const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
                 setRowReadonly(day, true);
-                
+
                 editBtn.classList.remove('save-mode');
                 editBtn.innerHTML = '<i class="fas fa-edit"></i>';
                 editBtn.title = `编辑${day}日数据`;
