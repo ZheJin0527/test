@@ -489,7 +489,7 @@ if (isset($_SESSION['account_type'])) {
             transition: all 0.2s;
             font-size: 12px;
             font-weight: 600;
-            margin: 0 auto;
+            margin: -4px auto;
             min-width: 80px;
         }
 
