@@ -79,10 +79,10 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 // 插入用户
 $stmt = $conn->prepare("
     INSERT INTO users 
-    (username, email, gender, password, account_type, created_at) 
-    VALUES (?, ?, ?, ?, ?, NOW())
+    (username, email, gender, password, account_type, registration_code, created_at) 
+    VALUES (?, ?, ?, ?, ?, ?, NOW())
 ");
-$stmt->bind_param("sssss", $name, $email, $gender, $hashed_password, $account_type);
+$stmt->bind_param("ssssss", $name, $email, $gender, $hashed_password, $account_type, $application_code);
 
 if ($stmt->execute()) {
     // 更新申请码为已使用

@@ -307,8 +307,15 @@ function handleApprove() {
         sendResponse(false, "用户未登录");
     }
     
-    $allowedTypes = ['support', 'IT'];
-    if (!isset($_SESSION['account_type']) || !in_array($_SESSION['account_type'], $allowedTypes)) {
+    // 检查用户是否使用了允许的注册码
+    $allowedCodes = ['SUPPORT88', 'IT4567', 'DESIGN77'];
+    $userId = $_SESSION['user_id'];
+
+    $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    $userCode = $stmt->fetchColumn();
+
+    if (!$userCode || !in_array($userCode, $allowedCodes)) {
         sendResponse(false, "您没有权限执行此操作");
     }
     
