@@ -1407,6 +1407,9 @@ if (isset($_SESSION['account_type'])) {
                 console.error(`找不到编辑按钮: edit-btn-${rowId}`);
                 return;
             }
+
+            // 确保按钮状态正确
+            ensureEditButtonState(rowId);
             
             const isEditing = editBtn.classList.contains('save-mode');
             
@@ -1463,6 +1466,12 @@ if (isset($_SESSION['account_type'])) {
             const editBtn = document.getElementById(`edit-btn-${rowId}`);
             if (!editBtn) {
                 console.error(`找不到编辑按钮: edit-btn-${rowId}`);
+                return;
+            }
+            
+            // 添加这个检查
+            if (editBtn.disabled) {
+                console.log('按钮已禁用，跳过保存操作');
                 return;
             }
             
@@ -1547,9 +1556,11 @@ if (isset($_SESSION['account_type'])) {
                 console.error('保存数据失败:', error);
                 showAlert('保存失败: ' + error.message, 'error');
                 
-                // 恢复按钮状态
-                editBtn.innerHTML = originalHTML;
+                // 恢复按钮状态 - 保持在编辑模式
+                editBtn.innerHTML = '<i class="fas fa-save"></i>';
                 editBtn.disabled = false;
+                editBtn.classList.add('save-mode');
+                editBtn.title = '保存记录';
             }
         }
 
@@ -1588,6 +1599,21 @@ if (isset($_SESSION['account_type'])) {
             row.classList.remove('new-row');
             
             console.log(`行ID更新完成: ${oldId} -> ${newId}`);
+        }
+
+        // 确保编辑按钮状态正确
+        function ensureEditButtonState(rowId) {
+            const editBtn = document.getElementById(`edit-btn-${rowId}`);
+            if (editBtn && editBtn.disabled) {
+                editBtn.disabled = false;
+                if (editBtn.classList.contains('save-mode')) {
+                    editBtn.innerHTML = '<i class="fas fa-save"></i>';
+                    editBtn.title = '保存记录';
+                } else {
+                    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                    editBtn.title = '编辑记录';
+                }
+            }
         }
 </script>
 </body>
