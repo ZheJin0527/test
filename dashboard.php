@@ -52,27 +52,6 @@ $username = $_SESSION['username'];
 // 修改这行：检查position是否为空或null
 $position = (!empty($_SESSION['position'])) ? $_SESSION['position'] : 'User';
 $avatarLetter = strtoupper($username[0]);
-// 获取用户的注册码以控制权限
-$userId = $_SESSION['user_id'];
-$userRegistrationCode = '';
-
-// 连接数据库获取用户注册码
-try {
-    $host = 'localhost';
-    $dbname = 'u857194726_kunzzgroup';
-    $dbuser = 'u857194726_kunzzgroup';
-    $dbpass = 'Kholdings1688@';
-    
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
-    $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
-    $stmt->execute([$userId]);
-    $userRegistrationCode = $stmt->fetchColumn() ?: '';
-} catch (PDOException $e) {
-    error_log("获取用户注册码失败: " . $e->getMessage());
-}
-
-// 检查是否可以查看集团概览
-$canViewGroupOverview = in_array($userRegistrationCode, ['ADM001', 'DESIGN77', 'IT4567', 'HR2025']);
 ?>
 
 
@@ -208,9 +187,7 @@ $canViewGroupOverview = in_array($userRegistrationCode, ['ADM001', 'DESIGN77', '
                                 <div class="submenu-title">仪表盘</div>
                             </div>
                             <div class="submenu-content">
-                                <?php if ($canViewGroupOverview): ?>
-                                    <a href="kpi.php" class="submenu-item">集团概览</a>
-                                <?php endif; ?>
+                                <a href="kpi.php" class="submenu-item">集团概览</a>
                                 <a href="#" class="submenu-item">工作表</a>
                                 <a href="kpiedit.html" class="submenu-item">KPI数据上传</a>
                             </div>
