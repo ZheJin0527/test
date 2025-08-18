@@ -177,8 +177,6 @@ function handleGet() {
                         COUNT(*) as total_records,
                         COUNT(DISTINCT product_code) as total_products,
                         COUNT(DISTINCT supplier) as total_suppliers,
-                        SUM(price) as total_value,
-                        AVG(price) as avg_price,
                         COUNT(CASE WHEN approver IS NOT NULL AND approver != '' THEN 1 END) as approved_count,
                         COUNT(CASE WHEN approver IS NULL OR approver = '' THEN 1 END) as pending_count
                     FROM stock_data WHERE 1=1";
@@ -252,21 +250,16 @@ function handlePost() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'price', 'applicant'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
         }
     }
     
-    // 验证价格格式
-    if (!is_numeric($data['price']) || $data['price'] < 0) {
-        sendResponse(false, "价格必须是有效的数字且不能为负数");
-    }
-    
     try {
         $sql = "INSERT INTO stock_data 
-                (date, time, product_code, product_name, supplier, price, applicant, approver) 
+                (date, time, product_code, product_name, supplier, applicant, approver) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $pdo->prepare($sql);
@@ -357,22 +350,17 @@ function handlePut() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'price', 'applicant'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
         }
     }
     
-    // 验证价格格式
-    if (!is_numeric($data['price']) || $data['price'] < 0) {
-        sendResponse(false, "价格必须是有效的数字且不能为负数");
-    }
-    
     try {
         $sql = "UPDATE stock_data 
                 SET date = ?, time = ?, product_code = ?, product_name = ?, supplier = ?, 
-                    price = ?, applicant = ?, approver = ?
+                    applicant = ?, approver = ?
                 WHERE id = ?";
         
         $stmt = $pdo->prepare($sql);

@@ -136,16 +136,6 @@ if (isset($_SESSION['account_type'])) {
             height: 40px;
         }
 
-        .currency-prefix {
-            position: absolute;
-            left: 8px;
-            color: #6b7280;
-            font-size: 13px;
-            font-weight: 500;
-            pointer-events: none;
-            z-index: 2;
-        }
-
         /* 输入框样式 */
         .excel-input {
             width: 100%;
@@ -156,15 +146,6 @@ if (isset($_SESSION['account_type'])) {
             font-size: 14px;
             padding: 8px 4px;
             transition: all 0.2s;
-        }
-
-        .excel-input.currency-input {
-            padding-left: 32px;
-            text-align: right;
-            padding-right: 8px;
-            background: #f0fdf4;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-weight: 500;
         }
 
         .excel-input.text-input {
@@ -221,10 +202,6 @@ if (isset($_SESSION['account_type'])) {
         .excel-input[readonly]:focus {
             background-color: #f0fdf4 !important;
             border: 1px solid #f0fdf4 !important;
-        }
-
-        .excel-input.currency-input:not(:placeholder-shown) {
-            background: #f0fdf4;
         }
 
         /* 数字字体样式 - 与第一个代码保持一致 */
@@ -638,7 +615,6 @@ if (isset($_SESSION['account_type'])) {
                         <th style="min-width: 120px;">产品编号</th>
                         <th style="min-width: 200px;">产品名字</th>
                         <th style="min-width: 150px;">供应商</th>
-                        <th style="min-width: 100px;">价格</th>
                         <th style="min-width: 120px;">申请人</th>
                         <th style="min-width: 120px;">批准状态</th>
                         <th style="min-width: 80px;">状态</th>
@@ -697,7 +673,7 @@ if (isset($_SESSION['account_type'])) {
         }
 
         // 货币字段列表
-        const currencyFields = ['price'];
+        const currencyFields = [];
 
         // 格式化货币输入值显示
         function formatCurrencyDisplay(value) {
@@ -868,14 +844,6 @@ if (isset($_SESSION['account_type'])) {
                 <td>
                     <input type="text" class="excel-input text-input" data-field="supplier" data-row="${rowId}" 
                         value="${data.supplier || ''}" placeholder="供应商名称" required>
-                </td>
-                <td>
-                    <div class="input-container">
-                        <span class="currency-prefix">RM</span>
-                        <input type="number" class="excel-input currency-input" data-field="price" data-row="${rowId}" 
-                            value="${formatCurrencyDisplay(data.price)}" min="0" step="0.01" 
-                            placeholder="0.00" required oninput="formatCurrencyInput(this)">
-                    </div>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input" data-field="applicant" data-row="${rowId}" 
@@ -1088,21 +1056,6 @@ if (isset($_SESSION['account_type'])) {
                 const field = input.dataset.field;
                 let value = input.value.trim();
                 
-                // 价格字段限制小数位数
-                if (field === 'price') {
-                    if (value.includes('.')) {
-                        const parts = value.split('.');
-                        if (parts[1] && parts[1].length > 2) {
-                            // 保存当前光标位置
-                            const cursorPosition = e.target.selectionStart;
-                            e.target.value = parts[0] + '.' + parts[1].substring(0, 2);
-                            // 恢复光标位置，但不超过新值的长度
-                            const newPosition = Math.min(cursorPosition, e.target.value.length);
-                            e.target.setSelectionRange(newPosition, newPosition);
-                        }
-                    }
-                }
-                
                 data[field] = value;
             });
             
@@ -1133,7 +1086,6 @@ if (isset($_SESSION['account_type'])) {
             let totalRecords = rows.length;
             let approvedCount = 0;
             let pendingCount = 0;
-            let totalValue = 0;
             
             rows.forEach(row => {
                 const approverInput = row.querySelector('input[data-field="approver"]');
@@ -1144,21 +1096,11 @@ if (isset($_SESSION['account_type'])) {
                 } else {
                     pendingCount++;
                 }
-                
-                if (priceInput && priceInput.value) {
-                    totalValue += parseFloat(priceInput.value) || 0;
-                }
             });
             
             document.getElementById('total-records').textContent = totalRecords;
             document.getElementById('approved-count').textContent = approvedCount;
             document.getElementById('pending-count').textContent = pendingCount;
-
-            // 检查是否有总价值元素
-            const totalValueElement = document.getElementById('total-value');
-            if (totalValueElement) {
-                totalValueElement.textContent = totalValue.toLocaleString();
-            }
         }
 
         // 清空过滤器
@@ -1199,16 +1141,6 @@ if (isset($_SESSION['account_type'])) {
                 const row = e.target.closest('tr');
 
                 resetInputFirstClick(e.target);
-                
-                // 价格字段限制小数位数
-                if (field === 'price') {
-                    if (value.includes('.')) {
-                        const parts = value.split('.');
-                        if (parts[1] && parts[1].length > 2) {
-                            e.target.value = parts[0] + '.' + parts[1].substring(0, 2);
-                        }
-                    }
-                }
                 updateStats();
             }
         });
@@ -1219,18 +1151,6 @@ if (isset($_SESSION['account_type'])) {
                 // ... 现有代码保持不变 ...
             }
         });
-
-        // 价格输入框失去焦点时格式化为两位小数
-        document.addEventListener('blur', function(e) {
-            if (e.target.classList.contains('currency-input')) {
-                const value = e.target.value;
-                if (value && !isNaN(value) && value !== '') {
-                    const num = parseFloat(value);
-                    e.target.value = num.toFixed(2);
-                }
-                updateStats();
-            }
-        }, true);
 
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
