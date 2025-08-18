@@ -646,9 +646,13 @@
 
         /* 只读输入框样式 */
         .excel-input.readonly {
-            background: #f9fafb;
+            background: #f9fafb !important;
             pointer-events: none;
-            cursor: default;
+            cursor: not-allowed;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .excel-input.currency-input.readonly {
@@ -1039,6 +1043,13 @@ row.innerHTML = `
                 `;
                 
                 tbody.appendChild(row);
+
+                // 强制设置所有输入框为只读状态
+                setTimeout(() => {
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        setRowReadonly(day, true);
+                    }
+                }, 0);
                 
                 // 初始计算
                 updateCalculations(day);
@@ -1052,6 +1063,22 @@ row.innerHTML = `
                 // 在输入过程中不立即格式化，避免干扰用户输入
                 // 只在失去焦点时格式化
             }
+        }
+
+        // 设置行的只读状态
+        function setRowReadonly(day, readonly) {
+            const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
+            inputs.forEach(input => {
+                if (readonly) {
+                    input.classList.add('readonly');
+                    input.setAttribute('readonly', 'readonly');
+                    input.setAttribute('disabled', 'disabled');
+                } else {
+                    input.classList.remove('readonly');
+                    input.removeAttribute('readonly');
+                    input.removeAttribute('disabled');
+                }
+            });
         }
 
         // 更新计算字段
@@ -1520,11 +1547,7 @@ row.innerHTML = `
                 // 保存模式 - 保存这一行
                 saveSingleRowData(day);
             } else {
-                // 编辑模式 - 启用输入框
-                inputs.forEach(input => {
-                    input.classList.remove('readonly');
-                    input.removeAttribute('readonly');
-                });
+                setRowReadonly(day, false);
                 
                 editBtn.classList.add('save-mode');
                 editBtn.innerHTML = '<i class="fas fa-save"></i>';
@@ -1612,10 +1635,7 @@ row.innerHTML = `
                 
                 // 切换回只读模式
                 const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
-                inputs.forEach(input => {
-                    input.classList.add('readonly');
-                    input.setAttribute('readonly', true);
-                });
+                setRowReadonly(day, true);
                 
                 editBtn.classList.remove('save-mode');
                 editBtn.innerHTML = '<i class="fas fa-edit"></i>';
