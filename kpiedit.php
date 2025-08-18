@@ -690,9 +690,606 @@
         .excel-table tr.editing-row .weekend {
             background-color: #cde3ff !important;
         }
+
+        /* 侧边栏样式 */
+.informationmenu {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 320px;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    z-index: 9999;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.15);
+}
+
+.informationmenu.show {
+    left: 0;
+}
+
+.informationmenu.collapsed {
+    left: -260px; /* 部分收起状态 */
+}
+
+.informationmenu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.informationmenu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.informationmenu-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-avatar-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-avatar:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.user-position {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.sidebar-menu-hamburger {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu-hamburger span {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu-hamburger.collapsed span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.sidebar-menu-hamburger.collapsed span:nth-child(2) {
+    opacity: 0;
+}
+
+.sidebar-menu-hamburger.collapsed span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.informationmenu-section {
+    margin-bottom: 8px;
+}
+
+.informationmenu-section-title {
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.informationmenu-section-title:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.informationmenu-section-title.active {
+    background: rgba(255,255,255,0.15);
+}
+
+.section-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.section-arrow {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.informationmenu-section-title.active .section-arrow {
+    transform: rotate(90deg);
+}
+
+.dropdown-menu-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: rgba(0,0,0,0.1);
+}
+
+.dropdown-menu-items.show {
+    max-height: 500px;
+}
+
+.menu-item-wrapper {
+    position: relative;
+}
+
+.informationmenu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.informationmenu-item:hover {
+    background: rgba(255,255,255,0.1);
+    padding-left: 45px;
+}
+
+.informationmenu-arrow {
+    opacity: 0.6;
+}
+
+.informationmenu-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: auto;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+}
+
+/* 页面主内容区域伸缩 */
+.container {
+    transition: margin-left 0.3s ease;
+}
+
+.container.sidebar-open {
+    margin-left: 320px;
+}
+
+.container.sidebar-collapsed {
+    margin-left: 60px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .container.sidebar-open,
+    .container.sidebar-collapsed {
+        margin-left: 0;
+    }
+    
+    .informationmenu-overlay.show {
+        display: block;
+    }
+}
     </style>
 </head>
 <body>
+    <div class="informationmenu-overlay"></div>
+
+    <!-- 侧边菜单 -->
+    <div class="informationmenu">
+        <div class="informationmenu-header">
+            <div class="user-avatar-dropdown">
+                <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
+                <div class="user-info">
+                    <div class="user-name"><?php echo $username; ?></div>
+                    <div class="user-position"><?php echo $position; ?></div>
+                </div>
+            </div>
+
+            <div class="sidebar-menu-hamburger" id="sidebarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="informationmenu-content">
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="company-items">
+                    <img src="images/images/公司架构管理.png" alt="" class="section-icon">
+                    公司架构管理
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="company-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            Kunzz Holdings
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">Kunzz Holdings</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">企业蓝图</a>
+                                <a href="#" class="submenu-item">组织结构图</a>
+                                <a href="#" class="submenu-item">公司规划</a>
+                                <a href="#" class="submenu-item">公司福利</a>
+                                <a href="#" class="submenu-item">绩效考核</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            子公司
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">子公司</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item expandable" data-target="j1-options">
+                                    J1
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j1-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
+
+                                <a href="#" class="submenu-item expandable" data-target="j2-options">
+                                    J2
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j2-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
+
+                                <a href="#" class="submenu-item expandable" data-target="j3-options">
+                                    J3
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="j3-options">
+                                    <a href="#" class="sub-option">企业蓝图</a>
+                                    <a href="#" class="sub-option">组织结构图</a>
+                                    <a href="#" class="sub-option">公司规则</a>
+                                    <a href="#" class="sub-option">公司福利</a>
+                                    <a href="#" class="sub-option">绩效考核</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="analytics-items">
+                    <img src="images/images/运营分析与报表.png" alt="" class="section-icon">
+                    运营分析与报表
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="analytics-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            仪表盘
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">仪表盘</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="kpi.php" class="submenu-item">集团概览</a>
+                                <a href="#" class="submenu-item">工作表</a>
+                                <a href="kpiedit.html" class="submenu-item">KPI数据上传</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            报表系统
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">报表系统</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">财务</a>
+                                <a href="#" class="submenu-item">业绩</a>
+                                <a href="#" class="submenu-item">桌子</a>
+                                <a href="#" class="submenu-item">工资</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="hr-items">
+                    <img src="images/images/人事与资源管理.png" alt="" class="section-icon">
+                    人事与资源管理
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="hr-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            假期申请
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">假期申请</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">申请请求</a>
+                                <a href="#" class="submenu-item">假期报表</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            资源申请
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">资源申请</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">资源请求</a>
+                                <a href="#" class="submenu-item">分配状态</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="resource-items">
+                    <img src="images/images/资源库管理.png" alt="" class="section-icon">
+                    资源库管理
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="resource-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            碗碟
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="stockproductname.php" class="informationmenu-item">
+                            食品
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="photoupload-items">
+                    <img src="images/images/网页照片上传.png" alt="" class="section-icon">
+                    网页照片上传
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="photoupload-items">
+                    <div class="menu-item-wrapper">
+                        <a href="bgmusicupload.php" class="informationmenu-item">
+                            背景音乐
+                        </a>
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            首页
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">首页</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="homepage1upload.php" class="submenu-item">第一页</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            关于我们
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">关于我们</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="aboutpage1upload.php" class="submenu-item">第一页</a>
+                                <a href="aboutpage4upload.php" class="submenu-item">第四页</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            旗下品牌
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">旗下品牌</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="tokyopage1upload.php" class="submenu-item">第一页</a>
+                                <a href="tokyopage5upload.php" class="submenu-item">第五页</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            加入我们
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">加入我们</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="joinpage1upload.php" class="submenu-item">第一页</a>
+                                <a href="joinpage2upload.php" class="submenu-item">第二页</a>
+                                <a href="joinpage3upload.php" class="submenu-item">第三页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="user-items">
+                    <img src="images/images/用户与权限管理.png" alt="" class="section-icon">
+                    用户与权限管理
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="user-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            我的账号
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">我的账号</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">个人资料</a>
+                                <a href="edit_profile.php" class="submenu-item">修改资料</a>
+                                <a href="#" class="submenu-item">消息</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            系统设置
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">系统设置</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">语言</a>
+                                <a href="#" class="submenu-item">权限</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-section">
+                <div class="informationmenu-section-title" data-target="help-items">
+                    <img src="images/images/帮助与支持.png" alt="" class="section-icon">
+                    帮助与支持
+                    <span class="section-arrow">⮞</span>
+                </div>
+                <div class="dropdown-menu-items" id="help-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            使用教学
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                    </div>
+                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            问题库
+                            <span class="informationmenu-arrow">›</span>
+                        </a>                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="informationmenu-footer">
+                <button class="logout-btn" onclick="location.href='logout.php'">
+                    登出
+                </button>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container">
         <div class="header">
             <div>
@@ -1685,6 +2282,159 @@ row.innerHTML = `
                 }
             }
         }
+    </script>
+    <script>
+        // 侧边栏功能
+const sidebar = document.querySelector('.informationmenu');
+const overlay = document.querySelector('.informationmenu-overlay');
+const userAvatar = document.getElementById('user-avatar');
+const sidebarToggle = document.getElementById('sidebarToggle');
+const container = document.querySelector('.container');
+
+// 点击用户头像显示菜单
+userAvatar?.addEventListener('click', function() {
+    sidebar.classList.add('show');
+    overlay.classList.add('show');
+    container.classList.add('sidebar-open');
+});
+
+// 关闭菜单
+function closeSidebar() {
+    sidebar.classList.remove('show');
+    sidebar.classList.remove('collapsed');
+    overlay.classList.remove('show');
+    container.classList.remove('sidebar-open');
+    container.classList.remove('sidebar-collapsed');
+    
+    // 关闭所有下拉菜单
+    document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+        dropdown.classList.remove('show');
+    });
+    document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+        title.classList.remove('active');
+    });
+}
+
+// 点击遮罩层关闭
+overlay?.addEventListener('click', closeSidebar);
+
+// ESC键关闭菜单
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSidebar();
+    }
+});
+
+// 侧边栏收起/展开功能
+sidebarToggle?.addEventListener('click', function(e) {
+    e.stopPropagation();
+    
+    if (!sidebar.classList.contains('collapsed')) {
+        // 收起状态
+        sidebar.classList.add('collapsed');
+        sidebarToggle.classList.add('collapsed');
+        container.classList.remove('sidebar-open');
+        container.classList.add('sidebar-collapsed');
+        
+        // 关闭所有下拉菜单
+        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+        document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+            title.classList.remove('active');
+        });
+    } else {
+        // 展开状态
+        sidebar.classList.remove('collapsed');
+        sidebarToggle.classList.remove('collapsed');
+        container.classList.remove('sidebar-collapsed');
+        container.classList.add('sidebar-open');
+    }
+});
+
+// Section标题点击事件
+document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+    title.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('data-target');
+        const targetDropdown = document.getElementById(targetId);
+
+        // 检查侧边栏是否处于收起状态
+        if (sidebar.classList.contains('collapsed')) {
+            e.preventDefault();
+            e.stopPropagation();
+    
+            // 展开侧边栏
+            sidebar.classList.remove('collapsed');
+            sidebarToggle.classList.remove('collapsed');
+            container.classList.remove('sidebar-collapsed');
+            container.classList.add('sidebar-open');
+    
+            // 同时展开点击的选项
+            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                if (dropdown.id !== targetId) {
+                    dropdown.classList.remove('show');
+                }
+            });
+    
+            document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+                if (t !== this) {
+                    t.classList.remove('active');
+                }
+            });
+    
+            this.classList.add('active');
+            targetDropdown?.classList.add('show');
+    
+            return false;
+        }
+
+        // 正常切换逻辑
+        document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+            if (dropdown.id !== targetId) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        document.querySelectorAll('.informationmenu-section-title').forEach(t => {
+            if (t !== this) {
+                t.classList.remove('active');
+            }
+        });
+
+        this.classList.toggle('active');
+        targetDropdown?.classList.toggle('show');
+    });
+});
+
+// 菜单项点击效果
+document.querySelectorAll('.informationmenu-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+
+        if (href && href !== '#' && !href.startsWith('javascript:')) {
+            window.location.href = href;
+            return;
+        }
+
+        e.preventDefault();
+        document.querySelectorAll('.informationmenu-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+function toggleSidebar() {
+    const sidebar = document.querySelector('.informationmenu');
+    const overlay = document.querySelector('.informationmenu-overlay');
+    const container = document.querySelector('.container');
+    
+    if (sidebar.classList.contains('show')) {
+        closeSidebar();
+    } else {
+        sidebar.classList.add('show');
+        overlay.classList.add('show');
+        container.classList.add('sidebar-open');
+    }
+}
     </script>
 </body>
 </html>
