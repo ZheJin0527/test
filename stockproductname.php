@@ -520,6 +520,20 @@
             justify-content: center;
             flex-direction: column;
         }
+
+        /* 无权限状态 */
+        .no-permission {
+            color: #6b7280;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .approve-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
     </style>
 </head>
 <body>
@@ -631,6 +645,7 @@
         let stockData = [];
         let isLoading = false;
         let nextRowId = 1;
+        let hasApprovalPermission = false;
 
         // 输入框光标定位处理
         let inputFirstClickMap = new Map(); // 记录每个输入框是否已经被点击过
@@ -678,8 +693,27 @@
         }
 
         // 初始化应用
-        function initApp() {
+        async function initApp() {
+            await checkUserPermission();
             loadStockData();
+        }
+
+        // 检查用户权限
+        async function checkUserPermission() {
+            try {
+                const response = await fetch(`${API_BASE_URL}?action=check_permission`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    hasApprovalPermission = result.data.has_approval_permission;
+                } else {
+                    hasApprovalPermission = false;
+                    console.log('权限检查失败:', result.message);
+                }
+            } catch (error) {
+                console.error('权限检查错误:', error);
+                hasApprovalPermission = false;
+            }
         }
 
         // 返回上一页
@@ -854,10 +888,13 @@
                 <td style="padding: 8px;">
                     ${data.approver ? 
                         `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
-                        `<button class="approve-btn" onclick="approveRecord('${rowId}')" ${isNewRow ? 'disabled' : ''}>
-                            <i class="fas fa-check"></i>
-                            批准
-                        </button>`
+                        (hasApprovalPermission && !isNewRow ? 
+                            `<button class="approve-btn" onclick="approveRecord('${rowId}')">
+                                <i class="fas fa-check"></i>
+                                批准
+                            </button>` :
+                            `<span style="color: #92400e; font-weight: 600;">待批准</span>`
+                        )
                     }
                 </td>
                 <td style="padding: 8px;">
@@ -1281,6 +1318,11 @@
     <script>
         // 批准记录
         async function approveRecord(rowId) {
+            if (!hasApprovalPermission) {
+                showAlert('您没有批准权限', 'error');
+                return;
+            }
+
             if (!confirm('确定要批准这条记录吗？')) {
                 return;
             }
