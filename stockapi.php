@@ -270,7 +270,6 @@ function handlePost() {
             $data['product_code'],
             $data['product_name'],
             $data['supplier'],
-            $data['price'],
             $data['applicant'],
             $data['approver'] ?? null
         ]);
@@ -371,7 +370,6 @@ function handlePut() {
             $data['product_code'],
             $data['product_name'],
             $data['supplier'],
-            $data['price'],
             $data['applicant'],
             $data['approver'] ?? null,
             $data['id']

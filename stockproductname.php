@@ -1062,7 +1062,7 @@ if (isset($_SESSION['account_type'])) {
                     // 验证必填字段
                     if (!rowData.date || !rowData.time || !rowData.product_code || 
                         !rowData.product_name || !rowData.supplier || 
-                        !rowData.price || !rowData.applicant) {
+                        !rowData.applicant) {
                         continue; // 跳过不完整的行
                     }
                     
@@ -1173,10 +1173,11 @@ if (isset($_SESSION['account_type'])) {
             let pendingCount = 0;
             
             rows.forEach(row => {
-                const approverInput = row.querySelector('input[data-field="approver"]');
-                const priceInput = row.querySelector('input[data-field="price"]');
+                // 检查是否已批准（通过查看批准状态列的内容）
+                const approvalStatusCell = row.querySelector('td:nth-child(7)'); // 批准状态列
+                const isApproved = approvalStatusCell && approvalStatusCell.textContent.includes('已批准');
                 
-                if (approverInput && approverInput.value.trim()) {
+                if (isApproved) {
                     approvedCount++;
                 } else {
                     pendingCount++;
