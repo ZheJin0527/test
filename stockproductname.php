@@ -312,7 +312,7 @@ if (isset($_SESSION['account_type'])) {
             justify-content: center;
             transition: all 0.2s;
             font-size: 12px;
-            margin: 4px auto;
+            margin: 4px;
         }
 
         .delete-row-btn:hover {
