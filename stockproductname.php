@@ -1153,6 +1153,15 @@ if (isset($_SESSION['account_type'])) {
                 data[field] = value;
             });
             
+            // 检查是否已批准（通过查看批准状态列的内容）
+            const approvalStatusCell = row.querySelector('td:nth-child(7)'); // 批准状态列
+            const isApproved = approvalStatusCell && approvalStatusCell.textContent.includes('已批准');
+            
+            // 如果已批准，设置 approver 字段
+            if (isApproved) {
+                data.approver = 'approved'; // 或者你可以从现有数据中获取实际的批准人信息
+            }
+            
             return data;
         }
 
@@ -1478,6 +1487,15 @@ if (isset($_SESSION['account_type'])) {
                 
                 const rowData = extractRowData(row);
                 console.log('提取的行数据:', rowData);
+
+                // 如果是编辑现有记录，需要保持原有的批准状态
+                if (!isNewRecord) {
+                    // 从stockData中找到原始记录的批准状态
+                    const originalRecord = stockData.find(item => item.id == rowId);
+                    if (originalRecord && originalRecord.approver) {
+                        rowData.approver = originalRecord.approver;
+                    }
+                }
                 
                 // 验证必填字段
                 if (!rowData.date || !rowData.time || !rowData.product_code || 
@@ -1586,6 +1604,17 @@ if (isset($_SESSION['account_type'])) {
             
             // 移除新行样式
             row.classList.remove('new-row');
+            
+            const recordIndex = stockData.findIndex(item => item.id == oldId || (typeof item.id === 'undefined' && oldId.toString().startsWith('new-')));
+            if (recordIndex === -1) {
+                // 如果是新记录，添加到stockData中
+                const rowData = extractRowData(row);
+                rowData.id = newId;
+                stockData.push(rowData);
+            } else {
+                // 更新现有记录的ID
+                stockData[recordIndex].id = newId;
+            }
             
             console.log(`行ID更新完成: ${oldId} -> ${newId}`);
         }
