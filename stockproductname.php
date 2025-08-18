@@ -1254,7 +1254,7 @@ if (isset($_SESSION['account_type'])) {
             
             // Tab键在输入框间移动
             if (e.key === 'Tab') {
-                const inputs = Array.from(document.querySelectorAll('.excel-input:not([readonly])'));
+                const inputs = Array.from(document.querySelectorAll('.excel-input:not([readonly]):not([data-field="date"]):not([data-field="time"])'));
                 const currentIndex = inputs.indexOf(document.activeElement);
                 
                 if (currentIndex !== -1) {
@@ -1271,11 +1271,17 @@ if (isset($_SESSION['account_type'])) {
                 e.preventDefault();
                 const currentInput = document.activeElement;
                 const field = currentInput.dataset.field;
+                
+                // 跳过日期和时间字段
+                if (field === 'date' || field === 'time') {
+                    return;
+                }
+                
                 const currentRow = currentInput.closest('tr');
                 const nextRow = currentRow.nextElementSibling;
                 
                 if (nextRow) {
-                    const nextInput = nextRow.querySelector(`input[data-field="${field}"]`);
+                    const nextInput = nextRow.querySelector(`input[data-field="${field}"]:not([readonly]):not([data-field="date"]):not([data-field="time"])`);
                     if (nextInput) {
                         nextInput.focus();
                     }
@@ -1284,7 +1290,7 @@ if (isset($_SESSION['account_type'])) {
                     addNewRow();
                     setTimeout(() => {
                         const newRow = document.querySelector('#excel-tbody tr:last-child');
-                        const newInput = newRow.querySelector(`input[data-field="${field}"]`);
+                        const newInput = newRow.querySelector(`input[data-field="${field}"]:not([readonly]):not([data-field="date"]):not([data-field="time"])`);
                         if (newInput) {
                             newInput.focus();
                         }
@@ -1409,6 +1415,11 @@ if (isset($_SESSION['account_type'])) {
             const row = document.querySelector(`input[data-row="${rowId}"]`).closest('tr');
             
             inputs.forEach(input => {
+                // 跳过日期和时间字段，它们始终保持只读
+                if (input.dataset.field === 'date' || input.dataset.field === 'time') {
+                    return;
+                }
+                
                 if (readonly) {
                     input.classList.add('readonly');
                     input.setAttribute('readonly', 'readonly');
