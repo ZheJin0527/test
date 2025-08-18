@@ -92,15 +92,27 @@ function hasApprovalPermission($userId) {
     global $pdo;
     
     try {
-        $stmt = $pdo->prepare("
-            SELECT u.account_type, ac.code 
-            FROM users u 
-            LEFT JOIN application_codes ac ON u.account_type = ac.account_type 
-            WHERE u.id = ? AND ac.code IN ('SUPPORT88', 'IT4567', 'DESIGN77')
-        ");
+        // 首先获取用户的account_type
+        $stmt = $pdo->prepare("SELECT account_type FROM users WHERE id = ?");
         $stmt->execute([$userId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$user) {
+            return false;
+        }
+        
+        // 然后检查该account_type是否对应允许的代码
+        $stmt = $pdo->prepare("
+            SELECT code FROM application_codes 
+            WHERE account_type = ? AND code IN ('SUPPORT88', 'IT4567', 'DESIGN77')
+        ");
+        $stmt->execute([$user['account_type']]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $result !== false;
+        
     } catch (PDOException $e) {
+        error_log("权限检查错误: " . $e->getMessage());
         return false;
     }
 }
