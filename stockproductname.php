@@ -909,12 +909,12 @@ if (isset($_SESSION['account_type'])) {
             
             row.innerHTML = `
                 <td>
-                    <input type="date" class="excel-input datetime-input ${!isNewRow ? 'readonly' : ''}" data-field="date" data-row="${rowId}" 
-                        value="${data.date || ''}" required ${!isNewRow ? 'readonly' : ''}>
+                    <input type="date" class="excel-input datetime-input readonly" data-field="date" data-row="${rowId}" 
+                        value="${data.date || ''}" required readonly disabled>
                 </td>
                 <td>
-                    <input type="time" class="excel-input datetime-input ${!isNewRow ? 'readonly' : ''}" data-field="time" data-row="${rowId}" 
-                        value="${data.time || ''}" required ${!isNewRow ? 'readonly' : ''}>
+                    <input type="time" class="excel-input datetime-input readonly" data-field="time" data-row="${rowId}" 
+                        value="${data.time || ''}" required readonly disabled>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_code" data-row="${rowId}" 
