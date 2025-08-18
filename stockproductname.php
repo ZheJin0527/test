@@ -1488,6 +1488,15 @@ if (isset($_SESSION['account_type'])) {
                 const rowData = extractRowData(row);
                 console.log('提取的行数据:', rowData);
 
+                // 验证必填字段
+                if (!rowData.date || !rowData.time || !rowData.product_code || 
+                    !rowData.product_name || !rowData.supplier || !rowData.applicant) {
+                    throw new Error('请填写所有必填字段');
+                }
+
+                let result;
+                const isNewRecord = rowId.toString().startsWith('new-');
+
                 // 如果是编辑现有记录，需要保持原有的批准状态
                 if (!isNewRecord) {
                     // 从stockData中找到原始记录的批准状态
@@ -1496,15 +1505,6 @@ if (isset($_SESSION['account_type'])) {
                         rowData.approver = originalRecord.approver;
                     }
                 }
-                
-                // 验证必填字段
-                if (!rowData.date || !rowData.time || !rowData.product_code || 
-                    !rowData.product_name || !rowData.supplier || !rowData.applicant) {
-                    throw new Error('请填写所有必填字段');
-                }
-                
-                let result;
-                const isNewRecord = rowId.toString().startsWith('new-');
                 
                 if (isNewRecord) {
                     // 新记录
