@@ -2180,6 +2180,8 @@ $avatarLetter = strtoupper($username[0]);
                                     <i class="fas fa-chevron-down"></i>
                                 </button>
                                 <div class="dropdown-menu" id="quick-select-dropdown">
+                                    <button class="dropdown-item" onclick="selectQuickRange('today')">今天</button>
+                                    <button class="dropdown-item" onclick="selectQuickRange('yesterday')">昨天</button>
                                     <button class="dropdown-item" onclick="selectQuickRange('thisWeek')">本周</button>
                                     <button class="dropdown-item" onclick="selectQuickRange('lastWeek')">上周</button>
                                     <button class="dropdown-item" onclick="selectQuickRange('thisMonth')">这个月</button>
@@ -3910,6 +3912,21 @@ $avatarLetter = strtoupper($username[0]);
 
             // ... 现有的 switch 语句保持不变 ...
             switch(range) {
+                case 'today':
+                    // 今天
+                    startDate = new Date(today);
+                    endDate = new Date(today);
+                    break;
+                
+                case 'yesterday':
+                    // 昨天
+                    const yesterday = new Date(today);
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    
+                    startDate = yesterday;
+                    endDate = yesterday;
+                    break;
+
                 case 'thisWeek':
                     // 本周（周一到今天）
                     const thisWeekStart = new Date(today);
@@ -4006,6 +4023,8 @@ $avatarLetter = strtoupper($username[0]);
             // 更新按钮显示文本
             const quickSelectText = document.getElementById('quick-select-text');
             const rangeTexts = {
+                'today': '今天',
+                'yesterday': '昨天',
                 'thisWeek': '本周',
                 'lastWeek': '上周',
                 'thisMonth': '这个月',
@@ -4058,6 +4077,8 @@ $avatarLetter = strtoupper($username[0]);
         // 获取范围描述文本的辅助函数
         function getRangeDescription(range) {
             const descriptions = {
+                'today': '今天',
+                'yesterday': '昨天',
                 'thisWeek': '本周',
                 'lastWeek': '上周', 
                 'thisMonth': '这个月',
