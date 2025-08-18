@@ -1488,14 +1488,23 @@ if (isset($_SESSION['account_type'])) {
                 const rowData = extractRowData(row);
                 console.log('提取的行数据:', rowData);
 
-                // 验证必填字段
-                if (!rowData.date || !rowData.time || !rowData.product_code || 
-                    !rowData.product_name || !rowData.supplier || !rowData.applicant) {
-                    throw new Error('请填写所有必填字段');
+                // 验证必填字段（只对新记录进行严格验证）
+                const isNewRecord = rowId.toString().startsWith('new-');
+
+                if (isNewRecord) {
+                    // 新记录必须填写所有必填字段
+                    if (!rowData.date || !rowData.time || !rowData.product_code || 
+                        !rowData.product_name || !rowData.supplier || !rowData.applicant) {
+                        throw new Error('请填写所有必填字段');
+                    }
+                } else {
+                    // 现有记录允许部分字段为空，但至少要有产品编号或产品名称
+                    if (!rowData.product_code && !rowData.product_name) {
+                        throw new Error('产品编号和产品名称至少需要填写一个');
+                    }
                 }
 
                 let result;
-                const isNewRecord = rowId.toString().startsWith('new-');
 
                 // 如果是编辑现有记录，需要保持原有的批准状态
                 if (!isNewRecord) {
