@@ -608,9 +608,9 @@
             box-shadow: none;
         }
 
-        /* 编辑和保存按钮样式 */
+        /* 编辑按钮样式 */
         .edit-btn {
-            background: #3b82f6;
+            background: #f59e0b;
             color: white;
             border: none;
             border-radius: 6px;
@@ -626,18 +626,9 @@
         }
 
         .edit-btn:hover {
-            background: #2563eb;
+            background: #d97706;
             transform: scale(1.1);
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-        }
-
-        .save-btn {
-            background: #10b981;
-        }
-
-        .save-btn:hover {
-            background: #059669;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
 
         .edit-btn:disabled {
@@ -646,11 +637,32 @@
             transform: none;
         }
 
-        /* 只读状态的输入框样式 */
-        .excel-input:disabled {
-            background-color: #f9fafb !important;
-            color: #6b7280;
-            cursor: not-allowed;
+        .edit-btn.save-mode {
+            background: #10b981;
+        }
+
+        .edit-btn.save-mode:hover {
+            background: #059669;
+        }
+
+        /* 只读输入框样式 */
+        .excel-input.readonly {
+            background: #f9fafb;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        .excel-input.currency-input.readonly {
+            background: #f9fafb;
+        }
+
+        /* 操作列样式调整 */
+        .action-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 4px;
         }
     </style>
 </head>
@@ -772,7 +784,7 @@
                         <th style="min-width: 100px;">新客人数</th>
                         <th style="min-width: 100px;">常客人数</th>
                         <th style="min-width: 100px;">常客人率 (%)</th>
-                        <th style="min-width: 120px;">操作</th>
+                        <th style="min-width: 80px;">操作</th>
                     </tr>
                 </thead>
                 <tbody id="excel-tbody">
@@ -963,9 +975,9 @@ row.innerHTML = `
                     <td>
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
-                            <input type="number" class="excel-input currency-input" data-field="gross_sales" data-day="${day}" 
+                            <input type="number" class="excel-input currency-input readonly" data-field="gross_sales" data-day="${day}" 
                                 value="${formatCurrencyDisplay(existingData.gross_sales)}" min="0" step="0.01" 
-                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)">
+                                placeholder="0.00" onchange="updateCalculations(${day})" oninput="formatCurrencyInput(this)" readonly>
                         </div>
                     </td>
                     <td>
@@ -1016,8 +1028,8 @@ row.innerHTML = `
                         value="${existingData.returning_customers || ''}" min="0" 
                         placeholder="0" onchange="updateCalculations(${day})"></td>
                     <td class="calculated-cell" id="returning-customer-rate-${day}">0%</td>
-                    <td>
-                        <button class="edit-btn" id="edit-btn-${day}" onclick="toggleRowEdit(${day})" title="编辑${day}日数据">
+                    <td class="action-cell">
+                        <button class="edit-btn" id="edit-btn-${day}" onclick="toggleEdit(${day})" title="编辑${day}日数据">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button class="delete-day-btn" onclick="clearDayData(${day})" title="清空${day}日数据">
@@ -1030,9 +1042,6 @@ row.innerHTML = `
                 
                 // 初始计算
                 updateCalculations(day);
-
-                // 初始化所有行为只读状态
-                initializeRowStates();
             }
         }
 
@@ -1138,12 +1147,6 @@ row.innerHTML = `
         // 保存所有数据 - 修复版本
         async function saveAllData() {
             if (isLoading) return;
-
-            // 检查是否有正在编辑的行
-            if (editingRows.size > 0) {
-                showAlert('请先保存正在编辑的行数据', 'error');
-                return;
-            }
             
             const saveBtn = event.target;
             const originalText = saveBtn.innerHTML;
@@ -1507,126 +1510,128 @@ row.innerHTML = `
             }
         });
 
-        // 行编辑状态跟踪
-        let editingRows = new Set();
-
-        // 切换行编辑状态
-        function toggleRowEdit(day) {
+        // 切换编辑模式
+        function toggleEdit(day) {
             const editBtn = document.getElementById(`edit-btn-${day}`);
             const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
+            const isEditing = editBtn.classList.contains('save-mode');
             
-            if (editingRows.has(day)) {
-                // 当前是编辑状态，点击保存
-                saveRowData(day);
+            if (isEditing) {
+                // 保存模式 - 保存这一行
+                saveSingleRowData(day);
             } else {
-                // 当前是只读状态，切换到编辑状态
-                editingRows.add(day);
-                
-                // 启用输入框
+                // 编辑模式 - 启用输入框
                 inputs.forEach(input => {
-                    input.disabled = false;
+                    input.classList.remove('readonly');
+                    input.removeAttribute('readonly');
                 });
                 
-                // 切换按钮到保存状态
+                editBtn.classList.add('save-mode');
                 editBtn.innerHTML = '<i class="fas fa-save"></i>';
-                editBtn.className = 'edit-btn save-btn';
                 editBtn.title = `保存${day}日数据`;
             }
         }
 
         // 保存单行数据
-        async function saveRowData(day) {
+        async function saveSingleRowData(day) {
             const editBtn = document.getElementById(`edit-btn-${day}`);
             const originalHTML = editBtn.innerHTML;
-            
             editBtn.innerHTML = '<div class="loading"></div>';
             editBtn.disabled = true;
             
             try {
-                const dateStr = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                const grossSales = parseFloat(getInputValue('gross_sales', day)) || 0;
+                const diners = parseInt(getInputValue('diners', day)) || 0;
                 
-                const getNumericValue = (field, day, isInteger = false) => {
-                    const value = getInputValue(field, day);
-                    if (value === '' || value === null || value === undefined) return 0;
-                    const num = isInteger ? parseInt(value) : parseFloat(value);
-                    return isNaN(num) ? 0 : num;
-                };
+                // 检查是否有数据需要保存
+                const hasData = grossSales > 0 || diners > 0 ||
+                    (parseFloat(getInputValue('discounts', day)) || 0) > 0 ||
+                    (parseFloat(getInputValue('tax', day)) || 0) > 0 ||
+                    (parseFloat(getInputValue('service_fee', day)) || 0) > 0 ||
+                    (parseFloat(getInputValue('adj_amount', day)) || 0) !== 0 ||
+                    (parseInt(getInputValue('tables_used', day)) || 0) > 0 ||
+                    (parseInt(getInputValue('returning_customers', day)) || 0) > 0 ||
+                    (parseInt(getInputValue('new_customers', day)) || 0) > 0;
 
-                const recordData = {
-                    date: dateStr,
-                    gross_sales: getNumericValue('gross_sales', day),
-                    discounts: getNumericValue('discounts', day),
-                    tax: getNumericValue('tax', day),
-                    service_fee: getNumericValue('service_fee', day),
-                    adj_amount: getNumericValue('adj_amount', day),
-                    tender_amount: (getNumericValue('gross_sales', day) - getNumericValue('discounts', day)) + 
-                                getNumericValue('tax', day) + getNumericValue('service_fee', day) + 
-                                getNumericValue('adj_amount', day),
-                    diners: getNumericValue('diners', day, true),
-                    tables_used: getNumericValue('tables_used', day, true),
-                    returning_customers: getNumericValue('returning_customers', day, true),
-                    new_customers: getNumericValue('new_customers', day, true),
-                    restaurant: currentRestaurant
-                };
-                
-                let result;
-                if (monthData[day]) {
-                    recordData.id = monthData[day].id;
-                    result = await apiCall('', {
-                        method: 'PUT',
-                        body: JSON.stringify(recordData)
-                    });
-                } else {
-                    result = await apiCall('', {
-                        method: 'POST',
-                        body: JSON.stringify(recordData)
-                    });
-                }
-                
-                if (result.success === true || result.success === undefined) {
-                    showAlert(`${day}日数据保存成功`, 'success');
-                    monthData[day] = recordData;
-                } else {
-                    const message = result.message || '';
-                    if (message.includes('已存在') || message.includes('无变化')) {
-                        showAlert(`${day}日数据无变化`, 'info');
+                if (hasData) {
+                    const dateStr = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                    
+                    const getNumericValue = (field, day, isInteger = false) => {
+                        const value = getInputValue(field, day);
+                        if (value === '' || value === null || value === undefined) return 0;
+                        const num = isInteger ? parseInt(value) : parseFloat(value);
+                        return isNaN(num) ? 0 : num;
+                    };
+
+                    const recordData = {
+                        date: dateStr,
+                        gross_sales: getNumericValue('gross_sales', day),
+                        discounts: getNumericValue('discounts', day),
+                        tax: getNumericValue('tax', day),
+                        service_fee: getNumericValue('service_fee', day),
+                        adj_amount: getNumericValue('adj_amount', day),
+                        tender_amount: (getNumericValue('gross_sales', day) - getNumericValue('discounts', day)) + 
+                                    getNumericValue('tax', day) + getNumericValue('service_fee', day) + 
+                                    getNumericValue('adj_amount', day),
+                        diners: getNumericValue('diners', day, true),
+                        tables_used: getNumericValue('tables_used', day, true),
+                        returning_customers: getNumericValue('returning_customers', day, true),
+                        new_customers: getNumericValue('new_customers', day, true),
+                        restaurant: currentRestaurant
+                    };
+                    
+                    let result;
+                    if (monthData[day]) {
+                        recordData.id = monthData[day].id;
+                        result = await apiCall('', {
+                            method: 'PUT',
+                            body: JSON.stringify(recordData)
+                        });
                     } else {
-                        throw new Error(message);
+                        result = await apiCall('', {
+                            method: 'POST',
+                            body: JSON.stringify(recordData)
+                        });
                     }
+                    
+                    if (result.success === true || result.success !== false) {
+                        showAlert(`${day}日数据保存成功`, 'success');
+                        // 更新本地数据
+                        monthData[day] = recordData;
+                    } else {
+                        const message = result.message || '';
+                        if (message.includes('已存在') || message.includes('无变化')) {
+                            showAlert(`${day}日数据无需更新`, 'info');
+                        } else {
+                            throw new Error(message);
+                        }
+                    }
+                } else {
+                    showAlert(`${day}日数据已保存（空记录）`, 'info');
                 }
                 
-                setRowReadonly(day);
+                // 切换回只读模式
+                const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
+                inputs.forEach(input => {
+                    input.classList.add('readonly');
+                    input.setAttribute('readonly', true);
+                });
+                
+                editBtn.classList.remove('save-mode');
+                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                editBtn.title = `编辑${day}日数据`;
+                
+                // 更新月度统计
                 updateMonthStats();
                 
             } catch (error) {
                 showAlert(`保存${day}日数据失败: ${error.message}`, 'error');
+                console.error('保存数据失败:', error);
             } finally {
-                editBtn.innerHTML = originalHTML;
                 editBtn.disabled = false;
-            }
-        }
-
-        // 设置行为只读状态
-        function setRowReadonly(day) {
-            editingRows.delete(day);
-            
-            const editBtn = document.getElementById(`edit-btn-${day}`);
-            const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
-            
-            inputs.forEach(input => {
-                input.disabled = true;
-            });
-            
-            editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-            editBtn.className = 'edit-btn';
-            editBtn.title = `编辑${day}日数据`;
-        }
-
-        // 初始化所有行为只读状态
-        function initializeRowStates() {
-            const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
-            for (let day = 1; day <= daysInMonth; day++) {
-                setRowReadonly(day);
+                if (!editBtn.classList.contains('save-mode')) {
+                    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                }
             }
         }
     </script>
