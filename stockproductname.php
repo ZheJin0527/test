@@ -526,6 +526,89 @@ if (isset($_SESSION['account_type'])) {
             transform: none;
             box-shadow: none;
         }
+
+        /* 编辑按钮样式 */
+        .edit-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 12px;
+            margin: 2px;
+        }
+
+        .edit-btn:hover {
+            background: #d97706;
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .edit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .edit-btn.save-mode {
+            background: #10b981;
+        }
+
+        .edit-btn.save-mode:hover {
+            background: #059669;
+        }
+
+        /* 只读输入框样式 */
+        .excel-input.readonly {
+            background: #f9fafb !important;
+            pointer-events: none;
+            cursor: not-allowed;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .excel-input.datetime-input.readonly {
+            background: #f9fafb;
+        }
+
+        .excel-input.text-input.readonly {
+            background: #f9fafb;
+        }
+
+        /* 操作列样式调整 */
+        .action-cell {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 4px;
+        }
+
+        /* 编辑行样式 */
+        .excel-table tr.editing-row {
+            background-color: #cde3ff !important;
+        }
+
+        .excel-table tr.editing-row td {
+            background-color: #cde3ff !important;
+        }
+
+        .excel-table tr.editing-row .status-approved {
+            background-color: #cde3ff !important;
+        }
+
+        .excel-table tr.editing-row .status-pending {
+            background-color: #cde3ff !important;
+        }
     </style>
 </head>
 <body>
@@ -618,7 +701,7 @@ if (isset($_SESSION['account_type'])) {
                         <th style="min-width: 120px;">申请人</th>
                         <th style="min-width: 120px;">批准状态</th>
                         <th style="min-width: 80px;">状态</th>
-                        <th style="min-width: 60px;">操作</th>
+                        <th style="min-width: 100px;">操作</th>
                     </tr>
                 </thead>
                 <tbody id="excel-tbody">
@@ -826,28 +909,28 @@ if (isset($_SESSION['account_type'])) {
             
             row.innerHTML = `
                 <td>
-                    <input type="date" class="excel-input datetime-input" data-field="date" data-row="${rowId}" 
+                    <input type="date" class="excel-input datetime-input ${!isNewRow ? 'readonly' : ''}" data-field="date" data-row="${rowId}" 
                         value="${data.date || ''}" required ${!isNewRow ? 'readonly' : ''}>
                 </td>
                 <td>
-                    <input type="time" class="excel-input datetime-input" data-field="time" data-row="${rowId}" 
+                    <input type="time" class="excel-input datetime-input ${!isNewRow ? 'readonly' : ''}" data-field="time" data-row="${rowId}" 
                         value="${data.time || ''}" required ${!isNewRow ? 'readonly' : ''}>
                 </td>
                 <td>
-                    <input type="text" class="excel-input text-input" data-field="product_code" data-row="${rowId}" 
-                        value="${data.product_code || ''}" placeholder="产品编号" required>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_code" data-row="${rowId}" 
+                        value="${data.product_code || ''}" placeholder="产品编号" required ${!isNewRow ? 'readonly' : ''}>
                 </td>
                 <td>
-                    <input type="text" class="excel-input text-input" data-field="product_name" data-row="${rowId}" 
-                        value="${data.product_name || ''}" placeholder="产品名称" required>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_name" data-row="${rowId}" 
+                        value="${data.product_name || ''}" placeholder="产品名称" required ${!isNewRow ? 'readonly' : ''}>
                 </td>
                 <td>
-                    <input type="text" class="excel-input text-input" data-field="supplier" data-row="${rowId}" 
-                        value="${data.supplier || ''}" placeholder="供应商名称" required>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="supplier" data-row="${rowId}" 
+                        value="${data.supplier || ''}" placeholder="供应商名称" required ${!isNewRow ? 'readonly' : ''}>
                 </td>
                 <td>
-                    <input type="text" class="excel-input text-input" data-field="applicant" data-row="${rowId}" 
-                        value="${data.applicant || ''}" placeholder="申请人" required>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="applicant" data-row="${rowId}" 
+                        value="${data.applicant || ''}" placeholder="申请人" required ${!isNewRow ? 'readonly' : ''}>
                 </td>
                 <td style="padding: 8px;">
                     ${data.approver ? 
@@ -867,7 +950,10 @@ if (isset($_SESSION['account_type'])) {
                         '<span style="color: #92400e; font-weight: 600;">待批准</span>'
                     }
                 </td>
-                <td>
+                <td class="action-cell">
+                    <button class="edit-btn" id="edit-btn-${rowId}" onclick="toggleEdit('${rowId}')" title="编辑记录">
+                        <i class="fas fa-edit"></i>
+                    </button>
                     <button class="delete-row-btn" onclick="deleteRow('${rowId}')" title="删除此行">
                         <i class="fas fa-trash-alt"></i>
                     </button>
@@ -1298,5 +1384,122 @@ if (isset($_SESSION['account_type'])) {
             }
         }
     </script>
+    <script>
+        // 切换编辑模式
+        function toggleEdit(rowId) {
+            const editBtn = document.getElementById(`edit-btn-${rowId}`);
+            const inputs = document.querySelectorAll(`input[data-row="${rowId}"]`);
+            const isEditing = editBtn.classList.contains('save-mode');
+            
+            if (isEditing) {
+                // 保存模式 - 保存这一行
+                saveSingleRowData(rowId);
+            } else {
+                setRowReadonly(rowId, false);
+                
+                editBtn.classList.add('save-mode');
+                editBtn.innerHTML = '<i class="fas fa-save"></i>';
+                editBtn.title = `保存记录`;
+            }
+        }
+
+        // 设置行的只读状态
+        function setRowReadonly(rowId, readonly) {
+            const inputs = document.querySelectorAll(`input[data-row="${rowId}"]`);
+            const row = document.querySelector(`input[data-row="${rowId}"]`).closest('tr');
+            
+            inputs.forEach(input => {
+                if (readonly) {
+                    input.classList.add('readonly');
+                    input.setAttribute('readonly', 'readonly');
+                    input.setAttribute('disabled', 'disabled');
+                } else {
+                    input.classList.remove('readonly');
+                    input.removeAttribute('readonly');
+                    input.removeAttribute('disabled');
+                }
+            });
+            
+            // 切换行的编辑样式
+            if (readonly) {
+                row.classList.remove('editing-row');
+            } else {
+                row.classList.add('editing-row');
+            }
+        }
+
+        // 保存单行数据
+        async function saveSingleRowData(rowId) {
+            const editBtn = document.getElementById(`edit-btn-${rowId}`);
+            const originalHTML = editBtn.innerHTML;
+            editBtn.innerHTML = '<div class="loading"></div>';
+            editBtn.disabled = true;
+            
+            try {
+                const row = document.querySelector(`input[data-row="${rowId}"]`).closest('tr');
+                const rowData = extractRowData(row);
+                
+                // 验证必填字段
+                if (!rowData.date || !rowData.time || !rowData.product_code || 
+                    !rowData.product_name || !rowData.supplier || !rowData.applicant) {
+                    throw new Error('请填写所有必填字段');
+                }
+                
+                let result;
+                if (rowId.toString().startsWith('new-')) {
+                    // 新记录
+                    const response = await fetch(API_BASE_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(rowData)
+                    });
+                    const responseText = await response.text();
+                    result = JSON.parse(responseText);
+                    
+                    if (result.success && result.data && result.data.id) {
+                        updateRowId(row, rowId, result.data.id);
+                    }
+                } else {
+                    // 更新现有记录
+                    rowData.id = rowId;
+                    const response = await fetch(API_BASE_URL, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(rowData)
+                    });
+                    const responseText = await response.text();
+                    result = JSON.parse(responseText);
+                }
+                
+                if (result.success) {
+                    showAlert('记录保存成功', 'success');
+                    
+                    // 切换回只读模式
+                    setRowReadonly(rowId.toString().startsWith('new-') && result.data ? result.data.id : rowId, true);
+                    
+                    editBtn.classList.remove('save-mode');
+                    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                    editBtn.title = '编辑记录';
+                    
+                    updateStats();
+                } else {
+                    throw new Error(result.message || '保存失败');
+                }
+                
+            } catch (error) {
+                showAlert('保存失败: ' + error.message, 'error');
+                console.error('保存数据失败:', error);
+            } finally {
+                editBtn.disabled = false;
+                if (!editBtn.classList.contains('save-mode')) {
+                    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                }
+            }
+        }
+</script>
 </body>
 </html>
