@@ -669,29 +669,25 @@
             padding: 4px;
         }
 
-        /* 编辑模式行样式 */
-.excel-table tr.editing-mode {
-    background-color: #fff7ed !important;
+        /* 编辑行样式 */
+.excel-table tr.editing-row {
+    background-color: #fff3cd !important;
 }
 
-.excel-table tr.editing-mode td {
-    background-color: #fff7ed !important;
-    border-color: #f59e0b !important;
+.excel-table tr.editing-row td {
+    background-color: #fff3cd !important;
 }
 
-.excel-table tr.editing-mode .date-cell {
-    background-color: #fed7aa !important;
-    border-color: #f59e0b !important;
+.excel-table tr.editing-row .date-cell {
+    background-color: #fff3cd !important;
 }
 
-.excel-table tr.editing-mode .calculated-cell {
-    background-color: #fef3c7 !important;
-    border-color: #f59e0b !important;
+.excel-table tr.editing-row .calculated-cell {
+    background-color: #fff3cd !important;
 }
 
-.excel-table tr.editing-mode .weekend {
-    background-color: #fecaca !important;
-    border-color: #f59e0b !important;
+.excel-table tr.editing-row .weekend {
+    background-color: #fff3cd !important;
 }
     </style>
 </head>
@@ -1091,13 +1087,9 @@ row.innerHTML = `
         }
 
         // 设置行的只读状态
-function setRowReadonly(day, readonly) {
+        function setRowReadonly(day, readonly) {
     const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
-    const row = document.querySelector(`tr`).parentNode.children[day]; // 找到对应的行
-    
-    // 更准确地找到对应的行
-    const allRows = document.querySelectorAll('#excel-tbody tr');
-    const targetRow = allRows[day - 1]; // day从1开始，数组从0开始
+    const row = document.querySelector(`input[data-day="${day}"]`).closest('tr');
     
     inputs.forEach(input => {
         if (readonly) {
@@ -1111,13 +1103,11 @@ function setRowReadonly(day, readonly) {
         }
     });
     
-    // 切换行的编辑模式样式
-    if (targetRow) {
-        if (readonly) {
-            targetRow.classList.remove('editing-mode');
-        } else {
-            targetRow.classList.add('editing-mode');
-        }
+    // 切换行的编辑样式
+    if (readonly) {
+        row.classList.remove('editing-row');
+    } else {
+        row.classList.add('editing-row');
     }
 }
 
@@ -1676,7 +1666,7 @@ function setRowReadonly(day, readonly) {
                 // 切换回只读模式
                 const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
                 setRowReadonly(day, true);
-
+                
                 editBtn.classList.remove('save-mode');
                 editBtn.innerHTML = '<i class="fas fa-edit"></i>';
                 editBtn.title = `编辑${day}日数据`;
