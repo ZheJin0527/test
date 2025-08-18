@@ -892,76 +892,76 @@ if (isset($_SESSION['account_type'])) {
 
         // 创建库存行
         function createStockRow(data = {}, index = -1) {
-    const row = document.createElement('tr');
-    const isNewRow = index === -1;
-    const rowId = isNewRow ? `new-${nextRowId++}` : data.id || index;
-    
-    if (isNewRow) {
-        row.classList.add('new-row');
-    }
-    
-    // 根据批准状态设置行样式
-    if (data.approver) {
-        row.classList.add('status-approved');
-    } else if (!isNewRow) {
-        row.classList.add('status-pending');
-    }
-    
-    row.innerHTML = `
-        <td>
-            <input type="date" class="excel-input datetime-input readonly" data-field="date" data-row="${rowId}" 
-                value="${data.date || ''}" required readonly disabled>
-        </td>
-        <td>
-            <input type="time" class="excel-input datetime-input readonly" data-field="time" data-row="${rowId}" 
-                value="${data.time || ''}" required readonly disabled>
-        </td>
-        <td>
-            <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_code" data-row="${rowId}" 
-                value="${data.product_code || ''}" placeholder="产品编号" required ${!isNewRow ? 'readonly disabled' : ''}>
-        </td>
-        <td>
-            <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_name" data-row="${rowId}" 
-                value="${data.product_name || ''}" placeholder="产品名称" required ${!isNewRow ? 'readonly disabled' : ''}>
-        </td>
-        <td>
-            <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="supplier" data-row="${rowId}" 
-                value="${data.supplier || ''}" placeholder="供应商名称" required ${!isNewRow ? 'readonly disabled' : ''}>
-        </td>
-        <td>
-            <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="applicant" data-row="${rowId}" 
-                value="${data.applicant || ''}" placeholder="申请人" required ${!isNewRow ? 'readonly disabled' : ''}>
-        </td>
-        <td style="padding: 8px;">
-            ${data.approver ? 
-                `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
-                (USER_CAN_APPROVE && !isNewRow ? 
-                    `<button class="approve-btn" onclick="approveRecord('${rowId}')">
-                        <i class="fas fa-check"></i>
-                        批准
-                    </button>` : 
-                    `<span style="color: #92400e; font-weight: 600;">待批准</span>`
-                )
+            const row = document.createElement('tr');
+            const isNewRow = index === -1;
+            const rowId = isNewRow ? `new-${nextRowId++}` : data.id || index;
+            
+            if (isNewRow) {
+                row.classList.add('new-row');
             }
-        </td>
-        <td style="padding: 8px;">
-            ${data.approver ? 
-                '<span style="color: #065f46; font-weight: 600;">已批准</span>' : 
-                '<span style="color: #92400e; font-weight: 600;">待批准</span>'
+            
+            // 根据批准状态设置行样式
+            if (data.approver) {
+                row.classList.add('status-approved');
+            } else if (!isNewRow) {
+                row.classList.add('status-pending');
             }
-        </td>
-        <td class="action-cell">
-            <button class="edit-btn" id="edit-btn-${rowId}" onclick="toggleEdit('${rowId}')" title="编辑记录">
-                <i class="fas fa-edit"></i>
-            </button>
-            <button class="delete-row-btn" onclick="deleteRow('${rowId}')" title="删除此行">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-        </td>
-    `;
-    
-    return row;
-}
+            
+            row.innerHTML = `
+                <td>
+                    <input type="date" class="excel-input datetime-input readonly" data-field="date" data-row="${rowId}" 
+                        value="${data.date || ''}" required readonly disabled>
+                </td>
+                <td>
+                    <input type="time" class="excel-input datetime-input readonly" data-field="time" data-row="${rowId}" 
+                        value="${data.time || ''}" required readonly disabled>
+                </td>
+                <td>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_code" data-row="${rowId}" 
+                        value="${data.product_code || ''}" placeholder="产品编号" required ${!isNewRow ? 'readonly disabled' : ''}>
+                </td>
+                <td>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="product_name" data-row="${rowId}" 
+                        value="${data.product_name || ''}" placeholder="产品名称" required ${!isNewRow ? 'readonly disabled' : ''}>
+                </td>
+                <td>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="supplier" data-row="${rowId}" 
+                        value="${data.supplier || ''}" placeholder="供应商名称" required ${!isNewRow ? 'readonly disabled' : ''}>
+                </td>
+                <td>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="applicant" data-row="${rowId}" 
+                        value="${data.applicant || ''}" placeholder="申请人" required ${!isNewRow ? 'readonly disabled' : ''}>
+                </td>
+                <td style="padding: 8px;">
+                    ${data.approver ? 
+                        `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
+                        (USER_CAN_APPROVE && !isNewRow ? 
+                            `<button class="approve-btn" onclick="approveRecord('${rowId}')">
+                                <i class="fas fa-check"></i>
+                                批准
+                            </button>` : 
+                            `<span style="color: #92400e; font-weight: 600;">待批准</span>`
+                        )
+                    }
+                </td>
+                <td style="padding: 8px;">
+                    ${data.approver ? 
+                        '<span style="color: #065f46; font-weight: 600;">已批准</span>' : 
+                        '<span style="color: #92400e; font-weight: 600;">待批准</span>'
+                    }
+                </td>
+                <td class="action-cell">
+                    <button class="edit-btn ${isNewRow ? 'save-mode' : ''}" id="edit-btn-${rowId}" onclick="toggleEdit('${rowId}')" title="${isNewRow ? '保存记录' : '编辑记录'}">
+                        <i class="fas ${isNewRow ? 'fa-save' : 'fa-edit'}"></i>
+                    </button>
+                    <button class="delete-row-btn" onclick="deleteRow('${rowId}')" title="删除此行">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </td>
+            `;
+            
+            return row;
+        }
 
         // 添加新行
         function addNewRow() {
@@ -990,6 +990,15 @@ if (isset($_SESSION['account_type'])) {
             if (productCodeInput) {
                 productCodeInput.focus();
             }
+            
+            // 设置新行为编辑模式（非只读状态）
+            setTimeout(() => {
+                const rowId = `new-${nextRowId - 1}`; // 获取刚创建的行ID
+                const newRowElement = document.querySelector(`input[data-row="${rowId}"]`)?.closest('tr');
+                if (newRowElement) {
+                    newRowElement.classList.add('editing-row');
+                }
+            }, 0);
             
             updateStats();
         }
@@ -1545,41 +1554,41 @@ if (isset($_SESSION['account_type'])) {
         }
 
         // 完整更新行ID（修复版本）
-function updateRowIdComplete(row, oldId, newId) {
-    console.log(`更新行ID: ${oldId} -> ${newId}`);
-    
-    // 更新所有input的data-row属性
-    const inputs = row.querySelectorAll('input');
-    inputs.forEach(input => {
-        if (input.dataset.row === oldId) {
-            input.dataset.row = newId;
+        function updateRowIdComplete(row, oldId, newId) {
+            console.log(`更新行ID: ${oldId} -> ${newId}`);
+            
+            // 更新所有input的data-row属性
+            const inputs = row.querySelectorAll('input');
+            inputs.forEach(input => {
+                if (input.dataset.row === oldId) {
+                    input.dataset.row = newId;
+                }
+            });
+            
+            // 更新编辑按钮的ID和事件
+            const editBtn = row.querySelector(`#edit-btn-${oldId}`);
+            if (editBtn) {
+                editBtn.id = `edit-btn-${newId}`;
+                editBtn.setAttribute('onclick', `toggleEdit('${newId}')`);
+            }
+            
+            // 更新删除按钮的事件
+            const deleteBtn = row.querySelector('.delete-row-btn');
+            if (deleteBtn) {
+                deleteBtn.setAttribute('onclick', `deleteRow('${newId}')`);
+            }
+            
+            // 更新批准按钮的事件（如果存在）
+            const approveBtn = row.querySelector(`button[onclick*="approveRecord('${oldId}')"]`);
+            if (approveBtn) {
+                approveBtn.setAttribute('onclick', `approveRecord('${newId}')`);
+            }
+            
+            // 移除新行样式
+            row.classList.remove('new-row');
+            
+            console.log(`行ID更新完成: ${oldId} -> ${newId}`);
         }
-    });
-    
-    // 更新编辑按钮的ID和事件
-    const editBtn = row.querySelector(`#edit-btn-${oldId}`);
-    if (editBtn) {
-        editBtn.id = `edit-btn-${newId}`;
-        editBtn.setAttribute('onclick', `toggleEdit('${newId}')`);
-    }
-    
-    // 更新删除按钮的事件
-    const deleteBtn = row.querySelector('.delete-row-btn');
-    if (deleteBtn) {
-        deleteBtn.setAttribute('onclick', `deleteRow('${newId}')`);
-    }
-    
-    // 更新批准按钮的事件（如果存在）
-    const approveBtn = row.querySelector(`button[onclick*="approveRecord('${oldId}')"]`);
-    if (approveBtn) {
-        approveBtn.setAttribute('onclick', `approveRecord('${newId}')`);
-    }
-    
-    // 移除新行样式
-    row.classList.remove('new-row');
-    
-    console.log(`行ID更新完成: ${oldId} -> ${newId}`);
-}
 </script>
 </body>
 </html>
