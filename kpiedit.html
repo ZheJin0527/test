@@ -659,9 +659,10 @@
         /* 操作列样式调整 */
         .action-cell {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 2px;
+            justify-content: center;
+            gap: 4px;
             padding: 4px;
         }
     </style>
@@ -784,7 +785,7 @@
                         <th style="min-width: 100px;">新客人数</th>
                         <th style="min-width: 100px;">常客人数</th>
                         <th style="min-width: 100px;">常客人率 (%)</th>
-                        <th style="min-width: 80px;">操作</th>
+                        <th style="min-width: 120px;">操作</th>
                     </tr>
                 </thead>
                 <tbody id="excel-tbody">
