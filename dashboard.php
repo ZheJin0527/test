@@ -798,20 +798,26 @@ function goToCulture() {
         userAvatar?.addEventListener('click', function() {
             sidebar.classList.add('show');
             overlay.classList.add('show');
+            resetSidebarTimer(); // 添加这行
         });
 
         // 关闭菜单
-        function closeSidebar() {
-            sidebar.classList.remove('show');
-            overlay.classList.remove('show');
-            // 关闭所有下拉菜单
-            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
-            document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-                title.classList.remove('active');
-            });
-        }
+function closeSidebar() {
+    sidebar.classList.remove('show');
+    overlay.classList.remove('show');
+    // 关闭所有下拉菜单
+    document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+        dropdown.classList.remove('show');
+    });
+    document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+        title.classList.remove('active');
+    });
+    // 清除计时器
+    if (sidebarHideTimer) {
+        clearTimeout(sidebarHideTimer);
+        sidebarHideTimer = null;
+    }
+}
 
         closeBtn?.addEventListener('click', closeSidebar);
         overlay?.addEventListener('click', closeSidebar);
@@ -1044,6 +1050,29 @@ function goToCulture() {
             sidebarMenu.classList.toggle('collapsed');
             sidebarToggle.classList.toggle('collapsed');
         });
+
+        // 自动隐藏侧边栏功能
+let sidebarHideTimer;
+const SIDEBAR_HIDE_DELAY = 5000; // 5秒
+
+function resetSidebarTimer() {
+    // 清除现有计时器
+    if (sidebarHideTimer) {
+        clearTimeout(sidebarHideTimer);
+    }
+    
+    // 只有在侧边栏显示时才设置计时器
+    if (sidebar.classList.contains('show')) {
+        sidebarHideTimer = setTimeout(() => {
+            closeSidebar();
+        }, SIDEBAR_HIDE_DELAY);
+    }
+}
+
+// 侧边栏内的所有交互都重置计时器
+sidebar?.addEventListener('click', resetSidebarTimer);
+sidebar?.addEventListener('mouseenter', resetSidebarTimer);
+sidebar?.addEventListener('mousemove', resetSidebarTimer);
     </script>
 </body>
 </html>
