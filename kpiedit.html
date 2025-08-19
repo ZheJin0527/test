@@ -1586,19 +1586,19 @@ row.innerHTML = `
             deleteBtn.disabled = true;
             
             try {
-                // 如果该日在数据库中有记录，先删除数据库记录
+                // 如果该日在数据库中有记录，删除数据库记录
                 if (monthData[day] && monthData[day].id) {
-                    const result = await apiCall(`?action=delete&id=${monthData[day].id}&restaurant=${currentRestaurant}`, {
-                        method: 'DELETE'
+                    const result = await apiCall('', {
+                        method: 'DELETE',
+                        body: JSON.stringify({
+                            id: monthData[day].id,
+                            restaurant: currentRestaurant
+                        })
                     });
                     
-                    if (result.success) {
-                        // 从本地数据中移除该记录
-                        delete monthData[day];
-                        showAlert(`${day}日数据已从数据库删除`, 'success');
-                    } else {
-                        throw new Error(result.message || '删除失败');
-                    }
+                    // 从本地数据中移除该记录
+                    delete monthData[day];
+                    showAlert(`${day}日数据已删除`, 'success');
                 } else {
                     showAlert(`${day}日数据已清空`, 'info');
                 }
@@ -1609,12 +1609,31 @@ row.innerHTML = `
                     input.value = '';
                 });
                 
+                // 退出编辑模式
+                const editBtn = document.getElementById(`edit-btn-${day}`);
+                if (editBtn && editBtn.classList.contains('save-mode')) {
+                    editBtn.classList.remove('save-mode');
+                    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                    editBtn.title = `编辑${day}日数据`;
+                    setRowReadonly(day, true);
+                }
+                
                 // 重新计算该日的数据
                 updateCalculations(day);
                 
             } catch (error) {
-                showAlert(`删除${day}日数据失败: ${error.message}`, 'error');
-                console.error('删除数据失败:', error);
+                // 即使API出错也要清空界面和本地数据
+                if (monthData[day]) {
+                    delete monthData[day];
+                }
+                
+                const inputs = document.querySelectorAll(`input[data-day="${day}"]`);
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+                
+                updateCalculations(day);
+                showAlert(`${day}日数据已清空`, 'info');
             } finally {
                 deleteBtn.innerHTML = originalHTML;
                 deleteBtn.disabled = false;
@@ -1908,7 +1927,17 @@ row.innerHTML = `
                     (parseFloat(getInputValue('adj_amount', day)) || 0) !== 0 ||
                     (parseInt(getInputValue('tables_used', day)) || 0) > 0 ||
                     (parseInt(getInputValue('returning_customers', day)) || 0) > 0 ||
-                    (parseInt(getInputValue('new_customers', day)) || 0) > 0;
+                    (parseInt(getInputValue('new_customers', day)) || 0) > 0 ||
+                    // 检查输入框是否有非空值（即使是0也算有数据）
+                    getInputValue('gross_sales', day) !== '' ||
+                    getInputValue('discounts', day) !== '' ||
+                    getInputValue('tax', day) !== '' ||
+                    getInputValue('service_fee', day) !== '' ||
+                    getInputValue('adj_amount', day) !== '' ||
+                    getInputValue('tables_used', day) !== '' ||
+                    getInputValue('diners', day) !== '' ||
+                    getInputValue('returning_customers', day) !== '' ||
+                    getInputValue('new_customers', day) !== '';
 
                 if (hasData) {
                     const dateStr = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
