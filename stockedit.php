@@ -599,8 +599,16 @@
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
                 </div>
                 <div class="filter-group">
-                    <label for="code-filter">产品代码</label>
-                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品代码...">
+                    <label for="supplier-filter">供应商</label>
+                    <input type="text" id="supplier-filter" class="filter-input" placeholder="搜索供应商...">
+                </div>
+                <div class="filter-group">
+                    <label for="status-filter">批准状态</label>
+                    <select id="status-filter" class="filter-select">
+                        <option value="">全部状态</option>
+                        <option value="approved">已批准</option>
+                        <option value="pending">待批准</option>
+                    </select>
                 </div>
             </div>
             <div class="filter-actions">
@@ -636,14 +644,12 @@
                     <input type="time" id="add-time" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label for="add-code-number">产品代码 *</label>
-                    <select id="add-code-number" class="form-select" required onchange="loadProductByCode(this.value)">
-                        <option value="">请选择产品代码</option>
-                    </select>
+                    <label for="add-product-code">产品编号 *</label>
+                    <input type="text" id="add-product-code" class="form-input" placeholder="输入产品编号..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-product-name">产品名称 *</label>
-                    <input type="text" id="add-product-name" class="form-input" placeholder="产品名称..." readonly required>
+                    <input type="text" id="add-product-name" class="form-input" placeholder="输入产品名称..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
@@ -676,10 +682,6 @@
                 <div class="form-group">
                     <label for="add-supplier">供应商 *</label>
                     <input type="text" id="add-supplier" class="form-input" placeholder="输入供应商..." required>
-                </div>
-                <div class="form-group">
-                    <label for="add-receiver">签收人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入签收人..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -715,16 +717,16 @@
                         <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-cubes"></i>
-                        <span>产品种类: <span class="stat-value" id="product-count">0</span></span>
+                        <i class="fas fa-check-circle"></i>
+                        <span>已批准: <span class="stat-value" id="approved-count">0</span></span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>总入库: <span class="stat-value" id="total-in">0</span></span>
+                        <i class="fas fa-clock"></i>
+                        <span>待批准: <span class="stat-value" id="pending-count">0</span></span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-arrow-down"></i>
-                        <span>总出库: <span class="stat-value" id="total-out">0</span></span>
+                        <i class="fas fa-truck"></i>
+                        <span>供应商数: <span class="stat-value" id="supplier-count">0</span></span>
                     </div>
                 </div>
                 
@@ -739,15 +741,16 @@
                 <thead>
                     <tr>
                         <th style="min-width: 100px;">DATE</th>
-                        <th style="min-width: 120px;">Code Number</th>
                         <th class="product-name-col">PRODUCT</th>
                         <th style="min-width: 80px;">In</th>
                         <th style="min-width: 80px;">Out</th>
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
-                        <th style="min-width: 100px;">Receiver</th>
+                        <th class="supplier-col">Name</th>
+                        <th style="min-width: 100px;">Code Number</th>
                         <th style="min-width: 100px;">Remark</th>
+                        <th style="min-width: 100px;">状态</th>
                         <th style="min-width: 120px;">操作</th>
                     </tr>
                 </thead>
@@ -766,21 +769,19 @@
         let stockData = [];
         let isLoading = false;
         let editingRowId = null;
-        let productCodesData = [];
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
 
         // 初始化应用
         function initApp() {
-            // 现有代码保持不变
+            // 设置默认日期为今天
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('add-date').value = today;
             document.getElementById('add-time').value = new Date().toTimeString().slice(0, 5);
             
             // 加载数据
             loadStockData();
-            loadProductCodes();
         }
 
         // 返回上一页
@@ -857,11 +858,13 @@
                 
                 const dateFilter = document.getElementById('date-filter').value;
                 const productFilter = document.getElementById('product-filter').value;
-                const codeFilter = document.getElementById('code-filter').value;
+                const supplierFilter = document.getElementById('supplier-filter').value;
+                const statusFilter = document.getElementById('status-filter').value;
                 
                 if (dateFilter) params.append('search_date', dateFilter);
                 if (productFilter) params.append('product_name', productFilter);
-                if (codeFilter) params.append('product_code', codeFilter);
+                if (supplierFilter) params.append('supplier', supplierFilter);
+                if (statusFilter) params.append('approval_status', statusFilter);
                 
                 const result = await apiCall(`?${params}`);
                 
@@ -887,7 +890,8 @@
         function resetFilters() {
             document.getElementById('date-filter').value = '';
             document.getElementById('product-filter').value = '';
-            document.getElementById('code-filter').value = '';
+            document.getElementById('supplier-filter').value = '';
+            document.getElementById('status-filter').value = '';
             loadStockData();
         }
 
@@ -916,20 +920,7 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<select class="table-select" onchange="updateFieldAndLoadProduct(${record.id}, 'product_code', this.value)" style="text-align: left; padding-left: 8px;">
-                                <option value="">${record.product_code || '请选择'}</option>
-                                ${productCodesData.map(item => 
-                                    `<option value="${item.product_code}" ${record.product_code === item.product_code ? 'selected' : ''}>
-                                        ${item.product_code} - ${item.product_name}
-                                    </option>`
-                                ).join('')}
-                            </select>` :
-                            `<span>${record.product_code || '-'}</span>`
-                        }
-                    </td>
-                    <td>
-                        ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.product_name}" onchange="updateField(${record.id}, 'product_name', this.value)" readonly style="background: #f9fafb;">` :
+                            `<input type="text" class="table-input" value="${record.product_name}" onchange="updateField(${record.id}, 'product_name', this.value)">` :
                             `<span>${record.product_name}</span>`
                         }
                     </td>
@@ -967,8 +958,14 @@
                     <td class="calculated-cell">RM ${formatCurrency(total)}</td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
-                            `<span>${record.receiver || '-'}</span>`
+                            `<input type="text" class="table-input" value="${record.supplier}" onchange="updateField(${record.id}, 'supplier', this.value)">` :
+                            `<span>${record.supplier}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
+                            `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -976,6 +973,11 @@
                             `<input type="text" class="table-input" value="${record.remark || ''}" onchange="updateField(${record.id}, 'remark', this.value)">` :
                             `<span>${record.remark || '-'}</span>`
                         }
+                    </td>
+                    <td>
+                        <span class="approval-badge ${record.approval_status}">
+                            ${record.approval_status === 'approved' ? '已批准' : '待批准'}
+                        </span>
                     </td>
                     <td class="action-cell">
                         ${isEditing ? 
@@ -987,10 +989,17 @@
                             </button>` :
                             `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
                                 <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
-                                <i class="fas fa-trash"></i>
                             </button>`
+                        }
+                        ${record.approval_status === 'pending' && !isEditing ? 
+                            `<button class="action-btn approve-btn" onclick="approveRecord(${record.id})" title="批准">
+                                <i class="fas fa-check"></i>
+                            </button>` : ''
+                        }
+                        ${!isEditing ? 
+                            `<button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
+                                <i class="fas fa-trash"></i>
+                            </button>` : ''
                         }
                     </td>
                 `;
@@ -1025,14 +1034,14 @@
         // 更新统计信息
         function updateStats() {
             const totalRecords = stockData.length;
-            const productCount = new Set(stockData.map(record => record.product_code)).size;
-            const totalIn = stockData.reduce((sum, record) => sum + (parseFloat(record.in_quantity) || 0), 0);
-            const totalOut = stockData.reduce((sum, record) => sum + (parseFloat(record.out_quantity) || 0), 0);
+            const approvedCount = stockData.filter(record => record.approval_status === 'approved').length;
+            const pendingCount = totalRecords - approvedCount;
+            const supplierCount = new Set(stockData.map(record => record.supplier)).size;
             
             document.getElementById('total-records').textContent = totalRecords;
-            document.getElementById('product-count').textContent = productCount;
-            document.getElementById('total-in').textContent = formatNumber(totalIn);
-            document.getElementById('total-out').textContent = formatNumber(totalOut);
+            document.getElementById('approved-count').textContent = approvedCount;
+            document.getElementById('pending-count').textContent = pendingCount;
+            document.getElementById('supplier-count').textContent = supplierCount;
         }
 
         // 切换添加表单
@@ -1059,20 +1068,20 @@
             const formData = {
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
-                product_code: document.getElementById('add-code-number').value, // 使用选择的产品代码
+                product_code: document.getElementById('add-product-code').value,
                 product_name: document.getElementById('add-product-name').value,
-                receiver: document.getElementById('add-receiver').value,
                 in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
-                remark: document.getElementById('add-remark').value,
-                supplier: 'N/A', // 设为默认值
-                applicant: 'System' // 设为默认值
+                supplier: document.getElementById('add-supplier').value,
+                applicant: document.getElementById('add-applicant').value,
+                code_number: document.getElementById('add-code-number').value,
+                remark: document.getElementById('add-remark').value
             };
 
             // 验证必填字段
-            const requiredFields = ['date', 'time', 'product_code', 'product_name', 'specification', 'receiver'];
+            const requiredFields = ['date', 'time', 'product_code', 'product_name', 'specification', 'supplier', 'applicant'];
             for (let field of requiredFields) {
                 if (!formData[field]) {
                     showAlert(`请填写${getFieldLabel(field)}`, 'error');
@@ -1202,73 +1211,9 @@
             }
         }
 
-        // 加载产品代码数据
-        async function loadProductCodes() {
-            try {
-                const result = await apiCall('?action=products');
-                if (result.success) {
-                    productCodesData = result.data || [];
-                    updateCodeSelect();
-                }
-            } catch (error) {
-                console.error('加载产品代码失败:', error);
-            }
-        }
-
-        // 更新产品代码下拉列表
-        function updateCodeDatalist() {
-            const datalist = document.getElementById('code-datalist');
-            datalist.innerHTML = '';
-            
-            productCodesData.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.code_number;
-                option.textContent = `${item.code_number} - ${item.product_name}`;
-                datalist.appendChild(option);
-            });
-        }
-
-        function updateCodeSelect() {
-            const select = document.getElementById('add-code-number');
-            select.innerHTML = '<option value="">请选择产品代码</option>';
-            
-            productCodesData.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.product_code;
-                option.textContent = `${item.product_code} - ${item.product_name}`;
-                option.dataset.productName = item.product_name;
-                select.appendChild(option);
-            });
-        }
-
-        // 根据产品代码加载产品信息
-        function loadProductByCode(productCode) {
-            if (!productCode) {
-                document.getElementById('add-product-name').value = '';
-                return;
-            }
-            
-            const productData = productCodesData.find(item => item.product_code === productCode);
-            if (productData) {
-                document.getElementById('add-product-name').value = productData.product_name || '';
-            }
-        }
-
-        function updateFieldAndLoadProduct(id, field, value) {
-            const record = stockData.find(r => r.id === id);
-            if (record && field === 'product_code') {
-                record[field] = value;
-                
-                // 自动填充相关产品信息
-                const productData = productCodesData.find(item => item.product_code === value);
-                if (productData) {
-                    record.product_name = productData.product_name;
-                }
-                
-                renderStockTable();
-            } else {
-                updateField(id, field, value);
-            }
+        // 刷新数据
+        function refreshData() {
+            loadStockData();
         }
 
         // 导出数据
