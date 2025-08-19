@@ -1190,6 +1190,27 @@ row.innerHTML = `
             });
         }
 
+        // 检查某一行是否有足够的数据（至少6个字段有值）
+        function checkRowHasEnoughData(day) {
+            const fieldsToCheck = [
+                'gross_sales', 'tax', 'service_fee', 'adj_amount', 
+                'tables_used', 'diners', 'new_customers', 'returning_customers'
+            ];
+            
+            let filledCount = 0;
+            fieldsToCheck.forEach(field => {
+                const input = document.querySelector(`input[data-field="${field}"][data-day="${day}"]`);
+                if (input) {
+                    const value = input.value.trim();
+                    if (value !== '' && value !== '0' && value !== '0.00') {
+                        filledCount++;
+                    }
+                }
+            });
+            
+            return filledCount >= 6;
+        }
+
         // 获取输入框值
         function getInputValue(field, day) {
             const input = document.querySelector(`input[data-field="${field}"][data-day="${day}"]`);
