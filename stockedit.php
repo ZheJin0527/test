@@ -284,6 +284,8 @@
             font-size: 14px;
             padding: 8px 4px;
             transition: all 0.2s;
+            box-sizing: border-box;
+            line-height: 1.2;
         }
 
         .table-input.currency-input {
@@ -310,6 +312,17 @@
             padding: 8px 4px;
             cursor: pointer;
             appearance: none;
+            box-sizing: border-box;
+            line-height: 1.2;
+        }
+
+        .stock-table td {
+            padding: 0;
+            border: 1px solid #d1d5db;
+            text-align: center;
+            position: relative;
+            height: 40px;
+            vertical-align: middle;
         }
 
         .table-select:focus {
