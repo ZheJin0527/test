@@ -798,6 +798,8 @@ function goToCulture() {
         userAvatar?.addEventListener('click', function() {
             sidebar.classList.add('show');
             overlay.classList.add('show');
+            // 启动自动隐藏计时器
+            resetSidebarTimer();
         });
 
         // 关闭菜单
@@ -811,6 +813,8 @@ function goToCulture() {
             document.querySelectorAll('.informationmenu-section-title').forEach(title => {
                 title.classList.remove('active');
             });
+            // 停止自动隐藏计时器
+            stopSidebarTimer();
         }
 
         closeBtn?.addEventListener('click', closeSidebar);
@@ -1045,5 +1049,51 @@ function goToCulture() {
             sidebarToggle.classList.toggle('collapsed');
         });
     </script>
+    <script>
+        // 自动隐藏侧边栏功能
+let sidebarInactiveTimer;
+const SIDEBAR_HIDE_DELAY = 5000; // 5秒
+
+// 重置计时器
+function resetSidebarTimer() {
+    clearTimeout(sidebarInactiveTimer);
+    sidebarInactiveTimer = setTimeout(() => {
+        closeSidebar();
+    }, SIDEBAR_HIDE_DELAY);
+}
+
+// 停止计时器
+function stopSidebarTimer() {
+    clearTimeout(sidebarInactiveTimer);
+}
+
+// 为侧边栏及其所有内容添加鼠标事件监听
+function setupSidebarActivityListeners() {
+    const sidebarElements = [
+        sidebar,
+        document.querySelector('.submenu'),
+        ...document.querySelectorAll('.submenu')
+    ];
+
+    sidebarElements.forEach(element => {
+        if (element) {
+            // 鼠标进入时停止计时器
+            element.addEventListener('mouseenter', stopSidebarTimer);
+            
+            // 鼠标离开时重启计时器
+            element.addEventListener('mouseleave', resetSidebarTimer);
+            
+            // 点击时重置计时器
+            element.addEventListener('click', resetSidebarTimer);
+            
+            // 鼠标移动时重置计时器（用于检测用户活动）
+            element.addEventListener('mousemove', resetSidebarTimer);
+        }
+    });
+}
+
+// 初始化活动监听器
+setupSidebarActivityListeners();
+</script>
 </body>
 </html>

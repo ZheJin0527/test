@@ -5964,7 +5964,7 @@ form select {
     opacity: 1;
     visibility: visible;
     transition: all 0.3s ease;
-    pointer-events: none; /* 添加这行，让遮罩层不阻止点击 */
+    pointer-events: auto; /* 添加这行，让遮罩层不阻止点击 */
 }
 
 .informationmenu-overlay.show {
