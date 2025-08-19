@@ -1173,21 +1173,46 @@ row.innerHTML = `
             updateMonthStats();
         }
 
-        // 更新输入框颜色状态
+        // 更新输入框颜色状态 - 基于整行数据完整度
         function updateInputColors() {
-            const inputs = document.querySelectorAll('.excel-input');
-            inputs.forEach(input => {
-                const value = input.value.trim();
-                const hasValue = value !== '' && value !== '0' && value !== '0.00';
+            const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                // 检查该行的关键字段是否有数据
+                const grossSales = getInputValue('gross_sales', day).trim();
+                const diners = getInputValue('diners', day).trim();
+                const tax = getInputValue('tax', day).trim();
+                const serviceFee = getInputValue('service_fee', day).trim();
+                const tablesUsed = getInputValue('tables_used', day).trim();
+                const newCustomers = getInputValue('new_customers', day).trim();
+                const returningCustomers = getInputValue('returning_customers', day).trim();
                 
-                if (hasValue) {
-                    input.classList.remove('no-data');
-                    input.classList.add('has-data');
-                } else {
-                    input.classList.remove('has-data');
-                    input.classList.add('no-data');
-                }
-            });
+                // 计算已填写的关键字段数量（不包括折扣和调整金额）
+                let filledFields = 0;
+                if (grossSales && grossSales !== '0' && grossSales !== '0.00') filledFields++;
+                if (diners && diners !== '0') filledFields++;
+                if (tax && tax !== '0' && tax !== '0.00') filledFields++;
+                if (serviceFee && serviceFee !== '0' && serviceFee !== '0.00') filledFields++;
+                if (tablesUsed && tablesUsed !== '0') filledFields++;
+                if (newCustomers && newCustomers !== '0') filledFields++;
+                if (returningCustomers && returningCustomers !== '0') filledFields++;
+                
+                // 如果关键字段填写了4个或以上，认为该行有数据
+                const rowHasData = filledFields >= 4;
+                
+                // 获取该行的所有输入框
+                const dayInputs = document.querySelectorAll(`input[data-day="${day}"]`);
+                
+                dayInputs.forEach(input => {
+                    if (rowHasData) {
+                        input.classList.remove('no-data');
+                        input.classList.add('has-data');
+                    } else {
+                        input.classList.remove('has-data');
+                        input.classList.add('no-data');
+                    }
+                });
+            }
         }
 
         // 获取输入框值
