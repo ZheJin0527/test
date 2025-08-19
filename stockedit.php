@@ -571,8 +571,7 @@
 
         /* 新增行样式 */
         .new-row {
-            background-color: #f0f9ff !important;
-  
+            background-color: #f0f9ff !important;  
         }
 
         .new-row td {
@@ -581,7 +580,6 @@
 
         .new-row .table-input, .new-row .table-select {
             background: white;
-
         }
 
         .save-new-btn {
@@ -1074,9 +1072,6 @@
                 <td class="calculated-cell">RM 0.00</td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="new-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="new-remark"></td>
-                <td>
-                    <span class="approval-badge pending">待批准</span>
-                </td>
                 <td class="action-cell">
                     <button class="action-btn save-new-btn" onclick="saveNewRowRecord()" title="保存">
                         <i class="fas fa-save"></i>
