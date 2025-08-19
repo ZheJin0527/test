@@ -813,6 +813,8 @@
         let stockData = [];
         let isLoading = false;
         let editingRowId = null;
+        let codeNumberOptions = [];
+        let codeProductMap = {};
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
@@ -874,6 +876,18 @@
                 } else {
                     stockData = [];
                     showAlert('获取数据失败: ' + (result.message || '未知错误'), 'error');
+                }
+
+                // 提取唯一的 code_number 和对应的产品名称
+                if (result.success && stockData.length > 0) {
+                    const codeMap = {};
+                    stockData.forEach(record => {
+                        if (record.code_number && record.product_name) {
+                            codeMap[record.code_number] = record.product_name;
+                        }
+                    });
+                    codeNumberOptions = Object.keys(codeMap);
+                    codeProductMap = codeMap;
                 }
                 
                 renderStockTable();
@@ -961,7 +975,12 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
+                            `<select class="table-select" onchange="onCodeNumberChange(${record.id}, this.value)">
+                                <option value="">请选择编号</option>
+                                ${codeNumberOptions.map(code => 
+                                    `<option value="${code}" ${record.code_number === code ? 'selected' : ''}>${code}</option>`
+                                ).join('')}
+                            </select>` :
                             `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
@@ -1093,7 +1112,12 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
-                <td><input type="text" class="table-input" placeholder="输入编号..." id="new-code-number"></td>
+                <td>
+                    <select class="table-select" id="new-code-number" onchange="onNewRowCodeNumberChange(this.value)">
+                        <option value="">请选择编号</option>
+                        ${codeNumberOptions.map(code => `<option value="${code}">${code}</option>`).join('')}
+                    </select>
+                </td>
                 <td><input type="text" class="table-input" placeholder="输入产品名称..." id="new-product-name"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
@@ -1145,6 +1169,25 @@
             const totalCell = document.querySelector('.new-row .calculated-cell');
             if (totalCell) {
                 totalCell.textContent = `RM ${formatCurrency(total)}`;
+            }
+        }
+
+        // 当选择Code Number时更新产品名称
+        function onCodeNumberChange(recordId, selectedCode) {
+            if (selectedCode && codeProductMap[selectedCode]) {
+                const record = stockData.find(r => r.id === recordId);
+                if (record) {
+                    record.code_number = selectedCode;
+                    record.product_name = codeProductMap[selectedCode];
+                    renderStockTable();
+                }
+            }
+        }
+
+        // 新行选择Code Number时更新产品名称
+        function onNewRowCodeNumberChange(selectedCode) {
+            if (selectedCode && codeProductMap[selectedCode]) {
+                document.getElementById('new-product-name').value = codeProductMap[selectedCode];
             }
         }
 
