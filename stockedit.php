@@ -599,16 +599,8 @@
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
                 </div>
                 <div class="filter-group">
-                    <label for="supplier-filter">供应商</label>
-                    <input type="text" id="supplier-filter" class="filter-input" placeholder="搜索供应商...">
-                </div>
-                <div class="filter-group">
-                    <label for="status-filter">批准状态</label>
-                    <select id="status-filter" class="filter-select">
-                        <option value="">全部状态</option>
-                        <option value="approved">已批准</option>
-                        <option value="pending">待批准</option>
-                    </select>
+                    <label for="code-filter">产品代码</label>
+                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品代码...">
                 </div>
             </div>
             <div class="filter-actions">
@@ -645,18 +637,17 @@
                 </div>
                 <div class="form-group">
                     <label for="add-code-number">产品代码 *</label>
-                    <input type="text" id="add-code-number" class="form-input" placeholder="输入或选择产品代码..." required list="code-datalist" onchange="loadProductByCode(this.value)">
-                    <datalist id="code-datalist">
-                        <!-- 动态填充选项 -->
-                    </datalist>
+                    <select id="add-code-number" class="form-select" required onchange="loadProductByCode(this.value)">
+                        <option value="">请选择产品代码</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="add-product-code">产品编号</label>
-                    <input type="text" id="add-product-code" class="form-input" placeholder="输入产品编号..." readonly>
+                    <input type="text" id="add-product-code" class="form-input" placeholder="产品编号..." readonly>
                 </div>
                 <div class="form-group">
-                    <label for="add-product-name">产品名称</label>
-                    <input type="text" id="add-product-name" class="form-input" placeholder="输入产品名称..." readonly>
+                    <label for="add-product-name">产品名称 *</label>
+                    <input type="text" id="add-product-name" class="form-input" placeholder="产品名称..." readonly required>
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
@@ -728,16 +719,16 @@
                         <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>已批准: <span class="stat-value" id="approved-count">0</span></span>
+                        <i class="fas fa-cubes"></i>
+                        <span>产品种类: <span class="stat-value" id="product-count">0</span></span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-clock"></i>
-                        <span>待批准: <span class="stat-value" id="pending-count">0</span></span>
+                        <i class="fas fa-arrow-up"></i>
+                        <span>总入库: <span class="stat-value" id="total-in">0</span></span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-truck"></i>
-                        <span>供应商数: <span class="stat-value" id="supplier-count">0</span></span>
+                        <i class="fas fa-arrow-down"></i>
+                        <span>总出库: <span class="stat-value" id="total-out">0</span></span>
                     </div>
                 </div>
                 
@@ -752,17 +743,16 @@
                 <thead>
                     <tr>
                         <th style="min-width: 100px;">DATE</th>
-                        <th style="min-width: 100px;">Code Number</th>
+                        <th style="min-width: 120px;">Code Number</th>
                         <th class="product-name-col">PRODUCT</th>
                         <th style="min-width: 80px;">In</th>
                         <th style="min-width: 80px;">Out</th>
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
-                        <th class="supplier-col">Supplier</th>
                         <th style="min-width: 100px;">Receiver</th>
+                        <th style="min-width: 100px;">Applicant</th>
                         <th style="min-width: 100px;">Remark</th>
-                        <th style="min-width: 100px;">状态</th>
                         <th style="min-width: 120px;">操作</th>
                     </tr>
                 </thead>
@@ -795,7 +785,7 @@
             
             // 加载数据
             loadStockData();
-            loadProductCodes(); // 新增这一行
+            loadProductCodes();
         }
 
         // 返回上一页
@@ -872,13 +862,11 @@
                 
                 const dateFilter = document.getElementById('date-filter').value;
                 const productFilter = document.getElementById('product-filter').value;
-                const supplierFilter = document.getElementById('supplier-filter').value;
-                const statusFilter = document.getElementById('status-filter').value;
+                const codeFilter = document.getElementById('code-filter').value;
                 
                 if (dateFilter) params.append('search_date', dateFilter);
                 if (productFilter) params.append('product_name', productFilter);
-                if (supplierFilter) params.append('supplier', supplierFilter);
-                if (statusFilter) params.append('approval_status', statusFilter);
+                if (codeFilter) params.append('product_code', codeFilter);
                 
                 const result = await apiCall(`?${params}`);
                 
@@ -904,8 +892,7 @@
         function resetFilters() {
             document.getElementById('date-filter').value = '';
             document.getElementById('product-filter').value = '';
-            document.getElementById('supplier-filter').value = '';
-            document.getElementById('status-filter').value = '';
+            document.getElementById('code-filter').value = '';
             loadStockData();
         }
 
@@ -934,13 +921,20 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
+                            `<select class="table-select" onchange="updateFieldAndLoadProduct(${record.id}, 'code_number', this.value)" style="text-align: left; padding-left: 8px;">
+                                <option value="">${record.code_number || '请选择'}</option>
+                                ${productCodesData.map(item => 
+                                    `<option value="${item.code_number}" ${record.code_number === item.code_number ? 'selected' : ''}>
+                                        ${item.code_number} - ${item.product_name}
+                                    </option>`
+                                ).join('')}
+                            </select>` :
                             `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.product_name}" onchange="updateField(${record.id}, 'product_name', this.value)">` :
+                            `<input type="text" class="table-input" value="${record.product_name}" onchange="updateField(${record.id}, 'product_name', this.value)" readonly style="background: #f9fafb;">` :
                             `<span>${record.product_name}</span>`
                         }
                     </td>
@@ -970,18 +964,12 @@
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
                             ${isEditing ? 
-                                `<input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">` :
+                                `<input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)" readonly style="background: #f9fafb;">` :
                                 `<span style="padding-left: 32px; text-align: right; display: block;">${formatCurrency(record.price)}</span>`
                             }
                         </div>
                     </td>
                     <td class="calculated-cell">RM ${formatCurrency(total)}</td>
-                    <td>
-                        ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.supplier}" onchange="updateField(${record.id}, 'supplier', this.value)">` :
-                            `<span>${record.supplier}</span>`
-                        }
-                    </td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
@@ -990,8 +978,8 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
-                            `<span>${record.code_number || '-'}</span>`
+                            `<input type="text" class="table-input" value="${record.applicant || ''}" onchange="updateField(${record.id}, 'applicant', this.value)">` :
+                            `<span>${record.applicant || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -999,11 +987,6 @@
                             `<input type="text" class="table-input" value="${record.remark || ''}" onchange="updateField(${record.id}, 'remark', this.value)">` :
                             `<span>${record.remark || '-'}</span>`
                         }
-                    </td>
-                    <td>
-                        <span class="approval-badge ${record.approval_status}">
-                            ${record.approval_status === 'approved' ? '已批准' : '待批准'}
-                        </span>
                     </td>
                     <td class="action-cell">
                         ${isEditing ? 
@@ -1015,17 +998,10 @@
                             </button>` :
                             `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
                                 <i class="fas fa-edit"></i>
-                            </button>`
-                        }
-                        ${record.approval_status === 'pending' && !isEditing ? 
-                            `<button class="action-btn approve-btn" onclick="approveRecord(${record.id})" title="批准">
-                                <i class="fas fa-check"></i>
-                            </button>` : ''
-                        }
-                        ${!isEditing ? 
-                            `<button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
                                 <i class="fas fa-trash"></i>
-                            </button>` : ''
+                            </button>`
                         }
                     </td>
                 `;
@@ -1060,14 +1036,14 @@
         // 更新统计信息
         function updateStats() {
             const totalRecords = stockData.length;
-            const approvedCount = stockData.filter(record => record.approval_status === 'approved').length;
-            const pendingCount = totalRecords - approvedCount;
-            const supplierCount = new Set(stockData.map(record => record.supplier)).size;
+            const productCount = new Set(stockData.map(record => record.code_number)).size;
+            const totalIn = stockData.reduce((sum, record) => sum + (parseFloat(record.in_quantity) || 0), 0);
+            const totalOut = stockData.reduce((sum, record) => sum + (parseFloat(record.out_quantity) || 0), 0);
             
             document.getElementById('total-records').textContent = totalRecords;
-            document.getElementById('approved-count').textContent = approvedCount;
-            document.getElementById('pending-count').textContent = pendingCount;
-            document.getElementById('supplier-count').textContent = supplierCount;
+            document.getElementById('product-count').textContent = productCount;
+            document.getElementById('total-in').textContent = formatNumber(totalIn);
+            document.getElementById('total-out').textContent = formatNumber(totalOut);
         }
 
         // 切换添加表单
@@ -1094,22 +1070,21 @@
             const formData = {
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
+                code_number: document.getElementById('add-code-number').value,
                 product_code: document.getElementById('add-product-code').value,
                 product_name: document.getElementById('add-product-name').value,
-                code_number: document.getElementById('add-code-number').value, // 新增
-                receiver: document.getElementById('add-receiver').value, // 新增
+                receiver: document.getElementById('add-receiver').value,
+                applicant: document.getElementById('add-applicant').value,
                 in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
-                supplier: document.getElementById('add-supplier').value,
-                applicant: document.getElementById('add-applicant').value,
-                code_number: document.getElementById('add-code-number').value,
-                remark: document.getElementById('add-remark').value
+                remark: document.getElementById('add-remark').value,
+                supplier: 'N/A' // 设为默认值，因为API可能需要这个字段
             };
 
             // 验证必填字段
-            const requiredFields = ['date', 'time', 'product_code', 'product_name', 'specification', 'supplier', 'applicant'];
+            const requiredFields = ['date', 'time', 'code_number', 'product_name', 'specification', 'receiver', 'applicant'];
             for (let field of requiredFields) {
                 if (!formData[field]) {
                     showAlert(`请填写${getFieldLabel(field)}`, 'error');
@@ -1245,7 +1220,7 @@
                 const result = await apiCall('?action=product-codes');
                 if (result.success) {
                     productCodesData = result.data || [];
-                    updateCodeDatalist();
+                    updateCodeSelect();
                 }
             } catch (error) {
                 console.error('加载产品代码失败:', error);
@@ -1265,21 +1240,59 @@
             });
         }
 
+        function updateCodeSelect() {
+            const select = document.getElementById('add-code-number');
+            select.innerHTML = '<option value="">请选择产品代码</option>';
+            
+            productCodesData.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.code_number;
+                option.textContent = `${item.code_number} - ${item.product_name}`;
+                option.dataset.productCode = item.product_code;
+                option.dataset.productName = item.product_name;
+                option.dataset.specification = item.specification;
+                option.dataset.price = item.price;
+                select.appendChild(option);
+            });
+        }
+
         // 根据产品代码加载产品信息
         function loadProductByCode(codeNumber) {
+            if (!codeNumber) {
+                document.getElementById('add-product-code').value = '';
+                document.getElementById('add-product-name').value = '';
+                document.getElementById('add-specification').value = '';
+                document.getElementById('add-price').value = '';
+                return;
+            }
+            
             const productData = productCodesData.find(item => item.code_number === codeNumber);
             if (productData) {
-                document.getElementById('add-product-code').value = productData.product_code;
-                document.getElementById('add-product-name').value = productData.product_name;
-                document.getElementById('add-specification').value = productData.specification;
-                document.getElementById('add-price').value = productData.price;
-                document.getElementById('add-supplier').value = productData.supplier;
+                document.getElementById('add-product-code').value = productData.product_code || '';
+                document.getElementById('add-product-name').value = productData.product_name || '';
+                document.getElementById('add-specification').value = productData.specification || '';
+                document.getElementById('add-price').value = productData.price || '';
             }
         }
 
-        // 刷新数据
-        function refreshData() {
-            loadStockData();
+        function updateFieldAndLoadProduct(id, field, value) {
+            const record = stockData.find(r => r.id === id);
+            if (record && field === 'code_number') {
+                record[field] = value;
+                
+                // 自动填充相关产品信息
+                const productData = productCodesData.find(item => item.code_number === value);
+                if (productData) {
+                    record.product_code = productData.product_code;
+                    record.product_name = productData.product_name;
+                    record.specification = productData.specification;
+                    record.price = productData.price;
+                }
+                
+                renderStockTable();
+            } else {
+                updateField(id, field, value);
+            }
         }
 
         // 导出数据
