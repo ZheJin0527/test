@@ -791,19 +791,42 @@ function goToCulture() {
 <script>
         const sidebar = document.querySelector('.informationmenu');
         const overlay = document.querySelector('.informationmenu-overlay');
+        // 添加自动隐藏功能变量
+        let sidebarAutoHideTimer;
+        const AUTO_HIDE_DELAY = 5000; // 5秒
         const userAvatar = document.getElementById('user-avatar');
         const closeBtn = document.querySelector('.informationmenu-close-btn');
+
+        // 启动自动隐藏计时器
+        function startAutoHideTimer() {
+            clearTimeout(sidebarAutoHideTimer);
+            sidebarAutoHideTimer = setTimeout(() => {
+                if (sidebar.classList.contains('show')) {
+                    closeSidebar();
+                }
+            }, AUTO_HIDE_DELAY);
+        }
+
+        // 重置自动隐藏计时器
+        function resetAutoHideTimer() {
+            clearTimeout(sidebarAutoHideTimer);
+            if (sidebar.classList.contains('show')) {
+                startAutoHideTimer();
+            }
+        }
 
         // 点击用户头像显示菜单
         userAvatar?.addEventListener('click', function() {
             sidebar.classList.add('show');
             overlay.classList.add('show');
+            startAutoHideTimer(); // 添加这行
         });
 
         // 关闭菜单
         function closeSidebar() {
             sidebar.classList.remove('show');
             overlay.classList.remove('show');
+            clearTimeout(sidebarAutoHideTimer); // 添加这行
             // 关闭所有下拉菜单
             document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
                 dropdown.classList.remove('show');
@@ -1016,6 +1039,12 @@ function goToCulture() {
         });
 
         console.log('点击Section + 悬停Submenu系统已加载完成');
+        // 监听侧边栏内的用户活动，重置自动隐藏计时器
+        sidebar?.addEventListener('mouseenter', resetAutoHideTimer);
+        sidebar?.addEventListener('mousemove', resetAutoHideTimer);
+        sidebar?.addEventListener('click', resetAutoHideTimer);
+        sidebar?.addEventListener('scroll', resetAutoHideTimer);
+        sidebar?.addEventListener('keydown', resetAutoHideTimer);
     </script>
     <script>
         // 侧边栏收起/展开功能
