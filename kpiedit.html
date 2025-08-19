@@ -1270,6 +1270,12 @@ row.innerHTML = `
                 'diners'         // 顾客总数
             ];
             
+            // 确定开始粘贴的列索引
+            let startIndex = 0;
+            if (startField && pasteFields.includes(startField)) {
+                startIndex = pasteFields.indexOf(startField);
+            }
+            
             // 如果是多行数据，找到所有处于编辑模式的行
             if (lines.length > 1) {
                 // 获取当前月份的天数
@@ -1307,6 +1313,7 @@ row.innerHTML = `
                         values = line.split('\t');
                     } else if (line.includes(',')) {
                         // 检查是否是千位分隔符的情况
+                        // 如果整行只有一个数字（包含千位分隔符），不按逗号分割
                         const numberPattern = /^[\d,]+\.?\d*$/;
                         if (numberPattern.test(line.trim())) {
                             values = [line.trim()];
@@ -1320,19 +1327,17 @@ row.innerHTML = `
                     
                     let rowPasteCount = 0;
                     
-                    // 多行粘贴时，每行都从第一列开始粘贴（startIndex = 0）
-                    const startIndex = 0;
-                    
-                    // 从第一列开始粘贴当前行
-                    for (let i = 0; i < values.length && i < pasteFields.length; i++) {
-                        const field = pasteFields[i];
+                    // 从指定列开始粘贴当前行
+                    for (let i = 0; i < values.length && (startIndex + i) < pasteFields.length; i++) {
+                        const fieldIndex = startIndex + i;
+                        const field = pasteFields[fieldIndex];
                         const value = values[i].trim();
                         
                         if (value && value !== '') {
                             const input = document.querySelector(`input[data-field="${field}"][data-day="${day}"]`);
                             if (input) {
                                 // 清理数据，保留千位分隔符
-                                let cleanValue = value.replace(/[^\d.,-]/g, '');
+                                let cleanValue = value.replace(/[^\d.,-]/g, ''); // 保留逗号
                                 // 移除千位分隔符，只保留小数点
                                 cleanValue = cleanValue.replace(/,/g, '');
                                 
@@ -1356,13 +1361,23 @@ row.innerHTML = `
                 
                 // 显示成功消息
                 if (totalPasteCount > 0) {
-                    showAlert(`成功粘贴 ${lines.length} 行数据，共 ${totalPasteCount} 个字段到第 ${pastedDays.join(', ')} 日（每行从第一列开始）`, 'success');
+                    const fieldNames = {
+                        'gross_sales': '总销售额',
+                        'discounts': '折扣',
+                        'tax': '税',
+                        'service_fee': '服务费',
+                        'adj_amount': '调整金额',
+                        'tables_used': '桌数',
+                        'diners': '顾客数'
+                    };
+                    const startFieldName = startField ? fieldNames[startField] : '第一列';
+                    showAlert(`从${startFieldName}开始成功粘贴 ${lines.length} 行数据，共 ${totalPasteCount} 个字段到第 ${pastedDays.join(', ')} 日`, 'success');
                 } else {
                     showAlert('未能识别有效的数据格式', 'error');
                 }
                 
             } else {
-                // 单行粘贴逻辑：从点击的列开始粘贴
+                // 单行粘贴逻辑（保持原有功能）
                 const line = lines[0];
                 let values = [];
                 if (line.includes('\t')) {
@@ -1380,12 +1395,6 @@ row.innerHTML = `
                     values = line.split(/\s+/);
                 }
                 
-                // 确定开始粘贴的列索引（单行粘贴时使用点击的列）
-                let startIndex = 0;
-                if (startField && pasteFields.includes(startField)) {
-                    startIndex = pasteFields.indexOf(startField);
-                }
-                
                 let pasteCount = 0;
                 
                 // 从指定列开始粘贴
@@ -1398,7 +1407,7 @@ row.innerHTML = `
                         const input = document.querySelector(`input[data-field="${field}"][data-day="${targetDay}"]`);
                         if (input) {
                             // 清理数据，保留千位分隔符
-                            let cleanValue = value.replace(/[^\d.,-]/g, '');
+                            let cleanValue = value.replace(/[^\d.,-]/g, ''); // 保留逗号
                             // 移除千位分隔符，只保留小数点
                             cleanValue = cleanValue.replace(/,/g, '');
                             
