@@ -644,12 +644,19 @@
                     <input type="time" id="add-time" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label for="add-product-code">产品编号 *</label>
-                    <input type="text" id="add-product-code" class="form-input" placeholder="输入产品编号..." required>
+                    <label for="add-code-number">产品代码 *</label>
+                    <input type="text" id="add-code-number" class="form-input" placeholder="输入或选择产品代码..." required list="code-datalist" onchange="loadProductByCode(this.value)">
+                    <datalist id="code-datalist">
+                        <!-- 动态填充选项 -->
+                    </datalist>
                 </div>
                 <div class="form-group">
-                    <label for="add-product-name">产品名称 *</label>
-                    <input type="text" id="add-product-name" class="form-input" placeholder="输入产品名称..." required>
+                    <label for="add-product-code">产品编号</label>
+                    <input type="text" id="add-product-code" class="form-input" placeholder="输入产品编号..." readonly>
+                </div>
+                <div class="form-group">
+                    <label for="add-product-name">产品名称</label>
+                    <input type="text" id="add-product-name" class="form-input" placeholder="输入产品名称..." readonly>
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
@@ -682,6 +689,10 @@
                 <div class="form-group">
                     <label for="add-supplier">供应商 *</label>
                     <input type="text" id="add-supplier" class="form-input" placeholder="输入供应商..." required>
+                </div>
+                <div class="form-group">
+                    <label for="add-receiver">签收人 *</label>
+                    <input type="text" id="add-receiver" class="form-input" placeholder="输入签收人..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -741,14 +752,15 @@
                 <thead>
                     <tr>
                         <th style="min-width: 100px;">DATE</th>
+                        <th style="min-width: 100px;">Code Number</th>
                         <th class="product-name-col">PRODUCT</th>
                         <th style="min-width: 80px;">In</th>
                         <th style="min-width: 80px;">Out</th>
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
-                        <th class="supplier-col">Name</th>
-                        <th style="min-width: 100px;">Code Number</th>
+                        <th class="supplier-col">Supplier</th>
+                        <th style="min-width: 100px;">Receiver</th>
                         <th style="min-width: 100px;">Remark</th>
                         <th style="min-width: 100px;">状态</th>
                         <th style="min-width: 120px;">操作</th>
@@ -769,19 +781,21 @@
         let stockData = [];
         let isLoading = false;
         let editingRowId = null;
+        let productCodesData = [];
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
 
         // 初始化应用
         function initApp() {
-            // 设置默认日期为今天
+            // 现有代码保持不变
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('add-date').value = today;
             document.getElementById('add-time').value = new Date().toTimeString().slice(0, 5);
             
             // 加载数据
             loadStockData();
+            loadProductCodes(); // 新增这一行
         }
 
         // 返回上一页
@@ -920,6 +934,12 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
+                            `<span>${record.code_number || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.product_name}" onchange="updateField(${record.id}, 'product_name', this.value)">` :
                             `<span>${record.product_name}</span>`
                         }
@@ -960,6 +980,12 @@
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.supplier}" onchange="updateField(${record.id}, 'supplier', this.value)">` :
                             `<span>${record.supplier}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
+                            `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -1070,6 +1096,8 @@
                 time: document.getElementById('add-time').value,
                 product_code: document.getElementById('add-product-code').value,
                 product_name: document.getElementById('add-product-name').value,
+                code_number: document.getElementById('add-code-number').value, // 新增
+                receiver: document.getElementById('add-receiver').value, // 新增
                 in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
@@ -1208,6 +1236,44 @@
                 }
             } catch (error) {
                 showAlert('删除时发生错误', 'error');
+            }
+        }
+
+        // 加载产品代码数据
+        async function loadProductCodes() {
+            try {
+                const result = await apiCall('?action=product-codes');
+                if (result.success) {
+                    productCodesData = result.data || [];
+                    updateCodeDatalist();
+                }
+            } catch (error) {
+                console.error('加载产品代码失败:', error);
+            }
+        }
+
+        // 更新产品代码下拉列表
+        function updateCodeDatalist() {
+            const datalist = document.getElementById('code-datalist');
+            datalist.innerHTML = '';
+            
+            productCodesData.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.code_number;
+                option.textContent = `${item.code_number} - ${item.product_name}`;
+                datalist.appendChild(option);
+            });
+        }
+
+        // 根据产品代码加载产品信息
+        function loadProductByCode(codeNumber) {
+            const productData = productCodesData.find(item => item.code_number === codeNumber);
+            if (productData) {
+                document.getElementById('add-product-code').value = productData.product_code;
+                document.getElementById('add-product-name').value = productData.product_name;
+                document.getElementById('add-specification').value = productData.specification;
+                document.getElementById('add-price').value = productData.price;
+                document.getElementById('add-supplier').value = productData.supplier;
             }
         }
 

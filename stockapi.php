@@ -236,6 +236,15 @@ function handleGet() {
             sendResponse(true, "产品列表获取成功", $products);
             break;
 
+        case 'product-codes':
+            // 获取所有产品代码及相关信息
+            $stmt = $pdo->prepare("SELECT DISTINCT code_number, product_code, product_name, specification, price, supplier FROM stock_data WHERE code_number IS NOT NULL AND code_number != '' ORDER BY code_number");
+            $stmt->execute();
+            $productCodes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            sendResponse(true, "产品代码列表获取成功", $productCodes);
+            break;
+
         case 'summary':
             // 获取汇总数据
             $startDate = $_GET['start_date'] ?? null;
@@ -294,9 +303,9 @@ function handlePost() {
     
     try {
         $sql = "INSERT INTO stock_data 
-                (date, time, product_code, product_name, supplier, applicant, approver, 
-                 in_quantity, out_quantity, specification, price, code_number, remark) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, product_code, product_name, supplier, applicant, approver, receiver,
+                in_quantity, out_quantity, specification, price, code_number, remark) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -308,6 +317,7 @@ function handlePost() {
             $data['supplier'],
             $data['applicant'],
             $data['approver'] ?? null,
+            $data['receiver'] ?? null,
             $data['in_quantity'] ?? 0,
             $data['out_quantity'] ?? 0,
             $data['specification'],
@@ -401,7 +411,7 @@ function handlePut() {
     try {
         $sql = "UPDATE stock_data 
                 SET date = ?, time = ?, product_code = ?, product_name = ?, supplier = ?, 
-                    applicant = ?, approver = ?, in_quantity = ?, out_quantity = ?, 
+                    applicant = ?, approver = ?, receiver = ?, in_quantity = ?, out_quantity = ?, 
                     specification = ?, price = ?, code_number = ?, remark = ?
                 WHERE id = ?";
 
@@ -415,6 +425,7 @@ function handlePut() {
             $data['supplier'],
             $data['applicant'],
             $data['approver'] ?? null,
+            $data['receiver'] ?? null,
             $data['in_quantity'] ?? 0,
             $data['out_quantity'] ?? 0,
             $data['specification'] ?? null,
