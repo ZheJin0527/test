@@ -572,16 +572,16 @@
         /* 新增行样式 */
         .new-row {
             background-color: #f0f9ff !important;
-            border: 2px solid #3b82f6 !important;
+  
         }
 
         .new-row td {
-            border: 2px solid #3b82f6 !important;
+
         }
 
         .new-row .table-input, .new-row .table-select {
             background: white;
-            border: 1px solid #3b82f6;
+
         }
 
         .save-new-btn {
