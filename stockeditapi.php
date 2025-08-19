@@ -194,15 +194,6 @@ function handleGet() {
             
             sendResponse(true, "汇总数据获取成功", $summary);
             break;
-
-        case 'codenumbers':
-    // 获取所有唯一的code_number列表 - 从stock_data表获取
-    $stmt = $pdo->prepare("SELECT DISTINCT product_code, product_name FROM stock_data WHERE product_code IS NOT NULL AND product_code != '' ORDER BY product_code");
-    $stmt->execute();
-    $codeNumbers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    sendResponse(true, "编号列表获取成功", $codeNumbers);
-    break;
             
         case 'single':
             // 获取单条记录
