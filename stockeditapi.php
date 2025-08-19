@@ -52,23 +52,13 @@ function sendResponse($success, $message = "", $data = null) {
 // 路由处理
 switch ($method) {
     case 'GET':
-        // 检查是否是批准请求
-        if (($_GET['action'] ?? '') === 'approve') {
-            handleApprove();
-        } else {
-            handleGet();
-        }
+        handleGet();
         break;
     case 'POST':
         handlePost();
         break;
     case 'PUT':
-        // 检查是否是批准请求
-        if (($_GET['action'] ?? '') === 'approve') {
-            handleApprove();
-        } else {
-            handlePut();
-        }
+        handlePut();
         break;
     case 'DELETE':
         handleDelete();
@@ -97,7 +87,6 @@ function handleGet() {
             $supplier = $_GET['supplier'] ?? null;
             $productCode = $_GET['product_code'] ?? null;
             $productName = $_GET['product_name'] ?? null;
-            $approvalStatus = $_GET['approval_status'] ?? null;
 
             // 如果没有提供日期范围，默认使用当月
             if (!$startDate && !$endDate && !$searchDate) {
@@ -134,14 +123,6 @@ function handleGet() {
                 $params[] = "%$productName%";
             }
             
-            if ($approvalStatus) {
-                if ($approvalStatus === 'approved') {
-                    $sql .= " AND approver IS NOT NULL AND approver != ''";
-                } elseif ($approvalStatus === 'pending') {
-                    $sql .= " AND (approver IS NULL OR approver = '')";
-                }
-            }
-            
             $sql .= " ORDER BY date DESC, time DESC";
             
             $stmt = $pdo->prepare($sql);
@@ -149,10 +130,8 @@ function handleGet() {
                 $stmt->execute($params);
                 $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 
-                // 为每条记录添加批准状态和计算字段
+                // 为每条记录添加计算字段
                 foreach ($records as &$record) {
-                    $record['approval_status'] = (!empty($record['approver'])) ? 'approved' : 'pending';
-                    
                     // 计算库存余额
                     $inQty = floatval($record['in_quantity'] ?? 0);
                     $outQty = floatval($record['out_quantity'] ?? 0);
@@ -189,8 +168,6 @@ function handleGet() {
                         COUNT(*) as total_records,
                         COUNT(DISTINCT product_code) as total_products,
                         COUNT(DISTINCT supplier) as total_suppliers,
-                        COUNT(CASE WHEN approver IS NOT NULL AND approver != '' THEN 1 END) as approved_count,
-                        COUNT(CASE WHEN approver IS NULL OR approver = '' THEN 1 END) as pending_count,
                         SUM(in_quantity * price) as total_in_value,
                         SUM(out_quantity * price) as total_out_value,
                         SUM((in_quantity - out_quantity) * price) as total_balance_value,
@@ -230,7 +207,6 @@ function handleGet() {
             $record = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if ($record) {
-                $record['approval_status'] = (!empty($record['approver'])) ? 'approved' : 'pending';
                 sendResponse(true, "记录获取成功", $record);
             } else {
                 sendResponse(false, "记录不存在");
@@ -269,7 +245,7 @@ function handlePost() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -278,9 +254,9 @@ function handlePost() {
     
     try {
         $sql = "INSERT INTO stockinout_data 
-                (date, time, product_code, product_name, supplier, applicant, approver, 
-                 in_quantity, out_quantity, specification, price, code_number, remark, receiver) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, product_code, product_name, supplier, 
+                in_quantity, out_quantity, specification, price, code_number, remark, receiver) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -290,8 +266,6 @@ function handlePost() {
             $data['product_code'],
             $data['product_name'],
             $data['supplier'],
-            $data['applicant'],
-            $data['approver'] ?? null,
             $data['in_quantity'] ?? 0,
             $data['out_quantity'] ?? 0,
             $data['specification'] ?? null,
@@ -376,7 +350,7 @@ function handlePut() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -386,7 +360,7 @@ function handlePut() {
     try {
         $sql = "UPDATE stockinout_data 
                 SET date = ?, time = ?, product_code = ?, product_name = ?, supplier = ?, 
-                    applicant = ?, approver = ?, in_quantity = ?, out_quantity = ?, 
+                    in_quantity = ?, out_quantity = ?, 
                     specification = ?, price = ?, code_number = ?, remark = ?, receiver = ?
                 WHERE id = ?";
 
@@ -398,8 +372,6 @@ function handlePut() {
             $data['product_code'],
             $data['product_name'],
             $data['supplier'],
-            $data['applicant'],
-            $data['approver'] ?? null,
             $data['in_quantity'] ?? 0,
             $data['out_quantity'] ?? 0,
             $data['specification'] ?? null,
@@ -420,7 +392,6 @@ function handlePut() {
             $stmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
             $stmt->execute([$data['id']]);
             $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
-            $updatedRecord['approval_status'] = (!empty($updatedRecord['approver'])) ? 'approved' : 'pending';
             
             sendResponse(true, "进出库记录更新成功", $updatedRecord);
         } else {

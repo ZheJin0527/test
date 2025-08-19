@@ -625,14 +625,6 @@
                     <label for="supplier-filter">供应商</label>
                     <input type="text" id="supplier-filter" class="filter-input" placeholder="搜索供应商...">
                 </div>
-                <div class="filter-group">
-                    <label for="status-filter">批准状态</label>
-                    <select id="status-filter" class="filter-select">
-                        <option value="">全部状态</option>
-                        <option value="approved">已批准</option>
-                        <option value="pending">待批准</option>
-                    </select>
-                </div>
             </div>
             <div class="filter-actions">
                 <button class="btn btn-primary" onclick="searchData()">
@@ -740,14 +732,6 @@
                         <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>已批准: <span class="stat-value" id="approved-count">0</span></span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-clock"></i>
-                        <span>待批准: <span class="stat-value" id="pending-count">0</span></span>
-                    </div>
-                    <div class="stat-item">
                         <i class="fas fa-truck"></i>
                         <span>供应商数: <span class="stat-value" id="supplier-count">0</span></span>
                     </div>
@@ -773,7 +757,6 @@
                         <th class="supplier-col">Name</th>
                         <th style="min-width: 100px;">Code Number</th>
                         <th style="min-width: 100px;">Remark</th>
-                        <th style="min-width: 100px;">状态</th>
                         <th style="min-width: 120px;">操作</th>
                     </tr>
                 </thead>
@@ -882,12 +865,10 @@
                 const dateFilter = document.getElementById('date-filter').value;
                 const productFilter = document.getElementById('product-filter').value;
                 const supplierFilter = document.getElementById('supplier-filter').value;
-                const statusFilter = document.getElementById('status-filter').value;
                 
                 if (dateFilter) params.append('search_date', dateFilter);
                 if (productFilter) params.append('product_name', productFilter);
                 if (supplierFilter) params.append('supplier', supplierFilter);
-                if (statusFilter) params.append('approval_status', statusFilter);
                 
                 const result = await apiCall(`?${params}`);
                 
@@ -914,7 +895,6 @@
             document.getElementById('date-filter').value = '';
             document.getElementById('product-filter').value = '';
             document.getElementById('supplier-filter').value = '';
-            document.getElementById('status-filter').value = '';
             loadStockData();
         }
 
@@ -997,11 +977,6 @@
                             `<span>${record.remark || '-'}</span>`
                         }
                     </td>
-                    <td>
-                        <span class="approval-badge ${record.approval_status}">
-                            ${record.approval_status === 'approved' ? '已批准' : '待批准'}
-                        </span>
-                    </td>
                     <td class="action-cell">
                         ${isEditing ? 
                             `<button class="action-btn edit-btn" onclick="saveRecord(${record.id})" title="保存">
@@ -1013,11 +988,6 @@
                             `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
                                 <i class="fas fa-edit"></i>
                             </button>`
-                        }
-                        ${record.approval_status === 'pending' && !isEditing ? 
-                            `<button class="action-btn approve-btn" onclick="approveRecord(${record.id})" title="批准">
-                                <i class="fas fa-check"></i>
-                            </button>` : ''
                         }
                         ${!isEditing ? 
                             `<button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
@@ -1057,13 +1027,9 @@
         // 更新统计信息
         function updateStats() {
             const totalRecords = stockData.length;
-            const approvedCount = stockData.filter(record => record.approval_status === 'approved').length;
-            const pendingCount = totalRecords - approvedCount;
             const supplierCount = new Set(stockData.map(record => record.supplier)).size;
             
             document.getElementById('total-records').textContent = totalRecords;
-            document.getElementById('approved-count').textContent = approvedCount;
-            document.getElementById('pending-count').textContent = pendingCount;
             document.getElementById('supplier-count').textContent = supplierCount;
         }
 
@@ -1159,7 +1125,6 @@
                 specification: document.getElementById('new-specification').value,
                 price: parseFloat(document.getElementById('new-price').value) || 0,
                 supplier: document.getElementById('new-supplier').value,
-                applicant: 'Current User', // 可以从session获取
                 code_number: document.getElementById('new-code-number').value,
                 remark: document.getElementById('new-remark').value
             };
