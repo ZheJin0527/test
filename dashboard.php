@@ -263,7 +263,7 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
                 <div class="dropdown-menu-items" id="resource-items">
                     <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
+                        <a href="stockedit.php" class="informationmenu-item">
                             碗碟
                             <span class="informationmenu-arrow">›</span>
                         </a>
