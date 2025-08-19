@@ -220,11 +220,12 @@
         }
 
         .stock-table {
-            width: 100%;
-            min-width: 1400px;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
+    table-layout: fixed;
+    width: 100%;
+    min-width: 1400px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
 
         .stock-table th {
             background: #583e04;
@@ -284,8 +285,6 @@
             font-size: 14px;
             padding: 8px 4px;
             transition: all 0.2s;
-            box-sizing: border-box;
-            line-height: 1.2;
         }
 
         .table-input.currency-input {
@@ -312,17 +311,6 @@
             padding: 8px 4px;
             cursor: pointer;
             appearance: none;
-            box-sizing: border-box;
-            line-height: 1.2;
-        }
-
-        .stock-table td {
-            padding: 0;
-            border: 1px solid #d1d5db;
-            text-align: center;
-            position: relative;
-            height: 40px;
-            vertical-align: middle;
         }
 
         .table-select:focus {
@@ -330,6 +318,41 @@
             border: 2px solid #583e04;
             outline: none;
         }
+
+        /* 固定表格列宽，防止编辑时宽度变化 */
+.stock-table {
+    table-layout: fixed; /* 添加这行 */
+    width: 100%;
+    min-width: 1400px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+/* 为每列指定固定宽度 */
+.stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 100px; } /* DATE */
+.stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 120px; } /* Code Number */
+.stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 150px; } /* PRODUCT */
+.stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 80px; }  /* In */
+.stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 80px; }  /* Out */
+.stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 100px; } /* Specification */
+.stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 100px; } /* Price */
+.stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* Total */
+.stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 120px; } /* Name */
+.stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 120px; } /* Remark */
+.stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 120px; } /* 操作 */
+
+/* 确保输入框和选择框填满单元格 */
+.table-input, .table-select {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 4px;
+    transition: all 0.2s;
+    box-sizing: border-box; /* 添加这行 */
+}
 
         /* 日期单元格样式 */
         .date-cell {
