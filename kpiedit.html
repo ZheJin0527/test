@@ -1699,6 +1699,9 @@ row.innerHTML = `
                 
                 // 重新计算该日的数据
                 updateCalculations(day);
+
+                // 更新该行的颜色状态
+                updateInputColors();
                 
             } catch (error) {
                 showAlert(`删除${day}日数据失败: ${error.message}`, 'error');
