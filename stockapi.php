@@ -97,7 +97,6 @@ function handleGet() {
             $searchDate = $_GET['search_date'] ?? null;
             $supplier = $_GET['supplier'] ?? null;
             $productCode = $_GET['product_code'] ?? null;
-            $approvalStatus = $_GET['approval_status'] ?? null;
 
             // 如果没有提供日期范围，默认使用当月
             if (!$startDate && !$endDate && !$searchDate) {
@@ -234,6 +233,15 @@ function handleGet() {
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             sendResponse(true, "产品列表获取成功", $products);
+            break;
+
+        case 'codenumbers':
+            // 获取所有唯一的code_number列表
+            $stmt = $pdo->prepare("SELECT DISTINCT code_number FROM stockinout_data WHERE code_number IS NOT NULL AND code_number != '' ORDER BY code_number");
+            $stmt->execute();
+            $codeNumbers = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            
+            sendResponse(true, "编号列表获取成功", $codeNumbers);
             break;
 
         case 'summary':
