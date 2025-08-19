@@ -702,7 +702,10 @@
                 </div>
                 <div class="form-group">
                     <label for="add-product-code">产品编号 *</label>
-                    <input type="text" id="add-product-code" class="form-input" placeholder="输入产品编号..." required>
+                    <select id="add-product-code" class="form-select" required onchange="updateAddFormProductName()">
+                        <option value="">请选择产品编号</option>
+                        <!-- 这里会通过JavaScript动态填充 -->
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="add-product-name">产品名称 *</label>
@@ -813,6 +816,7 @@
         let stockData = [];
         let isLoading = false;
         let editingRowId = null;
+        let productData = [];
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
@@ -826,6 +830,7 @@
             
             // 加载数据
             loadStockData();
+            loadProductData();
         }
 
         // 返回上一页
@@ -857,6 +862,66 @@
             } catch (error) {
                 console.error('API调用失败:', error);
                 throw error;
+            }
+        }
+
+        // 加载产品数据
+        async function loadProductData() {
+            try {
+                const result = await apiCall('?action=get_products');
+                
+                if (result.success) {
+                    productData = result.data || [];
+                } else {
+                    productData = [];
+                    console.error('获取产品数据失败:', result.message);
+                }
+            } catch (error) {
+                console.error('加载产品数据时发生错误:', error);
+                productData = [];
+            }
+        }
+
+        // 根据产品编号获取产品名称
+        function getProductNameByCode(productCode) {
+            const product = productData.find(p => p.product_code === productCode);
+            return product ? product.product_name : '';
+        }
+
+        // 产品编号变更处理
+        function handleProductCodeChange(recordId, newCode, isNewRow = false) {
+            const productName = getProductNameByCode(newCode);
+            
+            if (isNewRow) {
+                // 新行处理
+                document.getElementById('new-product-name').value = productName;
+            } else {
+                // 编辑行处理
+                const record = stockData.find(r => r.id === recordId);
+                if (record) {
+                    record.product_code = newCode;
+                    record.product_name = productName;
+                    // 重新渲染表格以更新产品名称显示
+                    renderStockTable();
+                }
+            }
+
+            // 加载产品数据
+            async function loadProductData() {
+                try {
+                    const result = await apiCall('?action=get_products');
+                    
+                    if (result.success) {
+                        productData = result.data || [];
+                        populateAddFormProductSelect(); // 新增这行
+                    } else {
+                        productData = [];
+                        console.error('获取产品数据失败:', result.message);
+                    }
+                } catch (error) {
+                    console.error('加载产品数据时发生错误:', error);
+                    productData = [];
+                }
             }
         }
 
@@ -961,8 +1026,13 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
-                            `<span>${record.code_number || '-'}</span>`
+                            `<select class="table-select" onchange="handleProductCodeChange(${record.id}, this.value)">
+                                <option value="">请选择产品编号</option>
+                                ${productData.map(product => 
+                                    `<option value="${product.product_code}" ${record.product_code === product.product_code ? 'selected' : ''}>${product.product_code}</option>`
+                                ).join('')}
+                            </select>` :
+                            `<span>${record.product_code || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -1093,8 +1163,15 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
-                <td><input type="text" class="table-input" placeholder="输入编号..." id="new-code-number"></td>
-                <td><input type="text" class="table-input" placeholder="输入产品名称..." id="new-product-name"></td>
+                <td>
+                    <select class="table-select" id="new-code-number" onchange="handleProductCodeChange(null, this.value, true)">
+                        <option value="">请选择产品编号</option>
+                        ${productData.map(product => 
+                            `<option value="${product.product_code}">${product.product_code}</option>`
+                        ).join('')}
+                    </select>
+                </td>
+                <td><input type="text" class="table-input" placeholder="产品名称..." id="new-product-name" readonly style="background-color: #f3f4f6;"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
                 <td>
@@ -1148,12 +1225,32 @@
             }
         }
 
+        // 更新新增表单的产品名称
+        function updateAddFormProductName() {
+            const selectedCode = document.getElementById('add-product-code').value;
+            const productName = getProductNameByCode(selectedCode);
+            document.getElementById('add-product-name').value = productName;
+        }
+
+        // 填充新增表单的产品下拉列表
+        function populateAddFormProductSelect() {
+            const selectElement = document.getElementById('add-product-code');
+            selectElement.innerHTML = '<option value="">请选择产品编号</option>';
+            
+            productData.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.product_code;
+                option.textContent = product.product_code;
+                selectElement.appendChild(option);
+            });
+        }
+
         // 保存新行记录
         async function saveNewRowRecord() {
             const formData = {
                 date: document.getElementById('new-date').value,
                 time: new Date().toTimeString().slice(0, 5),
-                product_code: document.getElementById('new-product-name').value, // 临时使用产品名称作为编号
+                product_code: document.getElementById('new-code-number').value,
                 product_name: document.getElementById('new-product-name').value,
                 in_quantity: parseFloat(document.getElementById('new-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
