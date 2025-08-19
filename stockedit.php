@@ -383,13 +383,22 @@
             gap: 16px;
         }
 
+        /* 操作列居中对齐 */
+        .stock-table th:nth-child(11), 
+        .stock-table td:nth-child(11) { 
+            width: 120px;
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
         .action-cell {
-            display: flex;
+            display: flex !important;
             flex-direction: row;
             align-items: center;
             justify-content: center;
             gap: 4px;
             padding: 4px;
+            height: 40px;
         }
 
         .action-btn {
