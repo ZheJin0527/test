@@ -1205,19 +1205,7 @@ row.innerHTML = `
 
         // 处理粘贴数据
         function handlePasteData(pasteData, targetDay, startField = null) {
-            const lines = pasteData.trim().split('\n');
-            const firstLine = lines[0];
-            
-            // 支持制表符或逗号分隔
-            let values = [];
-            if (firstLine.includes('\t')) {
-                values = firstLine.split('\t');
-            } else if (firstLine.includes(',')) {
-                values = firstLine.split(',');
-            } else {
-                // 如果是单个值，按空格分割
-                values = firstLine.split(/\s+/);
-            }
+            const lines = pasteData.trim().split('\n').filter(line => line.trim() !== '');
             
             // 要粘贴的字段顺序（对应7个列）
             const pasteFields = [
@@ -1236,48 +1224,151 @@ row.innerHTML = `
                 startIndex = pasteFields.indexOf(startField);
             }
             
-            let pasteCount = 0;
-            
-            // 从指定列开始粘贴
-            for (let i = 0; i < values.length && (startIndex + i) < pasteFields.length; i++) {
-                const fieldIndex = startIndex + i;
-                const field = pasteFields[fieldIndex];
-                const value = values[i].trim();
+            // 如果是多行数据，找到所有处于编辑模式的行
+            if (lines.length > 1) {
+                // 获取当前月份的天数
+                const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
                 
-                if (value && value !== '') {
-                    const input = document.querySelector(`input[data-field="${field}"][data-day="${targetDay}"]`);
-                    if (input) {
-                        // 清理数据
-                        let cleanValue = value.replace(/[^\d.-]/g, ''); // 移除非数字字符（除了小数点和负号）
+                // 找到所有编辑模式的行，从目标日期开始
+                const editingDays = [];
+                for (let day = targetDay; day <= daysInMonth; day++) {
+                    const row = document.querySelector(`input[data-day="${day}"]`)?.closest('tr');
+                    if (row && row.classList.contains('editing-row')) {
+                        editingDays.push(day);
+                    }
+                }
+                
+                if (editingDays.length === 0) {
+                    showAlert('没有找到处于编辑模式的行', 'error');
+                    return;
+                }
+                
+                if (lines.length > editingDays.length) {
+                    showAlert(`数据有 ${lines.length} 行，但只有 ${editingDays.length} 行在编辑模式`, 'info');
+                }
+                
+                let totalPasteCount = 0;
+                const pastedDays = [];
+                
+                // 遍历每一行数据和对应的编辑行
+                for (let lineIndex = 0; lineIndex < Math.min(lines.length, editingDays.length); lineIndex++) {
+                    const line = lines[lineIndex];
+                    const day = editingDays[lineIndex];
+                    
+                    // 解析当前行的数据
+                    let values = [];
+                    if (line.includes('\t')) {
+                        values = line.split('\t');
+                    } else if (line.includes(',')) {
+                        values = line.split(',');
+                    } else {
+                        values = line.split(/\s+/);
+                    }
+                    
+                    let rowPasteCount = 0;
+                    
+                    // 从指定列开始粘贴当前行
+                    for (let i = 0; i < values.length && (startIndex + i) < pasteFields.length; i++) {
+                        const fieldIndex = startIndex + i;
+                        const field = pasteFields[fieldIndex];
+                        const value = values[i].trim();
                         
-                        // 验证数据
-                        const numValue = parseFloat(cleanValue);
-                        if (!isNaN(numValue)) {
-                            input.value = cleanValue;
-                            pasteCount++;
+                        if (value && value !== '') {
+                            const input = document.querySelector(`input[data-field="${field}"][data-day="${day}"]`);
+                            if (input) {
+                                // 清理数据
+                                let cleanValue = value.replace(/[^\d.-]/g, '');
+                                
+                                // 验证数据
+                                const numValue = parseFloat(cleanValue);
+                                if (!isNaN(numValue)) {
+                                    input.value = cleanValue;
+                                    rowPasteCount++;
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (rowPasteCount > 0) {
+                        totalPasteCount += rowPasteCount;
+                        pastedDays.push(day);
+                        // 更新当前行的计算
+                        updateCalculations(day);
+                    }
+                }
+                
+                // 显示成功消息
+                if (totalPasteCount > 0) {
+                    const fieldNames = {
+                        'gross_sales': '总销售额',
+                        'discounts': '折扣',
+                        'tax': '税',
+                        'service_fee': '服务费',
+                        'adj_amount': '调整金额',
+                        'tables_used': '桌数',
+                        'diners': '顾客数'
+                    };
+                    const startFieldName = startField ? fieldNames[startField] : '第一列';
+                    showAlert(`从${startFieldName}开始成功粘贴 ${lines.length} 行数据，共 ${totalPasteCount} 个字段到第 ${pastedDays.join(', ')} 日`, 'success');
+                } else {
+                    showAlert('未能识别有效的数据格式', 'error');
+                }
+                
+            } else {
+                // 单行粘贴逻辑（保持原有功能）
+                const line = lines[0];
+                let values = [];
+                if (line.includes('\t')) {
+                    values = line.split('\t');
+                } else if (line.includes(',')) {
+                    values = line.split(',');
+                } else {
+                    values = line.split(/\s+/);
+                }
+                
+                let pasteCount = 0;
+                
+                // 从指定列开始粘贴
+                for (let i = 0; i < values.length && (startIndex + i) < pasteFields.length; i++) {
+                    const fieldIndex = startIndex + i;
+                    const field = pasteFields[fieldIndex];
+                    const value = values[i].trim();
+                    
+                    if (value && value !== '') {
+                        const input = document.querySelector(`input[data-field="${field}"][data-day="${targetDay}"]`);
+                        if (input) {
+                            // 清理数据
+                            let cleanValue = value.replace(/[^\d.-]/g, '');
+                            
+                            // 验证数据
+                            const numValue = parseFloat(cleanValue);
+                            if (!isNaN(numValue)) {
+                                input.value = cleanValue;
+                                pasteCount++;
+                            }
                         }
                     }
                 }
-            }
-            
-            // 更新计算
-            updateCalculations(targetDay);
-            
-            // 显示成功消息
-            if (pasteCount > 0) {
-                const fieldNames = {
-                    'gross_sales': '总销售额',
-                    'discounts': '折扣',
-                    'tax': '税',
-                    'service_fee': '服务费',
-                    'adj_amount': '调整金额',
-                    'tables_used': '桌数',
-                    'diners': '顾客数'
-                };
-                const startFieldName = startField ? fieldNames[startField] : '第一列';
-                showAlert(`从${startFieldName}开始成功粘贴 ${pasteCount} 个字段到第${targetDay}日`, 'success');
-            } else {
-                showAlert('未能识别有效的数据格式', 'error');
+                
+                // 更新计算
+                updateCalculations(targetDay);
+                
+                // 显示成功消息
+                if (pasteCount > 0) {
+                    const fieldNames = {
+                        'gross_sales': '总销售额',
+                        'discounts': '折扣',
+                        'tax': '税',
+                        'service_fee': '服务费',
+                        'adj_amount': '调整金额',
+                        'tables_used': '桌数',
+                        'diners': '顾客数'
+                    };
+                    const startFieldName = startField ? fieldNames[startField] : '第一列';
+                    showAlert(`从${startFieldName}开始成功粘贴 ${pasteCount} 个字段到第${targetDay}日`, 'success');
+                } else {
+                    showAlert('未能识别有效的数据格式', 'error');
+                }
             }
         }
 
