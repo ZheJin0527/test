@@ -568,6 +568,29 @@
         .supplier-col {
             min-width: 120px !important;
         }
+
+        /* 新增行样式 */
+        .new-row {
+            background-color: #f0f9ff !important;
+            border: 2px solid #3b82f6 !important;
+        }
+
+        .new-row td {
+            border: 2px solid #3b82f6 !important;
+        }
+
+        .new-row .table-input, .new-row .table-select {
+            background: white;
+            border: 1px solid #3b82f6;
+        }
+
+        .save-new-btn {
+            background: #10b981 !important;
+        }
+
+        .cancel-new-btn {
+            background: #ef4444 !important;
+        }
     </style>
 </head>
 <body>
@@ -620,7 +643,7 @@
                     <i class="fas fa-refresh"></i>
                     重置
                 </button>
-                <button class="btn btn-success" onclick="toggleAddForm()">
+                <button class="btn btn-success" onclick="addNewRow()">
                     <i class="fas fa-plus"></i>
                     新增记录
                 </button>
@@ -1044,22 +1067,132 @@
             document.getElementById('supplier-count').textContent = supplierCount;
         }
 
-        // 切换添加表单
-        function toggleAddForm() {
-            const form = document.getElementById('add-form');
-            form.classList.toggle('show');
+        // 添加新行到表格
+        function addNewRow() {
+            if (editingRowId !== null) {
+                showAlert('请先完成当前编辑操作', 'info');
+                return;
+            }
             
-            if (form.classList.contains('show')) {
-                // 重置表单
-                form.querySelectorAll('.form-input, .form-select').forEach(input => {
-                    if (input.type !== 'date' && input.type !== 'time') {
-                        input.value = '';
-                    }
+            if (document.querySelector('.new-row')) {
+                showAlert('请先完成新记录的添加', 'info');
+                return;
+            }
+            
+            const tbody = document.getElementById('stock-tbody');
+            const row = document.createElement('tr');
+            row.className = 'new-row';
+            
+            const now = new Date();
+            const today = now.toISOString().split('T')[0];
+            const currentTime = now.toTimeString().slice(0, 5);
+            
+            row.innerHTML = `
+                <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
+                <td><input type="text" class="table-input" placeholder="输入产品名称..." id="new-product-name"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
+                <td>
+                    <select class="table-select" id="new-specification">
+                        <option value="">请选择规格</option>
+                        ${specifications.map(spec => `<option value="${spec}">${spec}</option>`).join('')}
+                    </select>
+                </td>
+                <td>
+                    <div class="input-container">
+                        <span class="currency-prefix">RM</span>
+                        <input type="number" class="table-input currency-input" min="0" step="0.01" placeholder="0.00" id="new-price">
+                    </div>
+                </td>
+                <td class="calculated-cell">RM 0.00</td>
+                <td><input type="text" class="table-input" placeholder="输入供应商..." id="new-supplier"></td>
+                <td><input type="text" class="table-input" placeholder="输入编号..." id="new-code-number"></td>
+                <td><input type="text" class="table-input" placeholder="输入备注..." id="new-remark"></td>
+                <td>
+                    <span class="approval-badge pending">待批准</span>
+                </td>
+                <td class="action-cell">
+                    <button class="action-btn save-new-btn" onclick="saveNewRowRecord()" title="保存">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button class="action-btn cancel-new-btn" onclick="cancelNewRow()" title="取消">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            `;
+            
+            // 添加到表格顶部
+            tbody.insertBefore(row, tbody.firstChild);
+            
+            // 自动聚焦到产品名称输入框
+            document.getElementById('new-product-name').focus();
+            
+            // 添加实时计算总价功能
+            ['new-in-qty', 'new-out-qty', 'new-price'].forEach(id => {
+                document.getElementById(id).addEventListener('input', updateNewRowTotal);
+            });
+        }
+
+        // 更新新行的总价计算
+        function updateNewRowTotal() {
+            const inQty = parseFloat(document.getElementById('new-in-qty').value) || 0;
+            const outQty = parseFloat(document.getElementById('new-out-qty').value) || 0;
+            const price = parseFloat(document.getElementById('new-price').value) || 0;
+            const netQty = inQty - outQty;
+            const total = netQty * price;
+            
+            const totalCell = document.querySelector('.new-row .calculated-cell');
+            if (totalCell) {
+                totalCell.textContent = `RM ${formatCurrency(total)}`;
+            }
+        }
+
+        // 保存新行记录
+        async function saveNewRowRecord() {
+            const formData = {
+                date: document.getElementById('new-date').value,
+                time: new Date().toTimeString().slice(0, 5),
+                product_code: document.getElementById('new-product-name').value, // 临时使用产品名称作为编号
+                product_name: document.getElementById('new-product-name').value,
+                in_quantity: parseFloat(document.getElementById('new-in-qty').value) || 0,
+                out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
+                specification: document.getElementById('new-specification').value,
+                price: parseFloat(document.getElementById('new-price').value) || 0,
+                supplier: document.getElementById('new-supplier').value,
+                applicant: 'Current User', // 可以从session获取
+                code_number: document.getElementById('new-code-number').value,
+                remark: document.getElementById('new-remark').value
+            };
+
+            // 验证必填字段
+            if (!formData.product_name || !formData.specification || !formData.supplier) {
+                showAlert('请填写产品名称、规格单位和供应商', 'error');
+                return;
+            }
+
+            try {
+                const result = await apiCall('', {
+                    method: 'POST',
+                    body: JSON.stringify(formData)
                 });
-                // 设置默认日期和时间
-                const now = new Date();
-                document.getElementById('add-date').value = now.toISOString().split('T')[0];
-                document.getElementById('add-time').value = now.toTimeString().slice(0, 5);
+
+                if (result.success) {
+                    showAlert('记录添加成功', 'success');
+                    cancelNewRow();
+                    loadStockData();
+                } else {
+                    showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
+                }
+            } catch (error) {
+                showAlert('保存时发生错误', 'error');
+            }
+        }
+
+        // 取消新行
+        function cancelNewRow() {
+            const newRow = document.querySelector('.new-row');
+            if (newRow) {
+                newRow.remove();
             }
         }
 
@@ -1258,8 +1391,8 @@
             if (e.key === 'Escape') {
                 if (editingRowId !== null) {
                     cancelEdit();
-                } else if (document.getElementById('add-form').classList.contains('show')) {
-                    toggleAddForm();
+                } else if (document.querySelector('.new-row')) {
+                    cancelNewRow();
                 }
             }
         });
