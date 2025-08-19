@@ -1538,6 +1538,7 @@ row.innerHTML = `
                 if (activeElement && activeElement.classList.contains('excel-input')) {
                     const day = parseInt(activeElement.dataset.day);
                     const row = activeElement.closest('tr');
+                    const currentField = activeElement.dataset.field;
                     
                     // 检查是否在编辑模式
                     if (!row.classList.contains('editing-row')) {
@@ -1546,23 +1547,30 @@ row.innerHTML = `
                         return;
                     }
                     
-                    pasteTargetDay = day;
-                    e.preventDefault();
-                    
-                    // 尝试从剪贴板读取数据
-                    if (navigator.clipboard && navigator.clipboard.readText) {
-                        navigator.clipboard.readText().then(function(clipboardData) {
-                            if (clipboardData) {
-                                handlePasteData(clipboardData, pasteTargetDay);
-                            } else {
-                                showAlert('剪贴板为空', 'info');
-                            }
-                        }).catch(function(err) {
-                            showAlert('无法访问剪贴板，请手动输入或使用右键粘贴', 'error');
-                        });
+                    // 只有在第一个可编辑列（gross_sales 总销售额）才触发整行粘贴
+                    if (currentField === 'gross_sales') {
+                        pasteTargetDay = day;
+                        e.preventDefault();
+                        
+                        // 尝试从剪贴板读取数据
+                        if (navigator.clipboard && navigator.clipboard.readText) {
+                            navigator.clipboard.readText().then(function(clipboardData) {
+                                if (clipboardData) {
+                                    handlePasteData(clipboardData, pasteTargetDay);
+                                } else {
+                                    showAlert('剪贴板为空', 'info');
+                                }
+                            }).catch(function(err) {
+                                showAlert('无法访问剪贴板，请手动输入或使用右键粘贴', 'error');
+                            });
+                        } else {
+                            // 降级处理：显示提示让用户使用右键粘贴
+                            showAlert('请使用右键菜单粘贴，或直接在输入框中按Ctrl+V', 'info');
+                        }
                     } else {
-                        // 降级处理：显示提示让用户使用右键粘贴
-                        showAlert('请使用右键菜单粘贴，或直接在输入框中按Ctrl+V', 'info');
+                        // 在其他列，显示提示信息
+                        showAlert('请在总销售额列粘贴整行数据', 'info');
+                        e.preventDefault();
                     }
                 }
             }
@@ -1626,6 +1634,7 @@ row.innerHTML = `
             if (e.target.classList.contains('excel-input')) {
                 const day = parseInt(e.target.dataset.day);
                 const row = e.target.closest('tr');
+                const currentField = e.target.dataset.field;
                 
                 // 检查是否在编辑模式
                 if (!row.classList.contains('editing-row')) {
@@ -1637,12 +1646,12 @@ row.innerHTML = `
                 const clipboardData = e.clipboardData || window.clipboardData;
                 const pastedData = clipboardData.getData('text');
                 
-                // 检查是否包含多个值（制表符、逗号或空格分隔）
-                if (pastedData && (pastedData.includes('\t') || pastedData.includes(',') || pastedData.split(/\s+/).length > 1)) {
+                // 只有在第一个可编辑列（gross_sales 总销售额）粘贴时才触发整行粘贴
+                if (currentField === 'gross_sales' && pastedData && (pastedData.includes('\t') || pastedData.includes(',') || pastedData.split(/\s+/).length > 1)) {
                     e.preventDefault();
                     handlePasteData(pastedData, day);
                 }
-                // 如果是单个值，让浏览器正常处理
+                // 其他情况让浏览器正常处理单格粘贴
             }
         });
 
