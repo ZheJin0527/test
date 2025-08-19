@@ -702,7 +702,9 @@
                 </div>
                 <div class="form-group">
                     <label for="add-product-code">产品编号 *</label>
-                    <input type="text" id="add-product-code" class="form-input" placeholder="输入产品编号..." required>
+                    <select id="add-product-code" class="form-select" required onchange="onProductCodeChange()">
+                        <option value="">请选择产品编号</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="add-product-name">产品名称 *</label>
@@ -826,6 +828,7 @@
             
             // 加载数据
             loadStockData();
+            loadCodeNumbers();
         }
 
         // 返回上一页
@@ -927,6 +930,66 @@
                 isLoading = false;
             }
         }
+
+        // 加载产品编号列表
+async function loadCodeNumbers() {
+    try {
+        const result = await apiCall('?action=codenumbers');
+        
+        if (result.success) {
+            const codeNumbers = result.data || [];
+            populateCodeNumberSelect('add-product-code', codeNumbers);
+        }
+    } catch (error) {
+        console.error('加载产品编号失败:', error);
+    }
+}
+
+// 填充下拉选择框
+function populateCodeNumberSelect(selectId, codeNumbers) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    
+    // 保留第一个选项（请选择...）
+    const firstOption = select.firstElementChild;
+    select.innerHTML = '';
+    select.appendChild(firstOption);
+    
+    // 添加产品编号选项
+    codeNumbers.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.product_code;
+        option.textContent = `${item.product_code} - ${item.product_name}`;
+        option.dataset.productName = item.product_name;
+        select.appendChild(option);
+    });
+}
+
+// 产品编号选择变化时自动填充产品名称
+function onProductCodeChange() {
+    const select = document.getElementById('add-product-code');
+    const productNameInput = document.getElementById('add-product-name');
+    const selectedOption = select.selectedOptions[0];
+    
+    if (selectedOption && selectedOption.dataset.productName) {
+        productNameInput.value = selectedOption.dataset.productName;
+    } else {
+        productNameInput.value = '';
+    }
+}
+
+// 新行产品编号选择变化
+function onNewRowProductCodeChange() {
+    const select = document.getElementById('new-code-number');
+    const productNameInput = document.getElementById('new-product-name');
+    const selectedOption = select.selectedOptions[0];
+    
+    if (selectedOption && selectedOption.dataset.productName) {
+        productNameInput.value = selectedOption.dataset.productName;
+    } else {
+        productNameInput.value = '';
+    }
+}
 
         // 重置搜索过滤器
         function resetFilters() {
@@ -1072,7 +1135,7 @@
         }
 
         // 添加新行到表格
-        function addNewRow() {
+        async function addNewRow() {
             if (editingRowId !== null) {
                 showAlert('请先完成当前编辑操作', 'info');
                 return;
@@ -1093,7 +1156,11 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
-                <td><input type="text" class="table-input" placeholder="输入编号..." id="new-code-number"></td>
+                <td>
+    <select class="table-select" id="new-code-number" onchange="onNewRowProductCodeChange()">
+        <option value="">请选择编号</option>
+    </select>
+</td>
                 <td><input type="text" class="table-input" placeholder="输入产品名称..." id="new-product-name"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
@@ -1132,6 +1199,24 @@
             ['new-in-qty', 'new-out-qty', 'new-price'].forEach(id => {
                 document.getElementById(id).addEventListener('input', updateNewRowTotal);
             });
+
+            // 自动聚焦到产品名称输入框
+    document.getElementById('new-product-name').focus();
+    
+    // 添加实时计算总价功能
+    ['new-in-qty', 'new-out-qty', 'new-price'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateNewRowTotal);
+    });
+    
+    // 加载产品编号到新行的下拉选择框
+    try {
+        const result = await apiCall('?action=codenumbers');
+        if (result.success) {
+            populateCodeNumberSelect('new-code-number', result.data || []);
+        }
+    } catch (error) {
+        console.error('加载新行产品编号失败:', error);
+    }
         }
 
         // 更新新行的总价计算
