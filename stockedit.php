@@ -748,6 +748,7 @@
                 <thead>
                     <tr>
                         <th style="min-width: 100px;">DATE</th>
+                        <th style="min-width: 100px;">Code Number</th>
                         <th class="product-name-col">PRODUCT</th>
                         <th style="min-width: 80px;">In</th>
                         <th style="min-width: 80px;">Out</th>
@@ -755,7 +756,6 @@
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
                         <th class="supplier-col">Name</th>
-                        <th style="min-width: 100px;">Code Number</th>
                         <th style="min-width: 100px;">Remark</th>
                         <th style="min-width: 120px;">操作</th>
                     </tr>
@@ -904,7 +904,7 @@
             tbody.innerHTML = '';
             
             if (stockData.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="12" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="11" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
                 return;
             }
             
@@ -921,6 +921,12 @@
                 
                 row.innerHTML = `
                     <td class="date-cell">${formatDate(record.date)}</td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
+                            `<span>${record.code_number || '-'}</span>`
+                        }
+                    </td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.product_name}" onchange="updateField(${record.id}, 'product_name', this.value)">` :
@@ -963,12 +969,6 @@
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.supplier}" onchange="updateField(${record.id}, 'supplier', this.value)">` :
                             `<span>${record.supplier}</span>`
-                        }
-                    </td>
-                    <td>
-                        ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
-                            `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -1055,6 +1055,7 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
+                <td><input type="text" class="table-input" placeholder="输入编号..." id="new-code-number"></td>
                 <td><input type="text" class="table-input" placeholder="输入产品名称..." id="new-product-name"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
@@ -1072,7 +1073,6 @@
                 </td>
                 <td class="calculated-cell">RM 0.00</td>
                 <td><input type="text" class="table-input" placeholder="输入供应商..." id="new-supplier"></td>
-                <td><input type="text" class="table-input" placeholder="输入编号..." id="new-code-number"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="new-remark"></td>
                 <td>
                     <span class="approval-badge pending">待批准</span>
