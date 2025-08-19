@@ -1173,12 +1173,15 @@ row.innerHTML = `
             updateMonthStats();
         }
 
-        // 更新输入框颜色状态 - 基于整行数据完整度
+        // 更新输入框颜色状态
         function updateInputColors() {
             const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
             
             for (let day = 1; day <= daysInMonth; day++) {
-                // 检查该行的关键字段是否有数据
+                // 获取该行的所有输入框
+                const dayInputs = document.querySelectorAll(`input[data-day="${day}"]`);
+                
+                // 检查该行的关键字段（除了折扣）是否有数据
                 const grossSales = getInputValue('gross_sales', day).trim();
                 const diners = getInputValue('diners', day).trim();
                 const tax = getInputValue('tax', day).trim();
@@ -1188,28 +1191,41 @@ row.innerHTML = `
                 const returningCustomers = getInputValue('returning_customers', day).trim();
                 
                 // 计算已填写的关键字段数量（不包括折扣和调整金额）
-                let filledFields = 0;
-                if (grossSales && grossSales !== '0' && grossSales !== '0.00') filledFields++;
-                if (diners && diners !== '0') filledFields++;
-                if (tax && tax !== '0' && tax !== '0.00') filledFields++;
-                if (serviceFee && serviceFee !== '0' && serviceFee !== '0.00') filledFields++;
-                if (tablesUsed && tablesUsed !== '0') filledFields++;
-                if (newCustomers && newCustomers !== '0') filledFields++;
-                if (returningCustomers && returningCustomers !== '0') filledFields++;
+                let filledKeyFields = 0;
+                if (grossSales && grossSales !== '0' && grossSales !== '0.00') filledKeyFields++;
+                if (diners && diners !== '0') filledKeyFields++;
+                if (tax && tax !== '0' && tax !== '0.00') filledKeyFields++;
+                if (serviceFee && serviceFee !== '0' && serviceFee !== '0.00') filledKeyFields++;
+                if (tablesUsed && tablesUsed !== '0') filledKeyFields++;
+                if (newCustomers && newCustomers !== '0') filledKeyFields++;
+                if (returningCustomers && returningCustomers !== '0') filledKeyFields++;
                 
-                // 如果关键字段填写了4个或以上，认为该行有数据
-                const rowHasData = filledFields >= 4;
-                
-                // 获取该行的所有输入框
-                const dayInputs = document.querySelectorAll(`input[data-day="${day}"]`);
+                // 该行是否有足够的关键数据
+                const rowHasKeyData = filledKeyFields >= 4;
                 
                 dayInputs.forEach(input => {
-                    if (rowHasData) {
-                        input.classList.remove('no-data');
-                        input.classList.add('has-data');
+                    const field = input.dataset.field;
+                    const value = input.value.trim();
+                    
+                    if (field === 'discounts') {
+                        // 折扣列：如果该行其他关键字段有数据，就显示蓝色
+                        if (rowHasKeyData) {
+                            input.classList.remove('no-data');
+                            input.classList.add('has-data');
+                        } else {
+                            input.classList.remove('has-data');
+                            input.classList.add('no-data');
+                        }
                     } else {
-                        input.classList.remove('has-data');
-                        input.classList.add('no-data');
+                        // 其他列：只看自己是否有数据
+                        const hasValue = value !== '' && value !== '0' && value !== '0.00';
+                        if (hasValue) {
+                            input.classList.remove('no-data');
+                            input.classList.add('has-data');
+                        } else {
+                            input.classList.remove('has-data');
+                            input.classList.add('no-data');
+                        }
                     }
                 });
             }
