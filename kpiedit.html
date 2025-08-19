@@ -370,7 +370,7 @@
             width: 100%;
             height: 40px;
             border: none;
-            background: #f0fdf4;
+            background: #fee2e2;
             text-align: center;
             font-size: 14px;
             padding: 8px 4px;
@@ -390,14 +390,6 @@
             outline: none;
             z-index: 5;
             position: relative;
-        }
-
-        .excel-input:not(:placeholder-shown) {
-            background: #f0fdf4;
-        }
-
-        .excel-input.currency-input:not(:placeholder-shown) {
-            background: #f0fdf4;
         }
 
         /* 计算列样式 */
@@ -690,6 +682,23 @@
         .excel-table tr.editing-row .weekend {
             background-color: #cde3ff !important;
         }
+
+        /* 数据状态颜色 */
+        .excel-input.has-data {
+            background: #dbeafe !important; /* 浅蓝色 - 有数据 */
+        }
+
+        .excel-input.no-data {
+            background: #fee2e2 !important; /* 浅红色 - 无数据 */
+        }
+
+        .excel-input:focus {
+            background: #fff !important;
+            border: 2px solid #583e04;
+            outline: none;
+            z-index: 5;
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -964,6 +973,10 @@
                 
                 generateExcelTable();
                 updateMonthStats();
+                // 更新输入框颜色
+                setTimeout(() => {
+                    updateInputColors();
+                }, 200);
                 
             } catch (error) {
                 monthData = {};
@@ -1077,6 +1090,10 @@ row.innerHTML = `
                 // 初始计算
                 updateCalculations(day);
             }
+
+            setTimeout(() => {
+                updateInputColors();
+            }, 100);
         }
 
         // 格式化货币输入（实时格式化为两位小数）
@@ -1144,6 +1161,23 @@ row.innerHTML = `
     
             // 更新月度统计
             updateMonthStats();
+        }
+
+        // 更新输入框颜色状态
+        function updateInputColors() {
+            const inputs = document.querySelectorAll('.excel-input');
+            inputs.forEach(input => {
+                const value = input.value.trim();
+                const hasValue = value !== '' && value !== '0' && value !== '0.00';
+                
+                if (hasValue) {
+                    input.classList.remove('no-data');
+                    input.classList.add('has-data');
+                } else {
+                    input.classList.remove('has-data');
+                    input.classList.add('no-data');
+                }
+            });
         }
 
         // 获取输入框值
@@ -1776,6 +1810,9 @@ row.innerHTML = `
                         e.target.value = value.split('.')[0];
                     }
                 }
+
+                // 更新输入框颜色
+                updateInputColors();
             }
         });
 
