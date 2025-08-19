@@ -235,15 +235,6 @@ function handleGet() {
             sendResponse(true, "产品列表获取成功", $products);
             break;
 
-        case 'codenumbers':
-            // 获取所有唯一的code_number列表
-            $stmt = $pdo->prepare("SELECT DISTINCT code_number FROM stockinout_data WHERE code_number IS NOT NULL AND code_number != '' ORDER BY code_number");
-            $stmt->execute();
-            $codeNumbers = $stmt->fetchAll(PDO::FETCH_COLUMN);
-            
-            sendResponse(true, "编号列表获取成功", $codeNumbers);
-            break;
-
         case 'summary':
             // 获取汇总数据
             $startDate = $_GET['start_date'] ?? null;
