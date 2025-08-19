@@ -795,27 +795,23 @@ function goToCulture() {
         const closeBtn = document.querySelector('.informationmenu-close-btn');
 
         // 点击用户头像显示菜单
-userAvatar?.addEventListener('click', function() {
-    sidebarMenu.classList.add('show'); // 改为 sidebarMenu
-    overlay.classList.add('show');
-    // 启动自动隐藏计时器
-    resetSidebarTimer();
-});
+        userAvatar?.addEventListener('click', function() {
+            sidebar.classList.add('show');
+            overlay.classList.add('show');
+        });
 
         // 关闭菜单
-function closeSidebar() {
-    sidebarMenu.classList.remove('show'); // 改为 sidebarMenu
-    overlay.classList.remove('show');
-    // 关闭所有下拉菜单
-    document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-        dropdown.classList.remove('show');
-    });
-    document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-        title.classList.remove('active');
-    });
-    // 停止自动隐藏计时器
-    stopSidebarTimer();
-}
+        function closeSidebar() {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+            // 关闭所有下拉菜单
+            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+            document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+                title.classList.remove('active');
+            });
+        }
 
         closeBtn?.addEventListener('click', closeSidebar);
         overlay?.addEventListener('click', closeSidebar);
@@ -1049,52 +1045,5 @@ function closeSidebar() {
             sidebarToggle.classList.toggle('collapsed');
         });
     </script>
-    <script>
-        // 自动隐藏侧边栏功能
-let sidebarInactiveTimer;
-const SIDEBAR_HIDE_DELAY = 5000; // 5秒
-
-// 重置计时器
-function resetSidebarTimer() {
-    clearTimeout(sidebarInactiveTimer);
-    sidebarInactiveTimer = setTimeout(() => {
-        closeSidebar();
-    }, SIDEBAR_HIDE_DELAY);
-}
-
-// 停止计时器
-function stopSidebarTimer() {
-    clearTimeout(sidebarInactiveTimer);
-}
-
-// 为侧边栏及其所有内容添加鼠标事件监听
-function setupSidebarActivityListeners() {
-    const sidebarElements = [
-        sidebarMenu, // 注意这里是 sidebarMenu
-        ...document.querySelectorAll('.submenu')
-    ];
-
-    sidebarElements.forEach(element => {
-        if (element) {
-            // 鼠标进入时停止计时器
-            element.addEventListener('mouseenter', stopSidebarTimer);
-            
-            // 鼠标离开时重启计时器  
-            element.addEventListener('mouseleave', resetSidebarTimer);
-            
-            // 点击时重置计时器
-            element.addEventListener('click', resetSidebarTimer);
-            
-            // 鼠标移动时重置计时器
-            element.addEventListener('mousemove', resetSidebarTimer);
-        }
-    });
-}
-
-// 初始化活动监听器 - 需要在DOM加载完成后执行
-document.addEventListener('DOMContentLoaded', function() {
-    setupSidebarActivityListeners();
-});
-</script>
 </body>
 </html>
