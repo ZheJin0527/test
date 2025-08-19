@@ -435,7 +435,6 @@ $avatarLetter = strtoupper($username[0]);
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
         const loginBtn = document.querySelector('.login-btn');
-        let autoHideTimeout;
 
         // 登录下拉菜单元素
         const loginDropdownMenu = document.getElementById('loginDropdownMenu');
@@ -795,13 +794,10 @@ function goToCulture() {
         const userAvatar = document.getElementById('user-avatar');
         const closeBtn = document.querySelector('.informationmenu-close-btn');
 
-        // 修改现有的用户头像点击事件
+        // 点击用户头像显示菜单
         userAvatar?.addEventListener('click', function() {
             sidebar.classList.add('show');
             overlay.classList.add('show');
-            
-            // 新增：启动5秒自动隐藏定时器
-            startAutoHideTimer();
         });
 
         // 关闭菜单
@@ -1047,32 +1043,6 @@ function goToCulture() {
     
             sidebarMenu.classList.toggle('collapsed');
             sidebarToggle.classList.toggle('collapsed');
-
-            // 添加：启动自动隐藏定时器的函数
-function startAutoHideTimer() {
-    // 清除现有的定时器
-    if (autoHideTimeout) {
-        clearTimeout(autoHideTimeout);
-    }
-    
-    // 设置5秒后自动隐藏
-    autoHideTimeout = setTimeout(() => {
-        closeSidebar();
-    }, 5000);
-}
-
-// 添加：重置定时器的函数
-function resetAutoHideTimer() {
-    if (autoHideTimeout) {
-        clearTimeout(autoHideTimeout);
-        startAutoHideTimer();
-    }
-}
-
-// 添加：在侧边栏和遮罩层上的鼠标活动时重置定时器
-sidebar?.addEventListener('mousemove', resetAutoHideTimer);
-sidebar?.addEventListener('click', resetAutoHideTimer);
-overlay?.addEventListener('mousemove', resetAutoHideTimer);
         });
     </script>
 </body>
