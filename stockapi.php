@@ -285,7 +285,7 @@ function handlePost() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant', 'specification'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -294,9 +294,8 @@ function handlePost() {
     
     try {
         $sql = "INSERT INTO stock_data 
-                (date, time, product_code, product_name, supplier, applicant, approver, 
-                 in_quantity, out_quantity, specification, price, code_number, remark) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, product_code, product_name, supplier, applicant, approver) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -307,13 +306,7 @@ function handlePost() {
             $data['product_name'],
             $data['supplier'],
             $data['applicant'],
-            $data['approver'] ?? null,
-            $data['in_quantity'] ?? 0,
-            $data['out_quantity'] ?? 0,
-            $data['specification'],
-            $data['price'] ?? 0,
-            $data['code_number'] ?? null,
-            $data['remark'] ?? null
+            $data['approver'] ?? null
         ]);
         
         $newId = $pdo->lastInsertId();
@@ -401,8 +394,7 @@ function handlePut() {
     try {
         $sql = "UPDATE stock_data 
                 SET date = ?, time = ?, product_code = ?, product_name = ?, supplier = ?, 
-                    applicant = ?, approver = ?, in_quantity = ?, out_quantity = ?, 
-                    specification = ?, price = ?, code_number = ?, remark = ?
+                    applicant = ?, approver = ?
                 WHERE id = ?";
 
         $stmt = $pdo->prepare($sql);
@@ -415,12 +407,6 @@ function handlePut() {
             $data['supplier'],
             $data['applicant'],
             $data['approver'] ?? null,
-            $data['in_quantity'] ?? 0,
-            $data['out_quantity'] ?? 0,
-            $data['specification'] ?? null,
-            $data['price'] ?? 0,
-            $data['code_number'] ?? null,
-            $data['remark'] ?? null,
             $data['id']
         ]);
         
