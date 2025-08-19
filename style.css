@@ -6446,8 +6446,12 @@ form select {
     transition: width 0.3s ease !important;
 }
 
+.informationmenu.collapsed .user-avatar-dropdown {
+    display: none !important;
+}
+
 .informationmenu.collapsed .informationmenu-header {
-    padding: 24px 15px !important;
+    padding: 24px 40px !important;
     flex-direction: row !important;
     justify-content: space-between !important;
     align-items: center !important;

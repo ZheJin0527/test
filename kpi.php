@@ -665,21 +665,12 @@ $avatarLetter = strtoupper($username[0]);
             transition: width 0.3s ease !important;
         }
 
-        /* 收起状态下的头像样式 */
         .informationmenu.collapsed .user-avatar-dropdown {
-            flex-direction: row !important;
-            gap: 0 !important;
-        }
-
-        .informationmenu.collapsed .user-avatar {
-            width: 35px !important;
-            height: 35px !important;
-            font-size: 18px !important;
-            line-height: 33px !important;
+            display: none !important;
         }
 
         .informationmenu.collapsed .informationmenu-header {
-            padding: 24px 15px !important;
+            padding: 24px 40px !important;
             flex-direction: row !important;
             justify-content: space-between !important;
             align-items: center !important;
@@ -691,6 +682,10 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .informationmenu.collapsed .user-position {
+            display: none !important;
+        }
+
+        .informationmenu.collapsed .user-avatar {
             display: none !important;
         }
         .header {
