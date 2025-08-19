@@ -84,7 +84,7 @@ function handleGet() {
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
-            $supplier = $_GET['supplier'] ?? null;
+            $receiver = $_GET['receiver'] ?? null;
             $productCode = $_GET['product_code'] ?? null;
             $productName = $_GET['product_name'] ?? null;
 
@@ -108,9 +108,9 @@ function handleGet() {
                 $params[] = $endDate;
             }
             
-            if ($supplier) {
-                $sql .= " AND supplier LIKE ?";
-                $params[] = "%$supplier%";
+            if ($receiver) {
+                $sql .= " AND receiver LIKE ?";
+                $params[] = "%$receiver%";
             }
 
             if ($productCode) {
@@ -254,7 +254,7 @@ function handlePost() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'receiver'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -359,7 +359,7 @@ function handlePut() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'receiver'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
