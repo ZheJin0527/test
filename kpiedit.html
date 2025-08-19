@@ -1327,18 +1327,21 @@ row.innerHTML = `
                     
                     let rowPasteCount = 0;
                     
-                    // 从指定列开始粘贴当前行
-                    for (let i = 0; i < values.length && (startIndex + i) < pasteFields.length; i++) {
-                        const fieldIndex = startIndex + i;
+                    // 确定当前行的开始列索引
+                    // 第一行从指定列开始，后续行从第一列开始
+                    const currentStartIndex = (lineIndex === 0) ? startIndex : 0;
+
+                    // 从确定的列开始粘贴当前行
+                    for (let i = 0; i < values.length && (currentStartIndex + i) < pasteFields.length; i++) {
+                        const fieldIndex = currentStartIndex + i;
                         const field = pasteFields[fieldIndex];
                         const value = values[i].trim();
                         
                         if (value && value !== '') {
                             const input = document.querySelector(`input[data-field="${field}"][data-day="${day}"]`);
                             if (input) {
-                                // 清理数据，保留千位分隔符
-                                let cleanValue = value.replace(/[^\d.,-]/g, ''); // 保留逗号
-                                // 移除千位分隔符，只保留小数点
+                                // 清理数据
+                                let cleanValue = value.replace(/[^\d.,-]/g, '');
                                 cleanValue = cleanValue.replace(/,/g, '');
                                 
                                 // 验证数据
@@ -1371,7 +1374,7 @@ row.innerHTML = `
                         'diners': '顾客数'
                     };
                     const startFieldName = startField ? fieldNames[startField] : '第一列';
-                    showAlert(`从${startFieldName}开始成功粘贴 ${lines.length} 行数据，共 ${totalPasteCount} 个字段到第 ${pastedDays.join(', ')} 日`, 'success');
+                    showAlert(`第一行从${startFieldName}开始，后续行从第一列开始，成功粘贴 ${lines.length} 行数据，共 ${totalPasteCount} 个字段到第 ${pastedDays.join(', ')} 日`, 'success');
                 } else {
                     showAlert('未能识别有效的数据格式', 'error');
                 }
