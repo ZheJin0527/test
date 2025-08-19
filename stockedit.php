@@ -622,8 +622,8 @@
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
                 </div>
                 <div class="filter-group">
-                    <label for="receiver-filter">接收人</label>
-                    <input type="text" id="receiver-filter" class="filter-input" placeholder="搜索接收人...">
+                    <label for="supplier-filter">供应商</label>
+                    <input type="text" id="supplier-filter" class="filter-input" placeholder="搜索供应商...">
                 </div>
             </div>
             <div class="filter-actions">
@@ -695,8 +695,8 @@
                     <input type="number" id="add-price" class="form-input" min="0" step="0.01" placeholder="0.00">
                 </div>
                 <div class="form-group">
-                    <label for="add-receiver">接收人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入接收人..." required>
+                    <label for="add-supplier">供应商 *</label>
+                    <input type="text" id="add-supplier" class="form-input" placeholder="输入供应商..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -733,7 +733,7 @@
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-truck"></i>
-                        <span>接收人数: <span class="stat-value" id="receiver-count">0</span></span>
+                        <span>供应商数: <span class="stat-value" id="supplier-count">0</span></span>
                     </div>
                 </div>
                 
@@ -864,11 +864,11 @@
                 
                 const dateFilter = document.getElementById('date-filter').value;
                 const productFilter = document.getElementById('product-filter').value;
-                const receiverFilter = document.getElementById('receiver-filter').value;
+                const supplierFilter = document.getElementById('supplier-filter').value;
                 
                 if (dateFilter) params.append('search_date', dateFilter);
                 if (productFilter) params.append('product_name', productFilter);
-                if (receiverFilter) params.append('receiver', receiverFilter);
+                if (supplierFilter) params.append('supplier', supplierFilter);
                 
                 const result = await apiCall(`?${params}`);
                 
@@ -894,7 +894,7 @@
         function resetFilters() {
             document.getElementById('date-filter').value = '';
             document.getElementById('product-filter').value = '';
-            document.getElementById('receiver-filter').value = '';
+            document.getElementById('supplier-filter').value = '';
             loadStockData();
         }
 
@@ -967,8 +967,8 @@
                     <td class="calculated-cell">RM ${formatCurrency(total)}</td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
-                            `<span>${record.receiver || '-'}</span>`
+                            `<input type="text" class="table-input" value="${record.supplier}" onchange="updateField(${record.id}, 'supplier', this.value)">` :
+                            `<span>${record.supplier}</span>`
                         }
                     </td>
                     <td>
@@ -1027,10 +1027,10 @@
         // 更新统计信息
         function updateStats() {
             const totalRecords = stockData.length;
-            const receiverCount = new Set(stockData.map(record => record.receiver)).size;
+            const supplierCount = new Set(stockData.map(record => record.supplier)).size;
             
             document.getElementById('total-records').textContent = totalRecords;
-            document.getElementById('receiver-count').textContent = receiverCount;
+            document.getElementById('supplier-count').textContent = supplierCount;
         }
 
         // 添加新行到表格
@@ -1072,7 +1072,7 @@
                     </div>
                 </td>
                 <td class="calculated-cell">RM 0.00</td>
-                <td><input type="text" class="table-input" placeholder="输入接收人..." id="new-receiver"></td>
+                <td><input type="text" class="table-input" placeholder="输入供应商..." id="new-supplier"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="new-remark"></td>
                 <td>
                     <span class="approval-badge pending">待批准</span>
@@ -1124,14 +1124,14 @@
                 out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
                 specification: document.getElementById('new-specification').value,
                 price: parseFloat(document.getElementById('new-price').value) || 0,
-                receiver: document.getElementById('new-receiver').value,
+                supplier: document.getElementById('new-supplier').value,
                 code_number: document.getElementById('new-code-number').value,
                 remark: document.getElementById('new-remark').value
             };
 
             // 验证必填字段
-            if (!formData.product_name || !formData.specification || !formData.receiver) {
-                showAlert('请填写产品名称、规格单位和接收人', 'error');
+            if (!formData.product_name || !formData.specification || !formData.supplier) {
+                showAlert('请填写产品名称、规格单位和供应商', 'error');
                 return;
             }
 
@@ -1172,14 +1172,14 @@
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
-                receiver: document.getElementById('add-receiver').value,
+                supplier: document.getElementById('add-supplier').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
                 remark: document.getElementById('add-remark').value
             };
 
             // 验证必填字段
-            const requiredFields = ['date', 'time', 'product_code', 'product_name', 'specification', 'receiver', 'applicant'];
+            const requiredFields = ['date', 'time', 'product_code', 'product_name', 'specification', 'supplier', 'applicant'];
             for (let field of requiredFields) {
                 if (!formData[field]) {
                     showAlert(`请填写${getFieldLabel(field)}`, 'error');
@@ -1213,7 +1213,7 @@
                 'product_code': '产品编号',
                 'product_name': '产品名称',
                 'specification': '规格单位',
-                'receiver': '接收人'
+                'supplier': '供应商',
                 'applicant': '申请人'
             };
             return labels[field] || field;
