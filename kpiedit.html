@@ -1204,7 +1204,7 @@ row.innerHTML = `
         }
 
         // 处理粘贴数据
-        function handlePasteData(pasteData, targetDay) {
+        function handlePasteData(pasteData, targetDay, startField = null) {
             const lines = pasteData.trim().split('\n');
             const firstLine = lines[0];
             
@@ -1230,35 +1230,52 @@ row.innerHTML = `
                 'diners'         // 顾客总数
             ];
             
+            // 确定开始粘贴的列索引
+            let startIndex = 0;
+            if (startField && pasteFields.includes(startField)) {
+                startIndex = pasteFields.indexOf(startField);
+            }
+            
             let pasteCount = 0;
             
-            // 遍历要粘贴的字段
-            pasteFields.forEach((field, index) => {
-                if (index < values.length) {
-                    const value = values[index].trim();
-                    if (value && value !== '') {
-                        const input = document.querySelector(`input[data-field="${field}"][data-day="${targetDay}"]`);
-                        if (input) {
-                            // 清理数据
-                            let cleanValue = value.replace(/[^\d.-]/g, ''); // 移除非数字字符（除了小数点和负号）
-                            
-                            // 验证数据
-                            const numValue = parseFloat(cleanValue);
-                            if (!isNaN(numValue)) {
-                                input.value = cleanValue;
-                                pasteCount++;
-                            }
+            // 从指定列开始粘贴
+            for (let i = 0; i < values.length && (startIndex + i) < pasteFields.length; i++) {
+                const fieldIndex = startIndex + i;
+                const field = pasteFields[fieldIndex];
+                const value = values[i].trim();
+                
+                if (value && value !== '') {
+                    const input = document.querySelector(`input[data-field="${field}"][data-day="${targetDay}"]`);
+                    if (input) {
+                        // 清理数据
+                        let cleanValue = value.replace(/[^\d.-]/g, ''); // 移除非数字字符（除了小数点和负号）
+                        
+                        // 验证数据
+                        const numValue = parseFloat(cleanValue);
+                        if (!isNaN(numValue)) {
+                            input.value = cleanValue;
+                            pasteCount++;
                         }
                     }
                 }
-            });
+            }
             
             // 更新计算
             updateCalculations(targetDay);
             
             // 显示成功消息
             if (pasteCount > 0) {
-                showAlert(`成功粘贴 ${pasteCount} 个字段到第${targetDay}日`, 'success');
+                const fieldNames = {
+                    'gross_sales': '总销售额',
+                    'discounts': '折扣',
+                    'tax': '税',
+                    'service_fee': '服务费',
+                    'adj_amount': '调整金额',
+                    'tables_used': '桌数',
+                    'diners': '顾客数'
+                };
+                const startFieldName = startField ? fieldNames[startField] : '第一列';
+                showAlert(`从${startFieldName}开始成功粘贴 ${pasteCount} 个字段到第${targetDay}日`, 'success');
             } else {
                 showAlert('未能识别有效的数据格式', 'error');
             }
@@ -1537,8 +1554,8 @@ row.innerHTML = `
                 const activeElement = document.activeElement;
                 if (activeElement && activeElement.classList.contains('excel-input')) {
                     const day = parseInt(activeElement.dataset.day);
-                    const row = activeElement.closest('tr');
                     const currentField = activeElement.dataset.field;
+                    const row = activeElement.closest('tr');
                     
                     // 检查是否在编辑模式
                     if (!row.classList.contains('editing-row')) {
@@ -1547,30 +1564,23 @@ row.innerHTML = `
                         return;
                     }
                     
-                    // 只有在第一个可编辑列（gross_sales 总销售额）才触发整行粘贴
-                    if (currentField === 'gross_sales') {
-                        pasteTargetDay = day;
-                        e.preventDefault();
-                        
-                        // 尝试从剪贴板读取数据
-                        if (navigator.clipboard && navigator.clipboard.readText) {
-                            navigator.clipboard.readText().then(function(clipboardData) {
-                                if (clipboardData) {
-                                    handlePasteData(clipboardData, pasteTargetDay);
-                                } else {
-                                    showAlert('剪贴板为空', 'info');
-                                }
-                            }).catch(function(err) {
-                                showAlert('无法访问剪贴板，请手动输入或使用右键粘贴', 'error');
-                            });
-                        } else {
-                            // 降级处理：显示提示让用户使用右键粘贴
-                            showAlert('请使用右键菜单粘贴，或直接在输入框中按Ctrl+V', 'info');
-                        }
+                    pasteTargetDay = day;
+                    e.preventDefault();
+                    
+                    // 尝试从剪贴板读取数据
+                    if (navigator.clipboard && navigator.clipboard.readText) {
+                        navigator.clipboard.readText().then(function(clipboardData) {
+                            if (clipboardData) {
+                                handlePasteData(clipboardData, pasteTargetDay, currentField);
+                            } else {
+                                showAlert('剪贴板为空', 'info');
+                            }
+                        }).catch(function(err) {
+                            showAlert('无法访问剪贴板，请手动输入或使用右键粘贴', 'error');
+                        });
                     } else {
-                        // 在其他列，显示提示信息
-                        showAlert('请在总销售额列粘贴整行数据', 'info');
-                        e.preventDefault();
+                        // 降级处理：显示提示让用户使用右键粘贴
+                        showAlert('请使用右键菜单粘贴，或直接在输入框中按Ctrl+V', 'info');
                     }
                 }
             }
@@ -1633,8 +1643,8 @@ row.innerHTML = `
         document.addEventListener('paste', function(e) {
             if (e.target.classList.contains('excel-input')) {
                 const day = parseInt(e.target.dataset.day);
-                const row = e.target.closest('tr');
                 const currentField = e.target.dataset.field;
+                const row = e.target.closest('tr');
                 
                 // 检查是否在编辑模式
                 if (!row.classList.contains('editing-row')) {
@@ -1646,12 +1656,12 @@ row.innerHTML = `
                 const clipboardData = e.clipboardData || window.clipboardData;
                 const pastedData = clipboardData.getData('text');
                 
-                // 只有在第一个可编辑列（gross_sales 总销售额）粘贴时才触发整行粘贴
-                if (currentField === 'gross_sales' && pastedData && (pastedData.includes('\t') || pastedData.includes(',') || pastedData.split(/\s+/).length > 1)) {
+                // 检查是否包含多个值（制表符、逗号或空格分隔）
+                if (pastedData && (pastedData.includes('\t') || pastedData.includes(',') || pastedData.split(/\s+/).length > 1)) {
                     e.preventDefault();
-                    handlePasteData(pastedData, day);
+                    handlePasteData(pastedData, day, currentField);
                 }
-                // 其他情况让浏览器正常处理单格粘贴
+                // 如果是单个值，让浏览器正常处理
             }
         });
 
