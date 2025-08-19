@@ -84,7 +84,7 @@ function handleGet() {
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
-            $supplier = $_GET['supplier'] ?? null;
+            $receiver = $_GET['receiver'] ?? null;
             $productCode = $_GET['product_code'] ?? null;
             $productName = $_GET['product_name'] ?? null;
 
@@ -108,9 +108,9 @@ function handleGet() {
                 $params[] = $endDate;
             }
             
-            if ($supplier) {
-                $sql .= " AND supplier LIKE ?";
-                $params[] = "%$supplier%";
+            if ($receiver) {
+                $sql .= " AND receiver LIKE ?";
+                $params[] = "%$receiver%";
             }
 
             if ($productCode) {
@@ -213,13 +213,13 @@ function handleGet() {
             }
             break;
             
-        case 'suppliers':
-            // 获取所有供应商列表
-            $stmt = $pdo->prepare("SELECT DISTINCT supplier FROM stockinout_data ORDER BY supplier");
+        case 'receivers':
+            // 获取所有接收人列表
+            $stmt = $pdo->prepare("SELECT DISTINCT receiver FROM stockinout_data WHERE receiver IS NOT NULL AND receiver != '' ORDER BY receiver");
             $stmt->execute();
-            $suppliers = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            $receivers = $stmt->fetchAll(PDO::FETCH_COLUMN);
             
-            sendResponse(true, "供应商列表获取成功", $suppliers);
+            sendResponse(true, "接收人列表获取成功", $receivers);
             break;
             
         case 'products':
