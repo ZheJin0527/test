@@ -791,18 +791,33 @@ function goToCulture() {
 <script>
         const sidebar = document.querySelector('.informationmenu');
         const overlay = document.querySelector('.informationmenu-overlay');
+        // 添加自动隐藏功能
+let overlayTimer;
+
+function startOverlayTimer() {
+    clearTimeout(overlayTimer);
+    overlayTimer = setTimeout(() => {
+        closeSidebar();
+    }, 5000); // 5秒后自动隐藏
+}
+
+function resetOverlayTimer() {
+    clearTimeout(overlayTimer);
+    startOverlayTimer();
+}
         const userAvatar = document.getElementById('user-avatar');
         const closeBtn = document.querySelector('.informationmenu-close-btn');
 
         // 点击用户头像显示菜单
         userAvatar?.addEventListener('click', function() {
-            sidebar.classList.add('show');
-            overlay.classList.add('show');
-            resetSidebarTimer(); // 添加这行
-        });
+    sidebar.classList.add('show');
+    overlay.classList.add('show');
+    startOverlayTimer(); // 启动定时器
+});
 
         // 关闭菜单
-function closeSidebar() {
+        function closeSidebar() {
+    clearTimeout(overlayTimer); // 清除定时器
     sidebar.classList.remove('show');
     overlay.classList.remove('show');
     // 关闭所有下拉菜单
@@ -812,11 +827,6 @@ function closeSidebar() {
     document.querySelectorAll('.informationmenu-section-title').forEach(title => {
         title.classList.remove('active');
     });
-    // 清除计时器
-    if (sidebarHideTimer) {
-        clearTimeout(sidebarHideTimer);
-        sidebarHideTimer = null;
-    }
 }
 
         closeBtn?.addEventListener('click', closeSidebar);
@@ -1049,30 +1059,14 @@ function closeSidebar() {
     
             sidebarMenu.classList.toggle('collapsed');
             sidebarToggle.classList.toggle('collapsed');
+            // 监听侧边栏内的鼠标活动，重置定时器
+sidebar?.addEventListener('mouseenter', resetOverlayTimer);
+sidebar?.addEventListener('mousemove', resetOverlayTimer);
+sidebar?.addEventListener('click', resetOverlayTimer);
+
+// 监听overlay的鼠标活动
+overlay?.addEventListener('mouseenter', resetOverlayTimer);
         });
-
-        // 自动隐藏侧边栏功能
-let sidebarHideTimer;
-const SIDEBAR_HIDE_DELAY = 5000; // 5秒
-
-function resetSidebarTimer() {
-    // 清除现有计时器
-    if (sidebarHideTimer) {
-        clearTimeout(sidebarHideTimer);
-    }
-    
-    // 只有在侧边栏显示时才设置计时器
-    if (sidebar.classList.contains('show')) {
-        sidebarHideTimer = setTimeout(() => {
-            closeSidebar();
-        }, SIDEBAR_HIDE_DELAY);
-    }
-}
-
-// 侧边栏内的所有交互都重置计时器
-sidebar?.addEventListener('click', resetSidebarTimer);
-sidebar?.addEventListener('mouseenter', resetSidebarTimer);
-sidebar?.addEventListener('mousemove', resetSidebarTimer);
     </script>
 </body>
 </html>
