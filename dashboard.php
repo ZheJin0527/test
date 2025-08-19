@@ -794,14 +794,47 @@ function goToCulture() {
         const userAvatar = document.getElementById('user-avatar');
         const closeBtn = document.querySelector('.informationmenu-close-btn');
 
+        // 添加自动隐藏功能的变量
+        let sidebarHideTimeout;
+        const AUTO_HIDE_DELAY = 5000; // 5秒
+
+        // 启动自动隐藏计时器
+        function startAutoHideTimer() {
+            clearTimeout(sidebarHideTimeout);
+            sidebarHideTimeout = setTimeout(() => {
+                if (sidebar.classList.contains('show')) {
+                    closeSidebar();
+                }
+            }, AUTO_HIDE_DELAY);
+        }
+
+        // 重置自动隐藏计时器
+        function resetAutoHideTimer() {
+            if (sidebar.classList.contains('show')) {
+                startAutoHideTimer();
+            }
+        }
+
+        // 停止自动隐藏计时器
+        function stopAutoHideTimer() {
+            clearTimeout(sidebarHideTimeout);
+        }
+
+        // 为 sidebar 添加鼠标事件监听器
+        sidebar?.addEventListener('mouseenter', stopAutoHideTimer);
+        sidebar?.addEventListener('mouseleave', startAutoHideTimer);
+        sidebar?.addEventListener('click', resetAutoHideTimer);
+
         // 点击用户头像显示菜单
         userAvatar?.addEventListener('click', function() {
             sidebar.classList.add('show');
             overlay.classList.add('show');
+            startAutoHideTimer(); // 添加这一行
         });
 
         // 关闭菜单
         function closeSidebar() {
+            stopAutoHideTimer(); // 添加这一行
             sidebar.classList.remove('show');
             overlay.classList.remove('show');
             // 关闭所有下拉菜单
@@ -814,11 +847,15 @@ function goToCulture() {
         }
 
         closeBtn?.addEventListener('click', closeSidebar);
-        overlay?.addEventListener('click', closeSidebar);
+        overlay?.addEventListener('click', function() {
+            stopAutoHideTimer(); // 添加这一行
+            closeSidebar();
+        });
 
         // ESC键关闭菜单
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
+                stopAutoHideTimer(); // 添加这一行
                 closeSidebar();
             }
         });
