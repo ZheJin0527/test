@@ -384,14 +384,12 @@
         }
 
         .action-cell {
-            display: flex !important;
+            display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
             gap: 4px;
             padding: 4px;
-            text-align: center;
-            vertical-align: middle;
         }
 
         .action-btn {
@@ -774,10 +772,6 @@
                     <div class="stat-item">
                         <i class="fas fa-boxes"></i>
                         <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-truck"></i>
-                        <span>供应商数: <span class="stat-value" id="supplier-count">0</span></span>
                     </div>
                 </div>
                 
