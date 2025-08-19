@@ -791,43 +791,27 @@ function goToCulture() {
 <script>
         const sidebar = document.querySelector('.informationmenu');
         const overlay = document.querySelector('.informationmenu-overlay');
-        // 添加自动隐藏功能
-let overlayTimer;
-
-function startOverlayTimer() {
-    clearTimeout(overlayTimer);
-    overlayTimer = setTimeout(() => {
-        closeSidebar();
-    }, 5000); // 5秒后自动隐藏
-}
-
-function resetOverlayTimer() {
-    clearTimeout(overlayTimer);
-    startOverlayTimer();
-}
         const userAvatar = document.getElementById('user-avatar');
         const closeBtn = document.querySelector('.informationmenu-close-btn');
 
         // 点击用户头像显示菜单
         userAvatar?.addEventListener('click', function() {
-    sidebar.classList.add('show');
-    overlay.classList.add('show');
-    startOverlayTimer(); // 启动定时器
-});
+            sidebar.classList.add('show');
+            overlay.classList.add('show');
+        });
 
         // 关闭菜单
         function closeSidebar() {
-    clearTimeout(overlayTimer); // 清除定时器
-    sidebar.classList.remove('show');
-    overlay.classList.remove('show');
-    // 关闭所有下拉菜单
-    document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
-        dropdown.classList.remove('show');
-    });
-    document.querySelectorAll('.informationmenu-section-title').forEach(title => {
-        title.classList.remove('active');
-    });
-}
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+            // 关闭所有下拉菜单
+            document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+            document.querySelectorAll('.informationmenu-section-title').forEach(title => {
+                title.classList.remove('active');
+            });
+        }
 
         closeBtn?.addEventListener('click', closeSidebar);
         overlay?.addEventListener('click', closeSidebar);
@@ -1059,13 +1043,6 @@ function resetOverlayTimer() {
     
             sidebarMenu.classList.toggle('collapsed');
             sidebarToggle.classList.toggle('collapsed');
-            // 监听侧边栏内的鼠标活动，重置定时器
-sidebar?.addEventListener('mouseenter', resetOverlayTimer);
-sidebar?.addEventListener('mousemove', resetOverlayTimer);
-sidebar?.addEventListener('click', resetOverlayTimer);
-
-// 监听overlay的鼠标活动
-overlay?.addEventListener('mouseenter', resetOverlayTimer);
         });
     </script>
 </body>
