@@ -763,7 +763,7 @@
 
     <script>
         // API 配置
-        const API_BASE_URL = 'stockapi.php';
+        const API_BASE_URL = 'stockeditapi.php';
         
         // 应用状态
         let stockData = [];
