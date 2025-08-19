@@ -755,7 +755,7 @@
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
-                        <th class="supplier-col">收货人</th>
+                        <th class="supplier-col">Name</th>
                         <th style="min-width: 100px;">Remark</th>
                         <th style="min-width: 120px;">操作</th>
                     </tr>
