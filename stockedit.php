@@ -385,6 +385,14 @@
             background: #d97706;
         }
 
+        .edit-btn.save-mode {
+            background: #10b981;
+        }
+
+        .edit-btn.save-mode:hover {
+            background: #059669;
+        }
+
         .action-btn.delete-btn {
             background: #ef4444;
         }
@@ -977,7 +985,7 @@
                     </td>
                     <td class="action-cell">
                         ${isEditing ? 
-                            `<button class="action-btn edit-btn" onclick="saveRecord(${record.id})" title="保存">
+                            `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
                                 <i class="fas fa-save"></i>
                             </button>
                             <button class="action-btn" onclick="cancelEdit()" title="取消" style="background: #6b7280;">
