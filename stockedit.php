@@ -642,10 +642,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="add-product-code">产品编号</label>
-                    <input type="text" id="add-product-code" class="form-input" placeholder="产品编号..." readonly>
-                </div>
-                <div class="form-group">
                     <label for="add-product-name">产品名称 *</label>
                     <input type="text" id="add-product-name" class="form-input" placeholder="产品名称..." readonly required>
                 </div>
@@ -751,7 +747,6 @@
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
                         <th style="min-width: 100px;">Receiver</th>
-                        <th style="min-width: 100px;">Applicant</th>
                         <th style="min-width: 100px;">Remark</th>
                         <th style="min-width: 120px;">操作</th>
                     </tr>
@@ -921,15 +916,15 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<select class="table-select" onchange="updateFieldAndLoadProduct(${record.id}, 'code_number', this.value)" style="text-align: left; padding-left: 8px;">
-                                <option value="">${record.code_number || '请选择'}</option>
+                            `<select class="table-select" onchange="updateFieldAndLoadProduct(${record.id}, 'product_code', this.value)" style="text-align: left; padding-left: 8px;">
+                                <option value="">${record.product_code || '请选择'}</option>
                                 ${productCodesData.map(item => 
-                                    `<option value="${item.code_number}" ${record.code_number === item.code_number ? 'selected' : ''}>
-                                        ${item.code_number} - ${item.product_name}
+                                    `<option value="${item.product_code}" ${record.product_code === item.product_code ? 'selected' : ''}>
+                                        ${item.product_code} - ${item.product_name}
                                     </option>`
                                 ).join('')}
                             </select>` :
-                            `<span>${record.code_number || '-'}</span>`
+                            `<span>${record.product_code || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -964,7 +959,7 @@
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
                             ${isEditing ? 
-                                `<input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)" readonly style="background: #f9fafb;">` :
+                                `<input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">` :
                                 `<span style="padding-left: 32px; text-align: right; display: block;">${formatCurrency(record.price)}</span>`
                             }
                         </div>
@@ -974,12 +969,6 @@
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
                             `<span>${record.receiver || '-'}</span>`
-                        }
-                    </td>
-                    <td>
-                        ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.applicant || ''}" onchange="updateField(${record.id}, 'applicant', this.value)">` :
-                            `<span>${record.applicant || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -1036,7 +1025,7 @@
         // 更新统计信息
         function updateStats() {
             const totalRecords = stockData.length;
-            const productCount = new Set(stockData.map(record => record.code_number)).size;
+            const productCount = new Set(stockData.map(record => record.product_code)).size;
             const totalIn = stockData.reduce((sum, record) => sum + (parseFloat(record.in_quantity) || 0), 0);
             const totalOut = stockData.reduce((sum, record) => sum + (parseFloat(record.out_quantity) || 0), 0);
             
@@ -1070,21 +1059,20 @@
             const formData = {
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
-                code_number: document.getElementById('add-code-number').value,
-                product_code: document.getElementById('add-product-code').value,
+                product_code: document.getElementById('add-code-number').value, // 使用选择的产品代码
                 product_name: document.getElementById('add-product-name').value,
                 receiver: document.getElementById('add-receiver').value,
-                applicant: document.getElementById('add-applicant').value,
                 in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
                 remark: document.getElementById('add-remark').value,
-                supplier: 'N/A' // 设为默认值，因为API可能需要这个字段
+                supplier: 'N/A', // 设为默认值
+                applicant: 'System' // 设为默认值
             };
 
             // 验证必填字段
-            const requiredFields = ['date', 'time', 'code_number', 'product_name', 'specification', 'receiver', 'applicant'];
+            const requiredFields = ['date', 'time', 'product_code', 'product_name', 'specification', 'receiver'];
             for (let field of requiredFields) {
                 if (!formData[field]) {
                     showAlert(`请填写${getFieldLabel(field)}`, 'error');
@@ -1217,7 +1205,7 @@
         // 加载产品代码数据
         async function loadProductCodes() {
             try {
-                const result = await apiCall('?action=product-codes');
+                const result = await apiCall('?action=products');
                 if (result.success) {
                     productCodesData = result.data || [];
                     updateCodeSelect();
@@ -1246,47 +1234,35 @@
             
             productCodesData.forEach(item => {
                 const option = document.createElement('option');
-                option.value = item.code_number;
-                option.textContent = `${item.code_number} - ${item.product_name}`;
-                option.dataset.productCode = item.product_code;
+                option.value = item.product_code;
+                option.textContent = `${item.product_code} - ${item.product_name}`;
                 option.dataset.productName = item.product_name;
-                option.dataset.specification = item.specification;
-                option.dataset.price = item.price;
                 select.appendChild(option);
             });
         }
 
         // 根据产品代码加载产品信息
-        function loadProductByCode(codeNumber) {
-            if (!codeNumber) {
-                document.getElementById('add-product-code').value = '';
+        function loadProductByCode(productCode) {
+            if (!productCode) {
                 document.getElementById('add-product-name').value = '';
-                document.getElementById('add-specification').value = '';
-                document.getElementById('add-price').value = '';
                 return;
             }
             
-            const productData = productCodesData.find(item => item.code_number === codeNumber);
+            const productData = productCodesData.find(item => item.product_code === productCode);
             if (productData) {
-                document.getElementById('add-product-code').value = productData.product_code || '';
                 document.getElementById('add-product-name').value = productData.product_name || '';
-                document.getElementById('add-specification').value = productData.specification || '';
-                document.getElementById('add-price').value = productData.price || '';
             }
         }
 
         function updateFieldAndLoadProduct(id, field, value) {
             const record = stockData.find(r => r.id === id);
-            if (record && field === 'code_number') {
+            if (record && field === 'product_code') {
                 record[field] = value;
                 
                 // 自动填充相关产品信息
-                const productData = productCodesData.find(item => item.code_number === value);
+                const productData = productCodesData.find(item => item.product_code === value);
                 if (productData) {
-                    record.product_code = productData.product_code;
                     record.product_name = productData.product_name;
-                    record.specification = productData.specification;
-                    record.price = productData.price;
                 }
                 
                 renderStockTable();
