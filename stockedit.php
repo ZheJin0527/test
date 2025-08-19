@@ -383,14 +383,6 @@
             gap: 16px;
         }
 
-        /* 操作列居中对齐 */
-        .stock-table th:nth-child(11), 
-        .stock-table td:nth-child(11) { 
-            width: 120px;
-            text-align: center !important;
-            vertical-align: middle !important;
-        }
-
         .action-cell {
             display: flex !important;
             flex-direction: row;
@@ -398,7 +390,8 @@
             justify-content: center;
             gap: 4px;
             padding: 4px;
-            height: 40px;
+            text-align: center;
+            vertical-align: middle;
         }
 
         .action-btn {
