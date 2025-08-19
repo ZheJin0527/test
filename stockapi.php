@@ -235,6 +235,41 @@ function handleGet() {
             
             sendResponse(true, "产品列表获取成功", $products);
             break;
+
+        case 'summary':
+            // 获取汇总数据
+            $startDate = $_GET['start_date'] ?? null;
+            $endDate = $_GET['end_date'] ?? null;
+            
+            $sql = "SELECT 
+                        COUNT(*) as total_records,
+                        COUNT(DISTINCT product_code) as total_products,
+                        COUNT(DISTINCT supplier) as total_suppliers,
+                        COUNT(CASE WHEN approver IS NOT NULL AND approver != '' THEN 1 END) as approved_count,
+                        COUNT(CASE WHEN approver IS NULL OR approver = '' THEN 1 END) as pending_count,
+                        SUM(CASE WHEN in_quantity > 0 THEN (in_quantity * price) ELSE 0 END) as total_in_value,
+                        SUM(CASE WHEN out_quantity > 0 THEN (out_quantity * price) ELSE 0 END) as total_out_value,
+                        SUM((in_quantity - out_quantity) * price) as net_value
+                    FROM stock_data WHERE 1=1";
+            $params = [];
+            
+            if ($startDate && $endDate) {
+                $sql .= " AND date BETWEEN ? AND ?";
+                $params[] = $startDate;
+                $params[] = $endDate;
+            }
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $summary = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // 格式化数据
+            foreach (['total_in_value', 'total_out_value', 'net_value'] as $field) {
+                $summary[$field] = floatval($summary[$field]);
+            }
+            
+            sendResponse(true, "汇总数据获取成功", $summary);
+            break;
             
         default:
             sendResponse(false, "无效的操作");
@@ -250,7 +285,7 @@ function handlePost() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant', 'specification'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -259,8 +294,9 @@ function handlePost() {
     
     try {
         $sql = "INSERT INTO stock_data 
-                (date, time, product_code, product_name, supplier, applicant, approver) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
+                (date, time, product_code, product_name, supplier, applicant, approver, 
+                 in_quantity, out_quantity, specification, price, code_number, remark) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -271,7 +307,13 @@ function handlePost() {
             $data['product_name'],
             $data['supplier'],
             $data['applicant'],
-            $data['approver'] ?? null
+            $data['approver'] ?? null,
+            $data['in_quantity'] ?? 0,
+            $data['out_quantity'] ?? 0,
+            $data['specification'],
+            $data['price'] ?? 0,
+            $data['code_number'] ?? null,
+            $data['remark'] ?? null
         ]);
         
         $newId = $pdo->lastInsertId();
@@ -359,7 +401,8 @@ function handlePut() {
     try {
         $sql = "UPDATE stock_data 
                 SET date = ?, time = ?, product_code = ?, product_name = ?, supplier = ?, 
-                    applicant = ?, approver = ?
+                    applicant = ?, approver = ?, in_quantity = ?, out_quantity = ?, 
+                    specification = ?, price = ?, code_number = ?, remark = ?
                 WHERE id = ?";
 
         $stmt = $pdo->prepare($sql);
@@ -372,6 +415,12 @@ function handlePut() {
             $data['supplier'],
             $data['applicant'],
             $data['approver'] ?? null,
+            $data['in_quantity'] ?? 0,
+            $data['out_quantity'] ?? 0,
+            $data['specification'] ?? null,
+            $data['price'] ?? 0,
+            $data['code_number'] ?? null,
+            $data['remark'] ?? null,
             $data['id']
         ]);
         
@@ -381,7 +430,7 @@ function handlePut() {
         $existingRecord = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
         if ($existingRecord) {
-            // 记录存在，获取更新后的记录（可能没有变化也没关系）
+            // 记录存在，获取更新后的记录
             $stmt = $pdo->prepare("SELECT * FROM stock_data WHERE id = ?");
             $stmt->execute([$data['id']]);
             $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
