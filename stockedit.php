@@ -242,11 +242,12 @@
         }
 
         .stock-table td {
-            padding: 0;
-            border: 1px solid #d1d5db;
-            text-align: center;
-            position: relative;
-        }
+    padding: 0;
+    border: 1px solid #d1d5db;
+    text-align: center;
+    position: relative;
+    overflow: visible; /* 添加这行 */
+}
 
         .stock-table tr:nth-child(even) {
             background-color: #f9fafb;
@@ -637,51 +638,70 @@
         /* 下拉框容器样式 */
 .dropdown-container {
     position: relative;
+    width: 100%;
+    height: 40px;
 }
 
-.custom-dropdown {
+/* 下拉框样式 - 显示在格子下方 */
+.table-select.dropdown-below {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
+    z-index: 1000;
     background: white;
     border: 2px solid #583e04;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.2);
-    z-index: 1000;
+    border-radius: 4px;
     max-height: 200px;
     overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     display: none;
 }
 
-.custom-dropdown.show {
+/* 显示状态 */
+.table-select.dropdown-below.show {
     display: block;
 }
 
-.dropdown-option {
+/* 下拉选项样式 */
+.table-select.dropdown-below option {
     padding: 8px 12px;
     cursor: pointer;
-    border-bottom: 1px solid #e5e7eb;
+    background: white;
+}
+
+.table-select.dropdown-below option:hover {
+    background: #f3f4f6;
+}
+
+/* 当前选中值显示 */
+.dropdown-display {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: transparent;
+    text-align: center;
     font-size: 14px;
-    transition: background-color 0.2s;
+    padding: 8px 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.dropdown-option:hover {
-    background-color: #f3f4f6;
+.dropdown-display:focus {
+    background: #fff;
+    border: 2px solid #583e04;
+    outline: none;
 }
 
-.dropdown-option.selected {
-    background-color: #583e04;
-    color: white;
-}
-
-.dropdown-option:last-child {
-    border-bottom: none;
-}
-
-/* 确保表格单元格相对定位 */
+/* 确保表格单元格允许溢出 */
 .stock-table td {
+    padding: 0;
+    border: 1px solid #d1d5db;
+    text-align: center;
     position: relative;
+    overflow: visible; /* 修改这行 */
 }
     </style>
 </head>
@@ -1000,65 +1020,51 @@
             return options;
         }
 
-        // 新增函数：创建自定义下拉框
-        function createCustomDropdown(options, selectedValue, onSelect, containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            
-            // 清除现有内容
-            container.innerHTML = '';
-            
-            // 创建显示输入框
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'table-input';
-            input.value = selectedValue || '';
-            input.placeholder = '点击选择...';
-            input.readOnly = true;
-            input.style.cursor = 'pointer';
-            
-            // 创建下拉选项容器
-            const dropdown = document.createElement('div');
-            dropdown.className = 'custom-dropdown';
-            
-            // 添加选项
-            options.forEach(option => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'dropdown-option';
-                optionDiv.textContent = option.text || option;
-                optionDiv.setAttribute('data-value', option.value || option);
-                
-                if ((option.value || option) === selectedValue) {
-                    optionDiv.classList.add('selected');
-                }
-                
-                optionDiv.addEventListener('click', () => {
-                    input.value = option.text || option;
-                    dropdown.classList.remove('show');
-                    if (onSelect) onSelect(option.value || option);
-                });
-                
-                dropdown.appendChild(optionDiv);
-            });
-            
-            // 点击输入框显示/隐藏下拉框
-            input.addEventListener('click', (e) => {
-                e.stopPropagation();
-                // 隐藏其他所有下拉框
-                document.querySelectorAll('.custom-dropdown').forEach(d => {
-                    if (d !== dropdown) d.classList.remove('show');
-                });
-                dropdown.classList.toggle('show');
-            });
-            
-            // 点击页面其他地方隐藏下拉框
-            document.addEventListener('click', () => {
+        // 创建自定义下拉框
+function createCustomDropdown(options, selectedValue, onChangeCallback, placeholder = '请选择') {
+    const container = document.createElement('div');
+    container.className = 'dropdown-container';
+    
+    const display = document.createElement('div');
+    display.className = 'dropdown-display';
+    display.textContent = selectedValue || placeholder;
+    
+    const select = document.createElement('select');
+    select.className = 'table-select dropdown-below';
+    select.innerHTML = options;
+    select.value = selectedValue;
+    
+    container.appendChild(display);
+    container.appendChild(select);
+    
+    // 点击显示/隐藏下拉框
+    display.addEventListener('click', function(e) {
+        e.stopPropagation();
+        // 关闭其他下拉框
+        document.querySelectorAll('.dropdown-below.show').forEach(dropdown => {
+            if (dropdown !== select) {
                 dropdown.classList.remove('show');
-            });
-            
-            container.appendChild(input);
-            container.appendChild(dropdown);
+            }
+        });
+        select.classList.toggle('show');
+    });
+    
+    // 选择选项
+    select.addEventListener('change', function() {
+        display.textContent = this.options[this.selectedIndex].text;
+        this.classList.remove('show');
+        if (onChangeCallback) {
+            onChangeCallback(this);
         }
+    });
+    
+    // 点击其他地方关闭下拉框
+    document.addEventListener('click', function() {
+        select.classList.remove('show');
+    });
+    
+    return container;
+}
 
         // 处理产品名称变化
         async function handleProductChange(selectElement, codeNumberElement) {
@@ -1205,17 +1211,27 @@
                 row.innerHTML = `
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
-                        ${isEditing ? 
-                            `<div class="dropdown-container" id="code-dropdown-${record.id}"></div>` :
-                            `<span>${record.code_number || '-'}</span>`
-                        }
-                    </td>
-                    <td>
-                        ${isEditing ? 
-                            `<div class="dropdown-container" id="product-dropdown-${record.id}"></div>` :
-                            `<span>${record.product_name}</span>`
-                        }
-                    </td>
+    ${isEditing ? 
+        `<div class="dropdown-container">
+            <div class="dropdown-display" onclick="toggleCustomDropdown(this)">${record.code_number || '请选择编号'}</div>
+            <select class="table-select dropdown-below" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) .dropdown-display')); updateDropdownDisplay(this);">
+                ${generateCodeNumberOptions(record.code_number)}
+            </select>
+        </div>` :
+        `<span>${record.code_number || '-'}</span>`
+    }
+</td>
+<td>
+    ${isEditing ? 
+        `<div class="dropdown-container">
+            <div class="dropdown-display" onclick="toggleCustomDropdown(this)">${record.product_name || '请选择产品'}</div>
+            <select class="table-select dropdown-below" data-record-id="${record.id}" onchange="updateField(${record.id}, 'product_name', this.value); handleProductChange(this, this.closest('tr').querySelector('td:nth-child(2) .dropdown-display')); updateDropdownDisplay(this);">
+                ${generateProductOptions(record.product_name)}
+            </select>
+        </div>` :
+        `<span>${record.product_name}</span>`
+    }
+</td>
                     <td>
                         ${isEditing ? 
                             `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
@@ -1281,39 +1297,6 @@
                 `;
                 
                 tbody.appendChild(row);
-
-                if (isEditing) {
-                    // 延迟创建下拉框，确保DOM已渲染
-                    setTimeout(() => {
-                        // 创建Code Number下拉框
-                        const codeOptions = window.codeNumberOptions ? 
-                            [{ value: '', text: '请选择编号' }, ...window.codeNumberOptions.map(item => ({ value: item.code_number, text: item.code_number }))] :
-                            [{ value: '', text: '加载中...' }];
-                            
-                        createCustomDropdown(codeOptions, record.code_number, (value) => {
-                            updateField(record.id, 'code_number', value);
-                            // 触发产品名称更新
-                            handleCodeNumberChange({ value }, { 
-                                value: record.product_name,
-                                setValue: (newValue) => updateField(record.id, 'product_name', newValue)
-                            });
-                        }, `code-dropdown-${record.id}`);
-                        
-                        // 创建Product下拉框
-                        const productOptions = window.productOptions ? 
-                            [{ value: '', text: '请选择产品' }, ...window.productOptions.map(item => ({ value: item.product_name, text: item.product_name }))] :
-                            [{ value: '', text: '加载中...' }];
-                            
-                        createCustomDropdown(productOptions, record.product_name, (value) => {
-                            updateField(record.id, 'product_name', value);
-                            // 触发编号更新
-                            handleProductChange({ value }, {
-                                value: record.code_number,
-                                setValue: (newValue) => updateField(record.id, 'code_number', newValue)
-                            });
-                        }, `product-dropdown-${record.id}`);
-                    }, 10);
-                }
             });
         }
 
@@ -1431,6 +1414,37 @@
                 totalCell.textContent = `RM ${formatCurrency(total)}`;
             }
         }
+
+        // 切换自定义下拉框
+function toggleCustomDropdown(displayElement) {
+    const container = displayElement.parentNode;
+    const select = container.querySelector('.dropdown-below');
+    
+    // 关闭其他下拉框
+    document.querySelectorAll('.dropdown-below.show').forEach(dropdown => {
+        if (dropdown !== select) {
+            dropdown.classList.remove('show');
+        }
+    });
+    
+    select.classList.toggle('show');
+    event.stopPropagation();
+}
+
+// 更新下拉框显示值
+function updateDropdownDisplay(selectElement) {
+    const display = selectElement.parentNode.querySelector('.dropdown-display');
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    display.textContent = selectedOption.text;
+    selectElement.classList.remove('show');
+}
+
+// 全局点击事件关闭下拉框
+document.addEventListener('click', function() {
+    document.querySelectorAll('.dropdown-below.show').forEach(dropdown => {
+        dropdown.classList.remove('show');
+    });
+});
 
         // 保存新行记录
         async function saveNewRowRecord() {
