@@ -672,18 +672,16 @@
 }
 
 .combobox-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    position: fixed; /* 改为 fixed 定位，避免被表格限制 */
     background: white;
     border: 2px solid #583e04;
-    border-top: none;
-    border-radius: 0 0 8px 8px;
+    border-radius: 8px;
     max-height: 200px;
     overflow-y: auto;
-    z-index: 20;
+    z-index: 9999; /* 提高层级，确保显示在最前面 */
     display: none;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.2);
+    min-width: 200px; /* 设置最小宽度 */
 }
 
 .combobox-dropdown.show {
@@ -716,6 +714,25 @@
     color: #6b7280;
     font-style: italic;
     text-align: center;
+}
+
+/* 确保表格容器不会隐藏溢出内容 */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
+    border: 2px solid #583e04;
+    overflow: visible; /* 改为 visible，允许内容溢出 */
+}
+
+.table-container > div:first-child {
+    overflow-x: auto; /* 只对内部滚动容器设置 overflow */
+}
+
+/* 为了确保水平滚动正常，添加一个内部容器 */
+.table-scroll-container {
+    overflow-x: auto;
+    overflow-y: visible;
 }
     </style>
 </head>
@@ -866,6 +883,7 @@
                     </button>
                 </div>
             </div>
+            <div class="table-scroll-container">
             <table class="stock-table" id="stock-table">
                 <thead>
                     <tr>
@@ -886,6 +904,7 @@
                     <!-- 动态生成行 -->
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
@@ -1273,6 +1292,8 @@
                 
                 tbody.appendChild(row);
             });
+
+            setTimeout(bindComboboxEvents, 0);
         }
 
         // 格式化日期
@@ -1362,6 +1383,7 @@
             ['new-in-qty', 'new-out-qty', 'new-price'].forEach(id => {
                 document.getElementById(id).addEventListener('input', updateNewRowTotal);
             });
+            setTimeout(bindComboboxEvents, 0);
         }
 
         // 更新新行的总价计算
@@ -1721,9 +1743,6 @@ function createCombobox(type, value = '', recordId = null, isNewRow = false) {
                 ${recordId ? `data-record-id="${recordId}"` : ''}
                 data-field="${fieldName}"
                 data-type="${type}"
-                onfocus="showComboboxDropdown('${containerId}')"
-                oninput="filterComboboxOptions('${containerId}')"
-                onkeydown="handleComboboxKeydown(event, '${containerId}')"
             />
             <i class="fas fa-chevron-down combobox-arrow"></i>
             <div class="combobox-dropdown" id="${dropdownId}">
@@ -1740,32 +1759,75 @@ function generateComboboxOptions(options, displayField) {
     }
     
     return options.map(option => 
-        `<div class="combobox-option" onclick="selectComboboxOption(this, '${option[displayField]}')" data-value="${option[displayField]}">
+        `<div class="combobox-option" data-value="${option[displayField]}">
             ${option[displayField]}
         </div>`
     ).join('');
 }
 
-// 显示下拉列表
-function showComboboxDropdown(containerId) {
-    // 隐藏其他所有下拉列表
-    document.querySelectorAll('.combobox-dropdown').forEach(dropdown => {
-        dropdown.classList.remove('show');
-    });
+// 计算下拉列表位置
+function calculateDropdownPosition(inputElement, dropdownElement) {
+    const inputRect = inputElement.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const dropdownHeight = Math.min(200, dropdownElement.scrollHeight);
     
-    const dropdown = document.getElementById(`${containerId}-dropdown`);
+    let top = inputRect.bottom;
+    let left = inputRect.left;
+    
+    // 检查是否会超出视口底部
+    if (top + dropdownHeight > viewportHeight) {
+        // 显示在输入框上方
+        top = inputRect.top - dropdownHeight;
+    }
+    
+    // 确保不会超出视口左右边界
+    const dropdownWidth = Math.max(200, inputRect.width);
+    if (left + dropdownWidth > window.innerWidth) {
+        left = window.innerWidth - dropdownWidth - 10;
+    }
+    if (left < 10) {
+        left = 10;
+    }
+    
+    return { top, left, width: dropdownWidth };
+}
+
+// 显示下拉列表
+function showComboboxDropdown(input) {
+    // 隐藏其他所有下拉列表
+    hideAllDropdowns();
+    
+    const container = input.closest('.combobox-container');
+    const dropdown = container.querySelector('.combobox-dropdown');
+    
     if (dropdown) {
+        const position = calculateDropdownPosition(input, dropdown);
+        dropdown.style.top = position.top + 'px';
+        dropdown.style.left = position.left + 'px';
+        dropdown.style.width = position.width + 'px';
         dropdown.classList.add('show');
+        
+        // 重置高亮
+        dropdown.querySelectorAll('.combobox-option').forEach(option => {
+            option.classList.remove('highlighted');
+        });
     }
 }
 
+// 隐藏所有下拉列表
+function hideAllDropdowns() {
+    document.querySelectorAll('.combobox-dropdown.show').forEach(dropdown => {
+        dropdown.classList.remove('show');
+    });
+}
+
 // 过滤下拉选项
-function filterComboboxOptions(containerId) {
-    const input = document.getElementById(`${containerId}-input`);
-    const dropdown = document.getElementById(`${containerId}-dropdown`);
+function filterComboboxOptions(input) {
+    const container = input.closest('.combobox-container');
+    const dropdown = container.querySelector('.combobox-dropdown');
     const type = input.dataset.type;
     
-    if (!input || !dropdown) return;
+    if (!dropdown) return;
     
     const searchTerm = input.value.toLowerCase();
     const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
@@ -1781,9 +1843,14 @@ function filterComboboxOptions(containerId) {
         dropdown.innerHTML = '<div class="no-results">未找到匹配项</div>';
     } else {
         dropdown.innerHTML = generateComboboxOptions(filteredOptions, displayField);
+        
+        // 重新绑定点击事件
+        dropdown.querySelectorAll('.combobox-option').forEach(option => {
+            option.addEventListener('click', () => selectComboboxOption(option, input));
+        });
     }
     
-    dropdown.classList.add('show');
+    showComboboxDropdown(input);
     
     // 如果是编辑模式，触发字段更新
     const recordId = input.dataset.recordId;
@@ -1794,26 +1861,26 @@ function filterComboboxOptions(containerId) {
 }
 
 // 选择下拉选项
-async function selectComboboxOption(optionElement, value) {
-    const dropdown = optionElement.closest('.combobox-dropdown');
-    const container = dropdown.closest('.combobox-container');
-    const input = container.querySelector('.combobox-input');
-    
-    input.value = value;
-    dropdown.classList.remove('show');
-    
+async function selectComboboxOption(optionElement, input) {
+    const value = optionElement.dataset.value;
     const type = input.dataset.type;
     const recordId = input.dataset.recordId;
-    const isNewRow = container.id.startsWith('new-');
+    
+    input.value = value;
+    hideAllDropdowns();
     
     // 触发联动更新
     if (type === 'code') {
-        const productName = await getProductByCode(value);
+        const productName = await getCodeByProduct(value);
         if (productName) {
-            const relatedInput = isNewRow ? 
-                document.getElementById('new-product_name-input') :
-                document.getElementById(`combo-product_name-${recordId}-input`);
+            const containerId = input.closest('.combobox-container').id;
+            const isNewRow = containerId.startsWith('new-');
             
+            const relatedInputId = isNewRow ? 
+                'new-product_name-input' :
+                `combo-product_name-${recordId}-input`;
+            
+            const relatedInput = document.getElementById(relatedInputId);
             if (relatedInput) {
                 relatedInput.value = productName;
                 if (recordId) {
@@ -1824,10 +1891,14 @@ async function selectComboboxOption(optionElement, value) {
     } else if (type === 'product') {
         const productCode = await getCodeByProduct(value);
         if (productCode) {
-            const relatedInput = isNewRow ?
-                document.getElementById('new-code_number-input') :
-                document.getElementById(`combo-code_number-${recordId}-input`);
+            const containerId = input.closest('.combobox-container').id;
+            const isNewRow = containerId.startsWith('new-');
             
+            const relatedInputId = isNewRow ?
+                'new-code_number-input' :
+                `combo-code_number-${recordId}-input`;
+            
+            const relatedInput = document.getElementById(relatedInputId);
             if (relatedInput) {
                 relatedInput.value = productCode;
                 if (recordId) {
@@ -1844,9 +1915,17 @@ async function selectComboboxOption(optionElement, value) {
 }
 
 // 处理键盘事件
-function handleComboboxKeydown(event, containerId) {
-    const dropdown = document.getElementById(`${containerId}-dropdown`);
-    if (!dropdown.classList.contains('show')) return;
+function handleComboboxKeydown(event, input) {
+    const container = input.closest('.combobox-container');
+    const dropdown = container.querySelector('.combobox-dropdown');
+    
+    if (!dropdown.classList.contains('show')) {
+        if (event.key === 'ArrowDown' || event.key === 'Enter') {
+            showComboboxDropdown(input);
+            return;
+        }
+        return;
+    }
     
     const options = dropdown.querySelectorAll('.combobox-option');
     let highlighted = dropdown.querySelector('.combobox-option.highlighted');
@@ -1889,24 +1968,58 @@ function handleComboboxKeydown(event, containerId) {
         case 'Enter':
             event.preventDefault();
             if (highlighted) {
-                highlighted.click();
+                selectComboboxOption(highlighted, input);
             }
             break;
             
         case 'Escape':
-            dropdown.classList.remove('show');
+            hideAllDropdowns();
             break;
     }
 }
 
-// 点击外部隐藏下拉列表
+// 修改渲染后的事件绑定
+function bindComboboxEvents() {
+    // 为所有 combobox 输入框绑定事件
+    document.querySelectorAll('.combobox-input').forEach(input => {
+        // 移除旧的事件监听器
+        input.removeEventListener('focus', input._focusHandler);
+        input.removeEventListener('input', input._inputHandler);
+        input.removeEventListener('keydown', input._keydownHandler);
+        
+        // 创建新的事件处理器
+        input._focusHandler = () => showComboboxDropdown(input);
+        input._inputHandler = () => filterComboboxOptions(input);
+        input._keydownHandler = (e) => handleComboboxKeydown(e, input);
+        
+        // 绑定新的事件监听器
+        input.addEventListener('focus', input._focusHandler);
+        input.addEventListener('input', input._inputHandler);
+        input.addEventListener('keydown', input._keydownHandler);
+    });
+    
+    // 为所有 combobox 选项绑定点击事件
+    document.querySelectorAll('.combobox-option').forEach(option => {
+        option.removeEventListener('click', option._clickHandler);
+        option._clickHandler = () => {
+            const container = option.closest('.combobox-container');
+            const input = container.querySelector('.combobox-input');
+            selectComboboxOption(option, input);
+        };
+        option.addEventListener('click', option._clickHandler);
+    });
+}
+
+// 全局点击事件（隐藏下拉列表）
 document.addEventListener('click', function(event) {
     if (!event.target.closest('.combobox-container')) {
-        document.querySelectorAll('.combobox-dropdown').forEach(dropdown => {
-            dropdown.classList.remove('show');
-        });
+        hideAllDropdowns();
     }
 });
+
+// 窗口滚动和大小变化时重新计算位置
+window.addEventListener('scroll', hideAllDropdowns);
+window.addEventListener('resize', hideAllDropdowns);
 </script>
 </body>
 </html>
