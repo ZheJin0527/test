@@ -1244,13 +1244,13 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            createCombobox('code', record.code_number, record.id, false) :
+                            createCombobox('code', record.code_number, record.id) :
                             `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            createCombobox('product', record.product_name, record.id, false) :
+                            createCombobox('product', record.product_name, record.id) :
                             `<span>${record.product_name}</span>`
                         }
                     </td>
@@ -1319,13 +1319,6 @@
                 `;
                 
                 tbody.appendChild(row);
-
-                // 为编辑行重新绑定combobox事件
-                if (isEditing) {
-                    setTimeout(() => {
-                        bindComboboxEvents();
-                    }, 0);
-                }
             });
 
             setTimeout(bindComboboxEvents, 0);
@@ -1937,7 +1930,7 @@
             
             // 触发联动更新
             if (type === 'code') {
-                const productName = await getProductByCode(value); // 修改：使用正确的函数
+                const productName = await getCodeByProduct(value);
                 if (productName) {
                     const containerId = input.closest('.combobox-container').id;
                     const isNewRow = containerId.startsWith('new-');
@@ -2054,13 +2047,11 @@
                     const focusHandler = () => showComboboxDropdown(input);
                     const inputHandler = () => filterComboboxOptions(input);
                     const keydownHandler = (e) => {
-                        // 允许的特殊键
-                        const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space'];
-                        // 允许英文、数字、空格、连字符、点号等常用字符
-                        const isAllowedChar = /^[a-zA-Z0-9\s\-\.\(\)\/]$/.test(e.key);
+                        // 限制只能输入英文和数字
+                        const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+                        const isAlphaNumeric = /^[a-zA-Z0-9]$/.test(e.key);
                         
-                        // 如果不是允许的键且不是允许的字符，则阻止输入
-                        if (!allowedKeys.includes(e.key) && !isAllowedChar && e.key.length === 1) {
+                        if (!allowedKeys.includes(e.key) && !isAlphaNumeric) {
                             e.preventDefault();
                             return;
                         }
