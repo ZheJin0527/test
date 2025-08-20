@@ -1564,6 +1564,37 @@
             }
         }
 
+        // 提取行数据的辅助函数
+        function extractRowData(row) {
+            const rowId = row.querySelector('input').id.split('-')[0] + '-' + row.querySelector('input').id.split('-')[1];
+            return {
+                date: document.getElementById(`${rowId}-date`).value,
+                codeValue: document.getElementById(`${rowId}-code_number-input`) ? document.getElementById(`${rowId}-code_number-input`).value : '',
+                productValue: document.getElementById(`${rowId}-product_name-input`) ? document.getElementById(`${rowId}-product_name-input`).value : '',
+                inQty: document.getElementById(`${rowId}-in-qty`).value,
+                outQty: document.getElementById(`${rowId}-out-qty`).value,
+                specification: document.getElementById(`${rowId}-specification`).value,
+                price: document.getElementById(`${rowId}-price`).value,
+                receiver: document.getElementById(`${rowId}-receiver`).value,
+                remark: document.getElementById(`${rowId}-remark`).value
+            };
+        }
+
+        // 恢复行数据的辅助函数
+        function restoreRowData(element, data) {
+            const rowId = element.querySelector('input').id.split('-')[0] + '-' + element.querySelector('input').id.split('-')[1];
+            
+            if (document.getElementById(`${rowId}-date`)) document.getElementById(`${rowId}-date`).value = data.date;
+            if (document.getElementById(`${rowId}-code_number-input`)) document.getElementById(`${rowId}-code_number-input`).value = data.codeValue;
+            if (document.getElementById(`${rowId}-product_name-input`)) document.getElementById(`${rowId}-product_name-input`).value = data.productValue;
+            if (document.getElementById(`${rowId}-in-qty`)) document.getElementById(`${rowId}-in-qty`).value = data.inQty;
+            if (document.getElementById(`${rowId}-out-qty`)) document.getElementById(`${rowId}-out-qty`).value = data.outQty;
+            if (document.getElementById(`${rowId}-specification`)) document.getElementById(`${rowId}-specification`).value = data.specification;
+            if (document.getElementById(`${rowId}-price`)) document.getElementById(`${rowId}-price`).value = data.price;
+            if (document.getElementById(`${rowId}-receiver`)) document.getElementById(`${rowId}-receiver`).value = data.receiver;
+            if (document.getElementById(`${rowId}-remark`)) document.getElementById(`${rowId}-remark`).value = data.remark;
+        }
+
         // 保存新行记录
         async function saveNewRowRecord(buttonElement) {
             const row = buttonElement.closest('tr');
@@ -1616,13 +1647,51 @@
                 });
 
                 if (result.success) {
-                    showAlert('记录添加成功', 'success');
-                    row.remove(); // 只移除当前行
-                    
-                    // 只更新统计信息，不重新加载数据
-                    const currentRecordCount = parseInt(document.getElementById('total-records').textContent);
-                    document.getElementById('total-records').textContent = currentRecordCount + 1;
-                } else {
+                showAlert('记录添加成功', 'success');
+                
+                // 保存其他新增行
+                const otherNewRows = Array.from(document.querySelectorAll('.new-row')).filter(r => r !== row);
+                const savedRows = otherNewRows.map(r => ({
+                    element: r.cloneNode(true),
+                    data: extractRowData(r)
+                }));
+                
+                // 移除当前保存的行
+                row.remove();
+                
+                // 添加新记录到 stockData 数组的开头
+                const newRecord = {
+                    id: result.data.id || Date.now(), // 使用返回的ID或临时ID
+                    date: formData.date,
+                    time: formData.time,
+                    code_number: formData.code_number,
+                    product_name: formData.product_name,
+                    in_quantity: formData.in_quantity,
+                    out_quantity: formData.out_quantity,
+                    specification: formData.specification,
+                    price: formData.price,
+                    receiver: formData.receiver,
+                    remark: formData.remark,
+                    created_at: new Date().toISOString()
+                };
+                
+                stockData.unshift(newRecord); // 添加到数组开头
+                
+                // 重新渲染表格
+                renderStockTable();
+                
+                // 恢复其他新增行
+                setTimeout(() => {
+                    const tbody = document.getElementById('stock-tbody');
+                    savedRows.forEach(({element}) => {
+                        tbody.insertBefore(element, tbody.firstChild);
+                    });
+                    bindComboboxEvents();
+                }, 100);
+                
+                // 更新统计
+                updateStats();
+            } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
                 }
             } catch (error) {
@@ -1694,13 +1763,30 @@
                 });
 
                 if (result.success) {
-                    showAlert('记录添加成功', 'success');
-                    toggleAddForm();
-                    
-                    // 只更新统计信息，不重新加载数据
-                    const currentRecordCount = parseInt(document.getElementById('total-records').textContent);
-                    document.getElementById('total-records').textContent = currentRecordCount + 1;
-                } else {
+                showAlert('记录添加成功', 'success');
+                toggleAddForm();
+                
+                // 添加新记录到 stockData 数组的开头并立即显示
+                const newRecord = {
+                    id: result.data.id || Date.now(),
+                    date: formData.date,
+                    time: formData.time,
+                    code_number: formData.code_number,
+                    product_name: formData.product_name,
+                    in_quantity: formData.in_quantity,
+                    out_quantity: formData.out_quantity,
+                    specification: formData.specification,
+                    price: formData.price,
+                    receiver: formData.receiver,
+                    applicant: formData.applicant,
+                    remark: formData.remark,
+                    created_at: new Date().toISOString()
+                };
+                
+                stockData.unshift(newRecord);
+                renderStockTable();
+                updateStats();
+            } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
                 }
             } catch (error) {
