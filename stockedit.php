@@ -212,7 +212,7 @@
         /* 表格样式 */
         .table-container {
             background: white;
-            border-radius: 4px;
+            border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             overflow: hidden;
             border: 2px solid #583e04;
@@ -2062,8 +2062,8 @@
                 const focusHandler = () => showComboboxDropdown(input);
                 const inputHandler = () => filterComboboxOptions(input);
                 const keydownHandler = (e) => {
-                    // 限制只能输入英文、数字和空格
-                    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '];
+                    // 限制只能输入英文和数字
+                    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
                     const isAlphaNumeric = /^[a-zA-Z0-9]$/.test(e.key);
                     
                     if (!allowedKeys.includes(e.key) && !isAlphaNumeric) {
