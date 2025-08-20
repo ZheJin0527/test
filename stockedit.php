@@ -238,6 +238,10 @@
             position: relative;
         }
 
+        .stock-table td:nth-child(11) {
+    padding: 0 !important;
+}
+
         .stock-table tr:nth-child(even) {
             background-color: #f9fafb;
         }
@@ -476,30 +480,30 @@
         .action-cell {
     display: flex;
     flex-direction: row;
-    align-items: stretch;
-    justify-content: stretch;
-    gap: 0;
-    padding: 0;
-    height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px;
     width: 100%;
+    height: 40px;
+    box-sizing: border-box;
 }
 
         .action-btn {
-    background: #ef4444;
-    color: white;
-    border: none;
-    border-radius: 0;
-    flex: 1;
-    height: 100%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    font-size: 12px;
-    margin: 0;
-    border-right: 1px solid #fff;
-}
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 12px;
+            margin: 2px;
+        }
 
         .action-btn:hover {
             transform: scale(1.1);
