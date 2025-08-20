@@ -711,6 +711,24 @@
             font-weight: 600;
         }
 
+        /* 负数括号样式 */
+.negative-parentheses::before {
+    content: "(";
+}
+
+.negative-parentheses::after {
+    content: ")";
+}
+
+/* 确保负数的货币显示也有括号 */
+.negative-value.negative-parentheses .currency-amount::before {
+    content: "(";
+}
+
+.negative-value.negative-parentheses .currency-amount::after {
+    content: ")";
+}
+
         /* 确保负数的货币显示也是红色 */
         .negative-value .currency-symbol,
         .negative-value .currency-amount {
@@ -1405,8 +1423,8 @@
                             </div>`
                         }
                     </td>
-                    <td class="calculated-cell ${total < 0 ? 'negative-value' : ''}">
-                        <div class="currency-display ${total < 0 ? 'negative-value' : ''}">
+                    <td class="calculated-cell ${total < 0 ? 'negative-value negative-parentheses' : ''}">
+                        <div class="currency-display ${total < 0 ? 'negative-value negative-parentheses' : ''}">
                             <span class="currency-symbol">RM</span>
                             <span class="currency-amount">${formatCurrency(Math.abs(total))}</span>
                         </div>
@@ -1566,11 +1584,11 @@
                 
                 // 添加或移除负数样式
                 if (total < 0) {
-                    totalCell.classList.add('negative-value');
-                    currencyDisplay.classList.add('negative-value');
+                    totalCell.classList.add('negative-value', 'negative-parentheses');
+                    currencyDisplay.classList.add('negative-value', 'negative-parentheses');
                 } else {
-                    totalCell.classList.remove('negative-value');
-                    currencyDisplay.classList.remove('negative-value');
+                    totalCell.classList.remove('negative-value', 'negative-parentheses');
+                    currencyDisplay.classList.remove('negative-value', 'negative-parentheses');
                 }
             }
         }
