@@ -1994,8 +1994,16 @@
             const type = input.dataset.type;
             const recordId = input.dataset.recordId;
             
+            // 标记正在进行选择操作
+            input._isSelecting = true;
+            
             input.value = value;
             hideAllDropdowns();
+            
+            // 清除选择标记
+            setTimeout(() => {
+                input._isSelecting = false;
+            }, 200);
             
             // 触发联动更新
             if (type === 'code') {
@@ -2173,25 +2181,54 @@
                 };
                 
                 // 添加 blur 事件处理器，确保编辑模式下数据被保存
-                const blurHandler = () => {
-                    // 验证输入值
-                    if (!validateComboboxInput(input)) {
-                        const type = input.dataset.type;
-                        const fieldName = type === 'code' ? '产品编号' : '产品名称';
-                        showAlert(`${fieldName}不存在，请从下拉列表中选择`, 'error');
-                        input.focus();
+                const blurHandler = (e) => {
+                    // 检查是否是点击下拉选项导致的blur
+                    const container = input.closest('.combobox-container');
+                    const dropdown = container.querySelector('.combobox-dropdown');
+                    
+                    // 如果下拉列表显示中且点击的是下拉选项，则不执行验证
+                    if (dropdown && dropdown.classList.contains('show')) {
+                        // 延迟执行验证，给点击事件时间完成
+                        setTimeout(() => {
+                            // 再次检查下拉列表是否还显示，如果隐藏了说明选择已完成
+                            if (!dropdown.classList.contains('show')) {
+                                performValidation();
+                            }
+                        }, 150);
                         return;
                     }
                     
-                    const recordId = input.dataset.recordId;
-                    const fieldName = input.dataset.field;
-                    if (recordId && fieldName) {
-                        const record = stockData.find(r => r.id === parseInt(recordId));
-                        if (record && record[fieldName] !== input.value) {
-                            record[fieldName] = input.value;
-                            // 如果是数值相关字段，需要重新计算
-                            if (fieldName === 'in_quantity' || fieldName === 'out_quantity' || fieldName === 'price') {
-                                renderStockTable();
+                    performValidation();
+                    
+                    function performValidation() {
+
+                        if (input._isSelecting) {
+                            return;
+                        }
+                        // 验证输入值
+                        if (input.value.trim() && !validateComboboxInput(input)) {
+                            const type = input.dataset.type;
+                            const fieldName = type === 'code' ? '产品编号' : '产品名称';
+                            showAlert(`${fieldName}不存在，请从下拉列表中选择`, 'error');
+                            // 不要立即重新聚焦，给用户机会点击其他地方
+                            setTimeout(() => {
+                                if (document.activeElement !== input) {
+                                    input.focus();
+                                }
+                            }, 100);
+                            return;
+                        }
+                        
+                        const recordId = input.dataset.recordId;
+                        const fieldName = input.dataset.field;
+                        if (recordId && fieldName) {
+                            const record = stockData.find(r => r.id === parseInt(recordId));
+                            if (record && record[fieldName] !== input.value) {
+                                record[fieldName] = input.value;
+                                // 如果是数值相关字段，需要重新计算
+                                if (fieldName === 'in_quantity' || fieldName === 'out_quantity' || fieldName === 'price') {
+                                    renderStockTable();
+                                }
                             }
                         }
                     }
