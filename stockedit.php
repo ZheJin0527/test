@@ -474,31 +474,30 @@
         }
 
         .action-cell {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2px;
-            padding: 2px;
-            width: 100%;
-        }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 2px;
+    height: 40px;
+}
 
         .action-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            flex: 1;
-            height: 32px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            font-size: 12px;
-            margin: 1px;
-            min-width: 0;
-        }
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 38px;
+    height: 34px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 12px;
+    flex-shrink: 0;
+}
 
         .action-btn:hover {
             transform: scale(1.1);
