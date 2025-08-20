@@ -367,6 +367,58 @@
             outline: none;
         }
 
+        /* 货币显示容器 */
+.currency-display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8px 4px;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.currency-display .currency-symbol {
+    color: #6b7280;
+    font-weight: 500;
+    margin-right: 6px;
+    min-width: 24px;
+    text-align: left;
+}
+
+.currency-display .currency-amount {
+    font-weight: 500;
+    color: #583e04;
+    text-align: right;
+    min-width: 60px;
+}
+
+/* 输入框容器样式 */
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 40px;
+}
+
+.currency-prefix {
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 6px;
+    min-width: 24px;
+}
+
+.table-input.currency-input {
+    text-align: right;
+    padding-left: 8px;
+    padding-right: 4px;
+    min-width: 60px;
+    font-weight: 500;
+}
+
         /* 固定表格列宽，防止编辑时宽度变化 */
         .stock-table {
             table-layout: fixed; /* 添加这行 */
@@ -1328,15 +1380,23 @@
                         }
                     </td>
                     <td>
-                        <div class="input-container">
-                            <span class="currency-prefix">RM</span>
-                            ${isEditing ? 
-                                `<input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">` :
-                                `<span style="padding-left: 32px; text-align: right; display: block;">${formatCurrency(record.price)}</span>`
-                            }
+                        ${isEditing ? 
+                            `<div class="input-container">
+                                <span class="currency-prefix">RM</span>
+                                <input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">
+                            </div>` :
+                            `<div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="currency-amount">${formatCurrency(record.price)}</span>
+                            </div>`
+                        }
+                    </td>
+                    <td class="calculated-cell ${total < 0 ? 'negative-value' : ''}">
+                        <div class="currency-display">
+                            <span class="currency-symbol">RM</span>
+                            <span class="currency-amount">${formatCurrency(total)}</span>
                         </div>
                     </td>
-                    <td class="calculated-cell ${total < 0 ? 'negative-value' : ''}">RM ${formatCurrency(total)}</td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
@@ -1434,7 +1494,12 @@
                         <input type="number" class="table-input currency-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-price" oninput="updateNewRowTotal(this)">
                     </div>
                 </td>
-                <td class="calculated-cell">RM 0.00</td>
+                <td class="calculated-cell">
+                    <div class="currency-display">
+                        <span class="currency-symbol">RM</span>
+                        <span class="currency-amount">0.00</span>
+                    </div>
+                </td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td class="action-cell">
@@ -1473,9 +1538,9 @@
             const netQty = inQty - outQty;
             const total = netQty * price;
             
-            const totalCell = row.querySelector('.calculated-cell');
+            const totalCell = row.querySelector('.calculated-cell .currency-amount');
             if (totalCell) {
-                totalCell.textContent = `RM ${formatCurrency(total)}`;
+                totalCell.textContent = formatCurrency(total);
             }
         }
 
