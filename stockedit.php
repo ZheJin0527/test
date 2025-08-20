@@ -816,8 +816,8 @@
         // 应用状态
         let stockData = [];
         let isLoading = false;
-        let editingRowId = null;
-        let originalEditData = null; // 存储编辑前的原始数据
+        let editingRowIds = new Set(); // 改为Set来存储多个正在编辑的行ID
+        let originalEditData = new Map();
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
@@ -1104,7 +1104,7 @@
             
             stockData.forEach(record => {
                 const row = document.createElement('tr');
-                const isEditing = editingRowId === record.id;
+                const isEditing = editingRowIds.has(record.id);
                 
                 // 计算总价
                 const inQty = parseFloat(record.in_quantity) || 0;
@@ -1180,7 +1180,7 @@
                             `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
                                 <i class="fas fa-save"></i>
                             </button>
-                            <button class="action-btn" onclick="cancelEdit()" title="取消" style="background: #6b7280;">
+                            <button class="action-btn" onclick="cancelEdit(${record.id})" title="取消" style="background: #6b7280;">
                                 <i class="fas fa-times"></i>
                             </button>` :
                             `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
@@ -1231,10 +1231,6 @@
 
         // 添加新行到表格
         function addNewRow() {
-            if (editingRowId !== null) {
-                showAlert('请先完成当前编辑操作', 'info');
-                return;
-            }
             
             if (document.querySelector('.new-row')) {
                 showAlert('请先完成新记录的添加', 'info');
@@ -1430,33 +1426,54 @@
 
         // 编辑记录
         function editRecord(id) {
-            if (editingRowId !== null) {
-                showAlert('请先完成当前编辑操作', 'info');
+            // 如果已经在编辑中，直接返回
+            if (editingRowIds.has(id)) {
                 return;
             }
-            editingRowId = id;
             
-            // 保存原始数据的深拷贝
+            editingRowIds.add(id);
+            
+            // 保存原始数据的深拷贝 - 初始化Map如果不存在
+            if (!originalEditData) {
+                originalEditData = new Map();
+            }
+            
             const record = stockData.find(r => r.id === id);
             if (record) {
-                originalEditData = JSON.parse(JSON.stringify(record));
+                originalEditData.set(id, JSON.parse(JSON.stringify(record)));
             }
             
             renderStockTable();
         }
 
-        // 取消编辑
-        function cancelEdit() {
-            // 恢复原始数据
-            if (originalEditData && editingRowId !== null) {
-                const recordIndex = stockData.findIndex(r => r.id === editingRowId);
-                if (recordIndex !== -1) {
-                    stockData[recordIndex] = JSON.parse(JSON.stringify(originalEditData));
+        // 取消单个记录的编辑
+        function cancelEdit(id = null) {
+            if (id !== null) {
+                // 取消指定记录的编辑
+                if (originalEditData && originalEditData.has(id)) {
+                    const recordIndex = stockData.findIndex(r => r.id === id);
+                    if (recordIndex !== -1) {
+                        stockData[recordIndex] = JSON.parse(JSON.stringify(originalEditData.get(id)));
+                    }
+                    originalEditData.delete(id);
                 }
+                editingRowIds.delete(id);
+            } else {
+                // 取消所有编辑
+                if (originalEditData) {
+                    editingRowIds.forEach(editId => {
+                        if (originalEditData.has(editId)) {
+                            const recordIndex = stockData.findIndex(r => r.id === editId);
+                            if (recordIndex !== -1) {
+                                stockData[recordIndex] = JSON.parse(JSON.stringify(originalEditData.get(editId)));
+                            }
+                        }
+                    });
+                    originalEditData.clear();
+                }
+                editingRowIds.clear();
             }
             
-            editingRowId = null;
-            originalEditData = null;
             renderStockTable();
         }
 
@@ -1506,8 +1523,10 @@
 
                 if (result.success) {
                     showAlert('记录更新成功', 'success');
-                    editingRowId = null;
-                    originalEditData = null; // 清除原始数据
+                    editingRowIds.delete(id);
+                    if (originalEditData) {
+                        originalEditData.delete(id);
+                    }
                     loadStockData();
                 } else {
                     showAlert('更新失败: ' + (result.message || '未知错误'), 'error');
@@ -1593,21 +1612,23 @@
 
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
-            // Ctrl+S 保存当前编辑
+            // Ctrl+S 保存所有编辑
             if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
-                if (editingRowId !== null) {
-                    saveRecord(editingRowId);
+                if (editingRowIds.size > 0) {
+                    // 保存所有正在编辑的记录
+                    editingRowIds.forEach(id => {
+                        saveRecord(id);
+                    });
                 }
             }
             
-            // Escape键取消编辑
+            // Escape键取消新增行
             if (e.key === 'Escape') {
-                if (editingRowId !== null) {
-                    cancelEdit();
-                } else if (document.querySelector('.new-row')) {
+                if (document.querySelector('.new-row')) {
                     cancelNewRow();
                 }
+                // 移除自动取消所有编辑的功能，让用户手动取消
             }
         });
     </script>
