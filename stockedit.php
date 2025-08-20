@@ -334,7 +334,7 @@
 
         .table-input.currency-input {
             padding-left: 32px;
-            text-align: right;
+            text-align: center;
             padding-right: 8px;
         }
 
@@ -366,6 +366,36 @@
             border: 2px solid #583e04;
             outline: none;
         }
+
+        /* Price和Total列的特殊布局 */
+.price-display, .total-display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 40px;
+    padding: 8px 4px;
+    box-sizing: border-box;
+}
+
+.price-display .currency-symbol,
+.total-display .currency-symbol {
+    flex: 0 0 auto;
+    margin-right: 8px;
+    color: #583e04;
+    font-weight: 500;
+}
+
+.price-display .amount,
+.total-display .amount {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+}
+
+.total-display .amount.negative-value {
+    color: #dc2626;
+}
 
         /* 固定表格列宽，防止编辑时宽度变化 */
         .stock-table {
@@ -1328,15 +1358,23 @@
                         }
                     </td>
                     <td>
-                        <div class="input-container">
-                            <span class="currency-prefix">RM</span>
-                            ${isEditing ? 
-                                `<input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">` :
-                                `<span style="padding-left: 32px; text-align: right; display: block;">${formatCurrency(record.price)}</span>`
-                            }
+                        ${isEditing ? 
+                            `<div class="input-container">
+                                <span class="currency-prefix">RM</span>
+                                <input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">
+                            </div>` :
+                            `<div class="price-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="amount">${formatCurrency(record.price)}</span>
+                            </div>`
+                        }
+                    </td>
+                    <td class="calculated-cell">
+                        <div class="total-display">
+                            <span class="currency-symbol">RM</span>
+                            <span class="amount ${total < 0 ? 'negative-value' : ''}">${formatCurrency(total)}</span>
                         </div>
                     </td>
-                    <td class="calculated-cell ${total < 0 ? 'negative-value' : ''}">RM ${formatCurrency(total)}</td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
@@ -1434,7 +1472,12 @@
                         <input type="number" class="table-input currency-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-price" oninput="updateNewRowTotal(this)">
                     </div>
                 </td>
-                <td class="calculated-cell">RM 0.00</td>
+                <td class="calculated-cell">
+                    <div class="total-display">
+                        <span class="currency-symbol">RM</span>
+                        <span class="amount">0.00</span>
+                    </div>
+                </td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td class="action-cell">
@@ -1473,9 +1516,11 @@
             const netQty = inQty - outQty;
             const total = netQty * price;
             
-            const totalCell = row.querySelector('.calculated-cell');
+            const totalCell = row.querySelector('.calculated-cell .amount');
             if (totalCell) {
-                totalCell.textContent = `RM ${formatCurrency(total)}`;
+                totalCell.textContent = formatCurrency(total);
+                // 更新负值样式
+                totalCell.classList.toggle('negative-value', total < 0);
             }
         }
 
