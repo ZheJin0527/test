@@ -1162,7 +1162,7 @@
                             }
                         </div>
                     </td>
-                    <td class="calculated-cell">RM ${formatCurrency(total)}</td>
+                    <td class="calculated-cell ${total < 0 ? 'negative-value' : ''}">RM ${formatCurrency(total)}</td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
