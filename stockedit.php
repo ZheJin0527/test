@@ -476,27 +476,29 @@
         .action-cell {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    padding: 2px;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 0;
+    padding: 0;
     height: 40px;
+    width: 100%;
 }
 
         .action-btn {
     background: #ef4444;
     color: white;
     border: none;
-    border-radius: 4px;
-    width: 38px;
-    height: 34px;
+    border-radius: 0;
+    flex: 1;
+    height: 100%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
     font-size: 12px;
-    flex-shrink: 0;
+    margin: 0;
+    border-right: 1px solid #fff;
 }
 
         .action-btn:hover {
