@@ -2062,8 +2062,8 @@
                 const focusHandler = () => showComboboxDropdown(input);
                 const inputHandler = () => filterComboboxOptions(input);
                 const keydownHandler = (e) => {
-                    // 限制只能输入英文和数字
-                    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+                    // 限制只能输入英文、数字和空格
+                    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '];
                     const isAlphaNumeric = /^[a-zA-Z0-9]$/.test(e.key);
                     
                     if (!allowedKeys.includes(e.key) && !isAlphaNumeric) {
