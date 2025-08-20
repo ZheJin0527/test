@@ -633,6 +633,90 @@
         .cancel-new-btn {
             background: #ef4444 !important;
         }
+
+        /* Combobox 样式 */
+.combobox-container {
+    position: relative;
+    width: 100%;
+}
+
+.combobox-input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 20px 8px 4px;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    cursor: text;
+}
+
+.combobox-input:focus {
+    background: #fff;
+    border: 2px solid #583e04;
+    outline: none;
+    z-index: 15;
+    position: relative;
+}
+
+.combobox-arrow {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.combobox-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #583e04;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 20;
+    display: none;
+}
+
+.combobox-dropdown.show {
+    display: block;
+}
+
+.combobox-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+    text-align: left;
+}
+
+.combobox-option:hover {
+    background-color: #f3f4f6;
+}
+
+.combobox-option:last-child {
+    border-bottom: none;
+}
+
+.combobox-option.highlighted {
+    background-color: #583e04;
+    color: white;
+}
+
+.no-results {
+    padding: 8px 12px;
+    color: #6b7280;
+    font-style: italic;
+    text-align: center;
+}
     </style>
 </head>
 <body>
@@ -1113,17 +1197,13 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) select'))">
-                                ${generateCodeNumberOptions(record.code_number)}
-                            </select>` :
+                            createCombobox('code', record.code_number, record.id) :
                             `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'product_name', this.value); handleProductChange(this, this.closest('tr').querySelector('td:nth-child(2) select'))">
-                                ${generateProductOptions(record.product_name)}
-                            </select>` :
+                            createCombobox('product', record.product_name, record.id) :
                             `<span>${record.product_name}</span>`
                         }
                     </td>
@@ -1243,16 +1323,8 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
-                <td>
-                    <select class="table-select" id="new-code-number" onchange="handleCodeNumberChange(this, document.getElementById('new-product-name')); updateNewRowTotal();">
-                        ${generateCodeNumberOptions()}
-                    </select>
-                </td>
-                <td>
-                    <select class="table-select" id="new-product-name" onchange="handleProductChange(this, document.getElementById('new-code-number'))">
-                        ${generateProductOptions()}
-                    </select>
-                </td>
+                <td>${createCombobox('code', '', null, true)}</td>
+                <td>${createCombobox('product', '', null, true)}</td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
                 <td>
@@ -1311,13 +1383,13 @@
             const formData = {
                 date: document.getElementById('new-date').value,
                 time: new Date().toTimeString().slice(0, 5),
-                product_name: document.getElementById('new-product-name').value,
+                product_name: document.getElementById('new-product_name-input').value,
                 in_quantity: parseFloat(document.getElementById('new-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
                 specification: document.getElementById('new-specification').value,
                 price: parseFloat(document.getElementById('new-price').value) || 0,
                 receiver: document.getElementById('new-receiver').value,
-                code_number: document.getElementById('new-code-number').value,
+                code_number: document.getElementById('new-code_number-input').value,
                 remark: document.getElementById('new-remark').value
             };
 
@@ -1625,5 +1697,216 @@
             }
         });
     </script>
+    <script>
+        // 创建 Combobox 组件
+function createCombobox(type, value = '', recordId = null, isNewRow = false) {
+    const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
+    const placeholder = type === 'code' ? '输入或选择编号...' : '输入或选择产品...';
+    const fieldName = type === 'code' ? 'code_number' : 'product_name';
+    const displayField = type === 'code' ? 'code_number' : 'product_name';
+    
+    const containerId = isNewRow ? `new-${fieldName}` : `combo-${fieldName}-${recordId}`;
+    const inputId = `${containerId}-input`;
+    const dropdownId = `${containerId}-dropdown`;
+    
+    return `
+        <div class="combobox-container" id="${containerId}">
+            <input 
+                type="text" 
+                class="combobox-input" 
+                id="${inputId}"
+                value="${value || ''}" 
+                placeholder="${placeholder}"
+                autocomplete="off"
+                ${recordId ? `data-record-id="${recordId}"` : ''}
+                data-field="${fieldName}"
+                data-type="${type}"
+                onfocus="showComboboxDropdown('${containerId}')"
+                oninput="filterComboboxOptions('${containerId}')"
+                onkeydown="handleComboboxKeydown(event, '${containerId}')"
+            />
+            <i class="fas fa-chevron-down combobox-arrow"></i>
+            <div class="combobox-dropdown" id="${dropdownId}">
+                ${generateComboboxOptions(options, displayField)}
+            </div>
+        </div>
+    `;
+}
+
+// 生成下拉选项
+function generateComboboxOptions(options, displayField) {
+    if (!options || options.length === 0) {
+        return '<div class="no-results">暂无选项</div>';
+    }
+    
+    return options.map(option => 
+        `<div class="combobox-option" onclick="selectComboboxOption(this, '${option[displayField]}')" data-value="${option[displayField]}">
+            ${option[displayField]}
+        </div>`
+    ).join('');
+}
+
+// 显示下拉列表
+function showComboboxDropdown(containerId) {
+    // 隐藏其他所有下拉列表
+    document.querySelectorAll('.combobox-dropdown').forEach(dropdown => {
+        dropdown.classList.remove('show');
+    });
+    
+    const dropdown = document.getElementById(`${containerId}-dropdown`);
+    if (dropdown) {
+        dropdown.classList.add('show');
+    }
+}
+
+// 过滤下拉选项
+function filterComboboxOptions(containerId) {
+    const input = document.getElementById(`${containerId}-input`);
+    const dropdown = document.getElementById(`${containerId}-dropdown`);
+    const type = input.dataset.type;
+    
+    if (!input || !dropdown) return;
+    
+    const searchTerm = input.value.toLowerCase();
+    const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
+    const displayField = type === 'code' ? 'code_number' : 'product_name';
+    
+    if (!options) return;
+    
+    const filteredOptions = options.filter(option => 
+        option[displayField].toLowerCase().includes(searchTerm)
+    );
+    
+    if (filteredOptions.length === 0) {
+        dropdown.innerHTML = '<div class="no-results">未找到匹配项</div>';
+    } else {
+        dropdown.innerHTML = generateComboboxOptions(filteredOptions, displayField);
+    }
+    
+    dropdown.classList.add('show');
+    
+    // 如果是编辑模式，触发字段更新
+    const recordId = input.dataset.recordId;
+    const fieldName = input.dataset.field;
+    if (recordId && fieldName) {
+        updateField(parseInt(recordId), fieldName, input.value);
+    }
+}
+
+// 选择下拉选项
+async function selectComboboxOption(optionElement, value) {
+    const dropdown = optionElement.closest('.combobox-dropdown');
+    const container = dropdown.closest('.combobox-container');
+    const input = container.querySelector('.combobox-input');
+    
+    input.value = value;
+    dropdown.classList.remove('show');
+    
+    const type = input.dataset.type;
+    const recordId = input.dataset.recordId;
+    const isNewRow = container.id.startsWith('new-');
+    
+    // 触发联动更新
+    if (type === 'code') {
+        const productName = await getProductByCode(value);
+        if (productName) {
+            const relatedInput = isNewRow ? 
+                document.getElementById('new-product_name-input') :
+                document.getElementById(`combo-product_name-${recordId}-input`);
+            
+            if (relatedInput) {
+                relatedInput.value = productName;
+                if (recordId) {
+                    updateField(parseInt(recordId), 'product_name', productName);
+                }
+            }
+        }
+    } else if (type === 'product') {
+        const productCode = await getCodeByProduct(value);
+        if (productCode) {
+            const relatedInput = isNewRow ?
+                document.getElementById('new-code_number-input') :
+                document.getElementById(`combo-code_number-${recordId}-input`);
+            
+            if (relatedInput) {
+                relatedInput.value = productCode;
+                if (recordId) {
+                    updateField(parseInt(recordId), 'code_number', productCode);
+                }
+            }
+        }
+    }
+    
+    // 如果是编辑模式，更新字段
+    if (recordId) {
+        updateField(parseInt(recordId), input.dataset.field, value);
+    }
+}
+
+// 处理键盘事件
+function handleComboboxKeydown(event, containerId) {
+    const dropdown = document.getElementById(`${containerId}-dropdown`);
+    if (!dropdown.classList.contains('show')) return;
+    
+    const options = dropdown.querySelectorAll('.combobox-option');
+    let highlighted = dropdown.querySelector('.combobox-option.highlighted');
+    
+    switch (event.key) {
+        case 'ArrowDown':
+            event.preventDefault();
+            if (!highlighted) {
+                if (options.length > 0) {
+                    options[0].classList.add('highlighted');
+                }
+            } else {
+                highlighted.classList.remove('highlighted');
+                const next = highlighted.nextElementSibling;
+                if (next && next.classList.contains('combobox-option')) {
+                    next.classList.add('highlighted');
+                } else if (options.length > 0) {
+                    options[0].classList.add('highlighted');
+                }
+            }
+            break;
+            
+        case 'ArrowUp':
+            event.preventDefault();
+            if (!highlighted) {
+                if (options.length > 0) {
+                    options[options.length - 1].classList.add('highlighted');
+                }
+            } else {
+                highlighted.classList.remove('highlighted');
+                const prev = highlighted.previousElementSibling;
+                if (prev && prev.classList.contains('combobox-option')) {
+                    prev.classList.add('highlighted');
+                } else if (options.length > 0) {
+                    options[options.length - 1].classList.add('highlighted');
+                }
+            }
+            break;
+            
+        case 'Enter':
+            event.preventDefault();
+            if (highlighted) {
+                highlighted.click();
+            }
+            break;
+            
+        case 'Escape':
+            dropdown.classList.remove('show');
+            break;
+    }
+}
+
+// 点击外部隐藏下拉列表
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.combobox-container')) {
+        document.querySelectorAll('.combobox-dropdown').forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+    }
+});
+</script>
 </body>
 </html>
