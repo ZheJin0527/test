@@ -444,6 +444,28 @@
             box-sizing: border-box; /* 添加这行 */
         }
 
+        /* 编辑状态下的价格输入框样式 */
+.currency-input-edit {
+    text-align: right;
+    padding: 8px 4px;
+    min-width: 60px;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    line-height: 24px;
+}
+
+.currency-input-edit:focus {
+    background: #fff;
+    border: 2px solid #583e04;
+    outline: none;
+    z-index: 15;
+    position: relative;
+}
+
         /* 日期单元格样式 */
         .date-cell {
             background: #f8f5eb !important;
@@ -1404,9 +1426,9 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<div class="input-container">
-                                <span class="currency-prefix">RM</span>
-                                <input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">
+                            `<div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <input type="number" class="table-input currency-input-edit" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">
                             </div>` :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
