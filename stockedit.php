@@ -1009,6 +1009,8 @@
                 if (productName) {
                     if (productNameElement.tagName === 'INPUT') {
                         productNameElement.value = productName;
+                    } else if (productNameElement.tagName === 'SELECT') {
+                        productNameElement.value = productName;
                     } else {
                         productNameElement.textContent = productName;
                     }
@@ -1231,7 +1233,7 @@
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
                 <td>
-                    <select class="table-select" id="new-code-number" onchange="handleCodeNumberChange(this, document.getElementById('new-product-name'))">
+                    <select class="table-select" id="new-code-number" onchange="handleCodeNumberChange(this, document.getElementById('new-product-name')); updateNewRowTotal();">
                         ${generateCodeNumberOptions()}
                     </select>
                 </td>
