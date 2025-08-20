@@ -477,9 +477,10 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: center;
-            gap: 4px;
-            padding: 4px;
+            justify-content: space-between;
+            gap: 2px;
+            padding: 2px;
+            width: 100%;
         }
 
         .action-btn {
@@ -487,7 +488,7 @@
             color: white;
             border: none;
             border-radius: 6px;
-            width: 32px;
+            flex: 1;
             height: 32px;
             cursor: pointer;
             display: flex;
@@ -495,7 +496,8 @@
             justify-content: center;
             transition: all 0.2s;
             font-size: 12px;
-            margin: 2px;
+            margin: 1px;
+            min-width: 0;
         }
 
         .action-btn:hover {
