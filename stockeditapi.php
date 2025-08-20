@@ -299,7 +299,7 @@ function handlePost() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'receiver'];
+    $required_fields = ['date', 'time', 'product_name', 'receiver'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -308,16 +308,15 @@ function handlePost() {
     
     try {
         $sql = "INSERT INTO stockinout_data 
-                (date, time, product_code, product_name, 
+                (date, time, product_name, 
                 in_quantity, out_quantity, specification, price, code_number, remark, receiver) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
             $data['date'],
             $data['time'],
-            $data['product_code'],
             $data['product_name'],
             $data['in_quantity'] ?? 0,
             $data['out_quantity'] ?? 0,
@@ -403,7 +402,7 @@ function handlePut() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'receiver'];
+    $required_fields = ['date', 'time', 'product_name', 'receiver'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -412,7 +411,7 @@ function handlePut() {
     
     try {
         $sql = "UPDATE stockinout_data 
-                SET date = ?, time = ?, product_code = ?, product_name = ?, 
+                SET date = ?, time = ?, product_name = ?, 
                     in_quantity = ?, out_quantity = ?, 
                     specification = ?, price = ?, code_number = ?, remark = ?, receiver = ?
                 WHERE id = ?";
@@ -420,19 +419,18 @@ function handlePut() {
         $stmt = $pdo->prepare($sql);
 
         $result = $stmt->execute([
-            $data['date'],
-            $data['time'],
-            $data['product_code'],
-            $data['product_name'],
-            $data['in_quantity'] ?? 0,
-            $data['out_quantity'] ?? 0,
-            $data['specification'] ?? null,
-            $data['price'] ?? 0,
-            $data['code_number'] ?? null,
-            $data['remark'] ?? null,
-            $data['receiver'] ?? null,
-            $data['id']
-        ]);
+                $data['date'],
+                $data['time'],
+                $data['product_name'],
+                $data['in_quantity'] ?? 0,
+                $data['out_quantity'] ?? 0,
+                $data['specification'] ?? null,
+                $data['price'] ?? 0,
+                $data['code_number'] ?? null,
+                $data['remark'] ?? null,
+                $data['receiver'] ?? null,
+                $data['id']
+            ]);
         
         // 检查记录是否存在
         $checkStmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
