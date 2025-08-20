@@ -633,6 +633,81 @@
         .cancel-new-btn {
             background: #ef4444 !important;
         }
+
+        /* 可搜索下拉框样式 */
+.searchable-select-container {
+    position: relative;
+    width: 100%;
+    height: 40px;
+}
+
+.searchable-input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 4px;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.searchable-input:focus {
+    background: #fff;
+    border: 2px solid #583e04;
+    outline: none;
+    z-index: 15;
+    position: relative;
+}
+
+.searchable-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #583e04;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 20;
+    display: none;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.2);
+}
+
+.searchable-dropdown.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #f3f4f6;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item.selected {
+    background-color: #583e04;
+    color: white;
+}
+
+.no-results {
+    padding: 8px 12px;
+    color: #6b7280;
+    font-style: italic;
+    text-align: center;
+}
     </style>
 </head>
 <body>
@@ -820,6 +895,100 @@
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
+
+        // 创建可搜索下拉框
+function createSearchableSelect(options, selectedValue, onSelect, placeholder = '请选择...') {
+    const container = document.createElement('div');
+    container.className = 'searchable-select-container';
+    
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'searchable-input';
+    input.placeholder = placeholder;
+    input.value = selectedValue || '';
+    input.readOnly = false;
+    
+    const dropdown = document.createElement('div');
+    dropdown.className = 'searchable-dropdown';
+    
+    // 显示下拉选项
+    function showDropdown() {
+        filterOptions(input.value);
+        dropdown.classList.add('show');
+    }
+    
+    // 隐藏下拉选项
+    function hideDropdown() {
+        setTimeout(() => {
+            dropdown.classList.remove('show');
+        }, 150);
+    }
+    
+    // 过滤选项
+    function filterOptions(searchText) {
+        dropdown.innerHTML = '';
+        const filteredOptions = options.filter(option => 
+            option.value.toLowerCase().includes(searchText.toLowerCase()) ||
+            option.text.toLowerCase().includes(searchText.toLowerCase())
+        );
+        
+        if (filteredOptions.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = '未找到匹配项';
+            dropdown.appendChild(noResults);
+        } else {
+            filteredOptions.forEach(option => {
+                const item = document.createElement('div');
+                item.className = 'dropdown-item';
+                item.textContent = option.text;
+                item.dataset.value = option.value;
+                
+                item.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    input.value = option.text;
+                    hideDropdown();
+                    onSelect(option.value, option.text);
+                });
+                
+                dropdown.appendChild(item);
+            });
+        }
+    }
+    
+    // 事件监听
+    input.addEventListener('focus', showDropdown);
+    input.addEventListener('blur', hideDropdown);
+    input.addEventListener('input', (e) => {
+        if (dropdown.classList.contains('show')) {
+            filterOptions(e.target.value);
+        }
+    });
+    input.addEventListener('click', showDropdown);
+    
+    container.appendChild(input);
+    container.appendChild(dropdown);
+    
+    return container;
+}
+
+// 为Code Number创建搜索选项
+function getCodeNumberSearchOptions() {
+    if (!window.codeNumberOptions) return [];
+    return window.codeNumberOptions.map(item => ({
+        value: item.code_number,
+        text: item.code_number
+    }));
+}
+
+// 为Product创建搜索选项
+function getProductSearchOptions() {
+    if (!window.productOptions) return [];
+    return window.productOptions.map(item => ({
+        value: item.product_name,
+        text: item.product_name
+    }));
+}
 
         // 初始化应用
         function initApp() {
@@ -1094,19 +1263,15 @@
                 
                 row.innerHTML = `
                     <td class="date-cell">${formatDate(record.date)}</td>
-                    <td>
+                    <td id="code-cell-${record.id}">
                         ${isEditing ? 
-                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) input'))">
-                                ${generateCodeNumberOptions(record.code_number)}
-                            </select>` :
+                            `<div id="code-searchable-${record.id}"></div>` :
                             `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
-                    <td>
+                    <td id="product-cell-${record.id}">
                         ${isEditing ? 
-                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'product_name', this.value); handleProductChange(this, this.closest('tr').querySelector('td:nth-child(2) select'))">
-                                ${generateProductOptions(record.product_name)}
-                            </select>` :
+                            `<div id="product-searchable-${record.id}"></div>` :
                             `<span>${record.product_name}</span>`
                         }
                     </td>
@@ -1175,6 +1340,63 @@
                 `;
                 
                 tbody.appendChild(row);
+
+                // 为编辑行创建搜索框
+if (isEditing) {
+    // Code Number搜索框
+    const codeContainer = document.getElementById(`code-searchable-${record.id}`);
+    if (codeContainer) {
+        const codeSearchable = createSearchableSelect(
+            getCodeNumberSearchOptions(),
+            record.code_number,
+            async (value, text) => {
+                updateField(record.id, 'code_number', value);
+                // 根据code number获取并更新product name
+                const productName = await getProductByCode(value);
+                if (productName) {
+                    updateField(record.id, 'product_name', productName);
+                    // 更新product搜索框的显示值
+                    const productContainer = document.getElementById(`product-searchable-${record.id}`);
+                    if (productContainer) {
+                        const productInput = productContainer.querySelector('.searchable-input');
+                        if (productInput) {
+                            productInput.value = productName;
+                        }
+                    }
+                }
+            },
+            '请选择编号...'
+        );
+        codeContainer.appendChild(codeSearchable);
+    }
+    
+    // Product搜索框
+    const productContainer = document.getElementById(`product-searchable-${record.id}`);
+    if (productContainer) {
+        const productSearchable = createSearchableSelect(
+            getProductSearchOptions(),
+            record.product_name,
+            async (value, text) => {
+                updateField(record.id, 'product_name', value);
+                // 根据product name获取并更新code number
+                const productCode = await getCodeByProduct(value);
+                if (productCode) {
+                    updateField(record.id, 'code_number', productCode);
+                    // 更新code搜索框的显示值
+                    const codeContainer = document.getElementById(`code-searchable-${record.id}`);
+                    if (codeContainer) {
+                        const codeInput = codeContainer.querySelector('.searchable-input');
+                        if (codeInput) {
+                            codeInput.value = productCode;
+                        }
+                    }
+                }
+            },
+            '请选择产品...'
+        );
+        productContainer.appendChild(productSearchable);
+    }
+}
             });
         }
 
@@ -1230,15 +1452,11 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
-                <td>
-                    <select class="table-select" id="new-code-number" onchange="handleCodeNumberChange(this, document.getElementById('new-product-name'))">
-                        ${generateCodeNumberOptions()}
-                    </select>
+                <td id="new-code-cell">
+                    <div id="new-code-searchable"></div>
                 </td>
-                <td>
-                    <select class="table-select" id="new-product-name" onchange="handleProductChange(this, document.getElementById('new-code-number'))">
-                        ${generateProductOptions()}
-                    </select>
+                <td id="new-product-cell">
+                    <div id="new-product-searchable"></div>
                 </td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
@@ -1291,6 +1509,43 @@
             if (totalCell) {
                 totalCell.textContent = `RM ${formatCurrency(total)}`;
             }
+
+            // 创建新行的搜索框
+            const newCodeContainer = document.getElementById('new-code-searchable');
+            const newCodeSearchable = createSearchableSelect(
+                getCodeNumberSearchOptions(),
+                '',
+                async (value, text) => {
+                    const productName = await getProductByCode(value);
+                    if (productName) {
+                        const productInput = document.getElementById('new-product-searchable').querySelector('.searchable-input');
+                        if (productInput) {
+                            productInput.value = productName;
+                        }
+                    }
+                    updateNewRowTotal();
+                },
+                '请选择编号...'
+            );
+            newCodeContainer.appendChild(newCodeSearchable);
+
+            const newProductContainer = document.getElementById('new-product-searchable');
+            const newProductSearchable = createSearchableSelect(
+                getProductSearchOptions(),
+                '',
+                async (value, text) => {
+                    const productCode = await getCodeByProduct(value);
+                    if (productCode) {
+                        const codeInput = document.getElementById('new-code-searchable').querySelector('.searchable-input');
+                        if (codeInput) {
+                            codeInput.value = productCode;
+                        }
+                    }
+                    updateNewRowTotal();
+                },
+                '请选择产品...'
+            );
+            newProductContainer.appendChild(newProductSearchable);
         }
 
         // 保存新行记录
@@ -1299,13 +1554,13 @@
                 date: document.getElementById('new-date').value,
                 time: new Date().toTimeString().slice(0, 5),
                 product_code: document.getElementById('new-product-name').value, // 临时使用产品名称作为编号
-                product_name: document.getElementById('new-product-name').value,
+                product_name: document.getElementById('new-product-searchable').querySelector('.searchable-input').value,
                 in_quantity: parseFloat(document.getElementById('new-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
                 specification: document.getElementById('new-specification').value,
                 price: parseFloat(document.getElementById('new-price').value) || 0,
                 receiver: document.getElementById('new-receiver').value,
-                code_number: document.getElementById('new-code-number').value,
+                code_number: document.getElementById('new-code-searchable').querySelector('.searchable-input').value,
                 remark: document.getElementById('new-remark').value
             };
 
