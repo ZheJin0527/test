@@ -609,7 +609,7 @@
             min-width: 150px !important;
         }
 
-        .supplier-col {
+        .receiver-col {
             min-width: 120px !important;
         }
 
@@ -795,7 +795,7 @@
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
-                        <th class="supplier-col">Name</th>
+                        <th class="receiver-col">Name</th>
                         <th style="min-width: 100px;">Remark</th>
                         <th style="min-width: 80px;">操作</th>
                     </tr>
@@ -1133,10 +1133,8 @@
         // 更新统计信息
         function updateStats() {
             const totalRecords = stockData.length;
-            const receiverCount = new Set(stockData.map(record => record.receiver)).size;
             
             document.getElementById('total-records').textContent = totalRecords;
-            document.getElementById('supplier-count').textContent = receiverCount;
         }
 
         // 添加新行到表格
