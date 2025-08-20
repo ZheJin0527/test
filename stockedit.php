@@ -817,6 +817,7 @@
         let stockData = [];
         let isLoading = false;
         let editingRowId = null;
+        let originalEditData = null; // 存储编辑前的原始数据
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
@@ -1434,12 +1435,28 @@
                 return;
             }
             editingRowId = id;
+            
+            // 保存原始数据的深拷贝
+            const record = stockData.find(r => r.id === id);
+            if (record) {
+                originalEditData = JSON.parse(JSON.stringify(record));
+            }
+            
             renderStockTable();
         }
 
         // 取消编辑
         function cancelEdit() {
+            // 恢复原始数据
+            if (originalEditData && editingRowId !== null) {
+                const recordIndex = stockData.findIndex(r => r.id === editingRowId);
+                if (recordIndex !== -1) {
+                    stockData[recordIndex] = JSON.parse(JSON.stringify(originalEditData));
+                }
+            }
+            
             editingRowId = null;
+            originalEditData = null;
             renderStockTable();
         }
 
@@ -1490,6 +1507,7 @@
                 if (result.success) {
                     showAlert('记录更新成功', 'success');
                     editingRowId = null;
+                    originalEditData = null; // 清除原始数据
                     loadStockData();
                 } else {
                     showAlert('更新失败: ' + (result.message || '未知错误'), 'error');
