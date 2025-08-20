@@ -238,10 +238,6 @@
             position: relative;
         }
 
-        .stock-table td:nth-child(11) {
-    padding: 0 !important;
-}
-
         .stock-table tr:nth-child(even) {
             background-color: #f9fafb;
         }
@@ -484,9 +480,6 @@
             justify-content: center;
             gap: 4px;
             padding: 4px;
-            width: 100%;
-            height: 40px;
-            box-sizing: border-box;
         }
 
         .action-btn {
