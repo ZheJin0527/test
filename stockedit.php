@@ -746,7 +746,9 @@
                 </div>
                 <div class="form-group">
                     <label for="add-code-number">编号</label>
-                    <input type="text" id="add-code-number" class="form-input" placeholder="输入编号...">
+                    <select id="add-code-number" class="form-select" onchange="handleCodeNumberChange(this, document.getElementById('add-product-name'))">
+                        <option value="">请选择编号</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="add-remark">备注</label>
@@ -826,6 +828,7 @@
             
             // 加载数据
             loadStockData();
+            loadCodeNumbers();
         }
 
         // 返回上一页
@@ -886,6 +889,69 @@
                 showAlert('网络错误，请检查连接', 'error');
             } finally {
                 isLoading = false;
+            }
+        }
+
+        // 加载code number选项
+        async function loadCodeNumbers() {
+            try {
+                const result = await apiCall('?action=codenumbers');
+                if (result.success && result.data) {
+                    window.codeNumberOptions = result.data;
+                } else {
+                    window.codeNumberOptions = [];
+                }
+            } catch (error) {
+                console.error('加载编号列表失败:', error);
+                window.codeNumberOptions = [];
+            }
+        }
+
+        // 根据code number获取产品名称
+        async function getProductByCode(codeNumber) {
+            try {
+                const result = await apiCall(`?action=product_by_code&code_number=${encodeURIComponent(codeNumber)}`);
+                if (result.success && result.data) {
+                    return result.data.product_name;
+                }
+            } catch (error) {
+                console.error('获取产品名称失败:', error);
+            }
+            return '';
+        }
+
+        // 生成code number下拉选项
+        function generateCodeNumberOptions(selectedValue = '') {
+            if (!window.codeNumberOptions) return '<option value="">加载中...</option>';
+            
+            let options = '<option value="">请选择编号</option>';
+            window.codeNumberOptions.forEach(item => {
+                const selected = item.code_number === selectedValue ? 'selected' : '';
+                options += `<option value="${item.code_number}" ${selected}>${item.code_number}</option>`;
+            });
+            return options;
+        }
+
+        // 处理code number变化
+        async function handleCodeNumberChange(selectElement, productNameElement) {
+            const codeNumber = selectElement.value;
+            if (codeNumber && productNameElement) {
+                const productName = await getProductByCode(codeNumber);
+                if (productName) {
+                    if (productNameElement.tagName === 'INPUT') {
+                        productNameElement.value = productName;
+                    } else {
+                        productNameElement.textContent = productName;
+                    }
+                    // 如果是在编辑模式，更新数据
+                    const row = selectElement.closest('tr');
+                    if (row && !row.classList.contains('new-row')) {
+                        const recordId = parseInt(selectElement.getAttribute('data-record-id'));
+                        if (recordId) {
+                            updateField(recordId, 'product_name', productName);
+                        }
+                    }
+                }
             }
         }
 
@@ -961,7 +1027,9 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.code_number || ''}" onchange="updateField(${record.id}, 'code_number', this.value)">` :
+                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) input'))">
+                                ${generateCodeNumberOptions(record.code_number)}
+                            </select>` :
                             `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
@@ -1093,7 +1161,11 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
-                <td><input type="text" class="table-input" placeholder="输入编号..." id="new-code-number"></td>
+                <td>
+                    <select class="table-select" id="new-code-number" onchange="handleCodeNumberChange(this, document.getElementById('new-product-name'))">
+                        ${generateCodeNumberOptions()}
+                    </select>
+                </td>
                 <td><input type="text" class="table-input" placeholder="输入产品名称..." id="new-product-name"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
@@ -1198,6 +1270,14 @@
 
         // 保存新记录
         async function saveNewRecord() {
+            // 确保表单中的下拉选项已加载
+            if (window.codeNumberOptions && window.codeNumberOptions.length > 0) {
+                const selectElement = document.getElementById('add-code-number');
+                if (selectElement && selectElement.options.length <= 1) {
+                    selectElement.innerHTML = generateCodeNumberOptions();
+                }
+            }
+
             const formData = {
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
@@ -1277,6 +1357,23 @@
                 record[field] = value;
                 // 重新渲染该行以更新计算值
                 renderStockTable();
+            }
+        }
+
+        // 切换新增表单显示状态
+        function toggleAddForm() {
+            const form = document.getElementById('add-form');
+            const isVisible = form.classList.contains('show');
+            
+            if (isVisible) {
+                form.classList.remove('show');
+            } else {
+                form.classList.add('show');
+                // 加载code number选项
+                if (window.codeNumberOptions && window.codeNumberOptions.length > 0) {
+                    const selectElement = document.getElementById('add-code-number');
+                    selectElement.innerHTML = generateCodeNumberOptions();
+                }
             }
         }
 

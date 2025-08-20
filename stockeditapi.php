@@ -232,13 +232,31 @@ function handleGet() {
             break;
 
         case 'codenumbers':
-            // 获取所有唯一的code_number列表
-            $stmt = $pdo->prepare("SELECT DISTINCT code_number FROM stockinout_data WHERE code_number IS NOT NULL AND code_number != '' ORDER BY code_number");
+            // 获取所有唯一的code_number和对应的product_name列表
+            $stmt = $pdo->prepare("SELECT DISTINCT product_code as code_number, product_name FROM stock_data WHERE product_code IS NOT NULL AND product_code != '' ORDER BY product_code");
             $stmt->execute();
-            $codeNumbers = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            $codeNumbers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             sendResponse(true, "编号列表获取成功", $codeNumbers);
             break;
+
+        case 'product_by_code':
+            // 根据code_number获取对应的product_name
+            $codeNumber = $_GET['code_number'] ?? null;
+            if (!$codeNumber) {
+                sendResponse(false, "缺少编号参数");
+            }
+            
+            $stmt = $pdo->prepare("SELECT DISTINCT product_name FROM stock_data WHERE product_code = ? LIMIT 1");
+            $stmt->execute([$codeNumber]);
+            $productName = $stmt->fetchColumn();
+            
+            if ($productName) {
+                sendResponse(true, "产品名称获取成功", ['product_name' => $productName]);
+            } else {
+                sendResponse(false, "未找到对应的产品名称");
+            }
+            break;    
             
         default:
             sendResponse(false, "无效的操作");
