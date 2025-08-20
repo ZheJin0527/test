@@ -633,12 +633,6 @@
         .cancel-new-btn {
             background: #ef4444 !important;
         }
-
-        /* Total列负数样式 */
-        .negative-total {
-            color: #dc2626 !important;
-            font-weight: 600;
-        }
     </style>
 </head>
 <body>
@@ -1147,7 +1141,7 @@
                             }
                         </div>
                     </td>
-                    <td class="calculated-cell ${total < 0 ? 'negative-total' : ''}">RM ${formatCurrency(total)}</td>
+                    <td class="calculated-cell">RM ${formatCurrency(total)}</td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
@@ -1296,7 +1290,6 @@
             const totalCell = document.querySelector('.new-row .calculated-cell');
             if (totalCell) {
                 totalCell.textContent = `RM ${formatCurrency(total)}`;
-                totalCell.className = `calculated-cell ${total < 0 ? 'negative-total' : ''}`;
             }
         }
 
