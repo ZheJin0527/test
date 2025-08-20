@@ -1406,7 +1406,8 @@
                             `<span>${record.remark || '-'}</span>`
                         }
                     </td>
-                    <td class="action-cell">
+                    <td>
+                    <span class="action-cell">
                         ${isEditing ? 
                             `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
                                 <i class="fas fa-save"></i>
@@ -1423,7 +1424,8 @@
                                 <i class="fas fa-trash"></i>
                             </button>` : ''
                         }
-                    </td>
+                    </span>
+                </td>
                 `;
                 
                 tbody.appendChild(row);
@@ -1499,13 +1501,15 @@
                 </td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
-                <td class="action-cell">
-                    <button class="action-btn save-new-btn" onclick="saveNewRowRecord(this)" title="保存">
-                        <i class="fas fa-save"></i>
-                    </button>
-                    <button class="action-btn cancel-new-btn" onclick="cancelNewRow(this)" title="取消">
-                        <i class="fas fa-times"></i>
-                    </button>
+                <td>
+                    <span class="action-cell">
+                        <button class="action-btn save-new-btn" onclick="saveNewRowRecord(this)" title="保存">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button class="action-btn cancel-new-btn" onclick="cancelNewRow(this)" title="取消">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </span>
                 </td>
             `;
             
