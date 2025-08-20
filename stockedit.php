@@ -243,7 +243,7 @@
         }
 
         .stock-table tr:hover {
-            background-color: #f3f4f6;
+            background-color: #d3dff7ff;
         }
 
         /* 确保显示文本和编辑输入框对齐 */
