@@ -792,8 +792,8 @@
             position: fixed; /* 改为 fixed 定位，避免被表格限制 */
             background: white;
             border: 2px solid #583e04;
-            border-radius: 8px;
-            max-height: 200px;
+            border-radius: 4px;
+            max-height: 300px;
             overflow-y: auto;
             z-index: 9999; /* 提高层级，确保显示在最前面 */
             display: none;
