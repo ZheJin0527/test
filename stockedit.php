@@ -970,6 +970,11 @@
                     <label for="date-filter">日期</label>
                     <input type="date" id="date-filter" class="filter-input">
                 </div>
+                <!-- 在这里添加新的产品编号搜索栏 -->
+                <div class="filter-group">
+                    <label for="code-filter">产品编号</label>
+                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品编号...">
+                </div>
                 <div class="filter-group">
                     <label for="product-filter">产品名称</label>
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
@@ -1369,10 +1374,12 @@
                 });
                 
                 const dateFilter = document.getElementById('date-filter').value;
+                const codeFilter = document.getElementById('code-filter').value;  // 新添加
                 const productFilter = document.getElementById('product-filter').value;
                 const receiverFilter = document.getElementById('receiver-filter').value;
                 
                 if (dateFilter) params.append('search_date', dateFilter);
+                if (codeFilter) params.append('product_code', codeFilter);  // 新添加
                 if (productFilter) params.append('product_name', productFilter);
                 if (receiverFilter) params.append('receiver', receiverFilter);
                 
@@ -1399,6 +1406,7 @@
         // 重置搜索过滤器
         function resetFilters() {
             document.getElementById('date-filter').value = '';
+            document.getElementById('code-filter').value = '';  // 新添加
             document.getElementById('product-filter').value = '';
             document.getElementById('receiver-filter').value = '';
             loadStockData();

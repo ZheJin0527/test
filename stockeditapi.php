@@ -85,7 +85,7 @@ function handleGet() {
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
             $receiver = $_GET['receiver'] ?? null;
-            $productCode = $_GET['product_code'] ?? null;
+            $productCode = $_GET['product_code'] ?? null;  // 这行已存在，保持不变
             $productName = $_GET['product_name'] ?? null;
 
             // 如果没有提供日期范围，默认使用当月
@@ -114,7 +114,7 @@ function handleGet() {
             }
 
             if ($productCode) {
-                $sql .= " AND product_code LIKE ?";
+                $sql .= " AND code_number LIKE ?";  // 修改这里：从product_code改为code_number
                 $params[] = "%$productCode%";
             }
 
