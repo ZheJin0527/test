@@ -305,6 +305,24 @@ function handlePost() {
             sendResponse(false, "缺少必填字段：$field");
         }
     }
+
+    // 验证产品名称是否存在于数据库中
+    if (!empty($data['product_name'])) {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM stock_data WHERE product_name = ?");
+        $stmt->execute([$data['product_name']]);
+        if ($stmt->fetchColumn() == 0) {
+            sendResponse(false, "产品名称不存在，请选择有效的产品");
+        }
+    }
+
+    // 验证产品编号是否存在于数据库中
+    if (!empty($data['code_number'])) {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM stock_data WHERE product_code = ?");
+        $stmt->execute([$data['code_number']]);
+        if ($stmt->fetchColumn() == 0) {
+            sendResponse(false, "产品编号不存在，请选择有效的编号");
+        }
+    }
     
     try {
         $sql = "INSERT INTO stockinout_data 
@@ -406,6 +424,24 @@ function handlePut() {
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
+        }
+    }
+
+    // 验证产品名称是否存在于数据库中
+    if (!empty($data['product_name'])) {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM stock_data WHERE product_name = ?");
+        $stmt->execute([$data['product_name']]);
+        if ($stmt->fetchColumn() == 0) {
+            sendResponse(false, "产品名称不存在，请选择有效的产品");
+        }
+    }
+
+    // 验证产品编号是否存在于数据库中
+    if (!empty($data['code_number'])) {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM stock_data WHERE product_code = ?");
+        $stmt->execute([$data['code_number']]);
+        if ($stmt->fetchColumn() == 0) {
+            sendResponse(false, "产品编号不存在，请选择有效的编号");
         }
     }
     

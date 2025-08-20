@@ -1455,6 +1455,24 @@
                 return;
             }
 
+            // 验证产品名称是否存在于数据库中
+            if (formData.product_name && window.productOptions) {
+                const validProducts = window.productOptions.map(p => p.product_name);
+                if (!validProducts.includes(formData.product_name)) {
+                    showAlert('产品名称不存在，请从下拉列表中选择有效的产品', 'error');
+                    return;
+                }
+            }
+
+            // 验证编号是否存在于数据库中
+            if (formData.code_number && window.codeNumberOptions) {
+                const validCodes = window.codeNumberOptions.map(c => c.code_number);
+                if (!validCodes.includes(formData.code_number)) {
+                    showAlert('产品编号不存在，请从下拉列表中选择有效的编号', 'error');
+                    return;
+                }
+            }
+
             try {
                 const result = await apiCall('', {
                     method: 'POST',
@@ -1508,6 +1526,24 @@
             for (let field of requiredFields) {
                 if (!formData[field]) {
                     showAlert(`请填写${getFieldLabel(field)}`, 'error');
+                    return;
+                }
+            }
+
+            // 验证产品名称是否存在于数据库中
+            if (formData.product_name && window.productOptions) {
+                const validProducts = window.productOptions.map(p => p.product_name);
+                if (!validProducts.includes(formData.product_name)) {
+                    showAlert('产品名称不存在，请从下拉列表中选择有效的产品', 'error');
+                    return;
+                }
+            }
+
+            // 验证编号是否存在于数据库中
+            if (formData.code_number && window.codeNumberOptions) {
+                const validCodes = window.codeNumberOptions.map(c => c.code_number);
+                if (!validCodes.includes(formData.code_number)) {
+                    showAlert('产品编号不存在，请从下拉列表中选择有效的编号', 'error');
                     return;
                 }
             }
@@ -1660,6 +1696,24 @@
         async function saveRecord(id) {
             const record = stockData.find(r => r.id === id);
             if (!record) return;
+
+            // 验证产品名称是否存在于数据库中
+            if (record.product_name && window.productOptions) {
+                const validProducts = window.productOptions.map(p => p.product_name);
+                if (!validProducts.includes(record.product_name)) {
+                    showAlert('产品名称不存在，请从下拉列表中选择有效的产品', 'error');
+                    return;
+                }
+            }
+
+            // 验证编号是否存在于数据库中
+            if (record.code_number && window.codeNumberOptions) {
+                const validCodes = window.codeNumberOptions.map(c => c.code_number);
+                if (!validCodes.includes(record.code_number)) {
+                    showAlert('产品编号不存在，请从下拉列表中选择有效的编号', 'error');
+                    return;
+                }
+            }
 
             try {
                 const result = await apiCall('', {
@@ -2014,6 +2068,24 @@
             }
         }
 
+        // 验证输入值是否在允许的选项中
+        function validateComboboxInput(input) {
+            const type = input.dataset.type;
+            const value = input.value.trim();
+            
+            if (!value) return true; // 空值允许
+            
+            if (type === 'code' && window.codeNumberOptions) {
+                const validCodes = window.codeNumberOptions.map(c => c.code_number);
+                return validCodes.includes(value);
+            } else if (type === 'product' && window.productOptions) {
+                const validProducts = window.productOptions.map(p => p.product_name);
+                return validProducts.includes(value);
+            }
+            
+            return true;
+        }
+
         // 处理键盘事件
         function handleComboboxKeydown(event, input) {
             const container = input.closest('.combobox-container');
@@ -2102,6 +2174,15 @@
                 
                 // 添加 blur 事件处理器，确保编辑模式下数据被保存
                 const blurHandler = () => {
+                    // 验证输入值
+                    if (!validateComboboxInput(input)) {
+                        const type = input.dataset.type;
+                        const fieldName = type === 'code' ? '产品编号' : '产品名称';
+                        showAlert(`${fieldName}不存在，请从下拉列表中选择`, 'error');
+                        input.focus();
+                        return;
+                    }
+                    
                     const recordId = input.dataset.recordId;
                     const fieldName = input.dataset.field;
                     if (recordId && fieldName) {
