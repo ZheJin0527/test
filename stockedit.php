@@ -209,16 +209,6 @@
             transform: translateY(-1px);
         }
 
-        /* 表格样式 */
-        .table-container {
-            background: white;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
-            overflow: hidden;
-            border: 2px solid #583e04;
-            overflow-x: auto;
-        }
-
         .stock-table {
             table-layout: fixed;
             width: 100%;
@@ -857,7 +847,7 @@
         /* 确保表格容器不会隐藏溢出内容 */
         .table-container {
             background: white;
-            border-radius: 12px;
+            border-radius: 4px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             border: 2px solid #583e04;
             overflow: visible; /* 改为 visible，允许内容溢出 */
