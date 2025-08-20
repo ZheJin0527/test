@@ -1096,7 +1096,7 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) input'))">
+                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) select'))">
                                 ${generateCodeNumberOptions(record.code_number)}
                             </select>` :
                             `<span>${record.code_number || '-'}</span>`
