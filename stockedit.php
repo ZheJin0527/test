@@ -633,6 +633,90 @@
         .cancel-new-btn {
             background: #ef4444 !important;
         }
+
+        /* 搜索下拉框样式 */
+        .searchable-select {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 40px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px 4px;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            background: #fff;
+            border: 2px solid #583e04;
+            outline: none;
+            z-index: 5;
+            position: relative;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .search-dropdown-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .search-dropdown-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .search-dropdown-item.highlighted {
+            background-color: #583e04;
+            color: white;
+        }
+
+        .search-dropdown.show {
+            display: block;
+        }
+
+        /* 表单中的搜索框样式 */
+        .form-searchable-select {
+            position: relative;
+            display: block;
+            width: 100%;
+        }
+
+        .form-search-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #583e04;
+        }
+
+        .form-search-input:focus {
+            outline: none;
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -706,9 +790,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-product-name">产品名称 *</label>
-                    <select id="add-product-name" class="form-select" onchange="handleProductChange(this, document.getElementById('add-code-number'))" required>
-                        <option value="">请选择产品名称</option>
-                    </select>
+                    <input type="text" id="add-product-name" class="form-input" placeholder="搜索产品名称..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
@@ -748,9 +830,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-code-number">编号</label>
-                    <select id="add-code-number" class="form-select" onchange="handleCodeNumberChange(this, document.getElementById('add-product-name'))">
-                        <option value="">请选择编号</option>
-                    </select>
+                    <input type="text" id="add-code-number" class="form-input" placeholder="搜索编号...">
                 </div>
                 <div class="form-group">
                     <label for="add-remark">备注</label>
@@ -938,16 +1018,14 @@
             return '';
         }
 
-        // 生成产品名称下拉选项
-        function generateProductOptions(selectedValue = '') {
-            if (!window.productOptions) return '<option value="">加载中...</option>';
+        // 生成产品搜索选项
+        function generateProductSearchOptions() {
+            if (!window.productOptions) return [];
             
-            let options = '<option value="">请选择产品</option>';
-            window.productOptions.forEach(item => {
-                const selected = item.product_name === selectedValue ? 'selected' : '';
-                options += `<option value="${item.product_name}" ${selected}>${item.product_name}</option>`;
-            });
-            return options;
+            return window.productOptions.map(item => ({
+                value: item.product_name,
+                label: `${item.product_name} (${item.product_code})`
+            }));
         }
 
         // 处理产品名称变化
@@ -976,6 +1054,313 @@
             }
         }
 
+        // 搜索框功能类
+        class SearchableSelect {
+            constructor(containerId, options, onSelect, placeholder = '请输入搜索...') {
+                this.container = document.getElementById(containerId);
+                this.options = options;
+                this.onSelect = onSelect;
+                this.placeholder = placeholder;
+                this.selectedValue = '';
+                this.highlightedIndex = -1;
+                this.init();
+            }
+
+            init() {
+                if (!this.container) return;
+                
+                this.container.innerHTML = `
+                    <input type="text" class="search-input" placeholder="${this.placeholder}" autocomplete="off">
+                    <div class="search-dropdown"></div>
+                `;
+                
+                this.input = this.container.querySelector('.search-input');
+                this.dropdown = this.container.querySelector('.search-dropdown');
+                
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                this.input.addEventListener('input', (e) => {
+                    this.filterOptions(e.target.value);
+                });
+                
+                this.input.addEventListener('focus', () => {
+                    this.showDropdown();
+                });
+                
+                this.input.addEventListener('keydown', (e) => {
+                    this.handleKeyDown(e);
+                });
+                
+                document.addEventListener('click', (e) => {
+                    if (!this.container.contains(e.target)) {
+                        this.hideDropdown();
+                    }
+                });
+            }
+
+            filterOptions(searchTerm) {
+                const filtered = this.options.filter(option => 
+                    option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    option.value.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                this.renderOptions(filtered);
+                this.showDropdown();
+                this.highlightedIndex = -1;
+            }
+
+            renderOptions(options) {
+                if (options.length === 0) {
+                    this.dropdown.innerHTML = '<div class="search-dropdown-item">未找到匹配项</div>';
+                    return;
+                }
+                
+                this.dropdown.innerHTML = options.map((option, index) => 
+                    `<div class="search-dropdown-item" data-value="${option.value}" data-index="${index}">${option.label}</div>`
+                ).join('');
+                
+                // 绑定点击事件
+                this.dropdown.querySelectorAll('.search-dropdown-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const value = item.getAttribute('data-value');
+                        if (value && value !== 'undefined') {
+                            this.selectOption(value, item.textContent);
+                        }
+                    });
+                });
+            }
+
+            handleKeyDown(e) {
+                const items = this.dropdown.querySelectorAll('.search-dropdown-item');
+                
+                switch(e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        this.highlightedIndex = Math.min(this.highlightedIndex + 1, items.length - 1);
+                        this.updateHighlight();
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        this.highlightedIndex = Math.max(this.highlightedIndex - 1, -1);
+                        this.updateHighlight();
+                        break;
+                    case 'Enter':
+                        e.preventDefault();
+                        if (this.highlightedIndex >= 0 && items[this.highlightedIndex]) {
+                            const value = items[this.highlightedIndex].getAttribute('data-value');
+                            const label = items[this.highlightedIndex].textContent;
+                            if (value && value !== 'undefined') {
+                                this.selectOption(value, label);
+                            }
+                        }
+                        break;
+                    case 'Escape':
+                        this.hideDropdown();
+                        break;
+                }
+            }
+
+            updateHighlight() {
+                const items = this.dropdown.querySelectorAll('.search-dropdown-item');
+                items.forEach((item, index) => {
+                    item.classList.toggle('highlighted', index === this.highlightedIndex);
+                });
+            }
+
+            selectOption(value, label) {
+                this.selectedValue = value;
+                this.input.value = label;
+                this.hideDropdown();
+                if (this.onSelect) {
+                    this.onSelect(value, label);
+                }
+            }
+
+            showDropdown() {
+                this.dropdown.classList.add('show');
+                if (this.dropdown.children.length === 0) {
+                    this.renderOptions(this.options);
+                }
+            }
+
+            hideDropdown() {
+                this.dropdown.classList.remove('show');
+            }
+
+            updateOptions(newOptions) {
+                this.options = newOptions;
+            }
+
+            setValue(value) {
+                this.selectedValue = value;
+                const option = this.options.find(opt => opt.value === value);
+                if (option) {
+                    this.input.value = option.label;
+                }
+            }
+
+            getValue() {
+                return this.selectedValue;
+            }
+        }
+
+        // 表单搜索框功能类
+        class FormSearchableSelect {
+            constructor(containerId, options, onSelect, placeholder = '请输入搜索...') {
+                this.container = document.getElementById(containerId);
+                this.options = options;
+                this.onSelect = onSelect;
+                this.placeholder = placeholder;
+                this.selectedValue = '';
+                this.highlightedIndex = -1;
+                this.init();
+            }
+
+            init() {
+                if (!this.container) return;
+                
+                const wrapper = document.createElement('div');
+                wrapper.className = 'form-searchable-select';
+                wrapper.innerHTML = `
+                    <input type="text" class="form-search-input" placeholder="${this.placeholder}" autocomplete="off">
+                    <div class="search-dropdown"></div>
+                `;
+                
+                this.container.parentNode.replaceChild(wrapper, this.container);
+                wrapper.id = this.container.id;
+                this.container = wrapper;
+                
+                this.input = this.container.querySelector('.form-search-input');
+                this.dropdown = this.container.querySelector('.search-dropdown');
+                
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                this.input.addEventListener('input', (e) => {
+                    this.filterOptions(e.target.value);
+                });
+                
+                this.input.addEventListener('focus', () => {
+                    this.showDropdown();
+                });
+                
+                this.input.addEventListener('keydown', (e) => {
+                    this.handleKeyDown(e);
+                });
+                
+                document.addEventListener('click', (e) => {
+                    if (!this.container.contains(e.target)) {
+                        this.hideDropdown();
+                    }
+                });
+            }
+
+            filterOptions(searchTerm) {
+                const filtered = this.options.filter(option => 
+                    option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    option.value.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                this.renderOptions(filtered);
+                this.showDropdown();
+                this.highlightedIndex = -1;
+            }
+
+            renderOptions(options) {
+                if (options.length === 0) {
+                    this.dropdown.innerHTML = '<div class="search-dropdown-item">未找到匹配项</div>';
+                    return;
+                }
+                
+                this.dropdown.innerHTML = options.map((option, index) => 
+                    `<div class="search-dropdown-item" data-value="${option.value}" data-index="${index}">${option.label}</div>`
+                ).join('');
+                
+                this.dropdown.querySelectorAll('.search-dropdown-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const value = item.getAttribute('data-value');
+                        if (value && value !== 'undefined') {
+                            this.selectOption(value, item.textContent);
+                        }
+                    });
+                });
+            }
+
+            handleKeyDown(e) {
+                const items = this.dropdown.querySelectorAll('.search-dropdown-item');
+                
+                switch(e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        this.highlightedIndex = Math.min(this.highlightedIndex + 1, items.length - 1);
+                        this.updateHighlight();
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        this.highlightedIndex = Math.max(this.highlightedIndex - 1, -1);
+                        this.updateHighlight();
+                        break;
+                    case 'Enter':
+                        e.preventDefault();
+                        if (this.highlightedIndex >= 0 && items[this.highlightedIndex]) {
+                            const value = items[this.highlightedIndex].getAttribute('data-value');
+                            const label = items[this.highlightedIndex].textContent;
+                            if (value && value !== 'undefined') {
+                                this.selectOption(value, label);
+                            }
+                        }
+                        break;
+                    case 'Escape':
+                        this.hideDropdown();
+                        break;
+                }
+            }
+
+            updateHighlight() {
+                const items = this.dropdown.querySelectorAll('.search-dropdown-item');
+                items.forEach((item, index) => {
+                    item.classList.toggle('highlighted', index === this.highlightedIndex);
+                });
+            }
+
+            selectOption(value, label) {
+                this.selectedValue = value;
+                this.input.value = label;
+                this.hideDropdown();
+                if (this.onSelect) {
+                    this.onSelect(value, label);
+                }
+            }
+
+            showDropdown() {
+                this.dropdown.classList.add('show');
+                if (this.dropdown.children.length === 0) {
+                    this.renderOptions(this.options);
+                }
+            }
+
+            hideDropdown() {
+                this.dropdown.classList.remove('show');
+            }
+
+            updateOptions(newOptions) {
+                this.options = newOptions;
+            }
+
+            setValue(value) {
+                this.selectedValue = value;
+                const option = this.options.find(opt => opt.value === value);
+                if (option) {
+                    this.input.value = option.label;
+                }
+            }
+
+            getValue() {
+                return this.selectedValue;
+            }
+        }
+
         // 根据code number获取产品名称
         async function getProductByCode(codeNumber) {
             try {
@@ -989,16 +1374,14 @@
             return '';
         }
 
-        // 生成code number下拉选项
-        function generateCodeNumberOptions(selectedValue = '') {
-            if (!window.codeNumberOptions) return '<option value="">加载中...</option>';
+        // 生成code number搜索选项
+        function generateCodeNumberSearchOptions() {
+            if (!window.codeNumberOptions) return [];
             
-            let options = '<option value="">请选择编号</option>';
-            window.codeNumberOptions.forEach(item => {
-                const selected = item.code_number === selectedValue ? 'selected' : '';
-                options += `<option value="${item.code_number}" ${selected}>${item.code_number}</option>`;
-            });
-            return options;
+            return window.codeNumberOptions.map(item => ({
+                value: item.code_number,
+                label: `${item.code_number} - ${item.product_name}`
+            }));
         }
 
         // 处理code number变化
@@ -1096,17 +1479,13 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) input'))">
-                                ${generateCodeNumberOptions(record.code_number)}
-                            </select>` :
+                            `<div class="searchable-select" id="edit-code-${record.id}"></div>` :
                             `<span>${record.code_number || '-'}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'product_name', this.value); handleProductChange(this, this.closest('tr').querySelector('td:nth-child(2) select'))">
-                                ${generateProductOptions(record.product_name)}
-                            </select>` :
+                            `<div class="searchable-select" id="edit-product-${record.id}"></div>` :
                             `<span>${record.product_name}</span>`
                         }
                     </td>
@@ -1175,6 +1554,55 @@
                 `;
                 
                 tbody.appendChild(row);
+
+                // 初始化搜索框
+                if (isEditing) {
+                    // 初始化 code number 搜索框
+                    setTimeout(() => {
+                        const codeSearchBox = new SearchableSelect(
+                            `edit-code-${record.id}`,
+                            generateCodeNumberSearchOptions(),
+                            async (value, label) => {
+                                updateField(record.id, 'code_number', value);
+                                // 自动填充产品名称
+                                const productName = await getProductByCode(value);
+                                if (productName) {
+                                    updateField(record.id, 'product_name', productName);
+                                    const productSearchBox = document.getElementById(`edit-product-${record.id}`);
+                                    if (productSearchBox && productSearchBox.searchInstance) {
+                                        productSearchBox.searchInstance.setValue(productName);
+                                    }
+                                }
+                            },
+                            '搜索编号...'
+                        );
+                        codeSearchBox.setValue(record.code_number);
+                        
+                        // 初始化产品名称搜索框
+                        const productSearchBox = new SearchableSelect(
+                            `edit-product-${record.id}`,
+                            generateProductSearchOptions(),
+                            async (value, label) => {
+                                updateField(record.id, 'product_name', value);
+                                // 自动填充编号
+                                const productCode = await getCodeByProduct(value);
+                                if (productCode) {
+                                    updateField(record.id, 'code_number', productCode);
+                                    const codeSearchBoxEl = document.getElementById(`edit-code-${record.id}`);
+                                    if (codeSearchBoxEl && codeSearchBoxEl.searchInstance) {
+                                        codeSearchBoxEl.searchInstance.setValue(productCode);
+                                    }
+                                }
+                            },
+                            '搜索产品...'
+                        );
+                        productSearchBox.setValue(record.product_name);
+                        
+                        // 保存实例引用
+                        document.getElementById(`edit-code-${record.id}`).searchInstance = codeSearchBox;
+                        document.getElementById(`edit-product-${record.id}`).searchInstance = productSearchBox;
+                    }, 0);
+                }
             });
         }
 
@@ -1230,16 +1658,8 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
-                <td>
-                    <select class="table-select" id="new-code-number" onchange="handleCodeNumberChange(this, document.getElementById('new-product-name'))">
-                        ${generateCodeNumberOptions()}
-                    </select>
-                </td>
-                <td>
-                    <select class="table-select" id="new-product-name" onchange="handleProductChange(this, document.getElementById('new-code-number'))">
-                        ${generateProductOptions()}
-                    </select>
-                </td>
+                <td><div class="searchable-select" id="new-code-number"></div></td>
+                <td><div class="searchable-select" id="new-product-name"></div></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
                 <td>
@@ -1277,6 +1697,36 @@
             ['new-in-qty', 'new-out-qty', 'new-price'].forEach(id => {
                 document.getElementById(id).addEventListener('input', updateNewRowTotal);
             });
+
+            // 初始化搜索框
+            setTimeout(() => {
+                const newCodeSearchBox = new SearchableSelect(
+                    'new-code-number',
+                    generateCodeNumberSearchOptions(),
+                    async (value, label) => {
+                        const productName = await getProductByCode(value);
+                        if (productName && newProductSearchBox) {
+                            newProductSearchBox.setValue(productName);
+                        }
+                    },
+                    '搜索编号...'
+                );
+                
+                const newProductSearchBox = new SearchableSelect(
+                    'new-product-name',
+                    generateProductSearchOptions(),
+                    async (value, label) => {
+                        const productCode = await getCodeByProduct(value);
+                        if (productCode && newCodeSearchBox) {
+                            newCodeSearchBox.setValue(productCode);
+                        }
+                    },
+                    '搜索产品...'
+                );
+                
+                window.newCodeSearchBox = newCodeSearchBox;
+                window.newProductSearchBox = newProductSearchBox;
+            }, 0);
         }
 
         // 更新新行的总价计算
@@ -1299,13 +1749,13 @@
                 date: document.getElementById('new-date').value,
                 time: new Date().toTimeString().slice(0, 5),
                 product_code: document.getElementById('new-product-name').value, // 临时使用产品名称作为编号
-                product_name: document.getElementById('new-product-name').value,
+                product_name: window.newProductSearchBox ? window.newProductSearchBox.getValue() : '',
                 in_quantity: parseFloat(document.getElementById('new-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
                 specification: document.getElementById('new-specification').value,
                 price: parseFloat(document.getElementById('new-price').value) || 0,
                 receiver: document.getElementById('new-receiver').value,
-                code_number: document.getElementById('new-code-number').value,
+                code_number: window.newCodeSearchBox ? window.newCodeSearchBox.getValue() : '',
                 remark: document.getElementById('new-remark').value
             };
 
@@ -1355,14 +1805,14 @@
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
                 product_code: document.getElementById('add-product-code').value,
-                product_name: document.getElementById('add-product-name').value,
+                product_name: window.formProductSearchBox ? window.formProductSearchBox.getValue() : '',
                 in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
                 receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
-                code_number: document.getElementById('add-code-number').value,
+                code_number: window.formCodeSearchBox ? window.formCodeSearchBox.getValue() : '',
                 remark: document.getElementById('add-remark').value
             };
 
@@ -1435,25 +1885,37 @@
 
         // 切换新增表单显示状态
         function toggleAddForm() {
-            const form = document.getElementById('add-form');
-            const isVisible = form.classList.contains('show');
-            
-            if (isVisible) {
-                form.classList.remove('show');
-            } else {
-                form.classList.add('show');
-                // 加载code number选项
-                if (window.codeNumberOptions && window.codeNumberOptions.length > 0) {
-                    const selectElement = document.getElementById('add-code-number');
-                    selectElement.innerHTML = generateCodeNumberOptions();
+            // 初始化表单搜索框
+                if (window.codeNumberOptions && window.productOptions) {
+                    setTimeout(() => {
+                        const formCodeSearchBox = new FormSearchableSelect(
+                            'add-code-number',
+                            generateCodeNumberSearchOptions(),
+                            async (value, label) => {
+                                const productName = await getProductByCode(value);
+                                if (productName && window.formProductSearchBox) {
+                                    window.formProductSearchBox.setValue(productName);
+                                }
+                            },
+                            '搜索编号...'
+                        );
+                        
+                        const formProductSearchBox = new FormSearchableSelect(
+                            'add-product-name',
+                            generateProductSearchOptions(),
+                            async (value, label) => {
+                                const productCode = await getCodeByProduct(value);
+                                if (productCode && window.formCodeSearchBox) {
+                                    window.formCodeSearchBox.setValue(productCode);
+                                }
+                            },
+                            '搜索产品...'
+                        );
+                        
+                        window.formCodeSearchBox = formCodeSearchBox;
+                        window.formProductSearchBox = formProductSearchBox;
+                    }, 0);
                 }
-
-                // 加载产品选项
-                if (window.productOptions && window.productOptions.length > 0) {
-                    const productSelectElement = document.getElementById('add-product-name');
-                    productSelectElement.innerHTML = generateProductOptions();
-                }
-            }
         }
 
         // 保存记录
