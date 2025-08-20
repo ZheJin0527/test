@@ -274,6 +274,19 @@
             text-align: right;
             padding-left: 32px;
             padding-right: 8px;
+            position: relative;
+        }
+
+        /* 为显示模式的货币值添加RM前缀 */
+        .stock-table td span[style*="padding-left: 32px"]::before {
+            content: "RM";
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         /* 日期单元格内的文本对齐 */
@@ -310,6 +323,8 @@
         .currency-prefix {
             position: absolute;
             left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
             color: #6b7280;
             font-size: 13px;
             font-weight: 500;
@@ -812,6 +827,18 @@
         .table-scroll-container {
             overflow-x: auto;
             overflow-y: visible;
+        }
+
+        .currency-display {
+            display: block;
+            width: 100%;
+            height: 40px;
+            line-height: 24px;
+            padding: 8px 32px 8px 4px;
+            box-sizing: border-box;
+            text-align: right;
+            font-size: 14px;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -1328,15 +1355,23 @@
                         }
                     </td>
                     <td>
+                        ${isEditing ? 
+                            `<div class="input-container">
+                                <span class="currency-prefix">RM</span>
+                                <input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">
+                            </div>` :
+                            `<div class="input-container">
+                                <span class="currency-prefix">RM</span>
+                                <span class="currency-display">${formatCurrency(record.price)}</span>
+                            </div>`
+                        }
+                    </td>
+                    <td class="calculated-cell ${total < 0 ? 'negative-value' : ''}">
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
-                            ${isEditing ? 
-                                `<input type="number" class="table-input currency-input" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">` :
-                                `<span style="padding-left: 32px; text-align: right; display: block;">${formatCurrency(record.price)}</span>`
-                            }
+                            <span style="padding-left: 32px; text-align: right; display: block;">${formatCurrency(total)}</span>
                         </div>
                     </td>
-                    <td class="calculated-cell ${total < 0 ? 'negative-value' : ''}">RM ${formatCurrency(total)}</td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
