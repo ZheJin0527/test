@@ -711,23 +711,14 @@
             font-weight: 600;
         }
 
-        /* 负数括号样式 */
-.negative-parentheses::before {
-    content: "(";
-}
+        /* 负数括号样式 - 只对数字部分添加括号 */
+        .negative-value.negative-parentheses .currency-amount::before {
+            content: "(";
+        }
 
-.negative-parentheses::after {
-    content: ")";
-}
-
-/* 确保负数的货币显示也有括号 */
-.negative-value.negative-parentheses .currency-amount::before {
-    content: "(";
-}
-
-.negative-value.negative-parentheses .currency-amount::after {
-    content: ")";
-}
+        .negative-value.negative-parentheses .currency-amount::after {
+            content: ")";
+        }
 
         /* 确保负数的货币显示也是红色 */
         .negative-value .currency-symbol,
