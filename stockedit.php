@@ -1600,8 +1600,11 @@
             const record = stockData.find(r => r.id === id);
             if (record) {
                 record[field] = value;
-                // 重新渲染该行以更新计算值
-                renderStockTable();
+                
+                // 只有在数值字段变化时才重新渲染（更新计算值）
+                if (field === 'in_quantity' || field === 'out_quantity' || field === 'price') {
+                    renderStockTable();
+                }
             }
         }
 
@@ -1910,11 +1913,15 @@
                 
                 showComboboxDropdown(input);
                 
-                // 如果是编辑模式，触发字段更新
+                // 如果是编辑模式，只更新数据，不重新渲染表格
                 const recordId = input.dataset.recordId;
                 const fieldName = input.dataset.field;
                 if (recordId && fieldName) {
-                    updateField(parseInt(recordId), fieldName, input.value);
+                    const record = stockData.find(r => r.id === parseInt(recordId));
+                    if (record) {
+                        record[fieldName] = input.value;
+                        // 不调用 updateField 避免重新渲染
+                    }
                 }
             }, 100); // 100ms 防抖延迟
         }
@@ -1970,6 +1977,14 @@
             // 如果是编辑模式，更新字段
             if (recordId) {
                 updateField(parseInt(recordId), input.dataset.field, value);
+            }
+
+            // 如果是编辑模式，确保数据已更新
+            if (recordId) {
+                const record = stockData.find(r => r.id === parseInt(recordId));
+                if (record) {
+                    record[input.dataset.field] = value;
+                }
             }
         }
 
@@ -2039,35 +2054,52 @@
 
         // 修改渲染后的事件绑定
         function bindComboboxEvents() {
-            // 为所有 combobox 输入框绑定事件
-            document.querySelectorAll('.combobox-input').forEach(input => {
-                // 只有在没有绑定过的情况下才绑定事件
-                if (!input._eventsbound) {
-                    // 创建事件处理器
-                    const focusHandler = () => showComboboxDropdown(input);
-                    const inputHandler = () => filterComboboxOptions(input);
-                    const keydownHandler = (e) => {
-                        // 限制只能输入英文和数字
-                        const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
-                        const isAlphaNumeric = /^[a-zA-Z0-9]$/.test(e.key);
-                        
-                        if (!allowedKeys.includes(e.key) && !isAlphaNumeric) {
-                            e.preventDefault();
-                            return;
+        // 为所有 combobox 输入框绑定事件
+        document.querySelectorAll('.combobox-input').forEach(input => {
+            // 只有在没有绑定过的情况下才绑定事件
+            if (!input._eventsbound) {
+                // 创建事件处理器
+                const focusHandler = () => showComboboxDropdown(input);
+                const inputHandler = () => filterComboboxOptions(input);
+                const keydownHandler = (e) => {
+                    // 限制只能输入英文和数字
+                    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+                    const isAlphaNumeric = /^[a-zA-Z0-9]$/.test(e.key);
+                    
+                    if (!allowedKeys.includes(e.key) && !isAlphaNumeric) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    handleComboboxKeydown(e, input);
+                };
+                
+                // 添加 blur 事件处理器，确保编辑模式下数据被保存
+                const blurHandler = () => {
+                    const recordId = input.dataset.recordId;
+                    const fieldName = input.dataset.field;
+                    if (recordId && fieldName) {
+                        const record = stockData.find(r => r.id === parseInt(recordId));
+                        if (record && record[fieldName] !== input.value) {
+                            record[fieldName] = input.value;
+                            // 如果是数值相关字段，需要重新计算
+                            if (fieldName === 'in_quantity' || fieldName === 'out_quantity' || fieldName === 'price') {
+                                renderStockTable();
+                            }
                         }
-                        
-                        handleComboboxKeydown(e, input);
-                    };
-                    
-                    // 绑定事件监听器
-                    input.addEventListener('focus', focusHandler);
-                    input.addEventListener('input', inputHandler);
-                    input.addEventListener('keydown', keydownHandler);
-                    
-                    // 标记已绑定
-                    input._eventsbound = true;
-                }
-            });
+                    }
+                };
+                
+                // 绑定事件监听器
+                input.addEventListener('focus', focusHandler);
+                input.addEventListener('input', inputHandler);
+                input.addEventListener('keydown', keydownHandler);
+                input.addEventListener('blur', blurHandler); // 这是新添加的一行
+                
+                // 标记已绑定
+                input._eventsbound = true;
+            }
+        });
             
             // 为所有 combobox 选项绑定点击事件
             document.querySelectorAll('.combobox-option').forEach(option => {
