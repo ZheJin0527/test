@@ -1356,27 +1356,26 @@
 
         // 添加新行到表格
         function addNewRow() {
-            // 移除限制检查，允许多个新增行
+            if (document.querySelector('.new-row')) {
+                showAlert('请先完成新记录的添加', 'info');
+                return;
+            }
             
             const tbody = document.getElementById('stock-tbody');
             const row = document.createElement('tr');
-            
-            // 为每个新增行生成唯一ID
-            const newRowId = 'new-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
             row.className = 'new-row';
-            row.id = newRowId;
             
             const now = new Date();
             const today = now.toISOString().split('T')[0];
             
             row.innerHTML = `
-                <td><input type="date" class="table-input" value="${today}" id="${newRowId}-date"></td>
-                <td>${createCombobox('code', '', null, newRowId)}</td>
-                <td>${createCombobox('product', '', null, newRowId)}</td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${newRowId}-in-qty" oninput="updateNewRowTotal('${newRowId}')"></td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${newRowId}-out-qty" oninput="updateNewRowTotal('${newRowId}')"></td>
+                <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
+                <td>${createCombobox('code', '', null, true)}</td>
+                <td>${createCombobox('product', '', null, true)}</td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty" oninput="updateNewRowTotal()"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty" oninput="updateNewRowTotal()"></td>
                 <td>
-                    <select class="table-select" id="${newRowId}-specification">
+                    <select class="table-select" id="new-specification">
                         <option value="">请选择规格</option>
                         ${specifications.map(spec => `<option value="${spec}">${spec}</option>`).join('')}
                     </select>
@@ -1384,17 +1383,17 @@
                 <td>
                     <div class="input-container">
                         <span class="currency-prefix">RM</span>
-                        <input type="number" class="table-input currency-input" min="0" step="0.01" placeholder="0.00" id="${newRowId}-price" oninput="updateNewRowTotal('${newRowId}')">
+                        <input type="number" class="table-input currency-input" min="0" step="0.01" placeholder="0.00" id="new-price" oninput="updateNewRowTotal()">
                     </div>
                 </td>
                 <td class="calculated-cell">RM 0.00</td>
-                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${newRowId}-receiver"></td>
-                <td><input type="text" class="table-input" placeholder="输入备注..." id="${newRowId}-remark"></td>
+                <td><input type="text" class="table-input" placeholder="输入收货人..." id="new-receiver"></td>
+                <td><input type="text" class="table-input" placeholder="输入备注..." id="new-remark"></td>
                 <td class="action-cell">
-                    <button class="action-btn save-new-btn" onclick="saveNewRowRecord('${newRowId}')" title="保存">
+                    <button class="action-btn save-new-btn" onclick="saveNewRowRecord()" title="保存">
                         <i class="fas fa-save"></i>
                     </button>
-                    <button class="action-btn cancel-new-btn" onclick="cancelNewRow('${newRowId}')" title="取消">
+                    <button class="action-btn cancel-new-btn" onclick="cancelNewRow()" title="取消">
                         <i class="fas fa-times"></i>
                     </button>
                 </td>
@@ -1408,7 +1407,7 @@
                 bindComboboxEvents();
                 
                 // 自动聚焦到产品名称输入框
-                const productInput = document.getElementById(`${newRowId}-product_name-input`);
+                const productInput = document.getElementById('new-product_name-input');
                 if (productInput) {
                     productInput.focus();
                 }
@@ -1416,49 +1415,35 @@
         }
 
         // 更新新行的总价计算
-        function updateNewRowTotal(rowId = null) {
-            let targetRow;
-            if (rowId) {
-                targetRow = document.getElementById(rowId);
-            } else {
-                // 兼容旧的调用方式
-                targetRow = document.querySelector('.new-row');
-            }
-            
-            if (!targetRow) return;
-            
-            const inQty = parseFloat(targetRow.querySelector(`#${rowId || 'new'}-in-qty`).value) || 0;
-            const outQty = parseFloat(targetRow.querySelector(`#${rowId || 'new'}-out-qty`).value) || 0;
-            const price = parseFloat(targetRow.querySelector(`#${rowId || 'new'}-price`).value) || 0;
+        function updateNewRowTotal() {
+            const inQty = parseFloat(document.getElementById('new-in-qty').value) || 0;
+            const outQty = parseFloat(document.getElementById('new-out-qty').value) || 0;
+            const price = parseFloat(document.getElementById('new-price').value) || 0;
             const netQty = inQty - outQty;
             const total = netQty * price;
             
-            const totalCell = targetRow.querySelector('.calculated-cell');
+            const totalCell = document.querySelector('.new-row .calculated-cell');
             if (totalCell) {
                 totalCell.textContent = `RM ${formatCurrency(total)}`;
             }
         }
 
         // 保存新行记录
-        async function saveNewRowRecord(rowId = null) {
-            const targetRow = rowId ? document.getElementById(rowId) : document.querySelector('.new-row');
-            if (!targetRow) return;
-            
-            const prefix = rowId || 'new';
-            const codeInput = document.getElementById(`${prefix}-code_number-input`);
-            const productInput = document.getElementById(`${prefix}-product_name-input`);
+        async function saveNewRowRecord() {
+            const codeInput = document.getElementById('new-code_number-input');
+            const productInput = document.getElementById('new-product_name-input');
             
             const formData = {
-                date: targetRow.querySelector(`#${prefix}-date`).value,
+                date: document.getElementById('new-date').value,
                 time: new Date().toTimeString().slice(0, 5),
                 product_name: productInput ? productInput.value : '',
-                in_quantity: parseFloat(targetRow.querySelector(`#${prefix}-in-qty`).value) || 0,
-                out_quantity: parseFloat(targetRow.querySelector(`#${prefix}-out-qty`).value) || 0,
-                specification: targetRow.querySelector(`#${prefix}-specification`).value,
-                price: parseFloat(targetRow.querySelector(`#${prefix}-price`).value) || 0,
-                receiver: targetRow.querySelector(`#${prefix}-receiver`).value,
+                in_quantity: parseFloat(document.getElementById('new-in-qty').value) || 0,
+                out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
+                specification: document.getElementById('new-specification').value,
+                price: parseFloat(document.getElementById('new-price').value) || 0,
+                receiver: document.getElementById('new-receiver').value,
                 code_number: codeInput ? codeInput.value : '',
-                remark: targetRow.querySelector(`#${prefix}-remark`).value
+                remark: document.getElementById('new-remark').value
             };
 
             // 验证必填字段
@@ -1475,7 +1460,7 @@
 
                 if (result.success) {
                     showAlert('记录添加成功', 'success');
-                    cancelNewRow(rowId);
+                    cancelNewRow();
                     loadStockData();
                 } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
@@ -1486,10 +1471,10 @@
         }
 
         // 取消新行
-        function cancelNewRow(rowId = null) {
-            const targetRow = rowId ? document.getElementById(rowId) : document.querySelector('.new-row');
-            if (targetRow) {
-                targetRow.remove();
+        function cancelNewRow() {
+            const newRow = document.querySelector('.new-row');
+            if (newRow) {
+                newRow.remove();
             }
         }
 
@@ -1803,7 +1788,6 @@
             const containerId = isNewRow ? `new-${fieldName}` : `combo-${fieldName}-${recordId}`;
             const inputId = `${containerId}-input`;
             const dropdownId = `${containerId}-dropdown`;
-            const containerId = isNewRow ? `${isNewRow}-${fieldName}` : `combo-${fieldName}-${recordId}`;
             
             return `
                 <div class="combobox-container" id="${containerId}">
