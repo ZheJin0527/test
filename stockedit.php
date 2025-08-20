@@ -212,7 +212,7 @@
         /* 表格样式 */
         .table-container {
             background: white;
-            border-radius: 12px;
+            border-radius: 4px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             overflow: hidden;
             border: 2px solid #583e04;
