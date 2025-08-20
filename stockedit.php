@@ -1331,6 +1331,15 @@
 
         // 渲染库存表格
         function renderStockTable() {
+            // 保存所有新增行的数据和位置
+            const existingNewRows = [];
+            document.querySelectorAll('.new-row').forEach(row => {
+                existingNewRows.push({
+                    html: row.outerHTML,
+                    position: Array.from(row.parentNode.children).indexOf(row)
+                });
+            });
+
             const tbody = document.getElementById('stock-tbody');
             tbody.innerHTML = '';
             
@@ -1437,6 +1446,19 @@
                 `;
                 
                 tbody.appendChild(row);
+            });
+
+            existingNewRows.forEach(rowData => {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = rowData.html;
+                const newRow = tempDiv.firstChild;
+                
+                if (rowData.position === 0) {
+                    tbody.insertBefore(newRow, tbody.firstChild);
+                } else {
+                    const referenceNode = tbody.children[rowData.position] || null;
+                    tbody.insertBefore(newRow, referenceNode);
+                }
             });
 
             setTimeout(bindComboboxEvents, 0);
@@ -1617,15 +1639,32 @@
 
                 if (result.success) {
                     showAlert('记录添加成功', 'success');
-                    row.remove(); // 移除新增行
                     
-                    // 将返回的新记录添加到stockData数组开头
-                    if (result.data) {
-                        stockData.unshift(result.data);
-                    }
+                    // 创建新记录对象
+                    const newRecord = {
+                        id: result.data.id, // 假设API返回新记录的ID
+                        date: formData.date,
+                        time: formData.time,
+                        product_name: formData.product_name,
+                        in_quantity: formData.in_quantity,
+                        out_quantity: formData.out_quantity,
+                        specification: formData.specification,
+                        price: formData.price,
+                        receiver: formData.receiver,
+                        code_number: formData.code_number,
+                        remark: formData.remark
+                    };
                     
-                    // 重新渲染表格以显示新数据
+                    // 将新记录添加到stockData数组的开头
+                    stockData.unshift(newRecord);
+                    
+                    // 移除新增行
+                    row.remove();
+                    
+                    // 重新渲染表格以显示新记录
                     renderStockTable();
+                    
+                    // 更新统计信息
                     updateStats();
                 } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
@@ -1700,15 +1739,33 @@
 
                 if (result.success) {
                     showAlert('记录添加成功', 'success');
+                    
+                    // 创建新记录对象
+                    const newRecord = {
+                        id: result.data.id, // 假设API返回新记录的ID
+                        date: formData.date,
+                        time: formData.time,
+                        product_name: formData.product_name,
+                        in_quantity: formData.in_quantity,
+                        out_quantity: formData.out_quantity,
+                        specification: formData.specification,
+                        price: formData.price,
+                        receiver: formData.receiver,
+                        applicant: formData.applicant,
+                        code_number: formData.code_number,
+                        remark: formData.remark
+                    };
+                    
+                    // 将新记录添加到stockData数组的开头
+                    stockData.unshift(newRecord);
+                    
+                    // 关闭表单
                     toggleAddForm();
                     
-                    // 将返回的新记录添加到stockData数组开头
-                    if (result.data) {
-                        stockData.unshift(result.data);
-                    }
-                    
-                    // 重新渲染表格以显示新数据
+                    // 重新渲染表格以显示新记录
                     renderStockTable();
+                    
+                    // 更新统计信息
                     updateStats();
                 } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
