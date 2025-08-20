@@ -1617,11 +1617,16 @@
 
                 if (result.success) {
                     showAlert('记录添加成功', 'success');
-                    row.remove(); // 只移除当前行
+                    row.remove(); // 移除新增行
                     
-                    // 只更新统计信息，不重新加载数据
-                    const currentRecordCount = parseInt(document.getElementById('total-records').textContent);
-                    document.getElementById('total-records').textContent = currentRecordCount + 1;
+                    // 将返回的新记录添加到stockData数组开头
+                    if (result.data) {
+                        stockData.unshift(result.data);
+                    }
+                    
+                    // 重新渲染表格以显示新数据
+                    renderStockTable();
+                    updateStats();
                 } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
                 }
@@ -1697,9 +1702,14 @@
                     showAlert('记录添加成功', 'success');
                     toggleAddForm();
                     
-                    // 只更新统计信息，不重新加载数据
-                    const currentRecordCount = parseInt(document.getElementById('total-records').textContent);
-                    document.getElementById('total-records').textContent = currentRecordCount + 1;
+                    // 将返回的新记录添加到stockData数组开头
+                    if (result.data) {
+                        stockData.unshift(result.data);
+                    }
+                    
+                    // 重新渲染表格以显示新数据
+                    renderStockTable();
+                    updateStats();
                 } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
                 }
