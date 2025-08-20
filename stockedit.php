@@ -242,12 +242,11 @@
         }
 
         .stock-table td {
-    padding: 0;
-    border: 1px solid #d1d5db;
-    text-align: center;
-    position: relative;
-    overflow: visible; /* 添加这行 */
-}
+            padding: 0;
+            border: 1px solid #d1d5db;
+            text-align: center;
+            position: relative;
+        }
 
         .stock-table tr:nth-child(even) {
             background-color: #f9fafb;
@@ -634,75 +633,6 @@
         .cancel-new-btn {
             background: #ef4444 !important;
         }
-
-        /* 下拉框容器样式 */
-.dropdown-container {
-    position: relative;
-    width: 100%;
-    height: 40px;
-}
-
-/* 下拉框样式 - 显示在格子下方 */
-.table-select.dropdown-below {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: white;
-    border: 2px solid #583e04;
-    border-radius: 4px;
-    max-height: 200px;
-    overflow-y: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    display: none;
-}
-
-/* 显示状态 */
-.table-select.dropdown-below.show {
-    display: block;
-}
-
-/* 下拉选项样式 */
-.table-select.dropdown-below option {
-    padding: 8px 12px;
-    cursor: pointer;
-    background: white;
-}
-
-.table-select.dropdown-below option:hover {
-    background: #f3f4f6;
-}
-
-/* 当前选中值显示 */
-.dropdown-display {
-    width: 100%;
-    height: 40px;
-    border: none;
-    background: transparent;
-    text-align: center;
-    font-size: 14px;
-    padding: 8px 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dropdown-display:focus {
-    background: #fff;
-    border: 2px solid #583e04;
-    outline: none;
-}
-
-/* 确保表格单元格允许溢出 */
-.stock-table td {
-    padding: 0;
-    border: 1px solid #d1d5db;
-    text-align: center;
-    position: relative;
-    overflow: visible; /* 修改这行 */
-}
     </style>
 </head>
 <body>
@@ -1020,52 +950,6 @@
             return options;
         }
 
-        // 创建自定义下拉框
-function createCustomDropdown(options, selectedValue, onChangeCallback, placeholder = '请选择') {
-    const container = document.createElement('div');
-    container.className = 'dropdown-container';
-    
-    const display = document.createElement('div');
-    display.className = 'dropdown-display';
-    display.textContent = selectedValue || placeholder;
-    
-    const select = document.createElement('select');
-    select.className = 'table-select dropdown-below';
-    select.innerHTML = options;
-    select.value = selectedValue;
-    
-    container.appendChild(display);
-    container.appendChild(select);
-    
-    // 点击显示/隐藏下拉框
-    display.addEventListener('click', function(e) {
-        e.stopPropagation();
-        // 关闭其他下拉框
-        document.querySelectorAll('.dropdown-below.show').forEach(dropdown => {
-            if (dropdown !== select) {
-                dropdown.classList.remove('show');
-            }
-        });
-        select.classList.toggle('show');
-    });
-    
-    // 选择选项
-    select.addEventListener('change', function() {
-        display.textContent = this.options[this.selectedIndex].text;
-        this.classList.remove('show');
-        if (onChangeCallback) {
-            onChangeCallback(this);
-        }
-    });
-    
-    // 点击其他地方关闭下拉框
-    document.addEventListener('click', function() {
-        select.classList.remove('show');
-    });
-    
-    return container;
-}
-
         // 处理产品名称变化
         async function handleProductChange(selectElement, codeNumberElement) {
             const productName = selectElement.value;
@@ -1211,27 +1095,21 @@ function createCustomDropdown(options, selectedValue, onChangeCallback, placehol
                 row.innerHTML = `
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
-    ${isEditing ? 
-        `<div class="dropdown-container">
-            <div class="dropdown-display" onclick="toggleCustomDropdown(this)">${record.code_number || '请选择编号'}</div>
-            <select class="table-select dropdown-below" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) .dropdown-display')); updateDropdownDisplay(this);">
-                ${generateCodeNumberOptions(record.code_number)}
-            </select>
-        </div>` :
-        `<span>${record.code_number || '-'}</span>`
-    }
-</td>
-<td>
-    ${isEditing ? 
-        `<div class="dropdown-container">
-            <div class="dropdown-display" onclick="toggleCustomDropdown(this)">${record.product_name || '请选择产品'}</div>
-            <select class="table-select dropdown-below" data-record-id="${record.id}" onchange="updateField(${record.id}, 'product_name', this.value); handleProductChange(this, this.closest('tr').querySelector('td:nth-child(2) .dropdown-display')); updateDropdownDisplay(this);">
-                ${generateProductOptions(record.product_name)}
-            </select>
-        </div>` :
-        `<span>${record.product_name}</span>`
-    }
-</td>
+                        ${isEditing ? 
+                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) input'))">
+                                ${generateCodeNumberOptions(record.code_number)}
+                            </select>` :
+                            `<span>${record.code_number || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'product_name', this.value); handleProductChange(this, this.closest('tr').querySelector('td:nth-child(2) select'))">
+                                ${generateProductOptions(record.product_name)}
+                            </select>` :
+                            `<span>${record.product_name}</span>`
+                        }
+                    </td>
                     <td>
                         ${isEditing ? 
                             `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
@@ -1414,37 +1292,6 @@ function createCustomDropdown(options, selectedValue, onChangeCallback, placehol
                 totalCell.textContent = `RM ${formatCurrency(total)}`;
             }
         }
-
-        // 切换自定义下拉框
-function toggleCustomDropdown(displayElement) {
-    const container = displayElement.parentNode;
-    const select = container.querySelector('.dropdown-below');
-    
-    // 关闭其他下拉框
-    document.querySelectorAll('.dropdown-below.show').forEach(dropdown => {
-        if (dropdown !== select) {
-            dropdown.classList.remove('show');
-        }
-    });
-    
-    select.classList.toggle('show');
-    event.stopPropagation();
-}
-
-// 更新下拉框显示值
-function updateDropdownDisplay(selectElement) {
-    const display = selectElement.parentNode.querySelector('.dropdown-display');
-    const selectedOption = selectElement.options[selectElement.selectedIndex];
-    display.textContent = selectedOption.text;
-    selectElement.classList.remove('show');
-}
-
-// 全局点击事件关闭下拉框
-document.addEventListener('click', function() {
-    document.querySelectorAll('.dropdown-below.show').forEach(dropdown => {
-        dropdown.classList.remove('show');
-    });
-});
 
         // 保存新行记录
         async function saveNewRowRecord() {
