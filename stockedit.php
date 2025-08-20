@@ -1617,8 +1617,11 @@
 
                 if (result.success) {
                     showAlert('记录添加成功', 'success');
-                    row.remove(); // 只移除当前行，不是所有新增行
-                    loadStockData();
+                    row.remove(); // 只移除当前行
+                    
+                    // 只更新统计信息，不重新加载数据
+                    const currentRecordCount = parseInt(document.getElementById('total-records').textContent);
+                    document.getElementById('total-records').textContent = currentRecordCount + 1;
                 } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
                 }
@@ -1693,7 +1696,10 @@
                 if (result.success) {
                     showAlert('记录添加成功', 'success');
                     toggleAddForm();
-                    loadStockData();
+                    
+                    // 只更新统计信息，不重新加载数据
+                    const currentRecordCount = parseInt(document.getElementById('total-records').textContent);
+                    document.getElementById('total-records').textContent = currentRecordCount + 1;
                 } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
                 }
@@ -1916,6 +1922,26 @@
         // 刷新数据
         function refreshData() {
             loadStockData();
+        }
+
+        // 刷新数据但保留新增行
+        function refreshDataKeepNewRows() {
+            // 保存所有新增行
+            const newRows = Array.from(document.querySelectorAll('.new-row')).map(row => ({
+                element: row.cloneNode(true),
+                parent: row.parentNode
+            }));
+            
+            // 重新加载数据
+            loadStockData().then(() => {
+                // 恢复新增行
+                newRows.forEach(({element, parent}) => {
+                    parent.insertBefore(element, parent.firstChild);
+                });
+                
+                // 重新绑定事件
+                setTimeout(bindComboboxEvents, 0);
+            });
         }
 
         // 导出数据
