@@ -953,23 +953,32 @@
         // 处理产品名称变化
         async function handleProductChange(selectElement, codeNumberElement) {
             const productName = selectElement.value;
-            if (productName && codeNumberElement) {
+            if (productName) {
                 const productCode = await getCodeByProduct(productName);
                 if (productCode) {
-                    if (codeNumberElement.tagName === 'SELECT') {
-                        // 如果是下拉框，设置对应的值
-                        codeNumberElement.value = productCode;
-                    } else if (codeNumberElement.tagName === 'INPUT') {
-                        codeNumberElement.value = productCode;
-                    } else {
-                        codeNumberElement.textContent = productCode;
+                    // 如果没有传入codeNumberElement，自动查找
+                    if (!codeNumberElement) {
+                        const row = selectElement.closest('tr');
+                        codeNumberElement = row.querySelector('td:nth-child(2) select') || row.querySelector('td:nth-child(2) input');
                     }
+                    
+                    if (codeNumberElement) {
+                        if (codeNumberElement.tagName === 'SELECT') {
+                            // 如果是下拉框，设置对应的值
+                            codeNumberElement.value = productCode;
+                        } else if (codeNumberElement.tagName === 'INPUT') {
+                            codeNumberElement.value = productCode;
+                        } else {
+                            codeNumberElement.textContent = productCode;
+                        }
+                    }
+                    
                     // 如果是在编辑模式，更新数据
                     const row = selectElement.closest('tr');
                     if (row && !row.classList.contains('new-row')) {
                         const recordId = parseInt(selectElement.getAttribute('data-record-id'));
                         if (recordId) {
-                            updateField(recordId, 'product_code', productCode);
+                            updateField(recordId, 'code_number', productCode);
                         }
                     }
                 }
@@ -1004,16 +1013,25 @@
         // 处理code number变化
         async function handleCodeNumberChange(selectElement, productNameElement) {
             const codeNumber = selectElement.value;
-            if (codeNumber && productNameElement) {
+            if (codeNumber) {
                 const productName = await getProductByCode(codeNumber);
                 if (productName) {
-                    if (productNameElement.tagName === 'INPUT') {
-                        productNameElement.value = productName;
-                    } else if (productNameElement.tagName === 'SELECT') {
-                        productNameElement.value = productName;
-                    } else {
-                        productNameElement.textContent = productName;
+                    // 如果没有传入productNameElement，自动查找
+                    if (!productNameElement) {
+                        const row = selectElement.closest('tr');
+                        productNameElement = row.querySelector('td:nth-child(3) select') || row.querySelector('td:nth-child(3) input');
                     }
+                    
+                    if (productNameElement) {
+                        if (productNameElement.tagName === 'INPUT') {
+                            productNameElement.value = productName;
+                        } else if (productNameElement.tagName === 'SELECT') {
+                            productNameElement.value = productName;
+                        } else {
+                            productNameElement.textContent = productName;
+                        }
+                    }
+                    
                     // 如果是在编辑模式，更新数据
                     const row = selectElement.closest('tr');
                     if (row && !row.classList.contains('new-row')) {
