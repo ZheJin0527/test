@@ -256,6 +256,48 @@
             background-color: #f3f4f6;
         }
 
+        /* 确保显示文本和编辑输入框对齐 */
+        .stock-table td span {
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            line-height: 24px;
+            padding: 8px 4px;
+            box-sizing: border-box;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* 货币显示的特殊样式 */
+        .stock-table td span[style*="padding-left: 32px"] {
+            text-align: right;
+            padding-left: 32px;
+            padding-right: 8px;
+        }
+
+        /* 日期单元格内的文本对齐 */
+        .date-cell {
+            background: #f8f5eb !important;
+            font-weight: 600;
+            color: #583e04;
+            padding: 12px 8px;
+            min-width: 100px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* 计算列内的文本对齐 */
+        .calculated-cell {
+            background: #f0f9ff !important;
+            color: #0369a1;
+            font-weight: 600;
+            padding: 12px 8px;
+            min-width: 100px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
         /* 输入框容器样式 */
         .input-container {
             position: relative;
@@ -285,6 +327,9 @@
             font-size: 14px;
             padding: 8px 4px;
             transition: all 0.2s;
+            box-sizing: border-box;
+            vertical-align: middle;
+            line-height: 24px; /* 保持行高一致 */
         }
 
         .table-input.currency-input {
@@ -311,6 +356,9 @@
             padding: 8px 4px;
             cursor: pointer;
             appearance: none;
+            box-sizing: border-box;
+            vertical-align: middle;
+            line-height: 24px; /* 保持行高一致 */
         }
 
         .table-select:focus {
@@ -651,6 +699,9 @@
             transition: all 0.2s;
             box-sizing: border-box;
             cursor: text;
+            ime-mode: disabled; /* 禁用输入法 */
+            vertical-align: middle;
+            line-height: 24px; /* 保持行高一致 */
         }
 
         .combobox-input:focus {
