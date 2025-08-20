@@ -633,83 +633,6 @@
         .cancel-new-btn {
             background: #ef4444 !important;
         }
-        
-        /* 可搜索下拉框样式 */
-        .searchable-select {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .searchable-select .search-input {
-            width: 100%;
-            height: 40px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px 8px 0 0;
-            padding: 8px 12px;
-            font-size: 14px;
-            background: white;
-            color: #583e04;
-        }
-
-        .searchable-select .search-input:focus {
-            outline: none;
-            border-color: #583e04;
-            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
-        }
-
-        .searchable-select .options-container {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #d1d5db;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-        }
-
-        .searchable-select .options-container.show {
-            display: block;
-        }
-
-        .searchable-select .option-item {
-            padding: 8px 12px;
-            cursor: pointer;
-            font-size: 14px;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .searchable-select .option-item:hover {
-            background-color: #f3f4f6;
-        }
-
-        .searchable-select .option-item.selected {
-            background-color: #583e04;
-            color: white;
-        }
-
-        .searchable-select .option-item:last-child {
-            border-bottom: none;
-        }
-
-        /* 表格内的可搜索下拉框调整 */
-        .table-searchable-select .search-input {
-            height: 40px;
-            border-radius: 4px 4px 0 0;
-            border: none;
-            background: transparent;
-            text-align: center;
-        }
-
-        .table-searchable-select .search-input:focus {
-            background: #fff;
-            border: 2px solid #583e04;
-        }
     </style>
 </head>
 <body>
@@ -1053,109 +976,6 @@
             }
         }
 
-        // 创建可搜索下拉框
-        function createSearchableSelect(containerId, options, placeholder, onSelect, selectedValue = '') {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-
-            container.innerHTML = `
-                <div class="searchable-select">
-                    <input type="text" class="search-input" placeholder="${placeholder}" value="${selectedValue}">
-                    <div class="options-container">
-                        ${options.map(option => 
-                            `<div class="option-item" data-value="${option.value}">${option.text}</div>`
-                        ).join('')}
-                    </div>
-                </div>
-            `;
-
-            const searchInput = container.querySelector('.search-input');
-            const optionsContainer = container.querySelector('.options-container');
-            const optionItems = container.querySelectorAll('.option-item');
-
-            // 搜索功能
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                optionItems.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    if (text.includes(searchTerm)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-
-            // 显示/隐藏选项
-            searchInput.addEventListener('focus', function() {
-                optionsContainer.classList.add('show');
-            });
-
-            // 点击选项
-            optionItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const value = this.dataset.value;
-                    const text = this.textContent;
-                    searchInput.value = text;
-                    optionsContainer.classList.remove('show');
-                    onSelect(value, text);
-                });
-            });
-
-            // 点击外部关闭
-            document.addEventListener('click', function(e) {
-                if (!container.contains(e.target)) {
-                    optionsContainer.classList.remove('show');
-                }
-            });
-        }
-
-        // 为表格单元格创建可搜索下拉框
-        function createTableSearchableSelect(cell, options, selectedValue, onSelect) {
-            cell.innerHTML = `
-                <div class="searchable-select table-searchable-select">
-                    <input type="text" class="search-input" value="${selectedValue}" placeholder="搜索...">
-                    <div class="options-container">
-                        ${options.map(option => 
-                            `<div class="option-item" data-value="${option.value}">${option.text}</div>`
-                        ).join('')}
-                    </div>
-                </div>
-            `;
-
-            const searchInput = cell.querySelector('.search-input');
-            const optionsContainer = cell.querySelector('.options-container');
-            const optionItems = cell.querySelectorAll('.option-item');
-
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                optionItems.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    item.style.display = text.includes(searchTerm) ? 'block' : 'none';
-                });
-            });
-
-            searchInput.addEventListener('focus', function() {
-                optionsContainer.classList.add('show');
-            });
-
-            optionItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const value = this.dataset.value;
-                    const text = this.textContent;
-                    searchInput.value = text;
-                    optionsContainer.classList.remove('show');
-                    onSelect(value, text);
-                });
-            });
-
-            document.addEventListener('click', function(e) {
-                if (!cell.contains(e.target)) {
-                    optionsContainer.classList.remove('show');
-                }
-            });
-        }
-
         // 根据code number获取产品名称
         async function getProductByCode(codeNumber) {
             try {
@@ -1274,11 +1094,21 @@
                 
                 row.innerHTML = `
                     <td class="date-cell">${formatDate(record.date)}</td>
-                    <td id="code-cell-${record.id}">
-                        ${isEditing ? '' : `<span>${record.code_number || '-'}</span>`}
+                    <td>
+                        ${isEditing ? 
+                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'code_number', this.value); handleCodeNumberChange(this, this.closest('tr').querySelector('td:nth-child(3) input'))">
+                                ${generateCodeNumberOptions(record.code_number)}
+                            </select>` :
+                            `<span>${record.code_number || '-'}</span>`
+                        }
                     </td>
-                    <td id="product-cell-${record.id}">
-                        ${isEditing ? '' : `<span>${record.product_name}</span>`}
+                    <td>
+                        ${isEditing ? 
+                            `<select class="table-select" data-record-id="${record.id}" onchange="updateField(${record.id}, 'product_name', this.value); handleProductChange(this, this.closest('tr').querySelector('td:nth-child(2) select'))">
+                                ${generateProductOptions(record.product_name)}
+                            </select>` :
+                            `<span>${record.product_name}</span>`
+                        }
                     </td>
                     <td>
                         ${isEditing ? 
@@ -1345,47 +1175,6 @@
                 `;
                 
                 tbody.appendChild(row);
-
-                // 为编辑模式的行创建可搜索下拉框
-                if (isEditing) {
-                    // Code Number 下拉框
-                    if (window.codeNumberOptions) {
-                        const codeOptions = [
-                            { value: '', text: '请选择编号' },
-                            ...window.codeNumberOptions.map(item => ({
-                                value: item.code_number,
-                                text: item.code_number
-                            }))
-                        ];
-                        const codeCell = document.getElementById(`code-cell-${record.id}`);
-                        createTableSearchableSelect(codeCell, codeOptions, record.code_number || '', 
-                            (value, text) => {
-                                updateField(record.id, 'code_number', value);
-                                if (value) {
-                                    handleCodeNumberChange({ value }, document.getElementById(`product-cell-${record.id}`).querySelector('input'));
-                                }
-                            });
-                    }
-
-                    // Product 下拉框
-                    if (window.productOptions) {
-                        const productOptions = [
-                            { value: '', text: '请选择产品' },
-                            ...window.productOptions.map(item => ({
-                                value: item.product_name,
-                                text: item.product_name
-                            }))
-                        ];
-                        const productCell = document.getElementById(`product-cell-${record.id}`);
-                        createTableSearchableSelect(productCell, productOptions, record.product_name || '', 
-                            (value, text) => {
-                                updateField(record.id, 'product_name', value);
-                                if (value) {
-                                    handleProductChange({ value }, document.getElementById(`code-cell-${record.id}`).querySelector('input'));
-                                }
-                            });
-                    }
-                }
             });
         }
 
@@ -1441,8 +1230,16 @@
             
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="new-date"></td>
-                <td id="new-code-cell"></td>
-                <td id="new-product-cell"></td>
+                <td>
+                    <select class="table-select" id="new-code-number" onchange="handleCodeNumberChange(this, document.getElementById('new-product-name'))">
+                        ${generateCodeNumberOptions()}
+                    </select>
+                </td>
+                <td>
+                    <select class="table-select" id="new-product-name" onchange="handleProductChange(this, document.getElementById('new-code-number'))">
+                        ${generateProductOptions()}
+                    </select>
+                </td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-in-qty"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="new-out-qty"></td>
                 <td>
@@ -1472,47 +1269,6 @@
             
             // 添加到表格顶部
             tbody.insertBefore(row, tbody.firstChild);
-
-            // 创建新行的可搜索下拉框
-            setTimeout(() => {
-                // Code Number 下拉框
-                if (window.codeNumberOptions) {
-                    const codeOptions = [
-                        { value: '', text: '请选择编号' },
-                        ...window.codeNumberOptions.map(item => ({
-                            value: item.code_number,
-                            text: item.code_number
-                        }))
-                    ];
-                    createTableSearchableSelect(document.getElementById('new-code-cell'), codeOptions, '', 
-                        (value, text) => {
-                            window.newRowData = window.newRowData || {};
-                            window.newRowData.code_number = value;
-                            if (value) {
-                                handleCodeNumberChange({ value }, document.getElementById('new-product-cell').querySelector('input'));
-                            }
-                        });
-                }
-
-                // Product 下拉框
-                if (window.productOptions) {
-                    const productOptions = [
-                        { value: '', text: '请选择产品' },
-                        ...window.productOptions.map(item => ({
-                            value: item.product_name,
-                            text: item.product_name
-                        }))
-                    ];
-                    createTableSearchableSelect(document.getElementById('new-product-cell'), productOptions, '', 
-                        (value, text) => {
-                            window.newRowData = window.newRowData || {};
-                            window.newRowData.product_name = value;
-                            if (value) {
-                                handleProductChange({ value }, document.getElementById('new-code-cell').querySelector('input'));
-                            }
-                        });
-                }
-            }, 100);
             
             // 自动聚焦到产品名称输入框
             document.getElementById('new-product-name').focus();
@@ -1542,8 +1298,8 @@
             const formData = {
                 date: document.getElementById('new-date').value,
                 time: new Date().toTimeString().slice(0, 5),
-                product_code: window.newRowData?.product_name || '',
-                product_name: window.newRowData?.product_name || '',
+                product_code: document.getElementById('new-product-name').value, // 临时使用产品名称作为编号
+                product_name: document.getElementById('new-product-name').value,
                 in_quantity: parseFloat(document.getElementById('new-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
                 specification: document.getElementById('new-specification').value,
