@@ -771,6 +771,44 @@
             background: white;
         }
 
+        /* 新增行样式 */
+.new-row {
+    background-color: #e0f2fe !important;  /* 浅蓝色背景 */
+}
+
+.new-row td {
+    background-color: #e0f2fe !important;
+}
+
+/* 编辑行样式 */
+.editing-row {
+    background-color: #e0f2fe !important;  /* 与新增行相同的浅蓝色背景 */
+}
+
+.editing-row td {
+    background-color: #e0f2fe !important;
+}
+
+/* 确保输入框背景透明，显示行的背景色 */
+.new-row .table-input, 
+.new-row .table-select,
+.new-row .currency-input-edit,
+.editing-row .table-input, 
+.editing-row .table-select,
+.editing-row .currency-input-edit {
+    background: transparent !important;
+}
+
+/* 聚焦时的输入框样式 */
+.new-row .table-input:focus, 
+.new-row .table-select:focus,
+.new-row .currency-input-edit:focus,
+.editing-row .table-input:focus, 
+.editing-row .table-select:focus,
+.editing-row .currency-input-edit:focus {
+    background: white !important;
+}
+
         .save-new-btn {
             background: #10b981 !important;
         }
@@ -1383,6 +1421,10 @@
             stockData.forEach(record => {
                 const row = document.createElement('tr');
                 const isEditing = editingRowIds.has(record.id);
+
+                if (isEditing) {
+    row.classList.add('editing-row');
+}
                 
                 // 计算总价
                 const inQty = parseFloat(record.in_quantity) || 0;
