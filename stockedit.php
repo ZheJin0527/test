@@ -379,7 +379,7 @@
         .currency-display .currency-amount {
             font-weight: 500;
             color: #583e04;
-            text-align: right;
+            text-align: center;
             min-width: 60px;
         }
 
