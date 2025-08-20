@@ -368,56 +368,56 @@
         }
 
         /* 货币显示容器 */
-.currency-display {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 8px 4px;
-    height: 40px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
+        .currency-display {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 8px 15px;
+            height: 40px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
 
-.currency-display .currency-symbol {
-    color: #6b7280;
-    font-weight: 500;
-    margin-right: 6px;
-    min-width: 24px;
-    text-align: left;
-}
+        .currency-display .currency-symbol {
+            color: #6b7280;
+            font-weight: 500;
+            margin-right: 6px;
+            min-width: 24px;
+            text-align: left;
+        }
 
-.currency-display .currency-amount {
-    font-weight: 500;
-    color: #583e04;
-    text-align: right;
-    min-width: 60px;
-}
+        .currency-display .currency-amount {
+            font-weight: 500;
+            color: #583e04;
+            text-align: right;
+            min-width: 60px;
+        }
 
-/* 输入框容器样式 */
-.input-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-    height: 40px;
-}
+        /* 输入框容器样式 */
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+            height: 40px;
+        }
 
-.currency-prefix {
-    color: #6b7280;
-    font-size: 14px;
-    font-weight: 500;
-    margin-right: 6px;
-    min-width: 24px;
-}
+        .currency-prefix {
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 6px;
+            min-width: 24px;
+        }
 
-.table-input.currency-input {
-    text-align: right;
-    padding-left: 8px;
-    padding-right: 4px;
-    min-width: 60px;
-    font-weight: 500;
-}
+        .table-input.currency-input {
+            text-align: right;
+            padding-left: 8px;
+            padding-right: 4px;
+            min-width: 60px;
+            font-weight: 500;
+        }
 
         /* 固定表格列宽，防止编辑时宽度变化 */
         .stock-table {
@@ -700,6 +700,13 @@
 
         /* Out 数值为负数的样式 */
         .negative-value {
+            color: #dc2626 !important;
+            font-weight: 600;
+        }
+
+        /* 确保负数的货币显示也是红色 */
+        .negative-value .currency-symbol,
+        .negative-value .currency-amount {
             color: #dc2626 !important;
             font-weight: 600;
         }
@@ -1392,9 +1399,9 @@
                         }
                     </td>
                     <td class="calculated-cell ${total < 0 ? 'negative-value' : ''}">
-                        <div class="currency-display">
+                        <div class="currency-display ${total < 0 ? 'negative-value' : ''}">
                             <span class="currency-symbol">RM</span>
-                            <span class="currency-amount">${formatCurrency(total)}</span>
+                            <span class="currency-amount">${formatCurrency(Math.abs(total))}</span>
                         </div>
                     </td>
                     <td>
@@ -1538,9 +1545,22 @@
             const netQty = inQty - outQty;
             const total = netQty * price;
             
-            const totalCell = row.querySelector('.calculated-cell .currency-amount');
-            if (totalCell) {
-                totalCell.textContent = formatCurrency(total);
+            const totalCell = row.querySelector('.calculated-cell');
+            const currencyDisplay = totalCell.querySelector('.currency-display');
+            const currencyAmount = totalCell.querySelector('.currency-amount');
+            
+            if (totalCell && currencyDisplay && currencyAmount) {
+                // 更新数值
+                currencyAmount.textContent = formatCurrency(Math.abs(total));
+                
+                // 添加或移除负数样式
+                if (total < 0) {
+                    totalCell.classList.add('negative-value');
+                    currencyDisplay.classList.add('negative-value');
+                } else {
+                    totalCell.classList.remove('negative-value');
+                    currencyDisplay.classList.remove('negative-value');
+                }
             }
         }
 
