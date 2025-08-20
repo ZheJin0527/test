@@ -445,26 +445,26 @@
         }
 
         /* 编辑状态下的价格输入框样式 */
-.currency-input-edit {
-    text-align: right;
-    padding: 8px 4px;
-    min-width: 60px;
-    font-weight: 500;
-    border: none;
-    background: transparent;
-    font-size: 14px;
-    box-sizing: border-box;
-    vertical-align: middle;
-    line-height: 24px;
-}
+        .currency-input-edit {
+            text-align: right;
+            padding: 8px 4px;
+            min-width: 60px;
+            font-weight: 500;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            box-sizing: border-box;
+            vertical-align: middle;
+            line-height: 24px;
+        }
 
-.currency-input-edit:focus {
-    background: #fff;
-    border: 2px solid #583e04;
-    outline: none;
-    z-index: 15;
-    position: relative;
-}
+        .currency-input-edit:focus {
+            background: #fff;
+            border: 2px solid #583e04;
+            outline: none;
+            z-index: 15;
+            position: relative;
+        }
 
         /* 日期单元格样式 */
         .date-cell {
@@ -1008,8 +1008,11 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="add-price">单价 (RM)</label>
-                    <input type="number" id="add-price" class="form-input" min="0" step="0.01" placeholder="0.00">
+                    <label for="add-price">单价</label>
+                    <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
+                        <span class="currency-symbol">RM</span>
+                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
@@ -1536,9 +1539,9 @@
                     </select>
                 </td>
                 <td>
-                    <div class="input-container">
-                        <span class="currency-prefix">RM</span>
-                        <input type="number" class="table-input currency-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-price" oninput="updateNewRowTotal(this)">
+                    <div class="currency-display">
+                        <span class="currency-symbol">RM</span>
+                        <input type="number" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" id="${rowId}-price" oninput="updateNewRowTotal(this)">
                     </div>
                 </td>
                 <td class="calculated-cell">
