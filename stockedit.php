@@ -436,7 +436,7 @@
             width: 100%;
             height: 40px;
             border: none;
-            background: black;
+            background: #baf1b8ff;
             text-align: center;
             font-size: 14px;
             padding: 8px 4px;
@@ -451,7 +451,7 @@
             min-width: 60px;
             font-weight: 500;
             border: none;
-            background: transparent;
+            background: #baf1b8ff;
             font-size: 14px;
             box-sizing: border-box;
             vertical-align: middle;
