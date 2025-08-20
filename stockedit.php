@@ -436,7 +436,7 @@
             width: 100%;
             height: 40px;
             border: none;
-            background: transparent;
+            background: black;
             text-align: center;
             font-size: 14px;
             padding: 8px 4px;
