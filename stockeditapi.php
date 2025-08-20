@@ -256,7 +256,34 @@ function handleGet() {
             } else {
                 sendResponse(false, "未找到对应的产品名称");
             }
-            break;    
+            break;
+        
+        case 'products_list':
+            // 获取所有唯一的产品名称和对应的product_code列表
+            $stmt = $pdo->prepare("SELECT DISTINCT product_name, product_code FROM stock_data WHERE product_name IS NOT NULL AND product_name != '' ORDER BY product_name");
+            $stmt->execute();
+            $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            sendResponse(true, "产品列表获取成功", $products);
+            break;
+
+        case 'code_by_product':
+            // 根据product_name获取对应的product_code
+            $productName = $_GET['product_name'] ?? null;
+            if (!$productName) {
+                sendResponse(false, "缺少产品名称参数");
+            }
+            
+            $stmt = $pdo->prepare("SELECT DISTINCT product_code FROM stock_data WHERE product_name = ? LIMIT 1");
+            $stmt->execute([$productName]);
+            $productCode = $stmt->fetchColumn();
+            
+            if ($productCode) {
+                sendResponse(true, "产品编号获取成功", ['product_code' => $productCode]);
+            } else {
+                sendResponse(false, "未找到对应的产品编号");
+            }
+            break;
             
         default:
             sendResponse(false, "无效的操作");
