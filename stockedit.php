@@ -701,10 +701,6 @@
                     <input type="time" id="add-time" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label for="add-product-code">产品编号 *</label>
-                    <input type="text" id="add-product-code" class="form-input" placeholder="输入产品编号..." required>
-                </div>
-                <div class="form-group">
                     <label for="add-product-name">产品名称 *</label>
                     <select id="add-product-name" class="form-select" onchange="handleProductChange(this, document.getElementById('add-code-number'))" required>
                         <option value="">请选择产品名称</option>
@@ -1315,7 +1311,6 @@
             const formData = {
                 date: document.getElementById('new-date').value,
                 time: new Date().toTimeString().slice(0, 5),
-                product_code: document.getElementById('new-product-name').value, // 临时使用产品名称作为编号
                 product_name: document.getElementById('new-product-name').value,
                 in_quantity: parseFloat(document.getElementById('new-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('new-out-qty').value) || 0,
@@ -1371,7 +1366,6 @@
             const formData = {
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
-                product_code: document.getElementById('add-product-code').value,
                 product_name: document.getElementById('add-product-name').value,
                 in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
@@ -1384,7 +1378,7 @@
             };
 
             // 验证必填字段
-            const requiredFields = ['date', 'time', 'product_code', 'product_name', 'specification', 'receiver', 'applicant'];
+            const requiredFields = ['date', 'time', 'product_name', 'specification', 'receiver', 'applicant'];
             for (let field of requiredFields) {
                 if (!formData[field]) {
                     showAlert(`请填写${getFieldLabel(field)}`, 'error');
@@ -1415,7 +1409,6 @@
             const labels = {
                 'date': '日期',
                 'time': '时间',
-                'product_code': '产品编号',
                 'product_name': '产品名称',
                 'specification': '规格单位',
                 'receiver': '收货人',
