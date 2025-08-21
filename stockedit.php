@@ -946,7 +946,7 @@
         }
 
         .price-select {
-            min-width: 100px;
+            min-width: 120px;
             background-color: white;
             border: 1px solid #d1d5db;
             border-radius: 4px;
@@ -958,10 +958,6 @@
             outline: none;
             border-color: #3b82f6;
             box-shadow: 0 0 0 1px #3b82f6;
-        }
-
-        .custom-price-input {
-            width: 80px !important;
         }
     </style>
 </head>
@@ -1066,11 +1062,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="add-price">单价</label>
-                    <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
-                        <span class="currency-symbol">RM</span>
-                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
-                    </div>
+                    <label for="add-price">单价 *</label>
+                    <select id="add-price" class="form-select" onchange="handleNewFormPriceChange()" required>
+                        <option value="">请选择价格</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
@@ -1318,6 +1313,19 @@
                             updateField(recordId, 'code_number', productCode);
                         }
                     }
+
+                    const row = selectElement.closest('tr');
+                    if (row) {
+                        const priceSelect = row.querySelector('.price-select');
+                        if (priceSelect) {
+                            await loadProductPrices(productName, priceSelect.id);
+                        }
+                    }
+                    
+                    // 如果是新增表单
+                    if (selectElement.id === 'add-product-name') {
+                        await loadProductPrices(productName, 'add-price');
+                    }
                 }
             }
         }
@@ -1494,15 +1502,11 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<div class="currency-display">
-                                <span class="currency-symbol">RM</span>
-                                <select class="table-select price-select" id="price-select-${record.id}" 
-                                        onchange="updateField(${record.id}, 'price', this.value)"
-                                        data-product-name="${record.product_name}"
-                                        data-current-price="${record.price || ''}">
-                                    <option value="">加载中...</option>
-                                </select>
-                            </div>` :
+                            `<select class="table-select price-select" id="price-select-${record.id}" 
+                                    onchange="updateField(${record.id}, 'price', this.value)"
+                                    data-product-name="${record.product_name}">
+                                <option value="${record.price || ''}">${record.price ? 'RM ' + formatCurrency(record.price) : '请选择价格'}</option>
+                            </select>` :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
                                 <span class="currency-amount">${formatCurrency(record.price)}</span>
@@ -1552,18 +1556,16 @@
                 tbody.appendChild(row);
             });
 
-            setTimeout(bindComboboxEvents, 0);
-
             setTimeout(() => {
                 bindComboboxEvents();
                 
-                // 加载所有编辑中记录的价格选项
+                // 为所有编辑中的记录加载价格选项
                 stockData.forEach(record => {
                     if (editingRowIds.has(record.id) && record.product_name) {
                         loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
                     }
                 });
-            }, 200);
+            }, 100);
         }
 
         // 格式化日期
@@ -1620,10 +1622,10 @@
                     </select>
                 </td>
                 <td>
-                    <div class="currency-display">
-                        <span class="currency-symbol">RM</span>
-                        <input type="number" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" id="${rowId}-price" oninput="updateNewRowTotal(this)">
-                    </div>
+                    <select class="table-select price-select" id="${rowId}-price" 
+                            onchange="updateNewRowTotal(this)" data-product-name="">
+                        <option value="">请选择价格</option>
+                    </select>
                 </td>
                 <td class="calculated-cell">
                     <div class="currency-display">
@@ -2433,6 +2435,19 @@
                             updateField(parseInt(recordId), 'code_number', productCode);
                         }
                     }
+
+                    const containerId = input.closest('.combobox-container').id;
+                    if (containerId.includes('new-')) {
+                        const rowIdMatch = containerId.match(/^(.*)-product_name$/);
+                        if (rowIdMatch) {
+                            const priceSelectId = `${rowIdMatch[1]}-price`;
+                            const priceSelect = document.getElementById(priceSelectId);
+                            if (priceSelect) {
+                                priceSelect.dataset.productName = value;
+                                loadProductPrices(value, priceSelectId);
+                            }
+                        }
+                    }
                 }
             }
             
@@ -2645,80 +2660,36 @@
         window.addEventListener('resize', hideAllDropdowns);
     </script>
     <script>
-        // 加载产品的价格选项
+        // 加载产品的历史价格
         async function loadProductPrices(productName, selectElementId, currentPrice = '') {
+            const selectElement = document.getElementById(selectElementId);
+            if (!selectElement || !productName) return;
+            
             try {
                 const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
-                const selectElement = document.getElementById(selectElementId);
-                
-                if (!selectElement) return;
                 
                 if (result.success && result.data && result.data.length > 0) {
                     let options = '<option value="">请选择价格</option>';
-                    options += '<option value="custom">自定义价格</option>';
-                    
-                    result.data.forEach(price => {
-                        const selected = price == currentPrice ? 'selected' : '';
-                        options += `<option value="${price}" ${selected}>RM ${parseFloat(price).toFixed(2)}</option>`;
+                    result.data.forEach(item => {
+                        const selected = item.value == currentPrice ? 'selected' : '';
+                        options += `<option value="${item.value}" ${selected}>${item.display}</option>`;
                     });
                     selectElement.innerHTML = options;
                 } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="custom">自定义价格</option>';
+                    selectElement.innerHTML = '<option value="">暂无历史价格</option>';
                 }
-                
-                // 如果选择了自定义价格，显示输入框
-                selectElement.addEventListener('change', function() {
-                    handlePriceSelectChange(this);
-                });
-                
             } catch (error) {
                 console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById(selectElementId);
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option>';
-                }
+                selectElement.innerHTML = '<option value="">加载失败</option>';
             }
         }
 
-        // 处理价格选择变化
-        function handlePriceSelectChange(selectElement) {
-            const recordId = selectElement.id.replace('price-select-', '');
-            const value = selectElement.value;
-            
-            if (value === 'custom') {
-                // 创建自定义价格输入框
-                const container = selectElement.parentElement;
-                container.innerHTML = `
-                    <span class="currency-symbol">RM</span>
-                    <input type="number" class="table-input currency-input-edit custom-price-input" 
-                        placeholder="输入价格..." min="0" step="0.01" 
-                        onchange="updateField(${recordId}, 'price', this.value)"
-                        onblur="handleCustomPriceBlur(this, ${recordId})">
-                `;
-                const input = container.querySelector('.custom-price-input');
-                input.focus();
-            } else {
-                updateField(parseInt(recordId), 'price', value);
-            }
-        }
-
-        // 处理自定义价格输入框失去焦点
-        function handleCustomPriceBlur(input, recordId) {
-            if (!input.value) {
-                // 如果没有输入价格，恢复下拉选择
-                const record = stockData.find(r => r.id === recordId);
-                if (record && record.product_name) {
-                    const container = input.parentElement;
-                    container.innerHTML = `
-                        <span class="currency-symbol">RM</span>
-                        <select class="table-select price-select" id="price-select-${recordId}" 
-                                onchange="updateField(${recordId}, 'price', this.value)"
-                                data-product-name="${record.product_name}">
-                            <option value="">加载中...</option>
-                        </select>
-                    `;
-                    loadProductPrices(record.product_name, `price-select-${recordId}`, record.price);
-                }
+        // 新增表单中价格变化处理
+        function handleNewFormPriceChange() {
+            const priceSelect = document.getElementById('add-price');
+            if (priceSelect && priceSelect.value) {
+                // 可以在这里添加价格选择后的逻辑
+                console.log('选择的价格:', priceSelect.value);
             }
         }
     </script>
