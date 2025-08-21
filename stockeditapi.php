@@ -295,7 +295,7 @@ function handleGet() {
             $sql = "SELECT DISTINCT price 
                     FROM stockinout_data 
                     WHERE product_name = ? AND in_quantity > 0
-                    ORDER BY price ASC";
+                    ORDER BY price DESC";
             
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$productName]);
