@@ -958,89 +958,15 @@
             border: 1px solid #3b82f6 !important;
             border-radius: 4px;
         }
-
-        .page-selector {
-            background-color: #10b981;
-            color: white;
-            font-weight: 500;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .page-selector:hover {
-            background-color: #059669;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            border: 2px solid #10b981;
-            border-radius: 8px;
-            min-width: 150px;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-            z-index: 1000;
-            display: none;
-            margin-top: 4px;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 10px 16px;
-            color: #583e04;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-            border-bottom: 1px solid #f3f4f6;
-            transition: background-color 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f0f9ff;
-            color: #10b981;
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div>
-                <h1>库存进出货管理系统</h1>
+                <h1>J1出库管理系统</h1>
             </div>
             <div class="controls">
-                <div class="page-selector" onclick="togglePageDropdown()">
-                    <i class="fas fa-external-link-alt"></i>
-                    跳转页面
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="dropdown-menu" id="page-dropdown">
-                        <a href="j1stockedit.php" class="dropdown-item">
-                            <i class="fas fa-file-alt"></i>
-                            跳转到 J1 页面
-                        </a>
-                        <a href="j2.html" class="dropdown-item">
-                            <i class="fas fa-file-alt"></i>
-                            跳转到 J2 页面
-                        </a>
-                    </div>
-                </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
                     返回上一页
@@ -1058,7 +984,6 @@
                     <label for="date-filter">日期</label>
                     <input type="date" id="date-filter" class="filter-input">
                 </div>
-                <!-- 在这里添加新的产品编号搜索栏 -->
                 <div class="filter-group">
                     <label for="code-filter">产品编号</label>
                     <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品编号...">
@@ -1068,8 +993,12 @@
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
                 </div>
                 <div class="filter-group">
-                    <label for="receiver-filter">收货人</label>
-                    <input type="text" id="receiver-filter" class="filter-input" placeholder="搜索收货人...">
+                    <label for="name-filter">负责人</label>
+                    <input type="text" id="name-filter" class="filter-input" placeholder="搜索负责人...">
+                </div>
+                <div class="filter-group">
+                    <label for="type-filter">类型</label>
+                    <input type="text" id="type-filter" class="filter-input" placeholder="搜索类型...">
                 </div>
             </div>
             <div class="filter-actions">
@@ -1094,7 +1023,7 @@
 
         <!-- 新增记录表单 -->
         <div id="add-form" class="add-form">
-            <h3 style="color: #583e04; margin-bottom: 16px;">新增库存记录</h3>
+            <h3 style="color: #583e04; margin-bottom: 16px;">新增J1出库记录</h3>
             <div class="form-grid">
                 <div class="form-group">
                     <label for="add-date">日期 *</label>
@@ -1111,12 +1040,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="add-in-qty">入库数量</label>
-                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
-                </div>
-                <div class="form-group">
-                    <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <label for="add-out-qty">出库数量 *</label>
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" required oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-specification">规格单位 *</label>
@@ -1135,22 +1060,22 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="add-price">单价</label>
+                    <label for="add-price">单价 *</label>
                     <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
                         <span class="currency-symbol">RM</span>
                         <select id="add-price-select" class="form-select" style="border: none; background: transparent; display: none;" onchange="handleAddFormPriceChange()">
                             <option value="">请先选择产品</option>
                         </select>
-                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
+                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="add-receiver">收货人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required>
+                    <label for="add-type">类型</label>
+                    <input type="text" id="add-type" class="form-input" placeholder="输入类型...">
                 </div>
                 <div class="form-group">
-                    <label for="add-applicant">申请人 *</label>
-                    <input type="text" id="add-applicant" class="form-input" placeholder="输入申请人..." required>
+                    <label for="add-name">负责人</label>
+                    <input type="text" id="add-name" class="form-input" placeholder="输入负责人...">
                 </div>
                 <div class="form-group">
                     <label for="add-code-number">编号</label>
@@ -1175,7 +1100,7 @@
             </div>
         </div>
         
-        <!-- 库存表格 -->
+        <!-- J1出库表格 -->
         <div class="table-container">
             <div class="action-buttons">
                 <div class="stats-info" id="stock-stats">
@@ -1197,14 +1122,15 @@
                 <thead>
                     <tr>
                         <th style="min-width: 100px;">DATE</th>
+                        <th style="min-width: 80px;">TIME</th>
                         <th style="min-width: 100px;">Code Number</th>
                         <th class="product-name-col">PRODUCT</th>
-                        <th style="min-width: 80px;">In</th>
-                        <th style="min-width: 80px;">Out</th>
+                        <th style="min-width: 80px;">Out Qty</th>
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
-                        <th style="min-width: 100px;">Total</th>
-                        <th class="receiver-col">Name</th>
+                        <th style="min-width: 100px;">Total Value</th>
+                        <th style="min-width: 100px;">Type</th>
+                        <th class="name-col">Name</th>
                         <th style="min-width: 100px;">Remark</th>
                         <th style="min-width: 80px;">操作</th>
                     </tr>
@@ -1219,12 +1145,12 @@
 
     <script>
         // API 配置
-        const API_BASE_URL = 'stockeditapi.php';
+        const API_BASE_URL = 'j1stockeditapi.php';
         
         // 应用状态
         let stockData = [];
         let isLoading = false;
-        let editingRowIds = new Set(); // 改为Set来存储多个正在编辑的行ID
+        let editingRowIds = new Set();
         let originalEditData = new Map();
 
         // 规格选项
@@ -1252,22 +1178,6 @@
             }
         }
 
-        // 切换页面选择下拉菜单
-        function togglePageDropdown() {
-            const dropdown = document.getElementById('page-dropdown');
-            dropdown.classList.toggle('show');
-        }
-
-        // 点击其他地方关闭下拉菜单
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.page-selector')) {
-                const dropdown = document.getElementById('page-dropdown');
-                if (dropdown) {
-                    dropdown.classList.remove('show');
-                }
-            }
-        });
-
         // API 调用函数
         async function apiCall(endpoint, options = {}) {
             try {
@@ -1291,7 +1201,7 @@
             }
         }
 
-        // 加载库存数据
+        // 加载J1出库数据
         async function loadStockData() {
             if (isLoading) return;
             
@@ -1381,15 +1291,13 @@
             if (productName) {
                 const productCode = await getCodeByProduct(productName);
                 if (productCode) {
-                    // 如果没有传入codeNumberElement，自动查找
                     if (!codeNumberElement) {
                         const row = selectElement.closest('tr');
-                        codeNumberElement = row.querySelector('td:nth-child(2) select') || row.querySelector('td:nth-child(2) input');
+                        codeNumberElement = row.querySelector('td:nth-child(3) select') || row.querySelector('td:nth-child(3) input');
                     }
                     
                     if (codeNumberElement) {
                         if (codeNumberElement.tagName === 'SELECT') {
-                            // 如果是下拉框，设置对应的值
                             codeNumberElement.value = productCode;
                         } else if (codeNumberElement.tagName === 'INPUT') {
                             codeNumberElement.value = productCode;
@@ -1441,10 +1349,9 @@
             if (codeNumber) {
                 const productName = await getProductByCode(codeNumber);
                 if (productName) {
-                    // 如果没有传入productNameElement，自动查找
                     if (!productNameElement) {
                         const row = selectElement.closest('tr');
-                        productNameElement = row.querySelector('td:nth-child(3) select') || row.querySelector('td:nth-child(3) input');
+                        productNameElement = row.querySelector('td:nth-child(4) select') || row.querySelector('td:nth-child(4) input');
                     }
                     
                     if (productNameElement) {
@@ -1481,14 +1388,16 @@
                 });
                 
                 const dateFilter = document.getElementById('date-filter').value;
-                const codeFilter = document.getElementById('code-filter').value;  // 新添加
+                const codeFilter = document.getElementById('code-filter').value;
                 const productFilter = document.getElementById('product-filter').value;
-                const receiverFilter = document.getElementById('receiver-filter').value;
+                const nameFilter = document.getElementById('name-filter').value;
+                const typeFilter = document.getElementById('type-filter').value;
                 
                 if (dateFilter) params.append('search_date', dateFilter);
-                if (codeFilter) params.append('product_code', codeFilter);  // 新添加
+                if (codeFilter) params.append('code_number', codeFilter);
                 if (productFilter) params.append('product_name', productFilter);
-                if (receiverFilter) params.append('receiver', receiverFilter);
+                if (nameFilter) params.append('name', nameFilter);
+                if (typeFilter) params.append('type', typeFilter);
                 
                 const result = await apiCall(`?${params}`);
                 
@@ -1513,19 +1422,20 @@
         // 重置搜索过滤器
         function resetFilters() {
             document.getElementById('date-filter').value = '';
-            document.getElementById('code-filter').value = '';  // 新添加
+            document.getElementById('code-filter').value = '';
             document.getElementById('product-filter').value = '';
-            document.getElementById('receiver-filter').value = '';
+            document.getElementById('name-filter').value = '';
+            document.getElementById('type-filter').value = '';
             loadStockData();
         }
 
-        // 渲染库存表格
+        // 渲染J1出库表格
         function renderStockTable() {
             const tbody = document.getElementById('stock-tbody');
             tbody.innerHTML = '';
             
             if (stockData.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="11" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="12" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
                 return;
             }
             
@@ -1537,15 +1447,14 @@
                     row.classList.add('editing-row');
                 }
                 
-                // 计算总价
-                const inQty = parseFloat(record.in_quantity) || 0;
+                // J1出库记录的总价 = 出库数量 * 价格
                 const outQty = parseFloat(record.out_quantity) || 0;
                 const price = parseFloat(record.price) || 0;
-                const netQty = inQty - outQty;
-                const total = netQty * price;
+                const totalValue = outQty * price;
                 
                 row.innerHTML = `
                     <td class="date-cell">${formatDate(record.date)}</td>
+                    <td>${record.time || '-'}</td>
                     <td>
                         ${isEditing ? 
                             createCombobox('code', record.code_number, record.id) :
@@ -1560,14 +1469,8 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
-                            `<span>${formatNumber(record.in_quantity)}</span>`
-                        }
-                    </td>
-                    <td>
-                        ${isEditing ? 
                             `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
-                            `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
+                            `<span class="negative-value">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
                     <td>
@@ -1582,39 +1485,37 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            (parseFloat(record.out_quantity || 0) > 0 && parseFloat(record.in_quantity || 0) === 0 ? 
-                                `<div class="currency-display">
-                                    <span class="currency-symbol">RM</span>
-                                    <select class="table-select price-select" id="price-select-${record.id}" 
-                                            onchange="updateField(${record.id}, 'price', this.value)"
-                                            data-product-name="${record.product_name}" 
-                                            data-current-price="${record.price}">
-                                        <option value="">请选择价格</option>
-                                    </select>
-                                </div>` :
-                                `<div class="currency-display">
-                                    <span class="currency-symbol">RM</span>
-                                    <input type="number" class="currency-input-edit" 
-                                        value="${record.price || ''}" min="0" step="0.01" 
-                                        onchange="updateField(${record.id}, 'price', this.value)">
-                                </div>`
-                            ) :
+                            `<div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <select class="table-select price-select" id="price-select-${record.id}" 
+                                        onchange="updateField(${record.id}, 'price', this.value)"
+                                        data-product-name="${record.product_name}" 
+                                        data-current-price="${record.price}">
+                                    <option value="">请选择价格</option>
+                                </select>
+                            </div>` :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
                                 <span class="currency-amount">${formatCurrency(record.price)}</span>
                             </div>`
                         }
                     </td>
-                    <td class="calculated-cell ${total < 0 ? 'negative-value negative-parentheses' : ''}">
-                        <div class="currency-display ${total < 0 ? 'negative-value negative-parentheses' : ''}">
+                    <td class="calculated-cell negative-value">
+                        <div class="currency-display negative-value">
                             <span class="currency-symbol">RM</span>
-                            <span class="currency-amount">${formatCurrency(Math.abs(total))}</span>
+                            <span class="currency-amount">${formatCurrency(totalValue)}</span>
                         </div>
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
-                            `<span>${record.receiver || '-'}</span>`
+                            `<input type="text" class="table-input" value="${record.type || ''}" onchange="updateField(${record.id}, 'type', this.value)">` :
+                            `<span>${record.type || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.name || ''}" onchange="updateField(${record.id}, 'name', this.value)">` :
+                            `<span>${record.name || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -1624,25 +1525,25 @@
                         }
                     </td>
                     <td>
-                    <span class="action-cell">
-                        ${isEditing ? 
-                            `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
-                                <i class="fas fa-save"></i>
-                            </button>
-                            <button class="action-btn" onclick="cancelEdit(${record.id})" title="取消" style="background: #6b7280;">
-                                <i class="fas fa-times"></i>
-                            </button>` :
-                            `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
-                                <i class="fas fa-edit"></i>
-                            </button>`
-                        }
-                        ${!isEditing ? 
-                            `<button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
-                                <i class="fas fa-trash"></i>
-                            </button>` : ''
-                        }
-                    </span>
-                </td>
+                        <span class="action-cell">
+                            ${isEditing ? 
+                                `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                                <button class="action-btn" onclick="cancelEdit(${record.id})" title="取消" style="background: #6b7280;">
+                                    <i class="fas fa-times"></i>
+                                </button>` :
+                                `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
+                                    <i class="fas fa-edit"></i>
+                                </button>`
+                            }
+                            ${!isEditing ? 
+                                `<button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
+                                    <i class="fas fa-trash"></i>
+                                </button>` : ''
+                            }
+                        </span>
+                    </td>
                 `;
                 
                 tbody.appendChild(row);
@@ -1655,9 +1556,7 @@
                 stockData.forEach(record => {
                     if (editingRowIds.has(record.id) && record.product_name) {
                         const outQty = parseFloat(record.out_quantity || 0);
-                        const inQty = parseFloat(record.in_quantity || 0);
-                        // 只有纯出库时才加载价格选项（带库存检查）
-                        if (outQty > 0 && inQty === 0) {
+                        if (outQty > 0) {
                             loadProductPricesWithStock(record.product_name, `price-select-${record.id}`, record.price, outQty);
                         }
                     }
@@ -1691,27 +1590,26 @@
         // 更新统计信息
         function updateStats() {
             const totalRecords = stockData.length;
-            
             document.getElementById('total-records').textContent = totalRecords;
         }
 
         // 添加新行到表格
         function addNewRow() {
-            
             const tbody = document.getElementById('stock-tbody');
             const row = document.createElement('tr');
             row.className = 'new-row';
             
             const now = new Date();
             const today = now.toISOString().split('T')[0];
-            const rowId = 'new-' + Date.now(); // 生成唯一ID
+            const currentTime = now.toTimeString().slice(0, 5);
+            const rowId = 'new-' + Date.now();
 
             row.innerHTML = `
                 <td><input type="date" class="table-input" value="${today}" id="${rowId}-date"></td>
+                <td><input type="time" class="table-input" value="${currentTime}" id="${rowId}-time"></td>
                 <td>${createCombobox('code', '', null, rowId)}</td>
                 <td>${createCombobox('product', '', null, rowId)}</td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)" required></td>
                 <td>
                     <select class="table-select" id="${rowId}-specification">
                         <option value="">请选择规格</option>
@@ -1724,13 +1622,14 @@
                         <input type="number" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" id="${rowId}-price" oninput="updateNewRowTotal(this)">
                     </div>
                 </td>
-                <td class="calculated-cell">
-                    <div class="currency-display">
+                <td class="calculated-cell negative-value">
+                    <div class="currency-display negative-value">
                         <span class="currency-symbol">RM</span>
                         <span class="currency-amount">0.00</span>
                     </div>
                 </td>
-                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
+                <td><input type="text" class="table-input" placeholder="输入类型..." id="${rowId}-type"></td>
+                <td><input type="text" class="table-input" placeholder="输入负责人..." id="${rowId}-name"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -1744,14 +1643,11 @@
                 </td>
             `;
             
-            // 添加到表格顶部
             tbody.insertBefore(row, tbody.firstChild);
             
-            // 绑定 combobox 事件
             setTimeout(() => {
                 bindComboboxEvents();
                 
-                // 自动聚焦到产品名称输入框
                 const productInput = document.getElementById('new-product_name-input');
                 if (productInput) {
                     productInput.focus();
@@ -1762,44 +1658,30 @@
         // 更新新行的总价计算
         function updateNewRowTotal(element) {
             const row = element.closest('tr');
-            const rowId = element.id.split('-')[0] + '-' + element.id.split('-')[1]; // 获取行的唯一ID
+            const rowId = element.id.split('-')[0] + '-' + element.id.split('-')[1];
             
-            const inQty = parseFloat(document.getElementById(`${rowId}-in-qty`).value) || 0;
             const outQty = parseFloat(document.getElementById(`${rowId}-out-qty`).value) || 0;
             const price = parseFloat(document.getElementById(`${rowId}-price`).value) || 0;
             
-            // 新增：检查是否需要显示价格下拉列表
+            // 检查是否需要显示价格下拉列表
             const productInput = document.getElementById(`${rowId}-product_name-input`);
             const productName = productInput ? productInput.value : '';
-            const priceCell = document.getElementById(`${rowId}-price`).closest('.currency-display');
             
-            if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，创建价格下拉选项（带库存检查）
+            if (outQty > 0 && productName) {
+                // 出库且有产品名称，创建价格下拉选项（带库存检查）
                 createNewRowPriceSelectWithStock(rowId, productName, price, outQty);
-            } else if (outQty === 0 || inQty > 0) {
+            } else if (outQty === 0) {
                 // 恢复普通输入框
                 restoreNewRowPriceInput(rowId);
             }
             
-            const netQty = inQty - outQty;
-            const total = netQty * price;
+            const totalValue = outQty * price;
             
             const totalCell = row.querySelector('.calculated-cell');
-            const currencyDisplay = totalCell.querySelector('.currency-display');
             const currencyAmount = totalCell.querySelector('.currency-amount');
             
-            if (totalCell && currencyDisplay && currencyAmount) {
-                // 更新数值
-                currencyAmount.textContent = formatCurrency(Math.abs(total));
-                
-                // 添加或移除负数样式
-                if (total < 0) {
-                    totalCell.classList.add('negative-value', 'negative-parentheses');
-                    currencyDisplay.classList.add('negative-value', 'negative-parentheses');
-                } else {
-                    totalCell.classList.remove('negative-value', 'negative-parentheses');
-                    currencyDisplay.classList.remove('negative-value', 'negative-parentheses');
-                }
+            if (currencyAmount) {
+                currencyAmount.textContent = formatCurrency(totalValue);
             }
         }
 
@@ -1808,13 +1690,14 @@
             const rowId = row.querySelector('input').id.split('-')[0] + '-' + row.querySelector('input').id.split('-')[1];
             return {
                 date: document.getElementById(`${rowId}-date`).value,
+                time: document.getElementById(`${rowId}-time`).value,
                 codeValue: document.getElementById(`${rowId}-code_number-input`) ? document.getElementById(`${rowId}-code_number-input`).value : '',
                 productValue: document.getElementById(`${rowId}-product_name-input`) ? document.getElementById(`${rowId}-product_name-input`).value : '',
-                inQty: document.getElementById(`${rowId}-in-qty`).value,
                 outQty: document.getElementById(`${rowId}-out-qty`).value,
                 specification: document.getElementById(`${rowId}-specification`).value,
                 price: document.getElementById(`${rowId}-price`).value,
-                receiver: document.getElementById(`${rowId}-receiver`).value,
+                type: document.getElementById(`${rowId}-type`).value,
+                name: document.getElementById(`${rowId}-name`).value,
                 remark: document.getElementById(`${rowId}-remark`).value
             };
         }
@@ -1824,13 +1707,14 @@
             const rowId = element.querySelector('input').id.split('-')[0] + '-' + element.querySelector('input').id.split('-')[1];
             
             if (document.getElementById(`${rowId}-date`)) document.getElementById(`${rowId}-date`).value = data.date;
+            if (document.getElementById(`${rowId}-time`)) document.getElementById(`${rowId}-time`).value = data.time;
             if (document.getElementById(`${rowId}-code_number-input`)) document.getElementById(`${rowId}-code_number-input`).value = data.codeValue;
             if (document.getElementById(`${rowId}-product_name-input`)) document.getElementById(`${rowId}-product_name-input`).value = data.productValue;
-            if (document.getElementById(`${rowId}-in-qty`)) document.getElementById(`${rowId}-in-qty`).value = data.inQty;
             if (document.getElementById(`${rowId}-out-qty`)) document.getElementById(`${rowId}-out-qty`).value = data.outQty;
             if (document.getElementById(`${rowId}-specification`)) document.getElementById(`${rowId}-specification`).value = data.specification;
             if (document.getElementById(`${rowId}-price`)) document.getElementById(`${rowId}-price`).value = data.price;
-            if (document.getElementById(`${rowId}-receiver`)) document.getElementById(`${rowId}-receiver`).value = data.receiver;
+            if (document.getElementById(`${rowId}-type`)) document.getElementById(`${rowId}-type`).value = data.type;
+            if (document.getElementById(`${rowId}-name`)) document.getElementById(`${rowId}-name`).value = data.name;
             if (document.getElementById(`${rowId}-remark`)) document.getElementById(`${rowId}-remark`).value = data.remark;
         }
 
@@ -1844,20 +1728,20 @@
 
             const formData = {
                 date: document.getElementById(`${rowId}-date`).value,
-                time: new Date().toTimeString().slice(0, 5),
+                time: document.getElementById(`${rowId}-time`).value,
                 product_name: productInput ? productInput.value : '',
-                in_quantity: parseFloat(document.getElementById(`${rowId}-in-qty`).value) || 0,
                 out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`).value) || 0,
                 specification: document.getElementById(`${rowId}-specification`).value,
                 price: parseFloat(document.getElementById(`${rowId}-price`).value) || 0,
-                receiver: document.getElementById(`${rowId}-receiver`).value,
+                type: document.getElementById(`${rowId}-type`).value,
+                name: document.getElementById(`${rowId}-name`).value,
                 code_number: codeInput ? codeInput.value : '',
                 remark: document.getElementById(`${rowId}-remark`).value
             };
 
             // 验证必填字段
-            if (!formData.product_name || !formData.specification || !formData.receiver) {
-                showAlert('请填写产品名称、规格单位和收货人', 'error');
+            if (!formData.product_name || !formData.out_quantity || !formData.specification) {
+                showAlert('请填写产品名称、出库数量和规格单位', 'error');
                 return;
             }
 
@@ -1895,51 +1779,51 @@
                 });
 
                 if (result.success) {
-                showAlert('记录添加成功', 'success');
-                
-                // 保存其他新增行
-                const otherNewRows = Array.from(document.querySelectorAll('.new-row')).filter(r => r !== row);
-                const savedRows = otherNewRows.map(r => ({
-                    element: r.cloneNode(true),
-                    data: extractRowData(r)
-                }));
-                
-                // 移除当前保存的行
-                row.remove();
-                
-                // 添加新记录到 stockData 数组的开头
-                const newRecord = {
-                    id: result.data.id || Date.now(), // 使用返回的ID或临时ID
-                    date: formData.date,
-                    time: formData.time,
-                    code_number: formData.code_number,
-                    product_name: formData.product_name,
-                    in_quantity: formData.in_quantity,
-                    out_quantity: formData.out_quantity,
-                    specification: formData.specification,
-                    price: formData.price,
-                    receiver: formData.receiver,
-                    remark: formData.remark,
-                    created_at: new Date().toISOString()
-                };
-                
-                stockData.unshift(newRecord); // 添加到数组开头
-                
-                // 重新渲染表格
-                renderStockTable();
-                
-                // 恢复其他新增行
-                setTimeout(() => {
-                    const tbody = document.getElementById('stock-tbody');
-                    savedRows.forEach(({element}) => {
-                        tbody.insertBefore(element, tbody.firstChild);
-                    });
-                    bindComboboxEvents();
-                }, 100);
-                
-                // 更新统计
-                updateStats();
-            } else {
+                    showAlert('记录添加成功', 'success');
+                    
+                    // 保存其他新增行
+                    const otherNewRows = Array.from(document.querySelectorAll('.new-row')).filter(r => r !== row);
+                    const savedRows = otherNewRows.map(r => ({
+                        element: r.cloneNode(true),
+                        data: extractRowData(r)
+                    }));
+                    
+                    // 移除当前保存的行
+                    row.remove();
+                    
+                    // 添加新记录到 stockData 数组的开头
+                    const newRecord = {
+                        id: result.data.id || Date.now(),
+                        date: formData.date,
+                        time: formData.time,
+                        code_number: formData.code_number,
+                        product_name: formData.product_name,
+                        out_quantity: formData.out_quantity,
+                        specification: formData.specification,
+                        price: formData.price,
+                        type: formData.type,
+                        name: formData.name,
+                        remark: formData.remark,
+                        created_at: new Date().toISOString()
+                    };
+                    
+                    stockData.unshift(newRecord);
+                    
+                    // 重新渲染表格
+                    renderStockTable();
+                    
+                    // 恢复其他新增行
+                    setTimeout(() => {
+                        const tbody = document.getElementById('stock-tbody');
+                        savedRows.forEach(({element}) => {
+                            tbody.insertBefore(element, tbody.firstChild);
+                        });
+                        bindComboboxEvents();
+                    }, 100);
+                    
+                    // 更新统计
+                    updateStats();
+                } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
                 }
             } catch (error) {
@@ -1967,20 +1851,19 @@
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
                 product_name: document.getElementById('add-product-name').value,
-                in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
-                receiver: document.getElementById('add-receiver').value,
-                applicant: document.getElementById('add-applicant').value,
+                type: document.getElementById('add-type').value,
+                name: document.getElementById('add-name').value,
                 code_number: document.getElementById('add-code-number').value,
                 remark: document.getElementById('add-remark').value
             };
 
             // 验证必填字段
-            const requiredFields = ['date', 'time', 'product_name', 'specification', 'receiver', 'applicant'];
+            const requiredFields = ['date', 'time', 'product_name', 'out_quantity', 'specification', 'price'];
             for (let field of requiredFields) {
-                if (!formData[field]) {
+                if (!formData[field] || (field === 'out_quantity' && formData[field] <= 0)) {
                     showAlert(`请填写${getFieldLabel(field)}`, 'error');
                     return;
                 }
@@ -2020,30 +1903,29 @@
                 });
 
                 if (result.success) {
-                showAlert('记录添加成功', 'success');
-                toggleAddForm();
-                
-                // 添加新记录到 stockData 数组的开头并立即显示
-                const newRecord = {
-                    id: result.data.id || Date.now(),
-                    date: formData.date,
-                    time: formData.time,
-                    code_number: formData.code_number,
-                    product_name: formData.product_name,
-                    in_quantity: formData.in_quantity,
-                    out_quantity: formData.out_quantity,
-                    specification: formData.specification,
-                    price: formData.price,
-                    receiver: formData.receiver,
-                    applicant: formData.applicant,
-                    remark: formData.remark,
-                    created_at: new Date().toISOString()
-                };
-                
-                stockData.unshift(newRecord);
-                renderStockTable();
-                updateStats();
-            } else {
+                    showAlert('记录添加成功', 'success');
+                    toggleAddForm();
+                    
+                    // 添加新记录到 stockData 数组的开头并立即显示
+                    const newRecord = {
+                        id: result.data.id || Date.now(),
+                        date: formData.date,
+                        time: formData.time,
+                        code_number: formData.code_number,
+                        product_name: formData.product_name,
+                        out_quantity: formData.out_quantity,
+                        specification: formData.specification,
+                        price: formData.price,
+                        type: formData.type,
+                        name: formData.name,
+                        remark: formData.remark,
+                        created_at: new Date().toISOString()
+                    };
+                    
+                    stockData.unshift(newRecord);
+                    renderStockTable();
+                    updateStats();
+                } else {
                     showAlert('添加失败: ' + (result.message || '未知错误'), 'error');
                 }
             } catch (error) {
@@ -2057,23 +1939,21 @@
                 'date': '日期',
                 'time': '时间',
                 'product_name': '产品名称',
+                'out_quantity': '出库数量',
                 'specification': '规格单位',
-                'receiver': '收货人',
-                'applicant': '申请人'
+                'price': '单价'
             };
             return labels[field] || field;
         }
 
         // 编辑记录
         function editRecord(id) {
-            // 如果已经在编辑中，直接返回
             if (editingRowIds.has(id)) {
                 return;
             }
             
             editingRowIds.add(id);
             
-            // 保存原始数据的深拷贝 - 初始化Map如果不存在
             if (!originalEditData) {
                 originalEditData = new Map();
             }
@@ -2089,7 +1969,6 @@
         // 取消单个记录的编辑
         function cancelEdit(id = null) {
             if (id !== null) {
-                // 取消指定记录的编辑
                 if (originalEditData && originalEditData.has(id)) {
                     const recordIndex = stockData.findIndex(r => r.id === id);
                     if (recordIndex !== -1) {
@@ -2099,7 +1978,6 @@
                 }
                 editingRowIds.delete(id);
             } else {
-                // 取消所有编辑
                 if (originalEditData) {
                     editingRowIds.forEach(editId => {
                         if (originalEditData.has(editId)) {
@@ -2123,8 +2001,7 @@
             if (record) {
                 record[field] = value;
                 
-                // 只有在数值字段变化时才重新渲染（更新计算值）
-                if (field === 'in_quantity' || field === 'out_quantity' || field === 'price') {
+                if (field === 'out_quantity' || field === 'price') {
                     renderStockTable();
                 }
             }
@@ -2140,9 +2017,7 @@
             } else {
                 form.classList.add('show');
                 
-                // 确保选项已加载
                 setTimeout(() => {
-                    // 加载code number选项
                     if (window.codeNumberOptions && window.codeNumberOptions.length > 0) {
                         const selectElement = document.getElementById('add-code-number');
                         if (selectElement) {
@@ -2150,7 +2025,6 @@
                         }
                     }
 
-                    // 加载产品选项
                     if (window.productOptions && window.productOptions.length > 0) {
                         const productSelectElement = document.getElementById('add-product-name');
                         if (productSelectElement) {
@@ -2158,7 +2032,6 @@
                         }
                     }
                     
-                    // 为表单中的下拉框绑定联动事件
                     const addProductSelect = document.getElementById('add-product-name');
                     const addCodeSelect = document.getElementById('add-code-number');
                     
@@ -2221,27 +2094,6 @@
             }
         }
 
-        // 批准记录
-        async function approveRecord(id) {
-            if (!confirm('确定要批准此记录吗？')) return;
-
-            try {
-                const result = await apiCall('?action=approve', {
-                    method: 'PUT',
-                    body: JSON.stringify({ id: id })
-                });
-
-                if (result.success) {
-                    showAlert('记录批准成功', 'success');
-                    loadStockData();
-                } else {
-                    showAlert('批准失败: ' + (result.message || '未知错误'), 'error');
-                }
-            } catch (error) {
-                showAlert('批准时发生错误', 'error');
-            }
-        }
-
         // 删除记录
         async function deleteRecord(id) {
             if (!confirm('确定要删除此记录吗？此操作不可恢复！')) return;
@@ -2265,26 +2117,6 @@
         // 刷新数据
         function refreshData() {
             loadStockData();
-        }
-
-        // 刷新数据但保留新增行
-        function refreshDataKeepNewRows() {
-            // 保存所有新增行
-            const newRows = Array.from(document.querySelectorAll('.new-row')).map(row => ({
-                element: row.cloneNode(true),
-                parent: row.parentNode
-            }));
-            
-            // 重新加载数据
-            loadStockData().then(() => {
-                // 恢复新增行
-                newRows.forEach(({element, parent}) => {
-                    parent.insertBefore(element, parent.firstChild);
-                });
-                
-                // 重新绑定事件
-                setTimeout(bindComboboxEvents, 0);
-            });
         }
 
         // 导出数据
@@ -2317,28 +2149,326 @@
 
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
-            // Ctrl+S 保存所有编辑
             if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
                 if (editingRowIds.size > 0) {
-                    // 保存所有正在编辑的记录
                     editingRowIds.forEach(id => {
                         saveRecord(id);
                     });
                 }
             }
             
-            // Escape键取消新增行
             if (e.key === 'Escape') {
                 if (document.querySelector('.new-row')) {
                     cancelNewRow();
                 }
-                // 移除自动取消所有编辑的功能，让用户手动取消
             }
         });
-    </script>
-    <script>
-        // 创建 Combobox 组件
+
+        // 处理新增表单出库数量变化
+        function handleAddFormOutQuantityChange() {
+            const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
+            const productName = document.getElementById('add-product-name').value;
+            const priceSelect = document.getElementById('add-price-select');
+            const priceInput = document.getElementById('add-price');
+            
+            if (outQty > 0 && productName) {
+                // 出库且有产品名称，显示价格下拉选项（带库存检查）
+                priceSelect.style.display = 'block';
+                priceInput.style.display = 'none';
+                priceInput.value = '';
+                loadAddFormProductPricesWithStock(productName, outQty);
+            } else {
+                // 出库为0，显示普通输入框
+                priceSelect.style.display = 'none';
+                priceInput.style.display = 'block';
+                if (outQty === 0) {
+                    priceInput.value = '';
+                }
+            }
+        }
+
+        // 处理新增表单中产品变化时加载价格选项
+        function handleAddFormProductChange(selectElement, codeNumberElement) {
+            const productName = selectElement.value;
+            
+            handleProductChange(selectElement, codeNumberElement);
+            
+            if (productName) {
+                handleAddFormOutQuantityChange();
+            } else {
+                const priceSelect = document.getElementById('add-price-select');
+                const priceInput = document.getElementById('add-price');
+                if (priceSelect) {
+                    priceSelect.innerHTML = '<option value="">请先选择产品</option>';
+                    priceSelect.style.display = 'none';
+                }
+                if (priceInput) {
+                    priceInput.style.display = 'block';
+                    priceInput.value = '';
+                }
+            }
+        }
+
+        // 处理新增表单价格选择变化
+        function handleAddFormPriceChange() {
+            const selectElement = document.getElementById('add-price-select');
+            const inputElement = document.getElementById('add-price');
+            
+            if (selectElement.value === 'manual') {
+                selectElement.style.display = 'none';
+                inputElement.style.display = 'block';
+                inputElement.focus();
+            } else {
+                inputElement.value = selectElement.value;
+            }
+        }
+
+        // 检查产品库存是否足够（按产品名称和价格分别计算）
+        async function checkProductStock(productName, outQuantity, price = null) {
+            if (!productName || outQuantity <= 0) {
+                return { sufficient: true, availableStock: 0, currentStock: 0 };
+            }
+            
+            try {
+                let apiUrl;
+                if (price !== null && price !== '') {
+                    apiUrl = `?action=product_stock_by_price&product_name=${encodeURIComponent(productName)}&price=${encodeURIComponent(price)}`;
+                } else {
+                    apiUrl = `?action=product_stock&product_name=${encodeURIComponent(productName)}`;
+                }
+                
+                const result = await apiCall(apiUrl);
+                
+                if (result.success && result.data) {
+                    const availableStock = parseFloat(result.data.available_stock || 0);
+                    const currentStock = parseFloat(result.data.current_stock || 0);
+                    
+                    return {
+                        sufficient: availableStock >= outQuantity,
+                        availableStock: availableStock,
+                        currentStock: currentStock,
+                        requested: outQuantity
+                    };
+                } else {
+                    return { sufficient: true, availableStock: 0, currentStock: 0 };
+                }
+                
+            } catch (error) {
+                console.error('检查库存失败:', error);
+                return { sufficient: true, availableStock: 0, currentStock: 0 };
+            }
+        }
+
+        // 加载新增表单的价格选项（带库存检查）
+        async function loadAddFormProductPricesWithStock(productName, requiredQty = 0) {
+            try {
+                const result = await apiCall(`?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${requiredQty}`);
+                const selectElement = document.getElementById('add-price-select');
+                
+                if (!selectElement) return;
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    let options = '<option value="">请选择价格</option>';
+                    options += '<option value="manual">手动输入价格</option>';
+                    
+                    result.data.forEach(item => {
+                        const price = item.price;
+                        const availableStock = item.available_stock;
+                        
+                        if (availableStock >= requiredQty) {
+                            options += `<option value="${price}">${parseFloat(price).toFixed(2)} (库存: ${availableStock})</option>`;
+                        }
+                    });
+                    selectElement.innerHTML = options;
+                } else {
+                    selectElement.innerHTML = '<option value="">暂无足够库存的价格</option><option value="manual">手动输入价格</option>';
+                }
+                
+            } catch (error) {
+                console.error('加载产品价格失败:', error);
+                const selectElement = document.getElementById('add-price-select');
+                if (selectElement) {
+                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                }
+            }
+        }
+
+        // 加载产品价格选项（带库存检查）
+        async function loadProductPricesWithStock(productName, selectElementId, currentPrice = '', requiredQty = 0) {
+            try {
+                const result = await apiCall(`?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${requiredQty}`);
+                const selectElement = document.getElementById(selectElementId);
+                if (selectElement) {
+                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                }
+            }
+        }
+
+        // 处理价格选择变化
+        function handlePriceSelectChange(selectElement) {
+            const recordId = selectElement.id.replace('price-select-', '');
+            const container = selectElement.closest('.currency-display');
+            
+            if (selectElement.value === 'manual') {
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.className = 'table-input currency-input-edit manual-price-input';
+                input.min = '0';
+                input.step = '0.01';
+                input.placeholder = '输入价格';
+                input.style.marginLeft = '5px';
+                input.style.width = '80px';
+                
+                input.addEventListener('change', function() {
+                    updateField(parseInt(recordId), 'price', this.value);
+                    selectElement.value = this.value;
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        selectElement.value = '';
+                        updateField(parseInt(recordId), 'price', '');
+                    }
+                });
+                
+                const existingInput = container.querySelector('.manual-price-input');
+                if (existingInput) {
+                    existingInput.remove();
+                }
+                
+                container.appendChild(input);
+                input.focus();
+            } else {
+                const existingInput = container.querySelector('.manual-price-input');
+                if (existingInput) {
+                    existingInput.remove();
+                }
+                
+                updateField(parseInt(recordId), 'price', selectElement.value);
+            }
+        }
+
+        // 为新行创建价格下拉选项（带库存检查）
+        async function createNewRowPriceSelectWithStock(rowId, productName, currentPrice = '', requiredQty = 0) {
+            const priceInput = document.getElementById(`${rowId}-price`);
+            const priceCell = priceInput.closest('.currency-display');
+            
+            if (priceCell.querySelector('.price-select')) {
+                return;
+            }
+            
+            const selectElement = document.createElement('select');
+            selectElement.className = 'table-select price-select';
+            selectElement.id = `${rowId}-price-select`;
+            selectElement.innerHTML = '<option value="">正在加载...</option>';
+            
+            priceInput.style.display = 'none';
+            priceCell.appendChild(selectElement);
+            
+            await loadNewRowProductPricesWithStock(productName, selectElement.id, currentPrice, requiredQty);
+            
+            selectElement.addEventListener('change', function() {
+                handleNewRowPriceSelectChange(this, rowId);
+            });
+        }
+
+        // 恢复新行价格输入框
+        function restoreNewRowPriceInput(rowId) {
+            const priceInput = document.getElementById(`${rowId}-price`);
+            const priceCell = priceInput.closest('.currency-display');
+            const selectElement = priceCell.querySelector('.price-select');
+            
+            if (selectElement) {
+                selectElement.remove();
+                priceInput.style.display = 'block';
+                priceInput.value = '';
+            }
+        }
+
+        // 加载新行产品价格选项（带库存检查）
+        async function loadNewRowProductPricesWithStock(productName, selectElementId, currentPrice = '', requiredQty = 0) {
+            try {
+                const result = await apiCall(`?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${requiredQty}`);
+                const selectElement = document.getElementById(selectElementId);
+                
+                if (!selectElement) return;
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    let options = '<option value="">请选择价格</option>';
+                    options += '<option value="manual">手动输入价格</option>';
+                    
+                    result.data.forEach(item => {
+                        const price = item.price;
+                        const availableStock = item.available_stock;
+                        const selected = price == currentPrice ? 'selected' : '';
+                        
+                        if (availableStock >= requiredQty) {
+                            options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)} (库存: ${availableStock})</option>`;
+                        }
+                    });
+                    
+                    selectElement.innerHTML = options;
+                } else {
+                    selectElement.innerHTML = '<option value="">暂无足够库存的价格</option><option value="manual">手动输入价格</option>';
+                }
+                
+            } catch (error) {
+                console.error('加载产品价格失败:', error);
+                const selectElement = document.getElementById(selectElementId);
+                if (selectElement) {
+                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                }
+            }
+        }
+
+        // 处理新行价格下拉选择变化
+        function handleNewRowPriceSelectChange(selectElement, rowId) {
+            const priceInput = document.getElementById(`${rowId}-price`);
+            const container = selectElement.closest('.currency-display');
+            
+            if (selectElement.value === 'manual') {
+                const manualInput = document.createElement('input');
+                manualInput.type = 'number';
+                manualInput.className = 'table-input currency-input-edit manual-price-input';
+                manualInput.min = '0';
+                manualInput.step = '0.01';
+                manualInput.placeholder = '输入价格';
+                manualInput.style.marginLeft = '5px';
+                manualInput.style.width = '80px';
+                
+                manualInput.addEventListener('input', function() {
+                    priceInput.value = this.value;
+                    updateNewRowTotal(priceInput);
+                });
+                
+                manualInput.addEventListener('blur', function() {
+                    if (!this.value) {
+                        selectElement.value = '';
+                        priceInput.value = '';
+                        updateNewRowTotal(priceInput);
+                    }
+                });
+                
+                const existingInput = container.querySelector('.manual-price-input');
+                if (existingInput) {
+                    existingInput.remove();
+                }
+                
+                container.appendChild(manualInput);
+                manualInput.focus();
+            } else {
+                const existingInput = container.querySelector('.manual-price-input');
+                if (existingInput) {
+                    existingInput.remove();
+                }
+                
+                priceInput.value = selectElement.value;
+                updateNewRowTotal(priceInput);
+            }
+        }
+
+        // Combobox 相关功能
         function createCombobox(type, value = '', recordId = null, isNewRow = false) {
             const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
             const placeholder = type === 'code' ? '输入或选择编号...' : '输入或选择产品...';
@@ -2377,7 +2507,6 @@
             `;
         }
 
-        // 生成下拉选项
         function generateComboboxOptions(options, displayField) {
             if (!options || options.length === 0) {
                 return '<div class="no-results">暂无选项</div>';
@@ -2390,65 +2519,117 @@
             ).join('');
         }
 
-        // 计算下拉列表位置
-        function calculateDropdownPosition(inputElement, dropdownElement) {
-            const inputRect = inputElement.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            const dropdownHeight = Math.min(200, dropdownElement.scrollHeight);
+        function bindComboboxEvents() {
+            document.querySelectorAll('.combobox-input').forEach(input => {
+                if (!input._eventsbound) {
+                    const focusHandler = () => showComboboxDropdown(input);
+                    const inputHandler = () => filterComboboxOptions(input);
+                    const keydownHandler = (e) => {
+                        const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '];
+                        const isAlphaNumeric = /^[a-zA-Z0-9]$/.test(e.key);
+                        
+                        if (!allowedKeys.includes(e.key) && !isAlphaNumeric) {
+                            e.preventDefault();
+                            return;
+                        }
+                        
+                        handleComboboxKeydown(e, input);
+                    };
+                    
+                    const blurHandler = (e) => {
+                        const container = input.closest('.combobox-container');
+                        const dropdown = container.querySelector('.combobox-dropdown');
+                        
+                        if (dropdown && dropdown.classList.contains('show')) {
+                            setTimeout(() => {
+                                if (!dropdown.classList.contains('show')) {
+                                    performValidation();
+                                }
+                            }, 150);
+                            return;
+                        }
+                        
+                        performValidation();
+                        
+                        function performValidation() {
+                            if (input._isSelecting) {
+                                return;
+                            }
+                            
+                            if (input.value.trim() && !validateComboboxInput(input)) {
+                                const type = input.dataset.type;
+                                const fieldName = type === 'code' ? '产品编号' : '产品名称';
+                                showAlert(`${fieldName}不存在，请从下拉列表中选择`, 'error');
+                                setTimeout(() => {
+                                    if (document.activeElement !== input) {
+                                        input.focus();
+                                    }
+                                }, 100);
+                                return;
+                            }
+                            
+                            const recordId = input.dataset.recordId;
+                            const fieldName = input.dataset.field;
+                            if (recordId && fieldName) {
+                                const record = stockData.find(r => r.id === parseInt(recordId));
+                                if (record && record[fieldName] !== input.value) {
+                                    record[fieldName] = input.value;
+                                    if (fieldName === 'out_quantity' || fieldName === 'price') {
+                                        renderStockTable();
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    
+                    input.addEventListener('focus', focusHandler);
+                    input.addEventListener('input', inputHandler);
+                    input.addEventListener('keydown', keydownHandler);
+                    input.addEventListener('blur', blurHandler);
+                    
+                    input._eventsbound = true;
+                }
+            });
             
-            let top = inputRect.bottom;
-            let left = inputRect.left;
-            
-            // 检查是否会超出视口底部
-            if (top + dropdownHeight > viewportHeight) {
-                // 显示在输入框上方
-                top = inputRect.top - dropdownHeight;
-            }
-            
-            // 确保不会超出视口左右边界
-            const dropdownWidth = Math.max(200, inputRect.width);
-            if (left + dropdownWidth > window.innerWidth) {
-                left = window.innerWidth - dropdownWidth - 10;
-            }
-            if (left < 10) {
-                left = 10;
-            }
-            
-            return { top, left, width: dropdownWidth };
+            document.querySelectorAll('.combobox-option').forEach(option => {
+                if (!option._eventsbound) {
+                    const clickHandler = () => {
+                        const container = option.closest('.combobox-container');
+                        const input = container.querySelector('.combobox-input');
+                        selectComboboxOption(option, input);
+                    };
+                    option.addEventListener('click', clickHandler);
+                    option._eventsbound = true;
+                }
+            });
         }
 
-        // 显示下拉列表
         function showComboboxDropdown(input) {
-            // 隐藏其他所有下拉列表
             hideAllDropdowns();
             
             const container = input.closest('.combobox-container');
             const dropdown = container.querySelector('.combobox-dropdown');
             
             if (dropdown) {
-                const position = calculateDropdownPosition(input, dropdown);
-                dropdown.style.top = position.top + 'px';
-                dropdown.style.left = position.left + 'px';
-                dropdown.style.width = position.width + 'px';
+                const inputRect = input.getBoundingClientRect();
+                dropdown.style.top = inputRect.bottom + 'px';
+                dropdown.style.left = inputRect.left + 'px';
+                dropdown.style.width = Math.max(200, inputRect.width) + 'px';
                 dropdown.classList.add('show');
                 
-                // 重置高亮
                 dropdown.querySelectorAll('.combobox-option').forEach(option => {
                     option.classList.remove('highlighted');
                 });
             }
         }
 
-        // 隐藏所有下拉列表
         function hideAllDropdowns() {
             document.querySelectorAll('.combobox-dropdown.show').forEach(dropdown => {
                 dropdown.classList.remove('show');
             });
         }
 
-        // 过滤下拉选项 - 修复版本
         function filterComboboxOptions(input) {
-            // 使用防抖来提高性能
             clearTimeout(input._filterTimeout);
             input._filterTimeout = setTimeout(() => {
                 const container = input.closest('.combobox-container');
@@ -2472,7 +2653,6 @@
                 } else {
                     dropdown.innerHTML = generateComboboxOptions(filteredOptions, displayField);
                     
-                    // 重新绑定点击事件
                     dropdown.querySelectorAll('.combobox-option').forEach(option => {
                         option.addEventListener('click', () => selectComboboxOption(option, input));
                     });
@@ -2480,51 +2660,44 @@
                 
                 showComboboxDropdown(input);
                 
-                // 如果是编辑模式，只更新数据，不重新渲染表格
                 const recordId = input.dataset.recordId;
                 const fieldName = input.dataset.field;
                 if (recordId && fieldName) {
                     const record = stockData.find(r => r.id === parseInt(recordId));
                     if (record) {
                         record[fieldName] = input.value;
-                        // 不调用 updateField 避免重新渲染
                     }
                 }
-            }, 100); // 100ms 防抖延迟
+            }, 100);
         }
 
-        // 选择下拉选项
         async function selectComboboxOption(optionElement, input) {
             const value = optionElement.dataset.value;
             const type = input.dataset.type;
             const recordId = input.dataset.recordId;
             
-            // 标记正在进行选择操作
             input._isSelecting = true;
             
             input.value = value;
             hideAllDropdowns();
             
-            // 清除选择标记
             setTimeout(() => {
                 input._isSelecting = false;
             }, 200);
             
-            // 触发联动更新
             if (type === 'code') {
-                const productName = await getProductByCode(value); // 注意：这里应该是 getProductByCode
+                const productName = await getProductByCode(value);
                 if (productName) {
                     const containerId = input.closest('.combobox-container').id;
                     const isNewRow = containerId.includes('new-');
                     
                     let relatedInputId;
                     if (isNewRow) {
-                        // 对于新增行，提取行ID
                         const rowIdMatch = containerId.match(/^(new-\d+)-/);
                         if (rowIdMatch) {
                             relatedInputId = `${rowIdMatch[1]}-product_name-input`;
                         } else {
-                            relatedInputId = 'new-product_name-input'; // 兼容旧格式
+                            relatedInputId = 'new-product_name-input';
                         }
                     } else {
                         relatedInputId = `combo-product_name-${recordId}-input`;
@@ -2546,12 +2719,11 @@
                     
                     let relatedInputId;
                     if (isNewRow) {
-                        // 对于新增行，提取行ID
-                        const rowIdMatch = containerId.match(/^(new-\d+)-/);
+                        const rowIdMatch = containerId.match(/^(new-\d+)-/) || containerId.match(/^(new)-/);
                         if (rowIdMatch) {
                             relatedInputId = `${rowIdMatch[1]}-code_number-input`;
                         } else {
-                            relatedInputId = 'new-code_number-input'; // 兼容旧格式
+                            relatedInputId = 'new-code_number-input';
                         }
                     } else {
                         relatedInputId = `combo-code_number-${recordId}-input`;
@@ -2566,33 +2738,28 @@
                     }
                 }
 
-                // 新增：检查是否需要更新价格下拉列表
                 const containerId = input.closest('.combobox-container').id;
                 if (containerId.includes('new-')) {
                     const rowIdMatch = containerId.match(/^(new-\d+)-/) || containerId.match(/^(new)-/);
                     if (rowIdMatch) {
                         const baseRowId = rowIdMatch[1];
                         const outInput = document.getElementById(`${baseRowId}-out-qty`);
-                        const inInput = document.getElementById(`${baseRowId}-in-qty`);
                         
-                        if (outInput && inInput) {
+                        if (outInput) {
                             const outQty = parseFloat(outInput.value) || 0;
-                            const inQty = parseFloat(inInput.value) || 0;
                             
-                            if (outQty > 0 && inQty === 0) {
-                                createNewRowPriceSelect(baseRowId, value);
+                            if (outQty > 0) {
+                                createNewRowPriceSelectWithStock(baseRowId, value, '', outQty);
                             }
                         }
                     }
                 }
             }
             
-            // 如果是编辑模式，更新字段
             if (recordId) {
                 updateField(parseInt(recordId), input.dataset.field, value);
             }
 
-            // 如果是编辑模式，确保数据已更新
             if (recordId) {
                 const record = stockData.find(r => r.id === parseInt(recordId));
                 if (record) {
@@ -2601,12 +2768,11 @@
             }
         }
 
-        // 验证输入值是否在允许的选项中
         function validateComboboxInput(input) {
             const type = input.dataset.type;
             const value = input.value.trim();
             
-            if (!value) return true; // 空值允许
+            if (!value) return true;
             
             if (type === 'code' && window.codeNumberOptions) {
                 const validCodes = window.codeNumberOptions.map(c => c.code_number);
@@ -2619,7 +2785,6 @@
             return true;
         }
 
-        // 处理键盘事件
         function handleComboboxKeydown(event, input) {
             const container = input.closest('.combobox-container');
             const dropdown = container.querySelector('.combobox-dropdown');
@@ -2683,629 +2848,15 @@
             }
         }
 
-        // 修改渲染后的事件绑定
-        function bindComboboxEvents() {
-        // 为所有 combobox 输入框绑定事件
-        document.querySelectorAll('.combobox-input').forEach(input => {
-            // 只有在没有绑定过的情况下才绑定事件
-            if (!input._eventsbound) {
-                // 创建事件处理器
-                const focusHandler = () => showComboboxDropdown(input);
-                const inputHandler = () => filterComboboxOptions(input);
-                const keydownHandler = (e) => {
-                    // 限制只能输入英文、数字和空格
-                    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '];
-                    const isAlphaNumeric = /^[a-zA-Z0-9]$/.test(e.key);
-                    
-                    if (!allowedKeys.includes(e.key) && !isAlphaNumeric) {
-                        e.preventDefault();
-                        return;
-                    }
-                    
-                    handleComboboxKeydown(e, input);
-                };
-                
-                // 添加 blur 事件处理器，确保编辑模式下数据被保存
-                const blurHandler = (e) => {
-                    // 检查是否是点击下拉选项导致的blur
-                    const container = input.closest('.combobox-container');
-                    const dropdown = container.querySelector('.combobox-dropdown');
-                    
-                    // 如果下拉列表显示中且点击的是下拉选项，则不执行验证
-                    if (dropdown && dropdown.classList.contains('show')) {
-                        // 延迟执行验证，给点击事件时间完成
-                        setTimeout(() => {
-                            // 再次检查下拉列表是否还显示，如果隐藏了说明选择已完成
-                            if (!dropdown.classList.contains('show')) {
-                                performValidation();
-                            }
-                        }, 150);
-                        return;
-                    }
-                    
-                    performValidation();
-                    
-                    function performValidation() {
-
-                        if (input._isSelecting) {
-                            return;
-                        }
-                        // 验证输入值
-                        if (input.value.trim() && !validateComboboxInput(input)) {
-                            const type = input.dataset.type;
-                            const fieldName = type === 'code' ? '产品编号' : '产品名称';
-                            showAlert(`${fieldName}不存在，请从下拉列表中选择`, 'error');
-                            // 不要立即重新聚焦，给用户机会点击其他地方
-                            setTimeout(() => {
-                                if (document.activeElement !== input) {
-                                    input.focus();
-                                }
-                            }, 100);
-                            return;
-                        }
-                        
-                        const recordId = input.dataset.recordId;
-                        const fieldName = input.dataset.field;
-                        if (recordId && fieldName) {
-                            const record = stockData.find(r => r.id === parseInt(recordId));
-                            if (record && record[fieldName] !== input.value) {
-                                record[fieldName] = input.value;
-                                // 如果是数值相关字段，需要重新计算
-                                if (fieldName === 'in_quantity' || fieldName === 'out_quantity' || fieldName === 'price') {
-                                    renderStockTable();
-                                }
-                            }
-                        }
-                    }
-                };
-                
-                // 绑定事件监听器
-                input.addEventListener('focus', focusHandler);
-                input.addEventListener('input', inputHandler);
-                input.addEventListener('keydown', keydownHandler);
-                input.addEventListener('blur', blurHandler); // 这是新添加的一行
-                
-                // 标记已绑定
-                input._eventsbound = true;
-            }
-        });
-            
-            // 为所有 combobox 选项绑定点击事件
-            document.querySelectorAll('.combobox-option').forEach(option => {
-                if (!option._eventsbound) {
-                    const clickHandler = () => {
-                        const container = option.closest('.combobox-container');
-                        const input = container.querySelector('.combobox-input');
-                        selectComboboxOption(option, input);
-                    };
-                    option.addEventListener('click', clickHandler);
-                    option._eventsbound = true;
-                }
-            });
-        }
-
-        // 全局点击事件（隐藏下拉列表）
+        // Global event listeners for combobox
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.combobox-container')) {
                 hideAllDropdowns();
             }
         });
 
-        // 窗口滚动和大小变化时重新计算位置
         window.addEventListener('scroll', hideAllDropdowns);
         window.addEventListener('resize', hideAllDropdowns);
-    </script>
-    <script>
-        // 加载产品的所有进货价格选项
-        async function loadProductPrices(productName, selectElementId, currentPrice = '') {
-            try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
-                const selectElement = document.getElementById(selectElementId);
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    // 添加手动输入选项
-                    options += '<option value="manual">手动输入价格</option>';
-                    
-                    result.data.forEach(price => {
-                        const selected = price == currentPrice ? 'selected' : '';
-                        options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)}</option>`;
-                    });
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-                // 如果选择了"手动输入价格"，显示输入框
-                selectElement.addEventListener('change', function() {
-                    handlePriceSelectChange(this);
-                });
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById(selectElementId);
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
-                }
-            }
-        }
-
-        async function createNewRowPriceSelectWithStock(rowId, productName, currentPrice = '', requiredQty = 0) {
-            const priceInput = document.getElementById(`${rowId}-price`);
-            const priceCell = priceInput.closest('.currency-display');
-            
-            // 检查是否已经是下拉选项
-            if (priceCell.querySelector('.price-select')) {
-                return;
-            }
-            
-            // 创建下拉选项
-            const selectElement = document.createElement('select');
-            selectElement.className = 'table-select price-select';
-            selectElement.id = `${rowId}-price-select`;
-            selectElement.innerHTML = '<option value="">正在加载...</option>';
-            
-            // 隐藏输入框，显示下拉选项
-            priceInput.style.display = 'none';
-            priceCell.appendChild(selectElement);
-            
-            // 加载价格选项（带库存检查）
-            await loadNewRowProductPricesWithStock(productName, selectElement.id, currentPrice, requiredQty);
-            
-            // 绑定变化事件
-            selectElement.addEventListener('change', function() {
-                handleNewRowPriceSelectChange(this, rowId);
-            });
-        }
-
-        // 3. 新增函数：加载新行产品价格选项（带库存检查）
-        async function loadNewRowProductPricesWithStock(productName, selectElementId, currentPrice = '', requiredQty = 0) {
-            try {
-                const result = await apiCall(`?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${requiredQty}`);
-                const selectElement = document.getElementById(selectElementId);
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    options += '<option value="manual">手动输入价格</option>';
-                    
-                    result.data.forEach(item => {
-                        const price = item.price;
-                        const availableStock = item.available_stock;
-                        const selected = price == currentPrice ? 'selected' : '';
-                        
-                        // 只显示库存足够的价格选项
-                        if (availableStock >= requiredQty) {
-                            options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)} (库存: ${availableStock})</option>`;
-                        }
-                    });
-                    
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无足够库存的价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById(selectElementId);
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
-                }
-            }
-        }
-
-        async function loadAddFormProductPricesWithStock(productName, requiredQty = 0) {
-            try {
-                const result = await apiCall(`?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${requiredQty}`);
-                const selectElement = document.getElementById('add-price-select');
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    options += '<option value="manual">手动输入价格</option>';
-                    
-                    result.data.forEach(item => {
-                        const price = item.price;
-                        const availableStock = item.available_stock;
-                        
-                        // 只显示库存足够的价格选项
-                        if (availableStock >= requiredQty) {
-                            options += `<option value="${price}">${parseFloat(price).toFixed(2)} (库存: ${availableStock})</option>`;
-                        }
-                    });
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无足够库存的价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById('add-price-select');
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
-                }
-            }
-        }
-
-        async function loadProductPricesWithStock(productName, selectElementId, currentPrice = '', requiredQty = 0) {
-            try {
-                const result = await apiCall(`?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${requiredQty}`);
-                const selectElement = document.getElementById(selectElementId);
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    options += '<option value="manual">手动输入价格</option>';
-                    
-                    result.data.forEach(item => {
-                        const price = item.price;
-                        const availableStock = item.available_stock;
-                        const selected = price == currentPrice ? 'selected' : '';
-                        
-                        // 只显示库存足够的价格选项，但当前价格即使库存不足也要显示（已选中的选项）
-                        if (availableStock >= requiredQty || price == currentPrice) {
-                            const stockInfo = availableStock >= requiredQty ? `(库存: ${availableStock})` : `(库存不足: ${availableStock})`;
-                            options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)} ${stockInfo}</option>`;
-                        }
-                    });
-                    
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无足够库存的价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-                // 绑定变化事件
-                selectElement.addEventListener('change', function() {
-                    handlePriceSelectChange(this);
-                });
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById(selectElementId);
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
-                }
-            }
-        }
-
-        // 处理价格选择变化
-        function handlePriceSelectChange(selectElement) {
-            const recordId = selectElement.id.replace('price-select-', '');
-            const container = selectElement.closest('.currency-display');
-            
-            if (selectElement.value === 'manual') {
-                // 显示输入框
-                const input = document.createElement('input');
-                input.type = 'number';
-                input.className = 'table-input currency-input-edit manual-price-input';
-                input.min = '0';
-                input.step = '0.01';
-                input.placeholder = '输入价格';
-                input.style.marginLeft = '5px';
-                input.style.width = '80px';
-                
-                input.addEventListener('change', function() {
-                    updateField(parseInt(recordId), 'price', this.value);
-                    // 更新下拉选择框的值
-                    selectElement.value = this.value;
-                });
-                
-                input.addEventListener('blur', function() {
-                    if (!this.value) {
-                        selectElement.value = '';
-                        updateField(parseInt(recordId), 'price', '');
-                    }
-                });
-                
-                // 移除已存在的输入框
-                const existingInput = container.querySelector('.manual-price-input');
-                if (existingInput) {
-                    existingInput.remove();
-                }
-                
-                container.appendChild(input);
-                input.focus();
-            } else {
-                // 移除手动输入框
-                const existingInput = container.querySelector('.manual-price-input');
-                if (existingInput) {
-                    existingInput.remove();
-                }
-                
-                // 更新价格值
-                updateField(parseInt(recordId), 'price', selectElement.value);
-            }
-        }
-    </script>
-    <script>
-        // 处理新增表单中产品变化时加载价格选项
-        function handleAddFormProductChange(selectElement, codeNumberElement) {
-            const productName = selectElement.value;
-            
-            // 原有的产品变化处理
-            handleProductChange(selectElement, codeNumberElement);
-            
-            // 根据出库数量决定是否加载价格选项
-            if (productName) {
-                handleAddFormOutQuantityChange();
-            } else {
-                const priceSelect = document.getElementById('add-price-select');
-                const priceInput = document.getElementById('add-price');
-                if (priceSelect) {
-                    priceSelect.innerHTML = '<option value="">请先选择产品</option>';
-                    priceSelect.style.display = 'none';
-                }
-                if (priceInput) {
-                    priceInput.style.display = 'block';
-                    priceInput.value = '';
-                }
-            }
-        }
-
-        // 加载新增表单的价格选项
-        async function loadAddFormProductPrices(productName) {
-            try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
-                const selectElement = document.getElementById('add-price-select');
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    options += '<option value="manual">手动输入价格</option>';
-                    
-                    result.data.forEach(price => {
-                        options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
-                    });
-                    selectElement.innerHTML = options;
-                    selectElement.style.display = 'block';
-                    document.getElementById('add-price').style.display = 'none';
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-            }
-        }
-
-        // 处理新增表单价格选择变化
-        function handleAddFormPriceChange() {
-            const selectElement = document.getElementById('add-price-select');
-            const inputElement = document.getElementById('add-price');
-            
-            if (selectElement.value === 'manual') {
-                selectElement.style.display = 'none';
-                inputElement.style.display = 'block';
-                inputElement.focus();
-            } else {
-                inputElement.value = selectElement.value;
-            }
-        }
-    </script>
-    <script>
-        // 处理新增表单出库数量变化
-        function handleAddFormOutQuantityChange() {
-            const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
-            const inQty = parseFloat(document.getElementById('add-in-qty').value) || 0;
-            const productName = document.getElementById('add-product-name').value;
-            const priceSelect = document.getElementById('add-price-select');
-            const priceInput = document.getElementById('add-price');
-            
-            if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，显示价格下拉选项（带库存检查）
-                priceSelect.style.display = 'block';
-                priceInput.style.display = 'none';
-                priceInput.value = '';
-                loadAddFormProductPricesWithStock(productName, outQty);
-            } else {
-                // 入库或出库为0，显示普通输入框
-                priceSelect.style.display = 'none';
-                priceInput.style.display = 'block';
-                if (outQty === 0 && inQty === 0) {
-                    priceInput.value = '';
-                }
-            }
-        }
-    </script>
-    <script>
-        // 加载新增表单的价格选项
-        async function loadAddFormProductPrices(productName) {
-            try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
-                const selectElement = document.getElementById('add-price-select');
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    options += '<option value="manual">手动输入价格</option>';
-                    
-                    result.data.forEach(price => {
-                        options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
-                    });
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById('add-price-select');
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
-                }
-            }
-        }
-    </script>
-    <script>
-        // 检查产品库存是否足够（按产品名称和价格分别计算）
-        async function checkProductStock(productName, outQuantity, price = null) {
-            if (!productName || outQuantity <= 0) {
-                return { sufficient: true, availableStock: 0, currentStock: 0 };
-            }
-            
-            try {
-                let apiUrl;
-                if (price !== null && price !== '') {
-                    // 按产品名称和价格检查库存
-                    apiUrl = `?action=product_stock_by_price&product_name=${encodeURIComponent(productName)}&price=${encodeURIComponent(price)}`;
-                } else {
-                    // 按产品名称检查总库存
-                    apiUrl = `?action=product_stock&product_name=${encodeURIComponent(productName)}`;
-                }
-                
-                const result = await apiCall(apiUrl);
-                
-                if (result.success && result.data) {
-                    const availableStock = parseFloat(result.data.available_stock || 0);
-                    const currentStock = parseFloat(result.data.current_stock || 0);
-                    
-                    return {
-                        sufficient: availableStock >= outQuantity,
-                        availableStock: availableStock,
-                        currentStock: currentStock,
-                        requested: outQuantity
-                    };
-                } else {
-                    // 如果无法获取库存信息，默认允许（可能是新产品）
-                    return { sufficient: true, availableStock: 0, currentStock: 0 };
-                }
-                
-            } catch (error) {
-                console.error('检查库存失败:', error);
-                // 网络错误时默认允许保存
-                return { sufficient: true, availableStock: 0, currentStock: 0 };
-            }
-        }
-    </script>
-    <script>
-        // 为新行创建价格下拉选项
-        function createNewRowPriceSelect(rowId, productName, currentPrice = '') {
-            const priceInput = document.getElementById(`${rowId}-price`);
-            const priceCell = priceInput.closest('.currency-display');
-            
-            // 检查是否已经是下拉选项
-            if (priceCell.querySelector('.price-select')) {
-                return;
-            }
-            
-            // 创建下拉选项
-            const selectElement = document.createElement('select');
-            selectElement.className = 'table-select price-select';
-            selectElement.id = `${rowId}-price-select`;
-            selectElement.innerHTML = '<option value="">正在加载...</option>';
-            
-            // 隐藏输入框，显示下拉选项
-            priceInput.style.display = 'none';
-            priceCell.appendChild(selectElement);
-            
-            // 加载价格选项
-            loadNewRowProductPrices(productName, selectElement.id, currentPrice);
-            
-            // 绑定变化事件
-            selectElement.addEventListener('change', function() {
-                handleNewRowPriceSelectChange(this, rowId);
-            });
-        }
-
-        // 恢复新行价格输入框
-        function restoreNewRowPriceInput(rowId) {
-            const priceInput = document.getElementById(`${rowId}-price`);
-            const priceCell = priceInput.closest('.currency-display');
-            const selectElement = priceCell.querySelector('.price-select');
-            
-            if (selectElement) {
-                selectElement.remove();
-                priceInput.style.display = 'block';
-                priceInput.value = '';
-            }
-        }
-
-        // 加载新行产品价格选项
-        async function loadNewRowProductPrices(productName, selectElementId, currentPrice = '') {
-            try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
-                const selectElement = document.getElementById(selectElementId);
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    options += '<option value="manual">手动输入价格</option>';
-                    
-                    result.data.forEach(price => {
-                        const selected = price == currentPrice ? 'selected' : '';
-                        options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)}</option>`;
-                    });
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById(selectElementId);
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
-                }
-            }
-        }
-
-        // 处理新行价格下拉选择变化
-        function handleNewRowPriceSelectChange(selectElement, rowId) {
-            const priceInput = document.getElementById(`${rowId}-price`);
-            const container = selectElement.closest('.currency-display');
-            
-            if (selectElement.value === 'manual') {
-                // 显示手动输入框
-                const manualInput = document.createElement('input');
-                manualInput.type = 'number';
-                manualInput.className = 'table-input currency-input-edit manual-price-input';
-                manualInput.min = '0';
-                manualInput.step = '0.01';
-                manualInput.placeholder = '输入价格';
-                manualInput.style.marginLeft = '5px';
-                manualInput.style.width = '80px';
-                
-                manualInput.addEventListener('input', function() {
-                    priceInput.value = this.value;
-                    updateNewRowTotal(priceInput);
-                });
-                
-                manualInput.addEventListener('blur', function() {
-                    if (!this.value) {
-                        selectElement.value = '';
-                        priceInput.value = '';
-                        updateNewRowTotal(priceInput);
-                    }
-                });
-                
-                // 移除已存在的手动输入框
-                const existingInput = container.querySelector('.manual-price-input');
-                if (existingInput) {
-                    existingInput.remove();
-                }
-                
-                container.appendChild(manualInput);
-                manualInput.focus();
-            } else {
-                // 移除手动输入框
-                const existingInput = container.querySelector('.manual-price-input');
-                if (existingInput) {
-                    existingInput.remove();
-                }
-                
-                // 更新价格值
-                priceInput.value = selectElement.value;
-                updateNewRowTotal(priceInput);
-            }
-        }
     </script>
 </body>
 </html>
