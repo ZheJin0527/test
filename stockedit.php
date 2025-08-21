@@ -1038,11 +1038,11 @@
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
-                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00">
+                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00">
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-specification">规格单位 *</label>
@@ -1064,10 +1064,10 @@
                     <label for="add-price">单价</label>
                     <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
                         <span class="currency-symbol">RM</span>
-                        <select id="add-price-select" class="form-select" style="border: none; background: transparent;" onchange="handleAddFormPriceChange()">
+                        <select id="add-price-select" class="form-select" style="border: none; background: transparent; display: none;" onchange="handleAddFormPriceChange()">
                             <option value="">请先选择产品</option>
                         </select>
-                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent; display: none;">
+                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
                     </div>
                 </div>
                 <div class="form-group">
@@ -2734,13 +2734,19 @@
             // 原有的产品变化处理
             handleProductChange(selectElement, codeNumberElement);
             
-            // 加载价格选项
+            // 根据出库数量决定是否加载价格选项
             if (productName) {
-                loadAddFormProductPrices(productName);
+                handleAddFormOutQuantityChange();
             } else {
                 const priceSelect = document.getElementById('add-price-select');
+                const priceInput = document.getElementById('add-price');
                 if (priceSelect) {
                     priceSelect.innerHTML = '<option value="">请先选择产品</option>';
+                    priceSelect.style.display = 'none';
+                }
+                if (priceInput) {
+                    priceInput.style.display = 'block';
+                    priceInput.value = '';
                 }
             }
         }
@@ -2783,6 +2789,27 @@
                 inputElement.focus();
             } else {
                 inputElement.value = selectElement.value;
+            }
+        }
+    </script>
+    <script>
+        // 处理新增表单出库数量变化
+        function handleAddFormOutQuantityChange() {
+            const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
+            const productName = document.getElementById('add-product-name').value;
+            const priceSelect = document.getElementById('add-price-select');
+            const priceInput = document.getElementById('add-price');
+            
+            if (outQty > 0 && productName) {
+                // 出库数量大于0，显示价格下拉选项
+                priceSelect.style.display = 'block';
+                priceInput.style.display = 'none';
+                loadAddFormProductPrices(productName);
+            } else {
+                // 入库或出库为0，显示普通输入框
+                priceSelect.style.display = 'none';
+                priceInput.style.display = 'block';
+                priceInput.value = '';
             }
         }
     </script>
