@@ -285,8 +285,8 @@ function handleGet() {
             }
             break;
 
-        case 'product_prices':
-            // 获取指定产品的所有历史进货价格
+        case 'product_in_prices':
+            // 获取指定产品的所有进货价格（不考虑库存）
             $productName = $_GET['product_name'] ?? null;
             if (!$productName) {
                 sendResponse(false, "缺少产品名称参数");
@@ -301,15 +301,10 @@ function handleGet() {
             $stmt->execute([$productName]);
             $prices = $stmt->fetchAll(PDO::FETCH_COLUMN);
             
-            // 格式化价格数据
-            $formattedPrices = array_map(function($price) {
-                return [
-                    'value' => floatval($price),
-                    'display' => 'RM ' . number_format($price, 2)
-                ];
-            }, $prices);
+            // 格式化为数字
+            $prices = array_map('floatval', $prices);
             
-            sendResponse(true, "产品价格列表获取成功", $formattedPrices);
+            sendResponse(true, "产品进货价格列表获取成功", $prices);
             break;
             
         default:

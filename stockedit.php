@@ -945,19 +945,56 @@
             overflow-y: visible;
         }
 
-        .price-select {
-            min-width: 120px;
-            background-color: white;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            padding: 4px 8px;
-            font-size: 12px;
+        .price-combobox-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
         }
 
-        .price-select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 1px #3b82f6;
+        .price-combobox-arrow {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 10px;
+            pointer-events: none;
+        }
+
+        .price-combobox-dropdown {
+            position: fixed;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .price-combobox-dropdown.show {
+            display: block;
+        }
+
+        .price-combobox-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 13px;
+        }
+
+        .price-combobox-option:last-child {
+            border-bottom: none;
+        }
+
+        .price-combobox-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .price-combobox-option.highlighted {
+            background-color: #3b82f6;
+            color: white;
         }
     </style>
 </head>
@@ -1062,10 +1099,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="add-price">单价 *</label>
-                    <select id="add-price" class="form-select" onchange="handleNewFormPriceChange()" required>
-                        <option value="">请选择价格</option>
-                    </select>
+                    <label for="add-price">单价</label>
+                    ${createPriceCombobox('', '', null, true)}
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
@@ -1316,15 +1351,13 @@
 
                     const row = selectElement.closest('tr');
                     if (row) {
-                        const priceSelect = row.querySelector('.price-select');
-                        if (priceSelect) {
-                            await loadProductPrices(productName, priceSelect.id);
+                        const priceContainer = row.querySelector('.price-combobox-container');
+                        if (priceContainer) {
+                            const priceInput = priceContainer.querySelector('.price-combobox-input');
+                            if (priceInput) {
+                                priceInput.dataset.productName = productName;
+                            }
                         }
-                    }
-                    
-                    // 如果是新增表单
-                    if (selectElement.id === 'add-product-name') {
-                        await loadProductPrices(productName, 'add-price');
                     }
                 }
             }
@@ -1383,6 +1416,17 @@
                         const recordId = parseInt(selectElement.getAttribute('data-record-id'));
                         if (recordId) {
                             updateField(recordId, 'product_name', productName);
+                        }
+                    }
+
+                    const row = selectElement.closest('tr');
+                    if (row) {
+                        const priceContainer = row.querySelector('.price-combobox-container');
+                        if (priceContainer) {
+                            const priceInput = priceContainer.querySelector('.price-combobox-input');
+                            if (priceInput) {
+                                priceInput.dataset.productName = productName;
+                            }
                         }
                     }
                 }
@@ -1502,11 +1546,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<select class="table-select price-select" id="price-select-${record.id}" 
-                                    onchange="updateField(${record.id}, 'price', this.value)"
-                                    data-product-name="${record.product_name}">
-                                <option value="${record.price || ''}">${record.price ? 'RM ' + formatCurrency(record.price) : '请选择价格'}</option>
-                            </select>` :
+                            createPriceCombobox(record.product_name, record.price, record.id) :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
                                 <span class="currency-amount">${formatCurrency(record.price)}</span>
@@ -1558,14 +1598,8 @@
 
             setTimeout(() => {
                 bindComboboxEvents();
-                
-                // 为所有编辑中的记录加载价格选项
-                stockData.forEach(record => {
-                    if (editingRowIds.has(record.id) && record.product_name) {
-                        loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
-                    }
-                });
-            }, 100);
+                bindPriceComboboxEvents(); // 添加这行
+            }, 0);
         }
 
         // 格式化日期
@@ -1621,12 +1655,7 @@
                         ${specifications.map(spec => `<option value="${spec}">${spec}</option>`).join('')}
                     </select>
                 </td>
-                <td>
-                    <select class="table-select price-select" id="${rowId}-price" 
-                            onchange="updateNewRowTotal(this)" data-product-name="">
-                        <option value="">请选择价格</option>
-                    </select>
-                </td>
+                <td>${createPriceCombobox('', '', null, rowId)}</td>
                 <td class="calculated-cell">
                     <div class="currency-display">
                         <span class="currency-symbol">RM</span>
@@ -2435,19 +2464,6 @@
                             updateField(parseInt(recordId), 'code_number', productCode);
                         }
                     }
-
-                    const containerId = input.closest('.combobox-container').id;
-                    if (containerId.includes('new-')) {
-                        const rowIdMatch = containerId.match(/^(.*)-product_name$/);
-                        if (rowIdMatch) {
-                            const priceSelectId = `${rowIdMatch[1]}-price`;
-                            const priceSelect = document.getElementById(priceSelectId);
-                            if (priceSelect) {
-                                priceSelect.dataset.productName = value;
-                                loadProductPrices(value, priceSelectId);
-                            }
-                        }
-                    }
                 }
             }
             
@@ -2648,10 +2664,13 @@
             });
         }
 
-        // 全局点击事件（隐藏下拉列表）
+        // 修改现有的全局点击事件：
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.combobox-container')) {
                 hideAllDropdowns();
+            }
+            if (!event.target.closest('.price-combobox-container')) {
+                hideAllPriceDropdowns(); // 添加这行
             }
         });
 
@@ -2660,38 +2679,141 @@
         window.addEventListener('resize', hideAllDropdowns);
     </script>
     <script>
-        // 加载产品的历史价格
-        async function loadProductPrices(productName, selectElementId, currentPrice = '') {
-            const selectElement = document.getElementById(selectElementId);
-            if (!selectElement || !productName) return;
-            
-            try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    result.data.forEach(item => {
-                        const selected = item.value == currentPrice ? 'selected' : '';
-                        options += `<option value="${item.value}" ${selected}>${item.display}</option>`;
-                    });
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option>';
-                }
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                selectElement.innerHTML = '<option value="">加载失败</option>';
-            }
-        }
+        // 创建价格下拉框
+function createPriceCombobox(productName, currentPrice = '', recordId = null, isNewRow = false) {
+    let containerId;
+    if (isNewRow === true) {
+        containerId = `new-price`;
+    } else if (typeof isNewRow === 'string') {
+        containerId = `${isNewRow}-price`;
+    } else {
+        containerId = `combo-price-${recordId}`;
+    }
+    const inputId = `${containerId}-input`;
+    const dropdownId = `${containerId}-dropdown`;
+    
+    return `
+        <div class="price-combobox-container" id="${containerId}">
+            <div class="currency-display">
+                <span class="currency-symbol">RM</span>
+                <input 
+                    type="number" 
+                    class="price-combobox-input currency-input-edit" 
+                    id="${inputId}"
+                    value="${currentPrice || ''}" 
+                    placeholder="0.00"
+                    min="0" 
+                    step="0.01"
+                    autocomplete="off"
+                    ${recordId ? `data-record-id="${recordId}"` : ''}
+                    data-product-name="${productName}"
+                />
+                <i class="fas fa-chevron-down price-combobox-arrow"></i>
+            </div>
+            <div class="price-combobox-dropdown" id="${dropdownId}">
+                <div class="no-results">请先选择产品</div>
+            </div>
+        </div>
+    `;
+}
 
-        // 新增表单中价格变化处理
-        function handleNewFormPriceChange() {
-            const priceSelect = document.getElementById('add-price');
-            if (priceSelect && priceSelect.value) {
-                // 可以在这里添加价格选择后的逻辑
-                console.log('选择的价格:', priceSelect.value);
-            }
+// 加载产品的价格选项
+async function loadProductInPrices(productName, containerId) {
+    if (!productName) return;
+    
+    try {
+        const result = await apiCall(`?action=product_in_prices&product_name=${encodeURIComponent(productName)}`);
+        const dropdown = document.getElementById(`${containerId}-dropdown`);
+        
+        if (!dropdown) return;
+        
+        if (result.success && result.data && result.data.length > 0) {
+            let options = '';
+            result.data.forEach(price => {
+                options += `<div class="price-combobox-option" data-value="${price}">RM${formatCurrency(price)}</div>`;
+            });
+            dropdown.innerHTML = options;
+            
+            // 绑定点击事件
+            dropdown.querySelectorAll('.price-combobox-option').forEach(option => {
+                if (!option._eventsbound) {
+                    option.addEventListener('click', () => {
+                        const input = document.getElementById(`${containerId}-input`);
+                        selectPriceOption(option, input);
+                    });
+                    option._eventsbound = true;
+                }
+            });
+        } else {
+            dropdown.innerHTML = '<div class="no-results">该产品暂无进货价格</div>';
         }
-    </script>
+    } catch (error) {
+        console.error('加载产品价格失败:', error);
+        const dropdown = document.getElementById(`${containerId}-dropdown`);
+        if (dropdown) {
+            dropdown.innerHTML = '<div class="no-results">加载失败</div>';
+        }
+    }
+}
+
+// 选择价格选项
+function selectPriceOption(optionElement, input) {
+    const value = optionElement.dataset.value;
+    input.value = value;
+    hideAllPriceDropdowns();
+    
+    // 如果是编辑模式，更新字段
+    const recordId = input.dataset.recordId;
+    if (recordId) {
+        updateField(parseInt(recordId), 'price', value);
+    }
+}
+
+// 显示价格下拉列表
+function showPriceDropdown(input) {
+    hideAllPriceDropdowns();
+    
+    const container = input.closest('.price-combobox-container');
+    const dropdown = container.querySelector('.price-combobox-dropdown');
+    const productName = input.dataset.productName;
+    
+    if (dropdown && productName) {
+        const position = calculateDropdownPosition(input, dropdown);
+        dropdown.style.top = position.top + 'px';
+        dropdown.style.left = position.left + 'px';
+        dropdown.style.width = position.width + 'px';
+        dropdown.classList.add('show');
+        
+        // 加载价格选项
+        loadProductInPrices(productName, container.id);
+    }
+}
+
+// 隐藏所有价格下拉列表
+function hideAllPriceDropdowns() {
+    document.querySelectorAll('.price-combobox-dropdown.show').forEach(dropdown => {
+        dropdown.classList.remove('show');
+    });
+}
+
+// 绑定价格下拉框事件
+function bindPriceComboboxEvents() {
+    document.querySelectorAll('.price-combobox-input').forEach(input => {
+        if (!input._priceEventsbound) {
+            const focusHandler = () => showPriceDropdown(input);
+            const changeHandler = () => {
+                const recordId = input.dataset.recordId;
+                if (recordId) {
+                    updateField(parseInt(recordId), 'price', input.value);
+                }
+            };
+            
+            input.addEventListener('focus', focusHandler);
+            input.addEventListener('change', changeHandler);
+            input._priceEventsbound = true;
+        }
+    });
+}
+</script>
 </body>
 </html>
