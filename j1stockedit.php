@@ -1129,8 +1129,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="add-type">类型</label>
-                    <input type="text" id="add-type" class="form-input" placeholder="输入类型...">
+                    <label for="add-type">类型 *</label>
+                    <select id="add-type" class="form-select" required>
+                        <option value="">请选择类型</option>
+                        <option value="Kitchen">Kitchen</option>
+                        <option value="SushiBar">SushiBar</option>
+                        <option value="Drink">Drink</option>
+                        <option value="Sake">Sake</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="add-name">负责人</label>
@@ -1578,10 +1584,13 @@
                         </div>
                     </td>
                     <td>
-                        ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.type || ''}" onchange="updateField(${record.id}, 'type', this.value)">` :
-                            `<span>${record.type || '-'}</span>`
-                        }
+                        <select class="table-select" onchange="updateField(${record.id}, 'type', this.value)">
+                            <option value="">请选择类型</option>
+                            <option value="Kitchen" ${record.type === 'Kitchen' ? 'selected' : ''}>Kitchen</option>
+                            <option value="SushiBar" ${record.type === 'SushiBar' ? 'selected' : ''}>SushiBar</option>
+                            <option value="Drink" ${record.type === 'Drink' ? 'selected' : ''}>Drink</option>
+                            <option value="Sake" ${record.type === 'Sake' ? 'selected' : ''}>Sake</option>
+                        </select>
                     </td>
                     <td>
                         ${isEditing ? 
@@ -1696,6 +1705,15 @@
                         <span class="currency-amount">0.00</span>
                     </div>
                 </td>
+                <td>
+                    <select class="table-select" id="${rowId}-type">
+                        <option value="">请选择类型</option>
+                        <option value="Kitchen">Kitchen</option>
+                        <option value="SushiBar">SushiBar</option>
+                        <option value="Drink">Drink</option>
+                        <option value="Sake">Sake</option>
+                    </select>
+                </td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
@@ -1753,6 +1771,7 @@
                 outQty: document.getElementById(`${rowId}-out-qty`).value,
                 specification: document.getElementById(`${rowId}-specification`).value,
                 price: document.getElementById(`${rowId}-price`).value,
+                type: document.getElementById(`${rowId}-type`).value,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
                 remark: document.getElementById(`${rowId}-remark`).value
             };
@@ -1767,7 +1786,7 @@
             if (document.getElementById(`${rowId}-product_name-input`)) document.getElementById(`${rowId}-product_name-input`).value = data.productValue;
             if (document.getElementById(`${rowId}-out-qty`)) document.getElementById(`${rowId}-out-qty`).value = data.outQty;
             if (document.getElementById(`${rowId}-specification`)) document.getElementById(`${rowId}-specification`).value = data.specification;
-            if (document.getElementById(`${rowId}-price`)) document.getElementById(`${rowId}-price`).value = data.price;
+            if (document.getElementById(`${rowId}-type`)) document.getElementById(`${rowId}-type`).value = data.type;
             if (document.getElementById(`${rowId}-receiver`)) document.getElementById(`${rowId}-receiver`).value = data.receiver;
             if (document.getElementById(`${rowId}-remark`)) document.getElementById(`${rowId}-remark`).value = data.remark;
         }
@@ -1784,18 +1803,18 @@
                 date: document.getElementById(`${rowId}-date`).value,
                 time: new Date().toTimeString().slice(0, 5),
                 product_name: productInput ? productInput.value : '',
-                in_quantity: parseFloat(document.getElementById(`${rowId}-in-qty`).value) || 0,
                 out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`).value) || 0,
                 specification: document.getElementById(`${rowId}-specification`).value,
                 price: parseFloat(document.getElementById(`${rowId}-price`).value) || 0,
+                type: document.getElementById(`${rowId}-type`).value,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
                 code_number: codeInput ? codeInput.value : '',
                 remark: document.getElementById(`${rowId}-remark`).value
             };
 
             // 验证必填字段
-            if (!formData.product_name || !formData.specification || !formData.receiver) {
-                showAlert('请填写产品名称、规格单位和收货人', 'error');
+            if (!formData.product_name || !formData.specification || !formData.type || !formData.receiver) {
+                showAlert('请填写产品名称、规格单位、类型和收货人', 'error');
                 return;
             }
 
@@ -1901,13 +1920,13 @@
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
                 receiver: document.getElementById('add-receiver').value,
-                applicant: document.getElementById('add-applicant').value,
+                type: document.getElementById('add-type').value,
                 code_number: document.getElementById('add-code-number').value,
                 remark: document.getElementById('add-remark').value
             };
 
             // 验证必填字段
-            const requiredFields = ['date', 'time', 'product_name', 'specification', 'receiver', 'applicant'];
+            const requiredFields = ['date', 'time', 'product_name', 'specification', 'type', 'receiver'];
             for (let field of requiredFields) {
                 if (!formData[field]) {
                     showAlert(`请填写${getFieldLabel(field)}`, 'error');
