@@ -284,28 +284,6 @@ function handleGet() {
                 sendResponse(false, "未找到对应的产品编号");
             }
             break;
-
-        case 'product_in_prices':
-            // 获取指定产品的所有进货价格（不考虑库存）
-            $productName = $_GET['product_name'] ?? null;
-            if (!$productName) {
-                sendResponse(false, "缺少产品名称参数");
-            }
-            
-            $sql = "SELECT DISTINCT price 
-                    FROM stockinout_data 
-                    WHERE product_name = ? AND in_quantity > 0 AND price > 0
-                    ORDER BY price ASC";
-            
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$productName]);
-            $prices = $stmt->fetchAll(PDO::FETCH_COLUMN);
-            
-            // 格式化为数字
-            $prices = array_map('floatval', $prices);
-            
-            sendResponse(true, "产品进货价格列表获取成功", $prices);
-            break;
             
         default:
             sendResponse(false, "无效的操作");
