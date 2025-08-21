@@ -284,37 +284,6 @@ function handleGet() {
                 sendResponse(false, "未找到对应的产品编号");
             }
             break;
-
-        case 'product_prices':
-            // 获取指定产品的所有进货价格和可用库存
-            $productName = $_GET['product_name'] ?? null;
-            if (!$productName) {
-                sendResponse(false, "缺少产品名称参数");
-            }
-            
-            $sql = "SELECT DISTINCT price, 
-                        SUM(in_quantity) as total_in,
-                        SUM(out_quantity) as total_out,
-                        (SUM(in_quantity) - SUM(out_quantity)) as available_stock
-                    FROM stockinout_data 
-                    WHERE product_name = ? 
-                    GROUP BY price 
-                    HAVING available_stock > 0
-                    ORDER BY price ASC";
-            
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$productName]);
-            $prices = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            // 格式化数据
-            foreach ($prices as &$price) {
-                $price['price'] = floatval($price['price']);
-                $price['available_stock'] = floatval($price['available_stock']);
-                $price['display_text'] = 'RM' . number_format($price['price'], 2) . ' (库存: ' . number_format($price['available_stock'], 2) . ')';
-            }
-            
-            sendResponse(true, "产品价格列表获取成功", $prices);
-            break;
             
         default:
             sendResponse(false, "无效的操作");
