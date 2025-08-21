@@ -79,7 +79,7 @@ function handleGet() {
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
-            $name = $_GET['name'] ?? null;
+            $receiver = $_GET['receiver'] ?? null;
             $productCode = $_GET['product_code'] ?? null;
             $productName = $_GET['product_name'] ?? null;
             $type = $_GET['type'] ?? null;
@@ -104,9 +104,9 @@ function handleGet() {
                 $params[] = $endDate;
             }
 
-            if ($name) {
-                $sql .= " AND name LIKE ?";
-                $params[] = "%$name%";
+            if ($receiver) {
+                $sql .= " AND receiver LIKE ?";
+                $params[] = "%$receiver%";
             }
 
             if ($productCode) {
@@ -214,15 +214,6 @@ function handleGet() {
             sendResponse(true, "类型列表获取成功", $types);
             break;
 
-        case 'names':
-            // 获取所有唯一的负责人列表
-            $stmt = $pdo->prepare("SELECT DISTINCT name FROM j1stockinout_data WHERE name IS NOT NULL AND name != '' ORDER BY name");
-            $stmt->execute();
-            $names = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-            sendResponse(true, "负责人列表获取成功", $names);
-            break;
-
         default:
             sendResponse(false, "无效的操作");
     }
@@ -270,7 +261,7 @@ function handlePost() {
 
         $sql = "INSERT INTO j1stockinout_data 
                 (date, time, code_number, product_name, 
-                out_quantity, specification, price, total_value, type, name, remark) 
+                out_quantity, specification, price, total_value, type, receiver, remark) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
@@ -285,7 +276,7 @@ function handlePost() {
             $price,
             $totalValue,
             $data['type'] ?? null,
-            $data['name'] ?? null,
+            $data['receiver'] ?? null,
             $data['remark'] ?? null
         ]);
 
@@ -346,7 +337,7 @@ function handlePut() {
         $sql = "UPDATE j1stockinout_data 
                 SET date = ?, time = ?, code_number = ?, product_name = ?, 
                     out_quantity = ?, specification = ?, price = ?, total_value = ?,
-                    type = ?, name = ?, remark = ?
+                    type = ?, receiver = ?, remark = ?
                 WHERE id = ?";
 
         $stmt = $pdo->prepare($sql);
@@ -361,7 +352,7 @@ function handlePut() {
             $price,
             $totalValue,
             $data['type'] ?? null,
-            $data['name'] ?? null,
+            $data['receiver'] ?? null,
             $data['remark'] ?? null,
             $data['id']
         ]);
