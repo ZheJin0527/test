@@ -383,6 +383,59 @@ function handleGet() {
                 ]);
             }
             break;
+
+        case 'product_prices_with_stock':
+            // 获取指定产品的价格列表，并检查每个价格对应的库存是否足够
+            $productName = $_GET['product_name'] ?? null;
+            $requiredQty = floatval($_GET['required_qty'] ?? 0);
+            
+            if (!$productName) {
+                sendResponse(false, "缺少产品名称参数");
+            }
+            
+            if ($requiredQty <= 0) {
+                sendResponse(false, "出库数量必须大于0");
+            }
+            
+            try {
+                // 获取该产品所有不同价格的库存情况
+                $sql = "SELECT 
+                            price,
+                            SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) as total_in,
+                            SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END) as total_out,
+                            (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
+                            SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as available_stock
+                        FROM stockinout_data 
+                        WHERE product_name = ? AND price > 0
+                        GROUP BY price
+                        HAVING available_stock > 0
+                        ORDER BY price DESC";
+                
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$productName]);
+                $priceStockData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                // 处理结果，确保数据格式正确
+                $result = [];
+                foreach ($priceStockData as $row) {
+                    $availableStock = floatval($row['available_stock']);
+                    $price = floatval($row['price']);
+                    
+                    $result[] = [
+                        'price' => number_format($price, 2, '.', ''),
+                        'available_stock' => $availableStock,
+                        'total_in' => floatval($row['total_in']),
+                        'total_out' => floatval($row['total_out']),
+                        'is_sufficient' => $availableStock >= $requiredQty
+                    ];
+                }
+                
+                sendResponse(true, "产品价格库存信息获取成功", $result);
+                
+            } catch (PDOException $e) {
+                sendResponse(false, "查询价格库存信息失败：" . $e->getMessage());
+            }
+            break;
             
         default:
             sendResponse(false, "无效的操作");
