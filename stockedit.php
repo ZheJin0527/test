@@ -1492,23 +1492,32 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            (parseFloat(record.out_quantity || 0) > 0 && parseFloat(record.in_quantity || 0) === 0 ? 
-                                `<div class="currency-display">
-                                    <span class="currency-symbol">RM</span>
-                                    <select class="table-select price-select" id="price-select-${record.id}" 
-                                            onchange="updateField(${record.id}, 'price', this.value)"
-                                            data-product-name="${record.product_name}" 
-                                            data-current-price="${record.price}">
-                                        <option value="">请选择价格</option>
-                                    </select>
-                                </div>` :
-                                `<div class="currency-display">
-                                    <span class="currency-symbol">RM</span>
-                                    <input type="number" class="currency-input-edit" 
-                                        value="${record.price || ''}" min="0" step="0.01" 
-                                        onchange="updateField(${record.id}, 'price', this.value)">
-                                </div>`
-                            ) :
+                            (() => {
+                                const outQty = parseFloat(record.out_quantity || 0);
+                                const inQty = parseFloat(record.in_quantity || 0);
+                                console.log(`Record ${record.id} - Out: ${outQty}, In: ${inQty}`); // 调试用
+                                
+                                if (outQty > 0 && inQty === 0) {
+                                    // 纯出库，显示下拉选择
+                                    return `<div class="currency-display">
+                                        <span class="currency-symbol">RM</span>
+                                        <select class="table-select price-select" id="price-select-${record.id}" 
+                                                onchange="updateField(${record.id}, 'price', this.value)"
+                                                data-product-name="${record.product_name}" 
+                                                data-current-price="${record.price}">
+                                            <option value="">请选择价格</option>
+                                        </select>
+                                    </div>`;
+                                } else {
+                                    // 入库或混合，显示输入框
+                                    return `<div class="currency-display">
+                                        <span class="currency-symbol">RM</span>
+                                        <input type="number" class="currency-input-edit" 
+                                            value="${record.price || ''}" min="0" step="0.01" 
+                                            onchange="updateField(${record.id}, 'price', this.value)">
+                                    </div>`;
+                                }
+                            })() :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
                                 <span class="currency-amount">${formatCurrency(record.price)}</span>
@@ -2816,14 +2825,18 @@
             const priceSelect = document.getElementById('add-price-select');
             const priceInput = document.getElementById('add-price');
             
+            console.log('Out:', outQty, 'In:', inQty, 'Product:', productName); // 调试用
+            
             if (outQty > 0 && inQty === 0 && productName) {
                 // 纯出库且有产品名称，显示价格下拉选项
+                console.log('显示价格下拉选项'); // 调试用
                 priceSelect.style.display = 'block';
                 priceInput.style.display = 'none';
                 priceInput.value = '';
                 loadAddFormProductPrices(productName);
             } else {
                 // 入库或出库为0，显示普通输入框
+                console.log('显示普通输入框'); // 调试用
                 priceSelect.style.display = 'none';
                 priceInput.style.display = 'block';
                 if (outQty === 0 && inQty === 0) {
