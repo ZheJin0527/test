@@ -1038,11 +1038,11 @@
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
-                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-specification">规格单位 *</label>
@@ -2747,9 +2747,9 @@
             // 原有的产品变化处理
             handleProductChange(selectElement, codeNumberElement);
             
-            // 根据出库数量决定是否加载价格选项
+            // 根据数量决定价格字段显示
             if (productName) {
-                handleAddFormOutQuantityChange();
+                handleAddFormQuantityChange();
             } else {
                 const priceSelect = document.getElementById('add-price-select');
                 const priceInput = document.getElementById('add-price');
@@ -2808,27 +2808,40 @@
 }
     </script>
     <script>
-        // 处理新增表单出库数量变化
-        function handleAddFormOutQuantityChange() {
+        // 处理新增表单数量变化
+        function handleAddFormQuantityChange() {
             const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
             const inQty = parseFloat(document.getElementById('add-in-qty').value) || 0;
             const productName = document.getElementById('add-product-name').value;
             const priceSelect = document.getElementById('add-price-select');
             const priceInput = document.getElementById('add-price');
             
-            if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，显示价格下拉选项
+            // 检查是否有产品名称
+            if (!productName) {
+                priceSelect.style.display = 'none';
+                priceInput.style.display = 'block';
+                priceInput.value = '';
+                return;
+            }
+            
+            // 如果有出库数量（不管是否有入库），显示下拉列表
+            if (outQty > 0) {
                 priceSelect.style.display = 'block';
                 priceInput.style.display = 'none';
                 priceInput.value = '';
                 loadAddFormProductPrices(productName);
-            } else {
-                // 入库或出库为0，显示普通输入框
+            } 
+            // 如果只有入库数量，显示输入框
+            else if (inQty > 0) {
                 priceSelect.style.display = 'none';
                 priceInput.style.display = 'block';
-                if (outQty === 0 && inQty === 0) {
-                    priceInput.value = '';
-                }
+                // 保持现有价格值，不清空
+            }
+            // 如果都没有数量，显示输入框并清空
+            else {
+                priceSelect.style.display = 'none';
+                priceInput.style.display = 'block';
+                priceInput.value = '';
             }
         }
     </script>
