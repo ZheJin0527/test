@@ -284,6 +284,60 @@ function handleGet() {
                 sendResponse(false, "未找到对应的产品编号");
             }
             break;
+
+        case 'available_prices':
+            // 获取特定产品的可用价格选项（有库存的）
+            $productName = $_GET['product_name'] ?? null;
+            if (!$productName) {
+                sendResponse(false, "缺少产品名称参数");
+            }
+            
+            // 计算每个价格的库存余额
+            $sql = "SELECT 
+                        price,
+                        SUM(in_quantity) - SUM(out_quantity) as available_stock,
+                        specification,
+                        COUNT(*) as record_count
+                    FROM stockinout_data 
+                    WHERE product_name = ? 
+                    GROUP BY price, specification
+                    HAVING available_stock > 0
+                    ORDER BY price ASC";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$productName]);
+            $availablePrices = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // 格式化数据
+            foreach ($availablePrices as &$item) {
+                $item['available_stock'] = floatval($item['available_stock']);
+                $item['price'] = floatval($item['price']);
+                $item['display_text'] = "RM" . number_format($item['price'], 2) . " (库存: " . number_format($item['available_stock'], 2) . " " . $item['specification'] . ")";
+            }
+            
+            sendResponse(true, "可用价格获取成功", $availablePrices);
+            break;
+
+        case 'stock_balance':
+            // 获取特定产品特定价格的库存余额
+            $productName = $_GET['product_name'] ?? null;
+            $price = $_GET['price'] ?? null;
+            
+            if (!$productName || !$price) {
+                sendResponse(false, "缺少产品名称或价格参数");
+            }
+            
+            $sql = "SELECT 
+                        SUM(in_quantity) - SUM(out_quantity) as balance
+                    FROM stockinout_data 
+                    WHERE product_name = ? AND price = ?";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$productName, $price]);
+            $balance = $stmt->fetchColumn();
+            
+            sendResponse(true, "库存余额获取成功", ['balance' => floatval($balance)]);
+            break;
             
         default:
             sendResponse(false, "无效的操作");
