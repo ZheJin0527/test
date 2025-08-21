@@ -1556,7 +1556,7 @@
                             </button>` : ''
                         }
                     </span>
-                </td>
+                    </td>
                 `;
                 
                 tbody.appendChild(row);
