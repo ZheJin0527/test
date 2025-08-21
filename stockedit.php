@@ -945,12 +945,8 @@
             overflow-y: visible;
         }
 
-        .price-input-container {
-            position: relative;
-        }
-
         .price-select {
-            min-width: 120px;
+            min-width: 100px;
             background-color: white;
             border: 1px solid #d1d5db;
             border-radius: 4px;
@@ -962,6 +958,10 @@
             outline: none;
             border-color: #3b82f6;
             box-shadow: 0 0 0 1px #3b82f6;
+        }
+
+        .custom-price-input {
+            width: 80px !important;
         }
     </style>
 </head>
@@ -1478,8 +1478,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.01" 
-                            onchange="handleOutQuantityChange(${record.id}, this.value)">` :
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
                             `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
@@ -1495,7 +1494,15 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            createPriceInput(record) :
+                            `<div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <select class="table-select price-select" id="price-select-${record.id}" 
+                                        onchange="updateField(${record.id}, 'price', this.value)"
+                                        data-product-name="${record.product_name}"
+                                        data-current-price="${record.price || ''}">
+                                    <option value="">加载中...</option>
+                                </select>
+                            </div>` :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
                                 <span class="currency-amount">${formatCurrency(record.price)}</span>
@@ -1548,13 +1555,12 @@
             setTimeout(bindComboboxEvents, 0);
 
             setTimeout(() => {
-                // 加载所有编辑中且有出货量的记录的价格选项
+                bindComboboxEvents();
+                
+                // 加载所有编辑中记录的价格选项
                 stockData.forEach(record => {
-                    if (editingRowIds.has(record.id)) {
-                        const outQty = parseFloat(record.out_quantity) || 0;
-                        if (outQty > 0 && record.product_name) {
-                            loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
-                        }
+                    if (editingRowIds.has(record.id) && record.product_name) {
+                        loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
                     }
                 });
             }, 200);
@@ -2639,35 +2645,6 @@
         window.addEventListener('resize', hideAllDropdowns);
     </script>
     <script>
-        // 创建价格输入框（根据出货量显示下拉选项或普通输入）
-        function createPriceInput(record) {
-            const outQty = parseFloat(record.out_quantity) || 0;
-            
-            if (outQty > 0 && record.product_name) {
-                // 如果有出货量，显示价格下拉选择
-                return `
-                    <div class="price-input-container" id="price-container-${record.id}">
-                        <div class="currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <select class="table-select price-select" id="price-select-${record.id}" 
-                                    onchange="updateField(${record.id}, 'price', this.value)"
-                                    data-product-name="${record.product_name}">
-                                <option value="">加载中...</option>
-                            </select>
-                        </div>
-                    </div>`;
-            } else {
-                // 如果没有出货量，显示普通输入框
-                return `
-                    <div class="currency-display">
-                        <span class="currency-symbol">RM</span>
-                        <input type="number" class="table-input currency-input-edit" 
-                            value="${record.price || ''}" min="0" step="0.01" 
-                            onchange="updateField(${record.id}, 'price', this.value)">
-                    </div>`;
-            }
-        }
-
         // 加载产品的价格选项
         async function loadProductPrices(productName, selectElementId, currentPrice = '') {
             try {
@@ -2678,14 +2655,22 @@
                 
                 if (result.success && result.data && result.data.length > 0) {
                     let options = '<option value="">请选择价格</option>';
-                    result.data.forEach(item => {
-                        const selected = item.price == currentPrice ? 'selected' : '';
-                        options += `<option value="${item.price}" ${selected}>${item.display_text}</option>`;
+                    options += '<option value="custom">自定义价格</option>';
+                    
+                    result.data.forEach(price => {
+                        const selected = price == currentPrice ? 'selected' : '';
+                        options += `<option value="${price}" ${selected}>RM ${parseFloat(price).toFixed(2)}</option>`;
                     });
                     selectElement.innerHTML = options;
                 } else {
-                    selectElement.innerHTML = '<option value="">暂无库存价格</option>';
+                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="custom">自定义价格</option>';
                 }
+                
+                // 如果选择了自定义价格，显示输入框
+                selectElement.addEventListener('change', function() {
+                    handlePriceSelectChange(this);
+                });
+                
             } catch (error) {
                 console.error('加载产品价格失败:', error);
                 const selectElement = document.getElementById(selectElementId);
@@ -2695,21 +2680,46 @@
             }
         }
 
-        // 监听出货量变化
-        function handleOutQuantityChange(recordId, value) {
-            updateField(recordId, 'out_quantity', value);
+        // 处理价格选择变化
+        function handlePriceSelectChange(selectElement) {
+            const recordId = selectElement.id.replace('price-select-', '');
+            const value = selectElement.value;
             
-            // 重新渲染表格以更新价格输入框
-            setTimeout(() => {
+            if (value === 'custom') {
+                // 创建自定义价格输入框
+                const container = selectElement.parentElement;
+                container.innerHTML = `
+                    <span class="currency-symbol">RM</span>
+                    <input type="number" class="table-input currency-input-edit custom-price-input" 
+                        placeholder="输入价格..." min="0" step="0.01" 
+                        onchange="updateField(${recordId}, 'price', this.value)"
+                        onblur="handleCustomPriceBlur(this, ${recordId})">
+                `;
+                const input = container.querySelector('.custom-price-input');
+                input.focus();
+            } else {
+                updateField(parseInt(recordId), 'price', value);
+            }
+        }
+
+        // 处理自定义价格输入框失去焦点
+        function handleCustomPriceBlur(input, recordId) {
+            if (!input.value) {
+                // 如果没有输入价格，恢复下拉选择
                 const record = stockData.find(r => r.id === recordId);
                 if (record && record.product_name) {
-                    const outQty = parseFloat(value) || 0;
-                    if (outQty > 0) {
-                        // 如果有出货量，加载价格选项
-                        loadProductPrices(record.product_name, `price-select-${recordId}`, record.price);
-                    }
+                    const container = input.parentElement;
+                    container.innerHTML = `
+                        <span class="currency-symbol">RM</span>
+                        <select class="table-select price-select" id="price-select-${recordId}" 
+                                onchange="updateField(${recordId}, 'price', this.value)"
+                                data-product-name="${record.product_name}">
+                            <option value="">加载中...</option>
+                        </select>
+                    `;
+                    loadProductPrices(record.product_name, `price-select-${recordId}`, record.price);
                 }
-            }, 100);
+            }
         }
     </script>
 </body>
