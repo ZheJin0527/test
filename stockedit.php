@@ -1038,11 +1038,10 @@
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
-                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
-                </div>
+                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange()">
                 <div class="form-group">
                     <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-specification">规格单位 *</label>
@@ -1684,8 +1683,8 @@
             const priceCell = document.getElementById(`${rowId}-price`).closest('.currency-display');
             
             if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，创建价格下拉选项
-                createNewRowPriceSelect(rowId, productName, price);
+                // 纯出库且有产品名称，创建价格下拉选项（带库存过滤）
+                createNewRowPriceSelectWithStock(rowId, productName, price, outQty);
             } else if (outQty === 0 || inQty > 0) {
                 // 恢复普通输入框
                 restoreNewRowPriceInput(rowId);
@@ -2801,7 +2800,7 @@
             
             // 根据出库数量决定是否加载价格选项
             if (productName) {
-                handleAddFormOutQuantityChange();
+                handleAddFormOutQuantityChange(); // 触发重新检查库存
             } else {
                 const priceSelect = document.getElementById('add-price-select');
                 const priceInput = document.getElementById('add-price');
@@ -2812,6 +2811,70 @@
                 if (priceInput) {
                     priceInput.style.display = 'block';
                     priceInput.value = '';
+                }
+            }
+        }
+
+        function handleAddFormQuantityChange() {
+            const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
+            const inQty = parseFloat(document.getElementById('add-in-qty').value) || 0;
+            const productName = document.getElementById('add-product-name').value;
+            const priceSelect = document.getElementById('add-price-select');
+            const priceInput = document.getElementById('add-price');
+            
+            if (outQty > 0 && inQty === 0 && productName) {
+                // 纯出库且有产品名称，显示过滤后的价格下拉选项
+                priceSelect.style.display = 'block';
+                priceInput.style.display = 'none';
+                priceInput.value = '';
+                loadAddFormProductPricesWithStock(productName, outQty);
+            } else {
+                // 入库或出库为0，显示普通输入框
+                priceSelect.style.display = 'none';
+                priceInput.style.display = 'block';
+                if (outQty === 0 && inQty === 0) {
+                    priceInput.value = '';
+                }
+            }
+        }
+
+        // 11. 添加新增表单专用的带库存检查的价格加载函数
+        async function loadAddFormProductPricesWithStock(productName, outQuantity = 0) {
+            try {
+                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                const selectElement = document.getElementById('add-price-select');
+                
+                if (!selectElement) return;
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    let options = '<option value="">请选择价格</option>';
+                    options += '<option value="manual">手动输入价格</option>';
+                    
+                    // 为每个价格检查库存
+                    for (const price of result.data) {
+                        if (outQuantity > 0) {
+                            // 检查该价格的库存是否足够
+                            const stockCheck = await checkProductStockByPrice(productName, price, outQuantity);
+                            if (stockCheck.sufficient) {
+                                options += `<option value="${price}">${parseFloat(price).toFixed(2)} (库存: ${stockCheck.availableStock.toFixed(2)})</option>`;
+                            }
+                            // 如果库存不足，不添加到选项中
+                        } else {
+                            // 如果不是出库操作，显示所有价格
+                            options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
+                        }
+                    }
+                    
+                    selectElement.innerHTML = options;
+                } else {
+                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                }
+                
+            } catch (error) {
+                console.error('加载产品价格失败:', error);
+                const selectElement = document.getElementById('add-price-select');
+                if (selectElement) {
+                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
                 }
             }
         }
@@ -2843,6 +2906,145 @@
             }
         }
 
+        async function loadAddFormProductPricesWithStock(productName, outQuantity = 0) {
+            try {
+                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                const selectElement = document.getElementById('add-price-select');
+                
+                if (!selectElement) return;
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    let options = '<option value="">请选择价格</option>';
+                    options += '<option value="manual">手动输入价格</option>';
+                    
+                    // 为每个价格检查库存
+                    for (const price of result.data) {
+                        if (outQuantity > 0) {
+                            // 检查该价格的库存是否足够
+                            const stockCheck = await checkProductStockByPrice(productName, price, outQuantity);
+                            if (stockCheck.sufficient) {
+                                options += `<option value="${price}">${parseFloat(price).toFixed(2)} (库存: ${stockCheck.availableStock})</option>`;
+                            }
+                            // 如果库存不足，不添加到选项中
+                        } else {
+                            // 如果不是出库操作，显示所有价格
+                            options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
+                        }
+                    }
+                    
+                    selectElement.innerHTML = options;
+                    selectElement.style.display = 'block';
+                    document.getElementById('add-price').style.display = 'none';
+                } else {
+                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                }
+                
+            } catch (error) {
+                console.error('加载产品价格失败:', error);
+                const selectElement = document.getElementById('add-price-select');
+                if (selectElement) {
+                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                }
+            }
+        }
+
+        async function checkProductStockByPrice(productName, price, outQuantity) {
+            try {
+                const result = await apiCall(`?action=product_stock_by_price&product_name=${encodeURIComponent(productName)}&price=${encodeURIComponent(price)}`);
+                
+                if (result.success && result.data) {
+                    const availableStock = parseFloat(result.data.available_stock || 0);
+                    
+                    return {
+                        sufficient: availableStock >= outQuantity,
+                        availableStock: availableStock,
+                        currentStock: parseFloat(result.data.current_stock || 0),
+                        requested: outQuantity
+                    };
+                } else {
+                    return { sufficient: false, availableStock: 0, currentStock: 0 };
+                }
+                
+            } catch (error) {
+                console.error('检查特定价格库存失败:', error);
+                return { sufficient: false, availableStock: 0, currentStock: 0 };
+            }
+        }
+
+        async function createNewRowPriceSelectWithStock(rowId, productName, currentPrice = '', outQuantity = 0) {
+            const priceInput = document.getElementById(`${rowId}-price`);
+            const priceCell = priceInput.closest('.currency-display');
+            
+            // 检查是否已经是下拉选项
+            if (priceCell.querySelector('.price-select')) {
+                // 如果已存在，更新选项
+                const existingSelect = priceCell.querySelector('.price-select');
+                await loadNewRowProductPricesWithStock(productName, existingSelect.id, currentPrice, outQuantity);
+                return;
+            }
+            
+            // 创建下拉选项
+            const selectElement = document.createElement('select');
+            selectElement.className = 'table-select price-select';
+            selectElement.id = `${rowId}-price-select`;
+            selectElement.innerHTML = '<option value="">正在检查库存...</option>';
+            
+            // 隐藏输入框，显示下拉选项
+            priceInput.style.display = 'none';
+            priceCell.appendChild(selectElement);
+            
+            // 加载价格选项（带库存过滤）
+            await loadNewRowProductPricesWithStock(productName, selectElement.id, currentPrice, outQuantity);
+            
+            // 绑定变化事件
+            selectElement.addEventListener('change', function() {
+                handleNewRowPriceSelectChange(this, rowId);
+            });
+        }
+
+        // 7. 添加新函数：为新行加载带库存过滤的价格选项
+        async function loadNewRowProductPricesWithStock(productName, selectElementId, currentPrice = '', outQuantity = 0) {
+            try {
+                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                const selectElement = document.getElementById(selectElementId);
+                
+                if (!selectElement) return;
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    let options = '<option value="">请选择价格</option>';
+                    options += '<option value="manual">手动输入价格</option>';
+                    
+                    // 为每个价格检查库存
+                    for (const price of result.data) {
+                        if (outQuantity > 0) {
+                            // 检查该价格的库存是否足够
+                            const stockCheck = await checkProductStockByPrice(productName, price, outQuantity);
+                            if (stockCheck.sufficient) {
+                                const selected = price == currentPrice ? 'selected' : '';
+                                options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)} (库存: ${stockCheck.availableStock.toFixed(2)})</option>`;
+                            }
+                            // 如果库存不足，不添加到选项中
+                        } else {
+                            // 如果不是出库操作，显示所有价格
+                            const selected = price == currentPrice ? 'selected' : '';
+                            options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)}</option>`;
+                        }
+                    }
+                    
+                    selectElement.innerHTML = options;
+                } else {
+                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                }
+                
+            } catch (error) {
+                console.error('加载产品价格失败:', error);
+                const selectElement = document.getElementById(selectElementId);
+                if (selectElement) {
+                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                }
+            }
+        }
+
         // 处理新增表单价格选择变化
         function handleAddFormPriceChange() {
             const selectElement = document.getElementById('add-price-select');
@@ -2867,11 +3069,11 @@
             const priceInput = document.getElementById('add-price');
             
             if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，显示价格下拉选项
+                // 纯出库且有产品名称，显示过滤后的价格下拉选项
                 priceSelect.style.display = 'block';
                 priceInput.style.display = 'none';
                 priceInput.value = '';
-                loadAddFormProductPrices(productName);
+                loadAddFormProductPricesWithStock(productName, outQty); // 修改：传入出库数量
             } else {
                 // 入库或出库为0，显示普通输入框
                 priceSelect.style.display = 'none';
@@ -2885,29 +3087,38 @@
     <script>
         // 加载新增表单的价格选项
         async function loadAddFormProductPrices(productName) {
-            try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
-                const selectElement = document.getElementById('add-price-select');
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    options += '<option value="manual">手动输入价格</option>';
+            const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
+            const inQty = parseFloat(document.getElementById('add-in-qty').value) || 0;
+            
+            // 如果是纯出库，使用带库存检查的版本
+            if (outQty > 0 && inQty === 0) {
+                await loadAddFormProductPricesWithStock(productName, outQty);
+            } else {
+                // 否则使用原有逻辑
+                try {
+                    const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                    const selectElement = document.getElementById('add-price-select');
                     
-                    result.data.forEach(price => {
-                        options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
-                    });
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById('add-price-select');
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                    if (!selectElement) return;
+                    
+                    if (result.success && result.data && result.data.length > 0) {
+                        let options = '<option value="">请选择价格</option>';
+                        options += '<option value="manual">手动输入价格</option>';
+                        
+                        result.data.forEach(price => {
+                            options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
+                        });
+                        selectElement.innerHTML = options;
+                    } else {
+                        selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                    }
+                    
+                } catch (error) {
+                    console.error('加载产品价格失败:', error);
+                    const selectElement = document.getElementById('add-price-select');
+                    if (selectElement) {
+                        selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                    }
                 }
             }
         }
