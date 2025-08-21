@@ -1492,15 +1492,23 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<div class="currency-display">
-                                <span class="currency-symbol">RM</span>
-                                <select class="table-select price-select" id="price-select-${record.id}" 
-                                        onchange="updateField(${record.id}, 'price', this.value)"
-                                        data-product-name="${record.product_name}" 
-                                        data-current-price="${record.price}">
-                                    <option value="">请选择价格</option>
-                                </select>
-                            </div>` :
+                            (parseFloat(record.out_quantity || 0) > 0 && parseFloat(record.in_quantity || 0) === 0 ? 
+                                `<div class="currency-display">
+                                    <span class="currency-symbol">RM</span>
+                                    <select class="table-select price-select" id="price-select-${record.id}" 
+                                            onchange="updateField(${record.id}, 'price', this.value)"
+                                            data-product-name="${record.product_name}" 
+                                            data-current-price="${record.price}">
+                                        <option value="">请选择价格</option>
+                                    </select>
+                                </div>` :
+                                `<div class="currency-display">
+                                    <span class="currency-symbol">RM</span>
+                                    <input type="number" class="currency-input-edit" 
+                                        value="${record.price || ''}" min="0" step="0.01" 
+                                        onchange="updateField(${record.id}, 'price', this.value)">
+                                </div>`
+                            ) :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
                                 <span class="currency-amount">${formatCurrency(record.price)}</span>
@@ -1556,7 +1564,12 @@
             setTimeout(() => {
                 stockData.forEach(record => {
                     if (editingRowIds.has(record.id) && record.product_name) {
-                        loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
+                        const outQty = parseFloat(record.out_quantity || 0);
+                        const inQty = parseFloat(record.in_quantity || 0);
+                        // 只有纯出库时才加载价格选项
+                        if (outQty > 0 && inQty === 0) {
+                            loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
+                        }
                     }
                 });
             }, 200);
@@ -2796,20 +2809,54 @@
         // 处理新增表单出库数量变化
         function handleAddFormOutQuantityChange() {
             const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
+            const inQty = parseFloat(document.getElementById('add-in-qty').value) || 0;
             const productName = document.getElementById('add-product-name').value;
             const priceSelect = document.getElementById('add-price-select');
             const priceInput = document.getElementById('add-price');
             
-            if (outQty > 0 && productName) {
-                // 出库数量大于0，显示价格下拉选项
+            if (outQty > 0 && inQty === 0 && productName) {
+                // 纯出库且有产品名称，显示价格下拉选项
                 priceSelect.style.display = 'block';
                 priceInput.style.display = 'none';
+                priceInput.value = '';
                 loadAddFormProductPrices(productName);
             } else {
                 // 入库或出库为0，显示普通输入框
                 priceSelect.style.display = 'none';
                 priceInput.style.display = 'block';
-                priceInput.value = '';
+                if (outQty === 0 && inQty === 0) {
+                    priceInput.value = '';
+                }
+            }
+        }
+    </script>
+    <script>
+        // 加载新增表单的价格选项
+        async function loadAddFormProductPrices(productName) {
+            try {
+                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                const selectElement = document.getElementById('add-price-select');
+                
+                if (!selectElement) return;
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    let options = '<option value="">请选择价格</option>';
+                    options += '<option value="manual">手动输入价格</option>';
+                    
+                    result.data.forEach(price => {
+                        options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
+                    });
+                    selectElement.innerHTML = options;
+                } else {
+                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                }
+                
+            } catch (error) {
+                console.error('加载产品价格失败:', error);
+                const selectElement = document.getElementById('add-price-select');
+                if (selectElement) {
+                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                }
             }
         }
     </script>
