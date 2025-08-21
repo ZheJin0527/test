@@ -1505,12 +1505,13 @@
         }
 
         // 渲染库存表格
+        // 渲染J1出库表格
         function renderStockTable() {
             const tbody = document.getElementById('stock-tbody');
             tbody.innerHTML = '';
             
             if (stockData.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="11" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="12" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
                 return;
             }
             
@@ -1523,13 +1524,13 @@
                 }
                 
                 // 计算总价
-                const inQty = parseFloat(record.in_quantity) || 0;
                 const outQty = parseFloat(record.out_quantity) || 0;
                 const price = parseFloat(record.price) || 0;
-                const total = outQty * price; // J1只有出库，直接计算
+                const total = outQty * price;
                 
                 row.innerHTML = `
                     <td class="date-cell">${formatDate(record.date)}</td>
+                    <td>${record.time || '-'}</td>
                     <td>
                         ${isEditing ? 
                             createCombobox('code', record.code_number, record.id) :
@@ -1544,14 +1545,8 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
-                            `<span>${formatNumber(record.in_quantity)}</span>`
-                        }
-                    </td>
-                    <td>
-                        ${isEditing ? 
                             `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
-                            `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
+                            `<span class="negative-value">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
                     <td>
@@ -1578,16 +1573,22 @@
                             </div>`
                         }
                     </td>
-                    <td class="calculated-cell ${total < 0 ? 'negative-value negative-parentheses' : ''}">
-                        <div class="currency-display ${total < 0 ? 'negative-value negative-parentheses' : ''}">
+                    <td class="calculated-cell">
+                        <div class="currency-display">
                             <span class="currency-symbol">RM</span>
-                            <span class="currency-amount">${formatCurrency(Math.abs(total))}</span>
+                            <span class="currency-amount">${formatCurrency(total)}</span>
                         </div>
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
-                            `<span>${record.receiver || '-'}</span>`
+                            `<input type="text" class="table-input" value="${record.type || ''}" onchange="updateField(${record.id}, 'type', this.value)">` :
+                            `<span>${record.type || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.name || ''}" onchange="updateField(${record.id}, 'name', this.value)">` :
+                            `<span>${record.name || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -1615,13 +1616,14 @@
                             </button>` : ''
                         }
                     </span>
-                    </td>
+                </td>
                 `;
                 
                 tbody.appendChild(row);
             });
 
             setTimeout(bindComboboxEvents, 0);
+        }
 
             // 加载所有编辑中记录的价格选项
             setTimeout(() => {
