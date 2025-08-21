@@ -1672,22 +1672,24 @@
         // 更新新行的总价计算
         function updateNewRowTotal(element) {
             const row = element.closest('tr');
-            const rowId = element.id.split('-')[0] + '-' + element.id.split('-')[1]; // 获取行的唯一ID
+            const rowId = element.id.split('-')[0] + '-' + element.id.split('-')[1];
             
             const inQty = parseFloat(document.getElementById(`${rowId}-in-qty`).value) || 0;
             const outQty = parseFloat(document.getElementById(`${rowId}-out-qty`).value) || 0;
             const price = parseFloat(document.getElementById(`${rowId}-price`).value) || 0;
             
-            // 新增：检查是否需要显示价格下拉列表
+            // 新增：当出库数量变化时，更新产品选项
+            if (element.id.includes('-out-qty')) {
+                updateNewRowProductOptions(rowId);
+            }
+            
+            // 检查是否需要显示价格下拉列表
             const productInput = document.getElementById(`${rowId}-product_name-input`);
             const productName = productInput ? productInput.value : '';
-            const priceCell = document.getElementById(`${rowId}-price`).closest('.currency-display');
             
             if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，创建价格下拉选项
                 createNewRowPriceSelect(rowId, productName, price);
             } else if (outQty === 0 || inQty > 0) {
-                // 恢复普通输入框
                 restoreNewRowPriceInput(rowId);
             }
             
@@ -1699,10 +1701,8 @@
             const currencyAmount = totalCell.querySelector('.currency-amount');
             
             if (totalCell && currencyDisplay && currencyAmount) {
-                // 更新数值
                 currencyAmount.textContent = formatCurrency(Math.abs(total));
                 
-                // 添加或移除负数样式
                 if (total < 0) {
                     totalCell.classList.add('negative-value', 'negative-parentheses');
                     currencyDisplay.classList.add('negative-value', 'negative-parentheses');
@@ -2358,7 +2358,6 @@
 
         // 过滤下拉选项 - 修复版本
         function filterComboboxOptions(input) {
-            // 使用防抖来提高性能
             clearTimeout(input._filterTimeout);
             input._filterTimeout = setTimeout(() => {
                 const container = input.closest('.combobox-container');
@@ -2368,7 +2367,17 @@
                 if (!dropdown) return;
                 
                 const searchTerm = input.value.toLowerCase();
-                const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
+                
+                // 根据类型选择合适的选项数据
+                let options;
+                if (type === 'code') {
+                    options = window.codeNumberOptions;
+                } else if (type === 'product') {
+                    // 如果是新增行的产品选择，使用过滤后的产品选项
+                    const isNewRow = container.id.includes('new-');
+                    options = isNewRow && window.filteredProductOptions ? window.filteredProductOptions : window.productOptions;
+                }
+                
                 const displayField = type === 'code' ? 'code_number' : 'product_name';
                 
                 if (!options) return;
@@ -2382,7 +2391,6 @@
                 } else {
                     dropdown.innerHTML = generateComboboxOptions(filteredOptions, displayField);
                     
-                    // 重新绑定点击事件
                     dropdown.querySelectorAll('.combobox-option').forEach(option => {
                         option.addEventListener('click', () => selectComboboxOption(option, input));
                     });
@@ -2390,17 +2398,15 @@
                 
                 showComboboxDropdown(input);
                 
-                // 如果是编辑模式，只更新数据，不重新渲染表格
                 const recordId = input.dataset.recordId;
                 const fieldName = input.dataset.field;
                 if (recordId && fieldName) {
                     const record = stockData.find(r => r.id === parseInt(recordId));
                     if (record) {
                         record[fieldName] = input.value;
-                        // 不调用 updateField 避免重新渲染
                     }
                 }
-            }, 100); // 100ms 防抖延迟
+            }, 100);
         }
 
         // 选择下拉选项
@@ -2950,6 +2956,63 @@
                 console.error('检查库存失败:', error);
                 // 网络错误时默认允许保存
                 return { sufficient: true, availableStock: 0, currentStock: 0 };
+            }
+        }
+    </script>
+    <script>
+        // 检查所有产品的库存并返回有足够库存的产品列表
+        async function getProductsWithSufficientStock(outQuantity) {
+            if (!outQuantity || outQuantity <= 0) {
+                return window.productOptions || [];
+            }
+            
+            try {
+                const result = await apiCall(`?action=products_with_stock&out_quantity=${outQuantity}`);
+                if (result.success && result.data) {
+                    return result.data;
+                }
+                return [];
+            } catch (error) {
+                console.error('检查产品库存失败:', error);
+                return window.productOptions || [];
+            }
+        }
+
+        // 更新新增行产品下拉列表（基于库存）
+        async function updateNewRowProductOptions(rowId) {
+            const outInput = document.getElementById(`${rowId}-out-qty`);
+            const productInput = document.getElementById(`${rowId}-product_name-input`);
+            
+            if (!outInput || !productInput) return;
+            
+            const outQty = parseFloat(outInput.value) || 0;
+            
+            if (outQty > 0) {
+                // 获取有足够库存的产品
+                const availableProducts = await getProductsWithSufficientStock(outQty);
+                
+                // 更新 combobox 的选项数据
+                const container = productInput.closest('.combobox-container');
+                const dropdown = container.querySelector('.combobox-dropdown');
+                
+                if (dropdown) {
+                    if (availableProducts.length === 0) {
+                        dropdown.innerHTML = '<div class="no-results">没有足够库存的产品</div>';
+                    } else {
+                        dropdown.innerHTML = generateComboboxOptions(availableProducts, 'product_name');
+                        
+                        // 重新绑定点击事件
+                        dropdown.querySelectorAll('.combobox-option').forEach(option => {
+                            option.addEventListener('click', () => selectComboboxOption(option, productInput));
+                        });
+                    }
+                }
+                
+                // 临时更新产品选项数据
+                window.filteredProductOptions = availableProducts;
+            } else {
+                // 恢复所有产品选项
+                window.filteredProductOptions = window.productOptions;
             }
         }
     </script>

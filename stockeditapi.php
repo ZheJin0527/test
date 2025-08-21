@@ -341,6 +341,49 @@ function handleGet() {
             }
             break;
 
+        case 'products_with_stock':
+            // 获取有足够库存的产品列表
+            $outQuantity = $_GET['out_quantity'] ?? 0;
+            
+            if ($outQuantity <= 0) {
+                // 如果出库数量为0，返回所有产品
+                $stmt = $pdo->prepare("SELECT DISTINCT product_name, product_code FROM stock_data WHERE product_name IS NOT NULL AND product_name != '' ORDER BY product_name");
+                $stmt->execute();
+                $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                sendResponse(true, "产品列表获取成功", $products);
+                break;
+            }
+            
+            // 获取有足够库存的产品
+            $sql = "SELECT DISTINCT 
+                        s.product_name, 
+                        s.product_code,
+                        (COALESCE(stock_in.total_in, 0) - COALESCE(stock_out.total_out, 0)) as available_stock
+                    FROM stock_data s
+                    LEFT JOIN (
+                        SELECT product_name, SUM(in_quantity) as total_in 
+                        FROM stockinout_data 
+                        WHERE in_quantity > 0 
+                        GROUP BY product_name
+                    ) stock_in ON s.product_name = stock_in.product_name
+                    LEFT JOIN (
+                        SELECT product_name, SUM(out_quantity) as total_out 
+                        FROM stockinout_data 
+                        WHERE out_quantity > 0 
+                        GROUP BY product_name
+                    ) stock_out ON s.product_name = stock_out.product_name
+                    WHERE s.product_name IS NOT NULL 
+                        AND s.product_name != ''
+                        AND (COALESCE(stock_in.total_in, 0) - COALESCE(stock_out.total_out, 0)) >= ?
+                    ORDER BY s.product_name";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$outQuantity]);
+            $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            sendResponse(true, "有足够库存的产品列表获取成功", $products);
+            break;
+
         case 'product_stock_by_price':
             // 获取指定产品和价格的库存信息
             $productName = $_GET['product_name'] ?? null;
