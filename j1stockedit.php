@@ -422,11 +422,11 @@
         .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 100px; } /* DATE */
         .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 120px; } /* Code Number */
         .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 150px; } /* PRODUCT */
-        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 80px; }  /* In */
-        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 80px; }  /* Out */
-        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 100px; } /* Specification */
-        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 100px; } /* Price */
-        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* Total */
+        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 80px; }  /* Out */
+        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 100px; } /* Specification */
+        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 100px; } /* Price */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 100px; } /* Total */
+        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 120px; } /* Type */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 120px; } /* Name */
         .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 120px; } /* Remark */
         .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 80px; } /* 操作 */
@@ -1181,7 +1181,6 @@
                 <thead>
                     <tr>
                         <th style="min-width: 100px;">DATE</th>
-                        <th style="min-width: 80px;">TIME</th>
                         <th style="min-width: 100px;">Code Number</th>
                         <th class="product-name-col">PRODUCT</th>
                         <th style="min-width: 80px;">Out Qty</th>
@@ -1532,12 +1531,6 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
-                            `<input type="time" class="table-input" value="${record.time || ''}" onchange="updateField(${record.id}, 'time', this.value)">` :
-                            `<span>${record.time || '-'}</span>`
-                        }
-                    </td>
-                    <td>
-                        ${isEditing ? 
                             createCombobox('code', record.code_number, record.id) :
                             `<span>${record.code_number || '-'}</span>`
                         }
@@ -1597,10 +1590,7 @@
                         }
                     </td>
                     <td>
-                        ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.remark || ''}" onchange="updateField(${record.id}, 'remark', this.value)">` :
-                            `<span>${record.remark || '-'}</span>`
-                        }
+                        <input type="text" class="table-input" value="${record.remark || ''}" onchange="updateField(${record.id}, 'remark', this.value)">
                     </td>
                     <td>
                         <span class="action-cell">
@@ -1687,7 +1677,6 @@
                 <td><input type="date" class="table-input" value="${today}" id="${rowId}-date"></td>
                 <td>${createCombobox('code', '', null, rowId)}</td>
                 <td>${createCombobox('product', '', null, rowId)}</td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
                     <select class="table-select" id="${rowId}-specification">
@@ -1761,7 +1750,6 @@
                 date: document.getElementById(`${rowId}-date`).value,
                 codeValue: document.getElementById(`${rowId}-code_number-input`) ? document.getElementById(`${rowId}-code_number-input`).value : '',
                 productValue: document.getElementById(`${rowId}-product_name-input`) ? document.getElementById(`${rowId}-product_name-input`).value : '',
-                inQty: document.getElementById(`${rowId}-in-qty`).value,
                 outQty: document.getElementById(`${rowId}-out-qty`).value,
                 specification: document.getElementById(`${rowId}-specification`).value,
                 price: document.getElementById(`${rowId}-price`).value,
@@ -1777,7 +1765,6 @@
             if (document.getElementById(`${rowId}-date`)) document.getElementById(`${rowId}-date`).value = data.date;
             if (document.getElementById(`${rowId}-code_number-input`)) document.getElementById(`${rowId}-code_number-input`).value = data.codeValue;
             if (document.getElementById(`${rowId}-product_name-input`)) document.getElementById(`${rowId}-product_name-input`).value = data.productValue;
-            if (document.getElementById(`${rowId}-in-qty`)) document.getElementById(`${rowId}-in-qty`).value = data.inQty;
             if (document.getElementById(`${rowId}-out-qty`)) document.getElementById(`${rowId}-out-qty`).value = data.outQty;
             if (document.getElementById(`${rowId}-specification`)) document.getElementById(`${rowId}-specification`).value = data.specification;
             if (document.getElementById(`${rowId}-price`)) document.getElementById(`${rowId}-price`).value = data.price;
