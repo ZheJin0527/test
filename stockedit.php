@@ -1775,6 +1775,15 @@
                 }
             }
 
+            // 检查库存是否足够
+            if (formData.out_quantity > 0) {
+                const stockCheck = await checkProductStock(formData.product_name, formData.out_quantity);
+                if (!stockCheck.sufficient) {
+                    showAlert(`库存不足！当前可用库存: ${stockCheck.availableStock}，请求出库: ${stockCheck.requested}`, 'error');
+                    return;
+                }
+            }
+
             try {
                 const result = await apiCall('', {
                     method: 'POST',
@@ -1887,6 +1896,15 @@
                 const validCodes = window.codeNumberOptions.map(c => c.code_number);
                 if (!validCodes.includes(formData.code_number)) {
                     showAlert('产品编号不存在，请从下拉列表中选择有效的编号', 'error');
+                    return;
+                }
+            }
+
+            // 检查库存是否足够
+            if (formData.out_quantity > 0) {
+                const stockCheck = await checkProductStock(formData.product_name, formData.out_quantity);
+                if (!stockCheck.sufficient) {
+                    showAlert(`库存不足！当前可用库存: ${stockCheck.availableStock}，请求出库: ${formData.out_quantity}`, 'error');
                     return;
                 }
             }
@@ -2857,6 +2875,38 @@
                 if (selectElement) {
                     selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
                 }
+            }
+        }
+    </script>
+    <script>
+        // 检查产品库存是否足够
+        async function checkProductStock(productName, outQuantity) {
+            if (!productName || outQuantity <= 0) {
+                return { sufficient: true, availableStock: 0, currentStock: 0 };
+            }
+            
+            try {
+                const result = await apiCall(`?action=product_stock&product_name=${encodeURIComponent(productName)}`);
+                
+                if (result.success && result.data) {
+                    const availableStock = parseFloat(result.data.available_stock || 0);
+                    const currentStock = parseFloat(result.data.current_stock || 0);
+                    
+                    return {
+                        sufficient: availableStock >= outQuantity,
+                        availableStock: availableStock,
+                        currentStock: currentStock,
+                        requested: outQuantity
+                    };
+                } else {
+                    // 如果无法获取库存信息，默认允许（可能是新产品）
+                    return { sufficient: true, availableStock: 0, currentStock: 0 };
+                }
+                
+            } catch (error) {
+                console.error('检查库存失败:', error);
+                // 网络错误时默认允许保存
+                return { sufficient: true, availableStock: 0, currentStock: 0 };
             }
         }
     </script>

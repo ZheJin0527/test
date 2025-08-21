@@ -303,6 +303,43 @@ function handleGet() {
             
             sendResponse(true, "产品价格列表获取成功", $prices);
             break;
+
+        case 'product_stock':
+            // 获取指定产品的库存信息
+            $productName = $_GET['product_name'] ?? null;
+            if (!$productName) {
+                sendResponse(false, "缺少产品名称参数");
+            }
+            
+            $sql = "SELECT 
+                        SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) as total_in,
+                        SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END) as total_out,
+                        (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
+                        SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as available_stock
+                    FROM stockinout_data 
+                    WHERE product_name = ?";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$productName]);
+            $stockData = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($stockData) {
+                $result = [
+                    'total_in' => floatval($stockData['total_in'] ?? 0),
+                    'total_out' => floatval($stockData['total_out'] ?? 0),
+                    'available_stock' => floatval($stockData['available_stock'] ?? 0),
+                    'current_stock' => floatval($stockData['available_stock'] ?? 0) // 别名
+                ];
+                sendResponse(true, "产品库存信息获取成功", $result);
+            } else {
+                sendResponse(true, "产品库存信息获取成功", [
+                    'total_in' => 0,
+                    'total_out' => 0, 
+                    'available_stock' => 0,
+                    'current_stock' => 0
+                ]);
+            }
+            break;
             
         default:
             sendResponse(false, "无效的操作");
