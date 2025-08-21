@@ -1777,7 +1777,7 @@
 
             // 检查库存是否足够
             if (formData.out_quantity > 0) {
-                const stockCheck = await checkProductStock(formData.product_name, formData.out_quantity);
+                const stockCheck = await checkProductStock(formData.product_name, formData.out_quantity, formData.price);
                 if (!stockCheck.sufficient) {
                     showAlert(`库存不足！当前可用库存: ${stockCheck.availableStock}，请求出库: ${stockCheck.requested}`, 'error');
                     return;
@@ -1902,7 +1902,7 @@
 
             // 检查库存是否足够
             if (formData.out_quantity > 0) {
-                const stockCheck = await checkProductStock(formData.product_name, formData.out_quantity);
+                const stockCheck = await checkProductStock(formData.product_name, formData.out_quantity, formData.price);
                 if (!stockCheck.sufficient) {
                     showAlert(`库存不足！当前可用库存: ${stockCheck.availableStock}，请求出库: ${formData.out_quantity}`, 'error');
                     return;
@@ -2879,14 +2879,23 @@
         }
     </script>
     <script>
-        // 检查产品库存是否足够
-        async function checkProductStock(productName, outQuantity) {
+        // 检查产品库存是否足够（按产品名称和价格分别计算）
+        async function checkProductStock(productName, outQuantity, price = null) {
             if (!productName || outQuantity <= 0) {
                 return { sufficient: true, availableStock: 0, currentStock: 0 };
             }
             
             try {
-                const result = await apiCall(`?action=product_stock&product_name=${encodeURIComponent(productName)}`);
+                let apiUrl;
+                if (price !== null && price !== '') {
+                    // 按产品名称和价格检查库存
+                    apiUrl = `?action=product_stock_by_price&product_name=${encodeURIComponent(productName)}&price=${encodeURIComponent(price)}`;
+                } else {
+                    // 按产品名称检查总库存
+                    apiUrl = `?action=product_stock&product_name=${encodeURIComponent(productName)}`;
+                }
+                
+                const result = await apiCall(apiUrl);
                 
                 if (result.success && result.data) {
                     const availableStock = parseFloat(result.data.available_stock || 0);
