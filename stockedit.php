@@ -944,6 +944,20 @@
             overflow-x: auto;
             overflow-y: visible;
         }
+
+        .price-select {
+            min-width: 100px;
+            background-color: white;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 2px 4px;
+            font-size: 12px;
+        }
+
+        .manual-price-input {
+            border: 1px solid #3b82f6 !important;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -1050,7 +1064,10 @@
                     <label for="add-price">单价</label>
                     <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
                         <span class="currency-symbol">RM</span>
-                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
+                        <select id="add-price-select" class="form-select" style="border: none; background: transparent;" onchange="handleAddFormPriceChange()">
+                            <option value="">请先选择产品</option>
+                        </select>
+                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent; display: none;">
                     </div>
                 </div>
                 <div class="form-group">
@@ -1477,7 +1494,12 @@
                         ${isEditing ? 
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
-                                <input type="number" class="table-input currency-input-edit" value="${record.price || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'price', this.value)">
+                                <select class="table-select price-select" id="price-select-${record.id}" 
+                                        onchange="updateField(${record.id}, 'price', this.value)"
+                                        data-product-name="${record.product_name}" 
+                                        data-current-price="${record.price}">
+                                    <option value="">请选择价格</option>
+                                </select>
                             </div>` :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
@@ -1529,6 +1551,15 @@
             });
 
             setTimeout(bindComboboxEvents, 0);
+
+            // 加载所有编辑中记录的价格选项
+            setTimeout(() => {
+                stockData.forEach(record => {
+                    if (editingRowIds.has(record.id) && record.product_name) {
+                        loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
+                    }
+                });
+            }, 200);
         }
 
         // 格式化日期
@@ -1998,7 +2029,7 @@
                     
                     if (addProductSelect) {
                         addProductSelect.onchange = function() {
-                            handleProductChange(this, addCodeSelect);
+                            handleAddFormProductChange(this, addCodeSelect);
                         };
                     }
                     
@@ -2608,6 +2639,152 @@
         // 窗口滚动和大小变化时重新计算位置
         window.addEventListener('scroll', hideAllDropdowns);
         window.addEventListener('resize', hideAllDropdowns);
+    </script>
+    <script>
+        // 加载产品的所有进货价格选项
+        async function loadProductPrices(productName, selectElementId, currentPrice = '') {
+            try {
+                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                const selectElement = document.getElementById(selectElementId);
+                
+                if (!selectElement) return;
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    let options = '<option value="">请选择价格</option>';
+                    // 添加手动输入选项
+                    options += '<option value="manual">手动输入价格</option>';
+                    
+                    result.data.forEach(price => {
+                        const selected = price == currentPrice ? 'selected' : '';
+                        options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)}</option>`;
+                    });
+                    selectElement.innerHTML = options;
+                } else {
+                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                }
+                
+                // 如果选择了"手动输入价格"，显示输入框
+                selectElement.addEventListener('change', function() {
+                    handlePriceSelectChange(this);
+                });
+                
+            } catch (error) {
+                console.error('加载产品价格失败:', error);
+                const selectElement = document.getElementById(selectElementId);
+                if (selectElement) {
+                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
+                }
+            }
+        }
+
+        // 处理价格选择变化
+        function handlePriceSelectChange(selectElement) {
+            const recordId = selectElement.id.replace('price-select-', '');
+            const container = selectElement.closest('.currency-display');
+            
+            if (selectElement.value === 'manual') {
+                // 显示输入框
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.className = 'table-input currency-input-edit manual-price-input';
+                input.min = '0';
+                input.step = '0.01';
+                input.placeholder = '输入价格';
+                input.style.marginLeft = '5px';
+                input.style.width = '80px';
+                
+                input.addEventListener('change', function() {
+                    updateField(parseInt(recordId), 'price', this.value);
+                    // 更新下拉选择框的值
+                    selectElement.value = this.value;
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        selectElement.value = '';
+                        updateField(parseInt(recordId), 'price', '');
+                    }
+                });
+                
+                // 移除已存在的输入框
+                const existingInput = container.querySelector('.manual-price-input');
+                if (existingInput) {
+                    existingInput.remove();
+                }
+                
+                container.appendChild(input);
+                input.focus();
+            } else {
+                // 移除手动输入框
+                const existingInput = container.querySelector('.manual-price-input');
+                if (existingInput) {
+                    existingInput.remove();
+                }
+                
+                // 更新价格值
+                updateField(parseInt(recordId), 'price', selectElement.value);
+            }
+        }
+    </script>
+    <script>
+        // 处理新增表单中产品变化时加载价格选项
+        function handleAddFormProductChange(selectElement, codeNumberElement) {
+            const productName = selectElement.value;
+            
+            // 原有的产品变化处理
+            handleProductChange(selectElement, codeNumberElement);
+            
+            // 加载价格选项
+            if (productName) {
+                loadAddFormProductPrices(productName);
+            } else {
+                const priceSelect = document.getElementById('add-price-select');
+                if (priceSelect) {
+                    priceSelect.innerHTML = '<option value="">请先选择产品</option>';
+                }
+            }
+        }
+
+        // 加载新增表单的价格选项
+        async function loadAddFormProductPrices(productName) {
+            try {
+                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                const selectElement = document.getElementById('add-price-select');
+                
+                if (!selectElement) return;
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    let options = '<option value="">请选择价格</option>';
+                    options += '<option value="manual">手动输入价格</option>';
+                    
+                    result.data.forEach(price => {
+                        options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
+                    });
+                    selectElement.innerHTML = options;
+                    selectElement.style.display = 'block';
+                    document.getElementById('add-price').style.display = 'none';
+                } else {
+                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                }
+                
+            } catch (error) {
+                console.error('加载产品价格失败:', error);
+            }
+        }
+
+        // 处理新增表单价格选择变化
+        function handleAddFormPriceChange() {
+            const selectElement = document.getElementById('add-price-select');
+            const inputElement = document.getElementById('add-price');
+            
+            if (selectElement.value === 'manual') {
+                selectElement.style.display = 'none';
+                inputElement.style.display = 'block';
+                inputElement.focus();
+            } else {
+                inputElement.value = selectElement.value;
+            }
+        }
     </script>
 </body>
 </html>
