@@ -1038,11 +1038,11 @@
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
-                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00">
                 </div>
                 <div class="form-group">
                     <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00">
                 </div>
                 <div class="form-group">
                     <label for="add-specification">规格单位 *</label>
@@ -1064,10 +1064,10 @@
                     <label for="add-price">单价</label>
                     <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
                         <span class="currency-symbol">RM</span>
-                        <select id="add-price-select" class="form-select" style="border: none; background: transparent; display: none;" onchange="handleAddFormPriceChange()">
+                        <select id="add-price-select" class="form-select" style="border: none; background: transparent;" onchange="handleAddFormPriceChange()">
                             <option value="">请先选择产品</option>
                         </select>
-                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
+                        <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent; display: none;">
                     </div>
                 </div>
                 <div class="form-group">
@@ -1492,23 +1492,15 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            (parseFloat(record.out_quantity || 0) > 0 && parseFloat(record.in_quantity || 0) === 0 ? 
-                                `<div class="currency-display">
-                                    <span class="currency-symbol">RM</span>
-                                    <select class="table-select price-select" id="price-select-${record.id}" 
-                                            onchange="updateField(${record.id}, 'price', this.value)"
-                                            data-product-name="${record.product_name}" 
-                                            data-current-price="${record.price}">
-                                        <option value="">请选择价格</option>
-                                    </select>
-                                </div>` :
-                                `<div class="currency-display">
-                                    <span class="currency-symbol">RM</span>
-                                    <input type="number" class="currency-input-edit" 
-                                        value="${record.price || ''}" min="0" step="0.01" 
-                                        onchange="updateField(${record.id}, 'price', this.value)">
-                                </div>`
-                            ) :
+                            `<div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <select class="table-select price-select" id="price-select-${record.id}" 
+                                        onchange="updateField(${record.id}, 'price', this.value)"
+                                        data-product-name="${record.product_name}" 
+                                        data-current-price="${record.price}">
+                                    <option value="">请选择价格</option>
+                                </select>
+                            </div>` :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
                                 <span class="currency-amount">${formatCurrency(record.price)}</span>
@@ -1564,12 +1556,7 @@
             setTimeout(() => {
                 stockData.forEach(record => {
                     if (editingRowIds.has(record.id) && record.product_name) {
-                        const outQty = parseFloat(record.out_quantity || 0);
-                        const inQty = parseFloat(record.in_quantity || 0);
-                        // 只有纯出库时才加载价格选项
-                        if (outQty > 0 && inQty === 0) {
-                            loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
-                        }
+                        loadProductPrices(record.product_name, `price-select-${record.id}`, record.price);
                     }
                 });
             }, 200);
@@ -1620,8 +1607,8 @@
                 <td><input type="date" class="table-input" value="${today}" id="${rowId}-date"></td>
                 <td>${createCombobox('code', '', null, rowId)}</td>
                 <td>${createCombobox('product', '', null, rowId)}</td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this); updateNewRowPriceDisplay('${rowId}')"></td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this); updateNewRowPriceDisplay('${rowId}')"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
                     <select class="table-select" id="${rowId}-specification">
                         <option value="">请选择规格</option>
@@ -1631,12 +1618,7 @@
                 <td>
                     <div class="currency-display">
                         <span class="currency-symbol">RM</span>
-                        <select class="table-select price-select" id="${rowId}-price-select" style="display: none;"
-                                onchange="updateNewRowPriceFromSelect('${rowId}', this.value)">
-                            <option value="">请选择价格</option>
-                        </select>
-                        <input type="number" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" 
-                            id="${rowId}-price" oninput="updateNewRowTotal(this)">
+                        <input type="number" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" id="${rowId}-price" oninput="updateNewRowTotal(this)">
                     </div>
                 </td>
                 <td class="calculated-cell">
@@ -2455,13 +2437,11 @@
                 updateField(parseInt(recordId), input.dataset.field, value);
             }
 
-            // 如果是新增行的产品选择，更新价格显示
-            const containerId = input.closest('.combobox-container').id;
-            if (containerId.includes('new-') && input.dataset.field === 'product_name') {
-                const rowIdMatch = containerId.match(/^(new-\d+)-/);
-                if (rowIdMatch) {
-                    const rowId = rowIdMatch[1];
-                    setTimeout(() => updateNewRowPriceDisplay(rowId), 100);
+            // 如果是编辑模式，确保数据已更新
+            if (recordId) {
+                const record = stockData.find(r => r.id === parseInt(recordId));
+                if (record) {
+                    record[input.dataset.field] = value;
                 }
             }
         }
@@ -2754,19 +2734,13 @@
             // 原有的产品变化处理
             handleProductChange(selectElement, codeNumberElement);
             
-            // 根据出库数量决定是否加载价格选项
+            // 加载价格选项
             if (productName) {
-                handleAddFormOutQuantityChange();
+                loadAddFormProductPrices(productName);
             } else {
                 const priceSelect = document.getElementById('add-price-select');
-                const priceInput = document.getElementById('add-price');
                 if (priceSelect) {
                     priceSelect.innerHTML = '<option value="">请先选择产品</option>';
-                    priceSelect.style.display = 'none';
-                }
-                if (priceInput) {
-                    priceInput.style.display = 'block';
-                    priceInput.value = '';
                 }
             }
         }
@@ -2787,16 +2761,14 @@
                         options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
                     });
                     selectElement.innerHTML = options;
+                    selectElement.style.display = 'block';
+                    document.getElementById('add-price').style.display = 'none';
                 } else {
                     selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
                 }
                 
             } catch (error) {
                 console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById('add-price-select');
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
-                }
             }
         }
 
@@ -2812,106 +2784,7 @@
             } else {
                 inputElement.value = selectElement.value;
             }
-}
-    </script>
-    <script>
-        // 处理新增表单出库数量变化
-        function handleAddFormOutQuantityChange() {
-            const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
-            const inQty = parseFloat(document.getElementById('add-in-qty').value) || 0;
-            const productName = document.getElementById('add-product-name').value;
-            const priceSelect = document.getElementById('add-price-select');
-            const priceInput = document.getElementById('add-price');
-            
-            if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，显示价格下拉选项
-                priceSelect.style.display = 'block';
-                priceInput.style.display = 'none';
-                priceInput.value = '';
-                loadAddFormProductPrices(productName);
-            } else {
-                // 入库或出库为0，显示普通输入框
-                priceSelect.style.display = 'none';
-                priceInput.style.display = 'block';
-                if (outQty === 0 && inQty === 0) {
-                    priceInput.value = '';
-                }
-            }
         }
     </script>
-    <script>
-        // 更新新增行的价格显示方式
-        function updateNewRowPriceDisplay(rowId) {
-            const inQty = parseFloat(document.getElementById(`${rowId}-in-qty`).value) || 0;
-            const outQty = parseFloat(document.getElementById(`${rowId}-out-qty`).value) || 0;
-            const productInput = document.getElementById(`${rowId}-product_name-input`);
-            const productName = productInput ? productInput.value : '';
-            
-            const priceSelect = document.getElementById(`${rowId}-price-select`);
-            const priceInput = document.getElementById(`${rowId}-price`);
-            
-            if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，显示价格下拉选项
-                priceSelect.style.display = 'block';
-                priceInput.style.display = 'none';
-                priceInput.value = '';
-                loadNewRowProductPrices(productName, `${rowId}-price-select`);
-            } else {
-                // 入库或出库为0，显示普通输入框
-                priceSelect.style.display = 'none';
-                priceInput.style.display = 'block';
-                if (outQty === 0 && inQty === 0) {
-                    priceInput.value = '';
-                }
-            }
-            
-            // 更新总价
-            updateNewRowTotal(priceInput);
-        }
-
-        // 加载新增行的产品价格选项
-        async function loadNewRowProductPrices(productName, selectElementId) {
-            try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
-                const selectElement = document.getElementById(selectElementId);
-                
-                if (!selectElement) return;
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    let options = '<option value="">请选择价格</option>';
-                    options += '<option value="manual">手动输入价格</option>';
-                    
-                    result.data.forEach(price => {
-                        options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
-                    });
-                    selectElement.innerHTML = options;
-                } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
-                }
-                
-            } catch (error) {
-                console.error('加载产品价格失败:', error);
-                const selectElement = document.getElementById(selectElementId);
-                if (selectElement) {
-                    selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
-                }
-            }
-        }
-
-        // 处理新增行价格选择变化
-        function updateNewRowPriceFromSelect(rowId, value) {
-            const priceSelect = document.getElementById(`${rowId}-price-select`);
-            const priceInput = document.getElementById(`${rowId}-price`);
-            
-            if (value === 'manual') {
-                priceSelect.style.display = 'none';
-                priceInput.style.display = 'block';
-                priceInput.focus();
-            } else {
-                priceInput.value = value;
-                updateNewRowTotal(priceInput);
-            }
-        }
-    <script>
 </body>
 </html>
