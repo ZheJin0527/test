@@ -304,6 +304,42 @@ function handleGet() {
             sendResponse(true, "产品价格列表获取成功", $prices);
             break;
 
+        case 'product_prices_with_stock':
+            // 获取指定产品有足够库存的价格选项
+            $productName = $_GET['product_name'] ?? null;
+            $requiredQty = $_GET['required_qty'] ?? 0;
+            
+            if (!$productName) {
+                sendResponse(false, "缺少产品名称参数");
+            }
+            
+            if ($requiredQty <= 0) {
+                sendResponse(false, "缺少出库数量参数");
+            }
+            
+            $sql = "SELECT price,
+                        SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) as total_in,
+                        SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END) as total_out,
+                        (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
+                            SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as available_stock
+                    FROM stockinout_data 
+                    WHERE product_name = ?
+                    GROUP BY price
+                    HAVING available_stock >= ?
+                    ORDER BY price DESC";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$productName, $requiredQty]);
+            $prices = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // 只返回价格数组，保持与原API一致
+            $priceList = array_map(function($item) {
+                return $item['price'];
+            }, $prices);
+            
+            sendResponse(true, "有库存的产品价格列表获取成功", $priceList);
+            break;
+
         case 'product_stock':
             // 获取指定产品的库存信息
             $productName = $_GET['product_name'] ?? null;

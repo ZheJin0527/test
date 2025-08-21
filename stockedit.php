@@ -2819,7 +2819,19 @@
         // 加载新增表单的价格选项
         async function loadAddFormProductPrices(productName) {
             try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                // 获取出库数量
+                const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
+                
+                let apiUrl;
+                if (outQty > 0) {
+                    // 如果有出库数量要求，只获取有足够库存的价格
+                    apiUrl = `?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${outQty}`;
+                } else {
+                    // 否则获取所有价格
+                    apiUrl = `?action=product_prices&product_name=${encodeURIComponent(productName)}`;
+                }
+                
+                const result = await apiCall(apiUrl);
                 const selectElement = document.getElementById('add-price-select');
                 
                 if (!selectElement) return;
@@ -2835,7 +2847,8 @@
                     selectElement.style.display = 'block';
                     document.getElementById('add-price').style.display = 'none';
                 } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                    let noStockMsg = outQty > 0 ? '暂无足够库存的价格选项' : '暂无历史价格';
+                    selectElement.innerHTML = `<option value="">${noStockMsg}</option><option value="manual">手动输入价格</option>`;
                 }
                 
             } catch (error) {
@@ -2964,6 +2977,10 @@
                 return;
             }
             
+            // 获取出库数量
+            const outQtyInput = document.getElementById(`${rowId}-out-qty`);
+            const requiredQty = outQtyInput ? parseFloat(outQtyInput.value) || 0 : 0;
+            
             // 创建下拉选项
             const selectElement = document.createElement('select');
             selectElement.className = 'table-select price-select';
@@ -2974,8 +2991,8 @@
             priceInput.style.display = 'none';
             priceCell.appendChild(selectElement);
             
-            // 加载价格选项
-            loadNewRowProductPrices(productName, selectElement.id, currentPrice);
+            // 加载价格选项，传入出库数量
+            loadNewRowProductPrices(productName, selectElement.id, currentPrice, requiredQty);
             
             // 绑定变化事件
             selectElement.addEventListener('change', function() {
@@ -2996,10 +3013,19 @@
             }
         }
 
-        // 加载新行产品价格选项
-        async function loadNewRowProductPrices(productName, selectElementId, currentPrice = '') {
+        // 加载新行产品价格选项（只显示有足够库存的价格）
+        async function loadNewRowProductPrices(productName, selectElementId, currentPrice = '', requiredQty = 0) {
             try {
-                const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                let apiUrl;
+                if (requiredQty > 0) {
+                    // 如果有出库数量要求，只获取有足够库存的价格
+                    apiUrl = `?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${requiredQty}`;
+                } else {
+                    // 否则获取所有价格（已经是从大到小排序）
+                    apiUrl = `?action=product_prices&product_name=${encodeURIComponent(productName)}`;
+                }
+                
+                const result = await apiCall(apiUrl);
                 const selectElement = document.getElementById(selectElementId);
                 
                 if (!selectElement) return;
@@ -3014,7 +3040,8 @@
                     });
                     selectElement.innerHTML = options;
                 } else {
-                    selectElement.innerHTML = '<option value="">暂无历史价格</option><option value="manual">手动输入价格</option>';
+                    let noStockMsg = requiredQty > 0 ? '暂无足够库存的价格选项' : '暂无历史价格';
+                    selectElement.innerHTML = `<option value="">${noStockMsg}</option><option value="manual">手动输入价格</option>`;
                 }
                 
             } catch (error) {
