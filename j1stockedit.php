@@ -1189,7 +1189,7 @@
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total Value</th>
                         <th style="min-width: 100px;">Type</th>
-                        <th class="name-col">Name</th>
+                        <th class="receiver-col">Name</th>
                         <th style="min-width: 100px;">Remark</th>
                         <th style="min-width: 80px;">操作</th>
                     </tr>
@@ -1532,6 +1532,12 @@
                     <td class="date-cell">${formatDate(record.date)}</td>
                     <td>
                         ${isEditing ? 
+                            `<input type="time" class="table-input" value="${record.time || ''}" onchange="updateField(${record.id}, 'time', this.value)">` :
+                            `<span>${record.time || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
                             createCombobox('code', record.code_number, record.id) :
                             `<span>${record.code_number || '-'}</span>`
                         }
@@ -1540,12 +1546,6 @@
                         ${isEditing ? 
                             createCombobox('product', record.product_name, record.id) :
                             `<span>${record.product_name}</span>`
-                        }
-                    </td>
-                    <td>
-                        ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
-                            `<span>${formatNumber(record.in_quantity)}</span>`
                         }
                     </td>
                     <td>
@@ -1586,6 +1586,12 @@
                     </td>
                     <td>
                         ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.type || ''}" onchange="updateField(${record.id}, 'type', this.value)">` :
+                            `<span>${record.type || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
                             `<span>${record.receiver || '-'}</span>`
                         }
@@ -1597,24 +1603,22 @@
                         }
                     </td>
                     <td>
-                    <span class="action-cell">
-                        ${isEditing ? 
-                            `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
-                                <i class="fas fa-save"></i>
-                            </button>
-                            <button class="action-btn" onclick="cancelEdit(${record.id})" title="取消" style="background: #6b7280;">
-                                <i class="fas fa-times"></i>
-                            </button>` :
-                            `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
-                                <i class="fas fa-edit"></i>
-                            </button>`
-                        }
-                        ${!isEditing ? 
-                            `<button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
-                                <i class="fas fa-trash"></i>
-                            </button>` : ''
-                        }
-                    </span>
+                        <span class="action-cell">
+                            ${isEditing ? 
+                                `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                                <button class="action-btn" onclick="cancelEdit(${record.id})" title="取消" style="background: #6b7280;">
+                                    <i class="fas fa-times"></i>
+                                </button>` :
+                                `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
+                                    <i class="fas fa-trash"></i>
+                                </button>`
+                            }
+                        </span>
                     </td>
                 `;
                 
