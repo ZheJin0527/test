@@ -1028,16 +1028,16 @@
             <div class="controls">
                 <div class="page-selector" onclick="togglePageDropdown()">
                     <i class="fas fa-external-link-alt"></i>
-                    跳转页面
+                    切换页面
                     <i class="fas fa-chevron-down"></i>
                     <div class="dropdown-menu" id="page-dropdown">
                         <a href="j1stockedit.php" class="dropdown-item">
                             <i class="fas fa-file-alt"></i>
-                            跳转到 J1 页面
+                            J1 stock
                         </a>
                         <a href="j2.html" class="dropdown-item">
                             <i class="fas fa-file-alt"></i>
-                            跳转到 J2 页面
+                            J2 stock
                         </a>
                     </div>
                 </div>
