@@ -261,8 +261,8 @@ function handlePost() {
 
         $sql = "INSERT INTO j1stockinout_data 
                 (date, time, code_number, product_name, 
-                out_quantity, specification, price, total_value, type, receiver, remark) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                out_quantity, specification, price, total_value, type, receiver, remark, original_id) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
