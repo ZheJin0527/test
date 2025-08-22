@@ -1023,7 +1023,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1>J1出库管理系统</h1>
+                <h1>J2出库管理系统</h1>
             </div>
             <div class="controls">
                 <button class="back-button" onclick="goBack()">
@@ -1082,7 +1082,7 @@
 
         <!-- 新增记录表单 -->
         <div id="add-form" class="add-form">
-            <h3 style="color: #583e04; margin-bottom: 16px;">新增J1出库记录</h3>
+            <h3 style="color: #583e04; margin-bottom: 16px;">新增J2出库记录</h3>
             <div class="form-grid">
                 <div class="form-group">
                     <label for="add-date">日期 *</label>
@@ -1165,7 +1165,7 @@
             </div>
         </div>
         
-        <!-- J1出库表格 -->
+        <!-- J2出库表格 -->
         <div class="table-container">
             <div class="action-buttons">
                 <div class="stats-info" id="stock-stats">
@@ -1531,7 +1531,7 @@
                 const inQty = parseFloat(record.in_quantity) || 0;
                 const outQty = parseFloat(record.out_quantity) || 0;
                 const price = parseFloat(record.price) || 0;
-                const total = outQty * price; // J1只有出库，直接计算
+                const total = outQty * price; // J2只有出库，直接计算
                 
                 row.innerHTML = `
                     <td class="date-cell">${formatDate(record.date)}</td>
