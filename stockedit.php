@@ -1967,6 +1967,7 @@
                     product_name: formData.product_name,
                     in_quantity: formData.in_quantity,
                     out_quantity: formData.out_quantity,
+                    target_system: formData.target_system,  // 添加这行
                     specification: formData.specification,
                     price: formData.price,
                     receiver: formData.receiver,
@@ -2092,6 +2093,7 @@
                     product_name: formData.product_name,
                     in_quantity: formData.in_quantity,
                     out_quantity: formData.out_quantity,
+                    target_system: formData.target_system,  // 添加这行
                     specification: formData.specification,
                     price: formData.price,
                     receiver: formData.receiver,
