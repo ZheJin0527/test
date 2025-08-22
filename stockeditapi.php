@@ -139,12 +139,6 @@ function deleteFromJ1Table($pdo, $originalId) {
 // 同步历史出库数据到J1表的函数
 function syncHistoricalOutboundData($pdo) {
     try {
-        // 先检查J1表是否已有original_id字段，如果没有则添加
-        $stmt = $pdo->query("SHOW COLUMNS FROM j1stockinout_data LIKE 'original_id'");
-        if ($stmt->rowCount() == 0) {
-            $pdo->exec("ALTER TABLE j1stockinout_data ADD COLUMN original_id INT NULL");
-        }
-        
         // 获取所有未同步的出库记录
         $sql = "SELECT s.* FROM stockinout_data s 
                 LEFT JOIN j1stockinout_data j ON s.id = j.original_id 
