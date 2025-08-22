@@ -473,6 +473,38 @@ function handleGet() {
             }
             break;
             
+        case 'migrate_history':
+            // 一次性迁移所有历史出库数据
+            try {
+                // 查找所有有出库数量的历史记录，且不在J1表中的
+                $sql = "INSERT INTO j1stockinout_data 
+                        (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark)
+                        SELECT 
+                            s.date, s.time, s.code_number, s.product_name, s.out_quantity, s.specification, s.price, 
+                            (s.out_quantity * s.price) as total_value,
+                            'MIGRATED_OUTBOUND' as type,
+                            s.receiver, s.remark
+                        FROM stockinout_data s
+                        WHERE s.out_quantity > 0 
+                        AND NOT EXISTS (
+                            SELECT 1 FROM j1stockinout_data j1 
+                            WHERE j1.product_name = s.product_name 
+                            AND j1.date = s.date 
+                            AND j1.time = s.time 
+                            AND j1.out_quantity = s.out_quantity
+                        )";
+                
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $migratedCount = $stmt->rowCount();
+                
+                sendResponse(true, "历史数据迁移完成，共迁移 $migratedCount 条出库记录", ['migrated_count' => $migratedCount]);
+                
+            } catch (PDOException $e) {
+                sendResponse(false, "数据迁移失败：" . $e->getMessage());
+            }
+            break;
+
         default:
             sendResponse(false, "无效的操作");
     }
