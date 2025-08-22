@@ -1119,6 +1119,14 @@
                     <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <div class="form-group">
+                    <label for="add-target">目标系统</label>
+                    <select id="add-target" class="form-select" disabled>
+                        <option value="">请选择</option>
+                        <option value="j1">J1</option>
+                        <option value="j2">J2</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="add-specification">规格单位 *</label>
                     <select id="add-specification" class="form-select" required>
                         <option value="">请选择规格</option>
@@ -1201,6 +1209,7 @@
                         <th class="product-name-col">PRODUCT</th>
                         <th style="min-width: 80px;">In</th>
                         <th style="min-width: 80px;">Out</th>
+                        <th style="min-width: 100px;">Target</th>
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
@@ -1572,6 +1581,16 @@
                     </td>
                     <td>
                         ${isEditing ? 
+                            `<select class="table-select" id="target-select-${record.id}" onchange="updateField(${record.id}, 'target_system', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>
+                                <option value="">请选择</option>
+                                <option value="j1" ${record.target_system === 'j1' ? 'selected' : ''}>J1</option>
+                                <option value="j2" ${record.target_system === 'j2' ? 'selected' : ''}>J2</option>
+                            </select>` :
+                            `<span>${record.target_system ? record.target_system.toUpperCase() : '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
                             `<select class="table-select" onchange="updateField(${record.id}, 'specification', this.value)">
                                 ${specifications.map(spec => 
                                     `<option value="${spec}" ${record.specification === spec ? 'selected' : ''}>${spec}</option>`
@@ -1713,6 +1732,13 @@
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
+                    <select class="table-select" id="${rowId}-target" disabled>
+                        <option value="">请选择</option>
+                        <option value="j1">J1</option>
+                        <option value="j2">J2</option>
+                    </select>
+                </td>
+                <td>
                     <select class="table-select" id="${rowId}-specification">
                         <option value="">请选择规格</option>
                         ${specifications.map(spec => `<option value="${spec}">${spec}</option>`).join('')}
@@ -1767,6 +1793,19 @@
             const inQty = parseFloat(document.getElementById(`${rowId}-in-qty`).value) || 0;
             const outQty = parseFloat(document.getElementById(`${rowId}-out-qty`).value) || 0;
             const price = parseFloat(document.getElementById(`${rowId}-price`).value) || 0;
+
+            // 新增：控制Target下拉框的启用/禁用状态
+            const targetSelect = document.getElementById(`${rowId}-target`);
+            if (targetSelect) {
+                if (outQty > 0) {
+                    targetSelect.disabled = false;
+                    targetSelect.required = true;
+                } else {
+                    targetSelect.disabled = true;
+                    targetSelect.value = '';
+                    targetSelect.required = false;
+                }
+            }
             
             // 新增：检查是否需要显示价格下拉列表
             const productInput = document.getElementById(`${rowId}-product_name-input`);
@@ -1815,7 +1854,8 @@
                 specification: document.getElementById(`${rowId}-specification`).value,
                 price: document.getElementById(`${rowId}-price`).value,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
-                remark: document.getElementById(`${rowId}-remark`).value
+                remark: document.getElementById(`${rowId}-remark`).value,
+                target: document.getElementById(`${rowId}-target`).value
             };
         }
 
@@ -1859,6 +1899,16 @@
             if (!formData.product_name || !formData.specification || !formData.receiver) {
                 showAlert('请填写产品名称、规格单位和收货人', 'error');
                 return;
+            }
+
+            // 添加target验证
+            if (formData.out_quantity > 0) {
+                const targetInput = document.getElementById(`${rowId}-target`);
+                if (!targetInput || !targetInput.value) {
+                    showAlert('当有出库数量时，请选择目标系统（J1或J2）', 'error');
+                    return;
+                }
+                formData.target_system = targetInput.value;
             }
 
             // 验证产品名称是否存在于数据库中
@@ -2006,6 +2056,15 @@
 
             // 检查库存是否足够
             if (formData.out_quantity > 0) {
+                // 添加target验证
+                const targetSystem = document.getElementById('add-target').value;
+                if (!targetSystem) {
+                    showAlert('当有出库数量时，请选择目标系统（J1或J2）', 'error');
+                    return;
+                }
+                formData.target_system = targetSystem;
+                
+                // 现有库存检查代码
                 const stockCheck = await checkProductStock(formData.product_name, formData.out_quantity, formData.price);
                 if (!stockCheck.sufficient) {
                     showAlert(`库存不足！当前可用库存: ${stockCheck.availableStock}，请求出库: ${formData.out_quantity}`, 'error');
@@ -2122,6 +2181,22 @@
             const record = stockData.find(r => r.id === id);
             if (record) {
                 record[field] = value;
+                
+                // 特殊处理出库数量变化
+                if (field === 'out_quantity') {
+                    const outQty = parseFloat(value) || 0;
+                    const targetSelect = document.getElementById(`target-select-${id}`);
+                    if (targetSelect) {
+                        if (outQty > 0) {
+                            targetSelect.disabled = false;
+                            targetSelect.required = true;
+                        } else {
+                            targetSelect.disabled = true;
+                            targetSelect.value = '';
+                            record.target_system = '';
+                        }
+                    }
+                }
                 
                 // 只有在数值字段变化时才重新渲染（更新计算值）
                 if (field === 'in_quantity' || field === 'out_quantity' || field === 'price') {
@@ -3110,6 +3185,17 @@
                 if (outQty === 0 && inQty === 0) {
                     priceInput.value = '';
                 }
+            }
+
+            // 控制Target下拉框状态
+            const targetSelect = document.getElementById('add-target');
+            if (outQty > 0) {
+                targetSelect.disabled = false;
+                targetSelect.required = true;
+            } else {
+                targetSelect.disabled = true;
+                targetSelect.value = '';
+                targetSelect.required = false;
             }
         }
     </script>
