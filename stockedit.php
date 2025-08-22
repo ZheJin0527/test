@@ -1118,6 +1118,14 @@
                     <label for="add-out-qty">出库数量</label>
                     <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
+                <div class="form-group" id="add-target-group" style="display: none;">
+                    <label for="add-target">目标系统 *</label>
+                    <select id="add-target" class="form-select">
+                        <option value="">请选择系统</option>
+                        <option value="j1">J1 System</option>
+                        <option value="j2">J2 System</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="add-specification">规格单位 *</label>
                     <select id="add-specification" class="form-select" required>
@@ -1201,6 +1209,7 @@
                         <th class="product-name-col">PRODUCT</th>
                         <th style="min-width: 80px;">In</th>
                         <th style="min-width: 80px;">Out</th>
+                        <th style="min-width: 80px;">Target</th>  <!-- 新添加 -->
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
                         <th style="min-width: 100px;">Total</th>
@@ -1571,6 +1580,16 @@
                         }
                     </td>
                     <td>
+                        ${isEditing && parseFloat(record.out_quantity || 0) > 0 ? 
+                            `<select class="table-select" onchange="updateField(${record.id}, 'target_system', this.value)">
+                                <option value="">选择</option>
+                                <option value="j1" ${record.target_system === 'j1' ? 'selected' : ''}>J1</option>
+                                <option value="j2" ${record.target_system === 'j2' ? 'selected' : ''}>J2</option>
+                            </select>` :
+                            `<span>${parseFloat(record.out_quantity || 0) > 0 ? (record.target_system || '-') : '-'}</span>`
+                        }
+                    </td>
+                    <td>
                         ${isEditing ? 
                             `<select class="table-select" onchange="updateField(${record.id}, 'specification', this.value)">
                                 ${specifications.map(spec => 
@@ -1713,6 +1732,13 @@
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
+                    <select class="table-select" id="${rowId}-target" style="display: none;">
+                        <option value="">选择</option>
+                        <option value="j1">J1</option>
+                        <option value="j2">J2</option>
+                    </select>
+                </td>
+                <td>
                     <select class="table-select" id="${rowId}-specification">
                         <option value="">请选择规格</option>
                         ${specifications.map(spec => `<option value="${spec}">${spec}</option>`).join('')}
@@ -1852,7 +1878,8 @@
                 price: parseFloat(document.getElementById(`${rowId}-price`).value) || 0,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
                 code_number: codeInput ? codeInput.value : '',
-                remark: document.getElementById(`${rowId}-remark`).value
+                remark: document.getElementById(`${rowId}-remark`).value,
+                target_system: document.getElementById(`${rowId}-target`).value
             };
 
             // 验证必填字段
@@ -1974,7 +2001,8 @@
                 receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
-                remark: document.getElementById('add-remark').value
+                remark: document.getElementById('add-remark').value,
+                target_system: document.getElementById('add-target').value
             };
 
             // 验证必填字段
@@ -3304,6 +3332,72 @@
                 // 更新价格值
                 priceInput.value = selectElement.value;
                 updateNewRowTotal(priceInput);
+            }
+        }
+    </script>
+    <script>
+        // 切换Target列显示状态 - 编辑模式
+        function toggleTargetColumn(outInput, recordId) {
+            const outQty = parseFloat(outInput.value) || 0;
+            const row = outInput.closest('tr');
+            const targetCell = row.querySelector('td:nth-child(6)'); // Target列是第6列
+            
+            if (outQty > 0) {
+                targetCell.innerHTML = `
+                    <select class="table-select" onchange="updateField(${recordId}, 'target_system', this.value)">
+                        <option value="">选择</option>
+                        <option value="j1">J1</option>
+                        <option value="j2">J2</option>
+                    </select>`;
+            } else {
+                targetCell.innerHTML = '<span>-</span>';
+                updateField(recordId, 'target_system', '');
+            }
+        }
+
+        // 切换Target列显示状态 - 新增行
+        function toggleNewRowTargetColumn(outInput) {
+            const outQty = parseFloat(outInput.value) || 0;
+            const rowId = outInput.id.split('-')[0] + '-' + outInput.id.split('-')[1];
+            const targetSelect = document.getElementById(`${rowId}-target`);
+            
+            if (outQty > 0) {
+                targetSelect.style.display = 'block';
+            } else {
+                targetSelect.style.display = 'none';
+                targetSelect.value = '';
+            }
+        }
+
+        // 切换新增表单Target显示状态
+        function handleAddFormOutQuantityChange() {
+            const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
+            const inQty = parseFloat(document.getElementById('add-in-qty').value) || 0;
+            const productName = document.getElementById('add-product-name').value;
+            const priceSelect = document.getElementById('add-price-select');
+            const priceInput = document.getElementById('add-price');
+            const targetGroup = document.getElementById('add-target-group');
+            
+            // 显示/隐藏目标系统选择
+            if (outQty > 0) {
+                targetGroup.style.display = 'block';
+            } else {
+                targetGroup.style.display = 'none';
+                document.getElementById('add-target').value = '';
+            }
+            
+            // 原有的价格处理逻辑保持不变
+            if (outQty > 0 && inQty === 0 && productName) {
+                priceSelect.style.display = 'block';
+                priceInput.style.display = 'none';
+                priceInput.value = '';
+                loadAddFormProductPricesWithStock(productName, outQty);
+            } else {
+                priceSelect.style.display = 'none';
+                priceInput.style.display = 'block';
+                if (outQty === 0 && inQty === 0) {
+                    priceInput.value = '';
+                }
             }
         }
     </script>
