@@ -1017,72 +1017,6 @@
         .dropdown-item:last-child {
             border-bottom: none;
         }
-
-        .destination-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .destination-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: 2px solid #d1d5db;
-            background: white;
-            color: #6b7280;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .destination-btn.active {
-            border-color: #059669;
-            background: #059669;
-            color: white;
-        }
-
-        .destination-btn:hover {
-            border-color: #059669;
-            color: #059669;
-        }
-
-        .destination-btn.active:hover {
-            background: #047857;
-            border-color: #047857;
-        }
-
-        #destination-group {
-            grid-column: 1 / -1;
-        }
-
-        .destination-cell {
-            margin: 5px 0;
-        }
-
-        .destination-buttons-small {
-            display: flex;
-            gap: 3px;
-        }
-
-        .destination-btn-small {
-            padding: 2px 6px;
-            border: 1px solid #d1d5db;
-            background: white;
-            color: #6b7280;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 10px;
-            transition: all 0.2s;
-        }
-
-        .destination-btn-small.active {
-            border-color: #059669;
-            background: #059669;
-            color: white;
-        }
-
-        .destination-btn-small:hover {
-            border-color: #059669;
-        }
     </style>
 </head>
 <body>
@@ -1228,19 +1162,6 @@
                     <label for="add-remark">备注</label>
                     <input type="text" id="add-remark" class="form-input" placeholder="输入备注...">
                 </div>
-                <div class="form-group" id="destination-group" style="display: none;">
-                    <label for="add-destination">保存到</label>
-                    <div class="destination-buttons">
-                        <button type="button" class="btn btn-outline destination-btn active" data-destination="j2" id="btn-j2">
-                            <i class="fas fa-warehouse"></i>
-                            J2 Stock
-                        </button>
-                        <button type="button" class="btn btn-outline destination-btn" data-destination="j1" id="btn-j1">
-                            <i class="fas fa-box"></i>
-                            J1 Stock
-                        </button>
-                    </div>
-                </div>
             </div>
             <div class="form-actions">
                 <button class="btn btn-secondary" onclick="toggleAddForm()">
@@ -1320,10 +1241,6 @@
             loadStockData();
             loadCodeNumbers();
             loadProducts();
-
-            setTimeout(() => {
-                initDestinationButtons();
-            }, 100);
         }
 
         // 返回上一页
@@ -1850,32 +1767,6 @@
             const inQty = parseFloat(document.getElementById(`${rowId}-in-qty`).value) || 0;
             const outQty = parseFloat(document.getElementById(`${rowId}-out-qty`).value) || 0;
             const price = parseFloat(document.getElementById(`${rowId}-price`).value) || 0;
-
-            // 检查是否需要显示目标选择按钮
-            let destinationCell = row.querySelector('.destination-cell');
-            if (outQty > 0 && !destinationCell) {
-                // 添加目标选择到操作列
-                const actionCell = row.querySelector('.action-cell');
-                const destinationDiv = document.createElement('div');
-                destinationDiv.className = 'destination-cell';
-                destinationDiv.innerHTML = `
-                    <div class="destination-buttons-small">
-                        <button type="button" class="destination-btn-small active" data-destination="j2">J2</button>
-                        <button type="button" class="destination-btn-small" data-destination="j1">J1</button>
-                    </div>
-                `;
-                actionCell.parentNode.insertBefore(destinationDiv, actionCell);
-                
-                // 绑定点击事件
-                destinationDiv.querySelectorAll('.destination-btn-small').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        destinationDiv.querySelectorAll('.destination-btn-small').forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                    });
-                });
-            } else if (outQty === 0 && destinationCell) {
-                destinationCell.remove();
-            }
             
             // 新增：检查是否需要显示价格下拉列表
             const productInput = document.getElementById(`${rowId}-product_name-input`);
@@ -1950,26 +1841,6 @@
             
             const codeInput = document.getElementById(`${rowId}-code_number-input`);
             const productInput = document.getElementById(`${rowId}-product_name-input`);
-
-            // 获取目标选择
-            let destination = 'j2'; // 默认
-            const destinationBtn = row.querySelector('.destination-btn-small.active');
-            if (destinationBtn) {
-                destination = destinationBtn.dataset.destination;
-            }
-
-            // 根据目标选择API
-            let apiUrl = '';
-            if (destination === 'j1' && formData.out_quantity > 0) {
-                apiUrl = 'j1stockeditapi.php';
-            } else {
-                apiUrl = '';
-            }
-
-            const result = await apiCall(apiUrl, {
-                method: 'POST',
-                body: JSON.stringify(formData)
-            });
 
             const formData = {
                 date: document.getElementById(`${rowId}-date`).value,
@@ -2143,16 +2014,7 @@
             }
 
             try {
-                // 获取目标选择
-                const destination = getSelectedDestination();
-                let apiUrl = '';
-                if (destination === 'j1' && formData.out_quantity > 0) {
-                    apiUrl = 'j1stockeditapi.php';
-                } else {
-                    apiUrl = '';
-                }
-
-                const result = await apiCall(apiUrl, {
+                const result = await apiCall('', {
                     method: 'POST',
                     body: JSON.stringify(formData)
                 });
@@ -3227,20 +3089,13 @@
         }
     </script>
     <script>
+        // 处理新增表单出库数量变化
         function handleAddFormOutQuantityChange() {
             const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
             const inQty = parseFloat(document.getElementById('add-in-qty').value) || 0;
             const productName = document.getElementById('add-product-name').value;
             const priceSelect = document.getElementById('add-price-select');
             const priceInput = document.getElementById('add-price');
-            const destinationGroup = document.getElementById('destination-group');
-            
-            // 显示或隐藏目标选择
-            if (outQty > 0) {
-                destinationGroup.style.display = 'block';
-            } else {
-                destinationGroup.style.display = 'none';
-            }
             
             if (outQty > 0 && inQty === 0 && productName) {
                 // 纯出库且有产品名称，显示价格下拉选项（带库存检查）
@@ -3450,26 +3305,6 @@
                 priceInput.value = selectElement.value;
                 updateNewRowTotal(priceInput);
             }
-        }
-    </script>
-    <script>
-        // 处理目标选择按钮点击
-        function initDestinationButtons() {
-            const buttons = document.querySelectorAll('.destination-btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // 移除其他按钮的active状态
-                    buttons.forEach(btn => btn.classList.remove('active'));
-                    // 添加当前按钮的active状态
-                    this.classList.add('active');
-                });
-            });
-        }
-
-        // 获取选中的目标
-        function getSelectedDestination() {
-            const activeBtn = document.querySelector('.destination-btn.active');
-            return activeBtn ? activeBtn.dataset.destination : 'j2';
         }
     </script>
 </body>
