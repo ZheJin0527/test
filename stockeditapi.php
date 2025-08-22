@@ -692,6 +692,25 @@ function handlePut() {
             $stmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
             $stmt->execute([$data['id']]);
             $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // 检查是否为出库记录，如果是则同步更新J1表
+            $outQuantity = floatval($data['out_quantity'] ?? 0);
+            if ($outQuantity > 0) {
+                $j1UpdateSql = "UPDATE j1stockinout_data 
+                                SET date = ?, time = ?, code_number = ?, product_name = ?, 
+                                    out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?
+                                WHERE type = 'AUTO_OUTBOUND' AND product_name = ? AND date = ? AND time = ?
+                                ORDER BY id DESC LIMIT 1";
+                
+                $totalValue = $outQuantity * floatval($data['price'] ?? 0);
+                $j1Stmt = $pdo->prepare($j1UpdateSql);
+                $j1Stmt->execute([
+                    $data['date'], $data['time'], $data['code_number'] ?? null, $data['product_name'],
+                    $outQuantity, $data['specification'] ?? null, floatval($data['price'] ?? 0), $totalValue,
+                    $data['receiver'] ?? null, $data['remark'] ?? null,
+                    $data['product_name'], $data['date'], $data['time']
+                ]);
+            }
             
             sendResponse(true, "进出库记录更新成功", $updatedRecord);
         } else {
@@ -703,7 +722,6 @@ function handlePut() {
     }
 }
 
-// 处理 DELETE 请求 - 删除记录
 function handleDelete() {
     global $pdo;
     
@@ -714,13 +732,43 @@ function handleDelete() {
     }
     
     try {
+        // 先获取要删除的记录信息
+        $getRecordSql = "SELECT * FROM stockinout_data WHERE id = ?";
+        $getStmt = $pdo->prepare($getRecordSql);
+        $getStmt->execute([$id]);
+        $recordToDelete = $getStmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$recordToDelete) {
+            sendResponse(false, "记录不存在");
+        }
+        
+        // 执行删除主表记录
         $stmt = $pdo->prepare("DELETE FROM stockinout_data WHERE id = ?");
         $result = $stmt->execute([$id]);
         
         if ($stmt->rowCount() > 0) {
+            // 如果是出库记录，同步删除J1表记录
+            if (floatval($recordToDelete['out_quantity'] ?? 0) > 0) {
+                $j1DeleteSql = "DELETE FROM j1stockinout_data 
+                                WHERE type = 'AUTO_OUTBOUND' 
+                                AND product_name = ? 
+                                AND date = ? 
+                                AND time = ? 
+                                AND out_quantity = ?
+                                ORDER BY id DESC LIMIT 1";
+                
+                $j1DelStmt = $pdo->prepare($j1DeleteSql);
+                $j1DelStmt->execute([
+                    $recordToDelete['product_name'],
+                    $recordToDelete['date'],
+                    $recordToDelete['time'],
+                    floatval($recordToDelete['out_quantity'])
+                ]);
+                error_log("已同步删除J1表记录");
+            }
             sendResponse(true, "进出库记录删除成功");
         } else {
-            sendResponse(false, "记录不存在");
+            sendResponse(false, "删除失败");
         }
         
     } catch (PDOException $e) {
