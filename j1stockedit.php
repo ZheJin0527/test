@@ -2076,9 +2076,43 @@
                 
                 // 只有在数值字段变化时才重新渲染（更新计算值）
                 if (field === 'in_quantity' || field === 'out_quantity' || field === 'price') {
-                    renderStockTable();
+                    updateCalculatedValues(id);
                 }
             }
+        }
+
+        // 更新计算值而不重新渲染整个表格
+        function updateCalculatedValues(id) {
+            const record = stockData.find(r => r.id === id);
+            if (!record) return;
+            
+            const inQty = parseFloat(record.in_quantity) || 0;
+            const outQty = parseFloat(record.out_quantity) || 0;
+            const price = parseFloat(record.price) || 0;
+            const total = outQty * price; // J1只有出库，直接计算
+            
+            // 查找对应的行并更新总价显示
+            const rows = document.querySelectorAll('#stock-tbody tr');
+            rows.forEach(row => {
+                const editBtn = row.querySelector('.action-btn[onclick*="editRecord"]') || 
+                            row.querySelector('.action-btn[onclick*="saveRecord"]');
+                if (editBtn && editBtn.getAttribute('onclick').includes(id.toString())) {
+                    const totalCell = row.querySelector('.calculated-cell .currency-amount');
+                    if (totalCell) {
+                        totalCell.textContent = formatCurrency(Math.abs(total));
+                        
+                        // 更新负数样式
+                        const currencyDisplay = row.querySelector('.calculated-cell .currency-display');
+                        if (currencyDisplay) {
+                            if (total < 0) {
+                                currencyDisplay.classList.add('negative-value', 'negative-parentheses');
+                            } else {
+                                currencyDisplay.classList.remove('negative-value', 'negative-parentheses');
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         // 切换新增表单显示状态
@@ -2703,7 +2737,7 @@
                                 record[fieldName] = input.value;
                                 // 如果是数值相关字段，需要重新计算
                                 if (fieldName === 'in_quantity' || fieldName === 'out_quantity' || fieldName === 'price') {
-                                    renderStockTable();
+                                    updateCalculatedValues(parseInt(recordId));
                                 }
                             }
                         }
