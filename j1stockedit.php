@@ -2806,6 +2806,26 @@
                 }
             }
         }
-    </script>      
+    </script> 
+    <script>
+        // 定期检查是否有更新
+        let lastUpdateCheck = Date.now();
+
+        function checkForUpdates() {
+            fetch(`j1stockeditapi.php?action=check_update&last_check=${lastUpdateCheck}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('检测到数据更新，正在刷新...');
+                        loadStockData(); // 刷新数据
+                        lastUpdateCheck = data.data.update_time * 1000; // 转换为毫秒
+                    }
+                })
+                .catch(error => console.error('检查更新失败:', error));
+        }
+
+        // 每5秒检查一次更新
+        setInterval(checkForUpdates, 5000); 
+    </script>
 </body>
 </html>

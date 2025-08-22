@@ -472,6 +472,21 @@ function handleGet() {
                 sendResponse(false, "查询价格库存信息失败：" . $e->getMessage());
             }
             break;
+
+        case 'check_update':
+            // 检查是否有更新
+            $notificationFile = 'j1_update_flag.txt';
+            $lastCheck = $_GET['last_check'] ?? 0;
+            
+            if (file_exists($notificationFile)) {
+                $updateTime = file_get_contents($notificationFile);
+                if ($updateTime > $lastCheck) {
+                    sendResponse(true, "有新更新", ['update_time' => $updateTime]);
+                }
+            }
+            
+            sendResponse(false, "无更新");
+            break;
             
         default:
             sendResponse(false, "无效的操作");
@@ -553,6 +568,11 @@ function handlePost() {
         
         // 提交事务
         $pdo->commit();
+
+        // 如果是出库记录，通知J1页面刷新
+        if ($outQuantity > 0) {
+            notifyJ1Update();
+        }
         
         // 获取新插入的记录
         $stmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
@@ -693,6 +713,13 @@ function handlePut() {
             $stmt->execute([$data['id']]);
             $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
             
+            // 检查是否涉及出库记录的变化
+            $oldOutQuantity = floatval($existingRecord['out_quantity'] ?? 0);
+            $newOutQuantity = floatval($data['out_quantity'] ?? 0);
+            if ($oldOutQuantity > 0 || $newOutQuantity > 0) {
+                notifyJ1Update();
+            }
+
             sendResponse(true, "进出库记录更新成功", $updatedRecord);
         } else {
             sendResponse(false, "记录不存在");
@@ -714,10 +741,18 @@ function handleDelete() {
     }
     
     try {
+        // 检查要删除的记录是否为出库记录
+        $checkStmt = $pdo->prepare("SELECT out_quantity FROM stockinout_data WHERE id = ?");
+        $checkStmt->execute([$id]);
+        $recordToDelete = $checkStmt->fetch(PDO::FETCH_ASSOC);
+        $willNotifyJ1 = $recordToDelete && floatval($recordToDelete['out_quantity']) > 0;
         $stmt = $pdo->prepare("DELETE FROM stockinout_data WHERE id = ?");
         $result = $stmt->execute([$id]);
         
         if ($stmt->rowCount() > 0) {
+            if ($willNotifyJ1) {
+                notifyJ1Update();
+            }
             sendResponse(true, "进出库记录删除成功");
         } else {
             sendResponse(false, "记录不存在");
@@ -726,5 +761,12 @@ function handleDelete() {
     } catch (PDOException $e) {
         sendResponse(false, "删除记录失败：" . $e->getMessage());
     }
+}
+
+// 通知J1页面更新的函数
+function notifyJ1Update() {
+    // 创建一个简单的通知文件
+    $notificationFile = 'j1_update_flag.txt';
+    file_put_contents($notificationFile, time());
 }
 ?>
