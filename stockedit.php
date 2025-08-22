@@ -1125,6 +1125,7 @@
                         <option value="">请选择</option>
                         <option value="j1">J1</option>
                         <option value="j2">J2</option>
+                        <option value="central">Central</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1586,6 +1587,7 @@
                                 <option value="">请选择</option>
                                 <option value="j1" ${record.target_system === 'j1' ? 'selected' : ''}>J1</option>
                                 <option value="j2" ${record.target_system === 'j2' ? 'selected' : ''}>J2</option>
+                                <option value="central" ${record.target_system === 'central' ? 'selected' : ''}>Central</option>
                             </select>` :
                             `<span>${record.target_system ? record.target_system.toUpperCase() : '-'}</span>`
                         }
@@ -1734,10 +1736,11 @@
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
                     <select class="table-select" id="${rowId}-target" disabled>
-                        <option value="">请选择</option>
-                        <option value="j1">J1</option>
-                        <option value="j2">J2</option>
-                    </select>
+                    <option value="">请选择</option>
+                    <option value="j1">J1</option>
+                    <option value="j2">J2</option>
+                    <option value="central">Central</option>
+                </select>
                 </td>
                 <td>
                     <select class="table-select" id="${rowId}-specification">

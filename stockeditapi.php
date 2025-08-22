@@ -577,6 +577,7 @@ function handlePost() {
         
         // 检查是否为出库记录（出库数量大于0）
         $outQuantity = floatval($data['out_quantity'] ?? 0);
+        // 位置1：POST 请求处理中的出库逻辑 (大约第180行附近)
         if ($outQuantity > 0) {
             $targetSystem = $data['target_system'] ?? 'j1'; // 默认j1
             
@@ -589,13 +590,16 @@ function handlePost() {
                 }
                 error_log("出库记录已保存到J1表，J1记录ID: " . $j1Id);
             } elseif ($targetSystem === 'j2') {
-                // 保存到J2表（需要创建类似的函数）
+                // 保存到J2表
                 $j2Id = saveToJ2Table($pdo, $data, $newId);
                 if (!$j2Id) {
                     $pdo->rollBack();
                     sendResponse(false, "保存到J2表失败，操作已回滚");
                 }
                 error_log("出库记录已保存到J2表，J2记录ID: " . $j2Id);
+            } elseif ($targetSystem === 'central') {
+                // Central 选项：不保存到其他表，只保存在主表
+                error_log("出库记录仅保存在主表 (Central)");
             }
         }
         
@@ -610,7 +614,11 @@ function handlePost() {
         
         $message = "进出库记录添加成功";
         if ($outQuantity > 0) {
-            $message .= "，已同时保存到J1出库表";
+            if ($targetSystem === 'central') {
+                $message .= "，已保存到Central系统";
+            } else {
+                $message .= "，已同时保存到" . strtoupper($targetSystem) . "出库表";
+            }
         }
         
         sendResponse(true, $message, $newRecord);
@@ -766,7 +774,7 @@ function handlePut() {
                         $totalValue,
                         $data['receiver'] ?? null, 
                         $data['remark'] ?? null,
-                        $data['id']  // WHERE 子句的参数
+                        $data['id']
                     ]);
                     error_log("已同步更新J1表记录");
                 } elseif ($targetSystem === 'j2') {
@@ -787,9 +795,11 @@ function handlePut() {
                         $totalValue,
                         $data['receiver'] ?? null, 
                         $data['remark'] ?? null,
-                        $data['id']  // WHERE 子句的参数
+                        $data['id']
                     ]);
                     error_log("已同步更新J2表记录");
+                } elseif ($targetSystem === 'central') {
+                    error_log("Central记录更新：仅更新主表");
                 }
             }
             
@@ -842,6 +852,8 @@ function handleDelete() {
                     $j2DelStmt = $pdo->prepare($j2DeleteSql);
                     $j2DelStmt->execute([$id]);
                     error_log("已同步删除J2表记录");
+                } elseif ($targetSystem === 'central') {
+                    error_log("Central记录删除：仅删除主表记录");
                 }
             }
             sendResponse(true, "进出库记录删除成功");
