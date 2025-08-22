@@ -1863,7 +1863,7 @@
                 
                 // 添加新记录到 stockData 数组的开头
                 const newRecord = {
-                    id: result.data.id || Date.now(), // 使用返回的ID或临时ID
+                    id: result.data.id || Date.now(),
                     date: formData.date,
                     time: formData.time,
                     code_number: formData.code_number,
@@ -1872,6 +1872,7 @@
                     out_quantity: formData.out_quantity,
                     specification: formData.specification,
                     price: formData.price,
+                    type: formData.type,  // 添加这行
                     receiver: formData.receiver,
                     remark: formData.remark,
                     created_at: new Date().toISOString()
@@ -1988,8 +1989,8 @@
                     out_quantity: formData.out_quantity,
                     specification: formData.specification,
                     price: formData.price,
+                    type: formData.type,  // 添加这行
                     receiver: formData.receiver,
-                    applicant: formData.applicant,
                     remark: formData.remark,
                     created_at: new Date().toISOString()
                 };
