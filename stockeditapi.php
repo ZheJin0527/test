@@ -49,7 +49,6 @@ function sendResponse($success, $message = "", $data = null) {
     exit;
 }
 
-// 保存出库数据到J1表的函数
 function saveToJ1Table($pdo, $data, $mainRecordId = null) {
     try {
         // 保存到 j1stockinout_data 表
@@ -76,28 +75,7 @@ function saveToJ1Table($pdo, $data, $mainRecordId = null) {
             'AUTO_OUTBOUND',
             $data['receiver'],
             $data['remark'] ?? null,
-            $mainRecordId  // 新增关联ID
-        ]);
-
-        $stmt = $pdo->prepare($sql);
-        
-        // 计算总价值
-        $outQuantity = floatval($data['out_quantity'] ?? 0);
-        $price = floatval($data['price'] ?? 0);
-        $totalValue = $outQuantity * $price;
-
-        $stmt->execute([
-            $data['date'],
-            $data['time'],
-            $data['code_number'] ?? null,
-            $data['product_name'],
-            $outQuantity,
-            $data['specification'] ?? null,
-            $price,
-            $totalValue,
-            'AUTO_OUTBOUND', // 默认类型标识这是自动同步的出库记录
-            $data['receiver'],
-            $data['remark'] ?? null
+            $mainRecordId
         ]);
         
         return $pdo->lastInsertId();
@@ -107,10 +85,9 @@ function saveToJ1Table($pdo, $data, $mainRecordId = null) {
     }
 }
 
-// 保存出库数据到J2表的函数
 function saveToJ2Table($pdo, $data, $mainRecordId = null) {
     try {
-        // 保存到 j2stockinout_data 表 (假设表结构类似)
+        // 保存到 j2stockinout_data 表
         $sql = "INSERT INTO j2stockinout_data 
                 (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -134,28 +111,7 @@ function saveToJ2Table($pdo, $data, $mainRecordId = null) {
             'AUTO_OUTBOUND',
             $data['receiver'],
             $data['remark'] ?? null,
-            $mainRecordId  // 新增关联ID
-        ]);
-
-        $stmt = $pdo->prepare($sql);
-        
-        // 计算总价值
-        $outQuantity = floatval($data['out_quantity'] ?? 0);
-        $price = floatval($data['price'] ?? 0);
-        $totalValue = $outQuantity * $price;
-
-        $stmt->execute([
-            $data['date'],
-            $data['time'],
-            $data['code_number'] ?? null,
-            $data['product_name'],
-            $outQuantity,
-            $data['specification'] ?? null,
-            $price,
-            $totalValue,
-            'AUTO_OUTBOUND',
-            $data['receiver'],
-            $data['remark'] ?? null
+            $mainRecordId
         ]);
         
         return $pdo->lastInsertId();
