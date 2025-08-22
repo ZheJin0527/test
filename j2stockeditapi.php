@@ -75,7 +75,7 @@ function handleGet() {
 
     switch ($action) {
         case 'list':
-            // 获取所有J1出库数据
+            // 获取所有J2出库数据
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
@@ -145,7 +145,7 @@ function handleGet() {
                     $record['total_value'] = number_format($record['total_value'], 2);
                 }
 
-                sendResponse(true, "J1出库数据获取成功，共找到 " . count($records) . " 条记录", $records);
+                sendResponse(true, "J2出库数据获取成功，共找到 " . count($records) . " 条记录", $records);
             } catch (PDOException $e) {
                 sendResponse(false, "查询数据失败：" . $e->getMessage());
             }
@@ -217,7 +217,7 @@ function handleGet() {
         case 'migrate_history':
             // 一次性迁移所有历史出库数据
             try {
-                // 查找所有有出库数量的历史记录，且不在J1表中的
+                // 查找所有有出库数量的历史记录，且不在J2表中的
                 $sql = "INSERT INTO j2stockinout_data 
                         (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark)
                         SELECT 
@@ -259,7 +259,7 @@ function handlePost() {
         sendResponse(false, "无效的数据格式");
     }
 
-    // 验证必填字段 - J1页面的必填字段
+    // 验证必填字段 - J2页面的必填字段
     $required_fields = ['date', 'time', 'product_name', 'out_quantity', 'specification', 'price'];
     foreach ($required_fields as $field) {
         if (empty($data[$field]) && $data[$field] !== '0') {
@@ -400,7 +400,7 @@ function handlePut() {
             $stmt->execute([$data['id']]);
             $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            sendResponse(true, "J1出库记录更新成功", $updatedRecord);
+            sendResponse(true, "J2出库记录更新成功", $updatedRecord);
         } else {
             sendResponse(false, "记录不存在");
         }
@@ -425,7 +425,7 @@ function handleDelete() {
         $result = $stmt->execute([$id]);
 
         if ($stmt->rowCount() > 0) {
-            sendResponse(true, "J1出库记录删除成功");
+            sendResponse(true, "J2出库记录删除成功");
         } else {
             sendResponse(false, "记录不存在");
         }
