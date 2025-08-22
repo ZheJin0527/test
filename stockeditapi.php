@@ -50,12 +50,12 @@ function sendResponse($success, $message = "", $data = null) {
 }
 
 // 保存出库数据到J1表的函数
-function saveToJ1Table($pdo, $data) {
+function saveToJ1Table($pdo, $data, $originalId = null) {
     try {
         // 保存到 j1stockinout_data 表
         $sql = "INSERT INTO j1stockinout_data 
-                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark, original_id) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
         
@@ -75,12 +75,90 @@ function saveToJ1Table($pdo, $data) {
             $totalValue,
             'AUTO_OUTBOUND', // 默认类型标识这是自动同步的出库记录
             $data['receiver'],
-            $data['remark'] ?? null
+            $data['remark'] ?? null,
+            $originalId
         ]);
         
         return $pdo->lastInsertId();
     } catch (PDOException $e) {
         error_log("保存到J1表失败: " . $e->getMessage());
+        return false;
+    }
+}
+
+// 更新J1表中的记录
+function updateJ1Table($pdo, $data, $originalId) {
+    try {
+        // 计算总价值
+        $outQuantity = floatval($data['out_quantity'] ?? 0);
+        $price = floatval($data['price'] ?? 0);
+        $totalValue = $outQuantity * $price;
+
+        $sql = "UPDATE j1stockinout_data 
+                SET date = ?, time = ?, code_number = ?, product_name = ?, 
+                    out_quantity = ?, specification = ?, price = ?, total_value = ?, 
+                    receiver = ?, remark = ?
+                WHERE original_id = ? AND type = 'AUTO_OUTBOUND'";
+
+        $stmt = $pdo->prepare($sql);
+        
+        $stmt->execute([
+            $data['date'],
+            $data['time'],
+            $data['code_number'] ?? null,
+            $data['product_name'],
+            $outQuantity,
+            $data['specification'] ?? null,
+            $price,
+            $totalValue,
+            $data['receiver'],
+            $data['remark'] ?? null,
+            $originalId
+        ]);
+        
+        return $stmt->rowCount() > 0;
+    } catch (PDOException $e) {
+        error_log("更新J1表失败: " . $e->getMessage());
+        return false;
+    }
+}
+
+// 从J1表删除记录
+function deleteFromJ1Table($pdo, $originalId) {
+    try {
+        $sql = "DELETE FROM j1stockinout_data WHERE original_id = ? AND type = 'AUTO_OUTBOUND'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$originalId]);
+        
+        return $stmt->rowCount() > 0;
+    } catch (PDOException $e) {
+        error_log("从J1表删除失败: " . $e->getMessage());
+        return false;
+    }
+}
+
+// 同步历史出库数据到J1表
+function syncHistoricalOutboundData($pdo) {
+    try {
+        // 获取所有未同步的出库记录
+        $sql = "SELECT * FROM stockinout_data 
+                WHERE out_quantity > 0 
+                AND id NOT IN (SELECT original_id FROM j1stockinout_data WHERE type = 'AUTO_OUTBOUND' AND original_id IS NOT NULL)";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $outboundRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $syncCount = 0;
+        foreach ($outboundRecords as $record) {
+            if (saveToJ1Table($pdo, $record, $record['id'])) {
+                $syncCount++;
+            }
+        }
+        
+        return $syncCount;
+    } catch (PDOException $e) {
+        error_log("同步历史数据失败: " . $e->getMessage());
         return false;
     }
 }
@@ -472,6 +550,17 @@ function handleGet() {
                 sendResponse(false, "查询价格库存信息失败：" . $e->getMessage());
             }
             break;
+
+        case 'sync_historical':
+            // 同步历史出库数据到J1表
+            $syncCount = syncHistoricalOutboundData($pdo);
+            
+            if ($syncCount !== false) {
+                sendResponse(true, "历史出库数据同步成功，共同步 $syncCount 条记录", ['sync_count' => $syncCount]);
+            } else {
+                sendResponse(false, "历史数据同步失败");
+            }
+            break;
             
         default:
             sendResponse(false, "无效的操作");
@@ -542,7 +631,7 @@ function handlePost() {
         $outQuantity = floatval($data['out_quantity'] ?? 0);
         if ($outQuantity > 0) {
             // 自动保存到J1表
-            $j1Id = saveToJ1Table($pdo, $data);
+            $j1Id = saveToJ1Table($pdo, $data, $newId);
             if (!$j1Id) {
                 // 如果保存到J1表失败，回滚事务
                 $pdo->rollBack();
@@ -625,7 +714,7 @@ function handleApprove() {
     }
 }
 
-// 处理 PUT 请求 - 更新记录
+// 处理 PUT 请求 - 更新记录（支持同步到J1表）
 function handlePut() {
     global $pdo, $data;
     
@@ -660,6 +749,22 @@ function handlePut() {
     }
     
     try {
+        // 开始事务
+        $pdo->beginTransaction();
+        
+        // 获取原始记录以检查是否为出库记录
+        $originalStmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
+        $originalStmt->execute([$data['id']]);
+        $originalRecord = $originalStmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$originalRecord) {
+            $pdo->rollBack();
+            sendResponse(false, "记录不存在");
+        }
+        
+        $originalOutQty = floatval($originalRecord['out_quantity'] ?? 0);
+        $newOutQty = floatval($data['out_quantity'] ?? 0);
+        
         $sql = "UPDATE stockinout_data 
                 SET date = ?, time = ?, product_name = ?, 
                     in_quantity = ?, out_quantity = ?, 
@@ -669,41 +774,66 @@ function handlePut() {
         $stmt = $pdo->prepare($sql);
 
         $result = $stmt->execute([
-                $data['date'],
-                $data['time'],
-                $data['product_name'],
-                $data['in_quantity'] ?? 0,
-                $data['out_quantity'] ?? 0,
-                $data['specification'] ?? null,
-                $data['price'] ?? 0,
-                $data['code_number'] ?? null,
-                $data['remark'] ?? null,
-                $data['receiver'] ?? null,
-                $data['id']
-            ]);
+            $data['date'],
+            $data['time'],
+            $data['product_name'],
+            $data['in_quantity'] ?? 0,
+            $data['out_quantity'] ?? 0,
+            $data['specification'] ?? null,
+            $data['price'] ?? 0,
+            $data['code_number'] ?? null,
+            $data['remark'] ?? null,
+            $data['receiver'] ?? null,
+            $data['id']
+        ]);
         
-        // 检查记录是否存在
-        $checkStmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
-        $checkStmt->execute([$data['id']]);
-        $existingRecord = $checkStmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($existingRecord) {
-            // 记录存在，获取更新后的记录
-            $stmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
-            $stmt->execute([$data['id']]);
-            $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            sendResponse(true, "进出库记录更新成功", $updatedRecord);
-        } else {
-            sendResponse(false, "记录不存在");
+        // 处理J1表同步逻辑
+        $message = "进出库记录更新成功";
+        
+        if ($originalOutQty > 0 && $newOutQty > 0) {
+            // 原来是出库，现在也是出库 - 更新J1表
+            if (updateJ1Table($pdo, $data, $data['id'])) {
+                $message .= "，已同步更新J1出库表";
+            } else {
+                error_log("更新J1表失败，但主表更新成功");
+                $message .= "，但J1表更新失败";
+            }
+        } elseif ($originalOutQty > 0 && $newOutQty == 0) {
+            // 原来是出库，现在不是 - 从J1表删除
+            if (deleteFromJ1Table($pdo, $data['id'])) {
+                $message .= "，已从J1出库表删除相关记录";
+            } else {
+                error_log("从J1表删除失败，但主表更新成功");
+                $message .= "，但从J1表删除失败";
+            }
+        } elseif ($originalOutQty == 0 && $newOutQty > 0) {
+            // 原来不是出库，现在是出库 - 添加到J1表
+            $j1Id = saveToJ1Table($pdo, $data, $data['id']);
+            if ($j1Id) {
+                $message .= "，已新增到J1出库表";
+            } else {
+                error_log("添加到J1表失败，但主表更新成功");
+                $message .= "，但添加到J1表失败";
+            }
         }
         
+        // 提交事务
+        $pdo->commit();
+        
+        // 获取更新后的记录
+        $stmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
+        $stmt->execute([$data['id']]);
+        $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        sendResponse(true, $message, $updatedRecord);
+        
     } catch (PDOException $e) {
+        $pdo->rollBack();
         sendResponse(false, "更新记录失败：" . $e->getMessage());
     }
 }
 
-// 处理 DELETE 请求 - 删除记录
+// 处理 DELETE 请求 - 删除记录（支持同步删除J1表记录）
 function handleDelete() {
     global $pdo;
     
@@ -714,16 +844,48 @@ function handleDelete() {
     }
     
     try {
+        // 开始事务
+        $pdo->beginTransaction();
+        
+        // 先检查是否为出库记录
+        $checkStmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
+        $checkStmt->execute([$id]);
+        $record = $checkStmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$record) {
+            $pdo->rollBack();
+            sendResponse(false, "记录不存在");
+        }
+        
+        $outQty = floatval($record['out_quantity'] ?? 0);
+        
+        // 删除主记录
         $stmt = $pdo->prepare("DELETE FROM stockinout_data WHERE id = ?");
         $result = $stmt->execute([$id]);
         
+        $message = "进出库记录删除成功";
+        
+        // 如果是出库记录，同时删除J1表中的记录
+        if ($outQty > 0) {
+            if (deleteFromJ1Table($pdo, $id)) {
+                $message .= "，已同步删除J1出库表中的相关记录";
+            } else {
+                error_log("从J1表删除失败，但主表删除成功");
+                $message .= "，但从J1表删除失败";
+            }
+        }
+        
+        // 提交事务
+        $pdo->commit();
+        
         if ($stmt->rowCount() > 0) {
-            sendResponse(true, "进出库记录删除成功");
+            sendResponse(true, $message);
         } else {
             sendResponse(false, "记录不存在");
         }
         
     } catch (PDOException $e) {
+        $pdo->rollBack();
         sendResponse(false, "删除记录失败：" . $e->getMessage());
     }
 }
