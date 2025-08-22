@@ -1599,7 +1599,10 @@
                         }
                     </td>
                     <td>
-                        <input type="text" class="table-input" value="${record.remark || ''}" onchange="updateField(${record.id}, 'remark', this.value)">
+                        ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.remark || ''}" onchange="updateField(${record.id}, 'remark', this.value)">` :
+                            `<span>${record.remark || '-'}</span>`
+                        }
                     </td>
                     <td>
                         <span class="action-cell">
