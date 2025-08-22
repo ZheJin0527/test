@@ -756,11 +756,19 @@ function handlePut() {
                     
                     $j1Stmt = $pdo->prepare($j1UpdateSql);
                     $j1Stmt->execute([
-                        $data['date'], $data['time'], $data['code_number'] ?? null, $data['product_name'],
-                        $outQuantity, $data['specification'] ?? null, floatval($data['price'] ?? 0), $totalValue,
-                        $data['receiver'] ?? null, $data['remark'] ?? null,
-                        $data['id']  // 使用主记录ID
+                        $data['date'], 
+                        $data['time'], 
+                        $data['code_number'] ?? null, 
+                        $data['product_name'],
+                        $outQuantity, 
+                        $data['specification'] ?? null, 
+                        floatval($data['price'] ?? 0), 
+                        $totalValue,
+                        $data['receiver'] ?? null, 
+                        $data['remark'] ?? null,
+                        $data['id']  // 这是第11个参数，对应WHERE子句中的?
                     ]);
+                    error_log("已同步更新J1表记录");
                     
                     $j1Stmt = $pdo->prepare($j1UpdateSql);
                     $j1Stmt->execute([
@@ -778,11 +786,19 @@ function handlePut() {
                     
                     $j2Stmt = $pdo->prepare($j2UpdateSql);
                     $j2Stmt->execute([
-                        $data['date'], $data['time'], $data['code_number'] ?? null, $data['product_name'],
-                        $outQuantity, $data['specification'] ?? null, floatval($data['price'] ?? 0), $totalValue,
-                        $data['receiver'] ?? null, $data['remark'] ?? null,
-                        $data['id']  // 使用主记录ID
+                        $data['date'], 
+                        $data['time'], 
+                        $data['code_number'] ?? null, 
+                        $data['product_name'],
+                        $outQuantity, 
+                        $data['specification'] ?? null, 
+                        floatval($data['price'] ?? 0), 
+                        $totalValue,
+                        $data['receiver'] ?? null, 
+                        $data['remark'] ?? null,
+                        $data['id']  // 这是第11个参数，对应WHERE子句中的?
                     ]);
+                    error_log("已同步更新J2表记录");
                     
                     $j2Stmt = $pdo->prepare($j2UpdateSql);
                     $j2Stmt->execute([
