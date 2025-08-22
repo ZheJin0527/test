@@ -1035,7 +1035,7 @@
                             <i class="fas fa-file-alt"></i>
                             J1 stock
                         </a>
-                        <a href="j2.html" class="dropdown-item">
+                        <a href="j2stockedit.php" class="dropdown-item">
                             <i class="fas fa-file-alt"></i>
                             J2 stock
                         </a>
