@@ -1189,10 +1189,10 @@
                         <th style="min-width: 100px;">DATE</th>
                         <th style="min-width: 100px;">Code Number</th>
                         <th class="product-name-col">PRODUCT</th>
-                        <th style="min-width: 80px;">Out Qty</th>
+                        <th style="min-width: 80px;">Out</th>
                         <th style="min-width: 100px;">Specification</th>
                         <th style="min-width: 100px;">Price</th>
-                        <th style="min-width: 100px;">Total Value</th>
+                        <th style="min-width: 100px;">Total</th>
                         <th style="min-width: 100px;">Type</th>
                         <th class="receiver-col">Name</th>
                         <th style="min-width: 100px;">Remark</th>
