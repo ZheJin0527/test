@@ -2199,9 +2199,57 @@
                     }
                 }
                 
-                // 只有在数值字段变化时才重新渲染（更新计算值）
+                // 移除自动重新渲染，改为只更新计算值
                 if (field === 'in_quantity' || field === 'out_quantity' || field === 'price') {
-                    renderStockTable();
+                    updateCalculatedValues(id);
+                }
+            }
+        }
+
+        // 更新计算值（不重新渲染整个表格）
+        function updateCalculatedValues(id) {
+            const record = stockData.find(r => r.id === id);
+            if (!record) return;
+            
+            // 计算总价
+            const inQty = parseFloat(record.in_quantity) || 0;
+            const outQty = parseFloat(record.out_quantity) || 0;
+            const price = parseFloat(record.price) || 0;
+            const netQty = inQty - outQty;
+            const total = netQty * price;
+            
+            // 更新页面上的总价显示
+            const row = document.querySelector(`[data-record-id="${id}"]`)?.closest('tr');
+            if (row) {
+                const totalCell = row.querySelector('.calculated-cell');
+                const currencyDisplay = totalCell?.querySelector('.currency-display');
+                const currencyAmount = totalCell?.querySelector('.currency-amount');
+                
+                if (totalCell && currencyDisplay && currencyAmount) {
+                    // 更新数值
+                    currencyAmount.textContent = formatCurrency(Math.abs(total));
+                    
+                    // 添加或移除负数样式
+                    if (total < 0) {
+                        totalCell.classList.add('negative-value', 'negative-parentheses');
+                        currencyDisplay.classList.add('negative-value', 'negative-parentheses');
+                    } else {
+                        totalCell.classList.remove('negative-value', 'negative-parentheses');
+                        currencyDisplay.classList.remove('negative-value', 'negative-parentheses');
+                    }
+                }
+                
+                // 更新出库数量的显示样式
+                const outCell = row.querySelector('td:nth-child(5)');
+                if (outCell) {
+                    const outSpan = outCell.querySelector('span');
+                    if (outSpan) {
+                        if (outQty > 0) {
+                            outSpan.classList.add('negative-value');
+                        } else {
+                            outSpan.classList.remove('negative-value');
+                        }
+                    }
                 }
             }
         }
