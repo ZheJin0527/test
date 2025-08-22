@@ -50,12 +50,34 @@ function sendResponse($success, $message = "", $data = null) {
 }
 
 // 保存出库数据到J1表的函数
-function saveToJ1Table($pdo, $data) {
+function saveToJ1Table($pdo, $data, $mainRecordId = null) {
     try {
         // 保存到 j1stockinout_data 表
         $sql = "INSERT INTO j1stockinout_data 
-                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $pdo->prepare($sql);
+        
+        // 计算总价值
+        $outQuantity = floatval($data['out_quantity'] ?? 0);
+        $price = floatval($data['price'] ?? 0);
+        $totalValue = $outQuantity * $price;
+
+        $stmt->execute([
+            $data['date'],
+            $data['time'],
+            $data['code_number'] ?? null,
+            $data['product_name'],
+            $outQuantity,
+            $data['specification'] ?? null,
+            $price,
+            $totalValue,
+            'AUTO_OUTBOUND',
+            $data['receiver'],
+            $data['remark'] ?? null,
+            $mainRecordId  // 新增关联ID
+        ]);
 
         $stmt = $pdo->prepare($sql);
         
@@ -86,12 +108,34 @@ function saveToJ1Table($pdo, $data) {
 }
 
 // 保存出库数据到J2表的函数
-function saveToJ2Table($pdo, $data) {
+function saveToJ2Table($pdo, $data, $mainRecordId = null) {
     try {
         // 保存到 j2stockinout_data 表 (假设表结构类似)
         $sql = "INSERT INTO j2stockinout_data 
-                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $pdo->prepare($sql);
+        
+        // 计算总价值
+        $outQuantity = floatval($data['out_quantity'] ?? 0);
+        $price = floatval($data['price'] ?? 0);
+        $totalValue = $outQuantity * $price;
+
+        $stmt->execute([
+            $data['date'],
+            $data['time'],
+            $data['code_number'] ?? null,
+            $data['product_name'],
+            $outQuantity,
+            $data['specification'] ?? null,
+            $price,
+            $totalValue,
+            'AUTO_OUTBOUND',
+            $data['receiver'],
+            $data['remark'] ?? null,
+            $mainRecordId  // 新增关联ID
+        ]);
 
         $stmt = $pdo->prepare($sql);
         
@@ -582,7 +626,7 @@ function handlePost() {
             
             if ($targetSystem === 'j1') {
                 // 保存到J1表
-                $j1Id = saveToJ1Table($pdo, $data);
+                $j1Id = saveToJ1Table($pdo, $data, $newId);
                 if (!$j1Id) {
                     $pdo->rollBack();
                     sendResponse(false, "保存到J1表失败，操作已回滚");
@@ -590,7 +634,7 @@ function handlePost() {
                 error_log("出库记录已保存到J1表，J1记录ID: " . $j1Id);
             } elseif ($targetSystem === 'j2') {
                 // 保存到J2表（需要创建类似的函数）
-                $j2Id = saveToJ2Table($pdo, $data);
+                $j2Id = saveToJ2Table($pdo, $data, $newId);
                 if (!$j2Id) {
                     $pdo->rollBack();
                     sendResponse(false, "保存到J2表失败，操作已回滚");
@@ -752,8 +796,15 @@ function handlePut() {
                     $j1UpdateSql = "UPDATE j1stockinout_data 
                                     SET date = ?, time = ?, code_number = ?, product_name = ?, 
                                         out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?
-                                    WHERE type = 'AUTO_OUTBOUND' AND product_name = ? AND date = ? AND time = ?
-                                    ORDER BY id DESC LIMIT 1";
+                                    WHERE main_record_id = ?";
+                    
+                    $j1Stmt = $pdo->prepare($j1UpdateSql);
+                    $j1Stmt->execute([
+                        $data['date'], $data['time'], $data['code_number'] ?? null, $data['product_name'],
+                        $outQuantity, $data['specification'] ?? null, floatval($data['price'] ?? 0), $totalValue,
+                        $data['receiver'] ?? null, $data['remark'] ?? null,
+                        $data['id']  // 使用主记录ID
+                    ]);
                     
                     $j1Stmt = $pdo->prepare($j1UpdateSql);
                     $j1Stmt->execute([
@@ -767,8 +818,15 @@ function handlePut() {
                     $j2UpdateSql = "UPDATE j2stockinout_data 
                                     SET date = ?, time = ?, code_number = ?, product_name = ?, 
                                         out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?
-                                    WHERE type = 'AUTO_OUTBOUND' AND product_name = ? AND date = ? AND time = ?
-                                    ORDER BY id DESC LIMIT 1";
+                                    WHERE main_record_id = ?";
+                    
+                    $j2Stmt = $pdo->prepare($j2UpdateSql);
+                    $j2Stmt->execute([
+                        $data['date'], $data['time'], $data['code_number'] ?? null, $data['product_name'],
+                        $outQuantity, $data['specification'] ?? null, floatval($data['price'] ?? 0), $totalValue,
+                        $data['receiver'] ?? null, $data['remark'] ?? null,
+                        $data['id']  // 使用主记录ID
+                    ]);
                     
                     $j2Stmt = $pdo->prepare($j2UpdateSql);
                     $j2Stmt->execute([
@@ -821,38 +879,14 @@ function handleDelete() {
                 $targetSystem = $recordToDelete['target_system'] ?? 'j1'; // 默认j1
                 
                 if ($targetSystem === 'j1') {
-                    $j1DeleteSql = "DELETE FROM j1stockinout_data 
-                                    WHERE type = 'AUTO_OUTBOUND' 
-                                    AND product_name = ? 
-                                    AND date = ? 
-                                    AND time = ? 
-                                    AND out_quantity = ?
-                                    ORDER BY id DESC LIMIT 1";
-                    
+                    $j1DeleteSql = "DELETE FROM j1stockinout_data WHERE main_record_id = ?";
                     $j1DelStmt = $pdo->prepare($j1DeleteSql);
-                    $j1DelStmt->execute([
-                        $recordToDelete['product_name'],
-                        $recordToDelete['date'],
-                        $recordToDelete['time'],
-                        floatval($recordToDelete['out_quantity'])
-                    ]);
+                    $j1DelStmt->execute([$id]);
                     error_log("已同步删除J1表记录");
                 } elseif ($targetSystem === 'j2') {
-                    $j2DeleteSql = "DELETE FROM j2stockinout_data 
-                                    WHERE type = 'AUTO_OUTBOUND' 
-                                    AND product_name = ? 
-                                    AND date = ? 
-                                    AND time = ? 
-                                    AND out_quantity = ?
-                                    ORDER BY id DESC LIMIT 1";
-                    
+                    $j2DeleteSql = "DELETE FROM j2stockinout_data WHERE main_record_id = ?";
                     $j2DelStmt = $pdo->prepare($j2DeleteSql);
-                    $j2DelStmt->execute([
-                        $recordToDelete['product_name'],
-                        $recordToDelete['date'],
-                        $recordToDelete['time'],
-                        floatval($recordToDelete['out_quantity'])
-                    ]);
+                    $j2DelStmt->execute([$id]);
                     error_log("已同步删除J2表记录");
                 }
             }
