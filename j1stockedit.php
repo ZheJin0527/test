@@ -1584,13 +1584,16 @@
                         </div>
                     </td>
                     <td>
-                        <select class="table-select" onchange="updateField(${record.id}, 'type', this.value)">
-                            <option value="">请选择类型</option>
-                            <option value="Kitchen" ${record.type === 'Kitchen' ? 'selected' : ''}>Kitchen</option>
-                            <option value="SushiBar" ${record.type === 'SushiBar' ? 'selected' : ''}>SushiBar</option>
-                            <option value="Drink" ${record.type === 'Drink' ? 'selected' : ''}>Drink</option>
-                            <option value="Sake" ${record.type === 'Sake' ? 'selected' : ''}>Sake</option>
-                        </select>
+                        ${isEditing ? 
+                            `<select class="table-select" onchange="updateField(${record.id}, 'type', this.value)">
+                                <option value="">请选择类型</option>
+                                <option value="Kitchen" ${record.type === 'Kitchen' ? 'selected' : ''}>Kitchen</option>
+                                <option value="SushiBar" ${record.type === 'SushiBar' ? 'selected' : ''}>SushiBar</option>
+                                <option value="Drink" ${record.type === 'Drink' ? 'selected' : ''}>Drink</option>
+                                <option value="Sake" ${record.type === 'Sake' ? 'selected' : ''}>Sake</option>
+                            </select>` :
+                            `<span>${record.type || '-'}</span>`
+                        }
                     </td>
                     <td>
                         ${isEditing ? 
