@@ -49,6 +49,42 @@ function sendResponse($success, $message = "", $data = null) {
     exit;
 }
 
+// 保存出库数据到J1表的函数
+function saveToJ1Table($pdo, $data) {
+    try {
+        // 保存到 j1stockinout_data 表
+        $sql = "INSERT INTO j1stockinout_data 
+                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $pdo->prepare($sql);
+        
+        // 计算总价值
+        $outQuantity = floatval($data['out_quantity'] ?? 0);
+        $price = floatval($data['price'] ?? 0);
+        $totalValue = $outQuantity * $price;
+
+        $stmt->execute([
+            $data['date'],
+            $data['time'],
+            $data['code_number'] ?? null,
+            $data['product_name'],
+            $outQuantity,
+            $data['specification'] ?? null,
+            $price,
+            $totalValue,
+            'AUTO_OUTBOUND', // 默认类型标识这是自动同步的出库记录
+            $data['receiver'],
+            $data['remark'] ?? null
+        ]);
+        
+        return $pdo->lastInsertId();
+    } catch (PDOException $e) {
+        error_log("保存到J1表失败: " . $e->getMessage());
+        return false;
+    }
+}
+
 // 路由处理
 switch ($method) {
     case 'GET':
@@ -442,7 +478,7 @@ function handleGet() {
     }
 }
 
-// 处理 POST 请求 - 添加新记录
+// 处理 POST 请求 - 添加新记录（修改版支持双重保存）
 function handlePost() {
     global $pdo, $data;
     
@@ -477,6 +513,9 @@ function handlePost() {
     }
     
     try {
+        // 开始事务
+        $pdo->beginTransaction();
+        
         $sql = "INSERT INTO stockinout_data 
                 (date, time, product_name, 
                 in_quantity, out_quantity, specification, price, code_number, remark, receiver) 
@@ -499,15 +538,38 @@ function handlePost() {
         
         $newId = $pdo->lastInsertId();
         
+        // 检查是否为出库记录（出库数量大于0）
+        $outQuantity = floatval($data['out_quantity'] ?? 0);
+        if ($outQuantity > 0) {
+            // 自动保存到J1表
+            $j1Id = saveToJ1Table($pdo, $data);
+            if (!$j1Id) {
+                // 如果保存到J1表失败，回滚事务
+                $pdo->rollBack();
+                sendResponse(false, "保存到J1表失败，操作已回滚");
+            }
+            error_log("出库记录已同时保存到J1表，J1记录ID: " . $j1Id);
+        }
+        
+        // 提交事务
+        $pdo->commit();
+        
         // 获取新插入的记录
         $stmt = $pdo->prepare("SELECT * FROM stockinout_data WHERE id = ?");
         $stmt->execute([$newId]);
         $newRecord = $stmt->fetch(PDO::FETCH_ASSOC);
         $newRecord['approval_status'] = (!empty($newRecord['approver'])) ? 'approved' : 'pending';
         
-        sendResponse(true, "进出库记录添加成功", $newRecord);
+        $message = "进出库记录添加成功";
+        if ($outQuantity > 0) {
+            $message .= "，已同时保存到J1出库表";
+        }
+        
+        sendResponse(true, $message, $newRecord);
         
     } catch (PDOException $e) {
+        // 回滚事务
+        $pdo->rollBack();
         sendResponse(false, "添加记录失败：" . $e->getMessage());
     }
 }
