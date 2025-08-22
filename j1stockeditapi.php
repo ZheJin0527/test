@@ -124,7 +124,7 @@ function handleGet() {
                 $params[] = "%$type%";
             }
 
-            $sql .= " ORDER BY date DESC, time DESC";
+            $sql .= " ORDER BY date ASC, time ASC";
 
             $stmt = $pdo->prepare($sql);
             try {
