@@ -1592,7 +1592,7 @@
                                 <option value="Drink" ${record.type === 'Drink' ? 'selected' : ''}>Drink</option>
                                 <option value="Sake" ${record.type === 'Sake' ? 'selected' : ''}>Sake</option>
                             </select>` :
-                            `<span>${record.type || '-'}</span>`
+                            `<span>${record.type === 'AUTO_OUTBOUND' ? '-' : (record.type || '-')}</span>`
                         }
                     </td>
                     <td>
