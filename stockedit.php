@@ -988,7 +988,7 @@
             background: white;
             border: 2px solid #10b981;
             border-radius: 8px;
-            min-width: 150px;
+            min-width: 130px;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
             z-index: 1000;
             display: none;
