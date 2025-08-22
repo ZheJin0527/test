@@ -2201,7 +2201,11 @@
                 
                 // 只有在数值字段变化时才重新渲染（更新计算值）
                 if (field === 'in_quantity' || field === 'out_quantity' || field === 'price') {
-                    renderStockTable();
+                    // 使用防抖避免频繁渲染
+                    clearTimeout(window.renderTimeout);
+                    window.renderTimeout = setTimeout(() => {
+                        renderStockTable();
+                    }, 100);
                 }
             }
         }
@@ -2255,6 +2259,24 @@
 
         // 保存记录
         async function saveRecord(id) {
+            const saveButton = document.querySelector(`button[onclick="saveRecord(${id})"]`);
+            if (saveButton && saveButton.disabled) {
+                return;
+            }
+            if (saveButton) {
+                saveButton.disabled = true;
+                saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            }
+            
+            const record = stockData.find(r => r.id === id);
+            if (!record) {
+                if (saveButton) {
+                    saveButton.disabled = false;
+                    saveButton.innerHTML = '<i class="fas fa-save"></i>';
+                }
+                return;
+            }
+
             const record = stockData.find(r => r.id === id);
             if (!record) return;
 
@@ -2288,12 +2310,19 @@
                     if (originalEditData) {
                         originalEditData.delete(id);
                     }
-                    loadStockData();
+                    // 直接重新渲染表格，不重新加载数据
+                    renderStockTable();
                 } else {
                     showAlert('更新失败: ' + (result.message || '未知错误'), 'error');
                 }
             } catch (error) {
                 showAlert('保存时发生错误', 'error');
+            } finally {
+                // 恢复按钮状态
+                if (saveButton) {
+                    saveButton.disabled = false;
+                    saveButton.innerHTML = '<i class="fas fa-save"></i>';
+                }
             }
         }
 
@@ -2761,10 +2790,18 @@
 
         // 修改渲染后的事件绑定
         function bindComboboxEvents() {
-        // 为所有 combobox 输入框绑定事件
-        document.querySelectorAll('.combobox-input').forEach(input => {
-            // 只有在没有绑定过的情况下才绑定事件
-            if (!input._eventsbound) {
+            // 为所有 combobox 输入框绑定事件
+            document.querySelectorAll('.combobox-input').forEach(input => {
+                // 移除旧的事件监听器
+                if (input._eventsbound) {
+                    input.removeEventListener('focus', input._focusHandler);
+                    input.removeEventListener('input', input._inputHandler);
+                    input.removeEventListener('keydown', input._keydownHandler);
+                    input.removeEventListener('blur', input._blurHandler);
+                }
+                
+                // 只有在没有绑定过的情况下才绑定事件
+                if (!input._eventsbound) {
                 // 创建事件处理器
                 const focusHandler = () => showComboboxDropdown(input);
                 const inputHandler = () => filterComboboxOptions(input);
@@ -2840,6 +2877,12 @@
                 input.addEventListener('input', inputHandler);
                 input.addEventListener('keydown', keydownHandler);
                 input.addEventListener('blur', blurHandler); // 这是新添加的一行
+
+                // 保存事件处理器引用，用于后续移除
+                input._focusHandler = focusHandler;
+                input._inputHandler = inputHandler;
+                input._keydownHandler = keydownHandler;
+                input._blurHandler = blurHandler;
                 
                 // 标记已绑定
                 input._eventsbound = true;
