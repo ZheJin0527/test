@@ -811,7 +811,7 @@
                 
                 tableRows += `
                     <tr>
-                        <td class="text-center font-mono">${item.no}</td>
+                        <td class="text-center">${item.no}</td>
                         <td><strong>${item.product_name}</strong></td>
                         <td class="text-center">${item.code_number || '-'}</td>
                         <td class="stock-cell">
