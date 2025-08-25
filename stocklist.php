@@ -495,14 +495,6 @@
                     <label for="spec-filter">规格单位</label>
                     <input type="text" id="spec-filter" class="filter-input" placeholder="搜索规格单位...">
                 </div>
-                <div class="filter-group">
-                    <label for="stock-filter">库存状态</label>
-                    <select id="stock-filter" class="filter-select">
-                        <option value="">全部</option>
-                        <option value="positive">有库存</option>
-                        <option value="zero">零库存</option>
-                    </select>
-                </div>
             </div>
             <div class="filter-actions">
                 <button class="btn btn-primary" onclick="searchData()">
@@ -653,21 +645,13 @@
             const productFilter = document.getElementById('product-filter').value.toLowerCase();
             const codeFilter = document.getElementById('code-filter').value.toLowerCase();
             const specFilter = document.getElementById('spec-filter').value.toLowerCase();
-            const stockFilter = document.getElementById('stock-filter').value;
 
             filteredData = stockData.filter(item => {
                 const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
                 const matchCode = !codeFilter || (item.code_number && item.code_number.toLowerCase().includes(codeFilter));
                 const matchSpec = !specFilter || (item.specification && item.specification.toLowerCase().includes(specFilter));
-                
-                let matchStock = true;
-                if (stockFilter === 'positive') {
-                    matchStock = parseFloat(item.total_stock) > 0;
-                } else if (stockFilter === 'zero') {
-                    matchStock = parseFloat(item.total_stock) === 0;
-                }
 
-                return matchProduct && matchCode && matchSpec && matchStock;
+                return matchProduct && matchCode && matchSpec;
             });
 
             renderStockTable();
@@ -685,7 +669,6 @@
             document.getElementById('product-filter').value = '';
             document.getElementById('code-filter').value = '';
             document.getElementById('spec-filter').value = '';
-            document.getElementById('stock-filter').value = '';
             
             filteredData = [...stockData];
             renderStockTable();
