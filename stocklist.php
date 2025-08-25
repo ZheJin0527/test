@@ -529,12 +529,12 @@
         }
 
         /* 左侧总库存区域 */
-        .summary-section {
-            flex: 0 0 300px; /* 固定宽度300px */
-            min-width: 300px;
-            display: flex; /* 添加flex布局 */
-            flex-direction: column; /* 垂直排列 */
-        }
+.summary-section {
+    flex: 0 0 400px; /* 固定宽度400px */
+    min-width: 400px;
+    display: flex; /* 添加flex布局 */
+    flex-direction: column; /* 垂直排列 */
+}
 
         /* 右侧搜索过滤区域 */
         .filter-section {
