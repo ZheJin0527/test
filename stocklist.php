@@ -230,7 +230,7 @@
         }
 
         .summary-card.total-value .value {
-            color: #6b7280;
+            color: #000000ff;
         }
 
         /* 货币显示容器 */
@@ -508,7 +508,7 @@
         .summary-currency-display .currency-symbol {
             font-size: 35px;
             font-weight: bold;
-            color: #6b7280;
+            color: #000000ff;
         }
 
         .summary-currency-display .value {
@@ -518,38 +518,38 @@
         }
 
         /* 主要内容行布局 */
-.main-content-row {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 24px;
-    align-items: stretch; /* 改为stretch让子元素高度一致 */
-}
+        .main-content-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+            align-items: stretch; /* 改为stretch让子元素高度一致 */
+        }
 
-/* 左侧总库存区域 */
-.summary-section {
-    flex: 0 0 300px; /* 固定宽度300px */
-    min-width: 300px;
-    display: flex; /* 添加flex布局 */
-    flex-direction: column; /* 垂直排列 */
-}
+        /* 左侧总库存区域 */
+        .summary-section {
+            flex: 0 0 300px; /* 固定宽度300px */
+            min-width: 300px;
+            display: flex; /* 添加flex布局 */
+            flex-direction: column; /* 垂直排列 */
+        }
 
-/* 右侧搜索过滤区域 */
-.filter-section {
-    flex: 1; /* 占据剩余空间 */
-    min-width: 0; /* 允许缩小 */
-    display: flex; /* 添加flex布局 */
-    flex-direction: column; /* 垂直排列 */
-}
+        /* 右侧搜索过滤区域 */
+        .filter-section {
+            flex: 1; /* 占据剩余空间 */
+            min-width: 0; /* 允许缩小 */
+            display: flex; /* 添加flex布局 */
+            flex-direction: column; /* 垂直排列 */
+        }
 
-/* 总库存卡片样式调整 */
-.summary-section .summary-card {
-    width: 100%;
-    margin-bottom: 24px;
-    flex: 1; /* 让卡片填满整个高度 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 垂直居中内容 */
-}
+        /* 总库存卡片样式调整 */
+        .summary-section .summary-card {
+            width: 100%;
+            margin-bottom: 24px;
+            flex: 1; /* 让卡片填满整个高度 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 垂直居中内容 */
+        }
     </style>
 </head>
 <body>
