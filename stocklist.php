@@ -230,7 +230,7 @@
         }
 
         .summary-card.total-value .value {
-            color: #000000ff;
+            color: #583e04;
         }
 
         /* 货币显示容器 */
@@ -508,7 +508,7 @@
         .summary-currency-display .currency-symbol {
             font-size: 35px;
             font-weight: bold;
-            color: #000000ff;
+            color: #583e04;
         }
 
         .summary-currency-display .value {
