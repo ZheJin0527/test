@@ -486,7 +486,8 @@
 
         .stock-table td.stock-cell {
             padding: 0;
-            text-align: left;
+            text-align: center
+            ;
         }
 
         /* 确保价格单元格内容填满 */
@@ -534,7 +535,7 @@
         <!-- Summary Cards -->
         <div class="summary-cards">
             <div class="summary-card total-value">
-                <h3>Total</h3>
+                <h3>总库存</h3>
                 <div class="summary-currency-display">
                     <span class="currency-symbol">RM</span>
                     <span class="value" id="total-value">0.00</span>
@@ -811,11 +812,11 @@
                         <td><strong>${item.product_name}</strong></td>
                         <td class="font-mono">${item.code_number || '-'}</td>
                         <td class="stock-cell">
-                            <div class="currency-display ${stockClass}">
-                                <span class="currency-symbol">&nbsp;</span>
-                                <span class="currency-amount">${item.formatted_stock}</span>
-                            </div>
-                        </td>
+                                <div class="currency-display ${stockClass}">
+                                    <span class="currency-symbol">&nbsp;</span>
+                                    <span class="currency-amount">${item.formatted_stock}</span>
+                                </div>
+                            </td>
                         <td class="text-center">${item.specification || '-'}</td>
                         <td class="price-cell">
                             <div class="currency-display">
