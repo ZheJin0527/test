@@ -413,12 +413,23 @@
             color: #583e04;
         }
 
-        /* 响应式设计 */
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
                 gap: 16px;
                 align-items: flex-start;
+            }
+            
+            /* 移动端改为上下排列 */
+            .main-content-row {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .summary-section {
+                flex: none;
+                width: 100%;
+                min-width: auto;
             }
             
             .filter-grid {
@@ -444,15 +455,6 @@
             .stat-item {
                 min-width: auto;
                 width: 100%;
-            }
-
-            .summary-cards {
-                flex-direction: column;
-                gap: 12px;
-            }
-            
-            .summary-cards .summary-card {
-                max-width: none;
             }
         }
 
@@ -515,30 +517,38 @@
         }
 
         /* 主要内容行布局 */
-.main-content-row {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 24px;
-    align-items: flex-start;
-}
+        .main-content-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+            align-items: stretch; /* 改为stretch让高度一致 */
+        }
 
-/* 左侧总库存区域 */
-.summary-section {
-    flex: 0 0 300px; /* 固定宽度300px */
-    min-width: 300px;
-}
+        /* 左侧总库存区域 */
+        .summary-section {
+            flex: 0 0 300px; /* 固定宽度300px */
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
 
-/* 右侧搜索过滤区域 */
-.filter-section {
-    flex: 1; /* 占据剩余空间 */
-    min-width: 0; /* 允许缩小 */
-}
+        /* 右侧搜索过滤区域 */
+        .filter-section {
+            flex: 1; /* 占据剩余空间 */
+            min-width: 0; /* 允许缩小 */
+            display: flex;
+            flex-direction: column;
+        }
 
-/* 总库存卡片样式调整 */
-.summary-section .summary-card {
-    width: 100%;
-    margin-bottom: 0;
-}
+        /* 总库存卡片样式调整 */
+        .summary-section .summary-card {
+            width: 100%;
+            margin-bottom: 0;
+            flex: 1; /* 让卡片填满整个高度 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 内容垂直居中 */
+        }
     </style>
 </head>
 <body>
