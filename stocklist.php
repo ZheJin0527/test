@@ -543,10 +543,6 @@
                 <h3>有库存产品</h3>
                 <div class="value" id="products-with-stock">0</div>
             </div>
-            <div class="summary-card">
-                <h3>最后更新</h3>
-                <div class="value" style="font-size: 1rem;" id="last-updated">-</div>
-            </div>
         </div>
 
         <!-- 搜索和过滤区域 -->
@@ -685,7 +681,6 @@
                     filteredData = [...stockData];
                     updateSummaryCards(result.data);
                     renderStockTable();
-                    updateLastUpdated();
                     updateStats();
                     
                     if (stockData.length === 0) {
@@ -778,16 +773,6 @@
             
             document.getElementById('displayed-records').textContent = displayedRecords;
             document.getElementById('total-records').textContent = totalRecords;
-        }
-
-        // 更新最后更新时间
-        function updateLastUpdated() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('zh-CN', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-            document.getElementById('last-updated').textContent = timeString;
         }
 
         // 渲染库存表格
