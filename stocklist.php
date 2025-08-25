@@ -267,7 +267,7 @@
         }
 
         .currency-symbol {
-            font-size: 1.2rem;
+            font-size: 14px;
             color: #6b7280;
         }
 
