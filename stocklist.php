@@ -868,7 +868,7 @@
             // 添加总计行
             tableRows += `
                 <tr class="total-row">
-                    <td colspan="6" class="text-right" style="font-size: 16px; padding-right: 15px; text-align: right;">总计:</td>
+                    <td colspan="6" class="text-right" style="font-size: 16px; padding-right: 15px; text-align: right; background: white;">总计:</td>
                     <td class="price-cell positive-value" style="font-size: 16px;">
                         <div class="currency-display">
                             <span class="currency-symbol">RM</span>
