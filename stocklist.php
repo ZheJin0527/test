@@ -486,8 +486,11 @@
 
         .stock-table td.stock-cell {
             padding: 0;
-            text-align: center
-            ;
+            text-align: center;
+        }
+
+        .stock-cell .currency-display {
+            justify-content: center;
         }
 
         /* 确保价格单元格内容填满 */
