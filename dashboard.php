@@ -273,8 +273,8 @@ $avatarLetter = strtoupper($username[0]);
                             </div>
                             <div class="submenu-content">
                                 <a href="stocklist.php" class="submenu-item">库存清单</a>
-                                <a href="stockproductname.php" class="submenu-item">货物种类</a>
                                 <a href="stockedit.php" class="submenu-item">库存记录</a>
+                                <a href="stockproductname.php" class="submenu-item">货物种类</a>
                             </div>
                         </div>
                     </div>
