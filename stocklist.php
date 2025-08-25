@@ -499,28 +499,22 @@
         }
 
         /* 总库存价值专用的货币显示样式 */
-.summary-currency-display {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: auto; /* 推到底部 */
-}
+        .summary-currency-display {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-.summary-currency-display .currency-symbol {
-    font-size: 1.2rem;
-    color: #6b7280;
-}
+        .summary-currency-display .currency-symbol {
+            font-size: 1.2rem;
+            color: #6b7280;
+        }
 
-.summary-currency-display .value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #10b981;
-}
-
-/* 总库存标题样式调整 */
-.summary-section .summary-card h3 {
-    margin-bottom: auto; /* 推到顶部 */
-}
+        .summary-currency-display .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #10b981;
+        }
 
         /* 主要内容行布局 */
 .main-content-row {
@@ -554,7 +548,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center; /* 垂直居中内容 */
-    min-height: 100%; /* 确保最小高度 */
 }
     </style>
 </head>
