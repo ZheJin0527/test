@@ -239,7 +239,7 @@
         }
 
         .stock-table tr:nth-child(even) {
-            background-color: #f9fafb;
+            background-color: white;
         }
 
         .stock-table tr:hover {
