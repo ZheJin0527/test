@@ -223,7 +223,7 @@
 
         .summary-card h3 {
             color: #583e04;
-            font-size: 14px;
+            font-size: 20px;
             font-weight: 600;
             margin-bottom: 12px;
             text-transform: uppercase;
@@ -529,7 +529,7 @@
         <!-- Summary Cards -->
         <div class="summary-cards">
             <div class="summary-card total-value">
-                <h3>总库存价值</h3>
+                <h3>Total</h3>
                 <div class="summary-currency-display">
                     <span class="currency-symbol">RM</span>
                     <span class="value" id="total-value">0.00</span>
