@@ -256,14 +256,18 @@
             margin-right: 6px;
             min-width: 24px;
             text-align: left;
-            font-size: 14px;
         }
 
         .currency-display .currency-amount {
             font-weight: 500;
             color: #583e04;
-            text-align: center;
+            text-align: right;
             min-width: 60px;
+        }
+
+        .currency-symbol {
+            font-size: 1.2rem;
+            color: #6b7280;
         }
 
         .stock-table {
@@ -454,7 +458,7 @@
             }
         }
 
-        /* 确保正数和零值的货币显示样式 */
+        /* 确保负数的货币显示也是红色 */
         .positive-value .currency-symbol,
         .positive-value .currency-amount {
             color: #10b981 !important;
@@ -464,13 +468,6 @@
         .zero-value .currency-symbol,
         .zero-value .currency-amount {
             color: #6b7280 !important;
-        }
-
-        /* 总计行的特殊样式 */
-        .total-row .currency-symbol,
-        .total-row .currency-amount {
-            color: #583e04 !important;
-            font-weight: 600;
         }
     </style>
 </head>
