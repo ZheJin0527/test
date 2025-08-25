@@ -869,7 +869,7 @@
             tableRows += `
                 <tr class="total-row">
                     <td colspan="6" class="text-right" style="font-size: 16px; padding-right: 15px; text-align: right; background: white;">总计:</td>
-                    <td class="price-cell positive-value" style="font-size: 16px;">
+                    <td class="price-cell positive-value" style="font-size: 16px; background: white;">
                         <div class="currency-display">
                             <span class="currency-symbol">RM</span>
                             <span class="currency-amount">${formatCurrency(totalValue)}</span>
