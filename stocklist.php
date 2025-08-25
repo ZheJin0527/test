@@ -459,12 +459,15 @@
         }
 
         /* 确保负数的货币显示也是红色 */
-        .positive-value .currency-symbol,
-        .positive-value .currency-amount {
+        .positive-value .currency-symbol {
             color: #6b7280 !important;
             font-weight: 600;
         }
 
+        .positive-value .currency-amount {
+            color: #583e04 !important;
+            font-weight: 600;
+        }
 
         .zero-value .currency-symbol,
         .zero-value .currency-amount {
