@@ -428,7 +428,7 @@
         .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 90px; } /* Specification */
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* Price */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* Total */
-        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 120px; } /* Name */
+        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 150px; } /* Name */
         .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 100px; } /* Remark */
         .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 70px; } /* 操作 */
 
