@@ -216,7 +216,7 @@
 
         .summary-card h3 {
             color: #583e04;
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 600;
             margin-bottom: 12px;
             text-transform: uppercase;
@@ -512,7 +512,7 @@
         }
 
         .summary-currency-display .value {
-            font-size: 2rem;
+            font-size: 35px;
             font-weight: 700;
             color: #10b981;
         }
