@@ -526,8 +526,8 @@
 
         /* 左侧总库存区域 */
         .summary-section {
-            flex: 0 0 400px; /* 固定宽度300px */
-            min-width: 400px;
+            flex: 0 0 500px; /* 固定宽度300px */
+            min-width: 300px;
         }
 
         /* 右侧搜索过滤区域 */
