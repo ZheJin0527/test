@@ -201,10 +201,15 @@
 
         /* 汇总卡片 */
         .summary-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
+            justify-content: center;
             gap: 20px;
             margin-bottom: 24px;
+        }
+
+        .summary-cards .summary-card {
+            max-width: 400px;
+            flex: 1;
         }
 
         .summary-card {
@@ -454,8 +459,12 @@
             }
 
             .summary-cards {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 12px;
+            }
+            
+            .summary-cards .summary-card {
+                max-width: none;
             }
         }
 
@@ -543,14 +552,6 @@
                     <span class="currency-symbol">RM</span>
                     <span class="value" id="total-value">0.00</span>
                 </div>
-            </div>
-            <div class="summary-card">
-                <h3>产品种类</h3>
-                <div class="value" id="total-products">0</div>
-            </div>
-            <div class="summary-card">
-                <h3>有库存产品</h3>
-                <div class="value" id="products-with-stock">0</div>
             </div>
         </div>
 
@@ -768,11 +769,6 @@
         // 更新汇总卡片
         function updateSummaryCards(data) {
             document.getElementById('total-value').textContent = data.formatted_total_value || '0.00';
-            document.getElementById('total-products').textContent = data.total_products || '0';
-            
-            // 计算有库存的产品数量
-            const productsWithStock = stockData.filter(item => parseFloat(item.total_stock) > 0).length;
-            document.getElementById('products-with-stock').textContent = productsWithStock;
         }
 
         // 更新统计信息
