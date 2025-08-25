@@ -245,7 +245,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 15px 8px 8px;
+            padding: 8px 20px;
             height: 40px;
             box-sizing: border-box;
             font-size: 14px;
