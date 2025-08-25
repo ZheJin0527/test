@@ -240,6 +240,7 @@
             color: #10b981;
         }
 
+        /* 货币显示容器 */
         .currency-display {
             display: flex;
             align-items: center;
@@ -261,7 +262,7 @@
         .currency-display .currency-amount {
             font-weight: 500;
             color: #583e04;
-            text-align: right;
+            text-align: center;
             min-width: 60px;
         }
 
@@ -465,9 +466,29 @@
             font-weight: 600;
         }
 
+
         .zero-value .currency-symbol,
         .zero-value .currency-amount {
             color: #6b7280 !important;
+        }
+
+        .total-row .currency-symbol,
+        .total-row .currency-amount {
+            color: #583e04 !important;
+            font-weight: 600;
+        }
+
+        /* 价格单元格右对齐 */
+        .stock-table td.price-cell {
+            text-align: right;
+            padding: 0;
+        }
+
+        /* 确保价格单元格内容右对齐 */
+        .price-cell .currency-display {
+            justify-content: flex-end;
+            width: 100%;
+            margin: 0;
         }
     </style>
 </head>
@@ -784,16 +805,16 @@
                         <td class="font-mono">${item.code_number || '-'}</td>
                         <td class="text-right font-mono ${stockClass}">${item.formatted_stock}</td>
                         <td class="text-center">${item.specification || '-'}</td>
-                        <td class="text-right">
+                        <td class="price-cell">
                             <div class="currency-display">
                                 <span class="currency-symbol">RM</span>
-                                <span class="currency-amount font-mono">${item.formatted_price}</span>
+                                <span class="currency-amount">${item.formatted_price}</span>
                             </div>
                         </td>
-                        <td class="text-right">
+                        <td class="price-cell">
                             <div class="currency-display ${priceClass}">
                                 <span class="currency-symbol">RM</span>
-                                <span class="currency-amount font-mono">${item.formatted_total_price}</span>
+                                <span class="currency-amount">${item.formatted_total_price}</span>
                             </div>
                         </td>
                     </tr>
@@ -804,11 +825,11 @@
             // 添加总计行
             tableRows += `
                 <tr class="total-row">
-                    <td colspan="6" class="text-right" style="font-size: 16px;">总计:</td>
-                    <td class="text-right positive-value" style="font-size: 16px;">
+                    <td colspan="6" class="text-right" style="font-size: 16px; padding-right: 15px;">总计:</td>
+                    <td class="price-cell positive-value" style="font-size: 16px;">
                         <div class="currency-display">
                             <span class="currency-symbol">RM</span>
-                            <span class="currency-amount font-mono">${formatCurrency(totalValue)}</span>
+                            <span class="currency-amount">${formatCurrency(totalValue)}</span>
                         </div>
                     </td>
                 </tr>
