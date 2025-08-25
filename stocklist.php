@@ -302,7 +302,7 @@
         }
 
         /* 固定表格列宽 */
-        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 80px; text-align: right; }  /* No. */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 80px; }  /* No. */
         .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 200px; } /* Product Name */
         .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 120px; } /* Code Number */
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 120px; } /* Total Stock */
