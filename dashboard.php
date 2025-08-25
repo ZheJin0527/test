@@ -52,6 +52,30 @@ $username = $_SESSION['username'];
 // 修改这行：检查position是否为空或null
 $position = (!empty($_SESSION['position'])) ? $_SESSION['position'] : 'User';
 $avatarLetter = strtoupper($username[0]);
+// 添加权限检查 - 检查用户注册码
+$canViewAnalytics = true; // 默认可以查看
+if (isset($_SESSION['user_id'])) {
+    $host = 'localhost';
+    $dbname = 'u857194726_kunzzgroup';
+    $dbuser = 'u857194726_kunzzgroup';
+    $dbpass = 'Kholdings1688@';
+    
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $restrictedCodes = ['SUPPORT88','DESIGN88']; // 限制访问的注册码
+        $userId = $_SESSION['user_id'];
+        
+        $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
+        $stmt->execute([$userId]);
+        $userCode = $stmt->fetchColumn();
+        
+        $canViewAnalytics = !($userCode && in_array($userCode, $restrictedCodes));
+    } catch (PDOException $e) {
+        $canViewAnalytics = true; // 出错时默认允许访问
+    }
+}
 ?>
 
 
@@ -170,6 +194,7 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
             </div>
 
+            <?php if ($canViewAnalytics): ?>
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="analytics-items">
                     <img src="images/images/运营分析与报表.png" alt="" class="section-icon">
@@ -213,6 +238,7 @@ $avatarLetter = strtoupper($username[0]);
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="hr-items">
