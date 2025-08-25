@@ -506,13 +506,13 @@
         }
 
         .summary-currency-display .currency-symbol {
-            font-size: 35px;
+            font-size: 32px;
             font-weight: bold;
             color: #583e04;
         }
 
         .summary-currency-display .value {
-            font-size: 35px;
+            font-size: 32px;
             font-weight: 700;
             color: #10b981;
         }
