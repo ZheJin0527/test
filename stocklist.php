@@ -494,7 +494,7 @@
         .summary-currency-display {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 20px;
         }
 
         .summary-currency-display .currency-symbol {
