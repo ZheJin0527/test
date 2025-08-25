@@ -805,7 +805,9 @@
                         <td class="text-center font-mono">${item.no}</td>
                         <td><strong>${item.product_name}</strong></td>
                         <td class="font-mono">${item.code_number || '-'}</td>
-                        <td class="text-right font-mono ${stockClass}">${item.formatted_stock}</td>
+                        <td class="text-right ${stockClass}">
+                            <span class="currency-amount font-mono">${item.formatted_stock}</span>
+                        </td>
                         <td class="text-center">${item.specification || '-'}</td>
                         <td class="price-cell">
                             <div class="currency-display">
