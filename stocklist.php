@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>库存汇总 - 库存管理系统</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -15,12 +14,9 @@
         }
         
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #f1dfbc;
             color: #111827;
-            font-weight: 400;
-            letter-spacing: 0.2px;
-            line-height: 1.5;
         }
         
         .container {
@@ -441,63 +437,6 @@
                 grid-template-columns: 1fr;
                 gap: 12px;
             }
-        }
-
-        /* 字体优化 */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-
-        .header h1 {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        .stock-table {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.1px;
-        }
-
-        .stock-table th {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        .font-mono {
-            font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-            font-weight: 500;
-            letter-spacing: -0.2px;
-        }
-
-        .summary-card .value {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.8px;
-        }
-
-        .btn {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-        }
-
-        /* 输入框字体 */
-        .filter-input, .filter-select {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.1px;
-        }
-
-        /* 标签字体 */
-        label {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            font-weight: 500;
-            letter-spacing: 0.2px;
         }
     </style>
 </head>
