@@ -543,7 +543,7 @@
 /* 总库存卡片样式调整 */
 .summary-section .summary-card {
     width: 100%;
-    margin-bottom: 0;
+    margin-bottom: 24px;
     flex: 1; /* 让卡片填满整个高度 */
     display: flex;
     flex-direction: column;
