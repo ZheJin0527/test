@@ -261,17 +261,27 @@ $avatarLetter = strtoupper($username[0]);
                     资源库管理
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="resource-items">
+                <div class="dropdown-menu-items" id="resource-items">                    
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            食品
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">食品</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="stocklist.php" class="submenu-item">库存清单</a>
+                                <a href="stockproductname.php" class="submenu-item">货物种类</a>
+                                <a href="stockedit.php" class="submenu-item">库存记录</a>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="menu-item-wrapper">
                         <a href="stockedit.php" class="informationmenu-item">
                             碗碟
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                    </div>
-                    
-                    <div class="menu-item-wrapper">
-                        <a href="stockproductname.php" class="informationmenu-item">
-                            食品
                             <span class="informationmenu-arrow">›</span>
                         </a>
                     </div>
