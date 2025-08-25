@@ -461,7 +461,7 @@
         /* 确保负数的货币显示也是红色 */
         .positive-value .currency-symbol,
         .positive-value .currency-amount {
-            color: #10b981 !important;
+            color: #6b7280 !important;
             font-weight: 600;
         }
 
