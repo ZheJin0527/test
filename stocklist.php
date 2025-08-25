@@ -813,7 +813,7 @@
                     <tr>
                         <td class="text-center font-mono">${item.no}</td>
                         <td><strong>${item.product_name}</strong></td>
-                        <td class="text-center font-mono" style="font-size: 14px;">${item.code_number || '-'}</td>
+                        <td class="text-center">${item.code_number || '-'}</td>
                         <td class="stock-cell">
                                 <div class="currency-display ${stockClass}">
                                     <span class="currency-symbol">&nbsp;</span>
