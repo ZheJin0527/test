@@ -196,6 +196,7 @@ function handleGet() {
             }
             
             $sql .= " ORDER BY date ASC, time ASC";
+            $sql .= " LIMIT 1000";
             
             $stmt = $pdo->prepare($sql);
             try {
