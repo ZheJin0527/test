@@ -489,6 +489,24 @@
             width: 100%;
             margin: 0;
         }
+
+        /* 总库存价值专用的货币显示样式 */
+        .summary-currency-display {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .summary-currency-display .currency-symbol {
+            font-size: 1.2rem;
+            color: #6b7280;
+        }
+
+        .summary-currency-display .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #10b981;
+        }
     </style>
 </head>
 <body>
@@ -512,7 +530,7 @@
         <div class="summary-cards">
             <div class="summary-card total-value">
                 <h3>总库存价值</h3>
-                <div class="currency-display">
+                <div class="summary-currency-display">
                     <span class="currency-symbol">RM</span>
                     <span class="value" id="total-value">0.00</span>
                 </div>
