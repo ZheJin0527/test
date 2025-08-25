@@ -243,27 +243,27 @@
         /* 货币显示容器 */
         .currency-display {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: flex-end;
-            padding: 8px 15px;
+            padding: 8px 15px 8px 8px;
             height: 40px;
             box-sizing: border-box;
             font-size: 14px;
+            width: 100%;
         }
 
         .currency-display .currency-symbol {
             color: #6b7280;
             font-weight: 500;
-            margin-right: 6px;
-            min-width: 24px;
             text-align: left;
+            flex-shrink: 0;
         }
 
         .currency-display .currency-amount {
             font-weight: 500;
             color: #583e04;
-            text-align: center;
-            min-width: 60px;
+            text-align: right;
+            flex-shrink: 0;
         }
 
         .currency-symbol {
@@ -478,15 +478,14 @@
             font-weight: 600;
         }
 
-        /* 价格单元格右对齐 */
+        /* 价格单元格样式 */
         .stock-table td.price-cell {
-            text-align: right;
             padding: 0;
+            text-align: left;
         }
 
-        /* 确保价格单元格内容右对齐 */
+        /* 确保价格单元格内容填满 */
         .price-cell .currency-display {
-            justify-content: flex-end;
             width: 100%;
             margin: 0;
         }
