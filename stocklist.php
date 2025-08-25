@@ -231,7 +231,7 @@
         }
 
         .summary-card .value {
-            font-size: 2rem;
+            font-size: 32px;
             font-weight: 700;
             color: #583e04;
         }
