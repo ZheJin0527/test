@@ -7,11 +7,30 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// 获取用户权限
+// 获取用户权限 - 直接检查注册码
 $canApprove = false;
-if (isset($_SESSION['account_type'])) {
-    $allowedTypes = ['support', 'IT', 'design']; // 对应SUPPORT88, IT4567, DESIGN77
-    $canApprove = in_array($_SESSION['account_type'], $allowedTypes);
+if (isset($_SESSION['user_id'])) {
+    // 这里需要连接数据库检查用户的注册码
+    $host = 'localhost';
+    $dbname = 'u857194726_kunzzgroup';
+    $dbuser = 'u857194726_kunzzgroup';
+    $dbpass = 'Kholdings1688@';
+    
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $allowedCodes = ['SUPPORT88', 'IT4567', 'DESIGN77'];
+        $userId = $_SESSION['user_id'];
+        
+        $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
+        $stmt->execute([$userId]);
+        $userCode = $stmt->fetchColumn();
+        
+        $canApprove = $userCode && in_array($userCode, $allowedCodes);
+    } catch (PDOException $e) {
+        $canApprove = false;
+    }
 }
 ?>
 <!DOCTYPE html>
