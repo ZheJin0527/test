@@ -216,7 +216,7 @@
 
         .summary-card h3 {
             color: #583e04;
-            font-size: 20px;
+            font-size: 30px;
             font-weight: 600;
             margin-bottom: 12px;
             text-transform: uppercase;
@@ -230,7 +230,7 @@
         }
 
         .summary-card.total-value .value {
-            color: #10b981;
+            color: #6b7280;
         }
 
         /* 货币显示容器 */
@@ -506,7 +506,8 @@
         }
 
         .summary-currency-display .currency-symbol {
-            font-size: 1.2rem;
+            font-size: 35px;
+            font-weight: bold;
             color: #6b7280;
         }
 
