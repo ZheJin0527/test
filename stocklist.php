@@ -645,7 +645,7 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Product Name</th>
+                            <th>PRODUCT</th>
                             <th>Code Number</th>
                             <th>Total Stock</th>
                             <th>Specification</th>
