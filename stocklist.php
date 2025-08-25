@@ -1,115 +1,208 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <link rel="icon" type="image/png" href="images/images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>库存汇总 - 库存管理系统</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #f6f9fc 0%, #e9ecef 100%);
-            color: #2c3e50;
-            line-height: 1.6;
+            background-color: #f1dfbc;
+            color: #111827;
         }
-
+        
         .container {
-            max-width: 1400px;
+            max-width: 1800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 24px;
         }
-
+        
         .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 32px;
         }
-
+        
         .header h1 {
-            font-size: 2rem;
-            font-weight: 600;
+            font-size: 56px;
+            font-weight: bold;
+            color: #583e04;
+        }
+        
+        .header .controls {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
-        .controls {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .btn {
+        .back-button {
+            background-color: #583e04;
+            color: white;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 16px;
-            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 12px 16px;
+            margin-bottom: 16px;
             border-radius: 8px;
             font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
         }
 
+        .alert-info {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        /* 搜索和过滤区域 */
+        .filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #583e04;
+        }
+
+        .filter-input, .filter-select {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #583e04;
+        }
+
+        .filter-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
         .btn-primary {
-            background: #3498db;
+            background-color: #583e04;
             color: white;
         }
-
+        
         .btn-primary:hover {
-            background: #2980b9;
+            background-color: #462d03;
             transform: translateY(-1px);
         }
-
+        
         .btn-success {
-            background: #27ae60;
+            background-color: #10b981;
             color: white;
         }
-
+        
         .btn-success:hover {
-            background: #219a52;
+            background-color: #059669;
             transform: translateY(-1px);
         }
 
         .btn-secondary {
-            background: #6c757d;
+            background-color: #6b7280;
             color: white;
         }
-
+        
         .btn-secondary:hover {
-            background: #545b62;
+            background-color: #4b5563;
             transform: translateY(-1px);
         }
 
-        .back-button {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .btn-warning {
+            background-color: #f59e0b;
             color: white;
-            backdrop-filter: blur(10px);
+        }
+        
+        .btn-warning:hover {
+            background-color: #d97706;
+            transform: translateY(-1px);
         }
 
-        .back-button:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
+        /* 汇总卡片 */
         .summary-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 24px;
         }
@@ -118,21 +211,21 @@
             background: white;
             padding: 24px;
             border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e9ecef;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            transition: transform 0.2s ease;
         }
 
         .summary-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
         }
 
         .summary-card h3 {
-            color: #6c757d;
+            color: #583e04;
             font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 8px;
+            font-weight: 600;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -140,11 +233,11 @@
         .summary-card .value {
             font-size: 2rem;
             font-weight: 700;
-            color: #2c3e50;
+            color: #583e04;
         }
 
         .summary-card.total-value .value {
-            color: #27ae60;
+            color: #10b981;
         }
 
         .currency-display {
@@ -155,149 +248,100 @@
 
         .currency-symbol {
             font-size: 1.2rem;
-            color: #6c757d;
-        }
-
-        .table-container {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e9ecef;
-        }
-
-        .table-header {
-            background: #f8f9fa;
-            padding: 20px;
-            border-bottom: 1px solid #e9ecef;
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .table-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #2c3e50;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .table-actions {
-            display: flex;
-            gap: 12px;
-            margin-left: auto;
+            color: #6b7280;
         }
 
         .stock-table {
+            table-layout: fixed;
             width: 100%;
+            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
         }
 
-        .stock-table th,
+        .stock-table th {
+            background: #583e04;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #462d03;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            white-space: nowrap;
+            min-width: 80px;
+        }
+
         .stock-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid #e9ecef;
+            padding: 12px 8px;
+            border: 1px solid #d1d5db;
+            text-align: center;
             vertical-align: middle;
         }
 
-        .stock-table th {
-            background: #f8f9fa;
-            font-weight: 600;
-            color: #495057;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 0.5px;
+        .stock-table tr:nth-child(even) {
+            background-color: #f9fafb;
         }
 
-        .stock-table tbody tr {
-            transition: background-color 0.2s ease;
+        .stock-table tr:hover {
+            background-color: #e5ebf8ff;
         }
 
-        .stock-table tbody tr:hover {
-            background: #f8f9fa;
+        /* 固定表格列宽 */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 80px; }  /* No. */
+        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 200px; } /* Product Name */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 120px; } /* Code Number */
+        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 120px; } /* Total Stock */
+        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 100px; } /* Specification */
+        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 120px; } /* Unit Price */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 120px; } /* Total Price */
+
+        .table-container {
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
+            border: 2px solid #583e04;
+            overflow: visible;
         }
 
-        .stock-table tbody tr:nth-child(even) {
-            background: rgba(0, 0, 0, 0.02);
+        .table-scroll-container {
+            overflow-x: auto;
+            overflow-y: visible;
         }
 
-        .stock-table tbody tr:nth-child(even):hover {
-            background: #f8f9fa;
+        /* 操作按钮 */
+        .action-buttons {
+            padding: 24px;
+            background: #f8f5eb;
+            border-top: 2px solid #583e04;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
         }
 
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: #6c757d;
-            font-style: italic;
+        /* 统计信息 */
+        .stats-info {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            font-size: 14px;
+            color: #6b7280;
+            flex-wrap: wrap;
         }
 
-        .no-data i {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #6c757d;
-        }
-
-        .loading i {
-            animation: spin 1s linear infinite;
-            font-size: 24px;
-            margin-bottom: 16px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .alert {
-            padding: 12px 16px;
-            margin: 16px 0;
-            border-radius: 8px;
+        .stat-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            animation: slideIn 0.3s ease;
+            gap: 8px;
+            min-width: 150px;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .alert-success {
-            background: #d1edff;
-            color: #0c5460;
-            border: 1px solid #b8daff;
-        }
-
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .alert-info {
-            background: #cce7ff;
-            color: #055160;
-            border: 1px solid #b3d7ff;
+        .stat-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #583e04;
         }
 
         .text-right {
@@ -313,72 +357,86 @@
         }
 
         .positive-value {
-            color: #27ae60;
+            color: #10b981;
             font-weight: 600;
         }
 
         .zero-value {
-            color: #6c757d;
+            color: #6b7280;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+            font-style: italic;
+        }
 
+        .no-data i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #583e04;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .total-row {
+            background: #f8f5eb !important;
+            border-top: 2px solid #583e04;
+            font-weight: 600;
+            color: #583e04;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
             .header {
                 flex-direction: column;
                 gap: 16px;
-                text-align: center;
+                align-items: flex-start;
             }
-
-            .header h1 {
-                font-size: 1.5rem;
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
             }
-
-            .controls {
-                flex-wrap: wrap;
-                justify-content: center;
+            
+            .filter-actions {
+                flex-direction: column;
+                width: 100%;
             }
-
-            .summary-cards {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-
-            .summary-card {
-                padding: 16px;
-            }
-
-            .summary-card .value {
-                font-size: 1.5rem;
-            }
-
-            .stock-table {
-                font-size: 12px;
-            }
-
-            .stock-table th,
-            .stock-table td {
-                padding: 8px;
-            }
-
-            .table-header {
+            
+            .action-buttons {
                 flex-direction: column;
                 gap: 12px;
             }
-
-            .table-actions {
-                margin-left: 0;
+            
+            .stats-info {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
             }
-        }
 
-        .table-scroll {
-            overflow-x: auto;
-        }
+            .stat-item {
+                min-width: auto;
+                width: 100%;
+            }
 
-        .refresh-btn.loading i {
-            animation: spin 1s linear infinite;
+            .summary-cards {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
         }
     </style>
 </head>
@@ -386,13 +444,10 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1>
-                    <i class="fas fa-chart-bar"></i>
-                    库存汇总报表
-                </h1>
+                <h1>库存汇总报表</h1>
             </div>
             <div class="controls">
-                <button class="btn back-button" onclick="goBack()">
+                <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
                     返回上一页
                 </button>
@@ -416,41 +471,88 @@
                 <div class="value" id="total-products">0</div>
             </div>
             <div class="summary-card">
+                <h3>有库存产品</h3>
+                <div class="value" id="products-with-stock">0</div>
+            </div>
+            <div class="summary-card">
                 <h3>最后更新</h3>
                 <div class="value" style="font-size: 1rem;" id="last-updated">-</div>
             </div>
         </div>
 
+        <!-- 搜索和过滤区域 -->
+        <div class="filter-section">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="product-filter">产品名称</label>
+                    <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
+                </div>
+                <div class="filter-group">
+                    <label for="code-filter">产品编号</label>
+                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品编号...">
+                </div>
+                <div class="filter-group">
+                    <label for="spec-filter">规格单位</label>
+                    <input type="text" id="spec-filter" class="filter-input" placeholder="搜索规格单位...">
+                </div>
+                <div class="filter-group">
+                    <label for="stock-filter">库存状态</label>
+                    <select id="stock-filter" class="filter-select">
+                        <option value="">全部</option>
+                        <option value="positive">有库存</option>
+                        <option value="zero">零库存</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="btn btn-primary" onclick="searchData()">
+                    <i class="fas fa-search"></i>
+                    搜索
+                </button>
+                <button class="btn btn-secondary" onclick="resetFilters()">
+                    <i class="fas fa-refresh"></i>
+                    重置
+                </button>
+                <button class="btn btn-warning" onclick="exportData()">
+                    <i class="fas fa-download"></i>
+                    导出CSV
+                </button>
+            </div>
+        </div>
+
         <!-- Stock Summary Table -->
         <div class="table-container">
-            <div class="table-header">
-                <div class="table-title">
-                    <i class="fas fa-list"></i>
-                    库存明细
+            <div class="action-buttons">
+                <div class="stats-info" id="stock-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>显示记录: <span class="stat-value" id="displayed-records">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-boxes"></i>
+                        <span>总记录: <span class="stat-value" id="total-records">0</span></span>
+                    </div>
                 </div>
-                <div class="table-actions">
-                    <button class="btn btn-primary refresh-btn" onclick="refreshData()">
+                
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary" onclick="refreshData()">
                         <i class="fas fa-sync-alt"></i>
                         刷新数据
-                    </button>
-                    <button class="btn btn-success" onclick="exportData()">
-                        <i class="fas fa-download"></i>
-                        导出CSV
                     </button>
                 </div>
             </div>
             
-            <div class="table-scroll">
+            <div class="table-scroll-container">
                 <table class="stock-table" id="stock-table">
                     <thead>
                         <tr>
-                            <th class="text-center">No.</th>
+                            <th>No.</th>
                             <th>Product Name</th>
                             <th>Code Number</th>
-                            <th class="text-right">Total Stock</th>
+                            <th>Total Stock</th>
                             <th>Specification</th>
-                            <th class="text-right">Unit Price</th>
-                            <th class="text-right">Total Price</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
                         </tr>
                     </thead>
                     <tbody id="stock-tbody">
@@ -467,6 +569,7 @@
         
         // 应用状态
         let stockData = [];
+        let filteredData = [];
         let isLoading = false;
 
         // 初始化应用
@@ -518,21 +621,25 @@
                 
                 if (result.success) {
                     stockData = result.data.summary || [];
+                    filteredData = [...stockData];
                     updateSummaryCards(result.data);
                     renderStockTable();
                     updateLastUpdated();
+                    updateStats();
                     
                     if (stockData.length === 0) {
                         showAlert('当前没有库存数据', 'info');
                     }
                 } else {
                     stockData = [];
+                    filteredData = [];
                     showAlert('获取数据失败: ' + (result.message || '未知错误'), 'error');
                     renderStockTable();
                 }
                 
             } catch (error) {
                 stockData = [];
+                filteredData = [];
                 showAlert('网络错误，请检查连接', 'error');
                 renderStockTable();
             } finally {
@@ -541,23 +648,64 @@
             }
         }
 
+        // 搜索数据
+        function searchData() {
+            const productFilter = document.getElementById('product-filter').value.toLowerCase();
+            const codeFilter = document.getElementById('code-filter').value.toLowerCase();
+            const specFilter = document.getElementById('spec-filter').value.toLowerCase();
+            const stockFilter = document.getElementById('stock-filter').value;
+
+            filteredData = stockData.filter(item => {
+                const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
+                const matchCode = !codeFilter || (item.code_number && item.code_number.toLowerCase().includes(codeFilter));
+                const matchSpec = !specFilter || (item.specification && item.specification.toLowerCase().includes(specFilter));
+                
+                let matchStock = true;
+                if (stockFilter === 'positive') {
+                    matchStock = parseFloat(item.total_stock) > 0;
+                } else if (stockFilter === 'zero') {
+                    matchStock = parseFloat(item.total_stock) === 0;
+                }
+
+                return matchProduct && matchCode && matchSpec && matchStock;
+            });
+
+            renderStockTable();
+            updateStats();
+            
+            if (filteredData.length === 0) {
+                showAlert('未找到匹配的记录', 'info');
+            } else {
+                showAlert(`找到 ${filteredData.length} 条匹配记录`, 'success');
+            }
+        }
+
+        // 重置搜索过滤器
+        function resetFilters() {
+            document.getElementById('product-filter').value = '';
+            document.getElementById('code-filter').value = '';
+            document.getElementById('spec-filter').value = '';
+            document.getElementById('stock-filter').value = '';
+            
+            filteredData = [...stockData];
+            renderStockTable();
+            updateStats();
+            showAlert('搜索条件已重置', 'info');
+        }
+
         // 设置加载状态
         function setLoadingState(loading) {
-            const refreshBtn = document.querySelector('.refresh-btn');
             const tbody = document.getElementById('stock-tbody');
             
             if (loading) {
-                refreshBtn.classList.add('loading');
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" class="loading">
-                            <i class="fas fa-spinner"></i>
-                            <div>正在加载库存数据...</div>
+                        <td colspan="7" style="padding: 40px; text-align: center;">
+                            <div class="loading"></div>
+                            <div style="margin-top: 16px; color: #6b7280;">正在加载库存数据...</div>
                         </td>
                     </tr>
                 `;
-            } else {
-                refreshBtn.classList.remove('loading');
             }
         }
 
@@ -565,6 +713,19 @@
         function updateSummaryCards(data) {
             document.getElementById('total-value').textContent = data.formatted_total_value || '0.00';
             document.getElementById('total-products').textContent = data.total_products || '0';
+            
+            // 计算有库存的产品数量
+            const productsWithStock = stockData.filter(item => parseFloat(item.total_stock) > 0).length;
+            document.getElementById('products-with-stock').textContent = productsWithStock;
+        }
+
+        // 更新统计信息
+        function updateStats() {
+            const displayedRecords = filteredData.length;
+            const totalRecords = stockData.length;
+            
+            document.getElementById('displayed-records').textContent = displayedRecords;
+            document.getElementById('total-records').textContent = totalRecords;
         }
 
         // 更新最后更新时间
@@ -581,7 +742,7 @@
         function renderStockTable() {
             const tbody = document.getElementById('stock-tbody');
             
-            if (stockData.length === 0) {
+            if (filteredData.length === 0) {
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="7" class="no-data">
@@ -596,9 +757,11 @@
             let totalValue = 0;
             let tableRows = '';
             
-            stockData.forEach((item, index) => {
-                const stockClass = item.total_stock > 0 ? 'positive-value' : 'zero-value';
-                const priceClass = item.total_price > 0 ? 'positive-value' : 'zero-value';
+            filteredData.forEach((item, index) => {
+                const stockValue = parseFloat(item.total_stock) || 0;
+                const priceValue = parseFloat(item.total_price) || 0;
+                const stockClass = stockValue > 0 ? 'positive-value' : 'zero-value';
+                const priceClass = priceValue > 0 ? 'positive-value' : 'zero-value';
                 
                 tableRows += `
                     <tr>
@@ -606,7 +769,7 @@
                         <td><strong>${item.product_name}</strong></td>
                         <td class="font-mono">${item.code_number || '-'}</td>
                         <td class="text-right font-mono ${stockClass}">${item.formatted_stock}</td>
-                        <td>${item.specification || '-'}</td>
+                        <td class="text-center">${item.specification || '-'}</td>
                         <td class="text-right">
                             <div class="currency-display" style="justify-content: flex-end;">
                                 <span class="currency-symbol">RM</span>
@@ -621,12 +784,12 @@
                         </td>
                     </tr>
                 `;
-                totalValue += parseFloat(item.total_price);
+                totalValue += priceValue;
             });
             
             // 添加总计行
             tableRows += `
-                <tr style="background: #f8f9fa; border-top: 2px solid #dee2e6; font-weight: 600;">
+                <tr class="total-row">
                     <td colspan="6" class="text-right" style="font-size: 16px;">总计:</td>
                     <td class="text-right positive-value" style="font-size: 16px;">
                         <div class="currency-display" style="justify-content: flex-end;">
@@ -654,15 +817,36 @@
 
         // 导出数据
         function exportData() {
-            if (stockData.length === 0) {
+            if (filteredData.length === 0) {
                 showAlert('没有数据可导出', 'error');
                 return;
             }
             
             try {
+                // 创建CSV数据
+                const headers = ['No.', 'Product Name', 'Code Number', 'Total Stock', 'Specification', 'Unit Price', 'Total Price'];
+                let csvContent = headers.join(',') + '\n';
+                
+                filteredData.forEach(item => {
+                    const row = [
+                        item.no,
+                        `"${item.product_name}"`,
+                        item.code_number || '',
+                        item.formatted_stock,
+                        item.specification || '',
+                        item.formatted_price,
+                        item.formatted_total_price
+                    ];
+                    csvContent += row.join(',') + '\n';
+                });
+                
+                // 创建下载链接
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement('a');
-                link.href = `${API_BASE_URL}?action=export`;
-                link.download = `stock_summary_${new Date().toISOString().split('T')[0]}.csv`;
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `stock_summary_${new Date().toISOString().split('T')[0]}.csv`);
+                link.style.visibility = 'hidden';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -695,6 +879,20 @@
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initApp);
+
+        // 键盘快捷键支持
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+F 聚焦搜索框
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('product-filter').focus();
+            }
+            
+            // Escape键重置搜索
+            if (e.key === 'Escape') {
+                resetFilters();
+            }
+        });
 
         // 定时刷新数据（可选，每5分钟刷新一次）
         setInterval(() => {
