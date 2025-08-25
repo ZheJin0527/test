@@ -199,18 +199,6 @@
             transform: translateY(-1px);
         }
 
-        /* 汇总卡片 */
-        .summary-cards {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
-        .summary-cards .summary-card {
-            max-width: 400px;
-            flex: 1;
-        }
 
         .summary-card {
             background: white;
@@ -525,6 +513,32 @@
             font-weight: 700;
             color: #10b981;
         }
+
+        /* 主要内容行布局 */
+.main-content-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+}
+
+/* 左侧总库存区域 */
+.summary-section {
+    flex: 0 0 300px; /* 固定宽度300px */
+    min-width: 300px;
+}
+
+/* 右侧搜索过滤区域 */
+.filter-section {
+    flex: 1; /* 占据剩余空间 */
+    min-width: 0; /* 允许缩小 */
+}
+
+/* 总库存卡片样式调整 */
+.summary-section .summary-card {
+    width: 100%;
+    margin-bottom: 0;
+}
     </style>
 </head>
 <body>
@@ -544,46 +558,49 @@
         <!-- Alert Messages -->
         <div id="alert-container"></div>
         
-        <!-- Summary Cards -->
-        <div class="summary-cards">
-            <div class="summary-card total-value">
-                <h3>总库存</h3>
-                <div class="summary-currency-display">
-                    <span class="currency-symbol">RM</span>
-                    <span class="value" id="total-value">0.00</span>
+        <!-- 总库存和搜索区域左右排列 -->
+        <div class="main-content-row">
+            <!-- 左侧：总库存 -->
+            <div class="summary-section">
+                <div class="summary-card total-value">
+                    <h3>总库存</h3>
+                    <div class="summary-currency-display">
+                        <span class="currency-symbol">RM</span>
+                        <span class="value" id="total-value">0.00</span>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- 搜索和过滤区域 -->
-        <div class="filter-section">
-            <div class="filter-grid">
-                <div class="filter-group">
-                    <label for="product-filter">产品名称</label>
-                    <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
+            
+            <!-- 右侧：搜索和过滤区域 -->
+            <div class="filter-section">
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label for="product-filter">产品名称</label>
+                        <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="code-filter">产品编号</label>
+                        <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品编号...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="spec-filter">规格单位</label>
+                        <input type="text" id="spec-filter" class="filter-input" placeholder="搜索规格单位...">
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <label for="code-filter">产品编号</label>
-                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品编号...">
+                <div class="filter-actions">
+                    <button class="btn btn-primary" onclick="searchData()">
+                        <i class="fas fa-search"></i>
+                        搜索
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetFilters()">
+                        <i class="fas fa-refresh"></i>
+                        重置
+                    </button>
+                    <button class="btn btn-warning" onclick="exportData()">
+                        <i class="fas fa-download"></i>
+                        导出CSV
+                    </button>
                 </div>
-                <div class="filter-group">
-                    <label for="spec-filter">规格单位</label>
-                    <input type="text" id="spec-filter" class="filter-input" placeholder="搜索规格单位...">
-                </div>
-            </div>
-            <div class="filter-actions">
-                <button class="btn btn-primary" onclick="searchData()">
-                    <i class="fas fa-search"></i>
-                    搜索
-                </button>
-                <button class="btn btn-secondary" onclick="resetFilters()">
-                    <i class="fas fa-refresh"></i>
-                    重置
-                </button>
-                <button class="btn btn-warning" onclick="exportData()">
-                    <i class="fas fa-download"></i>
-                    导出CSV
-                </button>
             </div>
         </div>
 
