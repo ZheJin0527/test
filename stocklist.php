@@ -484,6 +484,11 @@
             text-align: left;
         }
 
+        .stock-table td.stock-cell {
+            padding: 0;
+            text-align: left;
+        }
+
         /* 确保价格单元格内容填满 */
         .price-cell .currency-display {
             width: 100%;
@@ -805,7 +810,12 @@
                         <td class="text-center font-mono">${item.no}</td>
                         <td><strong>${item.product_name}</strong></td>
                         <td class="font-mono">${item.code_number || '-'}</td>
-                        <td class="text-right font-mono ${stockClass}">${item.formatted_stock}</td>
+                        <td class="stock-cell">
+                            <div class="currency-display ${stockClass}">
+                                <span class="currency-symbol">&nbsp;</span>
+                                <span class="currency-amount">${item.formatted_stock}</span>
+                            </div>
+                        </td>
                         <td class="text-center">${item.specification || '-'}</td>
                         <td class="price-cell">
                             <div class="currency-display">
