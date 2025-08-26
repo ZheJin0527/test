@@ -524,14 +524,14 @@ function handlePost() {
                 $data['date'],
                 $data['time'],
                 $data['product_name'],
-                floatval($data['in_quantity'] ?? 0),
-                floatval($data['out_quantity'] ?? 0),
+                floatval($data['out_quantity'] ?? 0), // J1的出库数量作为Central的入库数量
+                0, // Central的出库数量设为0
                 $data['specification'] ?? null,
                 floatval($data['price'] ?? 0),
                 $data['code_number'] ?? null,
                 $data['remark'] ?? null,
                 $data['receiver'] ?? null,
-                'central'  // 注意：这里应该是小写的 'central'
+                'central'
             ]);
             
             if (!$centralResult) {
@@ -731,20 +731,20 @@ function handlePut() {
                                     ORDER BY id DESC LIMIT 1";
                 
                 $centralStmt = $pdo->prepare($centralUpdateSql);
-                $centralResult = $centralStmt->execute([
+                $centralStmt->execute([
                     $data['date'],
                     $data['time'], 
                     $data['product_name'],
-                    floatval($data['in_quantity'] ?? 0),
-                    floatval($data['out_quantity'] ?? 0),
+                    floatval($data['out_quantity'] ?? 0), // J1的出库数量作为Central的入库数量
+                    0, // Central的出库数量设为0
                     $data['specification'] ?? null,
                     floatval($data['price'] ?? 0),
                     $data['code_number'] ?? null,
                     $data['remark'] ?? null,
                     $data['receiver'] ?? null,
-                    $existingRecord['product_name'], // 原始产品名称
-                    $existingRecord['date'],         // 原始日期
-                    $existingRecord['receiver']      // 原始接收者
+                    $existingRecord['product_name'], // WHERE 条件
+                    $existingRecord['date'],         // WHERE 条件  
+                    $existingRecord['receiver']      // WHERE 条件
                 ]);
                 
                 if ($centralResult && $centralStmt->rowCount() > 0) {
