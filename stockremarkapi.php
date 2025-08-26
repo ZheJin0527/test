@@ -89,13 +89,10 @@ function getMultiPriceAnalysis() {
             $productGroups[$productName][] = [
                 'product_name' => $productName,
                 'code_number' => $row['code_number'] ?? '',
-                'specification' => $row['specification'] ?? '',
                 'current_stock' => $currentStock,
                 'price' => $price,
-                'total_price' => $totalPrice,
                 'formatted_stock' => number_format($currentStock, 2),
-                'formatted_price' => number_format($price, 2),
-                'formatted_total_price' => number_format($totalPrice, 2)
+                'formatted_price' => number_format($price, 2)
             ];
         }
         
@@ -150,8 +147,7 @@ function getMultiPriceAnalysis() {
         ];
         
         return [
-            'products' => $multiPriceProducts,
-            'stats' => $stats
+            'products' => $multiPriceProducts
         ];
         
     } catch (PDOException $e) {
@@ -212,12 +208,8 @@ function exportMultiPriceData() {
             'Product Name', 
             'Rank', 
             'Code Number', 
-            'Specification', 
             'Stock Quantity', 
-            'Unit Price (RM)', 
-            'Total Value (RM)', 
-            'Price Difference (RM)',
-            'Price Rank'
+            'Unit Price (RM)'
         ]);
         
         // 写入数据
@@ -230,23 +222,11 @@ function exportMultiPriceData() {
                     $product['product_name'],
                     $priceRank,
                     $variant['code_number'],
-                    $variant['specification'],
                     $variant['formatted_stock'],
-                    $variant['formatted_price'],
-                    $variant['formatted_total_price'],
-                    $priceDiff > 0 ? '-' . number_format($priceDiff, 2) : 'Highest',
-                    $priceRank === 1 ? 'Highest' : 'Lower'
+                    $variant['formatted_price']
                 ]);
             }
         }
-        
-        // 写入统计摘要
-        fputcsv($output, []);
-        fputcsv($output, ['=== SUMMARY ===']);
-        fputcsv($output, ['Total Multi-Price Products:', $result['stats']['total_products']]);
-        fputcsv($output, ['Total Price Variants:', $result['stats']['total_variants']]);
-        fputcsv($output, ['Average Variants per Product:', $result['stats']['avg_variants']]);
-        fputcsv($output, ['Maximum Price Difference:', 'RM ' . $result['stats']['max_price_difference']]);
         
         fclose($output);
         exit;

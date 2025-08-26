@@ -433,28 +433,6 @@
         <!-- Alert Messages -->
         <div id="alert-container"></div>
         
-        <!-- 统计信息 -->
-        <div class="stats-section">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value" id="total-products">0</div>
-                    <div class="stat-label">多价格产品</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="total-variants">0</div>
-                    <div class="stat-label">价格变体总数</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="avg-variants">0</div>
-                    <div class="stat-label">平均价格数量</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="max-price-diff">RM 0.00</div>
-                    <div class="stat-label">最大价格差异</div>
-                </div>
-            </div>
-        </div>
-        
         <!-- 搜索和过滤区域 -->
         <div class="filter-section">
             <div class="filter-grid">
@@ -573,7 +551,6 @@
                 if (result.success) {
                     stockData = result.data.products || [];
                     filteredData = [...stockData];
-                    updateStats(result.data.stats);
                     renderProducts();
                     
                     if (stockData.length === 0) {
@@ -677,14 +654,6 @@
             }
         }
 
-        // 更新统计信息
-        function updateStats(stats) {
-            document.getElementById('total-products').textContent = stats.total_products || 0;
-            document.getElementById('total-variants').textContent = stats.total_variants || 0;
-            document.getElementById('avg-variants').textContent = stats.avg_variants || '0.0';
-            document.getElementById('max-price-diff').textContent = 'RM ' + (stats.max_price_difference || '0.00');
-        }
-
         // 渲染产品列表
         function renderProducts() {
             const container = document.getElementById('products-container');
@@ -714,11 +683,8 @@
                                 <tr>
                                     <th>排序</th>
                                     <th>产品编号</th>
-                                    <th>规格</th>
                                     <th>库存数量</th>
                                     <th>单价</th>
-                                    <th>库存价值</th>
-                                    <th>价格差异</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -738,32 +704,18 @@
             
             variants.forEach((variant, index) => {
                 const isHighest = parseFloat(variant.price) === parseFloat(maxPrice);
-                const priceDiff = maxPrice - parseFloat(variant.price);
                 const rowClass = isHighest ? 'highest-price' : '';
                 
                 html += `
                     <tr class="${rowClass}">
                         <td><strong>${index + 1}</strong></td>
                         <td>${variant.code_number || '-'}</td>
-                        <td>${variant.specification || '-'}</td>
                         <td>${variant.formatted_stock}</td>
                         <td>
                             <div class="currency-display">
                                 <span class="currency-symbol">RM</span>
                                 <span class="currency-amount">${variant.formatted_price}</span>
                             </div>
-                        </td>
-                        <td>
-                            <div class="currency-display">
-                                <span class="currency-symbol">RM</span>
-                                <span class="currency-amount">${variant.formatted_total_price}</span>
-                            </div>
-                        </td>
-                        <td>
-                            ${priceDiff > 0 ? 
-                                `<span class="price-difference">-RM ${priceDiff.toFixed(2)}</span>` : 
-                                '<span style="color: #10b981; font-weight: 600;">最高价</span>'
-                            }
                         </td>
                     </tr>
                 `;
@@ -786,7 +738,7 @@
             
             try {
                 // 创建CSV数据
-                const headers = ['Product Name', 'Rank', 'Code Number', 'Specification', 'Stock', 'Unit Price', 'Total Value', 'Price Difference'];
+                const headers = ['Product Name', 'Rank', 'Code Number', 'Stock', 'Unit Price'];
                 let csvContent = headers.join(',') + '\n';
                 
                 filteredData.forEach(product => {
@@ -796,11 +748,8 @@
                             `"${product.product_name}"`,
                             index + 1,
                             variant.code_number || '',
-                            variant.specification || '',
                             variant.formatted_stock,
-                            variant.formatted_price,
-                            variant.formatted_total_price,
-                            priceDiff > 0 ? `-${priceDiff.toFixed(2)}` : 'Highest'
+                            variant.formatted_price
                         ];
                         csvContent += row.join(',') + '\n';
                     });
