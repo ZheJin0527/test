@@ -1020,103 +1020,103 @@
         }
 
         /* 导出弹窗样式 */
-.export-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
+        .export-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
 
-.export-modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 30px;
-    border-radius: 12px;
-    width: 450px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-}
+        .export-modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 450px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
 
-.export-modal h3 {
-    margin: 0 0 20px 0;
-    color: #1f2937;
-    font-size: 18px;
-    font-weight: 600;
-}
+        .export-modal h3 {
+            margin: 0 0 20px 0;
+            color: #1f2937;
+            font-size: 18px;
+            font-weight: 600;
+        }
 
-.export-form-group {
-    margin-bottom: 16px;
-}
+        .export-form-group {
+            margin-bottom: 16px;
+        }
 
-.export-form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
-    color: #374151;
-    font-size: 14px;
-}
+        .export-form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+        }
 
-.export-form-group input,
-.export-form-group select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: border-color 0.2s;
-}
+        .export-form-group input,
+        .export-form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
 
-.export-form-group input:focus,
-.export-form-group select:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
+        .export-form-group input:focus,
+        .export-form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
 
-.checkbox-group {
-    display: flex;
-    gap: 15px;
-    margin-top: 8px;
-}
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
 
-.checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-.checkbox-item input[type="checkbox"] {
-    width: auto;
-    margin: 0;
-}
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
 
-.export-modal-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid #e5e7eb;
-}
+        .export-modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
 
-.close-export-modal {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #6b7280;
-    padding: 5px;
-}
+        .close-export-modal {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 5px;
+        }
 
-.close-export-modal:hover {
-    color: #374151;
-}
+        .close-export-modal:hover {
+            color: #374151;
+        }
     </style>
 </head>
 <body>
@@ -3600,99 +3600,99 @@
     </script>
     <script>
         // 关闭导出弹窗
-function closeExportModal() {
-    document.getElementById('export-modal').style.display = 'none';
-}
-
-// 确认导出
-async function confirmExport() {
-    const startDate = document.getElementById('export-start-date').value;
-    const endDate = document.getElementById('export-end-date').value;
-    const includeIn = document.getElementById('export-in-data').checked;
-    const includeOut = document.getElementById('export-out-data').checked;
-    
-    // 验证输入
-    if (!startDate || !endDate) {
-        showAlert('请选择开始和结束日期', 'error');
-        return;
-    }
-    
-    if (new Date(startDate) > new Date(endDate)) {
-        showAlert('开始日期不能晚于结束日期', 'error');
-        return;
-    }
-    
-    if (!includeIn && !includeOut) {
-        showAlert('请至少选择一种数据类型', 'error');
-        return;
-    }
-    
-    try {
-        // 构建导出参数
-        const exportParams = new URLSearchParams({
-            action: 'export',
-            start_date: startDate,
-            end_date: endDate,
-            include_in: includeIn ? '1' : '0',
-            include_out: includeOut ? '1' : '0'
-        });
-        
-        // 显示加载状态
-        const exportBtn = document.querySelector('.export-modal-actions .btn-success');
-        const originalText = exportBtn.innerHTML;
-        exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 导出中...';
-        exportBtn.disabled = true;
-        
-        // 调用导出API
-        const response = await fetch(`${API_BASE_URL}?${exportParams}`);
-        
-        if (!response.ok) {
-            throw new Error('导出失败');
+        function closeExportModal() {
+            document.getElementById('export-modal').style.display = 'none';
         }
-        
-        // 获取文件名
-        const contentDisposition = response.headers.get('Content-Disposition');
-        let filename = 'stock_export.xlsx';
-        if (contentDisposition) {
-            const filenameMatch = contentDisposition.match(/filename="(.+)"/);
-            if (filenameMatch) {
-                filename = filenameMatch[1];
+
+        // 确认导出
+        async function confirmExport() {
+            const startDate = document.getElementById('export-start-date').value;
+            const endDate = document.getElementById('export-end-date').value;
+            const includeIn = document.getElementById('export-in-data').checked;
+            const includeOut = document.getElementById('export-out-data').checked;
+            
+            // 验证输入
+            if (!startDate || !endDate) {
+                showAlert('请选择开始和结束日期', 'error');
+                return;
+            }
+            
+            if (new Date(startDate) > new Date(endDate)) {
+                showAlert('开始日期不能晚于结束日期', 'error');
+                return;
+            }
+            
+            if (!includeIn && !includeOut) {
+                showAlert('请至少选择一种数据类型', 'error');
+                return;
+            }
+            
+            try {
+                // 构建导出参数
+                const exportParams = new URLSearchParams({
+                    action: 'export',
+                    start_date: startDate,
+                    end_date: endDate,
+                    include_in: includeIn ? '1' : '0',
+                    include_out: includeOut ? '1' : '0'
+                });
+                
+                // 显示加载状态
+                const exportBtn = document.querySelector('.export-modal-actions .btn-success');
+                const originalText = exportBtn.innerHTML;
+                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 导出中...';
+                exportBtn.disabled = true;
+                
+                // 调用导出API
+                const response = await fetch(`${API_BASE_URL}?${exportParams}`);
+                
+                if (!response.ok) {
+                    throw new Error('导出失败');
+                }
+                
+                // 获取文件名
+                const contentDisposition = response.headers.get('Content-Disposition');
+                let filename = 'stock_export.xlsx';
+                if (contentDisposition) {
+                    const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+                    if (filenameMatch) {
+                        filename = filenameMatch[1];
+                    }
+                }
+                
+                // 下载文件
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
+                showAlert('数据导出成功', 'success');
+                closeExportModal();
+                
+            } catch (error) {
+                console.error('导出失败:', error);
+                showAlert('导出失败，请重试', 'error');
+            } finally {
+                // 恢复按钮状态
+                const exportBtn = document.querySelector('.export-modal-actions .btn-success');
+                exportBtn.innerHTML = originalText;
+                exportBtn.disabled = false;
             }
         }
-        
-        // 下载文件
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-        
-        showAlert('数据导出成功', 'success');
-        closeExportModal();
-        
-    } catch (error) {
-        console.error('导出失败:', error);
-        showAlert('导出失败，请重试', 'error');
-    } finally {
-        // 恢复按钮状态
-        const exportBtn = document.querySelector('.export-modal-actions .btn-success');
-        exportBtn.innerHTML = originalText;
-        exportBtn.disabled = false;
-    }
-}
 
-// 点击弹窗外部关闭
-window.addEventListener('click', function(event) {
-    const modal = document.getElementById('export-modal');
-    if (event.target === modal) {
-        closeExportModal();
-    }
-});
-</script>
+        // 点击弹窗外部关闭
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('export-modal');
+            if (event.target === modal) {
+                closeExportModal();
+            }
+        });
+    </script>
 </body>
 </html>
