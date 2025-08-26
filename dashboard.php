@@ -299,7 +299,17 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="submenu-content">
                                 <a href="stocklist.php" class="submenu-item">库存清单</a>
-                                <a href="stockedit.php" class="submenu-item">库存记录</a>
+
+                                <a href="#" class="submenu-item expandable" data-target="stockedit-options">
+                                    库存记录
+                                    <span class="expand-arrow">⮞</span>
+                                </a>
+                                <div class="sub-options" id="stockedit-options">
+                                    <a href="stockedit.php" class="sub-option">中央</a>
+                                    <a href="j1stockeditpage.php" class="sub-option">J1</a>
+                                    <a href="j2stockeditpage.php" class="sub-option">J2</a>
+                                </div>
+
                                 <a href="stockproductname.php" class="submenu-item">货物种类</a>
                             </div>
                         </div>
