@@ -581,6 +581,44 @@ function handleGet() {
                 sendResponse(false, "查询价格库存信息失败：" . $e->getMessage());
             }
             break;
+
+        case 'export':
+            $startDate = $_GET['start_date'] ?? '';
+            $endDate = $_GET['end_date'] ?? '';
+            $includeIn = $_GET['include_in'] ?? '1';
+            $includeOut = $_GET['include_out'] ?? '1';
+            
+            // 构建查询条件
+            $conditions = [];
+            $params = [];
+            
+            if ($startDate) {
+                $conditions[] = "date >= ?";
+                $params[] = $startDate;
+            }
+            
+            if ($endDate) {
+                $conditions[] = "date <= ?";
+                $params[] = $endDate;
+            }
+            
+            // 根据选择的数据类型添加条件
+            $typeConditions = [];
+            if ($includeIn === '1') {
+                $typeConditions[] = "in_quantity > 0";
+            }
+            if ($includeOut === '1') {
+                $typeConditions[] = "out_quantity > 0";
+            }
+            
+            if (!empty($typeConditions)) {
+                $conditions[] = "(" . implode(" OR ", $typeConditions) . ")";
+            }
+            
+            // 执行查询并生成Excel文件
+            // 使用PhpSpreadsheet库生成Excel
+            // 设置响应头为Excel文件下载
+            break;
             
         default:
             sendResponse(false, "无效的操作");
