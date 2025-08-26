@@ -1024,7 +1024,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1>库存进出货管理系统</h1>
+                <h1>中央库存进出货管理系统</h1>
             </div>
             <div class="controls">
                 <div class="page-selector" onclick="togglePageDropdown()">
