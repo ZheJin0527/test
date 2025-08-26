@@ -995,12 +995,20 @@ function handleDelete() {
                     $j1DelStmt = $pdo->prepare($j1DeleteSql);
                     $j1DelStmt->execute([$id]);
                     
-                    // 同时删除J1stockedit_data表记录
-                    $j1EditDeleteSql = "DELETE FROM j1stockedit_data WHERE main_record_id = ?";
-                    $j1EditDelStmt = $pdo->prepare($j1EditDeleteSql);
-                    $j1EditDelStmt->execute([$id]);
-                    
-                    error_log("已同步删除J1表和J1Edit表记录");
+                    // 同时删除J1stockedit_data表记录 - 通过产品名称和接收者匹配最新记录
+                    $getJ1EditRecordSql = "SELECT id FROM j1stockedit_data WHERE product_name = ? AND receiver = ? ORDER BY created_at DESC LIMIT 1";
+                    $getJ1EditStmt = $pdo->prepare($getJ1EditRecordSql);
+                    $getJ1EditStmt->execute([$recordToDelete['product_name'], $recordToDelete['receiver']]);
+                    $j1EditRecordId = $getJ1EditStmt->fetchColumn();
+
+                    if ($j1EditRecordId) {
+                        $j1EditDeleteSql = "DELETE FROM j1stockedit_data WHERE id = ?";
+                        $j1EditDelStmt = $pdo->prepare($j1EditDeleteSql);
+                        $j1EditDelStmt->execute([$j1EditRecordId]);
+                        error_log("已同步删除J1表和J1Edit表记录");
+                    } else {
+                        error_log("未找到对应的J1Edit记录进行删除");
+                    }
                 } elseif ($targetSystem === 'j2') {
                     // 删除J2stockinout_data表记录
                     $j2DeleteSql = "DELETE FROM j2stockinout_data WHERE main_record_id = ?";
