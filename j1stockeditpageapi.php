@@ -524,15 +524,24 @@ function handlePost() {
                 $data['date'],
                 $data['time'],
                 $data['product_name'],
-                $data['in_quantity'] ?? 0,
-                $data['out_quantity'] ?? 0,
+                floatval($data['in_quantity'] ?? 0),
+                floatval($data['out_quantity'] ?? 0),
                 $data['specification'] ?? null,
-                $data['price'] ?? 0,
+                floatval($data['price'] ?? 0),
                 $data['code_number'] ?? null,
                 $data['remark'] ?? null,
                 $data['receiver'] ?? null,
-                'central'
+                'Central'  // 改为大写的 Central，保持一致
             ]);
+            
+            if (!$centralResult) {
+                $pdo->rollBack();
+                $error = $centralStmt->errorInfo();
+                sendResponse(false, "保存到Central表失败：" . $error[2]);
+            }
+            
+            $centralId = $pdo->lastInsertId();
+            error_log("记录已同时保存到Central表，J1记录ID: " . $newId . ", Central记录ID: " . $centralId);
             
             if (!$centralResult) {
                 $pdo->rollBack();
@@ -700,30 +709,36 @@ function handlePut() {
             $targetSystem = $data['target_system'] ?? 'j1'; // 默认j1
 
             if ($targetSystem === 'Central') {
-                // 更新对应的stockinout_data记录
-                // 首先找到对应的central记录（可以通过时间、产品名称等匹配）
+                // 更新对应的stockinout_data记录 - 通过匹配字段找到对应记录
                 $centralUpdateSql = "UPDATE stockinout_data 
                                     SET date = ?, time = ?, product_name = ?, 
                                         in_quantity = ?, out_quantity = ?, 
                                         specification = ?, price = ?, code_number = ?, remark = ?, receiver = ?
-                                    WHERE id = ?"; // 需要明确的ID关联
+                                    WHERE product_name = ? AND date = ? AND receiver = ? AND target_system = 'Central'
+                                    ORDER BY id DESC LIMIT 1";
                 
                 $centralStmt = $pdo->prepare($centralUpdateSql);
-                $centralStmt->execute([
+                $centralResult = $centralStmt->execute([
                     $data['date'],
-                    $data['time'],
+                    $data['time'], 
                     $data['product_name'],
-                    $data['in_quantity'] ?? 0,
-                    $data['out_quantity'] ?? 0,
+                    floatval($data['in_quantity'] ?? 0),
+                    floatval($data['out_quantity'] ?? 0),
                     $data['specification'] ?? null,
-                    $data['price'] ?? 0,
+                    floatval($data['price'] ?? 0),
                     $data['code_number'] ?? null,
                     $data['remark'] ?? null,
                     $data['receiver'] ?? null,
-                    $data['product_name'], // WHERE条件
-                    $data['date'],         // WHERE条件  
-                    $data['receiver']      // WHERE条件
+                    $existingRecord['product_name'], // 原始产品名称
+                    $existingRecord['date'],         // 原始日期
+                    $existingRecord['receiver']      // 原始接收者
                 ]);
+                
+                if ($centralResult && $centralStmt->rowCount() > 0) {
+                    error_log("已同步更新Central表记录");
+                } else {
+                    error_log("未找到对应的Central表记录进行更新");
+                }
                 error_log("已同步更新Central表记录");
             } elseif ($targetSystem === 'j1') {
                 error_log("J1记录更新：仅更新J1编辑表");
