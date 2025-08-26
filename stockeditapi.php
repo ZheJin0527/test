@@ -51,14 +51,14 @@ function sendResponse($success, $message = "", $data = null) {
 
 function saveToJ1Table($pdo, $data, $mainRecordId = null) {
     try {
-        // 保存到 j1stockinout_data 表
+        // 保存到 j1stockinout_data 表 - 出库记录转为入库记录
         $sql = "INSERT INTO j1stockinout_data 
-                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, code_number, product_name, in_quantity, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id, target_system) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
         
-        // 计算总价值
+        // 将主表的出库数量作为J1表的入库数量
         $outQuantity = floatval($data['out_quantity'] ?? 0);
         $price = floatval($data['price'] ?? 0);
         $totalValue = $outQuantity * $price;
@@ -68,14 +68,16 @@ function saveToJ1Table($pdo, $data, $mainRecordId = null) {
             $data['time'],
             $data['code_number'] ?? null,
             $data['product_name'],
-            $outQuantity,
+            $outQuantity, // 作为入库数量
+            0, // 出库数量为0
             $data['specification'] ?? null,
             $price,
             $totalValue,
-            'AUTO_OUTBOUND',
+            'AUTO_INBOUND', // 改为入库类型
             $data['receiver'],
             $data['remark'] ?? null,
-            $mainRecordId
+            $mainRecordId,
+            'from_main' // 标记来源
         ]);
         
         return $pdo->lastInsertId();
@@ -87,14 +89,14 @@ function saveToJ1Table($pdo, $data, $mainRecordId = null) {
 
 function saveToJ2Table($pdo, $data, $mainRecordId = null) {
     try {
-        // 保存到 j2stockinout_data 表
+        // 保存到 j2stockinout_data 表 - 出库记录转为入库记录
         $sql = "INSERT INTO j2stockinout_data 
-                (date, time, code_number, product_name, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, code_number, product_name, in_quantity, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id, target_system) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
         
-        // 计算总价值
+        // 将主表的出库数量作为J2表的入库数量
         $outQuantity = floatval($data['out_quantity'] ?? 0);
         $price = floatval($data['price'] ?? 0);
         $totalValue = $outQuantity * $price;
@@ -104,14 +106,16 @@ function saveToJ2Table($pdo, $data, $mainRecordId = null) {
             $data['time'],
             $data['code_number'] ?? null,
             $data['product_name'],
-            $outQuantity,
+            $outQuantity, // 作为入库数量
+            0, // 出库数量为0
             $data['specification'] ?? null,
             $price,
             $totalValue,
-            'AUTO_OUTBOUND',
+            'AUTO_INBOUND', // 改为入库类型
             $data['receiver'],
             $data['remark'] ?? null,
-            $mainRecordId
+            $mainRecordId,
+            'from_main' // 标记来源
         ]);
         
         return $pdo->lastInsertId();
@@ -617,6 +621,10 @@ function handlePost() {
         if ($outQuantity > 0) {
             if ($targetSystem === 'central') {
                 $message .= "，已保存到Central系统";
+            } elseif ($targetSystem === 'j1') {
+                $message .= "，已同时保存到J1入库表";
+            } elseif ($targetSystem === 'j2') {
+                $message .= "，已同时保存到J2入库表";
             } else {
                 $message .= "，已同时保存到" . strtoupper($targetSystem) . "出库表";
             }
@@ -760,7 +768,7 @@ function handlePut() {
                 if ($targetSystem === 'j1') {
                     $j1UpdateSql = "UPDATE j1stockinout_data 
                                     SET date = ?, time = ?, code_number = ?, product_name = ?, 
-                                        out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?
+                                        in_quantity = ?, out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?, target_system = ?
                                     WHERE main_record_id = ?";
                     
                     $j1Stmt = $pdo->prepare($j1UpdateSql);
@@ -769,19 +777,21 @@ function handlePut() {
                         $data['time'], 
                         $data['code_number'] ?? null, 
                         $data['product_name'],
-                        $outQuantity, 
+                        $outQuantity, // 主表出库数量作为J1表入库数量
+                        0, // J1表出库数量为0
                         $data['specification'] ?? null, 
                         floatval($data['price'] ?? 0), 
                         $totalValue,
                         $data['receiver'] ?? null, 
                         $data['remark'] ?? null,
+                        'from_main', // 标记来源
                         $data['id']
                     ]);
-                    error_log("已同步更新J1表记录");
+                    error_log("已同步更新J2表记录");
                 } elseif ($targetSystem === 'j2') {
                     $j2UpdateSql = "UPDATE j2stockinout_data 
                                     SET date = ?, time = ?, code_number = ?, product_name = ?, 
-                                        out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?
+                                        in_quantity = ?, out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?, target_system = ?
                                     WHERE main_record_id = ?";
                     
                     $j2Stmt = $pdo->prepare($j2UpdateSql);
@@ -790,12 +800,14 @@ function handlePut() {
                         $data['time'], 
                         $data['code_number'] ?? null, 
                         $data['product_name'],
-                        $outQuantity, 
+                        $outQuantity, // 主表出库数量作为J2表入库数量
+                        0, // J2表出库数量为0
                         $data['specification'] ?? null, 
                         floatval($data['price'] ?? 0), 
                         $totalValue,
                         $data['receiver'] ?? null, 
                         $data['remark'] ?? null,
+                        'from_main', // 标记来源
                         $data['id']
                     ]);
                     error_log("已同步更新J2表记录");

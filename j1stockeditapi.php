@@ -133,15 +133,25 @@ function handleGet() {
 
                 // 为每条记录格式化数字和计算总价值
                 foreach ($records as &$record) {
+                    $inQty = floatval($record['in_quantity'] ?? 0);
                     $outQty = floatval($record['out_quantity'] ?? 0);
                     $price = floatval($record['price'] ?? 0);
                     
-                    // 计算总价值
-                    $record['total_value'] = $outQty * $price;
+                    // 计算库存余额和价值
+                    $record['balance_quantity'] = $inQty - $outQty;
+                    $record['in_value'] = $inQty * $price;
+                    $record['out_value'] = $outQty * $price;
+                    $record['balance_value'] = $record['balance_quantity'] * $price;
+                    $record['total_value'] = $outQty * $price; // 保持原有逻辑
                     
                     // 格式化数字
+                    $record['in_quantity'] = number_format($inQty, 2);
                     $record['out_quantity'] = number_format($outQty, 2);
+                    $record['balance_quantity'] = number_format($record['balance_quantity'], 2);
                     $record['price'] = number_format($price, 2);
+                    $record['in_value'] = number_format($record['in_value'], 2);
+                    $record['out_value'] = number_format($record['out_value'], 2);
+                    $record['balance_value'] = number_format($record['balance_value'], 2);
                     $record['total_value'] = number_format($record['total_value'], 2);
                 }
 
@@ -259,12 +269,19 @@ function handlePost() {
         sendResponse(false, "无效的数据格式");
     }
 
-    // 验证必填字段 - J1页面的必填字段
-    $required_fields = ['date', 'time', 'product_name', 'out_quantity', 'specification', 'price'];
+    // 验证必填字段
+    $required_fields = ['date', 'time', 'product_name'];
     foreach ($required_fields as $field) {
-        if (empty($data[$field]) && $data[$field] !== '0') {
+        if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
         }
+    }
+
+    // 验证至少有入库或出库数量
+    $inQty = floatval($data['in_quantity'] ?? 0);
+    $outQty = floatval($data['out_quantity'] ?? 0);
+    if ($inQty <= 0 && $outQty <= 0) {
+        sendResponse(false, "入库数量或出库数量至少填写一项且大于0");
     }
 
     // 验证产品名称是否存在于数据库中
@@ -287,14 +304,15 @@ function handlePost() {
 
     try {
         // 计算总价值
+        $inQty = floatval($data['in_quantity'] ?? 0);
         $outQty = floatval($data['out_quantity'] ?? 0);
         $price = floatval($data['price'] ?? 0);
-        $totalValue = $outQty * $price;
+        $totalValue = ($inQty + $outQty) * $price;
 
         $sql = "INSERT INTO j1stockinout_data 
                 (date, time, code_number, product_name, 
-                out_quantity, specification, price, total_value, type, receiver, remark) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                in_quantity, out_quantity, specification, price, total_value, type, receiver, remark, target_system) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -303,13 +321,15 @@ function handlePost() {
             $data['time'],
             $data['code_number'] ?? null,
             $data['product_name'],
+            $inQty,
             $outQty,
-            $data['specification'],
+            $data['specification'] ?? null,
             $price,
             $totalValue,
             $data['type'] ?? null,
             $data['receiver'] ?? null,
-            $data['remark'] ?? null
+            $data['remark'] ?? null,
+            $data['target_system'] ?? null
         ]);
 
         $newId = $pdo->lastInsertId();
@@ -335,11 +355,18 @@ function handlePut() {
     }
 
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_name', 'out_quantity', 'specification', 'price'];
+    $required_fields = ['date', 'time', 'product_name'];
     foreach ($required_fields as $field) {
-        if (empty($data[$field]) && $data[$field] !== '0') {
+        if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
         }
+    }
+
+    // 验证至少有入库或出库数量
+    $inQty = floatval($data['in_quantity'] ?? 0);
+    $outQty = floatval($data['out_quantity'] ?? 0);
+    if ($inQty <= 0 && $outQty <= 0) {
+        sendResponse(false, "入库数量或出库数量至少填写一项且大于0");
     }
 
     // 验证产品名称是否存在于数据库中
@@ -362,14 +389,15 @@ function handlePut() {
 
     try {
         // 计算总价值
+        $inQty = floatval($data['in_quantity'] ?? 0);
         $outQty = floatval($data['out_quantity'] ?? 0);
         $price = floatval($data['price'] ?? 0);
-        $totalValue = $outQty * $price;
+        $totalValue = ($inQty + $outQty) * $price;
 
         $sql = "UPDATE j1stockinout_data 
                 SET date = ?, time = ?, code_number = ?, product_name = ?, 
-                    out_quantity = ?, specification = ?, price = ?, total_value = ?,
-                    type = ?, receiver = ?, remark = ?
+                    in_quantity = ?, out_quantity = ?, specification = ?, price = ?, total_value = ?,
+                    type = ?, receiver = ?, remark = ?, target_system = ?
                 WHERE id = ?";
 
         $stmt = $pdo->prepare($sql);
@@ -379,13 +407,15 @@ function handlePut() {
             $data['time'],
             $data['code_number'] ?? null,
             $data['product_name'],
+            $inQty,
             $outQty,
-            $data['specification'],
+            $data['specification'] ?? null,
             $price,
             $totalValue,
             $data['type'] ?? null,
             $data['receiver'] ?? null,
             $data['remark'] ?? null,
+            $data['target_system'] ?? null,
             $data['id']
         ]);
 
