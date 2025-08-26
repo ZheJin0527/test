@@ -105,7 +105,10 @@ function getMultiPriceAnalysis() {
             if (count($variants) > 1) {
                 // 按价格降序排序（最高价格在前）
                 usort($variants, function($a, $b) {
-                    return $b['price'] <=> $a['price'];
+                    if ($a['price'] == $b['price']) {
+                        return 0;
+                    }
+                    return ($a['price'] > $b['price']) ? -1 : 1;
                 });
                 
                 $maxPrice = $variants[0]['price'];
