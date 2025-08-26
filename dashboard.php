@@ -306,6 +306,7 @@ if (isset($_SESSION['user_id'])) {
                                     <a href="stocklist.php" class="sub-option">中央</a>
                                     <a href="j1stocklist.php" class="sub-option">J1</a>
                                     <a href="j2stocklist.php" class="sub-option">J2</a>
+                                    <a href="stockremark.php" class="sub-option">Remark</a>
                                 </div>
 
                                 <a href="#" class="submenu-item expandable" data-target="stockedit-options">
