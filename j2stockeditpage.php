@@ -1123,8 +1123,7 @@
                     <label for="add-target">目标系统</label>
                     <select id="add-target" class="form-select" disabled>
                         <option value="">请选择</option>
-                        <option value="j1">J1</option>
-                        <option value="j2">J2</option>
+                        <option value="j1">J2</option>
                         <option value="central">Central</option>
                     </select>
                 </div>
@@ -1585,8 +1584,7 @@
                         ${isEditing ? 
                             `<select class="table-select" id="target-select-${record.id}" onchange="updateField(${record.id}, 'target_system', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>
                                 <option value="">请选择</option>
-                                <option value="j1" ${record.target_system === 'j1' ? 'selected' : ''}>J1</option>
-                                <option value="j2" ${record.target_system === 'j2' ? 'selected' : ''}>J2</option>
+                                <option value="j2" ${record.target_system === 'j2' ? 'selected' : ''}>J1</option>
                                 <option value="central" ${record.target_system === 'central' ? 'selected' : ''}>Central</option>
                             </select>` :
                             `<span>${record.target_system ? record.target_system.toUpperCase() : '-'}</span>`
@@ -1737,7 +1735,6 @@
                 <td>
                     <select class="table-select" id="${rowId}-target" disabled>
                     <option value="">请选择</option>
-                    <option value="j1">J1</option>
                     <option value="j2">J2</option>
                     <option value="central">Central</option>
                 </select>
