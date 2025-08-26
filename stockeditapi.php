@@ -129,15 +129,14 @@ function saveToJ1EditTable($pdo, $data, $mainRecordId = null) {
     try {
         // 保存到 j1stockedit_data 表 - 出库记录转为入库记录
         $sql = "INSERT INTO j1stockedit_data 
-                (date, time, code_number, product_name, in_quantity, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id, target_system) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, code_number, product_name, in_quantity, out_quantity, specification, price, receiver, remark, target_system) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
         
         // 将主表的出库数量作为J1Edit表的入库数量
         $outQuantity = floatval($data['out_quantity'] ?? 0);
         $price = floatval($data['price'] ?? 0);
-        $totalValue = $outQuantity * $price;
 
         $stmt->execute([
             $data['date'],
@@ -148,12 +147,9 @@ function saveToJ1EditTable($pdo, $data, $mainRecordId = null) {
             0, // 出库数量为0
             $data['specification'] ?? null,
             $price,
-            $totalValue,
-            'AUTO_INBOUND', // 改为入库类型
             $data['receiver'],
             $data['remark'] ?? null,
-            $mainRecordId,
-            'from_main' // 标记来源
+            'j1' // 设置为j1
         ]);
         
         return $pdo->lastInsertId();
@@ -167,15 +163,14 @@ function saveToJ2EditTable($pdo, $data, $mainRecordId = null) {
     try {
         // 保存到 j2stockedit_data 表 - 出库记录转为入库记录
         $sql = "INSERT INTO j2stockedit_data 
-                (date, time, code_number, product_name, in_quantity, out_quantity, specification, price, total_value, type, receiver, remark, main_record_id, target_system) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, code_number, product_name, in_quantity, out_quantity, specification, price, receiver, remark, target_system) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
         
         // 将主表的出库数量作为J2Edit表的入库数量
         $outQuantity = floatval($data['out_quantity'] ?? 0);
         $price = floatval($data['price'] ?? 0);
-        $totalValue = $outQuantity * $price;
 
         $stmt->execute([
             $data['date'],
@@ -186,12 +181,9 @@ function saveToJ2EditTable($pdo, $data, $mainRecordId = null) {
             0, // 出库数量为0
             $data['specification'] ?? null,
             $price,
-            $totalValue,
-            'AUTO_INBOUND', // 改为入库类型
             $data['receiver'],
             $data['remark'] ?? null,
-            $mainRecordId,
-            'from_main' // 标记来源
+            'j2' // 设置为j2
         ]);
         
         return $pdo->lastInsertId();
@@ -884,8 +876,8 @@ function handlePut() {
                     // 同时更新J1stockedit_data表
                     $j1EditUpdateSql = "UPDATE j1stockedit_data 
                                         SET date = ?, time = ?, code_number = ?, product_name = ?, 
-                                            in_quantity = ?, out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?, target_system = ?
-                                        WHERE main_record_id = ?";
+                                            in_quantity = ?, out_quantity = ?, specification = ?, price = ?, receiver = ?, remark = ?, target_system = ?
+                                        WHERE id IN (SELECT id FROM (SELECT id FROM j1stockedit_data WHERE product_name = ? AND receiver = ? ORDER BY created_at DESC LIMIT 1) AS temp)";
                     
                     $j1EditStmt = $pdo->prepare($j1EditUpdateSql);
                     $j1EditStmt->execute([
@@ -932,9 +924,9 @@ function handlePut() {
                     // 同时更新J2stockedit_data表
                     $j2EditUpdateSql = "UPDATE j2stockedit_data 
                                         SET date = ?, time = ?, code_number = ?, product_name = ?, 
-                                            in_quantity = ?, out_quantity = ?, specification = ?, price = ?, total_value = ?, receiver = ?, remark = ?, target_system = ?
-                                        WHERE main_record_id = ?";
-                    
+                                            in_quantity = ?, out_quantity = ?, specification = ?, price = ?, receiver = ?, remark = ?, target_system = ?
+                                        WHERE id IN (SELECT id FROM (SELECT id FROM j2stockedit_data WHERE product_name = ? AND receiver = ? ORDER BY created_at DESC LIMIT 1) AS temp)";
+
                     $j2EditStmt = $pdo->prepare($j2EditUpdateSql);
                     $j2EditStmt->execute([
                         $data['date'], 
@@ -945,11 +937,11 @@ function handlePut() {
                         0, 
                         $data['specification'] ?? null, 
                         floatval($data['price'] ?? 0), 
-                        $totalValue,
                         $data['receiver'] ?? null, 
                         $data['remark'] ?? null,
-                        'from_main',
-                        $data['id']
+                        'j2',
+                        $data['product_name'], // 用于WHERE条件
+                        $data['receiver'] ?? null  // 用于WHERE条件
                     ]);
                     
                     error_log("已同步更新J2表和J2Edit表记录");
@@ -1015,10 +1007,17 @@ function handleDelete() {
                     $j2DelStmt = $pdo->prepare($j2DeleteSql);
                     $j2DelStmt->execute([$id]);
                     
-                    // 同时删除J2stockedit_data表记录
-                    $j2EditDeleteSql = "DELETE FROM j2stockedit_data WHERE main_record_id = ?";
-                    $j2EditDelStmt = $pdo->prepare($j2EditDeleteSql);
-                    $j2EditDelStmt->execute([$id]);
+                    // 同时删除J2stockedit_data表记录 - 通过产品名称和接收者匹配最新记录
+                    $getJ2EditRecordSql = "SELECT id FROM j2stockedit_data WHERE product_name = ? AND receiver = ? ORDER BY created_at DESC LIMIT 1";
+                    $getJ2EditStmt = $pdo->prepare($getJ2EditRecordSql);
+                    $getJ2EditStmt->execute([$recordToDelete['product_name'], $recordToDelete['receiver']]);
+                    $j2EditRecordId = $getJ2EditStmt->fetchColumn();
+
+                    if ($j2EditRecordId) {
+                        $j2EditDeleteSql = "DELETE FROM j2stockedit_data WHERE id = ?";
+                        $j2EditDelStmt = $pdo->prepare($j2EditDeleteSql);
+                        $j2EditDelStmt->execute([$j2EditRecordId]);
+                    }
                     
                     error_log("已同步删除J2表和J2Edit表记录");
                 } elseif ($targetSystem === 'central') {
