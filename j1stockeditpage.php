@@ -1230,7 +1230,7 @@
 
     <script>
         // API 配置
-        const API_BASE_URL = 'j1stockpageapi.php';
+        const API_BASE_URL = 'j1stockeditpageapi.php';
         
         // 应用状态
         let stockData = [];
