@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" type="image/png" href="images/images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>库存价格分析 - 库存管理系统</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f1dfbc;
+            color: #111827;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .header h1 {
+            font-size: 56px;
+            font-weight: bold;
+            color: #583e04;
+        }
+        
+        .header .controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-button {
+            background-color: #583e04;
+            color: white;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .alert-info {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        .alert-warning {
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        /* 搜索和过滤区域 */
+        .filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 40px;
+            margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 16px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #583e04;
+        }
+
+        .filter-input, .filter-select {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #583e04;
+        }
+
+        .filter-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: #583e04;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+        }
+        
+        .btn-success {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4b5563;
+            transform: translateY(-1px);
+        }
+
+        .btn-warning {
+            background-color: #f59e0b;
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background-color: #d97706;
+            transform: translateY(-1px);
+        }
+
+        /* 产品组显示 */
+        .product-group {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            overflow: hidden;
+        }
+
+        .product-header {
+            background: #583e04;
+            color: white;
+            padding: 16px 24px;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-header .price-count {
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .price-variants-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .price-variants-table th {
+            background: #f8f5eb;
+            color: #583e04;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #583e04;
+        }
+
+        .price-variants-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .price-variants-table tr:hover {
+            background-color: #f9fafb;
+        }
+
+        /* 价格差异高亮 */
+        .highest-price {
+            background-color: #fef3c7 !important;
+            font-weight: 600;
+        }
+
+        .price-difference {
+            font-size: 12px;
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        /* 货币显示 */
+        .currency-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .currency-symbol {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .currency-amount {
+            font-weight: 600;
+            color: #583e04;
+        }
+
+        .highest-price .currency-amount {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        /* 统计信息 */
+        .stats-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 16px;
+            background: #f8f5eb;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #583e04;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #583e04;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .no-data i {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .no-data h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .product-header {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            .price-variants-table {
+                font-size: 12px;
+            }
+
+            .price-variants-table th,
+            .price-variants-table td {
+                padding: 8px 4px;
+            }
+        }
+
+        /* 排序指示器 */
+        .sort-indicator {
+            margin-left: 8px;
+            opacity: 0.5;
+        }
+
+        .sort-indicator.active {
+            opacity: 1;
+            color: #583e04;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>库存价格分析</h1>
+                <p style="color: #6b7280; margin-top: 8px; font-size: 16px;">分析同一产品的不同价格变体</p>
+            </div>
+            <div class="controls">
+                <button class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                    返回上一页
+                </button>
+            </div>
+        </div>
+        
+        <!-- Alert Messages -->
+        <div id="alert-container"></div>
+        
+        <!-- 统计信息 -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-products">0</div>
+                    <div class="stat-label">多价格产品</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-variants">0</div>
+                    <div class="stat-label">价格变体总数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avg-variants">0</div>
+                    <div class="stat-label">平均价格数量</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="max-price-diff">RM 0.00</div>
+                    <div class="stat-label">最大价格差异</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索和过滤区域 -->
+        <div class="filter-section">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="product-filter">产品名称</label>
+                    <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
+                </div>
+                <div class="filter-group">
+                    <label for="code-filter">产品编号</label>
+                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品编号...">
+                </div>
+                <div class="filter-group">
+                    <label for="min-variants">最少价格数量</label>
+                    <select id="min-variants" class="filter-select">
+                        <option value="">全部</option>
+                        <option value="2">2个或以上</option>
+                        <option value="3">3个或以上</option>
+                        <option value="4">4个或以上</option>
+                        <option value="5">5个或以上</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sort-by">排序方式</label>
+                    <select id="sort-by" class="filter-select">
+                        <option value="name_asc">产品名称 A-Z</option>
+                        <option value="name_desc">产品名称 Z-A</option>
+                        <option value="variants_desc">价格数量 (多-少)</option>
+                        <option value="variants_asc">价格数量 (少-多)</option>
+                        <option value="price_diff_desc">价格差异 (大-小)</option>
+                        <option value="price_diff_asc">价格差异 (小-大)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="btn btn-primary" onclick="searchData()">
+                    <i class="fas fa-search"></i>
+                    搜索
+                </button>
+                <button class="btn btn-secondary" onclick="resetFilters()">
+                    <i class="fas fa-refresh"></i>
+                    重置
+                </button>
+                <button class="btn btn-success" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i>
+                    刷新数据
+                </button>
+                <button class="btn btn-warning" onclick="exportData()">
+                    <i class="fas fa-download"></i>
+                    导出CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- 产品列表 -->
+        <div id="products-container">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+
+    <script>
+        // API 配置
+        const API_BASE_URL = 'stockremarkapi.php';
+        
+        // 应用状态
+        let stockData = [];
+        let filteredData = [];
+        let isLoading = false;
+
+        // 初始化应用
+        function initApp() {
+            loadStockRemarks();
+        }
+
+        // 返回上一页
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        // API 调用函数
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('API调用失败:', error);
+                throw error;
+            }
+        }
+
+        // 加载库存价格分析数据
+        async function loadStockRemarks() {
+            if (isLoading) return;
+            
+            isLoading = true;
+            setLoadingState(true);
+            
+            try {
+                const result = await apiCall('?action=analysis');
+                
+                if (result.success) {
+                    stockData = result.data.products || [];
+                    filteredData = [...stockData];
+                    updateStats(result.data.stats);
+                    renderProducts();
+                    
+                    if (stockData.length === 0) {
+                        showAlert('当前没有发现多价格产品', 'info');
+                    } else {
+                        showAlert(`发现 ${stockData.length} 个产品有多个价格变体`, 'success');
+                    }
+                } else {
+                    stockData = [];
+                    filteredData = [];
+                    showAlert('获取数据失败: ' + (result.message || '未知错误'), 'error');
+                    renderProducts();
+                }
+                
+            } catch (error) {
+                stockData = [];
+                filteredData = [];
+                showAlert('网络错误，请检查连接', 'error');
+                renderProducts();
+            } finally {
+                isLoading = false;
+                setLoadingState(false);
+            }
+        }
+
+        // 搜索数据
+        function searchData() {
+            const productFilter = document.getElementById('product-filter').value.toLowerCase();
+            const codeFilter = document.getElementById('code-filter').value.toLowerCase();
+            const minVariants = parseInt(document.getElementById('min-variants').value) || 0;
+            const sortBy = document.getElementById('sort-by').value;
+
+            // 过滤数据
+            filteredData = stockData.filter(item => {
+                const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
+                const matchCode = !codeFilter || (item.code_number && item.code_number.toLowerCase().includes(codeFilter));
+                const matchVariants = item.variants.length >= minVariants;
+
+                return matchProduct && matchCode && matchVariants;
+            });
+
+            // 排序数据
+            sortData(sortBy);
+            renderProducts();
+            
+            if (filteredData.length === 0) {
+                showAlert('未找到匹配的记录', 'info');
+            } else {
+                showAlert(`找到 ${filteredData.length} 个匹配产品`, 'success');
+            }
+        }
+
+        // 排序数据
+        function sortData(sortBy) {
+            switch (sortBy) {
+                case 'name_asc':
+                    filteredData.sort((a, b) => a.product_name.localeCompare(b.product_name));
+                    break;
+                case 'name_desc':
+                    filteredData.sort((a, b) => b.product_name.localeCompare(a.product_name));
+                    break;
+                case 'variants_desc':
+                    filteredData.sort((a, b) => b.variants.length - a.variants.length);
+                    break;
+                case 'variants_asc':
+                    filteredData.sort((a, b) => a.variants.length - b.variants.length);
+                    break;
+                case 'price_diff_desc':
+                    filteredData.sort((a, b) => b.price_difference - a.price_difference);
+                    break;
+                case 'price_diff_asc':
+                    filteredData.sort((a, b) => a.price_difference - b.price_difference);
+                    break;
+            }
+        }
+
+        // 重置搜索过滤器
+        function resetFilters() {
+            document.getElementById('product-filter').value = '';
+            document.getElementById('code-filter').value = '';
+            document.getElementById('min-variants').value = '';
+            document.getElementById('sort-by').value = 'name_asc';
+            
+            filteredData = [...stockData];
+            sortData('name_asc');
+            renderProducts();
+            showAlert('搜索条件已重置', 'info');
+        }
+
+        // 设置加载状态
+        function setLoadingState(loading) {
+            const container = document.getElementById('products-container');
+            
+            if (loading) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px;">
+                        <div class="loading"></div>
+                        <div style="margin-top: 16px; color: #6b7280;">正在分析库存价格数据...</div>
+                    </div>
+                `;
+            }
+        }
+
+        // 更新统计信息
+        function updateStats(stats) {
+            document.getElementById('total-products').textContent = stats.total_products || 0;
+            document.getElementById('total-variants').textContent = stats.total_variants || 0;
+            document.getElementById('avg-variants').textContent = stats.avg_variants || '0.0';
+            document.getElementById('max-price-diff').textContent = 'RM ' + (stats.max_price_difference || '0.00');
+        }
+
+        // 渲染产品列表
+        function renderProducts() {
+            const container = document.getElementById('products-container');
+            
+            if (filteredData.length === 0) {
+                container.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-search"></i>
+                        <h3>没有找到多价格产品</h3>
+                        <p>当前筛选条件下没有发现产品有多个价格变体</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            
+            filteredData.forEach(product => {
+                html += `
+                    <div class="product-group">
+                        <div class="product-header">
+                            <span>${product.product_name}</span>
+                            <span class="price-count">${product.variants.length} 个价格</span>
+                        </div>
+                        <table class="price-variants-table">
+                            <thead>
+                                <tr>
+                                    <th>排序</th>
+                                    <th>产品编号</th>
+                                    <th>规格</th>
+                                    <th>库存数量</th>
+                                    <th>单价</th>
+                                    <th>库存价值</th>
+                                    <th>价格差异</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${renderVariants(product.variants, product.max_price)}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // 渲染价格变体
+        function renderVariants(variants, maxPrice) {
+            let html = '';
+            
+            variants.forEach((variant, index) => {
+                const isHighest = parseFloat(variant.price) === parseFloat(maxPrice);
+                const priceDiff = maxPrice - parseFloat(variant.price);
+                const rowClass = isHighest ? 'highest-price' : '';
+                
+                html += `
+                    <tr class="${rowClass}">
+                        <td><strong>${index + 1}</strong></td>
+                        <td>${variant.code_number || '-'}</td>
+                        <td>${variant.specification || '-'}</td>
+                        <td>${variant.formatted_stock}</td>
+                        <td>
+                            <div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="currency-amount">${variant.formatted_price}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="currency-amount">${variant.formatted_total_price}</span>
+                            </div>
+                        </td>
+                        <td>
+                            ${priceDiff > 0 ? 
+                                `<span class="price-difference">-RM ${priceDiff.toFixed(2)}</span>` : 
+                                '<span style="color: #10b981; font-weight: 600;">最高价</span>'
+                            }
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            return html;
+        }
+
+        // 刷新数据
+        function refreshData() {
+            loadStockRemarks();
+        }
+
+        // 导出数据
+        function exportData() {
+            if (filteredData.length === 0) {
+                showAlert('没有数据可导出', 'error');
+                return;
+            }
+            
+            try {
+                // 创建CSV数据
+                const headers = ['Product Name', 'Rank', 'Code Number', 'Specification', 'Stock', 'Unit Price', 'Total Value', 'Price Difference'];
+                let csvContent = headers.join(',') + '\n';
+                
+                filteredData.forEach(product => {
+                    product.variants.forEach((variant, index) => {
+                        const priceDiff = product.max_price - parseFloat(variant.price);
+                        const row = [
+                            `"${product.product_name}"`,
+                            index + 1,
+                            variant.code_number || '',
+                            variant.specification || '',
+                            variant.formatted_stock,
+                            variant.formatted_price,
+                            variant.formatted_total_price,
+                            priceDiff > 0 ? `-${priceDiff.toFixed(2)}` : 'Highest'
+                        ];
+                        csvContent += row.join(',') + '\n';
+                    });
+                });
+                
+                // 创建下载链接
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `stock_price_analysis_${new Date().toISOString().split('T')[0]}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showAlert('数据导出成功', 'success');
+            } catch (error) {
+                showAlert('导出失败', 'error');
+            }
+        }
+
+        // 显示提示信息
+        function showAlert(message, type = 'success') {
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'error' ? 'alert-error' : type === 'info' ? 'alert-info' : type === 'warning' ? 'alert-warning' : 'alert-success';
+            const iconClass = type === 'error' ? 'fa-exclamation-circle' : type === 'info' ? 'fa-info-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-check-circle';
+            
+            const alertElement = document.createElement('div');
+            alertElement.className = `alert ${alertClass}`;
+            alertElement.innerHTML = `
+                <i class="fas ${iconClass}"></i>
+                <span>${message}</span>
+            `;
+            
+            alertContainer.appendChild(alertElement);
+            
+            setTimeout(() => {
+                alertElement.remove();
+            }, 5000);
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initApp);
+
+        // 键盘快捷键支持
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+F 聚焦搜索框
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('product-filter').focus();
+            }
+            
+            // Escape键重置搜索
+            if (e.key === 'Escape') {
+                resetFilters();
+            }
+        });
+
+        // 定时刷新数据（可选，每10分钟刷新一次）
+        setInterval(() => {
+            if (!document.hidden) { // 只在页面可见时刷新
+                loadStockRemarks();
+            }
+        }, 600000); // 10分钟 = 600000毫秒
+    </script>
+</body>
+</html>
