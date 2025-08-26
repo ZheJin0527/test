@@ -478,7 +478,7 @@ function handlePost() {
     }
 
     // 验证 target_system 枚举值
-    if (!empty($data['target_system']) && !in_array($data['target_system'], ['j1', 'Central'])) {
+    if (!empty($data['target_system']) && !in_array($data['target_system'], ['j1', 'Central', 'central'])) {
         sendResponse(false, "target_system 只能选择 j1 或 Central");
     }
     
@@ -512,7 +512,7 @@ function handlePost() {
         // 检查target_system，如果是Central则同时保存到stockinout_data表
         $targetSystem = $data['target_system'] ?? 'j1'; // 默认j1
 
-        if ($targetSystem === 'Central') {
+        if (strtolower($targetSystem) === 'central') {
             // 如果选择Central，同时保存到stockinout_data表
             $centralSql = "INSERT INTO stockinout_data 
                         (date, time, product_name, 
@@ -531,8 +531,21 @@ function handlePost() {
                 $data['code_number'] ?? null,
                 $data['remark'] ?? null,
                 $data['receiver'] ?? null,
-                'Central'  // 改为大写的 Central，保持一致
+                'central'  // 注意：这里应该是小写的 'central'
             ]);
+            
+            if (!$centralResult) {
+                $pdo->rollBack();
+                $error = $centralStmt->errorInfo();
+                sendResponse(false, "保存到Central表失败：" . $error[2]);
+            }
+            
+            $centralId = $pdo->lastInsertId();
+            if (!$centralId) {
+                $pdo->rollBack();
+                sendResponse(false, "获取Central表记录ID失败，操作已回滚");
+            }
+            error_log("记录已同时保存到Central表，J1记录ID: " . $newId . ", Central记录ID: " . $centralId);
             
             if (!$centralResult) {
                 $pdo->rollBack();
@@ -570,7 +583,7 @@ function handlePost() {
         $newRecord['approval_status'] = (!empty($newRecord['approver'])) ? 'approved' : 'pending';
         
         $message = "进出库记录添加成功";
-        if ($targetSystem === 'Central') {
+        if (strtolower($targetSystem) === 'central') {
             $message .= "，已同时保存到Central系统";
         } elseif ($targetSystem === 'j1') {
             $message .= "，已保存到J1系统";
@@ -708,7 +721,7 @@ function handlePut() {
             // 检查target_system，如果是Central则同步更新stockinout_data表
             $targetSystem = $data['target_system'] ?? 'j1'; // 默认j1
 
-            if ($targetSystem === 'Central') {
+            if (strtolower($targetSystem) === 'central') {
                 // 更新对应的stockinout_data记录 - 通过匹配字段找到对应记录
                 $centralUpdateSql = "UPDATE stockinout_data 
                                     SET date = ?, time = ?, product_name = ?, 
@@ -782,7 +795,7 @@ function handleDelete() {
             // 如果是Central记录，同步删除stockinout_data表记录
                 $targetSystem = $recordToDelete['target_system'] ?? 'j1'; // 默认j1
 
-                if ($targetSystem === 'Central') {
+                if (strtolower($targetSystem) === 'central') {
                     // 删除对应的stockinout_data记录
                     $centralDeleteSql = "DELETE FROM stockinout_data 
                                         WHERE product_name = ? AND date = ? AND receiver = ? AND target_system = 'central'
