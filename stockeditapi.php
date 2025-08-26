@@ -583,13 +583,16 @@ function handleGet() {
             break;
 
         case 'export':
+            // 先清除之前的输出缓冲
+            ob_end_clean();
+            
             $startDate = $_GET['start_date'] ?? '';
             $endDate = $_GET['end_date'] ?? '';
             $includeIn = $_GET['include_in'] ?? '1';
             $includeOut = $_GET['include_out'] ?? '1';
             
             // 构建查询条件
-            $conditions = [];
+            $conditions = ["1=1"];
             $params = [];
             
             if ($startDate) {
@@ -615,9 +618,61 @@ function handleGet() {
                 $conditions[] = "(" . implode(" OR ", $typeConditions) . ")";
             }
             
-            // 执行查询并生成Excel文件
-            // 使用PhpSpreadsheet库生成Excel
-            // 设置响应头为Excel文件下载
+            // 执行查询
+            $sql = "SELECT * FROM stockinout_data WHERE " . implode(" AND ", $conditions) . " ORDER BY date ASC, time ASC";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // 生成CSV格式的Excel文件
+            $filename = 'stock_export_' . date('Y-m-d_H-i-s') . '.csv';
+            
+            // 设置响应头
+            header('Content-Type: text/csv; charset=UTF-8');
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            
+            // 输出BOM以支持中文
+            echo "\xEF\xBB\xBF";
+            
+            // 打开输出流
+            $output = fopen('php://output', 'w');
+            
+            // 写入表头
+            $headers = [
+                '日期', '时间', '产品编号', '产品名称', '入库数量', '出库数量', 
+                '目标系统', '规格单位', '价格', '总价值', '收货人', '备注'
+            ];
+            fputcsv($output, $headers);
+            
+            // 写入数据
+            foreach ($records as $record) {
+                $inQty = floatval($record['in_quantity'] ?? 0);
+                $outQty = floatval($record['out_quantity'] ?? 0);
+                $price = floatval($record['price'] ?? 0);
+                $netQty = $inQty - $outQty;
+                $totalValue = $netQty * $price;
+                
+                $row = [
+                    $record['date'],
+                    $record['time'],
+                    $record['code_number'] ?? '',
+                    $record['product_name'],
+                    number_format($inQty, 2),
+                    number_format($outQty, 2),
+                    strtoupper($record['target_system'] ?? ''),
+                    $record['specification'] ?? '',
+                    'RM ' . number_format($price, 2),
+                    'RM ' . number_format($totalValue, 2),
+                    $record['receiver'],
+                    $record['remark'] ?? ''
+                ];
+                fputcsv($output, $row);
+            }
+            
+            fclose($output);
+            exit; // 重要：退出脚本，避免额外输出
             break;
             
         default:
