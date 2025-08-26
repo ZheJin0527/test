@@ -1123,8 +1123,7 @@
                     <label for="add-target">目标系统</label>
                     <select id="add-target" class="form-select" disabled>
                         <option value="">请选择</option>
-                        <option value="j1">J2</option>
-                        <option value="central">Central</option>
+                        <option value="j2">J2</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1736,7 +1735,6 @@
                     <select class="table-select" id="${rowId}-target" disabled>
                     <option value="">请选择</option>
                     <option value="j2">J2</option>
-                    <option value="central">Central</option>
                 </select>
                 </td>
                 <td>
