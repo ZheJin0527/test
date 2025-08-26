@@ -237,6 +237,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
+            table-layout: fixed; /* 添加这行 */
         }
 
         .price-variants-table th {
@@ -254,6 +255,25 @@
             text-align: center;
             vertical-align: middle;
         }
+
+        .price-variants-table th,
+        .price-variants-table td {
+            width: 25%; /* 平均分配4列 */
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .price-variants-table th:nth-child(1) { width: 10%; } /* 排序 */
+        .price-variants-table th:nth-child(2) { width: 30%; } /* 产品编号 */
+        .price-variants-table th:nth-child(3) { width: 30%; } /* 库存数量 */
+        .price-variants-table th:nth-child(4) { width: 30%; } /* 单价 */
+
+        .price-variants-table td:nth-child(1) { width: 10%; }
+        .price-variants-table td:nth-child(2) { width: 30%; }
+        .price-variants-table td:nth-child(3) { width: 30%; }
+        .price-variants-table td:nth-child(4) { width: 30%; }
 
         .price-variants-table tr:hover {
             background-color: #f9fafb;
@@ -399,7 +419,12 @@
 
             .price-variants-table th,
             .price-variants-table td {
+                width: auto;
+                min-width: 80px;
                 padding: 8px 4px;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                white-space: nowrap; /* 防止换行 */
             }
         }
 
@@ -420,7 +445,6 @@
         <div class="header">
             <div>
                 <h1>库存价格分析</h1>
-                <p style="color: #6b7280; margin-top: 8px; font-size: 16px;">分析同一产品的不同价格变体</p>
             </div>
             <div class="controls">
                 <button class="back-button" onclick="goBack()">
