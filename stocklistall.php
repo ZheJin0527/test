@@ -1688,7 +1688,7 @@
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(function() {
                 const backToTopBtn = document.getElementById('back-to-top-btn');
-                const scrollThreshold = 200; // 滚动超过300px后显示按钮
+                const scrollThreshold = 150; // 滚动超过300px后显示按钮
                 
                 if (window.pageYOffset > scrollThreshold) {
                     backToTopBtn.classList.add('show');
