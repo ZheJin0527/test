@@ -1427,6 +1427,14 @@
 
         // 初始化应用
         function initApp() {
+            // 检查URL参数中的库存类型
+            const urlParams = new URLSearchParams(window.location.search);
+            const stockTypeParam = urlParams.get('stock_type');
+            if (stockTypeParam && ['central', 'j1', 'j2'].includes(stockTypeParam)) {
+                // 如果URL中有有效的库存类型参数，切换到对应的库存
+                switchStock(stockTypeParam);
+            }
+
             // 设置默认日期为今天
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('add-date').value = today;
@@ -1517,11 +1525,11 @@
 
         function switchView(viewType) {
             if (viewType === 'list') {
-                // 直接跳转到库存清单页面，不带参数
-                window.location.href = 'stocklistall.php';
+                // 跳转到库存清单页面，带当前库存类型参数
+                window.location.href = `stocklistall.php?stock_type=${currentStockType}`;
             } else if (viewType === 'remark') {
-                // 跳转到备注页面
-                window.location.href = 'stockremark.php';
+                // 跳转到备注页面，带当前库存类型参数
+                window.location.href = `stockremark.php?stock_type=${currentStockType}`;
             } else {
                 // 保持在当前页面（库存记录）
                 hideViewDropdown();
