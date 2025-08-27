@@ -438,6 +438,94 @@
             opacity: 1;
             color: #583e04;
         }
+
+        .selector-button {
+            background-color: #583e04;
+            color: white;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            min-width: 130px;
+            justify-content: space-between;
+            position: relative; /* 添加这个，因为下拉菜单需要 */
+        }
+
+        .selector-button:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        }
+
+        .selector-dropdown {
+            position: absolute;
+            top: 96%;
+            right: 0;
+            background: white;
+            border: 2px solid #583e04;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
+            min-width: 130px;
+            z-index: 10000;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .selector-dropdown.show {
+            display: block;
+        }
+
+        .selector-dropdown .dropdown-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.2s;
+            color: #583e04;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: block;
+        }
+
+        .selector-dropdown .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .selector-dropdown .dropdown-item:hover {
+            background-color: #f8f5eb;
+        }
+
+        .selector-dropdown .dropdown-item.active {
+            background-color: #583e04 !important;
+            color: white !important;
+        }
+
+        /* 视图选择器样式 */
+        .view-selector {
+            position: relative;
+            margin-right: 16px;
+        }
+
+        .view-selector .selector-button {
+            background-color: #583e04;
+            min-width: 120px;
+        }
+
+        .view-selector .selector-button:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        }
+
+        .view-selector .selector-dropdown {
+            min-width: 125px;
+        }
     </style>
 </head>
 <body>
