@@ -777,9 +777,1114 @@
                 font-size: 16px;
             }
         }
+        
+        .recordedit-body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f1dfbc;
+            color: #111827;
+        }
+        
+        .recordedit-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        .recordedit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .recordedit-header h1 {
+            font-size: 56px;
+            font-weight: bold;
+            color: #583e04;
+        }
+        
+        .recordedit-header .recordedit-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .recordedit-back-button {
+            background-color: #583e04;
+            color: white;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .recordedit-back-button:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        }
+
+        /* Alert Messages */
+        .recordedit-alert {
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .recordedit-alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .recordedit-alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .recordedit-alert-info {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        /* 搜索和过滤区域 */
+        .recordedit-filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+        }
+
+        .recordedit-filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .recordedit-filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .recordedit-filter-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #583e04;
+        }
+
+        .recordedit-filter-input, .recordedit-filter-select {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #583e04;
+        }
+
+        .recordedit-filter-input:focus, .recordedit-filter-select:focus {
+            outline: none;
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+
+        .recordedit-filter-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .recordedit-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .recordedit-btn-primary {
+            background-color: #583e04;
+            color: white;
+        }
+        
+        .recordedit-btn-primary:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+        }
+        
+        .recordedit-btn-success {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .recordedit-btn-success:hover {
+            background-color: #059669;
+            transform: translateY(-1px);
+        }
+
+        .recordedit-btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+        
+        .recordedit-btn-secondary:hover {
+            background-color: #4b5563;
+            transform: translateY(-1px);
+        }
+
+        .recordedit-btn-warning {
+            background-color: #f59e0b;
+            color: white;
+        }
+        
+        .recordedit-btn-warning:hover {
+            background-color: #d97706;
+            transform: translateY(-1px);
+        }
+
+        .recordedit-btn-danger {
+            background-color: #ef4444;
+            color: white;
+        }
+        
+        .recordedit-btn-danger:hover {
+            background-color: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .recordedit-stock-table {
+            table-layout: fixed;
+            width: 100%;
+            min-width: 1400px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .recordedit-stock-table th {
+            background: #583e04;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #462d03;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            white-space: nowrap;
+            min-width: 80px;
+        }
+
+        .recordedit-stock-table td {
+            padding: 0;
+            border: 1px solid #d1d5db;
+            text-align: center;
+            position: relative;
+        }
+
+        .recordedit-stock-table tr:nth-child(even) {
+            background-color: white;
+        }
+
+        .recordedit-stock-table tr:hover {
+            background-color: #e5ebf8ff;
+        }
+
+        /* 确保显示文本和编辑输入框对齐 */
+        .recordedit-stock-table td span {
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            line-height: 24px;
+            padding: 8px 4px;
+            box-sizing: border-box;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* 货币显示的特殊样式 */
+        .recordedit-stock-table td span[style*="padding-left: 32px"] {
+            text-align: right;
+            padding-left: 32px;
+            padding-right: 8px;
+        }
+
+        /* 日期单元格内的文本对齐 */
+        .recordedit-date-cell {
+            background: #f8f5eb !important;
+            font-weight: 600;
+            color: #583e04;
+            padding: 12px 8px;
+            min-width: 100px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* 计算列内的文本对齐 */
+        .recordedit-calculated-cell {
+            background: #f0f9ff !important;
+            color: #0369a1;
+            font-weight: 600;
+            padding: 12px 8px;
+            min-width: 100px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* 输入框容器样式 */
+        .recordedit-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 40px;
+        }
+
+        .recordedit-currency-prefix {
+            position: absolute;
+            left: 8px;
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* 表格输入框样式 */
+        .recordedit-table-input {
+            width: 100%;
+            height: 40px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px 4px;
+            transition: all 0.2s;
+            box-sizing: border-box;
+            vertical-align: middle;
+            line-height: 24px; /* 保持行高一致 */
+        }
+
+        .recordedit-table-input.recordedit-currency-input {
+            padding-left: 32px;
+            text-align: center;
+            padding-right: 8px;
+        }
+
+        .recordedit-table-input:focus {
+            background: #fff;
+            border: 2px solid #583e04;
+            outline: none;
+            z-index: 5;
+            position: relative;
+        }
+
+        .recordedit-table-select {
+            width: 100%;
+            height: 40px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px 4px;
+            cursor: pointer;
+            appearance: none;
+            box-sizing: border-box;
+            vertical-align: middle;
+            line-height: 24px; /* 保持行高一致 */
+        }
+
+        .recordedit-table-select:focus {
+            background: #fff;
+            border: 2px solid #583e04;
+            outline: none;
+        }
+
+        /* 货币显示容器 */
+        .recordedit-currency-display {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 8px 15px;
+            height: 40px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .recordedit-currency-display .recordedit-currency-symbol {
+            color: #6b7280;
+            font-weight: 500;
+            margin-right: 6px;
+            min-width: 24px;
+            text-align: left;
+        }
+
+        .recordedit-currency-display .recordedit-currency-amount {
+            font-weight: 500;
+            color: #583e04;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        /* 输入框容器样式 */
+        .recordedit-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+            height: 40px;
+        }
+
+        .recordedit-currency-prefix {
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 6px;
+            min-width: 24px;
+        }
+
+        .recordedit-table-input.recordedit-currency-input {
+            text-align: right;
+            padding-left: 8px;
+            padding-right: 4px;
+            min-width: 60px;
+            font-weight: 500;
+        }
+
+        /* 固定表格列宽，防止编辑时宽度变化 */
+        .recordedit-stock-table {
+            table-layout: fixed; /* 添加这行 */
+            width: 100%;
+            min-width: 1400px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        /* 为每列指定固定宽度 */
+        .recordedit-stock-table th:nth-child(1), .recordedit-stock-table td:nth-child(1) { width: 90px; } /* DATE */
+        .recordedit-stock-table th:nth-child(2), .recordedit-stock-table td:nth-child(2) { width: 100px; } /* Code Number */
+        .recordedit-stock-table th:nth-child(3), .recordedit-stock-table td:nth-child(3) { width: 180px; } /* PRODUCT */
+        .recordedit-stock-table th:nth-child(4), .recordedit-stock-table td:nth-child(4) { width: 70px; }  /* In */
+        .recordedit-stock-table th:nth-child(5), .recordedit-stock-table td:nth-child(5) { width: 70px; }  /* Out */
+        .recordedit-stock-table th:nth-child(6), .recordedit-stock-table td:nth-child(6) { width: 80px; } /* Target */
+        .recordedit-stock-table th:nth-child(7), .recordedit-stock-table td:nth-child(7) { width: 90px; } /* Specification */
+        .recordedit-stock-table th:nth-child(8), .recordedit-stock-table td:nth-child(8) { width: 100px; } /* Price */
+        .recordedit-stock-table th:nth-child(9), .recordedit-stock-table td:nth-child(9) { width: 100px; } /* Total */
+        .recordedit-stock-table th:nth-child(10), .recordedit-stock-table td:nth-child(10) { width: 150px; } /* Name */
+        .recordedit-stock-table th:nth-child(11), .recordedit-stock-table td:nth-child(11) { width: 100px; } /* Remark */
+        .recordedit-stock-table th:nth-child(12), .recordedit-stock-table td:nth-child(12) { width: 70px; } /* 操作 */
+
+        /* 确保输入框和选择框填满单元格 */
+        .recordedit-table-input, .recordedit-table-select {
+            width: 100%;
+            height: 40px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px 4px;
+            transition: all 0.2s;
+            box-sizing: border-box; /* 添加这行 */
+        }
+
+        /* 编辑状态下的价格输入框样式 */
+        .recordedit-currency-input-edit {
+            text-align: right;
+            padding: 8px 4px;
+            min-width: 60px;
+            font-weight: 500;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            box-sizing: border-box;
+            vertical-align: middle;
+            line-height: 24px;
+        }
+
+        .recordedit-currency-input-edit:focus {
+            background: #fff;
+            border: 2px solid #583e04;
+            outline: none;
+            z-index: 15;
+            position: relative;
+        }
+
+        /* 日期单元格样式 */
+        .recordedit-date-cell {
+            background: #f8f5eb !important;
+            font-weight: 600;
+            color: #583e04;
+            padding: 12px 8px;
+            min-width: 100px;
+        }
+
+        /* 计算列样式 */
+        .recordedit-calculated-cell {
+            background: #f0f9ff !important;
+            color: #0369a1;
+            font-weight: 600;
+            padding: 12px 8px;
+            min-width: 100px;
+        }
+
+        /* 操作按钮 */
+        .recordedit-action-buttons {
+            padding: 24px;
+            background: #f8f5eb;
+            border-top: 2px solid #583e04;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .recordedit-action-cell {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 4px;
+            width: 100%;
+            height: 40px;
+            box-sizing: border-box;
+        }
+
+        /* 确保操作列的span容器也正确显示 */
+        .recordedit-stock-table td span.recordedit-action-cell {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 4px;
+            width: 100%;
+            height: 40px;
+            line-height: normal;
+            box-sizing: border-box;
+        }
+
+        .recordedit-action-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 12px;
+            margin: 2px;
+        }
+
+        .recordedit-action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .recordedit-action-btn.recordedit-edit-btn {
+            background: #f59e0b;
+        }
+
+        .recordedit-action-btn.recordedit-edit-btn:hover {
+            background: #d97706;
+        }
+
+        .recordedit-edit-btn.recordedit-save-mode {
+            background: #10b981;
+        }
+
+        .recordedit-edit-btn.recordedit-save-mode:hover {
+            background: #059669;
+        }
+
+        .recordedit-action-btn.recordedit-delete-btn {
+            background: #ef4444;
+        }
+
+        .recordedit-action-btn.recordedit-delete-btn:hover {
+            background: #dc2626;
+        }
+
+        .recordedit-action-btn.recordedit-approve-btn {
+            background: #10b981;
+        }
+
+        .recordedit-action-btn.recordedit-approve-btn:hover {
+            background: #059669;
+        }
+
+        /* 统计信息 */
+        .recordedit-stats-info {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            font-size: 14px;
+            color: #6b7280;
+            flex-wrap: wrap;
+        }
+
+        .recordedit-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 150px;
+        }
+
+        .recordedit-stat-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #583e04;
+        }
+
+        /* 新增记录表单 */
+        .recordedit-add-form {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            display: none;
+        }
+
+        .recordedit-add-form.recordedit-show {
+            display: block;
+        }
+
+        .recordedit-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .recordedit-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .recordedit-form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #583e04;
+        }
+
+        .recordedit-form-input, .recordedit-form-select {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #583e04;
+        }
+
+        .recordedit-form-input:focus, .recordedit-form-select:focus {
+            outline: none;
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+
+        .recordedit-form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* 加载状态 */
+        .recordedit-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #583e04;
+            border-radius: 50%;
+            animation: recordedit-spin 1s linear infinite;
+        }
+        
+        @keyframes recordedit-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .recordedit-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            
+            .recordedit-filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .recordedit-filter-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .recordedit-action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .recordedit-stats-info {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            .recordedit-stat-item {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+        /* 批准状态样式 */
+        .recordedit-approval-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .recordedit-approval-badge.recordedit-approved {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .recordedit-approval-badge.recordedit-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        /* 隐藏类 */
+        .recordedit-hidden {
+            display: none;
+        }
+
+        /* Out 数值为负数的样式 */
+        .recordedit-negative-value {
+            color: #dc2626 !important;
+            font-weight: 600;
+        }
+
+        /* 负数括号样式 - 只对数字部分添加括号 */
+        .recordedit-negative-value.recordedit-negative-parentheses .recordedit-currency-amount::before {
+            content: "(";
+        }
+
+        .recordedit-negative-value.recordedit-negative-parentheses .recordedit-currency-amount::after {
+            content: ")";
+        }
+
+        /* 确保负数的货币显示也是红色 */
+        .recordedit-negative-value .recordedit-currency-symbol,
+        .recordedit-negative-value .recordedit-currency-amount {
+            color: #dc2626 !important;
+            font-weight: 600;
+        }
+
+        /* 产品名称列稍宽 */
+        .recordedit-product-name-col {
+            min-width: 150px !important;
+        }
+
+        .recordedit-receiver-col {
+            min-width: 120px !important;
+        }
+
+        /* 新增行样式 */
+        .recordedit-new-row {
+            background-color: #f0f9ff !important;  
+        }
+
+        .recordedit-new-row .recordedit-table-input, .recordedit-new-row .recordedit-table-select {
+            background: white;
+        }
+
+        /* 新增行样式 */
+        .recordedit-new-row {
+            background-color: #e0f2fe !important;  /* 浅蓝色背景 */
+        }
+
+        .recordedit-new-row td {
+            background-color: #e0f2fe !important;
+        }
+
+        /* 编辑行样式 */
+        .recordedit-editing-row {
+            background-color: #e0f2fe !important;  /* 与新增行相同的浅蓝色背景 */
+        }
+
+        .recordedit-editing-row td {
+            background-color: #e0f2fe !important;
+        }
+
+        /* 确保输入框背景透明，显示行的背景色 */
+        .recordedit-new-row .recordedit-table-input, 
+        .recordedit-new-row .recordedit-table-select,
+        .recordedit-new-row .recordedit-currency-input-edit,
+        .recordedit-editing-row .recordedit-table-input, 
+        .recordedit-editing-row .recordedit-table-select,
+        .recordedit-editing-row .recordedit-currency-input-edit {
+            background: transparent !important;
+        }
+
+        /* 聚焦时的输入框样式 */
+        .recordedit-new-row .recordedit-table-input:focus, 
+        .recordedit-new-row .recordedit-table-select:focus,
+        .recordedit-new-row .recordedit-currency-input-edit:focus,
+        .recordedit-editing-row .recordedit-table-input:focus, 
+        .recordedit-editing-row .recordedit-table-select:focus,
+        .recordedit-editing-row .recordedit-currency-input-edit:focus {
+            background: white !important;
+        }
+
+        .recordedit-save-new-btn {
+            background: #10b981 !important;
+        }
+
+        .recordedit-cancel-new-btn {
+            background: #ef4444 !important;
+        }
+
+        /* Combobox 样式 */
+        .recordedit-combobox-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .recordedit-combobox-input {
+            width: 100%;
+            height: 40px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px 20px 8px 4px;
+            transition: all 0.2s;
+            box-sizing: border-box;
+            cursor: text;
+            ime-mode: disabled; /* 禁用输入法 */
+            vertical-align: middle;
+            line-height: 24px; /* 保持行高一致 */
+        }
+
+        .recordedit-combobox-input:focus {
+            background: #fff;
+            border: 2px solid #583e04;
+            outline: none;
+            z-index: 15;
+            position: relative;
+        }
+
+        .recordedit-combobox-arrow {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .recordedit-combobox-dropdown {
+            position: fixed; /* 改为 fixed 定位，避免被表格限制 */
+            background: white;
+            border: 2px solid #583e04;
+            border-radius: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 9999; /* 提高层级，确保显示在最前面 */
+            display: none;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.2);
+            min-width: 200px; /* 设置最小宽度 */
+        }
+
+        .recordedit-combobox-dropdown.recordedit-show {
+            display: block;
+        }
+
+        .recordedit-combobox-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .recordedit-combobox-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .recordedit-combobox-option:last-child {
+            border-bottom: none;
+        }
+
+        .recordedit-combobox-option.recordedit-highlighted {
+            background-color: #583e04;
+            color: white;
+        }
+
+        /* 输入框样式优化 */
+        .recordedit-combobox-input {
+            width: 100%;
+            height: 40px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px 20px 8px 4px;
+            transition: all 0.2s;
+            box-sizing: border-box;
+            cursor: text;
+            ime-mode: disabled; /* 禁用输入法 */
+        }
+
+        .recordedit-combobox-input:focus {
+            background: #fff;
+            border: 2px solid #583e04;
+            outline: none;
+            z-index: 15;
+            position: relative;
+        }
+
+        /* 确保输入框可以正常输入 */
+        .recordedit-combobox-input::-ms-clear {
+            display: none;
+        }
+
+        .recordedit-no-results {
+            padding: 8px 12px;
+            color: #6b7280;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* 确保表格容器不会隐藏溢出内容 */
+        .recordedit-table-container {
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
+            border: 2px solid #583e04;
+            overflow: visible; /* 改为 visible，允许内容溢出 */
+        }
+
+        .recordedit-table-container > div:first-child {
+            overflow-x: auto; /* 只对内部滚动容器设置 overflow */
+        }
+
+        /* 为了确保水平滚动正常，添加一个内部容器 */
+        .recordedit-table-scroll-container {
+            overflow-x: auto;
+            overflow-y: visible;
+        }
+
+        .recordedit-price-select {
+            min-width: 100px;
+            background-color: white;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 2px 4px;
+            font-size: 12px;
+        }
+
+        .recordedit-manual-price-input {
+            border: 1px solid #3b82f6 !important;
+            border-radius: 4px;
+        }
+
+        .recordedit-page-selector {
+            background-color: #10b981;
+            color: white;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .recordedit-page-selector:hover {
+            background-color: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .recordedit-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            min-width: 130px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            z-index: 1000;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .recordedit-dropdown-menu.recordedit-show {
+            display: block;
+        }
+
+        .recordedit-dropdown-item {
+            padding: 10px 16px;
+            color: #583e04;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background-color 0.2s;
+        }
+
+        .recordedit-dropdown-item:hover {
+            background-color: #f0f9ff;
+            color: #10b981;
+        }
+
+        .recordedit-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        /* 导出弹窗样式 */
+        .recordedit-export-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .recordedit-export-modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 450px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .recordedit-export-modal h3 {
+            margin: 0 0 20px 0;
+            color: #1f2937;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .recordedit-export-form-group {
+            margin-bottom: 16px;
+        }
+
+        .recordedit-export-form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .recordedit-export-form-group input,
+        .recordedit-export-form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .recordedit-export-form-group input:focus,
+        .recordedit-export-form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .recordedit-checkbox-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
+
+        .recordedit-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .recordedit-checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .recordedit-export-modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .recordedit-close-export-modal {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 5px;
+        }
+
+        .recordedit-close-export-modal:hover {
+            color: #374151;
+        }
     </style>
 </head>
-<body>
+<body id="page-body">
     <div class="container">
         <div class="header">
             <div>
@@ -1226,12 +2331,21 @@
             document.getElementById('current-system').textContent = SYSTEM_NAMES[system];
             if (system === 'remark') {
                 document.getElementById('page-title').textContent = '库存价格分析';
-                // 禁用页面模式选择器
+                // 禁用页面模式选择器，并重置为默认样式
                 updatePageModeSelector(false);
+                currentPageMode = 'summary';
+                document.getElementById('page-body').className = '';
             } else {
                 document.getElementById('page-title').textContent = PAGE_TITLES[currentPageMode][system];
                 // 启用页面模式选择器
                 updatePageModeSelector(true);
+                // 保持当前页面模式的样式
+                const body = document.getElementById('page-body');
+                if (currentPageMode === 'records') {
+                    body.className = 'recordedit';
+                } else {
+                    body.className = '';
+                }
             }
             
             // 更新下拉菜单激活状态
@@ -1283,6 +2397,14 @@
             
             // 更新页面标题
             document.getElementById('page-title').textContent = PAGE_TITLES[currentPageMode][currentSystem];
+            
+            // 切换CSS样式类
+            const body = document.getElementById('page-body');
+            if (mode === 'records') {
+                body.className = 'recordedit';
+            } else {
+                body.className = '';
+            }
             
             // 更新下拉菜单激活状态
             document.querySelectorAll('#page-mode-dropdown .dropdown-item').forEach(item => {
@@ -1339,6 +2461,10 @@
                 
                 // 关闭下拉菜单
                 dropdown.classList.remove('show');
+                
+                // 重置页面模式为summary并清除recordedit样式
+                currentPageMode = 'summary';
+                document.getElementById('page-body').className = '';
             }
         }
 
