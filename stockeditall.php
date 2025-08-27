@@ -1468,9 +1468,7 @@
             // 重新加载数据
             loadStockData();
             loadCodeNumbers();
-            loadProducts();
-            
-            showAlert(`已切换到${document.getElementById('current-stock-type').textContent}`, 'info');
+            loadProducts();            
         }
 
         // 返回上一页
