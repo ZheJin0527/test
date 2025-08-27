@@ -385,60 +385,6 @@
             color: #374151;
         }
 
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
-            }
-            
-            .filter-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
-            .filter-actions {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .product-header {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
-            }
-
-            .price-variants-table {
-                font-size: 12px;
-            }
-
-            .price-variants-table th,
-            .price-variants-table td {
-                width: auto;
-                min-width: 80px;
-                padding: 8px 4px;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                white-space: nowrap; /* 防止换行 */
-            }
-        }
-
-        /* 排序指示器 */
-        .sort-indicator {
-            margin-left: 8px;
-            opacity: 0.5;
-        }
-
-        .sort-indicator.active {
-            opacity: 1;
-            color: #583e04;
-        }
-
         .selector-button {
             background-color: #583e04;
             color: white;
@@ -526,6 +472,60 @@
         .view-selector .selector-dropdown {
             min-width: 125px;
         }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .product-header {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            .price-variants-table {
+                font-size: 12px;
+            }
+
+            .price-variants-table th,
+            .price-variants-table td {
+                width: auto;
+                min-width: 80px;
+                padding: 8px 4px;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                white-space: nowrap; /* 防止换行 */
+            }
+        }
+
+        /* 排序指示器 */
+        .sort-indicator {
+            margin-left: 8px;
+            opacity: 0.5;
+        }
+
+        .sort-indicator.active {
+            opacity: 1;
+            color: #583e04;
+        }
     </style>
 </head>
 <body>
@@ -535,22 +535,35 @@
                 <h1>库存价格分析</h1>
             </div>
             <div class="controls">
-                <div class="view-controls">
-                    <div class="selector-button" onclick="toggleViewSelector()">
+                <div class="view-selector">
+                    <button class="selector-button" onclick="toggleViewSelector()">
                         <span id="current-view">库存价格分析</span>
                         <i class="fas fa-chevron-down"></i>
-                    </div>
+                    </button>
                     <div class="selector-dropdown" id="view-selector-dropdown">
                         <div class="dropdown-item" onclick="switchView('list')">库存清单</div>
+                        <div class="dropdown-item" onclick="switchView('records')">库存记录</div>
                         <div class="dropdown-item active" onclick="switchView('remark')">库存价格分析</div>
-                        <div class="dropdown-item disabled" onclick="switchView('records')">
-                            中央库存 <span class="disabled-text">--</span>
-                        </div>
+                    </div>
+                </div>
+                <div class="selector-button" onclick="toggleStockSelector()">
+                    <span id="current-stock-type">中央库存</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="selector-dropdown" id="stock-dropdown">
+                        <a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
+                            中央库存
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="switchStock('j1', event); return false;" data-type="j1">
+                            J1库存
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="switchStock('j2', event); return false;" data-type="j2">
+                            J2库存
+                        </a>
                     </div>
                 </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
-                    返回上一页
+                    返回仪表盘
                 </button>
             </div>
         </div>
@@ -619,15 +632,65 @@
 
     <script>
         // API 配置
-        const API_BASE_URL = 'stockremarkapi.php';
+        let API_BASE_URL = 'stockremarkapi.php';
         
         // 应用状态
         let stockData = [];
         let filteredData = [];
         let isLoading = false;
+        let currentStockType = 'central';
 
         // 初始化应用
         function initApp() {
+            loadStockRemarks();
+        }
+
+        // 切换库存选择器下拉菜单
+        function toggleStockSelector() {
+            const dropdown = document.getElementById('stock-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function switchStock(stockType, event = null) {
+            currentStockType = stockType;
+            
+            // 更新API地址
+            switch(stockType) {
+                case 'central':
+                    API_BASE_URL = 'stockremarkapi.php';
+                    document.getElementById('current-stock-type').textContent = '中央库存';
+                    break;
+                case 'j1':
+                    API_BASE_URL = 'j1stockremarkapi.php';
+                    document.getElementById('current-stock-type').textContent = 'J1库存';
+                    break;
+                case 'j2':
+                    API_BASE_URL = 'j2stockremarkapi.php';
+                    document.getElementById('current-stock-type').textContent = 'J2库存';
+                    break;
+            }
+            
+            // 更新active状态
+            document.querySelectorAll('.selector-dropdown .dropdown-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.selector-dropdown .dropdown-item[data-type="${stockType}"]`).classList.add('active');
+            
+            // 立即隐藏下拉菜单
+            const dropdown = document.getElementById('stock-dropdown');
+            if (dropdown) {
+                dropdown.classList.remove('show');
+            }
+
+            // 阻止事件冒泡
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            
+            // 清空当前数据并重新加载
+            stockData = [];
+            filteredData = [];
             loadStockRemarks();
         }
 
@@ -637,15 +700,11 @@
             dropdown.classList.toggle('show');
         }
 
-        // 切换视图
         function switchView(viewType) {
             if (viewType === 'list') {
-                // 跳转到库存清单页面
                 window.location.href = 'stocklistall.php';
             } else if (viewType === 'records') {
-                // 中央库存被禁用，不执行任何操作
-                showAlert('中央库存功能在此页面不可用', 'info');
-                hideViewDropdown();
+                window.location.href = 'stockedit.php';
             } else {
                 // 保持在当前页面（库存价格分析）
                 hideViewDropdown();
@@ -660,13 +719,9 @@
             }
         }
 
-        // 返回上一页
+        // 返回仪表盘
         function goBack() {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = '/';
-            }
+            window.location.href = 'dashboard.php';
         }
 
         // API 调用函数
@@ -946,6 +1001,28 @@
             }, 5000);
         }
 
+        // 点击其他地方关闭下拉菜单
+        document.addEventListener('click', function(event) {
+            const selector = event.target.closest('.selector-button');
+            const dropdown = event.target.closest('.selector-dropdown');
+            const dropdownItem = event.target.closest('.dropdown-item');
+            
+            // 如果点击的是下拉选项，立即隐藏对应的下拉菜单
+            if (dropdownItem) {
+                const parentDropdown = dropdownItem.closest('.selector-dropdown');
+                if (parentDropdown) {
+                    parentDropdown.classList.remove('show');
+                }
+                return;
+            }
+            
+            // 如果点击的不是选择器按钮且不是下拉菜单内部，则隐藏所有下拉菜单
+            if (!selector && !dropdown) {
+                document.getElementById('stock-dropdown')?.classList.remove('show');
+                document.getElementById('view-selector-dropdown')?.classList.remove('show');
+            }
+        });
+
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initApp);
 
@@ -960,27 +1037,6 @@
             // Escape键重置搜索
             if (e.key === 'Escape') {
                 resetFilters();
-            }
-        });
-
-        // 点击其他地方关闭下拉菜单
-        document.addEventListener('click', function(event) {
-            const selector = event.target.closest('.selector-button');
-            const dropdown = event.target.closest('.selector-dropdown');
-            const dropdownItem = event.target.closest('.dropdown-item');
-            
-            // 如果点击的是下拉选项，立即隐藏对应的下拉菜单
-            if (dropdownItem && !dropdownItem.classList.contains('disabled')) {
-                const parentDropdown = dropdownItem.closest('.selector-dropdown');
-                if (parentDropdown) {
-                    parentDropdown.classList.remove('show');
-                }
-                return;
-            }
-            
-            // 如果点击的不是选择器按钮且不是下拉菜单内部，则隐藏所有下拉菜单
-            if (!selector && !dropdown) {
-                document.getElementById('view-selector-dropdown')?.classList.remove('show');
             }
         });
 
