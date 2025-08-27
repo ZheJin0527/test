@@ -685,6 +685,42 @@
             transform: translateY(-1px);
         }
 
+        /* 页面模式选择器样式 */
+        .page-mode-selector {
+            position: relative;
+        }
+
+        .page-mode-selector .selector-button {
+            background-color: #10b981;
+            min-width: 120px;
+        }
+
+        .page-mode-selector .selector-button:hover {
+            background-color: #059669;
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .page-mode-selector .selector-dropdown {
+            min-width: 120px;
+            border: 2px solid #10b981;
+        }
+
+        .page-mode-selector .dropdown-item.active {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .page-mode-selector .selector-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed !important;
+            background-color: #6b7280 !important;
+        }
+
+        .page-mode-selector .selector-button:disabled:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -743,7 +779,7 @@
         }
     </style>
 </head>
-<body>
+<body id="page-body">
     <div class="container">
         <div class="header">
             <div>
@@ -760,6 +796,16 @@
                         <div class="dropdown-item" onclick="switchSystem('j1')">J1库存</div>
                         <div class="dropdown-item" onclick="switchSystem('j2')">J2库存</div>
                         <div class="dropdown-item" onclick="switchSystem('remark')">价格分析</div>
+                    </div>
+                </div>
+                <div class="page-mode-selector">
+                    <button class="selector-button" onclick="togglePageModeSelector()">
+                        <span id="current-page-mode">库存清单</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="selector-dropdown" id="page-mode-dropdown">
+                        <div class="dropdown-item active" onclick="switchPageMode('summary')">库存清单</div>
+                        <div class="dropdown-item" onclick="switchPageMode('records')">库存记录</div>
                     </div>
                 </div>
                 <button class="back-button" onclick="goBack()">
@@ -1100,6 +1146,7 @@
 
     <script>
         // 全局状态
+        let currentPageMode = 'summary'; // 'summary' 或 'records'
         let currentSystem = 'central';
         let stockData = {
             central: [],
@@ -1136,10 +1183,18 @@
         };
 
         const PAGE_TITLES = {
-            central: '中央库存汇总报表',
-            j1: 'J1库存汇总报表',
-            j2: 'J2库存汇总报表',
-            remark: '库存价格分析'
+            summary: {
+                central: '中央库存汇总报表',
+                j1: 'J1库存汇总报表',
+                j2: 'J2库存汇总报表',
+                remark: '库存价格分析'
+            },
+            records: {
+                central: '中央库存记录',
+                j1: 'J1库存记录',
+                j2: 'J2库存记录',
+                remark: '库存记录分析'
+            }
         };
 
         // 初始化应用
@@ -1149,6 +1204,9 @@
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.system-selector')) {
                     document.getElementById('selector-dropdown').classList.remove('show');
+                }
+                if (!e.target.closest('.page-mode-selector')) {
+                    document.getElementById('page-mode-dropdown').classList.remove('show');
                 }
             });
         }
@@ -1166,7 +1224,24 @@
             
             // 更新UI
             document.getElementById('current-system').textContent = SYSTEM_NAMES[system];
-            document.getElementById('page-title').textContent = PAGE_TITLES[system];
+            if (system === 'remark') {
+                document.getElementById('page-title').textContent = '库存价格分析';
+                // 禁用页面模式选择器，并重置为默认样式
+                updatePageModeSelector(false);
+                currentPageMode = 'summary';
+                document.getElementById('page-body').className = '';
+            } else {
+                document.getElementById('page-title').textContent = PAGE_TITLES[currentPageMode][system];
+                // 启用页面模式选择器
+                updatePageModeSelector(true);
+                // 保持当前页面模式的样式
+                const body = document.getElementById('page-body');
+                if (currentPageMode === 'records') {
+                    body.className = 'recordedit';
+                } else {
+                    body.className = '';
+                }
+            }
             
             // 更新下拉菜单激活状态
             document.querySelectorAll('.dropdown-item').forEach(item => {
@@ -1185,6 +1260,107 @@
             
             // 加载数据
             loadData(system);
+        }
+
+        // 切换页面模式选择器
+        function togglePageModeSelector() {
+            // 如果是价格分析模式，不允许切换
+            if (currentSystem === 'remark') {
+                return;
+            }
+            document.getElementById('page-mode-dropdown').classList.toggle('show');
+        }
+
+        // 切换页面模式
+        function switchPageMode(mode) {
+            // 如果是价格分析模式，不允许切换
+            if (currentSystem === 'remark') {
+                return;
+            }
+            
+            if (mode === currentPageMode) return;
+            
+            currentPageMode = mode;
+            
+            // 更新UI
+            const modeNames = {
+                'summary': '库存清单',
+                'records': '库存记录'
+            };
+            
+            document.getElementById('current-page-mode').textContent = modeNames[mode];
+            
+            // 更新页面标题
+            document.getElementById('page-title').textContent = PAGE_TITLES[currentPageMode][currentSystem];
+            
+            // 切换CSS样式类
+            const body = document.getElementById('page-body');
+            if (mode === 'records') {
+                body.className = 'recordedit';
+            } else {
+                body.className = '';
+            }
+            
+            // 更新下拉菜单激活状态
+            document.querySelectorAll('#page-mode-dropdown .dropdown-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 隐藏下拉菜单
+            document.getElementById('page-mode-dropdown').classList.remove('show');
+            
+            // 根据模式加载相应数据
+            if (mode === 'records') {
+                showAlert('库存记录功能开发中...', 'info');
+                // 将来可以调用不同的API
+            } else {
+                loadData(currentSystem);
+            }
+        }
+
+        // 更新页面模式选择器状态
+        function updatePageModeSelector(enabled) {
+            const button = document.querySelector('.page-mode-selector .selector-button');
+            const modeText = document.getElementById('current-page-mode');
+            const dropdown = document.getElementById('page-mode-dropdown');
+            
+            if (enabled) {
+                // 启用状态
+                button.disabled = false;
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
+                button.style.backgroundColor = '#10b981';
+                
+                // 恢复正常文本
+                const modeNames = {
+                    'summary': '库存清单',
+                    'records': '库存记录'
+                };
+                modeText.textContent = modeNames[currentPageMode];
+                
+                // 可以点击
+                button.onclick = togglePageModeSelector;
+            } else {
+                // 禁用状态
+                button.disabled = true;
+                button.style.opacity = '0.5';
+                button.style.cursor = 'not-allowed';
+                button.style.backgroundColor = '#6b7280';
+                
+                // 显示 "--"
+                modeText.textContent = '--';
+                
+                // 移除点击事件
+                button.onclick = null;
+                
+                // 关闭下拉菜单
+                dropdown.classList.remove('show');
+                
+                // 重置页面模式为summary并清除recordedit样式
+                currentPageMode = 'summary';
+                document.getElementById('page-body').className = '';
+            }
         }
 
         // 返回上一页
