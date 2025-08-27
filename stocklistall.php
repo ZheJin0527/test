@@ -68,6 +68,7 @@
         
         .selector-button:hover {
             background-color: #462d03;
+            border-radius: 8px;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
@@ -789,9 +790,9 @@
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="selector-dropdown">
-                        <div class="dropdown-item active" onclick="switchSystem('central')">中央库存</div>
-                        <div class="dropdown-item" onclick="switchSystem('j1')">J1库存</div>
-                        <div class="dropdown-item" onclick="switchSystem('j2')">J2库存</div>
+                        <div class="dropdown-item active" onclick="switchSystem('central')">中央</div>
+                        <div class="dropdown-item" onclick="switchSystem('j1')">J1</div>
+                        <div class="dropdown-item" onclick="switchSystem('j2')">J2</div>
                     </div>
                 </div>
                 <button class="back-button" onclick="goBack()">

@@ -1172,13 +1172,13 @@
                     <i class="fas fa-chevron-down"></i>
                     <div class="selector-dropdown" id="stock-dropdown">
                         <a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
-                            中央库存
+                            中央
                         </a>
                         <a href="#" class="dropdown-item" onclick="switchStock('j1', event); return false;" data-type="j1">
-                            J1库存
+                            J1
                         </a>
                         <a href="#" class="dropdown-item" onclick="switchStock('j2', event); return false;" data-type="j2">
-                            J2库存
+                            J2
                         </a>
                     </div>
                 </div>
