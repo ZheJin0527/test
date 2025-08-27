@@ -1471,6 +1471,12 @@
                     break;
             }
             
+            // 更新active状态
+            document.querySelectorAll('.selector-dropdown .dropdown-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.selector-dropdown .dropdown-item[data-type="${stockType}"]`).classList.add('active');
+
             // 隐藏下拉菜单
             document.getElementById('stock-dropdown').classList.remove('show');
             
@@ -2706,6 +2712,9 @@
                 }
                 // 移除自动取消所有编辑的功能，让用户手动取消
             }
+            
+            // 设置默认active状态
+            document.querySelector('.selector-dropdown .dropdown-item[data-type="central"]').classList.add('active');
         });
     </script>
     <script>
