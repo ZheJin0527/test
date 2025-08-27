@@ -707,6 +707,54 @@
             min-width: 125px;
         }
 
+        /* 选项卡样式 */
+        .tab-container {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #583e04;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            background: white;
+            color: #583e04;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-right: 2px solid #583e04;
+            position: relative;
+        }
+
+        .tab-button:last-child {
+            border-right: none;
+        }
+
+        .tab-button:hover {
+            background: #f8f5eb;
+        }
+
+        .tab-button.active {
+            background: #583e04;
+            color: white;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #10b981;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -783,17 +831,6 @@
                         <div class="dropdown-item" onclick="switchView('remark')">Remark</div>
                     </div>
                 </div>
-                <div class="system-selector">
-                    <button class="selector-button" onclick="toggleSelector()">
-                        <span id="current-system">中央库存</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="selector-dropdown" id="selector-dropdown">
-                        <div class="dropdown-item active" onclick="switchSystem('central')">中央库存</div>
-                        <div class="dropdown-item" onclick="switchSystem('j1')">J1库存</div>
-                        <div class="dropdown-item" onclick="switchSystem('j2')">J2库存</div>
-                    </div>
-                </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
                     返回仪表盘
@@ -847,6 +884,13 @@
                         </button>
                     </div>
                 </div>
+            </div>
+
+            <div class="tab-container">
+                <button class="tab-button active" onclick="switchTab('central', 'summary')">汇总信息</button>
+                <button class="tab-button" onclick="switchTab('central', 'details')">详子数量</button>
+                <button class="tab-button" onclick="switchTab('central', 'percentage')">常客(%)</button>
+                <button class="tab-button" onclick="switchTab('central', 'people')">人数</button>
             </div>
 
             <div class="table-container">
@@ -936,6 +980,13 @@
                 </div>
             </div>
 
+            <div class="tab-container">
+                <button class="tab-button active" onclick="switchTab('j1', 'summary')">汇总信息</button>
+                <button class="tab-button" onclick="switchTab('j1', 'details')">详子数量</button>
+                <button class="tab-button" onclick="switchTab('j1', 'percentage')">常客(%)</button>
+                <button class="tab-button" onclick="switchTab('j1', 'people')">人数</button>
+            </div>
+
             <div class="table-container">
                 <div class="action-buttons">
                     <div class="stats-info" id="j1-stock-stats">
@@ -1021,6 +1072,13 @@
                         </button>
                     </div>
                 </div>
+            </div>
+
+            <div class="tab-container">
+                <button class="tab-button active" onclick="switchTab('j2', 'summary')">汇总信息</button>
+                <button class="tab-button" onclick="switchTab('j2', 'details')">详子数量</button>
+                <button class="tab-button" onclick="switchTab('j2', 'percentage')">常客(%)</button>
+                <button class="tab-button" onclick="switchTab('j2', 'people')">人数</button>
             </div>
 
             <div class="table-container">
@@ -1262,6 +1320,26 @@
             
             // 隐藏下拉菜单
             document.getElementById('view-selector-dropdown').classList.remove('show');
+        }
+
+        // 切换选项卡
+        function switchTab(system, tabType) {
+            // 更新当前系统的选项卡激活状态
+            const systemPage = document.getElementById(system + '-page');
+            const tabButtons = systemPage.querySelectorAll('.tab-button');
+            
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            
+            // 根据选项卡类型加载不同数据或显示不同视图
+            // 这里可以根据需要添加不同的数据处理逻辑
+            console.log(`切换到 ${system} 系统的 ${tabType} 视图`);
+            
+            // 可以在这里添加不同视图的数据加载逻辑
+            // loadTabData(system, tabType);
         }
 
         // 返回仪表盘
