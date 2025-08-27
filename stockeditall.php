@@ -982,6 +982,43 @@
             box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
         }
 
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            min-width: 130px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            z-index: 1000;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px 16px;
+            color: #583e04;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f9ff;
+            color: #10b981;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
         /* 导出弹窗样式 */
         .export-modal {
             display: none;
@@ -1096,8 +1133,9 @@
             transition: all 0.2s;
             min-width: 130px;
             justify-content: space-between;
+            position: relative; /* 添加这个，因为下拉菜单需要 */
         }
-        
+
         .selector-button:hover {
             background-color: #462d03;
             transform: translateY(-1px);
@@ -1122,7 +1160,7 @@
             display: block;
         }
 
-        .dropdown-item {
+        .selector-dropdown .dropdown-item {
             padding: 8px 16px;
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
@@ -1130,17 +1168,19 @@
             color: #583e04;
             font-size: 14px;
             font-weight: 500;
+            text-decoration: none;
+            display: block;
         }
 
-        .dropdown-item:last-child {
+        .selector-dropdown .dropdown-item:last-child {
             border-bottom: none;
         }
 
-        .dropdown-item:hover {
+        .selector-dropdown .dropdown-item:hover {
             background-color: #f8f5eb;
         }
 
-        .dropdown-item.active {
+        .selector-dropdown .dropdown-item.active {
             background-color: #583e04;
             color: white;
         }
