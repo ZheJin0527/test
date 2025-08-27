@@ -1175,7 +1175,7 @@
                     <span id="current-stock-type">中央库存</span>
                     <i class="fas fa-chevron-down"></i>
                     <div class="selector-dropdown" id="stock-dropdown">
-                        <a href="#" class="dropdown-item" onclick="switchStock('central')" data-type="central">
+                        <a href="#" class="dropdown-item active" onclick="switchStock('central')" data-type="central">
                             中央库存
                         </a>
                         <a href="#" class="dropdown-item" onclick="switchStock('j1')" data-type="j1">
@@ -1440,6 +1440,18 @@
             loadStockData();
             loadCodeNumbers();
             loadProducts();
+
+            // 设置默认active状态
+            document.querySelector('.selector-dropdown .dropdown-item[data-type="central"]').classList.add('active');
+
+            // 设置默认active状态
+            setTimeout(() => {
+                const centralItem = document.querySelector('.selector-dropdown .dropdown-item[data-type="central"]');
+                if (centralItem) {
+                    centralItem.classList.add('active');
+                }
+            }, 100);
+
         }
 
         // 切换库存选择器下拉菜单
@@ -2712,9 +2724,6 @@
                 }
                 // 移除自动取消所有编辑的功能，让用户手动取消
             }
-            
-            // 设置默认active状态
-            document.querySelector('.selector-dropdown .dropdown-item[data-type="central"]').classList.add('active');
         });
     </script>
     <script>
