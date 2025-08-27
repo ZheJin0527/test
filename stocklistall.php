@@ -127,7 +127,7 @@
             gap: 8px;
             transition: all 0.2s;
             text-decoration: none;
-            margin-left: 20px;
+            margin-left: 16px;
         }
         
         .back-button:hover {
