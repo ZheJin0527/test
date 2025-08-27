@@ -1064,7 +1064,7 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: 8px 20px;
+            padding: 11px 24px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -1121,6 +1121,7 @@
 
         .selector-dropdown .dropdown-item:hover {
             background-color: #f8f5eb;
+            border-radius: 8px;
         }
 
         .selector-dropdown .dropdown-item.active {
@@ -1169,11 +1170,11 @@
                     </div>
                 </div>
                 <div class="selector-button" onclick="toggleStockSelector()">
-                    <span id="current-stock-type">中央</span>
+                    <span id="current-stock-type">Central</span>
                     <i class="fas fa-chevron-down"></i>
                     <div class="selector-dropdown" id="stock-dropdown">
                         <a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
-                            中央
+                            Central
                         </a>
                         <a href="#" class="dropdown-item" onclick="switchStock('j1', event); return false;" data-type="j1">
                             J1

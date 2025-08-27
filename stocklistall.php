@@ -53,7 +53,7 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: 8px 20px;
+            padding: 11px 24px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -787,11 +787,11 @@
                 </div>
                 <div class="system-selector">
                     <button class="selector-button" onclick="toggleSelector()">
-                        <span id="current-system">中央</span>
+                        <span id="current-system">Central</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="selector-dropdown">
-                        <div class="dropdown-item active" onclick="switchSystem('central')">中央</div>
+                        <div class="dropdown-item active" onclick="switchSystem('central')">Central</div>
                         <div class="dropdown-item" onclick="switchSystem('j1')">J1</div>
                         <div class="dropdown-item" onclick="switchSystem('j2')">J2</div>
                     </div>
