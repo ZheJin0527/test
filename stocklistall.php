@@ -699,7 +699,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1 id="page-title">库存汇总报表</h1>
+                <h1 id="page-title">中央库存汇总报表</h1>
             </div>
             <div class="controls">
                 <div class="system-selector">
@@ -1083,7 +1083,7 @@
         };
 
         const PAGE_TITLES = {
-            central: '库存汇总报表',
+            central: '中央库存汇总报表',
             j1: 'J1库存汇总报表',
             j2: 'J2库存汇总报表',
             remark: '库存价格分析'
