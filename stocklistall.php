@@ -685,6 +685,25 @@
             transform: translateY(-1px);
         }
 
+        /* 视图选择器样式 */
+        .view-selector {
+            position: relative;
+            margin-right: 16px;
+        }
+
+        .view-selector .selector-button {
+            background-color: #10b981;
+            min-width: 120px;
+        }
+
+        .view-selector .selector-button:hover {
+            background-color: #059669;
+        }
+
+        .view-selector .selector-dropdown {
+            min-width: 120px;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -750,6 +769,16 @@
                 <h1 id="page-title">中央库存汇总报表</h1>
             </div>
             <div class="controls">
+                <div class="view-selector">
+                    <button class="selector-button" onclick="toggleViewSelector()">
+                        <span id="current-view">库存清单</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="selector-dropdown" id="view-selector-dropdown">
+                        <div class="dropdown-item active" onclick="switchView('list')">库存清单</div>
+                        <div class="dropdown-item" onclick="switchView('records')">库存记录</div>
+                    </div>
+                </div>
                 <div class="system-selector">
                     <button class="selector-button" onclick="toggleSelector()">
                         <span id="current-system">中央库存</span>
@@ -1119,6 +1148,12 @@
             j2: false,
             remark: false
         };
+        let currentView = 'list';
+
+        const VIEW_NAMES = {
+            list: '库存清单',
+            records: '库存记录'
+        };
 
         // API配置
         const API_CONFIG = {
@@ -1149,6 +1184,9 @@
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.system-selector')) {
                     document.getElementById('selector-dropdown').classList.remove('show');
+                }
+                if (!e.target.closest('.view-selector')) {
+                    document.getElementById('view-selector-dropdown').classList.remove('show');
                 }
             });
         }
@@ -1185,6 +1223,36 @@
             
             // 加载数据
             loadData(system);
+        }
+
+        // 切换视图选择器
+        function toggleViewSelector() {
+            document.getElementById('view-selector-dropdown').classList.toggle('show');
+        }
+
+        // 切换视图
+        function switchView(view) {
+            if (view === currentView) return;
+            
+            if (view === 'records') {
+                // 跳转到库存记录页面
+                window.location.href = 'stockeditall.php';
+                return;
+            }
+            
+            currentView = view;
+            
+            // 更新UI
+            document.getElementById('current-view').textContent = VIEW_NAMES[view];
+            
+            // 更新下拉菜单激活状态
+            document.querySelectorAll('#view-selector-dropdown .dropdown-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 隐藏下拉菜单
+            document.getElementById('view-selector-dropdown').classList.remove('show');
         }
 
         // 返回上一页
