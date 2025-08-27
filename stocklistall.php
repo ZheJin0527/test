@@ -707,56 +707,6 @@
             min-width: 125px;
         }
 
-        /* 标签页样式 */
-        .tab-navigation {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            margin: 24px 0;
-            background: white;
-            border-radius: 12px;
-            padding: 8px;
-            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
-            border: 2px solid #583e04;
-        }
-
-        .tab-button {
-            flex: 1;
-            max-width: 200px;
-            padding: 12px 24px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            color: #6b7280;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .tab-button.active {
-            background: #583e04;
-            color: white;
-            box-shadow: 0 2px 4px rgba(88, 62, 4, 0.2);
-        }
-
-        .tab-button:hover:not(.active) {
-            background: #f8f5eb;
-            color: #583e04;
-        }
-
-        @media (max-width: 768px) {
-            .tab-navigation {
-                flex-direction: column;
-                gap: 4px;
-            }
-            
-            .tab-button {
-                max-width: none;
-            }
-        }
-
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -899,12 +849,6 @@
                 </div>
             </div>
 
-            <div class="tab-navigation">
-                <button class="tab-button active" onclick="switchSystemTab('central')">中央库存</button>
-                <button class="tab-button" onclick="switchSystemTab('j1')">J1库存</button>
-                <button class="tab-button" onclick="switchSystemTab('j2')">J2库存</button>
-            </div>
-
             <div class="table-container">
                 <div class="action-buttons">
                     <div class="stats-info" id="central-stock-stats">
@@ -992,12 +936,6 @@
                 </div>
             </div>
 
-            <div class="tab-navigation">
-                <button class="tab-button" onclick="switchSystemTab('central')">中央库存</button>
-                <button class="tab-button active" onclick="switchSystemTab('j1')">J1库存</button>
-                <button class="tab-button" onclick="switchSystemTab('j2')">J2库存</button>
-            </div>
-
             <div class="table-container">
                 <div class="action-buttons">
                     <div class="stats-info" id="j1-stock-stats">
@@ -1083,12 +1021,6 @@
                         </button>
                     </div>
                 </div>
-            </div>
-
-            <div class="tab-navigation">
-                <button class="tab-button" onclick="switchSystemTab('central')">中央库存</button>
-                <button class="tab-button" onclick="switchSystemTab('j1')">J1库存</button>
-                <button class="tab-button active" onclick="switchSystemTab('j2')">J2库存</button>
             </div>
 
             <div class="table-container">
@@ -1282,17 +1214,7 @@
             document.querySelectorAll('.dropdown-item').forEach(item => {
                 item.classList.remove('active');
             });
-            if (event && event.target && event.target.classList.contains('dropdown-item')) {
-                event.target.classList.add('active');
-            }
-
-            // 更新标签页激活状态
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelectorAll(`.tab-button[onclick="switchSystemTab('${system}')"]`).forEach(btn => {
-                btn.classList.add('active');
-            });
+            event.target.classList.add('active');
             
             // 切换页面
             document.querySelectorAll('.page-section').forEach(page => {
@@ -1340,34 +1262,6 @@
             
             // 隐藏下拉菜单
             document.getElementById('view-selector-dropdown').classList.remove('show');
-        }
-
-        // 标签页切换函数
-        function switchSystemTab(system) {
-            if (system === currentSystem) return;
-            
-            currentSystem = system;
-            
-            // 更新UI
-            document.getElementById('current-system').textContent = SYSTEM_NAMES[system];
-            document.getElementById('page-title').textContent = PAGE_TITLES[system];
-            
-            // 更新标签页激活状态
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelectorAll(`.tab-button[onclick="switchSystemTab('${system}')"]`).forEach(btn => {
-                btn.classList.add('active');
-            });
-            
-            // 切换页面
-            document.querySelectorAll('.page-section').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(system + '-page').classList.add('active');
-            
-            // 加载数据
-            loadData(system);
         }
 
         // 返回仪表盘
