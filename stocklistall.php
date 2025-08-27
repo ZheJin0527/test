@@ -786,7 +786,7 @@
                 </div>
                 <div class="system-selector">
                     <button class="selector-button" onclick="toggleSelector()">
-                        <span id="current-system">中央库存</span>
+                        <span id="current-system">中央</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="selector-dropdown">

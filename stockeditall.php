@@ -1168,7 +1168,7 @@
                     </div>
                 </div>
                 <div class="selector-button" onclick="toggleStockSelector()">
-                    <span id="current-stock-type">中央库存</span>
+                    <span id="current-stock-type">中央</span>
                     <i class="fas fa-chevron-down"></i>
                     <div class="selector-dropdown" id="stock-dropdown">
                         <a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
