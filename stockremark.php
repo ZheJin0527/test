@@ -560,7 +560,7 @@
                     </div>
                 </div>
                 <div class="selector-button disabled">
-                    <span id="current-stock-type">--</span>
+                    <span id="current-stock-type" style="text-align: center;">--</span>
                 </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
