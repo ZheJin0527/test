@@ -107,6 +107,7 @@
 
         .dropdown-item:hover {
             background-color: #f8f5eb;
+            border-radius: 8px;
         }
 
         .dropdown-item.active {
@@ -775,12 +776,12 @@
             <div class="controls">
                 <div class="view-selector">
                     <button class="selector-button" onclick="toggleViewSelector()">
-                        <span id="current-view">库存清单</span>
+                        <span id="current-view">Stocklist</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="view-selector-dropdown">
-                        <div class="dropdown-item active" onclick="switchView('list')">库存清单</div>
-                        <div class="dropdown-item" onclick="switchView('records')">库存记录</div>
+                        <div class="dropdown-item active" onclick="switchView('list')">Stocklist</div>
+                        <div class="dropdown-item" onclick="switchView('records')">In Out</div>
                         <div class="dropdown-item" onclick="switchView('remark')">Remark</div>
                     </div>
                 </div>
