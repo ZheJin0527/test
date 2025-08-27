@@ -693,16 +693,18 @@
         }
 
         .view-selector .selector-button {
-            background-color: #10b981;
+            background-color: #583e04;
             min-width: 120px;
         }
 
         .view-selector .selector-button:hover {
-            background-color: #059669;
+            background-color: #462d03;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
 
         .view-selector .selector-dropdown {
-            min-width: 120px;
+            min-width: 125px;
         }
 
         @media (max-width: 768px) {
