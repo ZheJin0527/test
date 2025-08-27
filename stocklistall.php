@@ -41,7 +41,7 @@
         .header .controls {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 0px;
         }
 
         /* 系统选择器样式 */
@@ -127,6 +127,7 @@
             gap: 8px;
             transition: all 0.2s;
             text-decoration: none;
+            margin-left: 20px;
         }
         
         .back-button:hover {
