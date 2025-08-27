@@ -1144,8 +1144,8 @@
         }
 
         .selector-dropdown .dropdown-item.active {
-            background-color: #583e04;
-            color: white;
+            background-color: #583e04 !important;
+            color: white !important;
         }
     </style>
 </head>
