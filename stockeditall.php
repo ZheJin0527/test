@@ -1138,13 +1138,13 @@
                     <span id="current-stock-type">中央库存</span>
                     <i class="fas fa-chevron-down"></i>
                     <div class="selector-dropdown" id="stock-dropdown">
-                        <a href="#" class="dropdown-item active" onclick="switchStock('central'); return false;" data-type="central">
+<a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
                             中央库存
                         </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j1'); return false;" data-type="j1">
+                        <a href="#" class="dropdown-item" onclick="switchStock('j1', event); return false;" data-type="j1">
                             J1库存
                         </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j2'); return false;" data-type="j2">
+                        <a href="#" class="dropdown-item" onclick="switchStock('j2', event); return false;" data-type="j2">
                             J2库存
                         </a>
                     </div>
@@ -1423,7 +1423,7 @@
             dropdown.classList.toggle('show');
         }
 
-        function switchStock(stockType) {
+        function switchStock(stockType, event = null) {
             currentStockType = stockType;
             
             // 更新API地址
@@ -1455,6 +1455,12 @@
             const dropdown = document.getElementById('stock-dropdown');
             if (dropdown) {
                 dropdown.classList.remove('show');
+            }
+
+            // 阻止事件冒泡，防止全局点击事件重新显示下拉菜单
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
             }
             
             // 清空当前数据并重新加载
