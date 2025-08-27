@@ -1147,7 +1147,7 @@
         }
 
         .view-selector .selector-dropdown {
-            min-width: 125px;
+            min-width: 130px;
         }
     </style>
 </head>
