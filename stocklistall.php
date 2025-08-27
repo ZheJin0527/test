@@ -780,6 +780,7 @@
                     <div class="selector-dropdown" id="view-selector-dropdown">
                         <div class="dropdown-item active" onclick="switchView('list')">库存清单</div>
                         <div class="dropdown-item" onclick="switchView('records')">库存记录</div>
+                        <div class="dropdown-item" onclick="switchView('remark')">Remark</div>
                     </div>
                 </div>
                 <div class="system-selector">
@@ -791,7 +792,6 @@
                         <div class="dropdown-item active" onclick="switchSystem('central')">中央库存</div>
                         <div class="dropdown-item" onclick="switchSystem('j1')">J1库存</div>
                         <div class="dropdown-item" onclick="switchSystem('j2')">J2库存</div>
-                        <div class="dropdown-item" onclick="switchSystem('remark')">价格分析</div>
                     </div>
                 </div>
                 <button class="back-button" onclick="goBack()">
@@ -1155,7 +1155,8 @@
 
         const VIEW_NAMES = {
             list: '库存清单',
-            records: '库存记录'
+            records: '库存记录',
+            remark: 'Remark'
         };
 
         // API配置
@@ -1233,13 +1234,18 @@
             document.getElementById('view-selector-dropdown').classList.toggle('show');
         }
 
-        // 切换视图
         function switchView(view) {
             if (view === currentView) return;
             
             if (view === 'records') {
                 // 跳转到库存记录页面
                 window.location.href = 'stockeditall.php';
+                return;
+            }
+            
+            if (view === 'remark') {
+                // 跳转到Remark页面
+                window.location.href = 'stockremark.php';
                 return;
             }
             
