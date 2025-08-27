@@ -559,8 +559,8 @@
                         <div class="dropdown-item active" onclick="switchView('remark')">Remark</div>
                     </div>
                 </div>
-                <div class="selector-button disabled">
-                    <span id="current-stock-type" style="text-align: center;">--</span>
+                <div class="selector-button disabled" style="justify-content: center;">
+                    <span id="current-stock-type">--</span>
                 </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
