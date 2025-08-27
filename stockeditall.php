@@ -1138,13 +1138,13 @@
                     <span id="current-stock-type">中央库存</span>
                     <i class="fas fa-chevron-down"></i>
                     <div class="selector-dropdown" id="stock-dropdown">
-                        <a href="#" class="dropdown-item active" onclick="switchStock('central')" data-type="central">
+                        <a href="#" class="dropdown-item active" onclick="switchStock('central'); return false;" data-type="central">
                             中央库存
                         </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j1')" data-type="j1">
+                        <a href="#" class="dropdown-item" onclick="switchStock('j1'); return false;" data-type="j1">
                             J1库存
                         </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j2')" data-type="j2">
+                        <a href="#" class="dropdown-item" onclick="switchStock('j2'); return false;" data-type="j2">
                             J2库存
                         </a>
                     </div>
@@ -1423,11 +1423,7 @@
             dropdown.classList.toggle('show');
         }
 
-        // 切换库存类型
         function switchStock(stockType) {
-            // 阻止默认链接行为
-            event.preventDefault();
-            
             currentStockType = stockType;
             
             // 更新API地址
@@ -1454,7 +1450,7 @@
                 item.classList.remove('active');
             });
             document.querySelector(`.selector-dropdown .dropdown-item[data-type="${stockType}"]`).classList.add('active');
-
+            
             // 隐藏下拉菜单
             document.getElementById('stock-dropdown').classList.remove('show');
             
@@ -1468,7 +1464,7 @@
             // 重新加载数据
             loadStockData();
             loadCodeNumbers();
-            loadProducts();            
+            loadProducts();
         }
 
         // 返回上一页
