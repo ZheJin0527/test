@@ -656,7 +656,7 @@
             if (viewType === 'list') {
                 window.location.href = 'stocklistall.php';
             } else if (viewType === 'records') {
-                window.location.href = 'stockedit.php';
+                window.location.href = 'stockeditall.php';
             } else {
                 // 保持在当前页面（库存价格分析）
                 hideViewDropdown();
