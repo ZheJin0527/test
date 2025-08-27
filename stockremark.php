@@ -409,6 +409,18 @@
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
 
+        .selector-button.disabled {
+            background-color: #9ca3af !important;
+            cursor: not-allowed !important;
+            color: #6b7280 !important;
+        }
+
+        .selector-button.disabled:hover {
+            background-color: #9ca3af !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
         .selector-dropdown {
             position: absolute;
             top: 96%;
@@ -537,29 +549,17 @@
             <div class="controls">
                 <div class="view-selector">
                     <button class="selector-button" onclick="toggleViewSelector()">
-                        <span id="current-view">库存价格分析</span>
+                        <span id="current-view">Remark</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="view-selector-dropdown">
                         <div class="dropdown-item" onclick="switchView('list')">库存清单</div>
                         <div class="dropdown-item" onclick="switchView('records')">库存记录</div>
-                        <div class="dropdown-item active" onclick="switchView('remark')">库存价格分析</div>
+                        <div class="dropdown-item active" onclick="switchView('remark')">Remark</div>
                     </div>
                 </div>
-                <div class="selector-button" onclick="toggleStockSelector()">
-                    <span id="current-stock-type">中央库存</span>
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="selector-dropdown" id="stock-dropdown">
-                        <a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
-                            中央库存
-                        </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j1', event); return false;" data-type="j1">
-                            J1库存
-                        </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j2', event); return false;" data-type="j2">
-                            J2库存
-                        </a>
-                    </div>
+                <div class="selector-button disabled">
+                    <span id="current-stock-type">--</span>
                 </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
@@ -642,55 +642,6 @@
 
         // 初始化应用
         function initApp() {
-            loadStockRemarks();
-        }
-
-        // 切换库存选择器下拉菜单
-        function toggleStockSelector() {
-            const dropdown = document.getElementById('stock-dropdown');
-            dropdown.classList.toggle('show');
-        }
-
-        function switchStock(stockType, event = null) {
-            currentStockType = stockType;
-            
-            // 更新API地址
-            switch(stockType) {
-                case 'central':
-                    API_BASE_URL = 'stockremarkapi.php';
-                    document.getElementById('current-stock-type').textContent = '中央库存';
-                    break;
-                case 'j1':
-                    API_BASE_URL = 'j1stockremarkapi.php';
-                    document.getElementById('current-stock-type').textContent = 'J1库存';
-                    break;
-                case 'j2':
-                    API_BASE_URL = 'j2stockremarkapi.php';
-                    document.getElementById('current-stock-type').textContent = 'J2库存';
-                    break;
-            }
-            
-            // 更新active状态
-            document.querySelectorAll('.selector-dropdown .dropdown-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(`.selector-dropdown .dropdown-item[data-type="${stockType}"]`).classList.add('active');
-            
-            // 立即隐藏下拉菜单
-            const dropdown = document.getElementById('stock-dropdown');
-            if (dropdown) {
-                dropdown.classList.remove('show');
-            }
-
-            // 阻止事件冒泡
-            if (event) {
-                event.stopPropagation();
-                event.preventDefault();
-            }
-            
-            // 清空当前数据并重新加载
-            stockData = [];
-            filteredData = [];
             loadStockRemarks();
         }
 
@@ -1001,13 +952,12 @@
             }, 5000);
         }
 
-        // 点击其他地方关闭下拉菜单
         document.addEventListener('click', function(event) {
             const selector = event.target.closest('.selector-button');
             const dropdown = event.target.closest('.selector-dropdown');
             const dropdownItem = event.target.closest('.dropdown-item');
             
-            // 如果点击的是下拉选项，立即隐藏对应的下拉菜单
+            // 移除库存选择器相关的逻辑，只保留视图选择器
             if (dropdownItem) {
                 const parentDropdown = dropdownItem.closest('.selector-dropdown');
                 if (parentDropdown) {
@@ -1016,9 +966,7 @@
                 return;
             }
             
-            // 如果点击的不是选择器按钮且不是下拉菜单内部，则隐藏所有下拉菜单
             if (!selector && !dropdown) {
-                document.getElementById('stock-dropdown')?.classList.remove('show');
                 document.getElementById('view-selector-dropdown')?.classList.remove('show');
             }
         });
