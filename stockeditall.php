@@ -1451,11 +1451,11 @@
             });
             document.querySelector(`.selector-dropdown .dropdown-item[data-type="${stockType}"]`).classList.add('active');
             
-            // 隐藏下拉菜单
-const dropdown = document.getElementById('stock-dropdown');
-if (dropdown) {
-    dropdown.classList.remove('show');
-}
+            // 立即隐藏下拉菜单
+            const dropdown = document.getElementById('stock-dropdown');
+            if (dropdown) {
+                dropdown.classList.remove('show');
+            }
             
             // 清空当前数据并重新加载
             stockData = [];
@@ -1482,9 +1482,14 @@ if (dropdown) {
         // 点击其他地方关闭下拉菜单
         document.addEventListener('click', function(event) {
             const selector = event.target.closest('.selector-button');
-            if (!selector) {
+            const dropdown = event.target.closest('.selector-dropdown');
+            
+            // 如果点击的不是选择器按钮且不是下拉菜单内部，则隐藏下拉菜单
+            if (!selector && !dropdown) {
                 document.getElementById('stock-dropdown').classList.remove('show');
             }
+            
+            // 如果点击的是下拉选项，也隐藏下拉菜单（这个由switchStock函数处理）
         });
 
         // API 调用函数
