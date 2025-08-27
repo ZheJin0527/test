@@ -710,6 +710,17 @@
             color: white;
         }
 
+        .page-mode-selector .selector-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed !important;
+            background-color: #6b7280 !important;
+        }
+
+        .page-mode-selector .selector-button:disabled:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -1213,7 +1224,15 @@
             
             // 更新UI
             document.getElementById('current-system').textContent = SYSTEM_NAMES[system];
-            document.getElementById('page-title').textContent = PAGE_TITLES[currentPageMode][system];
+            if (system === 'remark') {
+                document.getElementById('page-title').textContent = '库存价格分析';
+                // 禁用页面模式选择器
+                updatePageModeSelector(false);
+            } else {
+                document.getElementById('page-title').textContent = PAGE_TITLES[currentPageMode][system];
+                // 启用页面模式选择器
+                updatePageModeSelector(true);
+            }
             
             // 更新下拉菜单激活状态
             document.querySelectorAll('.dropdown-item').forEach(item => {
@@ -1236,11 +1255,20 @@
 
         // 切换页面模式选择器
         function togglePageModeSelector() {
+            // 如果是价格分析模式，不允许切换
+            if (currentSystem === 'remark') {
+                return;
+            }
             document.getElementById('page-mode-dropdown').classList.toggle('show');
         }
 
         // 切换页面模式
         function switchPageMode(mode) {
+            // 如果是价格分析模式，不允许切换
+            if (currentSystem === 'remark') {
+                return;
+            }
+            
             if (mode === currentPageMode) return;
             
             currentPageMode = mode;
@@ -1253,6 +1281,9 @@
             
             document.getElementById('current-page-mode').textContent = modeNames[mode];
             
+            // 更新页面标题
+            document.getElementById('page-title').textContent = PAGE_TITLES[currentPageMode][currentSystem];
+            
             // 更新下拉菜单激活状态
             document.querySelectorAll('#page-mode-dropdown .dropdown-item').forEach(item => {
                 item.classList.remove('active');
@@ -1262,14 +1293,52 @@
             // 隐藏下拉菜单
             document.getElementById('page-mode-dropdown').classList.remove('show');
             
-            // 根据模式显示不同内容
+            // 根据模式加载相应数据
             if (mode === 'records') {
-                // 这里可以加载库存记录相关的数据和界面
                 showAlert('库存记录功能开发中...', 'info');
-                // 将来可以调用不同的API或显示不同的表格结构
+                // 将来可以调用不同的API
             } else {
-                // 返回库存清单模式
                 loadData(currentSystem);
+            }
+        }
+
+        // 更新页面模式选择器状态
+        function updatePageModeSelector(enabled) {
+            const button = document.querySelector('.page-mode-selector .selector-button');
+            const modeText = document.getElementById('current-page-mode');
+            const dropdown = document.getElementById('page-mode-dropdown');
+            
+            if (enabled) {
+                // 启用状态
+                button.disabled = false;
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
+                button.style.backgroundColor = '#10b981';
+                
+                // 恢复正常文本
+                const modeNames = {
+                    'summary': '库存清单',
+                    'records': '库存记录'
+                };
+                modeText.textContent = modeNames[currentPageMode];
+                
+                // 可以点击
+                button.onclick = togglePageModeSelector;
+            } else {
+                // 禁用状态
+                button.disabled = true;
+                button.style.opacity = '0.5';
+                button.style.cursor = 'not-allowed';
+                button.style.backgroundColor = '#6b7280';
+                
+                // 显示 "--"
+                modeText.textContent = '--';
+                
+                // 移除点击事件
+                button.onclick = null;
+                
+                // 关闭下拉菜单
+                dropdown.classList.remove('show');
             }
         }
 
