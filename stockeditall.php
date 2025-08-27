@@ -1092,7 +1092,7 @@
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
             min-width: 130px;
-            z-index: 1000;
+            z-index: 10000;
             display: none;
             margin-top: 4px;
         }
@@ -1138,7 +1138,7 @@
                     <span id="current-stock-type">中央库存</span>
                     <i class="fas fa-chevron-down"></i>
                     <div class="selector-dropdown" id="stock-dropdown">
-<a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
+                        <a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
                             中央库存
                         </a>
                         <a href="#" class="dropdown-item" onclick="switchStock('j1', event); return false;" data-type="j1">
@@ -1489,13 +1489,18 @@
         document.addEventListener('click', function(event) {
             const selector = event.target.closest('.selector-button');
             const dropdown = event.target.closest('.selector-dropdown');
+            const dropdownItem = event.target.closest('.dropdown-item');
+            
+            // 如果点击的是下拉选项，立即隐藏下拉菜单
+            if (dropdownItem) {
+                document.getElementById('stock-dropdown').classList.remove('show');
+                return;
+            }
             
             // 如果点击的不是选择器按钮且不是下拉菜单内部，则隐藏下拉菜单
             if (!selector && !dropdown) {
                 document.getElementById('stock-dropdown').classList.remove('show');
             }
-            
-            // 如果点击的是下拉选项，也隐藏下拉菜单（这个由switchStock函数处理）
         });
 
         // API 调用函数
