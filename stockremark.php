@@ -390,7 +390,7 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: 12px 22px;
+            padding: 11px 24px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
