@@ -645,6 +645,39 @@
             display: block;
         }
 
+        /* 库存模式切换按钮 */
+        .mode-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: 2px solid #583e04;
+            border-radius: 8px;
+            background: white;
+            color: #583e04;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .mode-btn:hover {
+            background: #f8f5eb;
+            transform: translateY(-1px);
+        }
+
+        .mode-btn.active {
+            background: #583e04;
+            color: white;
+        }
+
         /* 回到顶部按钮 */
         .back-to-top {
             position: fixed;
@@ -782,6 +815,10 @@
                             <span class="currency-symbol">RM</span>
                             <span class="value" id="central-total-value">0.00</span>
                         </div>
+                        <div class="mode-buttons">
+                            <a href="#" class="mode-btn active" onclick="switchMode('central', 'list')">库存清单</a>
+                            <a href="#" class="mode-btn" onclick="switchMode('central', 'records')">库存记录</a>
+                        </div>
                     </div>
                 </div>
                 
@@ -869,6 +906,10 @@
                             <span class="currency-symbol">RM</span>
                             <span class="value" id="j1-total-value">0.00</span>
                         </div>
+                        <div class="mode-buttons">
+                            <a href="#" class="mode-btn active" onclick="switchMode('j1', 'list')">库存清单</a>
+                            <a href="#" class="mode-btn" onclick="switchMode('j1', 'records')">库存记录</a>
+                        </div>
                     </div>
                 </div>
                 
@@ -955,6 +996,10 @@
                         <div class="summary-currency-display">
                             <span class="currency-symbol">RM</span>
                             <span class="value" id="j2-total-value">0.00</span>
+                        </div>
+                        <div class="mode-buttons">
+                            <a href="#" class="mode-btn active" onclick="switchMode('j2', 'list')">库存清单</a>
+                            <a href="#" class="mode-btn" onclick="switchMode('j2', 'records')">库存记录</a>
                         </div>
                     </div>
                 </div>
@@ -1120,6 +1165,13 @@
             remark: false
         };
 
+        // 当前模式状态
+        let currentMode = {
+            central: 'list',
+            j1: 'list',
+            j2: 'list'
+        };
+
         // API配置
         const API_CONFIG = {
             central: 'stocklistapi.php',
@@ -1185,6 +1237,27 @@
             
             // 加载数据
             loadData(system);
+        }
+
+        // 切换库存模式
+        function switchMode(system, mode) {
+            event.preventDefault();
+            
+            if (currentMode[system] === mode) return;
+            
+            currentMode[system] = mode;
+            
+            // 更新按钮状态
+            const modeButtons = document.querySelectorAll(`#${system}-page .mode-btn`);
+            modeButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (mode === 'records') {
+                // 跳转到库存记录页面
+                // 这里需要根据您的实际页面路径修改
+                window.location.href = `stock_records_${system}.php`;
+            }
+            // list模式保持当前页面不变
         }
 
         // 返回上一页
