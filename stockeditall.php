@@ -41,11 +41,11 @@
         .header .controls {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 0px;
         }
 
         .back-button {
-            background-color: #583e04;
+            background-color: #6b7280;
             color: white;
             font-weight: 500;
             padding: 10px 20px;
@@ -58,12 +58,13 @@
             gap: 8px;
             transition: all 0.2s;
             text-decoration: none;
+            margin-left: 16px;
         }
         
         .back-button:hover {
-            background-color: #462d03;
+            background-color: #4b5563;
             transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+            box-shadow: 0 4px 8px rgba(107, 114, 128, 0.2);
         }
 
         /* Alert Messages */
