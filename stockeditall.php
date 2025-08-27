@@ -960,28 +960,6 @@
             border-radius: 4px;
         }
 
-        .page-selector {
-            background-color: #10b981;
-            color: white;
-            font-weight: 500;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .page-selector:hover {
-            background-color: #059669;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
-        }
-
         /* 导出弹窗样式 */
         .export-modal {
             display: none;
@@ -1156,21 +1134,6 @@
                 <h1 id="page-title">中央进出货库存</h1>
             </div>
             <div class="controls">
-                <div class="page-selector" onclick="togglePageDropdown()">
-                    <i class="fas fa-external-link-alt"></i>
-                    切换页面
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="dropdown-menu" id="page-dropdown">
-                        <a href="j1stockedit.php" class="dropdown-item">
-                            <i class="fas fa-file-alt"></i>
-                            J1 stock
-                        </a>
-                        <a href="j2stockedit.php" class="dropdown-item">
-                            <i class="fas fa-file-alt"></i>
-                            J2 stock
-                        </a>
-                    </div>
-                </div>
                 <div class="selector-button" onclick="toggleStockSelector()">
                     <span id="current-stock-type">中央库存</span>
                     <i class="fas fa-chevron-down"></i>
@@ -1462,6 +1425,9 @@
 
         // 切换库存类型
         function switchStock(stockType) {
+            // 阻止默认链接行为
+            event.preventDefault();
+            
             currentStockType = stockType;
             
             // 更新API地址
@@ -1514,12 +1480,6 @@
             } else {
                 window.location.href = '/';
             }
-        }
-
-        // 切换页面选择下拉菜单
-        function togglePageDropdown() {
-            const dropdown = document.getElementById('page-dropdown');
-            dropdown.classList.toggle('show');
         }
 
         // 点击其他地方关闭下拉菜单
