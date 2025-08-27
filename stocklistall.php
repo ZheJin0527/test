@@ -1087,7 +1087,7 @@
 
             <div class="tab-navigation">
                 <button class="tab-button" onclick="switchSystemTab('central')">中央库存</button>
-                <button class="tab-button" onclick="switchSystemTab('j2')">J2库存</button>
+                <button class="tab-button" onclick="switchSystemTab('j1')">J1库存</button>
                 <button class="tab-button active" onclick="switchSystemTab('j2')">J2库存</button>
             </div>
 
