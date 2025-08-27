@@ -1514,19 +1514,8 @@
         // 切换视图
         function switchView(viewType) {
             if (viewType === 'list') {
-                // 跳转到库存清单页面，保持当前库存类型
-                let targetPage = 'stocklistall.php';
-                
-                // 根据当前库存类型构建URL参数
-                if (currentStockType === 'j1') {
-                    targetPage += '?type=j1';
-                } else if (currentStockType === 'j2') {
-                    targetPage += '?type=j2';
-                } else {
-                    targetPage += '?type=central';
-                }
-                
-                window.location.href = targetPage;
+                // 直接跳转到库存清单页面，不带参数
+                window.location.href = 'stocklistall.php';
             } else {
                 // 保持在当前页面（库存记录）
                 hideViewDropdown();
