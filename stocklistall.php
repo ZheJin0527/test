@@ -1925,261 +1925,840 @@
         
         <!-- 中央库存页面 -->
         <div id="central-page" class="page-section active">
-            <div class="main-content-row">
-                <div class="summary-section">
-                    <div class="summary-card total-value">
-                        <h3>总库存</h3>
-                        <div class="summary-currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <span class="value" id="central-total-value">0.00</span>
+            <!-- 汇总模式 -->
+            <div id="central-summary" class="mode-section active">
+                <div class="main-content-row">
+                    <div class="summary-section">
+                        <div class="summary-card total-value">
+                            <h3>总库存</h3>
+                            <div class="summary-currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="value" id="central-total-value">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <label for="central-product-filter">产品名称</label>
+                                <input type="text" id="central-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                            </div>
+                            <div class="filter-group">
+                                <label for="central-code-filter">产品编号</label>
+                                <input type="text" id="central-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                            </div>
+                            <div class="filter-group">
+                                <label for="central-spec-filter">规格单位</label>
+                                <input type="text" id="central-spec-filter" class="filter-input" placeholder="搜索规格单位...">
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="btn btn-primary" onclick="searchData('central')">
+                                <i class="fas fa-search"></i>
+                                搜索
+                            </button>
+                            <button class="btn btn-secondary" onclick="resetFilters('central')">
+                                <i class="fas fa-refresh"></i>
+                                重置
+                            </button>
+                            <button class="btn btn-warning" onclick="exportData('central')">
+                                <i class="fas fa-download"></i>
+                                导出CSV
+                            </button>
                         </div>
                     </div>
                 </div>
-                
-                <div class="filter-section">
-                    <div class="filter-grid">
-                        <div class="filter-group">
-                            <label for="central-product-filter">产品名称</label>
-                            <input type="text" id="central-product-filter" class="filter-input" placeholder="搜索产品名称...">
+
+                <div class="table-container">
+                    <div class="action-buttons">
+                        <div class="stats-info" id="central-stock-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-boxes"></i>
+                                <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
+                            </div>
                         </div>
-                        <div class="filter-group">
-                            <label for="central-code-filter">产品编号</label>
-                            <input type="text" id="central-code-filter" class="filter-input" placeholder="搜索产品编号...">
-                        </div>
-                        <div class="filter-group">
-                            <label for="central-spec-filter">规格单位</label>
-                            <input type="text" id="central-spec-filter" class="filter-input" placeholder="搜索规格单位...">
+                        
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-primary" onclick="refreshData('central')">
+                                <i class="fas fa-sync-alt"></i>
+                                刷新数据
+                            </button>
                         </div>
                     </div>
-                    <div class="filter-actions">
-                        <button class="btn btn-primary" onclick="searchData('central')">
-                            <i class="fas fa-search"></i>
-                            搜索
-                        </button>
-                        <button class="btn btn-secondary" onclick="resetFilters('central')">
-                            <i class="fas fa-refresh"></i>
-                            重置
-                        </button>
-                        <button class="btn btn-warning" onclick="exportData('central')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
+                    
+                    <div class="table-scroll-container">
+                        <table class="stock-table" id="central-stock-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>PRODUCT</th>
+                                    <th>Code Number</th>
+                                    <th>Total Stock</th>
+                                    <th>Specification</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="central-stock-tbody">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
-            <div class="table-container">
-                <div class="action-buttons">
-                    <div class="stats-info" id="central-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
+            <!-- 记录模式 -->
+            <div id="central-records" class="mode-section">
+                <!-- 搜索和过滤区域 -->
+                <div class="filter-section">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="central-date-filter">日期</label>
+                            <input type="date" id="central-date-filter" class="filter-input">
                         </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
+                        <div class="filter-group">
+                            <label for="central-records-code-filter">产品编号</label>
+                            <input type="text" id="central-records-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="central-records-product-filter">产品名称</label>
+                            <input type="text" id="central-records-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="central-receiver-filter">收货人</label>
+                            <input type="text" id="central-receiver-filter" class="filter-input" placeholder="搜索收货人...">
                         </div>
                     </div>
-                    
-                    <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-primary" onclick="refreshData('central')">
-                            <i class="fas fa-sync-alt"></i>
-                            刷新数据
+                    <div class="filter-actions">
+                        <button class="btn btn-primary" onclick="searchRecordsData('central')">
+                            <i class="fas fa-search"></i>
+                            搜索
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetRecordsFilters('central')">
+                            <i class="fas fa-refresh"></i>
+                            重置
+                        </button>
+                        <button class="btn btn-success" onclick="addNewRecord('central')">
+                            <i class="fas fa-plus"></i>
+                            新增记录
+                        </button>
+                        <button class="btn btn-warning" onclick="exportRecordsData('central')">
+                            <i class="fas fa-download"></i>
+                            导出数据
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 新增记录表单 -->
+                <div id="central-add-form" class="add-form">
+                    <h3 style="color: #583e04; margin-bottom: 16px;">新增库存记录</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="central-add-date">日期 *</label>
+                            <input type="date" id="central-add-date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-time">时间 *</label>
+                            <input type="time" id="central-add-time" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-product-name">产品名称 *</label>
+                            <select id="central-add-product-name" class="form-select" onchange="handleProductChange(this, document.getElementById('central-add-code-number'), 'central')" required>
+                                <option value="">请选择产品名称</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-in-qty">入库数量</label>
+                            <input type="number" id="central-add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange('central', 'in')">
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-out-qty">出库数量</label>
+                            <input type="number" id="central-add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange('central', 'out')">
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-target">目标系统</label>
+                            <select id="central-add-target" class="form-select" disabled>
+                                <option value="">请选择</option>
+                                <option value="j1">J1</option>
+                                <option value="j2">J2</option>
+                                <option value="central">Central</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-specification">规格单位 *</label>
+                            <select id="central-add-specification" class="form-select" required>
+                                <option value="">请选择规格</option>
+                                <option value="Tub">Tub</option>
+                                <option value="Kilo">Kilo</option>
+                                <option value="Piece">Piece</option>
+                                <option value="Bottle">Bottle</option>
+                                <option value="Box">Box</option>
+                                <option value="Packet">Packet</option>
+                                <option value="Carton">Carton</option>
+                                <option value="Tin">Tin</option>
+                                <option value="Roll">Roll</option>
+                                <option value="Nos">Nos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-price">单价</label>
+                            <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
+                                <span class="currency-symbol">RM</span>
+                                <select id="central-add-price-select" class="form-select" style="border: none; background: transparent; display: none;" onchange="handleAddFormPriceChange('central')">
+                                    <option value="">请先选择产品</option>
+                                </select>
+                                <input type="number" id="central-add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-receiver">收货人 *</label>
+                            <input type="text" id="central-add-receiver" class="form-input" placeholder="输入收货人..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-applicant">申请人 *</label>
+                            <input type="text" id="central-add-applicant" class="form-input" placeholder="输入申请人..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-code-number">编号</label>
+                            <select id="central-add-code-number" class="form-select" onchange="handleCodeNumberChange(this, document.getElementById('central-add-product-name'), 'central')">
+                                <option value="">请选择编号</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="central-add-remark">备注</label>
+                            <input type="text" id="central-add-remark" class="form-input" placeholder="输入备注...">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="toggleAddForm('central')">
+                            <i class="fas fa-times"></i>
+                            取消
+                        </button>
+                        <button class="btn btn-success" onclick="saveNewRecord('central')">
+                            <i class="fas fa-save"></i>
+                            保存
                         </button>
                     </div>
                 </div>
                 
-                <div class="table-scroll-container">
-                    <table class="stock-table" id="central-stock-table">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>PRODUCT</th>
-                                <th>Code Number</th>
-                                <th>Total Stock</th>
-                                <th>Specification</th>
-                                <th>Unit Price</th>
-                                <th>Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody id="central-stock-tbody">
-                            <!-- Dynamic content -->
-                        </tbody>
-                    </table>
+                <!-- 库存记录表格 -->
+                <div class="table-container">
+                    <div class="action-buttons">
+                        <div class="stats-info" id="central-records-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-boxes"></i>
+                                <span>总记录数: <span class="stat-value" id="central-total-records-count">0</span></span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-primary" onclick="refreshRecordsData('central')">
+                                <i class="fas fa-sync-alt"></i>
+                                刷新数据
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-scroll-container">
+                        <table class="stock-table" id="central-records-table">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 100px;">DATE</th>
+                                    <th style="min-width: 100px;">Code Number</th>
+                                    <th class="product-name-col">PRODUCT</th>
+                                    <th style="min-width: 80px;">In</th>
+                                    <th style="min-width: 80px;">Out</th>
+                                    <th style="min-width: 100px;">Target</th>
+                                    <th style="min-width: 100px;">Specification</th>
+                                    <th style="min-width: 100px;">Price</th>
+                                    <th style="min-width: 100px;">Total</th>
+                                    <th class="receiver-col">Name</th>
+                                    <th style="min-width: 100px;">Remark</th>
+                                    <th style="min-width: 80px;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="central-records-tbody">
+                                <!-- 动态生成行 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 导出数据弹窗 -->
+                <div id="central-export-modal" class="export-modal">
+                    <div class="export-modal-content">
+                        <button class="close-export-modal" onclick="closeExportModal('central')">&times;</button>
+                        <h3>导出数据设置</h3>
+                        
+                        <div class="export-form-group">
+                            <label for="central-export-start-date">开始日期</label>
+                            <input type="date" id="central-export-start-date" required>
+                        </div>
+                        
+                        <div class="export-form-group">
+                            <label for="central-export-end-date">结束日期</label>
+                            <input type="date" id="central-export-end-date" required>
+                        </div>
+                        
+                        <div class="export-form-group">
+                            <label>数据类型</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="central-export-in-data" value="in" checked>
+                                    <label for="central-export-in-data">入库数据</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="central-export-out-data" value="out" checked>
+                                    <label for="central-export-out-data">出库数据</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="export-modal-actions">
+                            <button class="btn btn-secondary" onclick="closeExportModal('central')">
+                                <i class="fas fa-times"></i>
+                                取消
+                            </button>
+                            <button class="btn btn-success" onclick="confirmExport('central')">
+                                <i class="fas fa-download"></i>
+                                导出Excel
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- J1库存页面 -->
         <div id="j1-page" class="page-section">
-            <div class="main-content-row">
-                <div class="summary-section">
-                    <div class="summary-card total-value">
-                        <h3>J1总库存</h3>
-                        <div class="summary-currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <span class="value" id="j1-total-value">0.00</span>
+            <!-- 汇总模式 -->
+            <div id="j1-summary" class="mode-section active">
+                <div class="main-content-row">
+                    <div class="summary-section">
+                        <div class="summary-card total-value">
+                            <h3>J1总库存</h3>
+                            <div class="summary-currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="value" id="j1-total-value">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <label for="j1-product-filter">产品名称</label>
+                                <input type="text" id="j1-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                            </div>
+                            <div class="filter-group">
+                                <label for="j1-code-filter">产品编号</label>
+                                <input type="text" id="j1-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                            </div>
+                            <div class="filter-group">
+                                <label for="j1-spec-filter">规格单位</label>
+                                <input type="text" id="j1-spec-filter" class="filter-input" placeholder="搜索规格单位...">
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="btn btn-primary" onclick="searchData('j1')">
+                                <i class="fas fa-search"></i>
+                                搜索
+                            </button>
+                            <button class="btn btn-secondary" onclick="resetFilters('j1')">
+                                <i class="fas fa-refresh"></i>
+                                重置
+                            </button>
+                            <button class="btn btn-warning" onclick="exportData('j1')">
+                                <i class="fas fa-download"></i>
+                                导出CSV
+                            </button>
                         </div>
                     </div>
                 </div>
-                
-                <div class="filter-section">
-                    <div class="filter-grid">
-                        <div class="filter-group">
-                            <label for="j1-product-filter">产品名称</label>
-                            <input type="text" id="j1-product-filter" class="filter-input" placeholder="搜索产品名称...">
+
+                <div class="table-container">
+                    <div class="action-buttons">
+                        <div class="stats-info" id="j1-stock-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>显示记录: <span class="stat-value" id="j1-displayed-records">0</span></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-boxes"></i>
+                                <span>总记录: <span class="stat-value" id="j1-total-records">0</span></span>
+                            </div>
                         </div>
-                        <div class="filter-group">
-                            <label for="j1-code-filter">产品编号</label>
-                            <input type="text" id="j1-code-filter" class="filter-input" placeholder="搜索产品编号...">
-                        </div>
-                        <div class="filter-group">
-                            <label for="j1-spec-filter">规格单位</label>
-                            <input type="text" id="j1-spec-filter" class="filter-input" placeholder="搜索规格单位...">
+                        
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-primary" onclick="refreshData('j1')">
+                                <i class="fas fa-sync-alt"></i>
+                                刷新数据
+                            </button>
                         </div>
                     </div>
-                    <div class="filter-actions">
-                        <button class="btn btn-primary" onclick="searchData('j1')">
-                            <i class="fas fa-search"></i>
-                            搜索
-                        </button>
-                        <button class="btn btn-secondary" onclick="resetFilters('j1')">
-                            <i class="fas fa-refresh"></i>
-                            重置
-                        </button>
-                        <button class="btn btn-warning" onclick="exportData('j1')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
+                    
+                    <div class="table-scroll-container">
+                        <table class="stock-table" id="j1-stock-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>PRODUCT</th>
+                                    <th>Code Number</th>
+                                    <th>Total Stock</th>
+                                    <th>Specification</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="j1-stock-tbody">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
-            <div class="table-container">
-                <div class="action-buttons">
-                    <div class="stats-info" id="j1-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="j1-displayed-records">0</span></span>
+            <!-- J1记录模式 -->
+            <div id="j1-records" class="mode-section">
+                <!-- 搜索和过滤区域 -->
+                <div class="filter-section">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="j1-date-filter">日期</label>
+                            <input type="date" id="j1-date-filter" class="filter-input">
                         </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="j1-total-records">0</span></span>
+                        <div class="filter-group">
+                            <label for="j1-records-code-filter">产品编号</label>
+                            <input type="text" id="j1-records-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="j1-records-product-filter">产品名称</label>
+                            <input type="text" id="j1-records-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="j1-receiver-filter">收货人</label>
+                            <input type="text" id="j1-receiver-filter" class="filter-input" placeholder="搜索收货人...">
                         </div>
                     </div>
-                    
-                    <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-primary" onclick="refreshData('j1')">
-                            <i class="fas fa-sync-alt"></i>
-                            刷新数据
+                    <div class="filter-actions">
+                        <button class="btn btn-primary" onclick="searchRecordsData('j1')">
+                            <i class="fas fa-search"></i>
+                            搜索
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetRecordsFilters('j1')">
+                            <i class="fas fa-refresh"></i>
+                            重置
+                        </button>
+                        <button class="btn btn-success" onclick="addNewRecord('j1')">
+                            <i class="fas fa-plus"></i>
+                            新增记录
+                        </button>
+                        <button class="btn btn-warning" onclick="exportRecordsData('j1')">
+                            <i class="fas fa-download"></i>
+                            导出数据
+                        </button>
+                    </div>
+                </div>
+
+                <!-- J1新增记录表单 -->
+                <div id="j1-add-form" class="add-form">
+                    <h3 style="color: #583e04; margin-bottom: 16px;">新增库存记录</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="j1-add-date">日期 *</label>
+                            <input type="date" id="j1-add-date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-time">时间 *</label>
+                            <input type="time" id="j1-add-time" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-product-name">产品名称 *</label>
+                            <select id="j1-add-product-name" class="form-select" onchange="handleProductChange(this, document.getElementById('j1-add-code-number'), 'j1')" required>
+                                <option value="">请选择产品名称</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-in-qty">入库数量</label>
+                            <input type="number" id="j1-add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange('j1', 'in')">
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-out-qty">出库数量</label>
+                            <input type="number" id="j1-add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange('j1', 'out')">
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-target">目标系统</label>
+                            <select id="j1-add-target" class="form-select" disabled>
+                                <option value="">请选择</option>
+                                <option value="j1">J1</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-specification">规格单位 *</label>
+                            <select id="j1-add-specification" class="form-select" required>
+                                <option value="">请选择规格</option>
+                                <option value="Tub">Tub</option>
+                                <option value="Kilo">Kilo</option>
+                                <option value="Piece">Piece</option>
+                                <option value="Bottle">Bottle</option>
+                                <option value="Box">Box</option>
+                                <option value="Packet">Packet</option>
+                                <option value="Carton">Carton</option>
+                                <option value="Tin">Tin</option>
+                                <option value="Roll">Roll</option>
+                                <option value="Nos">Nos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-price">单价</label>
+                            <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
+                                <span class="currency-symbol">RM</span>
+                                <select id="j1-add-price-select" class="form-select" style="border: none; background: transparent; display: none;" onchange="handleAddFormPriceChange('j1')">
+                                    <option value="">请先选择产品</option>
+                                </select>
+                                <input type="number" id="j1-add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-receiver">收货人 *</label>
+                            <input type="text" id="j1-add-receiver" class="form-input" placeholder="输入收货人..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-applicant">申请人 *</label>
+                            <input type="text" id="j1-add-applicant" class="form-input" placeholder="输入申请人..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-code-number">编号</label>
+                            <select id="j1-add-code-number" class="form-select" onchange="handleCodeNumberChange(this, document.getElementById('j1-add-product-name'), 'j1')">
+                                <option value="">请选择编号</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="j1-add-remark">备注</label>
+                            <input type="text" id="j1-add-remark" class="form-input" placeholder="输入备注...">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="toggleAddForm('j1')">
+                            <i class="fas fa-times"></i>
+                            取消
+                        </button>
+                        <button class="btn btn-success" onclick="saveNewRecord('j1')">
+                            <i class="fas fa-save"></i>
+                            保存
                         </button>
                     </div>
                 </div>
                 
-                <div class="table-scroll-container">
-                    <table class="stock-table" id="j1-stock-table">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>PRODUCT</th>
-                                <th>Code Number</th>
-                                <th>Total Stock</th>
-                                <th>Specification</th>
-                                <th>Unit Price</th>
-                                <th>Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody id="j1-stock-tbody">
-                            <!-- Dynamic content -->
-                        </tbody>
-                    </table>
+                <!-- J1库存记录表格 -->
+                <div class="table-container">
+                    <div class="action-buttons">
+                        <div class="stats-info" id="j1-records-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-boxes"></i>
+                                <span>总记录数: <span class="stat-value" id="j1-total-records-count">0</span></span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-primary" onclick="refreshRecordsData('j1')">
+                                <i class="fas fa-sync-alt"></i>
+                                刷新数据
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-scroll-container">
+                        <table class="stock-table" id="j1-records-table">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 100px;">DATE</th>
+                                    <th style="min-width: 100px;">Code Number</th>
+                                    <th class="product-name-col">PRODUCT</th>
+                                    <th style="min-width: 80px;">In</th>
+                                    <th style="min-width: 80px;">Out</th>
+                                    <th style="min-width: 100px;">Target</th>
+                                    <th style="min-width: 100px;">Specification</th>
+                                    <th style="min-width: 100px;">Price</th>
+                                    <th style="min-width: 100px;">Total</th>
+                                    <th class="receiver-col">Name</th>
+                                    <th style="min-width: 100px;">Remark</th>
+                                    <th style="min-width: 80px;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="j1-records-tbody">
+                                <!-- 动态生成行 -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- J2库存页面 -->
         <div id="j2-page" class="page-section">
-            <div class="main-content-row">
-                <div class="summary-section">
-                    <div class="summary-card total-value">
-                        <h3>J2总库存</h3>
-                        <div class="summary-currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <span class="value" id="j2-total-value">0.00</span>
+            <!-- 汇总模式 -->
+            <div id="j2-summary" class="mode-section active">
+                <div class="main-content-row">
+                    <div class="summary-section">
+                        <div class="summary-card total-value">
+                            <h3>J2总库存</h3>
+                            <div class="summary-currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="value" id="j2-total-value">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <label for="j2-product-filter">产品名称</label>
+                                <input type="text" id="j2-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                            </div>
+                            <div class="filter-group">
+                                <label for="j2-code-filter">产品编号</label>
+                                <input type="text" id="j2-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                            </div>
+                            <div class="filter-group">
+                                <label for="j2-spec-filter">规格单位</label>
+                                <input type="text" id="j2-spec-filter" class="filter-input" placeholder="搜索规格单位...">
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="btn btn-primary" onclick="searchData('j2')">
+                                <i class="fas fa-search"></i>
+                                搜索
+                            </button>
+                            <button class="btn btn-secondary" onclick="resetFilters('j2')">
+                                <i class="fas fa-refresh"></i>
+                                重置
+                            </button>
+                            <button class="btn btn-warning" onclick="exportData('j2')">
+                                <i class="fas fa-download"></i>
+                                导出CSV
+                            </button>
                         </div>
                     </div>
                 </div>
-                
-                <div class="filter-section">
-                    <div class="filter-grid">
-                        <div class="filter-group">
-                            <label for="j2-product-filter">产品名称</label>
-                            <input type="text" id="j2-product-filter" class="filter-input" placeholder="搜索产品名称...">
+
+                <div class="table-container">
+                    <div class="action-buttons">
+                        <div class="stats-info" id="j2-stock-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>显示记录: <span class="stat-value" id="j2-displayed-records">0</span></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-boxes"></i>
+                                <span>总记录: <span class="stat-value" id="j2-total-records">0</span></span>
+                            </div>
                         </div>
-                        <div class="filter-group">
-                            <label for="j2-code-filter">产品编号</label>
-                            <input type="text" id="j2-code-filter" class="filter-input" placeholder="搜索产品编号...">
-                        </div>
-                        <div class="filter-group">
-                            <label for="j2-spec-filter">规格单位</label>
-                            <input type="text" id="j2-spec-filter" class="filter-input" placeholder="搜索规格单位...">
+                        
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-primary" onclick="refreshData('j2')">
+                                <i class="fas fa-sync-alt"></i>
+                                刷新数据
+                            </button>
                         </div>
                     </div>
-                    <div class="filter-actions">
-                        <button class="btn btn-primary" onclick="searchData('j2')">
-                            <i class="fas fa-search"></i>
-                            搜索
-                        </button>
-                        <button class="btn btn-secondary" onclick="resetFilters('j2')">
-                            <i class="fas fa-refresh"></i>
-                            重置
-                        </button>
-                        <button class="btn btn-warning" onclick="exportData('j2')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
+                    
+                    <div class="table-scroll-container">
+                        <table class="stock-table" id="j2-stock-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>PRODUCT</th>
+                                    <th>Code Number</th>
+                                    <th>Total Stock</th>
+                                    <th>Specification</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="j2-stock-tbody">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
-            <div class="table-container">
-                <div class="action-buttons">
-                    <div class="stats-info" id="j2-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="j2-displayed-records">0</span></span>
+            <!-- J2记录模式 -->
+            <div id="j2-records" class="mode-section">
+                <!-- 搜索和过滤区域 -->
+                <div class="filter-section">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="j2-date-filter">日期</label>
+                            <input type="date" id="j2-date-filter" class="filter-input">
                         </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="j2-total-records">0</span></span>
+                        <div class="filter-group">
+                            <label for="j2-records-code-filter">产品编号</label>
+                            <input type="text" id="j2-records-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="j2-records-product-filter">产品名称</label>
+                            <input type="text" id="j2-records-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="j2-receiver-filter">收货人</label>
+                            <input type="text" id="j2-receiver-filter" class="filter-input" placeholder="搜索收货人...">
                         </div>
                     </div>
-                    
-                    <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-primary" onclick="refreshData('j2')">
-                            <i class="fas fa-sync-alt"></i>
-                            刷新数据
+                    <div class="filter-actions">
+                        <button class="btn btn-primary" onclick="searchRecordsData('j2')">
+                            <i class="fas fa-search"></i>
+                            搜索
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetRecordsFilters('j2')">
+                            <i class="fas fa-refresh"></i>
+                            重置
+                        </button>
+                        <button class="btn btn-success" onclick="addNewRecord('j2')">
+                            <i class="fas fa-plus"></i>
+                            新增记录
+                        </button>
+                        <button class="btn btn-warning" onclick="exportRecordsData('j2')">
+                            <i class="fas fa-download"></i>
+                            导出数据
+                        </button>
+                    </div>
+                </div>
+
+                <!-- J2新增记录表单 -->
+                <div id="j2-add-form" class="add-form">
+                    <h3 style="color: #583e04; margin-bottom: 16px;">新增库存记录</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="j2-add-date">日期 *</label>
+                            <input type="date" id="j2-add-date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-time">时间 *</label>
+                            <input type="time" id="j2-add-time" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-product-name">产品名称 *</label>
+                            <select id="j2-add-product-name" class="form-select" onchange="handleProductChange(this, document.getElementById('j2-add-code-number'), 'j2')" required>
+                                <option value="">请选择产品名称</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-in-qty">入库数量</label>
+                            <input type="number" id="j2-add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange('j2', 'in')">
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-out-qty">出库数量</label>
+                            <input type="number" id="j2-add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormQuantityChange('j2', 'out')">
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-target">目标系统</label>
+                            <select id="j2-add-target" class="form-select" disabled>
+                                <option value="">请选择</option>
+                                <option value="j2">J2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-specification">规格单位 *</label>
+                            <select id="j2-add-specification" class="form-select" required>
+                                <option value="">请选择规格</option>
+                                <option value="Tub">Tub</option>
+                                <option value="Kilo">Kilo</option>
+                                <option value="Piece">Piece</option>
+                                <option value="Bottle">Bottle</option>
+                                <option value="Box">Box</option>
+                                <option value="Packet">Packet</option>
+                                <option value="Carton">Carton</option>
+                                <option value="Tin">Tin</option>
+                                <option value="Roll">Roll</option>
+                                <option value="Nos">Nos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-price">单价</label>
+                            <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
+                                <span class="currency-symbol">RM</span>
+                                <select id="j2-add-price-select" class="form-select" style="border: none; background: transparent; display: none;" onchange="handleAddFormPriceChange('j2')">
+                                    <option value="">请先选择产品</option>
+                                </select>
+                                <input type="number" id="j2-add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-receiver">收货人 *</label>
+                            <input type="text" id="j2-add-receiver" class="form-input" placeholder="输入收货人..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-applicant">申请人 *</label>
+                            <input type="text" id="j2-add-applicant" class="form-input" placeholder="输入申请人..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-code-number">编号</label>
+                            <select id="j2-add-code-number" class="form-select" onchange="handleCodeNumberChange(this, document.getElementById('j2-add-product-name'), 'j2')">
+                                <option value="">请选择编号</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="j2-add-remark">备注</label>
+                            <input type="text" id="j2-add-remark" class="form-input" placeholder="输入备注...">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="toggleAddForm('j2')">
+                            <i class="fas fa-times"></i>
+                            取消
+                        </button>
+                        <button class="btn btn-success" onclick="saveNewRecord('j2')">
+                            <i class="fas fa-save"></i>
+                            保存
                         </button>
                     </div>
                 </div>
                 
-                <div class="table-scroll-container">
-                    <table class="stock-table" id="j2-stock-table">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>PRODUCT</th>
-                                <th>Code Number</th>
-                                <th>Total Stock</th>
-                                <th>Specification</th>
-                                <th>Unit Price</th>
-                                <th>Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody id="j2-stock-tbody">
-                            <!-- Dynamic content -->
-                        </tbody>
-                    </table>
+                <!-- J2库存记录表格 -->
+                <div class="table-container">
+                    <div class="action-buttons">
+                        <div class="stats-info" id="j2-records-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-boxes"></i>
+                                <span>总记录数: <span class="stat-value" id="j2-total-records-count">0</span></span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-primary" onclick="refreshRecordsData('j2')">
+                                <i class="fas fa-sync-alt"></i>
+                                刷新数据
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-scroll-container">
+                        <table class="stock-table" id="j2-records-table">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 100px;">DATE</th>
+                                    <th style="min-width: 100px;">Code Number</th>
+                                    <th class="product-name-col">PRODUCT</th>
+                                    <th style="min-width: 80px;">In</th>
+                                    <th style="min-width: 80px;">Out</th>
+                                    <th style="min-width: 100px;">Target</th>
+                                    <th style="min-width: 100px;">Specification</th>
+                                    <th style="min-width: 100px;">Price</th>
+                                    <th style="min-width: 100px;">Total</th>
+                                    <th class="receiver-col">Name</th>
+                                    <th style="min-width: 100px;">Remark</th>
+                                    <th style="min-width: 80px;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="j2-records-tbody">
+                                <!-- 动态生成行 -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2259,11 +2838,21 @@
             j2: [],
             remark: []
         };
+        let recordsData = {
+            central: [],
+            j1: [],
+            j2: []
+        };
         let filteredData = {
             central: [],
             j1: [],
             j2: [],
             remark: []
+        };
+        let filteredRecordsData = {
+            central: [],
+            j1: [],
+            j2: []
         };
         let isLoading = {
             central: false,
@@ -2271,13 +2860,19 @@
             j2: false,
             remark: false
         };
+        let productCodes = {};
 
         // API配置
         const API_CONFIG = {
             central: 'stocklistapi.php',
-            j1: 'j1stocklistapi.php',
+            j1: 'j1stocklistapi.php', 
             j2: 'j2stocklistapi.php',
-            remark: 'stockremarkapi.php'
+            remark: 'stockremarkapi.php',
+            records: {
+                central: 'stockeditapi.php',
+                j1: 'j1stockeditapi.php',
+                j2: 'j2stockeditapi.php'
+            }
         };
 
         const SYSTEM_NAMES = {
@@ -2295,9 +2890,9 @@
                 remark: '库存价格分析'
             },
             records: {
-                central: '中央库存记录',
-                j1: 'J1库存记录',
-                j2: 'J2库存记录',
+                central: '中央进出货库存',
+                j1: 'J1进出货库存',
+                j2: 'J2进出货库存',
                 remark: '库存记录分析'
             }
         };
@@ -2360,11 +2955,18 @@
             });
             document.getElementById(system + '-page').classList.add('active');
             
+            // 切换模式部分
+            switchModeSection(system, currentPageMode);
+            
             // 隐藏下拉菜单
             document.getElementById('selector-dropdown').classList.remove('show');
             
             // 加载数据
-            loadData(system);
+            if (currentPageMode === 'records' && system !== 'remark') {
+                loadRecordsData(system);
+            } else {
+                loadData(system);
+            }
         }
 
         // 切换页面模式选择器
@@ -2415,12 +3017,30 @@
             // 隐藏下拉菜单
             document.getElementById('page-mode-dropdown').classList.remove('show');
             
+            // 切换模式部分
+            switchModeSection(currentSystem, mode);
+            
             // 根据模式加载相应数据
             if (mode === 'records') {
-                showAlert('库存记录功能开发中...', 'info');
-                // 将来可以调用不同的API
+                loadRecordsData(currentSystem);
             } else {
                 loadData(currentSystem);
+            }
+        }
+
+        // 切换模式部分显示
+        function switchModeSection(system, mode) {
+            if (system === 'remark') return;
+            
+            const summarySection = document.getElementById(`${system}-summary`);
+            const recordsSection = document.getElementById(`${system}-records`);
+            
+            if (mode === 'records') {
+                summarySection.classList.remove('active');
+                recordsSection.classList.add('active');
+            } else {
+                recordsSection.classList.remove('active');
+                summarySection.classList.add('active');
             }
         }
 
@@ -2480,7 +3100,13 @@
         // API调用函数
         async function apiCall(system, endpoint, options = {}) {
             try {
-                const baseUrl = API_CONFIG[system];
+                let baseUrl;
+                if (currentPageMode === 'records' && system !== 'remark') {
+                    baseUrl = API_CONFIG.records[system];
+                } else {
+                    baseUrl = API_CONFIG[system];
+                }
+                
                 const response = await fetch(`${baseUrl}${endpoint}`, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -2501,7 +3127,7 @@
             }
         }
 
-        // 加载数据
+        // 加载汇总数据
         async function loadData(system) {
             if (isLoading[system]) return;
             
@@ -2567,6 +3193,50 @@
             }
         }
 
+        // 加载记录数据
+        async function loadRecordsData(system) {
+            if (isLoading[system] || system === 'remark') return;
+            
+            isLoading[system] = true;
+            setRecordsLoadingState(system, true);
+            
+            try {
+                const result = await apiCall(system, '?action=list');
+                
+                if (result.success) {
+                    recordsData[system] = result.data.records || [];
+                    filteredRecordsData[system] = [...recordsData[system]];
+                    
+                    renderRecordsTable(system);
+                    updateRecordsStats(system);
+                    
+                    // 加载产品代码数据用于表单
+                    if (result.data.product_codes) {
+                        productCodes[system] = result.data.product_codes;
+                        populateProductSelects(system);
+                    }
+                    
+                    if (recordsData[system].length === 0) {
+                        showAlert(`当前没有${SYSTEM_NAMES[system]}记录数据`, 'info');
+                    }
+                } else {
+                    recordsData[system] = [];
+                    filteredRecordsData[system] = [];
+                    showAlert('获取记录数据失败: ' + (result.message || '未知错误'), 'error');
+                    renderRecordsTable(system);
+                }
+                
+            } catch (error) {
+                recordsData[system] = [];
+                filteredRecordsData[system] = [];
+                showAlert('网络错误，请检查连接', 'error');
+                renderRecordsTable(system);
+            } finally {
+                isLoading[system] = false;
+                setRecordsLoadingState(system, false);
+            }
+        }
+
         // 搜索数据
         function searchData(system) {
             if (system === 'remark') {
@@ -2593,6 +3263,34 @@
                 showAlert('未找到匹配的记录', 'info');
             } else {
                 showAlert(`找到 ${filteredData[system].length} 条匹配记录`, 'success');
+            }
+        }
+
+        // 搜索记录数据
+        function searchRecordsData(system) {
+            if (system === 'remark') return;
+
+            const dateFilter = document.getElementById(`${system}-date-filter`).value;
+            const codeFilter = document.getElementById(`${system}-records-code-filter`).value.toLowerCase();
+            const productFilter = document.getElementById(`${system}-records-product-filter`).value.toLowerCase();
+            const receiverFilter = document.getElementById(`${system}-receiver-filter`).value.toLowerCase();
+
+            filteredRecordsData[system] = recordsData[system].filter(item => {
+                const matchDate = !dateFilter || item.date === dateFilter;
+                const matchCode = !codeFilter || (item.code_number && item.code_number.toLowerCase().includes(codeFilter));
+                const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
+                const matchReceiver = !receiverFilter || item.receiver.toLowerCase().includes(receiverFilter);
+
+                return matchDate && matchCode && matchProduct && matchReceiver;
+            });
+
+            renderRecordsTable(system);
+            updateRecordsStats(system);
+            
+            if (filteredRecordsData[system].length === 0) {
+                showAlert('未找到匹配的记录', 'info');
+            } else {
+                showAlert(`找到 ${filteredRecordsData[system].length} 条匹配记录`, 'success');
             }
         }
 
@@ -2671,7 +3369,23 @@
             showAlert('搜索条件已重置', 'info');
         }
 
-        // 设置加载状态
+        // 重置记录搜索过滤器
+        function resetRecordsFilters(system) {
+            if (system === 'remark') return;
+            
+            document.getElementById(`${system}-date-filter`).value = '';
+            document.getElementById(`${system}-records-code-filter`).value = '';
+            document.getElementById(`${system}-records-product-filter`).value = '';
+            document.getElementById(`${system}-receiver-filter`).value = '';
+            
+            filteredRecordsData[system] = [...recordsData[system]];
+            renderRecordsTable(system);
+            updateRecordsStats(system);
+            
+            showAlert('搜索条件已重置', 'info');
+        }
+
+        // 设置汇总数据加载状态
         function setLoadingState(system, loading) {
             if (system === 'remark') {
                 const container = document.getElementById('remark-products-container');
@@ -2698,6 +3412,23 @@
             }
         }
 
+        // 设置记录数据加载状态
+        function setRecordsLoadingState(system, loading) {
+            if (system === 'remark') return;
+            
+            const tbody = document.getElementById(`${system}-records-tbody`);
+            if (loading) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="12" style="padding: 40px; text-align: center;">
+                            <div class="loading"></div>
+                            <div style="margin-top: 16px; color: #6b7280;">正在加载${SYSTEM_NAMES[system]}记录数据...</div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
         // 更新汇总卡片
         function updateSummaryCards(system, data) {
             document.getElementById(`${system}-total-value`).textContent = data.formatted_total_value || '0.00';
@@ -2710,6 +3441,12 @@
             
             document.getElementById(`${system}-displayed-records`).textContent = displayedRecords;
             document.getElementById(`${system}-total-records`).textContent = totalRecords;
+        }
+
+        // 更新记录统计信息
+        function updateRecordsStats(system) {
+            const totalRecords = filteredRecordsData[system].length;
+            document.getElementById(`${system}-total-records-count`).textContent = totalRecords;
         }
 
         // 渲染库存表格
@@ -2778,6 +3515,67 @@
                     </td>
                 </tr>
             `;
+            
+            tbody.innerHTML = tableRows;
+        }
+
+        // 渲染记录表格
+        function renderRecordsTable(system) {
+            if (system === 'remark') return;
+            
+            const tbody = document.getElementById(`${system}-records-tbody`);
+            
+            if (filteredRecordsData[system].length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="12" class="no-data">
+                            <i class="fas fa-inbox"></i>
+                            <div>暂无${SYSTEM_NAMES[system]}记录数据</div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let tableRows = '';
+            
+            filteredRecordsData[system].forEach((item, index) => {
+                const inQty = parseFloat(item.in_qty) || 0;
+                const outQty = parseFloat(item.out_qty) || 0;
+                const price = parseFloat(item.price) || 0;
+                const total = (inQty > 0 ? inQty : outQty) * price;
+                
+                tableRows += `
+                    <tr>
+                        <td class="text-center">${item.date}</td>
+                        <td class="text-center">${item.code_number || '-'}</td>
+                        <td><strong>${item.product_name}</strong></td>
+                        <td class="text-center">${inQty > 0 ? formatCurrency(inQty) : '-'}</td>
+                        <td class="text-center">${outQty > 0 ? formatCurrency(outQty) : '-'}</td>
+                        <td class="text-center">${item.target || '-'}</td>
+                        <td class="text-center">${item.specification || '-'}</td>
+                        <td class="price-cell">
+                            <div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="currency-amount">${formatCurrency(price)}</span>
+                            </div>
+                        </td>
+                        <td class="price-cell">
+                            <div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="currency-amount">${formatCurrency(total)}</span>
+                            </div>
+                        </td>
+                        <td class="text-center">${item.receiver || '-'}</td>
+                        <td class="text-center">${item.remark || '-'}</td>
+                        <td class="text-center">
+                            <button class="btn-icon btn-danger" onclick="deleteRecord('${system}', ${item.id})" title="删除">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
             
             tbody.innerHTML = tableRows;
         }
@@ -2864,6 +3662,210 @@
             loadData(system);
         }
 
+        // 刷新记录数据
+        function refreshRecordsData(system) {
+            if (system === 'remark') return;
+            loadRecordsData(system);
+        }
+
+        // 新增记录按钮
+        function addNewRecord(system) {
+            if (system === 'remark') return;
+            toggleAddForm(system);
+        }
+
+        // 切换新增表单显示
+        function toggleAddForm(system) {
+            if (system === 'remark') return;
+            
+            const form = document.getElementById(`${system}-add-form`);
+            const isVisible = form.style.display === 'block';
+            
+            if (isVisible) {
+                form.style.display = 'none';
+                clearAddForm(system);
+            } else {
+                form.style.display = 'block';
+                initializeAddForm(system);
+            }
+        }
+
+        // 初始化新增表单
+        function initializeAddForm(system) {
+            const today = new Date().toISOString().split('T')[0];
+            const now = new Date().toTimeString().substr(0, 5);
+            
+            document.getElementById(`${system}-add-date`).value = today;
+            document.getElementById(`${system}-add-time`).value = now;
+            
+            // 设置目标系统默认值
+            const targetMapping = {
+                'central': ['j1', 'j2', 'central'],
+                'j1': ['j1'],
+                'j2': ['j2']
+            };
+            
+            const targetSelect = document.getElementById(`${system}-add-target`);
+            if (targetMapping[system] && targetMapping[system].length === 1) {
+                targetSelect.value = targetMapping[system][0];
+            }
+        }
+
+        // 清除新增表单
+        function clearAddForm(system) {
+            const form = document.getElementById(`${system}-add-form`);
+            const inputs = form.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (input.type !== 'date' && input.type !== 'time') {
+                    input.value = '';
+                }
+            });
+        }
+
+        // 保存新记录
+        async function saveNewRecord(system) {
+            if (system === 'remark') return;
+            
+            try {
+                const formData = {
+                    date: document.getElementById(`${system}-add-date`).value,
+                    time: document.getElementById(`${system}-add-time`).value,
+                    product_name: document.getElementById(`${system}-add-product-name`).value,
+                    code_number: document.getElementById(`${system}-add-code-number`).value,
+                    in_qty: document.getElementById(`${system}-add-in-qty`).value || '0',
+                    out_qty: document.getElementById(`${system}-add-out-qty`).value || '0',
+                    target: document.getElementById(`${system}-add-target`).value,
+                    specification: document.getElementById(`${system}-add-specification`).value,
+                    price: document.getElementById(`${system}-add-price`).value || '0',
+                    receiver: document.getElementById(`${system}-add-receiver`).value,
+                    applicant: document.getElementById(`${system}-add-applicant`).value,
+                    remark: document.getElementById(`${system}-add-remark`).value
+                };
+
+                // 验证必填字段
+                if (!formData.date || !formData.time || !formData.product_name || 
+                    !formData.specification || !formData.receiver || !formData.applicant) {
+                    showAlert('请填写所有必填字段', 'error');
+                    return;
+                }
+
+                // 验证数量
+                if (parseFloat(formData.in_qty) === 0 && parseFloat(formData.out_qty) === 0) {
+                    showAlert('入库数量或出库数量至少填写一项', 'error');
+                    return;
+                }
+
+                const result = await apiCall(system, '', {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'add', ...formData })
+                });
+
+                if (result.success) {
+                    showAlert('记录保存成功', 'success');
+                    toggleAddForm(system);
+                    loadRecordsData(system);
+                } else {
+                    showAlert('保存失败: ' + (result.message || '未知错误'), 'error');
+                }
+            } catch (error) {
+                showAlert('保存失败，请检查网络连接', 'error');
+            }
+        }
+
+        // 删除记录
+        async function deleteRecord(system, recordId) {
+            if (system === 'remark') return;
+            
+            if (!confirm('确定要删除这条记录吗？')) {
+                return;
+            }
+
+            try {
+                const result = await apiCall(system, '', {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'delete', id: recordId })
+                });
+
+                if (result.success) {
+                    showAlert('记录删除成功', 'success');
+                    loadRecordsData(system);
+                } else {
+                    showAlert('删除失败: ' + (result.message || '未知错误'), 'error');
+                }
+            } catch (error) {
+                showAlert('删除失败，请检查网络连接', 'error');
+            }
+        }
+
+        // 处理产品选择变化
+        function handleProductChange(productSelect, codeSelect, system) {
+            const selectedProduct = productSelect.value;
+            codeSelect.innerHTML = '<option value="">请选择编号</option>';
+            
+            if (selectedProduct && productCodes[system]) {
+                const codes = productCodes[system][selectedProduct] || [];
+                codes.forEach(code => {
+                    const option = document.createElement('option');
+                    option.value = code.code_number;
+                    option.textContent = code.code_number;
+                    option.dataset.price = code.price;
+                    codeSelect.appendChild(option);
+                });
+            }
+
+            // 更新价格选择
+            updatePriceSelect(system);
+        }
+
+        // 处理编号选择变化
+        function handleCodeNumberChange(codeSelect, productSelect, system) {
+            const selectedOption = codeSelect.options[codeSelect.selectedIndex];
+            if (selectedOption && selectedOption.dataset.price) {
+                document.getElementById(`${system}-add-price`).value = selectedOption.dataset.price;
+            }
+        }
+
+        // 处理数量变化
+        function handleAddFormQuantityChange(system, type) {
+            const inQty = document.getElementById(`${system}-add-in-qty`);
+            const outQty = document.getElementById(`${system}-add-out-qty`);
+            const target = document.getElementById(`${system}-add-target`);
+
+            if (type === 'out' && parseFloat(outQty.value) > 0) {
+                target.disabled = false;
+            } else if (type === 'in' && parseFloat(inQty.value) > 0) {
+                target.disabled = true;
+                target.value = '';
+            } else {
+                target.disabled = true;
+            }
+        }
+
+        // 更新价格选择
+        function updatePriceSelect(system) {
+            // 价格选择逻辑实现
+        }
+
+        // 处理价格变化
+        function handleAddFormPriceChange(system) {
+            // 价格变化处理逻辑
+        }
+
+        // 填充产品选择框
+        function populateProductSelects(system) {
+            if (!productCodes[system]) return;
+            
+            const productSelect = document.getElementById(`${system}-add-product-name`);
+            productSelect.innerHTML = '<option value="">请选择产品名称</option>';
+            
+            Object.keys(productCodes[system]).forEach(productName => {
+                const option = document.createElement('option');
+                option.value = productName;
+                option.textContent = productName;
+                productSelect.appendChild(option);
+            });
+        }
+
         // 导出数据
         function exportData(system) {
             if (filteredData[system].length === 0) {
@@ -2931,6 +3933,103 @@
             }
         }
 
+        // 导出记录数据
+        function exportRecordsData(system) {
+            if (system === 'remark') return;
+            
+            // 打开导出模态框
+            document.getElementById(`${system}-export-modal`).style.display = 'block';
+        }
+
+        // 关闭导出模态框
+        function closeExportModal(system) {
+            document.getElementById(`${system}-export-modal`).style.display = 'none';
+        }
+
+        // 确认导出
+        function confirmExport(system) {
+            const startDate = document.getElementById(`${system}-export-start-date`).value;
+            const endDate = document.getElementById(`${system}-export-end-date`).value;
+            const includeIn = document.getElementById(`${system}-export-in-data`).checked;
+            const includeOut = document.getElementById(`${system}-export-out-data`).checked;
+
+            if (!startDate || !endDate) {
+                showAlert('请选择开始和结束日期', 'error');
+                return;
+            }
+
+            if (!includeIn && !includeOut) {
+                showAlert('请至少选择一种数据类型', 'error');
+                return;
+            }
+
+            try {
+                // 过滤日期范围内的数据
+                const filteredRecords = recordsData[system].filter(item => {
+                    const itemDate = new Date(item.date);
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    const inRange = itemDate >= start && itemDate <= end;
+                    
+                    if (!inRange) return false;
+                    
+                    const hasIn = parseFloat(item.in_qty) > 0;
+                    const hasOut = parseFloat(item.out_qty) > 0;
+                    
+                    return (includeIn && hasIn) || (includeOut && hasOut);
+                });
+
+                if (filteredRecords.length === 0) {
+                    showAlert('选定条件下没有数据可导出', 'error');
+                    return;
+                }
+
+                // 生成CSV内容
+                const headers = ['Date', 'Code Number', 'Product Name', 'In Qty', 'Out Qty', 'Target', 'Specification', 'Price', 'Total', 'Receiver', 'Applicant', 'Remark'];
+                let csvContent = headers.join(',') + '\n';
+
+                filteredRecords.forEach(item => {
+                    const inQty = parseFloat(item.in_qty) || 0;
+                    const outQty = parseFloat(item.out_qty) || 0;
+                    const price = parseFloat(item.price) || 0;
+                    const total = (inQty > 0 ? inQty : outQty) * price;
+
+                    const row = [
+                        item.date,
+                        item.code_number || '',
+                        `"${item.product_name}"`,
+                        inQty > 0 ? inQty.toFixed(2) : '',
+                        outQty > 0 ? outQty.toFixed(2) : '',
+                        item.target || '',
+                        item.specification || '',
+                        price.toFixed(2),
+                        total.toFixed(2),
+                        item.receiver || '',
+                        item.applicant || '',
+                        item.remark || ''
+                    ];
+                    csvContent += row.join(',') + '\n';
+                });
+
+                // 下载文件
+                const fileName = `${system}_stock_records_${startDate}_${endDate}.csv`;
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', fileName);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                closeExportModal(system);
+                showAlert('数据导出成功', 'success');
+            } catch (error) {
+                showAlert('导出失败', 'error');
+            }
+        }
+
         // 显示提示信息
         function showAlert(message, type = 'success') {
             const alertContainer = document.getElementById('alert-container');
@@ -2969,7 +4068,7 @@
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(function() {
                 const backToTopBtn = document.getElementById('back-to-top-btn');
-                const scrollThreshold = 150; // 滚动超过300px后显示按钮
+                const scrollThreshold = 150; // 滚动超过150px后显示按钮
                 
                 if (window.pageYOffset > scrollThreshold) {
                     backToTopBtn.classList.add('show');
@@ -2984,7 +4083,12 @@
             // Ctrl+F 聚焦搜索框
             if (e.ctrlKey && e.key === 'f') {
                 e.preventDefault();
-                const activeFilterId = `${currentSystem}-product-filter`;
+                let activeFilterId;
+                if (currentPageMode === 'records' && currentSystem !== 'remark') {
+                    activeFilterId = `${currentSystem}-records-product-filter`;
+                } else {
+                    activeFilterId = `${currentSystem}-product-filter`;
+                }
                 const activeFilter = document.getElementById(activeFilterId);
                 if (activeFilter) {
                     activeFilter.focus();
@@ -2993,7 +4097,11 @@
             
             // Escape键重置搜索
             if (e.key === 'Escape') {
-                resetFilters(currentSystem);
+                if (currentPageMode === 'records' && currentSystem !== 'remark') {
+                    resetRecordsFilters(currentSystem);
+                } else {
+                    resetFilters(currentSystem);
+                }
             }
 
             // 数字键1-4快速切换系统
@@ -3003,24 +4111,28 @@
                 const systemIndex = parseInt(e.key) - 1;
                 if (systems[systemIndex]) {
                     // 模拟点击切换
-                    const dropdownItems = document.querySelectorAll('.dropdown-item');
+                    const dropdownItems = document.querySelectorAll('#selector-dropdown .dropdown-item');
                     if (dropdownItems[systemIndex]) {
                         switchSystem(systems[systemIndex]);
                     }
                 }
+            }
 
-                // Home键回到顶部
-                    if (e.key === 'Home' && e.ctrlKey) {
-                        e.preventDefault();
-                        scrollToTop();
-                    }
+            // Home键回到顶部
+            if (e.key === 'Home' && e.ctrlKey) {
+                e.preventDefault();
+                scrollToTop();
             }
         });
 
         // 定时刷新数据（每5分钟）
         setInterval(() => {
             if (!document.hidden) { // 只在页面可见时刷新
-                loadData(currentSystem);
+                if (currentPageMode === 'records' && currentSystem !== 'remark') {
+                    loadRecordsData(currentSystem);
+                } else {
+                    loadData(currentSystem);
+                }
             }
         }, 300000); // 5分钟 = 300000毫秒
     </script>
