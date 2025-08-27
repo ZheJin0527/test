@@ -1164,6 +1164,7 @@
                     <div class="selector-dropdown" id="view-selector-dropdown">
                         <div class="dropdown-item" onclick="switchView('list')">库存清单</div>
                         <div class="dropdown-item active" onclick="switchView('records')">库存记录</div>
+                        <div class="dropdown-item" onclick="switchView('remark')">Remark</div>
                     </div>
                 </div>
                 <div class="selector-button" onclick="toggleStockSelector()">
@@ -1514,11 +1515,13 @@
             dropdown.classList.toggle('show');
         }
 
-        // 切换视图
         function switchView(viewType) {
             if (viewType === 'list') {
                 // 直接跳转到库存清单页面，不带参数
                 window.location.href = 'stocklistall.php';
+            } else if (viewType === 'remark') {
+                // 跳转到备注页面
+                window.location.href = 'stockremark.php';
             } else {
                 // 保持在当前页面（库存记录）
                 hideViewDropdown();
