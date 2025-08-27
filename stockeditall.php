@@ -1125,6 +1125,25 @@
             background-color: #583e04 !important;
             color: white !important;
         }
+
+        /* 视图选择器样式 */
+        .view-selector {
+            position: relative;
+            margin-right: 16px;
+        }
+
+        .view-selector .selector-button {
+            background-color: #10b981;
+            min-width: 120px;
+        }
+
+        .view-selector .selector-button:hover {
+            background-color: #059669;
+        }
+
+        .view-selector .selector-dropdown {
+            min-width: 120px;
+        }
     </style>
 </head>
 <body>
