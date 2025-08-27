@@ -982,6 +982,43 @@
             box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
         }
 
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            min-width: 130px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            z-index: 1000;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px 16px;
+            color: #583e04;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f9ff;
+            color: #10b981;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
         /* 导出弹窗样式 */
         .export-modal {
             display: none;
@@ -1081,69 +1118,72 @@
             color: #374151;
         }
 
-        .selector-button {
-            background-color: #583e04;
-            color: white;
-            font-weight: 500;
-            padding: 8px 20px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            min-width: 130px;
-            justify-content: space-between;
-        }
-        
-        .selector-button:hover {
-            background-color: #462d03;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        .selector-button { 
+            background-color: #583e04; 
+            color: white; 
+            font-weight: 500; 
+            padding: 8px 20px; 
+            border-radius: 8px; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 16px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: all 0.2s; 
+            min-width: 130px; 
+            justify-content: space-between; 
+            position: relative;
         }
 
-        .selector-dropdown {
-            position: absolute;
-            top: 96%;
-            right: 0;
-            background: white;
-            border: 2px solid #583e04;
-            border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
-            min-width: 130px;
-            z-index: 1000;
-            display: none;
-            margin-top: 4px;
+        .selector-button:hover { 
+            background-color: #462d03; 
+            transform: translateY(-1px); 
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2); 
         }
 
-        .selector-dropdown.show {
+        .selector-dropdown { 
+            position: absolute; 
+            top: 100%; 
+            right: 0; 
+            background: white; 
+            border: 2px solid #583e04; 
+            border-radius: 8px; 
+            box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2); 
+            min-width: 130px; 
+            z-index: 1000; 
+            display: none; 
+            margin-top: 4px; 
+        }
+
+        .selector-dropdown.show { 
+            display: block; 
+        }
+
+        .selector-dropdown .dropdown-item { 
+            padding: 8px 16px; 
+            cursor: pointer; 
+            border-bottom: 1px solid #e5e7eb; 
+            transition: all 0.2s; 
+            color: #583e04; 
+            font-size: 14px; 
+            font-weight: 500; 
+            text-decoration: none;
             display: block;
         }
 
-        .dropdown-item {
-            padding: 8px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid #e5e7eb;
-            transition: all 0.2s;
-            color: #583e04;
-            font-size: 14px;
-            font-weight: 500;
+        .selector-dropdown .dropdown-item:last-child { 
+            border-bottom: none; 
         }
 
-        .dropdown-item:last-child {
-            border-bottom: none;
+        .selector-dropdown .dropdown-item:hover { 
+            background-color: #f8f5eb; 
         }
 
-        .dropdown-item:hover {
-            background-color: #f8f5eb;
-        }
-
-        .dropdown-item.active {
-            background-color: #583e04;
-            color: white;
-        }
+        .selector-dropdown .dropdown-item.active { 
+            background-color: #583e04; 
+            color: white; 
+        } 
     </style>
 </head>
 <body>
@@ -1168,25 +1208,21 @@
                         </a>
                     </div>
                 </div>
-                <button class="selector-button" onclick="toggleStockSelector()">
-                    <i class="fas fa-warehouse"></i>
+                <div class="selector-button" onclick="toggleStockSelector()">
                     <span id="current-stock-type">中央库存</span>
                     <i class="fas fa-chevron-down"></i>
-                    <div class="dropdown-menu" id="stock-dropdown">
-                        <a href="#" class="dropdown-item" onclick="switchStock('central')">
-                            <i class="fas fa-warehouse"></i>
+                    <div class="selector-dropdown" id="stock-dropdown">
+                        <a href="#" class="dropdown-item" onclick="switchStock('central')" data-type="central">
                             中央库存
                         </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j1')">
-                            <i class="fas fa-store"></i>
+                        <a href="#" class="dropdown-item" onclick="switchStock('j1')" data-type="j1">
                             J1库存
                         </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j2')">
-                            <i class="fas fa-store"></i>
+                        <a href="#" class="dropdown-item" onclick="switchStock('j2')" data-type="j2">
                             J2库存
                         </a>
                     </div>
-                </button>
+                </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
                     返回上一页
@@ -1445,7 +1481,7 @@
 
         // 切换库存选择器下拉菜单
         function toggleStockSelector() {
-            const dropdown = document.querySelector('#stock-dropdown');
+            const dropdown = document.getElementById('stock-dropdown');
             dropdown.classList.toggle('show');
         }
 
@@ -1507,18 +1543,9 @@
 
         // 点击其他地方关闭下拉菜单
         document.addEventListener('click', function(event) {
-            if (!event.target.closest('.page-selector')) {
-                const dropdown = document.getElementById('page-dropdown');
-                if (dropdown) {
-                    dropdown.classList.remove('show');
-                }
-            }
-            
-            if (!event.target.closest('.selector-button')) {
-                const stockDropdown = document.getElementById('stock-dropdown');
-                if (stockDropdown) {
-                    stockDropdown.classList.remove('show');
-                }
+            const selector = event.target.closest('.selector-button');
+            if (!selector) {
+                document.getElementById('stock-dropdown').classList.remove('show');
             }
         });
 
