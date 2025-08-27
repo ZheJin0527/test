@@ -1452,7 +1452,7 @@
             document.querySelector(`.selector-dropdown .dropdown-item[data-type="${stockType}"]`).classList.add('active');
             
             // 隐藏下拉菜单
-            document.getElementById('stock-dropdown').classList.remove('show');
+            toggleStockSelector(); // 或者直接用: document.getElementById('stock-dropdown').classList.remove('show');
             
             // 清空当前数据并重新加载
             stockData = [];
