@@ -2280,11 +2280,11 @@
             remark: 'stockremarkapi.php'
         };
 
-        const SYSTEM_NAMES = {
-            central: '中央库存',
-            j1: 'J1库存',
-            j2: 'J2库存',
-            remark: '价格分析'
+        // 页面跳转URL配置
+        const RECORDS_PAGE_URLS = {
+            central: 'stockedit.php',
+            j1: 'j1stockedit.php',  
+            j2: 'j2stockedit.php'
         };
 
         const PAGE_TITLES = {
@@ -2415,12 +2415,42 @@
             // 隐藏下拉菜单
             document.getElementById('page-mode-dropdown').classList.remove('show');
             
-            // 根据模式加载相应数据
+            // 根据模式处理页面跳转或数据加载
             if (mode === 'records') {
-                showAlert('库存记录功能开发中...', 'info');
-                // 将来可以调用不同的API
+                redirectToRecordsPage(currentSystem);
             } else {
                 loadData(currentSystem);
+            }
+        }
+
+        // 跳转到库存记录页面
+        function redirectToRecordsPage(system) {
+            const pageUrls = {
+                'central': 'stockedit.php',
+                'j1': 'j1stockedit.php',
+                'j2': 'j2stockedit.php'
+            };
+            
+            if (pageUrls[system]) {
+                // 显示跳转提示
+                showAlert(`正在跳转到${SYSTEM_NAMES[system]}记录页面...`, 'info');
+                
+                // 延迟跳转，让用户看到提示信息
+                setTimeout(() => {
+                    window.location.href = pageUrls[system];
+                }, 1000);
+            } else {
+                showAlert('未找到对应的记录页面', 'error');
+                // 如果跳转失败，恢复到清单模式
+                currentPageMode = 'summary';
+                document.getElementById('current-page-mode').textContent = '库存清单';
+                document.getElementById('page-body').className = '';
+                
+                // 更新下拉菜单激活状态
+                document.querySelectorAll('#page-mode-dropdown .dropdown-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector('#page-mode-dropdown .dropdown-item[onclick*="summary"]').classList.add('active');
             }
         }
 
@@ -2468,9 +2498,12 @@
             }
         }
 
-        // 返回上一页
+        // 修改 goBack 函数，添加返回汇总页面的选项
         function goBack() {
-            if (window.history.length > 1) {
+            // 检查是否来自汇总页面
+            if (document.referrer && document.referrer.includes('stocksummary.php')) {
+                window.location.href = 'stocksummary.php';
+            } else if (window.history.length > 1) {
                 window.history.back();
             } else {
                 window.location.href = '/';
