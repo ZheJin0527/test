@@ -794,7 +794,7 @@
                 </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
-                    返回上一页
+                    返回仪表盘
                 </button>
             </div>
         </div>
@@ -1256,13 +1256,9 @@
             document.getElementById('view-selector-dropdown').classList.remove('show');
         }
 
-        // 返回上一页
+        // 返回仪表盘
         function goBack() {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = '/';
-            }
+            window.location.href = 'dashboard.php';
         }
 
         // API调用函数
