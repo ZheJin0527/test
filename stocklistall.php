@@ -4136,5 +4136,535 @@
             }
         }, 300000); // 5分钟 = 300000毫秒
     </script>
+    <script>
+        // ==================== 中央库存系统 JavaScript 代码 ====================
+        
+        // API 配置 - 修改为适配多系统
+        const API_BASE_URLS = {
+            central: 'centralstockeditpageapi.php',
+            j1: 'j1stockeditpageapi.php', 
+            j2: 'j2stockeditpageapi.php'
+        };
+        
+        // 应用状态
+        let allStockData = {
+            central: [],
+            j1: [],
+            j2: []
+        };
+        let isLoading = false;
+        let editingRowIds = {
+            central: new Set(),
+            j1: new Set(), 
+            j2: new Set()
+        };
+        let originalEditData = {
+            central: new Map(),
+            j1: new Map(),
+            j2: new Map()
+        };
+        let currentSystem = 'central'; // 当前系统
+
+        // 规格选项
+        const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
+
+        // 初始化应用
+        function initApp() {
+            // 设置默认日期为今天
+            const today = new Date().toISOString().split('T')[0];
+            const currentTime = new Date().toTimeString().slice(0, 5);
+            
+            // 为每个系统设置默认日期和时间
+            ['central', 'j1', 'j2'].forEach(system => {
+                const dateEl = document.getElementById(`${system}-add-date`);
+                const timeEl = document.getElementById(`${system}-add-time`);
+                if (dateEl) dateEl.value = today;
+                if (timeEl) timeEl.value = currentTime;
+            });
+            
+            // 加载当前系统的数据
+            loadStockData(currentSystem);
+            loadCodeNumbers(currentSystem);
+            loadProducts(currentSystem);
+        }
+
+        // API 调用函数 - 修改为支持多系统
+        async function apiCall(system, endpoint, options = {}) {
+            try {
+                const baseUrl = API_BASE_URLS[system];
+                const response = await fetch(`${baseUrl}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('API调用失败:', error);
+                throw error;
+            }
+        }
+
+        // 加载库存数据
+        async function loadStockData(system) {
+            if (isLoading) return;
+            
+            isLoading = true;
+            
+            try {
+                const result = await apiCall(system, '?action=list&limit=1000');
+                
+                if (result.success) {
+                    allStockData[system] = result.data || [];
+                } else {
+                    allStockData[system] = [];
+                    showAlert('获取数据失败: ' + (result.message || '未知错误'), 'error');
+                }
+                
+                renderStockTable(system);
+                updateStats(system);
+                
+            } catch (error) {
+                allStockData[system] = [];
+                renderStockTable(system);
+                updateStats(system);
+                showAlert('网络错误，请检查连接', 'error');
+            } finally {
+                isLoading = false;
+            }
+        }
+
+        // 加载code number选项
+        async function loadCodeNumbers(system) {
+            try {
+                const result = await apiCall(system, '?action=codenumbers');
+                if (result.success && result.data) {
+                    window[`${system}CodeNumberOptions`] = result.data;
+                } else {
+                    window[`${system}CodeNumberOptions`] = [];
+                }
+            } catch (error) {
+                console.error('加载编号列表失败:', error);
+                window[`${system}CodeNumberOptions`] = [];
+            }
+        }
+
+        // 加载product name选项
+        async function loadProducts(system) {
+            try {
+                const result = await apiCall(system, '?action=products_list');
+                if (result.success && result.data) {
+                    window[`${system}ProductOptions`] = result.data;
+                } else {
+                    window[`${system}ProductOptions`] = [];
+                }
+            } catch (error) {
+                console.error('加载产品列表失败:', error);
+                window[`${system}ProductOptions`] = [];
+            }
+        }
+
+        // 搜索记录数据
+        async function searchRecordsData(system) {
+            if (isLoading) return;
+            
+            isLoading = true;
+            
+            try {
+                const params = new URLSearchParams({
+                    action: 'list'
+                });
+                
+                const dateFilter = document.getElementById(`${system}-date-filter`).value;
+                const codeFilter = document.getElementById(`${system}-records-code-filter`).value;
+                const productFilter = document.getElementById(`${system}-records-product-filter`).value;
+                const receiverFilter = document.getElementById(`${system}-receiver-filter`).value;
+                
+                if (dateFilter) params.append('search_date', dateFilter);
+                if (codeFilter) params.append('product_code', codeFilter);
+                if (productFilter) params.append('product_name', productFilter);
+                if (receiverFilter) params.append('receiver', receiverFilter);
+                
+                const result = await apiCall(system, `?${params}`);
+                
+                if (result.success) {
+                    allStockData[system] = result.data || [];
+                    showAlert(`找到 ${allStockData[system].length} 条记录`, 'success');
+                } else {
+                    allStockData[system] = [];
+                    showAlert('搜索失败: ' + (result.message || '未知错误'), 'error');
+                }
+                
+                renderRecordsTable(system);
+                updateRecordsStats(system);
+                
+            } catch (error) {
+                showAlert('搜索时发生错误', 'error');
+            } finally {
+                isLoading = false;
+            }
+        }
+
+        // 渲染库存记录表格
+        function renderRecordsTable(system) {
+            const tbody = document.getElementById(`${system}-records-tbody`);
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            
+            if (allStockData[system].length === 0) {
+                tbody.innerHTML = '<tr><td colspan="12" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
+                return;
+            }
+            
+            allStockData[system].forEach(record => {
+                const row = document.createElement('tr');
+                const isEditing = editingRowIds[system].has(record.id);
+
+                if (isEditing) {
+                    row.classList.add('editing-row');
+                }
+                
+                // 计算总价
+                const inQty = parseFloat(record.in_quantity) || 0;
+                const outQty = parseFloat(record.out_quantity) || 0;
+                const price = parseFloat(record.price) || 0;
+                const netQty = inQty - outQty;
+                const total = netQty * price;
+                
+                row.innerHTML = `
+                    <td class="date-cell">${formatDate(record.date)}</td>
+                    <td>
+                        ${isEditing ? 
+                            createCombobox('code', record.code_number, record.id, system) :
+                            `<span>${record.code_number || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            createCombobox('product', record.product_name, record.id, system) :
+                            `<span>${record.product_name}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField('${system}', ${record.id}, 'in_quantity', this.value)">` :
+                            `<span>${formatNumber(record.in_quantity)}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.01" onchange="updateField('${system}', ${record.id}, 'out_quantity', this.value)">` :
+                            `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            createTargetSelect(system, record.id, record.target_system, record.out_quantity) :
+                            `<span>${record.target_system ? record.target_system.toUpperCase() : '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            createSpecificationSelect(record.id, record.specification, system) :
+                            `<span>${record.specification || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            createPriceField(system, record) :
+                            `<div class="currency-display">
+                                <span class="currency-symbol">RM</span>
+                                <span class="currency-amount">${formatCurrency(record.price)}</span>
+                            </div>`
+                        }
+                    </td>
+                    <td class="calculated-cell ${total < 0 ? 'negative-value negative-parentheses' : ''}">
+                        <div class="currency-display ${total < 0 ? 'negative-value negative-parentheses' : ''}">
+                            <span class="currency-symbol">RM</span>
+                            <span class="currency-amount">${formatCurrency(Math.abs(total))}</span>
+                        </div>
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField('${system}', ${record.id}, 'receiver', this.value)">` :
+                            `<span>${record.receiver || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input" value="${record.remark || ''}" onchange="updateField('${system}', ${record.id}, 'remark', this.value)">` :
+                            `<span>${record.remark || '-'}</span>`
+                        }
+                    </td>
+                    <td>
+                        <span class="action-cell">
+                            ${isEditing ? 
+                                `<button class="action-btn edit-btn save-mode" onclick="saveRecord('${system}', ${record.id})" title="保存">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                                <button class="action-btn" onclick="cancelEdit('${system}', ${record.id})" title="取消" style="background: #6b7280;">
+                                    <i class="fas fa-times"></i>
+                                </button>` :
+                                `<button class="action-btn edit-btn" onclick="editRecord('${system}', ${record.id})" title="编辑">
+                                    <i class="fas fa-edit"></i>
+                                </button>`
+                            }
+                            ${!isEditing ? 
+                                `<button class="action-btn delete-btn" onclick="deleteRecord('${system}', ${record.id})" title="删除">
+                                    <i class="fas fa-trash"></i>
+                                </button>` : ''
+                            }
+                        </span>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+
+            setTimeout(() => bindComboboxEvents(system), 0);
+        }
+
+        // 创建目标系统选择框
+        function createTargetSelect(system, recordId, currentValue, outQuantity) {
+            const options = system === 'central' 
+                ? `<option value="">请选择</option><option value="j1" ${currentValue === 'j1' ? 'selected' : ''}>J1</option><option value="j2" ${currentValue === 'j2' ? 'selected' : ''}>J2</option>`
+                : system === 'j1'
+                ? `<option value="">请选择</option><option value="j1" ${currentValue === 'j1' ? 'selected' : ''}>J1</option>`
+                : `<option value="">请选择</option><option value="j2" ${currentValue === 'j2' ? 'selected' : ''}>J2</option>`;
+                
+            const disabled = (parseFloat(outQuantity || 0) === 0) ? 'disabled' : '';
+            
+            return `<select class="table-select" id="target-select-${recordId}" onchange="updateField('${system}', ${recordId}, 'target_system', this.value)" ${disabled}>
+                ${options}
+            </select>`;
+        }
+
+        // 创建规格选择框
+        function createSpecificationSelect(recordId, currentValue, system) {
+            const options = specifications.map(spec => 
+                `<option value="${spec}" ${currentValue === spec ? 'selected' : ''}>${spec}</option>`
+            ).join('');
+            
+            return `<select class="table-select" onchange="updateField('${system}', ${recordId}, 'specification', this.value)">
+                ${options}
+            </select>`;
+        }
+
+        // 创建价格字段
+        function createPriceField(system, record) {
+            const outQty = parseFloat(record.out_quantity || 0);
+            const inQty = parseFloat(record.in_quantity || 0);
+            
+            if (outQty > 0 && inQty === 0) {
+                // 纯出库，显示价格下拉选择
+                return `<div class="currency-display">
+                    <span class="currency-symbol">RM</span>
+                    <select class="table-select price-select" id="price-select-${record.id}" 
+                            onchange="updateField('${system}', ${record.id}, 'price', this.value)"
+                            data-product-name="${record.product_name}" 
+                            data-current-price="${record.price}">
+                        <option value="">请选择价格</option>
+                    </select>
+                </div>`;
+            } else {
+                // 入库或混合，显示价格输入框
+                return `<div class="currency-display">
+                    <span class="currency-symbol">RM</span>
+                    <input type="number" class="currency-input-edit" 
+                        value="${record.price || ''}" min="0" step="0.01" 
+                        onchange="updateField('${system}', ${record.id}, 'price', this.value)">
+                </div>`;
+            }
+        }
+
+        // 其他必要的辅助函数
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate().toString().padStart(2, '0');
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const month = months[date.getMonth()];
+            return `${day} ${month}`;
+        }
+
+        function formatNumber(value) {
+            if (!value || value === '' || value === '0') return '0.00';
+            const num = parseFloat(value);
+            return isNaN(num) ? '0.00' : num.toFixed(2);
+        }
+
+        function formatCurrency(value) {
+            if (!value || value === '' || value === '0') return '0.00';
+            const num = parseFloat(value);
+            return isNaN(num) ? '0.00' : num.toFixed(2);
+        }
+
+        function updateRecordsStats(system) {
+            const totalRecords = allStockData[system].length;
+            const statsEl = document.getElementById(`${system}-total-records-count`);
+            if (statsEl) {
+                statsEl.textContent = totalRecords;
+            }
+        }
+
+        // 显示提示信息
+        function showAlert(message, type = 'success') {
+            const alertContainer = document.getElementById('alert-container');
+            if (!alertContainer) return;
+            
+            const alertClass = type === 'error' ? 'alert-error' : type === 'info' ? 'alert-info' : 'alert-success';
+            const iconClass = type === 'error' ? 'fa-exclamation-circle' : type === 'info' ? 'fa-info-circle' : 'fa-check-circle';
+            
+            const alertElement = document.createElement('div');
+            alertElement.className = `alert ${alertClass}`;
+            alertElement.innerHTML = `
+                <i class="fas ${iconClass}"></i>
+                <span>${message}</span>
+            `;
+            
+            alertContainer.appendChild(alertElement);
+            
+            setTimeout(() => {
+                alertElement.remove();
+            }, 5000);
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp();
+        });
+
+        // ==================== 占位符函数，需要完整实现 ====================
+        // 这些函数需要根据原始代码进行完整实现
+
+        function createCombobox(type, value, recordId, system) {
+            return `<input type="text" class="table-input" value="${value || ''}" onchange="updateField('${system}', ${recordId}, '${type === 'code' ? 'code_number' : 'product_name'}', this.value)">`;
+        }
+
+        function bindComboboxEvents(system) {
+            // 绑定combobox相关事件
+        }
+
+        function updateField(system, id, field, value) {
+            const record = allStockData[system].find(r => r.id === id);
+            if (record) {
+                record[field] = value;
+            }
+        }
+
+        function editRecord(system, id) {
+            editingRowIds[system].add(id);
+            const record = allStockData[system].find(r => r.id === id);
+            if (record) {
+                originalEditData[system].set(id, JSON.parse(JSON.stringify(record)));
+            }
+            renderRecordsTable(system);
+        }
+
+        function cancelEdit(system, id) {
+            if (originalEditData[system].has(id)) {
+                const recordIndex = allStockData[system].findIndex(r => r.id === id);
+                if (recordIndex !== -1) {
+                    allStockData[system][recordIndex] = JSON.parse(JSON.stringify(originalEditData[system].get(id)));
+                }
+                originalEditData[system].delete(id);
+            }
+            editingRowIds[system].delete(id);
+            renderRecordsTable(system);
+        }
+
+        async function saveRecord(system, id) {
+            const record = allStockData[system].find(r => r.id === id);
+            if (!record) return;
+
+            try {
+                const result = await apiCall(system, '', {
+                    method: 'PUT',
+                    body: JSON.stringify(record)
+                });
+
+                if (result.success) {
+                    showAlert('记录更新成功', 'success');
+                    editingRowIds[system].delete(id);
+                    originalEditData[system].delete(id);
+                    loadStockData(system);
+                } else {
+                    showAlert('更新失败: ' + (result.message || '未知错误'), 'error');
+                }
+            } catch (error) {
+                showAlert('保存时发生错误', 'error');
+            }
+        }
+
+        async function deleteRecord(system, id) {
+            if (!confirm('确定要删除此记录吗？此操作不可恢复！')) return;
+
+            try {
+                const result = await apiCall(system, `?id=${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (result.success) {
+                    showAlert('记录删除成功', 'success');
+                    loadStockData(system);
+                } else {
+                    showAlert('删除失败: ' + (result.message || '未知错误'), 'error');
+                }
+            } catch (error) {
+                showAlert('删除时发生错误', 'error');
+            }
+        }
+
+        function refreshRecordsData(system) {
+            loadStockData(system);
+        }
+
+        function resetRecordsFilters(system) {
+            document.getElementById(`${system}-date-filter`).value = '';
+            document.getElementById(`${system}-records-code-filter`).value = '';
+            document.getElementById(`${system}-records-product-filter`).value = '';
+            document.getElementById(`${system}-receiver-filter`).value = '';
+            loadStockData(system);
+        }
+
+        function addNewRecord(system) {
+            const form = document.getElementById(`${system}-add-form`);
+            if (form) {
+                form.classList.toggle('show');
+            }
+        }
+
+        function toggleAddForm(system) {
+            const form = document.getElementById(`${system}-add-form`);
+            if (form) {
+                form.classList.toggle('show');
+            }
+        }
+
+        async function saveNewRecord(system) {
+            // 实现保存新记录的逻辑
+            showAlert('保存新记录功能开发中...', 'info');
+        }
+
+        function exportRecordsData(system) {
+            showAlert('导出功能开发中...', 'info');
+        }
+
+        // 其他占位符函数...
+        function renderStockTable(system) { /* 汇总模式表格渲染 */ }
+        function updateStats(system) { /* 更新汇总统计 */ }
+        function searchData(system) { /* 汇总模式搜索 */ }
+        function resetFilters(system) { /* 重置汇总过滤器 */ }
+        function refreshData(system) { loadStockData(system); }
+        function exportData(system) { showAlert('导出功能开发中...', 'info'); }
+        
+    </script>
 </body>
 </html>
