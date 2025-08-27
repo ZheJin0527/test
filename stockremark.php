@@ -41,7 +41,7 @@
         .header .controls {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 0px;
         }
 
         .back-button {
