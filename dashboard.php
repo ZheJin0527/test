@@ -298,27 +298,7 @@ if (isset($_SESSION['user_id'])) {
                                 <div class="submenu-title">食品</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item expandable" data-target="stocklist-options">
-                                    库存清单
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="stocklist-options">
-                                    <a href="stocklist.php" class="sub-option">中央</a>
-                                    <a href="j1stocklist.php" class="sub-option">J1</a>
-                                    <a href="j2stocklist.php" class="sub-option">J2</a>
-                                    <a href="stockremark.php" class="sub-option">Remark</a>
-                                </div>
-
-                                <a href="#" class="submenu-item expandable" data-target="stockedit-options">
-                                    库存记录
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="stockedit-options">
-                                    <a href="stockedit.php" class="sub-option">中央</a>
-                                    <a href="j1stockeditpage.php" class="sub-option">J1</a>
-                                    <a href="j2stockeditpage.php" class="sub-option">J2</a>
-                                </div>
-
+                                <a href="stocklistall.php" class="submenu-item">库存清单</a>
                                 <a href="stockproductname.php" class="submenu-item">货物种类</a>
                             </div>
                         </div>
