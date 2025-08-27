@@ -447,36 +447,22 @@
                 <h1>库存价格分析</h1>
             </div>
             <div class="controls">
-                <div class="view-selector">
-                    <button class="selector-button" onclick="toggleViewSelector()">
-                        <span id="current-view">价格分析</span>
+                <div class="view-controls">
+                    <div class="selector-button" onclick="toggleViewSelector()">
+                        <span id="current-view">库存价格分析</span>
                         <i class="fas fa-chevron-down"></i>
-                    </button>
+                    </div>
                     <div class="selector-dropdown" id="view-selector-dropdown">
                         <div class="dropdown-item" onclick="switchView('list')">库存清单</div>
-                        <div class="dropdown-item" onclick="switchView('records')">库存记录</div>
-                        <div class="dropdown-item" onclick="switchView('remark')">Remark</div>
-                        <div class="dropdown-item active" onclick="switchView('analysis')">价格分析</div>
-                    </div>
-                </div>
-                <div class="selector-button" onclick="toggleStockSelector()">
-                    <span id="current-stock-type">中央库存</span>
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="selector-dropdown" id="stock-dropdown">
-                        <a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
-                            中央库存
-                        </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j1', event); return false;" data-type="j1">
-                            J1库存
-                        </a>
-                        <a href="#" class="dropdown-item" onclick="switchStock('j2', event); return false;" data-type="j2">
-                            J2库存
-                        </a>
+                        <div class="dropdown-item active" onclick="switchView('remark')">库存价格分析</div>
+                        <div class="dropdown-item disabled" onclick="switchView('records')">
+                            中央库存 <span class="disabled-text">--</span>
+                        </div>
                     </div>
                 </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
-                    返回仪表盘
+                    返回上一页
                 </button>
             </div>
         </div>
@@ -545,9 +531,7 @@
 
     <script>
         // API 配置
-        let API_BASE_URL = 'stockremarkapi.php';
-        // 添加新的全局变量
-        let currentStockType = 'central';
+        const API_BASE_URL = 'stockremarkapi.php';
         
         // 应用状态
         let stockData = [];
@@ -556,57 +540,6 @@
 
         // 初始化应用
         function initApp() {
-            loadStockRemarks();
-        }
-
-        // 切换库存选择器下拉菜单
-        function toggleStockSelector() {
-            const dropdown = document.getElementById('stock-dropdown');
-            dropdown.classList.toggle('show');
-        }
-
-        // 切换库存类型
-        function switchStock(stockType, event = null) {
-            currentStockType = stockType;
-            
-            // 更新API地址和页面标题
-            switch(stockType) {
-                case 'central':
-                    API_BASE_URL = 'stockremarkapi.php';
-                    document.querySelector('h1').textContent = '中央库存价格分析';
-                    document.getElementById('current-stock-type').textContent = '中央库存';
-                    break;
-                case 'j1':
-                    API_BASE_URL = 'j1stockremarkapi.php';
-                    document.querySelector('h1').textContent = 'J1库存价格分析';
-                    document.getElementById('current-stock-type').textContent = 'J1库存';
-                    break;
-                case 'j2':
-                    API_BASE_URL = 'j2stockremarkapi.php';
-                    document.querySelector('h1').textContent = 'J2库存价格分析';
-                    document.getElementById('current-stock-type').textContent = 'J2库存';
-                    break;
-            }
-            
-            // 更新active状态
-            document.querySelectorAll('.selector-dropdown .dropdown-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(`.selector-dropdown .dropdown-item[data-type="${stockType}"]`).classList.add('active');
-            
-            // 立即隐藏下拉菜单
-            const dropdown = document.getElementById('stock-dropdown');
-            if (dropdown) {
-                dropdown.classList.remove('show');
-            }
-
-            // 阻止事件冒泡
-            if (event) {
-                event.stopPropagation();
-                event.preventDefault();
-            }
-            
-            // 重新加载数据
             loadStockRemarks();
         }
 
@@ -619,26 +552,14 @@
         // 切换视图
         function switchView(viewType) {
             if (viewType === 'list') {
+                // 跳转到库存清单页面
                 window.location.href = 'stocklistall.php';
             } else if (viewType === 'records') {
-                // 根据当前库存类型跳转到对应的记录页面
-                switch(currentStockType) {
-                    case 'central':
-                        window.location.href = 'stockedit.php';
-                        break;
-                    case 'j1':
-                        window.location.href = 'j1stockedit.php';
-                        break;
-                    case 'j2':
-                        window.location.href = 'j2stockedit.php';
-                        break;
-                    default:
-                        window.location.href = 'stockedit.php';
-                }
-            } else if (viewType === 'remark') {
-                window.location.href = 'stockremark.php';
+                // 中央库存被禁用，不执行任何操作
+                showAlert('中央库存功能在此页面不可用', 'info');
+                hideViewDropdown();
             } else {
-                // 保持在当前页面（价格分析）
+                // 保持在当前页面（库存价格分析）
                 hideViewDropdown();
             }
         }
@@ -653,7 +574,11 @@
 
         // 返回上一页
         function goBack() {
-            window.location.href = 'dashboard.php';
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
         }
 
         // API 调用函数
@@ -950,20 +875,14 @@
             }
         });
 
-        // 定时刷新数据（可选，每10分钟刷新一次）
-        setInterval(() => {
-            if (!document.hidden) { // 只在页面可见时刷新
-                loadStockRemarks();
-            }
-        }, 600000); // 10分钟 = 600000毫秒
-
+        // 点击其他地方关闭下拉菜单
         document.addEventListener('click', function(event) {
             const selector = event.target.closest('.selector-button');
             const dropdown = event.target.closest('.selector-dropdown');
             const dropdownItem = event.target.closest('.dropdown-item');
             
             // 如果点击的是下拉选项，立即隐藏对应的下拉菜单
-            if (dropdownItem) {
+            if (dropdownItem && !dropdownItem.classList.contains('disabled')) {
                 const parentDropdown = dropdownItem.closest('.selector-dropdown');
                 if (parentDropdown) {
                     parentDropdown.classList.remove('show');
@@ -973,10 +892,16 @@
             
             // 如果点击的不是选择器按钮且不是下拉菜单内部，则隐藏所有下拉菜单
             if (!selector && !dropdown) {
-                document.getElementById('stock-dropdown')?.classList.remove('show');
                 document.getElementById('view-selector-dropdown')?.classList.remove('show');
             }
         });
+
+        // 定时刷新数据（可选，每10分钟刷新一次）
+        setInterval(() => {
+            if (!document.hidden) { // 只在页面可见时刷新
+                loadStockRemarks();
+            }
+        }, 600000); // 10分钟 = 600000毫秒
     </script>
 </body>
 </html>
