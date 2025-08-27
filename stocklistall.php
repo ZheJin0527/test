@@ -53,7 +53,7 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: 12px 20px;
+            padding: 8px 20px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -62,7 +62,7 @@
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
-            min-width: 150px;
+            min-width: 130px;
             justify-content: space-between;
         }
         
@@ -74,13 +74,13 @@
 
         .selector-dropdown {
             position: absolute;
-            top: 100%;
+            top: 96%;
             right: 0;
             background: white;
             border: 2px solid #583e04;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
-            min-width: 200px;
+            min-width: 130px;
             z-index: 1000;
             display: none;
             margin-top: 4px;
@@ -91,11 +91,12 @@
         }
 
         .dropdown-item {
-            padding: 12px 16px;
+            padding: 8px 16px;
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
             color: #583e04;
+            font-size: 14px;
             font-weight: 500;
         }
 
