@@ -649,7 +649,7 @@
         .back-to-top {
             position: fixed;
             bottom: 30px;
-            right: 30px;
+            right: 20px;
             width: 50px;
             height: 50px;
             background-color: #583e04;
@@ -1688,7 +1688,7 @@
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(function() {
                 const backToTopBtn = document.getElementById('back-to-top-btn');
-                const scrollThreshold = 300; // 滚动超过300px后显示按钮
+                const scrollThreshold = 200; // 滚动超过300px后显示按钮
                 
                 if (window.pageYOffset > scrollThreshold) {
                     backToTopBtn.classList.add('show');
@@ -1729,10 +1729,10 @@
                 }
 
                 // Home键回到顶部
-                if (e.key === 'Home' && e.ctrlKey) {
-                    e.preventDefault();
-                    scrollToTop();
-                }
+                    if (e.key === 'Home' && e.ctrlKey) {
+                        e.preventDefault();
+                        scrollToTop();
+                    }
             }
         });
 
