@@ -1134,6 +1134,16 @@
                 <h1 id="page-title">中央进出货库存</h1>
             </div>
             <div class="controls">
+                <div class="view-selector">
+                    <button class="selector-button" onclick="toggleViewSelector()">
+                        <span id="current-view">库存记录</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="selector-dropdown" id="view-selector-dropdown">
+                        <div class="dropdown-item" onclick="switchView('list')">库存清单</div>
+                        <div class="dropdown-item active" onclick="switchView('records')">库存记录</div>
+                    </div>
+                </div>
                 <div class="selector-button" onclick="toggleStockSelector()">
                     <span id="current-stock-type">中央库存</span>
                     <i class="fas fa-chevron-down"></i>
@@ -1476,6 +1486,42 @@
             loadProducts();
         }
 
+        // 切换视图选择器下拉菜单
+        function toggleViewSelector() {
+            const dropdown = document.getElementById('view-selector-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // 切换视图
+        function switchView(viewType) {
+            if (viewType === 'list') {
+                // 跳转到库存清单页面，保持当前库存类型
+                let targetPage = 'stocklistall.php';
+                
+                // 根据当前库存类型构建URL参数
+                if (currentStockType === 'j1') {
+                    targetPage += '?type=j1';
+                } else if (currentStockType === 'j2') {
+                    targetPage += '?type=j2';
+                } else {
+                    targetPage += '?type=central';
+                }
+                
+                window.location.href = targetPage;
+            } else {
+                // 保持在当前页面（库存记录）
+                hideViewDropdown();
+            }
+        }
+
+        // 隐藏视图选择器下拉菜单
+        function hideViewDropdown() {
+            const dropdown = document.getElementById('view-selector-dropdown');
+            if (dropdown) {
+                dropdown.classList.remove('show');
+            }
+        }
+
         // 返回上一页
         function goBack() {
             if (window.history.length > 1) {
@@ -1491,15 +1537,19 @@
             const dropdown = event.target.closest('.selector-dropdown');
             const dropdownItem = event.target.closest('.dropdown-item');
             
-            // 如果点击的是下拉选项，立即隐藏下拉菜单
+            // 如果点击的是下拉选项，立即隐藏对应的下拉菜单
             if (dropdownItem) {
-                document.getElementById('stock-dropdown').classList.remove('show');
+                const parentDropdown = dropdownItem.closest('.selector-dropdown');
+                if (parentDropdown) {
+                    parentDropdown.classList.remove('show');
+                }
                 return;
             }
             
-            // 如果点击的不是选择器按钮且不是下拉菜单内部，则隐藏下拉菜单
+            // 如果点击的不是选择器按钮且不是下拉菜单内部，则隐藏所有下拉菜单
             if (!selector && !dropdown) {
-                document.getElementById('stock-dropdown').classList.remove('show');
+                document.getElementById('stock-dropdown')?.classList.remove('show');
+                document.getElementById('view-selector-dropdown')?.classList.remove('show');
             }
         });
 
