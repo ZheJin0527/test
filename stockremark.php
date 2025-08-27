@@ -554,8 +554,8 @@
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="view-selector-dropdown">
-                        <div class="dropdown-item" onclick="switchView('list')">库存清单</div>
-                        <div class="dropdown-item" onclick="switchView('records')">库存记录</div>
+                        <div class="dropdown-item" onclick="switchView('list')">Stocklist</div>
+                        <div class="dropdown-item" onclick="switchView('records')">In Out</div>
                         <div class="dropdown-item active" onclick="switchView('remark')">Remark</div>
                     </div>
                 </div>
