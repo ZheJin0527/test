@@ -1063,12 +1063,12 @@
         .selector-button {
             background-color: #583e04;
             color: white;
-            font-weight: 500;
+            font-weight: 500 !important;
             padding: 11px 24px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 16px !important;
             display: inline-flex;
             align-items: center;
             gap: 8px;
