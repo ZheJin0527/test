@@ -1200,18 +1200,18 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1 id="page-title">In Out - 中央</h1>
+                <h1 id="page-title">进出货 - 中央</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
                     <button class="selector-button" onclick="toggleViewSelector()">
-                        <span id="current-view">In Out</span>
+                        <span id="current-view">进出货</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="view-selector-dropdown">
-                        <div class="dropdown-item" onclick="switchView('list')">Stocklist</div>
-                        <div class="dropdown-item active" onclick="switchView('records')">In Out</div>
-                        <div class="dropdown-item" onclick="switchView('remark')">Remark</div>
+                        <div class="dropdown-item" onclick="switchView('list')">总库存</div>
+                        <div class="dropdown-item active" onclick="switchView('records')">进出货</div>
+                        <div class="dropdown-item" onclick="switchView('remark')">货品备注</div>
                     </div>
                 </div>
                 <div class="system-selector">
@@ -1512,17 +1512,17 @@
             switch(stockType) {
                 case 'central':
                     API_BASE_URL = 'stockeditapi.php';
-                    document.getElementById('page-title').textContent = 'In Out - 中央';
+                    document.getElementById('page-title').textContent = '进出货 - 中央';
                     document.getElementById('current-stock-type').textContent = '中央';
                     break;
                 case 'j1':
                     API_BASE_URL = 'j1stockeditpageapi.php';
-                    document.getElementById('page-title').textContent = 'In Out - J1';
+                    document.getElementById('page-title').textContent = '进出货 - J1';
                     document.getElementById('current-stock-type').textContent = 'J1';
                     break;
                 case 'j2':
                     API_BASE_URL = 'j2stockeditpageapi.php';
-                    document.getElementById('page-title').textContent = 'In Out - J2';
+                    document.getElementById('page-title').textContent = '进出货 - J2';
                     document.getElementById('current-stock-type').textContent = 'J2';
                     break;
             }

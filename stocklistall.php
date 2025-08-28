@@ -771,18 +771,18 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1 id="page-title">Stocklist - 中央</h1>
+                <h1 id="page-title">总库存 - 中央</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
                     <button class="selector-button" onclick="toggleViewSelector()">
-                        <span id="current-view">Stocklist</span>
+                        <span id="current-view">总库存</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="view-selector-dropdown">
-                        <div class="dropdown-item active" onclick="switchView('list')">Stocklist</div>
-                        <div class="dropdown-item" onclick="switchView('records')">In Out</div>
-                        <div class="dropdown-item" onclick="switchView('remark')">Remark</div>
+                        <div class="dropdown-item active" onclick="switchView('list')">总库存</div>
+                        <div class="dropdown-item" onclick="switchView('records')">进出货</div>
+                        <div class="dropdown-item" onclick="switchView('remark')">货品备注</div>
                     </div>
                 </div>
                 <div class="system-selector">
@@ -1156,9 +1156,9 @@
         let currentView = 'list';
 
         const VIEW_NAMES = {
-            list: '库存清单',
-            records: '库存记录',
-            remark: 'Remark'
+            list: '总库存',
+            records: '进出货',
+            remark: '货品备注'
         };
 
         // API配置
@@ -1173,14 +1173,14 @@
             central: '中央',
             j1: 'J1',
             j2: 'J2',
-            remark: 'Remark'
+            remark: '货品备注'
         };
 
         const PAGE_TITLES = {
-            central: 'Stocklist - 中央',
-            j1: 'Stocklist - J1',
-            j2: 'Stocklist - J2',
-            remark: 'Remark'
+            central: '总库存 - 中央',
+            j1: '总库存 - J1',
+            j2: '总库存 - J2',
+            remark: '货品备注'
         };
 
         // 初始化应用

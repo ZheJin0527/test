@@ -533,18 +533,18 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1>Remark</h1>
+                <h1>货品备注</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
                     <button class="selector-button" onclick="toggleViewSelector()">
-                        <span id="current-view">Remark</span>
+                        <span id="current-view">货品备注</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="view-selector-dropdown">
-                        <div class="dropdown-item" onclick="switchView('list')">Stocklist</div>
-                        <div class="dropdown-item" onclick="switchView('records')">In Out</div>
-                        <div class="dropdown-item active" onclick="switchView('remark')">Remark</div>
+                        <div class="dropdown-item" onclick="switchView('list')">总库存</div>
+                        <div class="dropdown-item" onclick="switchView('records')">进出货</div>
+                        <div class="dropdown-item active" onclick="switchView('remark')">货品备注</div>
                     </div>
                 </div>
                 <button class="selector-button" style="justify-content: center;">
