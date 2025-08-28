@@ -3978,7 +3978,7 @@
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
                             x: 486,
-                            y: height - 115, // 调整到Invoice No行
+                            y: height - 115.5, // 调整到Invoice No行
                             size: fontSize,
                             color: textColor,
                             font: boldFont,
@@ -4002,7 +4002,7 @@
                     
                     // NO (第一列)
                     page.drawText(itemNumber.toString(), {
-                        x: 25,
+                        x: exportSystem === 'j1' ? 25 : 30,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4017,7 +4017,7 @@
                         : productName;
                     
                     page.drawText(displayProductName.toUpperCase(), {
-                        x: 62,
+                        x: exportSystem === 'j1' ? 62 : 70,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4026,7 +4026,7 @@
                     
                     // Price RM (第三列)
                     page.drawText(price.toFixed(2), {
-                        x: 325,
+                        x: exportSystem === 'j1' ? 325 : 335,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4036,7 +4036,7 @@
                     // Quantity (第四列) - 右对齐
                     const qtyText = outQty.toString();
                     page.drawText(qtyText, {
-                        x: 430 - (qtyText.length * 4), // 右对齐调整
+                        x: exportSystem === 'j1' ? (430 - (qtyText.length * 4)) : (440 - (qtyText.length * 4)),
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4046,7 +4046,7 @@
                     // Total RM (第五列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: 565 - (totalText.length * 6), // 右对齐调整
+                        x: exportSystem === 'j1' ? (565 - (totalText.length * 6)) : (575 - (totalText.length * 6)),
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
