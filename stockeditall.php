@@ -751,7 +751,7 @@
             font-weight: 600;
         }
 
-        /* 产品名称列稍宽 */
+        /* 货品名称列稍宽 */
         .product-name-col {
             min-width: 150px !important;
         }
@@ -1248,14 +1248,14 @@
                     <label for="date-filter">日期</label>
                     <input type="date" id="date-filter" class="filter-input">
                 </div>
-                <!-- 在这里添加新的产品编号搜索栏 -->
+                <!-- 在这里添加新的货品编号搜索栏 -->
                 <div class="filter-group">
-                    <label for="code-filter">产品编号</label>
-                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品编号...">
+                    <label for="code-filter">货品编号</label>
+                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索货品编号...">
                 </div>
                 <div class="filter-group">
-                    <label for="product-filter">产品名称</label>
-                    <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
+                    <label for="product-filter">货品名称</label>
+                    <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">
                 </div>
                 <div class="filter-group">
                     <label for="receiver-filter">收货人</label>
@@ -1295,9 +1295,9 @@
                     <input type="time" id="add-time" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label for="add-product-name">产品名称 *</label>
+                    <label for="add-product-name">货品名称 *</label>
                     <select id="add-product-name" class="form-select" onchange="handleProductChange(this, document.getElementById('add-code-number'))" required>
-                        <option value="">请选择产品名称</option>
+                        <option value="">请选择货品名称</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1333,7 +1333,7 @@
                     <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
                         <span class="currency-symbol">RM</span>
                         <select id="add-price-select" class="form-select" style="border: none; background: transparent; display: none;" onchange="handleAddFormPriceChange()">
-                            <option value="">请先选择产品</option>
+                            <option value="">请先选择货品</option>
                         </select>
                         <input type="number" id="add-price" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" style="border: none; background: transparent;">
                     </div>
@@ -1709,12 +1709,12 @@
                     window.productOptions = [];
                 }
             } catch (error) {
-                console.error('加载产品列表失败:', error);
+                console.error('加载货品列表失败:', error);
                 window.productOptions = [];
             }
         }
 
-        // 根据产品名称获取产品编号
+        // 根据货品名称获取货品编号
         async function getCodeByProduct(productName) {
             try {
                 const result = await apiCall(`?action=code_by_product&product_name=${encodeURIComponent(productName)}`);
@@ -1722,16 +1722,16 @@
                     return result.data.product_code;
                 }
             } catch (error) {
-                console.error('获取产品编号失败:', error);
+                console.error('获取货品编号失败:', error);
             }
             return '';
         }
 
-        // 生成产品名称下拉选项
+        // 生成货品名称下拉选项
         function generateProductOptions(selectedValue = '') {
             if (!window.productOptions) return '<option value="">加载中...</option>';
             
-            let options = '<option value="">请选择产品</option>';
+            let options = '<option value="">请选择货品</option>';
             window.productOptions.forEach(item => {
                 const selected = item.product_name === selectedValue ? 'selected' : '';
                 options += `<option value="${item.product_name}" ${selected}>${item.product_name}</option>`;
@@ -1739,7 +1739,7 @@
             return options;
         }
 
-        // 处理产品名称变化
+        // 处理货品名称变化
         async function handleProductChange(selectElement, codeNumberElement) {
             const productName = selectElement.value;
             if (productName) {
@@ -1774,7 +1774,7 @@
             }
         }
 
-        // 根据code number获取产品名称
+        // 根据code number获取货品名称
         async function getProductByCode(codeNumber) {
             try {
                 const result = await apiCall(`?action=product_by_code&code_number=${encodeURIComponent(codeNumber)}`);
@@ -1782,7 +1782,7 @@
                     return result.data.product_name;
                 }
             } catch (error) {
-                console.error('获取产品名称失败:', error);
+                console.error('获取货品名称失败:', error);
             }
             return '';
         }
@@ -2129,7 +2129,7 @@
             setTimeout(() => {
                 bindComboboxEvents();
                 
-                // 自动聚焦到产品名称输入框
+                // 自动聚焦到货品名称输入框
                 const productInput = document.getElementById('new-product_name-input');
                 if (productInput) {
                     productInput.focus();
@@ -2165,7 +2165,7 @@
             const priceCell = document.getElementById(`${rowId}-price`).closest('.currency-display');
             
             if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，创建价格下拉选项（带库存检查）
+                // 纯出库且有货品名称，创建价格下拉选项（带库存检查）
                 createNewRowPriceSelectWithStock(rowId, productName, price, outQty);
             } else if (outQty === 0 || inQty > 0) {
                 // 恢复普通输入框
@@ -2249,7 +2249,7 @@
 
             // 验证必填字段
             if (!formData.product_name || !formData.specification || !formData.receiver) {
-                showAlert('请填写产品名称、规格单位和收货人', 'error');
+                showAlert('请填写货品名称、规格单位和收货人', 'error');
                 return;
             }
 
@@ -2263,11 +2263,11 @@
                 formData.target_system = targetInput.value;
             }
 
-            // 验证产品名称是否存在于数据库中
+            // 验证货品名称是否存在于数据库中
             if (formData.product_name && window.productOptions) {
                 const validProducts = window.productOptions.map(p => p.product_name);
                 if (!validProducts.includes(formData.product_name)) {
-                    showAlert('产品名称不存在，请从下拉列表中选择有效的产品', 'error');
+                    showAlert('货品名称不存在，请从下拉列表中选择有效的货品', 'error');
                     return;
                 }
             }
@@ -2276,7 +2276,7 @@
             if (formData.code_number && window.codeNumberOptions) {
                 const validCodes = window.codeNumberOptions.map(c => c.code_number);
                 if (!validCodes.includes(formData.code_number)) {
-                    showAlert('产品编号不存在，请从下拉列表中选择有效的编号', 'error');
+                    showAlert('货品编号不存在，请从下拉列表中选择有效的编号', 'error');
                     return;
                 }
             }
@@ -2389,11 +2389,11 @@
                 }
             }
 
-            // 验证产品名称是否存在于数据库中
+            // 验证货品名称是否存在于数据库中
             if (formData.product_name && window.productOptions) {
                 const validProducts = window.productOptions.map(p => p.product_name);
                 if (!validProducts.includes(formData.product_name)) {
-                    showAlert('产品名称不存在，请从下拉列表中选择有效的产品', 'error');
+                    showAlert('货品名称不存在，请从下拉列表中选择有效的货品', 'error');
                     return;
                 }
             }
@@ -2402,7 +2402,7 @@
             if (formData.code_number && window.codeNumberOptions) {
                 const validCodes = window.codeNumberOptions.map(c => c.code_number);
                 if (!validCodes.includes(formData.code_number)) {
-                    showAlert('产品编号不存在，请从下拉列表中选择有效的编号', 'error');
+                    showAlert('货品编号不存在，请从下拉列表中选择有效的编号', 'error');
                     return;
                 }
             }
@@ -2469,7 +2469,7 @@
             const labels = {
                 'date': '日期',
                 'time': '时间',
-                'product_name': '产品名称',
+                'product_name': '货品名称',
                 'specification': '规格单位',
                 'receiver': '收货人',
                 'applicant': '申请人'
@@ -2661,11 +2661,11 @@
             const record = stockData.find(r => r.id === id);
             if (!record) return;
 
-            // 验证产品名称是否存在于数据库中
+            // 验证货品名称是否存在于数据库中
             if (record.product_name && window.productOptions) {
                 const validProducts = window.productOptions.map(p => p.product_name);
                 if (!validProducts.includes(record.product_name)) {
-                    showAlert('产品名称不存在，请从下拉列表中选择有效的产品', 'error');
+                    showAlert('货品名称不存在，请从下拉列表中选择有效的货品', 'error');
                     return;
                 }
             }
@@ -2674,7 +2674,7 @@
             if (record.code_number && window.codeNumberOptions) {
                 const validCodes = window.codeNumberOptions.map(c => c.code_number);
                 if (!validCodes.includes(record.code_number)) {
-                    showAlert('产品编号不存在，请从下拉列表中选择有效的编号', 'error');
+                    showAlert('货品编号不存在，请从下拉列表中选择有效的编号', 'error');
                     return;
                 }
             }
@@ -2835,7 +2835,7 @@
         // 创建 Combobox 组件
         function createCombobox(type, value = '', recordId = null, isNewRow = false) {
             const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
-            const placeholder = type === 'code' ? '输入或选择编号...' : '输入或选择产品...';
+            const placeholder = type === 'code' ? '输入或选择编号...' : '输入或选择货品...';
             const fieldName = type === 'code' ? 'code_number' : 'product_name';
             const displayField = type === 'code' ? 'code_number' : 'product_name';
             
@@ -3227,7 +3227,7 @@
                         // 验证输入值
                         if (input.value.trim() && !validateComboboxInput(input)) {
                             const type = input.dataset.type;
-                            const fieldName = type === 'code' ? '产品编号' : '产品名称';
+                            const fieldName = type === 'code' ? '货品编号' : '货品名称';
                             showAlert(`${fieldName}不存在，请从下拉列表中选择`, 'error');
                             // 不要立即重新聚焦，给用户机会点击其他地方
                             setTimeout(() => {
@@ -3290,7 +3290,7 @@
         window.addEventListener('resize', hideAllDropdowns);
     </script>
     <script>
-        // 加载产品的所有进货价格选项
+        // 加载货品的所有进货价格选项
         async function loadProductPrices(productName, selectElementId, currentPrice = '') {
             try {
                 const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
@@ -3318,7 +3318,7 @@
                 });
                 
             } catch (error) {
-                console.error('加载产品价格失败:', error);
+                console.error('加载货品价格失败:', error);
                 const selectElement = document.getElementById(selectElementId);
                 if (selectElement) {
                     selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
@@ -3354,7 +3354,7 @@
             });
         }
 
-        // 3. 新增函数：加载新行产品价格选项（带库存检查）
+        // 3. 新增函数：加载新行货品价格选项（带库存检查）
         async function loadNewRowProductPricesWithStock(productName, selectElementId, currentPrice = '', requiredQty = 0) {
             try {
                 const result = await apiCall(`?action=product_prices_with_stock&product_name=${encodeURIComponent(productName)}&required_qty=${requiredQty}`);
@@ -3383,7 +3383,7 @@
                 }
                 
             } catch (error) {
-                console.error('加载产品价格失败:', error);
+                console.error('加载货品价格失败:', error);
                 const selectElement = document.getElementById(selectElementId);
                 if (selectElement) {
                     selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
@@ -3417,7 +3417,7 @@
                 }
                 
             } catch (error) {
-                console.error('加载产品价格失败:', error);
+                console.error('加载货品价格失败:', error);
                 const selectElement = document.getElementById('add-price-select');
                 if (selectElement) {
                     selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
@@ -3459,7 +3459,7 @@
                 });
                 
             } catch (error) {
-                console.error('加载产品价格失败:', error);
+                console.error('加载货品价格失败:', error);
                 const selectElement = document.getElementById(selectElementId);
                 if (selectElement) {
                     selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
@@ -3517,11 +3517,11 @@
         }
     </script>
     <script>
-        // 处理新增表单中产品变化时加载价格选项
+        // 处理新增表单中货品变化时加载价格选项
         function handleAddFormProductChange(selectElement, codeNumberElement) {
             const productName = selectElement.value;
             
-            // 原有的产品变化处理
+            // 原有的货品变化处理
             handleProductChange(selectElement, codeNumberElement);
             
             // 根据出库数量决定是否加载价格选项
@@ -3531,7 +3531,7 @@
                 const priceSelect = document.getElementById('add-price-select');
                 const priceInput = document.getElementById('add-price');
                 if (priceSelect) {
-                    priceSelect.innerHTML = '<option value="">请先选择产品</option>';
+                    priceSelect.innerHTML = '<option value="">请先选择货品</option>';
                     priceSelect.style.display = 'none';
                 }
                 if (priceInput) {
@@ -3564,7 +3564,7 @@
                 }
                 
             } catch (error) {
-                console.error('加载产品价格失败:', error);
+                console.error('加载货品价格失败:', error);
             }
         }
 
@@ -3592,7 +3592,7 @@
             const priceInput = document.getElementById('add-price');
             
             if (outQty > 0 && inQty === 0 && productName) {
-                // 纯出库且有产品名称，显示价格下拉选项（带库存检查）
+                // 纯出库且有货品名称，显示价格下拉选项（带库存检查）
                 priceSelect.style.display = 'block';
                 priceInput.style.display = 'none';
                 priceInput.value = '';
@@ -3640,7 +3640,7 @@
                 }
                 
             } catch (error) {
-                console.error('加载产品价格失败:', error);
+                console.error('加载货品价格失败:', error);
                 const selectElement = document.getElementById('add-price-select');
                 if (selectElement) {
                     selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';
@@ -3649,7 +3649,7 @@
         }
     </script>
     <script>
-        // 检查产品库存是否足够（按产品名称和价格分别计算）
+        // 检查货品库存是否足够（按货品名称和价格分别计算）
         async function checkProductStock(productName, outQuantity, price = null) {
             if (!productName || outQuantity <= 0) {
                 return { sufficient: true, availableStock: 0, currentStock: 0 };
@@ -3658,10 +3658,10 @@
             try {
                 let apiUrl;
                 if (price !== null && price !== '') {
-                    // 按产品名称和价格检查库存
+                    // 按货品名称和价格检查库存
                     apiUrl = `?action=product_stock_by_price&product_name=${encodeURIComponent(productName)}&price=${encodeURIComponent(price)}`;
                 } else {
-                    // 按产品名称检查总库存
+                    // 按货品名称检查总库存
                     apiUrl = `?action=product_stock&product_name=${encodeURIComponent(productName)}`;
                 }
                 
@@ -3678,7 +3678,7 @@
                         requested: outQuantity
                     };
                 } else {
-                    // 如果无法获取库存信息，默认允许（可能是新产品）
+                    // 如果无法获取库存信息，默认允许（可能是新货品）
                     return { sufficient: true, availableStock: 0, currentStock: 0 };
                 }
                 
@@ -3732,7 +3732,7 @@
             }
         }
 
-        // 加载新行产品价格选项
+        // 加载新行货品价格选项
         async function loadNewRowProductPrices(productName, selectElementId, currentPrice = '') {
             try {
                 const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
@@ -3754,7 +3754,7 @@
                 }
                 
             } catch (error) {
-                console.error('加载产品价格失败:', error);
+                console.error('加载货品价格失败:', error);
                 const selectElement = document.getElementById(selectElementId);
                 if (selectElement) {
                     selectElement.innerHTML = '<option value="">加载失败</option><option value="manual">手动输入价格</option>';

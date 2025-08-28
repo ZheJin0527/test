@@ -206,7 +206,7 @@
             transform: translateY(-1px);
         }
 
-        /* 产品组显示 */
+        /* 货品组显示 */
         .product-group {
             background: white;
             border-radius: 12px;
@@ -267,7 +267,7 @@
         }
 
         .price-variants-table th:nth-child(1) { width: 10%; } /* 排序 */
-        .price-variants-table th:nth-child(2) { width: 30%; } /* 产品编号 */
+        .price-variants-table th:nth-child(2) { width: 30%; } /* 货品编号 */
         .price-variants-table th:nth-child(3) { width: 30%; } /* 库存数量 */
         .price-variants-table th:nth-child(4) { width: 30%; } /* 单价 */
 
@@ -564,12 +564,12 @@
         <div class="filter-section">
             <div class="filter-grid">
                 <div class="filter-group">
-                    <label for="product-filter">产品名称</label>
-                    <input type="text" id="product-filter" class="filter-input" placeholder="搜索产品名称...">
+                    <label for="product-filter">货品名称</label>
+                    <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">
                 </div>
                 <div class="filter-group">
-                    <label for="code-filter">产品编号</label>
-                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索产品编号...">
+                    <label for="code-filter">货品编号</label>
+                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索货品编号...">
                 </div>
                 <div class="filter-group">
                     <label for="min-variants">最少价格数量</label>
@@ -584,8 +584,8 @@
                 <div class="filter-group">
                     <label for="sort-by">排序方式</label>
                     <select id="sort-by" class="filter-select">
-                        <option value="name_asc">产品名称 A-Z</option>
-                        <option value="name_desc">产品名称 Z-A</option>
+                        <option value="name_asc">货品名称 A-Z</option>
+                        <option value="name_desc">货品名称 Z-A</option>
                         <option value="variants_desc">价格数量 (多-少)</option>
                         <option value="variants_asc">价格数量 (少-多)</option>
                         <option value="price_diff_desc">价格差异 (大-小)</option>
@@ -613,7 +613,7 @@
             </div>
         </div>
 
-        <!-- 产品列表 -->
+        <!-- 货品列表 -->
         <div id="products-container">
             <!-- Dynamic content -->
         </div>
@@ -702,9 +702,9 @@
                     renderProducts();
                     
                     if (stockData.length === 0) {
-                        showAlert('当前没有发现多价格产品', 'info');
+                        showAlert('当前没有发现多价格货品', 'info');
                     } else {
-                        showAlert(`发现 ${stockData.length} 个产品有多个价格变体`, 'success');
+                        showAlert(`发现 ${stockData.length} 个货品有多个价格变体`, 'success');
                     }
                 } else {
                     stockData = [];
@@ -747,7 +747,7 @@
             if (filteredData.length === 0) {
                 showAlert('未找到匹配的记录', 'info');
             } else {
-                showAlert(`找到 ${filteredData.length} 个匹配产品`, 'success');
+                showAlert(`找到 ${filteredData.length} 个匹配货品`, 'success');
             }
         }
 
@@ -802,7 +802,7 @@
             }
         }
 
-        // 渲染产品列表
+        // 渲染货品列表
         function renderProducts() {
             const container = document.getElementById('products-container');
             
@@ -810,8 +810,8 @@
                 container.innerHTML = `
                     <div class="no-data">
                         <i class="fas fa-search"></i>
-                        <h3>没有找到多价格产品</h3>
-                        <p>当前筛选条件下没有发现产品有多个价格变体</p>
+                        <h3>没有找到多价格货品</h3>
+                        <p>当前筛选条件下没有发现货品有多个价格变体</p>
                     </div>
                 `;
                 return;
@@ -829,8 +829,8 @@
                         <table class="price-variants-table">
                             <thead>
                                 <tr>
-                                    <th>排序</th>
-                                    <th>产品编号</th>
+                                    <th>序号.</th>
+                                    <th>货品编号</th>
                                     <th>库存数量</th>
                                     <th>单价</th>
                                 </tr>

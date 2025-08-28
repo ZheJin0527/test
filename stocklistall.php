@@ -822,12 +822,12 @@
                 <div class="filter-section">
                     <div class="filter-grid">
                         <div class="filter-group">
-                            <label for="central-product-filter">产品名称</label>
-                            <input type="text" id="central-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                            <label for="central-product-filter">货品名称</label>
+                            <input type="text" id="central-product-filter" class="filter-input" placeholder="搜索货品名称...">
                         </div>
                         <div class="filter-group">
-                            <label for="central-code-filter">产品编号</label>
-                            <input type="text" id="central-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                            <label for="central-code-filter">货品编号</label>
+                            <input type="text" id="central-code-filter" class="filter-input" placeholder="搜索货品编号...">
                         </div>
                         <div class="filter-group">
                             <label for="central-spec-filter">规格单位</label>
@@ -879,7 +879,7 @@
                                 <th>序号.</th>
                                 <th>货品</th>
                                 <th>货品编号</th>
-                                <th>库存总量</th>
+                                <th>库存数量</th>
                                 <th>规格</th>
                                 <th>单价</th>
                                 <th>总价</th>
@@ -909,12 +909,12 @@
                 <div class="filter-section">
                     <div class="filter-grid">
                         <div class="filter-group">
-                            <label for="j1-product-filter">产品名称</label>
-                            <input type="text" id="j1-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                            <label for="j1-product-filter">货品名称</label>
+                            <input type="text" id="j1-product-filter" class="filter-input" placeholder="搜索货品名称...">
                         </div>
                         <div class="filter-group">
-                            <label for="j1-code-filter">产品编号</label>
-                            <input type="text" id="j1-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                            <label for="j1-code-filter">货品编号</label>
+                            <input type="text" id="j1-code-filter" class="filter-input" placeholder="搜索货品编号...">
                         </div>
                         <div class="filter-group">
                             <label for="j1-spec-filter">规格单位</label>
@@ -996,12 +996,12 @@
                 <div class="filter-section">
                     <div class="filter-grid">
                         <div class="filter-group">
-                            <label for="j2-product-filter">产品名称</label>
-                            <input type="text" id="j2-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                            <label for="j2-product-filter">货品名称</label>
+                            <input type="text" id="j2-product-filter" class="filter-input" placeholder="搜索货品名称...">
                         </div>
                         <div class="filter-group">
-                            <label for="j2-code-filter">产品编号</label>
-                            <input type="text" id="j2-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                            <label for="j2-code-filter">货品编号</label>
+                            <input type="text" id="j2-code-filter" class="filter-input" placeholder="搜索货品编号...">
                         </div>
                         <div class="filter-group">
                             <label for="j2-spec-filter">规格单位</label>
@@ -1072,12 +1072,12 @@
             <div class="filter-section">
                 <div class="filter-grid">
                     <div class="filter-group">
-                        <label for="remark-product-filter">产品名称</label>
-                        <input type="text" id="remark-product-filter" class="filter-input" placeholder="搜索产品名称...">
+                        <label for="remark-product-filter">货品名称</label>
+                        <input type="text" id="remark-product-filter" class="filter-input" placeholder="搜索货品名称...">
                     </div>
                     <div class="filter-group">
-                        <label for="remark-code-filter">产品编号</label>
-                        <input type="text" id="remark-code-filter" class="filter-input" placeholder="搜索产品编号...">
+                        <label for="remark-code-filter">货品编号</label>
+                        <input type="text" id="remark-code-filter" class="filter-input" placeholder="搜索货品编号...">
                     </div>
                     <div class="filter-group">
                         <label for="remark-min-variants">最少价格数量</label>
@@ -1092,8 +1092,8 @@
                     <div class="filter-group">
                         <label for="remark-sort-by">排序方式</label>
                         <select id="remark-sort-by" class="filter-select">
-                            <option value="name_asc">产品名称 A-Z</option>
-                            <option value="name_desc">产品名称 Z-A</option>
+                            <option value="name_asc">货品名称 A-Z</option>
+                            <option value="name_desc">货品名称 Z-A</option>
                             <option value="variants_desc">价格数量 (多-少)</option>
                             <option value="variants_asc">价格数量 (少-多)</option>
                             <option value="price_diff_desc">价格差异 (大-小)</option>
@@ -1329,7 +1329,7 @@
                     
                     if (stockData[system].length === 0) {
                         let message = system === 'remark' ? 
-                            '当前没有发现多价格产品' : 
+                            '当前没有发现多价格货品' : 
                             `当前没有${SYSTEM_NAMES[system]}数据`;
                         showAlert(message, 'info');
                     }
@@ -1413,7 +1413,7 @@
             if (filteredData.remark.length === 0) {
                 showAlert('未找到匹配的记录', 'info');
             } else {
-                showAlert(`找到 ${filteredData.remark.length} 个匹配产品`, 'success');
+                showAlert(`找到 ${filteredData.remark.length} 个匹配货品`, 'success');
             }
         }
 
@@ -1576,7 +1576,7 @@
             tbody.innerHTML = tableRows;
         }
 
-        // 渲染价格分析产品列表
+        // 渲染价格分析货品列表
         function renderRemarkProducts() {
             const container = document.getElementById('remark-products-container');
             
@@ -1584,8 +1584,8 @@
                 container.innerHTML = `
                     <div class="no-data">
                         <i class="fas fa-search"></i>
-                        <h3>没有找到多价格产品</h3>
-                        <p>当前筛选条件下没有发现产品有多个价格变体</p>
+                        <h3>没有找到多价格货品</h3>
+                        <p>当前筛选条件下没有发现货品有多个价格变体</p>
                     </div>
                 `;
                 return;
@@ -1604,7 +1604,7 @@
                             <thead>
                                 <tr>
                                     <th>排序</th>
-                                    <th>产品编号</th>
+                                    <th>货品编号</th>
                                     <th>库存数量</th>
                                     <th>单价</th>
                                 </tr>
