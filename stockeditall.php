@@ -3933,9 +3933,9 @@
                 
                 // 填入日期 (右上角区域)
                 const currentDate = new Date().toLocaleDateString('en-GB');
-                page.drawText(currentDate, {
-                    x: 560, // 调整X坐标到DATE字段右侧
-                    y: height - 115, // 调整Y坐标
+                page.drawText(`: ${currentDate}`, {
+                    x: 535, // 调整到DATE冒号后面
+                    y: height - 115, 
                     size: fontSize,
                     color: textColor,
                 });
@@ -3944,9 +3944,9 @@
                 let grandTotal = 0;
                 
                 // 填入数据行 (从第一个数据行开始)
-                let yPosition = height - 200; // 第一行的Y坐标
-                const lineHeight = 15; // 行高
-                
+                let yPosition = height - 198; // 调整起始Y坐标
+                const lineHeight = 16; // 调整行高
+
                 outData.forEach((record, index) => {
                     const itemNumber = index + 1;
                     const outQty = parseFloat(record.out_quantity) || 0;
@@ -3956,16 +3956,21 @@
                     
                     // NO (第一列)
                     page.drawText(itemNumber.toString(), {
-                        x: 40,
+                        x: 45,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
                     });
                     
-                    // Descriptions (第二列)
+                    // Descriptions (第二列) - 调整产品名称显示，处理长文本
                     const productName = record.product_name || '';
-                    page.drawText(productName, {
-                        x: 85,
+                    const maxProductNameLength = 25; // 限制产品名称长度
+                    const displayProductName = productName.length > maxProductNameLength 
+                        ? productName.substring(0, maxProductNameLength) + '...' 
+                        : productName;
+                    
+                    page.drawText(displayProductName.toUpperCase(), {
+                        x: 82,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -3973,23 +3978,25 @@
                     
                     // Price RM (第三列)
                     page.drawText(price.toFixed(2), {
-                        x: 310,
+                        x: 315,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
                     });
                     
-                    // Quantity (第四列)
-                    page.drawText(outQty.toString(), {
-                        x: 430,
+                    // Quantity (第四列) - 右对齐
+                    const qtyText = outQty.toString();
+                    page.drawText(qtyText, {
+                        x: 450 - (qtyText.length * 4), // 右对齐调整
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
                     });
                     
-                    // Total RM (第五列)
-                    page.drawText(total.toFixed(2), {
-                        x: 520,
+                    // Total RM (第五列) - 右对齐
+                    const totalText = total.toFixed(2);
+                    page.drawText(totalText, {
+                        x: 565 - (totalText.length * 6), // 右对齐调整
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -3998,11 +4005,12 @@
                     yPosition -= lineHeight;
                 });
                 
-                // 填入总计 (右下角)
-                page.drawText(`RM${grandTotal.toFixed(2)}`, {
-                    x: 520,
-                    y: height - 690, // 调整到TOTAL行的位置
-                    size: 12,
+                // 填入总计 (右下角) - 调整位置和格式
+                const totalText = `RM${grandTotal.toFixed(2)}`;
+                page.drawText(totalText, {
+                    x: 565 - (totalText.length * 8), // 右对齐到表格边缘
+                    y: height - 707, // 调整Y坐标到正确的TOTAL行位置
+                    size: 11,
                     color: textColor,
                 });
                 
