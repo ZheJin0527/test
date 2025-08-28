@@ -2078,7 +2078,7 @@ $avatarLetter = strtoupper($username[0]);
         <div class="main-content" id="main-content">
             <div class="header">
                 <div class="logo-container">
-                    <span class="title-text">KPI DASHBOARD</span>
+                    <span class="title-text">KPI 仪表盘</span>
                 </div>
             </div>
         <div class="container">           
