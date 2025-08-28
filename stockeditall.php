@@ -1267,9 +1267,7 @@
                     <label for="add-target">目标系统</label>
                     <select id="add-target" class="form-select" disabled>
                         <option value="">请选择</option>
-                        <option value="j1">J1</option>
-                        <option value="j2">J2</option>
-                        <option value="central">Central</option>
+                        ${getTargetSystemOptions()}
                     </select>
                 </div>
                 <div class="form-group">
@@ -1537,6 +1535,21 @@
             const dropdown = document.getElementById('view-selector-dropdown');
             if (dropdown) {
                 dropdown.classList.remove('show');
+            }
+        }
+
+        // 根据当前库存类型获取目标系统选项
+        function getTargetSystemOptions(selectedValue = '') {
+            if (currentStockType === 'central') {
+                // Central页面显示所有选项
+                return `
+                    <option value="j1" ${selectedValue === 'j1' ? 'selected' : ''}>J1</option>
+                    <option value="j2" ${selectedValue === 'j2' ? 'selected' : ''}>J2</option>
+                    <option value="central" ${selectedValue === 'central' ? 'selected' : ''}>Central</option>
+                `;
+            } else {
+                // J1和J2页面只显示Central选项
+                return `<option value="central" ${selectedValue === 'central' ? 'selected' : ''}>Central</option>`;
             }
         }
 
@@ -1873,9 +1886,7 @@
                         ${isEditing ? 
                             `<select class="table-select" id="target-select-${record.id}" onchange="updateField(${record.id}, 'target_system', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>
                                 <option value="">请选择</option>
-                                <option value="j1" ${record.target_system === 'j1' ? 'selected' : ''}>J1</option>
-                                <option value="j2" ${record.target_system === 'j2' ? 'selected' : ''}>J2</option>
-                                <option value="central" ${record.target_system === 'central' ? 'selected' : ''}>Central</option>
+                                ${getTargetSystemOptions(record.target_system)}
                             </select>` :
                             `<span>${record.target_system ? record.target_system.toUpperCase() : '-'}</span>`
                         }
@@ -2025,9 +2036,7 @@
                 <td>
                     <select class="table-select" id="${rowId}-target" disabled>
                     <option value="">请选择</option>
-                    <option value="j1">J1</option>
-                    <option value="j2">J2</option>
-                    <option value="central">Central</option>
+                    ${getTargetSystemOptions()}
                 </select>
                 </td>
                 <td>
@@ -2579,6 +2588,13 @@
                     const addProductSelect = document.getElementById('add-product-name');
                     const addCodeSelect = document.getElementById('add-code-number');
                     
+                    // 更新目标系统选项
+                    const addTargetSelect = document.getElementById('add-target');
+                    if (addTargetSelect) {
+                        const currentValue = addTargetSelect.value;
+                        addTargetSelect.innerHTML = '<option value="">请选择</option>' + getTargetSystemOptions(currentValue);
+                    }
+
                     if (addProductSelect) {
                         addProductSelect.onchange = function() {
                             handleAddFormProductChange(this, addCodeSelect);
