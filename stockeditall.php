@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>库存管理系统 - 全部库存管理</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -1277,7 +1278,7 @@
                 </button>
                 <button class="btn btn-warning" onclick="exportData()">
                     <i class="fas fa-download"></i>
-                    导出数据
+                    导出PDF发票
                 </button>
             </div>
         </div>
@@ -1415,7 +1416,7 @@
         <div id="export-modal" class="export-modal">
             <div class="export-modal-content">
                 <button class="close-export-modal" onclick="closeExportModal()">&times;</button>
-                <h3>导出数据设置</h3>
+                <h3>导出PDF发票</h3>
                 
                 <div class="export-form-group">
                     <label for="export-start-date">开始日期</label>
@@ -1428,17 +1429,7 @@
                 </div>
                 
                 <div class="export-form-group">
-                    <label>数据类型</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="export-in-data" value="in" checked>
-                            <label for="export-in-data">入库数据</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="export-out-data" value="out" checked>
-                            <label for="export-out-data">出库数据</label>
-                        </div>
-                    </div>
+                    <label style="margin-bottom: 10px; display: block;">将导出所选日期范围内的所有出库记录到PDF发票</label>
                 </div>
                 
                 <div class="export-modal-actions">
@@ -1448,7 +1439,7 @@
                     </button>
                     <button class="btn btn-success" onclick="confirmExport()">
                         <i class="fas fa-download"></i>
-                        导出Excel
+                        生成PDF发票
                     </button>
                 </div>
             </div>
@@ -3825,7 +3816,7 @@
             }
         }
 
-        // 确认导出
+        // 确认导出PDF
         async function confirmExport() {
             const startDate = document.getElementById('export-start-date').value;
             const endDate = document.getElementById('export-end-date').value;
@@ -3849,61 +3840,48 @@
             }
             
             try {
-                // 构建导出参数
-                const exportParams = new URLSearchParams({
-                    action: 'export',
-                    start_date: startDate,
-                    end_date: endDate,
-                    include_in: includeIn ? '1' : '0',
-                    include_out: includeOut ? '1' : '0'
-                });
-                
                 // 显示加载状态
                 const exportBtn = document.querySelector('.export-modal-actions .btn-success');
                 const originalText = exportBtn.innerHTML;
-                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 导出中...';
+                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
                 exportBtn.disabled = true;
                 
-                // 调用导出API
-                const response = await fetch(`${API_BASE_URL}?${exportParams}`);
+                // 筛选数据
+                const filteredData = stockData.filter(record => {
+                    const recordDate = new Date(record.date);
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    
+                    return recordDate >= start && recordDate <= end;
+                });
                 
-                if (!response.ok) {
-                    throw new Error('导出失败');
+                // 只处理出库数据
+                const outData = filteredData.filter(record => {
+                    const outQty = parseFloat(record.out_quantity) || 0;
+                    return outQty > 0;
+                });
+                
+                if (outData.length === 0) {
+                    showAlert('所选时间段内没有出库数据', 'error');
+                    return;
                 }
                 
-                // 获取文件名
-                const contentDisposition = response.headers.get('Content-Disposition');
-                let filename = 'stock_export.xlsx';
-                if (contentDisposition) {
-                    const filenameMatch = contentDisposition.match(/filename="(.+)"/);
-                    if (filenameMatch) {
-                        filename = filenameMatch[1];
-                    }
-                }
+                // 生成PDF发票
+                await generatePDFInvoice(outData, endDate);
                 
-                // 下载文件
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-                
-                showAlert('数据导出成功', 'success');
+                showAlert('PDF发票生成成功', 'success');
                 closeExportModal();
                 
             } catch (error) {
-                console.error('导出失败:', error);
-                showAlert('导出失败，请重试', 'error');
+                console.error('生成PDF失败:', error);
+                showAlert('生成PDF失败，请重试', 'error');
             } finally {
                 // 恢复按钮状态
                 const exportBtn = document.querySelector('.export-modal-actions .btn-success');
-                exportBtn.innerHTML = originalText;
-                exportBtn.disabled = false;
+                if (exportBtn) {
+                    exportBtn.innerHTML = originalText;
+                    exportBtn.disabled = false;
+                }
             }
         }
 
@@ -3939,6 +3917,111 @@
                 }
             }, 10);
         });
+
+        // 生成PDF发票
+        async function generatePDFInvoice(data, invoiceDate) {
+            try {
+                // 加载现有PDF模板
+                const existingPdfBytes = await fetch('invoice/invoice/j1invoice.pdf').then(res => res.arrayBuffer());
+                const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+                const pages = pdfDoc.getPages();
+                const firstPage = pages[0];
+                
+                // 获取页面尺寸
+                const { width, height } = firstPage.getSize();
+                
+                // 添加日期
+                firstPage.drawText(invoiceDate, {
+                    x: 550,
+                    y: height - 115,
+                    size: 10,
+                    color: PDFLib.rgb(0, 0, 0),
+                });
+                
+                // 定义起始位置和行间距
+                let startY = height - 180; // 调整起始Y位置
+                const lineHeight = 20;
+                const maxRows = 25; // 最大行数限制
+                
+                let totalAmount = 0;
+                
+                // 添加数据行
+                data.slice(0, maxRows).forEach((record, index) => {
+                    const y = startY - (index * lineHeight);
+                    const outQty = parseFloat(record.out_quantity) || 0;
+                    const price = parseFloat(record.price) || 0;
+                    const lineTotal = outQty * price;
+                    totalAmount += lineTotal;
+                    
+                    // NO. 列
+                    firstPage.drawText((index + 1).toString(), {
+                        x: 50,
+                        y: y,
+                        size: 9,
+                        color: PDFLib.rgb(0, 0, 0),
+                    });
+                    
+                    // Descriptions 列
+                    const description = record.product_name || '';
+                    firstPage.drawText(description.substring(0, 30), {
+                        x: 80,
+                        y: y,
+                        size: 9,
+                        color: PDFLib.rgb(0, 0, 0),
+                    });
+                    
+                    // Price 列
+                    firstPage.drawText(price.toFixed(2), {
+                        x: 320,
+                        y: y,
+                        size: 9,
+                        color: PDFLib.rgb(0, 0, 0),
+                    });
+                    
+                    // Quantity 列
+                    firstPage.drawText(outQty.toFixed(2), {
+                        x: 420,
+                        y: y,
+                        size: 9,
+                        color: PDFLib.rgb(0, 0, 0),
+                    });
+                    
+                    // Total 列
+                    firstPage.drawText(lineTotal.toFixed(2), {
+                        x: 520,
+                        y: y,
+                        size: 9,
+                        color: PDFLib.rgb(0, 0, 0),
+                    });
+                });
+                
+                // 添加总计
+                firstPage.drawText(`RM${totalAmount.toFixed(2)}`, {
+                    x: 520,
+                    y: height - 690, // 调整总计位置
+                    size: 12,
+                    color: PDFLib.rgb(0, 0, 0),
+                });
+                
+                // 保存PDF
+                const pdfBytes = await pdfDoc.save();
+                
+                // 下载PDF
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Invoice_${invoiceDate}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
+            } catch (error) {
+                console.error('PDF生成错误:', error);
+                throw error;
+            }
+        }
     </script>
 </body>
 </html>
