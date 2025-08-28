@@ -3990,8 +3990,14 @@
                 let grandTotal = 0;
                 
                 // 填入数据行 (从第一个数据行开始)
-                let yPosition = height - 301; // 调整起始Y坐标
-                const lineHeight = 16; // 调整行高
+                let yPosition, lineHeight;
+                if (exportSystem === 'j1') {
+                    yPosition = height - 189; // J1模板的起始Y坐标
+                    lineHeight = 14; // J1模板的行高
+                } else { // j2
+                    yPosition = height - 301; // J2模板的起始Y坐标
+                    lineHeight = 16; // J2模板的行高
+                }
 
                 outData.forEach((record, index) => {
                     const itemNumber = index + 1;
