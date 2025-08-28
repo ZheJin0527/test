@@ -4066,7 +4066,7 @@
                     const subtotalText = `RM${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
                         x: 585 - (subtotalText.length * 8),
-                        y: height - 665, // 调整到Subtotal行
+                        y: height - 663, // 调整到Subtotal行
                         size: 11,
                         color: textColor,
                         font: boldFont,
@@ -4075,7 +4075,7 @@
                     // 填入Charge 15%
                     const chargeText = `RM${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
-                        x: 585 - (chargeText.length * 8),
+                        x: 583 - (chargeText.length * 8),
                         y: height - 678, // 调整到Charge行
                         size: 11,
                         color: textColor,
