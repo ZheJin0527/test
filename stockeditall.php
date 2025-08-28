@@ -4009,7 +4009,7 @@
                 const totalText = `RM${grandTotal.toFixed(2)}`;
                 page.drawText(totalText, {
                     x: 585 - (totalText.length * 8), // 右对齐到表格边缘
-                    y: height - 647, // 调整Y坐标到正确的TOTAL行位置
+                    y: height - 650, // 调整Y坐标到正确的TOTAL行位置
                     size: 11,
                     color: textColor,
                 });
