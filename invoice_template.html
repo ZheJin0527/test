@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page { 
+            margin: 20mm; 
+            size: A4; 
+        }
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            font-size: 12px; 
+        }
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            margin-bottom: 30px; 
+        }
+        .company-info { 
+            flex: 1; 
+        }
+        .company-name { 
+            font-size: 14px; 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+        }
+        .invoice-title { 
+            font-size: 36px; 
+            font-weight: bold; 
+            text-align: right; 
+        }
+        .invoice-details { 
+            text-align: right; 
+            margin-top: 20px; 
+        }
+        .customer-info { 
+            margin: 30px 0; 
+        }
+        .customer-title { 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+        }
+        th, td { 
+            border: 1px solid #000; 
+            padding: 8px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #f0f0f0; 
+            font-weight: bold; 
+        }
+        .quantity-col, .price-col, .total-col { 
+            text-align: right; 
+        }
+        .totals { 
+            margin-top: 30px; 
+            text-align: right; 
+        }
+        .totals table { 
+            margin-left: auto; 
+            width: 300px; 
+        }
+        .total-row { 
+            font-weight: bold; 
+            font-size: 14px; 
+        }
+        .signature-section { 
+            margin-top: 50px; 
+            display: flex; 
+            justify-content: space-between; 
+        }
+        .signature-box { 
+            text-align: center; 
+            width: 200px; 
+        }
+        .signature-line { 
+            border-bottom: 1px solid #000; 
+            height: 50px; 
+            margin-bottom: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="company-info">
+            <div class="company-name">{{COMPANY_NAME}}</div>
+            <div>{{COMPANY_ADDRESS}}</div>
+            <div>{{COMPANY_PHONE}}</div>
+        </div>
+        <div>
+            <div class="invoice-title">INVOICE</div>
+            <div class="invoice-details">
+                <div><strong>INVOICE NO:</strong> {{INVOICE_NO}}</div>
+                <div><strong>DATE:</strong> {{INVOICE_DATE}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="customer-info">
+        <div class="customer-title">Invoice To</div>
+        <div><strong>Name:</strong> {{CUSTOMER_NAME}}</div>
+        <div><strong>Address:</strong> {{CUSTOMER_ADDRESS}}</div>
+        <div><strong>HP Number:</strong> {{CUSTOMER_HP}}</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 50px;">NO:</th>
+                <th>Descriptions</th>
+                <th style="width: 100px;" class="price-col">Price (RM)</th>
+                <th style="width: 80px;" class="quantity-col">Quantity</th>
+                <th style="width: 100px;" class="total-col">Total (RM)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{INVOICE_ITEMS}}
+        </tbody>
+    </table>
+
+    <div class="totals">
+        <table>
+            <tr>
+                <td><strong>SUB TOTAL</strong></td>
+                <td class="total-col"><strong>RM{{SUBTOTAL}}</strong></td>
+            </tr>
+            <tr>
+                <td><strong>CHARGE 15%</strong></td>
+                <td class="total-col"><strong>RM{{TAX_AMOUNT}}</strong></td>
+            </tr>
+            <tr class="total-row">
+                <td><strong>TOTAL</strong></td>
+                <td class="total-col"><strong>RM{{FINAL_TOTAL}}</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="text-align: center; font-size: 24px; font-weight: bold; margin: 30px 0;">
+        Thank You
+    </div>
+
+    <div class="signature-section">
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <div><strong>Issued by</strong></div>
+        </div>
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <div><strong>Received by</strong></div>
+        </div>
+    </div>
+</body>
+</html>
