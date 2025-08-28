@@ -1412,48 +1412,53 @@
         </div>
 
         <!-- 导出数据弹窗 -->
-<div id="export-modal" class="export-modal">
-    <div class="export-modal-content">
-        <button class="close-export-modal" onclick="closeExportModal()">&times;</button>
-        <h3>导出数据设置</h3>
-        
-        <div class="export-form-group">
-            <label for="export-start-date">开始日期</label>
-            <input type="date" id="export-start-date" required>
-        </div>
-        
-        <div class="export-form-group">
-            <label for="export-end-date">结束日期</label>
-            <input type="date" id="export-end-date" required>
-        </div>
-        
-        <div class="export-form-group">
-            <label>数据类型</label>
-            <div class="checkbox-group">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="export-in-data" value="in" checked>
-                    <label for="export-in-data">入库数据</label>
+        <div id="export-modal" class="export-modal">
+            <div class="export-modal-content">
+                <button class="close-export-modal" onclick="closeExportModal()">&times;</button>
+                <h3>导出数据设置</h3>
+                
+                <div class="export-form-group">
+                    <label for="export-start-date">开始日期</label>
+                    <input type="date" id="export-start-date" required>
                 </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="export-out-data" value="out" checked>
-                    <label for="export-out-data">出库数据</label>
+                
+                <div class="export-form-group">
+                    <label for="export-end-date">结束日期</label>
+                    <input type="date" id="export-end-date" required>
+                </div>
+                
+                <div class="export-form-group">
+                    <label>数据类型</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="export-in-data" value="in" checked>
+                            <label for="export-in-data">入库数据</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="export-out-data" value="out" checked>
+                            <label for="export-out-data">出库数据</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="export-modal-actions">
+                    <button class="btn btn-secondary" onclick="closeExportModal()">
+                        <i class="fas fa-times"></i>
+                        取消
+                    </button>
+                    <button class="btn btn-success" onclick="confirmExport()">
+                        <i class="fas fa-download"></i>
+                        导出Excel
+                    </button>
                 </div>
             </div>
         </div>
-        
-        <div class="export-modal-actions">
-            <button class="btn btn-secondary" onclick="closeExportModal()">
-                <i class="fas fa-times"></i>
-                取消
-            </button>
-            <button class="btn btn-success" onclick="confirmExport()">
-                <i class="fas fa-download"></i>
-                导出Excel
-            </button>
-        </div>
     </div>
-</div>
-    </div>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="back-to-top-btn" onclick="scrollToTop()" title="回到顶部">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script>
         // API 配置
