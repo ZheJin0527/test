@@ -1426,21 +1426,7 @@
                 <div class="export-form-group">
                     <label for="export-end-date">结束日期</label>
                     <input type="date" id="export-end-date" required>
-                </div>
-                
-                <div class="export-form-group">
-                    <label>数据类型</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="export-in-data" value="in" checked>
-                            <label for="export-in-data">入库数据</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="export-out-data" value="out" checked>
-                            <label for="export-out-data">出库数据</label>
-                        </div>
-                    </div>
-                </div>
+                </div>              
                 
                 <div class="export-modal-actions">
                     <button class="btn btn-secondary" onclick="closeExportModal()">
@@ -3830,7 +3816,6 @@
         async function confirmExport() {
             const startDate = document.getElementById('export-start-date').value;
             const endDate = document.getElementById('export-end-date').value;
-            const includeOut = document.getElementById('export-out-data').checked;
             
             // 验证输入
             if (!startDate || !endDate) {
@@ -3840,11 +3825,6 @@
             
             if (new Date(startDate) > new Date(endDate)) {
                 showAlert('开始日期不能晚于结束日期', 'error');
-                return;
-            }
-            
-            if (!includeOut) {
-                showAlert('PDF发票需要出库数据，请选择出库数据', 'error');
                 return;
             }
             
