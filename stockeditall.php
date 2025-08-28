@@ -3990,7 +3990,7 @@
                 let grandTotal = 0;
                 
                 // 填入数据行 (从第一个数据行开始)
-                let yPosition = height - 289; // 调整起始Y坐标
+                let yPosition = height - 295; // 调整起始Y坐标
                 const lineHeight = 14; // 调整行高
 
                 outData.forEach((record, index) => {
@@ -4017,7 +4017,7 @@
                         : productName;
                     
                     page.drawText(displayProductName.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 62 : 70,
+                        x: exportSystem === 'j1' ? 62 : 72,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4026,7 +4026,7 @@
                     
                     // Price RM (第三列)
                     page.drawText(price.toFixed(2), {
-                        x: exportSystem === 'j1' ? 325 : 335,
+                        x: exportSystem === 'j1' ? 325 : 325,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4036,7 +4036,7 @@
                     // Quantity (第四列) - 右对齐
                     const qtyText = outQty.toString();
                     page.drawText(qtyText, {
-                        x: exportSystem === 'j1' ? (430 - (qtyText.length * 4)) : (440 - (qtyText.length * 4)),
+                        x: exportSystem === 'j1' ? (430 - (qtyText.length * 4)) : (430 - (qtyText.length * 4)),
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4046,7 +4046,7 @@
                     // Total RM (第五列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: exportSystem === 'j1' ? (565 - (totalText.length * 6)) : (575 - (totalText.length * 6)),
+                        x: exportSystem === 'j1' ? (565 - (totalText.length * 6)) : (565 - (totalText.length * 6)),
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
