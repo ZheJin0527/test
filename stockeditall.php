@@ -3987,7 +3987,7 @@
                     // Quantity (第四列) - 右对齐
                     const qtyText = outQty.toString();
                     page.drawText(qtyText, {
-                        x: 500 - (qtyText.length * 4), // 右对齐调整
+                        x: 430 - (qtyText.length * 4), // 右对齐调整
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
