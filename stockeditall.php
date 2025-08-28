@@ -3966,7 +3966,7 @@
                 const currentDate = new Date().toLocaleDateString('en-GB');
                 page.drawText(` ${currentDate}`, {
                     x: 485, // 调整到DATE冒号后面
-                    y: height - 113, 
+                    y: height - 123, 
                     size: fontSize,
                     color: textColor,
                     font: boldFont,
@@ -3978,7 +3978,7 @@
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
                             x: 485,
-                            y: height - 93, // 调整到Invoice No行
+                            y: height - 113, // 调整到Invoice No行
                             size: fontSize,
                             color: textColor,
                             font: boldFont,
