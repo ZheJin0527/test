@@ -3964,13 +3964,26 @@
                 
                 // 填入日期 (右上角区域)
                 const currentDate = new Date().toLocaleDateString('en-GB');
-                page.drawText(` ${currentDate}`, {
-                    x: 485, // 调整到DATE冒号后面
-                    y: height - 132, 
-                    size: fontSize,
-                    color: textColor,
-                    font: boldFont,
-                });
+
+                if (exportSystem === 'j1') {
+                    // J1模板的日期位置
+                    page.drawText(` ${currentDate}`, {
+                        x: 485, // J1模板DATE冒号后面的位置
+                        y: height - 113, 
+                        size: fontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                } else if (exportSystem === 'j2') {
+                    // J2模板的日期位置
+                    page.drawText(` ${currentDate}`, {
+                        x: 485, // J2模板DATE冒号后面的位置 (可根据需要调整)
+                        y: height - 132, // J2模板的Y坐标 (可根据需要调整)
+                        size: fontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                }
 
                 // J2模板特殊处理
                 if (exportSystem === 'j2') {
