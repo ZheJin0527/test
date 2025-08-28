@@ -3956,7 +3956,7 @@
                     
                     // NO (第一列)
                     page.drawText(itemNumber.toString(), {
-                        x: 45,
+                        x: 25,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -3970,7 +3970,7 @@
                         : productName;
                     
                     page.drawText(displayProductName.toUpperCase(), {
-                        x: 82,
+                        x: 62,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -3978,7 +3978,7 @@
                     
                     // Price RM (第三列)
                     page.drawText(price.toFixed(2), {
-                        x: 315,
+                        x: 325,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -3987,7 +3987,7 @@
                     // Quantity (第四列) - 右对齐
                     const qtyText = outQty.toString();
                     page.drawText(qtyText, {
-                        x: 450 - (qtyText.length * 4), // 右对齐调整
+                        x: 400 - (qtyText.length * 4), // 右对齐调整
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
