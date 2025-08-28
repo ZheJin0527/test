@@ -3816,6 +3816,13 @@
         // 关闭导出弹窗
         function closeExportModal() {
             document.getElementById('export-modal').style.display = 'none';
+            
+            // 重置导出按钮状态
+            const exportBtn = document.querySelector('.export-modal-actions .btn-success');
+            if (exportBtn) {
+                exportBtn.innerHTML = '<i class="fas fa-download"></i> 导出Excel';
+                exportBtn.disabled = false;
+            }
         }
 
         // 确认导出
