@@ -4008,8 +4008,8 @@
                 // 填入总计 (右下角) - 调整位置和格式
                 const totalText = `RM${grandTotal.toFixed(2)}`;
                 page.drawText(totalText, {
-                    x: 565 - (totalText.length * 8), // 右对齐到表格边缘
-                    y: height - 707, // 调整Y坐标到正确的TOTAL行位置
+                    x: 575 - (totalText.length * 8), // 右对齐到表格边缘
+                    y: height - 667, // 调整Y坐标到正确的TOTAL行位置
                     size: 11,
                     color: textColor,
                 });
