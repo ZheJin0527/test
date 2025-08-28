@@ -420,17 +420,17 @@
         }
 
         /* 为每列指定固定宽度 */
-        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* DATE */
-        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* Code Number */
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 180px; } /* PRODUCT */
-        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* In */
-        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* Out */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* 日期 */
+        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 180px; } /* 货品 */
+        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
+        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
         .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* Target */
-        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 90px; } /* Specification */
-        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* Price */
-        .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* Total */
-        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 150px; } /* Name */
-        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 100px; } /* Remark */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 90px; } /* 规格 */
+        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
+        .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
+        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 150px; } /* 名字 */
+        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 100px; } /* 备注 */
         .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 70px; } /* 操作 */
 
         /* 确保输入框和选择框填满单元格 */
@@ -1390,17 +1390,17 @@
             <table class="stock-table" id="stock-table">
                 <thead>
                     <tr>
-                        <th style="min-width: 100px;">DATE</th>
-                        <th style="min-width: 100px;">Code Number</th>
-                        <th class="product-name-col">PRODUCT</th>
-                        <th style="min-width: 80px;">In</th>
-                        <th style="min-width: 80px;">Out</th>
+                        <th style="min-width: 100px;">日期</th>
+                        <th style="min-width: 100px;">货品编号</th>
+                        <th class="product-name-col">货品</th>
+                        <th style="min-width: 80px;">进货</th>
+                        <th style="min-width: 80px;">出货</th>
                         <th style="min-width: 100px;">Target</th>
-                        <th style="min-width: 100px;">Specification</th>
-                        <th style="min-width: 100px;">Price</th>
-                        <th style="min-width: 100px;">Total</th>
-                        <th class="receiver-col">Name</th>
-                        <th style="min-width: 100px;">Remark</th>
+                        <th style="min-width: 100px;">规格</th>
+                        <th style="min-width: 100px;">单价</th>
+                        <th style="min-width: 100px;">总价</th>
+                        <th class="receiver-col">名字</th>
+                        <th style="min-width: 100px;">备注</th>
                         <th style="min-width: 80px;">操作</th>
                     </tr>
                 </thead>

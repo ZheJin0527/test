@@ -876,13 +876,13 @@
                     <table class="stock-table" id="central-stock-table">
                         <thead>
                             <tr>
-                                <th>No.</th>
-                                <th>PRODUCT</th>
-                                <th>Code Number</th>
-                                <th>Total Stock</th>
-                                <th>Specification</th>
-                                <th>Unit Price</th>
-                                <th>Total Price</th>
+                                <th>序号.</th>
+                                <th>货品</th>
+                                <th>货品编号</th>
+                                <th>库存总量</th>
+                                <th>规格</th>
+                                <th>单价</th>
+                                <th>总价</th>
                             </tr>
                         </thead>
                         <tbody id="central-stock-tbody">
@@ -963,13 +963,13 @@
                     <table class="stock-table" id="j1-stock-table">
                         <thead>
                             <tr>
-                                <th>No.</th>
-                                <th>PRODUCT</th>
-                                <th>Code Number</th>
-                                <th>Total Stock</th>
-                                <th>Specification</th>
-                                <th>Unit Price</th>
-                                <th>Total Price</th>
+                                <th>序号.</th>
+                                <th>货品</th>
+                                <th>货品编号</th>
+                                <th>库存总量</th>
+                                <th>规格</th>
+                                <th>单价</th>
+                                <th>总价</th>
                             </tr>
                         </thead>
                         <tbody id="j1-stock-tbody">
@@ -1050,13 +1050,13 @@
                     <table class="stock-table" id="j2-stock-table">
                         <thead>
                             <tr>
-                                <th>No.</th>
-                                <th>PRODUCT</th>
-                                <th>Code Number</th>
-                                <th>Total Stock</th>
-                                <th>Specification</th>
-                                <th>Unit Price</th>
-                                <th>Total Price</th>
+                                <th>序号.</th>
+                                <th>货品</th>
+                                <th>货品编号</th>
+                                <th>库存总量</th>
+                                <th>规格</th>
+                                <th>单价</th>
+                                <th>总价</th>
                             </tr>
                         </thead>
                         <tbody id="j2-stock-tbody">
