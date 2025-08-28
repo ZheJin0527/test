@@ -4076,7 +4076,7 @@
                     const subtotalText = `RM${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
                         x: 585 - (subtotalText.length * 8),
-                        y: height - 665, // 调整到Subtotal行
+                        y: height - 680, // 调整到Subtotal行
                         size: 11,
                         color: textColor,
                         font: boldFont,
@@ -4086,7 +4086,7 @@
                     const chargeText = `RM${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
                         x: 585 - (chargeText.length * 8),
-                        y: height - 670, // 调整到Charge行
+                        y: height - 680, // 调整到Charge行
                         size: 11,
                         color: textColor,
                         font: boldFont,
@@ -4096,7 +4096,7 @@
                     const finalTotalText = `RM${finalTotal.toFixed(2)}`;
                     page.drawText(finalTotalText, {
                         x: 585 - (finalTotalText.length * 8),
-                        y: height - 720, // 调整到最终Total行
+                        y: height - 700, // 调整到最终Total行
                         size: 11,
                         color: textColor,
                         font: boldFont,
