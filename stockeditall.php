@@ -3990,8 +3990,8 @@
                 let grandTotal = 0;
                 
                 // 填入数据行 (从第一个数据行开始)
-                let yPosition = height - 300; // 调整起始Y坐标
-                const lineHeight = 14; // 调整行高
+                let yPosition = height - 301; // 调整起始Y坐标
+                const lineHeight = 16; // 调整行高
 
                 outData.forEach((record, index) => {
                     const itemNumber = index + 1;
@@ -4096,7 +4096,7 @@
                     const finalTotalText = `RM${finalTotal.toFixed(2)}`;
                     page.drawText(finalTotalText, {
                         x: 585 - (finalTotalText.length * 8),
-                        y: height - 680, // 调整到最终Total行
+                        y: height - 720, // 调整到最终Total行
                         size: 11,
                         color: textColor,
                         font: boldFont,
