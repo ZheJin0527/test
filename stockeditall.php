@@ -1277,8 +1277,8 @@
                     新增记录
                 </button>
                 <button class="btn btn-warning" onclick="exportData()">
-                    <i class="fas fa-file-pdf"></i>
-                    导出PDF发票
+                    <i class="fas fa-download"></i>
+                    导出数据
                 </button>
             </div>
         </div>
@@ -1413,24 +1413,45 @@
         </div>
 
         <!-- 导出数据弹窗 -->
-        <div class="export-modal-content">
-            <button class="close-export-modal" onclick="closeExportModal()">&times;</button>
-            <h3>导出到PDF发票</h3>
-            
-            <div class="export-form-group">
-                <label for="export-date">发票日期</label>
-                <input type="date" id="export-date" required>
-            </div>
-            
-            <div class="export-modal-actions">
-                <button class="btn btn-secondary" onclick="closeExportModal()">
-                    <i class="fas fa-times"></i>
-                    取消
-                </button>
-                <button class="btn btn-success" onclick="confirmPDFExport()">
-                    <i class="fas fa-download"></i>
-                    导出PDF发票
-                </button>
+        <div id="export-modal" class="export-modal">
+            <div class="export-modal-content">
+                <button class="close-export-modal" onclick="closeExportModal()">&times;</button>
+                <h3>生成PDF发票设置</h3>
+                
+                <div class="export-form-group">
+                    <label for="export-start-date">开始日期</label>
+                    <input type="date" id="export-start-date" required>
+                </div>
+                
+                <div class="export-form-group">
+                    <label for="export-end-date">结束日期</label>
+                    <input type="date" id="export-end-date" required>
+                </div>
+                
+                <div class="export-form-group">
+                    <label>数据类型</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="export-in-data" value="in" checked>
+                            <label for="export-in-data">入库数据</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="export-out-data" value="out" checked>
+                            <label for="export-out-data">出库数据</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="export-modal-actions">
+                    <button class="btn btn-secondary" onclick="closeExportModal()">
+                        <i class="fas fa-times"></i>
+                        取消
+                    </button>
+                    <button class="btn btn-success" onclick="confirmExport()">
+                        <i class="fas fa-download"></i>
+                        导出PDF发票
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -2748,9 +2769,13 @@
 
         // 导出数据
         function exportData() {
-            // 设置默认日期为今天
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('export-date').value = today;
+            // 设置默认日期（最近30天）
+            const endDate = new Date();
+            const startDate = new Date();
+            startDate.setDate(endDate.getDate() - 30);
+            
+            document.getElementById('export-start-date').value = startDate.toISOString().split('T')[0];
+            document.getElementById('export-end-date').value = endDate.toISOString().split('T')[0];
             
             // 显示导出弹窗
             document.getElementById('export-modal').style.display = 'block';
@@ -3801,24 +3826,25 @@
             }
         }
 
-        // 确认PDF导出
-        async function confirmPDFExport() {
-            const exportDate = document.getElementById('export-date').value;
+        // 确认导出
+        async function confirmExport() {
+            const startDate = document.getElementById('export-start-date').value;
+            const endDate = document.getElementById('export-end-date').value;
+            const includeOut = document.getElementById('export-out-data').checked;
             
             // 验证输入
-            if (!exportDate) {
-                showAlert('请选择发票日期', 'error');
+            if (!startDate || !endDate) {
+                showAlert('请选择开始和结束日期', 'error');
                 return;
             }
             
-            // 筛选出库数据
-            const outData = stockData.filter(record => {
-                const outQty = parseFloat(record.out_quantity || 0);
-                return outQty > 0;
-            });
+            if (new Date(startDate) > new Date(endDate)) {
+                showAlert('开始日期不能晚于结束日期', 'error');
+                return;
+            }
             
-            if (outData.length === 0) {
-                showAlert('没有找到出库数据', 'error');
+            if (!includeOut) {
+                showAlert('PDF发票需要出库数据，请选择出库数据', 'error');
                 return;
             }
             
@@ -3826,37 +3852,46 @@
                 // 显示加载状态
                 const exportBtn = document.querySelector('.export-modal-actions .btn-success');
                 const originalText = exportBtn.innerHTML;
-                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成PDF中...';
+                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
                 exportBtn.disabled = true;
                 
-                // 准备数据
-                const invoiceData = {
-                    date: exportDate,
-                    items: outData.map((record, index) => ({
-                        no: index + 1,
-                        description: record.product_name,
-                        price: parseFloat(record.price || 0).toFixed(2),
-                        quantity: parseFloat(record.out_quantity || 0),
-                        total: (parseFloat(record.out_quantity || 0) * parseFloat(record.price || 0)).toFixed(2)
-                    }))
-                };
+                // 获取指定日期范围内的出库数据
+                const params = new URLSearchParams({
+                    action: 'list',
+                    search_start_date: startDate,
+                    search_end_date: endDate
+                });
                 
-                // 调用PDF生成
-                await generatePDFInvoice(invoiceData);
+                const result = await apiCall(`?${params}`);
+                
+                if (!result.success) {
+                    throw new Error('获取数据失败');
+                }
+                
+                // 过滤出库数据
+                const outData = (result.data || []).filter(record => 
+                    parseFloat(record.out_quantity) > 0
+                );
+                
+                if (outData.length === 0) {
+                    showAlert('指定日期范围内没有出库数据', 'error');
+                    return;
+                }
+                
+                // 生成PDF
+                await generateInvoicePDF(outData, startDate, endDate);
                 
                 showAlert('PDF发票生成成功', 'success');
                 closeExportModal();
                 
             } catch (error) {
-                console.error('PDF导出失败:', error);
-                showAlert('PDF导出失败，请重试', 'error');
+                console.error('导出失败:', error);
+                showAlert('生成PDF发票失败，请重试', 'error');
             } finally {
                 // 恢复按钮状态
                 const exportBtn = document.querySelector('.export-modal-actions .btn-success');
-                if (exportBtn) {
-                    exportBtn.innerHTML = originalText;
-                    exportBtn.disabled = false;
-                }
+                exportBtn.innerHTML = originalText;
+                exportBtn.disabled = false;
             }
         }
 
@@ -3894,98 +3929,119 @@
         });
 
         // 生成PDF发票
-        async function generatePDFInvoice(invoiceData) {
+        async function generateInvoicePDF(outData, startDate, endDate) {
             try {
-                // 使用pdf-lib库来修改现有PDF
-                const existingPdfBytes = await fetch('/invoice/invoice/j1invoice.pdf').then(res => res.arrayBuffer());
-                const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-                const helveticaFont = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+                // 下载现有的PDF模板
+                const templateResponse = await fetch('invoice/invoice/j1invoice.pdf');
+                if (!templateResponse.ok) {
+                    throw new Error('无法加载PDF模板');
+                }
                 
-                const pages = pdfDoc.getPages();
-                const firstPage = pages[0];
-                const { width, height } = firstPage.getSize();
+                const templateBytes = await templateResponse.arrayBuffer();
                 
-                // 填写日期 (假设日期位置在右上角)
-                firstPage.drawText(invoiceData.date, {
-                    x: 520,  // 根据PDF布局调整
-                    y: height - 115,  // 根据PDF布局调整
+                // 使用PDF-lib库来编辑PDF
+                const { PDFDocument, rgb } = PDFLib;
+                const pdfDoc = await PDFDocument.load(templateBytes);
+                
+                // 获取第一页
+                const page = pdfDoc.getPage(0);
+                const { width, height } = page.getSize();
+                
+                // 设置字体大小和颜色
+                const fontSize = 10;
+                const textColor = rgb(0, 0, 0);
+                
+                // 填入日期 (右上角区域)
+                const currentDate = new Date().toLocaleDateString('en-GB');
+                page.drawText(currentDate, {
+                    x: 560, // 调整X坐标到DATE字段右侧
+                    y: height - 115, // 调整Y坐标
+                    size: fontSize,
+                    color: textColor,
+                });
+                
+                // 计算总金额
+                let grandTotal = 0;
+                
+                // 填入数据行 (从第一个数据行开始)
+                let yPosition = height - 200; // 第一行的Y坐标
+                const lineHeight = 15; // 行高
+                
+                outData.forEach((record, index) => {
+                    const itemNumber = index + 1;
+                    const outQty = parseFloat(record.out_quantity) || 0;
+                    const price = parseFloat(record.price) || 0;
+                    const total = outQty * price;
+                    grandTotal += total;
+                    
+                    // NO (第一列)
+                    page.drawText(itemNumber.toString(), {
+                        x: 40,
+                        y: yPosition,
+                        size: fontSize,
+                        color: textColor,
+                    });
+                    
+                    // Descriptions (第二列)
+                    const productName = record.product_name || '';
+                    page.drawText(productName, {
+                        x: 85,
+                        y: yPosition,
+                        size: fontSize,
+                        color: textColor,
+                    });
+                    
+                    // Price RM (第三列)
+                    page.drawText(price.toFixed(2), {
+                        x: 310,
+                        y: yPosition,
+                        size: fontSize,
+                        color: textColor,
+                    });
+                    
+                    // Quantity (第四列)
+                    page.drawText(outQty.toString(), {
+                        x: 430,
+                        y: yPosition,
+                        size: fontSize,
+                        color: textColor,
+                    });
+                    
+                    // Total RM (第五列)
+                    page.drawText(total.toFixed(2), {
+                        x: 520,
+                        y: yPosition,
+                        size: fontSize,
+                        color: textColor,
+                    });
+                    
+                    yPosition -= lineHeight;
+                });
+                
+                // 填入总计 (右下角)
+                page.drawText(`RM${grandTotal.toFixed(2)}`, {
+                    x: 520,
+                    y: height - 690, // 调整到TOTAL行的位置
                     size: 12,
-                    font: helveticaFont,
+                    color: textColor,
                 });
                 
-                // 填写项目数据
-                let yPosition = height - 200; // 起始Y位置，根据PDF调整
-                let totalAmount = 0;
-                
-                invoiceData.items.forEach((item, index) => {
-                    if (yPosition < 100) return; // 防止超出页面
-                    
-                    // NO.
-                    firstPage.drawText(item.no.toString(), {
-                        x: 35,  // 根据PDF列位置调整
-                        y: yPosition,
-                        size: 10,
-                        font: helveticaFont,
-                    });
-                    
-                    // Descriptions
-                    firstPage.drawText(item.description, {
-                        x: 90,  // 根据PDF列位置调整
-                        y: yPosition,
-                        size: 10,
-                        font: helveticaFont,
-                    });
-                    
-                    // Price (RM)
-                    firstPage.drawText(item.price, {
-                        x: 310,  // 根据PDF列位置调整
-                        y: yPosition,
-                        size: 10,
-                        font: helveticaFont,
-                    });
-                    
-                    // Quantity
-                    firstPage.drawText(item.quantity.toString(), {
-                        x: 420,  // 根据PDF列位置调整
-                        y: yPosition,
-                        size: 10,
-                        font: helveticaFont,
-                    });
-                    
-                    // Total (RM)
-                    firstPage.drawText(item.total, {
-                        x: 520,  // 根据PDF列位置调整
-                        y: yPosition,
-                        size: 10,
-                        font: helveticaFont,
-                    });
-                    
-                    totalAmount += parseFloat(item.total);
-                    yPosition -= 20; // 行间距
-                });
-                
-                // 填写总计
-                firstPage.drawText(`RM${totalAmount.toFixed(2)}`, {
-                    x: 520,  // 根据PDF布局调整
-                    y: 150,  // 根据PDF布局调整
-                    size: 12,
-                    font: helveticaFont,
-                });
-                
-                // 保存并下载PDF
+                // 生成并下载PDF
                 const pdfBytes = await pdfDoc.save();
+                
+                // 创建下载链接
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `invoice_${invoiceData.date}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `invoice_${startDate}_${endDate}.pdf`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
                 
             } catch (error) {
-                console.error('生成PDF时出错:', error);
+                console.error('PDF生成失败:', error);
                 throw error;
             }
         }
