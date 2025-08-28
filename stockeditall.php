@@ -7,8 +7,7 @@
     <title>库存管理系统 - 全部库存管理</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -1438,7 +1437,7 @@
                             <label for="export-out-data">出库数据（发票用）</label>
                         </div>
                     </div>
-                    <small style="color: #6b7280; font-size: 12px;">* 仅导出出库数据到Excel发票模板</small>
+                    <small style="color: #6b7280; font-size: 12px;">* 仅导出出库数据到PDF发票模板</small>
                 </div>
                 
                 <div class="export-modal-actions">
@@ -1448,7 +1447,7 @@
                     </button>
                     <button class="btn btn-success" onclick="confirmExport()">
                         <i class="fas fa-download"></i>
-                        导出到Excel发票
+                        导出到PDF发票
                     </button>
                 </div>
             </div>
@@ -3848,7 +3847,7 @@
             }
         }
 
-        // 确认导出到PDF发票
+        // 确认导出到PDF模板
         async function confirmExport() {
             const startDate = document.getElementById('export-start-date').value;
             const endDate = document.getElementById('export-end-date').value;
@@ -3892,90 +3891,119 @@
                     return;
                 }
                 
-                // 创建PDF
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
+                // 读取现有PDF模板
+                const response = await fetch('invoice/invoice/j1invoice.pdf');
+                if (!response.ok) {
+                    throw new Error('无法读取PDF模板');
+                }
                 
-                // 设置字体（支持中文）
-                doc.setFont("helvetica");
+                const arrayBuffer = await response.arrayBuffer();
+                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                const pages = pdfDoc.getPages();
+                const firstPage = pages[0];
                 
-                // 标题
-                doc.setFontSize(20);
-                doc.text('INVOICE', 105, 20, { align: 'center' });
+                // 获取页面尺寸
+                const { width, height } = firstPage.getSize();
                 
-                // 公司信息
-                doc.setFontSize(10);
-                doc.text('TOKYO JAPANESE CUISINE SDN BHD', 20, 35);
-                doc.text('T-042 LEVEL 3, THE MALL, MID VALLEY, SOUTHKEY', 20, 45);
-                doc.text('80150 JOHOR BAHRU, JOHOR', 20, 55);
+                // 设置字体
+                const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
                 
-                // 日期
-                const today = new Date().toLocaleDateString();
-                doc.text(`DATE: ${today}`, 150, 35);
+                // 定义起始位置和行高（根据你的PDF模板调整）
+                let startY = height - 320; // 从上往下320像素处开始
+                const lineHeight = 20;
+                const fontSize = 10;
                 
-                // Invoice To
-                doc.setFontSize(12);
-                doc.text('Invoice To:', 20, 75);
-                doc.setFontSize(10);
-                doc.text('TOKYO JAPANESE (JS) SDN BHD', 20, 85);
-                doc.text('LOT UG-25, UPPER GROUND FLOOR, PARADIGM MALL, LBH SKUDAI', 20, 95);
+                // 列位置（根据你的PDF布局调整这些值）
+                const columns = {
+                    no: 50,         // NO列
+                    desc: 100,      // Descriptions列  
+                    price: 300,     // Price列
+                    qty: 400,       // Quantity列
+                    total: 480      // Total列
+                };
                 
-                // 表格标题
-                doc.setFontSize(10);
-                doc.text('NO.', 20, 115);
-                doc.text('Descriptions', 40, 115);
-                doc.text('Price (RM)', 120, 115);
-                doc.text('Quantity', 150, 115);
-                doc.text('Total (RM)', 175, 115);
-                
-                // 画表格线
-                doc.line(15, 118, 195, 118); // 标题下方线
-                
-                // 填入数据
-                let currentY = 130;
+                let currentY = startY;
                 let serialNumber = 1;
                 let grandTotal = 0;
                 
+                // 添加数据到PDF
                 filteredData.forEach(record => {
                     const outQty = parseFloat(record.out_quantity) || 0;
                     const price = parseFloat(record.price) || 0;
                     const total = outQty * price;
                     grandTotal += total;
                     
-                    // 检查是否需要换页
-                    if (currentY > 250) {
-                        doc.addPage();
-                        currentY = 30;
-                    }
+                    // 添加文本到各列
+                    firstPage.drawText(serialNumber.toString(), {
+                        x: columns.no,
+                        y: currentY,
+                        size: fontSize,
+                        font: font,
+                    });
                     
-                    doc.text(serialNumber.toString(), 20, currentY);
-                    doc.text(record.product_name.substring(0, 30), 40, currentY); // 限制长度
-                    doc.text(price.toFixed(2), 120, currentY);
-                    doc.text(outQty.toString(), 150, currentY);
-                    doc.text(total.toFixed(2), 175, currentY);
+                    firstPage.drawText(record.product_name || '', {
+                        x: columns.desc,
+                        y: currentY,
+                        size: fontSize,
+                        font: font,
+                    });
                     
-                    currentY += 15;
+                    firstPage.drawText(price.toFixed(2), {
+                        x: columns.price,
+                        y: currentY,
+                        size: fontSize,
+                        font: font,
+                    });
+                    
+                    firstPage.drawText(outQty.toString(), {
+                        x: columns.qty,
+                        y: currentY,
+                        size: fontSize,
+                        font: font,
+                    });
+                    
+                    firstPage.drawText(total.toFixed(2), {
+                        x: columns.total,
+                        y: currentY,
+                        size: fontSize,
+                        font: font,
+                    });
+                    
+                    currentY -= lineHeight;
                     serialNumber++;
                 });
                 
-                // 总计
-                currentY += 20;
-                doc.line(15, currentY - 10, 195, currentY - 10); // 总计上方线
-                doc.setFontSize(12);
-                doc.text('TOTAL:', 150, currentY);
-                doc.text(`RM${grandTotal.toFixed(2)}`, 175, currentY);
+                // 添加总计（调整Y位置到你PDF的总计位置）
+                const totalY = height - 600; // 根据你的PDF调整
+                firstPage.drawText(`RM${grandTotal.toFixed(2)}`, {
+                    x: columns.total,
+                    y: totalY,
+                    size: fontSize + 2,
+                    font: font,
+                });
                 
-                // 签名区域
-                currentY += 40;
-                doc.setFontSize(10);
-                doc.text('Issued by:', 20, currentY);
-                doc.text('Received by:', 120, currentY);
-                doc.line(20, currentY + 20, 80, currentY + 20); // 签名线
-                doc.line(120, currentY + 20, 180, currentY + 20); // 签名线
+                // 添加日期
+                const today = new Date().toLocaleDateString();
+                firstPage.drawText(today, {
+                    x: 400, // 根据你的PDF调整X位置
+                    y: height - 150, // 根据你的PDF调整Y位置
+                    size: fontSize,
+                    font: font,
+                });
                 
-                // 下载PDF
+                // 保存并下载PDF
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
                 const currentDate = new Date().toISOString().split('T')[0];
-                doc.save(`invoice_${currentStockType}_${currentDate}.pdf`);
+                a.href = url;
+                a.download = `invoice_${currentStockType}_${currentDate}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
                 
                 showAlert('PDF发票导出成功', 'success');
                 closeExportModal();
