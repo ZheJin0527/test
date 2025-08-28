@@ -3934,8 +3934,8 @@
                 // 填入日期 (右上角区域)
                 const currentDate = new Date().toLocaleDateString('en-GB');
                 page.drawText(` ${currentDate}`, {
-                    x: 450, // 调整到DATE冒号后面
-                    y: height - 130, 
+                    x: 515, // 调整到DATE冒号后面
+                    y: height - 110, 
                     size: fontSize,
                     color: textColor,
                 });
