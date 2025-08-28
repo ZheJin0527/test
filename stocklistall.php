@@ -771,7 +771,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1 id="page-title">中央库存汇总报表</h1>
+                <h1 id="page-title">Stocklist - Central</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
@@ -1170,17 +1170,17 @@
         };
 
         const SYSTEM_NAMES = {
-            central: '中央库存',
-            j1: 'J1库存',
-            j2: 'J2库存',
-            remark: '价格分析'
+            central: 'Central',
+            j1: 'J1',
+            j2: 'J2',
+            remark: 'Remark'
         };
 
         const PAGE_TITLES = {
-            central: '中央库存汇总报表',
-            j1: 'J1库存汇总报表',
-            j2: 'J2库存汇总报表',
-            remark: '库存价格分析'
+            central: 'Stocklist - Central',
+            j1: 'Stocklist - J1',
+            j2: 'Stocklist - J2',
+            remark: 'Remark'
         };
 
         // 初始化应用
