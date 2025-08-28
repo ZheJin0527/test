@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>库存管理系统 - 全部库存管理</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -1422,24 +1422,21 @@
                     <label for="export-start-date">开始日期</label>
                     <input type="date" id="export-start-date" required>
                 </div>
-                
+
                 <div class="export-form-group">
                     <label for="export-end-date">结束日期</label>
                     <input type="date" id="export-end-date" required>
                 </div>
-                
+
                 <div class="export-form-group">
                     <label>数据类型</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="export-in-data" value="in" checked>
-                            <label for="export-in-data">入库数据</label>
-                        </div>
-                        <div class="checkbox-item">
                             <input type="checkbox" id="export-out-data" value="out" checked>
-                            <label for="export-out-data">出库数据</label>
+                            <label for="export-out-data">出库数据（发票用）</label>
                         </div>
                     </div>
+                    <small style="color: #6b7280; font-size: 12px;">* 仅导出出库数据到Excel发票模板</small>
                 </div>
                 
                 <div class="export-modal-actions">
@@ -1449,7 +1446,7 @@
                     </button>
                     <button class="btn btn-success" onclick="confirmExport()">
                         <i class="fas fa-download"></i>
-                        导出Excel
+                        导出到Excel发票
                     </button>
                 </div>
             </div>
@@ -3468,6 +3465,29 @@
             }
         }
 
+        // 上传Excel文件到服务器
+        async function uploadExcelToServer(blob, filename) {
+            const formData = new FormData();
+            formData.append('excel_file', blob, filename);
+            formData.append('action', 'upload_invoice');
+            
+            try {
+                const response = await fetch('upload_excel.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showAlert('Excel文件已保存到服务器', 'success');
+                } else {
+                    showAlert('保存到服务器失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('上传失败: ' + error.message, 'error');
+            }
+        }
+
         // 处理价格选择变化
         function handlePriceSelectChange(selectElement) {
             const recordId = selectElement.id.replace('price-select-', '');
@@ -3826,11 +3846,10 @@
             }
         }
 
-        // 确认导出
+        // 确认导出到Excel模板
         async function confirmExport() {
             const startDate = document.getElementById('export-start-date').value;
             const endDate = document.getElementById('export-end-date').value;
-            const includeIn = document.getElementById('export-in-data').checked;
             const includeOut = document.getElementById('export-out-data').checked;
             
             // 验证输入
@@ -3844,8 +3863,8 @@
                 return;
             }
             
-            if (!includeIn && !includeOut) {
-                showAlert('请至少选择一种数据类型', 'error');
+            if (!includeOut) {
+                showAlert('请选择导出出库数据', 'error');
                 return;
             }
             
@@ -3853,159 +3872,97 @@
                 // 显示加载状态
                 const exportBtn = document.querySelector('.export-modal-actions .btn-success');
                 const originalText = exportBtn.innerHTML;
-                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 导出中...';
+                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 处理中...';
                 exportBtn.disabled = true;
                 
-                // 过滤数据
+                // 获取筛选的出库数据
                 const filteredData = stockData.filter(record => {
                     const recordDate = new Date(record.date);
                     const start = new Date(startDate);
                     const end = new Date(endDate);
+                    const hasOutQuantity = parseFloat(record.out_quantity) > 0;
                     
-                    if (recordDate < start || recordDate > end) {
-                        return false;
-                    }
-                    
-                    const hasIn = parseFloat(record.in_quantity) > 0;
-                    const hasOut = parseFloat(record.out_quantity) > 0;
-                    
-                    return (includeIn && hasIn) || (includeOut && hasOut);
+                    return recordDate >= start && recordDate <= end && hasOutQuantity;
                 });
                 
                 if (filteredData.length === 0) {
-                    showAlert('所选日期范围内没有数据', 'warning');
-                    exportBtn.innerHTML = originalText;
-                    exportBtn.disabled = false;
+                    showAlert('在选定日期范围内没有出库数据', 'error');
                     return;
                 }
                 
-                // 调用新的写入Excel功能
-                await writeToExistingExcel(filteredData);
-                
-                showAlert('数据已成功写入Excel文件', 'success');
-                closeExportModal();
-                
-            } catch (error) {
-                console.error('导出失败:', error);
-                showAlert('导出失败: ' + error.message, 'error');
-            } finally {
-                // 恢复按钮状态
-                const exportBtn = document.querySelector('.export-modal-actions .btn-success');
-                if (exportBtn) {
-                    exportBtn.innerHTML = '<i class="fas fa-download"></i> 导出Excel';
-                    exportBtn.disabled = false;
-                }
-            }
-        }
-
-        // 2. 新增函数：写入现有Excel文件
-        async function writeToExistingExcel(data) {
-            try {
-                // 加载现有的Excel文件
+                // 读取现有Excel模板
                 const response = await fetch('invoice/invoice/j1invoice.xlsx');
                 if (!response.ok) {
-                    throw new Error('无法加载Excel模板文件');
+                    throw new Error('无法读取Excel模板');
                 }
                 
                 const arrayBuffer = await response.arrayBuffer();
-                
-                // 使用SheetJS读取Excel文件
-                const workbook = XLSX.read(arrayBuffer, {type: 'array'});
+                const workbook = XLSX.read(arrayBuffer);
                 const worksheet = workbook.Sheets[workbook.SheetNames[0]];
                 
-                // 准备要写入的数据
-                const exportData = data.map((record, index) => {
-                    const inQty = parseFloat(record.in_quantity) || 0;
+                // 从第18行开始填入数据（基于你的模板）
+                let startRow = 18;
+                let currentRow = startRow;
+                let serialNumber = 1;
+                
+                filteredData.forEach(record => {
+                    // 计算总价
                     const outQty = parseFloat(record.out_quantity) || 0;
                     const price = parseFloat(record.price) || 0;
-                    const netQty = inQty - outQty;
-                    const total = netQty * price;
+                    const total = outQty * price;
                     
-                    return {
-                        date: formatExportDate(record.date),
-                        no: index + 1,
-                        description: record.product_name || '',
-                        price: price,
-                        quantity: Math.abs(netQty),
-                        total: Math.abs(total)
-                    };
-                });
-                
-                // 找到数据开始的行（假设从第18行开始，根据你的模板调整）
-                let startRow = 18;
-                
-                // 清除现有数据行（保留模板格式）
-                const range = XLSX.utils.decode_range(worksheet['!ref']);
-                for (let row = startRow; row <= range.e.r; row++) {
-                    for (let col = 0; col <= 5; col++) { // A到F列
-                        const cellAddr = XLSX.utils.encode_cell({r: row, c: col});
-                        if (worksheet[cellAddr]) {
-                            delete worksheet[cellAddr];
-                        }
-                    }
-                }
-                
-                // 写入新数据
-                exportData.forEach((item, index) => {
-                    const row = startRow + index;
+                    // 填入数据到对应列
+                    XLSX.utils.sheet_add_aoa(worksheet, [[
+                        serialNumber, // A列 - NO
+                        record.product_name, // B列 - Descriptions
+                        price.toFixed(2), // C列 - Price (RM)
+                        outQty, // D列 - Quantity
+                        total.toFixed(2) // E列 - Total (RM)
+                    ]], { origin: `A${currentRow}` });
                     
-                    // 写入每列数据
-                    worksheet[XLSX.utils.encode_cell({r: row, c: 0})] = {v: item.no, t: 'n'}; // A列 - NO
-                    worksheet[XLSX.utils.encode_cell({r: row, c: 1})] = {v: item.description, t: 's'}; // B列 - Descriptions
-                    worksheet[XLSX.utils.encode_cell({r: row, c: 2})] = {v: item.price, t: 'n', z: '0.00'}; // C列 - Price
-                    worksheet[XLSX.utils.encode_cell({r: row, c: 3})] = {v: item.quantity, t: 'n', z: '0.00'}; // D列 - Quantity
-                    worksheet[XLSX.utils.encode_cell({r: row, c: 4})] = {v: item.total, t: 'n', z: '0.00'}; // E列 - Total
+                    currentRow++;
+                    serialNumber++;
                 });
                 
-                // 更新工作表范围
-                const newRange = XLSX.utils.encode_range({
-                    s: {r: 0, c: 0},
-                    e: {r: Math.max(startRow + exportData.length - 1, range.e.r), c: range.e.c}
-                });
-                worksheet['!ref'] = newRange;
+                // 计算总计
+                const grandTotal = filteredData.reduce((sum, record) => {
+                    const outQty = parseFloat(record.out_quantity) || 0;
+                    const price = parseFloat(record.price) || 0;
+                    return sum + (outQty * price);
+                }, 0);
                 
-                // 生成新的Excel文件
-                const workbookOut = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+                // 更新SUB TOTAL和TOTAL (第38-40行)
+                XLSX.utils.sheet_add_aoa(worksheet, [[`RM${grandTotal.toFixed(2)}`]], { origin: 'H38' });
+                XLSX.utils.sheet_add_aoa(worksheet, [[`RM0.00`]], { origin: 'H39' }); // CHARGE 15%
+                XLSX.utils.sheet_add_aoa(worksheet, [[`RM${grandTotal.toFixed(2)}`]], { origin: 'H40' }); // TOTAL
                 
-                // 下载文件
-                const blob = new Blob([workbookOut], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                // 生成新的Excel文件并下载
+                const newWorkbook = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+                const blob = new Blob([newWorkbook], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
-                a.style.display = 'none';
+                const currentDate = new Date().toISOString().split('T')[0];
                 a.href = url;
-                a.download = `invoice_${getCurrentStockTypeName()}_${formatDateForFilename(new Date())}.xlsx`;
+                a.download = `invoice_${currentStockType}_${currentDate}.xlsx`;
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
                 
+                showAlert('Excel发票导出成功', 'success');
+                closeExportModal();
+                
             } catch (error) {
-                throw new Error('写入Excel文件时发生错误: ' + error.message);
-            }
-        }
-
-        // 3. 新增辅助函数
-        function formatExportDate(dateString) {
-            const date = new Date(dateString);
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
-        }
-
-        function formatDateForFilename(date) {
-            const year = date.getFullYear();
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const day = date.getDate().toString().padStart(2, '0');
-            return `${year}${month}${day}`;
-        }
-
-        function getCurrentStockTypeName() {
-            switch(currentStockType) {
-                case 'central': return '中央';
-                case 'j1': return 'J1';
-                case 'j2': return 'J2';
-                default: return '中央';
+                console.error('导出失败:', error);
+                showAlert('导出失败：' + error.message, 'error');
+            } finally {
+                // 恢复按钮状态
+                const exportBtn = document.querySelector('.export-modal-actions .btn-success');
+                if (exportBtn) {
+                    exportBtn.innerHTML = originalText;
+                    exportBtn.disabled = false;
+                }
             }
         }
 
