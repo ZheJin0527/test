@@ -380,8 +380,8 @@
 
         /* 固定表格列宽 */
         .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 80px; }  /* No. */
-        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 200px; } /* Product Name */
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 120px; } /* Code Number */
+        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 120px; } /* Code Number */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* Product Name */
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 120px; } /* Total Stock */
         .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 100px; } /* Specification */
         .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 120px; } /* Unit Price */
@@ -877,8 +877,8 @@
                         <thead>
                             <tr>
                                 <th>序号.</th>
-                                <th>货品</th>
                                 <th>货品编号</th>
+                                <th>货品</th>
                                 <th>库存数量</th>
                                 <th>规格</th>
                                 <th>单价</th>
@@ -964,8 +964,8 @@
                         <thead>
                             <tr>
                                 <th>序号.</th>
-                                <th>货品</th>
                                 <th>货品编号</th>
+                                <th>货品</th>
                                 <th>库存总量</th>
                                 <th>规格</th>
                                 <th>单价</th>
@@ -1051,8 +1051,8 @@
                         <thead>
                             <tr>
                                 <th>序号.</th>
-                                <th>货品</th>
                                 <th>货品编号</th>
+                                <th>货品</th>
                                 <th>库存总量</th>
                                 <th>规格</th>
                                 <th>单价</th>
@@ -1534,8 +1534,8 @@
                 tableRows += `
                     <tr>
                         <td class="text-center">${item.no}</td>
-                        <td><strong>${item.product_name}</strong></td>
                         <td class="text-center">${item.code_number || '-'}</td>
+                        <td><strong>${item.product_name}</strong></td>
                         <td class="stock-cell">
                             <div class="currency-display ${stockClass}">
                                 <span class="currency-symbol">&nbsp;</span>
