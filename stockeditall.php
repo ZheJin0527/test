@@ -39,10 +39,13 @@
         }
         
         .header .controls {
-            display: flex;
-            align-items: center;
-            gap: 0px;
-        }
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
 
         .back-button {
             background-color: #6b7280;

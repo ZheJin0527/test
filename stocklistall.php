@@ -50,22 +50,21 @@
         }
 
         .selector-button {
-    background-color: #583e04;
-    color: white;
-    font-weight: 500;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    padding: 11px 24px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s;
-    min-width: 130px;
-    justify-content: space-between;
-}
+            background-color: #583e04;
+            color: white;
+            font-weight: 500;
+            padding: 11px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            min-width: 130px;
+            justify-content: space-between;
+        }
         
         .selector-button:hover {
             background-color: #462d03;
