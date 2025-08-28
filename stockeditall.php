@@ -1271,10 +1271,7 @@
                 <div class="form-group">
                     <label for="add-target">目标系统</label>
                     <select id="add-target" class="form-select" disabled>
-                        <option value="">请选择</option>
-                        <option value="j1">J1</option>
-                        <option value="j2">J2</option>
-                        <option value="central">Central</option>
+                        <!-- 选项将通过 JavaScript 动态生成 -->
                     </select>
                 </div>
                 <div class="form-group">
@@ -1434,6 +1431,58 @@
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
 
+        // 根据当前库存类型获取可用的目标选项
+        function getTargetOptions() {
+            if (currentStockType === 'central') {
+                return `
+                    <option value="">请选择</option>
+                    <option value="j1">J1</option>
+                    <option value="j2">J2</option>
+                    <option value="central">Central</option>
+                `;
+            } else {
+                // J1 和 J2 只能选择 Central
+                return `
+                    <option value="">请选择</option>
+                    <option value="central">Central</option>
+                `;
+            }
+        }
+
+        // 获取带选中状态的目标选项
+        function getTargetOptionsWithSelected(selectedValue = '') {
+            if (currentStockType === 'central') {
+                return `
+                    <option value="">请选择</option>
+                    <option value="j1" ${selectedValue === 'j1' ? 'selected' : ''}>J1</option>
+                    <option value="j2" ${selectedValue === 'j2' ? 'selected' : ''}>J2</option>
+                    <option value="central" ${selectedValue === 'central' ? 'selected' : ''}>Central</option>
+                `;
+            } else {
+                return `
+                    <option value="">请选择</option>
+                    <option value="central" ${selectedValue === 'central' ? 'selected' : ''}>Central</option>
+                `;
+            }
+        }
+
+        // 更新目标下拉框选项
+        function updateTargetOptions(selectElement) {
+            const currentValue = selectElement.value;
+            selectElement.innerHTML = getTargetOptions();
+            
+            // 如果当前选中的值在新选项中不存在，清空选择
+            if (currentValue) {
+                const options = Array.from(selectElement.options);
+                const hasCurrentValue = options.some(option => option.value === currentValue);
+                if (hasCurrentValue) {
+                    selectElement.value = currentValue;
+                } else {
+                    selectElement.value = '';
+                }
+            }
+        }
+
         // 初始化应用
         function initApp() {
             // 设置默认日期为今天
@@ -1456,6 +1505,12 @@
                     centralItem.classList.add('active');
                 }
             }, 100);
+
+            // 初始化新增表单的目标选项
+            const addTargetSelect = document.getElementById('add-target');
+            if (addTargetSelect) {
+                addTargetSelect.innerHTML = getTargetOptions();
+            }
 
         }
 
@@ -1510,6 +1565,13 @@
             editingRowIds.clear();
             if (originalEditData) {
                 originalEditData.clear();
+            }
+
+            // 更新新增表单的目标选项
+            const addTargetSelect = document.getElementById('add-target');
+            if (addTargetSelect) {
+                addTargetSelect.innerHTML = getTargetOptions();
+                addTargetSelect.value = ''; // 清空当前选择
             }
             
             // 重新加载数据
@@ -1877,10 +1939,7 @@
                     <td>
                         ${isEditing ? 
                             `<select class="table-select" id="target-select-${record.id}" onchange="updateField(${record.id}, 'target_system', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>
-                                <option value="">请选择</option>
-                                <option value="j1" ${record.target_system === 'j1' ? 'selected' : ''}>J1</option>
-                                <option value="j2" ${record.target_system === 'j2' ? 'selected' : ''}>J2</option>
-                                <option value="central" ${record.target_system === 'central' ? 'selected' : ''}>Central</option>
+                                ${getTargetOptionsWithSelected(record.target_system)}
                             </select>` :
                             `<span>${record.target_system ? record.target_system.toUpperCase() : '-'}</span>`
                         }
@@ -2029,10 +2088,7 @@
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
                     <select class="table-select" id="${rowId}-target" disabled>
-                    <option value="">请选择</option>
-                    <option value="j1">J1</option>
-                    <option value="j2">J2</option>
-                    <option value="central">Central</option>
+                    ${getTargetOptions()}
                 </select>
                 </td>
                 <td>
@@ -2097,6 +2153,8 @@
                 if (outQty > 0) {
                     targetSelect.disabled = false;
                     targetSelect.required = true;
+                    // 根据当前库存类型设置可用选项
+                    updateTargetOptions(targetSelect);
                 } else {
                     targetSelect.disabled = true;
                     targetSelect.value = '';
