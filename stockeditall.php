@@ -1200,7 +1200,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1 id="page-title">In Out - Central</h1>
+                <h1 id="page-title">In Out - 中央</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
@@ -1216,12 +1216,12 @@
                 </div>
                 <div class="system-selector">
                     <button class="selector-button" onclick="toggleStockSelector()">
-                        <span id="current-stock-type">Central</span>
+                        <span id="current-stock-type">中央</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="stock-dropdown">
                         <a href="#" class="dropdown-item active" onclick="switchStock('central', event); return false;" data-type="central">
-                            Central
+                            中央
                         </a>
                         <a href="#" class="dropdown-item" onclick="switchStock('j1', event); return false;" data-type="j1">
                             J1
@@ -1512,8 +1512,8 @@
             switch(stockType) {
                 case 'central':
                     API_BASE_URL = 'stockeditapi.php';
-                    document.getElementById('page-title').textContent = 'In Out - Central';
-                    document.getElementById('current-stock-type').textContent = 'Central';
+                    document.getElementById('page-title').textContent = 'In Out - 中央';
+                    document.getElementById('current-stock-type').textContent = '中央';
                     break;
                 case 'j1':
                     API_BASE_URL = 'j1stockeditpageapi.php';
@@ -1593,7 +1593,7 @@
                 // Central页面显示所有选项
                 options += `<option value="j1" ${selectedValue === 'j1' ? 'selected' : ''}>J1</option>`;
                 options += `<option value="j2" ${selectedValue === 'j2' ? 'selected' : ''}>J2</option>`;
-                options += `<option value="central" ${selectedValue === 'central' ? 'selected' : ''}>Central</option>`;
+                options += `<option value="central" ${selectedValue === 'central' ? 'selected' : ''}>中央</option>`;
             } else if (currentStockType === 'j1') {
                 // J1页面只显示J1选项
                 options += `<option value="j1" ${selectedValue === 'j1' ? 'selected' : ''}>J1</option>`;

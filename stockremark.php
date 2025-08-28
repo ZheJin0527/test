@@ -548,7 +548,7 @@
                     </div>
                 </div>
                 <button class="selector-button" style="justify-content: center;">
-                    <span id="current-stock-type">Central</span>
+                    <span id="current-stock-type">中央</span>
                 </button>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>

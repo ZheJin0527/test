@@ -771,7 +771,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1 id="page-title">Stocklist - Central</h1>
+                <h1 id="page-title">Stocklist - 中央</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
@@ -787,11 +787,11 @@
                 </div>
                 <div class="system-selector">
                     <button class="selector-button" onclick="toggleSelector()">
-                        <span id="current-system">Central</span>
+                        <span id="current-system">中央</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="selector-dropdown">
-                        <div class="dropdown-item active" onclick="switchSystem('central')">Central</div>
+                        <div class="dropdown-item active" onclick="switchSystem('central')">中央</div>
                         <div class="dropdown-item" onclick="switchSystem('j1')">J1</div>
                         <div class="dropdown-item" onclick="switchSystem('j2')">J2</div>
                     </div>
@@ -1170,14 +1170,14 @@
         };
 
         const SYSTEM_NAMES = {
-            central: 'Central',
+            central: '中央',
             j1: 'J1',
             j2: 'J2',
             remark: 'Remark'
         };
 
         const PAGE_TITLES = {
-            central: 'Stocklist - Central',
+            central: 'Stocklist - 中央',
             j1: 'Stocklist - J1',
             j2: 'Stocklist - J2',
             remark: 'Remark'
