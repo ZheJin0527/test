@@ -7,6 +7,8 @@
     <title>库存管理系统 - 全部库存管理</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -3846,7 +3848,7 @@
             }
         }
 
-        // 确认导出到Excel模板
+        // 确认导出到PDF发票
         async function confirmExport() {
             const startDate = document.getElementById('export-start-date').value;
             const endDate = document.getElementById('export-end-date').value;
@@ -3890,78 +3892,92 @@
                     return;
                 }
                 
-                // 读取现有Excel模板
-                const response = await fetch('invoice/invoice/j1invoice.xlsx');
-                if (!response.ok) {
-                    throw new Error('无法读取Excel模板');
-                }
+                // 创建PDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
                 
-                const arrayBuffer = await response.arrayBuffer();
-                const workbook = XLSX.read(arrayBuffer, { cellStyles: true });
-                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                // 设置字体（支持中文）
+                doc.setFont("helvetica");
                 
-                // 根据你的模板，从第13行开始填入数据
-                let currentRow = 13;
+                // 标题
+                doc.setFontSize(20);
+                doc.text('INVOICE', 105, 20, { align: 'center' });
+                
+                // 公司信息
+                doc.setFontSize(10);
+                doc.text('TOKYO JAPANESE CUISINE SDN BHD', 20, 35);
+                doc.text('T-042 LEVEL 3, THE MALL, MID VALLEY, SOUTHKEY', 20, 45);
+                doc.text('80150 JOHOR BAHRU, JOHOR', 20, 55);
+                
+                // 日期
+                const today = new Date().toLocaleDateString();
+                doc.text(`DATE: ${today}`, 150, 35);
+                
+                // Invoice To
+                doc.setFontSize(12);
+                doc.text('Invoice To:', 20, 75);
+                doc.setFontSize(10);
+                doc.text('TOKYO JAPANESE (JS) SDN BHD', 20, 85);
+                doc.text('LOT UG-25, UPPER GROUND FLOOR, PARADIGM MALL, LBH SKUDAI', 20, 95);
+                
+                // 表格标题
+                doc.setFontSize(10);
+                doc.text('NO.', 20, 115);
+                doc.text('Descriptions', 40, 115);
+                doc.text('Price (RM)', 120, 115);
+                doc.text('Quantity', 150, 115);
+                doc.text('Total (RM)', 175, 115);
+                
+                // 画表格线
+                doc.line(15, 118, 195, 118); // 标题下方线
+                
+                // 填入数据
+                let currentY = 130;
                 let serialNumber = 1;
+                let grandTotal = 0;
                 
                 filteredData.forEach(record => {
-                    // 计算数量和总价
                     const outQty = parseFloat(record.out_quantity) || 0;
                     const price = parseFloat(record.price) || 0;
                     const total = outQty * price;
+                    grandTotal += total;
                     
-                    // 按照Excel模板的列结构填入数据
-                    // A列 - NO
-                    worksheet[`A${currentRow}`] = { v: serialNumber, t: 'n' };
-                    // B列 - Descriptions  
-                    worksheet[`B${currentRow}`] = { v: record.product_name, t: 's' };
-                    // C列 - Price (RM)
-                    worksheet[`C${currentRow}`] = { v: price, t: 'n' };
-                    // D列 - Quantity
-                    worksheet[`D${currentRow}`] = { v: outQty, t: 'n' };
-                    // E列 - Total (RM)
-                    worksheet[`E${currentRow}`] = { v: total, t: 'n' };
+                    // 检查是否需要换页
+                    if (currentY > 250) {
+                        doc.addPage();
+                        currentY = 30;
+                    }
                     
-                    currentRow++;
+                    doc.text(serialNumber.toString(), 20, currentY);
+                    doc.text(record.product_name.substring(0, 30), 40, currentY); // 限制长度
+                    doc.text(price.toFixed(2), 120, currentY);
+                    doc.text(outQty.toString(), 150, currentY);
+                    doc.text(total.toFixed(2), 175, currentY);
+                    
+                    currentY += 15;
                     serialNumber++;
                 });
                 
-                // 计算总计并更新TOTAL行（第45行）
-                const grandTotal = filteredData.reduce((sum, record) => {
-                    const outQty = parseFloat(record.out_quantity) || 0;
-                    const price = parseFloat(record.price) || 0;
-                    return sum + (outQty * price);
-                }, 0);
+                // 总计
+                currentY += 20;
+                doc.line(15, currentY - 10, 195, currentY - 10); // 总计上方线
+                doc.setFontSize(12);
+                doc.text('TOTAL:', 150, currentY);
+                doc.text(`RM${grandTotal.toFixed(2)}`, 175, currentY);
                 
-                // 更新TOTAL
-                worksheet['D45'] = { v: grandTotal, t: 'n' };
+                // 签名区域
+                currentY += 40;
+                doc.setFontSize(10);
+                doc.text('Issued by:', 20, currentY);
+                doc.text('Received by:', 120, currentY);
+                doc.line(20, currentY + 20, 80, currentY + 20); // 签名线
+                doc.line(120, currentY + 20, 180, currentY + 20); // 签名线
                 
-                // 更新日期（第8行）
-                const today = new Date().toLocaleDateString();
-                worksheet['F8'] = { v: today, t: 's' };
-                
-                // 生成新的Excel文件并下载
-                const newArrayBuffer = XLSX.write(workbook, { 
-                    bookType: 'xlsx', 
-                    type: 'array',
-                    cellStyles: true,
-                    bookSST: true 
-                });
-                const blob = new Blob([newArrayBuffer], { 
-                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
-                });
-                
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
+                // 下载PDF
                 const currentDate = new Date().toISOString().split('T')[0];
-                a.href = url;
-                a.download = `invoice_${currentStockType}_${currentDate}.xlsx`;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
+                doc.save(`invoice_${currentStockType}_${currentDate}.pdf`);
                 
-                showAlert('Excel发票导出成功', 'success');
+                showAlert('PDF发票导出成功', 'success');
                 closeExportModal();
                 
             } catch (error) {
