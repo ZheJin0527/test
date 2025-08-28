@@ -3897,48 +3897,59 @@
                 }
                 
                 const arrayBuffer = await response.arrayBuffer();
-                const workbook = XLSX.read(arrayBuffer);
+                const workbook = XLSX.read(arrayBuffer, { cellStyles: true });
                 const worksheet = workbook.Sheets[workbook.SheetNames[0]];
                 
-                // 从第18行开始填入数据（基于你的模板）
-                let startRow = 18;
-                let currentRow = startRow;
+                // 根据你的模板，从第13行开始填入数据
+                let currentRow = 13;
                 let serialNumber = 1;
                 
                 filteredData.forEach(record => {
-                    // 计算总价
+                    // 计算数量和总价
                     const outQty = parseFloat(record.out_quantity) || 0;
                     const price = parseFloat(record.price) || 0;
                     const total = outQty * price;
                     
-                    // 填入数据到对应列
-                    XLSX.utils.sheet_add_aoa(worksheet, [[
-                        serialNumber, // A列 - NO
-                        record.product_name, // B列 - Descriptions
-                        price.toFixed(2), // C列 - Price (RM)
-                        outQty, // D列 - Quantity
-                        total.toFixed(2) // E列 - Total (RM)
-                    ]], { origin: `A${currentRow}` });
+                    // 按照Excel模板的列结构填入数据
+                    // A列 - NO
+                    worksheet[`A${currentRow}`] = { v: serialNumber, t: 'n' };
+                    // B列 - Descriptions  
+                    worksheet[`B${currentRow}`] = { v: record.product_name, t: 's' };
+                    // C列 - Price (RM)
+                    worksheet[`C${currentRow}`] = { v: price, t: 'n' };
+                    // D列 - Quantity
+                    worksheet[`D${currentRow}`] = { v: outQty, t: 'n' };
+                    // E列 - Total (RM)
+                    worksheet[`E${currentRow}`] = { v: total, t: 'n' };
                     
                     currentRow++;
                     serialNumber++;
                 });
                 
-                // 计算总计
+                // 计算总计并更新TOTAL行（第45行）
                 const grandTotal = filteredData.reduce((sum, record) => {
                     const outQty = parseFloat(record.out_quantity) || 0;
                     const price = parseFloat(record.price) || 0;
                     return sum + (outQty * price);
                 }, 0);
                 
-                // 更新SUB TOTAL和TOTAL (第38-40行)
-                XLSX.utils.sheet_add_aoa(worksheet, [[`RM${grandTotal.toFixed(2)}`]], { origin: 'H38' });
-                XLSX.utils.sheet_add_aoa(worksheet, [[`RM0.00`]], { origin: 'H39' }); // CHARGE 15%
-                XLSX.utils.sheet_add_aoa(worksheet, [[`RM${grandTotal.toFixed(2)}`]], { origin: 'H40' }); // TOTAL
+                // 更新TOTAL
+                worksheet['D45'] = { v: grandTotal, t: 'n' };
+                
+                // 更新日期（第8行）
+                const today = new Date().toLocaleDateString();
+                worksheet['F8'] = { v: today, t: 's' };
                 
                 // 生成新的Excel文件并下载
-                const newWorkbook = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-                const blob = new Blob([newWorkbook], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const newArrayBuffer = XLSX.write(workbook, { 
+                    bookType: 'xlsx', 
+                    type: 'array',
+                    cellStyles: true,
+                    bookSST: true 
+                });
+                const blob = new Blob([newArrayBuffer], { 
+                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
+                });
                 
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
