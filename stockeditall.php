@@ -4076,7 +4076,7 @@
                     const subtotalText = `RM${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
                         x: 585 - (subtotalText.length * 8),
-                        y: height - 675, // 调整到Subtotal行
+                        y: height - 660, // 调整到Subtotal行
                         size: 11,
                         color: textColor,
                         font: boldFont,
