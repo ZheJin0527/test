@@ -3990,7 +3990,7 @@
                 let grandTotal = 0;
                 
                 // 填入数据行 (从第一个数据行开始)
-                let yPosition = height - 269; // 调整起始Y坐标
+                let yPosition = height - 289; // 调整起始Y坐标
                 const lineHeight = 14; // 调整行高
 
                 outData.forEach((record, index) => {
@@ -4002,7 +4002,7 @@
                     
                     // NO (第一列)
                     page.drawText(itemNumber.toString(), {
-                        x: exportSystem === 'j1' ? 25 : 30,
+                        x: exportSystem === 'j1' ? 25 : 40,
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
