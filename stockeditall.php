@@ -1426,7 +1426,21 @@
                 <div class="export-form-group">
                     <label for="export-end-date">结束日期</label>
                     <input type="date" id="export-end-date" required>
-                </div>              
+                </div>
+                
+                <div class="export-form-group">
+                    <label for="export-system">店面</label>
+                    <select id="export-system" required onchange="handleExportSystemChange()">
+                        <option value="">请选择系统</option>
+                        <option value="j1">J1</option>
+                        <option value="j2">J2</option>
+                    </select>
+                </div>
+
+                <div class="export-form-group" id="invoice-number-group" style="display: none;">
+                    <label for="export-invoice-number">Invoice Number</label>
+                    <input type="text" id="export-invoice-number" placeholder="输入Invoice号码">
+                </div>
                 
                 <div class="export-modal-actions">
                     <button class="btn btn-secondary" onclick="closeExportModal()">
@@ -3816,10 +3830,22 @@
         async function confirmExport() {
             const startDate = document.getElementById('export-start-date').value;
             const endDate = document.getElementById('export-end-date').value;
-            
+            const exportSystem = document.getElementById('export-system').value;
+            const invoiceNumber = document.getElementById('export-invoice-number').value;
+
             // 验证输入
             if (!startDate || !endDate) {
                 showAlert('请选择开始和结束日期', 'error');
+                return;
+            }
+
+            if (!exportSystem) {
+                showAlert('请选择导出系统', 'error');
+                return;
+            }
+
+            if (exportSystem === 'j2' && !invoiceNumber.trim()) {
+                showAlert('J2系统需要填写Invoice Number', 'error');
                 return;
             }
             
@@ -3859,7 +3885,7 @@
                 }
                 
                 // 生成PDF
-                await generateInvoicePDF(outData, startDate, endDate);
+                await generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber);
                 
                 showAlert('PDF发票生成成功', 'success');
                 closeExportModal();
@@ -3909,10 +3935,11 @@
         });
 
         // 生成PDF发票
-        async function generateInvoicePDF(outData, startDate, endDate) {
+        async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
             try {
                 // 下载现有的PDF模板
-                const templateResponse = await fetch('invoice/invoice/j1invoice.pdf');
+                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                const templateResponse = await fetch(templateFile);
                 if (!templateResponse.ok) {
                     throw new Error('无法加载PDF模板');
                 }
@@ -3944,6 +3971,20 @@
                     color: textColor,
                     font: boldFont,
                 });
+
+                // J2模板特殊处理
+                if (exportSystem === 'j2') {
+                    // 填入Invoice Number
+                    if (invoiceNumber) {
+                        page.drawText(invoiceNumber, {
+                            x: 485,
+                            y: height - 93, // 调整到Invoice No行
+                            size: fontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                    }
+                }
                 
                 // 计算总金额
                 let grandTotal = 0;
@@ -4024,6 +4065,53 @@
                     color: textColor,
                     font: boldFont,
                 });
+
+                if (exportSystem === 'j2') {
+                    // J2模板：计算subtotal, charge 15%, 和最终total
+                    const subtotal = grandTotal;
+                    const charge = subtotal * 0.15;
+                    const finalTotal = subtotal + charge;
+                    
+                    // 填入Subtotal
+                    const subtotalText = `RM${subtotal.toFixed(2)}`;
+                    page.drawText(subtotalText, {
+                        x: 585 - (subtotalText.length * 8),
+                        y: height - 630, // 调整到Subtotal行
+                        size: 11,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // 填入Charge 15%
+                    const chargeText = `RM${charge.toFixed(2)}`;
+                    page.drawText(chargeText, {
+                        x: 585 - (chargeText.length * 8),
+                        y: height - 650, // 调整到Charge行
+                        size: 11,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // 填入最终Total
+                    const finalTotalText = `RM${finalTotal.toFixed(2)}`;
+                    page.drawText(finalTotalText, {
+                        x: 585 - (finalTotalText.length * 8),
+                        y: height - 670, // 调整到最终Total行
+                        size: 11,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                } else {
+                    // J1模板：只显示总计
+                    const totalText = `RM${grandTotal.toFixed(2)}`;
+                    page.drawText(totalText, {
+                        x: 585 - (totalText.length * 8),
+                        y: height - 650,
+                        size: 11,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                }
                 
                 // 生成并下载PDF
                 const pdfBytes = await pdfDoc.save();
@@ -4033,7 +4121,7 @@
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `invoice_${startDate}_${endDate}.pdf`;
+                link.download = `invoice_${exportSystem}_${startDate}_${endDate}.pdf`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -4042,6 +4130,21 @@
             } catch (error) {
                 console.error('PDF生成失败:', error);
                 throw error;
+            }
+        }
+
+        // 处理导出系统选择变化
+        function handleExportSystemChange() {
+            const systemSelect = document.getElementById('export-system');
+            const invoiceNumberGroup = document.getElementById('invoice-number-group');
+            
+            if (systemSelect.value === 'j2') {
+                invoiceNumberGroup.style.display = 'block';
+                document.getElementById('export-invoice-number').required = true;
+            } else {
+                invoiceNumberGroup.style.display = 'none';
+                document.getElementById('export-invoice-number').required = false;
+                document.getElementById('export-invoice-number').value = '';
             }
         }
     </script>
