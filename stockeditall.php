@@ -1155,12 +1155,12 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1 id="page-title">中央进出货库存</h1>
+                <h1 id="page-title">In Out - Central</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
                     <button class="selector-button" onclick="toggleViewSelector()">
-                        <span id="current-view">Stocklist</span>
+                        <span id="current-view">In Out</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="selector-dropdown" id="view-selector-dropdown">
@@ -1465,17 +1465,17 @@
             switch(stockType) {
                 case 'central':
                     API_BASE_URL = 'stockeditapi.php';
-                    document.getElementById('page-title').textContent = '中央进出货库存';
+                    document.getElementById('page-title').textContent = 'In Out - Central';
                     document.getElementById('current-stock-type').textContent = '中央库存';
                     break;
                 case 'j1':
                     API_BASE_URL = 'j1stockeditpageapi.php';
-                    document.getElementById('page-title').textContent = 'J1进出货库存';
+                    document.getElementById('page-title').textContent = 'In Out - J1';
                     document.getElementById('current-stock-type').textContent = 'J1库存';
                     break;
                 case 'j2':
                     API_BASE_URL = 'j2stockeditpageapi.php';
-                    document.getElementById('page-title').textContent = 'J2进出货库存';
+                    document.getElementById('page-title').textContent = 'In Out - J2';
                     document.getElementById('current-stock-type').textContent = 'J2库存';
                     break;
             }
