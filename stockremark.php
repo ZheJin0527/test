@@ -471,7 +471,7 @@
         }
 
         .view-selector .selector-dropdown {
-            min-width: 125px;
+            min-width: 133px;
         }
 
         @media (max-width: 768px) {
