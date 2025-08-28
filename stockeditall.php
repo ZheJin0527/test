@@ -3930,23 +3930,31 @@
             }, 10);
         });
 
-        // 生成发票PDF
+        // 生成发票PDF（使用现有模板）
         async function generateInvoicePDF(exportData, invoiceDate) {
             try {
-                // 构建PDF生成请求
+                // 构建PDF填充请求，使用现有PDF模板
                 const pdfData = {
-                    action: 'generate_pdf',
+                    action: 'fill_pdf_template',
+                    template_path: 'invoice/invoice/j1invoice.pdf', // 你的PDF模板路径
                     invoice_date: invoiceDate,
                     items: exportData.map((record, index) => ({
                         no: index + 1,
                         description: record.product_name,
-                        price: parseFloat(record.price || 0),
+                        price: parseFloat(record.price || 0).toFixed(2),
                         quantity: parseFloat(record.out_quantity || 0),
-                        total: parseFloat(record.out_quantity || 0) * parseFloat(record.price || 0)
+                        total: (parseFloat(record.out_quantity || 0) * parseFloat(record.price || 0)).toFixed(2)
                     }))
                 };
                 
-                // 调用后端PDF生成API
+                // 计算总计
+                const grandTotal = exportData.reduce((sum, record) => {
+                    return sum + (parseFloat(record.out_quantity || 0) * parseFloat(record.price || 0));
+                }, 0);
+                
+                pdfData.grand_total = grandTotal.toFixed(2);
+                
+                // 调用后端PDF填充API
                 const response = await fetch(`${API_BASE_URL}`, {
                     method: 'POST',
                     headers: {
@@ -3959,7 +3967,7 @@
                     throw new Error('PDF生成失败');
                 }
                 
-                // 下载PDF文件
+                // 下载填充后的PDF文件
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
