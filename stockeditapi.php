@@ -49,6 +49,11 @@ function sendResponse($success, $message = "", $data = null) {
     exit;
 }
 
+// 引入 PhpSpreadsheet
+require_once 'vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 function saveToJ1Table($pdo, $data, $mainRecordId = null) {
     try {
         // 保存到 j1stockinout_data 表 - 出库记录转为入库记录
@@ -674,6 +679,42 @@ function handleGet() {
             fclose($output);
             exit; // 重要：退出脚本，避免额外输出
             break;
+
+        // 在 API 处理文件中添加这个 case（通常在 switch 语句中）
+        case 'export_invoice':
+            $input = json_decode(file_get_contents('php://input'), true);
+            $templateUrl = $input['template_url'] ?? 'invoice/invoice/j1invoice.xlsx';
+            $startDate = $input['start_date'] ?? '';
+            $endDate = $input['end_date'] ?? '';
+            $includeIn = $input['include_in'] ?? '1';
+            $includeOut = $input['include_out'] ?? '1';
+            
+            // 获取数据
+            $sql = "SELECT * FROM stock_records WHERE date BETWEEN ? AND ?";
+            $params = [$startDate, $endDate];
+            
+            $conditions = [];
+            if ($includeIn === '0') {
+                $conditions[] = "(in_quantity = 0 OR in_quantity IS NULL)";
+            }
+            if ($includeOut === '0') {
+                $conditions[] = "(out_quantity = 0 OR out_quantity IS NULL)";
+            }
+            
+            if (!empty($conditions)) {
+                $sql .= " AND NOT (" . implode(' AND ', $conditions) . ")";
+            }
+            
+            $sql .= " ORDER BY date ASC, id ASC";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // 处理模板并生成文件
+            generateInvoiceExcel($records, $templateUrl, $startDate, $endDate);
+            exit;
+            break;
             
         default:
             sendResponse(false, "无效的操作");
@@ -1133,5 +1174,96 @@ function handleDelete() {
     } catch (PDOException $e) {
         sendResponse(false, "删除记录失败：" . $e->getMessage());
     }
-}
+
+
+function generateInvoiceExcel($records, $templateUrl, $startDate, $endDate) {
+    try {
+        // 构建完整的模板文件路径
+        $templatePath = $_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($templateUrl, '/');
+        
+        // 检查模板文件是否存在
+        if (!file_exists($templatePath)) {
+            throw new Exception('模板文件不存在: ' . $templatePath);
+        }
+        
+        // 加载模板
+        $spreadsheet = IOFactory::load($templatePath);
+        $sheet = $spreadsheet->getActiveSheet();
+        
+        // 设置发票日期（假设在 F4 单元格）
+        $sheet->setCellValue('F4', date('d/m/Y', strtotime($endDate)));
+        
+        // 生成发票编号（假设在 F3 单元格）
+        $invoiceNo = 'INV-' . date('Ymd', strtotime($endDate)) . '-' . sprintf('%04d', rand(1, 9999));
+        $sheet->setCellValue('F3', $invoiceNo);
+        
+        // 填充数据（从第8行开始，根据您的模板调整）
+        $startRow = 8;
+        $no = 1;
+        $subtotal = 0;
+        
+        foreach ($records as $record) {
+            $row = $startRow + $no - 1;
+            
+            // NO:
+            $sheet->setCellValue('A' . $row, $no);
+            
+            // Descriptions
+            $description = $record['product_name'];
+            if (!empty($record['specification'])) {
+                $description .= ' (' . $record['specification'] . ')';
+            }
+            $sheet->setCellValue('B' . $row, $description);
+            
+            // Price (RM)
+            $price = floatval($record['price'] ?? 0);
+            $sheet->setCellValue('C' . $row, $price);
+            
+            // Quantity (净数量：入库-出库)
+            $inQty = floatval($record['in_quantity'] ?? 0);
+            $outQty = floatval($record['out_quantity'] ?? 0);
+            $netQty = $inQty - $outQty;
+            $sheet->setCellValue('D' . $row, $netQty);
+            
+            // Total (RM)
+            $total = $netQty * $price;
+            $sheet->setCellValue('E' . $row, $total);
+            $subtotal += $total;
+            
+            $no++;
+        }
+        
+        // 设置总计（假设在数据后的几行，根据模板调整）
+        $totalStartRow = $startRow + count($records) + 2;
+        
+        $sheet->setCellValue('D' . $totalStartRow, 'SUB TOTAL');
+        $sheet->setCellValue('E' . $totalStartRow, $subtotal);
+        
+        $sheet->setCellValue('D' . ($totalStartRow + 1), 'CHARGE 15%');
+        $sheet->setCellValue('E' . ($totalStartRow + 1), 0);
+        
+        $sheet->setCellValue('D' . ($totalStartRow + 2), 'TOTAL');
+        $sheet->setCellValue('E' . ($totalStartRow + 2), $subtotal);
+        
+        // 设置文件名
+        global $currentStockType;
+        $stockType = $currentStockType ?? 'central';
+        $filename = 'Invoice_' . ucfirst($stockType) . '_' . date('Y_m_d', strtotime($startDate)) . '_to_' . date('Y_m_d', strtotime($endDate)) . '.xlsx';
+        
+        // 输出文件
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        header('Pragma: public');
+        header('Expires: 0');
+        
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        
+    } catch (Exception $e) {
+        http_response_code(500);
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'message' => '导出失败: ' . $e->getMessage()]);
+    }
+}}
 ?>

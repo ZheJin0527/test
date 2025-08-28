@@ -1605,6 +1605,112 @@
             return options;
         }
 
+        function generateInvoiceExcel($records, $templateUrl, $startDate, $endDate) {
+            require_once 'vendor/autoload.php'; // 确保已安装 PhpSpreadsheet
+            
+            try {
+                // 下载模板文件
+                $templatePath = $templateUrl;
+                
+                // 如果是相对路径，转换为完整URL
+                if (!filter_var($templatePath, FILTER_VALIDATE_URL)) {
+                    $templatePath = 'https://your-domain.com/' . ltrim($templatePath, '/');
+                }
+                
+                // 下载模板文件到临时位置
+                $tempTemplate = tempnam(sys_get_temp_dir(), 'invoice_template_');
+                $templateContent = file_get_contents($templatePath);
+                
+                if ($templateContent === false) {
+                    throw new Exception('无法下载模板文件');
+                }
+                
+                file_put_contents($tempTemplate, $templateContent);
+                
+                // 加载模板
+                $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($tempTemplate);
+                $sheet = $spreadsheet->getActiveSheet();
+                
+                // 设置发票日期
+                $sheet->setCellValue('F4', date('d/m/Y', strtotime($endDate)));
+                
+                // 生成发票编号
+                $invoiceNo = 'INV-' . date('Ymd', strtotime($endDate)) . '-' . sprintf('%04d', rand(1, 9999));
+                $sheet->setCellValue('F3', $invoiceNo);
+                
+                // 填充数据（从第8行开始，根据模板调整）
+                $startRow = 8;
+                $no = 1;
+                
+                foreach ($records as $record) {
+                    $row = $startRow + $no - 1;
+                    
+                    // NO:
+                    $sheet->setCellValue('A' . $row, $no);
+                    
+                    // Descriptions
+                    $description = $record['product_name'];
+                    if ($record['specification']) {
+                        $description .= ' (' . $record['specification'] . ')';
+                    }
+                    $sheet->setCellValue('B' . $row, $description);
+                    
+                    // Price (RM)
+                    $sheet->setCellValue('C' . $row, floatval($record['price']));
+                    
+                    // Quantity (净数量：入库-出库)
+                    $inQty = floatval($record['in_quantity'] ?? 0);
+                    $outQty = floatval($record['out_quantity'] ?? 0);
+                    $netQty = $inQty - $outQty;
+                    $sheet->setCellValue('D' . $row, $netQty);
+                    
+                    // Total (RM)
+                    $total = $netQty * floatval($record['price']);
+                    $sheet->setCellValue('E' . $row, $total);
+                    
+                    $no++;
+                }
+                
+                // 计算总计
+                $subtotal = 0;
+                foreach ($records as $record) {
+                    $inQty = floatval($record['in_quantity'] ?? 0);
+                    $outQty = floatval($record['out_quantity'] ?? 0);
+                    $netQty = $inQty - $outQty;
+                    $subtotal += $netQty * floatval($record['price']);
+                }
+                
+                // 设置总计（根据模板位置调整）
+                $totalRow = $startRow + count($records) + 2;
+                $sheet->setCellValue('D' . $totalRow, 'SUB TOTAL');
+                $sheet->setCellValue('E' . $totalRow, $subtotal);
+                
+                $sheet->setCellValue('D' . ($totalRow + 1), 'CHARGE 15%');
+                $sheet->setCellValue('E' . ($totalRow + 1), 0); // 假设无额外费用
+                
+                $sheet->setCellValue('D' . ($totalRow + 2), 'TOTAL');
+                $sheet->setCellValue('E' . ($totalRow + 2), $subtotal);
+                
+                // 设置文件名
+                $filename = 'Invoice_' . ucfirst($GLOBALS['currentStockType'] ?? 'central') . '_' . date('Y_m_d', strtotime($startDate)) . '_to_' . date('Y_m_d', strtotime($endDate)) . '.xlsx';
+                
+                // 输出文件
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Content-Disposition: attachment;filename="' . $filename . '"');
+                header('Cache-Control: max-age=0');
+                
+                $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+                $writer->save('php://output');
+                
+                // 清理临时文件
+                unlink($tempTemplate);
+                
+            } catch (Exception $e) {
+                http_response_code(500);
+                echo json_encode(['success' => false, 'message' => '导出失败: ' . $e->getMessage()]);
+            }
+        }
+
         // 返回仪表盘
         function goBack() {
             window.location.href = 'dashboard.php';
@@ -3849,23 +3955,30 @@
             }
             
             try {
-                // 构建导出参数
-                const exportParams = new URLSearchParams({
-                    action: 'export',
-                    start_date: startDate,
-                    end_date: endDate,
-                    include_in: includeIn ? '1' : '0',
-                    include_out: includeOut ? '1' : '0'
-                });
-                
                 // 显示加载状态
                 const exportBtn = document.querySelector('.export-modal-actions .btn-success');
                 const originalText = exportBtn.innerHTML;
                 exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 导出中...';
                 exportBtn.disabled = true;
                 
+                // 准备导出数据
+                const exportData = {
+                    action: 'export_invoice',
+                    start_date: startDate,
+                    end_date: endDate,
+                    include_in: includeIn ? '1' : '0',
+                    include_out: includeOut ? '1' : '0',
+                    template_url: 'invoice/invoice/j1invoice.xlsx'
+                };
+                
                 // 调用导出API
-                const response = await fetch(`${API_BASE_URL}?${exportParams}`);
+                const response = await fetch(API_BASE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(exportData)
+                });
                 
                 if (!response.ok) {
                     throw new Error('导出失败');
@@ -3873,7 +3986,7 @@
                 
                 // 获取文件名
                 const contentDisposition = response.headers.get('Content-Disposition');
-                let filename = 'stock_export.xlsx';
+                let filename = `invoice_${currentStockType}_${startDate}_to_${endDate}.xlsx`;
                 if (contentDisposition) {
                     const filenameMatch = contentDisposition.match(/filename="(.+)"/);
                     if (filenameMatch) {
@@ -3893,7 +4006,7 @@
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
                 
-                showAlert('数据导出成功', 'success');
+                showAlert('发票导出成功', 'success');
                 closeExportModal();
                 
             } catch (error) {
