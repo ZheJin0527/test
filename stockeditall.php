@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>库存管理系统 - 全部库存管理</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -3849,61 +3850,162 @@
             }
             
             try {
-                // 构建导出参数
-                const exportParams = new URLSearchParams({
-                    action: 'export',
-                    start_date: startDate,
-                    end_date: endDate,
-                    include_in: includeIn ? '1' : '0',
-                    include_out: includeOut ? '1' : '0'
-                });
-                
                 // 显示加载状态
                 const exportBtn = document.querySelector('.export-modal-actions .btn-success');
                 const originalText = exportBtn.innerHTML;
                 exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 导出中...';
                 exportBtn.disabled = true;
                 
-                // 调用导出API
-                const response = await fetch(`${API_BASE_URL}?${exportParams}`);
+                // 过滤数据
+                const filteredData = stockData.filter(record => {
+                    const recordDate = new Date(record.date);
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    
+                    if (recordDate < start || recordDate > end) {
+                        return false;
+                    }
+                    
+                    const hasIn = parseFloat(record.in_quantity) > 0;
+                    const hasOut = parseFloat(record.out_quantity) > 0;
+                    
+                    return (includeIn && hasIn) || (includeOut && hasOut);
+                });
                 
-                if (!response.ok) {
-                    throw new Error('导出失败');
+                if (filteredData.length === 0) {
+                    showAlert('所选日期范围内没有数据', 'warning');
+                    exportBtn.innerHTML = originalText;
+                    exportBtn.disabled = false;
+                    return;
                 }
                 
-                // 获取文件名
-                const contentDisposition = response.headers.get('Content-Disposition');
-                let filename = 'stock_export.xlsx';
-                if (contentDisposition) {
-                    const filenameMatch = contentDisposition.match(/filename="(.+)"/);
-                    if (filenameMatch) {
-                        filename = filenameMatch[1];
+                // 调用新的写入Excel功能
+                await writeToExistingExcel(filteredData);
+                
+                showAlert('数据已成功写入Excel文件', 'success');
+                closeExportModal();
+                
+            } catch (error) {
+                console.error('导出失败:', error);
+                showAlert('导出失败: ' + error.message, 'error');
+            } finally {
+                // 恢复按钮状态
+                const exportBtn = document.querySelector('.export-modal-actions .btn-success');
+                if (exportBtn) {
+                    exportBtn.innerHTML = '<i class="fas fa-download"></i> 导出Excel';
+                    exportBtn.disabled = false;
+                }
+            }
+        }
+
+        // 2. 新增函数：写入现有Excel文件
+        async function writeToExistingExcel(data) {
+            try {
+                // 加载现有的Excel文件
+                const response = await fetch('invoice/invoice/j1invoice.xlsx');
+                if (!response.ok) {
+                    throw new Error('无法加载Excel模板文件');
+                }
+                
+                const arrayBuffer = await response.arrayBuffer();
+                
+                // 使用SheetJS读取Excel文件
+                const workbook = XLSX.read(arrayBuffer, {type: 'array'});
+                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                
+                // 准备要写入的数据
+                const exportData = data.map((record, index) => {
+                    const inQty = parseFloat(record.in_quantity) || 0;
+                    const outQty = parseFloat(record.out_quantity) || 0;
+                    const price = parseFloat(record.price) || 0;
+                    const netQty = inQty - outQty;
+                    const total = netQty * price;
+                    
+                    return {
+                        date: formatExportDate(record.date),
+                        no: index + 1,
+                        description: record.product_name || '',
+                        price: price,
+                        quantity: Math.abs(netQty),
+                        total: Math.abs(total)
+                    };
+                });
+                
+                // 找到数据开始的行（假设从第18行开始，根据你的模板调整）
+                let startRow = 18;
+                
+                // 清除现有数据行（保留模板格式）
+                const range = XLSX.utils.decode_range(worksheet['!ref']);
+                for (let row = startRow; row <= range.e.r; row++) {
+                    for (let col = 0; col <= 5; col++) { // A到F列
+                        const cellAddr = XLSX.utils.encode_cell({r: row, c: col});
+                        if (worksheet[cellAddr]) {
+                            delete worksheet[cellAddr];
+                        }
                     }
                 }
                 
+                // 写入新数据
+                exportData.forEach((item, index) => {
+                    const row = startRow + index;
+                    
+                    // 写入每列数据
+                    worksheet[XLSX.utils.encode_cell({r: row, c: 0})] = {v: item.no, t: 'n'}; // A列 - NO
+                    worksheet[XLSX.utils.encode_cell({r: row, c: 1})] = {v: item.description, t: 's'}; // B列 - Descriptions
+                    worksheet[XLSX.utils.encode_cell({r: row, c: 2})] = {v: item.price, t: 'n', z: '0.00'}; // C列 - Price
+                    worksheet[XLSX.utils.encode_cell({r: row, c: 3})] = {v: item.quantity, t: 'n', z: '0.00'}; // D列 - Quantity
+                    worksheet[XLSX.utils.encode_cell({r: row, c: 4})] = {v: item.total, t: 'n', z: '0.00'}; // E列 - Total
+                });
+                
+                // 更新工作表范围
+                const newRange = XLSX.utils.encode_range({
+                    s: {r: 0, c: 0},
+                    e: {r: Math.max(startRow + exportData.length - 1, range.e.r), c: range.e.c}
+                });
+                worksheet['!ref'] = newRange;
+                
+                // 生成新的Excel文件
+                const workbookOut = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+                
                 // 下载文件
-                const blob = await response.blob();
+                const blob = new Blob([workbookOut], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.href = url;
-                a.download = filename;
+                a.download = `invoice_${getCurrentStockTypeName()}_${formatDateForFilename(new Date())}.xlsx`;
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
                 
-                showAlert('数据导出成功', 'success');
-                closeExportModal();
-                
             } catch (error) {
-                console.error('导出失败:', error);
-                showAlert('导出失败，请重试', 'error');
-            } finally {
-                // 恢复按钮状态
-                const exportBtn = document.querySelector('.export-modal-actions .btn-success');
-                exportBtn.innerHTML = originalText;
-                exportBtn.disabled = false;
+                throw new Error('写入Excel文件时发生错误: ' + error.message);
+            }
+        }
+
+        // 3. 新增辅助函数
+        function formatExportDate(dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function formatDateForFilename(date) {
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            return `${year}${month}${day}`;
+        }
+
+        function getCurrentStockTypeName() {
+            switch(currentStockType) {
+                case 'central': return '中央';
+                case 'j1': return 'J1';
+                case 'j2': return 'J2';
+                default: return '中央';
             }
         }
 
