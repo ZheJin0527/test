@@ -425,7 +425,7 @@
         .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 180px; } /* 货品 */
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
         .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
-        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* Target */
+        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
         .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 90px; } /* 规格 */
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
@@ -1395,7 +1395,7 @@
                         <th class="product-name-col">货品</th>
                         <th style="min-width: 80px;">进货</th>
                         <th style="min-width: 80px;">出货</th>
-                        <th style="min-width: 100px;">Target</th>
+                        <th style="min-width: 100px;">收货单位</th>
                         <th style="min-width: 100px;">规格</th>
                         <th style="min-width: 100px;">单价</th>
                         <th style="min-width: 100px;">总价</th>
