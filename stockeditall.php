@@ -1268,12 +1268,10 @@
                     <label for="add-out-qty">出库数量</label>
                     <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
-                <div class="form-group">
-                    <label for="add-target">目标系统</label>
-                    <select id="add-target" class="form-select" disabled>
-                        <!-- 选项将通过 JavaScript 动态生成 -->
-                    </select>
-                </div>
+                <select id="add-target" class="form-select" disabled>
+                    <option value="">请选择</option>
+                    ${generateTargetOptions()}
+                </select>
                 <div class="form-group">
                     <label for="add-specification">规格单位 *</label>
                     <select id="add-specification" class="form-select" required>
@@ -1431,58 +1429,6 @@
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
 
-        // 根据当前库存类型获取可用的目标选项
-        function getTargetOptions() {
-            if (currentStockType === 'central') {
-                return `
-                    <option value="">请选择</option>
-                    <option value="j1">J1</option>
-                    <option value="j2">J2</option>
-                    <option value="central">Central</option>
-                `;
-            } else {
-                // J1 和 J2 只能选择 Central
-                return `
-                    <option value="">请选择</option>
-                    <option value="central">Central</option>
-                `;
-            }
-        }
-
-        // 获取带选中状态的目标选项
-        function getTargetOptionsWithSelected(selectedValue = '') {
-            if (currentStockType === 'central') {
-                return `
-                    <option value="">请选择</option>
-                    <option value="j1" ${selectedValue === 'j1' ? 'selected' : ''}>J1</option>
-                    <option value="j2" ${selectedValue === 'j2' ? 'selected' : ''}>J2</option>
-                    <option value="central" ${selectedValue === 'central' ? 'selected' : ''}>Central</option>
-                `;
-            } else {
-                return `
-                    <option value="">请选择</option>
-                    <option value="central" ${selectedValue === 'central' ? 'selected' : ''}>Central</option>
-                `;
-            }
-        }
-
-        // 更新目标下拉框选项
-        function updateTargetOptions(selectElement) {
-            const currentValue = selectElement.value;
-            selectElement.innerHTML = getTargetOptions();
-            
-            // 如果当前选中的值在新选项中不存在，清空选择
-            if (currentValue) {
-                const options = Array.from(selectElement.options);
-                const hasCurrentValue = options.some(option => option.value === currentValue);
-                if (hasCurrentValue) {
-                    selectElement.value = currentValue;
-                } else {
-                    selectElement.value = '';
-                }
-            }
-        }
-
         // 初始化应用
         function initApp() {
             // 设置默认日期为今天
@@ -1505,12 +1451,6 @@
                     centralItem.classList.add('active');
                 }
             }, 100);
-
-            // 初始化新增表单的目标选项
-            const addTargetSelect = document.getElementById('add-target');
-            if (addTargetSelect) {
-                addTargetSelect.innerHTML = getTargetOptions();
-            }
 
         }
 
@@ -1566,13 +1506,6 @@
             if (originalEditData) {
                 originalEditData.clear();
             }
-
-            // 更新新增表单的目标选项
-            const addTargetSelect = document.getElementById('add-target');
-            if (addTargetSelect) {
-                addTargetSelect.innerHTML = getTargetOptions();
-                addTargetSelect.value = ''; // 清空当前选择
-            }
             
             // 重新加载数据
             loadStockData();
@@ -1605,6 +1538,26 @@
             if (dropdown) {
                 dropdown.classList.remove('show');
             }
+        }
+
+        // 根据当前库存类型生成target选项
+        function generateTargetOptions(selectedValue = '') {
+            let options = '';
+            
+            if (currentStockType === 'central') {
+                // Central页面显示所有选项
+                options += `<option value="j1" ${selectedValue === 'j1' ? 'selected' : ''}>J1</option>`;
+                options += `<option value="j2" ${selectedValue === 'j2' ? 'selected' : ''}>J2</option>`;
+                options += `<option value="central" ${selectedValue === 'central' ? 'selected' : ''}>Central</option>`;
+            } else if (currentStockType === 'j1') {
+                // J1页面只显示J1选项
+                options += `<option value="j1" ${selectedValue === 'j1' ? 'selected' : ''}>J1</option>`;
+            } else if (currentStockType === 'j2') {
+                // J2页面只显示J2选项
+                options += `<option value="j2" ${selectedValue === 'j2' ? 'selected' : ''}>J2</option>`;
+            }
+            
+            return options;
         }
 
         // 返回仪表盘
@@ -1939,7 +1892,8 @@
                     <td>
                         ${isEditing ? 
                             `<select class="table-select" id="target-select-${record.id}" onchange="updateField(${record.id}, 'target_system', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>
-                                ${getTargetOptionsWithSelected(record.target_system)}
+                                <option value="">请选择</option>
+                                ${generateTargetOptions(record.target_system)}
                             </select>` :
                             `<span>${record.target_system ? record.target_system.toUpperCase() : '-'}</span>`
                         }
@@ -2086,9 +2040,9 @@
                 <td>${createCombobox('product', '', null, rowId)}</td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
-                <td>
-                    <select class="table-select" id="${rowId}-target" disabled>
-                    ${getTargetOptions()}
+                <select class="table-select" id="${rowId}-target" disabled>
+                    <option value="">请选择</option>
+                    ${generateTargetOptions()}
                 </select>
                 </td>
                 <td>
@@ -2153,8 +2107,6 @@
                 if (outQty > 0) {
                     targetSelect.disabled = false;
                     targetSelect.required = true;
-                    // 根据当前库存类型设置可用选项
-                    updateTargetOptions(targetSelect);
                 } else {
                     targetSelect.disabled = true;
                     targetSelect.value = '';
@@ -2630,12 +2582,14 @@
                         }
                     }
 
-                    // 加载产品选项
-                    if (window.productOptions && window.productOptions.length > 0) {
-                        const productSelectElement = document.getElementById('add-product-name');
-                        if (productSelectElement) {
-                            productSelectElement.innerHTML = generateProductOptions();
-                        }
+                    // 更新target选项
+                    const targetSelect = document.getElementById('add-target');
+                    if (targetSelect) {
+                        const currentValue = targetSelect.value;
+                        const optionsHtml = generateTargetOptions(currentValue);
+                        const selectOptions = targetSelect.querySelectorAll('option:not([value=""])');
+                        selectOptions.forEach(option => option.remove());
+                        targetSelect.insertAdjacentHTML('beforeend', optionsHtml);
                     }
                     
                     // 为表单中的下拉框绑定联动事件
