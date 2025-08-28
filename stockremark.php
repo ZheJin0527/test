@@ -545,7 +545,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1>库存价格分析</h1>
+                <h1>Remark</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
