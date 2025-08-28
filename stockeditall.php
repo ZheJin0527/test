@@ -1147,7 +1147,7 @@
         }
 
         .view-selector .selector-dropdown {
-            min-width: 130px;
+            min-width: 120px;
         }
     </style>
 </head>
@@ -1466,17 +1466,17 @@
                 case 'central':
                     API_BASE_URL = 'stockeditapi.php';
                     document.getElementById('page-title').textContent = 'In Out - Central';
-                    document.getElementById('current-stock-type').textContent = '中央库存';
+                    document.getElementById('current-stock-type').textContent = 'Central';
                     break;
                 case 'j1':
                     API_BASE_URL = 'j1stockeditpageapi.php';
                     document.getElementById('page-title').textContent = 'In Out - J1';
-                    document.getElementById('current-stock-type').textContent = 'J1库存';
+                    document.getElementById('current-stock-type').textContent = 'J1';
                     break;
                 case 'j2':
                     API_BASE_URL = 'j2stockeditpageapi.php';
                     document.getElementById('page-title').textContent = 'In Out - J2';
-                    document.getElementById('current-stock-type').textContent = 'J2库存';
+                    document.getElementById('current-stock-type').textContent = 'J2';
                     break;
             }
             
