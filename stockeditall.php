@@ -4054,17 +4054,7 @@
                     });
                     
                     yPosition -= lineHeight;
-                });
-                
-                // 填入总计 (右下角) - 调整位置和格式
-                const totalText = `RM${grandTotal.toFixed(2)}`;
-                page.drawText(totalText, {
-                    x: 585 - (totalText.length * 8), // 右对齐到表格边缘
-                    y: height - 650, // 调整Y坐标到正确的TOTAL行位置
-                    size: 11,
-                    color: textColor,
-                    font: boldFont,
-                });
+                });                
 
                 if (exportSystem === 'j2') {
                     // J2模板：计算subtotal, charge 15%, 和最终total
@@ -4076,7 +4066,7 @@
                     const subtotalText = `RM${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
                         x: 585 - (subtotalText.length * 8),
-                        y: height - 660, // 调整到Subtotal行
+                        y: height - 665, // 调整到Subtotal行
                         size: 11,
                         color: textColor,
                         font: boldFont,
@@ -4086,7 +4076,7 @@
                     const chargeText = `RM${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
                         x: 585 - (chargeText.length * 8),
-                        y: height - 680, // 调整到Charge行
+                        y: height - 678, // 调整到Charge行
                         size: 11,
                         color: textColor,
                         font: boldFont,
