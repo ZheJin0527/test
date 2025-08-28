@@ -1060,6 +1060,11 @@
             color: #374151;
         }
 
+        /* 系统选择器样式 */
+        .system-selector {
+            position: relative;
+        }
+
         .selector-button {
             background-color: #583e04;
             color: white;
