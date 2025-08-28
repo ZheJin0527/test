@@ -4092,7 +4092,7 @@
                     const finalTotalText = `RM${finalTotal.toFixed(2)}`;
                     page.drawText(finalTotalText, {
                         x: 585 - (finalTotalText.length * 8),
-                        y: height - 700, // 调整到最终Total行
+                        y: height - 698, // 调整到最终Total行
                         size: 11,
                         color: textColor,
                         font: boldFont,
