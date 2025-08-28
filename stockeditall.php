@@ -3944,7 +3944,7 @@
                 let grandTotal = 0;
                 
                 // 填入数据行 (从第一个数据行开始)
-                let yPosition = height - 198; // 调整起始Y坐标
+                let yPosition = height - 190; // 调整起始Y坐标
                 const lineHeight = 16; // 调整行高
 
                 outData.forEach((record, index) => {
