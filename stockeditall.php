@@ -3821,7 +3821,7 @@
             // 重置导出按钮状态
             const exportBtn = document.querySelector('.export-modal-actions .btn-success');
             if (exportBtn) {
-                exportBtn.innerHTML = '<i class="fas fa-download"></i> 导出Excel';
+                exportBtn.innerHTML = '<i class="fas fa-download"></i> 导出PDF发票';
                 exportBtn.disabled = false;
             }
         }
