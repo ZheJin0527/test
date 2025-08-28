@@ -816,64 +816,6 @@ function handlePost() {
     }
 }
 
-if ($action === 'generate_pdf_invoice') {
-    $input = json_decode(file_get_contents('php://input'), true);
-    $invoiceData = $input['invoice_data'];
-    $grandTotal = $input['grand_total'];
-    
-    // 使用PDF库 (推荐使用 TCPDF 或 FPDF)
-    require_once('tcpdf/tcpdf.php');
-    
-    // 读取现有PDF模板
-    $pdf = new TCPDF();
-    $pdf->setPrintHeader(false);
-    $pdf->setPrintFooter(false);
-    $pdf->AddPage();
-    
-    // 设置字体
-    $pdf->SetFont('helvetica', '', 12);
-    
-    // 填写日期
-    $pdf->SetXY(450, 115); // 根据你的PDF模板调整位置
-    $pdf->Cell(100, 10, $invoiceData['date'], 0, 0, 'L');
-    
-    // 填写商品信息
-    $startY = 180; // 起始Y位置，根据你的模板调整
-    $lineHeight = 20; // 行高
-    
-    foreach ($invoiceData['items'] as $item) {
-        $y = $startY + ($item['no'] - 1) * $lineHeight;
-        
-        // NO
-        $pdf->SetXY(35, $y);
-        $pdf->Cell(20, 10, $item['no'], 0, 0, 'C');
-        
-        // Description
-        $pdf->SetXY(70, $y);
-        $pdf->Cell(200, 10, $item['description'], 0, 0, 'L');
-        
-        // Price
-        $pdf->SetXY(310, $y);
-        $pdf->Cell(60, 10, number_format($item['price'], 2), 0, 0, 'R');
-        
-        // Quantity  
-        $pdf->SetXY(400, $y);
-        $pdf->Cell(40, 10, $item['quantity'], 0, 0, 'C');
-        
-        // Total
-        $pdf->SetXY(470, $y);
-        $pdf->Cell(80, 10, number_format($item['total'], 2), 0, 0, 'R');
-    }
-    
-    // 总计
-    $pdf->SetXY(470, 690); // 根据你的模板调整总计位置
-    $pdf->Cell(80, 10, 'RM' . number_format($grandTotal, 2), 0, 0, 'R');
-    
-    // 输出PDF
-    $pdf->Output('invoice.pdf', 'D');
-    exit;
-}
-
 // 处理批准请求
 function handleApprove() {
     global $pdo, $data;
