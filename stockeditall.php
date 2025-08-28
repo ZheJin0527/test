@@ -3928,14 +3928,14 @@
                 const { width, height } = page.getSize();
                 
                 // 设置字体大小和颜色
-                const fontSize = 12;
+                const fontSize = 11;
                 const textColor = rgb(0, 0, 0);
                 
                 // 填入日期 (右上角区域)
                 const currentDate = new Date().toLocaleDateString('en-GB');
                 page.drawText(` ${currentDate}`, {
-                    x: 490, // 调整到DATE冒号后面
-                    y: height - 112, 
+                    x: 485, // 调整到DATE冒号后面
+                    y: height - 113, 
                     size: fontSize,
                     color: textColor,
                 });
