@@ -3923,6 +3923,9 @@
                 const { PDFDocument, rgb } = PDFLib;
                 const pdfDoc = await PDFDocument.load(templateBytes);
                 
+                // 嵌入粗体字体
+                const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+
                 // 获取第一页
                 const page = pdfDoc.getPage(0);
                 const { width, height } = page.getSize();
@@ -3938,6 +3941,7 @@
                     y: height - 113, 
                     size: fontSize,
                     color: textColor,
+                    font: boldFont,
                 });
                 
                 // 计算总金额
@@ -3960,6 +3964,7 @@
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
+                        font: boldFont,
                     });
                     
                     // Descriptions (第二列) - 调整产品名称显示，处理长文本
@@ -3974,6 +3979,7 @@
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
+                        font: boldFont,
                     });
                     
                     // Price RM (第三列)
@@ -3982,6 +3988,7 @@
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
+                        font: boldFont,
                     });
                     
                     // Quantity (第四列) - 右对齐
@@ -3991,6 +3998,7 @@
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
+                        font: boldFont,
                     });
                     
                     // Total RM (第五列) - 右对齐
@@ -4000,6 +4008,7 @@
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
+                        font: boldFont,
                     });
                     
                     yPosition -= lineHeight;
@@ -4012,6 +4021,7 @@
                     y: height - 650, // 调整Y坐标到正确的TOTAL行位置
                     size: 11,
                     color: textColor,
+                    font: boldFont,
                 });
                 
                 // 生成并下载PDF
