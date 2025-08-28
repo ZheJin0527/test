@@ -3920,16 +3920,17 @@
                 const templateBytes = await templateResponse.arrayBuffer();
                 
                 // 使用PDF-lib库来编辑PDF
-                const { PDFDocument, rgb } = PDFLib;
+                const { PDFDocument, rgb, StandardFonts } = PDFLib;
                 const pdfDoc = await PDFDocument.load(templateBytes);
-                
-                // 嵌入粗体字体
-                const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
                 // 获取第一页
                 const page = pdfDoc.getPage(0);
                 const { width, height } = page.getSize();
-                
+
+                // 嵌入字体
+                const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+                const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
                 // 设置字体大小和颜色
                 const fontSize = 11;
                 const textColor = rgb(0, 0, 0);
