@@ -4076,7 +4076,7 @@
                     const chargeText = `RM${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
                         x: 583 - (chargeText.length * 8),
-                        y: height - 678, // 调整到Charge行
+                        y: height - 679, // 调整到Charge行
                         size: 11,
                         color: textColor,
                         font: boldFont,
