@@ -410,18 +410,6 @@
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
 
-        .selector-button.disabled {
-            background-color: #9ca3af !important;
-            cursor: not-allowed !important;
-            color: #6b7280 !important;
-        }
-
-        .selector-button.disabled:hover {
-            background-color: #9ca3af !important;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
         .selector-dropdown {
             position: absolute;
             top: 96%;
@@ -559,9 +547,9 @@
                         <div class="dropdown-item active" onclick="switchView('remark')">Remark</div>
                     </div>
                 </div>
-                <div class="selector-button disabled" style="justify-content: center;">
-                    <span id="current-stock-type">--</span>
-                </div>
+                <button class="selector-button" style="justify-content: center;">
+                    <span id="current-stock-type">Central</span>
+                </button>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
                     返回仪表盘
@@ -639,7 +627,6 @@
         let stockData = [];
         let filteredData = [];
         let isLoading = false;
-        let currentStockType = 'central';
 
         // 初始化应用
         function initApp() {
