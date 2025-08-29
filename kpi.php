@@ -132,6 +132,7 @@ $avatarLetter = strtoupper($username[0]);
             scrollbar-width: thin;
             scrollbar-color: #c1c1c1 #f1f1f1;
         }
+        
         /* 登录后头像和下拉菜单样式 */
         .user-avatar-dropdown {
             position: relative;
@@ -688,6 +689,7 @@ $avatarLetter = strtoupper($username[0]);
         .informationmenu.collapsed .user-avatar {
             display: none !important;
         }
+        
         .header {
             display: flex;
             justify-content: space-between;
