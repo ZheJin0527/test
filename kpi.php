@@ -4395,6 +4395,22 @@ $avatarLetter = strtoupper($username[0]);
             }
         });
 
+        // 原本的侧边栏切换代码需要添加重置计时器的调用
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.querySelector('.informationmenu');
+            const mainContent = document.getElementById('main-content');
+            
+            sidebar.classList.toggle('collapsed');
+            this.classList.toggle('collapsed');
+            
+            if (mainContent) {
+                mainContent.classList.toggle('sidebar-collapsed');
+            }
+            
+            // 添加这一行：重置自动收起计时器
+            resetAutoCollapseTimer();
+        });
+
         console.log('点击Section + 悬停Submenu系统已加载完成');
     </script>
     <script>
