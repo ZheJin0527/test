@@ -1975,7 +1975,7 @@
                             ) :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
-                                <span class="currency-amount">${formatCurrency(record.price)}</span>
+                                <span class="currency-amount">${formatCurrency(record.price || '0')}</span>
                             </div>`
                         }
                     </td>
@@ -2058,7 +2058,8 @@
         // 格式化货币
         function formatCurrency(value) {
             if (!value || value === '' || value === '0') return '0.00';
-            const num = parseFloat(value);
+            // 确保处理字符串形式的数字
+            const num = typeof value === 'string' ? parseFloat(value) : Number(value);
             return isNaN(num) ? '0.00' : num.toFixed(2);
         }
 
@@ -2374,7 +2375,7 @@
                 in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
-                price: parseFloat(document.getElementById('add-price').value) || 0,
+                price: document.getElementById('add-price').value || '',
                 receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
@@ -2535,7 +2536,12 @@
         function updateField(id, field, value) {
             const record = stockData.find(r => r.id === id);
             if (record) {
-                record[field] = value;
+                // 对价格字段进行特殊处理，确保保持完整精度
+                if (field === 'price') {
+                    record[field] = value === '' ? '' : String(value);
+                } else {
+                    record[field] = value;
+                }
                 
                 // 特殊处理出库数量变化
                 if (field === 'out_quantity') {
