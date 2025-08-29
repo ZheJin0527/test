@@ -4009,7 +4009,7 @@
                     lineHeight = 14; // J1模板的行高
                 } else { // j2
                     yPosition = height - 301; // J2模板的起始Y坐标
-                    lineHeight = 18; // J2模板的行高
+                    lineHeight = 17; // J2模板的行高
                 }
 
                 outData.forEach((record, index) => {
