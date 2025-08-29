@@ -1201,7 +1201,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <h1 id="page-title">进出货stock - 中央</h1>
+                <h1 id="page-title">进出货 - 中央</h1>
             </div>
             <div class="controls">
                 <div class="view-selector">
