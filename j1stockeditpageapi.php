@@ -160,7 +160,7 @@ function handleGet() {
             }
             break;
             
-        case 'summary':
+        case 'summary'://1
             // 获取汇总数据
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;
