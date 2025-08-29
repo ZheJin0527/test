@@ -1722,7 +1722,7 @@ $avatarLetter = strtoupper($username[0]);
     </style>
 </head>
 <body class="restaurant-j1">
-    <div class="informationmenu">
+    <div class="informationmenu collapsed">
         <div class="informationmenu-header">
             <div class="user-avatar-dropdown">
                 <div id="user-avatar" class="user-avatar"><?php echo $avatarLetter; ?></div>
@@ -1732,7 +1732,7 @@ $avatarLetter = strtoupper($username[0]);
                 </div>
             </div>
 
-            <div class="sidebar-menu-hamburger" id="sidebarToggle">
+            <div class="sidebar-menu-hamburger collapsed" id="sidebarToggle">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -2077,7 +2077,7 @@ $avatarLetter = strtoupper($username[0]);
         </div>
     </div>
     <div id="app">
-        <div class="main-content" id="main-content">
+        <div class="main-content sidebar-collapsed" id="main-content">
             <div class="header">
                 <div class="logo-container">
                     <span class="title-text">KPI 仪表盘</span>
@@ -4273,11 +4273,8 @@ $avatarLetter = strtoupper($username[0]);
                 this.classList.add('active');
                 targetDropdown?.classList.add('show');
 
-                // 重置自动收起定时器
-                clearAutoCollapseTimer();
-                setTimeout(() => {
-                    resetAutoCollapseTimer();
-                }, 1000);
+                // 侧边栏刚展开，启动自动收起定时器
+                resetAutoCollapseTimer();
 
                 return false;
             }
@@ -4465,9 +4462,21 @@ $avatarLetter = strtoupper($username[0]);
             }
         });
 
-        // 页面加载后启动定时器
+        // 页面加载后不启动定时器（因为初始是收起状态）
         document.addEventListener('DOMContentLoaded', () => {
-            resetAutoCollapseTimer();
+            // 确保页面加载时侧边栏是收起的
+            const sidebar = document.querySelector('.informationmenu');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mainContent = document.getElementById('main-content');
+            
+            // 确保初始状态是收起的
+            sidebar.classList.add('collapsed');
+            sidebarToggle.classList.add('collapsed');
+            if (mainContent) {
+                mainContent.classList.add('sidebar-collapsed');
+            }
+            
+            // 不启动定时器，因为侧边栏是收起的
         });
 
         // 当侧边栏展开时也重置定时器
