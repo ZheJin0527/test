@@ -2055,15 +2055,11 @@
             return isNaN(num) ? '0.00' : num.toFixed(2);
         }
 
+        // 格式化货币
         function formatCurrency(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
-            if (isNaN(num)) return '0.00';
-            // 如果数值大于等于1000，显示为整数
-            if (num >= 1000) {
-                return num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            }
-            return num.toFixed(2);
+            return isNaN(num) ? '0.00' : num.toFixed(2);
         }
 
         // 更新统计信息
