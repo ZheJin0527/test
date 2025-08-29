@@ -4196,6 +4196,42 @@ $avatarLetter = strtoupper($username[0]);
         });
     </script>
     <script>
+        // 自动收起定时器
+        let autoCollapseTimer = null;
+        const AUTO_COLLAPSE_DELAY = 4000; // 4秒
+
+        // 重置定时器函数
+        function resetAutoCollapseTimer() {
+            // 清除现有定时器
+            if (autoCollapseTimer) {
+                clearTimeout(autoCollapseTimer);
+            }
+            
+            // 设置新的定时器
+            autoCollapseTimer = setTimeout(() => {
+                const sidebar = document.querySelector('.informationmenu');
+                const sidebarToggle = document.getElementById('sidebarToggle');
+                const mainContent = document.getElementById('main-content');
+                
+                // 如果侧边栏当前是展开状态，则收起它
+                if (!sidebar.classList.contains('collapsed')) {
+                    sidebar.classList.add('collapsed');
+                    sidebarToggle.classList.add('collapsed');
+                    if (mainContent) {
+                        mainContent.classList.add('sidebar-collapsed');
+                    }
+                }
+            }, AUTO_COLLAPSE_DELAY);
+        }
+
+        // 清除定时器函数
+        function clearAutoCollapseTimer() {
+            if (autoCollapseTimer) {
+                clearTimeout(autoCollapseTimer);
+                autoCollapseTimer = null;
+            }
+        }
+
         document.querySelectorAll('.informationmenu-section-title').forEach(title => {
             title.addEventListener('click', function(e) {
                 const sidebar = document.querySelector('.informationmenu');
@@ -4236,6 +4272,12 @@ $avatarLetter = strtoupper($username[0]);
                 // 激活当前section
                 this.classList.add('active');
                 targetDropdown?.classList.add('show');
+
+                // 重置自动收起定时器
+                clearAutoCollapseTimer();
+                setTimeout(() => {
+                    resetAutoCollapseTimer();
+                }, 1000);
 
                 return false;
             }
@@ -4395,23 +4437,54 @@ $avatarLetter = strtoupper($username[0]);
             }
         });
 
-        // 原本的侧边栏切换代码需要添加重置计时器的调用
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-            const sidebar = document.querySelector('.informationmenu');
-            const mainContent = document.getElementById('main-content');
-            
-            sidebar.classList.toggle('collapsed');
-            this.classList.toggle('collapsed');
-            
-            if (mainContent) {
-                mainContent.classList.toggle('sidebar-collapsed');
-            }
-            
-            // 添加这一行：重置自动收起计时器
+        console.log('点击Section + 悬停Submenu系统已加载完成');
+
+        // 为整个 informationmenu 添加鼠标事件监听
+        const sidebar = document.querySelector('.informationmenu');
+
+        // 鼠标进入侧边栏时清除定时器
+        sidebar.addEventListener('mouseenter', () => {
+            clearAutoCollapseTimer();
+        });
+
+        // 鼠标离开侧边栏时开始定时器
+        sidebar.addEventListener('mouseleave', () => {
             resetAutoCollapseTimer();
         });
 
-        console.log('点击Section + 悬停Submenu系统已加载完成');
+        // 在侧边栏内的任何点击都会重置定时器
+        sidebar.addEventListener('click', (e) => {
+            // 如果点击的是 hamburger 按钮，不重置定时器（让用户手动控制）
+            const isHamburgerClick = e.target.closest('#sidebarToggle');
+            if (!isHamburgerClick) {
+                clearAutoCollapseTimer();
+                // 延迟启动定时器，给用户一些时间操作
+                setTimeout(() => {
+                    resetAutoCollapseTimer();
+                }, 1000);
+            }
+        });
+
+        // 页面加载后启动定时器
+        document.addEventListener('DOMContentLoaded', () => {
+            resetAutoCollapseTimer();
+        });
+
+        // 当侧边栏展开时也重置定时器
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        if (sidebarToggle) {
+            const originalToggleHandler = sidebarToggle.onclick;
+            sidebarToggle.addEventListener('click', () => {
+                clearAutoCollapseTimer();
+                // 如果侧边栏被手动展开，重新启动定时器
+                setTimeout(() => {
+                    const sidebar = document.querySelector('.informationmenu');
+                    if (!sidebar.classList.contains('collapsed')) {
+                        resetAutoCollapseTimer();
+                    }
+                }, 100);
+            });
+        }
     </script>
     <script>
         // 当前选择的字母和数字
