@@ -689,10 +689,6 @@ $avatarLetter = strtoupper($username[0]);
         .informationmenu.collapsed .user-avatar {
             display: none !important;
         }
-
-        .informationmenu.hide {
-            transform: translateX(-100%);
-        }
         
         .header {
             display: flex;
@@ -4200,36 +4196,6 @@ $avatarLetter = strtoupper($username[0]);
         });
     </script>
     <script>
-        // 自动隐藏侧边栏的变量
-        let sidebarTimer = null;
-        let sidebarAutoHidden = false;
-
-        // 重置定时器函数
-        function resetSidebarTimer() {
-            clearTimeout(sidebarTimer);
-            if (!sidebarAutoHidden) {
-                sidebarTimer = setTimeout(() => {
-                    autoHideSidebar();
-                }, 4000);
-            }
-        }
-
-        // 自动隐藏侧边栏函数
-        function autoHideSidebar() {
-            const sidebar = document.querySelector('.informationmenu');
-            sidebar.classList.add('hide');
-            sidebarAutoHidden = true;
-            clearTimeout(sidebarTimer);
-        }
-
-        // 显示侧边栏函数
-        function showSidebar() {
-            const sidebar = document.querySelector('.informationmenu');
-            sidebar.classList.remove('hide');
-            sidebarAutoHidden = false;
-            resetSidebarTimer();
-        }
-
         document.querySelectorAll('.informationmenu-section-title').forEach(title => {
             title.addEventListener('click', function(e) {
                 const sidebar = document.querySelector('.informationmenu');
@@ -4427,36 +4393,6 @@ $avatarLetter = strtoupper($username[0]);
                     this.style.pointerEvents = 'none';
                 });
             }
-        });
-
-        // 侧边栏自动隐藏功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.querySelector('.informationmenu');
-            
-            // 初始启动定时器
-            resetSidebarTimer();
-            
-            // 鼠标进入侧边栏时显示并重置定时器
-            sidebar.addEventListener('mouseenter', function() {
-                showSidebar();
-            });
-            
-            // 鼠标离开侧边栏时重新开始计时
-            sidebar.addEventListener('mouseleave', function() {
-                resetSidebarTimer();
-            });
-            
-            // 点击侧边栏时显示并重置定时器
-            sidebar.addEventListener('click', function() {
-                showSidebar();
-            });
-            
-            // 点击页面其他地方时显示侧边栏（如果被自动隐藏了）
-            document.addEventListener('click', function(e) {
-                if (!sidebar.contains(e.target) && sidebarAutoHidden) {
-                    showSidebar();
-                }
-            });
         });
 
         console.log('点击Section + 悬停Submenu系统已加载完成');
