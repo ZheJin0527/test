@@ -1357,6 +1357,14 @@
                     <label for="add-remark">备注</label>
                     <input type="text" id="add-remark" class="form-input" placeholder="输入备注...">
                 </div>
+                <div class="form-group">
+                    <label for="add-product-remark">货品备注</label>
+                    <input type="checkbox" id="add-product-remark" onchange="toggleRemarkNumber()">
+                </div>
+                <div class="form-group">
+                    <label for="add-remark-number">备注编号</label>
+                    <input type="text" id="add-remark-number" class="form-input" placeholder="输入备注编号..." disabled>
+                </div>
             </div>
             <div class="form-actions">
                 <button class="btn btn-secondary" onclick="toggleAddForm()">
@@ -1400,6 +1408,8 @@
                         <th style="min-width: 100px;">规格</th>
                         <th style="min-width: 100px;">单价</th>
                         <th style="min-width: 100px;">总价</th>
+                        <th style="min-width: 80px;">货品备注</th>
+                        <th style="min-width: 100px;">备注编号</th>
                         <th class="receiver-col">名字</th>
                         <th style="min-width: 100px;">备注</th>
                         <th style="min-width: 80px;">操作</th>
@@ -1985,6 +1995,22 @@
                             <span class="currency-amount">${formatCurrency(Math.abs(total))}</span>
                         </div>
                     </td>
+                    <td style="text-align: center;">
+                        ${isEditing ? 
+                            `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} 
+                            onchange="updateRemarkCheck(${record.id}, this.checked)">` :
+                            `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} disabled>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input remark-number-input" 
+                            value="${record.remark_number || ''}" 
+                            ${!record.product_remark_checked ? 'disabled' : ''}
+                            onchange="updateField(${record.id}, 'remark_number', this.value)">` :
+                            `<span>${record.remark_number || '-'}</span>`
+                        }
+                    </td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
@@ -2121,6 +2147,12 @@
                         </button>
                     </span>
                 </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" class="table-input" id="${rowId}-product-remark" onchange="toggleNewRowRemarkNumber('${rowId}')">
+                </td>
+                <td>
+                    <input type="text" class="table-input" placeholder="输入备注编号..." id="${rowId}-remark-number" disabled>
+                </td>
             `;
             
             // 添加到表格顶部
@@ -2191,6 +2223,51 @@
                 } else {
                     totalCell.classList.remove('negative-value', 'negative-parentheses');
                     currencyDisplay.classList.remove('negative-value', 'negative-parentheses');
+                }
+            }
+        }
+
+        // 更新货品备注勾选状态
+        function updateRemarkCheck(id, checked) {
+            const record = stockData.find(r => r.id === id);
+            if (record) {
+                record.product_remark_checked = checked;
+                
+                // 控制备注编号输入框的启用/禁用状态
+                const remarkInput = document.querySelector(`input[onchange*="updateField(${id}, 'remark_number'"]`);
+                if (remarkInput) {
+                    remarkInput.disabled = !checked;
+                    if (!checked) {
+                        remarkInput.value = '';
+                        record.remark_number = '';
+                    }
+                }
+                
+                // 更新数据库
+                updateField(id, 'product_remark_checked', checked);
+            }
+        }
+
+        // 控制新增表单中备注编号的启用状态
+        function toggleRemarkNumber() {
+            const checkbox = document.getElementById('add-product-remark');
+            const remarkNumberInput = document.getElementById('add-remark-number');
+            
+            remarkNumberInput.disabled = !checkbox.checked;
+            if (!checkbox.checked) {
+                remarkNumberInput.value = '';
+            }
+        }
+
+        // 控制新行中备注编号的启用状态
+        function toggleNewRowRemarkNumber(rowId) {
+            const checkbox = document.getElementById(`${rowId}-product-remark`);
+            const remarkNumberInput = document.getElementById(`${rowId}-remark-number`);
+            
+            if (checkbox && remarkNumberInput) {
+                remarkNumberInput.disabled = !checkbox.checked;
+                if (!checkbox.checked) {
+                    remarkNumberInput.value = '';
                 }
             }
         }
@@ -2378,7 +2455,9 @@
                 receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
-                remark: document.getElementById('add-remark').value
+                remark: document.getElementById('add-remark').value,
+                product_remark_checked: document.getElementById('add-product-remark').checked,
+                remark_number: document.getElementById('add-remark-number').value
             };
 
             // 验证必填字段
