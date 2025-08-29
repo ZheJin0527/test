@@ -4198,7 +4198,7 @@ $avatarLetter = strtoupper($username[0]);
     <script>
         // 自动收起定时器
         let autoCollapseTimer = null;
-        const AUTO_COLLAPSE_DELAY = 3000; // 4秒
+        const AUTO_COLLAPSE_DELAY = 2500; // 2.5秒
 
         // 重置定时器函数
         function resetAutoCollapseTimer() {
