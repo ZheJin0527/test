@@ -728,8 +728,8 @@ function handlePost() {
         
         $sql = "INSERT INTO stockinout_data 
                 (date, time, product_name, 
-                in_quantity, out_quantity, specification, price, code_number, remark, receiver, target_system, product_remark_checked, remark_code) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                in_quantity, out_quantity, specification, price, code_number, remark, receiver, target_system) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -744,9 +744,7 @@ function handlePost() {
             $data['code_number'] ?? null,
             $data['remark'] ?? null,
             $data['receiver'] ?? null,
-            $data['target_system'] ?? null,
-            $data['product_remark_checked'] ?? 0,
-            $data['remark_code'] ?? null
+            $data['target_system'] ?? null
         ]);
         
         $newId = $pdo->lastInsertId();
@@ -915,7 +913,7 @@ function handlePut() {
         $sql = "UPDATE stockinout_data 
                 SET date = ?, time = ?, product_name = ?, 
                     in_quantity = ?, out_quantity = ?, 
-                    specification = ?, price = ?, code_number = ?, remark = ?, receiver = ?, target_system = ?, product_remark_checked = ?, remark_code = ?
+                    specification = ?, price = ?, code_number = ?, remark = ?, receiver = ?, target_system = ?
                 WHERE id = ?";
 
         $stmt = $pdo->prepare($sql);
@@ -931,9 +929,7 @@ function handlePut() {
             $data['code_number'] ?? null,
             $data['remark'] ?? null,
             $data['receiver'] ?? null,
-            $data['target_system'] ?? null,
-            $data['product_remark_checked'] ?? 0,
-            $data['remark_code'] ?? null,
+            $data['target_system'] ?? null,  // 新增这行
             $data['id']
         ]);
         
