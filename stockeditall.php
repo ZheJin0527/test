@@ -1330,17 +1330,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="add-product-remark">货品备注</label>
-                    <input type="checkbox" id="add-product-remark" class="form-checkbox" 
-                        onchange="handleAddFormRemarkCheckboxChange(this.checked)"
-                        style="width: 18px; height: 18px;">
-                </div>
-                <div class="form-group">
-                    <label for="add-remark-number">备注编号</label>
-                    <input type="text" id="add-remark-number" class="form-input" 
-                        placeholder="输入备注编号..." disabled>
-                </div>
-                <div class="form-group">
                     <label for="add-price">单价</label>
                     <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
                         <span class="currency-symbol">RM</span>
@@ -1367,6 +1356,14 @@
                 <div class="form-group">
                     <label for="add-remark">备注</label>
                     <input type="text" id="add-remark" class="form-input" placeholder="输入备注...">
+                </div>
+                <div class="form-group">
+                    <label for="add-product-remark">货品备注</label>
+                    <input type="checkbox" id="add-product-remark" onchange="toggleAddRemarkCode(this.checked)">
+                </div>
+                <div class="form-group">
+                    <label for="add-remark-code">备注编号</label>
+                    <input type="text" id="add-remark-code" class="form-input" placeholder="输入备注编号..." disabled>
                 </div>
             </div>
             <div class="form-actions">
@@ -1412,7 +1409,7 @@
                         <th style="min-width: 100px;">单价</th>
                         <th style="min-width: 100px;">总价</th>
                         <th style="min-width: 80px;">货品备注</th>
-                        <th style="min-width: 120px;">备注编号</th>
+                        <th style="min-width: 100px;">备注编号</th>
                         <th class="receiver-col">名字</th>
                         <th style="min-width: 100px;">备注</th>
                         <th style="min-width: 80px;">操作</th>
@@ -2000,20 +1997,19 @@
                     </td>
                     <td style="text-align: center;">
                         ${isEditing ? 
-                            `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} 
-                            onchange="handleRemarkCheckboxChange(${record.id}, this.checked)" 
-                            style="width: 18px; height: 18px;">` :
-                            `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} disabled 
-                            style="width: 18px; height: 18px;">`
+                            `<input type="checkbox" class="remark-checkbox" id="remark-check-${record.id}" 
+                            ${record.product_remark_checked ? 'checked' : ''} 
+                            onchange="toggleRemarkCode(${record.id}, this.checked)">` :
+                            `<input type="checkbox" ${record.product_remark_checked ? 'checked' : ''} disabled>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.remark_number || ''}" 
-                            id="remark-number-${record.id}"
+                            `<input type="text" class="table-input" id="remark-code-${record.id}" 
+                            value="${record.remark_code || ''}" 
                             ${!record.product_remark_checked ? 'disabled' : ''} 
-                            onchange="updateField(${record.id}, 'remark_number', this.value)">` :
-                            `<span>${record.remark_number || '-'}</span>`
+                            onchange="updateField(${record.id}, 'remark_code', this.value)">` :
+                            `<span>${record.remark_code || '-'}</span>`
                         }
                     </td>
                     <td>
@@ -2141,13 +2137,10 @@
                     </div>
                 </td>
                 <td style="text-align: center;">
-                    <input type="checkbox" class="remark-checkbox" id="${rowId}-product-remark" 
-                        onchange="handleNewRowRemarkCheckboxChange('${rowId}', this.checked)"
-                        style="width: 18px; height: 18px;">
+                    <input type="checkbox" class="remark-checkbox" id="${rowId}-product-remark" onchange="toggleNewRowRemarkCode('${rowId}', this.checked)">
                 </td>
                 <td>
-                    <input type="text" class="table-input" placeholder="输入备注编号..." 
-                        id="${rowId}-remark-number" disabled>
+                    <input type="text" class="table-input" placeholder="输入备注编号..." id="${rowId}-remark-code" disabled>
                 </td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
@@ -2235,41 +2228,39 @@
             }
         }
 
-        // 处理货品备注复选框变化
-        function handleRemarkCheckboxChange(id, checked) {
-            // 更新记录数据
-            updateField(id, 'product_remark_checked', checked);
+        // 切换备注编号输入框的启用状态
+        function toggleRemarkCode(recordId, isChecked) {
+            const remarkCodeInput = document.getElementById(`remark-code-${recordId}`);
+            const record = stockData.find(r => r.id === recordId);
             
-            // 控制备注编号输入框的启用/禁用状态
-            const remarkNumberInput = document.getElementById(`remark-number-${id}`);
-            if (remarkNumberInput) {
-                remarkNumberInput.disabled = !checked;
-                if (!checked) {
-                    // 如果取消勾选，清空备注编号
-                    remarkNumberInput.value = '';
-                    updateField(id, 'remark_number', '');
+            if (record) {
+                record.product_remark_checked = isChecked;
+                
+                if (remarkCodeInput) {
+                    remarkCodeInput.disabled = !isChecked;
+                    if (!isChecked) {
+                        remarkCodeInput.value = '';
+                        record.remark_code = '';
+                    }
                 }
             }
         }
 
-        function handleNewRowRemarkCheckboxChange(rowId, checked) {
-            const remarkNumberInput = document.getElementById(`${rowId}-remark-number`);
-            if (remarkNumberInput) {
-                remarkNumberInput.disabled = !checked;
-                if (!checked) {
-                    remarkNumberInput.value = '';
-                }
+        // 切换新增表单中备注编号输入框的启用状态
+        function toggleAddRemarkCode(isChecked) {
+            const remarkCodeInput = document.getElementById('add-remark-code');
+            remarkCodeInput.disabled = !isChecked;
+            if (!isChecked) {
+                remarkCodeInput.value = '';
             }
         }
 
-        // 处理新增表单货品备注复选框变化
-        function handleAddFormRemarkCheckboxChange(checked) {
-            const remarkNumberInput = document.getElementById('add-remark-number');
-            if (remarkNumberInput) {
-                remarkNumberInput.disabled = !checked;
-                if (!checked) {
-                    remarkNumberInput.value = '';
-                }
+        // 切换新增行中备注编号输入框的启用状态
+        function toggleNewRowRemarkCode(rowId, isChecked) {
+            const remarkCodeInput = document.getElementById(`${rowId}-remark-code`);
+            remarkCodeInput.disabled = !isChecked;
+            if (!isChecked) {
+                remarkCodeInput.value = '';
             }
         }
 
@@ -2286,7 +2277,9 @@
                 price: document.getElementById(`${rowId}-price`).value,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
                 remark: document.getElementById(`${rowId}-remark`).value,
-                target: document.getElementById(`${rowId}-target`).value
+                target: document.getElementById(`${rowId}-target`).value，
+                productRemarkChecked: document.getElementById(`${rowId}-product-remark`).checked,
+                remarkCode: document.getElementById(`${rowId}-remark-code`).value
             };
         }
 
@@ -2323,9 +2316,9 @@
                 price: parseFloat(document.getElementById(`${rowId}-price`).value) || 0,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
                 code_number: codeInput ? codeInput.value : '',
-                remark: document.getElementById(`${rowId}-remark`).value
-                product_remark_checked: document.getElementById(`${rowId}-product-remark`).checked || false,
-                remark_number: document.getElementById(`${rowId}-remark-number`).value || ''
+                remark: document.getElementById(`${rowId}-remark`).value,
+                product_remark_checked: formData.productRemarkChecked ? 1 : 0,
+                remark_code: formData.remarkCode
             };
 
             // 验证必填字段
@@ -2458,9 +2451,9 @@
                 receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
-                remark: document.getElementById('add-remark').value
-                product_remark_checked: document.getElementById('add-product-remark').checked || false,
-                remark_number: document.getElementById('add-remark-number').value || ''
+                remark: document.getElementById('add-remark').value,
+                product_remark_checked: document.getElementById('add-product-remark').checked ? 1 : 0,
+                remark_code: document.getElementById('add-remark-code').value
             };
 
             // 验证必填字段
