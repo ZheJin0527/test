@@ -955,7 +955,7 @@ if (isset($_SESSION['user_id'])) {
                     ${data.approver ? 
                         `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
                         (USER_CAN_APPROVE && !isNewRow ? 
-                            `<button class="approve-btn" onclick="approveRecord('${rowId}')" ${!USER_CAN_APPROVE ? 'disabled' : ''}>
+                            `<button class="approve-btn" onclick="approveRecord('${rowId}')">
                                 <i class="fas fa-check"></i>
                                 批准
                             </button>` : 
@@ -1361,35 +1361,10 @@ if (isset($_SESSION['user_id'])) {
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
     <script>
-        // 验证批准权限
-        async function validateApprovalPermission() {
-            try {
-                const response = await fetch(`${API_BASE_URL}?action=check_permission`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                const result = await response.json();
-                return result.success && result.can_approve;
-            } catch (error) {
-                console.error('权限验证失败:', error);
-                return false;
-            }
-        }
-
         // 批准记录
         async function approveRecord(rowId) {
-            // 双重检查权限
             if (!USER_CAN_APPROVE) {
                 showAlert('您没有权限执行此操作', 'error');
-                return;
-            }
-            
-            // 再次验证权限
-            const hasPermission = await validateApprovalPermission();
-            if (!hasPermission) {
-                showAlert('权限验证失败，请重新登录', 'error');
                 return;
             }
 
