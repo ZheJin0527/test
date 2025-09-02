@@ -72,17 +72,26 @@ function getMultiPriceAnalysis() {
         
         // 按产品名称分组
         $productGroups = [];
-        
+
         foreach ($remarkData as $row) {
             $productName = $row['product_name'];
             $remarkNumber = $row['remark_number'];
             
-            // 使用产品名称 + 备注编号作为唯一标识
-            $groupKey = $productName . '|' . $remarkNumber;
+            // 只使用产品名称作为分组标识
+            $groupKey = $productName;
             
             if (!isset($productGroups[$groupKey])) {
                 $productGroups[$groupKey] = [
                     'product_name' => $productName,
+                    'variants' => []
+                ];
+            }
+            
+            // 创建备注编号的唯一标识
+            $remarkKey = $remarkNumber;
+            
+            if (!isset($productGroups[$groupKey]['variants'][$remarkKey])) {
+                $productGroups[$groupKey]['variants'][$remarkKey] = [
                     'code_number' => $row['code_number'] ?? '',
                     'specification' => $row['specification'] ?? '',
                     'remark_number' => $remarkNumber,
@@ -94,23 +103,29 @@ function getMultiPriceAnalysis() {
             // 累计进货数量（只累计进货，不计出货）
             $inQty = floatval($row['in_quantity']);
             if ($inQty > 0) {
-                $productGroups[$groupKey]['in_quantity'] += $inQty;
+                $productGroups[$groupKey]['variants'][$remarkKey]['in_quantity'] += $inQty;
             }
-            
         }
         
         // 转换为最终格式
         $remarkProducts = [];
         foreach ($productGroups as $group) {
+            $variants = [];
+            foreach ($group['variants'] as $variant) {
+                $variants[] = [
+                    'code_number' => $variant['code_number'],
+                    'specification' => $variant['specification'],
+                    'in_quantity' => $variant['in_quantity'],
+                    'formatted_quantity' => number_format($variant['in_quantity'], 2),
+                    'price' => $variant['price'],
+                    'formatted_price' => number_format($variant['price'], 2),
+                    'remark_number' => $variant['remark_number']
+                ];
+            }
+            
             $remarkProducts[] = [
                 'product_name' => $group['product_name'],
-                'code_number' => $group['code_number'],
-                'specification' => $group['specification'],
-                'in_quantity' => $group['in_quantity'],
-                'formatted_quantity' => number_format($group['in_quantity'], 2),
-                'price' => $group['price'],
-                'formatted_price' => number_format($group['price'], 2),
-                'remark_number' => $group['remark_number']
+                'variants' => $variants
             ];
         }
         

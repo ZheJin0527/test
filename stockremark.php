@@ -832,19 +832,26 @@
                                     <th>单价</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody>`;
+                
+                // 为每个variant添加一行
+                product.variants.forEach(variant => {
+                    html += `
                                 <tr>
-                                    <td>${product.code_number || '-'}</td>
-                                    <td>${product.remark_number || '-'}</td>
-                                    <td>${product.formatted_quantity}</td>
-                                    <td>${product.specification || '-'}</td>
+                                    <td>${variant.code_number || '-'}</td>
+                                    <td>${variant.remark_number || '-'}</td>
+                                    <td>${variant.formatted_quantity}</td>
+                                    <td>${variant.specification || '-'}</td>
                                     <td>
                                         <div class="currency-display">
                                             <span class="currency-symbol">RM</span>
-                                            <span class="currency-amount">${product.formatted_price}</span>
+                                            <span class="currency-amount">${variant.formatted_price}</span>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr>`;
+                });
+                
+                html += `
                             </tbody>
                         </table>
                     </div>
