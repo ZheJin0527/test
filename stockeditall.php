@@ -951,7 +951,7 @@
         }
 
         .price-select {
-            min-width: 100px;
+            min-width: 60px;
             background-color: white;
             border: 1px solid #d1d5db;
             border-radius: 4px;

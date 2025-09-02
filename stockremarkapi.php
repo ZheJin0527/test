@@ -118,24 +118,31 @@ function getMultiPriceAnalysis() {
         foreach ($productGroups as $group) {
             $variants = [];
             foreach ($group['variants'] as $variant) {
-                $currentStock = $variant['in_quantity'] - $variant['out_quantity'];  // 计算当前库存
-                $variants[] = [
-                    'code_number' => $variant['code_number'],
-                    'specification' => $variant['specification'],
-                    'in_quantity' => $variant['in_quantity'],
-                    'out_quantity' => $variant['out_quantity'],  // 添加出货数量
-                    'current_stock' => $currentStock,  // 添加当前库存
-                    'formatted_quantity' => number_format($currentStock, 2),  // 改为显示当前库存
-                    'price' => $variant['price'],
-                    'formatted_price' => number_format($variant['price'], 2),
-                    'remark_number' => $variant['remark_number']
-                ];
+                $currentStock = $variant['in_quantity'] - $variant['out_quantity'];
+                
+                // 只有库存大于0的才添加到结果中
+                if ($currentStock > 0) {
+                    $variants[] = [
+                        'code_number' => $variant['code_number'],
+                        'specification' => $variant['specification'],
+                        'in_quantity' => $variant['in_quantity'],
+                        'out_quantity' => $variant['out_quantity'],
+                        'current_stock' => $currentStock,
+                        'formatted_quantity' => number_format($currentStock, 2),
+                        'price' => $variant['price'],
+                        'formatted_price' => number_format($variant['price'], 2),
+                        'remark_number' => $variant['remark_number']
+                    ];
+                }
             }
             
-            $remarkProducts[] = [
-                'product_name' => $group['product_name'],
-                'variants' => $variants
-            ];
+            // 只有当该产品还有库存变种时才添加到结果中
+            if (!empty($variants)) {
+                $remarkProducts[] = [
+                    'product_name' => $group['product_name'],
+                    'variants' => $variants
+                ];
+            }
         }
         
         return [
