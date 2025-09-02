@@ -783,6 +783,9 @@
                                 </tr>
                             </thead>
                             <tbody>`;
+
+                // 按单价从高到低排序variants
+                const sortedVariants = [...product.variants].sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
                 
                 // 为每个variant添加一行
                 product.variants.forEach(variant => {
