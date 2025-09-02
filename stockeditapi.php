@@ -781,40 +781,6 @@ function handlePost() {
         
         // 检查是否为出库记录（出库数量大于0）
         $outQuantity = floatval($data['out_quantity'] ?? 0);
-
-        // 添加这段新代码 - 处理remark数量扣除
-        if ($outQuantity > 0) {
-            $productName = $data['product_name'];
-            $price = floatval($data['price'] ?? 0);
-            
-            // 查找该产品该价格的最新入库记录的remark
-            $remarkSql = "SELECT id, remark FROM stockinout_data 
-                        WHERE product_name = ? AND price = ? AND in_quantity > 0 
-                        AND remark IS NOT NULL AND remark != ''
-                        ORDER BY date DESC, time DESC LIMIT 1";
-            
-            $remarkStmt = $pdo->prepare($remarkSql);
-            $remarkStmt->execute([$productName, $price]);
-            $remarkRecord = $remarkStmt->fetch(PDO::FETCH_ASSOC);
-            
-            if ($remarkRecord && is_numeric($remarkRecord['remark'])) {
-                $currentRemarkQty = floatval($remarkRecord['remark']);
-                $newRemarkQty = $currentRemarkQty - $outQuantity;
-                
-                // 确保不会变成负数
-                if ($newRemarkQty < 0) {
-                    $newRemarkQty = 0;
-                }
-                
-                // 更新remark数量
-                $updateRemarkSql = "UPDATE stockinout_data SET remark = ? WHERE id = ?";
-                $updateRemarkStmt = $pdo->prepare($updateRemarkSql);
-                $updateRemarkStmt->execute([$newRemarkQty, $remarkRecord['id']]);
-                
-                error_log("已从备注中扣除数量：产品 {$productName}，价格 {$price}，扣除 {$outQuantity}，剩余 {$newRemarkQty}");
-            }
-        }
-
         // 位置1：POST 请求处理中的出库逻辑 (大约第180行附近)
         if ($outQuantity > 0) {
             $targetSystem = $data['target_system'] ?? 'j1'; // 默认j1
@@ -1013,46 +979,6 @@ function handlePut() {
 
             // 检查是否为出库记录，如果是则根据target_system同步更新相应的表
             $outQuantity = floatval($data['out_quantity'] ?? 0);
-
-            // 添加这段新代码 - 处理remark数量更新
-            if ($outQuantity > 0) {
-                // 获取原始记录的出库数量
-                $originalOutQty = floatval($existingRecord['out_quantity'] ?? 0);
-                $qtyDifference = $outQuantity - $originalOutQty;
-                
-                if ($qtyDifference != 0) { // 只有数量发生变化时才处理
-                    $productName = $data['product_name'];
-                    $price = floatval($data['price'] ?? 0);
-                    
-                    // 查找该产品该价格的最新入库记录的remark
-                    $remarkSql = "SELECT id, remark FROM stockinout_data 
-                                WHERE product_name = ? AND price = ? AND in_quantity > 0 
-                                AND remark IS NOT NULL AND remark != ''
-                                ORDER BY date DESC, time DESC LIMIT 1";
-                    
-                    $remarkStmt = $pdo->prepare($remarkSql);
-                    $remarkStmt->execute([$productName, $price]);
-                    $remarkRecord = $remarkStmt->fetch(PDO::FETCH_ASSOC);
-                    
-                    if ($remarkRecord && is_numeric($remarkRecord['remark'])) {
-                        $currentRemarkQty = floatval($remarkRecord['remark']);
-                        $newRemarkQty = $currentRemarkQty - $qtyDifference;
-                        
-                        // 确保不会变成负数
-                        if ($newRemarkQty < 0) {
-                            $newRemarkQty = 0;
-                        }
-                        
-                        // 更新remark数量
-                        $updateRemarkSql = "UPDATE stockinout_data SET remark = ? WHERE id = ?";
-                        $updateRemarkStmt = $pdo->prepare($updateRemarkSql);
-                        $updateRemarkStmt->execute([$newRemarkQty, $remarkRecord['id']]);
-                        
-                        error_log("已更新备注数量：产品 {$productName}，价格 {$price}，调整 {$qtyDifference}，剩余 {$newRemarkQty}");
-                    }
-                }
-            }
-
             if ($outQuantity > 0) {
                 $targetSystem = $data['target_system'] ?? 'j1'; // 默认j1
                 $totalValue = $outQuantity * floatval($data['price'] ?? 0);
@@ -1193,35 +1119,6 @@ function handleDelete() {
         $result = $stmt->execute([$id]);
         
         if ($stmt->rowCount() > 0) {
-            // 添加这段新代码 - 恢复remark数量
-            if (floatval($recordToDelete['out_quantity'] ?? 0) > 0) {
-                $productName = $recordToDelete['product_name'];
-                $price = floatval($recordToDelete['price'] ?? 0);
-                $deletedOutQty = floatval($recordToDelete['out_quantity'] ?? 0);
-                
-                // 查找该产品该价格的最新入库记录的remark
-                $remarkSql = "SELECT id, remark FROM stockinout_data 
-                            WHERE product_name = ? AND price = ? AND in_quantity > 0 
-                            AND remark IS NOT NULL AND remark != ''
-                            ORDER BY date DESC, time DESC LIMIT 1";
-                
-                $remarkStmt = $pdo->prepare($remarkSql);
-                $remarkStmt->execute([$productName, $price]);
-                $remarkRecord = $remarkStmt->fetch(PDO::FETCH_ASSOC);
-                
-                if ($remarkRecord && is_numeric($remarkRecord['remark'])) {
-                    $currentRemarkQty = floatval($remarkRecord['remark']);
-                    $newRemarkQty = $currentRemarkQty + $deletedOutQty; // 恢复数量
-                    
-                    // 更新remark数量
-                    $updateRemarkSql = "UPDATE stockinout_data SET remark = ? WHERE id = ?";
-                    $updateRemarkStmt = $pdo->prepare($updateRemarkSql);
-                    $updateRemarkStmt->execute([$newRemarkQty, $remarkRecord['id']]);
-                    
-                    error_log("已恢复备注数量：产品 {$productName}，价格 {$price}，恢复 {$deletedOutQty}，新总数 {$newRemarkQty}");
-                }
-            }
-
             // 如果是出库记录，根据target_system同步删除相应的表记录
             if (floatval($recordToDelete['out_quantity'] ?? 0) > 0) {
                 $targetSystem = $recordToDelete['target_system'] ?? 'j1'; // 默认j1
