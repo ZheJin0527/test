@@ -120,8 +120,6 @@ header("Expires: 0");
       <div class="values-tab-buttons">
         <button class="values-tab-btn values-selected" onclick="showContent('values')">使命</button>
           <button class="values-tab-btn" onclick="showContent('mission')">愿景</button>
-          <button class="values-tab-btn" onclick="showContent('culture')">价值观</button>
-          <button class="values-tab-btn" onclick="showContent('quality')">人品</button>
         </div>
 
         <!-- 内容区域 -->
@@ -148,30 +146,6 @@ header("Expires: 0");
                   <p class="values-content-subtitle">让顾客品尝到精致的日料；</p>
                     <p class="values-content-description">通过卓越的服务和精致的美食，<br>成为全球领先的日式料理品牌</p>
                   </div>
-              </div>
-
-              <!-- 内涵内容 -->
-              <div id="culture" class="content-panel">
-                <div class="values-image-section">
-                  <img class="values-content-image" src="https://via.placeholder.com/600x400/f8f0e8/666?text=内涵图片" alt="价值观图片">
-                </div>
-                <div class="values-text-section">
-                  <h1 class="values-content-title">价值观</h1>
-                  <p class="values-content-subtitle">诚信、关爱、勤奋；</p>
-                  <p class="values-content-description">客户为本，诚实守信<br>热忱为本，匠心精神</p>
-                </div>
-              </div>
-
-              <!-- 海底捞人品质内容 -->
-              <div id="quality" class="content-panel">
-                <div class="values-image-section">
-                  <img class="values-content-image" src="https://via.placeholder.com/600x400/f0f8f0/666?text=品质图片" alt="人品图片">
-                </div>
-                <div class="values-text-section">
-                  <h1 class="values-content-title">人品</h1>
-                  <p class="values-content-subtitle">勤奋务实、诚信正直；</p>
-                  <p class="values-content-description">团结协作、创新进取，以客户为中心的服务精神。</p>
-                </div>
               </div>
           </div>
       </div>
