@@ -87,10 +87,7 @@ function getMultiPriceAnalysis() {
                     'specification' => $row['specification'] ?? '',
                     'remark_number' => $remarkNumber,
                     'in_quantity' => 0,
-                    'price' => floatval($row['price']),
-                    'latest_date' => $row['date'],
-                    'latest_time' => $row['time'],
-                    'receiver' => $row['receiver'] ?? ''
+                    'price' => floatval($row['price'])
                 ];
             }
             
@@ -100,13 +97,6 @@ function getMultiPriceAnalysis() {
                 $productGroups[$groupKey]['in_quantity'] += $inQty;
             }
             
-            // 保持最新的日期和时间
-            if ($row['date'] > $productGroups[$groupKey]['latest_date'] || 
-                ($row['date'] == $productGroups[$groupKey]['latest_date'] && $row['time'] > $productGroups[$groupKey]['latest_time'])) {
-                $productGroups[$groupKey]['latest_date'] = $row['date'];
-                $productGroups[$groupKey]['latest_time'] = $row['time'];
-                $productGroups[$groupKey]['receiver'] = $row['receiver'] ?? '';
-            }
         }
         
         // 转换为最终格式
@@ -120,10 +110,7 @@ function getMultiPriceAnalysis() {
                 'formatted_quantity' => number_format($group['in_quantity'], 2),
                 'price' => $group['price'],
                 'formatted_price' => number_format($group['price'], 2),
-                'remark_number' => $group['remark_number'],
-                'latest_date' => $group['latest_date'],
-                'latest_time' => $group['latest_time'],
-                'receiver' => $group['receiver']
+                'remark_number' => $group['remark_number']
             ];
         }
         

@@ -821,22 +821,21 @@
                     <div class="product-group">
                         <div class="product-header">
                             <span>${product.product_name}</span>
-                            <span class="price-count">备注编号: ${product.remark_number}</span>
                         </div>
                         <table class="price-variants-table">
                             <thead>
                                 <tr>
                                     <th>货品编号</th>
+                                    <th>备注编号</th>
                                     <th>进货数量</th>
                                     <th>规格</th>
                                     <th>单价</th>
-                                    <th>最后更新</th>
-                                    <th>收货人</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>${product.code_number || '-'}</td>
+                                    <td>${product.remark_number || '-'}</td>
                                     <td>${product.formatted_quantity}</td>
                                     <td>${product.specification || '-'}</td>
                                     <td>
@@ -845,8 +844,6 @@
                                             <span class="currency-amount">${product.formatted_price}</span>
                                         </div>
                                     </td>
-                                    <td>${product.latest_date} ${product.latest_time}</td>
-                                    <td>${product.receiver || '-'}</td>
                                 </tr>
                             </tbody>
                         </table>
