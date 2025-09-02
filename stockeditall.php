@@ -427,7 +427,7 @@
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
         .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
         .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
-        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 90px; } /* 规格 */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 80px; } /* 规格 */
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
         .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 60px; } /* 产品备注 checkbox */
