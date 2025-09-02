@@ -1428,7 +1428,7 @@
         <div id="export-modal" class="export-modal">
             <div class="export-modal-content">
                 <button class="close-export-modal" onclick="closeExportModal()">&times;</button>
-                <h3>生成PDF发票设置</h3>
+                <h3>生成PDF发票</h3>
                 
                 <div class="export-form-group">
                     <label for="export-start-date">开始日期</label>
@@ -1461,7 +1461,7 @@
                     </button>
                     <button class="btn btn-success" onclick="confirmExport()">
                         <i class="fas fa-download"></i>
-                        导出PDF发票
+                        导出发票
                     </button>
                 </div>
             </div>
