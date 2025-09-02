@@ -266,15 +266,15 @@
             vertical-align: middle;
         }
 
-        .price-variants-table th:nth-child(1) { width: 10%; } /* 排序 */
-        .price-variants-table th:nth-child(2) { width: 30%; } /* 货品编号 */
-        .price-variants-table th:nth-child(3) { width: 30%; } /* 库存数量 */
-        .price-variants-table th:nth-child(4) { width: 30%; } /* 单价 */
+        .price-variants-table th:nth-child(1) { width: 25%; } /* 备注编号 */
+        .price-variants-table th:nth-child(2) { width: 25%; } /* 数量/重量 */
+        .price-variants-table th:nth-child(3) { width: 25%; } /* 规格 */
+        .price-variants-table th:nth-child(4) { width: 25%; } /* 单价 */
 
-        .price-variants-table td:nth-child(1) { width: 10%; }
-        .price-variants-table td:nth-child(2) { width: 30%; }
-        .price-variants-table td:nth-child(3) { width: 30%; }
-        .price-variants-table td:nth-child(4) { width: 30%; }
+        .price-variants-table td:nth-child(1) { width: 25%; }
+        .price-variants-table td:nth-child(2) { width: 25%; }
+        .price-variants-table td:nth-child(3) { width: 25%; }
+        .price-variants-table td:nth-child(4) { width: 25%; }
 
         .price-variants-table tr:hover {
             background-color: #f9fafb;
@@ -527,6 +527,26 @@
             opacity: 1;
             color: #583e04;
         }
+
+        .product-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .product-code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -770,12 +790,14 @@
                 html += `
                     <div class="product-group">
                         <div class="product-header">
-                            <span>${product.product_name}</span>
+                            <div class="product-title">
+                                <span class="product-code">${product.variants[0]?.code_number || '未知编号'}</span>
+                                <span class="product-name">${product.product_name}</span>
+                            </div>
                         </div>
                         <table class="price-variants-table">
                             <thead>
                                 <tr>
-                                    <th>货品编号</th>
                                     <th>备注编号</th>
                                     <th>数量/重量</th>
                                     <th>规格</th>
@@ -790,19 +812,18 @@
                 // 为每个variant添加一行
                 sortedVariants.forEach(variant => {
                     html += `
-                                <tr>
-                                    <td>${variant.code_number || '-'}</td>
-                                    <td>${variant.remark_number || '-'}</td>
-                                    <td>${variant.formatted_quantity}</td>
-                                    <td>${variant.specification || '-'}</td>
-                                    <td>
-                                        <div class="currency-display">
-                                            <span class="currency-symbol">RM</span>
-                                            <span class="currency-amount">${variant.formatted_price}</span>
-                                        </div>
-                                    </td>
-                                </tr>`;
-                });
+                        <tr>
+                            <td>${variant.remark_number || '-'}</td>
+                            <td>${variant.formatted_quantity}</td>
+                            <td>${variant.specification || '-'}</td>
+                            <td>
+                                <div class="currency-display">
+                                    <span class="currency-symbol">RM</span>
+                                    <span class="currency-amount">${variant.formatted_price}</span>
+                                </div>
+                            </td>
+                        </tr>`;
+                    });
                 
                 html += `
                             </tbody>
