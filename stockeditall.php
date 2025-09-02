@@ -2380,6 +2380,11 @@
 
                 if (result.success) {
                 showAlert('记录添加成功', 'success');
+
+                // 如果是出货操作，检查并更新备注库存
+                if (formData.out_quantity > 0 && formData.price) {
+                    await checkAndUpdateRemarkStock(formData.product_name, formData.price, formData.out_quantity);
+                }
                 
                 // 保存其他新增行
                 const otherNewRows = Array.from(document.querySelectorAll('.new-row')).filter(r => r !== row);
@@ -2519,6 +2524,12 @@
 
                 if (result.success) {
                 showAlert('记录添加成功', 'success');
+
+                // 如果是出货操作，检查并更新备注库存
+                if (formData.out_quantity > 0 && formData.price) {
+                    await checkAndUpdateRemarkStock(formData.product_name, formData.price, formData.out_quantity);
+                }
+
                 toggleAddForm();
                 
                 // 添加新记录到 stockData 数组的开头并立即显示
@@ -2780,6 +2791,12 @@
 
                 if (result.success) {
                     showAlert('记录更新成功', 'success');
+                    
+                    // 如果是出货操作，检查并更新备注库存
+                    if (record.out_quantity > 0 && record.price && record.product_name) {
+                        await checkAndUpdateRemarkStock(record.product_name, record.price, record.out_quantity);
+                    }
+                    
                     editingRowIds.delete(id);
                     if (originalEditData) {
                         originalEditData.delete(id);
@@ -4025,6 +4042,35 @@
                 }
             }, 10);
         });
+
+        // 检查并更新货品备注库存
+        async function checkAndUpdateRemarkStock(productName, price, outQuantity) {
+            if (!productName || !price || outQuantity <= 0) {
+                return;
+            }
+            
+            try {
+                const result = await apiCall('', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'update_remark_stock',
+                        product_name: productName,
+                        price: parseFloat(price),
+                        out_quantity: parseFloat(outQuantity)
+                    })
+                });
+                
+                if (result.success) {
+                    if (result.deducted_quantity > 0) {
+                        showAlert(`已从备注库存中扣除 ${result.deducted_quantity} 单位的 ${productName}`, 'info');
+                    }
+                } else {
+                    console.warn('更新备注库存失败:', result.message);
+                }
+            } catch (error) {
+                console.error('更新备注库存时发生错误:', error);
+            }
+        }
 
         // 生成PDF发票
         async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
