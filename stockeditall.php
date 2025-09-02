@@ -2097,7 +2097,6 @@
 
         // 添加新行到表格
         function addNewRow() {
-            
             const tbody = document.getElementById('stock-tbody');
             const row = document.createElement('tr');
             row.className = 'new-row';
@@ -2112,10 +2111,11 @@
                 <td>${createCombobox('product', '', null, rowId)}</td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
-                <select class="table-select" id="${rowId}-target" disabled>
-                    <option value="">请选择</option>
-                    ${generateTargetOptions()}
-                </select>
+                <td>
+                    <select class="table-select" id="${rowId}-target" disabled>
+                        <option value="">请选择</option>
+                        ${generateTargetOptions()}
+                    </select>
                 </td>
                 <td>
                     <select class="table-select" id="${rowId}-specification">
@@ -2135,6 +2135,12 @@
                         <span class="currency-amount">0.00</span>
                     </div>
                 </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" class="remark-checkbox" id="${rowId}-product-remark" onchange="toggleNewRowRemarkNumber('${rowId}')">
+                </td>
+                <td>
+                    <input type="text" class="table-input remark-number-input" placeholder="输入备注编号..." id="${rowId}-remark-number" disabled>
+                </td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
@@ -2146,12 +2152,6 @@
                             <i class="fas fa-times"></i>
                         </button>
                     </span>
-                </td>
-                <td style="text-align: center;">
-                    <input type="checkbox" class="table-input" id="${rowId}-product-remark" onchange="toggleNewRowRemarkNumber('${rowId}')">
-                </td>
-                <td>
-                    <input type="text" class="table-input" placeholder="输入备注编号..." id="${rowId}-remark-number" disabled>
                 </td>
             `;
             
