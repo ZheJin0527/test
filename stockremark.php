@@ -571,25 +571,6 @@
                     <label for="code-filter">货品编号</label>
                     <input type="text" id="code-filter" class="filter-input" placeholder="搜索货品编号...">
                 </div>
-                <div class="filter-group">
-                    <label for="min-variants">最少价格数量</label>
-                    <select id="min-variants" class="filter-select">
-                        <option value="">全部</option>
-                        <option value="2">2个或以上</option>
-                        <option value="3">3个或以上</option>
-                        <option value="4">4个或以上</option>
-                        <option value="5">5个或以上</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="sort-by">排序方式</label>
-                    <select id="sort-by" class="filter-select">
-                        <option value="name_asc">货品名称 A-Z</option>
-                        <option value="name_desc">货品名称 Z-A</option>
-                        <option value="price_diff_desc">单价 (高-低)</option>
-                        <option value="price_diff_asc">单价 (低-高)</option>
-                    </select>
-                </div>
             </div>
             <div class="filter-actions">
                 <button class="btn btn-primary" onclick="searchData()">
@@ -729,14 +710,12 @@
             // 过滤数据
             filteredData = stockData.filter(item => {
                 const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
-                const matchCode = !codeFilter || (item.code_number && item.code_number.toLowerCase().includes(codeFilter));
+                const matchCode = !codeFilter || (item.variants && item.variants.some(variant => 
+                    variant.code_number && variant.code_number.toLowerCase().includes(codeFilter)));
 
                 return matchProduct && matchCode;
             });
 
-            // 排序数据
-            const sortBy = document.getElementById('sort-by').value;
-            sortData(sortBy);
             renderProducts();
             
             if (filteredData.length === 0) {
@@ -746,39 +725,12 @@
             }
         }
 
-        // 排序数据
-        function sortData(sortBy) {
-            switch (sortBy) {
-                case 'name_asc':
-                    filteredData.sort((a, b) => a.product_name.localeCompare(b.product_name));
-                    break;
-                case 'name_desc':
-                    filteredData.sort((a, b) => b.product_name.localeCompare(a.product_name));
-                    break;
-                case 'variants_desc':
-                    filteredData.sort((a, b) => b.in_quantity - a.in_quantity);
-                    break;
-                case 'variants_asc':
-                    filteredData.sort((a, b) => a.in_quantity - b.in_quantity);
-                    break;
-                case 'price_diff_desc':
-                    filteredData.sort((a, b) => b.price - a.price);
-                    break;
-                case 'price_diff_asc':
-                    filteredData.sort((a, b) => a.price - b.price);
-                    break;
-            }
-        }
-
         // 重置搜索过滤器
         function resetFilters() {
             document.getElementById('product-filter').value = '';
             document.getElementById('code-filter').value = '';
-            document.getElementById('min-variants').value = '';
-            document.getElementById('sort-by').value = 'name_asc';
             
             filteredData = [...stockData];
-            sortData('name_asc');
             renderProducts();
             showAlert('搜索条件已重置', 'info');
         }
@@ -825,7 +777,7 @@
                                 <tr>
                                     <th>货品编号</th>
                                     <th>备注编号</th>
-                                    <th>进货数量/重量</th>
+                                    <th>数量/重量</th>
                                     <th>规格</th>
                                     <th>单价</th>
                                 </tr>
