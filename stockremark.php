@@ -586,10 +586,10 @@
                     <select id="sort-by" class="filter-select">
                         <option value="name_asc">货品名称 A-Z</option>
                         <option value="name_desc">货品名称 Z-A</option>
-                        <option value="variants_desc">价格数量 (多-少)</option>
-                        <option value="variants_asc">价格数量 (少-多)</option>
-                        <option value="price_diff_desc">价格差异 (大-小)</option>
-                        <option value="price_diff_asc">价格差异 (小-大)</option>
+                        <option value="variants_desc">进货数量 (多-少)</option>
+                        <option value="variants_asc">进货数量 (少-多)</option>
+                        <option value="price_diff_desc">单价 (高-低)</option>
+                        <option value="price_diff_asc">单价 (低-高)</option>
                     </select>
                 </div>
             </div>
@@ -724,23 +724,20 @@
             }
         }
 
-        // 搜索数据
         function searchData() {
             const productFilter = document.getElementById('product-filter').value.toLowerCase();
             const codeFilter = document.getElementById('code-filter').value.toLowerCase();
-            const minVariants = parseInt(document.getElementById('min-variants').value) || 0;
-            const sortBy = document.getElementById('sort-by').value;
-
+            
             // 过滤数据
             filteredData = stockData.filter(item => {
                 const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
                 const matchCode = !codeFilter || (item.code_number && item.code_number.toLowerCase().includes(codeFilter));
-                const matchVariants = item.variants.length >= minVariants;
 
-                return matchProduct && matchCode && matchVariants;
+                return matchProduct && matchCode;
             });
 
             // 排序数据
+            const sortBy = document.getElementById('sort-by').value;
             sortData(sortBy);
             renderProducts();
             
@@ -761,16 +758,16 @@
                     filteredData.sort((a, b) => b.product_name.localeCompare(a.product_name));
                     break;
                 case 'variants_desc':
-                    filteredData.sort((a, b) => b.variants.length - a.variants.length);
+                    filteredData.sort((a, b) => b.in_quantity - a.in_quantity);
                     break;
                 case 'variants_asc':
-                    filteredData.sort((a, b) => a.variants.length - b.variants.length);
+                    filteredData.sort((a, b) => a.in_quantity - b.in_quantity);
                     break;
                 case 'price_diff_desc':
-                    filteredData.sort((a, b) => b.price_difference - a.price_difference);
+                    filteredData.sort((a, b) => b.price - a.price);
                     break;
                 case 'price_diff_asc':
-                    filteredData.sort((a, b) => a.price_difference - b.price_difference);
+                    filteredData.sort((a, b) => a.price - b.price);
                     break;
             }
         }
@@ -810,8 +807,8 @@
                 container.innerHTML = `
                     <div class="no-data">
                         <i class="fas fa-search"></i>
-                        <h3>没有找到多价格货品</h3>
-                        <p>当前筛选条件下没有发现货品有多个价格变体</p>
+                        <h3>没有找到货品备注</h3>
+                        <p>当前筛选条件下没有发现已标记备注的货品</p>
                     </div>
                 `;
                 return;
@@ -824,19 +821,33 @@
                     <div class="product-group">
                         <div class="product-header">
                             <span>${product.product_name}</span>
-                            <span class="price-count">${product.variants.length} 个价格</span>
+                            <span class="price-count">备注编号: ${product.remark_number}</span>
                         </div>
                         <table class="price-variants-table">
                             <thead>
                                 <tr>
-                                    <th>序号.</th>
                                     <th>货品编号</th>
-                                    <th>库存数量</th>
+                                    <th>进货数量</th>
+                                    <th>规格</th>
                                     <th>单价</th>
+                                    <th>最后更新</th>
+                                    <th>收货人</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${renderVariants(product.variants, product.max_price)}
+                                <tr>
+                                    <td>${product.code_number || '-'}</td>
+                                    <td>${product.formatted_quantity}</td>
+                                    <td>${product.specification || '-'}</td>
+                                    <td>
+                                        <div class="currency-display">
+                                            <span class="currency-symbol">RM</span>
+                                            <span class="currency-amount">${product.formatted_price}</span>
+                                        </div>
+                                    </td>
+                                    <td>${product.latest_date} ${product.latest_time}</td>
+                                    <td>${product.receiver || '-'}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
