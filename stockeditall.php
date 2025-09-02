@@ -2324,7 +2324,9 @@
                 price: parseFloat(document.getElementById(`${rowId}-price`).value) || 0,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
                 code_number: codeInput ? codeInput.value : '',
-                remark: document.getElementById(`${rowId}-remark`).value
+                remark: document.getElementById(`${rowId}-remark`).value,
+                product_remark_checked: document.getElementById(`${rowId}-product-remark`).checked,  // 添加这行
+                remark_number: document.getElementById(`${rowId}-remark-number`).value  // 添加这行
             };
 
             // 验证必填字段
@@ -2391,18 +2393,20 @@
                 
                 // 添加新记录到 stockData 数组的开头
                 const newRecord = {
-                    id: result.data.id || Date.now(), // 使用返回的ID或临时ID
+                    id: result.data.id || Date.now(),
                     date: formData.date,
                     time: formData.time,
                     code_number: formData.code_number,
                     product_name: formData.product_name,
                     in_quantity: formData.in_quantity,
                     out_quantity: formData.out_quantity,
-                    target_system: formData.target_system,  // 添加这行
+                    target_system: formData.target_system,
                     specification: formData.specification,
                     price: formData.price,
                     receiver: formData.receiver,
                     remark: formData.remark,
+                    product_remark_checked: formData.product_remark_checked,  // 添加这行
+                    remark_number: formData.remark_number,  // 添加这行
                     created_at: new Date().toISOString()
                 };
                 
@@ -2519,19 +2523,21 @@
                 
                 // 添加新记录到 stockData 数组的开头并立即显示
                 const newRecord = {
-                    id: result.data.id || Date.now(),
+                    id: result.data.id || Date.now(), 
                     date: formData.date,
                     time: formData.time,
                     code_number: formData.code_number,
                     product_name: formData.product_name,
                     in_quantity: formData.in_quantity,
                     out_quantity: formData.out_quantity,
-                    target_system: formData.target_system,  // 添加这行
+                    target_system: formData.target_system,
                     specification: formData.specification,
                     price: formData.price,
                     receiver: formData.receiver,
                     applicant: formData.applicant,
                     remark: formData.remark,
+                    product_remark_checked: formData.product_remark_checked,  // 添加这行
+                    remark_number: formData.remark_number,  // 添加这行
                     created_at: new Date().toISOString()
                 };
                 
@@ -2734,6 +2740,11 @@
                             handleCodeNumberChange(this, addProductSelect);
                         };
                     }
+
+                    // 重置备注相关字段
+                    document.getElementById('add-product-remark').checked = false;
+                    document.getElementById('add-remark-number').value = '';
+                    document.getElementById('add-remark-number').disabled = true;
                 }, 100);
             }
         }
