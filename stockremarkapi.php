@@ -46,25 +46,23 @@ function getMultiPriceAnalysis() {
     global $pdo;
     
     try {
-        // 获取所有product_remark_checked=1的记录
+        // 获取库存汇总数据
         $sql = "SELECT 
                     product_name,
                     specification,
                     price,
                     code_number,
-                    remark_number,
-                    in_quantity,
-                    out_quantity,
-                    date,
-                    time,
-                    receiver
+                    SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) as total_in,
+                    SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END) as total_out,
+                    (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
+                    SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as current_stock,
+                    COUNT(CASE WHEN product_remark_checked = 1 THEN 1 END) as remark_count,
+                    GROUP_CONCAT(CASE WHEN product_remark_checked = 1 THEN remark_number END) as remark_numbers
                 FROM stockinout_data 
-                WHERE product_remark_checked = 1 
-                AND product_name IS NOT NULL 
-                AND product_name != ''
-                AND remark_number IS NOT NULL 
-                AND remark_number != ''
-                ORDER BY product_name ASC, remark_number ASC, date DESC";
+                WHERE product_name IS NOT NULL AND product_name != ''
+                GROUP BY product_name, specification, price, code_number
+                HAVING current_stock > 0
+                ORDER BY product_name ASC, price ASC";
         
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
