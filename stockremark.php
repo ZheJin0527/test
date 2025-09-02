@@ -783,12 +783,12 @@
                                 </tr>
                             </thead>
                             <tbody>`;
-
+                
                 // 按单价从高到低排序variants
-                const sortedVariants = [...product.variants].sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+                const sortedVariants = [...product.variants].sort((a, b) => b.price - a.price);
                 
                 // 为每个variant添加一行
-                product.variants.forEach(variant => {
+                sortedVariants.forEach(variant => {
                     html += `
                                 <tr>
                                     <td>${variant.code_number || '-'}</td>
