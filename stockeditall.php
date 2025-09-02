@@ -423,7 +423,7 @@
         /* 为每列指定固定宽度 */
         .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* 日期 */
         .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 180px; } /* 货品 */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* 货品 */
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
         .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
         .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
