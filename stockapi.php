@@ -96,14 +96,12 @@ function handleGet() {
             $endDate = $_GET['end_date'] ?? null;
             $searchDate = $_GET['search_date'] ?? null;
             $supplier = $_GET['supplier'] ?? null;
-            $productCode = $_GET['product_code'] ?? null;
+            $approvalStatus = $_GET['approval_status'] ?? null;
 
-            // 如果没有提供日期范围，默认使用当月
+            // 如果没有提供日期范围，默认显示一年内的数据
             if (!$startDate && !$endDate && !$searchDate) {
-                $currentYear = date('Y');
-                $currentMonth = date('m');
-                $startDate = "$currentYear-$currentMonth-01";
-                $endDate = date('Y-m-t'); // 当月最后一天
+                $startDate = date('Y-m-d', strtotime('-1 year')); // 一年前的今天
+                $endDate = date('Y-m-d'); // 今天
             }
 
             $sql = "SELECT * FROM stock_data WHERE 1=1";
