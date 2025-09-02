@@ -267,6 +267,40 @@ function handleGet() {
             
             sendResponse(true, "汇总数据获取成功", $summary);
             break;
+
+        case 'check_permission':
+            // 检查用户权限
+            session_start();
+            $canApprove = false;
+            $userCode = null;
+            
+            if (isset($_SESSION['user_id'])) {
+                $allowedCodes = ['SUPPORT88', 'IT4567', 'DESIGN77'];
+                $userId = $_SESSION['user_id'];
+                
+                try {
+                    $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
+                    $stmt->execute([$userId]);
+                    $userCode = $stmt->fetchColumn();
+                    
+                    $canApprove = $userCode && in_array($userCode, $allowedCodes);
+                    
+                    error_log("权限检查 - 用户ID: $userId, 注册码: $userCode, 可批准: " . ($canApprove ? '是' : '否'));
+                    
+                } catch (PDOException $e) {
+                    error_log("权限检查失败: " . $e->getMessage());
+                    $canApprove = false;
+                }
+            } else {
+                error_log("权限检查 - 用户未登录");
+            }
+            
+            sendResponse(true, "权限检查完成", [
+                'can_approve' => $canApprove,
+                'user_code' => $userCode,
+                'user_id' => $_SESSION['user_id'] ?? null
+            ]);
+            break;
             
         default:
             sendResponse(false, "无效的操作");
@@ -335,12 +369,24 @@ function handleApprove() {
     $allowedCodes = ['SUPPORT88', 'IT4567', 'DESIGN77'];
     $userId = $_SESSION['user_id'];
 
-    $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
-    $stmt->execute([$userId]);
-    $userCode = $stmt->fetchColumn();
-
-    if (!$userCode || !in_array($userCode, $allowedCodes)) {
-        sendResponse(false, "您没有权限执行此操作");
+    try {
+        $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
+        $stmt->execute([$userId]);
+        $userCode = $stmt->fetchColumn();
+        
+        error_log("批准权限检查 - 用户ID: $userId, 注册码: $userCode");
+        error_log("允许的注册码: " . implode(', ', $allowedCodes));
+        
+        if (!$userCode || !in_array($userCode, $allowedCodes)) {
+            error_log("权限拒绝 - 注册码不在允许列表中");
+            sendResponse(false, "您没有权限执行此操作。当前注册码: $userCode");
+        }
+        
+        error_log("权限通过 - 用户可以批准");
+        
+    } catch (PDOException $e) {
+        error_log("权限检查数据库错误: " . $e->getMessage());
+        sendResponse(false, "权限验证失败");
     }
     
     if (!$data || !isset($data['id'])) {
