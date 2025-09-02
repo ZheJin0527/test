@@ -586,8 +586,6 @@
                     <select id="sort-by" class="filter-select">
                         <option value="name_asc">货品名称 A-Z</option>
                         <option value="name_desc">货品名称 Z-A</option>
-                        <option value="variants_desc">进货数量 (多-少)</option>
-                        <option value="variants_asc">进货数量 (少-多)</option>
                         <option value="price_diff_desc">单价 (高-低)</option>
                         <option value="price_diff_asc">单价 (低-高)</option>
                     </select>
@@ -827,7 +825,7 @@
                                 <tr>
                                     <th>货品编号</th>
                                     <th>备注编号</th>
-                                    <th>进货数量</th>
+                                    <th>进货数量/重量</th>
                                     <th>规格</th>
                                     <th>单价</th>
                                 </tr>
