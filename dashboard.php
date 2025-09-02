@@ -64,7 +64,7 @@ if (isset($_SESSION['user_id'])) {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-        $restrictedCodes = ['SUPPORT88','DESIGN88']; // 限制访问的注册码
+        $restrictedCodes = ['SUPPORT88','DESIGN88','PHOTO001']; // 限制访问的注册码
         $userId = $_SESSION['user_id'];
         
         $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
