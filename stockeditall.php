@@ -430,9 +430,11 @@
         .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 90px; } /* 规格 */
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
-        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 150px; } /* 名字 */
-        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 100px; } /* 备注 */
-        .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 70px; } /* 操作 */
+        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 60px; } /* 产品备注 checkbox */
+        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 120px; } /* 备注编号 */
+        .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 120px; } /* 名字/收货人 */
+        .stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 150px; } /* 备注 */
+        .stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 120px; } /* 操作 */
 
         /* 确保输入框和选择框填满单元格 */
         .table-input, .table-select {
