@@ -446,6 +446,7 @@
 
         .selector-dropdown .dropdown-item:hover {
             background-color: #f8f5eb;
+            border-radius: 8px;
         }
 
         .selector-dropdown .dropdown-item.active {
