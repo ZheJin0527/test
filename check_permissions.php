@@ -19,7 +19,7 @@ try {
 $canApprove = false;
 
 if (isset($_SESSION['user_id'])) {
-    $allowedCodes = ['SUPPORT88', 'IT4567', 'DESIGN77', 'DESIGN88'];
+    $allowedCodes = ['SUPPORT88', 'IT4567', 'DESIGN77'];
     $userId = $_SESSION['user_id'];
 
     $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
