@@ -96,14 +96,20 @@ function getMultiPriceAnalysis() {
                     'specification' => $row['specification'] ?? '',
                     'remark_number' => $remarkNumber,
                     'in_quantity' => 0,
+                    'out_quantity' => 0,  // 添加出货数量字段
                     'price' => floatval($row['price'])
                 ];
             }
-            
-            // 累计进货数量（只累计进货，不计出货）
+
+            // 累计进货和出货数量
             $inQty = floatval($row['in_quantity']);
+            $outQty = floatval($row['out_quantity']);
+
             if ($inQty > 0) {
                 $productGroups[$groupKey]['variants'][$remarkKey]['in_quantity'] += $inQty;
+            }
+            if ($outQty > 0) {
+                $productGroups[$groupKey]['variants'][$remarkKey]['out_quantity'] += $outQty;
             }
         }
         
@@ -112,11 +118,14 @@ function getMultiPriceAnalysis() {
         foreach ($productGroups as $group) {
             $variants = [];
             foreach ($group['variants'] as $variant) {
+                $currentStock = $variant['in_quantity'] - $variant['out_quantity'];  // 计算当前库存
                 $variants[] = [
                     'code_number' => $variant['code_number'],
                     'specification' => $variant['specification'],
                     'in_quantity' => $variant['in_quantity'],
-                    'formatted_quantity' => number_format($variant['in_quantity'], 2),
+                    'out_quantity' => $variant['out_quantity'],  // 添加出货数量
+                    'current_stock' => $currentStock,  // 添加当前库存
+                    'formatted_quantity' => number_format($currentStock, 2),  // 改为显示当前库存
                     'price' => $variant['price'],
                     'formatted_price' => number_format($variant['price'], 2),
                     'remark_number' => $variant['remark_number']
