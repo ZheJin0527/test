@@ -18,7 +18,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -473,7 +473,7 @@
             const rows = data.map(item => `
                 <tr>
                     <td><strong>${item.code}</strong></td>
-                    <td><span class="account-type-badge type-${item.account_type}">${formatAccountType(item.account_type)}</span></td>
+                    <td><span class="account-type-badge">${formatAccountType(item.account_type)}</span></td>
                     <td><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
                     <td>${item.username || '<em style="color: #999;">-</em>'}</td>
                     <td>${item.email || '<em style="color: #999;">-</em>'}</td>
