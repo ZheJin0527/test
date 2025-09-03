@@ -324,7 +324,6 @@
 
         <!-- 生成代码表单 -->
         <div class="generate-form">
-            <h2 class="form-title">生成申请码</h2>
             
             <div id="messageArea"></div>
 
