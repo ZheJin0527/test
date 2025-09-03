@@ -1,5 +1,8 @@
 <?php
 
+// 设置时区
+date_default_timezone_set('Asia/Shanghai');
+
 // 设置响应头
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
