@@ -423,16 +423,18 @@
         /* 为每列指定固定宽度 */
         .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* 日期 */
         .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 180px; } /* 货品 */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* 货品 */
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
         .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
         .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
-        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 90px; } /* 规格 */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 80px; } /* 规格 */
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
-        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 150px; } /* 名字 */
-        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 100px; } /* 备注 */
-        .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 70px; } /* 操作 */
+        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 60px; } /* 产品备注 checkbox */
+        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 80px; } /* 备注编号 */
+        .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 160px; } /* 名字/收货人 */
+        .stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 140px; } /* 备注 */
+        .stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 100px; } /* 操作 */
 
         /* 确保输入框和选择框填满单元格 */
         .table-input, .table-select {
@@ -949,7 +951,7 @@
         }
 
         .price-select {
-            min-width: 100px;
+            min-width: 60px;
             background-color: white;
             border: 1px solid #d1d5db;
             border-radius: 4px;
@@ -1357,6 +1359,14 @@
                     <label for="add-remark">备注</label>
                     <input type="text" id="add-remark" class="form-input" placeholder="输入备注...">
                 </div>
+                <div class="form-group">
+                    <label for="add-product-remark">货品备注</label>
+                    <input type="checkbox" id="add-product-remark" onchange="toggleRemarkNumber()">
+                </div>
+                <div class="form-group">
+                    <label for="add-remark-number">备注编号</label>
+                    <input type="text" id="add-remark-number" class="form-input" placeholder="输入备注编号..." disabled>
+                </div>
             </div>
             <div class="form-actions">
                 <button class="btn btn-secondary" onclick="toggleAddForm()">
@@ -1400,6 +1410,8 @@
                         <th style="min-width: 100px;">规格</th>
                         <th style="min-width: 100px;">单价</th>
                         <th style="min-width: 100px;">总价</th>
+                        <th style="min-width: 80px;">货品备注</th>
+                        <th style="min-width: 100px;">备注编号</th>
                         <th class="receiver-col">名字</th>
                         <th style="min-width: 100px;">备注</th>
                         <th style="min-width: 80px;">操作</th>
@@ -1416,7 +1428,7 @@
         <div id="export-modal" class="export-modal">
             <div class="export-modal-content">
                 <button class="close-export-modal" onclick="closeExportModal()">&times;</button>
-                <h3>生成PDF发票设置</h3>
+                <h3>生成PDF发票</h3>
                 
                 <div class="export-form-group">
                     <label for="export-start-date">开始日期</label>
@@ -1449,7 +1461,7 @@
                     </button>
                     <button class="btn btn-success" onclick="confirmExport()">
                         <i class="fas fa-download"></i>
-                        导出PDF发票
+                        导出发票
                     </button>
                 </div>
             </div>
@@ -1985,6 +1997,22 @@
                             <span class="currency-amount">${formatCurrency(Math.abs(total))}</span>
                         </div>
                     </td>
+                    <td style="text-align: center;">
+                        ${isEditing ? 
+                            `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} 
+                            onchange="updateRemarkCheck(${record.id}, this.checked)">` :
+                            `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} disabled>`
+                        }
+                    </td>
+                    <td>
+                        ${isEditing ? 
+                            `<input type="text" class="table-input remark-number-input" 
+                            value="${record.remark_number || ''}" 
+                            ${!record.product_remark_checked ? 'disabled' : ''}
+                            onchange="updateField(${record.id}, 'remark_number', this.value)">` :
+                            `<span>${record.remark_number || '-'}</span>`
+                        }
+                    </td>
                     <td>
                         ${isEditing ? 
                             `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
@@ -2071,7 +2099,6 @@
 
         // 添加新行到表格
         function addNewRow() {
-            
             const tbody = document.getElementById('stock-tbody');
             const row = document.createElement('tr');
             row.className = 'new-row';
@@ -2086,10 +2113,11 @@
                 <td>${createCombobox('product', '', null, rowId)}</td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
                 <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
-                <select class="table-select" id="${rowId}-target" disabled>
-                    <option value="">请选择</option>
-                    ${generateTargetOptions()}
-                </select>
+                <td>
+                    <select class="table-select" id="${rowId}-target" disabled>
+                        <option value="">请选择</option>
+                        ${generateTargetOptions()}
+                    </select>
                 </td>
                 <td>
                     <select class="table-select" id="${rowId}-specification">
@@ -2108,6 +2136,12 @@
                         <span class="currency-symbol">RM</span>
                         <span class="currency-amount">0.00</span>
                     </div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" class="remark-checkbox" id="${rowId}-product-remark" onchange="toggleNewRowRemarkNumber('${rowId}')">
+                </td>
+                <td>
+                    <input type="text" class="table-input remark-number-input" placeholder="输入备注编号..." id="${rowId}-remark-number" disabled>
                 </td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
@@ -2195,6 +2229,51 @@
             }
         }
 
+        // 更新货品备注勾选状态
+        function updateRemarkCheck(id, checked) {
+            const record = stockData.find(r => r.id === id);
+            if (record) {
+                record.product_remark_checked = checked;
+                
+                // 控制备注编号输入框的启用/禁用状态
+                const remarkInput = document.querySelector(`input[onchange*="updateField(${id}, 'remark_number'"]`);
+                if (remarkInput) {
+                    remarkInput.disabled = !checked;
+                    if (!checked) {
+                        remarkInput.value = '';
+                        record.remark_number = '';
+                    }
+                }
+                
+                // 更新数据库
+                updateField(id, 'product_remark_checked', checked);
+            }
+        }
+
+        // 控制新增表单中备注编号的启用状态
+        function toggleRemarkNumber() {
+            const checkbox = document.getElementById('add-product-remark');
+            const remarkNumberInput = document.getElementById('add-remark-number');
+            
+            remarkNumberInput.disabled = !checkbox.checked;
+            if (!checkbox.checked) {
+                remarkNumberInput.value = '';
+            }
+        }
+
+        // 控制新行中备注编号的启用状态
+        function toggleNewRowRemarkNumber(rowId) {
+            const checkbox = document.getElementById(`${rowId}-product-remark`);
+            const remarkNumberInput = document.getElementById(`${rowId}-remark-number`);
+            
+            if (checkbox && remarkNumberInput) {
+                remarkNumberInput.disabled = !checkbox.checked;
+                if (!checkbox.checked) {
+                    remarkNumberInput.value = '';
+                }
+            }
+        }
+
         // 提取行数据的辅助函数
         function extractRowData(row) {
             const rowId = row.querySelector('input').id.split('-')[0] + '-' + row.querySelector('input').id.split('-')[1];
@@ -2245,7 +2324,9 @@
                 price: parseFloat(document.getElementById(`${rowId}-price`).value) || 0,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
                 code_number: codeInput ? codeInput.value : '',
-                remark: document.getElementById(`${rowId}-remark`).value
+                remark: document.getElementById(`${rowId}-remark`).value,
+                product_remark_checked: document.getElementById(`${rowId}-product-remark`).checked,  // 添加这行
+                remark_number: document.getElementById(`${rowId}-remark-number`).value  // 添加这行
             };
 
             // 验证必填字段
@@ -2312,18 +2393,20 @@
                 
                 // 添加新记录到 stockData 数组的开头
                 const newRecord = {
-                    id: result.data.id || Date.now(), // 使用返回的ID或临时ID
+                    id: result.data.id || Date.now(),
                     date: formData.date,
                     time: formData.time,
                     code_number: formData.code_number,
                     product_name: formData.product_name,
                     in_quantity: formData.in_quantity,
                     out_quantity: formData.out_quantity,
-                    target_system: formData.target_system,  // 添加这行
+                    target_system: formData.target_system,
                     specification: formData.specification,
                     price: formData.price,
                     receiver: formData.receiver,
                     remark: formData.remark,
+                    product_remark_checked: formData.product_remark_checked,  // 添加这行
+                    remark_number: formData.remark_number,  // 添加这行
                     created_at: new Date().toISOString()
                 };
                 
@@ -2378,7 +2461,9 @@
                 receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
-                remark: document.getElementById('add-remark').value
+                remark: document.getElementById('add-remark').value,
+                product_remark_checked: document.getElementById('add-product-remark').checked,
+                remark_number: document.getElementById('add-remark-number').value
             };
 
             // 验证必填字段
@@ -2438,19 +2523,21 @@
                 
                 // 添加新记录到 stockData 数组的开头并立即显示
                 const newRecord = {
-                    id: result.data.id || Date.now(),
+                    id: result.data.id || Date.now(), 
                     date: formData.date,
                     time: formData.time,
                     code_number: formData.code_number,
                     product_name: formData.product_name,
                     in_quantity: formData.in_quantity,
                     out_quantity: formData.out_quantity,
-                    target_system: formData.target_system,  // 添加这行
+                    target_system: formData.target_system,
                     specification: formData.specification,
                     price: formData.price,
                     receiver: formData.receiver,
                     applicant: formData.applicant,
                     remark: formData.remark,
+                    product_remark_checked: formData.product_remark_checked,  // 添加这行
+                    remark_number: formData.remark_number,  // 添加这行
                     created_at: new Date().toISOString()
                 };
                 
@@ -2653,6 +2740,11 @@
                             handleCodeNumberChange(this, addProductSelect);
                         };
                     }
+
+                    // 重置备注相关字段
+                    document.getElementById('add-product-remark').checked = false;
+                    document.getElementById('add-remark-number').value = '';
+                    document.getElementById('add-remark-number').disabled = true;
                 }, 100);
             }
         }

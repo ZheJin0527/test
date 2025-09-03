@@ -115,7 +115,7 @@
         .filter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
+            gap: 100px;
             margin-bottom: 16px;
         }
 
@@ -266,15 +266,15 @@
             vertical-align: middle;
         }
 
-        .price-variants-table th:nth-child(1) { width: 10%; } /* 排序 */
-        .price-variants-table th:nth-child(2) { width: 30%; } /* 货品编号 */
-        .price-variants-table th:nth-child(3) { width: 30%; } /* 库存数量 */
-        .price-variants-table th:nth-child(4) { width: 30%; } /* 单价 */
+        .price-variants-table th:nth-child(1) { width: 6.5%; } /* 备注编号 */
+        .price-variants-table th:nth-child(2) { width: 25%; } /* 数量/重量 */
+        .price-variants-table th:nth-child(3) { width: 25%; } /* 规格 */
+        .price-variants-table th:nth-child(4) { width: 25%; } /* 单价 */
 
-        .price-variants-table td:nth-child(1) { width: 10%; }
-        .price-variants-table td:nth-child(2) { width: 30%; }
-        .price-variants-table td:nth-child(3) { width: 30%; }
-        .price-variants-table td:nth-child(4) { width: 30%; }
+        .price-variants-table td:nth-child(1) { width: 25%; }
+        .price-variants-table td:nth-child(2) { width: 25%; }
+        .price-variants-table td:nth-child(3) { width: 25%; }
+        .price-variants-table td:nth-child(4) { width: 25%; }
 
         .price-variants-table tr:hover {
             background-color: #f9fafb;
@@ -446,6 +446,7 @@
 
         .selector-dropdown .dropdown-item:hover {
             background-color: #f8f5eb;
+            border-radius: 8px;
         }
 
         .selector-dropdown .dropdown-item.active {
@@ -527,6 +528,66 @@
             opacity: 1;
             color: #583e04;
         }
+
+        .product-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .product-code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #583e04;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background-color: #462d03;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(88, 62, 4, 0.4);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body>
@@ -571,27 +632,6 @@
                     <label for="code-filter">货品编号</label>
                     <input type="text" id="code-filter" class="filter-input" placeholder="搜索货品编号...">
                 </div>
-                <div class="filter-group">
-                    <label for="min-variants">最少价格数量</label>
-                    <select id="min-variants" class="filter-select">
-                        <option value="">全部</option>
-                        <option value="2">2个或以上</option>
-                        <option value="3">3个或以上</option>
-                        <option value="4">4个或以上</option>
-                        <option value="5">5个或以上</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="sort-by">排序方式</label>
-                    <select id="sort-by" class="filter-select">
-                        <option value="name_asc">货品名称 A-Z</option>
-                        <option value="name_desc">货品名称 Z-A</option>
-                        <option value="variants_desc">价格数量 (多-少)</option>
-                        <option value="variants_asc">价格数量 (少-多)</option>
-                        <option value="price_diff_desc">价格差异 (大-小)</option>
-                        <option value="price_diff_asc">价格差异 (小-大)</option>
-                    </select>
-                </div>
             </div>
             <div class="filter-actions">
                 <button class="btn btn-primary" onclick="searchData()">
@@ -618,6 +658,11 @@
             <!-- Dynamic content -->
         </div>
     </div>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="back-to-top-btn" onclick="scrollToTop()" title="回到顶部">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script>
         // API 配置
@@ -724,24 +769,19 @@
             }
         }
 
-        // 搜索数据
         function searchData() {
             const productFilter = document.getElementById('product-filter').value.toLowerCase();
             const codeFilter = document.getElementById('code-filter').value.toLowerCase();
-            const minVariants = parseInt(document.getElementById('min-variants').value) || 0;
-            const sortBy = document.getElementById('sort-by').value;
-
+            
             // 过滤数据
             filteredData = stockData.filter(item => {
                 const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
-                const matchCode = !codeFilter || (item.code_number && item.code_number.toLowerCase().includes(codeFilter));
-                const matchVariants = item.variants.length >= minVariants;
+                const matchCode = !codeFilter || (item.variants && item.variants.some(variant => 
+                    variant.code_number && variant.code_number.toLowerCase().includes(codeFilter)));
 
-                return matchProduct && matchCode && matchVariants;
+                return matchProduct && matchCode;
             });
 
-            // 排序数据
-            sortData(sortBy);
             renderProducts();
             
             if (filteredData.length === 0) {
@@ -751,39 +791,12 @@
             }
         }
 
-        // 排序数据
-        function sortData(sortBy) {
-            switch (sortBy) {
-                case 'name_asc':
-                    filteredData.sort((a, b) => a.product_name.localeCompare(b.product_name));
-                    break;
-                case 'name_desc':
-                    filteredData.sort((a, b) => b.product_name.localeCompare(a.product_name));
-                    break;
-                case 'variants_desc':
-                    filteredData.sort((a, b) => b.variants.length - a.variants.length);
-                    break;
-                case 'variants_asc':
-                    filteredData.sort((a, b) => a.variants.length - b.variants.length);
-                    break;
-                case 'price_diff_desc':
-                    filteredData.sort((a, b) => b.price_difference - a.price_difference);
-                    break;
-                case 'price_diff_asc':
-                    filteredData.sort((a, b) => a.price_difference - b.price_difference);
-                    break;
-            }
-        }
-
         // 重置搜索过滤器
         function resetFilters() {
             document.getElementById('product-filter').value = '';
             document.getElementById('code-filter').value = '';
-            document.getElementById('min-variants').value = '';
-            document.getElementById('sort-by').value = 'name_asc';
             
             filteredData = [...stockData];
-            sortData('name_asc');
             renderProducts();
             showAlert('搜索条件已重置', 'info');
         }
@@ -810,8 +823,8 @@
                 container.innerHTML = `
                     <div class="no-data">
                         <i class="fas fa-search"></i>
-                        <h3>没有找到多价格货品</h3>
-                        <p>当前筛选条件下没有发现货品有多个价格变体</p>
+                        <h3>没有找到货品备注</h3>
+                        <p>当前筛选条件下没有发现已标记备注的货品</p>
                     </div>
                 `;
                 return;
@@ -823,20 +836,42 @@
                 html += `
                     <div class="product-group">
                         <div class="product-header">
-                            <span>${product.product_name}</span>
-                            <span class="price-count">${product.variants.length} 个价格</span>
+                            <div class="product-title">
+                                <span class="product-code">${product.variants[0]?.code_number || '未知编号'}</span>
+                                <span class="product-name">${product.product_name}</span>
+                            </div>
                         </div>
                         <table class="price-variants-table">
                             <thead>
                                 <tr>
-                                    <th>序号.</th>
-                                    <th>货品编号</th>
-                                    <th>库存数量</th>
+                                    <th>备注编号</th>
+                                    <th>数量/重量</th>
+                                    <th>规格</th>
                                     <th>单价</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                ${renderVariants(product.variants, product.max_price)}
+                            <tbody>`;
+                
+                // 按单价从高到低排序variants
+                const sortedVariants = [...product.variants].sort((a, b) => b.price - a.price);
+                
+                // 为每个variant添加一行
+                sortedVariants.forEach(variant => {
+                    html += `
+                        <tr>
+                            <td>${variant.remark_number || '-'}</td>
+                            <td>${variant.formatted_quantity}</td>
+                            <td>${variant.specification || '-'}</td>
+                            <td>
+                                <div class="currency-display">
+                                    <span class="currency-symbol">RM</span>
+                                    <span class="currency-amount">${variant.formatted_price}</span>
+                                </div>
+                            </td>
+                        </tr>`;
+                    });
+                
+                html += `
                             </tbody>
                         </table>
                     </div>
@@ -919,6 +954,31 @@
                 showAlert('导出失败', 'error');
             }
         }
+
+        // 回到顶部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 监听滚动事件，控制回到顶部按钮显示
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            // 使用防抖优化性能
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                const backToTopBtn = document.getElementById('back-to-top-btn');
+                const scrollThreshold = 150; // 滚动超过150px后显示按钮
+                
+                if (window.pageYOffset > scrollThreshold) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            }, 10);
+        });
 
         // 显示提示信息
         function showAlert(message, type = 'success') {

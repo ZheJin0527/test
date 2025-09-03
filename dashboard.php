@@ -64,7 +64,7 @@ if (isset($_SESSION['user_id'])) {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-        $restrictedCodes = ['SUPPORT88','DESIGN88']; // 限制访问的注册码
+        $restrictedCodes = ['SUPPORT88','DESIGN88','PHOTO001']; // 限制访问的注册码
         $userId = $_SESSION['user_id'];
         
         $stmt = $pdo->prepare("SELECT registration_code FROM users WHERE id = ?");
@@ -275,6 +275,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class="submenu-content">
                                 <a href="#" class="submenu-item">资源请求</a>
                                 <a href="#" class="submenu-item">分配状态</a>
+                                <a href="generatecode.php" class="submenu-item">分配申请码</a>
                             </div>
                         </div>
                     </div>

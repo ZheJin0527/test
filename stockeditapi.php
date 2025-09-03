@@ -232,12 +232,10 @@ function handleGet() {
             $productCode = $_GET['product_code'] ?? null;  // 这行已存在，保持不变
             $productName = $_GET['product_name'] ?? null;
 
-            // 如果没有提供日期范围，默认使用当月
+            // 如果没有提供日期范围，默认显示一年内的数据
             if (!$startDate && !$endDate && !$searchDate) {
-                $currentYear = date('Y');
-                $currentMonth = date('m');
-                $startDate = "$currentYear-$currentMonth-01";
-                $endDate = date('Y-m-t');
+                $startDate = date('Y-m-d', strtotime('-1 year')); // 一年前的今天
+                $endDate = date('Y-m-d'); // 今天
             }
 
             $sql = "SELECT * FROM stockinout_data WHERE 1=1";
@@ -297,6 +295,14 @@ function handleGet() {
                     $record['out_value'] = $record['out_value'];
                     $record['balance_value'] = $record['balance_value'];
                 }
+
+                $record['in_quantity'] = $inQty;
+                    $record['out_quantity'] = $outQty;
+                    $record['balance_quantity'] = $record['balance_quantity'];
+                    $record['price'] = $price;
+                    $record['in_value'] = $record['in_value'];
+                    $record['out_value'] = $record['out_value'];
+                    $record['balance_value'] = $record['balance_value'];
                 
                 sendResponse(true, "进出库数据获取成功，共找到 " . count($records) . " 条记录", $records);
             } catch (PDOException $e) {
@@ -674,6 +680,15 @@ function handleGet() {
             fclose($output);
             exit; // 重要：退出脚本，避免额外输出
             break;
+
+        case 'remark_numbers':
+            // 获取所有唯一的备注编号
+            $stmt = $pdo->prepare("SELECT DISTINCT remark_number FROM stockinout_data WHERE remark_number IS NOT NULL AND remark_number != '' ORDER BY remark_number");
+            $stmt->execute();
+            $remarkNumbers = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            
+            sendResponse(true, "备注编号列表获取成功", $remarkNumbers);
+            break;
             
         default:
             sendResponse(false, "无效的操作");
@@ -713,15 +728,36 @@ function handlePost() {
             sendResponse(false, "产品编号不存在，请选择有效的编号");
         }
     }
+
+    // 验证 target_system 字段
+    if (!empty($data['target_system']) && !in_array($data['target_system'], ['j1', 'j2', 'central'])) {
+        sendResponse(false, "目标系统只能是 j1、j2 或 central");
+    }
+
+    // 验证数量字段
+    $inQuantity = floatval($data['in_quantity'] ?? 0);
+    $outQuantity = floatval($data['out_quantity'] ?? 0);
+
+    if ($inQuantity < 0 || $outQuantity < 0) {
+        sendResponse(false, "数量不能为负数");
+    }
+
+    if ($inQuantity == 0 && $outQuantity == 0) {
+        sendResponse(false, "入库数量和出库数量不能同时为0");
+    }
+
+    if ($inQuantity > 0 && $outQuantity > 0) {
+        sendResponse(false, "入库数量和出库数量不能同时大于0");
+    }
     
     try {
         // 开始事务
         $pdo->beginTransaction();
         
         $sql = "INSERT INTO stockinout_data 
-                (date, time, product_name, 
-                in_quantity, out_quantity, specification, price, code_number, remark, receiver, target_system) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, product_name, receiver, in_quantity, out_quantity, 
+                specification, price, code_number, remark, target_system, product_remark_checked, remark_number) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -729,14 +765,16 @@ function handlePost() {
             $data['date'],
             $data['time'],
             $data['product_name'],
+            $data['receiver'],
             $data['in_quantity'] ?? 0,
             $data['out_quantity'] ?? 0,
             $data['specification'] ?? null,
             $data['price'] ?? 0,
             $data['code_number'] ?? null,
             $data['remark'] ?? null,
-            $data['receiver'] ?? null,
-            $data['target_system'] ?? null
+            $data['target_system'] ?? null,
+            $data['product_remark_checked'] ?? 0,
+            $data['remark_number'] ?? ''
         ]);
         
         $newId = $pdo->lastInsertId();
@@ -903,9 +941,10 @@ function handlePut() {
     
     try {
         $sql = "UPDATE stockinout_data 
-                SET date = ?, time = ?, product_name = ?, 
+                SET date = ?, time = ?, product_name = ?, receiver = ?,
                     in_quantity = ?, out_quantity = ?, 
-                    specification = ?, price = ?, code_number = ?, remark = ?, receiver = ?, target_system = ?
+                    specification = ?, price = ?, code_number = ?, remark = ?, 
+                    target_system = ?, product_remark_checked = ?, remark_number = ?
                 WHERE id = ?";
 
         $stmt = $pdo->prepare($sql);
@@ -914,14 +953,16 @@ function handlePut() {
             $data['date'],
             $data['time'],
             $data['product_name'],
+            $data['receiver'],
             $data['in_quantity'] ?? 0,
             $data['out_quantity'] ?? 0,
             $data['specification'] ?? null,
             $data['price'] ?? 0,
             $data['code_number'] ?? null,
             $data['remark'] ?? null,
-            $data['receiver'] ?? null,
-            $data['target_system'] ?? null,  // 新增这行
+            $data['target_system'] ?? null,
+            $data['product_remark_checked'] ?? 0,
+            $data['remark_number'] ?? '',
             $data['id']
         ]);
         

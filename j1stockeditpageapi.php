@@ -145,13 +145,13 @@ function handleGet() {
                     $record['balance_value'] = $record['balance_quantity'] * $price;
                     
                     // 格式化数字
-                    $record['in_quantity'] = number_format($inQty, 2);
-                    $record['out_quantity'] = number_format($outQty, 2);
-                    $record['balance_quantity'] = number_format($record['balance_quantity'], 2);
-                    $record['price'] = number_format($price, 2);
-                    $record['in_value'] = number_format($record['in_value'], 2);
-                    $record['out_value'] = number_format($record['out_value'], 2);
-                    $record['balance_value'] = number_format($record['balance_value'], 2);
+                    $record['in_quantity'] = number_format($inQty, 2, '.', '');
+                    $record['out_quantity'] = number_format($outQty, 2, '.', '');
+                    $record['balance_quantity'] = number_format($record['balance_quantity'], 2, '.', '');
+                    $record['price'] = number_format($price, 2, '.', '');
+                    $record['in_value'] = number_format($record['in_value'], 2, '.', '');
+                    $record['out_value'] = number_format($record['out_value'], 2, '.', '');
+                    $record['balance_value'] = number_format($record['balance_value'], 2, '.', '');
                 }
                 
                 sendResponse(true, "进出库数据获取成功，共找到 " . count($records) . " 条记录", $records);
@@ -160,7 +160,7 @@ function handleGet() {
             }
             break;
             
-        case 'summary':
+        case 'summary'://1
             // 获取汇总数据
             $startDate = $_GET['start_date'] ?? null;
             $endDate = $_GET['end_date'] ?? null;

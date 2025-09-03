@@ -731,8 +731,27 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
     <script>
-        // API 配置
-        const USER_CAN_APPROVE = <?php echo json_encode($canApprove); ?>;
+    
+        // 检查用户权限的函数
+        async function checkUserPermissions() {
+            try {
+                const response = await fetch('check_permissions.php');
+                const result = await response.json();
+                return result.canApprove || false;
+            } catch (error) {
+                console.error('检查权限失败:', error);
+                return false;
+            }
+        }
+
+        // 全局变量存储用户权限
+        let userCanApprove = false;
+
+        // 初始化权限检查
+        async function initPermissions() {
+            userCanApprove = await checkUserPermissions();
+        }
+
         const API_BASE_URL = 'stockapi.php';  // 如果在同一目录
         
         // 应用状态
@@ -786,7 +805,8 @@ if (isset($_SESSION['user_id'])) {
         }
 
         // 初始化应用
-        function initApp() {
+        async function initApp() {
+            await initPermissions();
             loadStockData();
         }
 
@@ -954,7 +974,7 @@ if (isset($_SESSION['user_id'])) {
                 <td style="padding: 8px;">
                     ${data.approver ? 
                         `<span style="color: #065f46; font-weight: 600;">已批准</span>` : 
-                        (USER_CAN_APPROVE && !isNewRow ? 
+                        (userCanApprove && !isNewRow ? 
                             `<button class="approve-btn" onclick="approveRecord('${rowId}')">
                                 <i class="fas fa-check"></i>
                                 批准
@@ -1363,7 +1383,7 @@ if (isset($_SESSION['user_id'])) {
     <script>
         // 批准记录
         async function approveRecord(rowId) {
-            if (!USER_CAN_APPROVE) {
+            if (!userCanApprove) {
                 showAlert('您没有权限执行此操作', 'error');
                 return;
             }

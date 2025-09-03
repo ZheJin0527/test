@@ -134,7 +134,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
     </div>
     <div class="divider"></div>
     <div class="stat-box">
-      <div class="stat-number">60+</div>
+      <div class="stat-number">70+</div>
       <div class="stat-label">员工数量</div>
     </div>
   </div> 

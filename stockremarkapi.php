@@ -46,112 +46,111 @@ function getMultiPriceAnalysis() {
     global $pdo;
     
     try {
-        // 首先获取所有有库存的产品及其价格变体
+        // 获取所有product_remark_checked=1的记录
         $sql = "SELECT 
                     product_name,
                     specification,
                     price,
                     code_number,
-                    SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) as total_in,
-                    SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END) as total_out,
-                    (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
-                     SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as current_stock
+                    remark_number,
+                    in_quantity,
+                    out_quantity,
+                    date,
+                    time,
+                    receiver
                 FROM stockinout_data 
-                WHERE product_name IS NOT NULL AND product_name != ''
-                GROUP BY product_name, specification, price, code_number
-                HAVING current_stock > 0
-                ORDER BY product_name ASC, price DESC";
+                WHERE product_remark_checked = 1 
+                AND product_name IS NOT NULL 
+                AND product_name != ''
+                AND remark_number IS NOT NULL 
+                AND remark_number != ''
+                ORDER BY product_name ASC, remark_number ASC, date DESC";
         
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        $stockData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $remarkData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // 按产品名称分组并找出有多个价格的产品
+        // 按产品名称分组
         $productGroups = [];
-        $stats = [
-            'total_products' => 0,
-            'total_variants' => 0,
-            'max_price_difference' => 0,
-            'avg_variants' => 0
-        ];
-        
-        foreach ($stockData as $row) {
+
+        foreach ($remarkData as $row) {
             $productName = $row['product_name'];
+            $remarkNumber = $row['remark_number'];
             
-            if (!isset($productGroups[$productName])) {
-                $productGroups[$productName] = [];
-            }
+            // 只使用产品名称作为分组标识
+            $groupKey = $productName;
             
-            $currentStock = floatval($row['current_stock']);
-            $price = floatval($row['price']);
-            $totalPrice = $currentStock * $price;
-            
-            $productGroups[$productName][] = [
-                'product_name' => $productName,
-                'code_number' => $row['code_number'] ?? '',
-                'current_stock' => $currentStock,
-                'price' => $price,
-                'formatted_stock' => number_format($currentStock, 2),
-                'formatted_price' => number_format($price, 2)
-            ];
-        }
-        
-        // 过滤出有多个价格的产品并按价格排序
-        $multiPriceProducts = [];
-        $totalVariants = 0;
-        $maxPriceDifference = 0;
-        
-        foreach ($productGroups as $productName => $variants) {
-            if (count($variants) > 1) {
-                // 按价格降序排序（最高价格在前）
-                usort($variants, function($a, $b) {
-                    return $b['price'] <=> $a['price'];
-                });
-                
-                $maxPrice = $variants[0]['price'];
-                $minPrice = end($variants)['price'];
-                $priceDifference = $maxPrice - $minPrice;
-                
-                if ($priceDifference > $maxPriceDifference) {
-                    $maxPriceDifference = $priceDifference;
-                }
-                
-                // 获取最常见的产品编号（如果有的话）
-                $codeNumbers = array_filter(array_column($variants, 'code_number'));
-                $commonCodeNumber = !empty($codeNumbers) ? array_values(array_count_values($codeNumbers))[0] : '';
-                
-                $multiPriceProducts[] = [
+            if (!isset($productGroups[$groupKey])) {
+                $productGroups[$groupKey] = [
                     'product_name' => $productName,
-                    'code_number' => $commonCodeNumber,
-                    'variants' => $variants,
-                    'variant_count' => count($variants),
-                    'max_price' => $maxPrice,
-                    'min_price' => $minPrice,
-                    'price_difference' => $priceDifference,
-                    'formatted_price_difference' => number_format($priceDifference, 2)
+                    'variants' => []
                 ];
-                
-                $totalVariants += count($variants);
+            }
+            
+            // 创建备注编号的唯一标识
+            $remarkKey = $remarkNumber;
+            
+            if (!isset($productGroups[$groupKey]['variants'][$remarkKey])) {
+                $productGroups[$groupKey]['variants'][$remarkKey] = [
+                    'code_number' => $row['code_number'] ?? '',
+                    'specification' => $row['specification'] ?? '',
+                    'remark_number' => $remarkNumber,
+                    'in_quantity' => 0,
+                    'out_quantity' => 0,  // 添加出货数量字段
+                    'price' => floatval($row['price'])
+                ];
+            }
+
+            // 累计进货和出货数量
+            $inQty = floatval($row['in_quantity']);
+            $outQty = floatval($row['out_quantity']);
+
+            if ($inQty > 0) {
+                $productGroups[$groupKey]['variants'][$remarkKey]['in_quantity'] += $inQty;
+            }
+            if ($outQty > 0) {
+                $productGroups[$groupKey]['variants'][$remarkKey]['out_quantity'] += $outQty;
             }
         }
         
-        // 计算统计信息
-        $totalProducts = count($multiPriceProducts);
-        $avgVariants = $totalProducts > 0 ? round($totalVariants / $totalProducts, 1) : 0;
-        
-        $stats = [
-            'total_products' => $totalProducts,
-            'total_variants' => $totalVariants,
-            'max_price_difference' => number_format($maxPriceDifference, 2),
-            'avg_variants' => $avgVariants
-        ];
+        // 转换为最终格式
+        $remarkProducts = [];
+        foreach ($productGroups as $group) {
+            $variants = [];
+            foreach ($group['variants'] as $variant) {
+                $currentStock = $variant['in_quantity'] - $variant['out_quantity'];
+                
+                // 只有库存大于0的才添加到结果中
+                if ($currentStock > 0) {
+                    $variants[] = [
+                        'code_number' => $variant['code_number'],
+                        'specification' => $variant['specification'],
+                        'in_quantity' => $variant['in_quantity'],
+                        'out_quantity' => $variant['out_quantity'],
+                        'current_stock' => $currentStock,
+                        'formatted_quantity' => number_format($currentStock, 2),
+                        'price' => $variant['price'],
+                        'formatted_price' => number_format($variant['price'], 2),
+                        'remark_number' => $variant['remark_number']
+                    ];
+                }
+            }
+            
+            // 只有当该产品还有库存变种时才添加到结果中
+            if (!empty($variants)) {
+                $remarkProducts[] = [
+                    'product_name' => $group['product_name'],
+                    'variants' => $variants
+                ];
+            }
+        }
         
         return [
-            'products' => $multiPriceProducts
+            'products' => $remarkProducts
         ];
         
     } catch (PDOException $e) {
-        throw new Exception("查询多价格产品数据失败：" . $e->getMessage());
+        throw new Exception("查询货品备注数据失败：" . $e->getMessage());
     }
 }
 
