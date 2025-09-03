@@ -287,8 +287,7 @@
     <div class="container">
         <!-- 页面标题 -->
         <div class="header">
-            <h1>🔐 应用代码管理系统</h1>
-            <p>生成和管理用户注册代码</p>
+            <h1>应用代码管理系统</h1>
         </div>
 
         <!-- 生成代码表单 -->
@@ -331,7 +330,7 @@
         <!-- 代码和用户列表 -->
         <div class="table-container">
             <div class="table-title">
-                📋 应用代码和用户列表
+                应用代码和用户列表
                 <button onclick="refreshTable()" style="float: right; background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
                     🔄 刷新
                 </button>
