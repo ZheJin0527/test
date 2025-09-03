@@ -58,7 +58,7 @@
             transition: all 0.2s;
             text-decoration: none;
             position: absolute;
-            top: 0;
+            top: 10px;
             right: 0;
         }
 
