@@ -122,7 +122,7 @@
         }
 
         .btn-generate {
-            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
+            background: linear-gradient(270deg, #FF9800 0%, #E65100 100%);
             color: white;
             border: none;
             padding: 12px 30px;
@@ -194,7 +194,7 @@
             padding: 15px 10px;
             text-align: left;
             font-weight: bold;
-            border-bottom: 2px solid #ff5c00;
+            border-bottom: 1px solid #d1d5db;
         }
 
         th:first-child {
