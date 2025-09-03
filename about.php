@@ -794,7 +794,6 @@ updatePageIndicator(0);
         let autoScrollInterval = null;
         let autoScrollDelay = 4000; // 4秒自动切换
         let isAutoScrollPaused = false;
-        let userInteracted = false; // 用户是否手动操作过
 
         function updateTimelineNav() {
             const navItems = document.querySelectorAll('.timeline-item');
@@ -864,7 +863,6 @@ updatePageIndicator(0);
             }
             
             isAnimating = true;
-            userInteracted = true; // 标记用户已手动操作
             
             if (direction === 'next') {
                 currentIndex = (currentIndex + 1) % totalItems;
@@ -919,7 +917,7 @@ updatePageIndicator(0);
 
         // 自动滚动到下一个项目
         function autoNavigateNext() {
-            if (isAnimating || isAutoScrollPaused || userInteracted) return;
+            if (isAnimating || isAutoScrollPaused) return;
             
             isAnimating = true;
             currentIndex = (currentIndex + 1) % totalItems;
@@ -963,7 +961,6 @@ updatePageIndicator(0);
         function selectCard(year) {
             if (isAnimating) return;
             
-            userInteracted = true; // 标记用户已手动操作
             const index = years.indexOf(year.toString());
             if (index !== -1 && index !== currentIndex) {
                 currentIndex = index;
@@ -1069,7 +1066,6 @@ updatePageIndicator(0);
         navItems.forEach((item, index) => {
             item.addEventListener('click', () => {
                 if (!isDragging && !isAnimating) {
-                    userInteracted = true; // 标记用户已手动操作
                     currentIndex = index;
                     showTimelineItem(years[currentIndex]);
                 }
@@ -1085,7 +1081,6 @@ updatePageIndicator(0);
                 // 添加小延迟确保不是拖拽操作
                 clickTimeout = setTimeout(() => {
                     if (!isDragging) {
-                        userInteracted = true; // 标记用户已手动操作
                         const year = card.getAttribute('data-year');
                         selectCard(year);
                     }
@@ -1140,9 +1135,7 @@ updatePageIndicator(0);
 
         // 启动自动滚动（延迟3秒开始，给用户时间查看初始内容）
         setTimeout(() => {
-            if (!userInteracted) {
-                startAutoScroll();
-            }
+            startAutoScroll();
         }, 3000);
 
         // 窗口大小改变时重新计算位置
@@ -1157,8 +1150,8 @@ updatePageIndicator(0);
         // 页面可见性变化时处理自动滚动
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible') {
-                // 页面变为可见时，如果用户没有手动操作过，重新启动自动滚动
-                if (!userInteracted && !isAutoScrollPaused) {
+                // 页面变为可见时，重新启动自动滚动
+                if (!isAutoScrollPaused) {
                     startAutoScroll();
                 }
             } else {
