@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <title>生成应用代码管理系统</title>
+    <title>生成申请码管理系统</title>
     <style>
         * {
             margin: 0;
@@ -288,19 +288,19 @@
     <div class="container">
         <!-- 页面标题 -->
         <div class="header">
-            <h1>应用代码管理系统</h1>
+            <h1>申请码管理系统</h1>
         </div>
 
         <!-- 生成代码表单 -->
         <div class="generate-form">
-            <h2 class="form-title">📝 生成新应用代码</h2>
+            <h2 class="form-title">📝 生成申请码</h2>
             
             <div id="messageArea"></div>
 
             <form id="generateForm">
                 <div class="form-row">
                     <div class="form-group" style="flex: 2;">
-                        <label for="code">代码内容:</label>
+                        <label for="code">申请码:</label>
                         <input type="text" id="code" name="code" required 
                                placeholder="请输入代码内容 (例如: ADMIN001)" 
                                maxlength="50">
@@ -331,7 +331,7 @@
         <!-- 代码和用户列表 -->
         <div class="table-container">
             <div class="table-title">
-                应用代码和用户列表
+                申请码和用户列表
                 <button onclick="refreshTable()" style="float: right; background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
                     🔄 刷新
                 </button>
