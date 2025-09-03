@@ -48,7 +48,7 @@
             border-radius: 15px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             margin-bottom: 30px;
-            border: 2px solid #FFB74D;
+            border: 2px solid #ff5c00;
         }
 
         .form-title {
@@ -56,7 +56,7 @@
             font-size: 1.5rem;
             margin-bottom: 20px;
             text-align: center;
-            border-bottom: 2px solid #FFB74D;
+            border-bottom: 2px solid #ff5c00;
             padding-bottom: 10px;
         }
 
@@ -81,7 +81,7 @@
         .form-group select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #FFE0B2;
+            border: 2px solid #ff5c00;
             border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
