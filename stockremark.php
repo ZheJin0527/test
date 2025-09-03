@@ -862,8 +862,12 @@
                             </thead>
                             <tbody>`;
                 
-                // 按单价从高到低排序variants
-                const sortedVariants = [...product.variants].sort((a, b) => b.price - a.price);
+                // 按备注编号数字顺序排序variants（从小到大）
+                const sortedVariants = [...product.variants].sort((a, b) => {
+                    const remarkA = parseInt(a.remark_number) || 0;
+                    const remarkB = parseInt(b.remark_number) || 0;
+                    return remarkA - remarkB;
+                });
                 
                 // 为每个variant添加一行
                 sortedVariants.forEach(variant => {
