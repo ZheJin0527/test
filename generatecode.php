@@ -203,6 +203,7 @@
 
         td {
             padding: 12px 10px;
+            font-weight: 500;
             border-bottom: 1px solid #d1d5db;
             vertical-align: middle;
         }
