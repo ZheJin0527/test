@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <title>生成应用代码管理系统</title>
     <style>
         * {
@@ -12,7 +13,7 @@
         }
 
         body {
-            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
             min-height: 100vh;
         }
@@ -312,7 +313,7 @@
                             <option value="admin">管理员 (Admin)</option>
                             <option value="hr">人事部 (HR)</option>
                             <option value="design">设计部 (Design)</option>
-                            <option value="support">客服部 (Support)</option>
+                            <option value="support">支援部 (Support)</option>
                             <option value="IT">技术部 (IT)</option>
                             <option value="photograph">摄影部 (Photography)</option>
                         </select>
@@ -320,7 +321,7 @@
                     
                     <div class="form-group" style="flex: 1;">
                         <button type="submit" class="btn-generate">
-                            <span id="btnText">🚀 生成代码</span>
+                            <span id="btnText">生成代码</span>
                         </button>
                     </div>
                 </div>
@@ -491,7 +492,7 @@
                 'admin': '管理员',
                 'hr': '人事部',
                 'design': '设计部',
-                'support': '客服部',
+                'support': '支援部',
                 'IT': '技术部',
                 'photograph': '摄影部'
             };
