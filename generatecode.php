@@ -181,7 +181,6 @@
 
         tr:hover {
             background: #FFF3E0;
-            transform: scale(1.01);
             transition: all 0.2s ease;
         }
 
