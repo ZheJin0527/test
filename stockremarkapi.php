@@ -138,9 +138,13 @@ function getMultiPriceAnalysis() {
             
             // 只有当该产品还有库存变种时才添加到结果中
             if (!empty($variants)) {
+                // 计算总数量
+                $totalQuantity = array_sum(array_column($variants, 'current_stock'));
+                
                 $remarkProducts[] = [
                     'product_name' => $group['product_name'],
-                    'variants' => $variants
+                    'variants' => $variants,
+                    'total_quantity' => number_format($totalQuantity, 2)
                 ];
             }
         }

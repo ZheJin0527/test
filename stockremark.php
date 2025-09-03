@@ -588,6 +588,16 @@
         .back-to-top:active {
             transform: translateY(-1px);
         }
+
+        .total-quantity {
+            margin-left: 15px;
+            color: #059669;
+            font-weight: 600;
+            background-color: #ecfdf5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -839,6 +849,7 @@
                             <div class="product-title">
                                 <span class="product-code">${product.variants[0]?.code_number || '未知编号'}</span>
                                 <span class="product-name">${product.product_name}</span>
+                                <span class="total-quantity">总计: ${product.total_quantity}</span>
                             </div>
                         </div>
                         <table class="price-variants-table">
@@ -847,7 +858,6 @@
                                     <th>备注编号</th>
                                     <th>数量/重量</th>
                                     <th>规格</th>
-                                    <th>单价</th>
                                 </tr>
                             </thead>
                             <tbody>`;
@@ -862,12 +872,6 @@
                             <td>${variant.remark_number || '-'}</td>
                             <td>${variant.formatted_quantity}</td>
                             <td>${variant.specification || '-'}</td>
-                            <td>
-                                <div class="currency-display">
-                                    <span class="currency-symbol">RM</span>
-                                    <span class="currency-amount">${variant.formatted_price}</span>
-                                </div>
-                            </td>
                         </tr>`;
                     });
                 
