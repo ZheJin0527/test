@@ -214,20 +214,25 @@
         }
 
         /* 状态标签样式 */
-        .status-icon {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-}
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14.4px;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+            min-width: 80px;
+        }
 
-.status-used {
-    color: #2E7D32;
-}
+        .status-used {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
 
-.status-unused {
-    color: #D32F2F;
-}
+        .status-unused {
+            background: #FFE0B2;
+            color: #E65100;
+        }
 
         .account-type-badge {
             padding: 4px 0px;
@@ -504,7 +509,7 @@
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
                     <td><strong>${item.code}</strong></td>
                     <td><span class="account-type-badge">${formatAccountType(item.account_type)}</span></td>
-                    <td><span class="status-icon ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '☑' : '☒'}</span></td>
+                    <td><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
                     <td>${item.username || '<em style="color: #999;">-</em>'}</td>
                     <td>${item.email || '<em style="color: #999;">-</em>'}</td>
                     <td>${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
