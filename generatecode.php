@@ -29,14 +29,14 @@
         }
 
         .header h1 {
-            color: #E65100;
+            color: #ff5c00;
             font-size: 2.5rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .header p {
-            color: #BF360C;
+            color: #ff5c00;
             font-size: 1.1rem;
         }
 
@@ -143,7 +143,7 @@
         }
 
         .table-title {
-            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
+            background: #ff5c00;
             color: white;
             padding: 20px;
             font-size: 1.3rem;
