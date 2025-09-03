@@ -369,7 +369,7 @@
                     <thead>
                         <tr>
                             <th>序号</th>
-                            <th>代号</th>
+                            <th>申请码</th>
                             <th>账户类型</th>
                             <th>使用状态</th>
                             <th>用户名</th>
