@@ -590,7 +590,7 @@
         }
 
         .total-quantity {
-            margin-left: 15px;
+            margin-left: 25px;
             color: #059669;
             font-weight: 600;
             background-color: #ecfdf5;
