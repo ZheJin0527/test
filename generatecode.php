@@ -172,7 +172,7 @@
         }
 
         th:first-child,
-        th:nth-child(3) {
+        th:nth-child(4) {
             text-align: center;
         }
 
