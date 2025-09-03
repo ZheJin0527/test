@@ -57,7 +57,9 @@
             gap: 8px;
             transition: all 0.2s;
             text-decoration: none;
-            margin-left: 16px;
+            position: absolute;
+            top: 0;
+            right: 0;
         }
 
         .back-button:hover {
