@@ -189,7 +189,7 @@
         }
 
         th {
-            background: #FFF3E0;
+            background: #fff9f1;
             color: black;
             padding: 15px 10px;
             text-align: left;
@@ -209,7 +209,7 @@
         }
 
         tr:hover {
-            background: #FFF3E0;
+            background: #fff9f1;
             transition: all 0.2s ease;
         }
 
@@ -509,7 +509,7 @@
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
                     <td><strong>${item.code}</strong></td>
                     <td><span class="account-type-badge">${formatAccountType(item.account_type)}</span></td>
-                    <td><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
+                    <td><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '✅' : '❌'}</span></td>
                     <td>${item.username || '<em style="color: #999;">-</em>'}</td>
                     <td>${item.email || '<em style="color: #999;">-</em>'}</td>
                     <td>${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
