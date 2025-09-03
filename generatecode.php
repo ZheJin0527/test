@@ -42,6 +42,29 @@
             font-size: 1.1rem;
         }
 
+        .back-button {
+            background-color: #6b7280;
+            color: white;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+            margin-left: 16px;
+        }
+
+        .back-button:hover {
+            background-color: #4b5563;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(107, 114, 128, 0.2);
+        }
+
         /* 生成代码表单样式 */
         .generate-form {
             background: white;
@@ -288,6 +311,10 @@
     <div class="container">
         <!-- 页面标题 -->
         <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                返回仪表盘
+            </button>
             <h1>申请码管理系统</h1>
         </div>
 
@@ -451,6 +478,11 @@
                     </tr>
                 `;
             }
+        }
+
+        // 返回仪表盘
+        function goBack() {
+            window.location.href = 'dashboard.php';
         }
 
         // 显示数据
