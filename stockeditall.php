@@ -1366,9 +1366,9 @@
                 <div class="form-group">
                     <label for="add-remark-number">备注编号</label>
                     <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 8px; background: white; padding: 0;" id="add-remark-wrapper">
-                        <input type="text" id="add-remark-prefix" class="form-input" placeholder="SA" style="border: none; border-radius: 8px 0 0 8px; width: 60px; text-align: center; background: transparent;" disabled>
+                        <input type="text" id="add-remark-prefix" class="form-input" placeholder="" style="border: none; border-radius: 8px 0 0 8px; width: 30px; text-align: center; background: transparent;" disabled>
                         <span style="padding: 0 4px; color: #6b7280; font-weight: bold;">-</span>
-                        <input type="text" id="add-remark-suffix" class="form-input" placeholder="001" style="border: none; border-radius: 0 8px 8px 0; width: 80px; text-align: center; background: transparent;" disabled>
+                        <input type="text" id="add-remark-suffix" class="form-input" placeholder="" style="border: none; border-radius: 0 8px 8px 0; width: 30px; text-align: center; background: transparent;" disabled>
                     </div>
                     <input type="hidden" id="add-remark-number">
                 </div>
@@ -2316,12 +2316,12 @@
             return `
                 <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" ${disabled ? 'data-disabled="true"' : ''}>
                     <input type="text" class="table-input remark-prefix" value="${prefix}" placeholder="" 
-                        style="border: none; border-radius: 4px 0 0 4px; width: 50px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: 30px; text-align: center; background: transparent; padding: 4px;" 
                         ${disabled ? 'disabled' : ''} 
                         onchange="updateRemarkNumber(${recordId})">
                     <span style="padding: 0 2px; color: #6b7280; font-weight: bold;">-</span>
                     <input type="text" class="table-input remark-suffix" value="${suffix}" placeholder="" 
-                        style="border: none; border-radius: 0 4px 4px 0; width: 60px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: 30px; text-align: center; background: transparent; padding: 4px;" 
                         ${disabled ? 'disabled' : ''} 
                         onchange="updateRemarkNumber(${recordId})">
                 </div>
@@ -2332,12 +2332,12 @@
         function createNewRowRemarkNumberInput(rowId) {
             return `
                 <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" id="${rowId}-remark-wrapper" data-disabled="true">
-                    <input type="text" class="table-input remark-prefix" placeholder="SA" 
-                        style="border: none; border-radius: 4px 0 0 4px; width: 50px; text-align: center; background: transparent; padding: 4px;" 
+                    <input type="text" class="table-input remark-prefix" placeholder="" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: 30px; text-align: center; background: transparent; padding: 4px;" 
                         id="${rowId}-remark-prefix" disabled>
                     <span style="padding: 0 2px; color: #6b7280; font-weight: bold;">-</span>
-                    <input type="text" class="table-input remark-suffix" placeholder="001" 
-                        style="border: none; border-radius: 0 4px 4px 0; width: 60px; text-align: center; background: transparent; padding: 4px;" 
+                    <input type="text" class="table-input remark-suffix" placeholder="" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: 30px; text-align: center; background: transparent; padding: 4px;" 
                         id="${rowId}-remark-suffix" disabled>
                 </div>
             `;
