@@ -765,6 +765,7 @@ updatePageIndicator(0);
         });
     </script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
@@ -847,7 +848,11 @@ updatePageIndicator(0);
         }
 
         function navigateTimeline(direction) {
-            if (isAnimating) return;
+            console.log('navigateTimeline 被调用:', direction);
+            if (isAnimating) {
+                console.log('正在动画中，跳过');
+                return;
+            }
             
             isAnimating = true;
             userInteracted = true; // 标记用户已手动操作
@@ -857,6 +862,8 @@ updatePageIndicator(0);
             } else {
                 currentIndex = (currentIndex - 1 + totalItems) % totalItems;
             }
+            
+            console.log('新的 currentIndex:', currentIndex);
             
             updateTimelineNav();
             updateCardPositions();
@@ -1050,7 +1057,7 @@ updatePageIndicator(0);
                     navigateTimeline('prev');
                 } else if (e.key === 'ArrowRight') {
                     navigateTimeline('next');
-
+                }
             }
         });
 
@@ -1093,6 +1100,7 @@ updatePageIndicator(0);
                 stopAutoScroll();
             }
         });
+        }); // 结束 DOMContentLoaded
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
