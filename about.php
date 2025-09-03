@@ -207,6 +207,13 @@ $timelineData = getTimelineConfig();
                     ?>
                 </div>
             </div>
+            
+            <!-- 自动滚动控制按钮 -->
+            <div class="auto-scroll-controls">
+                <button class="auto-scroll-btn" id="autoScrollBtn" onclick="toggleAutoScroll()" title="暂停/恢复自动滚动">
+                    <span class="play-icon">⏸</span>
+                </button>
+            </div>
         </div>
 
         <!-- 卡片容器 -->
@@ -764,7 +771,7 @@ updatePageIndicator(0);
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
         });
     </script>
-<script>
+    <script>
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
@@ -779,6 +786,12 @@ updatePageIndicator(0);
         let hasTriggered = false;
         let dragStartTime = 0; // 记录拖拽开始时间
         let isAnimating = false; // 防止动画期间的操作冲突
+
+        // 自动滚动相关变量
+        let autoScrollInterval = null;
+        let autoScrollDelay = 4000; // 4秒自动切换
+        let isAutoScrollPaused = false;
+        let userInteracted = false; // 用户是否手动操作过
 
         function updateTimelineNav() {
             const navItems = document.querySelectorAll('.timeline-item');
@@ -844,6 +857,7 @@ updatePageIndicator(0);
             if (isAnimating) return;
             
             isAnimating = true;
+            userInteracted = true; // 标记用户已手动操作
             
             if (direction === 'next') {
                 currentIndex = (currentIndex + 1) % totalItems;
@@ -860,9 +874,60 @@ updatePageIndicator(0);
             }, 400); // 增加到600ms匹配新的动画时长
         }
 
+        // 自动滚动到下一个项目
+        function autoNavigateNext() {
+            if (isAnimating || isAutoScrollPaused || userInteracted) return;
+            
+            isAnimating = true;
+            currentIndex = (currentIndex + 1) % totalItems;
+            
+            updateTimelineNav();
+            updateCardPositions();
+            
+            setTimeout(() => {
+                isAnimating = false;
+            }, 400);
+        }
+
+        // 开始自动滚动
+        function startAutoScroll() {
+            if (autoScrollInterval) return; // 避免重复启动
+            
+            autoScrollInterval = setInterval(() => {
+                autoNavigateNext();
+            }, autoScrollDelay);
+        }
+
+        // 停止自动滚动
+        function stopAutoScroll() {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+        }
+
+        // 暂停/恢复自动滚动
+        function toggleAutoScroll() {
+            const btn = document.getElementById('autoScrollBtn');
+            const icon = btn.querySelector('.play-icon');
+            
+            if (isAutoScrollPaused) {
+                isAutoScrollPaused = false;
+                startAutoScroll();
+                icon.textContent = '⏸'; // 暂停图标
+                btn.title = '暂停自动滚动';
+            } else {
+                isAutoScrollPaused = true;
+                stopAutoScroll();
+                icon.textContent = '▶'; // 播放图标
+                btn.title = '恢复自动滚动';
+            }
+        }
+
         function selectCard(year) {
             if (isAnimating) return;
             
+            userInteracted = true; // 标记用户已手动操作
             const index = years.indexOf(year.toString());
             if (index !== -1 && index !== currentIndex) {
                 currentIndex = index;
@@ -968,6 +1033,7 @@ updatePageIndicator(0);
         navItems.forEach((item, index) => {
             item.addEventListener('click', () => {
                 if (!isDragging && !isAnimating) {
+                    userInteracted = true; // 标记用户已手动操作
                     currentIndex = index;
                     showTimelineItem(years[currentIndex]);
                 }
@@ -983,6 +1049,7 @@ updatePageIndicator(0);
                 // 添加小延迟确保不是拖拽操作
                 clickTimeout = setTimeout(() => {
                     if (!isDragging) {
+                        userInteracted = true; // 标记用户已手动操作
                         const year = card.getAttribute('data-year');
                         selectCard(year);
                     }
@@ -997,6 +1064,9 @@ updatePageIndicator(0);
                     navigateTimeline('prev');
                 } else if (e.key === 'ArrowRight') {
                     navigateTimeline('next');
+                } else if (e.key === ' ') { // 空格键暂停/恢复自动滚动
+                    e.preventDefault();
+                    toggleAutoScroll();
                 }
             }
         });
@@ -1012,12 +1082,32 @@ updatePageIndicator(0);
         updateTimelineNav();
         updateCardPositions();
 
+        // 启动自动滚动（延迟3秒开始，给用户时间查看初始内容）
+        setTimeout(() => {
+            if (!userInteracted) {
+                startAutoScroll();
+            }
+        }, 3000);
+
         // 窗口大小改变时重新计算位置
         window.addEventListener('resize', () => {
             if (!isAnimating) {
                 setTimeout(() => {
                     updateTimelineNav();
                 }, 100);
+            }
+        });
+
+        // 页面可见性变化时处理自动滚动
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                // 页面变为可见时，如果用户没有手动操作过，重新启动自动滚动
+                if (!userInteracted && !isAutoScrollPaused) {
+                    startAutoScroll();
+                }
+            } else {
+                // 页面变为不可见时，暂停自动滚动
+                stopAutoScroll();
             }
         });
     </script>

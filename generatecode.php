@@ -189,7 +189,7 @@
         }
 
         th {
-            background: #FFF3E0;
+            background: #fff9f1;
             color: black;
             padding: 15px 10px;
             text-align: left;
@@ -209,7 +209,7 @@
         }
 
         tr:hover {
-            background: #FFF3E0;
+            background: #fff9f1;
             transition: all 0.2s ease;
         }
 

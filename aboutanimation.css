@@ -822,3 +822,98 @@ img.image-3d-rotate:hover,
         transform: translateY(-50%) scale(1);
     }
 }
+
+/* 自动滚动控制按钮 */
+.auto-scroll-controls {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.auto-scroll-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #FF5C00;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.auto-scroll-btn:hover {
+    background: #FF5C00;
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 92, 0, 0.3);
+}
+
+.auto-scroll-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.play-icon {
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* 自动滚动按钮初始状态 */
+.auto-scroll-btn {
+    opacity: 0;
+    animation: none;
+}
+
+/* 自动滚动按钮动画 */
+.timeline-section.timeline-active .auto-scroll-btn {
+    animation: autoScrollBtnFadeIn 0.4s ease-out forwards;
+    animation-delay: 0.8s;
+}
+
+@keyframes autoScrollBtnFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+/* 移动端自动滚动按钮样式 */
+@media (max-width: 768px) {
+    .auto-scroll-controls {
+        right: 10px;
+    }
+    
+    .auto-scroll-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .play-icon {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auto-scroll-controls {
+        right: 5px;
+    }
+    
+    .auto-scroll-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .play-icon {
+        font-size: 14px;
+    }
+}
