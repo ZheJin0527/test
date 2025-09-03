@@ -120,7 +120,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="informationmenu-section">
                 <div class="informationmenu-section-title" data-target="company-items">
                     <img src="images/images/公司架构管理.png" alt="" class="section-icon">
-                    公司架构管理
+                    集团架构管理
                     <span class="section-arrow">⮞</span>
                 </div>
                 <div class="dropdown-menu-items" id="company-items">
@@ -145,49 +145,16 @@ if (isset($_SESSION['user_id'])) {
                     
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
-                            子公司
+                            Tokyo Japanese Cuisine
                             <span class="informationmenu-arrow">›</span>
                         </a>
                         <div class="submenu">
                             <div class="submenu-header">
-                                <div class="submenu-title">子公司</div>
+                                <div class="submenu-title">Tokyo Japanese Cuisine</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item expandable" data-target="j1-options">
-                                    J1
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j1-options">
-                                    <a href="#" class="sub-option">企业蓝图</a>
-                                    <a href="#" class="sub-option">组织结构图</a>
-                                    <a href="#" class="sub-option">公司规则</a>
-                                    <a href="#" class="sub-option">公司福利</a>
-                                    <a href="#" class="sub-option">绩效考核</a>
-                                </div>
-
-                                <a href="#" class="submenu-item expandable" data-target="j2-options">
-                                    J2
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j2-options">
-                                    <a href="#" class="sub-option">企业蓝图</a>
-                                    <a href="#" class="sub-option">组织结构图</a>
-                                    <a href="#" class="sub-option">公司规则</a>
-                                    <a href="#" class="sub-option">公司福利</a>
-                                    <a href="#" class="sub-option">绩效考核</a>
-                                </div>
-
-                                <a href="#" class="submenu-item expandable" data-target="j3-options">
-                                    J3
-                                    <span class="expand-arrow">⮞</span>
-                                </a>
-                                <div class="sub-options" id="j3-options">
-                                    <a href="#" class="sub-option">企业蓝图</a>
-                                    <a href="#" class="sub-option">组织结构图</a>
-                                    <a href="#" class="sub-option">公司规则</a>
-                                    <a href="#" class="sub-option">公司福利</a>
-                                    <a href="#" class="sub-option">绩效考核</a>
-                                </div>
+                                <a href="#" class="submenu-item">J1 - Mid Valley</a>
+                                <a href="#" class="submenu-item">J2 - Paradigm Mall</a>
                             </div>
                         </div>
                     </div>
