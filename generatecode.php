@@ -40,7 +40,7 @@
 
         .header p {
             color: #ff5c00;
-            font-size: 1.1rem;
+            font-size: 17px;
         }
 
         .back-button {
@@ -80,7 +80,7 @@
 
         .form-title {
             color: #E65100;
-            font-size: 1.5rem;
+            font-size: 24px;
             margin-bottom: 20px;
             text-align: center;
             border-bottom: 2px solid #ff5c00;
@@ -110,7 +110,7 @@
             padding: 12px;
             border: 2px solid #ff5c00;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 16px;
             transition: all 0.3s ease;
         }
 
@@ -127,7 +127,7 @@
             border: none;
             padding: 12px 30px;
             border-radius: 8px;
-            font-size: 1.1rem;
+            font-size: 17.6px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -174,7 +174,7 @@
             background: #ff5c00;
             color: white;
             padding: 20px;
-            font-size: 1.3rem;
+            font-size: 20.8px;
             font-weight: bold;
             text-align: center;
         }
@@ -217,7 +217,7 @@
         .status-badge {
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 14.4px;
             font-weight: bold;
             text-align: center;
             display: inline-block;
@@ -235,9 +235,9 @@
         }
 
         .account-type-badge {
-            padding: 4px 8px;
+            padding: 4px 0px;
             border-radius: 12px;
-            font-size: 0.8rem;
+            font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -281,7 +281,7 @@
             }
 
             .header h1 {
-                font-size: 2rem;
+                font-size: 40px;
             }
 
             .generate-form {
@@ -290,7 +290,7 @@
 
             th, td {
                 padding: 8px 6px;
-                font-size: 0.9rem;
+                font-size: 14.4px;
             }
         }
 
