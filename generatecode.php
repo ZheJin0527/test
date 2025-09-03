@@ -139,7 +139,7 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border: 2px solid #FFB74D;
+            border: 2px solid #ff5c00;
         }
 
         .table-title {
