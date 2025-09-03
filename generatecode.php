@@ -176,10 +176,6 @@
             vertical-align: middle;
         }
 
-        tr:nth-child(even) {
-            background: #FFFBF5;
-        }
-
         tr:hover {
             background: #FFF3E0;
             transition: all 0.2s ease;
