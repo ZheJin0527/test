@@ -162,11 +162,11 @@
 
         th {
             background: #FFF3E0;
-            color: #BF360C;
+            color: #ff5c00;
             padding: 15px 10px;
             text-align: left;
             font-weight: bold;
-            border-bottom: 2px solid #FFB74D;
+            border-bottom: 2px solid #ff5c00;
         }
 
         td {
