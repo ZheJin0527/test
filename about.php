@@ -207,13 +207,6 @@ $timelineData = getTimelineConfig();
                     ?>
                 </div>
             </div>
-            
-            <!-- 自动滚动控制按钮 -->
-            <div class="auto-scroll-controls">
-                <button class="auto-scroll-btn" id="autoScrollBtn" onclick="toggleAutoScroll()" title="暂停/恢复自动滚动">
-                    <span class="play-icon">⏸</span>
-                </button>
-            </div>
         </div>
 
         <!-- 卡片容器 -->
@@ -908,19 +901,12 @@ updatePageIndicator(0);
 
         // 暂停/恢复自动滚动
         function toggleAutoScroll() {
-            const btn = document.getElementById('autoScrollBtn');
-            const icon = btn.querySelector('.play-icon');
-            
             if (isAutoScrollPaused) {
                 isAutoScrollPaused = false;
                 startAutoScroll();
-                icon.textContent = '⏸'; // 暂停图标
-                btn.title = '暂停自动滚动';
             } else {
                 isAutoScrollPaused = true;
                 stopAutoScroll();
-                icon.textContent = '▶'; // 播放图标
-                btn.title = '恢复自动滚动';
             }
         }
 
@@ -1064,10 +1050,7 @@ updatePageIndicator(0);
                     navigateTimeline('prev');
                 } else if (e.key === 'ArrowRight') {
                     navigateTimeline('next');
-                } else if (e.key === ' ') { // 空格键暂停/恢复自动滚动
-                    e.preventDefault();
-                    toggleAutoScroll();
-                }
+
             }
         });
 
