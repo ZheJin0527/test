@@ -3,491 +3,545 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Application Code - Kunzz Group</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    
+    <title>生成应用代码管理系统</title>
     <style>
-        .card {
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            border: 1px solid rgba(0, 0, 0, 0.125);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .card-header {
-            background: linear-gradient(45deg, #007bff, #0056b3);
-            color: white;
-            border-bottom: none;
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            min-height: 100vh;
         }
-        
-        .btn-primary {
-            background: linear-gradient(45deg, #007bff, #0056b3);
-            border: none;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #0056b3, #004085);
-            transform: translateY(-1px);
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        
-        .form-control:focus, .form-select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+
+        .header h1 {
+            color: #E65100;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        
-        .table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            border-bottom: 2px solid #dee2e6;
+
+        .header p {
+            color: #BF360C;
+            font-size: 1.1rem;
         }
-        
-        .badge {
-            font-size: 0.85em;
-            padding: 0.5em 0.75em;
+
+        /* 生成代码表单样式 */
+        .generate-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border: 2px solid #FFB74D;
         }
-        
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+
+        .form-title {
+            color: #E65100;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #FFB74D;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #BF360C;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            padding: 12px;
+            border: 2px solid #FFE0B2;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
-        
-        .spinner-border {
-            color: #007bff;
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FF9800;
+            box-shadow: 0 0 10px rgba(255,152,0,0.3);
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,152,0,0.4);
+        }
+
+        /* 消息提示样式 */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .message.success {
+            background: #C8E6C9;
+            color: #2E7D32;
+            border: 2px solid #4CAF50;
+        }
+
+        .message.error {
+            background: #FFCDD2;
+            color: #C62828;
+            border: 2px solid #F44336;
+        }
+
+        /* 表格样式 */
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 2px solid #FFB74D;
+        }
+
+        .table-title {
+            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #FFF3E0;
+            color: #BF360C;
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #FFB74D;
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #FFE0B2;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) {
+            background: #FFFBF5;
+        }
+
+        tr:hover {
+            background: #FFF3E0;
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+
+        /* 状态标签样式 */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .status-used {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+
+        .status-unused {
+            background: #FFE0B2;
+            color: #E65100;
+        }
+
+        .account-type-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .type-admin {
+            background: #F8BBD9;
+            color: #AD1457;
+        }
+
+        .type-hr {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+
+        .type-design {
+            background: #BBDEFB;
+            color: #1565C0;
+        }
+
+        .type-support {
+            background: #FFE0B2;
+            color: #E65100;
+        }
+
+        .type-it {
+            background: #D1C4E9;
+            color: #4A148C;
+        }
+
+        .type-photograph {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .generate-form {
+                padding: 20px;
+            }
+
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #FFE0B2;
+            border-radius: 50%;
+            border-top-color: #FF9800;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body class="bg-light">
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="text-white mt-2">Processing...</div>
-        </div>
-    </div>
-
-    <div class="container-fluid py-4">
-        <!-- Header -->
-        <div class="row mb-4">
-            <div class="col">
-                <h1 class="h3 text-dark mb-0">
-                    <i class="fas fa-key text-primary me-2"></i>
-                    Generate Application Code
-                </h1>
-                <p class="text-muted mb-0">Create registration codes for new users</p>
-            </div>
+<body>
+    <div class="container">
+        <!-- 页面标题 -->
+        <div class="header">
+            <h1>🔐 应用代码管理系统</h1>
+            <p>生成和管理用户注册代码</p>
         </div>
 
-        <!-- Generate Code Form -->
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-plus-circle me-2"></i>
-                            Generate New Code
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <form id="generateCodeForm">
-                            <div class="mb-3">
-                                <label for="code" class="form-label">
-                                    <i class="fas fa-code me-1"></i>
-                                    Code <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" id="code" name="code" required 
-                                       placeholder="Enter application code (e.g., ADM002)">
-                                <div class="form-text">Code must be unique</div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="account_type" class="form-label">
-                                    <i class="fas fa-user-tag me-1"></i>
-                                    Account Type <span class="text-danger">*</span>
-                                </label>
-                                <select class="form-select" id="account_type" name="account_type" required>
-                                    <option value="">Select Account Type</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="hr">HR</option>
-                                    <option value="design">Design</option>
-                                    <option value="support">Support</option>
-                                    <option value="IT">IT</option>
-                                    <option value="photograph">Photograph</option>
-                                </select>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="fas fa-magic me-2"></i>
-                                Generate Code
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <!-- 生成代码表单 -->
+        <div class="generate-form">
+            <h2 class="form-title">📝 生成新应用代码</h2>
             
-            <!-- Statistics Card -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-chart-bar me-2"></i>
-                            Code Statistics
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="statisticsContent">
-                            <div class="text-center">
-                                <div class="spinner-border spinner-border-sm text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                <div class="mt-2">Loading statistics...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <div id="messageArea"></div>
 
-        <!-- Codes and Users Table -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-table me-2"></i>
-                            Application Codes & Users
-                        </h5>
-                        <button class="btn btn-sm btn-outline-primary" onclick="refreshTable()">
-                            <i class="fas fa-refresh me-1"></i>
-                            Refresh
+            <form id="generateForm">
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="code">代码内容:</label>
+                        <input type="text" id="code" name="code" required 
+                               placeholder="请输入代码内容 (例如: ADMIN001)" 
+                               maxlength="50">
+                    </div>
+                    
+                    <div class="form-group" style="flex: 2;">
+                        <label for="account_type">账户类型:</label>
+                        <select id="account_type" name="account_type" required>
+                            <option value="">请选择账户类型</option>
+                            <option value="admin">管理员 (Admin)</option>
+                            <option value="hr">人事部 (HR)</option>
+                            <option value="design">设计部 (Design)</option>
+                            <option value="support">客服部 (Support)</option>
+                            <option value="IT">技术部 (IT)</option>
+                            <option value="photograph">摄影部 (Photography)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1;">
+                        <button type="submit" class="btn-generate">
+                            <span id="btnText">🚀 生成代码</span>
                         </button>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="codesTable" class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Code</th>
-                                        <th>Account Type</th>
-                                        <th>Status</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Gender</th>
-                                        <th>Phone Number</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Data will be loaded via AJAX -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
+            </form>
+        </div>
+
+        <!-- 代码和用户列表 -->
+        <div class="table-container">
+            <div class="table-title">
+                📋 应用代码和用户列表
+                <button onclick="refreshTable()" style="float: right; background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                    🔄 刷新
+                </button>
+            </div>
+            
+            <div class="table-wrapper">
+                <table id="codesTable">
+                    <thead>
+                        <tr>
+                            <th>代码</th>
+                            <th>账户类型</th>
+                            <th>使用状态</th>
+                            <th>用户名</th>
+                            <th>邮箱</th>
+                            <th>性别</th>
+                            <th>电话号码</th>
+                            <th>创建时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 30px;">
+                                <div class="loading"></div>
+                                正在加载数据...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
-        let dataTable;
-
-        $(document).ready(function() {
-            // Initialize DataTable
-            initializeDataTable();
-            
-            // Load statistics
-            loadStatistics();
-            
-            // Generate code form submission
-            $('#generateCodeForm').on('submit', function(e) {
-                e.preventDefault();
-                generateCode();
-            });
+        // 页面加载时获取数据
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCodesAndUsers();
         });
 
-        function initializeDataTable() {
-            dataTable = $('#codesTable').DataTable({
-                ajax: {
-                    url: 'generatecodeapi.php?action=getCodesAndUsers',
-                    dataSrc: 'data'
-                },
-                columns: [
-                    { 
-                        data: 'code',
-                        render: function(data, type, row) {
-                            return '<strong class="text-primary">' + data + '</strong>';
-                        }
+        // 表单提交处理
+        document.getElementById('generateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateCode();
+        });
+
+        // 生成代码函数
+        async function generateCode() {
+            const code = document.getElementById('code').value.trim();
+            const accountType = document.getElementById('account_type').value;
+            const btnText = document.getElementById('btnText');
+            const messageArea = document.getElementById('messageArea');
+
+            if (!code || !accountType) {
+                showMessage('请填写所有必填字段！', 'error');
+                return;
+            }
+
+            // 显示加载状态
+            btnText.innerHTML = '<div class="loading"></div>生成中...';
+            document.querySelector('.btn-generate').disabled = true;
+
+            try {
+                const response = await fetch('generatecodeapi.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
                     },
-                    { 
-                        data: 'account_type',
-                        render: function(data, type, row) {
-                            const badges = {
-                                'admin': 'danger',
-                                'hr': 'success',
-                                'design': 'info',
-                                'support': 'warning',
-                                'IT': 'primary',
-                                'photograph': 'secondary'
-                            };
-                            return '<span class="badge bg-' + (badges[data] || 'secondary') + '">' + 
-                                   data.toUpperCase() + '</span>';
-                        }
-                    },
-                    { 
-                        data: 'used',
-                        render: function(data, type, row) {
-                            if (data == 1) {
-                                return '<span class="badge bg-success"><i class="fas fa-check me-1"></i>Used</span>';
-                            } else {
-                                return '<span class="badge bg-secondary"><i class="fas fa-clock me-1"></i>Available</span>';
-                            }
-                        }
-                    },
-                    { 
-                        data: 'username',
-                        render: function(data, type, row) {
-                            return data ? '<i class="fas fa-user me-1"></i>' + data : '<span class="text-muted">-</span>';
-                        }
-                    },
-                    { 
-                        data: 'email',
-                        render: function(data, type, row) {
-                            return data ? '<i class="fas fa-envelope me-1"></i>' + data : '<span class="text-muted">-</span>';
-                        }
-                    },
-                    { 
-                        data: 'gender',
-                        render: function(data, type, row) {
-                            if (data) {
-                                const icons = {
-                                    'male': '<i class="fas fa-mars text-primary"></i>',
-                                    'female': '<i class="fas fa-venus text-danger"></i>',
-                                    'other': '<i class="fas fa-genderless text-secondary"></i>'
-                                };
-                                return icons[data] + ' ' + data.charAt(0).toUpperCase() + data.slice(1);
-                            }
-                            return '<span class="text-muted">-</span>';
-                        }
-                    },
-                    { 
-                        data: 'phone_number',
-                        render: function(data, type, row) {
-                            return data ? '<i class="fas fa-phone me-1"></i>' + data : '<span class="text-muted">-</span>';
-                        }
-                    },
-                    { 
-                        data: 'created_at',
-                        render: function(data, type, row) {
-                            if (data) {
-                                const date = new Date(data);
-                                return '<small>' + date.toLocaleDateString() + '<br>' + date.toLocaleTimeString() + '</small>';
-                            }
-                            return '<span class="text-muted">-</span>';
-                        }
-                    },
-                    {
-                        data: null,
-                        orderable: false,
-                        render: function(data, type, row) {
-                            let actions = '';
-                            if (row.used == 0) {
-                                actions += '<button class="btn btn-sm btn-outline-danger me-1" onclick="deleteCode(\'' + row.code + '\')">' +
-                                          '<i class="fas fa-trash"></i></button>';
-                            }
-                            actions += '<button class="btn btn-sm btn-outline-info" onclick="viewDetails(\'' + row.code + '\')">' +
-                                      '<i class="fas fa-eye"></i></button>';
-                            return actions;
-                        }
-                    }
-                ],
-                order: [[7, 'desc']],
-                pageLength: 10,
-                responsive: true,
-                language: {
-                    search: "Search:",
-                    lengthMenu: "Show _MENU_ entries",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    paginate: {
-                        first: "First",
-                        last: "Last",
-                        next: "Next",
-                        previous: "Previous"
-                    }
+                    body: JSON.stringify({
+                        action: 'generate',
+                        code: code,
+                        account_type: accountType
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showMessage(`代码 "${code}" 生成成功！`, 'success');
+                    document.getElementById('generateForm').reset();
+                    loadCodesAndUsers(); // 刷新表格
+                } else {
+                    showMessage(result.message || '生成失败，请重试！', 'error');
                 }
-            });
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('网络错误，请检查连接！', 'error');
+            } finally {
+                // 恢复按钮状态
+                btnText.innerHTML = '🚀 生成代码';
+                document.querySelector('.btn-generate').disabled = false;
+            }
         }
 
-        function generateCode() {
-            const formData = new FormData($('#generateCodeForm')[0]);
+        // 加载代码和用户数据
+        async function loadCodesAndUsers() {
+            const tableBody = document.getElementById('tableBody');
             
-            showLoading();
+            try {
+                const response = await fetch('generatecodeapi.php?action=list');
+                const result = await response.json();
+
+                if (result.success) {
+                    displayData(result.data);
+                } else {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 30px; color: #C62828;">
+                                ❌ 加载失败: ${result.message}
+                            </td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 30px; color: #C62828;">
+                            ❌ 网络错误，请检查连接
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // 显示数据
+        function displayData(data) {
+            const tableBody = document.getElementById('tableBody');
             
-            $.ajax({
-                url: 'generatecodeapi.php',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    hideLoading();
-                    
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: 'Code generated successfully!',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                        
-                        // Reset form
-                        $('#generateCodeForm')[0].reset();
-                        
-                        // Refresh table and statistics
-                        dataTable.ajax.reload();
-                        loadStatistics();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: response.message
-                        });
-                    }
-                },
-                error: function() {
-                    hideLoading();
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'An error occurred. Please try again.'
-                    });
-                }
+            if (!data || data.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 30px; color: #666;">
+                            📝 暂无数据
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const rows = data.map(item => `
+                <tr>
+                    <td><strong>${item.code}</strong></td>
+                    <td><span class="account-type-badge type-${item.account_type}">${formatAccountType(item.account_type)}</span></td>
+                    <td><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
+                    <td>${item.username || '<em style="color: #999;">-</em>'}</td>
+                    <td>${item.email || '<em style="color: #999;">-</em>'}</td>
+                    <td>${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
+                    <td>${item.phone_number || '<em style="color: #999;">-</em>'}</td>
+                    <td>${formatDateTime(item.created_at)}</td>
+                </tr>
+            `).join('');
+
+            tableBody.innerHTML = rows;
+        }
+
+        // 格式化账户类型
+        function formatAccountType(type) {
+            const types = {
+                'admin': '管理员',
+                'hr': '人事部',
+                'design': '设计部',
+                'support': '客服部',
+                'IT': '技术部',
+                'photograph': '摄影部'
+            };
+            return types[type] || type;
+        }
+
+        // 格式化性别
+        function formatGender(gender) {
+            const genders = {
+                'male': '男',
+                'female': '女',
+                'other': '其他'
+            };
+            return genders[gender] || gender;
+        }
+
+        // 格式化日期时间
+        function formatDateTime(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            return date.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
             });
         }
 
-        function loadStatistics() {
-            $.ajax({
-                url: 'generatecodeapi.php?action=getStatistics',
-                type: 'GET',
-                success: function(response) {
-                    if (response.success) {
-                        const stats = response.data;
-                        const html = `
-                            <div class="row text-center">
-                                <div class="col-6 col-md-3 mb-3">
-                                    <div class="border rounded p-3">
-                                        <div class="h4 text-primary mb-1">${stats.total_codes}</div>
-                                        <div class="small text-muted">Total Codes</div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3">
-                                    <div class="border rounded p-3">
-                                        <div class="h4 text-success mb-1">${stats.used_codes}</div>
-                                        <div class="small text-muted">Used</div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3">
-                                    <div class="border rounded p-3">
-                                        <div class="h4 text-warning mb-1">${stats.available_codes}</div>
-                                        <div class="small text-muted">Available</div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3">
-                                    <div class="border rounded p-3">
-                                        <div class="h4 text-info mb-1">${stats.total_users}</div>
-                                        <div class="small text-muted">Total Users</div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        $('#statisticsContent').html(html);
-                    }
-                },
-                error: function() {
-                    $('#statisticsContent').html('<div class="text-danger">Error loading statistics</div>');
-                }
-            });
+        // 显示消息
+        function showMessage(message, type) {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML = `<div class="message ${type}">${message}</div>`;
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                messageArea.innerHTML = '';
+            }, 3000);
         }
 
+        // 刷新表格
         function refreshTable() {
-            dataTable.ajax.reload();
-            loadStatistics();
+            loadCodesAndUsers();
         }
 
-        function deleteCode(code) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'This will permanently delete the code: ' + code,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: 'generatecodeapi.php',
-                        type: 'POST',
-                        data: {
-                            action: 'deleteCode',
-                            code: code
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                Swal.fire('Deleted!', 'Code has been deleted.', 'success');
-                                dataTable.ajax.reload();
-                                loadStatistics();
-                            } else {
-                                Swal.fire('Error!', response.message, 'error');
-                            }
-                        },
-                        error: function() {
-                            Swal.fire('Error!', 'Failed to delete code.', 'error');
-                        }
-                    });
-                }
-            });
-        }
-
-        function viewDetails(code) {
-            // 此功能可以实现显示更多关于代码/用户的详细信息
-            Swal.fire({
-                title: '代码详情',
-                text: '代码: ' + code,
-                icon: 'info'
-            });
-        }
-
-        function showLoading() {
-            $('#loadingOverlay').css('display', 'flex');
-        }
-
-        function hideLoading() {
-            $('#loadingOverlay').hide();
-        }
+        // 代码输入框自动转大写
+        document.getElementById('code').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase();
+        });
     </script>
 </body>
 </html>
