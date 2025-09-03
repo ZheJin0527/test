@@ -332,9 +332,6 @@
         <div class="table-container">
             <div class="table-title">
                 申请码和用户列表
-                <button onclick="refreshTable()" style="float: right; background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-                    🔄 刷新
-                </button>
             </div>
             
             <div class="table-wrapper">
