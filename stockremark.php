@@ -598,6 +598,15 @@
             border-radius: 4px;
             font-size: 0.9em;
         }
+
+        .price-variants-table th:nth-child(1),
+        .price-variants-table th:nth-child(2), 
+        .price-variants-table th:nth-child(3),
+        .price-variants-table td:nth-child(1),
+        .price-variants-table td:nth-child(2),
+        .price-variants-table td:nth-child(3) {
+            text-align: left;
+        }
     </style>
 </head>
 <body>
