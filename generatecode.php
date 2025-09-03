@@ -90,8 +90,8 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #FF9800;
-            box-shadow: 0 0 10px rgba(255,152,0,0.3);
+            border-color: #ff5c00;
+            box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
         .btn-generate {
