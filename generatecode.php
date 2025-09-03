@@ -503,7 +503,24 @@
                 return;
             }
 
-            const rows = data.map((item, index) => `
+            // 定义账户类型的排序顺序
+            const typeOrder = {
+                'admin': 1,
+                'hr': 2, 
+                'design': 3,
+                'support': 4,
+                'IT': 5,
+                'photograph': 6
+            };
+            
+            // 按照指定顺序排序数据
+            const sortedData = [...data].sort((a, b) => {
+                const orderA = typeOrder[a.account_type] || 999;
+                const orderB = typeOrder[b.account_type] || 999;
+                return orderA - orderB;
+            });
+
+            const rows = sortedData.map((item, index) => `
                 <tr>
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
                     <td><strong>${item.code}</strong></td>
