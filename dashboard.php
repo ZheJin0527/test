@@ -153,8 +153,23 @@ if (isset($_SESSION['user_id'])) {
                                 <div class="submenu-title">Tokyo Japanese Cuisine</div>
                             </div>
                             <div class="submenu-content">
-                                <a href="#" class="submenu-item">J1 - Mid Valley</a>
-                                <a href="#" class="submenu-item">J2 - Paradigm Mall</a>
+                                <a href="#" class="submenu-item">J1 (Mid Valley)</a>
+                                <a href="#" class="submenu-item">J2 (Paradigm Mall)</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            Tokyo Izakaya
+                            <span class="informationmenu-arrow">›</span>
+                        </a>
+                        <div class="submenu">
+                            <div class="submenu-header">
+                                <div class="submenu-title">Tokyo Izakaya</div>
+                            </div>
+                            <div class="submenu-content">
+                                <a href="#" class="submenu-item">J3 (Desa Tebrau)</a>
                             </div>
                         </div>
                     </div>
