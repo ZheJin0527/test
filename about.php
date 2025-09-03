@@ -186,16 +186,6 @@ $timelineData = getTimelineConfig();
   <section class="timeline-section" id="timeline-1">
         <h1>— 我们的发展历史 —</h1>
         
-        <!-- 幻灯片控制面板 -->
-        <div class="timeline-controls">
-            <div class="timeline-progress">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <div class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides"><?php echo count($timelineData); ?></span>
-            </div>
-        </div>
-        
         <!-- 横向时间线导航 -->
         <div class="timeline-nav">
             <div class="nav-arrow prev" onclick="navigateTimeline('prev')">‹</div>
@@ -220,7 +210,7 @@ $timelineData = getTimelineConfig();
         </div>
 
         <!-- 卡片容器 -->
-        <div class="timeline-content-container" id="timelineSlideshow">
+        <div class="timeline-content-container">
             <div class="timeline-cards-wrapper">
                 <?php 
                 $index = 0;
@@ -780,14 +770,6 @@ updatePageIndicator(0);
         let totalItems = years.length;
         const navItems = document.querySelectorAll('.timeline-item');
         const container = document.getElementById('timelineContainer');
-        
-        // 幻灯片自动播放相关变量
-        let autoPlayInterval = null;
-        let isAutoPlaying = false;
-        let progressInterval = null;
-        let currentProgress = 0;
-        const autoPlayDuration = 5000; // 5秒
-        const progressUpdateInterval = 50; // 50ms更新一次进度
 
         // 拖拽相关变量 - 优化后的设置
         let isDragging = false;
@@ -871,7 +853,6 @@ updatePageIndicator(0);
             
             updateTimelineNav();
             updateCardPositions();
-            updateSlideCounter();
             
             // 动画完成后重置标志
             setTimeout(() => {
@@ -886,7 +867,6 @@ updatePageIndicator(0);
             if (index !== -1 && index !== currentIndex) {
                 currentIndex = index;
                 showTimelineItem(year.toString());
-                updateSlideCounter();
             }
         }
 
@@ -894,7 +874,6 @@ updatePageIndicator(0);
             updateTimelineNav();
             updateCardPositions();
             currentIndex = years.indexOf(year);
-            updateSlideCounter();
         }
 
         // 优化后的拖拽处理
@@ -991,7 +970,6 @@ updatePageIndicator(0);
                 if (!isDragging && !isAnimating) {
                     currentIndex = index;
                     showTimelineItem(years[currentIndex]);
-                    updateSlideCounter();
                 }
             });
         });
@@ -1030,112 +1008,9 @@ updatePageIndicator(0);
             }
         });
 
-        // 自动播放功能
-        function startAutoPlay() {
-            if (isAutoPlaying) return;
-            
-            isAutoPlaying = true;
-            const slideshowContainer = document.getElementById('timelineSlideshow');
-            
-            if (slideshowContainer) slideshowContainer.classList.add('autoplay');
-            
-            // 开始进度条动画
-            startProgressAnimation();
-            
-            // 设置自动播放定时器
-            autoPlayInterval = setInterval(() => {
-                navigateTimeline('next');
-                resetProgress();
-            }, autoPlayDuration);
-        }
-        
-        function stopAutoPlay() {
-            if (!isAutoPlaying) return;
-            
-            isAutoPlaying = false;
-            const slideshowContainer = document.getElementById('timelineSlideshow');
-            
-            if (slideshowContainer) slideshowContainer.classList.remove('autoplay');
-            
-            // 清除定时器
-            if (autoPlayInterval) {
-                clearInterval(autoPlayInterval);
-                autoPlayInterval = null;
-            }
-            
-            // 停止进度条动画
-            stopProgressAnimation();
-        }
-        
-        function startProgressAnimation() {
-            currentProgress = 0;
-            const progressBar = document.getElementById('progressBar');
-            
-            progressInterval = setInterval(() => {
-                currentProgress += (progressUpdateInterval / autoPlayDuration) * 100;
-                if (progressBar) {
-                    progressBar.style.width = Math.min(currentProgress, 100) + '%';
-                }
-            }, progressUpdateInterval);
-        }
-        
-        function stopProgressAnimation() {
-            if (progressInterval) {
-                clearInterval(progressInterval);
-                progressInterval = null;
-            }
-        }
-        
-        function resetProgress() {
-            currentProgress = 0;
-            const progressBar = document.getElementById('progressBar');
-            if (progressBar) {
-                progressBar.style.width = '0%';
-            }
-        }
-        
-        function updateSlideCounter() {
-            const currentSlideElement = document.getElementById('currentSlide');
-            if (currentSlideElement) {
-                currentSlideElement.textContent = currentIndex + 1;
-            }
-        }
-        
-        // 悬停暂停功能
-        function setupHoverPause() {
-            const slideshowContainer = document.getElementById('timelineSlideshow');
-            if (!slideshowContainer) return;
-            
-            slideshowContainer.addEventListener('mouseenter', () => {
-                if (isAutoPlaying) {
-                    slideshowContainer.classList.add('paused');
-                    // 暂停进度条动画
-                    if (progressInterval) {
-                        clearInterval(progressInterval);
-                        progressInterval = null;
-                    }
-                }
-            });
-            
-            slideshowContainer.addEventListener('mouseleave', () => {
-                if (isAutoPlaying) {
-                    slideshowContainer.classList.remove('paused');
-                    // 恢复进度条动画
-                    startProgressAnimation();
-                }
-            });
-        }
-
         // 初始化
         updateTimelineNav();
         updateCardPositions();
-        updateSlideCounter();
-        setupHoverPause();
-        
-        // 自动开始播放
-        setTimeout(() => {
-            startAutoPlay();
-        }, 2000); // 页面加载2秒后开始自动播放
 
         // 窗口大小改变时重新计算位置
         window.addEventListener('resize', () => {
