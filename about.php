@@ -766,11 +766,20 @@ updatePageIndicator(0);
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM已加载，开始初始化时间线');
+        
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
+        
+        console.log('年份数据:', years);
+        console.log('总项目数:', totalItems);
+        
         const navItems = document.querySelectorAll('.timeline-item');
         const container = document.getElementById('timelineContainer');
+        
+        console.log('导航项目数量:', navItems.length);
+        console.log('容器元素:', container);
 
         // 拖拽相关变量 - 优化后的设置
         let isDragging = false;
@@ -871,7 +880,41 @@ updatePageIndicator(0);
             // 动画完成后重置标志
             setTimeout(() => {
                 isAnimating = false;
-            }, 400); // 增加到600ms匹配新的动画时长
+            }, 400);
+        }
+        
+        // 简化版本 - 直接测试基本功能
+        function testTimeline() {
+            console.log('测试时间线功能');
+            console.log('当前索引:', currentIndex);
+            console.log('总项目数:', totalItems);
+            console.log('年份数组:', years);
+            
+            // 测试导航更新
+            if (navItems.length > 0) {
+                navItems.forEach((item, index) => {
+                    item.classList.toggle('active', index === currentIndex);
+                });
+                console.log('导航状态已更新');
+            }
+            
+            // 测试卡片更新
+            const cards = document.querySelectorAll('.timeline-content-item');
+            if (cards.length > 0) {
+                cards.forEach((card, index) => {
+                    card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
+                    if (index === currentIndex) {
+                        card.classList.add('active');
+                    } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+                        card.classList.add('prev');
+                    } else if (index === (currentIndex + 1) % totalItems) {
+                        card.classList.add('next');
+                    } else {
+                        card.classList.add('stack-hidden');
+                    }
+                });
+                console.log('卡片状态已更新');
+            }
         }
 
         // 自动滚动到下一个项目
@@ -1068,9 +1111,32 @@ updatePageIndicator(0);
             }
         });
 
+        // 检查基本元素是否存在
+        if (!container) {
+            console.error('时间线容器未找到！');
+            return;
+        }
+        
+        if (navItems.length === 0) {
+            console.error('时间线导航项目未找到！');
+            return;
+        }
+        
+        if (totalItems === 0) {
+            console.error('没有时间线数据！');
+            return;
+        }
+        
         // 初始化
+        console.log('时间线初始化开始');
+        
+        // 先运行测试函数
+        testTimeline();
+        
+        // 然后运行正常初始化
         updateTimelineNav();
         updateCardPositions();
+        console.log('时间线初始化完成');
 
         // 启动自动滚动（延迟3秒开始，给用户时间查看初始内容）
         setTimeout(() => {
@@ -1101,6 +1167,36 @@ updatePageIndicator(0);
             }
         });
         }); // 结束 DOMContentLoaded
+        
+        // 全局测试函数 - 可以在控制台调用
+        window.testTimelineNavigation = function() {
+            console.log('手动测试时间线导航');
+            if (typeof navigateTimeline === 'function') {
+                navigateTimeline('next');
+            } else {
+                console.error('navigateTimeline 函数未定义');
+            }
+        };
+        
+        window.testTimelineData = function() {
+            console.log('检查时间线数据');
+            const years = <?php echo json_encode(getTimelineYears()); ?>;
+            const navItems = document.querySelectorAll('.timeline-item');
+            const cards = document.querySelectorAll('.timeline-content-item');
+            const container = document.getElementById('timelineContainer');
+            
+            console.log('年份数据:', years);
+            console.log('导航项目数量:', navItems.length);
+            console.log('卡片数量:', cards.length);
+            console.log('容器元素:', container);
+            
+            return {
+                years: years,
+                navItems: navItems.length,
+                cards: cards.length,
+                container: !!container
+            };
+        };
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
