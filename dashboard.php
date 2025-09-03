@@ -275,6 +275,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class="submenu-content">
                                 <a href="#" class="submenu-item">资源请求</a>
                                 <a href="#" class="submenu-item">分配状态</a>
+                                <a href="generatecode.php" class="submenu-item">分配申请码</a>
                             </div>
                         </div>
                     </div>
