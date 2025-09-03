@@ -1365,7 +1365,12 @@
                 </div>
                 <div class="form-group">
                     <label for="add-remark-number">备注编号</label>
-                    <input type="text" id="add-remark-number" class="form-input" placeholder="输入备注编号..." disabled>
+                    <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 8px; background: white; padding: 0;" id="add-remark-wrapper">
+                        <input type="text" id="add-remark-prefix" class="form-input" placeholder="SA" style="border: none; border-radius: 8px 0 0 8px; width: 60px; text-align: center; background: transparent;" disabled>
+                        <span style="padding: 0 4px; color: #6b7280; font-weight: bold;">-</span>
+                        <input type="text" id="add-remark-suffix" class="form-input" placeholder="001" style="border: none; border-radius: 0 8px 8px 0; width: 80px; text-align: center; background: transparent;" disabled>
+                    </div>
+                    <input type="hidden" id="add-remark-number">
                 </div>
             </div>
             <div class="form-actions">
@@ -2006,10 +2011,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input remark-number-input" 
-                            value="${record.remark_number || ''}" 
-                            ${!record.product_remark_checked ? 'disabled' : ''}
-                            onchange="updateField(${record.id}, 'remark_number', this.value)">` :
+                            createRemarkNumberInput(record.remark_number || '', record.id, !record.product_remark_checked) :
                             `<span>${record.remark_number || '-'}</span>`
                         }
                     </td>
@@ -2141,7 +2143,7 @@
                     <input type="checkbox" class="remark-checkbox" id="${rowId}-product-remark" onchange="toggleNewRowRemarkNumber('${rowId}')">
                 </td>
                 <td>
-                    <input type="text" class="table-input remark-number-input" placeholder="输入备注编号..." id="${rowId}-remark-number" disabled>
+                    ${createNewRowRemarkNumberInput(rowId)}
                 </td>
                 <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
@@ -2250,26 +2252,131 @@
             }
         }
 
+        // 获取表单中的完整备注编号
+        function getFormRemarkNumber() {
+            const prefix = document.getElementById('add-remark-prefix').value.trim();
+            const suffix = document.getElementById('add-remark-suffix').value.trim();
+            return (prefix || suffix) ? `${prefix}-${suffix}` : '';
+        }
+
         // 控制新增表单中备注编号的启用状态
         function toggleRemarkNumber() {
             const checkbox = document.getElementById('add-product-remark');
-            const remarkNumberInput = document.getElementById('add-remark-number');
+            const wrapper = document.getElementById('add-remark-wrapper');
+            const prefixInput = document.getElementById('add-remark-prefix');
+            const suffixInput = document.getElementById('add-remark-suffix');
             
-            remarkNumberInput.disabled = !checkbox.checked;
-            if (!checkbox.checked) {
-                remarkNumberInput.value = '';
+            if (checkbox.checked) {
+                wrapper.style.opacity = '1';
+                prefixInput.disabled = false;
+                suffixInput.disabled = false;
+            } else {
+                wrapper.style.opacity = '0.5';
+                prefixInput.disabled = true;
+                suffixInput.disabled = true;
+                prefixInput.value = '';
+                suffixInput.value = '';
+                document.getElementById('add-remark-number').value = '';
             }
         }
 
-        // 控制新行中备注编号的启用状态
         function toggleNewRowRemarkNumber(rowId) {
             const checkbox = document.getElementById(`${rowId}-product-remark`);
-            const remarkNumberInput = document.getElementById(`${rowId}-remark-number`);
+            const wrapper = document.getElementById(`${rowId}-remark-wrapper`);
+            const prefixInput = document.getElementById(`${rowId}-remark-prefix`);
+            const suffixInput = document.getElementById(`${rowId}-remark-suffix`);
             
-            if (checkbox && remarkNumberInput) {
-                remarkNumberInput.disabled = !checkbox.checked;
-                if (!checkbox.checked) {
-                    remarkNumberInput.value = '';
+            if (checkbox && wrapper && prefixInput && suffixInput) {
+                if (checkbox.checked) {
+                    wrapper.style.opacity = '1';
+                    wrapper.setAttribute('data-disabled', 'false');
+                    prefixInput.disabled = false;
+                    suffixInput.disabled = false;
+                    
+                    // 绑定输入事件
+                    prefixInput.oninput = suffixInput.oninput = () => updateNewRowRemarkNumber(rowId);
+                } else {
+                    wrapper.style.opacity = '0.5';
+                    wrapper.setAttribute('data-disabled', 'true');
+                    prefixInput.disabled = true;
+                    suffixInput.disabled = true;
+                    prefixInput.value = '';
+                    suffixInput.value = '';
+                    updateNewRowRemarkNumber(rowId);
+                }
+            }
+        }
+
+        // 创建备注编号输入框（用于编辑模式）
+        function createRemarkNumberInput(value, recordId, disabled) {
+            const parts = value ? value.split('-') : ['', ''];
+            const prefix = parts[0] || '';
+            const suffix = parts[1] || '';
+            
+            return `
+                <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" ${disabled ? 'data-disabled="true"' : ''}>
+                    <input type="text" class="table-input remark-prefix" value="${prefix}" placeholder="" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: 50px; text-align: center; background: transparent; padding: 4px;" 
+                        ${disabled ? 'disabled' : ''} 
+                        onchange="updateRemarkNumber(${recordId})">
+                    <span style="padding: 0 2px; color: #6b7280; font-weight: bold;">-</span>
+                    <input type="text" class="table-input remark-suffix" value="${suffix}" placeholder="" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: 60px; text-align: center; background: transparent; padding: 4px;" 
+                        ${disabled ? 'disabled' : ''} 
+                        onchange="updateRemarkNumber(${recordId})">
+                </div>
+            `;
+        }
+
+        // 创建新行备注编号输入框
+        function createNewRowRemarkNumberInput(rowId) {
+            return `
+                <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" id="${rowId}-remark-wrapper" data-disabled="true">
+                    <input type="text" class="table-input remark-prefix" placeholder="SA" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: 50px; text-align: center; background: transparent; padding: 4px;" 
+                        id="${rowId}-remark-prefix" disabled>
+                    <span style="padding: 0 2px; color: #6b7280; font-weight: bold;">-</span>
+                    <input type="text" class="table-input remark-suffix" placeholder="001" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: 60px; text-align: center; background: transparent; padding: 4px;" 
+                        id="${rowId}-remark-suffix" disabled>
+                </div>
+            `;
+        }
+
+        // 更新备注编号（合并前缀和后缀）
+        function updateRemarkNumber(recordId) {
+            const row = document.querySelector(`[onchange*="updateRemarkNumber(${recordId})"]`).closest('tr');
+            const wrapper = row.querySelector('.remark-number-input-wrapper');
+            const prefixInput = wrapper.querySelector('.remark-prefix');
+            const suffixInput = wrapper.querySelector('.remark-suffix');
+            
+            const prefix = prefixInput.value.trim();
+            const suffix = suffixInput.value.trim();
+            const fullValue = (prefix || suffix) ? `${prefix}-${suffix}` : '';
+            
+            updateField(recordId, 'remark_number', fullValue);
+        }
+
+        // 更新新行备注编号
+        function updateNewRowRemarkNumber(rowId) {
+            const prefixInput = document.getElementById(`${rowId}-remark-prefix`);
+            const suffixInput = document.getElementById(`${rowId}-remark-suffix`);
+            
+            if (prefixInput && suffixInput) {
+                const prefix = prefixInput.value.trim();
+                const suffix = suffixInput.value.trim();
+                const fullValue = (prefix || suffix) ? `${prefix}-${suffix}` : '';
+                
+                // 更新隐藏的完整值（用于保存）
+                const hiddenInput = document.getElementById(`${rowId}-remark-number`);
+                if (!hiddenInput) {
+                    const hidden = document.createElement('input');
+                    hidden.type = 'hidden';
+                    hidden.id = `${rowId}-remark-number`;
+                    hidden.value = fullValue;
+                    prefixInput.closest('td').appendChild(hidden);
+                } else {
+                    hiddenInput.value = fullValue;
                 }
             }
         }
@@ -2463,7 +2570,7 @@
                 code_number: document.getElementById('add-code-number').value,
                 remark: document.getElementById('add-remark').value,
                 product_remark_checked: document.getElementById('add-product-remark').checked,
-                remark_number: document.getElementById('add-remark-number').value
+                remark_number: getFormRemarkNumber()
             };
 
             // 验证必填字段
