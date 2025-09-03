@@ -171,6 +171,10 @@
             border-bottom: 2px solid #ff5c00;
         }
 
+        th:first-child {
+            text-align: center;
+        }
+
         td {
             padding: 12px 10px;
             border-bottom: 1px solid #FFE0B2;
