@@ -33,7 +33,7 @@
 
         .header h1 {
             color: #ff5c00;
-            font-size: 2.5rem;
+            font-size: 50px;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
@@ -190,7 +190,7 @@
 
         th {
             background: #FFF3E0;
-            color: #ff5c00;
+            color: black;
             padding: 15px 10px;
             text-align: left;
             font-weight: bold;
@@ -505,7 +505,7 @@
 
             const rows = data.map((item, index) => `
                 <tr>
-                    <td style="text-align: center; font-weight: bold; color: #ff5c00;">${index + 1}</td>
+                    <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
                     <td><strong>${item.code}</strong></td>
                     <td><span class="account-type-badge">${formatAccountType(item.account_type)}</span></td>
                     <td><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
