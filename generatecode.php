@@ -171,7 +171,8 @@
             border-bottom: 2px solid #ff5c00;
         }
 
-        th:first-child {
+        th:first-child,
+        th:nth-child(3) {
             text-align: center;
         }
 
