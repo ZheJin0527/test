@@ -765,7 +765,6 @@ updatePageIndicator(0);
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
@@ -1051,7 +1050,7 @@ updatePageIndicator(0);
                     navigateTimeline('prev');
                 } else if (e.key === 'ArrowRight') {
                     navigateTimeline('next');
-                }
+
             }
         });
 
