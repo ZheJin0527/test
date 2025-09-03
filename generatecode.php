@@ -71,7 +71,7 @@
         /* 生成代码表单样式 */
         .generate-form {
             background: white;
-            padding: 30px;
+            padding: 10px 30px;
             border-radius: 15px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             margin-bottom: 30px;
@@ -84,7 +84,7 @@
             margin-bottom: 20px;
             text-align: center;
             border-bottom: 2px solid #ff5c00;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
         }
 
         .form-group {
