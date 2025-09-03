@@ -849,7 +849,7 @@
                             <div class="product-title">
                                 <span class="product-code">${product.variants[0]?.code_number || '未知编号'}</span>
                                 <span class="product-name">${product.product_name}</span>
-                                <span class="total-quantity">总计: ${product.total_quantity}</span>
+                                <span class="total-quantity">数量/重量总计: ${product.total_quantity}</span>
                             </div>
                         </div>
                         <table class="price-variants-table">
