@@ -341,6 +341,7 @@
                 <table id="codesTable">
                     <thead>
                         <tr>
+                            <th>序号</th>
                             <th>代码</th>
                             <th>账户类型</th>
                             <th>使用状态</th>
@@ -353,7 +354,7 @@
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="8" style="text-align: center; padding: 30px;">
+                            <td colspan="9" style="text-align: center; padding: 30px;">
                                 <div class="loading"></div>
                                 正在加载数据...
                             </td>
@@ -437,7 +438,7 @@
                 } else {
                     tableBody.innerHTML = `
                         <tr>
-                            <td colspan="8" style="text-align: center; padding: 30px; color: #C62828;">
+                            <td colspan="9" style="text-align: center; padding: 30px; color: #C62828;">
                                 ❌ 加载失败: ${result.message}
                             </td>
                         </tr>
@@ -447,7 +448,7 @@
                 console.error('Error:', error);
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="8" style="text-align: center; padding: 30px; color: #C62828;">
+                        <td colspan="9" style="text-align: center; padding: 30px; color: #C62828;">
                             ❌ 网络错误，请检查连接
                         </td>
                     </tr>
@@ -462,7 +463,7 @@
             if (!data || data.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="8" style="text-align: center; padding: 30px; color: #666;">
+                        <td colspan="9" style="text-align: center; padding: 30px; color: #666;">
                             📝 暂无数据
                         </td>
                     </tr>
@@ -470,8 +471,9 @@
                 return;
             }
 
-            const rows = data.map(item => `
+            const rows = data.map((item, index) => `
                 <tr>
+                    <td style="text-align: center; font-weight: bold; color: #ff5c00;">${index + 1}</td>
                     <td><strong>${item.code}</strong></td>
                     <td><span class="account-type-badge">${formatAccountType(item.account_type)}</span></td>
                     <td><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
