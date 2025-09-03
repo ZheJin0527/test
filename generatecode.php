@@ -302,7 +302,7 @@
                     <div class="form-group" style="flex: 2;">
                         <label for="code">申请码:</label>
                         <input type="text" id="code" name="code" required 
-                               placeholder="请输入代码内容 (例如: ADMIN001)" 
+                               placeholder="请输入申请码 (例如: ADMIN001)" 
                                maxlength="50">
                     </div>
                     
