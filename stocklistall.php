@@ -710,197 +710,188 @@
         }
 
         /* 弹窗样式 */
-        .modal-overlay {
+        .modal {
+            display: none;
             position: fixed;
-            top: 0;
+            z-index: 1000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            width: 90%;
-            max-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.show .modal-container {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fef3c7;
-            border-radius: 12px 12px 0 0;
-        }
-
-        .modal-header h3 {
-            margin: 0;
-            color: #d97706;
-            font-size: 18px;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: #6b7280;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-        }
-
-        .modal-close:hover {
-            background: rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
         }
 
         .modal-content {
-            padding: 24px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        .low-stock-summary {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            border: none;
+            width: 80%;
+            max-width: 800px;
             border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-around;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            animation: modalSlideIn 0.3s ease-out;
         }
 
-        .summary-item {
-            text-align: center;
+        .large-modal {
+            max-width: 1200px;
+            width: 90%;
         }
 
-        .summary-label {
-            display: block;
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 4px;
-        }
-
-        .summary-value {
-            display: block;
-            font-size: 24px;
-            font-weight: bold;
-            color: #dc2626;
-        }
-
-        .low-stock-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .low-stock-item {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .low-stock-item.critical {
-            border-left: 4px solid #dc2626;
-            background: #fef2f2;
-        }
-
-        .low-stock-item.warning {
-            border-left: 4px solid #f59e0b;
-            background: #fffbeb;
-        }
-
-        .stock-info {
+        .modal-header {
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px 8px 0 0;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
+            align-items: center;
         }
 
-        .product-info h4 {
-            margin: 0 0 4px 0;
-            color: #111827;
-            font-size: 16px;
-        }
-
-        .product-info p {
-            margin: 0;
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .stock-status {
-            text-align: right;
-            flex-shrink: 0;
-            margin-left: 16px;
-        }
-
-        .current-stock {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        .current-stock.critical {
-            color: #dc2626;
-        }
-
-        .current-stock.warning {
-            color: #f59e0b;
-        }
-
-        .min-stock-info {
-            font-size: 12px;
-            color: #6b7280;
+        .modal-body {
+            padding: 30px;
+            max-height: 60vh;
+            overflow-y: auto;
         }
 
         .modal-footer {
-            padding: 20px 24px;
+            padding: 20px 30px;
             border-top: 1px solid #e5e7eb;
             display: flex;
             justify-content: flex-end;
             gap: 12px;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .close:hover,
+        .close:focus {
+            opacity: 1;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* 低库存列表样式 */
+        .low-stock-list {
+            margin-top: 20px;
+        }
+
+        .low-stock-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 6px;
+        }
+
+        .low-stock-critical {
+            background: #fecaca;
+            border-color: #f87171;
+        }
+
+        .low-stock-info {
+            flex-grow: 1;
+        }
+
+        .low-stock-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .low-stock-details {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .stock-level {
+            text-align: right;
+            margin-left: 16px;
+        }
+
+        .stock-current {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .stock-warning {
+            color: #d97706;
+        }
+
+        .stock-critical {
+            color: #dc2626;
+        }
+
+        /* 设置页面样式 */
+        .settings-search {
+            margin-bottom: 20px;
+        }
+
+        .settings-grid {
+            display: grid;
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 16px;
+        }
+
+        .setting-item {
+            display: grid;
+            grid-template-columns: 1fr 150px;
+            gap: 16px;
+            align-items: center;
+            padding: 12px;
             background: #f9fafb;
-            border-radius: 0 0 12px 12px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
         }
 
-        .no-low-stock {
-            text-align: center;
-            padding: 40px;
-            color: #10b981;
+        .setting-product-info {
+            min-width: 0;
         }
 
-        .no-low-stock i {
-            font-size: 48px;
-            margin-bottom: 16px;
-            display: block;
+        .setting-product-name {
+            font-weight: 600;
+            color: #1f2937;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .setting-product-details {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .setting-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
         }
 
         @media (max-width: 768px) {
@@ -963,28 +954,60 @@
 </head>
 <body>
     <!-- 低库存警告弹窗 -->
-    <div id="low-stock-modal" class="modal-overlay">
-        <div class="modal-container">
+    <div id="low-stock-modal" class="modal">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3><i class="fas fa-exclamation-triangle"></i> 低库存警告</h3>
-                <button class="modal-close" onclick="closeLowStockModal()">
-                    <i class="fas fa-times"></i>
-                </button>
+                <h2>
+                    <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i>
+                    库存不足警告
+                </h2>
+                <span class="close" onclick="closeLowStockModal()">&times;</span>
             </div>
-            <div class="modal-content">
-                <div class="low-stock-summary">
-                    <div class="summary-item">
-                        <span class="summary-label">警告货品数量:</span>
-                        <span class="summary-value" id="low-stock-count">0</span>
+            <div class="modal-body">
+                <div id="low-stock-content">
+                    <div style="text-align: center; padding: 20px;">
+                        <div class="loading"></div>
+                        <p>正在检查库存状态...</p>
                     </div>
-                </div>
-                <div class="low-stock-list" id="low-stock-list">
-                    <div class="loading">正在检查库存状态...</div>
                 </div>
             </div>
             <div class="modal-footer">
+                <button class="btn btn-primary" onclick="manageLowStockSettings()">
+                    <i class="fas fa-cog"></i>
+                    管理最低库存设置
+                </button>
                 <button class="btn btn-secondary" onclick="closeLowStockModal()">关闭</button>
-                <button class="btn btn-primary" onclick="refreshLowStockCheck()">重新检查</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最低库存设置弹窗 -->
+    <div id="stock-settings-modal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-cog"></i>
+                    最低库存设置
+                </h2>
+                <span class="close" onclick="closeStockSettingsModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="settings-search">
+                    <input type="text" id="settings-search" placeholder="搜索货品名称..." class="filter-input">
+                </div>
+                <div id="stock-settings-content">
+                    <div style="text-align: center; padding: 20px;">
+                        <div class="loading"></div>
+                        <p>正在加载货品设置...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="saveStockSettings()">
+                    <i class="fas fa-save"></i>
+                    保存设置
+                </button>
+                <button class="btn btn-secondary" onclick="closeStockSettingsModal()">取消</button>
             </div>
         </div>
     </div>
@@ -1404,9 +1427,11 @@
             remark: '货品备注'
         };
 
-        // 修改现有的 initApp 函数，在最后添加一行
+        // 初始化应用
         function initApp() {
             loadData(currentSystem);
+            checkLowStock(); // 添加这行
+            
             // 点击外部关闭下拉菜单
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.system-selector')) {
@@ -1416,66 +1441,6 @@
                     document.getElementById('view-selector-dropdown').classList.remove('show');
                 }
             });
-            
-            // 添加这一行 - 页面加载后检查低库存
-            setTimeout(checkLowStock, 1000);
-        }
-
-        // 检查低库存
-        async function checkLowStock() {
-            try {
-                const result = await apiCall('central', '?action=low_stock');
-                
-                if (result.success && result.data.low_stock_items.length > 0) {
-                    showLowStockModal(result.data);
-                }
-            } catch (error) {
-                console.error('检查低库存失败:', error);
-            }
-        }
-
-        // 显示低库存弹窗
-        function showLowStockModal(data) {
-            const modal = document.getElementById('low-stock-modal');
-            const countElement = document.getElementById('low-stock-count');
-            const listElement = document.getElementById('low-stock-list');
-            
-            countElement.textContent = data.low_stock_items.length;
-            
-            let html = '';
-            data.low_stock_items.forEach(item => {
-                const isCritical = item.current_stock <= (item.min_stock * 0.5);
-                const statusClass = isCritical ? 'critical' : 'warning';
-                
-                html += `
-                    <div class="low-stock-item ${statusClass}">
-                        <div class="stock-info">
-                            <div class="product-info">
-                                <h4>${item.product_name}</h4>
-                                <p>编号: ${item.code_number || '无'} | 规格: ${item.specification || '无'}</p>
-                            </div>
-                            <div class="stock-status">
-                                <div class="current-stock ${statusClass}">${item.formatted_current_stock}</div>
-                                <div class="min-stock-info">最低库存: ${item.formatted_min_stock}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            listElement.innerHTML = html;
-            modal.classList.add('show');
-        }
-
-        // 关闭低库存弹窗
-        function closeLowStockModal() {
-            document.getElementById('low-stock-modal').classList.remove('show');
-        }
-
-        // 重新检查低库存
-        function refreshLowStockCheck() {
-            document.getElementById('low-stock-list').innerHTML = '<div class="loading">正在检查库存状态...</div>';
-            checkLowStock();
         }
 
         // 切换系统选择器
@@ -1639,6 +1604,195 @@
             } finally {
                 isLoading[system] = false;
                 setLoadingState(system, false);
+            }
+        }
+
+        // 低库存检查和管理功能
+        async function checkLowStock() {
+            try {
+                const response = await fetch('stocklistapi.php?action=check_low_stock');
+                const result = await response.json();
+                
+                if (result.success && result.data.low_stock_items.length > 0) {
+                    showLowStockModal(result.data.low_stock_items);
+                }
+            } catch (error) {
+                console.error('检查低库存失败:', error);
+            }
+        }
+
+        function showLowStockModal(lowStockItems) {
+            const modal = document.getElementById('low-stock-modal');
+            const content = document.getElementById('low-stock-content');
+            
+            if (lowStockItems.length === 0) {
+                content.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <i class="fas fa-check-circle" style="font-size: 48px; color: #10b981; margin-bottom: 16px;"></i>
+                        <h3>库存状态良好</h3>
+                        <p>所有货品库存均在安全范围内</p>
+                    </div>
+                `;
+            } else {
+                let html = `
+                    <div style="margin-bottom: 16px;">
+                        <p><strong>发现 ${lowStockItems.length} 个货品库存不足：</strong></p>
+                    </div>
+                    <div class="low-stock-list">
+                `;
+                
+                lowStockItems.forEach(item => {
+                    const isCritical = parseFloat(item.current_stock) === 0;
+                    const itemClass = isCritical ? 'low-stock-critical' : '';
+                    const stockClass = isCritical ? 'stock-critical' : 'stock-warning';
+                    
+                    html += `
+                        <div class="low-stock-item ${itemClass}">
+                            <div class="low-stock-info">
+                                <div class="low-stock-name">${item.product_name}</div>
+                                <div class="low-stock-details">
+                                    最低库存: ${item.min_stock} | 规格: ${item.specification || '-'}
+                                </div>
+                            </div>
+                            <div class="stock-level">
+                                <div class="stock-current ${stockClass}">
+                                    ${item.current_stock}
+                                </div>
+                                <div style="font-size: 12px; color: #6b7280;">当前库存</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                content.innerHTML = html;
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        function closeLowStockModal() {
+            document.getElementById('low-stock-modal').style.display = 'none';
+        }
+
+        async function manageLowStockSettings() {
+            const modal = document.getElementById('stock-settings-modal');
+            const content = document.getElementById('stock-settings-content');
+            
+            modal.style.display = 'block';
+            
+            try {
+                const response = await fetch('stocklistapi.php?action=get_stock_settings');
+                const result = await response.json();
+                
+                if (result.success) {
+                    renderStockSettings(result.data.products);
+                } else {
+                    content.innerHTML = `<div style="text-align: center; color: #dc2626;">加载失败: ${result.message}</div>`;
+                }
+            } catch (error) {
+                content.innerHTML = `<div style="text-align: center; color: #dc2626;">网络错误</div>`;
+            }
+        }
+
+        function renderStockSettings(products) {
+            const content = document.getElementById('stock-settings-content');
+            
+            let html = `<div class="settings-grid">`;
+            
+            products.forEach(product => {
+                html += `
+                    <div class="setting-item">
+                        <div class="setting-product-info">
+                            <div class="setting-product-name">${product.product_name}</div>
+                            <div class="setting-product-details">
+                                规格: ${product.specification || '-'} | 当前库存: ${product.current_stock || 0}
+                            </div>
+                        </div>
+                        <input 
+                            type="number" 
+                            class="setting-input" 
+                            value="${product.min_stock || 0}"
+                            min="0"
+                            step="0.01"
+                            data-product-id="${product.id}"
+                            placeholder="最低库存"
+                        >
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            content.innerHTML = html;
+            
+            // 添加搜索功能
+            const searchInput = document.getElementById('settings-search');
+            searchInput.oninput = function() {
+                filterStockSettings(this.value.toLowerCase());
+            };
+        }
+
+        function filterStockSettings(searchTerm) {
+            const items = document.querySelectorAll('.setting-item');
+            items.forEach(item => {
+                const productName = item.querySelector('.setting-product-name').textContent.toLowerCase();
+                const isVisible = productName.includes(searchTerm);
+                item.style.display = isVisible ? 'grid' : 'none';
+            });
+        }
+
+        async function saveStockSettings() {
+            const inputs = document.querySelectorAll('.setting-input');
+            const settings = [];
+            
+            inputs.forEach(input => {
+                if (input.closest('.setting-item').style.display !== 'none') {
+                    settings.push({
+                        product_id: input.dataset.productId,
+                        min_stock: parseFloat(input.value) || 0
+                    });
+                }
+            });
+            
+            try {
+                const response = await fetch('stocklistapi.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: 'save_stock_settings',
+                        settings: settings
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('最低库存设置保存成功', 'success');
+                    closeStockSettingsModal();
+                } else {
+                    showAlert('保存失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('保存失败: 网络错误', 'error');
+            }
+        }
+
+        function closeStockSettingsModal() {
+            document.getElementById('stock-settings-modal').style.display = 'none';
+        }
+
+        // 点击弹窗外部关闭
+        window.onclick = function(event) {
+            const lowStockModal = document.getElementById('low-stock-modal');
+            const settingsModal = document.getElementById('stock-settings-modal');
+            
+            if (event.target === lowStockModal) {
+                lowStockModal.style.display = 'none';
+            }
+            if (event.target === settingsModal) {
+                settingsModal.style.display = 'none';
             }
         }
 
