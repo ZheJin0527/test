@@ -358,7 +358,7 @@
 
             <form id="generateForm">
                 <div class="form-row">
-                    <div class="form-group" style="flex: 2; position: relative;">
+                    <div class="form-group" style="flex: 1.2; position: relative;">
                         <label for="searchInput">搜索过滤:</label>
                         <div style="position: relative;">
                             <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
@@ -372,9 +372,9 @@
                     </div>
                     
                     <div class="form-group" style="flex: 2;">
-                        <label for="account_type">:</label>
+                        <label for="account_type">账户类型:</label>
                         <select id="account_type" name="account_type" required>
-                            <option value="">请选择账户类型并点击生成</option>
+                            <option value="">请选择账户类型</option>
                             <option value="admin">管理员 (Admin)</option>
                             <option value="hr">人事部 (HR)</option>
                             <option value="design">设计部 (Design)</option>
