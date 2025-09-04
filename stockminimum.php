@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
             color: #333;
             line-height: 1.6;
         }
@@ -26,7 +26,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
             color: white;
             padding: 20px 30px;
             border-radius: 10px;
@@ -72,10 +72,10 @@
             animation: slideDown 0.3s ease;
         }
 
-        .alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .alert-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .alert-info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
-        .alert-warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .alert-success { background-color: #C8E6C9; color: #2E7D32; border: 1px solid #4CAF50; }
+        .alert-error { background-color: #FFCDD2; color: #C62828; border: 1px solid #F44336; }
+        .alert-info { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .alert-warning { background-color: #FFE0B2; color: #E65100; border: 1px solid #FF9800; }
 
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-20px); }
@@ -88,6 +88,7 @@
             border-radius: 10px;
             margin-bottom: 25px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 2px solid #ff5c00;
         }
 
         .filter-grid {
@@ -105,12 +106,12 @@
         .filter-group label {
             margin-bottom: 8px;
             font-weight: 600;
-            color: #374151;
+            color: #BF360C;
         }
 
         .filter-input, .filter-select {
             padding: 10px 15px;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #ff5c00;
             border-radius: 6px;
             font-size: 14px;
             transition: all 0.3s ease;
@@ -118,8 +119,8 @@
 
         .filter-input:focus, .filter-select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #ff5c00;
+            box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
         .filter-actions {
@@ -142,20 +143,27 @@
             text-decoration: none;
         }
 
-        .btn-primary { background-color: #667eea; color: white; }
-        .btn-primary:hover { background-color: #5a67d8; }
-        
+        .btn-primary { 
+            background: linear-gradient(270deg, #FF9800 0%, #E65100 100%); 
+            color: white; 
+        }
+        .btn-primary:hover { 
+            background: linear-gradient(270deg, #E65100 0%, #BF360C 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255,152,0,0.3);
+        }
+
         .btn-secondary { background-color: #6b7280; color: white; }
         .btn-secondary:hover { background-color: #4b5563; }
-        
-        .btn-success { background-color: #10b981; color: white; }
-        .btn-success:hover { background-color: #059669; }
-        
-        .btn-warning { background-color: #f59e0b; color: white; }
-        .btn-warning:hover { background-color: #d97706; }
-        
-        .btn-danger { background-color: #ef4444; color: white; }
-        .btn-danger:hover { background-color: #dc2626; }
+
+        .btn-success { background-color: #4CAF50; color: white; }
+        .btn-success:hover { background-color: #2E7D32; }
+
+        .btn-warning { background-color: #FF9800; color: white; }
+        .btn-warning:hover { background-color: #E65100; }
+
+        .btn-danger { background-color: #F44336; color: white; }
+        .btn-danger:hover { background-color: #C62828; }
 
         .btn-sm {
             padding: 6px 12px;
@@ -167,10 +175,11 @@
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             overflow: hidden;
+            border: 2px solid #ff5c00;
         }
 
         .table-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
             color: white;
             padding: 20px 25px;
             display: flex;
@@ -198,7 +207,7 @@
 
         .stat-value {
             font-weight: 600;
-            color: #fbbf24;
+            color: #FFE0B2;
         }
 
         .table-scroll-container {
@@ -213,12 +222,12 @@
         }
 
         .threshold-table th {
-            background-color: #f8f9fa;
+            background-color: #fff9f1;
             padding: 15px 12px;
             text-align: left;
             font-weight: 600;
-            color: #374151;
-            border-bottom: 2px solid #e5e7eb;
+            color: #BF360C;
+            border-bottom: 2px solid #ff5c00;
             position: sticky;
             top: 0;
             z-index: 10;
@@ -226,12 +235,12 @@
 
         .threshold-table td {
             padding: 12px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #d1d5db;
             vertical-align: middle;
         }
 
         .threshold-table tbody tr:hover {
-            background-color: #f9fafb;
+            background-color: #fff9f1;
         }
 
         .text-center {
@@ -239,27 +248,27 @@
         }
 
         .text-danger {
-            color: #dc2626 !important;
+            color: #C62828 !important;
             font-weight: 600;
         }
 
         .text-success {
-            color: #16a34a !important;
+            color: #2E7D32 !important;
             font-weight: 600;
         }
 
         .threshold-input {
             width: 100px;
             padding: 6px 10px;
-            border: 1px solid #d1d5db;
+            border: 1px solid #ff5c00;
             border-radius: 4px;
             font-size: 13px;
         }
 
         .threshold-input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+            border-color: #ff5c00;
+            box-shadow: 0 0 5px rgba(255, 115, 0, 0.5);
         }
 
         .threshold-checkbox {
@@ -271,9 +280,9 @@
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid rgba(102, 126, 234, 0.3);
+            border: 3px solid #FFE0B2;
             border-radius: 50%;
-            border-top-color: #667eea;
+            border-top-color: #FF9800;
             animation: spin 1s ease-in-out infinite;
         }
 
@@ -299,13 +308,13 @@
             right: 30px;
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
             color: white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
             font-size: 18px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -318,8 +327,9 @@
         }
 
         .back-to-top:hover {
+            background: linear-gradient(135deg, #E65100 0%, #BF360C 100%);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.6);
         }
 
         @media (max-width: 768px) {
