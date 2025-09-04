@@ -4133,9 +4133,36 @@
             }, 10);
         });
 
+        // 生成发票号码
+        function generateInvoiceNumber() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            
+            // 生成基础格式：年份-日月
+            const baseFormat = `${year}-${day}${month}`;
+            
+            // 从localStorage获取当天的计数器，如果不存在则从01开始
+            const todayKey = `invoice_counter_${baseFormat}`;
+            let counter = parseInt(localStorage.getItem(todayKey)) || 0;
+            counter++;
+            localStorage.setItem(todayKey, counter.toString());
+            
+            // 生成完整的发票号码：年份-日月编号
+            const invoiceNumber = `${baseFormat}${String(counter).padStart(2, '0')}`;
+            
+            return invoiceNumber;
+        }
+
         // 生成PDF发票
         async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
             try {
+                // 如果没有提供发票号码，自动生成一个
+                if (!invoiceNumber) {
+                    invoiceNumber = generateInvoiceNumber();
+                }
+                
                 // 下载现有的PDF模板
                 const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice2.0.pdf';
                 const templateResponse = await fetch(templateFile);
@@ -4161,6 +4188,15 @@
                 const fontSize = 11;
                 const textColor = rgb(0, 0, 0);
                 
+                // 字体对齐辅助函数
+                function getRightAlignedX(text, maxX, charWidth = 6) {
+                    return maxX - (text.length * charWidth);
+                }
+                
+                function getCenterAlignedX(text, centerX, charWidth = 6) {
+                    return centerX - (text.length * charWidth / 2);
+                }
+                
                 // 填入日期 (右上角区域)
                 const currentDate = new Date().toLocaleDateString('en-GB');
 
@@ -4173,6 +4209,17 @@
                         color: textColor,
                         font: boldFont,
                     });
+                    
+                    // J1模板的发票号码位置
+                    if (invoiceNumber) {
+                        page.drawText(invoiceNumber, {
+                            x: 485, // J1模板Invoice No位置
+                            y: height - 95, // 调整到Invoice No行
+                            size: fontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                    }
                 } else if (exportSystem === 'j2') {
                     // J2模板的日期位置
                     page.drawText(` ${currentDate}`, {
@@ -4182,11 +4229,8 @@
                         color: textColor,
                         font: boldFont,
                     });
-                }
-
-                // J2模板特殊处理
-                if (exportSystem === 'j2') {
-                    // 填入Invoice Number
+                    
+                    // J2模板的发票号码位置
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
                             x: 486,
@@ -4218,16 +4262,17 @@
                     const total = outQty * price;
                     grandTotal += total;
                     
-                    // NO (第一列)
-                    page.drawText(itemNumber.toString(), {
-                        x: exportSystem === 'j1' ? 25 : 40,
+                    // NO (第一列) - 居中对齐
+                    const itemText = itemNumber.toString();
+                    page.drawText(itemText, {
+                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 45 : 60, 6),
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
                         font: boldFont,
                     });
                     
-                    // Descriptions (第二列) - 调整产品名称显示，处理长文本
+                    // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
                     const productName = record.product_name || '';
                     const maxProductNameLength = 25; // 限制产品名称长度
                     const displayProductName = productName.length > maxProductNameLength 
@@ -4242,9 +4287,10 @@
                         font: boldFont,
                     });
                     
-                    // Price RM (第三列)
-                    page.drawText(price.toFixed(2), {
-                        x: exportSystem === 'j1' ? 325 : 325,
+                    // Price RM (第三列) - 右对齐
+                    const priceText = price.toFixed(2);
+                    page.drawText(priceText, {
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 360 : 360, 6),
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4254,7 +4300,7 @@
                     // Quantity (第四列) - 右对齐
                     const qtyText = outQty.toString();
                     page.drawText(qtyText, {
-                        x: exportSystem === 'j1' ? (430 - (qtyText.length * 4)) : (430 - (qtyText.length * 4)),
+                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 430 : 430, 6),
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4264,7 +4310,7 @@
                     // Total RM (第五列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: exportSystem === 'j1' ? (565 - (totalText.length * 6)) : (565 - (totalText.length * 6)),
+                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
                         y: yPosition,
                         size: fontSize,
                         color: textColor,
@@ -4283,7 +4329,7 @@
                     // 填入Subtotal
                     const subtotalText = `RM${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
-                        x: 585 - (subtotalText.length * 8),
+                        x: getRightAlignedX(subtotalText, 585, 8),
                         y: height - 663, // 调整到Subtotal行
                         size: 11,
                         color: textColor,
@@ -4293,7 +4339,7 @@
                     // 填入Charge 15%
                     const chargeText = `RM${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
-                        x: 583 - (chargeText.length * 8),
+                        x: getRightAlignedX(chargeText, 583, 8),
                         y: height - 679, // 调整到Charge行
                         size: 11,
                         color: textColor,
@@ -4303,7 +4349,7 @@
                     // 填入最终Total
                     const finalTotalText = `RM${finalTotal.toFixed(2)}`;
                     page.drawText(finalTotalText, {
-                        x: 585 - (finalTotalText.length * 8),
+                        x: getRightAlignedX(finalTotalText, 585, 8),
                         y: height - 698, // 调整到最终Total行
                         size: 11,
                         color: textColor,
@@ -4313,7 +4359,7 @@
                     // J1模板：只显示总计
                     const totalText = `RM${grandTotal.toFixed(2)}`;
                     page.drawText(totalText, {
-                        x: 585 - (totalText.length * 8),
+                        x: getRightAlignedX(totalText, 585, 8),
                         y: height - 650,
                         size: 11,
                         color: textColor,
