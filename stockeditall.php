@@ -4203,20 +4203,20 @@
                 if (exportSystem === 'j1') {
                     // J1模板的日期位置
                     page.drawText(` ${currentDate}`, {
-                        x: 485, // J1模板DATE冒号后面的位置
-                        y: height - 113, 
+                        x: 465, // J1模板DATE冒号后面的位置
+                        y: height - 115.5, 
                         size: fontSize,
-                        color: textColor,
+                        color: whiteColor,
                         font: boldFont,
                     });
                     
                     // J1模板的发票号码位置
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
-                            x: 485, // J1模板Invoice No位置
-                            y: height - 95, // 调整到Invoice No行
+                            x: 34, // J1模板Invoice No位置
+                            y: height - 115.5, // 调整到Invoice No行
                             size: fontSize,
-                            color: textColor,
+                            color: whiteColor,
                             font: boldFont,
                         });
                     }
