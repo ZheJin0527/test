@@ -4302,7 +4302,7 @@
                     // Price RM (第三列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 600 : 600, 6),
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 500 : 500, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
