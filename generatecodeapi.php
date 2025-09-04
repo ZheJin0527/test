@@ -76,16 +76,18 @@ try {
  */
 function generateCode($pdo, $input) {
     // 验证输入数据
-    if (empty($input['code']) || empty($input['account_type'])) {
+    if (empty($input['account_type'])) {
         echo json_encode([
             'success' => false,
-            'message' => '代码和账户类型不能为空'
+            'message' => '账户类型不能为空'
         ]);
         return;
     }
 
-    $code = trim($input['code']);
     $account_type = trim($input['account_type']);
+    
+    // 生成6位随机代码
+    $code = generateRandomCode($pdo);
 
     // 验证账户类型
     $valid_types = ['admin', 'hr', 'design', 'support', 'IT', 'photograph'];
@@ -259,6 +261,34 @@ function getStatistics($pdo) {
             'message' => '统计数据获取失败: ' . $e->getMessage()
         ]);
     }
+}
+
+/**
+ * 生成6位随机代码并确保唯一性
+ */
+function generateRandomCode($pdo) {
+    $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $maxAttempts = 100; // 最大尝试次数，避免无限循环
+    
+    for ($attempt = 0; $attempt < $maxAttempts; $attempt++) {
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= $chars[rand(0, strlen($chars) - 1)];
+        }
+        
+        // 检查代码是否已存在
+        $checkSql = "SELECT id FROM application_codes WHERE code = :code";
+        $checkStmt = $pdo->prepare($checkSql);
+        $checkStmt->bindParam(':code', $code);
+        $checkStmt->execute();
+        
+        if ($checkStmt->rowCount() == 0) {
+            return $code; // 返回唯一的代码
+        }
+    }
+    
+    // 如果尝试次数过多仍未找到唯一代码，抛出异常
+    throw new Exception('无法生成唯一的申请码，请稍后重试');
 }
 
 ?>
