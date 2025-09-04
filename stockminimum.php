@@ -379,14 +379,6 @@
                     <input type="text" id="search-input" class="filter-input" placeholder="输入货品名称或编号..." onkeyup="filterTable()">
                 </div>
                 <div class="filter-group">
-                    <label for="stock-filter">库存状态：</label>
-                    <select id="stock-filter" class="filter-select" onchange="filterTable()">
-                        <option value="">全部货品</option>
-                        <option value="low">库存不足</option>
-                        <option value="sufficient">库存充足</option>
-                    </select>
-                </div>
-                <div class="filter-group">
                     <label for="batch-threshold">批量设置阈值：</label>
                     <input type="number" id="batch-threshold" class="filter-input" min="0" step="0.01" placeholder="输入阈值数量">
                 </div>
@@ -422,8 +414,8 @@
                         <span>显示货品: <span class="stat-value" id="displayed-count">0</span></span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>库存不足: <span class="stat-value" id="low-stock-count">0</span></span>
+                        <i class="fas fa-cogs"></i>
+                        <span>已设阈值: <span class="stat-value" id="low-stock-count">0</span></span>
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-boxes"></i>
@@ -441,8 +433,9 @@
                             </th>
                             <th>货品名称</th>
                             <th>货品编号</th>
-                            <th>当前库存</th>
-                            <th>库存状态</th>
+                            <th>供应商</th>
+                            <th>日期</th>
+                            <th>申请人</th>
                             <th>当前阈值</th>
                             <th>新阈值设置</th>
                             <th>操作</th>
@@ -488,7 +481,7 @@
             });
         });
 
-        // 加载阈值数据
+        // 使用优化的端点加载数据
         async function loadThresholdData() {
             if (isLoading) return;
             
@@ -496,20 +489,21 @@
             setLoadingState(true);
             
             try {
-                // 获取库存数据
-                const stockResponse = await fetch(API_BASE_URL + '?action=summary');
-                const stockResult = await stockResponse.json();
+                const response = await fetch(API_BASE_URL + '?action=summary-with-thresholds');
+                const result = await response.json();
                 
-                if (!stockResult.success) {
-                    throw new Error(stockResult.message || '获取库存数据失败');
+                if (!result.success) {
+                    throw new Error(result.message || '获取数据失败');
                 }
                 
-                allProducts = stockResult.data.summary || [];
+                allProducts = result.data.products || [];
                 
-                // 获取当前阈值设置
-                await loadCurrentThresholds();
+                // 提取阈值信息
+                currentThresholds = {};
+                allProducts.forEach(product => {
+                    currentThresholds[product.product_name] = product.threshold;
+                });
                 
-                // 渲染表格
                 filteredProducts = [...allProducts];
                 renderTable();
                 updateStats();
@@ -570,6 +564,63 @@
             }
         }
 
+        // 获取库存汇总数据（包含阈值信息，基于stock_data表）
+        function getStockSummaryWithThresholds() {
+            global $pdo;
+            
+            try {
+                $sql = "SELECT 
+                            s.id,
+                            s.product_code,
+                            s.product_name,
+                            s.supplier,
+                            s.date,
+                            s.applicant,
+                            s.approver,
+                            COALESCE(t.min_threshold, 10.00) as threshold,
+                            t.updated_at as threshold_updated
+                        FROM stock_data s
+                        LEFT JOIN stock_thresholds t ON s.product_name = t.product_name
+                        ORDER BY s.product_name ASC";
+                
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                $result = [];
+                $counter = 1;
+                
+                foreach ($products as $product) {
+                    $threshold = floatval($product['threshold']);
+                    
+                    $result[] = [
+                        'no' => $counter++,
+                        'id' => $product['id'],
+                        'product_name' => $product['product_name'],
+                        'code_number' => $product['product_code'] ?? '',
+                        'supplier' => $product['supplier'],
+                        'date' => $product['date'],
+                        'applicant' => $product['applicant'],
+                        'approver' => $product['approver'] ?? '未批准',
+                        'total_stock' => 0, // stock_data表没有库存字段
+                        'specification' => '',
+                        'price' => 0,
+                        'formatted_stock' => '0.00',
+                        'formatted_price' => '0.00',
+                        'formatted_total_price' => '0.00',
+                        'threshold' => $threshold,
+                        'is_low_stock' => true, // 假设所有货品都可能库存不足
+                        'threshold_updated' => $product['threshold_updated']
+                    ];
+                }
+                
+                return $result;
+                
+            } catch (PDOException $e) {
+                throw new Exception("查询库存阈值数据失败：" . $e->getMessage());
+            }
+        }
+
         // 设置加载状态
         function setLoadingState(loading) {
             const tbody = document.getElementById('threshold-tbody');
@@ -592,7 +643,7 @@
             if (filteredProducts.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="8" class="no-data">
+                        <td colspan="9" class="no-data">
                             <i class="fas fa-search"></i>
                             <div>没有找到匹配的货品</div>
                         </td>
@@ -604,30 +655,21 @@
             let html = '';
             
             filteredProducts.forEach((product, index) => {
-                const currentStock = parseFloat(product.total_stock) || 0;
                 const threshold = currentThresholds[product.product_name] || 10.00;
-                const isLowStock = currentStock <= threshold;
-                const stockStatusClass = isLowStock ? 'text-danger' : 'text-success';
-                const stockStatusText = isLowStock ? '库存不足' : '库存充足';
-                const stockStatusIcon = isLowStock ? 'fa-exclamation-triangle' : 'fa-check-circle';
                 
                 html += `
-                    <tr data-product-name="${product.product_name}" ${isLowStock ? 'style="background-color: #fef2f2;"' : ''}>
+                    <tr data-product-name="${product.product_name}">
                         <td class="text-center">
                             <input type="checkbox" class="threshold-checkbox product-checkbox" 
-                                   value="${product.product_name}">
+                                value="${product.product_name}">
                         </td>
                         <td>
                             <strong>${product.product_name}</strong>
                         </td>
                         <td class="text-center">${product.code_number || '-'}</td>
-                        <td class="text-center ${stockStatusClass}">${product.formatted_stock}</td>
-                        <td class="text-center">
-                            <span class="${stockStatusClass}">
-                                <i class="fas ${stockStatusIcon}"></i>
-                                ${stockStatusText}
-                            </span>
-                        </td>
+                        <td class="text-center">${product.supplier || '-'}</td>
+                        <td class="text-center">${product.date || '-'}</td>
+                        <td class="text-center">${product.applicant || '-'}</td>
                         <td class="text-center">
                             <span class="current-threshold" data-product="${product.product_name}">
                                 ${threshold.toFixed(2)}
@@ -635,8 +677,8 @@
                         </td>
                         <td class="text-center">
                             <input type="number" class="threshold-input" 
-                                   data-product="${product.product_name}"
-                                   min="0" step="0.01" placeholder="新阈值">
+                                data-product="${product.product_name}"
+                                min="0" step="0.01" placeholder="新阈值">
                         </td>
                         <td class="text-center">
                             <button class="btn btn-sm btn-primary" 
@@ -654,35 +696,21 @@
         // 过滤表格
         function filterTable() {
             const searchValue = document.getElementById('search-input').value.toLowerCase();
-            const stockFilter = document.getElementById('stock-filter').value;
             
             filteredProducts = allProducts.filter(product => {
                 // 文本搜索过滤
                 const matchText = !searchValue || 
                     product.product_name.toLowerCase().includes(searchValue) ||
-                    (product.code_number && product.code_number.toLowerCase().includes(searchValue));
+                    (product.code_number && product.code_number.toLowerCase().includes(searchValue)) ||
+                    (product.supplier && product.supplier.toLowerCase().includes(searchValue));
                 
-                // 库存状态过滤
-                let matchStock = true;
-                if (stockFilter) {
-                    const currentStock = parseFloat(product.total_stock) || 0;
-                    const threshold = currentThresholds[product.product_name] || 10.00;
-                    const isLowStock = currentStock <= threshold;
-                    
-                    if (stockFilter === 'low') {
-                        matchStock = isLowStock;
-                    } else if (stockFilter === 'sufficient') {
-                        matchStock = !isLowStock;
-                    }
-                }
-                
-                return matchText && matchStock;
+                return matchText;
             });
             
             renderTable();
             updateStats();
             
-            if (filteredProducts.length === 0 && (searchValue || stockFilter)) {
+            if (filteredProducts.length === 0 && searchValue) {
                 showAlert('没有找到匹配的货品', 'info');
             }
         }
@@ -692,18 +720,18 @@
             const displayedCount = filteredProducts.length;
             const totalCount = allProducts.length;
             
-            let lowStockCount = 0;
+            // 由于stock_data表没有实际库存数量，我们可以统计有阈值设置的货品数量
+            let thresholdSetCount = 0;
             allProducts.forEach(product => {
-                const currentStock = parseFloat(product.total_stock) || 0;
                 const threshold = currentThresholds[product.product_name] || 10.00;
-                if (currentStock <= threshold) {
-                    lowStockCount++;
+                if (threshold !== 10.00) { // 非默认阈值
+                    thresholdSetCount++;
                 }
             });
             
             document.getElementById('displayed-count').textContent = displayedCount;
             document.getElementById('total-count').textContent = totalCount;
-            document.getElementById('low-stock-count').textContent = lowStockCount;
+            document.getElementById('low-stock-count').textContent = thresholdSetCount;
         }
 
         // 全选/取消全选

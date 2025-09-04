@@ -41,60 +41,54 @@ function sendResponse($success, $message = "", $data = null) {
     exit;
 }
 
-// 获取库存汇总数据
+// 获取库存汇总数据（从stock_data表）
 function getStockSummary() {
     global $pdo;
     
     try {
-        // 查询汇总数据：按产品名称、规格、价格分组计算库存
+        // 从stock_data表获取所有货品
         $sql = "SELECT 
+                    id,
+                    product_code,
                     product_name,
-                    specification,
-                    price,
-                    code_number,
-                    SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) as total_in,
-                    SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END) as total_out,
-                    (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
-                     SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as current_stock
-                FROM stockinout_data 
-                WHERE product_name IS NOT NULL AND product_name != ''
-                GROUP BY product_name, specification, price, code_number
-                HAVING current_stock > 0
-                ORDER BY product_name ASC, price ASC";
+                    supplier,
+                    date,
+                    applicant,
+                    approver
+                FROM stock_data 
+                ORDER BY product_name ASC";
         
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $stockData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // 计算总价值
-        $totalValue = 0;
         $summaryData = [];
         $counter = 1;
         
         foreach ($stockData as $row) {
-            $currentStock = floatval($row['current_stock']);
-            $price = floatval($row['price']);
-            $totalPrice = $currentStock * $price;
-            $totalValue += $totalPrice;
-            
             $summaryData[] = [
                 'no' => $counter++,
+                'id' => $row['id'],
                 'product_name' => $row['product_name'],
-                'code_number' => $row['code_number'] ?? '',
-                'total_stock' => $currentStock,
-                'specification' => $row['specification'] ?? '',
-                'price' => $price,
-                'total_price' => $totalPrice,
-                'formatted_stock' => number_format($currentStock, 2),
-                'formatted_price' => number_format($price, 2),
-                'formatted_total_price' => number_format($totalPrice, 2)
+                'code_number' => $row['product_code'],
+                'supplier' => $row['supplier'],
+                'date' => $row['date'],
+                'applicant' => $row['applicant'],
+                'approver' => $row['approver'] ?? '未批准',
+                'total_stock' => 0, // stock_data表没有库存数量字段，设为0
+                'specification' => '',
+                'price' => 0,
+                'total_price' => 0,
+                'formatted_stock' => '0.00',
+                'formatted_price' => '0.00',
+                'formatted_total_price' => '0.00'
             ];
         }
         
         return [
             'summary' => $summaryData,
-            'total_value' => $totalValue,
-            'formatted_total_value' => number_format($totalValue, 2),
+            'total_value' => 0,
+            'formatted_total_value' => '0.00',
             'total_products' => count($summaryData)
         ];
         
@@ -103,39 +97,42 @@ function getStockSummary() {
     }
 }
 
-// 获取低库存货品
+// 获取低库存货品（基于stock_data表）
 function getLowStockItems() {
     global $pdo;
     
     try {
         $sql = "SELECT 
+                    s.id,
                     s.product_name,
-                    s.specification,
-                    s.code_number,
-                    s.current_stock,
-                    s.formatted_stock,
+                    s.product_code,
+                    s.supplier,
+                    s.date,
                     COALESCE(t.min_threshold, 10.00) as threshold
-                FROM (
-                    SELECT 
-                        product_name,
-                        specification,
-                        code_number,
-                        (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
-                         SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as current_stock,
-                        CONCAT(FORMAT((SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
-                                     SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)), 2)) as formatted_stock
-                    FROM stockinout_data 
-                    WHERE product_name IS NOT NULL AND product_name != ''
-                    GROUP BY product_name, specification, code_number
-                    HAVING current_stock > 0
-                ) s
+                FROM stock_data s
                 LEFT JOIN stock_thresholds t ON s.product_name = t.product_name
-                WHERE s.current_stock <= COALESCE(t.min_threshold, 10.00)
-                ORDER BY s.current_stock ASC";
+                WHERE COALESCE(t.min_threshold, 10.00) > 0
+                ORDER BY s.product_name ASC";
         
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // 由于stock_data表没有实际库存数量，我们假设所有货品都可能库存不足
+        // 实际使用中，您需要根据业务逻辑来判断哪些货品库存不足
+        $lowStockItems = [];
+        foreach ($results as $row) {
+            $lowStockItems[] = [
+                'product_name' => $row['product_name'],
+                'code_number' => $row['product_code'],
+                'specification' => '',
+                'current_stock' => 0,
+                'formatted_stock' => '0.00',
+                'threshold' => floatval($row['threshold'])
+            ];
+        }
+        
+        return $lowStockItems;
         
     } catch (PDOException $e) {
         throw new Exception("查询低库存数据失败：" . $e->getMessage());
@@ -285,6 +282,15 @@ if ($method === 'GET') {
             try {
                 $thresholds = getAllThresholds();
                 sendResponse(true, "阈值数据获取成功", ['thresholds' => $thresholds]);
+            } catch (Exception $e) {
+                sendResponse(false, $e->getMessage());
+            }
+            break;
+
+        case 'summary-with-thresholds':
+            try {
+                $result = getStockSummaryWithThresholds();
+                sendResponse(true, "库存阈值汇总数据获取成功", ['products' => $result]);
             } catch (Exception $e) {
                 sendResponse(false, $e->getMessage());
             }
