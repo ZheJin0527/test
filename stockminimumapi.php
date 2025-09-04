@@ -185,12 +185,13 @@ if ($method === 'GET') {
             try {
                 $productName = $input['product_name'] ?? '';
                 $minimumQuantity = floatval($input['minimum_quantity'] ?? 0);
+                $isActive = (bool)($input['is_active'] ?? false);
                 
                 if (empty($productName)) {
                     sendResponse(false, "货品名称不能为空");
                 }
                 
-                saveSingleSetting($productName, $minimumQuantity);
+                saveSingleSetting($productName, $minimumQuantity, $isActive);
                 sendResponse(true, "设置保存成功");
                 
             } catch (Exception $e) {
