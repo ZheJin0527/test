@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
+            background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
         }
@@ -26,7 +26,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
+            background: #ff5c00;
             color: white;
             padding: 20px 30px;
             border-radius: 10px;
@@ -144,11 +144,11 @@
         }
 
         .btn-primary { 
-            background: linear-gradient(270deg, #FF9800 0%, #E65100 100%); 
+            background-color: #FF9800; 
             color: white; 
         }
         .btn-primary:hover { 
-            background: linear-gradient(270deg, #E65100 0%, #BF360C 100%);
+            background-color: #E65100;
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(255,152,0,0.3);
         }
@@ -179,7 +179,7 @@
         }
 
         .table-header {
-            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
+            background: #ff5c00;
             color: white;
             padding: 20px 25px;
             display: flex;
@@ -226,7 +226,7 @@
             padding: 15px 12px;
             text-align: left;
             font-weight: 600;
-            color: #BF360C;
+            color: black;
             border-bottom: 2px solid #ff5c00;
             position: sticky;
             top: 0;
@@ -308,13 +308,13 @@
             right: 30px;
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
+            background-color: #eb8e02ff;
             color: white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
             font-size: 18px;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.3);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -327,9 +327,9 @@
         }
 
         .back-to-top:hover {
-            background: linear-gradient(135deg, #E65100 0%, #BF360C 100%);
+            background-color: #d16003ff;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.6);
+            box-shadow: 0 6px 16px rgba(88, 62, 4, 0.4);
         }
 
         @media (max-width: 768px) {
