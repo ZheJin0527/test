@@ -1217,11 +1217,12 @@
         // 检查库存不足
         async function checkLowStock() {
             try {
-                // 获取最低库存设置
-                const response = await fetch('stockapi.php?action=get_min_stock');
+                // 获取最低库存设置 - 修改API调用
+                const response = await fetch(`${API_CONFIG.central}?action=get_min_stock`);
                 const result = await response.json();
                 
                 if (!result.success) {
+                    console.log('获取最低库存设置失败:', result.message);
                     return; // 如果获取设置失败，不显示警告
                 }
                 
@@ -1230,9 +1231,12 @@
                 
                 // 检查当前系统的库存
                 filteredData[currentSystem].forEach(item => {
-                    const key = `${item.product_name}_${item.code_number}`;
+                    // 修改匹配逻辑，确保键值格式一致
+                    const key = `${item.product_name}_${item.code_number || item.product_code}`;
                     const minStock = minStockSettings[key] || 0;
-                    const currentStock = parseFloat(item.total_stock) || 0;
+                    const currentStock = parseFloat(item.total_stock || item.formatted_stock || 0);
+                    
+                    console.log(`检查产品: ${item.product_name}, 当前库存: ${currentStock}, 最低库存: ${minStock}`);
                     
                     if (minStock > 0 && currentStock < minStock) {
                         lowStockItems.push({
