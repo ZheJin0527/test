@@ -709,168 +709,6 @@
             min-width: 120px;
         }
 
-        /* 弹窗样式 */
-        .modal {
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 0;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh; /* 添加最大高度 */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            animation: modalFadeIn 0.3s;
-            display: flex;
-            flex-direction: column; /* 添加 */
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal-header {
-            padding: 20px 25px;
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            border-radius: 8px 8px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            color: #333;
-            font-size: 18px;
-        }
-
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .close:hover {
-            color: #000;
-        }
-
-        .modal-body {
-            padding: 25px;
-            overflow-y: auto; /* 添加滚动 */
-            flex: 1; /* 添加 */
-        }
-
-        .low-stock-item {
-            background-color: #fff5f5;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .low-stock-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .low-stock-info h4 {
-            margin: 0 0 5px 0;
-            color: #dc2626;
-            font-size: 16px;
-        }
-
-        .low-stock-info p {
-            margin: 0;
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        /* 添加新的样式 */
-        #low-stock-list {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        /* 滚动条美化 */
-        #low-stock-list::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        #low-stock-list::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 3px;
-        }
-
-        #low-stock-list::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
-            border-radius: 3px;
-        }
-
-        #low-stock-list::-webkit-scrollbar-thumb:hover {
-            background: #a8a8a8;
-        }
-
-        .stock-quantity {
-            font-weight: bold;
-            color: #dc2626;
-            font-size: 18px;
-        }
-
-        .modal-actions {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #374151;
-        }
-
-        .threshold-input {
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 5px 8px;
-            font-size: 14px;
-        }
-
-        .threshold-checkbox {
-            transform: scale(1.2);
-        }
-
-        .text-danger {
-            color: #dc2626 !important;
-            font-weight: bold;
-        }
-
-        .btn-sm {
-            padding: 4px 8px;
-            font-size: 12px;
-        }
-
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -930,24 +768,6 @@
     </style>
 </head>
 <body>
-    <!-- 低库存预警弹窗 -->
-    <div id="low-stock-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i> 库存预警</h2>
-                <span class="close" onclick="closeLowStockModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div id="low-stock-list">
-                    <!-- 动态内容 -->
-                </div>
-                <div class="modal-actions">
-                    <button class="btn btn-secondary" onclick="closeLowStockModal()">关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
         <div class="header">
             <div>
@@ -1363,11 +1183,9 @@
             remark: '货品备注'
         };
 
-        // 修改现有的 initApp 函数
+        // 初始化应用
         function initApp() {
             loadData(currentSystem);
-            checkLowStock(); // 添加这行
-            
             // 点击外部关闭下拉菜单
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.system-selector')) {
@@ -1377,49 +1195,6 @@
                     document.getElementById('view-selector-dropdown').classList.remove('show');
                 }
             });
-        }
-
-        // 检查低库存并显示弹窗
-        async function checkLowStock() {
-            try {
-                const result = await apiCall('central', '?action=low-stock');
-                if (result.success && result.data.items.length > 0) {
-                    showLowStockModal(result.data.items);
-                }
-            } catch (error) {
-                console.error('检查低库存失败:', error);
-            }
-        }
-
-        // 显示低库存弹窗
-        function showLowStockModal(lowStockItems) {
-            const modal = document.getElementById('low-stock-modal');
-            const listContainer = document.getElementById('low-stock-list');
-            
-            let html = `<div style="margin-bottom: 15px;">
-                            <strong style="color: #dc2626;">发现 ${lowStockItems.length} 种货品库存不足：</strong>
-                        </div>`;
-            
-            lowStockItems.forEach(item => {
-                html += `
-                    <div class="low-stock-item">
-                        <div class="low-stock-info">
-                            <h4>${item.product_name}</h4>
-                            <p>货品编号: ${item.code_number || '无'} | 规格: ${item.specification || '无'}</p>
-                            <p>阈值: ${item.threshold}</p>
-                        </div>
-                        <div class="stock-quantity">${item.formatted_stock}</div>
-                    </div>
-                `;
-            });
-            
-            listContainer.innerHTML = html;
-            modal.style.display = 'block';
-        }
-
-        // 关闭低库存弹窗
-        function closeLowStockModal() {
-            document.getElementById('low-stock-modal').style.display = 'none';
         }
 
         // 切换系统选择器
