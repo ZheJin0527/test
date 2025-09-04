@@ -789,7 +789,7 @@ updatePageIndicator(0);
 
         // 自动滚动相关变量
         let autoScrollInterval = null;
-        let autoScrollDelay = 10000; // 4秒自动切换
+        let autoScrollDelay = 15000; 
         let isAutoScrollPaused = false;
 
         function updateTimelineNav() {
