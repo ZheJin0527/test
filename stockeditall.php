@@ -4277,7 +4277,7 @@
                     // NO (第一列) - 居中对齐
                     const itemText = itemNumber.toString();
                     page.drawText(itemText, {
-                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 30 : 60, 6),
+                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 40 : 60, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
