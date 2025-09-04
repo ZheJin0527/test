@@ -2014,8 +2014,6 @@
                     <thead>
                         <tr>
                             <th>货品名称</th>
-                            <th>货品编号</th>
-                            <th>规格</th>
                             <th>当前库存</th>
                             <th>最低库存</th>
                             <th>状态</th>
@@ -2027,17 +2025,12 @@
             alerts.forEach(alert => {
                 const currentStock = parseFloat(alert.current_stock);
                 const minimumStock = parseFloat(alert.minimum_quantity);
-                const percentage = (currentStock / minimumStock) * 100;
                 
                 let statusClass = 'stock-critical';
-                let statusText = '严重不足';
-                let statusIcon = 'fa-exclamation-circle';
+                let statusText = '库存不足';
+                let statusIcon = 'fa-exclamation-triangle';
                 
-                if (percentage > 50) {
-                    statusClass = 'stock-warning';
-                    statusText = '库存偏低';
-                    statusIcon = 'fa-exclamation-triangle';
-                } else if (currentStock <= 0) {
+                if (currentStock <= 0) {
                     statusText = '库存为零';
                     statusIcon = 'fa-ban';
                 }
@@ -2045,10 +2038,8 @@
                 html += `
                     <tr>
                         <td><strong>${alert.product_name}</strong></td>
-                        <td>${alert.code_number || '-'}</td>
-                        <td>${alert.specification || '-'}</td>
                         <td class="${statusClass}">${alert.formatted_stock}</td>
-                        <td>${parseFloat(alert.minimum_quantity).toFixed(2)}</td>
+                        <td>${minimumStock.toFixed(2)}</td>
                         <td class="${statusClass}">
                             <i class="fas ${statusIcon}"></i>
                             ${statusText}
@@ -2081,6 +2072,33 @@
                 closeLowStockModal();
             }
         });
+
+        // 搜索设置
+        function searchSettings() {
+            const productFilter = document.getElementById('product-filter').value.toLowerCase();
+
+            filteredProducts = allProducts.filter(product => {
+                return !productFilter || product.product_name.toLowerCase().includes(productFilter);
+            });
+
+            renderSettingsTable();
+            
+            if (filteredProducts.length === 0) {
+                showAlert('未找到匹配的记录', 'info');
+            } else {
+                showAlert(`找到 ${filteredProducts.length} 条匹配记录`, 'success');
+            }
+        }
+
+        // 重置过滤器
+        function resetFilters() {
+            document.getElementById('product-filter').value = '';
+            
+            filteredProducts = [...allProducts];
+            renderSettingsTable();
+            
+            showAlert('搜索条件已重置', 'info');
+        }
     </script>
 </body>
 </html>
