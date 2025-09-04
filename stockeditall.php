@@ -4294,7 +4294,7 @@
                     page.drawText(displayProductName.toUpperCase(), {
                         x: exportSystem === 'j1' ? 62 : 72,
                         y: yPosition,
-                        size: fontSize,
+                        size: smallFontSize,
                         color: textColor,
                         font: boldFont,
                     });
