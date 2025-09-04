@@ -121,6 +121,35 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
+        /* 搜索框特殊样式 */
+        #searchInput {
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: #ff5c00 !important;
+            box-shadow: 0 0 10px rgba(255, 115, 0, 0.8) !important;
+        }
+
+        #searchInput::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* 高亮搜索结果 */
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        /* 隐藏不匹配的行 */
+        .hidden-row {
+            display: none !important;
+        }
+
         .btn-generate {
             background: linear-gradient(270deg, #FF9800 0%, #E65100 100%);
             color: white;
@@ -329,7 +358,26 @@
 
             <form id="generateForm">
                 <div class="form-row">
-                    <div class="form-group" style="flex: 3;">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="searchInput">搜索过滤:</label>
+                        <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
+                            style="padding: 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px;">
+                    </div>
+
+                    <div class="form-group" style="flex: 2; position: relative;">
+                        <label for="searchInput">搜索过滤:</label>
+                        <div style="position: relative;">
+                            <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
+                                style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
+                            <button type="button" onclick="clearSearch()" 
+                                    style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
+                                    title="清除搜索">
+                                ×
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 2;">
                         <label for="account_type">账户类型:</label>
                         <select id="account_type" name="account_type" required>
                             <option value="">请选择账户类型</option>
@@ -390,6 +438,12 @@
         // 页面加载时获取数据
         document.addEventListener('DOMContentLoaded', function() {
             loadCodesAndUsers();
+            
+            // 添加实时搜索功能
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function(e) {
+                filterTable(e.target.value);
+            });
         });
 
         // 表单提交处理
@@ -541,6 +595,15 @@
             `).join('');
 
             tableBody.innerHTML = rows;
+
+            // 保存原始数据用于搜索
+            originalTableData = sortedData;
+
+            // 如果有搜索词，重新应用过滤
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput && searchInput.value.trim()) {
+                filterTable(searchInput.value);
+            }
         }
 
         // 格式化账户类型
@@ -593,6 +656,104 @@
         // 刷新表格
         function refreshTable() {
             loadCodesAndUsers();
+        }
+
+        // 全局变量存储原始数据
+        let originalTableData = [];
+
+        // 实时过滤表格
+        function filterTable(searchTerm) {
+            const tableBody = document.getElementById('tableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+            
+            // 如果没有搜索词，显示所有行
+            if (!searchTerm.trim()) {
+                for (let row of rows) {
+                    row.classList.remove('hidden-row');
+                    // 移除所有高亮
+                    removeHighlights(row);
+                }
+                return;
+            }
+            
+            const searchLower = searchTerm.toLowerCase();
+            
+            // 遍历每一行进行过滤
+            for (let row of rows) {
+                // 跳过加载中或无数据的行
+                if (row.cells.length === 1 && row.cells[0].colSpan > 1) {
+                    continue;
+                }
+                
+                let matchFound = false;
+                let rowText = '';
+                
+                // 检查每个单元格的内容
+                for (let cell of row.cells) {
+                    const cellText = cell.textContent.toLowerCase();
+                    rowText += cellText + ' ';
+                    
+                    // 如果找到匹配项
+                    if (cellText.includes(searchLower)) {
+                        matchFound = true;
+                    }
+                }
+                
+                // 显示或隐藏行
+                if (matchFound) {
+                    row.classList.remove('hidden-row');
+                    highlightMatches(row, searchTerm);
+                } else {
+                    row.classList.add('hidden-row');
+                    removeHighlights(row);
+                }
+            }
+        }
+
+        // 高亮匹配的文本
+        function highlightMatches(row, searchTerm) {
+            if (!searchTerm.trim()) return;
+            
+            const searchLower = searchTerm.toLowerCase();
+            
+            for (let cell of row.cells) {
+                // 跳过序号列和状态标签
+                if (cell.cellIndex === 0 || cell.querySelector('.status-badge') || cell.querySelector('.account-type-badge')) {
+                    continue;
+                }
+                
+                const originalText = cell.textContent;
+                const originalHTML = cell.innerHTML;
+                
+                // 如果包含匹配文本且不是空值显示
+                if (originalText.toLowerCase().includes(searchLower) && !originalText.includes('-')) {
+                    const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
+                    const highlightedHTML = originalHTML.replace(regex, '<span class="highlight">$1</span>');
+                    cell.innerHTML = highlightedHTML;
+                }
+            }
+        }
+
+        // 移除高亮
+        function removeHighlights(row) {
+            const highlights = row.querySelectorAll('.highlight');
+            highlights.forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                parent.normalize(); // 合并相邻的文本节点
+            });
+        }
+
+        // 转义正则表达式特殊字符
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // 清除搜索
+        function clearSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = '';
+            filterTable('');
         }
     </script>
 </body>
