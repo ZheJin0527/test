@@ -267,11 +267,54 @@ function handleGet() {
             
             sendResponse(true, "汇总数据获取成功", $summary);
             break;
-            
-        default:
-            sendResponse(false, "无效的操作");
-    }
-}
+
+        // 在现有的switch语句中添加以下case：
+        case 'get_min_stock':
+            // 获取最低库存设置
+            try {
+                $stmt = $pdo->prepare("SELECT * FROM min_stock_settings");
+                $stmt->execute();
+                $settings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                $result = [];
+                foreach ($settings as $setting) {
+                    $key = $setting['product_name'] . '_' . $setting['product_code'];
+                    $result[$key] = floatval($setting['min_quantity']);
+                }
+                
+                sendResponse(true, "最低库存设置获取成功", $result);
+            } catch (PDOException $e) {
+                sendResponse(false, "获取最低库存设置失败：" . $e->getMessage());
+            }
+            break;
+
+        case 'save_min_stock':
+            try {
+                $input = json_decode(file_get_contents('php://input'), true);
+                $settings = $input['settings'] ?? [];
+                
+                // 清空现有设置
+                $pdo->prepare("DELETE FROM min_stock_settings")->execute();
+                
+                // 插入新设置
+                $stmt = $pdo->prepare("INSERT INTO min_stock_settings (product_key, min_stock) VALUES (?, ?)");
+                
+                foreach ($settings as $key => $value) {
+                    if ($value > 0) { // 只保存大于0的设置
+                        $stmt->execute([$key, $value]);
+                    }
+                }
+                
+                sendResponse(true, "最低库存设置保存成功");
+            } catch (Exception $e) {
+                sendResponse(false, $e->getMessage());
+            }
+            break;
+                    
+                default:
+                    sendResponse(false, "无效的操作");
+            }
+        }
 
 // 处理 POST 请求 - 添加新记录
 function handlePost() {
@@ -279,6 +322,12 @@ function handlePost() {
     
     if (!$data) {
         sendResponse(false, "无效的数据格式");
+    }
+
+    // 检查是否是保存最低库存设置
+    if (isset($data['action']) && $data['action'] === 'save_min_stock') {
+        handleSaveMinStock();
+        return;
     }
     
     // 验证必填字段
@@ -486,6 +535,46 @@ function handleBatchApprove() {
     } catch (PDOException $e) {
         $pdo->rollback();
         sendResponse(false, "批量批准失败：" . $e->getMessage());
+    }
+}
+
+// 处理保存最低库存设置
+function handleSaveMinStock() {
+    global $pdo, $data;
+    
+    if (!isset($data['settings'])) {
+        sendResponse(false, "缺少设置数据");
+    }
+    
+    $settings = $data['settings'];
+    
+    try {
+        $pdo->beginTransaction();
+        
+        // 先删除所有现有设置
+        $stmt = $pdo->prepare("DELETE FROM min_stock_settings");
+        $stmt->execute();
+        
+        // 插入新设置
+        $stmt = $pdo->prepare("INSERT INTO min_stock_settings (product_name, product_code, min_quantity) VALUES (?, ?, ?)");
+        
+        foreach ($settings as $key => $minQuantity) {
+            if ($minQuantity > 0) { // 只保存大于0的设置
+                $parts = explode('_', $key);
+                if (count($parts) >= 2) {
+                    $productCode = array_pop($parts);
+                    $productName = implode('_', $parts);
+                    $stmt->execute([$productName, $productCode, $minQuantity]);
+                }
+            }
+        }
+        
+        $pdo->commit();
+        sendResponse(true, "最低库存设置保存成功");
+        
+    } catch (PDOException $e) {
+        $pdo->rollback();
+        sendResponse(false, "保存最低库存设置失败：" . $e->getMessage());
     }
 }
 ?>

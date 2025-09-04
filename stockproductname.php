@@ -1024,12 +1024,15 @@ if (isset($_SESSION['user_id'])) {
                     settings[key] = value;
                 });
                 
-                const response = await fetch(`${API_BASE_URL}?action=save_min_stock`, {
+                const response = await fetch(`${API_BASE_URL}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ settings })
+                    body: JSON.stringify({ 
+                        action: 'save_min_stock',
+                        settings: settings 
+                    })
                 });
                 
                 const result = await response.json();
