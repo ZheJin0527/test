@@ -357,11 +357,24 @@
             <div id="messageArea"></div>
 
             <form id="generateForm">
-                <div class="form-row">                    
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2; position: relative;">
+                        <label for="searchInput">搜索过滤:</label>
+                        <div style="position: relative;">
+                            <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
+                                style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
+                            <button type="button" onclick="clearSearch()" 
+                                    style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
+                                    title="清除搜索">
+                                ×
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div class="form-group" style="flex: 2;">
-                        <label for="account_type">账户类型:</label>
+                        <label for="account_type">:</label>
                         <select id="account_type" name="account_type" required>
-                            <option value="">请选择账户类型</option>
+                            <option value="">请选择账户类型并点击生成</option>
                             <option value="admin">管理员 (Admin)</option>
                             <option value="hr">人事部 (HR)</option>
                             <option value="design">设计部 (Design)</option>
@@ -376,19 +389,6 @@
                         <button type="submit" class="btn-generate">
                             <span id="btnText">生成代码</span>
                         </button>
-                    </div>
-
-                    <div class="form-group" style="flex: 2; position: relative;">
-                        <label for="searchInput">搜索过滤:</label>
-                        <div style="position: relative;">
-                            <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
-                                style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
-                            <button type="button" onclick="clearSearch()" 
-                                    style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
-                                    title="清除搜索">
-                                ×
-                            </button>
-                        </div>
                     </div>
                 </div>
             </form>
