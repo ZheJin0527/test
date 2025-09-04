@@ -4215,7 +4215,7 @@
                     // J1模板的日期位置
                     page.drawText(` ${currentDate}`, {
                         x: 465, // J1模板DATE冒号后面的位置
-                        y: height - 115.5, 
+                        y: height - 100, 
                         size: fontSize,
                         color: whiteColor,
                         font: boldFont,
