@@ -329,14 +329,7 @@
 
             <form id="generateForm">
                 <div class="form-row">
-                    <div class="form-group" style="flex: 2;">
-                        <label for="code">申请码:</label>
-                        <input type="text" id="code" name="code" required 
-                               placeholder="请输入申请码 (例如: ADMIN001)" 
-                               maxlength="50">
-                    </div>
-                    
-                    <div class="form-group" style="flex: 2;">
+                    <div class="form-group" style="flex: 3;">
                         <label for="account_type">账户类型:</label>
                         <select id="account_type" name="account_type" required>
                             <option value="">请选择账户类型</option>
@@ -350,6 +343,7 @@
                     </div>
                     
                     <div class="form-group" style="flex: 1;">
+                        <label>&nbsp;</label>
                         <button type="submit" class="btn-generate">
                             <span id="btnText">生成代码</span>
                         </button>
@@ -406,15 +400,17 @@
 
         // 生成代码函数
         async function generateCode() {
-            const code = document.getElementById('code').value.trim();
             const accountType = document.getElementById('account_type').value;
             const btnText = document.getElementById('btnText');
             const messageArea = document.getElementById('messageArea');
 
-            if (!code || !accountType) {
-                showMessage('请填写所有必填字段！', 'error');
+            if (!accountType) {
+                showMessage('请选择账户类型！', 'error');
                 return;
             }
+
+            // 生成6位随机代码
+            const code = generateRandomCode();
 
             // 显示加载状态
             btnText.innerHTML = '<div class="loading"></div>生成中...';
@@ -436,7 +432,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showMessage(`代码 "${code}" 生成成功！`, 'success');
+                    showMessage(`申请码 "${result.data.code}" 生成成功！`, 'success');
                     document.getElementById('generateForm').reset();
                     loadCodesAndUsers(); // 刷新表格
                 } else {
@@ -481,6 +477,16 @@
                     </tr>
                 `;
             }
+        }
+
+        // 生成6位随机代码（数字字母结合）
+        function generateRandomCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
         }
 
         // 返回仪表盘
