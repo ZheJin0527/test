@@ -103,6 +103,88 @@ function getStockSummary() {
     }
 }
 
+// 获取低库存数据
+function getLowStockItems() {
+    global $pdo;
+    
+    try {
+        // 首先获取当前库存
+        $stockSql = "SELECT 
+                        product_name,
+                        specification,
+                        price,
+                        code_number,
+                        SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) as total_in,
+                        SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END) as total_out,
+                        (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
+                         SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as current_stock
+                    FROM stockinout_data 
+                    WHERE product_name IS NOT NULL AND product_name != ''
+                    GROUP BY product_name, specification, price, code_number
+                    HAVING current_stock >= 0";
+        
+        $stockStmt = $pdo->prepare($stockSql);
+        $stockStmt->execute();
+        $stockData = $stockStmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // 获取最低库存设置
+        $minStockSql = "SELECT product_name, code_number, min_stock_quantity 
+                        FROM stock_data 
+                        WHERE min_stock_quantity > 0";
+        
+        $minStockStmt = $pdo->prepare($minStockSql);
+        $minStockStmt->execute();
+        $minStockData = $minStockStmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // 创建最低库存映射
+        $minStockMap = [];
+        foreach ($minStockData as $item) {
+            $key = $item['product_name'] . '|' . ($item['code_number'] ?? '');
+            $minStockMap[$key] = floatval($item['min_stock_quantity']);
+        }
+        
+        // 找出低库存商品
+        $lowStockItems = [];
+        foreach ($stockData as $stock) {
+            $key = $stock['product_name'] . '|' . ($stock['code_number'] ?? '');
+            $currentStock = floatval($stock['current_stock']);
+            
+            if (isset($minStockMap[$key])) {
+                $minStock = $minStockMap[$key];
+                
+                if ($currentStock <= $minStock) {
+                    $lowStockItems[] = [
+                        'product_name' => $stock['product_name'],
+                        'code_number' => $stock['code_number'] ?? '',
+                        'specification' => $stock['specification'] ?? '',
+                        'current_stock' => $currentStock,
+                        'min_stock' => $minStock,
+                        'formatted_current_stock' => number_format($currentStock, 2),
+                        'formatted_min_stock' => number_format($minStock, 2),
+                        'shortage' => $minStock - $currentStock,
+                        'formatted_shortage' => number_format($minStock - $currentStock, 2)
+                    ];
+                }
+            }
+        }
+        
+        // 按缺货严重程度排序
+        usort($lowStockItems, function($a, $b) {
+            $ratioA = $a['current_stock'] / $a['min_stock'];
+            $ratioB = $b['current_stock'] / $b['min_stock'];
+            return $ratioA <=> $ratioB;
+        });
+        
+        return [
+            'low_stock_items' => $lowStockItems,
+            'total_low_stock' => count($lowStockItems)
+        ];
+        
+    } catch (PDOException $e) {
+        throw new Exception("查询低库存数据失败：" . $e->getMessage());
+    }
+}
+
 // 主要路由处理
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -114,6 +196,15 @@ if ($method === 'GET') {
             try {
                 $result = getStockSummary();
                 sendResponse(true, "库存汇总数据获取成功", $result);
+            } catch (Exception $e) {
+                sendResponse(false, $e->getMessage());
+            }
+            break;
+
+        case 'low_stock':
+            try {
+                $result = getLowStockItems();
+                sendResponse(true, "低库存检查完成", $result);
             } catch (Exception $e) {
                 sendResponse(false, $e->getMessage());
             }
