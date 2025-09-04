@@ -4053,12 +4053,13 @@
                 return;
             }
             
+            // 显示加载状态
+            const exportBtn = document.querySelector('.export-modal-actions .btn-success');
+            const originalText = exportBtn.innerHTML;
+            exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
+            exportBtn.disabled = true;
+            
             try {
-                // 显示加载状态
-                const exportBtn = document.querySelector('.export-modal-actions .btn-success');
-                const originalText = exportBtn.innerHTML;
-                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
-                exportBtn.disabled = true;
                 
                 // 获取指定日期范围内的出库数据
                 const params = new URLSearchParams({
@@ -4196,7 +4197,7 @@
                 // 设置字体大小和颜色
                 const fontSize = 11;
                 const textColor = rgb(0, 0, 0);
-                const whiteColor = rgb(255, 255, 255); // 白色
+                const whiteColor = rgb(1, 1, 1); // 白色
                 
                 // 字体对齐辅助函数
                 function getRightAlignedX(text, maxX, charWidth = 6) {
