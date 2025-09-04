@@ -4279,7 +4279,7 @@
                     page.drawText(itemText, {
                         x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 45 : 60, 6),
                         y: yPosition,
-                        size: smallfontSize,
+                        size: smallFontSize,
                         color: textColor,
                         font: boldFont,
                     });
