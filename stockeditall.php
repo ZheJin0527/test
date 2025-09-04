@@ -4158,9 +4158,18 @@
         // 生成PDF发票
         async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
             try {
+                console.log('开始生成PDF发票:', {
+                    exportSystem,
+                    dataLength: outData ? outData.length : 0,
+                    startDate,
+                    endDate,
+                    invoiceNumber
+                });
+                
                 // 如果没有提供发票号码，自动生成一个
                 if (!invoiceNumber) {
                     invoiceNumber = generateInvoiceNumber();
+                    console.log('自动生成发票号码:', invoiceNumber);
                 }
                 
                 // 下载现有的PDF模板
@@ -4187,6 +4196,7 @@
                 // 设置字体大小和颜色
                 const fontSize = 11;
                 const textColor = rgb(0, 0, 0);
+                const whiteColor = rgb(255, 255, 255); // 白色
                 
                 // 字体对齐辅助函数
                 function getRightAlignedX(text, maxX, charWidth = 6) {
@@ -4383,6 +4393,12 @@
                 
             } catch (error) {
                 console.error('PDF生成失败:', error);
+                console.error('错误详情:', {
+                    message: error.message,
+                    stack: error.stack,
+                    exportSystem: exportSystem,
+                    dataLength: outData ? outData.length : 0
+                });
                 throw error;
             }
         }
