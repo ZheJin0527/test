@@ -358,7 +358,7 @@
 
             <form id="generateForm">
                 <div class="form-row">
-                    <div class="form-group" style="flex: 1.2; position: relative;">
+                    <div class="form-group" style="flex: 2; position: relative;">
                         <label for="searchInput">搜索账号类型:</label>
                         <div style="position: relative;">
                             <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
