@@ -20,7 +20,7 @@
         }
         
         .container {
-            max-width: 1500px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 24px;
         }
@@ -281,8 +281,8 @@
             vertical-align: middle;
         }
 
-        .price-variants-table th:nth-child(1) { width: 6.5%; } /* 备注编号 */
-        .price-variants-table th:nth-child(2) { width: 25%; } /* 数量/重量 */
+        .price-variants-table th:nth-child(1) { width: 4.5%; } /* 备注编号 */
+        .price-variants-table th:nth-child(2) { width: 4.5%; } /* 数量/重量 */
         .price-variants-table th:nth-child(3) { width: 25%; } /* 规格 */
         .price-variants-table th:nth-child(4) { width: 25%; } /* 单价 */
 
