@@ -4225,7 +4225,7 @@
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
                             x: 100, // J1模板Invoice No位置
-                            y: height - 128, // 调整到Invoice No行
+                            y: height - 129, // 调整到Invoice No行
                             size: fontSize,
                             color: whiteColor,
                             font: boldFont,
