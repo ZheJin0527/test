@@ -4196,6 +4196,7 @@
 
                 // 设置字体大小和颜色
                 const fontSize = 14;
+                const smallFontSize = 10;
                 const textColor = rgb(0, 0, 0);
                 const whiteColor = rgb(1, 1, 1); // 白色
                 
@@ -4259,8 +4260,8 @@
                 // 填入数据行 (从第一个数据行开始)
                 let yPosition, lineHeight;
                 if (exportSystem === 'j1') {
-                    yPosition = height - 189; // J1模板的起始Y坐标
-                    lineHeight = 14; // J1模板的行高
+                    yPosition = height - 160; // J1模板的起始Y坐标
+                    lineHeight = 16.01; // J1模板的行高
                 } else { // j2
                     yPosition = height - 301; // J2模板的起始Y坐标
                     lineHeight = 17; // J2模板的行高
