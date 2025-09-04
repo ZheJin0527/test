@@ -265,8 +265,10 @@
         }
 
         /* 第二和第三列左对齐 */
+        .price-variants-table th:nth-child(2),
+        .price-variants-table th:nth-child(3),
         .price-variants-table td:nth-child(2),
-        .price-variants-table td:nth-child(3) {
+        .price-variants-table td:nth-child(3)  {
             text-align: left;
         }
 
