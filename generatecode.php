@@ -412,12 +412,11 @@
                             <th>邮箱</th>
                             <th>性别</th>
                             <th>电话号码</th>
-                            <th>创建时间</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="9" style="text-align: center; padding: 30px;">
+                            <td colspan="8" style="text-align: center; padding: 30px;">
                                 <div class="loading"></div>
                                 正在加载数据...
                             </td>
@@ -509,7 +508,7 @@
                 } else {
                     tableBody.innerHTML = `
                         <tr>
-                            <td colspan="9" style="text-align: center; padding: 30px; color: #C62828;">
+                            <td colspan="8" style="text-align: center; padding: 30px; color: #C62828;">
                                 ❌ 加载失败: ${result.message}
                             </td>
                         </tr>
@@ -519,7 +518,7 @@
                 console.error('Error:', error);
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="9" style="text-align: center; padding: 30px; color: #C62828;">
+                        <td colspan="8" style="text-align: center; padding: 30px; color: #C62828;">
                             ❌ 网络错误，请检查连接
                         </td>
                     </tr>
@@ -549,7 +548,7 @@
             if (!data || data.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="9" style="text-align: center; padding: 30px; color: #666;">
+                        <td colspan="8" style="text-align: center; padding: 30px; color: #666;">
                             📝 暂无数据
                         </td>
                     </tr>
@@ -584,7 +583,6 @@
                     <td>${item.email || '<em style="color: #999;">-</em>'}</td>
                     <td>${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
                     <td>${item.phone_number || '<em style="color: #999;">-</em>'}</td>
-                    <td>${formatDateTime(item.created_at)}</td>
                 </tr>
             `).join('');
 
@@ -621,19 +619,6 @@
                 'other': '其他'
             };
             return genders[gender] || gender;
-        }
-
-        // 格式化日期时间
-        function formatDateTime(dateString) {
-            if (!dateString) return '-';
-            const date = new Date(dateString);
-            return date.toLocaleString('zh-CN', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
         }
 
         // 显示消息
