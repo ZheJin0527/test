@@ -111,27 +111,22 @@ function getLowStockAlerts() {
         // 获取当前库存和最低库存设置
         $sql = "SELECT 
                     s.product_name,
-                    s.code_number,
-                    s.specification,
                     s.current_stock,
                     s.formatted_stock,
-                    m.minimum_quantity,
-                    m.is_active
+                    m.minimum_quantity
                 FROM (
                     SELECT 
                         product_name,
-                        code_number,
-                        specification,
                         (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
                          SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as current_stock,
                         FORMAT((SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
                                SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)), 2) as formatted_stock
                     FROM stockinout_data 
                     WHERE product_name IS NOT NULL AND product_name != ''
-                    GROUP BY product_name, code_number, specification
+                    GROUP BY product_name
                 ) s
                 INNER JOIN stock_minimum_settings m ON s.product_name = m.product_name
-                WHERE m.is_active = 1 AND s.current_stock <= m.minimum_quantity
+                WHERE s.current_stock <= m.minimum_quantity AND m.minimum_quantity > 0
                 ORDER BY (s.current_stock / m.minimum_quantity) ASC, s.product_name ASC";
         
         $stmt = $pdo->prepare($sql);
