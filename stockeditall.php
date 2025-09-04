@@ -4214,7 +4214,7 @@
                 if (exportSystem === 'j1') {
                     // J1模板的日期位置
                     page.drawText(` ${currentDate}`, {
-                        x: 460, // J1模板DATE冒号后面的位置
+                        x: 400, // J1模板DATE冒号后面的位置
                         y: height - 128, 
                         size: fontSize,
                         color: whiteColor,
