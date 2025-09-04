@@ -4195,7 +4195,7 @@
                 const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
                 // 设置字体大小和颜色
-                const fontSize = 11;
+                const fontSize = 14;
                 const textColor = rgb(0, 0, 0);
                 const whiteColor = rgb(1, 1, 1); // 白色
                 
@@ -4342,7 +4342,7 @@
                     page.drawText(subtotalText, {
                         x: getRightAlignedX(subtotalText, 585, 8),
                         y: height - 663, // 调整到Subtotal行
-                        size: 11,
+                        size: fontSize,
                         color: textColor,
                         font: boldFont,
                     });
@@ -4352,7 +4352,7 @@
                     page.drawText(chargeText, {
                         x: getRightAlignedX(chargeText, 583, 8),
                         y: height - 679, // 调整到Charge行
-                        size: 11,
+                        size: fontSize,
                         color: textColor,
                         font: boldFont,
                     });
@@ -4362,7 +4362,7 @@
                     page.drawText(finalTotalText, {
                         x: getRightAlignedX(finalTotalText, 585, 8),
                         y: height - 698, // 调整到最终Total行
-                        size: 11,
+                        size: fontSize,
                         color: textColor,
                         font: boldFont,
                     });
@@ -4372,7 +4372,7 @@
                     page.drawText(totalText, {
                         x: getRightAlignedX(totalText, 585, 8),
                         y: height - 650,
-                        size: 11,
+                        size: fontSize,
                         color: textColor,
                         font: boldFont,
                     });
