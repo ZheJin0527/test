@@ -41,8 +41,9 @@
       </div>
 
       <input type="email" name="email" placeholder="请输入您的 Gmail" required
-        pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
-        title="请输入以 @gmail.com 结尾的邮箱地址" />
+        pattern="[a-z0-9._%+-]+@gmail\.com$"
+        title="请输入以 @gmail.com 结尾的邮箱地址（只能使用小写字母）"
+        style="text-transform: lowercase;" />
 
       <div class="password-container">
       <input type="password" id="password" name="password" placeholder="输入密码" required
@@ -101,6 +102,13 @@
           value = value.replace(/\s+/g, ' ');
           e.target.value = value;
         });
+
+        // Gmail输入框处理
+        const emailInput = document.querySelector('input[name="email"]');
+        emailInput.addEventListener('input', function(e) {
+          // 自动转换为小写
+          e.target.value = e.target.value.toLowerCase();
+        });
       });
   </script>
   <script>
@@ -136,9 +144,9 @@
           return;
         }
 
-        // 验证邮箱必须是 Gmail
-        if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email)) {
-          alert("请输入有效的 Gmail 地址。");
+        // 验证邮箱必须是 Gmail（只允许小写）
+        if (!/^[a-z0-9._%+-]+@gmail\.com$/.test(email)) {
+          alert("请输入有效的 Gmail 地址（只能使用小写字母）。");
           return;
         }
 
