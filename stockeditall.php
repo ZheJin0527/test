@@ -4224,7 +4224,7 @@
                     // J1模板的发票号码位置
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
-                            x: 104, // J1模板Invoice No位置
+                            x: 105, // J1模板Invoice No位置
                             y: height - 129.5, // 调整到Invoice No行
                             size: fontSize,
                             color: whiteColor,
