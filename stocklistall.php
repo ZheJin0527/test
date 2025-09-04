@@ -727,8 +727,11 @@
             border-radius: 8px;
             width: 90%;
             max-width: 600px;
+            max-height: 80vh; /* 添加最大高度 */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             animation: modalFadeIn 0.3s;
+            display: flex;
+            flex-direction: column; /* 添加 */
         }
 
         @keyframes modalFadeIn {
@@ -766,6 +769,8 @@
 
         .modal-body {
             padding: 25px;
+            overflow-y: auto; /* 添加滚动 */
+            flex: 1; /* 添加 */
         }
 
         .low-stock-item {
@@ -795,6 +800,32 @@
             font-size: 14px;
         }
 
+        /* 添加新的样式 */
+        #low-stock-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        /* 滚动条美化 */
+        #low-stock-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #low-stock-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        #low-stock-list::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        #low-stock-list::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
         .stock-quantity {
             font-weight: bold;
             color: #dc2626;
@@ -817,6 +848,27 @@
             margin-bottom: 5px;
             font-weight: 600;
             color: #374151;
+        }
+
+        .threshold-input {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px 8px;
+            font-size: 14px;
+        }
+
+        .threshold-checkbox {
+            transform: scale(1.2);
+        }
+
+        .text-danger {
+            color: #dc2626 !important;
+            font-weight: bold;
+        }
+
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
         }
 
         @media (max-width: 768px) {
@@ -923,6 +975,60 @@
         </div>
     </div>
 
+    <!-- 阈值管理弹窗 -->
+    <div id="threshold-manager-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-cogs"></i> 库存阈值管理</h2>
+                <span class="close" onclick="closeThresholdManager()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="filter-section" style="margin-bottom: 20px;">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="threshold-search">搜索货品：</label>
+                            <input type="text" id="threshold-search" class="filter-input" placeholder="输入货品名称..." onkeyup="filterThresholdTable()">
+                        </div>
+                        <div class="filter-group">
+                            <label for="batch-threshold">批量设置阈值：</label>
+                            <input type="number" id="batch-threshold" class="filter-input" min="0" step="0.01" placeholder="输入阈值">
+                        </div>
+                        <div class="filter-group" style="display: flex; align-items: end;">
+                            <button class="btn btn-warning" onclick="applyBatchThreshold()">
+                                <i class="fas fa-magic"></i>
+                                批量应用
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-scroll-container" style="max-height: 400px; overflow-y: auto;">
+                    <table class="stock-table" id="threshold-table">
+                        <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>货品名称</th>
+                                <th>货品编号</th>
+                                <th>当前库存</th>
+                                <th>当前阈值</th>
+                                <th>新阈值</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="threshold-tbody">
+                            <!-- 动态内容 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeThresholdManager()">关闭</button>
+                    <button class="btn btn-success" onclick="saveAllThresholds()">保存所有更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <div>
@@ -997,6 +1103,10 @@
                         <button class="btn btn-secondary" onclick="resetFilters('central')">
                             <i class="fas fa-refresh"></i>
                             重置
+                        </button>
+                        <button class="btn btn-info" onclick="openThresholdManager()"> <!-- 添加这个按钮 -->
+                            <i class="fas fa-cogs"></i>
+                            阈值管理
                         </button>
                         <button class="btn btn-warning" onclick="exportData('central')">
                             <i class="fas fa-download"></i>
@@ -1363,6 +1473,194 @@
                 }
             } catch (error) {
                 console.error('检查低库存失败:', error);
+            }
+        }
+
+        // 打开阈值管理器
+        async function openThresholdManager() {
+            try {
+                const result = await apiCall('central', '?action=summary');
+                if (result.success) {
+                    await loadThresholdTable(result.data.summary);
+                    document.getElementById('threshold-manager-modal').style.display = 'block';
+                }
+            } catch (error) {
+                showAlert('加载阈值管理器失败', 'error');
+            }
+        }
+
+        // 关闭阈值管理器
+        function closeThresholdManager() {
+            document.getElementById('threshold-manager-modal').style.display = 'none';
+        }
+
+        // 加载阈值表格
+        async function loadThresholdTable(products) {
+            const tbody = document.getElementById('threshold-tbody');
+            let html = '';
+            
+            for (let i = 0; i < products.length; i++) {
+                const product = products[i];
+                // 获取现有阈值（如果有的话）
+                let currentThreshold = '10.00'; // 默认值
+                
+                html += `
+                    <tr data-product-name="${product.product_name}">
+                        <td class="text-center">
+                            <input type="checkbox" class="threshold-checkbox" value="${product.product_name}">
+                        </td>
+                        <td>${product.product_name}</td>
+                        <td class="text-center">${product.code_number || '-'}</td>
+                        <td class="text-center ${product.total_stock <= 10 ? 'text-danger' : ''}">${product.formatted_stock}</td>
+                        <td class="text-center">
+                            <span class="current-threshold">${currentThreshold}</span>
+                        </td>
+                        <td class="text-center">
+                            <input type="number" class="threshold-input" min="0" step="0.01" 
+                                placeholder="输入新阈值" style="width: 100px;">
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-primary" onclick="saveProductThreshold('${product.product_name}')">
+                                <i class="fas fa-save"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+            
+            tbody.innerHTML = html;
+        }
+
+        // 过滤阈值表格
+        function filterThresholdTable() {
+            const searchValue = document.getElementById('threshold-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#threshold-tbody tr');
+            
+            rows.forEach(row => {
+                const productName = row.cells[1].textContent.toLowerCase();
+                const codeNumber = row.cells[2].textContent.toLowerCase();
+                
+                if (productName.includes(searchValue) || codeNumber.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // 批量应用阈值
+        function applyBatchThreshold() {
+            const batchValue = document.getElementById('batch-threshold').value;
+            if (!batchValue || parseFloat(batchValue) < 0) {
+                showAlert('请输入有效的批量阈值', 'error');
+                return;
+            }
+            
+            const checkboxes = document.querySelectorAll('.threshold-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showAlert('请至少选择一个货品', 'error');
+                return;
+            }
+            
+            checkboxes.forEach(checkbox => {
+                const row = checkbox.closest('tr');
+                const input = row.querySelector('.threshold-input');
+                input.value = batchValue;
+            });
+            
+            showAlert(`已为 ${checkboxes.length} 个货品设置阈值`, 'success');
+        }
+
+        // 保存单个产品阈值
+        async function saveProductThreshold(productName) {
+            const row = document.querySelector(`tr[data-product-name="${productName}"]`);
+            const input = row.querySelector('.threshold-input');
+            const threshold = input.value;
+            
+            if (!threshold || parseFloat(threshold) < 0) {
+                showAlert('请输入有效的阈值', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_CONFIG.central + '?action=set-threshold', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_name: productName,
+                        threshold: parseFloat(threshold)
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    // 更新显示的当前阈值
+                    row.querySelector('.current-threshold').textContent = parseFloat(threshold).toFixed(2);
+                    input.value = '';
+                    showAlert('阈值保存成功', 'success');
+                } else {
+                    showAlert('保存失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('网络错误，请重试', 'error');
+            }
+        }
+
+        // 保存所有更改的阈值
+        async function saveAllThresholds() {
+            const rows = document.querySelectorAll('#threshold-tbody tr');
+            const updates = [];
+            
+            rows.forEach(row => {
+                const input = row.querySelector('.threshold-input');
+                if (input.value && parseFloat(input.value) >= 0) {
+                    const productName = row.getAttribute('data-product-name');
+                    updates.push({
+                        product_name: productName,
+                        threshold: parseFloat(input.value)
+                    });
+                }
+            });
+            
+            if (updates.length === 0) {
+                showAlert('没有需要保存的更改', 'info');
+                return;
+            }
+            
+            let successCount = 0;
+            let failCount = 0;
+            
+            for (const update of updates) {
+                try {
+                    const response = await fetch(API_CONFIG.central + '?action=set-threshold', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(update)
+                    });
+                    
+                    const result = await response.json();
+                    if (result.success) {
+                        successCount++;
+                        // 更新显示
+                        const row = document.querySelector(`tr[data-product-name="${update.product_name}"]`);
+                        row.querySelector('.current-threshold').textContent = update.threshold.toFixed(2);
+                        row.querySelector('.threshold-input').value = '';
+                    } else {
+                        failCount++;
+                    }
+                } catch (error) {
+                    failCount++;
+                }
+            }
+            
+            if (failCount === 0) {
+                showAlert(`成功保存 ${successCount} 个阈值设置`, 'success');
+            } else {
+                showAlert(`成功保存 ${successCount} 个，失败 ${failCount} 个阈值设置`, 'warning');
             }
         }
 
