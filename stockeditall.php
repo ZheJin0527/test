@@ -4137,7 +4137,7 @@
         async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
             try {
                 // 下载现有的PDF模板
-                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice2.0.pdf';
                 const templateResponse = await fetch(templateFile);
                 if (!templateResponse.ok) {
                     throw new Error('无法加载PDF模板');
