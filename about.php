@@ -188,6 +188,9 @@ $timelineData = getTimelineConfig();
         
         <!-- 横向时间线导航 -->
         <div class="timeline-nav">
+            <div class="nav-arrow prev" onclick="navigateTimeline('prev')">‹</div>
+            <div class="nav-arrow next" onclick="navigateTimeline('next')">›</div>
+            
             <div class="timeline-scroll-container">
                 <div class="timeline-track"></div>
                 <div class="timeline-items-container" id="timelineContainer">
@@ -789,8 +792,9 @@ updatePageIndicator(0);
 
         // 自动滚动相关变量
         let autoScrollInterval = null;
-        let autoScrollDelay = 15000; 
+        let autoScrollDelay = 20000; 
         let isAutoScrollPaused = false;
+        let isHovered = false; // 鼠标悬停状态
 
         function updateTimelineNav() {
             const navItems = document.querySelectorAll('.timeline-item');
@@ -914,7 +918,7 @@ updatePageIndicator(0);
 
         // 自动滚动到下一个项目
         function autoNavigateNext() {
-            if (isAnimating || isAutoScrollPaused) return;
+            if (isAnimating || isAutoScrollPaused || isHovered) return;
             
             isAnimating = true;
             currentIndex = (currentIndex + 1) % totalItems;
@@ -1156,6 +1160,20 @@ updatePageIndicator(0);
                 stopAutoScroll();
             }
         });
+
+        // 鼠标悬停暂停/恢复功能
+        const timelineSection = document.querySelector('.timeline-section');
+        if (timelineSection) {
+            timelineSection.addEventListener('mouseenter', () => {
+                console.log('鼠标进入时间线区域，暂停自动滚动');
+                isHovered = true;
+            });
+            
+            timelineSection.addEventListener('mouseleave', () => {
+                console.log('鼠标离开时间线区域，恢复自动滚动');
+                isHovered = false;
+            });
+        }
         }); // 结束 DOMContentLoaded
         
         // 全局测试函数 - 可以在控制台调用
