@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -594,11 +594,6 @@
         function refreshTable() {
             loadCodesAndUsers();
         }
-
-        // 代码输入框自动转大写
-        document.getElementById('code').addEventListener('input', function(e) {
-            e.target.value = e.target.value.toUpperCase();
-        });
     </script>
 </body>
 </html>
