@@ -257,21 +257,6 @@
             vertical-align: middle;
         }
 
-        .price-variants-table td {
-            padding: 12px;
-            border-bottom: 1px solid #e5e7eb;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        /* 第二和第三列左对齐 */
-        .price-variants-table th:nth-child(2),
-        .price-variants-table th:nth-child(3),
-        .price-variants-table td:nth-child(2),
-        .price-variants-table td:nth-child(3)  {
-            text-align: left;
-        }
-
         .price-variants-table th,
         .price-variants-table td {
             width: 25%; /* 平均分配4列 */
@@ -281,8 +266,8 @@
             vertical-align: middle;
         }
 
-        .price-variants-table th:nth-child(1) { width: 4.5%; } /* 备注编号 */
-        .price-variants-table th:nth-child(2) { width: 4.5%; } /* 数量/重量 */
+        .price-variants-table th:nth-child(1) { width: 6.5%; } /* 备注编号 */
+        .price-variants-table th:nth-child(2) { width: 25%; } /* 数量/重量 */
         .price-variants-table th:nth-child(3) { width: 25%; } /* 规格 */
         .price-variants-table th:nth-child(4) { width: 25%; } /* 单价 */
 
