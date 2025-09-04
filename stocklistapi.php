@@ -162,6 +162,35 @@ function setStockThreshold($productName, $threshold) {
     }
 }
 
+// 获取所有货品的阈值设置
+function getAllThresholds() {
+    global $pdo;
+    
+    try {
+        $sql = "SELECT product_name, min_threshold, updated_at 
+                FROM stock_thresholds 
+                ORDER BY product_name ASC";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $thresholds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // 转换为关联数组，方便前端使用
+        $result = [];
+        foreach ($thresholds as $threshold) {
+            $result[$threshold['product_name']] = [
+                'threshold' => floatval($threshold['min_threshold']),
+                'updated_at' => $threshold['updated_at']
+            ];
+        }
+        
+        return $result;
+        
+    } catch (PDOException $e) {
+        throw new Exception("获取阈值数据失败：" . $e->getMessage());
+    }
+}
+
 // 主要路由处理
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -249,6 +278,15 @@ if ($method === 'GET') {
                 }
             } else {
                 sendResponse(false, "只支持POST请求");
+            }
+            break;
+
+        case 'get-thresholds':
+            try {
+                $thresholds = getAllThresholds();
+                sendResponse(true, "阈值数据获取成功", ['thresholds' => $thresholds]);
+            } catch (Exception $e) {
+                sendResponse(false, $e->getMessage());
             }
             break;
             
