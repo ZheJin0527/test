@@ -103,114 +103,6 @@ function getStockSummary() {
     }
 }
 
-// 检查低库存
-function checkLowStock() {
-    global $pdo;
-    
-    try {
-        // 获取所有货品的当前库存和最低库存设置
-        $sql = "SELECT DISTINCT
-                    sd.id,
-                    sd.product_name,
-                    sd.specification,
-                    COALESCE(sd.min_stock, 0) as min_stock,
-                    COALESCE(
-                        (SELECT 
-                            SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
-                            SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)
-                         FROM stockinout_data 
-                         WHERE product_name = sd.product_name 
-                         AND COALESCE(specification, '') = COALESCE(sd.specification, '')
-                        ), 0
-                    ) as current_stock
-                FROM stock_data sd
-                HAVING current_stock <= min_stock AND min_stock > 0
-                ORDER BY current_stock ASC, product_name ASC";
-        
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $lowStockItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        return [
-            'low_stock_items' => $lowStockItems,
-            'total_low_stock' => count($lowStockItems)
-        ];
-        
-    } catch (PDOException $e) {
-        throw new Exception("检查低库存失败：" . $e->getMessage());
-    }
-}
-
-// 获取库存设置
-function getStockSettings() {
-    global $pdo;
-    
-    try {
-        $sql = "SELECT 
-                    id,
-                    product_name,
-                    specification,
-                    COALESCE(min_stock, 0) as min_stock,
-                    COALESCE(
-                        (SELECT 
-                            SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
-                            SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)
-                         FROM stockinout_data 
-                         WHERE product_name = stock_data.product_name 
-                         AND COALESCE(specification, '') = COALESCE(stock_data.specification, '')
-                        ), 0
-                    ) as current_stock
-                FROM stock_data 
-                ORDER BY product_name ASC";
-        
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        return [
-            'products' => $products,
-            'total_products' => count($products)
-        ];
-        
-    } catch (PDOException $e) {
-        throw new Exception("获取设置失败：" . $e->getMessage());
-    }
-}
-
-// 保存库存设置
-function saveStockSettings($settings) {
-    global $pdo;
-    
-    try {
-        $pdo->beginTransaction();
-        
-        $sql = "UPDATE stock_data SET min_stock = ? WHERE id = ?";
-        $stmt = $pdo->prepare($sql);
-        
-        $updated = 0;
-        foreach ($settings as $setting) {
-            $stmt->execute([
-                floatval($setting['min_stock']),
-                intval($setting['product_id'])
-            ]);
-            if ($stmt->rowCount() > 0) {
-                $updated++;
-            }
-        }
-        
-        $pdo->commit();
-        
-        return [
-            'updated_count' => $updated,
-            'total_settings' => count($settings)
-        ];
-        
-    } catch (PDOException $e) {
-        $pdo->rollback();
-        throw new Exception("保存设置失败：" . $e->getMessage());
-    }
-}
-
 // 主要路由处理
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -270,45 +162,9 @@ if ($method === 'GET') {
                 sendResponse(false, "导出失败：" . $e->getMessage());
             }
             break;
-
-        case 'check_low_stock':
-            try {
-                $result = checkLowStock();
-                sendResponse(true, "低库存检查完成", $result);
-            } catch (Exception $e) {
-                sendResponse(false, $e->getMessage());
-            }
-            break;
-            
-        case 'get_stock_settings':
-            try {
-                $result = getStockSettings();
-                sendResponse(true, "获取设置成功", $result);
-            } catch (Exception $e) {
-                sendResponse(false, $e->getMessage());
-            }
-            break;
             
         default:
             sendResponse(false, "无效的操作");
-    }
-} elseif ($method === 'POST') {
-    $input = json_decode(file_get_contents('php://input'), true);
-    $action = $input['action'] ?? '';
-    
-    switch ($action) {
-        case 'save_stock_settings':
-            try {
-                $settings = $input['settings'] ?? [];
-                $result = saveStockSettings($settings);
-                sendResponse(true, "设置保存成功", $result);
-            } catch (Exception $e) {
-                sendResponse(false, $e->getMessage());
-            }
-            break;
-            
-        default:
-            sendResponse(false, "无效的POST操作");
     }
 } else {
     sendResponse(false, "不支持的请求方法");
