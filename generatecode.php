@@ -358,10 +358,10 @@
 
             <form id="generateForm">
                 <div class="form-row">
-                    <div class="form-group" style="flex: 1.2; position: relative;">
-                        <label for="searchInput">搜索过滤:</label>
+                    <div class="form-group" style="flex: 2; position: relative;">
+                        <label for="searchInput">搜索账号类型:</label>
                         <div style="position: relative;">
-                            <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
+                            <input type="text" id="searchInput" placeholder="搜索账号类型..." 
                                 style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
                             <button type="button" onclick="clearSearch()" 
                                     style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
@@ -372,9 +372,9 @@
                     </div>
                     
                     <div class="form-group" style="flex: 2;">
-                        <label for="account_type">账户类型:</label>
+                        <label for="account_type">账号类型:</label>
                         <select id="account_type" name="account_type" required>
-                            <option value="">请选择账户类型</option>
+                            <option value="">请选择账号类型</option>
                             <option value="admin">管理员 (Admin)</option>
                             <option value="hr">人事部 (HR)</option>
                             <option value="design">设计部 (Design)</option>
@@ -406,7 +406,7 @@
                         <tr>
                             <th>序号</th>
                             <th>申请码</th>
-                            <th>账户类型</th>
+                            <th>账号类型</th>
                             <th>使用状态</th>
                             <th>用户名</th>
                             <th>邮箱</th>
@@ -453,7 +453,7 @@
             const messageArea = document.getElementById('messageArea');
 
             if (!accountType) {
-                showMessage('请选择账户类型！', 'error');
+                showMessage('请选择账号类型！', 'error');
                 return;
             }
 
@@ -557,7 +557,7 @@
                 return;
             }
 
-            // 定义账户类型的排序顺序
+            // 定义账号类型的排序顺序
             const typeOrder = {
                 'admin': 1,
                 'hr': 2, 
@@ -600,7 +600,7 @@
             }
         }
 
-        // 格式化账户类型
+        // 格式化账号类型
         function formatAccountType(type) {
             const types = {
                 'admin': '管理员',
