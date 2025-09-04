@@ -528,7 +528,7 @@ session_start();
             if (filteredProducts.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="4" class="no-data">
+                        <td colspan="6" class="no-data">
                             <i class="fas fa-inbox"></i>
                             <div>暂无货品数据</div>
                         </td>
@@ -538,19 +538,36 @@ session_start();
             }
 
             let html = '';
-            filteredProducts.forEach((product, index) => {
+            filteredProducts.forEach(product => {
+                const isWarning = product.current_stock <= product.minimum_quantity && product.is_active;
+                const statusClass = isWarning ? 'style="color: #dc2626; font-weight: 600;"' : '';
+                const statusText = isWarning ? '库存不足' : product.is_active ? '预警启用' : '未启用';
+                const statusIcon = isWarning ? 'fa-exclamation-triangle' : product.is_active ? 'fa-check-circle' : 'fa-times-circle';
+
                 html += `
                     <tr>
-                        <td class="text-center">${index + 1}</td>
                         <td><strong>${product.product_name}</strong></td>
+                        <td ${statusClass}>${product.formatted_current_stock}</td>
                         <td>
                             <input type="number" 
                                    class="quantity-input"
                                    value="${product.minimum_quantity}"
                                    min="0"
                                    step="0.01"
-                                   onchange="markAsChanged('${product.product_name}', this.value)"
+                                   onchange="markAsChanged('${product.product_name}', this.value, ${product.is_active ? 1 : 0})"
                                    placeholder="最低数量">
+                        </td>
+                        <td>
+                            <label class="toggle-switch">
+                                <input type="checkbox" 
+                                       ${product.is_active ? 'checked' : ''}
+                                       onchange="markAsChanged('${product.product_name}', ${product.minimum_quantity}, this.checked ? 1 : 0)">
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                        <td ${statusClass}>
+                            <i class="fas ${statusIcon}"></i>
+                            ${statusText}
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm" 
@@ -571,21 +588,26 @@ session_start();
         // 更新统计
         function updateStats() {
             const totalProducts = allProducts.length;
-            const configuredProducts = allProducts.filter(p => p.minimum_quantity > 0).length;
-            const pendingCount = pendingChanges.size;
-            
+            const activeAlerts = allProducts.filter(p => p.is_active).length;
+            const currentWarnings = allProducts.filter(p => p.current_stock <= p.minimum_quantity && p.is_active).length;
+            const sufficientStock = allProducts.filter(p => p.current_stock > p.minimum_quantity || !p.is_active).length;
+
             document.getElementById('total-products').textContent = totalProducts;
-            document.getElementById('configured-products').textContent = configuredProducts;
-            document.getElementById('current-warnings').textContent = '加载中...';
-            document.getElementById('pending-changes').textContent = pendingCount;
+            document.getElementById('active-alerts').textContent = activeAlerts;
+            document.getElementById('current-warnings').textContent = currentWarnings;
+            document.getElementById('sufficient-stock').textContent = sufficientStock;
         }
 
         // 标记为已更改
-        function markAsChanged(productName, minQuantity) {
+        function markAsChanged(productName, minQuantity, isActive) {
             const product = allProducts.find(p => p.product_name === productName);
             if (product) {
                 product.minimum_quantity = parseFloat(minQuantity) || 0;
+                product.is_active = isActive;
                 pendingChanges.add(productName);
+                
+                // 重新渲染表格以更新状态
+                renderSettingsTable();
                 updateStats();
             }
         }
