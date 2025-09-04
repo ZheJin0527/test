@@ -162,25 +162,6 @@ if ($method === 'GET') {
                 sendResponse(false, "导出失败：" . $e->getMessage());
             }
             break;
-
-        case 'get_min_stock':
-            // 获取最低库存设置
-            try {
-                $stmt = $pdo->prepare("SELECT * FROM min_stock_settings");
-                $stmt->execute();
-                $settings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                
-                $result = [];
-                foreach ($settings as $setting) {
-                    $key = $setting['product_name'] . '_' . $setting['product_code'];
-                    $result[$key] = floatval($setting['min_quantity']);
-                }
-                
-                sendResponse(true, "最低库存设置获取成功", $result);
-            } catch (PDOException $e) {
-                sendResponse(false, "获取最低库存设置失败：" . $e->getMessage());
-            }
-            break;
             
         default:
             sendResponse(false, "无效的操作");
