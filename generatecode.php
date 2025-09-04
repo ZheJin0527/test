@@ -346,7 +346,7 @@
             right: 20px;
             width: 50px;
             height: 50px;
-            background-color: #ce7c01ff;
+            background-color: #eb8e02ff;
             color: white;
             border: none;
             border-radius: 50%;
@@ -370,7 +370,7 @@
         }
 
         .back-to-top:hover {
-            background-color: #883e02ff;
+            background-color: #d16003ff;
             transform: translateY(-3px);
             box-shadow: 0 6px 16px rgba(88, 62, 4, 0.4);
         }
