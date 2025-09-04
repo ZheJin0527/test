@@ -188,8 +188,8 @@ $timelineData = getTimelineConfig();
         
         <!-- 横向时间线导航 -->
         <div class="timeline-nav">
-            <div class="nav-arrow prev" onclick="navigateTimeline('prev')">‹</div>
-            <div class="nav-arrow next" onclick="navigateTimeline('next')">›</div>
+            <div class="nav-arrow prev" id="prevArrow">‹</div>
+            <div class="nav-arrow next" id="nextArrow">›</div>
             
             <div class="timeline-scroll-container">
                 <div class="timeline-track"></div>
@@ -1073,17 +1073,51 @@ updatePageIndicator(0);
             });
         });
 
+        // 左右箭头按钮事件监听
+        const prevArrow = document.getElementById('prevArrow');
+        const nextArrow = document.getElementById('nextArrow');
+        
+        if (prevArrow) {
+            prevArrow.addEventListener('click', () => {
+                console.log('点击了上一个按钮');
+                navigateTimeline('prev');
+            });
+        }
+        
+        if (nextArrow) {
+            nextArrow.addEventListener('click', () => {
+                console.log('点击了下一个按钮');
+                navigateTimeline('next');
+            });
+        }
+
         // 优化的点击处理 - 添加延迟避免与拖拽冲突
         document.addEventListener('click', (e) => {
             if (isDragging || hasTriggered || isAnimating) return;
             
             const card = e.target.closest('.timeline-content-item');
-            if (card && !card.classList.contains('active')) {
+            if (card) {
                 // 添加小延迟确保不是拖拽操作
                 clickTimeout = setTimeout(() => {
                     if (!isDragging) {
                         const year = card.getAttribute('data-year');
-                        selectCard(year);
+                        const cardIndex = years.indexOf(year);
+                        
+                        if (card.classList.contains('active')) {
+                            // 如果点击的是当前活动卡片，不执行任何操作
+                            return;
+                        } else if (card.classList.contains('prev')) {
+                            // 点击左侧卡片，切换到上一个
+                            console.log('点击了左侧卡片，切换到上一个');
+                            navigateTimeline('prev');
+                        } else if (card.classList.contains('next')) {
+                            // 点击右侧卡片，切换到下一个
+                            console.log('点击了右侧卡片，切换到下一个');
+                            navigateTimeline('next');
+                        } else {
+                            // 点击其他卡片，直接跳转
+                            selectCard(year);
+                        }
                     }
                 }, 10);
             }
