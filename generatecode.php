@@ -358,12 +358,6 @@
 
             <form id="generateForm">
                 <div class="form-row">
-                    <div class="form-group" style="flex: 2;">
-                        <label for="searchInput">搜索过滤:</label>
-                        <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
-                            style="padding: 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px;">
-                    </div>
-
                     <div class="form-group" style="flex: 2; position: relative;">
                         <label for="searchInput">搜索过滤:</label>
                         <div style="position: relative;">
