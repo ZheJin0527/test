@@ -257,6 +257,19 @@
             vertical-align: middle;
         }
 
+        .price-variants-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* 第二和第三列左对齐 */
+        .price-variants-table td:nth-child(2),
+        .price-variants-table td:nth-child(3) {
+            text-align: left;
+        }
+
         .price-variants-table th,
         .price-variants-table td {
             width: 25%; /* 平均分配4列 */
