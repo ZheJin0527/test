@@ -103,6 +103,65 @@ function getStockSummary() {
     }
 }
 
+// 获取低库存货品
+function getLowStockItems() {
+    global $pdo;
+    
+    try {
+        $sql = "SELECT 
+                    s.product_name,
+                    s.specification,
+                    s.code_number,
+                    s.current_stock,
+                    s.formatted_stock,
+                    COALESCE(t.min_threshold, 10.00) as threshold
+                FROM (
+                    SELECT 
+                        product_name,
+                        specification,
+                        code_number,
+                        (SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
+                         SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)) as current_stock,
+                        CONCAT(FORMAT((SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
+                                     SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END)), 2)) as formatted_stock
+                    FROM stockinout_data 
+                    WHERE product_name IS NOT NULL AND product_name != ''
+                    GROUP BY product_name, specification, code_number
+                    HAVING current_stock > 0
+                ) s
+                LEFT JOIN stock_thresholds t ON s.product_name = t.product_name
+                WHERE s.current_stock <= COALESCE(t.min_threshold, 10.00)
+                ORDER BY s.current_stock ASC";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+    } catch (PDOException $e) {
+        throw new Exception("查询低库存数据失败：" . $e->getMessage());
+    }
+}
+
+// 设置货品库存阈值
+function setStockThreshold($productName, $threshold) {
+    global $pdo;
+    
+    try {
+        $sql = "INSERT INTO stock_thresholds (product_name, min_threshold) 
+                VALUES (?, ?) 
+                ON DUPLICATE KEY UPDATE 
+                min_threshold = VALUES(min_threshold), 
+                updated_at = CURRENT_TIMESTAMP";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$productName, $threshold]);
+        
+        return true;
+    } catch (PDOException $e) {
+        throw new Exception("设置库存阈值失败：" . $e->getMessage());
+    }
+}
+
 // 主要路由处理
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -160,6 +219,36 @@ if ($method === 'GET') {
                 
             } catch (Exception $e) {
                 sendResponse(false, "导出失败：" . $e->getMessage());
+            }
+            break;
+
+        case 'low-stock':
+            try {
+                $lowStockItems = getLowStockItems();
+                sendResponse(true, "低库存数据获取成功", ['items' => $lowStockItems]);
+            } catch (Exception $e) {
+                sendResponse(false, $e->getMessage());
+            }
+            break;
+
+        case 'set-threshold':
+            if ($method === 'POST') {
+                $input = json_decode(file_get_contents('php://input'), true);
+                $productName = $input['product_name'] ?? '';
+                $threshold = $input['threshold'] ?? 0;
+                
+                if (empty($productName) || $threshold < 0) {
+                    sendResponse(false, "产品名称和阈值不能为空且阈值不能为负数");
+                }
+                
+                try {
+                    setStockThreshold($productName, $threshold);
+                    sendResponse(true, "库存阈值设置成功");
+                } catch (Exception $e) {
+                    sendResponse(false, $e->getMessage());
+                }
+            } else {
+                sendResponse(false, "只支持POST请求");
             }
             break;
             

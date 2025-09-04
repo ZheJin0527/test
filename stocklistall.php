@@ -709,6 +709,116 @@
             min-width: 120px;
         }
 
+        /* 弹窗样式 */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .low-stock-item {
+            background-color: #fff5f5;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .low-stock-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .low-stock-info h4 {
+            margin: 0 0 5px 0;
+            color: #dc2626;
+            font-size: 16px;
+        }
+
+        .low-stock-info p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .stock-quantity {
+            font-weight: bold;
+            color: #dc2626;
+            font-size: 18px;
+        }
+
+        .modal-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -768,6 +878,51 @@
     </style>
 </head>
 <body>
+    <!-- 低库存预警弹窗 -->
+    <div id="low-stock-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i> 库存预警</h2>
+                <span class="close" onclick="closeLowStockModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="low-stock-list">
+                    <!-- 动态内容 -->
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeLowStockModal()">关闭</button>
+                    <button class="btn btn-primary" onclick="showThresholdSettings()">设置阈值</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 阈值设置弹窗 -->
+    <div id="threshold-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>设置库存阈值</h2>
+                <span class="close" onclick="closeThresholdModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="threshold-product-select">选择货品：</label>
+                    <select id="threshold-product-select" class="filter-select">
+                        <option value="">请选择货品...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="threshold-input">最低库存阈值：</label>
+                    <input type="number" id="threshold-input" class="filter-input" min="0" step="0.01" placeholder="输入最低库存数量">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeThresholdModal()">取消</button>
+                    <button class="btn btn-primary" onclick="saveThreshold()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <div>
@@ -1183,9 +1338,11 @@
             remark: '货品备注'
         };
 
-        // 初始化应用
+        // 修改现有的 initApp 函数
         function initApp() {
             loadData(currentSystem);
+            checkLowStock(); // 添加这行
+            
             // 点击外部关闭下拉菜单
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.system-selector')) {
@@ -1195,6 +1352,110 @@
                     document.getElementById('view-selector-dropdown').classList.remove('show');
                 }
             });
+        }
+
+        // 检查低库存并显示弹窗
+        async function checkLowStock() {
+            try {
+                const result = await apiCall('central', '?action=low-stock');
+                if (result.success && result.data.items.length > 0) {
+                    showLowStockModal(result.data.items);
+                }
+            } catch (error) {
+                console.error('检查低库存失败:', error);
+            }
+        }
+
+        // 显示低库存弹窗
+        function showLowStockModal(lowStockItems) {
+            const modal = document.getElementById('low-stock-modal');
+            const listContainer = document.getElementById('low-stock-list');
+            
+            let html = `<div style="margin-bottom: 15px;">
+                            <strong style="color: #dc2626;">发现 ${lowStockItems.length} 种货品库存不足：</strong>
+                        </div>`;
+            
+            lowStockItems.forEach(item => {
+                html += `
+                    <div class="low-stock-item">
+                        <div class="low-stock-info">
+                            <h4>${item.product_name}</h4>
+                            <p>货品编号: ${item.code_number || '无'} | 规格: ${item.specification || '无'}</p>
+                            <p>阈值: ${item.threshold}</p>
+                        </div>
+                        <div class="stock-quantity">${item.formatted_stock}</div>
+                    </div>
+                `;
+            });
+            
+            listContainer.innerHTML = html;
+            modal.style.display = 'block';
+        }
+
+        // 关闭低库存弹窗
+        function closeLowStockModal() {
+            document.getElementById('low-stock-modal').style.display = 'none';
+        }
+
+        // 显示阈值设置弹窗
+        async function showThresholdSettings() {
+            try {
+                // 获取所有产品列表
+                const result = await apiCall('central', '?action=summary');
+                if (result.success) {
+                    const select = document.getElementById('threshold-product-select');
+                    select.innerHTML = '<option value="">请选择货品...</option>';
+                    
+                    result.data.summary.forEach(item => {
+                        select.innerHTML += `<option value="${item.product_name}">${item.product_name}</option>`;
+                    });
+                }
+                
+                document.getElementById('threshold-modal').style.display = 'block';
+            } catch (error) {
+                showAlert('获取产品列表失败', 'error');
+            }
+        }
+
+        // 关闭阈值设置弹窗
+        function closeThresholdModal() {
+            document.getElementById('threshold-modal').style.display = 'none';
+            document.getElementById('threshold-product-select').value = '';
+            document.getElementById('threshold-input').value = '';
+        }
+
+        // 保存阈值设置
+        async function saveThreshold() {
+            const productName = document.getElementById('threshold-product-select').value;
+            const threshold = document.getElementById('threshold-input').value;
+            
+            if (!productName || !threshold || threshold < 0) {
+                showAlert('请选择货品并输入有效的阈值', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_CONFIG.central + '?action=set-threshold', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_name: productName,
+                        threshold: parseFloat(threshold)
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showAlert('阈值设置成功', 'success');
+                    closeThresholdModal();
+                } else {
+                    showAlert('设置失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('网络错误，请重试', 'error');
+            }
         }
 
         // 切换系统选择器
