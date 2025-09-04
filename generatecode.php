@@ -361,7 +361,7 @@
                     <div class="form-group" style="flex: 2; position: relative;">
                         <label for="searchInput">搜索账号类型:</label>
                         <div style="position: relative;">
-                            <input type="text" id="searchInput" placeholder="输入关键词过滤表格..." 
+                            <input type="text" id="searchInput" placeholder="搜索账号类型..." 
                                 style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
                             <button type="button" onclick="clearSearch()" 
                                     style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
