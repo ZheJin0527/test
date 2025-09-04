@@ -1195,19 +1195,19 @@ updatePageIndicator(0);
             }
         });
 
-        // 鼠标悬停暂停/恢复功能
-        const timelineSection = document.querySelector('.timeline-section');
-        if (timelineSection) {
-            timelineSection.addEventListener('mouseenter', () => {
-                console.log('鼠标进入时间线区域，暂停自动滚动');
+        // 鼠标悬停暂停/恢复功能 - 只在卡片上悬停时暂停
+        const timelineCards = document.querySelectorAll('.timeline-content-item');
+        timelineCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                console.log('鼠标进入卡片，暂停自动滚动');
                 isHovered = true;
             });
             
-            timelineSection.addEventListener('mouseleave', () => {
-                console.log('鼠标离开时间线区域，恢复自动滚动');
+            card.addEventListener('mouseleave', () => {
+                console.log('鼠标离开卡片，恢复自动滚动');
                 isHovered = false;
             });
-        }
+        });
         }); // 结束 DOMContentLoaded
         
         // 全局测试函数 - 可以在控制台调用
