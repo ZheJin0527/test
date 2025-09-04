@@ -291,8 +291,8 @@ function handlePost() {
     
     try {
         $sql = "INSERT INTO stock_data 
-                (date, time, product_code, product_name, supplier, applicant, minimum_stock, approver) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                (date, time, product_code, product_name, supplier, applicant, approver) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -303,7 +303,6 @@ function handlePost() {
             $data['product_name'],
             $data['supplier'],
             $data['applicant'],
-            intval($data['minimum_stock'] ?? 0),
             $data['approver'] ?? null
         ]);
         
@@ -392,7 +391,7 @@ function handlePut() {
     try {
         $sql = "UPDATE stock_data 
                 SET date = ?, time = ?, product_code = ?, product_name = ?, supplier = ?, 
-                    applicant = ?, minimum_stock = ?, approver = ?
+                    applicant = ?, approver = ?
                 WHERE id = ?";
 
         $stmt = $pdo->prepare($sql);
@@ -404,7 +403,6 @@ function handlePut() {
             $data['product_name'],
             $data['supplier'],
             $data['applicant'],
-            intval($data['minimum_stock'] ?? 0),
             $data['approver'] ?? null,
             $data['id']
         ]);

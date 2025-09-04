@@ -628,20 +628,6 @@ if (isset($_SESSION['user_id'])) {
         .excel-table tr.editing-row .status-pending {
             background-color: #cde3ff !important;
         }
-
-        .number-input {
-            text-align: right;
-        }
-
-        .stock-warning {
-            background-color: #fef2f2;
-            border-left: 4px solid #dc2626;
-        }
-
-        .stock-normal {
-            background-color: #f0fdf4;
-            border-left: 4px solid #059669;
-        }
     </style>
 </head>
 <body>
@@ -732,8 +718,6 @@ if (isset($_SESSION['user_id'])) {
                         <th style="min-width: 200px;">产品名字</th>
                         <th style="min-width: 150px;">供应商</th>
                         <th style="min-width: 120px;">申请人</th>
-                        <th style="min-width: 120px;">最低库存</th>
-                        <th style="min-width: 120px;">库存状态</th>
                         <th style="min-width: 120px;">批准状态</th>
                         <th style="min-width: 80px;">状态</th>
                         <th style="min-width: 100px;">操作</th>
@@ -984,14 +968,8 @@ if (isset($_SESSION['user_id'])) {
                         value="${data.supplier || ''}" placeholder="供应商名称" required ${!isNewRow ? 'readonly disabled' : ''}>
                 </td>
                 <td>
-                    <input type="number" class="excel-input number-input ${!isNewRow ? 'readonly' : ''}" data-field="minimum_stock" data-row="${rowId}" 
-                        value="${data.minimum_stock || '0'}" placeholder="最低库存" min="0" ${!isNewRow ? 'readonly disabled' : ''}>
-                </td>
-                <td style="padding: 8px; text-align: center;">
-                    ${data.minimum_stock && parseInt(data.minimum_stock) > 0 ? 
-                        `<span style="color: #dc2626; font-weight: 600;" title="库存不足警告">⚠️ 库存不足</span>` : 
-                        `<span style="color: #059669; font-weight: 600;">正常</span>`
-                    }
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="applicant" data-row="${rowId}" 
+                        value="${data.applicant || ''}" placeholder="申请人" required ${!isNewRow ? 'readonly disabled' : ''}>
                 </td>
                 <td style="padding: 8px;">
                     ${data.approver ? 
@@ -1212,10 +1190,6 @@ if (isset($_SESSION['user_id'])) {
                 let value = input.value.trim();
                 
                 data[field] = value;
-
-                if (field === 'minimum_stock') {
-                    data[field] = value ? parseInt(value) : 0;
-                }
             });
             
             // 检查是否已批准（通过查看批准状态列的内容）
@@ -1561,10 +1535,6 @@ if (isset($_SESSION['user_id'])) {
                     if (!rowData.date || !rowData.time || !rowData.product_code || 
                         !rowData.product_name || !rowData.supplier || !rowData.applicant) {
                         throw new Error('请填写所有必填字段');
-                    }
-                    // 最低库存默认为0
-                    if (!rowData.minimum_stock) {
-                        rowData.minimum_stock = 0;
                     }
                 } else {
                     // 现有记录允许部分字段为空，但至少要有产品编号或产品名称
