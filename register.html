@@ -109,6 +109,13 @@
           // 自动转换为小写
           e.target.value = e.target.value.toLowerCase();
         });
+
+        // IC Number输入框处理（只允许数字）
+        const icInput = document.querySelector('input[name="ic_number"]');
+        icInput.addEventListener('input', function(e) {
+          // 只允许数字
+          e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
       });
   </script>
   <script>

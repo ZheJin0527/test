@@ -25,13 +25,21 @@ $data = json_decode(file_get_contents("php://input"), true);
 $name = trim($data['name'] ?? '');
 $email = trim($data['email'] ?? '');
 $gender = trim($data['gender'] ?? '');
+$ic_number = trim($data['ic_number'] ?? '');
 $application_code = trim($data['application_code'] ?? '');
 $password = $data['password'] ?? '';
 
 // 校验
-if (empty($name) || empty($email) || empty($gender) || empty($application_code) || empty($password)) {
+if (empty($name) || empty($email) || empty($gender) || empty($ic_number) || empty($application_code) || empty($password)) {
     ob_end_clean();
     echo json_encode(["success" => false, "message" => "请填写所有字段"]);
+    exit;
+}
+
+// 验证身份证号格式
+if (!preg_match('/^\d{12}$/', $ic_number)) {
+    ob_end_clean();
+    echo json_encode(["success" => false, "message" => "身份证号码必须是12位数字"]);
     exit;
 }
 
@@ -79,10 +87,10 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 // 插入用户
 $stmt = $conn->prepare("
     INSERT INTO users 
-    (username, email, gender, password, account_type, registration_code, created_at) 
-    VALUES (?, ?, ?, ?, ?, ?, NOW())
+    (username, email, gender, ic_number, password, account_type, registration_code, created_at) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
 ");
-$stmt->bind_param("ssssss", $name, $email, $gender, $hashed_password, $account_type, $application_code);
+$stmt->bind_param("sssssss", $name, $email, $gender, $ic_number, $hashed_password, $account_type, $application_code);
 
 if ($stmt->execute()) {
     // 更新申请码为已使用
