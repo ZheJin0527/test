@@ -21,7 +21,10 @@
       </button>
     <h2>注册账号</h2>
     <form id="register-form">
-      <input type="text" name="name" placeholder="请输入您的姓名（必须填写完整姓名）" required />
+      <input type="text" name="name" placeholder="请输入您的英文姓名（例如：JOHN SMITH）" required 
+          pattern="^[A-Z]+(\s+[A-Z]+)+$" 
+          title="请输入至少两个英文单词，只能包含字母和空格" 
+          style="text-transform: uppercase;" />
 
       <div class="gender-id-row">
         <div class="gender-container">
@@ -69,108 +72,123 @@
 
   <script src="app.js"></script>
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const togglePassword = document.getElementById("toggle-password");
-  const password = document.getElementById("password");
-  const toggleConfirmPassword = document.getElementById("toggle-confirm");
-  const confirmPassword = document.getElementById("confirm_password");
+      document.addEventListener("DOMContentLoaded", function () {
+        const togglePassword = document.getElementById("toggle-password");
+        const password = document.getElementById("password");
+        const toggleConfirmPassword = document.getElementById("toggle-confirm");
+        const confirmPassword = document.getElementById("confirm_password");
 
-  togglePassword.addEventListener("click", function () {
-    const isVisible = password.type === "text";
-    password.type = isVisible ? "password" : "text";
-    this.classList.toggle("active", !isVisible);
-  });
+        togglePassword.addEventListener("click", function () {
+          const isVisible = password.type === "text";
+          password.type = isVisible ? "password" : "text";
+          this.classList.toggle("active", !isVisible);
+        });
 
-  toggleConfirmPassword.addEventListener("click", function () {
-    const isVisible = confirmPassword.type === "text";
-    confirmPassword.type = isVisible ? "password" : "text";
-    this.classList.toggle("active", !isVisible);
-  });
-});
-</script>
-<script>
-document.getElementById("register-form").addEventListener("submit", function (event) {
-  event.preventDefault();
+        toggleConfirmPassword.addEventListener("click", function () {
+          const isVisible = confirmPassword.type === "text";
+          confirmPassword.type = isVisible ? "password" : "text";
+          this.classList.toggle("active", !isVisible);
+        });
 
-  const form = event.target;
+        // 姓名输入框处理
+        const nameInput = document.querySelector('input[name="name"]');
+        nameInput.addEventListener('input', function(e) {
+          // 只允许字母和空格
+          let value = e.target.value.replace(/[^A-Za-z\s]/g, '');
+          // 转换为大写
+          value = value.toUpperCase();
+          // 移除多余的空格
+          value = value.replace(/\s+/g, ' ');
+          e.target.value = value;
+        });
+      });
+  </script>
+  <script>
+      document.getElementById("register-form").addEventListener("submit", function (event) {
+        event.preventDefault();
 
-  const name = form.name.value.trim();
-  const gender = form.gender.value.trim();
-  const icNumber = form.ic_number.value.trim();
-  const email = form.email.value.trim();
-  const password = form.password.value.trim();
-  const confirmPassword = form.confirm_password.value.trim();
-  const applicationCode = form.application_code.value.trim();
+        const form = event.target;
 
-  // 验证必填字段
-  if (!name || !gender || !icNumber || !email || !password || !confirmPassword || !applicationCode) {
-    alert("请填写所有字段。");
-    return;
-  }
+        const name = form.name.value.trim();
+        const gender = form.gender.value.trim();
+        const icNumber = form.ic_number.value.trim();
+        const email = form.email.value.trim();
+        const password = form.password.value.trim();
+        const confirmPassword = form.confirm_password.value.trim();
+        const applicationCode = form.application_code.value.trim();
 
-  // 验证身份证号为12位数字
-  if (!/^\d{12}$/.test(icNumber)) {
-    alert("身份证号码必须是12位数字");
-    return;
-  }
+        // 验证必填字段
+        if (!name || !gender || !icNumber || !email || !password || !confirmPassword || !applicationCode) {
+          alert("请填写所有字段。");
+          return;
+        }
 
-  // 验证邮箱必须是 Gmail
-  if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email)) {
-    alert("请输入有效的 Gmail 地址。");
-    return;
-  }
+        // 验证姓名格式（至少两个英文单词）
+        const nameRegex = /^[A-Z]+(\s+[A-Z]+)+$/;
+        if (!nameRegex.test(name)) {
+          alert("姓名必须至少包含两个英文单词，只能使用字母和空格，例如：JOHN SMITH");
+          return;
+        }
 
-  // 密码规则：大写、小写、数字、特殊符号、不少于8位、不能含中文
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$/;
-  if (!passwordRegex.test(password)) {
-    alert("密码必须包含大写、小写、数字和特殊字符，且不少于8位，不能包含中文。");
-    return;
-  }
+        // 验证身份证号为12位数字
+        if (!/^\d{12}$/.test(icNumber)) {
+          alert("身份证号码必须是12位数字");
+          return;
+        }
 
-  if (password !== confirmPassword) {
-    alert("两次输入的密码不一致。");
-    return;
-  }
+        // 验证邮箱必须是 Gmail
+        if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email)) {
+          alert("请输入有效的 Gmail 地址。");
+          return;
+        }
 
-  // 验证申请码格式
-  if (!/^[a-zA-Z0-9-_]{4,32}$/.test(applicationCode)) {
-    alert("申请码只能包含字母、数字、连字符、下划线，长度4~32位。");
-    return;
-  }
+        // 密码规则：大写、小写、数字、特殊符号、不少于8位、不能含中文
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+          alert("密码必须包含大写、小写、数字和特殊字符，且不少于8位，不能包含中文。");
+          return;
+        }
 
-  // 发出请求到后端
-  fetch("register.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: name,
-      gender: gender,
-      ic_number: icNumber,
-      email: email,
-      password: password,
-      application_code: applicationCode
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        alert("注册成功！");
-        window.location.href = "login.html";
-      } else {
-        alert("注册失败：" + data.message);
-      }
-    })
-    .catch((error) => {
-      console.error("错误:", error);
-      alert("注册请求失败，请稍后再试。");
-    });
-});
-</script>
+        if (password !== confirmPassword) {
+          alert("两次输入的密码不一致。");
+          return;
+        }
 
+        // 验证申请码格式
+        if (!/^[a-zA-Z0-9-_]{4,32}$/.test(applicationCode)) {
+          alert("申请码只能包含字母、数字、连字符、下划线，长度4~32位。");
+          return;
+        }
 
-
-
+        // 发出请求到后端
+        fetch("register.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            gender: gender,
+            ic_number: icNumber,
+            email: email,
+            password: password,
+            application_code: applicationCode
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("注册成功！");
+              window.location.href = "login.html";
+            } else {
+              alert("注册失败：" + data.message);
+            }
+          })
+          .catch((error) => {
+            console.error("错误:", error);
+            alert("注册请求失败，请稍后再试。");
+          });
+      });
+  </script>
 </body>
 </html>
