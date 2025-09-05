@@ -406,6 +406,10 @@ session_start();
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">
                 </div>
                 <div class="filter-group">
+                    <label for="code-filter">货品编号</label>
+                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索货品编号...">
+                </div>
+                <div class="filter-group">
                     <label for="status-filter">预警状态</label>
                     <select id="status-filter" class="filter-input">
                         <option value="">全部状态</option>
@@ -449,7 +453,7 @@ session_start();
                     <thead>
                         <tr>
                             <th>货品名称</th>
-                            <th>当前库存</th>
+                            <th>货品编号</th>
                             <th>最低库存数量</th>
                             <th>操作</th>
                         </tr>
@@ -538,7 +542,7 @@ session_start();
                 html += `
                     <tr>
                         <td><strong>${product.product_name}</strong></td>
-                        <td>${product.current_stock || 0}</td>
+                        <td>${product.product_code || '-'}</td>
                         <td>
                             <input type="number" 
                                 class="quantity-input"
@@ -665,24 +669,30 @@ session_start();
         // 搜索设置
         function searchSettings() {
             const productFilter = document.getElementById('product-filter').value.toLowerCase();
+            const codeFilter = document.getElementById('code-filter').value.toLowerCase();
             const statusFilter = document.getElementById('status-filter').value;
 
             filteredProducts = allProducts.filter(product => {
                 const matchProduct = !productFilter || product.product_name.toLowerCase().includes(productFilter);
+                const matchCode = !codeFilter || (product.product_code && product.product_code.toLowerCase().includes(codeFilter));
                 
                 let matchStatus = true;
                 if (statusFilter) {
                     switch (statusFilter) {
-                        case 'configured':
+                        case 'active':
                             matchStatus = product.minimum_quantity > 0;
                             break;
-                        case 'unconfigured':
+                        case 'inactive':
                             matchStatus = product.minimum_quantity <= 0;
+                            break;
+                        case 'warning':
+                            // 这里可以根据实际库存数量来判断
+                            matchStatus = product.minimum_quantity > 0;
                             break;
                     }
                 }
 
-                return matchProduct && matchStatus;
+                return matchProduct && matchCode && matchStatus;
             });
 
             renderSettingsTable();
@@ -697,6 +707,7 @@ session_start();
         // 重置过滤器
         function resetFilters() {
             document.getElementById('product-filter').value = '';
+            document.getElementById('code-filter').value = '';
             document.getElementById('status-filter').value = '';
             
             filteredProducts = [...allProducts];
@@ -764,10 +775,11 @@ session_start();
                 e.preventDefault();
                 document.getElementById('product-filter').focus();
             }
-            
-            // Escape键重置搜索
-            if (e.key === 'Escape') {
-                resetFilters();
+
+            // 添加Ctrl+G聚焦编号搜索框
+            if (e.ctrlKey && e.key === 'g') {
+                e.preventDefault();
+                document.getElementById('code-filter').focus();
             }
         });
 

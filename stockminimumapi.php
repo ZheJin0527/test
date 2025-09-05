@@ -46,8 +46,8 @@ function getProductsWithSettings() {
     global $pdo;
     
     try {
-        // 从 stock_data 获取所有货品名称
-        $sql = "SELECT DISTINCT product_name 
+        // 从 stock_data 获取所有货品名称和编号
+        $sql = "SELECT DISTINCT product_name, product_code 
                 FROM stock_data 
                 WHERE product_name IS NOT NULL AND product_name != ''
                 ORDER BY product_name ASC";
@@ -73,10 +73,12 @@ function getProductsWithSettings() {
         $result = [];
         foreach ($productsData as $product) {
             $productName = $product['product_name'];
+            $productCode = $product['product_code'] ?? '';
             $setting = $settingsMap[$productName] ?? null;
             
             $result[] = [
                 'product_name' => $productName,
+                'product_code' => $productCode,
                 'minimum_quantity' => $setting ? floatval($setting['minimum_quantity']) : 0.00
             ];
         }
