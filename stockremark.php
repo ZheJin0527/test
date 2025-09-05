@@ -789,10 +789,6 @@
                         <i class="fas fa-sync-alt"></i>
                         刷新数据
                     </button>
-                    <button class="btn btn-warning" onclick="exportData()">
-                        <i class="fas fa-download"></i>
-                        导出CSV
-                    </button>
                 </div>
             </div>
         </div>
