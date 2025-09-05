@@ -20,10 +20,9 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            background-blend-mode: multiply;
+            background-attachment: fixed;
             color: #111827;
         }
-
         
         .container {
             max-width: 1000px;
