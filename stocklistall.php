@@ -2131,16 +2131,16 @@
             // 显示动画
             setTimeout(() => {
                 toast.classList.add('show');
-            }, 100);
+            }, 10);
             
             // 自动关闭
             setTimeout(() => {
                 closeToast(toastId);
-            }, 4000);
+            }, 1500);
             
             // 限制通知数量
             const toasts = container.querySelectorAll('.toast');
-            if (toasts.length > 5) {
+            if (toasts.length > 3) {
                 closeToast(toasts[0].id);
             }
         }
