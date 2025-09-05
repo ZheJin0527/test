@@ -2131,7 +2131,7 @@
             // 显示动画
             setTimeout(() => {
                 toast.classList.add('show');
-            }, 10);
+            }, 0);
             
             // 自动关闭
             setTimeout(() => {
