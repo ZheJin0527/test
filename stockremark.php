@@ -219,56 +219,22 @@
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             overflow: hidden;
+            display: flex; /* 新增 */
         }
 
         .product-header {
             background: #583e04;
             color: white;
-            padding: 16px 24px;
+            padding: 24px;
             font-size: 18px;
             font-weight: 600;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start; /* 改为 flex-start */
-            gap: 24px; /* 添加间距 */
-        }
-
-        /* 在现有CSS中添加以下样式 */
-        .product-info-section {
-            flex: 1;
-            display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-
-        .product-title {
-            display: flex;
+            justify-content: center;
             align-items: center;
+            text-align: center;
+            width: 50%;
             gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .product-table-section {
-            flex: 1;
-            min-width: 0; /* 防止表格溢出 */
-        }
-
-        .product-table-section .price-variants-table {
-            margin: 0;
-        }
-
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .product-header {
-                flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
-            }
-            
-            .product-info-section,
-            .product-table-section {
-                width: 100%;
-            }
         }
 
         .product-header .price-count {
@@ -276,6 +242,20 @@
             background: rgba(255, 255, 255, 0.2);
             padding: 4px 12px;
             border-radius: 20px;
+        }
+
+        .product-table-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-info-item {
+            margin-bottom: 12px;
+        }
+
+        .product-info-item:last-child {
+            margin-bottom: 0;
         }
 
         .price-variants-table {
@@ -1008,22 +988,28 @@
                 html += `
                     <div class="product-group">
                         <div class="product-header">
-                            <div class="product-info-section">
-                                <div class="product-title">
-                                    <span class="product-code">${product.variants[0]?.code_number || '未知编号'}</span>
-                                    <span class="product-name">${product.product_name}</span>
-                                </div>
-                                <div class="total-quantity">数量/重量总计: ${product.total_quantity}</div>
+                            <div class="product-info-item">
+                                <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">货品编号</div>
+                                <div style="background: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 20px; font-size: 14px;">${product.variants[0]?.code_number || '未知编号'}</div>
                             </div>
-                            <div class="product-table-section">
-                                <table class="price-variants-table">
-                            <thead>
-                                <tr>
-                                    <th>备注编号</th>
-                                    <th>数量/重量</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
+                            <div class="product-info-item">
+                                <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">货品名称</div>
+                                <div style="font-size: 18px; font-weight: 600;">${product.product_name}</div>
+                            </div>
+                            <div class="product-info-item">
+                                <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">数量/重量总计</div>
+                                <div style="color: #10b981; font-weight: 600; background-color: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 4px;">${product.total_quantity}</div>
+                            </div>
+                        </div>
+                        <div class="product-table-container">
+                            <table class="price-variants-table">
+                                <thead>
+                                    <tr>
+                                        <th>备注编号</th>
+                                        <th>数量/重量</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
                 
                 // 按备注编号数字顺序排序variants（从小到大）
                 const sortedVariants = [...product.variants].sort((a, b) => {
@@ -1042,9 +1028,8 @@
                     });
                 
                 html += `
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 `;
