@@ -17,7 +17,7 @@ session_start();
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
             color: #333;
             line-height: 1.6;
         }
@@ -46,8 +46,8 @@ session_start();
         }
 
         .back-button {
-            background-color: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+            background-color: #6b7280;
+            border: 1px solid #6b7280;
             color: white;
             padding: 10px 20px;
             border-radius: 6px;
@@ -60,7 +60,7 @@ session_start();
         }
 
         .back-button:hover {
-            background-color: rgba(255,255,255,0.3);
+            background-color: #4b5563;
             color: white;
             text-decoration: none;
         }
@@ -77,8 +77,8 @@ session_start();
 
         .alert-success { background-color: #C8E6C9; color: #2E7D32; border: 1px solid #4CAF50; }
         .alert-error { background-color: #FFCDD2; color: #C62828; border: 1px solid #F44336; }
-        .alert-info { background-color: #FFE0B2; color: #E65100; border: 1px solid #FF9800; }
-        .alert-warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .alert-info { background-color: #fff9f1; color: #E65100; border: 1px solid #ff5c00; }
+        .alert-warning { background-color: #FFE0B2; color: #E65100; border: 1px solid #FF9800; }
 
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-20px); }
@@ -91,6 +91,7 @@ session_start();
             border-radius: 10px;
             margin-bottom: 25px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 2px solid #ff5c00;
         }
 
         .filter-grid {
@@ -122,7 +123,7 @@ session_start();
         .filter-input:focus, .filter-select:focus {
             outline: none;
             border-color: #ff5c00;
-            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.3);
+            box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
         .filter-actions {
@@ -170,6 +171,7 @@ session_start();
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             overflow: hidden;
+            border: 2px solid #ff5c00;
         }
 
         .table-header {
@@ -220,8 +222,8 @@ session_start();
             padding: 15px 12px;
             text-align: left;
             font-weight: 600;
-            color: #BF360C;
-            border-bottom: 2px solid #ff5c00;
+            color: black;
+            border-bottom: 2px solid #d1d5db;
             position: sticky;
             top: 0;
             z-index: 10;
@@ -229,7 +231,7 @@ session_start();
 
         .threshold-table td {
             padding: 12px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #d1d5db;
             vertical-align: middle;
         }
 
@@ -254,7 +256,7 @@ session_start();
         .threshold-input {
             width: 100px;
             padding: 6px 10px;
-            border: 1px solid #ff5c00;
+            border: 1px solid #d1d5db;
             border-radius: 4px;
             font-size: 13px;
         }
@@ -262,7 +264,7 @@ session_start();
         .threshold-input:focus {
             outline: none;
             border-color: #ff5c00;
-            box-shadow: 0 0 0 2px rgba(255, 92, 0, 0.2);
+            box-shadow: 0 0 5px rgba(255, 92, 0, 0.3);
         }
 
         .threshold-checkbox {
@@ -274,9 +276,9 @@ session_start();
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid rgba(255, 92, 0, 0.3);
+            border: 3px solid #FFE0B2;
             border-radius: 50%;
-            border-top-color: #ff5c00;
+            border-top-color: #FF9800;
             animation: spin 1s ease-in-out infinite;
         }
 
@@ -302,13 +304,13 @@ session_start();
             right: 30px;
             width: 50px;
             height: 50px;
-            background: #ff5c00;
+            background-color: #eb8e02ff;
             color: white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
             font-size: 18px;
-            box-shadow: 0 4px 15px rgba(255, 92, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(88, 62, 4, 0.3);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -321,8 +323,9 @@ session_start();
         }
 
         .back-to-top:hover {
+            background-color: #d16003ff;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 92, 0, 0.6);
+            box-shadow: 0 6px 20px rgba(88, 62, 4, 0.4);
         }
 
         @media (max-width: 768px) {
