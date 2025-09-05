@@ -233,7 +233,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            width: 50%;
+            width: 40%;
             gap: 16px;
         }
 
@@ -245,7 +245,7 @@
         }
 
         .product-table-container {
-            width: 50%;
+            width: 60%;
             display: flex;
             flex-direction: column;
         }
