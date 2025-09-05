@@ -123,26 +123,7 @@ if (isset($_SESSION['user_id'])) {
                     集团架构管理
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="company-items">
-                    <div class="menu-item-wrapper">
-                        <a href="#" class="informationmenu-item">
-                            Kunzz Holdings
-                            <span class="informationmenu-arrow">›</span>
-                        </a>
-                        <div class="submenu">
-                            <div class="submenu-header">
-                                <div class="submenu-title">Kunzz Holdings</div>
-                            </div>
-                            <div class="submenu-content">
-                                <a href="#" class="submenu-item">企业蓝图</a>
-                                <a href="#" class="submenu-item">组织结构图</a>
-                                <a href="#" class="submenu-item">公司规划</a>
-                                <a href="#" class="submenu-item">公司福利</a>
-                                <a href="#" class="submenu-item">绩效考核</a>
-                            </div>
-                        </div>
-                    </div>
-                    
+                <div class="dropdown-menu-items" id="company-items">                 
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             Tokyo Japanese Cuisine
