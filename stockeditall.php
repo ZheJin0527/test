@@ -4159,19 +4159,6 @@
         // 生成PDF发票
         async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
             try {
-                // 强制清除任何可能的测试数据
-                if (outData && outData.length > 0) {
-                    const hasTestData = outData.some(record => 
-                        record.product_name && record.product_name.includes('TEST PRODUCT')
-                    );
-                    if (hasTestData) {
-                        console.warn('检测到测试数据，正在过滤...');
-                        outData = outData.filter(record => 
-                            !record.product_name || !record.product_name.includes('TEST PRODUCT')
-                        );
-                        console.log('过滤后的数据长度:', outData.length);
-                    }
-                }
                 
                 console.log('开始生成PDF发票:', {
                     exportSystem,
@@ -4301,7 +4288,7 @@
                     // NO (第一列) - 居中对齐
                     const itemText = itemNumber.toString();
                     page.drawText(itemText, {
-                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 60, 6),
+                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 39, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -4316,7 +4303,7 @@
                         : productName;
                     
                     page.drawText(displayProductName.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 62 : 72,
+                        x: exportSystem === 'j1' ? 62 : 62,
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
