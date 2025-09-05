@@ -771,33 +771,29 @@
         
         <!-- 搜索和过滤区域 -->
         <div class="filter-section">
-            <div class="filter-grid">
-                <div class="filter-group">
+            <div style="display: flex; align-items: end; gap: 16px; margin-bottom: 16px;">
+                <div class="filter-group" style="flex: 1;">
                     <label for="product-filter">货品名称</label>
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">
                 </div>
-                <div class="filter-group">
-                    <label for="code-filter">备注编号</label>
-                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索备注编号...">
+                <div class="filter-actions">
+                    <button class="btn btn-primary" onclick="searchData()">
+                        <i class="fas fa-search"></i>
+                        搜索
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetFilters()">
+                        <i class="fas fa-refresh"></i>
+                        重置
+                    </button>
+                    <button class="btn btn-success" onclick="refreshData()">
+                        <i class="fas fa-sync-alt"></i>
+                        刷新数据
+                    </button>
+                    <button class="btn btn-warning" onclick="exportData()">
+                        <i class="fas fa-download"></i>
+                        导出CSV
+                    </button>
                 </div>
-            </div>
-            <div class="filter-actions">
-                <button class="btn btn-primary" onclick="searchData()">
-                    <i class="fas fa-search"></i>
-                    搜索
-                </button>
-                <button class="btn btn-secondary" onclick="resetFilters()">
-                    <i class="fas fa-refresh"></i>
-                    重置
-                </button>
-                <button class="btn btn-success" onclick="refreshData()">
-                    <i class="fas fa-sync-alt"></i>
-                    刷新数据
-                </button>
-                <button class="btn btn-warning" onclick="exportData()">
-                    <i class="fas fa-download"></i>
-                    导出CSV
-                </button>
             </div>
         </div>
 
@@ -923,15 +919,11 @@
 
         function searchData() {
             const productFilter = document.getElementById('product-filter').value.toLowerCase();
-            const codeFilter = document.getElementById('code-filter').value.toLowerCase();
             
             // 过滤数据
             filteredData = stockData.filter(item => {
                 const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
-                const matchCode = !codeFilter || (item.variants && item.variants.some(variant => 
-                    variant.remark_number && variant.remark_number.toLowerCase().includes(codeFilter)));
-
-                return matchProduct && matchCode;
+                return matchProduct;
             });
 
             renderProducts();
@@ -946,7 +938,6 @@
         // 重置搜索过滤器
         function resetFilters() {
             document.getElementById('product-filter').value = '';
-            document.getElementById('code-filter').value = '';
             
             filteredData = [...stockData];
             renderProducts();
