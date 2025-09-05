@@ -629,8 +629,6 @@ if (isset($_SESSION['user_id'])) {
             background-color: #cde3ff !important;
         }
 
-        /* 在现有CSS中添加这些样式，替换原有的alert样式 */
-
         /* 通知容器 */
         .toast-container {
             position: fixed;

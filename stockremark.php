@@ -623,8 +623,6 @@
             font-size: 0.9em;
         }
 
-        /* 在现有CSS中添加这些样式，替换原有的alert样式 */
-
         /* 通知容器 */
         .toast-container {
             position: fixed;

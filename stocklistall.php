@@ -802,12 +802,12 @@
 
         .stock-critical {
             color: #dc2626;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .stock-warning {
             color: #d97706;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .modal-footer {
@@ -862,8 +862,6 @@
         .low-stock-row .currency-symbol {
             color: #991b1b !important;
         }
-
-        /* 在现有CSS中添加这些样式，替换原有的alert样式 */
 
         /* 通知容器 */
         .toast-container {
@@ -1065,7 +1063,7 @@
             <div class="low-stock-modal-header">
                 <h2>
                     <i class="fas fa-exclamation-triangle"></i>
-                    库存不足预警
+                    库存不足提醒
                 </h2>
                 <button class="close-modal" onclick="closeLowStockModal()">
                     <i class="fas fa-times"></i>
@@ -1081,10 +1079,6 @@
                     <!-- Summary info -->
                 </div>
                 <div>
-                    <button class="btn btn-secondary" onclick="closeLowStockModal()" style="margin-right: 10px;">
-                        <i class="fas fa-times"></i>
-                        关闭
-                    </button>
                     <button class="btn btn-primary" onclick="goToMinimumSettings()">
                         <i class="fas fa-cog"></i>
                         设置最低库存

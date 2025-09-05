@@ -24,7 +24,7 @@ session_start();
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -204,7 +204,7 @@ session_start();
 
         .settings-table th,
         .settings-table td {
-            padding: 12px;
+            padding: 12px 20px;
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
@@ -328,8 +328,6 @@ session_start();
             margin-bottom: 16px;
             color: #d1d5db;
         }
-
-        /* 在现有CSS中添加这些样式，替换原有的alert样式 */
 
         /* 通知容器 */
         .toast-container {
