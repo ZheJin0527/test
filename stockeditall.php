@@ -4267,6 +4267,8 @@
                     lineHeight = 17; // J2模板的行高
                 }
 
+                // 清除缓存并强制刷新
+                console.log('使用实际数据，记录数量:', outData.length);
                 outData.forEach((record, index) => {
                     const itemNumber = index + 1;
                     const outQty = parseFloat(record.out_quantity) || 0;
