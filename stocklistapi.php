@@ -81,7 +81,7 @@ function getStockSummary() {
                 'no' => $counter++,
                 'product_name' => $row['product_name'],
                 'code_number' => $row['code_number'] ?? '',
-                'total_stock' => $currentStock,
+                'total_stock' => $currentStock, // 确保这个值是数字
                 'specification' => $row['specification'] ?? '',
                 'price' => $price,
                 'total_price' => $totalPrice,

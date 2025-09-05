@@ -840,6 +840,29 @@
             }
         }
 
+        .low-stock-row {
+            background-color: #fef2f2 !important;
+            color: #991b1b !important;
+        }
+
+        .low-stock-row:hover {
+            background-color: #fee2e2 !important;
+        }
+
+        .low-stock-row td {
+            color: #991b1b !important;
+            font-weight: 500;
+        }
+
+        .low-stock-row .currency-amount {
+            color: #991b1b !important;
+            font-weight: 600;
+        }
+
+        .low-stock-row .currency-symbol {
+            color: #991b1b !important;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -1321,6 +1344,8 @@
         };
         let currentView = 'list';
 
+        let lowStockSettings = {};
+
         const VIEW_NAMES = {
             list: '总库存',
             records: '进出货',
@@ -1471,6 +1496,9 @@
             setLoadingState(system, true);
             
             try {
+                // 加载低库存设置
+                await loadLowStockSettings();
+                
                 let result;
                 if (system === 'remark') {
                     result = await apiCall(system, '?action=analysis');
@@ -1527,6 +1555,31 @@
                 isLoading[system] = false;
                 setLoadingState(system, false);
             }
+        }
+
+        async function loadLowStockSettings() {
+            try {
+                const response = await fetch('stockminimumapi.php?action=list');
+                const result = await response.json();
+                
+                if (result.success) {
+                    lowStockSettings = {};
+                    result.data.forEach(item => {
+                        lowStockSettings[item.product_name] = item.minimum_quantity;
+                    });
+                }
+            } catch (error) {
+                console.error('加载低库存设置失败:', error);
+            }
+        }
+
+        // 检查是否库存不足
+        function isLowStock(productName, currentStock) {
+            const minimumQuantity = lowStockSettings[productName];
+            if (!minimumQuantity || minimumQuantity <= 0) {
+                return false;
+            }
+            return parseFloat(currentStock) <= parseFloat(minimumQuantity);
         }
 
         // 搜索数据
@@ -1699,8 +1752,12 @@
                 const stockClass = stockValue > 0 ? 'positive-value' : 'zero-value';
                 const priceClass = priceValue > 0 ? 'positive-value' : 'zero-value';
                 
+                // 检查是否库存不足
+                const isLowStockItem = isLowStock(item.product_name, item.total_stock);
+                const rowClass = isLowStockItem ? 'low-stock-row' : '';
+                
                 tableRows += `
-                    <tr>
+                    <tr class="${rowClass}">
                         <td class="text-center">${item.no}</td>
                         <td class="text-center">${item.code_number || '-'}</td>
                         <td><strong>${item.product_name}</strong></td>
