@@ -4314,7 +4314,7 @@
                     page.drawText(qtyText, {
                         x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 358 : 358, 6),
                         y: yPosition,
-                        size: fontSize,
+                        size: smallFontSize,
                         color: textColor,
                         font: boldFont,
                     });
