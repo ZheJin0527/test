@@ -4312,7 +4312,7 @@
                     // UOM (第四列) - 左对齐
                     const uomText = record.specification || '';
                     page.drawText(uomText.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 380 : 380,
+                        x: exportSystem === 'j1' ? 370 : 370,
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
