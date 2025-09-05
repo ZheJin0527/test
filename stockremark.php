@@ -227,9 +227,7 @@
             padding: 16px 24px;
             font-size: 18px;
             font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
         }
 
         .product-header .price-count {
@@ -243,7 +241,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            table-layout: fixed; /* 添加这行 */
+            table-layout: auto;
         }
 
         .price-variants-table th {
@@ -717,6 +715,69 @@
             transform-origin: left;
             animation: toastProgress 4s linear forwards;
         }
+
+        /* 产品组主体布局 */
+        .product-body {
+            display: flex;
+            gap: 24px;
+            padding: 24px;
+        }
+
+        /* 左侧信息区域 */
+        .product-left {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* 右侧表格区域 */
+        .product-right {
+            flex: 2;
+        }
+
+        /* 产品信息卡片 */
+        .product-info-card {
+            background: #f8f5eb;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .product-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .product-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .product-info-label {
+            font-weight: 600;
+            color: #583e04;
+            font-size: 14px;
+        }
+
+        .product-info-value {
+            font-weight: 500;
+            color: #111827;
+            font-size: 14px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .product-body {
+                flex-direction: column;
+                gap: 16px;
+                padding: 16px;
+            }
+            
+            .product-left {
+                min-width: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -968,21 +1029,33 @@
             filteredData.forEach(product => {
                 html += `
                     <div class="product-group">
-                        <div class="product-header">
-                            <div class="product-title">
-                                <span class="product-code">${product.variants[0]?.code_number || '未知编号'}</span>
-                                <span class="product-name">${product.product_name}</span>
-                                <span class="total-quantity">数量/重量总计: ${product.total_quantity}</span>
-                            </div>
-                        </div>
-                        <table class="price-variants-table">
-                            <thead>
-                                <tr>
-                                    <th>备注编号</th>
-                                    <th>数量/重量</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
+    <div class="product-header">
+        ${productName}
+    </div>
+    <div class="product-body">
+        <div class="product-left">
+            <div class="product-info-card">
+                <div class="product-info-item">
+                    <span class="product-info-label">货品编号:</span>
+                    <span class="product-info-value">${productCode}</span>
+                </div>
+                <div class="product-info-item">
+                    <span class="product-info-label">货品名称:</span>
+                    <span class="product-info-value">${productName}</span>
+                </div>
+                <div class="product-info-item">
+                    <span class="product-info-label">数量/重量总计:</span>
+                    <span class="product-info-value">${totalQuantity}</span>
+                </div>
+            </div>
+        </div>
+        <div class="product-right">
+            <table class="price-variants-table">
+                <!-- 表格内容保持不变 -->
+            </table>
+        </div>
+    </div>
+</div>`;
                 
                 // 按备注编号数字顺序排序variants（从小到大）
                 const sortedVariants = [...product.variants].sort((a, b) => {
