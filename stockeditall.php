@@ -4310,7 +4310,7 @@
                     });
                     
                     // Quantity (第四列) - 右对齐
-                    const qtyText = outQty.toString();
+                    const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
                         x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 358 : 358, 6),
                         y: yPosition,
