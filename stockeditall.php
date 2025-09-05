@@ -1197,120 +1197,6 @@
         .back-to-top:active {
             transform: translateY(-1px);
         }
-
-        /* 在现有CSS中添加这些样式，替换原有的alert样式 */
-
-        /* 通知容器 */
-        .toast-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            pointer-events: none;
-        }
-
-        /* 通知基础样式 */
-        .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            pointer-events: auto;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .toast.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .toast.hide {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-
-        /* 通知类型样式 */
-        .toast-success {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
-            color: white;
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-
-        .toast-error {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
-            color: white;
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-
-        .toast-info {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(37, 99, 235, 0.9));
-            color: white;
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .toast-warning {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(217, 119, 6, 0.9));
-            color: white;
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-
-        /* 通知图标 */
-        .toast-icon {
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        /* 通知内容 */
-        .toast-content {
-            flex: 1;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        /* 关闭按钮 */
-        .toast-close {
-            background: none;
-            border: none;
-            color: inherit;
-            font-size: 16px;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-            flex-shrink: 0;
-        }
-
-        .toast-close:hover {
-            opacity: 1;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* 进度条 */
-        .toast-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 0 0 8px 8px;
-            transform-origin: left;
-            animation: toastProgress 4s linear forwards;
-        }
     </style>
 </head>
 <body>
@@ -1586,10 +1472,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="toast-container" id="toast-container">
-    <!-- 动态通知内容 -->
     </div>
 
     <!-- 回到顶部按钮 -->
@@ -3108,76 +2990,24 @@
             document.getElementById('export-modal').style.display = 'block';
         }
 
-        // 完全替换现有的 showAlert 函数
+        // 显示提示信息
         function showAlert(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            if (!container) return;
-
-            // 先检查并限制通知数量（在添加新通知之前）
-            const existingToasts = container.querySelectorAll('.toast');
-            while (existingToasts.length >= 3) {
-                closeToast(existingToasts[0].id);
-                // 立即从DOM移除，不等待动画
-                if (existingToasts[0].parentNode) {
-                    existingToasts[0].parentNode.removeChild(existingToasts[0]);
-                }
-                // 重新获取当前通知列表
-                existingToasts = container.querySelectorAll('.toast');
-            }
-
-            const toastId = 'toast-' + Date.now();
-            const iconClass = {
-                'success': 'fa-check-circle',
-                'error': 'fa-exclamation-circle', 
-                'info': 'fa-info-circle',
-                'warning': 'fa-exclamation-triangle'
-            }[type] || 'fa-check-circle';
-
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.id = toastId;
-            toast.innerHTML = `
-                <i class="fas ${iconClass} toast-icon"></i>
-                <div class="toast-content">${message}</div>
-                <button class="toast-close" onclick="closeToast('${toastId}')">
-                    <i class="fas fa-times"></i>
-                </button>
-                <div class="toast-progress"></div>
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'error' ? 'alert-error' : type === 'info' ? 'alert-info' : 'alert-success';
+            const iconClass = type === 'error' ? 'fa-exclamation-circle' : type === 'info' ? 'fa-info-circle' : 'fa-check-circle';
+            
+            const alertElement = document.createElement('div');
+            alertElement.className = `alert ${alertClass}`;
+            alertElement.innerHTML = `
+                <i class="fas ${iconClass}"></i>
+                <span>${message}</span>
             `;
-
-            container.appendChild(toast);
-
-            // 显示动画
+            
+            alertContainer.appendChild(alertElement);
+            
             setTimeout(() => {
-                toast.classList.add('show');
-            }, 0);
-
-            // 自动关闭
-            setTimeout(() => {
-                closeToast(toastId);
-            }, 700);
-        }
-
-        // 添加关闭通知的函数
-        function closeToast(toastId) {
-            const toast = document.getElementById(toastId);
-            if (toast) {
-                toast.classList.remove('show');
-                toast.classList.add('hide');
-                setTimeout(() => {
-                    if (toast.parentNode) {
-                        toast.parentNode.removeChild(toast);
-                    }
-                }, 300);
-            }
-        }
-
-        // 添加关闭所有通知的函数（可选）
-        function closeAllToasts() {
-            const toasts = document.querySelectorAll('.toast');
-            toasts.forEach(toast => {
-                closeToast(toast.id);
-            });
+                alertElement.remove();
+            }, 5000);
         }
 
         // 页面加载完成后初始化
@@ -4267,8 +4097,15 @@
                 const recordCount = outData.length;
                 const useMultiPage = (exportSystem === 'j1' && recordCount > 35) || (exportSystem === 'j2' && recordCount > 30);
                 
-                // 使用统一的PDF生成函数（自动判断单页或多页）
-                await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber);
+                if (useMultiPage) {
+                    // 使用多页模板
+                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 35 : 30));
+                    showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
+                    await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+                } else {
+                    // 使用单页模板
+                    await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+                }
                 
                 showAlert('PDF发票生成成功', 'success');
                 closeExportModal();
@@ -4332,168 +4169,576 @@
             return invoiceNumber;
         }
 
-        // 辅助函数：数字右对齐
-        function getRightAlignedX(text, rightX, charWidth = 6) {
-            return rightX - text.length * charWidth;
-        }
-
         // 生成PDF发票
-        async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
+        async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '', invoiceDate = '') {
             try {
-                const { PDFDocument, rgb, StandardFonts } = PDFLib;
-                const fontSize = 11;
-
-                // 判断数据量
-                const isMultiPage = outData.length > 35;
-
-                // 模板选择
-                const templateFile = isMultiPage 
-                    ? 'invoice/invoice/j1invoiceMulti.pdf' 
-                    : 'invoice/invoice/j1invoice2.0.pdf';
-
+                
+                console.log('开始生成PDF发票:', {
+                    exportSystem,
+                    dataLength: outData ? outData.length : 0,
+                    startDate,
+                    endDate,
+                    invoiceNumber
+                });
+                
+                // 如果没有提供发票号码，自动生成一个
+                if (!invoiceNumber) {
+                    invoiceNumber = generateInvoiceNumber(exportSystem);
+                }
+                
+                // 下载现有的PDF模板
+                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
                 const templateResponse = await fetch(templateFile);
-                if (!templateResponse.ok) throw new Error('无法加载PDF模板');
+                if (!templateResponse.ok) {
+                    throw new Error('无法加载PDF模板');
+                }
+                
                 const templateBytes = await templateResponse.arrayBuffer();
+                
+                // 使用PDF-lib库来编辑PDF
+                const { PDFDocument, rgb, StandardFonts } = PDFLib;
                 const pdfDoc = await PDFDocument.load(templateBytes);
 
-                let page = pdfDoc.getPage(0);
+                // 获取第一页
+                const page = pdfDoc.getPage(0);
                 const { width, height } = page.getSize();
 
-                // 字体
+                // 嵌入字体
                 const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
                 const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
-                // 日期 & 发票号（保持你原有的坐标，不做修改）
-                const currentDate = new Date().toLocaleDateString('en-GB');
-                page.drawText(invoiceNumber, { x: 100, y: height - 85, size: fontSize, font: boldFont });
-                page.drawText(currentDate, { x: 460, y: height - 85, size: fontSize, font: boldFont });
+                // 设置字体大小和颜色
+                const fontSize = 14;
+                const smallFontSize = 10;
+                const textColor = rgb(0, 0, 0);
+                const whiteColor = rgb(1, 1, 1); // 白色
+                
+                // 字体对齐辅助函数
+                function getRightAlignedX(text, maxX, charWidth = 6) {
+                    return maxX - (text.length * charWidth);
+                }
+                
+                function getCenterAlignedX(text, centerX, charWidth = 6) {
+                    return centerX - (text.length * charWidth / 2);
+                }
+                
+                // 填入日期 (右上角区域)
+                const currentDate = invoiceDate ? 
+                    new Date(invoiceDate).toLocaleDateString('en-GB') : 
+                    new Date().toLocaleDateString('en-GB');
 
+                if (exportSystem === 'j1') {
+                    // J1模板的日期位置
+                    page.drawText(` ${currentDate}`, {
+                        x: 470, // J1模板DATE冒号后面的位置
+                        y: height - 129.5, 
+                        size: fontSize,
+                        color: whiteColor,
+                        font: boldFont,
+                    });
+                    
+                    // J1模板的发票号码位置
+                    if (invoiceNumber) {
+                        page.drawText(invoiceNumber, {
+                            x: 105, // J1模板Invoice No位置
+                            y: height - 129.5, // 调整到Invoice No行
+                            size: fontSize,
+                            color: whiteColor,
+                            font: boldFont,
+                        });
+                    }
+                } else if (exportSystem === 'j2') {
+                    // J2模板的日期位置
+                    page.drawText(` ${currentDate}`, {
+                        x: 470, // J2模板DATE冒号后面的位置 (可根据需要调整)
+                        y: height - 175, // J2模板的Y坐标 (可根据需要调整)
+                        size: fontSize,
+                        color: whiteColor,
+                        font: boldFont,
+                    });
+                    
+                    // J2模板的发票号码位置
+                    if (invoiceNumber) {
+                        page.drawText(invoiceNumber, {
+                            x: 105,
+                            y: height - 175, // 调整到Invoice No行
+                            size: fontSize,
+                            color: whiteColor,
+                            font: boldFont,
+                        });
+                    }
+                }
+                
+                // 计算总金额
                 let grandTotal = 0;
-
-                if (!isMultiPage) {
-                    // ==================== 单页逻辑 ====================
-                    let yPosition = height - 220;
-                    const lineHeight = 16;
-
-                    outData.forEach((record, index) => {
-                        const qty = record.out_quantity || 0;
-                        const price = record.price || 0;
-                        const total = qty * price;
-                        grandTotal += total;
-
-                        // ========== 这里保持你的原有坐标 ==========
-                        page.drawText((index + 1).toString(), { x: 30, y: yPosition, size: fontSize, font: regularFont });
-                        page.drawText(record.product_name || '', { x: 80, y: yPosition, size: fontSize, font: regularFont });
-                        page.drawText(record.specification || '', { x: 290, y: yPosition, size: fontSize, font: regularFont });
-
-                        page.drawText(qty.toString(), { 
-                            x: getRightAlignedX(qty.toString(), 360, 6), 
-                            y: yPosition, size: fontSize, font: regularFont 
-                        });
-
-                        page.drawText(price.toFixed(2), { 
-                            x: getRightAlignedX(price.toFixed(2), 480, 6), 
-                            y: yPosition, size: fontSize, font: regularFont 
-                        });
-
-                        page.drawText(total.toFixed(2), { 
-                            x: getRightAlignedX(total.toFixed(2), 580, 6), 
-                            y: yPosition, size: fontSize, font: boldFont 
-                        });
-
-                        yPosition -= lineHeight;
-                    });
-
-                    // TOTAL（单页版固定位置）
-                    const totalText = `RM ${grandTotal.toFixed(2)}`;
-                    page.drawText("TOTAL:", { x: 420, y: 100, size: 12, font: boldFont });
-                    page.drawText(totalText, { 
-                        x: getRightAlignedX(totalText, 580, 7), 
-                        y: 100, size: 12, font: boldFont 
-                    });
-
-                    // 签名栏
-                    page.drawText("Issued By:", { x: 60, y: 80, size: fontSize, font: regularFont });
-                    page.drawText("Received By:", { x: 320, y: 80, size: fontSize, font: regularFont });
-
-                } else {
-                    // ==================== 多页逻辑 ====================
-                    let yPosition = height - 250;
-                    const lineHeight = 15;
-                    const minY = 120;
-
-                    outData.forEach((record, index) => {
-                        const qty = record.out_quantity || 0;
-                        const price = record.price || 0;
-                        const total = qty * price;
-                        grandTotal += total;
-
-                        // 检查是否需要分页
-                        if (yPosition < minY) {
-                            page = pdfDoc.addPage([width, height]);
-                            yPosition = height - 250;
-
-                            // 重画表头（保持你原有的表头坐标）
-                            page.drawText("Item", { x: 30, y: yPosition, size: fontSize, font: boldFont });
-                            page.drawText("Description", { x: 80, y: yPosition, size: fontSize, font: boldFont });
-                            page.drawText("Qty", { x: 300, y: yPosition, size: fontSize, font: boldFont });
-                            page.drawText("UOM", { x: 360, y: yPosition, size: fontSize, font: boldFont });
-                            page.drawText("U/Price (RM)", { x: 420, y: yPosition, size: fontSize, font: boldFont });
-                            page.drawText("Total (RM)", { x: 520, y: yPosition, size: fontSize, font: boldFont });
-
-                            yPosition -= 20;
-                        }
-
-                        // 明细行（保持你的原有坐标）
-                        page.drawText((index + 1).toString(), { x: 30, y: yPosition, size: fontSize, font: regularFont });
-                        page.drawText(record.product_name || '', { x: 80, y: yPosition, size: fontSize, font: regularFont });
-                        page.drawText(record.specification || '', { x: 290, y: yPosition, size: fontSize, font: regularFont });
-
-                        page.drawText(qty.toString(), { 
-                            x: getRightAlignedX(qty.toString(), 360, 6), 
-                            y: yPosition, size: fontSize, font: regularFont 
-                        });
-
-                        page.drawText(price.toFixed(2), { 
-                            x: getRightAlignedX(price.toFixed(2), 480, 6), 
-                            y: yPosition, size: fontSize, font: regularFont 
-                        });
-
-                        page.drawText(total.toFixed(2), { 
-                            x: getRightAlignedX(total.toFixed(2), 580, 6), 
-                            y: yPosition, size: fontSize, font: boldFont 
-                        });
-
-                        yPosition -= lineHeight;
-                    });
-
-                    // TOTAL（只在最后一页）
-                    const totalText = `RM ${grandTotal.toFixed(2)}`;
-                    page.drawText("TOTAL:", { x: 420, y: yPosition - 25, size: 12, font: boldFont });
-                    page.drawText(totalText, { 
-                        x: getRightAlignedX(totalText, 580, 7), 
-                        y: yPosition - 25, size: 12, font: boldFont 
-                    });
-
-                    // 签名栏
-                    page.drawText("Issued By:", { x: 60, y: 80, size: fontSize, font: regularFont });
-                    page.drawText("Received By:", { x: 320, y: 80, size: fontSize, font: regularFont });
+                
+                // 填入数据行 (从第一个数据行开始)
+                let yPosition, lineHeight;
+                if (exportSystem === 'j1') {
+                    yPosition = height - 185; // J1模板的起始Y坐标
+                    lineHeight = 16.01; // J1模板的行高
+                } else { // j2
+                    yPosition = height - 223; // J2模板的起始Y坐标
+                    lineHeight = 16.01; // J2模板的行高
                 }
 
-                // 导出 PDF
+                // 清除缓存并强制刷新 - 版本 2.0
+                console.log('=== PDF生成调试信息 v2.0 ===');
+                console.log('outData类型:', typeof outData);
+                console.log('outData长度:', outData.length);
+                console.log('outData内容:', outData);
+                
+                if (outData.length === 0) {
+                    console.warn('警告：outData为空，将显示空白发票');
+                }
+                
+                outData.forEach((record, index) => {
+                    const itemNumber = index + 1;
+                    const outQty = parseFloat(record.out_quantity) || 0;
+                    const price = parseFloat(record.price) || 0;
+                    const total = outQty * price;
+                    grandTotal += total;
+                    
+                    // NO (第一列) - 居中对齐
+                    const itemText = itemNumber.toString();
+                    page.drawText(itemText, {
+                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 39, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
+                    const productName = record.product_name || '';
+                    const maxProductNameLength = 20;
+                    const displayProductName = productName.length > maxProductNameLength 
+                        ? productName.substring(0, maxProductNameLength) + '...' 
+                        : productName;
+                    
+                    page.drawText(displayProductName.toUpperCase(), {
+                        x: exportSystem === 'j1' ? 62 : 62,
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Quantity (第三列) - 右对齐
+                    const qtyText = outQty.toFixed(2);
+                    page.drawText(qtyText, {
+                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 360 : 360, 5),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // UOM (第四列) - 左对齐
+                    const uomText = record.specification || '';
+                    page.drawText(uomText.toUpperCase(), {
+                        x: exportSystem === 'j1' ? 370 : 370,
+                        y: yPosition,
+                        size: 8, 
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Price RM (第五列) - 右对齐
+                    const priceText = price.toFixed(2);
+                    page.drawText(priceText, {
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 480 : 480, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Total RM (第六列) - 右对齐
+                    const totalText = total.toFixed(2);
+                    page.drawText(totalText, {
+                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    yPosition -= lineHeight;
+                });                
+
+                if (exportSystem === 'j2') {
+                    // J2模板：计算subtotal, charge 15%, 和最终total
+                    const subtotal = grandTotal;
+                    const charge = subtotal * 0.15;
+                    const finalTotal = subtotal + charge;
+                    
+                    // 填入Subtotal
+                    const subtotalText = `RM${subtotal.toFixed(2)}`;
+                    page.drawText(subtotalText, {
+                        x: getRightAlignedX(subtotalText, 565, 6.5),
+                        y: height - 708, // 调整到Subtotal行
+                        size: 11,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // 填入Charge 15%
+                    const chargeText = `RM${charge.toFixed(2)}`;
+                    page.drawText(chargeText, {
+                        x: getRightAlignedX(chargeText, 565, 6.5),
+                        y: height - 721, // 调整到Charge行
+                        size: 11,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // 填入最终Total
+                    const finalTotalText = `RM${finalTotal.toFixed(2)}`;
+                    page.drawText(finalTotalText, {
+                        x: getRightAlignedX(finalTotalText, 565, 8),
+                        y: height - 745, // 调整到最终Total行
+                        size: fontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                } else {
+                    // J1模板：只显示总计
+                    const totalText = `RM${grandTotal.toFixed(2)}`;
+                    page.drawText(totalText, {
+                        x: getRightAlignedX(totalText, 565, 8),
+                        y: height - 755,
+                        size: fontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                }
+                
+                // 生成并下载PDF
                 const pdfBytes = await pdfDoc.save();
+                
+                // 创建下载链接
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
                 link.download = `invoice_${exportSystem}_${startDate}_${endDate}.pdf`;
+                document.body.appendChild(link);
                 link.click();
-
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
             } catch (error) {
-                console.error("PDF生成失败:", error);
+                console.error('PDF生成失败:', error);
+                console.error('错误详情:', {
+                    message: error.message,
+                    stack: error.stack,
+                    exportSystem: exportSystem,
+                    dataLength: outData ? outData.length : 0
+                });
+                throw error;
             }
         }
 
+        // 生成多页PDF发票
+        async function generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '', invoiceDate = '') {
+            try {
+                console.log('开始生成多页PDF发票:', {
+                    exportSystem,
+                    dataLength: outData ? outData.length : 0,
+                    startDate,
+                    endDate,
+                    invoiceNumber
+                });
+                
+                // 如果没有提供发票号码，自动生成一个
+                if (!invoiceNumber) {
+                    invoiceNumber = generateInvoiceNumber(exportSystem);
+                }
+                
+                // 下载现有的PDF模板
+                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoiceMulti.pdf' : 'invoice/invoice/j1invoiceMulti.pdf';
+                const templateResponse = await fetch(templateFile);
+                let templateBytes;
+                
+                if (!templateResponse.ok) {
+                    // 如果多页模板不存在，尝试使用单页模板
+                    const fallbackTemplateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                    const fallbackResponse = await fetch(fallbackTemplateFile);
+                    if (!fallbackResponse.ok) {
+                        throw new Error(`无法加载PDF模板文件。请确保以下文件存在：\n- ${templateFile}\n- ${fallbackTemplateFile}`);
+                    }
+                    console.log(`使用备用模板: ${fallbackTemplateFile}`);
+                    templateBytes = await fallbackResponse.arrayBuffer();
+                } else {
+                    console.log(`使用多页模板: ${templateFile}`);
+                    templateBytes = await templateResponse.arrayBuffer();
+                }
+                
+                // 使用PDF-lib库来编辑PDF
+                const { PDFDocument, rgb, StandardFonts } = PDFLib;
+                const pdfDoc = await PDFDocument.load(templateBytes);
+
+                // 嵌入字体
+                const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+                const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+                // 设置字体大小和颜色
+                const fontSize = 14;
+                const smallFontSize = 10;
+                const textColor = rgb(0, 0, 0);
+                const whiteColor = rgb(1, 1, 1);
+                
+                // 字体对齐辅助函数
+                function getRightAlignedX(text, maxX, charWidth = 6) {
+                    return maxX - (text.length * charWidth);
+                }
+                
+                function getCenterAlignedX(text, centerX, charWidth = 6) {
+                    return centerX - (text.length * charWidth / 2);
+                }
+                
+                // 计算每页可容纳的记录数
+                const recordsPerPage = exportSystem === 'j1' ? 35 : 30;
+                const totalPages = Math.ceil(outData.length / recordsPerPage);
+                
+                console.log(`多页PDF: 总记录数 ${outData.length}, 每页 ${recordsPerPage} 条, 共 ${totalPages} 页`);
+                
+                let grandTotal = 0;
+                let currentPage = 0;
+                
+                // 为每页创建页面
+                for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
+                    let page;
+                    
+                    if (pageIndex === 0) {
+                        // 使用第一页（已有模板）
+                        page = pdfDoc.getPage(0);
+                    } else {
+                        // 克隆第一页作为后续页面
+                        const [clonedPage] = await pdfDoc.copyPages(pdfDoc, [0]);
+                        pdfDoc.addPage(clonedPage);
+                        page = pdfDoc.getPage(pdfDoc.getPageCount() - 1);
+                    }
+                    
+                    const { width, height } = page.getSize();
+                    
+                    // 填入日期和发票号码（每页都显示）
+                    const currentDate = invoiceDate ? 
+                        new Date(invoiceDate).toLocaleDateString('en-GB') : 
+                        new Date().toLocaleDateString('en-GB');
+
+                    if (exportSystem === 'j1') {
+                        // J1模板的日期位置
+                        page.drawText(` ${currentDate}`, {
+                            x: 470,
+                            y: height - 129.5, 
+                            size: fontSize,
+                            color: whiteColor,
+                            font: boldFont,
+                        });
+                        
+                        // J1模板的发票号码位置
+                        if (invoiceNumber) {
+                            page.drawText(invoiceNumber, {
+                                x: 105,
+                                y: height - 129.5,
+                                size: fontSize,
+                                color: whiteColor,
+                                font: boldFont,
+                            });
+                        }
+                    } else if (exportSystem === 'j2') {
+                        // J2模板的日期位置
+                        page.drawText(` ${currentDate}`, {
+                            x: 470,
+                            y: height - 175,
+                            size: fontSize,
+                            color: whiteColor,
+                            font: boldFont,
+                        });
+                        
+                        // J2模板的发票号码位置
+                        if (invoiceNumber) {
+                            page.drawText(invoiceNumber, {
+                                x: 105,
+                                y: height - 175,
+                                size: fontSize,
+                                color: whiteColor,
+                                font: boldFont,
+                            });
+                        }
+                    }
+                    
+                    // 计算当前页的数据范围
+                    const startIndex = pageIndex * recordsPerPage;
+                    const endIndex = Math.min(startIndex + recordsPerPage, outData.length);
+                    const pageData = outData.slice(startIndex, endIndex);
+                    
+                    // 填入数据行
+                    let yPosition, lineHeight;
+                    if (exportSystem === 'j1') {
+                        yPosition = height - 185;
+                        lineHeight = 16.01;
+                    } else {
+                        yPosition = height - 223;
+                        lineHeight = 16.01;
+                    }
+
+                    pageData.forEach((record, index) => {
+                        const itemNumber = startIndex + index + 1;
+                        const outQty = parseFloat(record.out_quantity) || 0;
+                        const price = parseFloat(record.price) || 0;
+                        const total = outQty * price;
+                        grandTotal += total;
+                        
+                        // NO (第一列)
+                        const itemText = itemNumber.toString();
+                        page.drawText(itemText, {
+                            x: getCenterAlignedX(itemText, 39, 6),
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // Descriptions (第二列)
+                        const productName = record.product_name || '';
+                        const maxProductNameLength = 20;
+                        const displayProductName = productName.length > maxProductNameLength 
+                            ? productName.substring(0, maxProductNameLength) + '...' 
+                            : productName;
+                        
+                        page.drawText(displayProductName.toUpperCase(), {
+                            x: 62,
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // Quantity (第三列)
+                        const qtyText = outQty.toFixed(2);
+                        page.drawText(qtyText, {
+                            x: getRightAlignedX(qtyText, 360, 5),
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // UOM (第四列)
+                        const uomText = record.specification || '';
+                        page.drawText(uomText.toUpperCase(), {
+                            x: 370,
+                            y: yPosition,
+                            size: 8, 
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // Price RM (第五列)
+                        const priceText = price.toFixed(2);
+                        page.drawText(priceText, {
+                            x: getRightAlignedX(priceText, 480, 6),
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // Total RM (第六列)
+                        const totalText = total.toFixed(2);
+                        page.drawText(totalText, {
+                            x: getRightAlignedX(totalText, 565, 6),
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        yPosition -= lineHeight;
+                    });
+                    
+                    // 只在最后一页显示总计
+                    if (pageIndex === totalPages - 1) {
+                        if (exportSystem === 'j2') {
+                            // J2模板：计算subtotal, charge 15%, 和最终total
+                            const subtotal = grandTotal;
+                            const charge = subtotal * 0.15;
+                            const finalTotal = subtotal + charge;
+                            
+                            // 填入Subtotal
+                            const subtotalText = `RM${subtotal.toFixed(2)}`;
+                            page.drawText(subtotalText, {
+                                x: getRightAlignedX(subtotalText, 565, 6.5),
+                                y: height - 708,
+                                size: 11,
+                                color: textColor,
+                                font: boldFont,
+                            });
+                            
+                            // 填入Charge 15%
+                            const chargeText = `RM${charge.toFixed(2)}`;
+                            page.drawText(chargeText, {
+                                x: getRightAlignedX(chargeText, 565, 6.5),
+                                y: height - 721,
+                                size: 11,
+                                color: textColor,
+                                font: boldFont,
+                            });
+                            
+                            // 填入最终Total
+                            const finalTotalText = `RM${finalTotal.toFixed(2)}`;
+                            page.drawText(finalTotalText, {
+                                x: getRightAlignedX(finalTotalText, 565, 8),
+                                y: height - 745,
+                                size: fontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+                        } else {
+                            // J1模板：只显示总计
+                            const totalText = `RM${grandTotal.toFixed(2)}`;
+                            page.drawText(totalText, {
+                                x: getRightAlignedX(totalText, 565, 8),
+                                y: height - 755,
+                                size: fontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+                        }
+                    }
+                    
+                    // 移除页码显示（根据用户要求）
+                    // 页码功能已禁用
+                }
+                
+                // 生成并下载PDF
+                const pdfBytes = await pdfDoc.save();
+                
+                // 创建下载链接
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `invoice_${exportSystem}_multipage_${startDate}_${endDate}.pdf`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+            } catch (error) {
+                console.error('多页PDF生成失败:', error);
+                console.error('错误详情:', {
+                    message: error.message,
+                    stack: error.stack,
+                    exportSystem: exportSystem,
+                    dataLength: outData ? outData.length : 0
+                });
+                throw error;
+            }
+        }
 
         // 处理导出系统选择变化
         function handleExportSystemChange() {
