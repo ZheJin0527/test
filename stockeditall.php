@@ -4159,6 +4159,20 @@
         // 生成PDF发票
         async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
             try {
+                // 强制清除任何可能的测试数据
+                if (outData && outData.length > 0) {
+                    const hasTestData = outData.some(record => 
+                        record.product_name && record.product_name.includes('TEST PRODUCT')
+                    );
+                    if (hasTestData) {
+                        console.warn('检测到测试数据，正在过滤...');
+                        outData = outData.filter(record => 
+                            !record.product_name || !record.product_name.includes('TEST PRODUCT')
+                        );
+                        console.log('过滤后的数据长度:', outData.length);
+                    }
+                }
+                
                 console.log('开始生成PDF发票:', {
                     exportSystem,
                     dataLength: outData ? outData.length : 0,
@@ -4267,8 +4281,16 @@
                     lineHeight = 17; // J2模板的行高
                 }
 
-                // 清除缓存并强制刷新
-                console.log('使用实际数据，记录数量:', outData.length);
+                // 清除缓存并强制刷新 - 版本 2.0
+                console.log('=== PDF生成调试信息 v2.0 ===');
+                console.log('outData类型:', typeof outData);
+                console.log('outData长度:', outData.length);
+                console.log('outData内容:', outData);
+                
+                if (outData.length === 0) {
+                    console.warn('警告：outData为空，将显示空白发票');
+                }
+                
                 outData.forEach((record, index) => {
                     const itemNumber = index + 1;
                     const outQty = parseFloat(record.out_quantity) || 0;
