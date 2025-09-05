@@ -981,7 +981,6 @@
                                 <tr>
                                     <th>备注编号</th>
                                     <th>数量/重量</th>
-                                    <th>规格</th>
                                 </tr>
                             </thead>
                             <tbody>`;
@@ -998,8 +997,7 @@
                     html += `
                         <tr>
                             <td>${variant.remark_number || '-'}</td>
-                            <td>${variant.formatted_quantity}</td>
-                            <td>${variant.specification || '-'}</td>
+                            <td>${variant.formatted_quantity}${variant.specification || ''}</td>
                         </tr>`;
                     });
                 
