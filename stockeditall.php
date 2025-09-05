@@ -978,10 +978,11 @@
 
         .export-modal-content {
             background-color: white;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 30px;
             border-radius: 12px;
-            width: 450px;
+            width: 600px;
+            max-width: 90vw;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
 
@@ -1040,11 +1041,28 @@
 
         .export-modal-actions {
             display: flex;
-            gap: 12px;
+            gap: 8px;
             justify-content: flex-end;
             margin-top: 24px;
             padding-top: 20px;
             border-top: 1px solid #e5e7eb;
+            flex-wrap: wrap;
+        }
+        
+        .export-modal-actions .btn {
+            font-size: 12px;
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
+        
+        .export-modal-actions .btn-info {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        
+        .export-modal-actions .btn-info:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
         }
 
         .close-export-modal {
@@ -1469,6 +1487,22 @@
                         <i class="fas fa-times"></i>
                         取消
                     </button>
+                    <button class="btn btn-info" onclick="generateSamplePDF('j1', 'standard')">
+                        <i class="fas fa-file-pdf"></i>
+                        J1标准版Sample
+                    </button>
+                    <button class="btn btn-info" onclick="generateSamplePDF('j1', 'multi')">
+                        <i class="fas fa-file-pdf"></i>
+                        J1多页版Sample
+                    </button>
+                    <button class="btn btn-info" onclick="generateSamplePDF('j2', 'standard')">
+                        <i class="fas fa-file-pdf"></i>
+                        J2标准版Sample
+                    </button>
+                    <button class="btn btn-info" onclick="generateSamplePDF('j2', 'multi')">
+                        <i class="fas fa-file-pdf"></i>
+                        J2多页版Sample
+                    </button>
                     <button class="btn btn-success" onclick="confirmExport()">
                         <i class="fas fa-download"></i>
                         导出发票
@@ -1487,6 +1521,26 @@
         // API 配置
         let API_BASE_URL = 'stockeditapi.php';
         let currentStockType = 'central';
+        
+        // 多页模板分页配置
+        const pageConfig = {
+            j1: {
+                standard: 35,
+                multi: {
+                    page1: 40,
+                    page2: 45,
+                    total: 85
+                }
+            },
+            j2: {
+                standard: 30,
+                multi: {
+                    page1: 38,
+                    page2: 42,
+                    total: 80
+                }
+            }
+        };
         
         // 应用状态
         let stockData = [];
@@ -4039,6 +4093,74 @@
             }
         }
 
+        // 生成Sample PDF
+        async function generateSamplePDF(exportSystem, templateType) {
+            try {
+                // 显示加载状态
+                const sampleBtn = event.target;
+                const originalText = sampleBtn.innerHTML;
+                sampleBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
+                sampleBtn.disabled = true;
+
+                // 生成sample数据
+                const sampleData = generateSampleData(exportSystem, templateType);
+                
+                // 生成PDF
+                await generateInvoicePDF(sampleData, '2025-01-01', '2025-01-01', exportSystem, 'SAMPLE-001', '2025-01-01');
+                
+                // 显示成功消息
+                const templateName = templateType === 'multi' ? '多页版' : '标准版';
+                showAlert(`Sample PDF生成成功 (${exportSystem.toUpperCase()} ${templateName}，${sampleData.length}行数据)`, 'success');
+                
+            } catch (error) {
+                console.error('Sample PDF生成失败:', error);
+                showAlert('生成Sample PDF失败，请重试', 'error');
+            } finally {
+                // 恢复按钮状态
+                const sampleBtn = event.target;
+                sampleBtn.innerHTML = originalText;
+                sampleBtn.disabled = false;
+            }
+        }
+
+        // 生成Sample数据
+        function generateSampleData(exportSystem, templateType) {
+            const config = pageConfig[exportSystem];
+            const maxRows = templateType === 'multi' ? config.multi.page1 : config.standard;
+            
+            const sampleData = [];
+            const products = [
+                'Chicken Rice', 'Beef Noodles', 'Fish Soup', 'Pork Chop', 'Vegetable Stir Fry',
+                'Fried Rice', 'Nasi Lemak', 'Laksa', 'Char Kway Teow', 'Hainanese Chicken',
+                'Satay', 'Rendang', 'Curry Chicken', 'Tom Yum Soup', 'Pad Thai',
+                'Spring Rolls', 'Dumplings', 'Wonton Soup', 'Sweet and Sour Pork', 'Kung Pao Chicken',
+                'Mapo Tofu', 'General Tso Chicken', 'Orange Chicken', 'Beef Broccoli', 'Chicken Teriyaki',
+                'Sushi Roll', 'Tempura', 'Ramen', 'Udon', 'Miso Soup',
+                'Bibimbap', 'Kimchi', 'Bulgogi', 'Japchae', 'Tteokbokki',
+                'Pho', 'Banh Mi', 'Spring Rolls', 'Pad See Ew', 'Green Curry'
+            ];
+            
+            const specifications = ['KG', 'PCS', 'BOX', 'CASE', 'BOTTLE', 'CAN', 'PACK', 'SET'];
+            
+            for (let i = 0; i < maxRows; i++) {
+                const productIndex = i % products.length;
+                const specIndex = i % specifications.length;
+                const quantity = (Math.random() * 10 + 1).toFixed(2);
+                const price = (Math.random() * 50 + 5).toFixed(2);
+                
+                sampleData.push({
+                    product_name: products[productIndex],
+                    specification: specifications[specIndex],
+                    out_quantity: quantity,
+                    price: price,
+                    remark: `Sample Item ${i + 1}`
+                });
+            }
+            
+            console.log(`生成${exportSystem.toUpperCase()} ${templateType}版Sample数据: ${sampleData.length}行`);
+            return sampleData;
+        }
+
         // 确认导出
         async function confirmExport() {
             const startDate = document.getElementById('export-start-date').value;
@@ -4068,11 +4190,11 @@
                 return;
             }
             
-            // 显示加载状态
-            const exportBtn = document.querySelector('.export-modal-actions .btn-success');
-            const originalText = exportBtn.innerHTML;
-            exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
-            exportBtn.disabled = true;
+                // 显示加载状态
+                const exportBtn = document.querySelector('.export-modal-actions .btn-success');
+                const originalText = exportBtn.innerHTML;
+                exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
+                exportBtn.disabled = true;
             
             try {
                 
@@ -4099,10 +4221,33 @@
                     return;
                 }
                 
+                // 检查数据量是否超出多页模板总容量
+                const dataCount = outData.length;
+                const maxRows = exportSystem === 'j1' ? 35 : 30;
+                if (dataCount > maxRows) {
+                    const config = pageConfig[exportSystem].multi;
+                    if (dataCount > config.total) {
+                        showAlert(`数据量 ${dataCount} 超出多页模板总容量 ${config.total}，请减少数据量或联系管理员`, 'error');
+                        return;
+                    }
+                }
+                
                 // 生成PDF
                 await generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber, invoiceDate);
                 
-                showAlert('PDF发票生成成功', 'success');
+                // 根据数据量显示不同的成功消息
+                const dataCount = outData.length;
+                const maxRows = exportSystem === 'j1' ? 35 : 30;
+                const templateType = dataCount > maxRows ? '多页模板' : '标准模板';
+                
+                let successMessage = `PDF发票生成成功 (使用${templateType}，${dataCount}行数据)`;
+                if (dataCount > maxRows) {
+                    const config = pageConfig[exportSystem].multi;
+                    const pages = dataCount <= config.page1 ? 1 : 2;
+                    successMessage += `，共${pages}页`;
+                }
+                
+                showAlert(successMessage, 'success');
                 closeExportModal();
                 
             } catch (error) {
@@ -4189,11 +4334,28 @@
                     console.log('自动生成发票号码:', invoiceNumber);
                 }
                 
-                // 下载现有的PDF模板
-                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                // 根据数据量选择模板
+                const dataCount = outData.length;
+                const maxRows = exportSystem === 'j1' ? 35 : 30;
+                const useMultiTemplate = dataCount > maxRows;
+                
+                
+                let templateFile, totalPages = 1;
+                if (useMultiTemplate) {
+                    templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoiceMulti.pdf' : 'invoice/invoice/j1invoiceMulti.pdf';
+                    const config = pageConfig[exportSystem].multi;
+                    totalPages = dataCount <= config.page1 ? 1 : 2;
+                    console.log(`数据量 ${dataCount} 超过 ${maxRows} 行，使用多页模板: ${templateFile}`);
+                    console.log(`分页配置: 第1页${config.page1}行，第2页${config.page2}行，总计${config.total}行`);
+                    console.log(`需要页数: ${totalPages}`);
+                } else {
+                    templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                    console.log(`数据量 ${dataCount} 在 ${maxRows} 行内，使用标准模板: ${templateFile}`);
+                }
+                
                 const templateResponse = await fetch(templateFile);
                 if (!templateResponse.ok) {
-                    throw new Error('无法加载PDF模板');
+                    throw new Error(`无法加载PDF模板: ${templateFile}`);
                 }
                 
                 const templateBytes = await templateResponse.arrayBuffer();
@@ -4259,7 +4421,7 @@
                         color: whiteColor,
                         font: boldFont,
                     });
-                    
+
                     // J2模板的发票号码位置
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
@@ -4276,13 +4438,15 @@
                 let grandTotal = 0;
                 
                 // 填入数据行 (从第一个数据行开始)
-                let yPosition, lineHeight;
+                let yPosition, lineHeight, rowsPerPage;
                 if (exportSystem === 'j1') {
                     yPosition = height - 185; // J1模板的起始Y坐标
                     lineHeight = 16.01; // J1模板的行高
+                    rowsPerPage = useMultiTemplate ? pageConfig.j1.multi.page1 : pageConfig.j1.standard;
                 } else { // j2
                     yPosition = height - 223; // J2模板的起始Y坐标
                     lineHeight = 16.01; // J2模板的行高
+                    rowsPerPage = useMultiTemplate ? pageConfig.j2.multi.page1 : pageConfig.j2.standard;
                 }
 
                 // 清除缓存并强制刷新 - 版本 2.0
@@ -4290,12 +4454,47 @@
                 console.log('outData类型:', typeof outData);
                 console.log('outData长度:', outData.length);
                 console.log('outData内容:', outData);
+                console.log('使用多页模板:', useMultiTemplate);
+                console.log('每页最大行数:', rowsPerPage);
                 
                 if (outData.length === 0) {
                     console.warn('警告：outData为空，将显示空白发票');
                 }
                 
-                outData.forEach((record, index) => {
+                // 根据模板类型和分页配置限制显示的行数
+                let dataToProcess;
+                if (useMultiTemplate) {
+                    const config = pageConfig[exportSystem].multi;
+                    if (totalPages === 1) {
+                        // 只使用第一页
+                        dataToProcess = outData.slice(0, config.page1);
+                        console.log(`多页模板第1页: 处理 ${dataToProcess.length} 行 (最大 ${config.page1} 行)`);
+                    } else {
+                        // 使用两页，但这里先处理第一页
+                        dataToProcess = outData.slice(0, config.page1);
+                        console.log(`多页模板第1页: 处理 ${dataToProcess.length} 行 (最大 ${config.page1} 行)`);
+                        console.log(`剩余数据: ${outData.length - config.page1} 行将在第2页处理`);
+                    }
+                } else {
+                    dataToProcess = outData.slice(0, rowsPerPage);
+                    console.log(`标准模板: 处理 ${dataToProcess.length} 行 (最大 ${rowsPerPage} 行)`);
+                }
+                
+                console.log(`实际处理数据行数: ${dataToProcess.length} (原始: ${outData.length})`);
+                
+                // 如果数据超出容量，显示警告
+                if (outData.length > rowsPerPage) {
+                    if (useMultiTemplate) {
+                        const config = pageConfig[exportSystem].multi;
+                        if (outData.length > config.total) {
+                            console.warn(`警告：数据量 ${outData.length} 超出多页模板总容量 ${config.total}，只显示前 ${config.total} 行`);
+                        }
+                    } else {
+                        console.warn(`警告：数据量 ${outData.length} 超出标准模板容量 ${rowsPerPage}，只显示前 ${rowsPerPage} 行`);
+                    }
+                }
+                
+                dataToProcess.forEach((record, index) => {
                     const itemNumber = index + 1;
                     const outQty = parseFloat(record.out_quantity) || 0;
                     const price = parseFloat(record.price) || 0;
