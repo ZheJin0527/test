@@ -447,14 +447,14 @@ session_start();
             <div class="table-scroll-container">
                 <table class="settings-table" id="settings-table">
                     <thead>
-                        <thead>
-                            <tr>
-                                <th>货品名称</th>
-                                <th>当前库存</th>
-                                <th>最低库存数量</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
+                        <tr>
+                            <th>货品名称</th>
+                            <th>当前库存</th>
+                            <th>最低库存数量</th>
+                            <th>启用预警</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
                     </thead>
                     <tbody id="settings-tbody">
                         <!-- Dynamic content -->
@@ -498,17 +498,8 @@ session_start();
                 }
                 
             } catch (error) {
-                // 使用模拟数据而不是显示错误
-                console.warn('API not available, using mock data:', error);
-                allProducts = [
-                    { product_name: '示例商品1', current_stock: 100, minimum_quantity: 10 },
-                    { product_name: '示例商品2', current_stock: 50, minimum_quantity: 5 },
-                    { product_name: '示例商品3', current_stock: 200, minimum_quantity: 20 }
-                ];
-                filteredProducts = [...allProducts];
-                renderSettingsTable();
-                updateStats();
-                showAlert('使用示例数据，请配置API接口', 'info');
+                showAlert('网络错误，请检查连接', 'error');
+                console.error('Error:', error);
             } finally {
                 isLoading = false;
                 setLoadingState(false);
@@ -537,7 +528,7 @@ session_start();
             if (filteredProducts.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="4" class="no-data">
+                        <td colspan="3" class="no-data">
                             <i class="fas fa-inbox"></i>
                             <div>暂无货品数据</div>
                         </td>
@@ -553,12 +544,12 @@ session_start();
                         <td><strong>${product.product_name}</strong></td>
                         <td>
                             <input type="number" 
-                                class="quantity-input"
-                                value="${product.minimum_quantity}"
-                                min="0"
-                                step="0.01"
-                                onchange="markAsChanged('${product.product_name}', this.value)"
-                                placeholder="设置最低数量">
+                                   class="quantity-input"
+                                   value="${product.minimum_quantity}"
+                                   min="0"
+                                   step="0.01"
+                                   onchange="markAsChanged('${product.product_name}', this.value)"
+                                   placeholder="设置最低数量">
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm" 
