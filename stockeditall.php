@@ -4309,10 +4309,10 @@
                         font: boldFont,
                     });
                     
-                    // Quantity (第四列) - 右对齐
+                    // Quantity (第四列) - 居中对齐
                     const qtyText = outQty.toString();
                     page.drawText(qtyText, {
-                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 358 : 358, 6),
+                        x: getCenterAlignedX(qtyText, exportSystem === 'j1' ? 358 : 358, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
