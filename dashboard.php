@@ -123,7 +123,13 @@ if (isset($_SESSION['user_id'])) {
                     集团架构管理
                     <span class="section-arrow">⮞</span>
                 </div>
-                <div class="dropdown-menu-items" id="company-items">                 
+                <div class="dropdown-menu-items" id="company-items">
+                    <div class="menu-item-wrapper">
+                        <a href="#" class="informationmenu-item">
+                            Kunzz Holdings
+                        </a>
+                    </div>
+                    
                     <div class="menu-item-wrapper">
                         <a href="#" class="informationmenu-item">
                             Tokyo Japanese Cuisine
