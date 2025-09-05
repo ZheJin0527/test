@@ -4239,17 +4239,17 @@
                         x: 470, // J2模板DATE冒号后面的位置 (可根据需要调整)
                         y: height - 175, // J2模板的Y坐标 (可根据需要调整)
                         size: fontSize,
-                        color: textColor,
+                        color: whiteColor,
                         font: boldFont,
                     });
                     
                     // J2模板的发票号码位置
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
-                            x: 486,
-                            y: height - 115.5, // 调整到Invoice No行
+                            x: 105,
+                            y: height - 175, // 调整到Invoice No行
                             size: fontSize,
-                            color: textColor,
+                            color: whiteColor,
                             font: boldFont,
                         });
                     }
