@@ -850,6 +850,14 @@ function handlePost() {
     } catch (PDOException $e) {
         // 回滚事务
         $pdo->rollBack();
+        error_log("数据库错误: " . $e->getMessage());
+        error_log("错误代码: " . $e->getCode());
+        error_log("错误文件: " . $e->getFile() . " 行: " . $e->getLine());
+        sendResponse(false, "添加记录失败：" . $e->getMessage());
+    } catch (Exception $e) {
+        // 回滚事务
+        $pdo->rollBack();
+        error_log("一般错误: " . $e->getMessage());
         sendResponse(false, "添加记录失败：" . $e->getMessage());
     }
 }

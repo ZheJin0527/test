@@ -2418,22 +2418,28 @@
             const row = buttonElement.closest('tr');
             const rowId = row.querySelector('input').id.split('-')[0] + '-' + row.querySelector('input').id.split('-')[1];
             
+            console.log('保存新行记录，rowId:', rowId);
+            console.log('行元素:', row);
+            
             const codeInput = document.getElementById(`${rowId}-code_number-input`);
             const productInput = document.getElementById(`${rowId}-product_name-input`);
+            
+            console.log('codeInput:', codeInput);
+            console.log('productInput:', productInput);
 
             const formData = {
-                date: document.getElementById(`${rowId}-date`).value,
+                date: document.getElementById(`${rowId}-date`) ? document.getElementById(`${rowId}-date`).value : '',
                 time: new Date().toTimeString().slice(0, 5),
                 product_name: productInput ? productInput.value : '',
-                in_quantity: parseFloat(document.getElementById(`${rowId}-in-qty`).value) || 0,
-                out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`).value) || 0,
-                specification: document.getElementById(`${rowId}-specification`).value,
-                price: parseFloat(document.getElementById(`${rowId}-price`).value) || 0,
-                receiver: document.getElementById(`${rowId}-receiver`).value,
+                in_quantity: parseFloat(document.getElementById(`${rowId}-in-qty`) ? document.getElementById(`${rowId}-in-qty`).value : 0) || 0,
+                out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0) || 0,
+                specification: document.getElementById(`${rowId}-specification`) ? document.getElementById(`${rowId}-specification`).value : '',
+                price: parseFloat(document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0) || 0,
+                receiver: document.getElementById(`${rowId}-receiver`) ? document.getElementById(`${rowId}-receiver`).value : '',
                 code_number: codeInput ? codeInput.value : '',
-                remark: document.getElementById(`${rowId}-remark`).value,
-                product_remark_checked: document.getElementById(`${rowId}-product-remark`).checked,  // 添加这行
-                remark_number: document.getElementById(`${rowId}-remark-number`).value  // 添加这行
+                remark: document.getElementById(`${rowId}-remark`) ? document.getElementById(`${rowId}-remark`).value : '',
+                product_remark_checked: document.getElementById(`${rowId}-product-remark`) ? document.getElementById(`${rowId}-product-remark`).checked : false,
+                remark_number: document.getElementById(`${rowId}-remark-number`) ? document.getElementById(`${rowId}-remark-number`).value : ''
             };
 
             // 验证必填字段
