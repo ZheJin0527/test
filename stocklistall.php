@@ -1579,7 +1579,16 @@
             if (!minimumQuantity || minimumQuantity <= 0) {
                 return false;
             }
-            return parseFloat(currentStock) <= parseFloat(minimumQuantity);
+            
+            // 计算同名货品的总库存
+            const totalStockForProduct = filteredData[currentSystem].reduce((total, item) => {
+                if (item.product_name === productName) {
+                    return total + parseFloat(item.total_stock || 0);
+                }
+                return total;
+            }, 0);
+            
+            return totalStockForProduct <= parseFloat(minimumQuantity);
         }
 
         // 搜索数据
@@ -1752,7 +1761,7 @@
                 const stockClass = stockValue > 0 ? 'positive-value' : 'zero-value';
                 const priceClass = priceValue > 0 ? 'positive-value' : 'zero-value';
                 
-                // 检查是否库存不足
+                // 检查是否库存不足（基于货品名称汇总）
                 const isLowStockItem = isLowStock(item.product_name, item.total_stock);
                 const rowClass = isLowStockItem ? 'low-stock-row' : '';
                 
