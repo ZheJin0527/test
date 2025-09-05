@@ -451,8 +451,6 @@ session_start();
                             <th>货品名称</th>
                             <th>当前库存</th>
                             <th>最低库存数量</th>
-                            <th>启用预警</th>
-                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -493,13 +491,11 @@ session_start();
                     filteredProducts = [...allProducts];
                     renderSettingsTable();
                     updateStats();
-                } else {
-                    showAlert('获取数据失败: ' + (result.message || '未知错误'), 'error');
                 }
                 
             } catch (error) {
-                showAlert('网络错误，请检查连接', 'error');
                 console.error('Error:', error);
+                // 静默处理，不显示错误提示
             } finally {
                 isLoading = false;
                 setLoadingState(false);
@@ -512,7 +508,7 @@ session_start();
             if (loading) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="padding: 40px; text-align: center;">
+                        <td colspan="4" style="padding: 40px; text-align: center;">
                             <div class="loading"></div>
                             <div style="margin-top: 16px; color: #6b7280;">正在加载数据...</div>
                         </td>
@@ -528,7 +524,7 @@ session_start();
             if (filteredProducts.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="3" class="no-data">
+                        <td colspan="4" class="no-data">
                             <i class="fas fa-inbox"></i>
                             <div>暂无货品数据</div>
                         </td>
@@ -542,14 +538,15 @@ session_start();
                 html += `
                     <tr>
                         <td><strong>${product.product_name}</strong></td>
+                        <td>${product.current_stock || 0}</td>
                         <td>
                             <input type="number" 
-                                   class="quantity-input"
-                                   value="${product.minimum_quantity}"
-                                   min="0"
-                                   step="0.01"
-                                   onchange="markAsChanged('${product.product_name}', this.value)"
-                                   placeholder="设置最低数量">
+                                class="quantity-input"
+                                value="${product.minimum_quantity}"
+                                min="0"
+                                step="0.01"
+                                onchange="markAsChanged('${product.product_name}', this.value)"
+                                placeholder="设置最低数量">
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm" 
