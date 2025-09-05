@@ -322,7 +322,6 @@ session_start();
 
         .back-to-top:hover {
             transform: translateY(-3px);
-            background: #E65100;
             box-shadow: 0 6px 20px rgba(255, 92, 0, 0.6);
         }
 
