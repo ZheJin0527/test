@@ -1364,7 +1364,7 @@
                     <input type="checkbox" id="add-product-remark" onchange="toggleRemarkNumber()">
                 </div>
                 <div class="form-group">
-                    <label for="add-remark-prefix">备注编号</label>
+                    <label for="add-remark-number">备注编号</label>
                     <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 8px; background: white; padding: 0;" id="add-remark-wrapper">
                         <input type="text" id="add-remark-prefix" class="form-input" placeholder="" style="border: none; border-radius: 8px 0 0 8px; width: 30px; text-align: center; background: transparent;" disabled>
                         <span style="padding: 0 4px; color: #6b7280; font-weight: bold;">-</span>
