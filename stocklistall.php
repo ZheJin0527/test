@@ -1630,7 +1630,7 @@
             }
         }
 
-        // 加载数据
+        // 修改 loadData 函数
         async function loadData(system) {
             if (isLoading[system]) return;
             
@@ -1638,8 +1638,10 @@
             setLoadingState(system, true);
             
             try {
-                // 加载低库存设置
-                await loadLowStockSettings();
+                // 只在中央系统时加载低库存设置
+                if (system === 'central') {
+                    await loadLowStockSettings();
+                }
                 
                 let result;
                 if (system === 'remark') {
@@ -1686,7 +1688,7 @@
             } catch (error) {
                 stockData[system] = [];
                 filteredData[system] = [];
-                showAlert('网络错误，请检查连接', 'error');
+                console.error('Error:', error);
                 
                 if (system === 'remark') {
                     renderRemarkProducts();
@@ -1878,7 +1880,7 @@
             document.getElementById(`${system}-total-records`).textContent = totalRecords;
         }
 
-        // 渲染库存表格
+        // 替换现有的 renderStockTable 函数
         function renderStockTable(system) {
             const tbody = document.getElementById(`${system}-stock-tbody`);
             
@@ -1896,6 +1898,18 @@
             
             let totalValue = 0;
             let tableRows = '';
+            let productTotals = {};
+            
+            // 只在中央系统时计算货品总库存
+            if (system === 'central') {
+                filteredData[system].forEach(item => {
+                    const productName = item.product_name;
+                    if (!productTotals[productName]) {
+                        productTotals[productName] = 0;
+                    }
+                    productTotals[productName] += parseFloat(item.total_stock || 0);
+                });
+            }
             
             filteredData[system].forEach((item, index) => {
                 const stockValue = parseFloat(item.total_stock) || 0;
@@ -1903,9 +1917,15 @@
                 const stockClass = stockValue > 0 ? 'positive-value' : 'zero-value';
                 const priceClass = priceValue > 0 ? 'positive-value' : 'zero-value';
                 
-                // 检查是否库存不足（基于货品名称汇总）
-                const isLowStockItem = isLowStock(item.product_name, item.total_stock);
-                const rowClass = isLowStockItem ? 'low-stock-row' : '';
+                let rowClass = '';
+                
+                // 只在中央系统检查低库存
+                if (system === 'central') {
+                    const productName = item.product_name;
+                    const minimumQuantity = lowStockSettings[productName];
+                    const isLowStockItem = minimumQuantity > 0 && productTotals[productName] <= minimumQuantity;
+                    rowClass = isLowStockItem ? 'low-stock-row' : '';
+                }
                 
                 tableRows += `
                     <tr class="${rowClass}">
