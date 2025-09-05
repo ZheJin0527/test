@@ -273,12 +273,12 @@
         }
 
         .price-variants-table th:nth-child(1) { width: 6.5%; } /* 备注编号 */
-        .price-variants-table th:nth-child(2) { width: 25%; } /* 数量/重量 */
+        .price-variants-table th:nth-child(2) { width: 25%; text-align:left; } /* 数量/重量 */
         .price-variants-table th:nth-child(3) { width: 20%; } /* 规格 */
         .price-variants-table th:nth-child(4) { width: 25%; } /* 单价 */
 
         .price-variants-table td:nth-child(1) { width: 25%; }
-        .price-variants-table td:nth-child(2) { width: 25%; }
+        .price-variants-table td:nth-child(2) { width: 25%; text-align:left; }
         .price-variants-table td:nth-child(3) { width: 25%; }
         .price-variants-table td:nth-child(4) { width: 25%; }
 
