@@ -4476,20 +4476,6 @@
                 const templateResponse = await fetch(templateFile);
                 let templateBytes;
                 
-                if (!templateResponse.ok) {
-                    // 如果多页模板不存在，尝试使用单页模板
-                    const fallbackTemplateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
-                    const fallbackResponse = await fetch(fallbackTemplateFile);
-                    if (!fallbackResponse.ok) {
-                        throw new Error(`无法加载PDF模板文件。请确保以下文件存在：\n- ${templateFile}\n- ${fallbackTemplateFile}`);
-                    }
-                    console.log(`使用备用模板: ${fallbackTemplateFile}`);
-                    templateBytes = await fallbackResponse.arrayBuffer();
-                } else {
-                    console.log(`使用多页模板: ${templateFile}`);
-                    templateBytes = await templateResponse.arrayBuffer();
-                }
-                
                 // 使用PDF-lib库来编辑PDF
                 const { PDFDocument, rgb, StandardFonts } = PDFLib;
                 const pdfDoc = await PDFDocument.load(templateBytes);
