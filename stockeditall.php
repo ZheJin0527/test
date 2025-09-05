@@ -4302,7 +4302,7 @@
                     // Quantity (第三列) - 右对齐
                     const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
-                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 450 : 450, 6),
+                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 480 : 480, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -4312,7 +4312,7 @@
                     // UOM (第四列) - 左对齐
                     const uomText = record.specification || '';
                     page.drawText(uomText.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 280 : 280,
+                        x: exportSystem === 'j1' ? 450 : 450,
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
