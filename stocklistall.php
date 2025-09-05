@@ -2105,15 +2105,27 @@
         function showAlert(message, type = 'success') {
             const container = document.getElementById('toast-container');
             if (!container) return;
-            
+
+            // 先检查并限制通知数量（在添加新通知之前）
+            const existingToasts = container.querySelectorAll('.toast');
+            while (existingToasts.length >= 3) {
+                closeToast(existingToasts[0].id);
+                // 立即从DOM移除，不等待动画
+                if (existingToasts[0].parentNode) {
+                    existingToasts[0].parentNode.removeChild(existingToasts[0]);
+                }
+                // 重新获取当前通知列表
+                existingToasts = container.querySelectorAll('.toast');
+            }
+
             const toastId = 'toast-' + Date.now();
             const iconClass = {
                 'success': 'fa-check-circle',
-                'error': 'fa-exclamation-circle',
+                'error': 'fa-exclamation-circle', 
                 'info': 'fa-info-circle',
                 'warning': 'fa-exclamation-triangle'
             }[type] || 'fa-check-circle';
-            
+
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
             toast.id = toastId;
@@ -2125,24 +2137,18 @@
                 </button>
                 <div class="toast-progress"></div>
             `;
-            
+
             container.appendChild(toast);
-            
+
             // 显示动画
             setTimeout(() => {
                 toast.classList.add('show');
             }, 0);
-            
+
             // 自动关闭
             setTimeout(() => {
                 closeToast(toastId);
             }, 1500);
-            
-            // 限制通知数量
-            const toasts = container.querySelectorAll('.toast');
-            if (toasts.length > 3) {
-                closeToast(toasts[0].id);
-            }
         }
 
         // 添加关闭通知的函数
