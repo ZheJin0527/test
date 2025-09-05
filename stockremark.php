@@ -213,16 +213,17 @@
 
         /* 货品组显示 */
         .product-group {
-            background: white url('images/images/tokyo.png') no-repeat right 20px bottom 20px;
-            background-size: 150px auto;
-            background-blend-mode: lighten;
+    background: white url('../images/images/tokyo.png') no-repeat right 20px bottom 20px;
+    background-size: 150px auto;
 
-            border-radius: 12px;
-            margin-bottom: 24px;
-            border: 2px solid #583e04;
-            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
-            overflow: hidden;
-        }
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 2px solid #583e04;
+    box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+    overflow: hidden;
+    min-height: 200px; /* 测试高度 */
+}
+
 
         .product-header {
             background: #583e04;
@@ -250,7 +251,7 @@
         }
 
         .price-variants-table th {
-            background: transparent;
+            background: #f8f5eb;
             color: #583e04;
             padding: 12px;
             text-align: center;
