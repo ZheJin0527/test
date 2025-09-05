@@ -4299,7 +4299,17 @@
                         font: boldFont,
                     });
                     
-                    // UOM (第三列) - 左对齐
+                    // Quantity (第三列) - 右对齐
+                    const qtyText = outQty.toFixed(2);
+                    page.drawText(qtyText, {
+                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 480 : 480, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // UOM (第四列) - 左对齐
                     const uomText = record.specification || '';
                     page.drawText(uomText.toUpperCase(), {
                         x: exportSystem === 'j1' ? 280 : 280,
@@ -4309,20 +4319,10 @@
                         font: boldFont,
                     });
                     
-                    // Quantity (第四列) - 右对齐
-                    const qtyText = outQty.toFixed(2);
-                    page.drawText(qtyText, {
-                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 350 : 350, 6),
-                        y: yPosition,
-                        size: smallFontSize,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
                     // Price RM (第五列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 420 : 420, 6),
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 400 : 400, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
