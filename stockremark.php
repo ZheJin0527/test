@@ -213,7 +213,10 @@
 
         /* 货品组显示 */
         .product-group {
-            background: white;
+            background: white url('images/images/tokyologo.png') no-repeat right 20px bottom 20px;
+            background-size: 150px auto;
+            background-blend-mode: lighten;
+
             border-radius: 12px;
             margin-bottom: 24px;
             border: 2px solid #583e04;
