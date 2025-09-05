@@ -231,7 +231,7 @@
             bottom: 20px;
             width: 150px;
             height: 150px;
-            background: url('../images/images/remarklogo.png') no-repeat center/contain;
+            background: url('images/images/tokyo.png') no-repeat center/contain;
             opacity: 0.4; /* 调整透明度 0.05 ~ 0.3 比较合适 */
             pointer-events: none; /* 不挡住点击 */
         }
