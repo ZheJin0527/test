@@ -18,7 +18,7 @@ session_start();
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
+            background: linear-gradient(135deg, #ffe7d5 0%, #f3ebe0ff 100%);
             color: #1a202c;
             line-height: 1.6;
         }
