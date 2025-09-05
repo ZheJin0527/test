@@ -21,7 +21,7 @@
       </button>
     <h2>注册账号</h2>
     <form id="register-form">
-      <input type="text" name="name" placeholder="请输入您的英文姓名（例如：JOHN SMITH）" required 
+      <input type="text" name="name" placeholder="请输入您的英文全名（例如：JOHN TAN ZHI QIANG）" required 
           pattern="^[A-Z]+(\s+[A-Z]+)+$" 
           title="请输入至少两个英文单词，只能包含字母和空格" 
           style="text-transform: uppercase;" />
@@ -141,7 +141,7 @@
         // 验证姓名格式（至少两个英文单词）
         const nameRegex = /^[A-Z]+(\s+[A-Z]+)+$/;
         if (!nameRegex.test(name)) {
-          alert("姓名必须至少包含两个英文单词，只能使用字母和空格，例如：JOHN SMITH");
+          alert("姓名必须至少包含两个英文单词，只能使用字母和空格，例如：JOHN TAN ZHI QIANG");
           return;
         }
 

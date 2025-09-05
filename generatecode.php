@@ -401,7 +401,7 @@
                     <div class="form-group" style="flex: 2; position: relative;">
                         <label for="searchInput">搜索账号类型:</label>
                         <div style="position: relative;">
-                            <input type="text" id="searchInput" placeholder="搜索账号类型..." 
+                            <input type="text" id="searchInput" placeholder="输入账号类型进行筛选（如：管理员、人事部）..."
                                 style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
                             <button type="button" onclick="clearSearch()" 
                                     style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
@@ -685,7 +685,7 @@
         // 全局变量存储原始数据
         let originalTableData = [];
 
-        // 实时过滤表格
+        // 实时过滤表格（只搜索账号类型列）
         function filterTable(searchTerm) {
             const tableBody = document.getElementById('tableBody');
             const rows = tableBody.getElementsByTagName('tr');
@@ -694,8 +694,6 @@
             if (!searchTerm.trim()) {
                 for (let row of rows) {
                     row.classList.remove('hidden-row');
-                    // 移除所有高亮
-                    removeHighlights(row);
                 }
                 return;
             }
@@ -709,68 +707,19 @@
                     continue;
                 }
                 
-                let matchFound = false;
-                let rowText = '';
-                
-                // 检查每个单元格的内容
-                for (let cell of row.cells) {
-                    const cellText = cell.textContent.toLowerCase();
-                    rowText += cellText + ' ';
+                // 只检查账号类型列（第3列，索引为2）
+                const accountTypeCell = row.cells[2];
+                if (accountTypeCell) {
+                    const cellText = accountTypeCell.textContent.toLowerCase();
                     
-                    // 如果找到匹配项
+                    // 显示或隐藏行
                     if (cellText.includes(searchLower)) {
-                        matchFound = true;
+                        row.classList.remove('hidden-row');
+                    } else {
+                        row.classList.add('hidden-row');
                     }
                 }
-                
-                // 显示或隐藏行
-                if (matchFound) {
-                    row.classList.remove('hidden-row');
-                    highlightMatches(row, searchTerm);
-                } else {
-                    row.classList.add('hidden-row');
-                    removeHighlights(row);
-                }
             }
-        }
-
-        // 高亮匹配的文本
-        function highlightMatches(row, searchTerm) {
-            if (!searchTerm.trim()) return;
-            
-            const searchLower = searchTerm.toLowerCase();
-            
-            for (let cell of row.cells) {
-                // 跳过序号列和状态标签
-                if (cell.cellIndex === 0 || cell.querySelector('.status-badge') || cell.querySelector('.account-type-badge')) {
-                    continue;
-                }
-                
-                const originalText = cell.textContent;
-                const originalHTML = cell.innerHTML;
-                
-                // 如果包含匹配文本且不是空值显示
-                if (originalText.toLowerCase().includes(searchLower) && !originalText.includes('-')) {
-                    const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
-                    const highlightedHTML = originalHTML.replace(regex, '<span class="highlight">$1</span>');
-                    cell.innerHTML = highlightedHTML;
-                }
-            }
-        }
-
-        // 移除高亮
-        function removeHighlights(row) {
-            const highlights = row.querySelectorAll('.highlight');
-            highlights.forEach(highlight => {
-                const parent = highlight.parentNode;
-                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
-                parent.normalize(); // 合并相邻的文本节点
-            });
-        }
-
-        // 转义正则表达式特殊字符
-        function escapeRegExp(string) {
-            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         }
 
         // 清除搜索
