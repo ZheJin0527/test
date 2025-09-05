@@ -2018,7 +2018,6 @@
                             <th>规格</th>
                             <th>当前库存</th>
                             <th>最低库存</th>
-                            <th>状态</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2027,19 +2026,14 @@
             alerts.forEach(alert => {
                 const currentStock = parseFloat(alert.current_stock);
                 const minimumStock = parseFloat(alert.minimum_quantity);
-                const percentage = (currentStock / minimumStock) * 100;
                 
                 let statusClass = 'stock-critical';
-                let statusText = '严重不足';
-                let statusIcon = 'fa-exclamation-circle';
-                
-                if (percentage > 50) {
+                if (currentStock <= 0) {
+                    statusClass = 'stock-critical';
+                } else if (currentStock <= minimumStock * 0.5) {
+                    statusClass = 'stock-critical';
+                } else {
                     statusClass = 'stock-warning';
-                    statusText = '库存偏低';
-                    statusIcon = 'fa-exclamation-triangle';
-                } else if (currentStock <= 0) {
-                    statusText = '库存为零';
-                    statusIcon = 'fa-ban';
                 }
                 
                 html += `
@@ -2049,10 +2043,6 @@
                         <td>${alert.specification || '-'}</td>
                         <td class="${statusClass}">${alert.formatted_stock}</td>
                         <td>${parseFloat(alert.minimum_quantity).toFixed(2)}</td>
-                        <td class="${statusClass}">
-                            <i class="fas ${statusIcon}"></i>
-                            ${statusText}
-                        </td>
                     </tr>
                 `;
             });
@@ -2060,7 +2050,7 @@
             html += '</tbody></table>';
             
             content.innerHTML = html;
-            summary.textContent = `共 ${alerts.length} 个货品需要关注`;
+            summary.textContent = `共 ${alerts.length} 个货品库存不足`;
             modal.style.display = 'block';
         }
 
