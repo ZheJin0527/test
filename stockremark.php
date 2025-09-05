@@ -1029,33 +1029,35 @@
             filteredData.forEach(product => {
                 html += `
                     <div class="product-group">
-    <div class="product-header">
-        ${productName}
-    </div>
-    <div class="product-body">
-        <div class="product-left">
-            <div class="product-info-card">
-                <div class="product-info-item">
-                    <span class="product-info-label">货品编号:</span>
-                    <span class="product-info-value">${productCode}</span>
-                </div>
-                <div class="product-info-item">
-                    <span class="product-info-label">货品名称:</span>
-                    <span class="product-info-value">${productName}</span>
-                </div>
-                <div class="product-info-item">
-                    <span class="product-info-label">数量/重量总计:</span>
-                    <span class="product-info-value">${totalQuantity}</span>
-                </div>
-            </div>
-        </div>
-        <div class="product-right">
-            <table class="price-variants-table">
-                <!-- 表格内容保持不变 -->
-            </table>
-        </div>
-    </div>
-</div>`;
+                        <div class="product-header">
+                            ${product.product_name}
+                        </div>
+                        <div class="product-body">
+                            <div class="product-left">
+                                <div class="product-info-card">
+                                    <div class="product-info-item">
+                                        <span class="product-info-label">货品编号:</span>
+                                        <span class="product-info-value">${product.variants[0]?.code_number || '未知编号'}</span>
+                                    </div>
+                                    <div class="product-info-item">
+                                        <span class="product-info-label">货品名称:</span>
+                                        <span class="product-info-value">${product.product_name}</span>
+                                    </div>
+                                    <div class="product-info-item">
+                                        <span class="product-info-label">数量/重量总计:</span>
+                                        <span class="product-info-value">${product.total_quantity}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-right">
+                                <table class="price-variants-table">
+                            <thead>
+                                <tr>
+                                    <th>备注编号</th>
+                                    <th>数量/重量</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
                 
                 // 按备注编号数字顺序排序variants（从小到大）
                 const sortedVariants = [...product.variants].sort((a, b) => {
@@ -1074,8 +1076,11 @@
                     });
                 
                 html += `
-                            </tbody>
-                        </table>
+                                        html += `
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 `;
             });
