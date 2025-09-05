@@ -512,7 +512,7 @@ session_start();
             if (loading) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="6" style="padding: 40px; text-align: center;">
+                        <td colspan="3" style="padding: 40px; text-align: center;">
                             <div class="loading"></div>
                             <div style="margin-top: 16px; color: #6b7280;">正在加载数据...</div>
                         </td>
