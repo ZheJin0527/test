@@ -4302,7 +4302,7 @@
                     // Quantity (第三列) - 右对齐
                     const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
-                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 39 : 39, 6),
+                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 358 : 358， 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -4322,7 +4322,7 @@
                     // Price RM (第五列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 400 : 400, 6),
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 460 : 460, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
