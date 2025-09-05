@@ -4286,7 +4286,7 @@
                     
                     // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
                     const productName = record.product_name || '';
-                    const maxProductNameLength = 25; // 限制产品名称长度
+                    const maxProductNameLength = 20; // 减少产品名称长度以为UOM腾出空间
                     const displayProductName = productName.length > maxProductNameLength 
                         ? productName.substring(0, maxProductNameLength) + '...' 
                         : productName;
@@ -4299,27 +4299,37 @@
                         font: boldFont,
                     });
                     
-                    // Price RM (第三列) - 右对齐
+                    // UOM (第三列) - 居中对齐
+                    const uomText = record.specification || '';
+                    page.drawText(uomText.toUpperCase(), {
+                        x: getCenterAlignedX(uomText, exportSystem === 'j1' ? 280 : 280, 8),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Price RM (第四列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 460 : 460, 6),
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 400 : 400, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
                         font: boldFont,
                     });
                     
-                    // Quantity (第四列) - 右对齐
+                    // Quantity (第五列) - 右对齐
                     const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
-                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 358 : 358, 6),
+                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 480 : 480, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
                         font: boldFont,
                     });
                     
-                    // Total RM (第五列) - 右对齐
+                    // Total RM (第六列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
                         x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
