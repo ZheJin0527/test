@@ -4314,7 +4314,7 @@
                     page.drawText(uomText.toUpperCase(), {
                         x: exportSystem === 'j1' ? 370 : 370,
                         y: yPosition,
-                        size: smallFontSize,
+                        size: 8, 
                         color: textColor,
                         font: boldFont,
                     });
