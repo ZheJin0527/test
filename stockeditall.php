@@ -4054,9 +4054,8 @@
                 return;
             }
 
-            // J1和J2系统都自动生成发票号码
-            const generatedInvoiceNumber = generateInvoiceNumber();
-            console.log('自动生成发票号码:', generatedInvoiceNumber);
+            // J1和J2系统都自动生成发票号码（分开计算）
+            const generatedInvoiceNumber = generateInvoiceNumber(exportSystem);
             
             if (new Date(startDate) > new Date(endDate)) {
                 showAlert('开始日期不能晚于结束日期', 'error');
@@ -4155,17 +4154,18 @@
             }, 10);
         });
 
-        // 生成发票号码 - 从00001开始
-        function generateInvoiceNumber() {
-            // 从localStorage获取全局计数器，如果不存在则从1开始
-            const globalKey = 'invoice_counter_global';
-            let counter = parseInt(localStorage.getItem(globalKey)) || 0;
+        // 生成发票号码 - J1和J2分开计算，从00001开始
+        function generateInvoiceNumber(exportSystem) {
+            // 根据系统类型使用不同的计数器
+            const systemKey = `invoice_counter_${exportSystem}`;
+            let counter = parseInt(localStorage.getItem(systemKey)) || 0;
             counter++;
-            localStorage.setItem(globalKey, counter.toString());
+            localStorage.setItem(systemKey, counter.toString());
             
             // 生成5位数字的发票号码，从00001开始
             const invoiceNumber = String(counter).padStart(5, '0');
             
+            console.log(`${exportSystem.toUpperCase()}系统发票号码: ${invoiceNumber}`);
             return invoiceNumber;
         }
 
@@ -4183,8 +4183,7 @@
                 
                 // 如果没有提供发票号码，自动生成一个
                 if (!invoiceNumber) {
-                    invoiceNumber = generateInvoiceNumber();
-                    console.log('自动生成发票号码:', invoiceNumber);
+                    invoiceNumber = generateInvoiceNumber(exportSystem);
                 }
                 
                 // 下载现有的PDF模板
@@ -4454,8 +4453,7 @@
                 
                 // 如果没有提供发票号码，自动生成一个
                 if (!invoiceNumber) {
-                    invoiceNumber = generateInvoiceNumber();
-                    console.log('自动生成发票号码:', invoiceNumber);
+                    invoiceNumber = generateInvoiceNumber(exportSystem);
                 }
                 
                 // 下载现有的PDF模板
