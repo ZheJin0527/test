@@ -1156,6 +1156,28 @@
             }, 700);
         }
 
+        // 添加关闭通知的函数
+        function closeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        // 添加关闭所有通知的函数（可选）
+        function closeAllToasts() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(toast => {
+                closeToast(toast.id);
+            });
+        }
+
         document.addEventListener('click', function(event) {
             const selector = event.target.closest('.selector-button');
             const dropdown = event.target.closest('.selector-dropdown');
