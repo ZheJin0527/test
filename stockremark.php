@@ -290,7 +290,7 @@
             vertical-align: middle;
         }
 
-        .price-variants-table th:nth-child(1) { width: 32.5%; } /* 备注编号 */
+        .price-variants-table th:nth-child(1) { width: 27.5%; } /* 备注编号 */
         .price-variants-table th:nth-child(2) { width: 25%; text-align:left; } /* 数量/重量 */
         .price-variants-table th:nth-child(3) { width: 20%; } /* 规格 */
         .price-variants-table th:nth-child(4) { width: 25%; } /* 单价 */
@@ -929,7 +929,7 @@
             filteredData = stockData.filter(item => {
                 const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
                 const matchCode = !codeFilter || (item.variants && item.variants.some(variant => 
-                    variant.code_number && variant.code_number.toLowerCase().includes(codeFilter)));
+                    variant.remark_number && variant.remark_number.toLowerCase().includes(codeFilter)));
 
                 return matchProduct && matchCode;
             });
@@ -989,7 +989,7 @@
                         <div class="product-group">
                             <div class="product-header">
                                 <div class="product-info-item">
-                                    <div style="font-size: 18px; font-weight: 600;">${product.product_name}</div>
+                                    <div style="font-size: 28px; font-weight: 600;">${product.product_name}</div>
                                 </div>
                             </div>
                             <div class="product-table-container">
@@ -997,7 +997,7 @@
                                     <thead>
                                         <tr>
                                             <th>备注编号</th>
-                                            <th>数量/重量 <span style="color: #10b981; font-weight: 600; background-color: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 0.9em; margin-left: 8px;">总计: ${product.total_quantity}</span></th>
+                                            <th>数量/重量 <span style="color: #10b981; font-weight: 600; background-color: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 14px; margin-left: 40px;">总计: ${product.total_quantity}</span></th>
                                         </tr>
                                     </thead>
                                     <tbody>`;
