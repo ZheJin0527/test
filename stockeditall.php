@@ -4257,48 +4257,89 @@
                 // 计算总金额
                 let grandTotal = 0;
                 
-                // 表格起始位置
-                let yPosition = height - 220;
-                const lineHeight = 16;
+                // 填入数据行 (从第一个数据行开始)
+                let yPosition, lineHeight;
+                if (exportSystem === 'j1') {
+                    yPosition = height - 185; // J1模板的起始Y坐标
+                    lineHeight = 16.01; // J1模板的行高
+                } else { // j2
+                    yPosition = height - 300; // J2模板的起始Y坐标
+                    lineHeight = 17; // J2模板的行高
+                }
 
                 outData.forEach((record, index) => {
-                const itemNumber = (index + 1).toString();
-                const productName = record.product_name || '';
-                const uom = record.uom || ''; // 单位
-                const qtyText = (record.out_quantity || 0).toString();
-                const priceText = (record.price || 0).toFixed(2);
-                const totalText = (record.out_quantity * record.price).toFixed(2);
-
-                // NO
-                page.drawText(itemNumber, { x: 30, y: yPosition, size: fontSize, font: regularFont });
-
-                // Description
-                page.drawText(productName, { x: 80, y: yPosition, size: fontSize, font: regularFont });
-
-                // UOM
-                page.drawText(uom, { x: 290, y: yPosition, size: fontSize, font: regularFont });
-
-                // Qty (右对齐)
-                page.drawText(qtyText, { 
-                    x: getRightAlignedX(qtyText, 360, 6), 
-                    y: yPosition, size: fontSize, font: regularFont 
-                });
-
-                // Unit Price (右对齐)
-                page.drawText(priceText, { 
-                    x: getRightAlignedX(priceText, 480, 6), 
-                    y: yPosition, size: fontSize, font: regularFont 
-                });
-
-                // Total (右对齐)
-                page.drawText(totalText, { 
-                    x: getRightAlignedX(totalText, 580, 6), 
-                    y: yPosition, size: fontSize, font: boldFont 
-                });
-
-                yPosition -= lineHeight;
-                });
-
+                    const itemNumber = index + 1;
+                    const outQty = parseFloat(record.out_quantity) || 0;
+                    const price = parseFloat(record.price) || 0;
+                    const total = outQty * price;
+                    grandTotal += total;
+                    
+                    // NO (第一列) - 居中对齐
+                    const itemText = itemNumber.toString();
+                    page.drawText(itemText, {
+                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 60, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
+                    const productName = record.product_name || '';
+                    const maxProductNameLength = 20;
+                    const displayProductName = productName.length > maxProductNameLength 
+                        ? productName.substring(0, maxProductNameLength) + '...' 
+                        : productName;
+                    
+                    page.drawText(displayProductName.toUpperCase(), {
+                        x: exportSystem === 'j1' ? 62 : 72,
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Quantity (第三列) - 右对齐
+                    const qtyText = outQty.toFixed(2);
+                    page.drawText(qtyText, {
+                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 39 : 39, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // UOM (第四列) - 左对齐
+                    const uomText = record.specification || '';
+                    page.drawText(uomText.toUpperCase(), {
+                        x: exportSystem === 'j1' ? 450 : 450,
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Price RM (第五列) - 右对齐
+                    const priceText = price.toFixed(2);
+                    page.drawText(priceText, {
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 400 : 400, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Total RM (第六列) - 右对齐
+                    const totalText = total.toFixed(2);
+                    page.drawText(totalText, {
+                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    yPosition -= lineHeight;
                 });                
 
                 if (exportSystem === 'j2') {
