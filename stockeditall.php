@@ -4324,7 +4324,7 @@
                     page.drawText(totalText, {
                         x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
                         y: yPosition,
-                        size: fontSize,
+                        size: smallFontSize,
                         color: textColor,
                         font: boldFont,
                     });
