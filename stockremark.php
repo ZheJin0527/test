@@ -227,7 +227,48 @@
             padding: 16px 24px;
             font-size: 18px;
             font-weight: 600;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* 改为 flex-start */
+            gap: 24px; /* 添加间距 */
+        }
+
+        /* 在现有CSS中添加以下样式 */
+        .product-info-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .product-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .product-table-section {
+            flex: 1;
+            min-width: 0; /* 防止表格溢出 */
+        }
+
+        .product-table-section .price-variants-table {
+            margin: 0;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .product-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            
+            .product-info-section,
+            .product-table-section {
+                width: 100%;
+            }
         }
 
         .product-header .price-count {
@@ -241,7 +282,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            table-layout: auto;
+            table-layout: fixed; /* 添加这行 */
         }
 
         .price-variants-table th {
@@ -715,69 +756,6 @@
             transform-origin: left;
             animation: toastProgress 4s linear forwards;
         }
-
-        /* 产品组主体布局 */
-        .product-body {
-            display: flex;
-            gap: 24px;
-            padding: 24px;
-        }
-
-        /* 左侧信息区域 */
-        .product-left {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        /* 右侧表格区域 */
-        .product-right {
-            flex: 2;
-        }
-
-        /* 产品信息卡片 */
-        .product-info-card {
-            background: #f8f5eb;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #e5e7eb;
-        }
-
-        .product-info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .product-info-item:last-child {
-            border-bottom: none;
-        }
-
-        .product-info-label {
-            font-weight: 600;
-            color: #583e04;
-            font-size: 14px;
-        }
-
-        .product-info-value {
-            font-weight: 500;
-            color: #111827;
-            font-size: 14px;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .product-body {
-                flex-direction: column;
-                gap: 16px;
-                padding: 16px;
-            }
-            
-            .product-left {
-                min-width: auto;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1030,26 +1008,14 @@
                 html += `
                     <div class="product-group">
                         <div class="product-header">
-                            ${product.product_name}
-                        </div>
-                        <div class="product-body">
-                            <div class="product-left">
-                                <div class="product-info-card">
-                                    <div class="product-info-item">
-                                        <span class="product-info-label">货品编号:</span>
-                                        <span class="product-info-value">${product.variants[0]?.code_number || '未知编号'}</span>
-                                    </div>
-                                    <div class="product-info-item">
-                                        <span class="product-info-label">货品名称:</span>
-                                        <span class="product-info-value">${product.product_name}</span>
-                                    </div>
-                                    <div class="product-info-item">
-                                        <span class="product-info-label">数量/重量总计:</span>
-                                        <span class="product-info-value">${product.total_quantity}</span>
-                                    </div>
+                            <div class="product-info-section">
+                                <div class="product-title">
+                                    <span class="product-code">${product.variants[0]?.code_number || '未知编号'}</span>
+                                    <span class="product-name">${product.product_name}</span>
                                 </div>
+                                <div class="total-quantity">数量/重量总计: ${product.total_quantity}</div>
                             </div>
-                            <div class="product-right">
+                            <div class="product-table-section">
                                 <table class="price-variants-table">
                             <thead>
                                 <tr>
@@ -1076,7 +1042,6 @@
                     });
                 
                 html += `
-                                        html += `
                                     </tbody>
                                 </table>
                             </div>
