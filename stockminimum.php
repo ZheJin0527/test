@@ -30,7 +30,7 @@ session_start();
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ff5c00;
             color: white;
             padding: 20px;
             border-radius: 12px;
@@ -374,30 +374,6 @@ session_start();
 
         <!-- Alert Messages -->
         <div id="alert-container"></div>
-
-        <!-- Statistics Section -->
-        <div class="stats-section">
-            <div class="stat-card">
-                <i class="fas fa-boxes"></i>
-                <h3>总货品数量</h3>
-                <div class="value" id="total-products">0</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-toggle-on"></i>
-                <h3>已启用预警</h3>
-                <div class="value" id="active-alerts">0</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h3>当前警告</h3>
-                <div class="value" id="current-warnings">0</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-check-circle"></i>
-                <h3>库存充足</h3>
-                <div class="value" id="sufficient-stock">0</div>
-            </div>
-        </div>
 
         <!-- Filter Section -->
         <div class="filter-section">
