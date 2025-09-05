@@ -989,11 +989,6 @@
                     <div class="product-group">
                         <div class="product-header">
                             <div class="product-info-item">
-                                <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">货品编号</div>
-                                <div style="background: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 20px; font-size: 14px;">${product.variants[0]?.code_number || '未知编号'}</div>
-                            </div>
-                            <div class="product-info-item">
-                                <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">货品名称</div>
                                 <div style="font-size: 18px; font-weight: 600;">${product.product_name}</div>
                             </div>
                             <div class="product-info-item">
