@@ -213,30 +213,13 @@
 
         /* 货品组显示 */
         .product-group {
-            position: relative; /* 必须有 */
             background: white;
-
             border-radius: 12px;
             margin-bottom: 24px;
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             overflow: hidden;
         }
-
-        /* 用伪元素放 logo */
-        .product-group::after {
-            content: "";
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-            width: 150px;
-            height: 150px;
-            background: url('images/images/tokyo.png') no-repeat center/contain;
-            opacity: 0.4; /* 调整透明度 0.05 ~ 0.3 比较合适 */
-            pointer-events: none; /* 不挡住点击 */
-        }
-
-
 
         .product-header {
             background: #583e04;
