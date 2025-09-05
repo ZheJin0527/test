@@ -111,7 +111,7 @@
         .filter-section {
             background: white;
             border-radius: 12px;
-            padding: 24px 40px;
+            padding: 24px 30px;
             margin-bottom: 24px;
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
@@ -233,7 +233,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            width: 40%;
+            width: 35%;
             gap: 16px;
         }
 
@@ -245,7 +245,7 @@
         }
 
         .product-table-container {
-            width: 60%;
+            width: 65%;
             display: flex;
             flex-direction: column;
         }
@@ -771,7 +771,7 @@
         
         <!-- 搜索和过滤区域 -->
         <div class="filter-section">
-            <div style="display: flex; align-items: end; gap: 16px; margin-bottom: 16px;">
+            <div style="display: flex; align-items: end; gap: 26px; margin-bottom: 16px;">
                 <div class="filter-group" style="flex: 1;">
                     <label for="product-filter">货品名称</label>
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">
