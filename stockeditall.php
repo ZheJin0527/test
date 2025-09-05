@@ -4363,7 +4363,7 @@
                     const subtotalText = `RM${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
                         x: getRightAlignedX(subtotalText, 565, 8),
-                        y: height - 705, // 调整到Subtotal行
+                        y: height - 707, // 调整到Subtotal行
                         size: 11,
                         color: textColor,
                         font: boldFont,
