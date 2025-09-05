@@ -4381,7 +4381,7 @@
                     // J1模板：只显示总计
                     const totalText = `RM${grandTotal.toFixed(2)}`;
                     page.drawText(totalText, {
-                        x: getRightAlignedX(totalText, 585, 8),
+                        x: getRightAlignedX(totalText, 565, 8),
                         y: height - 755,
                         size: fontSize,
                         color: textColor,
