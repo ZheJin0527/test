@@ -1459,10 +1459,6 @@
                     <input type="date" id="export-invoice-date">
                 </div>
 
-                <div class="export-form-group" id="invoice-number-group" style="display: none;">
-                    <label for="export-invoice-number">Invoice Number (自动生成)</label>
-                    <input type="text" id="export-invoice-number" placeholder="系统将自动生成" readonly>
-                </div>
                 
                 <div class="export-modal-actions">
                     <button class="btn btn-secondary" onclick="closeExportModal()">
@@ -4044,7 +4040,7 @@
             const startDate = document.getElementById('export-start-date').value;
             const endDate = document.getElementById('export-end-date').value;
             const exportSystem = document.getElementById('export-system').value;
-            const invoiceNumber = document.getElementById('export-invoice-number').value;
+            const invoiceNumber = ''; // 自动生成，不需要用户输入
             const invoiceDate = document.getElementById('export-invoice-date').value;
 
             // 验证输入
@@ -4058,13 +4054,9 @@
                 return;
             }
 
-            // J1和J2系统都自动生成发票号码，不需要用户输入
-            if (!invoiceNumber.trim()) {
-                invoiceNumber = generateInvoiceNumber();
-                console.log('自动生成发票号码:', invoiceNumber);
-                // 在界面上显示生成的发票号码
-                document.getElementById('export-invoice-number').value = invoiceNumber;
-            }
+            // J1和J2系统都自动生成发票号码
+            const generatedInvoiceNumber = generateInvoiceNumber();
+            console.log('自动生成发票号码:', generatedInvoiceNumber);
             
             if (new Date(startDate) > new Date(endDate)) {
                 showAlert('开始日期不能晚于结束日期', 'error');
@@ -4110,10 +4102,10 @@
                     // 使用多页模板
                     const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 35 : 30));
                     showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
-                    await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber, invoiceDate);
+                    await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                 } else {
                     // 使用单页模板
-                    await generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber, invoiceDate);
+                    await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                 }
                 
                 showAlert('PDF发票生成成功', 'success');
@@ -4752,19 +4744,8 @@
 
         // 处理导出系统选择变化
         function handleExportSystemChange() {
-            const systemSelect = document.getElementById('export-system');
-            const invoiceNumberGroup = document.getElementById('invoice-number-group');
-            
-            // J1和J2系统都显示发票号码字段，但都是自动生成
-            if (systemSelect.value === 'j1' || systemSelect.value === 'j2') {
-                invoiceNumberGroup.style.display = 'block';
-                document.getElementById('export-invoice-number').required = false; // 不需要用户输入
-                document.getElementById('export-invoice-number').value = ''; // 清空显示
-            } else {
-                invoiceNumberGroup.style.display = 'none';
-                document.getElementById('export-invoice-number').required = false;
-                document.getElementById('export-invoice-number').value = '';
-            }
+            // 发票号码现在完全自动生成，不需要处理界面变化
+            console.log('导出系统已选择:', document.getElementById('export-system').value);
         }
     </script>
 </body>
