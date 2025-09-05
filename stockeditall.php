@@ -1282,6 +1282,10 @@
                     <i class="fas fa-download"></i>
                     导出数据
                 </button>
+                <button class="btn btn-primary" onclick="generateSampleData()" style="background-color: #8b5cf6;">
+                    <i class="fas fa-magic"></i>
+                    生成示例数据
+                </button>
             </div>
         </div>
 
@@ -2992,6 +2996,53 @@
             
             // 显示导出弹窗
             document.getElementById('export-modal').style.display = 'block';
+        }
+
+        // 生成示例数据
+        async function generateSampleData() {
+            if (isLoading) return;
+            
+            // 确认对话框
+            const count = prompt('请输入要生成的示例数据数量（1-50）：', '10');
+            if (!count || isNaN(count) || count < 1 || count > 50) {
+                showAlert('请输入1-50之间的有效数字', 'error');
+                return;
+            }
+            
+            if (!confirm(`确定要生成 ${count} 条示例数据吗？\n\n这将向当前库存系统（${currentStockType}）添加示例数据。`)) {
+                return;
+            }
+            
+            try {
+                isLoading = true;
+                showAlert('正在生成示例数据...', 'info');
+                
+                const response = await apiCall('', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'generate_sample_data',
+                        restaurant: currentStockType,
+                        count: parseInt(count)
+                    })
+                });
+                
+                if (response.success) {
+                    showAlert(`成功生成 ${response.data.inserted_count} 条示例数据！`, 'success');
+                    // 重新加载数据
+                    await loadStockData();
+                } else {
+                    showAlert(response.message || '生成示例数据失败', 'error');
+                }
+                
+            } catch (error) {
+                console.error('生成示例数据失败:', error);
+                showAlert('生成示例数据失败，请重试', 'error');
+            } finally {
+                isLoading = false;
+            }
         }
 
         // 显示提示信息

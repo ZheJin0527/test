@@ -358,6 +358,88 @@ function handleClearTestData() {
     }
 }
 
+// 处理生成示例数据请求
+function handleGenerateSampleData() {
+    global $pdo, $restaurantConfig;
+    
+    try {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $restaurant = $input['restaurant'] ?? 'j1';
+        $count = intval($input['count'] ?? 10);
+        
+        // 限制生成数量
+        if ($count > 50) {
+            $count = 50;
+        }
+        
+        if (!isset($restaurantConfig[$restaurant])) {
+            sendResponse(false, "无效的餐厅代码");
+            return;
+        }
+        
+        $config = $restaurantConfig[$restaurant];
+        $tableName = $config['data_table'];
+        
+        // 示例数据
+        $sampleProducts = [
+            ['code' => 'SAMPLE001', 'name' => '示例寿司卷', 'price' => 25.00],
+            ['code' => 'SAMPLE002', 'name' => '示例拉面', 'price' => 18.50],
+            ['code' => 'SAMPLE003', 'name' => '示例天妇罗', 'price' => 22.00],
+            ['code' => 'SAMPLE004', 'name' => '示例刺身', 'price' => 35.00],
+            ['code' => 'SAMPLE005', 'name' => '示例味噌汤', 'price' => 8.00],
+            ['code' => 'SAMPLE006', 'name' => '示例炒饭', 'price' => 15.00],
+            ['code' => 'SAMPLE007', 'name' => '示例饺子', 'price' => 12.00],
+            ['code' => 'SAMPLE008', 'name' => '示例绿茶', 'price' => 5.00],
+            ['code' => 'SAMPLE009', 'name' => '示例清酒', 'price' => 28.00],
+            ['code' => 'SAMPLE010', 'name' => '示例甜品', 'price' => 16.00]
+        ];
+        
+        $sampleReceivers = ['张三', '李四', '王五', '赵六', '陈七', '刘八', '杨九', '黄十'];
+        $sampleRemarks = ['正常进货', '紧急补货', '促销活动', '节日特供', '新品上架', '库存调整'];
+        
+        $insertedCount = 0;
+        
+        for ($i = 0; $i < $count; $i++) {
+            $product = $sampleProducts[array_rand($sampleProducts)];
+            $receiver = $sampleReceivers[array_rand($sampleReceivers)];
+            $remark = $sampleRemarks[array_rand($sampleRemarks)];
+            
+            // 随机生成数量（1-20）
+            $quantity = rand(1, 20);
+            $unitPrice = $product['price'] + (rand(-5, 5) * 0.5); // 价格波动
+            $totalPrice = $quantity * $unitPrice;
+            
+            // 随机生成日期（最近30天内）
+            $randomDays = rand(0, 30);
+            $date = date('Y-m-d', strtotime("-{$randomDays} days"));
+            
+            // 随机选择进出货类型
+            $type = rand(0, 1) ? 'in' : 'out';
+            
+            $sql = "INSERT INTO {$tableName} (date, code_number, product_name, quantity, unit_price, total_price, receiver, type, remark) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                $date,
+                $product['code'],
+                $product['name'],
+                $quantity,
+                $unitPrice,
+                $totalPrice,
+                $receiver,
+                $type,
+                $remark
+            ]);
+            
+            $insertedCount++;
+        }
+        
+        sendResponse(true, "成功生成 {$insertedCount} 条示例数据", ["inserted_count" => $insertedCount]);
+        
+    } catch (PDOException $e) {
+        sendResponse(false, "生成示例数据失败：" . $e->getMessage());
+    }
+}
+
 // 根据请求方法处理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -366,6 +448,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($action) {
         case 'clear_test_data':
             handleClearTestData();
+            break;
+        case 'generate_sample_data':
+            handleGenerateSampleData();
             break;
         default:
             sendResponse(false, "未知的POST操作");
