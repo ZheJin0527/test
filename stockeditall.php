@@ -4267,21 +4267,7 @@
                     lineHeight = 17; // J2模板的行高
                 }
 
-                // 生成35行测试数据
-                const testData = [];
-                for (let i = 0; i < 35; i++) {
-                    testData.push({
-                        product_name: `TEST PRODUCT ${i + 1}`,
-                        specification: ['BOX', 'PACKET', 'BOTTLE', 'KILO', 'PIECE'][i % 5],
-                        out_quantity: (Math.random() * 100).toFixed(2),
-                        price: (Math.random() * 50 + 1).toFixed(2)
-                    });
-                }
-                
-                // 强制使用测试数据
-                const dataToUse = testData;
-                
-                dataToUse.forEach((record, index) => {
+                outData.forEach((record, index) => {
                     const itemNumber = index + 1;
                     const outQty = parseFloat(record.out_quantity) || 0;
                     const price = parseFloat(record.price) || 0;
