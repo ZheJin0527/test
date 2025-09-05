@@ -4302,7 +4302,7 @@
                     // Quantity (第三列) - 右对齐
                     const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
-                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 360 : 360, 6),
+                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 365 : 365, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
