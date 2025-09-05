@@ -335,4 +335,40 @@ function handleDelete() {
         sendResponse(false, "删除记录失败：" . $e->getMessage());
     }
 }
+
+// 处理清理测试数据请求
+function handleClearTestData() {
+    global $pdo, $restaurantConfig;
+    
+    try {
+        $deletedCount = 0;
+        
+        // 清理所有餐厅的测试数据
+        foreach ($restaurantConfig as $restaurant => $config) {
+            $sql = "DELETE FROM " . $config['data_table'] . " WHERE product_name LIKE '%TEST PRODUCT%' OR product_name LIKE '%test product%' OR product_name LIKE '%Test Product%'";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $deletedCount += $stmt->rowCount();
+        }
+        
+        sendResponse(true, "清理完成", ["deleted_count" => $deletedCount]);
+        
+    } catch (PDOException $e) {
+        sendResponse(false, "清理测试数据失败：" . $e->getMessage());
+    }
+}
+
+// 根据请求方法处理
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $action = $input['action'] ?? '';
+    
+    switch ($action) {
+        case 'clear_test_data':
+            handleClearTestData();
+            break;
+        default:
+            sendResponse(false, "未知的POST操作");
+    }
+}
 ?>
