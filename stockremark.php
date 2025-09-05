@@ -213,7 +213,7 @@
 
         /* 货品组显示 */
         .product-group {
-            background: white url('images/images/tokyologo.png') no-repeat right 20px bottom 20px;
+            background: white url('images/images/tokyo.png') no-repeat right 20px bottom 20px;
             background-size: 150px auto;
             background-blend-mode: lighten;
 
