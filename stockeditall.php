@@ -4299,30 +4299,30 @@
                         font: boldFont,
                     });
                     
-                    // UOM (第三列) - 居中对齐
-                    const uomText = record.specification || '';
-                    page.drawText(uomText.toUpperCase(), {
-                        x: getCenterAlignedX(uomText, exportSystem === 'j1' ? 280 : 280, 8),
-                        y: yPosition,
-                        size: smallFontSize,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    // Price RM (第四列) - 右对齐
-                    const priceText = price.toFixed(2);
-                    page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 400 : 400, 6),
-                        y: yPosition,
-                        size: smallFontSize,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    // Quantity (第五列) - 右对齐
+                    // Quantity (第三列) - 右对齐
                     const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
                         x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 480 : 480, 6),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+
+                    // UOM (第四列) - 居中对齐
+                    const uomText = record.specification || '';
+                    page.drawText(uomText.toUpperCase(), {
+                        x: getCenterAlignedX(uomText, exportSystem === 'j1' ? 450 : 450, 8),
+                        y: yPosition,
+                        size: smallFontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+                    
+                    // Price RM (第五列) - 右对齐
+                    const priceText = price.toFixed(2);
+                    page.drawText(priceText, {
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 400 : 400, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
