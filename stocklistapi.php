@@ -103,20 +103,19 @@ function getStockSummary() {
     }
 }
 
-// 获取低库存预警数据
+// 修改现有的 getLowStockAlerts() 函数
 function getLowStockAlerts() {
     global $pdo;
     
     try {
-        // 获取当前库存和最低库存设置
+        // 获取当前库存和最低库存设置，只显示有设置且库存不足的货品
         $sql = "SELECT 
                     s.product_name,
                     s.code_number,
                     s.specification,
                     s.current_stock,
                     s.formatted_stock,
-                    m.minimum_quantity,
-                    m.is_active
+                    m.minimum_quantity
                 FROM (
                     SELECT 
                         product_name,
@@ -131,7 +130,7 @@ function getLowStockAlerts() {
                     GROUP BY product_name, code_number, specification
                 ) s
                 INNER JOIN stock_minimum_settings m ON s.product_name = m.product_name
-                WHERE m.is_active = 1 AND s.current_stock <= m.minimum_quantity
+                WHERE m.minimum_quantity > 0 AND s.current_stock <= m.minimum_quantity
                 ORDER BY (s.current_stock / m.minimum_quantity) ASC, s.product_name ASC";
         
         $stmt = $pdo->prepare($sql);

@@ -41,27 +41,23 @@ function sendResponse($success, $message = "", $data = null) {
     exit;
 }
 
-// 获取所有货品和设置列表
+// 修改 getProductsWithSettings() 函数，改为从 stock_data 获取所有货品
 function getProductsWithSettings() {
     global $pdo;
     
     try {
-        // 获取所有货品的当前库存
-        $sql = "SELECT 
-                    product_name,
-                    SUM(CASE WHEN in_quantity > 0 THEN in_quantity ELSE 0 END) - 
-                    SUM(CASE WHEN out_quantity > 0 THEN out_quantity ELSE 0 END) as current_stock
-                FROM stockinout_data 
+        // 从 stock_data 获取所有货品名称
+        $sql = "SELECT DISTINCT product_name 
+                FROM stock_data 
                 WHERE product_name IS NOT NULL AND product_name != ''
-                GROUP BY product_name
                 ORDER BY product_name ASC";
         
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        $stockData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         // 获取最低库存设置
-        $settingsSQL = "SELECT product_name, minimum_quantity, is_active 
+        $settingsSQL = "SELECT product_name, minimum_quantity 
                        FROM stock_minimum_settings";
         $settingsStmt = $pdo->prepare($settingsSQL);
         $settingsStmt->execute();
@@ -75,17 +71,13 @@ function getProductsWithSettings() {
         
         // 组合数据
         $result = [];
-        foreach ($stockData as $stock) {
-            $productName = $stock['product_name'];
-            $currentStock = floatval($stock['current_stock']);
+        foreach ($productsData as $product) {
+            $productName = $product['product_name'];
             $setting = $settingsMap[$productName] ?? null;
             
             $result[] = [
                 'product_name' => $productName,
-                'current_stock' => $currentStock,
-                'formatted_current_stock' => number_format($currentStock, 2),
-                'minimum_quantity' => $setting ? floatval($setting['minimum_quantity']) : 0.00,
-                'is_active' => $setting ? (bool)$setting['is_active'] : false
+                'minimum_quantity' => $setting ? floatval($setting['minimum_quantity']) : 0.00
             ];
         }
         
@@ -96,20 +88,19 @@ function getProductsWithSettings() {
     }
 }
 
-// 保存单个货品设置
-function saveSingleSetting($productName, $minimumQuantity, $isActive) {
+// 修改保存函数，移除 is_active 参数
+function saveSingleSetting($productName, $minimumQuantity) {
     global $pdo;
     
     try {
-        $sql = "INSERT INTO stock_minimum_settings (product_name, minimum_quantity, is_active) 
-                VALUES (?, ?, ?) 
+        $sql = "INSERT INTO stock_minimum_settings (product_name, minimum_quantity) 
+                VALUES (?, ?) 
                 ON DUPLICATE KEY UPDATE 
-                minimum_quantity = VALUES(minimum_quantity), 
-                is_active = VALUES(is_active),
+                minimum_quantity = VALUES(minimum_quantity),
                 updated_at = CURRENT_TIMESTAMP";
         
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$productName, $minimumQuantity, $isActive ? 1 : 0]);
+        $stmt->execute([$productName, $minimumQuantity]);
         
         return true;
         
@@ -118,18 +109,16 @@ function saveSingleSetting($productName, $minimumQuantity, $isActive) {
     }
 }
 
-// 批量保存设置
 function saveBatchSettings($products) {
     global $pdo;
     
     try {
         $pdo->beginTransaction();
         
-        $sql = "INSERT INTO stock_minimum_settings (product_name, minimum_quantity, is_active) 
-                VALUES (?, ?, ?) 
+        $sql = "INSERT INTO stock_minimum_settings (product_name, minimum_quantity) 
+                VALUES (?, ?) 
                 ON DUPLICATE KEY UPDATE 
-                minimum_quantity = VALUES(minimum_quantity), 
-                is_active = VALUES(is_active),
+                minimum_quantity = VALUES(minimum_quantity),
                 updated_at = CURRENT_TIMESTAMP";
         
         $stmt = $pdo->prepare($sql);
@@ -137,8 +126,7 @@ function saveBatchSettings($products) {
         foreach ($products as $product) {
             $stmt->execute([
                 $product['product_name'],
-                $product['minimum_quantity'],
-                $product['is_active'] ? 1 : 0
+                $product['minimum_quantity']
             ]);
         }
         
@@ -185,13 +173,12 @@ if ($method === 'GET') {
             try {
                 $productName = $input['product_name'] ?? '';
                 $minimumQuantity = floatval($input['minimum_quantity'] ?? 0);
-                $isActive = (bool)($input['is_active'] ?? false);
                 
                 if (empty($productName)) {
                     sendResponse(false, "货品名称不能为空");
                 }
                 
-                saveSingleSetting($productName, $minimumQuantity, $isActive);
+                saveSingleSetting($productName, $minimumQuantity);
                 sendResponse(true, "设置保存成功");
                 
             } catch (Exception $e) {
