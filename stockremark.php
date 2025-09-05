@@ -226,8 +226,8 @@
             background: #583e04;
             color: white;
             padding: 24px;
-            font-size: 30px;
-            font-weight: 700;
+            font-size: 18px;
+            font-weight: 600;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -989,7 +989,7 @@
                     <div class="product-group">
                         <div class="product-header">
                             <div class="product-info-item">
-                                <div style="font-size: 18px; font-weight: 600;">${product.product_name}</div>
+                                <div style="font-size: 30px; font-weight: 700;">${product.product_name}</div>
                             </div>
                             <div class="product-info-item">
                                 <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">数量/重量总计</div>
