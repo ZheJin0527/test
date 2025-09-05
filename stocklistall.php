@@ -841,12 +841,12 @@
         }
 
         .low-stock-row {
-            background-color: #fef2f2 !important;
+            background-color: #fab9b9ff !important;
             color: #991b1b !important;
         }
 
         .low-stock-row:hover {
-            background-color: #fee2e2 !important;
+            background-color: #fa9999ff !important;
         }
 
         .low-stock-row td {
