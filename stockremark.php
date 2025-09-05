@@ -777,8 +777,8 @@
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">
                 </div>
                 <div class="filter-group">
-                    <label for="code-filter">货品编号</label>
-                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索货品编号...">
+                    <label for="code-filter">备注编号</label>
+                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索备注编号...">
                 </div>
             </div>
             <div class="filter-actions">
@@ -986,25 +986,21 @@
             
             filteredData.forEach(product => {
                 html += `
-                    <div class="product-group">
-                        <div class="product-header">
-                            <div class="product-info-item">
-                                <div style="font-size: 30px; font-weight: 700;">${product.product_name}</div>
+                        <div class="product-group">
+                            <div class="product-header">
+                                <div class="product-info-item">
+                                    <div style="font-size: 18px; font-weight: 600;">${product.product_name}</div>
+                                </div>
                             </div>
-                            <div class="product-info-item">
-                                <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">数量/重量总计</div>
-                                <div style="color: #10b981; font-weight: 600; background-color: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 4px;">${product.total_quantity}</div>
-                            </div>
-                        </div>
-                        <div class="product-table-container">
-                            <table class="price-variants-table">
-                                <thead>
-                                    <tr>
-                                        <th>备注编号</th>
-                                        <th>数量/重量</th>
-                                    </tr>
-                                </thead>
-                                <tbody>`;
+                            <div class="product-table-container">
+                                <table class="price-variants-table">
+                                    <thead>
+                                        <tr>
+                                            <th>备注编号</th>
+                                            <th>数量/重量 <span style="color: #10b981; font-weight: 600; background-color: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 0.9em; margin-left: 8px;">总计: ${product.total_quantity}</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
                 
                 // 按备注编号数字顺序排序variants（从小到大）
                 const sortedVariants = [...product.variants].sort((a, b) => {
