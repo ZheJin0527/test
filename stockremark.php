@@ -984,7 +984,7 @@
                                     <thead>
                                         <tr>
                                             <th style="font-size: 16px;">备注编号</th>
-                                            <th style="font-size: 16px;">数量/重量 <span style="color: #10b981; font-weight: 600; background-color: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 14px; margin-left: 70px;">总计: ${product.total_quantity}</span></th>
+                                            <th style="font-size: 16px;">数量/重量 <span style="color: #10b981; font-weight: 600; background-color: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 16px; margin-left: 70px;">总计: ${product.total_quantity}</span></th>
                                         </tr>
                                     </thead>
                                     <tbody>`;
