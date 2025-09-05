@@ -250,7 +250,7 @@
         }
 
         .price-variants-table th {
-            background: #f8f5eb;
+            background: transparent;
             color: #583e04;
             padding: 12px;
             text-align: center;
