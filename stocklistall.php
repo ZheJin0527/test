@@ -2136,7 +2136,7 @@
             // 自动关闭
             setTimeout(() => {
                 closeToast(toastId);
-            }, 4000);
+            }, 1500);
             
             // 限制通知数量
             const toasts = container.querySelectorAll('.toast');
