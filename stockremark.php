@@ -16,8 +16,14 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #f1dfbc;
+            background-image: url('images/images/remarkbg.png');
+            background-repeat: no-repeat;   /* 不重复 */
+            background-position: center;    /* 居中 */
+            background-size: cover;         /* 拉伸铺满 */
+            background-blend-mode: multiply; /* 颜色和图片混合，保留底色 */
             color: #111827;
         }
+
         
         .container {
             max-width: 1000px;
