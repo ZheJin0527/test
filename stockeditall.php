@@ -4382,7 +4382,7 @@
                     const totalText = `RM${grandTotal.toFixed(2)}`;
                     page.drawText(totalText, {
                         x: getRightAlignedX(totalText, 585, 8),
-                        y: height - 750,
+                        y: height - 770,
                         size: fontSize,
                         color: textColor,
                         font: boldFont,
