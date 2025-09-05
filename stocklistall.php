@@ -2148,7 +2148,7 @@
             // 自动关闭
             setTimeout(() => {
                 closeToast(toastId);
-            }, 500);
+            }, 700);
         }
 
         // 添加关闭通知的函数
