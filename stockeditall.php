@@ -4237,7 +4237,7 @@
                     // J2模板的日期位置
                     page.drawText(` ${currentDate}`, {
                         x: 470, // J2模板DATE冒号后面的位置 (可根据需要调整)
-                        y: height - 150, // J2模板的Y坐标 (可根据需要调整)
+                        y: height - 160, // J2模板的Y坐标 (可根据需要调整)
                         size: fontSize,
                         color: textColor,
                         font: boldFont,
