@@ -4278,8 +4278,8 @@
                     });
                 }
                 
-                // 使用测试数据或实际数据
-                const dataToUse = outData.length > 0 ? outData : testData;
+                // 强制使用测试数据
+                const dataToUse = testData;
                 
                 dataToUse.forEach((record, index) => {
                     const itemNumber = index + 1;
