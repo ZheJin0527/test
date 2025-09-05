@@ -997,7 +997,7 @@
                     html += `
                         <tr>
                             <td>${variant.remark_number || '-'}</td>
-                            <td>${variant.formatted_quantity}${variant.specification || ''}</td>
+                            <td>${variant.formatted_quantity} ${variant.specification || ''}</td>
                         </tr>`;
                     });
                 
