@@ -4286,7 +4286,7 @@
                     
                     // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
                     const productName = record.product_name || '';
-                    const maxProductNameLength = 20; // 减少产品名称长度以为UOM腾出空间
+                    const maxProductNameLength = 20;
                     const displayProductName = productName.length > maxProductNameLength 
                         ? productName.substring(0, maxProductNameLength) + '...' 
                         : productName;
@@ -4312,7 +4312,7 @@
                     // UOM (第四列) - 居中对齐
                     const uomText = record.specification || '';
                     page.drawText(uomText.toUpperCase(), {
-                        x: getRightAlignedX(uomText, exportSystem === 'j1' ? 450 : 450, 8),
+                        x: getLeftAlignedX(uomText, exportSystem === 'j1' ? 450 : 450, 8),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
