@@ -25,7 +25,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 24px;
         }
@@ -120,7 +120,7 @@
         .filter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 100px;
+            gap: 20px;
             margin-bottom: 16px;
         }
 
