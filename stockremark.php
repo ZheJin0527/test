@@ -893,7 +893,7 @@
                     if (stockData.length === 0) {
                         showAlert('当前没有发现多价格货品', 'info');
                     } else {
-                        showAlert(`发现 ${stockData.length} 个货品有多个价格变体`, 'success');
+                        showAlert(`发现 ${stockData.length} 个货品有多个价格`, 'success');
                     }
                 } else {
                     stockData = [];
