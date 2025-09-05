@@ -1464,10 +1464,6 @@
                         <i class="fas fa-times"></i>
                         取消
                     </button>
-                    <button class="btn btn-warning" onclick="clearTestData()" style="margin-right: 10px;">
-                        <i class="fas fa-trash"></i>
-                        清理测试数据
-                    </button>
                     <button class="btn btn-success" onclick="confirmExport()">
                         <i class="fas fa-download"></i>
                         导出发票
@@ -4029,38 +4025,6 @@
             }
         }
 
-        // 清理测试数据
-        async function clearTestData() {
-            if (!confirm('确定要清理所有测试数据吗？此操作不可撤销！')) {
-                return;
-            }
-            
-            try {
-                const response = await fetch('api.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'clear_test_data'
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showAlert(`成功清理 ${result.deleted_count} 条测试数据`, 'success');
-                    // 刷新页面数据
-                    loadData();
-                } else {
-                    showAlert('清理失败：' + result.message, 'error');
-                }
-            } catch (error) {
-                console.error('清理测试数据失败:', error);
-                showAlert('清理失败：' + error.message, 'error');
-            }
-        }
-
         // 确认导出
         async function confirmExport() {
             const startDate = document.getElementById('export-start-date').value;
@@ -4198,24 +4162,14 @@
                 // 强制清除任何可能的测试数据
                 if (outData && outData.length > 0) {
                     const hasTestData = outData.some(record => 
-                        record.product_name && (
-                            record.product_name.includes('TEST PRODUCT') ||
-                            record.product_name.includes('test product') ||
-                            record.product_name.includes('Test Product')
-                        )
+                        record.product_name && record.product_name.includes('TEST PRODUCT')
                     );
                     if (hasTestData) {
                         console.warn('检测到测试数据，正在过滤...');
-                        console.log('原始数据:', outData);
                         outData = outData.filter(record => 
-                            !record.product_name || (
-                                !record.product_name.includes('TEST PRODUCT') &&
-                                !record.product_name.includes('test product') &&
-                                !record.product_name.includes('Test Product')
-                            )
+                            !record.product_name || !record.product_name.includes('TEST PRODUCT')
                         );
                         console.log('过滤后的数据长度:', outData.length);
-                        console.log('过滤后的数据:', outData);
                     }
                 }
                 
