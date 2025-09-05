@@ -1454,6 +1454,11 @@
                     </select>
                 </div>
 
+                <div class="export-form-group">
+                    <label for="export-invoice-date">发票日期</label>
+                    <input type="date" id="export-invoice-date">
+                </div>
+
                 <div class="export-form-group" id="invoice-number-group" style="display: none;">
                     <label for="export-invoice-number">Invoice Number</label>
                     <input type="text" id="export-invoice-number" placeholder="输入Invoice号码">
@@ -2982,6 +2987,9 @@
             document.getElementById('export-start-date').value = startDate.toISOString().split('T')[0];
             document.getElementById('export-end-date').value = endDate.toISOString().split('T')[0];
             
+            // 设置发票日期默认为今天
+            document.getElementById('export-invoice-date').value = endDate.toISOString().split('T')[0];
+            
             // 显示导出弹窗
             document.getElementById('export-modal').style.display = 'block';
         }
@@ -4037,6 +4045,7 @@
             const endDate = document.getElementById('export-end-date').value;
             const exportSystem = document.getElementById('export-system').value;
             const invoiceNumber = document.getElementById('export-invoice-number').value;
+            const invoiceDate = document.getElementById('export-invoice-date').value;
 
             // 验证输入
             if (!startDate || !endDate) {
@@ -4091,7 +4100,7 @@
                 }
                 
                 // 生成PDF
-                await generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber);
+                await generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber, invoiceDate);
                 
                 showAlert('PDF发票生成成功', 'success');
                 closeExportModal();
@@ -4163,7 +4172,7 @@
         }
 
         // 生成PDF发票
-        async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '') {
+        async function generateInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '', invoiceDate = '') {
             try {
                 
                 console.log('开始生成PDF发票:', {
@@ -4217,7 +4226,9 @@
                 }
                 
                 // 填入日期 (右上角区域)
-                const currentDate = new Date().toLocaleDateString('en-GB');
+                const currentDate = invoiceDate ? 
+                    new Date(invoiceDate).toLocaleDateString('en-GB') : 
+                    new Date().toLocaleDateString('en-GB');
 
                 if (exportSystem === 'j1') {
                     // J1模板的日期位置
