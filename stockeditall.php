@@ -1460,8 +1460,8 @@
                 </div>
 
                 <div class="export-form-group" id="invoice-number-group" style="display: none;">
-                    <label for="export-invoice-number">Invoice Number</label>
-                    <input type="text" id="export-invoice-number" placeholder="输入Invoice号码">
+                    <label for="export-invoice-number">Invoice Number (自动生成)</label>
+                    <input type="text" id="export-invoice-number" placeholder="系统将自动生成" readonly>
                 </div>
                 
                 <div class="export-modal-actions">
@@ -4058,9 +4058,12 @@
                 return;
             }
 
-            if (exportSystem === 'j2' && !invoiceNumber.trim()) {
-                showAlert('J2系统需要填写Invoice Number', 'error');
-                return;
+            // J1和J2系统都自动生成发票号码，不需要用户输入
+            if (!invoiceNumber.trim()) {
+                invoiceNumber = generateInvoiceNumber();
+                console.log('自动生成发票号码:', invoiceNumber);
+                // 在界面上显示生成的发票号码
+                document.getElementById('export-invoice-number').value = invoiceNumber;
             }
             
             if (new Date(startDate) > new Date(endDate)) {
@@ -4160,24 +4163,16 @@
             }, 10);
         });
 
-        // 生成发票号码
+        // 生成发票号码 - 从00001开始
         function generateInvoiceNumber() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            
-            // 生成基础格式：年份-日月
-            const baseFormat = `${year}-${day}${month}`;
-            
-            // 从localStorage获取当天的计数器，如果不存在则从01开始
-            const todayKey = `invoice_counter_${baseFormat}`;
-            let counter = parseInt(localStorage.getItem(todayKey)) || 0;
+            // 从localStorage获取全局计数器，如果不存在则从1开始
+            const globalKey = 'invoice_counter_global';
+            let counter = parseInt(localStorage.getItem(globalKey)) || 0;
             counter++;
-            localStorage.setItem(todayKey, counter.toString());
+            localStorage.setItem(globalKey, counter.toString());
             
-            // 生成完整的发票号码：年份-日月编号
-            const invoiceNumber = `${baseFormat}${String(counter).padStart(2, '0')}`;
+            // 生成5位数字的发票号码，从00001开始
+            const invoiceNumber = String(counter).padStart(5, '0');
             
             return invoiceNumber;
         }
@@ -4476,6 +4471,20 @@
                 const templateResponse = await fetch(templateFile);
                 let templateBytes;
                 
+                if (!templateResponse.ok) {
+                    // 如果多页模板不存在，尝试使用单页模板
+                    const fallbackTemplateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                    const fallbackResponse = await fetch(fallbackTemplateFile);
+                    if (!fallbackResponse.ok) {
+                        throw new Error(`无法加载PDF模板文件。请确保以下文件存在：\n- ${templateFile}\n- ${fallbackTemplateFile}`);
+                    }
+                    console.log(`使用备用模板: ${fallbackTemplateFile}`);
+                    templateBytes = await fallbackResponse.arrayBuffer();
+                } else {
+                    console.log(`使用多页模板: ${templateFile}`);
+                    templateBytes = await templateResponse.arrayBuffer();
+                }
+                
                 // 使用PDF-lib库来编辑PDF
                 const { PDFDocument, rgb, StandardFonts } = PDFLib;
                 const pdfDoc = await PDFDocument.load(templateBytes);
@@ -4746,9 +4755,11 @@
             const systemSelect = document.getElementById('export-system');
             const invoiceNumberGroup = document.getElementById('invoice-number-group');
             
-            if (systemSelect.value === 'j2') {
+            // J1和J2系统都显示发票号码字段，但都是自动生成
+            if (systemSelect.value === 'j1' || systemSelect.value === 'j2') {
                 invoiceNumberGroup.style.display = 'block';
-                document.getElementById('export-invoice-number').required = true;
+                document.getElementById('export-invoice-number').required = false; // 不需要用户输入
+                document.getElementById('export-invoice-number').value = ''; // 清空显示
             } else {
                 invoiceNumberGroup.style.display = 'none';
                 document.getElementById('export-invoice-number').required = false;
