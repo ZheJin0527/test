@@ -639,10 +639,9 @@ function addNewUser($pdo, $input) {
         $pdo->beginTransaction();
 
         // 检查邮箱是否已存在
-        $checkEmailSql = "SELECT id FROM users WHERE email = :email";
+        $checkEmailSql = "SELECT id FROM users WHERE email = ?";
         $checkEmailStmt = $pdo->prepare($checkEmailSql);
-        $checkEmailStmt->bindParam(':email', $input['email']);
-        $checkEmailStmt->execute();
+        $checkEmailStmt->execute([$input['email']]);
 
         if ($checkEmailStmt->rowCount() > 0) {
             $pdo->rollBack();
@@ -657,12 +656,10 @@ function addNewUser($pdo, $input) {
         $code = generateRandomCode($pdo);
 
         // 插入申请码
-        $insertCodeSql = "INSERT INTO application_codes (code, account_type, used, created_at) VALUES (:code, :account_type, 1, NOW())";
+        $insertCodeSql = "INSERT INTO application_codes (code, account_type, used, created_at) VALUES (?, ?, 1, NOW())";
         $insertCodeStmt = $pdo->prepare($insertCodeSql);
-        $insertCodeStmt->bindParam(':code', $code);
-        $insertCodeStmt->bindParam(':account_type', $input['account_type']);
         
-        if (!$insertCodeStmt->execute()) {
+        if (!$insertCodeStmt->execute([$code, $input['account_type']])) {
             $pdo->rollBack();
             echo json_encode([
                 'success' => false,
@@ -671,52 +668,63 @@ function addNewUser($pdo, $input) {
             return;
         }
 
-        // 生成默认密码（可以让用户后续修改）
-        $defaultPassword = 'kunzz123'; // 或者可以生成随机密码
+        // 生成默认密码
+        $defaultPassword = 'kunzz123';
         $hashedPassword = password_hash($defaultPassword, PASSWORD_DEFAULT);
 
-        // 插入用户数据
+        // 处理日期格式
+        $dateOfBirth = !empty($input['date_of_birth']) ? $input['date_of_birth'] : null;
+        
+        // 插入用户数据 - 只插入数据库中存在的字段
         $insertUserSql = "INSERT INTO users (
             username, username_cn, nickname, email, password, ic_number, 
-            date_of_birth, nationality, gender, race, phone_number, 
-            home_address, bank_account_holder_en, bank_account, bank_name, 
-            position, emergency_contact_name, emergency_phone_number, 
-            account_type, registration_code, created_at
+            position, bank_name, bank_account, phone_number, 
+            home_address, current_address, city, state, postcode,
+            date_of_birth, gender, nationality, race, 
+            emergency_contact_name, emergency_phone_number, 
+            bank_account_holder_en, account_type, registration_code, created_at
         ) VALUES (
-            :username, :username_cn, :nickname, :email, :password, :ic_number,
-            :date_of_birth, :nationality, :gender, :race, :phone_number,
-            :home_address, :bank_account_holder_en, :bank_account, :bank_name,
-            :position, :emergency_contact_name, :emergency_phone_number,
-            :account_type, :registration_code, NOW()
+            ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?,
+            ?, ?, ?, ?, ?,
+            ?, ?, ?, ?,
+            ?, ?,
+            ?, ?, ?, NOW()
         )";
 
         $insertUserStmt = $pdo->prepare($insertUserSql);
-        $insertUserStmt->bindParam(':username', $input['username']);
-        $insertUserStmt->bindParam(':username_cn', $input['username_cn'] ?? null);
-        $insertUserStmt->bindParam(':nickname', $input['nickname'] ?? null);
-        $insertUserStmt->bindParam(':email', $input['email']);
-        $insertUserStmt->bindParam(':password', $hashedPassword);
-        $insertUserStmt->bindParam(':ic_number', $input['ic_number'] ?? null);
-        $insertUserStmt->bindParam(':date_of_birth', $input['date_of_birth'] ?? null);
-        $insertUserStmt->bindParam(':nationality', $input['nationality'] ?? null);
-        $insertUserStmt->bindParam(':gender', $input['gender'] ?? null);
-        $insertUserStmt->bindParam(':race', $input['race'] ?? null);
-        $insertUserStmt->bindParam(':phone_number', $input['phone_number'] ?? null);
-        $insertUserStmt->bindParam(':home_address', $input['home_address'] ?? null);
-        $insertUserStmt->bindParam(':bank_account_holder_en', $input['bank_account_holder_en'] ?? null);
-        $insertUserStmt->bindParam(':bank_account', $input['bank_account'] ?? null);
-        $insertUserStmt->bindParam(':bank_name', $input['bank_name'] ?? null);
-        $insertUserStmt->bindParam(':position', $input['position'] ?? null);
-        $insertUserStmt->bindParam(':emergency_contact_name', $input['emergency_contact_name'] ?? null);
-        $insertUserStmt->bindParam(':emergency_phone_number', $input['emergency_phone_number'] ?? null);
-        $insertUserStmt->bindParam(':account_type', $input['account_type']);
-        $insertUserStmt->bindParam(':registration_code', $code);
+        $userData = [
+            trim($input['username']),
+            !empty($input['username_cn']) ? trim($input['username_cn']) : null,
+            !empty($input['nickname']) ? trim($input['nickname']) : null,
+            trim($input['email']),
+            $hashedPassword,
+            !empty($input['ic_number']) ? trim($input['ic_number']) : null,
+            !empty($input['position']) ? trim($input['position']) : null,
+            !empty($input['bank_name']) ? trim($input['bank_name']) : null,
+            !empty($input['bank_account']) ? trim($input['bank_account']) : null,
+            !empty($input['phone_number']) ? trim($input['phone_number']) : null,
+            !empty($input['home_address']) ? trim($input['home_address']) : null,
+            null, // current_address
+            null, // city  
+            null, // state
+            null, // postcode
+            $dateOfBirth,
+            !empty($input['gender']) ? $input['gender'] : null,
+            !empty($input['nationality']) ? trim($input['nationality']) : null,
+            !empty($input['race']) ? trim($input['race']) : null,
+            !empty($input['emergency_contact_name']) ? trim($input['emergency_contact_name']) : null,
+            !empty($input['emergency_phone_number']) ? trim($input['emergency_phone_number']) : null,
+            !empty($input['bank_account_holder_en']) ? trim($input['bank_account_holder_en']) : null,
+            $input['account_type'],
+            $code
+        ];
 
-        if (!$insertUserStmt->execute()) {
+        if (!$insertUserStmt->execute($userData)) {
             $pdo->rollBack();
             echo json_encode([
                 'success' => false,
-                'message' => '用户创建失败'
+                'message' => '用户创建失败，请检查数据格式'
             ]);
             return;
         }
@@ -741,6 +749,12 @@ function addNewUser($pdo, $input) {
         echo json_encode([
             'success' => false,
             'message' => '数据库操作失败: ' . $e->getMessage()
+        ]);
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        echo json_encode([
+            'success' => false,
+            'message' => '操作失败: ' . $e->getMessage()
         ]);
     }
 }

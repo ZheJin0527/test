@@ -578,9 +578,9 @@
             </form>
         </div>
 
-        <!-- 添加新用户按钮 -->
+        <!-- 页面操作区域 -->
         <div style="text-align: center; margin-bottom: 30px;">
-            <button class="btn-generate" onclick="openAddUserModal()" style="background: linear-gradient(270deg, #10b981 0%, #059669 100%);">
+            <button class="btn-generate" onclick="openAddUserModal()" style="background: linear-gradient(270deg, #10b981 0%, #059669 100%); font-size: 20px; padding: 15px 40px;">
                 <i class="fas fa-user-plus"></i> 添加新用户
             </button>
         </div>
@@ -762,62 +762,6 @@
                 filterTable(e.target.value);
             });
         });
-
-        // 表单提交处理
-        document.getElementById('generateForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            generateCode();
-        });
-
-        // 生成代码函数
-        async function generateCode() {
-            const accountType = document.getElementById('account_type').value;
-            const btnText = document.getElementById('btnText');
-            const messageArea = document.getElementById('messageArea');
-
-            if (!accountType) {
-                showMessage('请选择账号类型！', 'error');
-                return;
-            }
-
-            // 生成6位随机代码
-            const code = generateRandomCode();
-
-            // 显示加载状态
-            btnText.innerHTML = '<div class="loading"></div>生成中...';
-            document.querySelector('.btn-generate').disabled = true;
-
-            try {
-                const response = await fetch('generatecodeapi.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'generate',
-                        code: code,
-                        account_type: accountType
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    showMessage(`申请码 "${result.data.code}" 生成成功！`, 'success');
-                    document.getElementById('generateForm').reset();
-                    loadCodesAndUsers(); // 刷新表格
-                } else {
-                    showMessage(result.message || '生成失败，请重试！', 'error');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showMessage('网络错误，请检查连接！', 'error');
-            } finally {
-                // 恢复按钮状态
-                btnText.innerHTML = '🚀 生成代码';
-                document.querySelector('.btn-generate').disabled = false;
-            }
-        }
 
         // 加载代码和用户数据
         async function loadCodesAndUsers() {
@@ -1326,7 +1270,7 @@
             addNewUser();
         });
 
-        // 添加新用户函数
+        // 修改 addNewUser 函数，添加更多调试信息
         async function addNewUser() {
             const formData = new FormData(document.getElementById('addUserForm'));
             const userData = {};
@@ -1336,9 +1280,11 @@
                 userData[key] = value.trim();
             }
             
+            console.log('发送的数据:', userData); // 调试信息
+            
             // 验证必填字段
             if (!userData.username || !userData.email || !userData.account_type) {
-                showMessage('请填写所有必填字段！', 'error');
+                showMessage('请填写所有必填字段（英文姓名、邮箱、账号类型）！', 'error');
                 return;
             }
             
@@ -1366,18 +1312,25 @@
                     })
                 });
                 
+                console.log('响应状态:', response.status); // 调试信息
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const result = await response.json();
+                console.log('服务器响应:', result); // 调试信息
                 
                 if (result.success) {
-                    showMessage(`用户 "${result.data.username}" 添加成功！申请码：${result.data.code}`, 'success');
+                    showMessage(`用户 "${result.data.username}" 添加成功！申请码：${result.data.code}，默认密码：${result.data.default_password}`, 'success');
                     closeAddUserModal();
                     loadCodesAndUsers(); // 刷新表格
                 } else {
                     showMessage(result.message || '添加失败，请重试！', 'error');
                 }
             } catch (error) {
-                console.error('Error:', error);
-                showMessage('网络错误，请检查连接！', 'error');
+                console.error('详细错误信息:', error);
+                showMessage(`网络错误：${error.message}`, 'error');
             } finally {
                 // 恢复按钮状态
                 submitBtn.innerHTML = originalText;
