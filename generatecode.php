@@ -137,6 +137,7 @@
             color: #BF360C;
             font-weight: bold;
             font-size: 12px;
+            text-align: left;
         }
 
         #addUserModal .form-group input:not(#add_home_address),
@@ -171,7 +172,7 @@
             height: 60px;
             border: 2px solid #ff5c00;
             border-radius: 6px;
-            width: 98%;
+            width: 99%;
         }
 
         #addUserModal #add_account_type {
@@ -180,7 +181,7 @@
             height: 32px;
             border: 2px solid #ff5c00;
             border-radius: 6px;
-            width: 98%;
+            width: 99%;
         }
 
         #addUserModal #add_home_address:focus,
