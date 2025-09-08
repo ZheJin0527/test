@@ -56,6 +56,16 @@ try {
             // 获取代码和用户列表
             getCodesAndUsers($pdo);
             break;
+
+        case 'update':
+            // 更新代码
+            updateCode($pdo, $input);
+            break;
+            
+        case 'delete':
+            // 删除代码
+            deleteCode($pdo, $input);
+            break;
             
         default:
             echo json_encode([
@@ -289,6 +299,151 @@ function generateRandomCode($pdo) {
     
     // 如果尝试次数过多仍未找到唯一代码，抛出异常
     throw new Exception('无法生成唯一的申请码，请稍后重试');
+}
+
+function updateCode($pdo, $input) {
+    // 验证输入数据
+    if (empty($input['id']) || empty($input['code']) || empty($input['account_type'])) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'ID、代码和账户类型不能为空'
+        ]);
+        return;
+    }
+
+    $id = intval($input['id']);
+    $code = trim($input['code']);
+    $account_type = trim($input['account_type']);
+
+    // 验证账户类型
+    $valid_types = ['admin', 'hr', 'design', 'support', 'IT', 'boss', 'photograph'];
+    if (!in_array($account_type, $valid_types)) {
+        echo json_encode([
+            'success' => false,
+            'message' => '无效的账户类型'
+        ]);
+        return;
+    }
+
+    // 验证代码格式
+    if (!preg_match('/^[A-Z0-9_-]+$/', $code)) {
+        echo json_encode([
+            'success' => false,
+            'message' => '代码格式无效，只能包含大写字母、数字、下划线和连字符'
+        ]);
+        return;
+    }
+
+    try {
+        // 检查代码是否被其他记录使用
+        $checkSql = "SELECT id FROM application_codes WHERE code = :code AND id != :id";
+        $checkStmt = $pdo->prepare($checkSql);
+        $checkStmt->bindParam(':code', $code);
+        $checkStmt->bindParam(':id', $id);
+        $checkStmt->execute();
+
+        if ($checkStmt->rowCount() > 0) {
+            echo json_encode([
+                'success' => false,
+                'message' => '代码已存在，请使用其他代码'
+            ]);
+            return;
+        }
+
+        // 更新代码
+        $updateSql = "UPDATE application_codes SET code = :code, account_type = :account_type WHERE id = :id";
+        $updateStmt = $pdo->prepare($updateSql);
+        $updateStmt->bindParam(':code', $code);
+        $updateStmt->bindParam(':account_type', $account_type);
+        $updateStmt->bindParam(':id', $id);
+        
+        if ($updateStmt->execute()) {
+            echo json_encode([
+                'success' => true,
+                'message' => '更新成功',
+                'data' => [
+                    'id' => $id,
+                    'code' => $code,
+                    'account_type' => $account_type
+                ]
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => '更新失败，请重试'
+            ]);
+        }
+
+    } catch (PDOException $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => '数据库操作失败: ' . $e->getMessage()
+        ]);
+    }
+}
+
+/**
+ * 删除申请码
+ */
+function deleteCode($pdo, $input) {
+    // 验证输入数据
+    if (empty($input['id'])) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'ID不能为空'
+        ]);
+        return;
+    }
+
+    $id = intval($input['id']);
+
+    try {
+        // 检查代码是否已被使用
+        $checkSql = "SELECT used FROM application_codes WHERE id = :id";
+        $checkStmt = $pdo->prepare($checkSql);
+        $checkStmt->bindParam(':id', $id);
+        $checkStmt->execute();
+        
+        $result = $checkStmt->fetch();
+        if (!$result) {
+            echo json_encode([
+                'success' => false,
+                'message' => '申请码不存在'
+            ]);
+            return;
+        }
+
+        if ($result['used'] == 1) {
+            echo json_encode([
+                'success' => false,
+                'message' => '已使用的申请码不能删除'
+            ]);
+            return;
+        }
+
+        // 删除代码
+        $deleteSql = "DELETE FROM application_codes WHERE id = :id";
+        $deleteStmt = $pdo->prepare($deleteSql);
+        $deleteStmt->bindParam(':id', $id);
+        
+        if ($deleteStmt->execute()) {
+            echo json_encode([
+                'success' => true,
+                'message' => '删除成功'
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => '删除失败，请重试'
+            ]);
+        }
+
+    } catch (PDOException $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => '数据库操作失败: ' . $e->getMessage()
+        ]);
+    }
 }
 
 ?>

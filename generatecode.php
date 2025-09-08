@@ -344,6 +344,125 @@
             to { transform: rotate(360deg); }
         }
 
+        /* 操作按钮样式 */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-edit {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #1976D2;
+            transform: translateY(-1px);
+        }
+
+        .btn-save {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+        }
+
+        .btn-cancel {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #F57C00;
+            transform: translateY(-1px);
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #d32f2f;
+            transform: translateY(-1px);
+        }
+
+        /* 编辑模式下的输入框 */
+        .edit-input {
+            width: 100%;
+            padding: 4px 8px;
+            border: 2px solid #2196F3;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        .edit-select {
+            width: 100%;
+            padding: 4px 8px;
+            border: 2px solid #2196F3;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        /* 确认删除模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            color: #f44336;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
         /* 回到顶部按钮 */
         .back-to-top {
             position: fixed;
@@ -458,6 +577,7 @@
                             <th>邮箱</th>
                             <th>性别</th>
                             <th>电话号码</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -626,15 +746,25 @@
             });
 
             const rows = sortedData.map((item, index) => `
-                <tr>
+                <tr id="row-${item.id}" data-id="${item.id}">
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
-                    <td><strong>${item.code}</strong></td>
-                    <td><span class="account-type-badge">${formatAccountType(item.account_type)}</span></td>
-                    <td><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
-                    <td>${item.username || '<em style="color: #999;">-</em>'}</td>
-                    <td>${item.email || '<em style="color: #999;">-</em>'}</td>
-                    <td>${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
-                    <td>${item.phone_number || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="code"><strong>${item.code}</strong></td>
+                    <td data-field="account_type"><span class="account-type-badge">${formatAccountType(item.account_type)}</span></td>
+                    <td data-field="used"><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
+                    <td data-field="username">${item.username || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="email">${item.email || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="gender">${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="phone_number">${item.phone_number || '<em style="color: #999;">-</em>'}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-action btn-edit" onclick="editRow(${item.id})">
+                                <i class="fas fa-edit"></i> 编辑
+                            </button>
+                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.code}')">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                        </div>
+                    </td>
                 </tr>
             `).join('');
 
@@ -743,6 +873,228 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        }
+
+        // 编辑行数据
+        function editRow(id) {
+            const row = document.getElementById(`row-${id}`);
+            const editBtn = row.querySelector('.btn-edit');
+            const deleteBtn = row.querySelector('.btn-delete');
+            
+            // 如果已经在编辑模式，不重复处理
+            if (editBtn.textContent.includes('保存')) {
+                return;
+            }
+            
+            // 保存原始数据
+            const originalData = {};
+            
+            // 获取可编辑的字段
+            const editableFields = ['code', 'account_type'];
+            
+            editableFields.forEach(field => {
+                const cell = row.querySelector(`[data-field="${field}"]`);
+                if (cell) {
+                    originalData[field] = cell.innerHTML;
+                    
+                    if (field === 'code') {
+                        const currentValue = cell.textContent.trim();
+                        cell.innerHTML = `<input type="text" class="edit-input" value="${currentValue}" data-original="${currentValue}">`;
+                    } else if (field === 'account_type') {
+                        const currentValue = getAccountTypeKey(cell.textContent.trim());
+                        cell.innerHTML = `
+                            <select class="edit-select" data-original="${currentValue}">
+                                <option value="boss" ${currentValue === 'boss' ? 'selected' : ''}>老板</option>
+                                <option value="admin" ${currentValue === 'admin' ? 'selected' : ''}>管理员</option>
+                                <option value="hr" ${currentValue === 'hr' ? 'selected' : ''}>人事部</option>
+                                <option value="design" ${currentValue === 'design' ? 'selected' : ''}>设计部</option>
+                                <option value="support" ${currentValue === 'support' ? 'selected' : ''}>支援部</option>
+                                <option value="IT" ${currentValue === 'IT' ? 'selected' : ''}>技术部</option>
+                                <option value="photograph" ${currentValue === 'photograph' ? 'selected' : ''}>摄影部</option>
+                            </select>
+                        `;
+                    }
+                }
+            });
+            
+            // 保存原始数据到按钮的 data 属性中
+            editBtn.setAttribute('data-original', JSON.stringify(originalData));
+            
+            // 修改按钮
+            editBtn.innerHTML = '<i class="fas fa-save"></i> 保存';
+            editBtn.className = 'btn-action btn-save';
+            editBtn.setAttribute('onclick', `saveRow(${id})`);
+            
+            deleteBtn.innerHTML = '<i class="fas fa-times"></i> 取消';
+            deleteBtn.className = 'btn-action btn-cancel';
+            deleteBtn.setAttribute('onclick', `cancelEdit(${id})`);
+        }
+
+        // 保存行数据
+        async function saveRow(id) {
+            const row = document.getElementById(`row-${id}`);
+            const codeInput = row.querySelector('[data-field="code"] input');
+            const accountTypeSelect = row.querySelector('[data-field="account_type"] select');
+            
+            const newData = {
+                id: id,
+                code: codeInput.value.trim(),
+                account_type: accountTypeSelect.value
+            };
+            
+            // 验证数据
+            if (!newData.code) {
+                showMessage('代码不能为空！', 'error');
+                return;
+            }
+            
+            // 显示保存状态
+            const saveBtn = row.querySelector('.btn-save');
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<div class="loading"></div>保存中...';
+            saveBtn.disabled = true;
+            
+            try {
+                const response = await fetch('generatecodeapi.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'update',
+                        ...newData
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('保存成功！', 'success');
+                    loadCodesAndUsers(); // 重新加载数据
+                } else {
+                    showMessage(result.message || '保存失败！', 'error');
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('网络错误，请检查连接！', 'error');
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+            }
+        }
+
+        // 取消编辑
+        function cancelEdit(id) {
+            const row = document.getElementById(`row-${id}`);
+            const editBtn = row.querySelector('.btn-save');
+            const cancelBtn = row.querySelector('.btn-cancel');
+            
+            // 恢复原始数据
+            const originalData = JSON.parse(editBtn.getAttribute('data-original'));
+            
+            Object.keys(originalData).forEach(field => {
+                const cell = row.querySelector(`[data-field="${field}"]`);
+                if (cell) {
+                    cell.innerHTML = originalData[field];
+                }
+            });
+            
+            // 恢复按钮
+            editBtn.innerHTML = '<i class="fas fa-edit"></i> 编辑';
+            editBtn.className = 'btn-action btn-edit';
+            editBtn.setAttribute('onclick', `editRow(${id})`);
+            editBtn.removeAttribute('data-original');
+            
+            cancelBtn.innerHTML = '<i class="fas fa-trash"></i> 删除';
+            cancelBtn.className = 'btn-action btn-delete';
+            cancelBtn.setAttribute('onclick', `confirmDelete(${id}, '${row.querySelector('[data-field="code"]').textContent.trim()}')`);
+        }
+
+        // 确认删除
+        function confirmDelete(id, code) {
+            // 创建模态框
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <i class="fas fa-exclamation-triangle"></i> 确认删除
+                    </div>
+                    <div class="modal-body">
+                        确定要删除申请码 "<strong>${code}</strong>" 吗？<br>
+                        此操作不可撤销！
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn-action btn-delete" onclick="deleteRow(${id}); closeModal()">
+                            <i class="fas fa-trash"></i> 确认删除
+                        </button>
+                        <button class="btn-action btn-cancel" onclick="closeModal()">
+                            <i class="fas fa-times"></i> 取消
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+            
+            // 点击模态框外部关闭
+            modal.onclick = function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            const modal = document.querySelector('.modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // 删除行数据
+        async function deleteRow(id) {
+            try {
+                const response = await fetch('generatecodeapi.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'delete',
+                        id: id
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('删除成功！', 'success');
+                    loadCodesAndUsers(); // 重新加载数据
+                } else {
+                    showMessage(result.message || '删除失败！', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('网络错误，请检查连接！', 'error');
+            }
+        }
+
+        // 获取账号类型的键值
+        function getAccountTypeKey(displayName) {
+            const typeMap = {
+                '老板': 'boss',
+                '管理员': 'admin',
+                '人事部': 'hr',
+                '设计部': 'design',
+                '支援部': 'support',
+                '技术部': 'IT',
+                '摄影部': 'photograph'
+            };
+            return typeMap[displayName] || displayName;
         }
 
         // 监听滚动事件，控制回到顶部按钮显示
