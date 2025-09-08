@@ -669,7 +669,7 @@ function addNewUser($pdo, $input) {
         }
 
         // 生成默认密码
-        $defaultPassword = 'kunzz123';
+        $defaultPassword = 'Kunzz123@';
         $hashedPassword = password_hash($defaultPassword, PASSWORD_DEFAULT);
 
         // 处理日期格式
