@@ -5235,7 +5235,7 @@ form select:focus {
 
 .remember-me input[type="checkbox"] {
   appearance: none !important;
-  width: 35px !important;
+  width: 34px !important;
   height: 18px !important;
   background-color: #ccc;
   border-radius: 16px !important;
