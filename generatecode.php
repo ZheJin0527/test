@@ -379,7 +379,7 @@
         .edit-input {
             width: 100%;
             padding: 6px 10px;
-            border: 2px solid #2196F3;
+            border: 1px solid #2196F3;
             border-radius: 4px;
             font-size: 14px;
             background: #f8f9fa;
@@ -389,7 +389,7 @@
         .edit-select {
             width: 100%;
             padding: 6px 10px;
-            border: 2px solid #2196F3;
+            border: 1px solid #2196F3;
             border-radius: 4px;
             font-size: 14px;
             background: #f8f9fa;
