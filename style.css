@@ -6429,7 +6429,7 @@ form select {
 /* 收起状态下隐藏文字，只显示图标 */
 .informationmenu.collapsed .informationmenu-section-title {
     justify-content: center !important;
-    padding: 10px !important;
+    padding: 15px 10px !important;
     color: transparent !important;
 }
 
@@ -6457,7 +6457,7 @@ form select {
 }
 
 .informationmenu.collapsed .informationmenu-section-title {
-    padding: 15px 10px !important;
+    padding: 10px !important;
     text-align: center;
     font-size: 0; /* 隐藏文字 */
     /* 确保图标仍然显示 */
