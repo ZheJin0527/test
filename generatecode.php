@@ -578,6 +578,13 @@
             </form>
         </div>
 
+        <!-- 添加新用户按钮 -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button class="btn-generate" onclick="openAddUserModal()" style="background: linear-gradient(270deg, #10b981 0%, #059669 100%);">
+                <i class="fas fa-user-plus"></i> 添加新用户
+            </button>
+        </div>
+
         <!-- 代码和用户列表 -->
         <div class="table-container">
             <div class="table-title">
@@ -608,6 +615,133 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加用户模态框 -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header" style="color: #10b981;">
+                <i class="fas fa-user-plus"></i> 添加新用户
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="add_username">英文姓名 *:</label>
+                            <input type="text" id="add_username" name="username" required maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_username_cn">中文姓名:</label>
+                            <input type="text" id="add_username_cn" name="username_cn" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_nickname">小名:</label>
+                            <input type="text" id="add_nickname" name="nickname" maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_email">邮箱 *:</label>
+                            <input type="email" id="add_email" name="email" required maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_ic_number">身份证号码:</label>
+                            <input type="text" id="add_ic_number" name="ic_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_date_of_birth">出生日期:</label>
+                            <input type="date" id="add_date_of_birth" name="date_of_birth">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_nationality">国籍:</label>
+                            <input type="text" id="add_nationality" name="nationality" maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_gender">性别:</label>
+                            <select id="add_gender" name="gender">
+                                <option value="">请选择</option>
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_race">种族:</label>
+                            <input type="text" id="add_race" name="race" maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_phone_number">电话号码:</label>
+                            <input type="tel" id="add_phone_number" name="phone_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="add_home_address">家庭地址:</label>
+                            <textarea id="add_home_address" name="home_address" rows="2" style="width: 100%; padding: 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px;" maxlength="255"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_bank_account_holder_en">银行账户持有人:</label>
+                            <input type="text" id="add_bank_account_holder_en" name="bank_account_holder_en" maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_bank_account">银行账号:</label>
+                            <input type="text" id="add_bank_account" name="bank_account" maxlength="30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_bank_name">银行名称:</label>
+                            <input type="text" id="add_bank_name" name="bank_name" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_position">职位:</label>
+                            <input type="text" id="add_position" name="position" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_emergency_contact_name">紧急联系人:</label>
+                            <input type="text" id="add_emergency_contact_name" name="emergency_contact_name" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_emergency_phone_number">紧急联系人电话:</label>
+                            <input type="tel" id="add_emergency_phone_number" name="emergency_phone_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="add_account_type">账号类型 *:</label>
+                            <select id="add_account_type" name="account_type" required>
+                                <option value="">请选择账号类型</option>
+                                <option value="boss">老板 (Boss)</option>
+                                <option value="admin">管理员 (Admin)</option>
+                                <option value="hr">人事部 (HR)</option>
+                                <option value="design">设计部 (Design)</option>
+                                <option value="support">支援部 (Support)</option>
+                                <option value="IT">技术部 (IT)</option>
+                                <option value="photograph">摄影部 (Photography)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-buttons" style="margin-top: 30px;">
+                        <button type="submit" class="btn-action btn-save" style="padding: 12px 30px; font-size: 16px;">
+                            <i class="fas fa-user-plus"></i> 添加用户
+                        </button>
+                        <button type="button" class="btn-action btn-cancel" onclick="closeAddUserModal()" style="padding: 12px 30px; font-size: 16px;">
+                            <i class="fas fa-times"></i> 取消
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1174,6 +1308,89 @@
             };
             return typeMap[displayName] || displayName;
         }
+
+        // 打开添加用户模态框
+        function openAddUserModal() {
+            document.getElementById('addUserModal').style.display = 'block';
+        }
+
+        // 关闭添加用户模态框
+        function closeAddUserModal() {
+            document.getElementById('addUserModal').style.display = 'none';
+            document.getElementById('addUserForm').reset();
+        }
+
+        // 添加用户表单提交处理
+        document.getElementById('addUserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            addNewUser();
+        });
+
+        // 添加新用户函数
+        async function addNewUser() {
+            const formData = new FormData(document.getElementById('addUserForm'));
+            const userData = {};
+            
+            // 收集表单数据
+            for (let [key, value] of formData.entries()) {
+                userData[key] = value.trim();
+            }
+            
+            // 验证必填字段
+            if (!userData.username || !userData.email || !userData.account_type) {
+                showMessage('请填写所有必填字段！', 'error');
+                return;
+            }
+            
+            // 验证邮箱格式
+            if (!isValidEmail(userData.email)) {
+                showMessage('邮箱格式不正确！', 'error');
+                return;
+            }
+            
+            // 显示加载状态
+            const submitBtn = document.querySelector('#addUserForm .btn-save');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="loading"></div>添加中...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('generatecodeapi.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'add_user',
+                        ...userData
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage(`用户 "${result.data.username}" 添加成功！申请码：${result.data.code}`, 'success');
+                    closeAddUserModal();
+                    loadCodesAndUsers(); // 刷新表格
+                } else {
+                    showMessage(result.message || '添加失败，请重试！', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('网络错误，请检查连接！', 'error');
+            } finally {
+                // 恢复按钮状态
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // 点击模态框外部关闭（为添加用户模态框）
+        document.getElementById('addUserModal').onclick = function(event) {
+            if (event.target === this) {
+                closeAddUserModal();
+            }
+        };
 
         // 监听滚动事件，控制回到顶部按钮显示
         let scrollTimeout;

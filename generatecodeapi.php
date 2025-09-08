@@ -66,6 +66,11 @@ try {
             // 删除代码
             deleteCode($pdo, $input);
             break;
+
+        case 'add_user':
+            // 添加新用户
+            addNewUser($pdo, $input);
+            break;
             
         default:
             echo json_encode([
@@ -588,4 +593,155 @@ function deleteCode($pdo, $input) {
     }
 }
 
+/**
+ * 添加新用户
+ */
+function addNewUser($pdo, $input) {
+    // 验证必填字段
+    if (empty($input['username']) || empty($input['email']) || empty($input['account_type'])) {
+        echo json_encode([
+            'success' => false,
+            'message' => '英文姓名、邮箱和账号类型为必填项'
+        ]);
+        return;
+    }
+
+    // 验证账户类型
+    $valid_types = ['admin', 'hr', 'design', 'support', 'IT', 'boss', 'photograph'];
+    if (!in_array($input['account_type'], $valid_types)) {
+        echo json_encode([
+            'success' => false,
+            'message' => '无效的账户类型'
+        ]);
+        return;
+    }
+
+    // 验证邮箱格式
+    if (!filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
+        echo json_encode([
+            'success' => false,
+            'message' => '邮箱格式不正确'
+        ]);
+        return;
+    }
+
+    // 验证性别
+    if (!empty($input['gender']) && !in_array($input['gender'], ['male', 'female', 'other'])) {
+        echo json_encode([
+            'success' => false,
+            'message' => '无效的性别选项'
+        ]);
+        return;
+    }
+
+    try {
+        // 开始事务
+        $pdo->beginTransaction();
+
+        // 检查邮箱是否已存在
+        $checkEmailSql = "SELECT id FROM users WHERE email = :email";
+        $checkEmailStmt = $pdo->prepare($checkEmailSql);
+        $checkEmailStmt->bindParam(':email', $input['email']);
+        $checkEmailStmt->execute();
+
+        if ($checkEmailStmt->rowCount() > 0) {
+            $pdo->rollBack();
+            echo json_encode([
+                'success' => false,
+                'message' => '该邮箱已被注册'
+            ]);
+            return;
+        }
+
+        // 生成唯一的申请码
+        $code = generateRandomCode($pdo);
+
+        // 插入申请码
+        $insertCodeSql = "INSERT INTO application_codes (code, account_type, used, created_at) VALUES (:code, :account_type, 1, NOW())";
+        $insertCodeStmt = $pdo->prepare($insertCodeSql);
+        $insertCodeStmt->bindParam(':code', $code);
+        $insertCodeStmt->bindParam(':account_type', $input['account_type']);
+        
+        if (!$insertCodeStmt->execute()) {
+            $pdo->rollBack();
+            echo json_encode([
+                'success' => false,
+                'message' => '申请码生成失败'
+            ]);
+            return;
+        }
+
+        // 生成默认密码（可以让用户后续修改）
+        $defaultPassword = 'kunzz123'; // 或者可以生成随机密码
+        $hashedPassword = password_hash($defaultPassword, PASSWORD_DEFAULT);
+
+        // 插入用户数据
+        $insertUserSql = "INSERT INTO users (
+            username, username_cn, nickname, email, password, ic_number, 
+            date_of_birth, nationality, gender, race, phone_number, 
+            home_address, bank_account_holder_en, bank_account, bank_name, 
+            position, emergency_contact_name, emergency_phone_number, 
+            account_type, registration_code, created_at
+        ) VALUES (
+            :username, :username_cn, :nickname, :email, :password, :ic_number,
+            :date_of_birth, :nationality, :gender, :race, :phone_number,
+            :home_address, :bank_account_holder_en, :bank_account, :bank_name,
+            :position, :emergency_contact_name, :emergency_phone_number,
+            :account_type, :registration_code, NOW()
+        )";
+
+        $insertUserStmt = $pdo->prepare($insertUserSql);
+        $insertUserStmt->bindParam(':username', $input['username']);
+        $insertUserStmt->bindParam(':username_cn', $input['username_cn'] ?? null);
+        $insertUserStmt->bindParam(':nickname', $input['nickname'] ?? null);
+        $insertUserStmt->bindParam(':email', $input['email']);
+        $insertUserStmt->bindParam(':password', $hashedPassword);
+        $insertUserStmt->bindParam(':ic_number', $input['ic_number'] ?? null);
+        $insertUserStmt->bindParam(':date_of_birth', $input['date_of_birth'] ?? null);
+        $insertUserStmt->bindParam(':nationality', $input['nationality'] ?? null);
+        $insertUserStmt->bindParam(':gender', $input['gender'] ?? null);
+        $insertUserStmt->bindParam(':race', $input['race'] ?? null);
+        $insertUserStmt->bindParam(':phone_number', $input['phone_number'] ?? null);
+        $insertUserStmt->bindParam(':home_address', $input['home_address'] ?? null);
+        $insertUserStmt->bindParam(':bank_account_holder_en', $input['bank_account_holder_en'] ?? null);
+        $insertUserStmt->bindParam(':bank_account', $input['bank_account'] ?? null);
+        $insertUserStmt->bindParam(':bank_name', $input['bank_name'] ?? null);
+        $insertUserStmt->bindParam(':position', $input['position'] ?? null);
+        $insertUserStmt->bindParam(':emergency_contact_name', $input['emergency_contact_name'] ?? null);
+        $insertUserStmt->bindParam(':emergency_phone_number', $input['emergency_phone_number'] ?? null);
+        $insertUserStmt->bindParam(':account_type', $input['account_type']);
+        $insertUserStmt->bindParam(':registration_code', $code);
+
+        if (!$insertUserStmt->execute()) {
+            $pdo->rollBack();
+            echo json_encode([
+                'success' => false,
+                'message' => '用户创建失败'
+            ]);
+            return;
+        }
+
+        // 提交事务
+        $pdo->commit();
+
+        echo json_encode([
+            'success' => true,
+            'message' => '用户添加成功',
+            'data' => [
+                'username' => $input['username'],
+                'email' => $input['email'],
+                'code' => $code,
+                'account_type' => $input['account_type'],
+                'default_password' => $defaultPassword
+            ]
+        ]);
+
+    } catch (PDOException $e) {
+        $pdo->rollBack();
+        echo json_encode([
+            'success' => false,
+            'message' => '数据库操作失败: ' . $e->getMessage()
+        ]);
+    }
+}
 ?>
