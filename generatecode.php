@@ -220,7 +220,7 @@
         }
 
         .btn-generate {
-            background: linear-gradient(270deg, #FF9800 0%, #E65100 100%);
+            background: #10b981;
             color: white;
             border: none;
             padding: 12px 30px;
