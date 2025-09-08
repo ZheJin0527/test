@@ -773,8 +773,6 @@
 
                 if (result.success) {
                     displayData(result.data);
-                    // 添加这行：重新绑定表单事件
-                    rebindFormEvents();
                 } else {
                     tableBody.innerHTML = `
                         <tr>
@@ -793,33 +791,6 @@
                         </td>
                     </tr>
                 `;
-            }
-        }
-
-        // 重新绑定表单事件
-        function rebindFormEvents() {
-            // 重新绑定添加用户表单提交事件
-            const addUserForm = document.getElementById('addUserForm');
-            if (addUserForm) {
-                // 移除旧的事件监听器（克隆节点来移除所有事件监听器）
-                const newForm = addUserForm.cloneNode(true);
-                addUserForm.parentNode.replaceChild(newForm, addUserForm);
-                
-                // 重新添加事件监听器
-                newForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    addNewUser();
-                });
-            }
-            
-            // 重新绑定生成代码表单提交事件
-            const generateForm = document.getElementById('generateForm');
-            if (generateForm && !generateForm.hasAttribute('data-bound')) {
-                generateForm.setAttribute('data-bound', 'true');
-                generateForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    // 这里添加生成代码的逻辑（如果需要的话）
-                });
             }
         }
 
@@ -1289,26 +1260,8 @@
 
         // 关闭添加用户模态框
         function closeAddUserModal() {
-            const modal = document.getElementById('addUserModal');
-            modal.style.display = 'none';
-            
-            // 重置表单并清除所有验证状态
-            const form = document.getElementById('addUserForm');
-            form.reset();
-            
-            // 清除可能的错误状态
-            const inputs = form.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                input.classList.remove('error');
-                input.style.borderColor = '';
-            });
-            
-            // 确保按钮状态正常
-            const submitBtn = form.querySelector('.btn-save');
-            if (submitBtn) {
-                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> 添加用户';
-                submitBtn.disabled = false;
-            }
+            document.getElementById('addUserModal').style.display = 'none';
+            document.getElementById('addUserForm').reset();
         }
 
         // 添加用户表单提交处理
@@ -1387,14 +1340,6 @@
 
         // 删除行数据并关闭模态框
         async function deleteRowAndClose(id) {
-            const modal = document.querySelector('.modal');
-            const deleteBtn = modal.querySelector('.btn-delete');
-            const originalText = deleteBtn.innerHTML;
-            
-            // 显示加载状态
-            deleteBtn.innerHTML = '<div class="loading"></div>删除中...';
-            deleteBtn.disabled = true;
-            
             try {
                 const response = await fetch('generatecodeapi.php', {
                     method: 'POST',
@@ -1409,25 +1354,18 @@
                 
                 const result = await response.json();
                 
+                // 先关闭模态框
+                closeModal();
+                
                 if (result.success) {
-                    // 先关闭模态框
-                    closeModal();
                     showMessage('删除成功！', 'success');
-                    // 延迟重新加载数据，确保模态框完全关闭
-                    setTimeout(() => {
-                        loadCodesAndUsers();
-                    }, 100);
+                    loadCodesAndUsers(); // 重新加载数据
                 } else {
-                    // 恢复按钮状态
-                    deleteBtn.innerHTML = originalText;
-                    deleteBtn.disabled = false;
                     showMessage(result.message || '删除失败！', 'error');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                // 恢复按钮状态
-                deleteBtn.innerHTML = originalText;
-                deleteBtn.disabled = false;
+                closeModal(); // 确保出错时也关闭模态框
                 showMessage('网络错误，请检查连接！', 'error');
             }
         }
