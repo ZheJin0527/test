@@ -6019,7 +6019,7 @@ form select {
 }
 
 .informationmenu {
-    width: 300px;
+    width: 250px;
     height: 100vh;
     background-color: white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -6101,7 +6101,7 @@ form select {
 
 .informationmenu-section-title {
     padding: 15px 20px 10px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     color: #333;
     text-transform: uppercase;
@@ -6446,7 +6446,7 @@ form select {
 
 /* 提高选择器权重 */
 .informationmenu.collapsed {
-    width: 110px !important;
+    width: 70px !important;
     overflow: visible;
 }
 
@@ -6491,7 +6491,7 @@ form select {
 }
 
 .informationmenu.collapsed .informationmenu-header {
-    padding: 24px 40px !important;
+    padding: 24px 20px !important;
     flex-direction: row !important;
     justify-content: space-between !important;
     align-items: center !important;
