@@ -119,77 +119,6 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
-        /* 添加用户模态框中的表单样式 - 超紧凑版本 */
-        #addUserModal .modal-content {
-            max-width: 900px;
-            max-height: 95vh;
-            overflow-y: auto;
-            padding: 15px;
-        }
-
-        #addUserModal .form-group {
-            margin-bottom: 6px;
-        }
-
-        #addUserModal .form-group label {
-            display: block;
-            margin-bottom: 2px;
-            color: #BF360C;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        #addUserModal .form-group input:not(#add_home_address),
-        #addUserModal .form-group select:not(#add_account_type),
-        #addUserModal .form-group textarea:not(#add_home_address) {
-            width: 100%;
-            padding: 4px 6px;
-            border: 1px solid #ff5c00;
-            border-radius: 4px;
-            font-size: 12px;
-            transition: all 0.3s ease;
-            height: 28px;
-        }
-
-        #addUserModal .form-group textarea {
-            height: 50px;
-            resize: vertical;
-        }
-
-        #addUserModal .form-group input:not(#add_home_address):focus,
-        #addUserModal .form-group select:not(#add_account_type):focus,
-        #addUserModal .form-group textarea:not(#add_home_address):focus {
-            outline: none;
-            border-color: #ff5c00;
-            box-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
-        }
-
-        /* 家庭地址和账号类型的独立样式 */
-        #addUserModal #add_home_address {
-            padding: 6px 8px;
-            font-size: 13px;
-            height: 60px;
-            border: 2px solid #ff5c00;
-            border-radius: 6px;
-            width: 100%;
-        }
-
-        #addUserModal #add_account_type {
-            padding: 6px 8px;
-            font-size: 13px;
-            height: 32px;
-            border: 2px solid #ff5c00;
-            border-radius: 6px;
-            width: 100%;
-        }
-
-        #addUserModal #add_home_address:focus,
-        #addUserModal #add_account_type:focus {
-            outline: none;
-            border-color: #ff5c00;
-            box-shadow: 0 0 6px rgba(255, 115, 0, 0.5);
-        }
-
         /* 搜索框特殊样式 */
         #searchInput {
             transition: all 0.3s ease;
@@ -472,7 +401,7 @@
             box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
         }
 
-        /* 确认删除模态框 */
+        /* 模态框样式 */
         .modal {
             display: none;
             position: fixed;
@@ -483,6 +412,7 @@
             height: 100%;
             background-color: rgba(0,0,0,0.4);
             animation: fadeIn 0.3s ease;
+            overflow: auto;
         }
 
         @keyframes fadeIn {
@@ -491,15 +421,16 @@
         }
 
         .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 25px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #faf8f3 100%);
+            margin: 20px auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 900px;
+            max-height: 95vh;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             animation: slideIn 0.3s ease;
+            overflow: hidden;
         }
 
         @keyframes slideIn {
@@ -507,23 +438,255 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
+        /* 新的模态框头部设计 */
         .modal-header {
-            color: #f44336;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ff5c00 0%, #e65100 100%);
+            color: white;
+            padding: 25px 30px;
+            position: relative;
+            overflow: hidden;
         }
 
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            transform: skewX(-15deg);
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-header .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            z-index: 2;
+        }
+
+        .modal-header .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* 新的表单样式 */
         .modal-body {
-            margin-bottom: 25px;
-            color: #333;
-            line-height: 1.5;
+            padding: 30px;
+            max-height: calc(95vh - 180px);
+            overflow-y: auto;
         }
 
-        .modal-buttons {
+        .form-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #ff5c00;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff5c00;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .form-grid-full {
+            grid-column: 1 / -1;
+        }
+
+        /* 优化的表单字段样式 */
+        #addUserModal .form-group {
+            margin-bottom: 0;
+        }
+
+        #addUserModal .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #addUserModal .form-group label .required {
+            color: #ef4444;
+            font-size: 16px;
+        }
+
+        #addUserModal .form-group input,
+        #addUserModal .form-group select,
+        #addUserModal .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            font-family: inherit;
+        }
+
+        #addUserModal .form-group input:focus,
+        #addUserModal .form-group select:focus,
+        #addUserModal .form-group textarea:focus {
+            outline: none;
+            border-color: #ff5c00;
+            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1);
+            background: white;
+        }
+
+        #addUserModal .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* 特殊字段样式 */
+        .field-icon {
+            position: relative;
+        }
+
+        .field-icon::before {
+            content: attr(data-icon);
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            z-index: 1;
+        }
+
+        .field-icon input {
+            padding-left: 40px;
+        }
+
+        /* 性别选择器样式 */
+        .gender-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .gender-option:hover {
+            border-color: #ff5c00;
+            background: #fff9f5;
+        }
+
+        .gender-option.selected {
+            border-color: #ff5c00;
+            background: #fff9f5;
+            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1);
+        }
+
+        .gender-option input[type="radio"] {
+            margin: 0 8px 0 0;
+            width: auto;
+        }
+
+        .gender-option label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* 按钮样式 */
+        .modal-footer {
+            padding: 25px 30px;
+            background: #f8fafc;
+            border-top: 1px solid #e5e7eb;
             display: flex;
             gap: 15px;
-            justify-content: center;
+            justify-content: flex-end;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff5c00 0%, #e65100 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 92, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
         }
 
         /* 编辑状态下的行高亮 */
@@ -534,20 +697,47 @@
 
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .btn-action {
-                font-size: 11px;
-                padding: 5px 8px;
-                min-width: 60px;
-            }
-            
-            .action-buttons {
-                gap: 5px;
-            }
-            
             .modal-content {
-                width: 95%;
-                margin: 10% auto;
+                width: 98%;
+                margin: 10px auto;
+                max-height: 98vh;
+            }
+            
+            .modal-header {
                 padding: 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 20px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .form-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .modal-footer {
+                padding: 20px;
+                flex-direction: column;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .gender-selector {
+                grid-template-columns: 1fr;
             }
         }
 
