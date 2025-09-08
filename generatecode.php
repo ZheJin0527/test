@@ -350,6 +350,7 @@
             gap: 8px;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .btn-action {
@@ -362,6 +363,7 @@
             transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            min-width: 70px;
         }
 
         .btn-edit {
@@ -407,20 +409,29 @@
         /* 编辑模式下的输入框 */
         .edit-input {
             width: 100%;
-            padding: 4px 8px;
+            padding: 6px 10px;
             border: 2px solid #2196F3;
             border-radius: 4px;
             font-size: 14px;
             background: #f8f9fa;
+            box-sizing: border-box;
         }
 
         .edit-select {
             width: 100%;
-            padding: 4px 8px;
+            padding: 6px 10px;
             border: 2px solid #2196F3;
             border-radius: 4px;
             font-size: 14px;
             background: #f8f9fa;
+            box-sizing: border-box;
+        }
+
+        .edit-input:focus,
+        .edit-select:focus {
+            outline: none;
+            border-color: #1976D2;
+            box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
         }
 
         /* 确认删除模态框 */
@@ -433,34 +444,73 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.4);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
             background-color: white;
             margin: 15% auto;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
-            width: 400px;
+            width: 90%;
+            max-width: 450px;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-header {
             color: #f44336;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             margin-bottom: 15px;
         }
 
         .modal-body {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: #333;
+            line-height: 1.5;
         }
 
         .modal-buttons {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             justify-content: center;
+        }
+
+        /* 编辑状态下的行高亮 */
+        .editing-row {
+            background: #e3f2fd !important;
+            box-shadow: 0 0 10px rgba(33, 150, 243, 0.2);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .btn-action {
+                font-size: 11px;
+                padding: 5px 8px;
+                min-width: 60px;
+            }
+            
+            .action-buttons {
+                gap: 5px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
         }
 
         /* 回到顶部按钮 */
@@ -577,7 +627,6 @@
                             <th>邮箱</th>
                             <th>性别</th>
                             <th>电话号码</th>
-                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -719,7 +768,7 @@
             if (!data || data.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="8" style="text-align: center; padding: 30px; color: #666;">
+                        <td colspan="9" style="text-align: center; padding: 30px; color: #666;">
                             📝 暂无数据
                         </td>
                     </tr>
@@ -748,13 +797,19 @@
             const rows = sortedData.map((item, index) => `
                 <tr id="row-${item.id}" data-id="${item.id}">
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
-                    <td data-field="code"><strong>${item.code}</strong></td>
-                    <td data-field="account_type"><span class="account-type-badge">${formatAccountType(item.account_type)}</span></td>
-                    <td data-field="used"><span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">${item.used == 1 ? '已使用' : '未使用'}</span></td>
-                    <td data-field="username">${item.username || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="email">${item.email || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="gender">${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="phone_number">${item.phone_number || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="code" data-original="${item.code}"><strong>${item.code}</strong></td>
+                    <td data-field="account_type" data-original="${item.account_type}">
+                        <span class="account-type-badge type-${item.account_type}">${formatAccountType(item.account_type)}</span>
+                    </td>
+                    <td data-field="used" data-original="${item.used}">
+                        <span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">
+                            ${item.used == 1 ? '已使用' : '未使用'}
+                        </span>
+                    </td>
+                    <td data-field="username" data-original="${item.username || ''}">${item.username || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="email" data-original="${item.email || ''}">${item.email || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="gender" data-original="${item.gender || ''}">${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="phone_number" data-original="${item.phone_number || ''}">${item.phone_number || '<em style="color: #999;">-</em>'}</td>
                     <td>
                         <div class="action-buttons">
                             <button class="btn-action btn-edit" onclick="editRow(${item.id})">
@@ -886,39 +941,49 @@
                 return;
             }
             
-            // 保存原始数据
-            const originalData = {};
+            // 添加编辑状态样式
+            row.classList.add('editing-row');
             
-            // 获取可编辑的字段
-            const editableFields = ['code', 'account_type'];
+            // 获取所有可编辑的字段
+            const editableFields = ['code', 'account_type', 'username', 'email', 'gender', 'phone_number'];
             
             editableFields.forEach(field => {
                 const cell = row.querySelector(`[data-field="${field}"]`);
                 if (cell) {
-                    originalData[field] = cell.innerHTML;
+                    const originalValue = cell.getAttribute('data-original') || '';
                     
                     if (field === 'code') {
-                        const currentValue = cell.textContent.trim();
-                        cell.innerHTML = `<input type="text" class="edit-input" value="${currentValue}" data-original="${currentValue}">`;
+                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="50" placeholder="申请码">`;
                     } else if (field === 'account_type') {
-                        const currentValue = getAccountTypeKey(cell.textContent.trim());
                         cell.innerHTML = `
-                            <select class="edit-select" data-original="${currentValue}">
-                                <option value="boss" ${currentValue === 'boss' ? 'selected' : ''}>老板</option>
-                                <option value="admin" ${currentValue === 'admin' ? 'selected' : ''}>管理员</option>
-                                <option value="hr" ${currentValue === 'hr' ? 'selected' : ''}>人事部</option>
-                                <option value="design" ${currentValue === 'design' ? 'selected' : ''}>设计部</option>
-                                <option value="support" ${currentValue === 'support' ? 'selected' : ''}>支援部</option>
-                                <option value="IT" ${currentValue === 'IT' ? 'selected' : ''}>技术部</option>
-                                <option value="photograph" ${currentValue === 'photograph' ? 'selected' : ''}>摄影部</option>
+                            <select class="edit-select">
+                                <option value="boss" ${originalValue === 'boss' ? 'selected' : ''}>老板</option>
+                                <option value="admin" ${originalValue === 'admin' ? 'selected' : ''}>管理员</option>
+                                <option value="hr" ${originalValue === 'hr' ? 'selected' : ''}>人事部</option>
+                                <option value="design" ${originalValue === 'design' ? 'selected' : ''}>设计部</option>
+                                <option value="support" ${originalValue === 'support' ? 'selected' : ''}>支援部</option>
+                                <option value="IT" ${originalValue === 'IT' ? 'selected' : ''}>技术部</option>
+                                <option value="photograph" ${originalValue === 'photograph' ? 'selected' : ''}>摄影部</option>
                             </select>
                         `;
+                    } else if (field === 'gender') {
+                        cell.innerHTML = `
+                            <select class="edit-select">
+                                <option value="">请选择</option>
+                                <option value="male" ${originalValue === 'male' ? 'selected' : ''}>男</option>
+                                <option value="female" ${originalValue === 'female' ? 'selected' : ''}>女</option>
+                                <option value="other" ${originalValue === 'other' ? 'selected' : ''}>其他</option>
+                            </select>
+                        `;
+                    } else if (field === 'username') {
+                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="100" placeholder="用户名">`;
+                    } else if (field === 'email') {
+                        cell.innerHTML = `<input type="email" class="edit-input" value="${originalValue}" maxlength="100" placeholder="邮箱">`;
+                    } else if (field === 'phone_number') {
+                        cell.innerHTML = `<input type="tel" class="edit-input" value="${originalValue}" maxlength="20" placeholder="电话号码">`;
                     }
                 }
             });
-            
-            // 保存原始数据到按钮的 data 属性中
-            editBtn.setAttribute('data-original', JSON.stringify(originalData));
             
             // 修改按钮
             editBtn.innerHTML = '<i class="fas fa-save"></i> 保存';
@@ -933,18 +998,32 @@
         // 保存行数据
         async function saveRow(id) {
             const row = document.getElementById(`row-${id}`);
-            const codeInput = row.querySelector('[data-field="code"] input');
-            const accountTypeSelect = row.querySelector('[data-field="account_type"] select');
             
+            // 收集所有数据
             const newData = {
                 id: id,
-                code: codeInput.value.trim(),
-                account_type: accountTypeSelect.value
+                code: row.querySelector('[data-field="code"] input').value.trim(),
+                account_type: row.querySelector('[data-field="account_type"] select').value,
+                username: row.querySelector('[data-field="username"] input').value.trim(),
+                email: row.querySelector('[data-field="email"] input').value.trim(),
+                gender: row.querySelector('[data-field="gender"] select').value,
+                phone_number: row.querySelector('[data-field="phone_number"] input').value.trim()
             };
             
-            // 验证数据
+            // 验证必填数据
             if (!newData.code) {
-                showMessage('代码不能为空！', 'error');
+                showMessage('申请码不能为空！', 'error');
+                return;
+            }
+            
+            if (!newData.account_type) {
+                showMessage('账户类型不能为空！', 'error');
+                return;
+            }
+            
+            // 验证邮箱格式
+            if (newData.email && !isValidEmail(newData.email)) {
+                showMessage('邮箱格式不正确！', 'error');
                 return;
             }
             
@@ -990,13 +1069,30 @@
             const editBtn = row.querySelector('.btn-save');
             const cancelBtn = row.querySelector('.btn-cancel');
             
-            // 恢复原始数据
-            const originalData = JSON.parse(editBtn.getAttribute('data-original'));
+            // 移除编辑状态样式
+            row.classList.remove('editing-row');
             
-            Object.keys(originalData).forEach(field => {
+            // 恢复原始数据
+            const editableFields = ['code', 'account_type', 'username', 'email', 'gender', 'phone_number'];
+            
+            editableFields.forEach(field => {
                 const cell = row.querySelector(`[data-field="${field}"]`);
                 if (cell) {
-                    cell.innerHTML = originalData[field];
+                    const originalValue = cell.getAttribute('data-original') || '';
+                    
+                    if (field === 'code') {
+                        cell.innerHTML = `<strong>${originalValue}</strong>`;
+                    } else if (field === 'account_type') {
+                        cell.innerHTML = `<span class="account-type-badge type-${originalValue}">${formatAccountType(originalValue)}</span>`;
+                    } else if (field === 'username') {
+                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
+                    } else if (field === 'email') {
+                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
+                    } else if (field === 'gender') {
+                        cell.innerHTML = formatGender(originalValue) || '<em style="color: #999;">-</em>';
+                    } else if (field === 'phone_number') {
+                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
+                    }
                 }
             });
             
@@ -1004,11 +1100,10 @@
             editBtn.innerHTML = '<i class="fas fa-edit"></i> 编辑';
             editBtn.className = 'btn-action btn-edit';
             editBtn.setAttribute('onclick', `editRow(${id})`);
-            editBtn.removeAttribute('data-original');
             
             cancelBtn.innerHTML = '<i class="fas fa-trash"></i> 删除';
             cancelBtn.className = 'btn-action btn-delete';
-            cancelBtn.setAttribute('onclick', `confirmDelete(${id}, '${row.querySelector('[data-field="code"]').textContent.trim()}')`);
+            cancelBtn.setAttribute('onclick', `confirmDelete(${id}, '${row.querySelector('[data-field="code"]').getAttribute('data-original')}')`);
         }
 
         // 确认删除
@@ -1022,8 +1117,8 @@
                         <i class="fas fa-exclamation-triangle"></i> 确认删除
                     </div>
                     <div class="modal-body">
-                        确定要删除申请码 "<strong>${code}</strong>" 吗？<br>
-                        此操作不可撤销！
+                        确定要删除申请码 "<strong style="color: #f44336;">${code}</strong>" 吗？<br><br>
+                        <strong style="color: #ff9800;">⚠️ 此操作不可撤销！</strong>
                     </div>
                     <div class="modal-buttons">
                         <button class="btn-action btn-delete" onclick="deleteRow(${id}); closeModal()">
@@ -1045,6 +1140,13 @@
                     closeModal();
                 }
             };
+            
+            // ESC 键关闭
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
         }
 
         // 关闭模态框
@@ -1083,7 +1185,13 @@
             }
         }
 
-        // 获取账号类型的键值
+        // 验证邮箱格式
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // 获取账号类型的键值（用于取消编辑时）
         function getAccountTypeKey(displayName) {
             const typeMap = {
                 '老板': 'boss',
