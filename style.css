@@ -5280,14 +5280,26 @@ form select:focus {
 
 @media (max-width: 1280px) {
   .remember-me {
+    margin-top: 15px;
     font-size: 11px;
-    gap: 4px;
-    margin-top: 10px;
+    gap: 5px;
   }
-
+  
   .remember-me input[type="checkbox"] {
-    width: 14px;
-    height: 14px;
+    width: 30px !important;
+    height: 16px !important;
+    border-radius: 14px !important;
+  }
+  
+  .remember-me input[type="checkbox"]::before {
+    width: 12px;
+    height: 12px;
+    top: 2px;
+    left: 2px;
+  }
+  
+  .remember-me input[type="checkbox"]:checked::before {
+    transform: translateX(12px);
   }
 
   .forgot-password a {
