@@ -5236,8 +5236,8 @@ form select:focus {
 
 .remember-me input[type="checkbox"] {
   appearance: none !important;
-  width: 37px !important;
-  height: 16px !important;
+  width: 34px !important;
+  height: 18px !important;
   background-color: #ccc;
   border-radius: 16px !important;
   position: relative;
@@ -5245,6 +5245,7 @@ form select:focus {
   transition: background-color 0.3s;
   margin: 0;
   vertical-align: middle;
+  padding: 0 !important;
 }
 
 .remember-me input[type="checkbox"]:checked {
@@ -5254,17 +5255,17 @@ form select:focus {
 .remember-me input[type="checkbox"]::before {
   content: '';
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   background-color: white;
-  top: 2px;
-  left: 2px;
+  top: 1.5px;
+  left: 3px;
   transition: transform 0.3s;
 }
 
 .remember-me input[type="checkbox"]:checked::before {
-  transform: translateX(10px);
+  transform: translateX(13px);
 }
 
 /* 忘记密码 */
@@ -5280,14 +5281,26 @@ form select:focus {
 
 @media (max-width: 1280px) {
   .remember-me {
+    margin-top: 15px;
     font-size: 11px;
-    gap: 4px;
-    margin-top: 10px;
+    gap: 5px;
   }
-
+  
   .remember-me input[type="checkbox"] {
-    width: 14px;
-    height: 14px;
+    width: 30px !important;
+    height: 16px !important;
+    border-radius: 14px !important;
+  }
+  
+  .remember-me input[type="checkbox"]::before {
+    width: 12px;
+    height: 12px;
+    top: 1px;
+    left: 2px;
+  }
+  
+  .remember-me input[type="checkbox"]:checked::before {
+    transform: translateX(12px);
   }
 
   .forgot-password a {
@@ -5570,6 +5583,7 @@ form select:focus {
     justify-content: space-between;
     align-items: center;
     margin: 0;
+    padding: 0;
 }
 
 @media (max-width: 1280px) {
