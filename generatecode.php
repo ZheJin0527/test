@@ -170,7 +170,7 @@
             padding: 6px 8px;
             font-size: 13px;
             height: 60px;
-            border: 2px solid #ff5c00;
+            border: 1px solid #ff5c00;
             border-radius: 6px;
             width: 99%;
         }
@@ -179,7 +179,7 @@
             padding: 6px 8px;
             font-size: 13px;
             height: 32px;
-            border: 2px solid #ff5c00;
+            border: 1px solid #ff5c00;
             border-radius: 6px;
             width: 99%;
         }
