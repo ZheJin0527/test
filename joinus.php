@@ -156,9 +156,10 @@ header("Expires: 0");
     <div id="formModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeForm()">&times;</span>
-            <form id="jobApplicationForm" action="https://formsubmit.co/joeytan801@gmail.com" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="_redirect" value="https://kunzzgroup.com/success.html">
-                <input type="hidden" name="_captcha" value="false">
+            <form id="jobApplicationModal" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="access_key" value="a18bc4c6-2f16-4861-8d10-a3de747cab50">
+    <input type="hidden" name="subject" value="职位申请">
+    <input type="hidden" name="redirect" value="https://kunzzgroup.com/success.html">
                 <h2>申请职位</h2>
                 <label>职位名称：</label>
                 <input type="text" id="formPosition" name="position" readonly>
