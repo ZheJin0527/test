@@ -553,36 +553,11 @@
                             </button>
                         </div>
                     </div>
-                    
-                    <div class="form-group" style="flex: 2;">
-                        <label for="account_type">账号类型:</label>
-                        <select id="account_type" name="account_type" required>
-                            <option value="">请选择账号类型</option>
-                            <option value="boss">老板 (Boss)</option>
-                            <option value="admin">管理员 (Admin)</option>
-                            <option value="hr">人事部 (HR)</option>
-                            <option value="design">设计部 (Design)</option>
-                            <option value="support">支援部 (Support)</option>
-                            <option value="IT">技术部 (IT)</option>
-                            <option value="photograph">摄影部 (Photography)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group" style="flex: 1;">
-                        <label>&nbsp;</label>
-                        <button type="submit" class="btn-generate">
-                            <span id="btnText">生成代码</span>
-                        </button>
-                    </div>
+                    <button class="btn-generate" onclick="openAddUserModal()" style="background: linear-gradient(270deg, #10b981 0%, #059669 100%); font-size: 20px; padding: 15px 40px;">
+                        <i class="fas fa-user-plus"></i> 添加新用户
+                    </button>
                 </div>
             </form>
-        </div>
-
-        <!-- 页面操作区域 -->
-        <div style="text-align: center; margin-bottom: 30px;">
-            <button class="btn-generate" onclick="openAddUserModal()" style="background: linear-gradient(270deg, #10b981 0%, #059669 100%); font-size: 20px; padding: 15px 40px;">
-                <i class="fas fa-user-plus"></i> 添加新用户
-            </button>
         </div>
 
         <!-- 代码和用户列表 -->
