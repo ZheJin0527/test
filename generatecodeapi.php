@@ -531,7 +531,7 @@ function deleteCode($pdo, $input) {
         // 开始事务
         $pdo->beginTransaction();
 
-        // 检查申请码是否存在以及是否已被使用
+        // 获取申请码信息（用于删除关联的用户数据）
         $checkSql = "SELECT code, used FROM application_codes WHERE id = :id";
         $checkStmt = $pdo->prepare($checkSql);
         $checkStmt->bindParam(':id', $id);
@@ -547,18 +547,17 @@ function deleteCode($pdo, $input) {
             return;
         }
 
-        if ($result['used'] == 1) {
-            $pdo->rollBack();
-            echo json_encode([
-                'success' => false,
-                'message' => '已使用的申请码不能删除'
-            ]);
-            return;
-        }
-
         $code = $result['code'];
 
-        // 删除申请码（由于外键约束，如果有关联的用户记录，删除会失败）
+        // 如果申请码已被使用，先删除关联的用户数据
+        if ($result['used'] == 1) {
+            $deleteUserSql = "DELETE FROM users WHERE registration_code = :code";
+            $deleteUserStmt = $pdo->prepare($deleteUserSql);
+            $deleteUserStmt->bindParam(':code', $code);
+            $deleteUserStmt->execute();
+        }
+
+        // 删除申请码
         $deleteSql = "DELETE FROM application_codes WHERE id = :id";
         $deleteStmt = $pdo->prepare($deleteSql);
         $deleteStmt->bindParam(':id', $id);
@@ -567,7 +566,7 @@ function deleteCode($pdo, $input) {
             $pdo->rollBack();
             echo json_encode([
                 'success' => false,
-                'message' => '删除失败，可能存在关联的用户数据'
+                'message' => '删除失败'
             ]);
             return;
         }
