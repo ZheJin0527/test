@@ -134,7 +134,7 @@
         #addUserModal .form-group label {
             display: block;
             margin-bottom: 2px;
-            color: #BF360C;
+            color: #000000ff;
             font-weight: bold;
             font-size: 12px;
             text-align: left;
