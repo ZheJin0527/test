@@ -272,6 +272,11 @@
             letter-spacing: 0.5px;
         }
 
+        .type-boss {
+            background: #F8BBD9;
+            color: #AD1457;
+        }
+
         .type-admin {
             background: #F8BBD9;
             color: #AD1457;
@@ -415,6 +420,7 @@
                         <label for="account_type">账号类型:</label>
                         <select id="account_type" name="account_type" required>
                             <option value="">请选择账号类型</option>
+                            <option value="boss">老板 (Boss)</option>
                             <option value="admin">管理员 (Admin)</option>
                             <option value="hr">人事部 (HR)</option>
                             <option value="design">设计部 (Design)</option>
@@ -602,13 +608,14 @@
             }
 
             // 定义账号类型的排序顺序
-            const typeOrder = {
-                'admin': 1,
-                'hr': 2, 
-                'design': 3,
-                'support': 4,
-                'IT': 5,
-                'photograph': 6
+            const typeOrder = {、
+                'boss': 1,
+                'admin': 2,
+                'hr': 3, 
+                'design': 4,
+                'support': 5,
+                'IT': 6,
+                'photograph': 7
             };
             
             // 按照指定顺序排序数据
@@ -646,6 +653,7 @@
         // 格式化账号类型
         function formatAccountType(type) {
             const types = {
+                'boss': '老板',
                 'admin': '管理员',
                 'hr': '人事部',
                 'design': '设计部',
