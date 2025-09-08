@@ -5294,7 +5294,7 @@ form select:focus {
   .remember-me input[type="checkbox"]::before {
     width: 12px;
     height: 12px;
-    top: 2px;
+    top: 1px;
     left: 2px;
   }
   
