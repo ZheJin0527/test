@@ -5283,11 +5283,36 @@ form select:focus {
 }
 
 .remember-me input[type="checkbox"] {
-  width: 14px;
-  height: 14px;
-  accent-color: #007bff;
+  appearance: none;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
   margin: 0;
   vertical-align: middle;
+}
+
+.remember-me input[type="checkbox"]:checked {
+  background-color: #007bff;
+}
+
+.remember-me input[type="checkbox"]::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.remember-me input[type="checkbox"]:checked::before {
+  transform: translateX(20px);
 }
 
 /* 忘记密码 */
