@@ -6457,7 +6457,7 @@ form select {
 }
 
 .informationmenu.collapsed .informationmenu-section-title {
-    padding: 10px !important;
+    padding: 12px 10px !important;
     text-align: center;
     font-size: 0; /* 隐藏文字 */
     /* 确保图标仍然显示 */
