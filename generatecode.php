@@ -313,7 +313,7 @@
         .action-buttons {
             display: flex;
             gap: 8px;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             flex-wrap: wrap;
         }
