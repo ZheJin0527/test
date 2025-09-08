@@ -3949,6 +3949,54 @@ nav {
         50% { background-position: 100% 50%; }
     }
 
+/* 分类按钮样式 */
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 92, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.category-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 92, 0, 0.4);
+}
+
+.category-btn.active {
+    background: linear-gradient(135deg, #ff7a33 0%, #FF5C00 100%);
+    box-shadow: 0 6px 20px rgba(255, 92, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+.category-btn:not(.active) {
+    background: rgba(255, 255, 255, 0.2);
+    color: #333;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 92, 0, 0.3);
+}
+
+.category-btn:not(.active):hover {
+    background: rgba(255, 92, 0, 0.1);
+    color: #FF5C00;
+    border-color: #FF5C00;
+}
+
 .jobs-grid {
     display: flex;
     flex-wrap: nowrap;         /* 不换行！强制一行内 */
@@ -3969,7 +4017,9 @@ nav {
     padding: clamp(0px, 1.2vw, 35px) clamp(16px, 1.4vw, 20px) 30px;
     color: white;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                opacity 0.3s ease, 
+                transform 0.3s ease;
     position: relative;
     overflow: visible;
     z-index: 1;
@@ -4219,6 +4269,16 @@ nav {
   .jobs-grid {
     gap: clamp(40px, 5.2vw, 100px);
     padding: 0px;
+  }
+
+  .category-buttons {
+    gap: 15px;
+    margin: 30px 0;
+  }
+
+  .category-btn {
+    padding: 12px 20px;
+    font-size: 14px;
   }
 
   .job-card {

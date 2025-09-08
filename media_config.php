@@ -640,7 +640,8 @@ function getJobsHtml() {
     } else {
         foreach ($jobs as $jobId => $job) {
             if ($job['status'] === 'active') {
-                $html .= '<div class="job-card">';
+                $category = $job['category'] ?? '未分类';
+                $html .= '<div class="job-card" data-category="' . htmlspecialchars($category) . '">';
                 $html .= '<div class="job-header">';
                 $html .= '<div>';
                 $html .= '<div class="job-title">' . htmlspecialchars($job['title']) . '</div>';
@@ -656,6 +657,10 @@ function getJobsHtml() {
                 $html .= '<div class="job-meta-item">';
                 $html .= '<span class="job-meta-label">&#128197; 发布:</span>';
                 $html .= '<span style="color: #FF5C00; font-weight: 600;">' . $job['publish_date'] . '</span>';
+                $html .= '</div>';
+                $html .= '<div class="job-meta-item">';
+                $html .= '<span class="job-meta-label">🏷️ 公司:</span>';
+                $html .= '<span style="color: #FF5C00; font-weight: 600;">' . htmlspecialchars($category) . '</span>';
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '</div>';
