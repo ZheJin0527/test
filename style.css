@@ -5230,7 +5230,7 @@ form select:focus {
   gap: 6px;
   line-height: 1;
   cursor: pointer;
-  margin-top: 20px;
+  margin: 0px;
 }
 
 .remember-me input[type="checkbox"] {
@@ -5581,7 +5581,7 @@ form select:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 0 0 0;
+    margin: 0;
     padding: 0;
 }
 
