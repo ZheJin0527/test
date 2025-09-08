@@ -6491,7 +6491,7 @@ form select {
 }
 
 .informationmenu.collapsed .informationmenu-header {
-    padding: 24px 20px !important;
+    padding: 29px 20px !important;
     flex-direction: row !important;
     justify-content: space-between !important;
     align-items: center !important;
