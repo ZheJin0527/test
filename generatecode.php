@@ -119,6 +119,38 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
+        /* 添加用户模态框中的表单样式 */
+        #addUserModal .form-group {
+            margin-bottom: 12px;
+        }
+
+        #addUserModal .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            color: #BF360C;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        #addUserModal .form-group input,
+        #addUserModal .form-group select,
+        #addUserModal .form-group textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #ff5c00;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        #addUserModal .form-group input:focus,
+        #addUserModal .form-group select:focus,
+        #addUserModal .form-group textarea:focus {
+            outline: none;
+            border-color: #ff5c00;
+            box-shadow: 0 0 8px rgba(255, 115, 0, 0.6);
+        }
+
         /* 搜索框特殊样式 */
         #searchInput {
             transition: all 0.3s ease;
@@ -606,7 +638,7 @@
             </div>
             <div class="modal-body">
                 <form id="addUserForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div class="form-group">
                             <label for="add_username">英文姓名 *:</label>
                             <input type="text" id="add_username" name="username" required maxlength="50">
@@ -664,7 +696,7 @@
                         
                         <div class="form-group" style="grid-column: 1 / -1;">
                             <label for="add_home_address">家庭地址:</label>
-                            <textarea id="add_home_address" name="home_address" rows="2" style="width: 100%; padding: 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px;" maxlength="255"></textarea>
+                            <textarea id="add_home_address" name="home_address" rows="2" maxlength="255"></textarea>
                         </div>
                         
                         <div class="form-group">
