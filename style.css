@@ -2684,11 +2684,7 @@ nav {
 /* 时间线导航容器 */
 .timeline-nav {
     position: relative;
-<<<<<<< HEAD
-    margin-bottom: clamp(10px, 2.1vw, 40px);
-=======
     margin: 0 auto clamp(10px, 2.1vw, 40px) auto;
->>>>>>> f5623bd (D176)
     width: 100%;
     max-width: 800px;
     height: clamp(10px, 6.25vw, 120px);
