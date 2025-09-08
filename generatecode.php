@@ -1170,9 +1170,13 @@
 
         // 确认删除
         function confirmDelete(id, code) {
+            // 先关闭已存在的模态框
+            closeModal();
+            
             // 创建模态框
             const modal = document.createElement('div');
             modal.className = 'modal';
+            modal.id = `deleteModal_${id}`; // 添加唯一ID
             modal.innerHTML = `
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1204,19 +1208,27 @@
             };
             
             // ESC 键关闭
-            document.addEventListener('keydown', function(e) {
+            const escHandler = function(e) {
                 if (e.key === 'Escape') {
                     closeModal();
+                    document.removeEventListener('keydown', escHandler);
                 }
-            });
+            };
+            document.addEventListener('keydown', escHandler);
         }
 
         // 关闭模态框
         function closeModal() {
-            const modal = document.querySelector('.modal');
-            if (modal) {
-                modal.remove();
-            }
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+                // 延迟移除，确保动画完成
+                setTimeout(() => {
+                    if (modal.parentNode) {
+                        modal.parentNode.removeChild(modal);
+                    }
+                }, 100);
+            });
         }
 
         // 删除行数据
@@ -1348,8 +1360,15 @@
 
         // 删除行数据并关闭模态框
         async function deleteRowAndClose(id) {
-            // 先关闭模态框
-            closeModal();
+            // 显示删除中状态
+            const modal = document.querySelector('.modal');
+            const deleteBtn = modal.querySelector('.btn-delete');
+            const cancelBtn = modal.querySelector('.btn-cancel');
+            
+            // 禁用按钮并显示加载状态
+            deleteBtn.innerHTML = '<div class="loading"></div>删除中...';
+            deleteBtn.disabled = true;
+            cancelBtn.disabled = true;
             
             try {
                 const response = await fetch('generatecodeapi.php', {
@@ -1365,6 +1384,9 @@
                 
                 const result = await response.json();
                 
+                // 确保关闭模态框
+                closeModal();
+                
                 if (result.success) {
                     showMessage('删除成功！', 'success');
                     loadCodesAndUsers(); // 重新加载数据
@@ -1373,6 +1395,7 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
+                closeModal(); // 确保出错时也关闭模态框
                 showMessage('网络错误，请检查连接！', 'error');
             }
         }
