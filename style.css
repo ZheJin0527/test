@@ -5244,6 +5244,7 @@ form select:focus {
   transition: background-color 0.3s;
   margin: 0;
   vertical-align: middle;
+  padding: 0 !important;
 }
 
 .remember-me input[type="checkbox"]:checked {
@@ -5569,6 +5570,7 @@ form select:focus {
     justify-content: space-between;
     align-items: center;
     margin: 0;
+    padding: 0;
 }
 
 @media (max-width: 1280px) {
