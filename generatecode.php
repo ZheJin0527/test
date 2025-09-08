@@ -220,7 +220,7 @@
         }
 
         .btn-generate {
-            background: #10b981;
+            background: linear-gradient(270deg, #FF9800 0%, #E65100 100%);
             color: white;
             border: none;
             padding: 12px 30px;
@@ -627,7 +627,7 @@
                     <div class="form-group" style="flex: 1;">
                         <label>&nbsp;</label> <!-- 空标签保持对齐 -->
                         <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                style="background: linear-gradient(270deg, #10b981 0%, #059669 100%); font-size: 16px; padding: 12px 20px; width: 100%;">
+                                style="background: #10b981; font-size: 16px; padding: 12px 20px; width: 100%;">
                             <i class="fas fa-user-plus"></i> 添加新用户
                         </button>
                     </div>
