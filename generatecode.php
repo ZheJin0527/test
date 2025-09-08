@@ -332,7 +332,7 @@
             transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            min-width: 70px;
+            min-width: 65px;
         }
 
         .btn-edit {
