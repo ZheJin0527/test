@@ -466,7 +466,7 @@
 
         .modal-content {
             background-color: white;
-            margin: 2% auto;
+            margin: 5% auto;
             padding: 25px;
             border-radius: 10px;
             width: 90%;
