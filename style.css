@@ -5258,7 +5258,7 @@ form select:focus {
   height: 13px;
   border-radius: 50%;
   background-color: white;
-  top: 2px;
+  top: 1.5px;
   left: 3px;
   transition: transform 0.3s;
 }
