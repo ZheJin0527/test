@@ -230,6 +230,10 @@
             text-align: center;
         }
 
+        th:last-child {
+            text-align: center;
+        }
+
         td {
             padding: 12px 10px;
             font-weight: 500;
@@ -313,7 +317,7 @@
         .action-buttons {
             display: flex;
             gap: 8px;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             flex-wrap: wrap;
         }
