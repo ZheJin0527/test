@@ -450,11 +450,11 @@ if (isset($_GET['edit'])) {
                         </div>
                         
                         <div class="form-group">
-                            <label for="job_category">职位分类 *</label>
+                            <label for="job_category">公司分类 *</label>
                             <select id="job_category" name="job_category" required>
-                                <option value="">请选择分类</option>
-                                <option value="Kunzzholdings" <?php echo ($editJob && $editJob['category'] === 'Kunzzholdings') ? 'selected' : ''; ?>>Kunzzholdings</option>
-                                <option value="Tokyo cuisine" <?php echo ($editJob && $editJob['category'] === 'Tokyo cuisine') ? 'selected' : ''; ?>>Tokyo cuisine</option>
+                                <option value="">请选择公司</option>
+                                <option value="KUNZZHOLDINGS" <?php echo ($editJob && $editJob['category'] === 'Kunzzholdings') ? 'selected' : ''; ?>>Kunzzholdings</option>
+                                <option value="TOKYO CUISINE" <?php echo ($editJob && $editJob['category'] === 'Tokyo cuisine') ? 'selected' : ''; ?>>Tokyo cuisine</option>
                             </select>
                         </div>
                         
@@ -492,7 +492,7 @@ if (isset($_GET['edit'])) {
                                         <span class="job-meta-item-list">👥 人数: <?php echo htmlspecialchars($job['count']); ?></span>
                                         <span class="job-meta-item-list">💼 经验: <?php echo htmlspecialchars($job['experience']); ?></span>
                                         <span class="job-meta-item-list">📅 发布: <?php echo $job['publish_date']; ?></span>
-                                        <span class="job-meta-item-list">🏷️ 分类: <?php echo htmlspecialchars($job['category'] ?? '未分类'); ?></span>
+                                        <span class="job-meta-item-list">🏷️ 公司: <?php echo htmlspecialchars($job['category'] ?? '未分类'); ?></span>
                                     </div>
                                     <div class="job-description-preview">
                                         <strong>职位详情：</strong><?php echo htmlspecialchars($job['description']); ?>
