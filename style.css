@@ -2853,6 +2853,7 @@ nav {
     height: 1000px;
     overflow: hidden;
     perspective: 1000px;
+    margin: 0 auto;
 }
 
 .timeline-cards-wrapper {
@@ -2870,7 +2871,7 @@ nav {
     height: clamp(230px, 19vw, 350px);
     transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-    margin-top: -250px;
+    margin-top: -300px;
     will-change: transform, opacity, z-index; /* 优化性能 */
 }
 
