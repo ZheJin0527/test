@@ -5234,11 +5234,11 @@ form select:focus {
 }
 
 .remember-me input[type="checkbox"] {
-  appearance: none;
-  width: 40px;
-  height: 20px;
+  appearance: none !important;
+  width: 32px !important;
+  height: 16px !important;
   background-color: #ccc;
-  border-radius: 20px;
+  border-radius: 16px !important;
   position: relative;
   cursor: pointer;
   transition: background-color 0.3s;
