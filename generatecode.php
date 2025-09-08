@@ -553,11 +553,16 @@
                             </button>
                         </div>
                     </div>
-                    <button class="btn-generate" onclick="openAddUserModal()" style="background: linear-gradient(270deg, #10b981 0%, #059669 100%); font-size: 20px; padding: 15px 40px;">
-                        <i class="fas fa-user-plus"></i> 添加新用户
-                    </button>
+    
                 </div>
             </form>
+        </div>
+
+        <!-- 页面操作区域 -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button class="btn-generate" onclick="openAddUserModal()" style="background: linear-gradient(270deg, #10b981 0%, #059669 100%); font-size: 20px; padding: 15px 40px;">
+                <i class="fas fa-user-plus"></i> 添加新用户
+            </button>
         </div>
 
         <!-- 代码和用户列表 -->
