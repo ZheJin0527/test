@@ -2684,7 +2684,7 @@ nav {
 /* 时间线导航容器 */
 .timeline-nav {
     position: relative;
-    margin-bottom: clamp(10px, 2.1vw, 40px);
+    margin: 0 auto clamp(10px, 2.1vw, 40px) auto;
     width: 100%;
     max-width: 800px;
     height: clamp(10px, 6.25vw, 120px);
@@ -2853,6 +2853,7 @@ nav {
     height: 800px;
     overflow: hidden;
     perspective: 1000px;
+    margin: 0 auto;
 }
 
 .timeline-cards-wrapper {
@@ -2931,6 +2932,7 @@ nav {
     display: flex;
     gap: clamp(10px, 2.1vw, 40px);
     align-items: center;
+    justify-content: center;
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 1), 
         rgba(255, 255, 255, 1));
@@ -2945,6 +2947,7 @@ nav {
     height: 100%;
     cursor: pointer;
     transition: all 0.3s ease;
+    min-height: 100%;
 }
 
 .timeline-content:hover {
@@ -2972,6 +2975,9 @@ nav {
     max-width: 350px;
     position: relative;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .timeline-image img {
@@ -2994,6 +3000,10 @@ nav {
     max-width: 500px;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .timeline-text h3 {
@@ -3006,6 +3016,8 @@ nav {
     position: relative;
     font-weight: 700;
     line-height: 1.2;
+    text-align: left;
+    width: 100%;
 }
 
 .timeline-text h3::after {
@@ -3025,6 +3037,8 @@ nav {
     line-height: 1.6;
     margin-bottom: 12px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    width: 100%;
 }
 
 .timeline-text .year-badge {
@@ -3058,8 +3072,14 @@ nav {
       margin-top: 0;
     }
 
-    .timeline-content-item {
-      width: 700px;
+    .timeline-nav {
+      margin: 0 auto clamp(10px, 2.1vw, 40px) auto;
+      max-width: 600px;
+    }
+
+    .timeline-content-container {
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .timeline-content-item {
@@ -3069,6 +3089,7 @@ nav {
 
     .timeline-content {
       padding: clamp(10px, 2vw, 40px) clamp(10px, 2.1vw, 40px);
+      justify-content: center;
     }
 
     .timeline-cards-wrapper {
@@ -3126,6 +3147,20 @@ nav {
         padding: 30px 15px;
         height: auto;
         min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .timeline-nav {
+        margin: 0 auto clamp(10px, 2.1vw, 40px) auto;
+        max-width: 90%;
+    }
+
+    .timeline-content-container {
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     .timeline-content-item {
@@ -3145,14 +3180,28 @@ nav {
         flex-direction: column;
         gap: 15px;
         padding: 20px;
+        justify-content: center;
+        align-items: center;
     }
 
     .timeline-image {
         max-width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .timeline-image img {
         height: 180px;
+    }
+
+    .timeline-text {
+        text-align: center;
+        align-items: center;
+    }
+
+    .timeline-text h3,
+    .timeline-text p {
+        text-align: center;
     }
 
     .nav-arrow {
