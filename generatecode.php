@@ -272,41 +272,6 @@
             letter-spacing: 0.5px;
         }
 
-        .type-boss {
-            background: #F8BBD9;
-            color: #AD1457;
-        }
-
-        .type-admin {
-            background: #F8BBD9;
-            color: #AD1457;
-        }
-
-        .type-hr {
-            background: #C8E6C9;
-            color: #2E7D32;
-        }
-
-        .type-design {
-            background: #BBDEFB;
-            color: #1565C0;
-        }
-
-        .type-support {
-            background: #FFE0B2;
-            color: #E65100;
-        }
-
-        .type-it {
-            background: #D1C4E9;
-            color: #4A148C;
-        }
-
-        .type-photograph {
-            background: #FFCDD2;
-            color: #C62828;
-        }
-
         /* 响应式设计 */
         @media (max-width: 768px) {
             .form-row {
