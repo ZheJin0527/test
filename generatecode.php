@@ -336,42 +336,42 @@
         }
 
         .btn-edit {
-            background: #2196F3;
+            background: #f59e0b;
             color: white;
         }
 
         .btn-edit:hover {
-            background: #1976D2;
+            background: #d97706;
             transform: translateY(-1px);
         }
 
         .btn-save {
-            background: #4CAF50;
+            background: #10b981;
             color: white;
         }
 
         .btn-save:hover {
-            background: #45a049;
+            background: #059669;
             transform: translateY(-1px);
         }
 
         .btn-cancel {
-            background: #FF9800;
+            background: #6b7280;
             color: white;
         }
 
         .btn-cancel:hover {
-            background: #F57C00;
+            background: #6b7280;
             transform: translateY(-1px);
         }
 
         .btn-delete {
-            background: #f44336;
+            background: #ef4444;
             color: white;
         }
 
         .btn-delete:hover {
-            background: #d32f2f;
+            background: #dc2626;
             transform: translateY(-1px);
         }
 
