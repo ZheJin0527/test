@@ -5268,6 +5268,12 @@ form select:focus {
 }
 
 /* 忘记密码 */
+.forgot-password {
+  display: flex;
+  align-items: center;
+  height: 18px; /* 与开关按钮高度一致 */
+}
+
 .forgot-password a {
   font-size: 14px;
   color: black;
