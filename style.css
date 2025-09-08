@@ -5263,7 +5263,7 @@ form select:focus {
 }
 
 .remember-me input[type="checkbox"]:checked::before {
-  transform: translateX(10px);
+  transform: translateX(14px);
 }
 
 /* 忘记密码 */
