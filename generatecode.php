@@ -741,12 +741,9 @@
             searchInput.addEventListener('input', function(e) {
                 filterTable(e.target.value);
             });
-        });
 
-        // 添加用户表单提交处理（放在DOMContentLoaded外面）
-        document.getElementById('addUserForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            addNewUser();
+            // 初始化事件监听器
+            rebindEventListeners();
         });
 
         // 加载代码和用户数据
@@ -778,7 +775,37 @@
                     </tr>
                 `;
             }
+            
+            // 添加这段代码来重新绑定事件监听器
+            rebindEventListeners();
+        }
 
+        // 重新绑定事件监听器
+        function rebindEventListeners() {
+            // 重新绑定添加用户表单提交事件
+            const addUserForm = document.getElementById('addUserForm');
+            if (addUserForm) {
+                // 移除旧的事件监听器（如果存在）
+                addUserForm.removeEventListener('submit', handleAddUserSubmit);
+                // 添加新的事件监听器
+                addUserForm.addEventListener('submit', handleAddUserSubmit);
+            }
+            
+            // 重新绑定模态框外部点击关闭事件
+            const addUserModal = document.getElementById('addUserModal');
+            if (addUserModal) {
+                addUserModal.onclick = function(event) {
+                    if (event.target === this) {
+                        closeAddUserModal();
+                    }
+                };
+            }
+        }
+
+        // 提取表单提交处理函数
+        function handleAddUserSubmit(e) {
+            e.preventDefault();
+            addNewUser();
         }
 
         // 生成6位随机代码（数字字母结合）
