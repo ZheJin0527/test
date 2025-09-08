@@ -142,7 +142,7 @@
         #addUserModal .form-group input:not(#add_home_address),
         #addUserModal .form-group select:not(#add_account_type),
         #addUserModal .form-group textarea:not(#add_home_address) {
-            width: 100%;
+            width: 98%;
             padding: 4px 6px;
             border: 1px solid #ff5c00;
             border-radius: 4px;
@@ -171,7 +171,7 @@
             height: 60px;
             border: 2px solid #ff5c00;
             border-radius: 6px;
-            width: 100%;
+            width: 98%;
         }
 
         #addUserModal #add_account_type {
@@ -180,7 +180,7 @@
             height: 32px;
             border: 2px solid #ff5c00;
             border-radius: 6px;
-            width: 100%;
+            width: 98%;
         }
 
         #addUserModal #add_home_address:focus,
@@ -671,7 +671,7 @@
 
     <!-- 添加用户模态框 -->
     <div id="addUserModal" class="modal">
-        <div class="modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-content" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
             <div class="modal-header" style="color: #10b981; font-size: 16px; margin-bottom: 10px;">
                 <i class="fas fa-user-plus"></i> 添加新用户
             </div>
