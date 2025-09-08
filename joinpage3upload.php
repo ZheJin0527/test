@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'experience' => trim($_POST['job_experience']),
             'publish_date' => $_POST['publish_date'],
             'description' => trim($_POST['job_description']),
+            'category' => $_POST['job_category'],
             'created' => date('Y-m-d H:i:s'),
             'status' => 'active'
         ];
@@ -57,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $jobs[$jobId]['experience'] = trim($_POST['job_experience']);
             $jobs[$jobId]['publish_date'] = $_POST['publish_date'];
             $jobs[$jobId]['description'] = trim($_POST['job_description']);
+            $jobs[$jobId]['category'] = $_POST['job_category'];
             $jobs[$jobId]['updated'] = date('Y-m-d H:i:s');
             
             if (file_put_contents($configFile, json_encode($jobs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
@@ -199,7 +201,8 @@ if (isset($_GET['edit'])) {
         }
         
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             padding: 12px;
@@ -208,7 +211,8 @@ if (isset($_GET['edit'])) {
         }
         
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #FF5C00;
             box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1);
@@ -445,6 +449,15 @@ if (isset($_GET['edit'])) {
                                    required>
                         </div>
                         
+                        <div class="form-group">
+                            <label for="job_category">职位分类 *</label>
+                            <select id="job_category" name="job_category" required>
+                                <option value="">请选择分类</option>
+                                <option value="Kunzzholdings" <?php echo ($editJob && $editJob['category'] === 'Kunzzholdings') ? 'selected' : ''; ?>>Kunzzholdings</option>
+                                <option value="Tokyo cuisine" <?php echo ($editJob && $editJob['category'] === 'Tokyo cuisine') ? 'selected' : ''; ?>>Tokyo cuisine</option>
+                            </select>
+                        </div>
+                        
                         <div class="form-group full-width">
                             <label for="job_description">职位详情 *</label>
                             <textarea id="job_description" name="job_description" 
@@ -479,6 +492,7 @@ if (isset($_GET['edit'])) {
                                         <span class="job-meta-item-list">👥 人数: <?php echo htmlspecialchars($job['count']); ?></span>
                                         <span class="job-meta-item-list">💼 经验: <?php echo htmlspecialchars($job['experience']); ?></span>
                                         <span class="job-meta-item-list">📅 发布: <?php echo $job['publish_date']; ?></span>
+                                        <span class="job-meta-item-list">🏷️ 分类: <?php echo htmlspecialchars($job['category'] ?? '未分类'); ?></span>
                                     </div>
                                     <div class="job-description-preview">
                                         <strong>职位详情：</strong><?php echo htmlspecialchars($job['description']); ?>
