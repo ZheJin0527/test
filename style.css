@@ -2619,7 +2619,7 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .timeline-section h1 {
@@ -2627,7 +2627,7 @@ nav {
     font-size: clamp(20px, 2.6vw, 50px);
     color: white; /* 直接使用白色文字 */
     margin-bottom: clamp(10px, 1.6vw, 30px);
-    margin-top: clamp(10px, 3.2vw, 60px);
+    margin-top: clamp(20px, 5vw, 100px);
     position: relative;
     font-weight: 700;
     letter-spacing: 2px;
