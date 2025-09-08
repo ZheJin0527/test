@@ -312,63 +312,67 @@
         /* 操作按钮样式 */
         .action-buttons {
             display: flex;
-            gap: 8px;
+            gap: 4px;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
         }
 
-        .btn-action {
-            padding: 6px 12px;
+        .action-btn {
+            background: #ef4444;
+            color: white;
             border: none;
             border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
+            width: 32px;
+            height: 32px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            min-width: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 12px;
+            margin: 2px;
         }
 
-        .btn-edit {
-            background: #2196F3;
-            color: white;
+        .action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
 
-        .btn-edit:hover {
-            background: #1976D2;
-            transform: translateY(-1px);
+        .action-btn.edit-btn {
+            background: #f59e0b;
         }
 
-        .btn-save {
-            background: #4CAF50;
-            color: white;
+        .action-btn.edit-btn:hover {
+            background: #d97706;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
 
-        .btn-save:hover {
-            background: #45a049;
-            transform: translateY(-1px);
+        .edit-btn.save-mode {
+            background: #10b981;
         }
 
-        .btn-cancel {
-            background: #FF9800;
-            color: white;
+        .edit-btn.save-mode:hover {
+            background: #059669;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
         }
 
-        .btn-cancel:hover {
-            background: #F57C00;
-            transform: translateY(-1px);
+        .action-btn.delete-btn {
+            background: #ef4444;
         }
 
-        .btn-delete {
-            background: #f44336;
-            color: white;
+        .action-btn.delete-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
 
-        .btn-delete:hover {
-            background: #d32f2f;
-            transform: translateY(-1px);
+        .action-btn.cancel-btn {
+            background: #f59e0b;
+        }
+
+        .action-btn.cancel-btn:hover {
+            background: #d97706;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
 
         /* 编辑模式下的输入框 */
@@ -778,11 +782,11 @@
                     <td data-field="phone_number" data-original="${item.phone_number || ''}">${item.phone_number || '<em style="color: #999;">-</em>'}</td>
                     <td>
                         <div class="action-buttons">
-                            <button class="btn-action btn-edit" onclick="editRow(${item.id})">
-                                <i class="fas fa-edit"></i> 编辑
+                            <button class="action-btn edit-btn" onclick="editRow(${item.id})" title="编辑">
+                                <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.code}')">
-                                <i class="fas fa-trash"></i> 删除
+                            <button class="action-btn delete-btn" onclick="confirmDelete(${item.id}, '${item.code}')" title="删除">
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </td>
@@ -952,12 +956,14 @@
             });
             
             // 修改按钮
-            editBtn.innerHTML = '<i class="fas fa-save"></i> 保存';
-            editBtn.className = 'btn-action btn-save';
+            editBtn.innerHTML = '<i class="fas fa-save"></i>';
+            editBtn.className = 'action-btn edit-btn save-mode';
+            editBtn.setAttribute('title', '保存');
             editBtn.setAttribute('onclick', `saveRow(${id})`);
-            
-            deleteBtn.innerHTML = '<i class="fas fa-times"></i> 取消';
-            deleteBtn.className = 'btn-action btn-cancel';
+
+            deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+            deleteBtn.className = 'action-btn cancel-btn';
+            deleteBtn.setAttribute('title', '取消');
             deleteBtn.setAttribute('onclick', `cancelEdit(${id})`);
         }
 
@@ -1063,12 +1069,14 @@
             });
             
             // 恢复按钮
-            editBtn.innerHTML = '<i class="fas fa-edit"></i> 编辑';
-            editBtn.className = 'btn-action btn-edit';
+            editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+            editBtn.className = 'action-btn edit-btn';
+            editBtn.setAttribute('title', '编辑');
             editBtn.setAttribute('onclick', `editRow(${id})`);
-            
-            cancelBtn.innerHTML = '<i class="fas fa-trash"></i> 删除';
-            cancelBtn.className = 'btn-action btn-delete';
+
+            cancelBtn.innerHTML = '<i class="fas fa-trash"></i>';
+            cancelBtn.className = 'action-btn delete-btn';
+            cancelBtn.setAttribute('title', '删除');
             cancelBtn.setAttribute('onclick', `confirmDelete(${id}, '${row.querySelector('[data-field="code"]').getAttribute('data-original')}')`);
         }
 
