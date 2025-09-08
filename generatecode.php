@@ -171,6 +171,7 @@
             height: 60px;
             border: 2px solid #ff5c00;
             border-radius: 6px;
+            width: 100%;
         }
 
         #addUserModal #add_account_type {
@@ -179,6 +180,7 @@
             height: 32px;
             border: 2px solid #ff5c00;
             border-radius: 6px;
+            width: 100%;
         }
 
         #addUserModal #add_home_address:focus,
