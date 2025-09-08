@@ -5254,11 +5254,11 @@ form select:focus {
 .remember-me input[type="checkbox"]::before {
   content: '';
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   background-color: white;
-  top: 4px;
+  top: 2px;
   left: 3px;
   transition: transform 0.3s;
 }
