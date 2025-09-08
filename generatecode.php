@@ -741,6 +741,9 @@
             searchInput.addEventListener('input', function(e) {
                 filterTable(e.target.value);
             });
+
+            // 初始化事件监听器
+            rebindEventListeners();
         });
 
         // 加载代码和用户数据
@@ -772,6 +775,37 @@
                     </tr>
                 `;
             }
+            
+            // 添加这段代码来重新绑定事件监听器
+            rebindEventListeners();
+        }
+
+        // 重新绑定事件监听器
+        function rebindEventListeners() {
+            // 重新绑定添加用户表单提交事件
+            const addUserForm = document.getElementById('addUserForm');
+            if (addUserForm) {
+                // 移除旧的事件监听器（如果存在）
+                addUserForm.removeEventListener('submit', handleAddUserSubmit);
+                // 添加新的事件监听器
+                addUserForm.addEventListener('submit', handleAddUserSubmit);
+            }
+            
+            // 重新绑定模态框外部点击关闭事件
+            const addUserModal = document.getElementById('addUserModal');
+            if (addUserModal) {
+                addUserModal.onclick = function(event) {
+                    if (event.target === this) {
+                        closeAddUserModal();
+                    }
+                };
+            }
+        }
+
+        // 提取表单提交处理函数
+        function handleAddUserSubmit(e) {
+            e.preventDefault();
+            addNewUser();
         }
 
         // 生成6位随机代码（数字字母结合）
@@ -1244,12 +1278,6 @@
             document.getElementById('addUserForm').reset();
         }
 
-        // 添加用户表单提交处理
-        document.getElementById('addUserForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            addNewUser();
-        });
-
         // 修改 addNewUser 函数，添加更多调试信息
         async function addNewUser() {
             const formData = new FormData(document.getElementById('addUserForm'));
@@ -1320,6 +1348,9 @@
 
         // 删除行数据并关闭模态框
         async function deleteRowAndClose(id) {
+            // 先关闭模态框
+            closeModal();
+            
             try {
                 const response = await fetch('generatecodeapi.php', {
                     method: 'POST',
@@ -1334,9 +1365,6 @@
                 
                 const result = await response.json();
                 
-                // 先关闭模态框
-                closeModal();
-                
                 if (result.success) {
                     showMessage('删除成功！', 'success');
                     loadCodesAndUsers(); // 重新加载数据
@@ -1345,7 +1373,6 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
-                closeModal(); // 确保出错时也关闭模态框
                 showMessage('网络错误，请检查连接！', 'error');
             }
         }
