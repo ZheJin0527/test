@@ -2637,7 +2637,7 @@ nav {
 /* 时间线导航 */
 .timeline-nav {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: -60px;
     padding: 0 100px;
     width: 100%;
     max-width: 800px;
@@ -2684,7 +2684,7 @@ nav {
 /* 时间线导航容器 */
 .timeline-nav {
     position: relative;
-    margin: 0 auto clamp(10px, 2.1vw, 40px) auto;
+    margin: clamp(10px, 2.1vw, 40px);
     width: 100%;
     max-width: 800px;
     height: clamp(10px, 6.25vw, 120px);
