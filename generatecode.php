@@ -1169,7 +1169,7 @@
                         <strong style="color: #ff9800;">⚠️ 此操作不可撤销！</strong>
                     </div>
                     <div class="modal-buttons">
-                        <button class="btn-action btn-delete" onclick="deleteRow(${id}); closeModal()">
+                        <button class="btn-action btn-delete" onclick="deleteRowAndClose(${id})">
                             <i class="fas fa-trash"></i> 确认删除
                         </button>
                         <button class="btn-action btn-cancel" onclick="closeModal()">
@@ -1335,6 +1335,38 @@
                 // 恢复按钮状态
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+            }
+        }
+
+        // 删除行数据并关闭模态框
+        async function deleteRowAndClose(id) {
+            try {
+                const response = await fetch('generatecodeapi.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'delete',
+                        id: id
+                    })
+                });
+                
+                const result = await response.json();
+                
+                // 先关闭模态框
+                closeModal();
+                
+                if (result.success) {
+                    showMessage('删除成功！', 'success');
+                    loadCodesAndUsers(); // 重新加载数据
+                } else {
+                    showMessage(result.message || '删除失败！', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                closeModal(); // 确保出错时也关闭模态框
+                showMessage('网络错误，请检查连接！', 'error');
             }
         }
 
