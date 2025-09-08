@@ -6241,7 +6241,7 @@ form select {
 /* 子菜单 - 固定定位覆盖屏幕 */
 .submenu {
     position: fixed;
-    left: 255px;
+    left: 250px;
     top: 0;
     width: 350px;
     height: 100vh;
