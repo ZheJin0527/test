@@ -2637,7 +2637,7 @@ nav {
 /* 时间线导航 */
 .timeline-nav {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: -60px;
     padding: 0 100px;
     width: 100%;
     max-width: 800px;
