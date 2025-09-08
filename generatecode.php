@@ -70,12 +70,10 @@
 
         /* 生成代码表单样式 */
         .generate-form {
-            background: white;
-            padding: 10px 30px;
+            background: transparent;
+            padding: 10px 900px 10px 0px;
             border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            border: 2px solid #ff5c00;
+            margin-bottom: 20px;
         }
 
         .form-title {
