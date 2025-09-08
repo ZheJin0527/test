@@ -90,7 +90,7 @@ function generateCode($pdo, $input) {
     $code = generateRandomCode($pdo);
 
     // 验证账户类型
-    $valid_types = ['admin', 'hr', 'design', 'support', 'IT', 'photograph'];
+    $valid_types = ['admin', 'hr', 'design', 'support', 'IT', 'boss','photograph'];
     if (!in_array($account_type, $valid_types)) {
         echo json_encode([
             'success' => false,
