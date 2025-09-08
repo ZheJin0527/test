@@ -188,8 +188,8 @@ $timelineData = getTimelineConfig();
         
         <!-- 横向时间线导航 -->
         <div class="timeline-nav">
-            <div class="nav-arrow prev" id="prevArrow">‹</div>
-            <div class="nav-arrow next" id="nextArrow">›</div>
+            <div class="nav-arrow prev" onclick="navigateTimeline('prev')">‹</div>
+            <div class="nav-arrow next" onclick="navigateTimeline('next')">›</div>
             
             <div class="timeline-scroll-container">
                 <div class="timeline-track"></div>
@@ -764,22 +764,12 @@ updatePageIndicator(0);
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM已加载，开始初始化时间线');
-        
+<script>
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
-        
-        console.log('年份数据:', years);
-        console.log('总项目数:', totalItems);
-        
         const navItems = document.querySelectorAll('.timeline-item');
         const container = document.getElementById('timelineContainer');
-        
-        console.log('导航项目数量:', navItems.length);
-        console.log('容器元素:', container);
 
         // 拖拽相关变量 - 优化后的设置
         let isDragging = false;
@@ -789,12 +779,6 @@ updatePageIndicator(0);
         let hasTriggered = false;
         let dragStartTime = 0; // 记录拖拽开始时间
         let isAnimating = false; // 防止动画期间的操作冲突
-
-        // 自动滚动相关变量
-        let autoScrollInterval = null;
-        let autoScrollDelay = 20000; 
-        let isAutoScrollPaused = false;
-        let isHovered = false; // 鼠标悬停状态
 
         function updateTimelineNav() {
             const navItems = document.querySelectorAll('.timeline-item');
@@ -857,11 +841,7 @@ updatePageIndicator(0);
         }
 
         function navigateTimeline(direction) {
-            console.log('navigateTimeline 被调用:', direction);
-            if (isAnimating) {
-                console.log('正在动画中，跳过');
-                return;
-            }
+            if (isAnimating) return;
             
             isAnimating = true;
             
@@ -871,92 +851,13 @@ updatePageIndicator(0);
                 currentIndex = (currentIndex - 1 + totalItems) % totalItems;
             }
             
-            console.log('新的 currentIndex:', currentIndex);
-            
             updateTimelineNav();
             updateCardPositions();
             
             // 动画完成后重置标志
             setTimeout(() => {
                 isAnimating = false;
-            }, 400);
-        }
-        
-        // 简化版本 - 直接测试基本功能
-        function testTimeline() {
-            console.log('测试时间线功能');
-            console.log('当前索引:', currentIndex);
-            console.log('总项目数:', totalItems);
-            console.log('年份数组:', years);
-            
-            // 测试导航更新
-            if (navItems.length > 0) {
-                navItems.forEach((item, index) => {
-                    item.classList.toggle('active', index === currentIndex);
-                });
-                console.log('导航状态已更新');
-            }
-            
-            // 测试卡片更新
-            const cards = document.querySelectorAll('.timeline-content-item');
-            if (cards.length > 0) {
-                cards.forEach((card, index) => {
-                    card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
-                    if (index === currentIndex) {
-                        card.classList.add('active');
-                    } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
-                        card.classList.add('prev');
-                    } else if (index === (currentIndex + 1) % totalItems) {
-                        card.classList.add('next');
-                    } else {
-                        card.classList.add('stack-hidden');
-                    }
-                });
-                console.log('卡片状态已更新');
-            }
-        }
-
-        // 自动滚动到下一个项目
-        function autoNavigateNext() {
-            if (isAnimating || isAutoScrollPaused || isHovered) return;
-            
-            isAnimating = true;
-            currentIndex = (currentIndex + 1) % totalItems;
-            
-            updateTimelineNav();
-            updateCardPositions();
-            
-            setTimeout(() => {
-                isAnimating = false;
-            }, 400);
-        }
-
-        // 开始自动滚动
-        function startAutoScroll() {
-            if (autoScrollInterval) return; // 避免重复启动
-            
-            autoScrollInterval = setInterval(() => {
-                autoNavigateNext();
-            }, autoScrollDelay);
-        }
-
-        // 停止自动滚动
-        function stopAutoScroll() {
-            if (autoScrollInterval) {
-                clearInterval(autoScrollInterval);
-                autoScrollInterval = null;
-            }
-        }
-
-        // 暂停/恢复自动滚动
-        function toggleAutoScroll() {
-            if (isAutoScrollPaused) {
-                isAutoScrollPaused = false;
-                startAutoScroll();
-            } else {
-                isAutoScrollPaused = true;
-                stopAutoScroll();
-            }
+            }, 400); // 增加到600ms匹配新的动画时长
         }
 
         function selectCard(year) {
@@ -1073,51 +974,17 @@ updatePageIndicator(0);
             });
         });
 
-        // 左右箭头按钮事件监听
-        const prevArrow = document.getElementById('prevArrow');
-        const nextArrow = document.getElementById('nextArrow');
-        
-        if (prevArrow) {
-            prevArrow.addEventListener('click', () => {
-                console.log('点击了上一个按钮');
-                navigateTimeline('prev');
-            });
-        }
-        
-        if (nextArrow) {
-            nextArrow.addEventListener('click', () => {
-                console.log('点击了下一个按钮');
-                navigateTimeline('next');
-            });
-        }
-
         // 优化的点击处理 - 添加延迟避免与拖拽冲突
         document.addEventListener('click', (e) => {
             if (isDragging || hasTriggered || isAnimating) return;
             
             const card = e.target.closest('.timeline-content-item');
-            if (card) {
+            if (card && !card.classList.contains('active')) {
                 // 添加小延迟确保不是拖拽操作
                 clickTimeout = setTimeout(() => {
                     if (!isDragging) {
                         const year = card.getAttribute('data-year');
-                        const cardIndex = years.indexOf(year);
-                        
-                        if (card.classList.contains('active')) {
-                            // 如果点击的是当前活动卡片，不执行任何操作
-                            return;
-                        } else if (card.classList.contains('prev')) {
-                            // 点击左侧卡片，切换到上一个
-                            console.log('点击了左侧卡片，切换到上一个');
-                            navigateTimeline('prev');
-                        } else if (card.classList.contains('next')) {
-                            // 点击右侧卡片，切换到下一个
-                            console.log('点击了右侧卡片，切换到下一个');
-                            navigateTimeline('next');
-                        } else {
-                            // 点击其他卡片，直接跳转
-                            selectCard(year);
-                        }
+                        selectCard(year);
                     }
                 }, 10);
             }
@@ -1141,37 +1008,9 @@ updatePageIndicator(0);
             }
         });
 
-        // 检查基本元素是否存在
-        if (!container) {
-            console.error('时间线容器未找到！');
-            return;
-        }
-        
-        if (navItems.length === 0) {
-            console.error('时间线导航项目未找到！');
-            return;
-        }
-        
-        if (totalItems === 0) {
-            console.error('没有时间线数据！');
-            return;
-        }
-        
         // 初始化
-        console.log('时间线初始化开始');
-        
-        // 先运行测试函数
-        testTimeline();
-        
-        // 然后运行正常初始化
         updateTimelineNav();
         updateCardPositions();
-        console.log('时间线初始化完成');
-
-        // 启动自动滚动（延迟3秒开始，给用户时间查看初始内容）
-        setTimeout(() => {
-            startAutoScroll();
-        }, 3000);
 
         // 窗口大小改变时重新计算位置
         window.addEventListener('resize', () => {
@@ -1181,64 +1020,6 @@ updatePageIndicator(0);
                 }, 100);
             }
         });
-
-        // 页面可见性变化时处理自动滚动
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                // 页面变为可见时，重新启动自动滚动
-                if (!isAutoScrollPaused) {
-                    startAutoScroll();
-                }
-            } else {
-                // 页面变为不可见时，暂停自动滚动
-                stopAutoScroll();
-            }
-        });
-
-        // 鼠标悬停暂停/恢复功能 - 只在卡片上悬停时暂停
-        const timelineCards = document.querySelectorAll('.timeline-content-item');
-        timelineCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                console.log('鼠标进入卡片，暂停自动滚动');
-                isHovered = true;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                console.log('鼠标离开卡片，恢复自动滚动');
-                isHovered = false;
-            });
-        });
-        }); // 结束 DOMContentLoaded
-        
-        // 全局测试函数 - 可以在控制台调用
-        window.testTimelineNavigation = function() {
-            console.log('手动测试时间线导航');
-            if (typeof navigateTimeline === 'function') {
-                navigateTimeline('next');
-            } else {
-                console.error('navigateTimeline 函数未定义');
-            }
-        };
-        
-        window.testTimelineData = function() {
-            console.log('检查时间线数据');
-            const years = <?php echo json_encode(getTimelineYears()); ?>;
-            const navItems = document.querySelectorAll('.timeline-item');
-            const cards = document.querySelectorAll('.timeline-content-item');
-            const container = document.getElementById('timelineContainer');
-            
-            console.log('年份数据:', years);
-            console.log('导航项目数量:', navItems.length);
-            console.log('卡片数量:', cards.length);
-            console.log('容器元素:', container);
-            
-            return {
-                years: years,
-                navItems: navItems.length,
-                cards: cards.length,
-                container: !!container
-            };
-        };
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
