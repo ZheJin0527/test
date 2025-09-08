@@ -764,7 +764,7 @@ updatePageIndicator(0);
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
         });
     </script>
-<script>
+    <script>
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
