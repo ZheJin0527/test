@@ -119,28 +119,41 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
-        /* 添加用户模态框中的表单样式 */
+        /* 添加用户模态框中的表单样式 - 超紧凑版本 */
+        #addUserModal .modal-content {
+            max-width: 900px;
+            max-height: 95vh;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
         #addUserModal .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
 
         #addUserModal .form-group label {
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             color: #BF360C;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         #addUserModal .form-group input,
         #addUserModal .form-group select,
         #addUserModal .form-group textarea {
             width: 100%;
-            padding: 8px 10px;
-            border: 2px solid #ff5c00;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 4px 6px;
+            border: 1px solid #ff5c00;
+            border-radius: 4px;
+            font-size: 12px;
             transition: all 0.3s ease;
+            height: 28px;
+        }
+
+        #addUserModal .form-group textarea {
+            height: 50px;
+            resize: vertical;
         }
 
         #addUserModal .form-group input:focus,
@@ -148,7 +161,7 @@
         #addUserModal .form-group textarea:focus {
             outline: none;
             border-color: #ff5c00;
-            box-shadow: 0 0 8px rgba(255, 115, 0, 0.6);
+            box-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
         }
 
         /* 搜索框特殊样式 */
@@ -453,7 +466,7 @@
 
         .modal-content {
             background-color: white;
-            margin: 15% auto;
+            margin: 2% auto;
             padding: 25px;
             border-radius: 10px;
             width: 90%;
@@ -633,12 +646,12 @@
     <!-- 添加用户模态框 -->
     <div id="addUserModal" class="modal">
         <div class="modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
-            <div class="modal-header" style="color: #10b981;">
+            <div class="modal-header" style="color: #10b981; font-size: 16px; margin-bottom: 10px;">
                 <i class="fas fa-user-plus"></i> 添加新用户
             </div>
             <div class="modal-body">
                 <form id="addUserForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                         <div class="form-group">
                             <label for="add_username">英文姓名 *:</label>
                             <input type="text" id="add_username" name="username" required maxlength="50">
@@ -744,7 +757,7 @@
                         </div>
                     </div>
                     
-                    <div class="modal-buttons" style="margin-top: 30px;">
+                    <div class="modal-buttons" style="margin-top: 15px;">
                         <button type="submit" class="btn-action btn-save" style="padding: 12px 30px; font-size: 16px;">
                             <i class="fas fa-user-plus"></i> 添加用户
                         </button>
