@@ -5235,7 +5235,7 @@ form select:focus {
 
 .remember-me input[type="checkbox"] {
   appearance: none !important;
-  width: 32px !important;
+  width: 37px !important;
   height: 16px !important;
   background-color: #ccc;
   border-radius: 16px !important;
@@ -5263,7 +5263,7 @@ form select:focus {
 }
 
 .remember-me input[type="checkbox"]:checked::before {
-  transform: translateX(20px);
+  transform: translateX(10px);
 }
 
 /* 忘记密码 */
