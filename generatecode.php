@@ -139,9 +139,9 @@
             font-size: 12px;
         }
 
-        #addUserModal .form-group input,
-        #addUserModal .form-group select,
-        #addUserModal .form-group textarea {
+        #addUserModal .form-group input:not(#add_home_address),
+        #addUserModal .form-group select:not(#add_account_type),
+        #addUserModal .form-group textarea:not(#add_home_address) {
             width: 100%;
             padding: 4px 6px;
             border: 1px solid #ff5c00;
@@ -156,12 +156,36 @@
             resize: vertical;
         }
 
-        #addUserModal .form-group input:focus,
-        #addUserModal .form-group select:focus,
-        #addUserModal .form-group textarea:focus {
+        #addUserModal .form-group input:not(#add_home_address):focus,
+        #addUserModal .form-group select:not(#add_account_type):focus,
+        #addUserModal .form-group textarea:not(#add_home_address):focus {
             outline: none;
             border-color: #ff5c00;
             box-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
+        }
+
+        /* 家庭地址和账号类型的独立样式 */
+        #addUserModal #add_home_address {
+            padding: 6px 8px;
+            font-size: 13px;
+            height: 60px;
+            border: 2px solid #ff5c00;
+            border-radius: 6px;
+        }
+
+        #addUserModal #add_account_type {
+            padding: 6px 8px;
+            font-size: 13px;
+            height: 32px;
+            border: 2px solid #ff5c00;
+            border-radius: 6px;
+        }
+
+        #addUserModal #add_home_address:focus,
+        #addUserModal #add_account_type:focus {
+            outline: none;
+            border-color: #ff5c00;
+            box-shadow: 0 0 6px rgba(255, 115, 0, 0.5);
         }
 
         /* 搜索框特殊样式 */
