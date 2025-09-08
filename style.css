@@ -4555,6 +4555,7 @@ form select:focus {
 
 .form-group textarea {
     height: clamp(40px, 4.5vw, 120px);
+    font-family: 'Inter', sans-serif;
 }
 
 /* 确保 .half-width 下的 input 和 textarea 都正常布局 */
