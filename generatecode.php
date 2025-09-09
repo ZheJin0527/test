@@ -1342,8 +1342,10 @@
                         setTimeout(() => addInputFormatting(cell.querySelector('textarea'), 'home_address'), 0);
                     } else if (field === 'ic_number') {
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
+                        setTimeout(() => addInputFormatting(cell.querySelector('input'), 'ic_number'), 0);
                     } else if (field === 'bank_account') {
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="30" placeholder="银行账号">`;
+                        setTimeout(() => addInputFormatting(cell.querySelector('input'), 'bank_account'), 0);
                     } else if (field === 'bank_name') {
                         cell.innerHTML = `
                             <select class="edit-select">
