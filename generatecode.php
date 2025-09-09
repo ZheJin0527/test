@@ -119,7 +119,7 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
-        /* 添加用户模态框中的表单样式 - 超紧凑版本 */
+        /* 添加职员模态框中的表单样式 - 超紧凑版本 */
         #addUserModal .modal-content {
             max-width: 900px;
             max-height: 95vh;
@@ -665,7 +665,7 @@
                 <i class="fas fa-arrow-left"></i>
                 返回仪表盘
             </button>
-            <h1>用户管理系统</h1>
+            <h1>职员管理系统</h1>
         </div>
 
         <!-- 生成代码表单 -->
@@ -676,7 +676,7 @@
             <form id="generateForm">
                 <div class="form-row">
                     <div class="form-group" style="flex: 2; position: relative;">
-                        <label for="searchInput">搜索用户:</label>
+                        <label for="searchInput">搜索职员:</label>
                         <div style="position: relative;">
                             <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
                                 style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
@@ -688,22 +688,22 @@
                         </div>
                     </div>
                     
-                    <!-- 添加新用户按钮 -->
+                    <!-- 添加新职员按钮 -->
                     <div class="form-group" style="flex: 1;">
                         <label>&nbsp;</label> <!-- 空标签保持对齐 -->
                         <button type="button" class="btn-generate" onclick="openAddUserModal()" 
                                 style="background: #10b981; font-size: 16px; padding: 12px 20px; width: 80%;">
-                            <i class="fas fa-user-plus"></i> 添加新用户
+                            <i class="fas fa-user-plus"></i> 添加新职员
                         </button>
                     </div>
                 </div>
             </form>
         </div>
 
-        <!-- 代码和用户列表 -->
+        <!-- 代码和职员列表 -->
         <div class="table-container">
             <div class="table-title">
-                用户列表
+                职员列表
             </div>
             
             <div class="table-wrapper">
@@ -745,11 +745,11 @@
         </div>
     </div>
 
-    <!-- 添加用户模态框 -->
+    <!-- 添加职员模态框 -->
     <div id="addUserModal" class="modal">
         <div class="modal-content" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
             <div class="modal-header" style="color: #10b981; font-size: 16px; margin-bottom: 10px;">
-                <i class="fas fa-user-plus"></i> 添加新用户
+                <i class="fas fa-user-plus"></i> 添加新职员
             </div>
             <div class="modal-body">
                 <form id="addUserForm">
@@ -946,7 +946,7 @@
                     
                     <div class="modal-buttons" style="margin-top: 15px;">
                         <button type="submit" class="btn-action btn-save" style="padding: 12px 10px; font-size: 16px;">
-                            <i class="fas fa-user-plus"></i> 添加用户
+                            <i class="fas fa-user-plus"></i> 添加职员
                         </button>
                         <button type="button" class="btn-action btn-cancel" onclick="closeAddUserModal()" style="padding: 12px 30px; font-size: 16px;">
                             <i class="fas fa-times"></i> 取消
@@ -1055,7 +1055,7 @@
             rebindEventListeners();
         });
 
-        // 加载代码和用户数据
+        // 加载代码和职员数据
         async function loadCodesAndUsers() {
             const tableBody = document.getElementById('tableBody');
             
@@ -1091,7 +1091,7 @@
 
         // 重新绑定事件监听器
         function rebindEventListeners() {
-            // 重新绑定添加用户表单提交事件
+            // 重新绑定添加职员表单提交事件
             const addUserForm = document.getElementById('addUserForm');
             if (addUserForm) {
                 // 移除旧的事件监听器（如果存在）
@@ -1193,7 +1193,7 @@
                             <button class="btn-action btn-edit" onclick="editRow(${item.id})">
                                 <i class="fas fa-edit"></i> 编辑
                             </button>
-                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.username || '未知用户'}')">
+                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.username || '未知职员'}')">
                                 <i class="fas fa-trash"></i> 删除
                             </button>
                         </div>
@@ -1657,7 +1657,7 @@
                         <i class="fas fa-exclamation-triangle"></i> 确认删除
                     </div>
                     <div class="modal-body">
-                        确定要删除用户 "<strong style="color: #f44336;">${username}</strong>" 吗？<br><br>
+                        确定要删除职员 "<strong style="color: #f44336;">${username}</strong>" 吗？<br><br>
                         <strong style="color: #ff9800;">⚠️ 此操作不可撤销！</strong>
                     </div>
                     <div class="modal-buttons">
@@ -1779,7 +1779,7 @@
             return typeMap[displayName] || displayName;
         }
 
-        // 打开添加用户模态框
+        // 打开添加职员模态框
         function openAddUserModal() {
             document.getElementById('addUserModal').style.display = 'block';
             
@@ -1798,7 +1798,7 @@
             });
         }
 
-        // 关闭添加用户模态框
+        // 关闭添加职员模态框
         function closeAddUserModal() {
             document.getElementById('addUserModal').style.display = 'none';
             document.getElementById('addUserForm').reset();
@@ -1865,7 +1865,7 @@
                 console.log('服务器响应:', result); // 调试信息
                 
                 if (result.success) {
-                    let message = `用户 "${result.data.username}" 添加成功！`;
+                    let message = `职员 "${result.data.username}" 添加成功！`;
                     if (result.data.email_sent) {
                         message += ` 登录信息已发送到 ${result.data.email}`;
                     } else {
@@ -1929,7 +1929,7 @@
             }
         }
 
-        // 点击模态框外部关闭（为添加用户模态框）
+        // 点击模态框外部关闭（为添加职员模态框）
         document.getElementById('addUserModal').onclick = function(event) {
             if (event.target === this) {
                 closeAddUserModal();
