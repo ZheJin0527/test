@@ -316,7 +316,7 @@
         th:nth-child(7), td:nth-child(7) { width: 100px; }     /* 生日 */
         th:nth-child(8), td:nth-child(8) { width: 40px; }      /* 性别 */
         th:nth-child(9), td:nth-child(9) { width: 80px; }      /* 国籍 */
-        th:nth-child(10), td:nth-child(10) { width: 120px; }   /* 联络号码 */
+        th:nth-child(10), td:nth-child(10) { width: 100px; }   /* 联络号码 */
         th:nth-child(11), td:nth-child(11) { width: 150px; }   /* 邮箱 */
         th:nth-child(12), td:nth-child(12) { width: 200px; }   /* 地址 */
         th:nth-child(13), td:nth-child(13) { width: 90px; }   /* 职位 */
