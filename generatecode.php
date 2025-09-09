@@ -629,7 +629,7 @@
                 <i class="fas fa-arrow-left"></i>
                 返回仪表盘
             </button>
-            <h1>申请码管理系统</h1>
+            <h1>用户管理系统</h1>
         </div>
 
         <!-- 生成代码表单 -->
@@ -667,7 +667,7 @@
         <!-- 代码和用户列表 -->
         <div class="table-container">
             <div class="table-title">
-                申请码和用户列表
+                用户列表
             </div>
             
             <div class="table-wrapper">
