@@ -765,7 +765,23 @@
                         
                         <div class="form-group">
                             <label for="add_race">种族:</label>
-                            <input type="text" id="add_race" name="race" maxlength="50">
+                            <select id="add_race" name="race">
+                                <option value="">请选择种族</option>
+                                <option value="Malay">Malay</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Indian">Indian</option>
+                                <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
+                                <option value="Indonesian">Indonesian</option>
+                                <option value="Bangladeshi">Bangladeshi</option>
+                                <option value="Nepali">Nepali</option>
+                                <option value="Myanmar">Myanmar</option>
+                                <option value="Filipino">Filipino</option>
+                                <option value="Indian (Foreign)">Indian (Foreign)</option>
+                                <option value="Pakistani">Pakistani</option>
+                                <option value="Vietnamese">Vietnamese</option>
+                                <option value="Cambodian">Cambodian</option>
+                                <option value="Others (Foreign)">Others (Foreign)</option>
+                            </select>
                         </div>
                         
                         <div class="form-group">
@@ -1209,6 +1225,26 @@
                                 <option value="Bank of China (Malaysia)" ${originalValue === 'Bank of China (Malaysia)' ? 'selected' : ''}>Bank of China (Malaysia)</option>
                             </select>
                         `;
+                    } else if (field === 'race') {
+                        cell.innerHTML = `
+                            <select class="edit-select">
+                                <option value="">请选择种族</option>
+                                <option value="Malay" ${originalValue === 'Malay' ? 'selected' : ''}>Malay</option>
+                                <option value="Chinese" ${originalValue === 'Chinese' ? 'selected' : ''}>Chinese</option>
+                                <option value="Indian" ${originalValue === 'Indian' ? 'selected' : ''}>Indian</option>
+                                <option value="Bumiputera (Sabah/Sarawak)" ${originalValue === 'Bumiputera (Sabah/Sarawak)' ? 'selected' : ''}>Bumiputera (Sabah/Sarawak)</option>
+                                <option value="Indonesian" ${originalValue === 'Indonesian' ? 'selected' : ''}>Indonesian</option>
+                                <option value="Bangladeshi" ${originalValue === 'Bangladeshi' ? 'selected' : ''}>Bangladeshi</option>
+                                <option value="Nepali" ${originalValue === 'Nepali' ? 'selected' : ''}>Nepali</option>
+                                <option value="Myanmar" ${originalValue === 'Myanmar' ? 'selected' : ''}>Myanmar</option>
+                                <option value="Filipino" ${originalValue === 'Filipino' ? 'selected' : ''}>Filipino</option>
+                                <option value="Indian (Foreign)" ${originalValue === 'Indian (Foreign)' ? 'selected' : ''}>Indian (Foreign)</option>
+                                <option value="Pakistani" ${originalValue === 'Pakistani' ? 'selected' : ''}>Pakistani</option>
+                                <option value="Vietnamese" ${originalValue === 'Vietnamese' ? 'selected' : ''}>Vietnamese</option>
+                                <option value="Cambodian" ${originalValue === 'Cambodian' ? 'selected' : ''}>Cambodian</option>
+                                <option value="Others (Foreign)" ${originalValue === 'Others (Foreign)' ? 'selected' : ''}>Others (Foreign)</option>
+                            </select>
+                        `;
                     } else {
                         // 其他文本字段的通用处理
                         const maxLength = getFieldMaxLength(field);
@@ -1242,7 +1278,7 @@
                 ic_number: row.querySelector('[data-field="ic_number"] input').value.trim(),
                 date_of_birth: row.querySelector('[data-field="date_of_birth"] input').value,
                 gender: row.querySelector('[data-field="gender"] select').value,
-                race: row.querySelector('[data-field="race"] input').value.trim(),
+                race: row.querySelector('[data-field="race"] select').value.trim(),
                 nationality: row.querySelector('[data-field="nationality"] input').value.trim(),
                 phone_number: row.querySelector('[data-field="phone_number"] input').value.trim(),
                 email: row.querySelector('[data-field="email"] input').value.trim(),
