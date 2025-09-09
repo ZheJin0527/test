@@ -58,7 +58,7 @@
             transition: all 0.2s;
             text-decoration: none;
             position: absolute;
-            top: 147px;
+            top: 135px;
             right: 0;
         }
 
@@ -451,9 +451,10 @@
         .action-buttons {
             display: flex;
             gap: 6px;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            width: 100%;
         }
 
         .btn-action {
@@ -466,7 +467,8 @@
             transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            min-width: 65px;
+            min-width: 50px; /* 从65px改为50px */
+            flex: 1;
         }
 
         .btn-edit {
