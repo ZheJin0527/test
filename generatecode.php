@@ -1301,10 +1301,12 @@
                         cell.innerHTML = `<span class="account-type-badge type-${originalValue}">${formatAccountType(originalValue)}</span>`;
                     } else if (field === 'gender') {
                         cell.innerHTML = formatGender(originalValue) || '<em style="color: #999;">-</em>';
-                    } else if (field === 'registration_code') {
-                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
                     } else {
-                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
+                        if (originalValue && originalValue.trim() !== '') {
+                            cell.innerHTML = originalValue;
+                        } else {
+                            cell.innerHTML = '<em style="color: #999;">-</em>';
+                        }
                     }
                 }
             });
