@@ -1062,10 +1062,10 @@
                     </div>
                     
                     <div class="modal-buttons" style="margin-top: 15px;">
-                        <button type="submit" class="btn-action btn-save" style="padding: 12px 10px; font-size: 16px;">
+                        <button type="submit" class="btn-action btn-save" style="padding: 12px 10px; font-size: 14px;">
                             <i class="fas fa-user-plus"></i> 添加职员
                         </button>
-                        <button type="button" class="btn-action btn-cancel" onclick="closeAddUserModal()" style="padding: 12px 30px; font-size: 16px;">
+                        <button type="button" class="btn-action btn-cancel" onclick="closeAddUserModal()" style="padding: 12px 30px; font-size: 14px;">
                             <i class="fas fa-times"></i> 取消
                         </button>
                     </div>
