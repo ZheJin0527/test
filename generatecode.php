@@ -319,8 +319,7 @@
         th:nth-child(10), td:nth-child(10) { width: 80px; }      /* 国籍 */
         th:nth-child(11), td:nth-child(11) { width: 100px; }   /* 联络号码 */
         th:nth-child(12), td:nth-child(12) { width: 150px; }   /* 邮箱 */
-        th:nth-child(13) { width: 200px; }   /* 地址 */
-        td:nth-child(13) { width: 200px; text-align: left; }   /* 地址 */
+        th:nth-child(13), td:nth-child(13) { width: 200px; }   /* 地址 */
         th:nth-child(14), td:nth-child(14) { width: 90px; }   /* 职位 */
         th:nth-child(15), td:nth-child(15) { width: 120px; }   /* 紧急联络人 */
         th:nth-child(16), td:nth-child(16) { width: 120px; }   /* 紧急联络号码 */
@@ -328,6 +327,19 @@
         th:nth-child(18), td:nth-child(18) { width: 120px; }   /* 银行账号 */
         th:nth-child(19), td:nth-child(19) { width: 120px; }   /* 银行持有人 */
         th:nth-child(20), td:nth-child(20) { width: 100px; }   /* 操作 */
+
+        /* 地址列的特殊样式 */
+        th:nth-child(13), td:nth-child(13) { 
+            width: 200px; 
+            text-align: left; /* 默认左对齐 */
+        }
+
+        /* 当地址列显示"-"时居中对齐 */
+        td:nth-child(13) em {
+            display: block;
+            text-align: center;
+            width: 100%;
+        }
 
         td {
             padding: 8px 5px;
