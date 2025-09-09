@@ -449,7 +449,7 @@
         /* 操作按钮样式 */
         .action-buttons {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
