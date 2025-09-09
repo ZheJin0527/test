@@ -293,6 +293,7 @@
             padding: 15px 10px;
             text-align: left;
             font-weight: bold;
+            font-size: 14px;
             border-bottom: 1px solid #d1d5db;
         }
 
@@ -306,6 +307,7 @@
 
         td {
             padding: 12px 10px;
+            font-size: 12px;
             font-weight: 500;
             border-bottom: 1px solid #d1d5db;
             vertical-align: middle;
@@ -340,7 +342,7 @@
         .account-type-badge {
             padding: 4px 0px;
             border-radius: 12px;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5px;
