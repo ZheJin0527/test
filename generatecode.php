@@ -287,6 +287,7 @@
             width: 100%;
             border-collapse: collapse;
             border: 1px solid #d1d5db;
+            table-layout: fixed;
         }
 
         th {
@@ -320,8 +321,15 @@
         th:nth-child(10), td:nth-child(10) { width: 80px; }      /* 国籍 */
         th:nth-child(11), td:nth-child(11) { width: 100px; }   /* 联络号码 */
         th:nth-child(12), td:nth-child(12) { width: 150px; }   /* 邮箱 */
-        th:nth-child(13) { width: 200px; }   /* 地址 */
-        td:nth-child(13) { width: 200px; text-align: left; }   /* 地址 */
+        th:nth-child(13) { width: 200px; max-width: 200px; }   /* 地址 */
+        td:nth-child(13) { 
+            width: 200px !important; 
+            max-width: 200px !important; 
+            text-align: left; 
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            white-space: normal !important;
+        }   /* 地址 */
         th:nth-child(14), td:nth-child(14) { width: 90px; }   /* 职位 */
         th:nth-child(15), td:nth-child(15) { width: 120px; }   /* 紧急联络人 */
         th:nth-child(16), td:nth-child(16) { width: 100px; }   /* 紧急联络号码 */
@@ -339,8 +347,9 @@
 
         /* 编辑模式下地址textarea的样式 */
         td:nth-child(13) textarea.edit-input {
-            width: 180px !important;
-            max-width: 180px !important;
+            width: 190px !important;
+            max-width: 190px !important;
+            min-width: 190px !important;
             height: 60px !important;
             resize: none !important;
             box-sizing: border-box !important;
@@ -350,6 +359,16 @@
             padding: 4px 6px !important;
             font-size: 12px !important;
             line-height: 1.3 !important;
+            overflow: hidden !important;
+        }
+
+        /* 普通显示模式下的地址内容 */
+        td:nth-child(13):not(.editing-row) {
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            white-space: pre-wrap !important;
+            max-width: 200px !important;
+            overflow: hidden !important;
         }
 
         td {
