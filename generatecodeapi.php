@@ -788,14 +788,14 @@ function addNewUser($pdo, $input) {
             home_address, current_address, city, state, postcode,
             date_of_birth, gender, nationality, race, 
             emergency_contact_name, emergency_phone_number, 
-            bank_account_holder_en, account_type, registration_code, created_at
+            bank_account_holder_en, account_type, registration_code, is_first_login, created_at
         ) VALUES (
             ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?,
             ?, ?, ?, ?, ?,
             ?, ?, ?, ?,
             ?, ?,
-            ?, ?, ?, NOW()
+            ?, ?, ?, 1, NOW()
         )";
 
         $insertUserStmt = $pdo->prepare($insertUserSql);

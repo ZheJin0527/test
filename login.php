@@ -39,6 +39,13 @@ if ($result->num_rows === 1) {
         $_SESSION['account_type'] = $user['account_type']; // ⭐ 添加这行 - 关键！
         $_SESSION['last_activity'] = time(); // ➤ 当前登录时间（用于 1 分钟自动登出）
 
+        // 检查是否为首次登录
+        if ($user['is_first_login'] == 1) {
+            // 首次登录，跳转到密码重置页面
+            header("Location: reset_password.html");
+            exit();
+        }
+
         if ($remember) {
             // ✅ 勾选了"记住我"，设置 cookie（30天）
             $expire = time() + (86400 * 30);
