@@ -1108,9 +1108,7 @@
                 if (cell) {
                     const originalValue = cell.getAttribute('data-original') || '';
                     
-                    if (field === 'code') {
-                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="50" placeholder="申请码">`;
-                    } else if (field === 'account_type') {
+                    if (field === 'account_type') {
                         cell.innerHTML = `
                             <select class="edit-select">
                                 <option value="boss" ${originalValue === 'boss' ? 'selected' : ''}>老板</option>
@@ -1131,12 +1129,25 @@
                                 <option value="other" ${originalValue === 'other' ? 'selected' : ''}>其他</option>
                             </select>
                         `;
-                    } else if (field === 'username') {
-                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="100" placeholder="用户名">`;
+                    } else if (field === 'date_of_birth') {
+                        cell.innerHTML = `<input type="date" class="edit-input" value="${originalValue}">`;
                     } else if (field === 'email') {
                         cell.innerHTML = `<input type="email" class="edit-input" value="${originalValue}" maxlength="100" placeholder="邮箱">`;
-                    } else if (field === 'phone_number') {
-                        cell.innerHTML = `<input type="tel" class="edit-input" value="${originalValue}" maxlength="20" placeholder="电话号码">`;
+                    } else if (field === 'phone_number' || field === 'emergency_phone_number') {
+                        cell.innerHTML = `<input type="tel" class="edit-input" value="${originalValue}" maxlength="20" placeholder="联络号码">`;
+                    } else if (field === 'home_address') {
+                        cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址" style="min-height: 60px;">${originalValue}</textarea>`;
+                    } else if (field === 'ic_number') {
+                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
+                    } else if (field === 'bank_account') {
+                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="30" placeholder="银行账号">`;
+                    } else if (field === 'registration_code') {
+                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="50" placeholder="申请码" readonly style="background-color: #f5f5f5; cursor: not-allowed;">`;
+                    } else {
+                        // 其他文本字段的通用处理
+                        const maxLength = getFieldMaxLength(field);
+                        const placeholder = getFieldPlaceholder(field);
+                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="${maxLength}" placeholder="${placeholder}">`;
                     }
                 }
             });
@@ -1158,25 +1169,42 @@
             // 收集所有数据
             const newData = {
                 id: id,
-                code: row.querySelector('[data-field="code"] input').value.trim(),
                 account_type: row.querySelector('[data-field="account_type"] select').value,
                 username: row.querySelector('[data-field="username"] input').value.trim(),
-                email: row.querySelector('[data-field="email"] input').value.trim(),
+                username_cn: row.querySelector('[data-field="username_cn"] input').value.trim(),
+                nickname: row.querySelector('[data-field="nickname"] input').value.trim(),
+                ic_number: row.querySelector('[data-field="ic_number"] input').value.trim(),
+                date_of_birth: row.querySelector('[data-field="date_of_birth"] input').value,
                 gender: row.querySelector('[data-field="gender"] select').value,
-                phone_number: row.querySelector('[data-field="phone_number"] input').value.trim()
+                nationality: row.querySelector('[data-field="nationality"] input').value.trim(),
+                phone_number: row.querySelector('[data-field="phone_number"] input').value.trim(),
+                email: row.querySelector('[data-field="email"] input').value.trim(),
+                home_address: row.querySelector('[data-field="home_address"] textarea').value.trim(),
+                position: row.querySelector('[data-field="position"] input').value.trim(),
+                emergency_contact_name: row.querySelector('[data-field="emergency_contact_name"] input').value.trim(),
+                emergency_phone_number: row.querySelector('[data-field="emergency_phone_number"] input').value.trim(),
+                bank_name: row.querySelector('[data-field="bank_name"] input').value.trim(),
+                bank_account: row.querySelector('[data-field="bank_account"] input').value.trim(),
+                bank_account_holder_en: row.querySelector('[data-field="bank_account_holder_en"] input').value.trim(),
+                registration_code: row.querySelector('[data-field="registration_code"] input').value.trim()
             };
             
             // 验证必填数据
-            if (!newData.code) {
-                showMessage('申请码不能为空！', 'error');
+            if (!newData.username) {
+                showMessage('全名（英）不能为空！', 'error');
                 return;
             }
-            
+
             if (!newData.account_type) {
                 showMessage('账户类型不能为空！', 'error');
                 return;
             }
-            
+
+            if (!newData.email) {
+                showMessage('邮箱不能为空！', 'error');
+                return;
+            }
+
             // 验证邮箱格式
             if (newData.email && !isValidEmail(newData.email)) {
                 showMessage('邮箱格式不正确！', 'error');
@@ -1241,17 +1269,13 @@
                 if (cell) {
                     const originalValue = cell.getAttribute('data-original') || '';
                     
-                    if (field === 'code') {
-                        cell.innerHTML = `<strong>${originalValue}</strong>`;
-                    } else if (field === 'account_type') {
+                    if (field === 'account_type') {
                         cell.innerHTML = `<span class="account-type-badge type-${originalValue}">${formatAccountType(originalValue)}</span>`;
-                    } else if (field === 'username') {
-                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
-                    } else if (field === 'email') {
-                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
                     } else if (field === 'gender') {
                         cell.innerHTML = formatGender(originalValue) || '<em style="color: #999;">-</em>';
-                    } else if (field === 'phone_number') {
+                    } else if (field === 'registration_code') {
+                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
+                    } else {
                         cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
                     }
                 }
@@ -1314,6 +1338,38 @@
                 }
             };
             document.addEventListener('keydown', escHandler);
+        }
+
+        // 获取字段最大长度
+        function getFieldMaxLength(field) {
+            const maxLengths = {
+                'username': 50,
+                'username_cn': 100,
+                'nickname': 50,
+                'nationality': 50,
+                'position': 100,
+                'emergency_contact_name': 100,
+                'bank_name': 100,
+                'bank_account_holder_en': 50,
+                'race': 50
+            };
+            return maxLengths[field] || 100;
+        }
+
+        // 获取字段占位符文本
+        function getFieldPlaceholder(field) {
+            const placeholders = {
+                'username': '全名（英）',
+                'username_cn': '全名（中）',
+                'nickname': '小名',
+                'nationality': '国籍',
+                'position': '职位',
+                'emergency_contact_name': '紧急联络人',
+                'bank_name': '银行名称',
+                'bank_account_holder_en': '银行持有人',
+                'race': '种族'
+            };
+            return placeholders[field] || field;
         }
 
         // 关闭模态框
