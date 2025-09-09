@@ -87,6 +87,158 @@ try {
 }
 
 /**
+ * 生成随机密码
+ */
+function generateRandomPassword($length = 10) {
+    $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $lowercase = 'abcdefghijklmnopqrstuvwxyz';
+    $numbers = '0123456789';
+    $symbols = '!@#$%&*';
+    
+    $password = '';
+    
+    // 确保密码包含每种类型的字符
+    $password .= $uppercase[rand(0, strlen($uppercase) - 1)];
+    $password .= $lowercase[rand(0, strlen($lowercase) - 1)];
+    $password .= $numbers[rand(0, strlen($numbers) - 1)];
+    $password .= $symbols[rand(0, strlen($symbols) - 1)];
+    
+    // 填充剩余长度
+    $allChars = $uppercase . $lowercase . $numbers . $symbols;
+    for ($i = 4; $i < $length; $i++) {
+        $password .= $allChars[rand(0, strlen($allChars) - 1)];
+    }
+    
+    // 打乱密码字符顺序
+    return str_shuffle($password);
+}
+
+/**
+ * 发送欢迎邮件
+ */
+function sendWelcomeEmail($email, $username, $password, $accountType) {
+    $to = $email;
+    $subject = "欢迎加入 Kunzz Group - 您的登录信息";
+    
+    // 格式化账户类型
+    $typeNames = [
+        'boss' => '老板',
+        'admin' => '管理员',
+        'hr' => '人事部',
+        'design' => '设计部',
+        'support' => '支援部',
+        'IT' => '技术部',
+        'photograph' => '摄影部'
+    ];
+    
+    $accountTypeName = $typeNames[$accountType] ?? $accountType;
+    
+    $message = "
+    <html>
+    <head>
+        <title>欢迎加入 Kunzz Group</title>
+        <style>
+            body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6; 
+                color: #333; 
+                max-width: 600px; 
+                margin: 0 auto; 
+                padding: 20px; 
+            }
+            .header { 
+                background: #ff5c00; 
+                color: white; 
+                padding: 20px; 
+                text-align: center; 
+                border-radius: 8px 8px 0 0; 
+            }
+            .content { 
+                background: #f9f9f9; 
+                padding: 30px; 
+                border-radius: 0 0 8px 8px; 
+                border: 1px solid #ddd; 
+            }
+            .credentials { 
+                background: white; 
+                padding: 20px; 
+                margin: 20px 0; 
+                border-radius: 5px; 
+                border-left: 4px solid #ff5c00; 
+            }
+            .password { 
+                font-family: monospace; 
+                font-size: 18px; 
+                font-weight: bold; 
+                color: #ff5c00; 
+                background: #f0f0f0; 
+                padding: 10px; 
+                border-radius: 4px; 
+                letter-spacing: 1px; 
+            }
+            .footer { 
+                margin-top: 30px; 
+                padding-top: 20px; 
+                border-top: 1px solid #ddd; 
+                font-size: 12px; 
+                color: #666; 
+            }
+        </style>
+    </head>
+    <body>
+        <div class='header'>
+            <h1>欢迎加入 Kunzz Group!</h1>
+        </div>
+        <div class='content'>
+            <h2>亲爱的 {$username}，</h2>
+            <p>欢迎您加入我们的团队！您的账户已成功创建。</p>
+            
+            <div class='credentials'>
+                <h3>您的登录信息：</h3>
+                <p><strong>邮箱：</strong> {$email}</p>
+                <p><strong>账户类型：</strong> {$accountTypeName}</p>
+                <p><strong>临时密码：</strong></p>
+                <div class='password'>{$password}</div>
+            </div>
+            
+            <p><strong style='color: #ff5c00;'>重要提醒：</strong></p>
+            <ul>
+                <li>请妥善保管您的登录信息</li>
+                <li>建议您首次登录后立即修改密码</li>
+                <li>如有任何问题，请联系管理员</li>
+            </ul>
+            
+            <p>感谢您成为我们团队的一员！</p>
+            
+            <div class='footer'>
+                <p>此邮件由系统自动发送，请勿回复。</p>
+                <p>&copy; " . date('Y') . " Kunzz Group. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+    
+    // 设置邮件头
+    $headers = array(
+        'MIME-Version' => '1.0',
+        'Content-type' => 'text/html; charset=utf-8',
+        'From' => 'noreply@kunzzgroup.com',
+        'Reply-To' => 'support@kunzzgroup.com',
+        'X-Mailer' => 'PHP/' . phpversion()
+    );
+    
+    // 将数组转换为字符串格式
+    $headerString = '';
+    foreach ($headers as $key => $value) {
+        $headerString .= $key . ': ' . $value . "\r\n";
+    }
+    
+    // 发送邮件
+    return mail($to, $subject, $message, $headerString);
+}
+
+/**
  * 生成新的应用代码
  */
 function generateCode($pdo, $input) {
@@ -624,8 +776,8 @@ function addNewUser($pdo, $input) {
             return;
         }
 
-        // 生成默认密码
-        $defaultPassword = 'Kunzz123@';
+        // 生成随机密码
+        $defaultPassword = generateRandomPassword();
         $hashedPassword = password_hash($defaultPassword, PASSWORD_DEFAULT);
 
         // 处理日期格式
@@ -688,15 +840,26 @@ function addNewUser($pdo, $input) {
         // 提交事务
         $pdo->commit();
 
+        // 发送欢迎邮件
+        $emailSent = sendWelcomeEmail($input['email'], $input['username'], $defaultPassword, $input['account_type']);
+
+        $message = '用户添加成功！';
+        if ($emailSent) {
+            $message .= ' 登录信息已发送到用户邮箱。';
+        } else {
+            $message .= ' 但邮件发送失败，请手动告知用户登录信息。';
+        }
+
         echo json_encode([
             'success' => true,
-            'message' => '用户添加成功',
+            'message' => $message,
             'data' => [
                 'username' => $input['username'],
                 'email' => $input['email'],
                 'code' => $code,
                 'account_type' => $input['account_type'],
-                'default_password' => $defaultPassword
+                'default_password' => $defaultPassword,
+                'email_sent' => $emailSent
             ]
         ]);
 

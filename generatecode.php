@@ -1524,7 +1524,13 @@
                 console.log('服务器响应:', result); // 调试信息
                 
                 if (result.success) {
-                    showMessage(`用户 "${result.data.username}" 添加成功！申请码：${result.data.code}，默认密码：${result.data.default_password}`, 'success');
+                    let message = `用户 "${result.data.username}" 添加成功！`;
+                    if (result.data.email_sent) {
+                        message += ` 登录信息已发送到 ${result.data.email}`;
+                    } else {
+                        message += ` 申请码：${result.data.code}，临时密码：${result.data.default_password}`;
+                    }
+                    showMessage(message, 'success');
                     closeAddUserModal();
                     loadCodesAndUsers(); // 刷新表格
                 } else {
