@@ -58,7 +58,7 @@
             transition: all 0.2s;
             text-decoration: none;
             position: absolute;
-            top: 10px;
+            top: 147px;
             right: 0;
         }
 
@@ -71,9 +71,9 @@
         /* 生成代码表单样式 */
         .generate-form {
             background: transparent;
-            padding: 10px 900px 10px 0px;
             border-radius: 15px;
             margin-bottom: 20px;
+            justify-items: flex-start;
         }
 
         .form-title {
@@ -233,6 +233,7 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            height: 40px;
         }
 
         .btn-generate:hover {
@@ -796,7 +797,7 @@
                         <label for="searchInput">搜索职员:</label>
                         <div style="position: relative;">
                             <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
-                                style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
+                                style="padding: 9px 40px 9px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
                             <button type="button" onclick="clearSearch()" 
                                     style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
                                     title="清除搜索">
@@ -809,7 +810,7 @@
                     <div class="form-group" style="flex: 1;">
                         <label>&nbsp;</label> <!-- 空标签保持对齐 -->
                         <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                style="background: #10b981; font-size: 16px; padding: 12px 20px; width: 80%;">
+                                style="background: #10b981; font-size: 16px; padding: 8px 20px; width: 115%;">
                             <i class="fas fa-user-plus"></i> 添加新职员
                         </button>
                     </div>
