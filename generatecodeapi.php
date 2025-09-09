@@ -640,8 +640,8 @@ function deleteCode($pdo, $input) {
         // 开始事务
         $pdo->beginTransaction();
 
-        // 获取申请码信息（用于删除关联的用户数据）
-        $checkSql = "SELECT code, used FROM application_codes WHERE id = :id";
+        // 获取用户信息
+        $checkSql = "SELECT username, registration_code FROM users WHERE id = :id";
         $checkStmt = $pdo->prepare($checkSql);
         $checkStmt->bindParam(':id', $id);
         $checkStmt->execute();
@@ -651,23 +651,16 @@ function deleteCode($pdo, $input) {
             $pdo->rollBack();
             echo json_encode([
                 'success' => false,
-                'message' => '申请码不存在'
+                'message' => '用户不存在'
             ]);
             return;
         }
 
-        $code = $result['code'];
+        $username = $result['username'];
+        $registration_code = $result['registration_code'];
 
-        // 如果申请码已被使用，先删除关联的用户数据
-        if ($result['used'] == 1) {
-            $deleteUserSql = "DELETE FROM users WHERE registration_code = :code";
-            $deleteUserStmt = $pdo->prepare($deleteUserSql);
-            $deleteUserStmt->bindParam(':code', $code);
-            $deleteUserStmt->execute();
-        }
-
-        // 删除申请码
-        $deleteSql = "DELETE FROM application_codes WHERE id = :id";
+        // 直接删除用户
+        $deleteSql = "DELETE FROM users WHERE id = :id";
         $deleteStmt = $pdo->prepare($deleteSql);
         $deleteStmt->bindParam(':id', $id);
         
@@ -688,7 +681,8 @@ function deleteCode($pdo, $input) {
             'message' => '删除成功',
             'data' => [
                 'id' => $id,
-                'code' => $code
+                'username' => $username,
+                'registration_code' => $registration_code
             ]
         ]);
 
