@@ -291,8 +291,8 @@
         th {
             background: #fff9f1;
             color: black;
-            padding: 15px 10px;
-            text-align: left;
+            padding: 15px 0px;
+            text-align: center;
             font-weight: bold;
             font-size: 14px;
             border: 1px solid #d1d5db;
