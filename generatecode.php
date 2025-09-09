@@ -320,10 +320,6 @@
             transition: all 0.2s ease;
         }
 
-        tr:hover td {
-            border-color: #ff5c00;
-        }
-
         /* 状态标签样式 */
         .status-badge {
             padding: 6px 12px;
