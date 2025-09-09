@@ -47,11 +47,11 @@
             background-color: #6b7280;
             color: white;
             font-weight: 500;
-            padding: 9px 20px;
+            padding: 10px 20px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -799,7 +799,7 @@
                         <label for="searchInput">搜索职员:</label>
                         <div style="position: relative;">
                             <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
-                                style="padding: 9px 40px 9px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
+                                style="padding: 10px 40px 10px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 14px; width: 100%;">
                             <button type="button" onclick="clearSearch()" 
                                     style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
                                     title="清除搜索">
@@ -812,7 +812,7 @@
                     <div class="form-group" style="flex: 1;">
                         <label>&nbsp;</label> <!-- 空标签保持对齐 -->
                         <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                style="background: #10b981; font-size: 16px; padding: 8px 20px; width: 115%;">
+                                style="background: #10b981; font-size: 14px; padding: 8px 20px; width: 115%;">
                             <i class="fas fa-user-plus"></i> 添加新职员
                         </button>
                     </div>
