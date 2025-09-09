@@ -655,8 +655,8 @@
                     <!-- 添加新用户按钮 -->
                     <div class="form-group" style="flex: 1;">
                         <label>&nbsp;</label> <!-- 空标签保持对齐 -->
-                        <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                style="background: #10b981; font-size: 16px; padding: 12px 20px; width: 100%;">
+                        <button type="button" class="btn-generate" id="addNewUserBtn"
+                            style="background: #10b981; font-size: 16px; padding: 12px 20px; width: 100%;">
                             <i class="fas fa-user-plus"></i> 添加新用户
                         </button>
                     </div>
@@ -851,6 +851,12 @@
             searchInput.addEventListener('input', function(e) {
                 filterTable(e.target.value);
             });
+
+            // 绑定添加新用户按钮
+            const addNewUserBtn = document.getElementById('addNewUserBtn');
+            if (addNewUserBtn) {
+                addNewUserBtn.addEventListener('click', openAddUserModal);
+            }
 
             // 初始化事件监听器
             rebindEventListeners();
