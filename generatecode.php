@@ -676,9 +676,9 @@
             <form id="generateForm">
                 <div class="form-row">
                     <div class="form-group" style="flex: 2; position: relative;">
-                        <label for="searchInput">搜索账号类型:</label>
+                        <label for="searchInput">搜索用户:</label>
                         <div style="position: relative;">
-                            <input type="text" id="searchInput" placeholder="输入账号类型进行筛选（如：管理员、人事部）..."
+                            <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
                                 style="padding: 12px 40px 12px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 16px; width: 100%;">
                             <button type="button" onclick="clearSearch()" 
                                     style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
@@ -1256,7 +1256,7 @@
         // 全局变量存储原始数据
         let originalTableData = [];
 
-        // 实时过滤表格（只搜索账号类型列）
+        // 实时过滤表格（搜索英文姓名和邮箱列）
         function filterTable(searchTerm) {
             const tableBody = document.getElementById('tableBody');
             const rows = tableBody.getElementsByTagName('tr');
@@ -1278,17 +1278,33 @@
                     continue;
                 }
                 
-                // 只检查账号类型列（第3列，索引为2）
-                const accountTypeCell = row.cells[2];
-                if (accountTypeCell) {
-                    const cellText = accountTypeCell.textContent.toLowerCase();
-                    
-                    // 显示或隐藏行
-                    if (cellText.includes(searchLower)) {
-                        row.classList.remove('hidden-row');
-                    } else {
-                        row.classList.add('hidden-row');
+                // 检查英文姓名列（第3列，索引为2）和邮箱列（第12列，索引为11）
+                const usernameCell = row.cells[2]; // 英文姓名列
+                const emailCell = row.cells[11]; // 邮箱列
+                
+                let isMatch = false;
+                
+                // 检查英文姓名
+                if (usernameCell) {
+                    const usernameText = usernameCell.textContent.toLowerCase();
+                    if (usernameText.includes(searchLower)) {
+                        isMatch = true;
                     }
+                }
+                
+                // 检查邮箱
+                if (!isMatch && emailCell) {
+                    const emailText = emailCell.textContent.toLowerCase();
+                    if (emailText.includes(searchLower)) {
+                        isMatch = true;
+                    }
+                }
+                
+                // 显示或隐藏行
+                if (isMatch) {
+                    row.classList.remove('hidden-row');
+                } else {
+                    row.classList.add('hidden-row');
                 }
             }
         }
