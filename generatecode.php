@@ -758,7 +758,58 @@
                         
                         <div class="form-group">
                             <label for="add_nationality">国籍:</label>
-                            <input type="text" id="add_nationality" name="nationality" maxlength="50">
+                            <select id="add_nationality" name="nationality">
+                                <option value="">请选择国籍</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Armenia">Armenia</option>
+                                <option value="Azerbaijan">Azerbaijan</option>
+                                <option value="Bahrain">Bahrain</option>
+                                <option value="Bangladesh">Bangladesh</option>
+                                <option value="Bhutan">Bhutan</option>
+                                <option value="Brunei">Brunei</option>
+                                <option value="Cambodia">Cambodia</option>
+                                <option value="China">China</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="East Timor (Timor-Leste)">East Timor (Timor-Leste)</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="India">India</option>
+                                <option value="Indonesia">Indonesia</option>
+                                <option value="Iran">Iran</option>
+                                <option value="Iraq">Iraq</option>
+                                <option value="Israel">Israel</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Jordan">Jordan</option>
+                                <option value="Kazakhstan">Kazakhstan</option>
+                                <option value="Kuwait">Kuwait</option>
+                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                <option value="Laos">Laos</option>
+                                <option value="Lebanon">Lebanon</option>
+                                <option value="Malaysia">Malaysia</option>
+                                <option value="Maldives">Maldives</option>
+                                <option value="Mongolia">Mongolia</option>
+                                <option value="Myanmar (Burma)">Myanmar (Burma)</option>
+                                <option value="Nepal">Nepal</option>
+                                <option value="North Korea">North Korea</option>
+                                <option value="Oman">Oman</option>
+                                <option value="Pakistan">Pakistan</option>
+                                <option value="Palestine">Palestine</option>
+                                <option value="Philippines">Philippines</option>
+                                <option value="Qatar">Qatar</option>
+                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="South Korea">South Korea</option>
+                                <option value="Sri Lanka">Sri Lanka</option>
+                                <option value="Syria">Syria</option>
+                                <option value="Taiwan">Taiwan</option>
+                                <option value="Tajikistan">Tajikistan</option>
+                                <option value="Thailand">Thailand</option>
+                                <option value="Turkey">Turkey</option>
+                                <option value="Turkmenistan">Turkmenistan</option>
+                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                <option value="Uzbekistan">Uzbekistan</option>
+                                <option value="Vietnam">Vietnam</option>
+                                <option value="Yemen">Yemen</option>
+                            </select>
                         </div>
                         
                         <div class="form-group">
@@ -1253,6 +1304,61 @@
                                 <option value="Others (Foreign)" ${originalValue === 'Others (Foreign)' ? 'selected' : ''}>Others (Foreign)</option>
                             </select>
                         `;
+                    } else if (field === 'nationality') {
+                        cell.innerHTML = `
+                            <select class="edit-select">
+                                <option value="">请选择国籍</option>
+                                <option value="Afghanistan" ${originalValue === 'Afghanistan' ? 'selected' : ''}>Afghanistan</option>
+                                <option value="Armenia" ${originalValue === 'Armenia' ? 'selected' : ''}>Armenia</option>
+                                <option value="Azerbaijan" ${originalValue === 'Azerbaijan' ? 'selected' : ''}>Azerbaijan</option>
+                                <option value="Bahrain" ${originalValue === 'Bahrain' ? 'selected' : ''}>Bahrain</option>
+                                <option value="Bangladesh" ${originalValue === 'Bangladesh' ? 'selected' : ''}>Bangladesh</option>
+                                <option value="Bhutan" ${originalValue === 'Bhutan' ? 'selected' : ''}>Bhutan</option>
+                                <option value="Brunei" ${originalValue === 'Brunei' ? 'selected' : ''}>Brunei</option>
+                                <option value="Cambodia" ${originalValue === 'Cambodia' ? 'selected' : ''}>Cambodia</option>
+                                <option value="China" ${originalValue === 'China' ? 'selected' : ''}>China</option>
+                                <option value="Cyprus" ${originalValue === 'Cyprus' ? 'selected' : ''}>Cyprus</option>
+                                <option value="East Timor (Timor-Leste)" ${originalValue === 'East Timor (Timor-Leste)' ? 'selected' : ''}>East Timor (Timor-Leste)</option>
+                                <option value="Georgia" ${originalValue === 'Georgia' ? 'selected' : ''}>Georgia</option>
+                                <option value="India" ${originalValue === 'India' ? 'selected' : ''}>India</option>
+                                <option value="Indonesia" ${originalValue === 'Indonesia' ? 'selected' : ''}>Indonesia</option>
+                                <option value="Iran" ${originalValue === 'Iran' ? 'selected' : ''}>Iran</option>
+                                <option value="Iraq" ${originalValue === 'Iraq' ? 'selected' : ''}>Iraq</option>
+                                <option value="Israel" ${originalValue === 'Israel' ? 'selected' : ''}>Israel</option>
+                                <option value="Japan" ${originalValue === 'Japan' ? 'selected' : ''}>Japan</option>
+                                <option value="Jordan" ${originalValue === 'Jordan' ? 'selected' : ''}>Jordan</option>
+                                <option value="Kazakhstan" ${originalValue === 'Kazakhstan' ? 'selected' : ''}>Kazakhstan</option>
+                                <option value="Kuwait" ${originalValue === 'Kuwait' ? 'selected' : ''}>Kuwait</option>
+                                <option value="Kyrgyzstan" ${originalValue === 'Kyrgyzstan' ? 'selected' : ''}>Kyrgyzstan</option>
+                                <option value="Laos" ${originalValue === 'Laos' ? 'selected' : ''}>Laos</option>
+                                <option value="Lebanon" ${originalValue === 'Lebanon' ? 'selected' : ''}>Lebanon</option>
+                                <option value="Malaysia" ${originalValue === 'Malaysia' ? 'selected' : ''}>Malaysia</option>
+                                <option value="Maldives" ${originalValue === 'Maldives' ? 'selected' : ''}>Maldives</option>
+                                <option value="Mongolia" ${originalValue === 'Mongolia' ? 'selected' : ''}>Mongolia</option>
+                                <option value="Myanmar (Burma)" ${originalValue === 'Myanmar (Burma)' ? 'selected' : ''}>Myanmar (Burma)</option>
+                                <option value="Nepal" ${originalValue === 'Nepal' ? 'selected' : ''}>Nepal</option>
+                                <option value="North Korea" ${originalValue === 'North Korea' ? 'selected' : ''}>North Korea</option>
+                                <option value="Oman" ${originalValue === 'Oman' ? 'selected' : ''}>Oman</option>
+                                <option value="Pakistan" ${originalValue === 'Pakistan' ? 'selected' : ''}>Pakistan</option>
+                                <option value="Palestine" ${originalValue === 'Palestine' ? 'selected' : ''}>Palestine</option>
+                                <option value="Philippines" ${originalValue === 'Philippines' ? 'selected' : ''}>Philippines</option>
+                                <option value="Qatar" ${originalValue === 'Qatar' ? 'selected' : ''}>Qatar</option>
+                                <option value="Saudi Arabia" ${originalValue === 'Saudi Arabia' ? 'selected' : ''}>Saudi Arabia</option>
+                                <option value="Singapore" ${originalValue === 'Singapore' ? 'selected' : ''}>Singapore</option>
+                                <option value="South Korea" ${originalValue === 'South Korea' ? 'selected' : ''}>South Korea</option>
+                                <option value="Sri Lanka" ${originalValue === 'Sri Lanka' ? 'selected' : ''}>Sri Lanka</option>
+                                <option value="Syria" ${originalValue === 'Syria' ? 'selected' : ''}>Syria</option>
+                                <option value="Taiwan" ${originalValue === 'Taiwan' ? 'selected' : ''}>Taiwan</option>
+                                <option value="Tajikistan" ${originalValue === 'Tajikistan' ? 'selected' : ''}>Tajikistan</option>
+                                <option value="Thailand" ${originalValue === 'Thailand' ? 'selected' : ''}>Thailand</option>
+                                <option value="Turkey" ${originalValue === 'Turkey' ? 'selected' : ''}>Turkey</option>
+                                <option value="Turkmenistan" ${originalValue === 'Turkmenistan' ? 'selected' : ''}>Turkmenistan</option>
+                                <option value="United Arab Emirates" ${originalValue === 'United Arab Emirates' ? 'selected' : ''}>United Arab Emirates</option>
+                                <option value="Uzbekistan" ${originalValue === 'Uzbekistan' ? 'selected' : ''}>Uzbekistan</option>
+                                <option value="Vietnam" ${originalValue === 'Vietnam' ? 'selected' : ''}>Vietnam</option>
+                                <option value="Yemen" ${originalValue === 'Yemen' ? 'selected' : ''}>Yemen</option>
+                            </select>
+                        `;
                     } else {
                         // 其他文本字段的通用处理
                         const maxLength = getFieldMaxLength(field);
@@ -1287,7 +1393,7 @@
                 date_of_birth: row.querySelector('[data-field="date_of_birth"] input').value,
                 gender: row.querySelector('[data-field="gender"] select').value,
                 race: row.querySelector('[data-field="race"] select').value.trim(),
-                nationality: row.querySelector('[data-field="nationality"] input').value.trim(),
+                nationality: row.querySelector('[data-field="nationality"] select').value.trim(),
                 phone_number: row.querySelector('[data-field="phone_number"] input').value.trim(),
                 email: row.querySelector('[data-field="email"] input').value.trim(),
                 home_address: row.querySelector('[data-field="home_address"] textarea').value.trim(),
