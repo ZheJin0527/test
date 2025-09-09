@@ -325,11 +325,11 @@
         th:nth-child(16), td:nth-child(16) { width: 120px; }   /* 银行名称 */
         th:nth-child(17), td:nth-child(17) { width: 130px; }   /* 银行账号 */
         th:nth-child(18), td:nth-child(18) { width: 120px; }   /* 银行持有人 */
-        th:nth-child(19), td:nth-child(19) { width: 100px; }   /* 申请码 */
-        th:nth-child(20), td:nth-child(20) { width: 120px; }   /* 操作 */
+        th:nth-child(19), td:nth-child(19) { width: 80px; }   /* 申请码 */
+        th:nth-child(20), td:nth-child(20) { width: 100px; }   /* 操作 */
 
         td {
-            padding: 12px 10px;
+            padding: 12px 5px;
             font-size: 12px;
             font-weight: 500;
             border: 1px solid #d1d5db;
