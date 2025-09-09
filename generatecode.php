@@ -1315,10 +1315,10 @@
                     <td>
                         <div class="action-buttons">
                             <button class="btn-action btn-edit" onclick="editRow(${item.id})">
-                                <i class="fas fa-edit"></i> 编辑
+                                <i class="fas fa-edit"></i> 
                             </button>
                             <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.username || '未知职员'}')">
-                                <i class="fas fa-trash"></i> 删除
+                                <i class="fas fa-trash"></i> 
                             </button>
                         </div>
                     </td>
