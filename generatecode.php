@@ -307,7 +307,7 @@
         }
 
         /* 设置各列的宽度 */
-        th:nth-child(1), td:nth-child(1) { width: 30px; }      /* 序号 */
+        th:nth-child(1), td:nth-child(1) { width: 40px; }      /* 序号 */
         th:nth-child(2), td:nth-child(2) { width: 80px; }      /* 账号类型 */
         th:nth-child(3), td:nth-child(3) { width: 120px; }     /* 全名（英） */
         th:nth-child(4), td:nth-child(4) { width: 100px; }     /* 全名（中） */
