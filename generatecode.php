@@ -324,7 +324,7 @@
         td:nth-child(13) { width: 200px; text-align: left; }   /* 地址 */
         th:nth-child(14), td:nth-child(14) { width: 90px; }   /* 职位 */
         th:nth-child(15), td:nth-child(15) { width: 120px; }   /* 紧急联络人 */
-        th:nth-child(16), td:nth-child(16) { width: 120px; }   /* 紧急联络号码 */
+        th:nth-child(16), td:nth-child(16) { width: 100px; }   /* 紧急联络号码 */
         th:nth-child(17), td:nth-child(17) { width: 140px; }   /* 银行名称 */
         th:nth-child(18), td:nth-child(18) { width: 120px; }   /* 银行账号 */
         th:nth-child(19), td:nth-child(19) { width: 120px; }   /* 银行持有人 */
