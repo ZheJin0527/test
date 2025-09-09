@@ -353,7 +353,7 @@
         }
 
         td {
-            padding: 6px;
+            padding: 8px 6px;
             font-size: 12px;
             font-weight: 500;
             border: 1px solid #d1d5db;
