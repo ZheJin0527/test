@@ -329,7 +329,7 @@
         th:nth-child(20), td:nth-child(20) { width: 100px; }   /* 操作 */
 
         td {
-            padding: 12px 5px;
+            padding: 8px 5px;
             font-size: 12px;
             font-weight: 500;
             border: 1px solid #d1d5db;
