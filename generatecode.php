@@ -169,6 +169,7 @@
         #addUserModal #add_home_address {
             padding: 6px 8px;
             font-size: 13px;
+            font-family: inherit;
             height: 60px;
             border: 1px solid #ff5c00;
             border-radius: 6px;
