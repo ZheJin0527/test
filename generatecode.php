@@ -1744,7 +1744,7 @@
             // 显示保存状态
             const saveBtn = row.querySelector('.btn-save');
             const originalText = saveBtn.innerHTML;
-            saveBtn.innerHTML = '<div class="loading"></div>保存中...';
+            saveBtn.innerHTML = '<div class="loading"></div>';
             saveBtn.disabled = true;
             
             try {
