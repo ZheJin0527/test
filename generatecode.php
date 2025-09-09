@@ -313,7 +313,7 @@
         th:nth-child(3), td:nth-child(3) { width: 120px; }     /* 全名（英） */
         th:nth-child(4), td:nth-child(4) { width: 100px; }     /* 全名（中） */
         th:nth-child(5), td:nth-child(5) { width: 80px; }      /* 小名 */
-        th:nth-child(6), td:nth-child(6) { width: 120px; }     /* 身份证号码 */
+        th:nth-child(6), td:nth-child(6) { width: 100px; }     /* 身份证号码 */
         th:nth-child(7), td:nth-child(7) { width: 100px; }     /* 生日 */
         th:nth-child(8), td:nth-child(8) { width: 40px; }      /* 性别 */
         th:nth-child(9), td:nth-child(9) { width: 80px; }   /* 种族 */
