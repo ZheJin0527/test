@@ -320,8 +320,22 @@
         th:nth-child(10), td:nth-child(10) { width: 80px; }      /* 国籍 */
         th:nth-child(11), td:nth-child(11) { width: 100px; }   /* 联络号码 */
         th:nth-child(12), td:nth-child(12) { width: 150px; }   /* 邮箱 */
-        th:nth-child(13) { width: 200px; }   /* 地址 */
-        td:nth-child(13) { width: 200px; text-align: left; }   /* 地址 */
+        th:nth-child(13), td:nth-child(13) { 
+            width: 200px; 
+            max-width: 200px;
+            min-width: 200px;
+        }   /* 地址 */
+        td:nth-child(13) { 
+            width: 200px; 
+            max-width: 200px;
+            min-width: 200px;
+            text-align: left;
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            line-height: 1.3;
+        }   /* 地址 */
         th:nth-child(14), td:nth-child(14) { width: 90px; }   /* 职位 */
         th:nth-child(15), td:nth-child(15) { width: 120px; }   /* 紧急联络人 */
         th:nth-child(16), td:nth-child(16) { width: 100px; }   /* 紧急联络号码 */
@@ -344,6 +358,19 @@
             border: 1px solid #d1d5db;
             vertical-align: middle;
             text-align: center;
+        }
+
+        /* 地址列编辑状态下的样式 */
+        td:nth-child(13) .edit-input {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+            font-size: 12px;
         }
 
         /* 表格行悬停效果 - 保持边框 */
@@ -1338,7 +1365,7 @@
                         cell.innerHTML = `<input type="tel" class="edit-input" value="${originalValue}" maxlength="20" placeholder="联络号码">`;
                         setTimeout(() => addInputFormatting(cell.querySelector('input'), field), 0);
                     } else if (field === 'home_address') {
-                        cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址" style="min-height: 60px;">${originalValue}</textarea>`;
+                        cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址" style="min-height: 60px; width: 100%; max-width: 100%; box-sizing: border-box; word-wrap: break-word; white-space: pre-wrap; resize: vertical;">${originalValue}</textarea>`;
                         setTimeout(() => addInputFormatting(cell.querySelector('textarea'), 'home_address'), 0);
                     } else if (field === 'ic_number') {
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
