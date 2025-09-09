@@ -334,6 +334,7 @@ function getCodesAndUsers($pdo) {
                 u.nickname,
                 u.email,
                 u.gender,
+                u.race,
                 u.phone_number,
                 u.ic_number,
                 u.date_of_birth,
@@ -488,6 +489,7 @@ function updateCodeAndUser($pdo, $input) {
     $nickname = trim($input['nickname'] ?? '');
     $email = trim($input['email'] ?? '');
     $gender = trim($input['gender'] ?? '');
+    $race = trim($input['race'] ?? '');
     $phone_number = trim($input['phone_number'] ?? '');
     $ic_number = trim($input['ic_number'] ?? '');
     $date_of_birth = !empty($input['date_of_birth']) ? $input['date_of_birth'] : null;
@@ -559,6 +561,7 @@ function updateCodeAndUser($pdo, $input) {
             nickname = :nickname,
             email = :email,
             gender = :gender,
+            race = :race,
             phone_number = :phone_number,
             ic_number = :ic_number,
             date_of_birth = :date_of_birth,
@@ -579,6 +582,7 @@ function updateCodeAndUser($pdo, $input) {
             ':nickname' => $nickname,
             ':email' => $email,
             ':gender' => $gender,
+            ':race' => $race,
             ':phone_number' => $phone_number,
             ':ic_number' => $ic_number,
             ':date_of_birth' => $date_of_birth,
