@@ -312,18 +312,18 @@
         th:nth-child(3), td:nth-child(3) { width: 120px; }     /* 全名（英） */
         th:nth-child(4), td:nth-child(4) { width: 100px; }     /* 全名（中） */
         th:nth-child(5), td:nth-child(5) { width: 80px; }      /* 小名 */
-        th:nth-child(6), td:nth-child(6) { width: 130px; }     /* 身份证号码 */
+        th:nth-child(6), td:nth-child(6) { width: 120px; }     /* 身份证号码 */
         th:nth-child(7), td:nth-child(7) { width: 100px; }     /* 生日 */
         th:nth-child(8), td:nth-child(8) { width: 40px; }      /* 性别 */
         th:nth-child(9), td:nth-child(9) { width: 80px; }      /* 国籍 */
         th:nth-child(10), td:nth-child(10) { width: 120px; }   /* 联络号码 */
         th:nth-child(11), td:nth-child(11) { width: 150px; }   /* 邮箱 */
         th:nth-child(12), td:nth-child(12) { width: 200px; }   /* 地址 */
-        th:nth-child(13), td:nth-child(13) { width: 100px; }   /* 职位 */
+        th:nth-child(13), td:nth-child(13) { width: 90px; }   /* 职位 */
         th:nth-child(14), td:nth-child(14) { width: 120px; }   /* 紧急联络人 */
-        th:nth-child(15), td:nth-child(15) { width: 130px; }   /* 紧急联络号码 */
-        th:nth-child(16), td:nth-child(16) { width: 120px; }   /* 银行名称 */
-        th:nth-child(17), td:nth-child(17) { width: 130px; }   /* 银行账号 */
+        th:nth-child(15), td:nth-child(15) { width: 120px; }   /* 紧急联络号码 */
+        th:nth-child(16), td:nth-child(16) { width: 140px; }   /* 银行名称 */
+        th:nth-child(17), td:nth-child(17) { width: 120px; }   /* 银行账号 */
         th:nth-child(18), td:nth-child(18) { width: 120px; }   /* 银行持有人 */
         th:nth-child(19), td:nth-child(19) { width: 80px; }   /* 申请码 */
         th:nth-child(20), td:nth-child(20) { width: 100px; }   /* 操作 */
