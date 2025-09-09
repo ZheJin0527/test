@@ -1302,11 +1302,7 @@
                     } else if (field === 'gender') {
                         cell.innerHTML = formatGender(originalValue) || '<em style="color: #999;">-</em>';
                     } else {
-                        if (originalValue && originalValue.trim() !== '') {
-                            cell.innerHTML = originalValue;
-                        } else {
-                            cell.innerHTML = '<em style="color: #999;">-</em>';
-                        }
+                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
                     }
                 }
             });
