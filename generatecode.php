@@ -1345,7 +1345,7 @@
                         cell.innerHTML = `<input type="tel" class="edit-input" value="${originalValue}" maxlength="20" placeholder="联络号码">`;
                         setTimeout(() => addInputFormatting(cell.querySelector('input'), field), 0);
                     } else if (field === 'home_address') {
-                        cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址" style="min-height: 60px; width: 100%; resize: vertical; word-wrap: break-word; overflow-wrap: break-word;">${originalValue}</textarea>`;
+                        cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址" rows="3" cols="25" style="resize: vertical;">${originalValue}</textarea>`;
                         setTimeout(() => addInputFormatting(cell.querySelector('textarea'), 'home_address'), 0);
                     } else if (field === 'ic_number') {
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
