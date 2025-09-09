@@ -1314,7 +1314,7 @@
             
             cancelBtn.innerHTML = '<i class="fas fa-trash"></i> 删除';
             cancelBtn.className = 'btn-action btn-delete';
-            cancelBtn.setAttribute('onclick', `confirmDelete(${id}, '${row.querySelector('[data-field="code"]').getAttribute('data-original')}')`);
+            cancelBtn.setAttribute('onclick', `confirmDelete(${id}, '${row.querySelector('[data-field="username"]').getAttribute('data-original')}')`);
         }
 
         // 确认删除
