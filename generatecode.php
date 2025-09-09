@@ -319,7 +319,8 @@
         th:nth-child(10), td:nth-child(10) { width: 80px; }      /* 国籍 */
         th:nth-child(11), td:nth-child(11) { width: 100px; }   /* 联络号码 */
         th:nth-child(12), td:nth-child(12) { width: 150px; }   /* 邮箱 */
-        th:nth-child(13), td:nth-child(13) { width: 200px; text-align: left; }   /* 地址 */
+        th:nth-child(13) { width: 200px; }   /* 地址 */
+        td:nth-child(13) { width: 200px; text-align: left; }   /* 地址 */
         th:nth-child(14), td:nth-child(14) { width: 90px; }   /* 职位 */
         th:nth-child(15), td:nth-child(15) { width: 120px; }   /* 紧急联络人 */
         th:nth-child(16), td:nth-child(16) { width: 120px; }   /* 紧急联络号码 */
