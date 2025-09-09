@@ -647,19 +647,30 @@
                     <thead>
                         <tr>
                             <th>序号</th>
-                            <th>申请码</th>
                             <th>账号类型</th>
-                            <th>使用状态</th>
-                            <th>用户名</th>
-                            <th>邮箱</th>
+                            <th>全名（英）</th>
+                            <th>全名（中）</th>
+                            <th>小名</th>
+                            <th>身份证号码</th>
+                            <th>生日</th>
                             <th>性别</th>
-                            <th>电话号码</th>
+                            <th>国籍</th>
+                            <th>联络号码</th>
+                            <th>邮箱</th>
+                            <th>地址</th>
+                            <th>职位</th>
+                            <th>紧急联络人</th>
+                            <th>紧急联络号码</th>
+                            <th>银行名称</th>
+                            <th>银行账号</th>
+                            <th>银行持有人</th>
+                            <th>申请码</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="8" style="text-align: center; padding: 30px;">
+                            <td colspan="20" style="text-align: center; padding: 30px;">
                                 <div class="loading"></div>
                                 正在加载数据...
                             </td>
@@ -830,7 +841,7 @@
                 } else {
                     tableBody.innerHTML = `
                         <tr>
-                            <td colspan="8" style="text-align: center; padding: 30px; color: #C62828;">
+                            <td colspan="20" style="text-align: center; padding: 30px; color: #C62828;">
                                 ❌ 加载失败: ${result.message}
                             </td>
                         </tr>
@@ -840,7 +851,7 @@
                 console.error('Error:', error);
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="8" style="text-align: center; padding: 30px; color: #C62828;">
+                        <td colspan="20" style="text-align: center; padding: 30px; color: #C62828;">
                             ❌ 网络错误，请检查连接
                         </td>
                     </tr>
@@ -901,7 +912,7 @@
             if (!data || data.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="9" style="text-align: center; padding: 30px; color: #666;">
+                        <td colspan="20" style="text-align: center; padding: 30px; color: #666;">
                             📝 暂无数据
                         </td>
                     </tr>
@@ -930,25 +941,32 @@
             const rows = sortedData.map((item, index) => `
                 <tr id="row-${item.id}" data-id="${item.id}">
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
-                    <td data-field="code" data-original="${item.code}"><strong>${item.code}</strong></td>
                     <td data-field="account_type" data-original="${item.account_type}">
                         <span class="account-type-badge type-${item.account_type}">${formatAccountType(item.account_type)}</span>
                     </td>
-                    <td data-field="used" data-original="${item.used}">
-                        <span class="status-badge ${item.used == 1 ? 'status-used' : 'status-unused'}">
-                            ${item.used == 1 ? '已使用' : '未使用'}
-                        </span>
-                    </td>
                     <td data-field="username" data-original="${item.username || ''}">${item.username || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="email" data-original="${item.email || ''}">${item.email || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="username_cn" data-original="${item.username_cn || ''}">${item.username_cn || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="nickname" data-original="${item.nickname || ''}">${item.nickname || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="ic_number" data-original="${item.ic_number || ''}">${item.ic_number || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="date_of_birth" data-original="${item.date_of_birth || ''}">${item.date_of_birth || '<em style="color: #999;">-</em>'}</td>
                     <td data-field="gender" data-original="${item.gender || ''}">${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="nationality" data-original="${item.nationality || ''}">${item.nationality || '<em style="color: #999;">-</em>'}</td>
                     <td data-field="phone_number" data-original="${item.phone_number || ''}">${item.phone_number || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="email" data-original="${item.email || ''}">${item.email || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="home_address" data-original="${item.home_address || ''}">${item.home_address || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="position" data-original="${item.position || ''}">${item.position || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="emergency_contact_name" data-original="${item.emergency_contact_name || ''}">${item.emergency_contact_name || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="emergency_phone_number" data-original="${item.emergency_phone_number || ''}">${item.emergency_phone_number || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="bank_name" data-original="${item.bank_name || ''}">${item.bank_name || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="bank_account" data-original="${item.bank_account || ''}">${item.bank_account || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="bank_account_holder_en" data-original="${item.bank_account_holder_en || ''}">${item.bank_account_holder_en || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="registration_code" data-original="${item.registration_code || ''}">${item.registration_code || '<em style="color: #999;">-</em>'}</td>
                     <td>
                         <div class="action-buttons">
                             <button class="btn-action btn-edit" onclick="editRow(${item.id})">
                                 <i class="fas fa-edit"></i> 编辑
                             </button>
-                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.code}')">
+                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.registration_code}')">
                                 <i class="fas fa-trash"></i> 删除
                             </button>
                         </div>
@@ -1078,7 +1096,12 @@
             row.classList.add('editing-row');
             
             // 获取所有可编辑的字段
-            const editableFields = ['code', 'account_type', 'username', 'email', 'gender', 'phone_number'];
+            const editableFields = [
+                'account_type', 'username', 'username_cn', 'nickname', 'ic_number', 
+                'date_of_birth', 'gender', 'nationality', 'phone_number', 'email', 
+                'home_address', 'position', 'emergency_contact_name', 'emergency_phone_number',
+                'bank_name', 'bank_account', 'bank_account_holder_en', 'registration_code'
+            ];
             
             editableFields.forEach(field => {
                 const cell = row.querySelector(`[data-field="${field}"]`);
@@ -1206,7 +1229,12 @@
             row.classList.remove('editing-row');
             
             // 恢复原始数据
-            const editableFields = ['code', 'account_type', 'username', 'email', 'gender', 'phone_number'];
+            const editableFields = [
+                'account_type', 'username', 'username_cn', 'nickname', 'ic_number', 
+                'date_of_birth', 'gender', 'nationality', 'phone_number', 'email', 
+                'home_address', 'position', 'emergency_contact_name', 'emergency_phone_number',
+                'bank_name', 'bank_account', 'bank_account_holder_en', 'registration_code'
+            ];
             
             editableFields.forEach(field => {
                 const cell = row.querySelector(`[data-field="${field}"]`);

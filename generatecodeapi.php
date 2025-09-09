@@ -176,18 +176,28 @@ function getCodesAndUsers($pdo) {
         // 查询所有代码和对应的用户信息
         $sql = "
             SELECT 
-                ac.id,
-                ac.code,
-                ac.account_type,
-                ac.used,
-                ac.created_at,
+                u.id,
                 u.username,
+                u.username_cn,
+                u.nickname,
                 u.email,
                 u.gender,
-                u.phone_number
-            FROM application_codes ac
-            LEFT JOIN users u ON ac.code = u.registration_code
-            ORDER BY ac.created_at DESC, ac.id DESC
+                u.phone_number,
+                u.ic_number,
+                u.date_of_birth,
+                u.nationality,
+                u.home_address,
+                u.position,
+                u.emergency_contact_name,
+                u.emergency_phone_number,
+                u.bank_name,
+                u.bank_account,
+                u.bank_account_holder_en,
+                u.registration_code,
+                u.account_type,
+                u.created_at
+            FROM users u
+            ORDER BY u.created_at DESC, u.id DESC
         ";
         
         $stmt = $pdo->prepare($sql);
