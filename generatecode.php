@@ -478,7 +478,7 @@
             padding: 6px 10px;
             border: 1px solid #2196F3;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 12px;
             font-family: inherit;
             background: #f8f9fa;
             box-sizing: border-box;
