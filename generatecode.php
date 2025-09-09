@@ -867,7 +867,7 @@
 
     <!-- 添加职员模态框 -->
     <div id="addUserModal" class="modal">
-        <div class="modal-content" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-content" style="max-width: 600px; max-height: 85vh; overflow-y: auto;">
             <div class="modal-header" style="color: #10b981; font-size: 16px; margin-bottom: 10px;">
                 <i class="fas fa-user-plus"></i> 添加新职员
             </div>
