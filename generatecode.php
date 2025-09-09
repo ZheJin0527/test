@@ -353,7 +353,7 @@
         }
 
         td {
-            padding: 5px;
+            padding: 6px;
             font-size: 12px;
             font-weight: 500;
             border: 1px solid #d1d5db;
@@ -1315,10 +1315,10 @@
                     <td>
                         <div class="action-buttons">
                             <button class="btn-action btn-edit" onclick="editRow(${item.id})">
-                                <i class="fas fa-edit"></i> 
+                                <i class="fas fa-edit"></i>
                             </button>
                             <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.username || '未知职员'}')">
-                                <i class="fas fa-trash"></i> 
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </td>
@@ -1674,11 +1674,11 @@
             });
             
             // 修改按钮
-            editBtn.innerHTML = '<i class="fas fa-save"></i> 保存';
+            editBtn.innerHTML = '<i class="fas fa-save"></i>';
             editBtn.className = 'btn-action btn-save';
             editBtn.setAttribute('onclick', `saveRow(${id})`);
             
-            deleteBtn.innerHTML = '<i class="fas fa-times"></i> 取消';
+            deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
             deleteBtn.className = 'btn-action btn-cancel';
             deleteBtn.setAttribute('onclick', `cancelEdit(${id})`);
         }
@@ -1810,11 +1810,11 @@
             });
             
             // 恢复按钮
-            editBtn.innerHTML = '<i class="fas fa-edit"></i> 编辑';
+            editBtn.innerHTML = '<i class="fas fa-edit"></i>';
             editBtn.className = 'btn-action btn-edit';
             editBtn.setAttribute('onclick', `editRow(${id})`);
             
-            cancelBtn.innerHTML = '<i class="fas fa-trash"></i> 删除';
+            cancelBtn.innerHTML = '<i class="fas fa-trash"></i>';
             cancelBtn.className = 'btn-action btn-delete';
             cancelBtn.setAttribute('onclick', `confirmDelete(${id}, '${row.querySelector('[data-field="username"]').getAttribute('data-original')}')`);
         }
