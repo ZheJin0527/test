@@ -936,6 +936,89 @@
     </button>
 
     <script>
+        // 输入验证函数
+        function validateField(field, value, showAlert = true) {
+            const errors = [];
+            
+            switch(field) {
+                case 'username':
+                case 'emergency_contact_name':
+                case 'bank_account_holder_en':
+                    // 英文名：只能大写字母，至少两个单词
+                    const nameRegex = /^[A-Z]+(\s[A-Z]+)+$/;
+                    if (value && !nameRegex.test(value)) {
+                        errors.push('只能包含大写字母和空格，且至少需要两个单词');
+                    }
+                    break;
+                    
+                case 'username_cn':
+                    // 中文名：只能中文字，至少两个字
+                    const chineseRegex = /^[\u4e00-\u9fff]{2,}$/;
+                    if (value && !chineseRegex.test(value)) {
+                        errors.push('只能包含中文字符，且至少需要两个字');
+                    }
+                    break;
+                    
+                case 'email':
+                    // 邮箱：只能小写字母、数字，必须有@
+                    const emailRegex = /^[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+$/;
+                    if (value && !emailRegex.test(value)) {
+                        errors.push('只能包含小写字母、数字，且必须包含@符号');
+                    }
+                    break;
+                    
+                case 'ic_number':
+                case 'phone_number':
+                case 'emergency_phone_number':
+                case 'bank_account':
+                    // 数字类字段：只能数字
+                    const numberRegex = /^\d+$/;
+                    if (value && !numberRegex.test(value)) {
+                        errors.push('只能包含数字');
+                    }
+                    break;
+                    
+                case 'home_address':
+                    // 地址：大写字母、数字和符号
+                    const addressRegex = /^[A-Z0-9\s\.,\-\#\/\(\)]+$/;
+                    if (value && !addressRegex.test(value)) {
+                        errors.push('只能包含大写字母、数字和符号');
+                    }
+                    break;
+            }
+            
+            if (errors.length > 0 && showAlert) {
+                const fieldNames = {
+                    'username': '英文姓名',
+                    'username_cn': '中文姓名',
+                    'email': '邮箱',
+                    'ic_number': '身份证号码',
+                    'phone_number': '电话号码',
+                    'emergency_phone_number': '紧急联络号码',
+                    'bank_account': '银行账号',
+                    'bank_account_holder_en': '银行账户持有人',
+                    'emergency_contact_name': '紧急联络人',
+                    'home_address': '地址'
+                };
+                showMessage(`${fieldNames[field]}格式错误：${errors[0]}`, 'error');
+            }
+            
+            return errors.length === 0;
+        }
+
+        // 实时验证输入
+        function addRealTimeValidation(input, field) {
+            input.addEventListener('input', function() {
+                validateField(field, this.value, false);
+                // 可以添加视觉反馈
+                if (this.value && !validateField(field, this.value, false)) {
+                    this.style.borderColor = '#f44336';
+                } else {
+                    this.style.borderColor = '#ff5c00';
+                }
+            });
+        }
+
         // 页面加载时获取数据
         document.addEventListener('DOMContentLoaded', function() {
             loadCodesAndUsers();
@@ -1422,10 +1505,17 @@
                 return;
             }
 
-            // 验证邮箱格式
-            if (newData.email && !isValidEmail(newData.email)) {
-                showMessage('邮箱格式不正确！', 'error');
-                return;
+            // 验证所有字段格式
+            const fieldsToValidate = [
+                'username', 'username_cn', 'email', 'ic_number', 
+                'phone_number', 'emergency_phone_number', 'bank_account',
+                'bank_account_holder_en', 'emergency_contact_name', 'home_address'
+            ];
+
+            for (let field of fieldsToValidate) {
+                if (newData[field] && !validateField(field, newData[field])) {
+                    return; // 如果验证失败，停止保存
+                }
             }
             
             // 显示保存状态
@@ -1629,12 +1719,6 @@
             }
         }
 
-        // 验证邮箱格式
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
         // 获取账号类型的键值（用于取消编辑时）
         function getAccountTypeKey(displayName) {
             const typeMap = {
@@ -1652,6 +1736,20 @@
         // 打开添加用户模态框
         function openAddUserModal() {
             document.getElementById('addUserModal').style.display = 'block';
+            
+            // 添加实时验证
+            const fieldsToValidate = [
+                'username', 'username_cn', 'email', 'ic_number', 
+                'phone_number', 'emergency_phone_number', 'bank_account',
+                'bank_account_holder_en', 'emergency_contact_name', 'home_address'
+            ];
+            
+            fieldsToValidate.forEach(field => {
+                const input = document.getElementById(`add_${field}`);
+                if (input) {
+                    addRealTimeValidation(input, field);
+                }
+            });
         }
 
         // 关闭添加用户模态框
@@ -1677,11 +1775,18 @@
                 showMessage('请填写所有必填字段（英文姓名、邮箱、账号类型）！', 'error');
                 return;
             }
-            
-            // 验证邮箱格式
-            if (!isValidEmail(userData.email)) {
-                showMessage('邮箱格式不正确！', 'error');
-                return;
+
+            // 验证所有字段格式
+            const fieldsToValidate = [
+                'username', 'username_cn', 'email', 'ic_number', 
+                'phone_number', 'emergency_phone_number', 'bank_account',
+                'bank_account_holder_en', 'emergency_contact_name', 'home_address'
+            ];
+
+            for (let field of fieldsToValidate) {
+                if (userData[field] && !validateField(field, userData[field])) {
+                    return; // 如果验证失败，停止提交
+                }
             }
             
             // 显示加载状态
