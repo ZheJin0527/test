@@ -692,7 +692,7 @@
                     <div class="form-group" style="flex: 1;">
                         <label>&nbsp;</label> <!-- 空标签保持对齐 -->
                         <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                style="background: #10b981; font-size: 16px; padding: 12px 20px; width: 100%;">
+                                style="background: #10b981; font-size: 16px; padding: 12px 20px; width: 80%;">
                             <i class="fas fa-user-plus"></i> 添加新用户
                         </button>
                     </div>
@@ -945,7 +945,7 @@
                     </div>
                     
                     <div class="modal-buttons" style="margin-top: 15px;">
-                        <button type="submit" class="btn-action btn-save" style="padding: 12px 30px; font-size: 16px;">
+                        <button type="submit" class="btn-action btn-save" style="padding: 12px 10px; font-size: 16px;">
                             <i class="fas fa-user-plus"></i> 添加用户
                         </button>
                         <button type="button" class="btn-action btn-cancel" onclick="closeAddUserModal()" style="padding: 12px 30px; font-size: 16px;">
