@@ -1311,6 +1311,29 @@
             transform-origin: left;
             animation: toastProgress 4s linear forwards;
         }
+
+        .batch-select-checkbox {
+            transform: scale(1.2);
+            margin: 0;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            border: 1px solid #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            border-color: #bd2130;
+        }
+
+        #confirm-batch-delete-btn:disabled {
+            background: #6c757d;
+            border-color: #6c757d;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -1514,6 +1537,18 @@
                         <i class="fas fa-sync-alt"></i>
                         刷新数据
                     </button>
+                    <button class="btn btn-danger" id="batch-delete-btn" onclick="toggleBatchDelete()">
+                        <i class="fas fa-trash-alt"></i>
+                        批量删除
+                    </button>
+                    <button class="btn btn-success" id="confirm-batch-delete-btn" onclick="confirmBatchDelete()" style="display: none;">
+                        <i class="fas fa-check"></i>
+                        确认删除
+                    </button>
+                    <button class="btn btn-secondary" id="cancel-batch-delete-btn" onclick="cancelBatchDelete()" style="display: none;">
+                        <i class="fas fa-times"></i>
+                        取消
+                    </button>
                 </div>
             </div>
             <div class="table-scroll-container">
@@ -1533,7 +1568,7 @@
                         <th style="min-width: 100px;">备注编号</th>
                         <th class="receiver-col">名字</th>
                         <th style="min-width: 100px;">备注</th>
-                        <th style="min-width: 80px;">操作</th>
+                        <th style="min-width: 80px;" id="action-header">操作</th>
                     </tr>
                 </thead>
                 <tbody id="stock-tbody">
@@ -1607,6 +1642,9 @@
         let isLoading = false;
         let editingRowIds = new Set(); // 改为Set来存储多个正在编辑的行ID
         let originalEditData = new Map();
+        // 批量删除状态
+        let isBatchDeleteMode = false;
+        let selectedRecords = new Set();
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
@@ -2147,25 +2185,29 @@
                         }
                     </td>
                     <td>
-                    <span class="action-cell">
-                        ${isEditing ? 
-                            `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
-                                <i class="fas fa-save"></i>
-                            </button>
-                            <button class="action-btn" onclick="cancelEdit(${record.id})" title="取消" style="background: #6b7280;">
-                                <i class="fas fa-times"></i>
-                            </button>` :
-                            `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
-                                <i class="fas fa-edit"></i>
-                            </button>`
-                        }
-                        ${!isEditing ? 
-                            `<button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
-                                <i class="fas fa-trash"></i>
-                            </button>` : ''
-                        }
-                    </span>
-                </td>
+                        <span class="action-cell">
+                            ${isBatchDeleteMode ? 
+                                `<input type="checkbox" class="batch-select-checkbox" 
+                                        data-record-id="${record.id}" 
+                                        onchange="toggleRecordSelection(${record.id}, this.checked)"
+                                        ${selectedRecords.has(record.id) ? 'checked' : ''}>` :
+                                (isEditing ? 
+                                    `<button class="action-btn edit-btn save-mode" onclick="saveRecord(${record.id})" title="保存">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="cancelEdit(${record.id})" title="取消" style="background: #6b7280;">
+                                        <i class="fas fa-times"></i>
+                                    </button>` :
+                                    `<button class="action-btn edit-btn" onclick="editRecord(${record.id})" title="编辑">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" onclick="deleteRecord(${record.id})" title="删除">
+                                        <i class="fas fa-trash"></i>
+                                    </button>`
+                                )
+                            }
+                        </span>
+                    </td>
                 `;
                 
                 tbody.appendChild(row);
@@ -4914,6 +4956,118 @@
         function handleExportSystemChange() {
             // 发票号码现在完全自动生成，不需要处理界面变化
             console.log('导出系统已选择:', document.getElementById('export-system').value);
+        }
+
+        // 切换批量删除模式
+        function toggleBatchDelete() {
+            isBatchDeleteMode = true;
+            selectedRecords.clear();
+            
+            // 显示/隐藏按钮
+            document.getElementById('batch-delete-btn').style.display = 'none';
+            document.getElementById('confirm-batch-delete-btn').style.display = 'inline-block';
+            document.getElementById('cancel-batch-delete-btn').style.display = 'inline-block';
+            
+            // 更改表头
+            document.getElementById('action-header').textContent = '选择';
+            
+            // 重新渲染表格
+            renderStockTable();
+            
+            showAlert('批量删除模式已启用，请勾选要删除的记录', 'info');
+        }
+
+        // 取消批量删除模式
+        function cancelBatchDelete() {
+            isBatchDeleteMode = false;
+            selectedRecords.clear();
+            
+            // 显示/隐藏按钮
+            document.getElementById('batch-delete-btn').style.display = 'inline-block';
+            document.getElementById('confirm-batch-delete-btn').style.display = 'none';
+            document.getElementById('cancel-batch-delete-btn').style.display = 'none';
+            
+            // 恢复表头
+            document.getElementById('action-header').textContent = '操作';
+            
+            // 重新渲染表格
+            renderStockTable();
+        }
+
+        // 切换记录选择状态
+        function toggleRecordSelection(recordId, isSelected) {
+            if (isSelected) {
+                selectedRecords.add(recordId);
+            } else {
+                selectedRecords.delete(recordId);
+            }
+            
+            // 更新确认按钮状态
+            const confirmBtn = document.getElementById('confirm-batch-delete-btn');
+            if (selectedRecords.size > 0) {
+                confirmBtn.innerHTML = `<i class="fas fa-check"></i> 确认删除 (${selectedRecords.size})`;
+                confirmBtn.disabled = false;
+            } else {
+                confirmBtn.innerHTML = '<i class="fas fa-check"></i> 确认删除';
+                confirmBtn.disabled = true;
+            }
+        }
+
+        // 确认批量删除
+        async function confirmBatchDelete() {
+            if (selectedRecords.size === 0) {
+                showAlert('请至少选择一条记录', 'error');
+                return;
+            }
+            
+            if (!confirm(`确定要删除选中的 ${selectedRecords.size} 条记录吗？此操作不可恢复！`)) {
+                return;
+            }
+            
+            const confirmBtn = document.getElementById('confirm-batch-delete-btn');
+            const originalText = confirmBtn.innerHTML;
+            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 删除中...';
+            confirmBtn.disabled = true;
+            
+            try {
+                let successCount = 0;
+                let failCount = 0;
+                
+                // 逐个删除选中的记录
+                for (const recordId of selectedRecords) {
+                    try {
+                        const result = await apiCall(`?id=${recordId}`, {
+                            method: 'DELETE'
+                        });
+                        
+                        if (result.success) {
+                            successCount++;
+                        } else {
+                            failCount++;
+                        }
+                    } catch (error) {
+                        failCount++;
+                        console.error(`删除记录 ${recordId} 失败:`, error);
+                    }
+                }
+                
+                // 显示删除结果
+                if (successCount > 0) {
+                    showAlert(`成功删除 ${successCount} 条记录${failCount > 0 ? `，${failCount} 条失败` : ''}`, 
+                            failCount > 0 ? 'warning' : 'success');
+                } else {
+                    showAlert('删除失败', 'error');
+                }
+                
+                // 退出批量删除模式并刷新数据
+                cancelBatchDelete();
+                loadStockData();
+                
+            } catch (error) {
+                showAlert('批量删除时发生错误', 'error');
+                confirmBtn.innerHTML = originalText;
+                confirmBtn.disabled = false;
+            }
         }
     </script>
 </body>
