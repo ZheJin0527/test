@@ -47,11 +47,11 @@
             background-color: #6b7280;
             color: white;
             font-weight: 500;
-            padding: 10px 20px;
+            padding: 9px 20px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
