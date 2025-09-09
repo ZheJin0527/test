@@ -1285,7 +1285,7 @@
             // 恢复原始数据
             const editableFields = [
                 'account_type', 'username', 'username_cn', 'nickname', 'ic_number', 
-                'date_of_birth', 'gender', 'nationality', 'phone_number', 'email', 
+                'date_of_birth', 'gender', 'race', 'nationality', 'phone_number', 'email', 
                 'home_address', 'position', 'emergency_contact_name', 'emergency_phone_number',
                 'bank_name', 'bank_account', 'bank_account_holder_en', 'registration_code'
             ];
