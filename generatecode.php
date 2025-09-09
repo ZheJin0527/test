@@ -342,7 +342,7 @@
         th:nth-child(17), td:nth-child(17) { width: 140px; }   /* 银行名称 */
         th:nth-child(18), td:nth-child(18) { width: 120px; }   /* 银行账号 */
         th:nth-child(19), td:nth-child(19) { width: 120px; }   /* 银行持有人 */
-        th:nth-child(20), td:nth-child(20) { width: 100px; }   /* 操作 */
+        th:nth-child(20), td:nth-child(20) { width: 80px; }   /* 操作 */
 
         /* 当地址列显示"-"时居中对齐 */
         td:nth-child(13) em {
@@ -882,7 +882,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="add_nickname">小名:</label>
+                            <label for="add_nickname">昵称:</label>
                             <input type="text" id="add_nickname" name="nickname" maxlength="50">
                         </div>
                         
@@ -989,12 +989,12 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="add_phone_number">电话号码:</label>
+                            <label for="add_phone_number">联络号码:</label>
                             <input type="tel" id="add_phone_number" name="phone_number" maxlength="20">
                         </div>
                         
                         <div class="form-group" style="grid-column: 1 / -1;">
-                            <label for="add_home_address">家庭地址:</label>
+                            <label for="add_home_address">住址:</label>
                             <textarea id="add_home_address" name="home_address" rows="2" maxlength="255"></textarea>
                         </div>
                         
