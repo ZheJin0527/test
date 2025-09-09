@@ -285,6 +285,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            border: 1px solid #d1d5db;
         }
 
         th {
@@ -294,7 +295,7 @@
             text-align: left;
             font-weight: bold;
             font-size: 14px;
-            border-bottom: 1px solid #d1d5db;
+            border: 1px solid #d1d5db;
         }
 
         th:first-child {
@@ -309,13 +310,18 @@
             padding: 12px 10px;
             font-size: 12px;
             font-weight: 500;
-            border-bottom: 1px solid #d1d5db;
+            border: 1px solid #d1d5db;
             vertical-align: middle;
         }
 
+        /* 表格行悬停效果 - 保持边框 */
         tr:hover {
             background: #fff9f1;
             transition: all 0.2s ease;
+        }
+
+        tr:hover td {
+            border-color: #ff5c00;
         }
 
         /* 状态标签样式 */
