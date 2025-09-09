@@ -1169,8 +1169,6 @@
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
                     } else if (field === 'bank_account') {
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="30" placeholder="银行账号">`;
-                    } else if (field === 'registration_code') {
-                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="50" placeholder="申请码" readonly style="background-color: #f5f5f5; cursor: not-allowed;">`;
                     } else {
                         // 其他文本字段的通用处理
                         const maxLength = getFieldMaxLength(field);
