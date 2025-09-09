@@ -1193,7 +1193,7 @@
                             <button class="btn-action btn-edit" onclick="editRow(${item.id})">
                                 <i class="fas fa-edit"></i> 编辑
                             </button>
-                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.registration_code}')">
+                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.username || '未知用户'}')">
                                 <i class="fas fa-trash"></i> 删除
                             </button>
                         </div>
@@ -1643,7 +1643,7 @@
         }
 
         // 确认删除
-        function confirmDelete(id, code) {
+        function confirmDelete(id, username) {
             // 先关闭已存在的模态框
             closeModal();
             
@@ -1657,7 +1657,7 @@
                         <i class="fas fa-exclamation-triangle"></i> 确认删除
                     </div>
                     <div class="modal-body">
-                        确定要删除申请码 "<strong style="color: #f44336;">${username}</strong>" 吗？<br><br>
+                        确定要删除用户 "<strong style="color: #f44336;">${username}</strong>" 吗？<br><br>
                         <strong style="color: #ff9800;">⚠️ 此操作不可撤销！</strong>
                     </div>
                     <div class="modal-buttons">
