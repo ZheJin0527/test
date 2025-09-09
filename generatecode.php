@@ -287,7 +287,6 @@
             width: 100%;
             border-collapse: collapse;
             border: 1px solid #d1d5db;
-            table-layout: fixed;
         }
 
         th {
@@ -321,15 +320,8 @@
         th:nth-child(10), td:nth-child(10) { width: 80px; }      /* 国籍 */
         th:nth-child(11), td:nth-child(11) { width: 100px; }   /* 联络号码 */
         th:nth-child(12), td:nth-child(12) { width: 150px; }   /* 邮箱 */
-        th:nth-child(13) { width: 200px; max-width: 200px; }   /* 地址 */
-        td:nth-child(13) { 
-            width: 200px !important; 
-            max-width: 200px !important; 
-            text-align: left; 
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            white-space: normal !important;
-        }   /* 地址 */
+        th:nth-child(13) { width: 200px; }   /* 地址 */
+        td:nth-child(13) { width: 200px; text-align: left; }   /* 地址 */
         th:nth-child(14), td:nth-child(14) { width: 90px; }   /* 职位 */
         th:nth-child(15), td:nth-child(15) { width: 120px; }   /* 紧急联络人 */
         th:nth-child(16), td:nth-child(16) { width: 100px; }   /* 紧急联络号码 */
@@ -343,32 +335,6 @@
             display: block;
             text-align: center;
             width: 100%;
-        }
-
-        /* 编辑模式下地址textarea的样式 */
-        td:nth-child(13) textarea.edit-input {
-            width: 190px !important;
-            max-width: 190px !important;
-            min-width: 190px !important;
-            height: 60px !important;
-            resize: none !important;
-            box-sizing: border-box !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            white-space: pre-wrap !important;
-            padding: 4px 6px !important;
-            font-size: 12px !important;
-            line-height: 1.3 !important;
-            overflow: hidden !important;
-        }
-
-        /* 普通显示模式下的地址内容 */
-        td:nth-child(13):not(.editing-row) {
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            white-space: pre-wrap !important;
-            max-width: 200px !important;
-            overflow: hidden !important;
         }
 
         td {
@@ -525,13 +491,6 @@
             font-family: inherit;
             background: #f8f9fa;
             box-sizing: border-box;
-        }
-
-        .edit-input textarea {
-            white-space: pre-wrap;
-            word-break: break-word;
-            line-height: 1.4;
-            padding: 8px;
         }
 
         .edit-select {
@@ -1379,7 +1338,7 @@
                         cell.innerHTML = `<input type="tel" class="edit-input" value="${originalValue}" maxlength="20" placeholder="联络号码">`;
                         setTimeout(() => addInputFormatting(cell.querySelector('input'), field), 0);
                     } else if (field === 'home_address') {
-                        cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址">${originalValue}</textarea>`;
+                        cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址" style="min-height: 60px;">${originalValue}</textarea>`;
                         setTimeout(() => addInputFormatting(cell.querySelector('textarea'), 'home_address'), 0);
                     } else if (field === 'ic_number') {
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
