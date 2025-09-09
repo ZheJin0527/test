@@ -458,7 +458,7 @@
         }
 
         .btn-action {
-            padding: 6px 12px;
+            padding: 8px;
             border: none;
             border-radius: 6px;
             font-size: 12px;
@@ -467,7 +467,7 @@
             transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            min-width: 50px; /* 从65px改为50px */
+            min-width: 30px;
             flex: 1;
         }
 
