@@ -936,87 +936,82 @@
     </button>
 
     <script>
-        // 输入验证函数
-        function validateField(field, value, showAlert = true) {
-            const errors = [];
+        // 输入格式化和过滤函数
+        function formatAndFilterInput(input, field) {
+            let value = input.value;
             
             switch(field) {
                 case 'username':
                 case 'emergency_contact_name':
                 case 'bank_account_holder_en':
-                    // 英文名：只能大写字母，至少两个单词
-                    const nameRegex = /^[A-Z]+(\s[A-Z]+)+$/;
-                    if (value && !nameRegex.test(value)) {
-                        errors.push('只能包含大写字母和空格，且至少需要两个单词');
-                    }
+                    // 只允许大写字母和空格，自动转换为大写
+                    value = value.toUpperCase().replace(/[^A-Z\s]/g, '');
                     break;
                     
                 case 'username_cn':
-                    // 中文名：只能中文字，至少两个字
-                    const chineseRegex = /^[\u4e00-\u9fff]{2,}$/;
-                    if (value && !chineseRegex.test(value)) {
-                        errors.push('只能包含中文字符，且至少需要两个字');
-                    }
+                    // 只允许中文字符
+                    value = value.replace(/[^\u4e00-\u9fff]/g, '');
                     break;
                     
                 case 'email':
-                    // 邮箱：只能小写字母、数字，必须有@
-                    const emailRegex = /^[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+$/;
-                    if (value && !emailRegex.test(value)) {
-                        errors.push('只能包含小写字母、数字，且必须包含@符号');
-                    }
+                    // 只允许小写字母、数字、@和点号，自动转换为小写
+                    value = value.toLowerCase().replace(/[^a-z0-9@.]/g, '');
                     break;
                     
                 case 'ic_number':
                 case 'phone_number':
                 case 'emergency_phone_number':
                 case 'bank_account':
-                    // 数字类字段：只能数字
-                    const numberRegex = /^\d+$/;
-                    if (value && !numberRegex.test(value)) {
-                        errors.push('只能包含数字');
-                    }
+                    // 只允许数字
+                    value = value.replace(/[^\d]/g, '');
                     break;
                     
                 case 'home_address':
-                    // 地址：大写字母、数字和符号
-                    const addressRegex = /^[A-Z0-9\s\.,\-\#\/\(\)]+$/;
-                    if (value && !addressRegex.test(value)) {
-                        errors.push('只能包含大写字母、数字和符号');
-                    }
+                    // 只允许大写字母、数字、空格和常见符号，自动转换为大写
+                    value = value.toUpperCase().replace(/[^A-Z0-9\s\.,\-\#\/\(\)]/g, '');
                     break;
             }
             
-            if (errors.length > 0 && showAlert) {
-                const fieldNames = {
-                    'username': '英文姓名',
-                    'username_cn': '中文姓名',
-                    'email': '邮箱',
-                    'ic_number': '身份证号码',
-                    'phone_number': '电话号码',
-                    'emergency_phone_number': '紧急联络号码',
-                    'bank_account': '银行账号',
-                    'bank_account_holder_en': '银行账户持有人',
-                    'emergency_contact_name': '紧急联络人',
-                    'home_address': '地址'
-                };
-                showMessage(`${fieldNames[field]}格式错误：${errors[0]}`, 'error');
-            }
-            
-            return errors.length === 0;
+            input.value = value;
         }
 
-        // 实时验证输入
-        function addRealTimeValidation(input, field) {
+        // 添加实时格式化
+        function addInputFormatting(input, field) {
+            // 输入时格式化
             input.addEventListener('input', function() {
-                validateField(field, this.value, false);
-                // 可以添加视觉反馈
-                if (this.value && !validateField(field, this.value, false)) {
-                    this.style.borderColor = '#f44336';
-                } else {
-                    this.style.borderColor = '#ff5c00';
-                }
+                formatAndFilterInput(this, field);
             });
+            
+            // 粘贴时格式化
+            input.addEventListener('paste', function(e) {
+                setTimeout(() => {
+                    formatAndFilterInput(this, field);
+                }, 0);
+            });
+        }
+
+        // 简单验证函数（用于最终提交验证）
+        function validateField(field, value) {
+            if (!value) return true; // 空值通过验证
+            
+            switch(field) {
+                case 'username':
+                case 'emergency_contact_name':
+                case 'bank_account_holder_en':
+                    // 至少两个单词
+                    return /^[A-Z]+(\s[A-Z]+)+$/.test(value);
+                    
+                case 'username_cn':
+                    // 至少两个中文字符
+                    return /^[\u4e00-\u9fff]{2,}$/.test(value);
+                    
+                case 'email':
+                    // 必须包含@
+                    return /^[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+$/.test(value);
+                    
+                default:
+                    return true;
+            }
         }
 
         // 页面加载时获取数据
@@ -1338,10 +1333,13 @@
                         cell.innerHTML = `<input type="date" class="edit-input" value="${originalValue}">`;
                     } else if (field === 'email') {
                         cell.innerHTML = `<input type="email" class="edit-input" value="${originalValue}" maxlength="100" placeholder="邮箱">`;
+                        setTimeout(() => addInputFormatting(cell.querySelector('input'), 'email'), 0);
                     } else if (field === 'phone_number' || field === 'emergency_phone_number') {
                         cell.innerHTML = `<input type="tel" class="edit-input" value="${originalValue}" maxlength="20" placeholder="联络号码">`;
+                        setTimeout(() => addInputFormatting(cell.querySelector('input'), field), 0);
                     } else if (field === 'home_address') {
                         cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址" style="min-height: 60px;">${originalValue}</textarea>`;
+                        setTimeout(() => addInputFormatting(cell.querySelector('textarea'), 'home_address'), 0);
                     } else if (field === 'ic_number') {
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
                     } else if (field === 'bank_account') {
@@ -1448,6 +1446,7 @@
                         const maxLength = getFieldMaxLength(field);
                         const placeholder = getFieldPlaceholder(field);
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="${maxLength}" placeholder="${placeholder}">`;
+                        setTimeout(() => addInputFormatting(cell.querySelector('input'), field), 0);
                     }
                 }
             });
@@ -1506,15 +1505,17 @@
             }
 
             // 验证所有字段格式
-            const fieldsToValidate = [
-                'username', 'username_cn', 'email', 'ic_number', 
-                'phone_number', 'emergency_phone_number', 'bank_account',
-                'bank_account_holder_en', 'emergency_contact_name', 'home_address'
-            ];
+            const fieldsToValidate = ['username', 'username_cn', 'email'];
 
             for (let field of fieldsToValidate) {
                 if (newData[field] && !validateField(field, newData[field])) {
-                    return; // 如果验证失败，停止保存
+                    const fieldNames = {
+                        'username': '英文姓名需要至少两个单词',
+                        'username_cn': '中文姓名需要至少两个字',
+                        'email': '邮箱格式不正确'
+                    };
+                    showMessage(fieldNames[field], 'error');
+                    return;
                 }
             }
             
@@ -1737,17 +1738,17 @@
         function openAddUserModal() {
             document.getElementById('addUserModal').style.display = 'block';
             
-            // 添加实时验证
-            const fieldsToValidate = [
+            // 添加输入格式化
+            const fieldsToFormat = [
                 'username', 'username_cn', 'email', 'ic_number', 
                 'phone_number', 'emergency_phone_number', 'bank_account',
                 'bank_account_holder_en', 'emergency_contact_name', 'home_address'
             ];
             
-            fieldsToValidate.forEach(field => {
+            fieldsToFormat.forEach(field => {
                 const input = document.getElementById(`add_${field}`);
                 if (input) {
-                    addRealTimeValidation(input, field);
+                    addInputFormatting(input, field);
                 }
             });
         }
@@ -1777,15 +1778,17 @@
             }
 
             // 验证所有字段格式
-            const fieldsToValidate = [
-                'username', 'username_cn', 'email', 'ic_number', 
-                'phone_number', 'emergency_phone_number', 'bank_account',
-                'bank_account_holder_en', 'emergency_contact_name', 'home_address'
-            ];
+            const fieldsToValidate = ['username', 'username_cn', 'email'];
 
             for (let field of fieldsToValidate) {
                 if (userData[field] && !validateField(field, userData[field])) {
-                    return; // 如果验证失败，停止提交
+                    const fieldNames = {
+                        'username': '英文姓名需要至少两个单词',
+                        'username_cn': '中文姓名需要至少两个字',
+                        'email': '邮箱格式不正确'
+                    };
+                    showMessage(fieldNames[field], 'error');
+                    return;
                 }
             }
             
