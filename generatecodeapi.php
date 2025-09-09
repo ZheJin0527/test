@@ -321,21 +321,33 @@ function generateRandomCode($pdo) {
  */
 function updateCodeAndUser($pdo, $input) {
     // 验证输入数据
-    if (empty($input['id']) || empty($input['code']) || empty($input['account_type'])) {
+    if (empty($input['id']) || empty($input['account_type'])) {
         echo json_encode([
             'success' => false,
-            'message' => 'ID、申请码和账户类型不能为空'
+            'message' => 'ID和账户类型不能为空'
         ]);
         return;
     }
 
     $id = intval($input['id']);
-    $code = trim($input['code']);
     $account_type = trim($input['account_type']);
     $username = trim($input['username'] ?? '');
+    $username_cn = trim($input['username_cn'] ?? '');
+    $nickname = trim($input['nickname'] ?? '');
     $email = trim($input['email'] ?? '');
     $gender = trim($input['gender'] ?? '');
     $phone_number = trim($input['phone_number'] ?? '');
+    $ic_number = trim($input['ic_number'] ?? '');
+    $date_of_birth = !empty($input['date_of_birth']) ? $input['date_of_birth'] : null;
+    $nationality = trim($input['nationality'] ?? '');
+    $home_address = trim($input['home_address'] ?? '');
+    $position = trim($input['position'] ?? '');
+    $emergency_contact_name = trim($input['emergency_contact_name'] ?? '');
+    $emergency_phone_number = trim($input['emergency_phone_number'] ?? '');
+    $bank_name = trim($input['bank_name'] ?? '');
+    $bank_account = trim($input['bank_account'] ?? '');
+    $bank_account_holder_en = trim($input['bank_account_holder_en'] ?? '');
+    $registration_code = trim($input['registration_code'] ?? '');
 
     // 验证账户类型
     $valid_types = ['admin', 'hr', 'design', 'support', 'IT', 'boss', 'photograph'];
@@ -343,15 +355,6 @@ function updateCodeAndUser($pdo, $input) {
         echo json_encode([
             'success' => false,
             'message' => '无效的账户类型'
-        ]);
-        return;
-    }
-
-    // 验证申请码格式
-    if (!preg_match('/^[A-Z0-9_-]+$/', $code)) {
-        echo json_encode([
-            'success' => false,
-            'message' => '申请码格式无效，只能包含大写字母、数字、下划线和连字符'
         ]);
         return;
     }
@@ -378,28 +381,12 @@ function updateCodeAndUser($pdo, $input) {
         // 开始事务
         $pdo->beginTransaction();
 
-        // 检查申请码是否被其他记录使用
-        $checkSql = "SELECT id FROM application_codes WHERE code = :code AND id != :id";
-        $checkStmt = $pdo->prepare($checkSql);
-        $checkStmt->bindParam(':code', $code);
-        $checkStmt->bindParam(':id', $id);
-        $checkStmt->execute();
-
-        if ($checkStmt->rowCount() > 0) {
-            $pdo->rollBack();
-            echo json_encode([
-                'success' => false,
-                'message' => '申请码已存在，请使用其他申请码'
-            ]);
-            return;
-        }
-
         // 检查邮箱是否被其他用户使用
         if (!empty($email)) {
-            $checkEmailSql = "SELECT id FROM users WHERE email = :email AND registration_code != :code";
+            $checkEmailSql = "SELECT id FROM users WHERE email = :email AND id != :id";
             $checkEmailStmt = $pdo->prepare($checkEmailSql);
             $checkEmailStmt->bindParam(':email', $email);
-            $checkEmailStmt->bindParam(':code', $code);
+            $checkEmailStmt->bindParam(':id', $id);
             $checkEmailStmt->execute();
 
             if ($checkEmailStmt->rowCount() > 0) {
@@ -412,88 +399,57 @@ function updateCodeAndUser($pdo, $input) {
             }
         }
 
-        // 获取原来的申请码（用于更新用户表）
-        $getOldCodeSql = "SELECT code FROM application_codes WHERE id = :id";
-        $getOldCodeStmt = $pdo->prepare($getOldCodeSql);
-        $getOldCodeStmt->bindParam(':id', $id);
-        $getOldCodeStmt->execute();
-        $oldCodeResult = $getOldCodeStmt->fetch();
-        
-        if (!$oldCodeResult) {
+        // 直接更新用户表
+        $updateUserSql = "UPDATE users SET 
+            account_type = :account_type,
+            username = :username,
+            username_cn = :username_cn,
+            nickname = :nickname,
+            email = :email,
+            gender = :gender,
+            phone_number = :phone_number,
+            ic_number = :ic_number,
+            date_of_birth = :date_of_birth,
+            nationality = :nationality,
+            home_address = :home_address,
+            position = :position,
+            emergency_contact_name = :emergency_contact_name,
+            emergency_phone_number = :emergency_phone_number,
+            bank_name = :bank_name,
+            bank_account = :bank_account,
+            bank_account_holder_en = :bank_account_holder_en
+            WHERE id = :id";
+
+        $params = [
+            ':account_type' => $account_type,
+            ':username' => $username,
+            ':username_cn' => $username_cn,
+            ':nickname' => $nickname,
+            ':email' => $email,
+            ':gender' => $gender,
+            ':phone_number' => $phone_number,
+            ':ic_number' => $ic_number,
+            ':date_of_birth' => $date_of_birth,
+            ':nationality' => $nationality,
+            ':home_address' => $home_address,
+            ':position' => $position,
+            ':emergency_contact_name' => $emergency_contact_name,
+            ':emergency_phone_number' => $emergency_phone_number,
+            ':bank_name' => $bank_name,
+            ':bank_account' => $bank_account,
+            ':bank_account_holder_en' => $bank_account_holder_en,
+            ':id' => $id
+        ];
+
+        $updateUserStmt = $pdo->prepare($updateUserSql);
+
+        if (!$updateUserStmt->execute($params)) {
             $pdo->rollBack();
             echo json_encode([
                 'success' => false,
-                'message' => '申请码不存在'
+                'message' => '更新用户信息失败'
             ]);
             return;
-        }
-
-        $oldCode = $oldCodeResult['code'];
-
-        // 更新申请码表
-        $updateCodeSql = "UPDATE application_codes SET code = :code, account_type = :account_type WHERE id = :id";
-        $updateCodeStmt = $pdo->prepare($updateCodeSql);
-        $updateCodeStmt->bindParam(':code', $code);
-        $updateCodeStmt->bindParam(':account_type', $account_type);
-        $updateCodeStmt->bindParam(':id', $id);
-        
-        if (!$updateCodeStmt->execute()) {
-            $pdo->rollBack();
-            echo json_encode([
-                'success' => false,
-                'message' => '更新申请码失败'
-            ]);
-            return;
-        }
-
-        // 如果有关联的用户，更新用户信息
-        $checkUserSql = "SELECT id FROM users WHERE registration_code = :old_code";
-        $checkUserStmt = $pdo->prepare($checkUserSql);
-        $checkUserStmt->bindParam(':old_code', $oldCode);
-        $checkUserStmt->execute();
-
-        if ($checkUserStmt->rowCount() > 0) {
-            // 更新用户信息
-            $updateUserSql = "UPDATE users SET 
-                registration_code = :new_code,
-                account_type = :account_type";
-            
-            $params = [
-                ':new_code' => $code,
-                ':account_type' => $account_type
-            ];
-
-            // 只有当字段有值时才更新
-            if (!empty($username)) {
-                $updateUserSql .= ", username = :username";
-                $params[':username'] = $username;
-            }
-            if (!empty($email)) {
-                $updateUserSql .= ", email = :email";
-                $params[':email'] = $email;
-            }
-            if (!empty($gender)) {
-                $updateUserSql .= ", gender = :gender";
-                $params[':gender'] = $gender;
-            }
-            if (!empty($phone_number)) {
-                $updateUserSql .= ", phone_number = :phone_number";
-                $params[':phone_number'] = $phone_number;
-            }
-
-            $updateUserSql .= " WHERE registration_code = :old_code";
-            $params[':old_code'] = $oldCode;
-
-            $updateUserStmt = $pdo->prepare($updateUserSql);
-            
-            if (!$updateUserStmt->execute($params)) {
-                $pdo->rollBack();
-                echo json_encode([
-                    'success' => false,
-                    'message' => '更新用户信息失败'
-                ]);
-                return;
-            }
         }
 
         // 提交事务
@@ -501,16 +457,7 @@ function updateCodeAndUser($pdo, $input) {
 
         echo json_encode([
             'success' => true,
-            'message' => '更新成功',
-            'data' => [
-                'id' => $id,
-                'code' => $code,
-                'account_type' => $account_type,
-                'username' => $username,
-                'email' => $email,
-                'gender' => $gender,
-                'phone_number' => $phone_number
-            ]
+            'message' => '更新成功'
         ]);
 
     } catch (PDOException $e) {
