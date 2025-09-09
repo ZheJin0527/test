@@ -1657,7 +1657,7 @@
                         <i class="fas fa-exclamation-triangle"></i> 确认删除
                     </div>
                     <div class="modal-body">
-                        确定要删除申请码 "<strong style="color: #f44336;">${item.username || ''}</strong>" 吗？<br><br>
+                        确定要删除申请码 "<strong style="color: #f44336;">${id}</strong>" 吗？<br><br>
                         <strong style="color: #ff9800;">⚠️ 此操作不可撤销！</strong>
                     </div>
                     <div class="modal-buttons">
