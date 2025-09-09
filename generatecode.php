@@ -790,7 +790,25 @@
                         
                         <div class="form-group">
                             <label for="add_bank_name">银行名称:</label>
-                            <input type="text" id="add_bank_name" name="bank_name" maxlength="100">
+                            <select id="add_bank_name" name="bank_name">
+                                <option value="">请选择银行</option>
+                                <option value="Maybank (Malayan Banking Berhad)">Maybank (Malayan Banking Berhad)</option>
+                                <option value="CIMB Bank">CIMB Bank</option>
+                                <option value="Public Bank">Public Bank</option>
+                                <option value="RHB Bank">RHB Bank</option>
+                                <option value="Hong Leong Bank">Hong Leong Bank</option>
+                                <option value="AmBank">AmBank</option>
+                                <option value="Alliance Bank">Alliance Bank</option>
+                                <option value="Affin Bank">Affin Bank</option>
+                                <option value="Bank Islam Malaysia">Bank Islam Malaysia</option>
+                                <option value="Agrobank">Agrobank</option>
+                                <option value="Bank Simpanan Nasional (BSN)">Bank Simpanan Nasional (BSN)</option>
+                                <option value="HSBC Bank Malaysia">HSBC Bank Malaysia</option>
+                                <option value="OCBC Bank (Malaysia)">OCBC Bank (Malaysia)</option>
+                                <option value="Standard Chartered Bank Malaysia">Standard Chartered Bank Malaysia</option>
+                                <option value="United Overseas Bank (UOB Malaysia)">United Overseas Bank (UOB Malaysia)</option>
+                                <option value="Bank of China (Malaysia)">Bank of China (Malaysia)</option>
+                            </select>
                         </div>
                         
                         <div class="form-group">
@@ -1169,6 +1187,28 @@
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
                     } else if (field === 'bank_account') {
                         cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="30" placeholder="银行账号">`;
+                    } else if (field === 'bank_name') {
+                        cell.innerHTML = `
+                            <select class="edit-select">
+                                <option value="">请选择银行</option>
+                                <option value="Maybank (Malayan Banking Berhad)" ${originalValue === 'Maybank (Malayan Banking Berhad)' ? 'selected' : ''}>Maybank (Malayan Banking Berhad)</option>
+                                <option value="CIMB Bank" ${originalValue === 'CIMB Bank' ? 'selected' : ''}>CIMB Bank</option>
+                                <option value="Public Bank" ${originalValue === 'Public Bank' ? 'selected' : ''}>Public Bank</option>
+                                <option value="RHB Bank" ${originalValue === 'RHB Bank' ? 'selected' : ''}>RHB Bank</option>
+                                <option value="Hong Leong Bank" ${originalValue === 'Hong Leong Bank' ? 'selected' : ''}>Hong Leong Bank</option>
+                                <option value="AmBank" ${originalValue === 'AmBank' ? 'selected' : ''}>AmBank</option>
+                                <option value="Alliance Bank" ${originalValue === 'Alliance Bank' ? 'selected' : ''}>Alliance Bank</option>
+                                <option value="Affin Bank" ${originalValue === 'Affin Bank' ? 'selected' : ''}>Affin Bank</option>
+                                <option value="Bank Islam Malaysia" ${originalValue === 'Bank Islam Malaysia' ? 'selected' : ''}>Bank Islam Malaysia</option>
+                                <option value="Agrobank" ${originalValue === 'Agrobank' ? 'selected' : ''}>Agrobank</option>
+                                <option value="Bank Simpanan Nasional (BSN)" ${originalValue === 'Bank Simpanan Nasional (BSN)' ? 'selected' : ''}>Bank Simpanan Nasional (BSN)</option>
+                                <option value="HSBC Bank Malaysia" ${originalValue === 'HSBC Bank Malaysia' ? 'selected' : ''}>HSBC Bank Malaysia</option>
+                                <option value="OCBC Bank (Malaysia)" ${originalValue === 'OCBC Bank (Malaysia)' ? 'selected' : ''}>OCBC Bank (Malaysia)</option>
+                                <option value="Standard Chartered Bank Malaysia" ${originalValue === 'Standard Chartered Bank Malaysia' ? 'selected' : ''}>Standard Chartered Bank Malaysia</option>
+                                <option value="United Overseas Bank (UOB Malaysia)" ${originalValue === 'United Overseas Bank (UOB Malaysia)' ? 'selected' : ''}>United Overseas Bank (UOB Malaysia)</option>
+                                <option value="Bank of China (Malaysia)" ${originalValue === 'Bank of China (Malaysia)' ? 'selected' : ''}>Bank of China (Malaysia)</option>
+                            </select>
+                        `;
                     } else {
                         // 其他文本字段的通用处理
                         const maxLength = getFieldMaxLength(field);
@@ -1210,7 +1250,7 @@
                 position: row.querySelector('[data-field="position"] input').value.trim(),
                 emergency_contact_name: row.querySelector('[data-field="emergency_contact_name"] input').value.trim(),
                 emergency_phone_number: row.querySelector('[data-field="emergency_phone_number"] input').value.trim(),
-                bank_name: row.querySelector('[data-field="bank_name"] input').value.trim(),
+                bank_name: row.querySelector('[data-field="bank_name"] select').value.trim(),
                 bank_account: row.querySelector('[data-field="bank_account"] input').value.trim(),
                 bank_account_holder_en: row.querySelector('[data-field="bank_account_holder_en"] input').value.trim(),
             };
