@@ -359,7 +359,7 @@
             border: 1px solid #462d03;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 10;
             white-space: nowrap;
             min-width: 80px;
         }
