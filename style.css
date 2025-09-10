@@ -2817,7 +2817,7 @@ nav {
     font-size: clamp(20px, 1.7vw, 32px);
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 5;
+    z-index: 10;
     border: clamp(1px, 0.15vw, 2px) solid rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
     user-select: none;
