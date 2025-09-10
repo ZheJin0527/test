@@ -2814,7 +2814,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #333;
+    color: #fff;
     font-size: clamp(20px, 1.7vw, 32px);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -2857,7 +2857,7 @@ nav {
 
 .nav-arrow.next::before {
     border-width: 5px 0 5px 7px;
-    border-color: transparent transparent transparent #fff;
+    border-color: transparent transparent transparent #333;
     margin-left: 1px;
 }
 
