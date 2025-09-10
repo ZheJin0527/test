@@ -360,9 +360,10 @@
             border: 1px solid #462d03;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
             white-space: nowrap;
             min-width: 80px;
+            background-clip: padding-box;
         }
 
         /* 确保表格在容器内正确显示 */
