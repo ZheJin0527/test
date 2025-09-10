@@ -1,0 +1,22 @@
+{
+    "job_1705123456_1234": {
+        "title": "店长",
+        "count": "1人",
+        "experience": "2年",
+        "publish_date": "2025-01-16",
+        "description": "负责店铺日常运营管理，包括员工管理、销售目标达成、客户服务等。",
+        "category": "TOKYO CUISINE",
+        "created": "2025-01-16 10:00:00",
+        "status": "active"
+    },
+    "job_1705123457_1235": {
+        "title": "人力资源专员",
+        "count": "2人",
+        "experience": "1-3年",
+        "publish_date": "2025-01-16",
+        "description": "负责公司招聘、培训、绩效管理等工作。",
+        "category": "KUNZZHOLDINGS",
+        "created": "2025-01-16 10:00:00",
+        "status": "active"
+    }
+}

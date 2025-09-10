@@ -1662,11 +1662,10 @@ window.addEventListener('resize', () => {
                 return;
             }
             
-            // 显示职位卡片
-            company.jobs.forEach(job => {
-                const jobCard = createJobCard(job, companyName);
-                jobsGrid.appendChild(jobCard);
-            });
+            // 只显示第一个职位（按照照片设计）
+            const job = company.jobs[0];
+            const jobCard = createJobCard(job, companyName);
+            jobsGrid.appendChild(jobCard);
         }
 
 
@@ -1677,26 +1676,25 @@ window.addEventListener('resize', () => {
             card.innerHTML = `
                 <div class="job-card-header">
                     <div class="job-card-title">${job.title}</div>
-                    <div class="job-card-meta">
-                        <div class="job-card-meta-item">
-                            <div class="job-card-meta-label">人数</div>
-                            <div class="job-card-meta-value">${job.count}</div>
-                        </div>
-                        <div class="job-card-meta-item">
-                            <div class="job-card-meta-label">经验</div>
-                            <div class="job-card-meta-value">${job.experience}</div>
-                        </div>
-                        <div class="job-card-meta-item">
-                            <div class="job-card-meta-label">发布</div>
-                            <div class="job-card-meta-value">${job.publish_date}</div>
-                        </div>
-                        <div class="job-card-meta-item">
-                            <div class="job-card-meta-label">公司</div>
-                            <div class="job-card-meta-value">${companyName}</div>
-                        </div>
+                </div>
+                <div class="job-card-meta">
+                    <div class="job-card-meta-item">
+                        <div class="job-card-meta-label">人数</div>
+                        <div class="job-card-meta-value">${job.count}</div>
+                    </div>
+                    <div class="job-card-meta-item">
+                        <div class="job-card-meta-label">经验</div>
+                        <div class="job-card-meta-value">${job.experience}</div>
+                    </div>
+                    <div class="job-card-meta-item">
+                        <div class="job-card-meta-label">发布</div>
+                        <div class="job-card-meta-value">${job.publish_date}</div>
+                    </div>
+                    <div class="job-card-meta-item">
+                        <div class="job-card-meta-label">公司</div>
+                        <div class="job-card-meta-value">${companyName}</div>
                     </div>
                 </div>
-                <div class="job-card-description">${job.description}</div>
                 <div class="job-card-apply">
                     <button class="job-card-apply-btn" onclick="openJobDetailModal('${job.id}', '${companyName}')">
                         查看详情

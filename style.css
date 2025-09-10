@@ -4131,22 +4131,27 @@ nav {
 }
 
 .jobs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 25px;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 400px;
 }
 
 .job-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(255, 92, 0, 0.3);
     transition: all 0.3s ease;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: none;
     position: relative;
     overflow: hidden;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    color: white;
 }
 
 .job-card::before {
@@ -4172,54 +4177,58 @@ nav {
 }
 
 .job-card-header {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .job-card-title {
-    font-size: 22px;
+    font-size: 32px;
     font-weight: 700;
-    color: #FF5C00;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    color: white;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .job-card-meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
 .job-card-meta-item {
-    text-align: center;
-    padding: 8px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .job-card-meta-label {
-    font-size: 12px;
-    color: #6c757d;
-    margin-bottom: 3px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 600;
 }
 
 .job-card-meta-value {
-    font-size: 14px;
-    color: #FF5C00;
+    font-size: 18px;
+    color: white;
     font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .job-card-description {
-    font-size: 14px;
-    color: #495057;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
 }
 
 .job-card-apply {
@@ -4227,23 +4236,25 @@ nav {
 }
 
 .job-card-apply-btn {
-    background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+    background: rgba(255, 255, 255, 0.2);
     color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 20px;
-    font-size: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 15px 40px;
+    border-radius: 25px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 92, 0, 0.3);
+    backdrop-filter: blur(10px);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .job-card-apply-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.8);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 92, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* 响应式设计 */
@@ -4273,13 +4284,34 @@ nav {
     }
     
     .jobs-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 15px;
+        padding: 20px;
+        min-height: 300px;
     }
     
     .job-card {
-        padding: 20px;
+        padding: 30px 20px;
+        max-width: 100%;
+    }
+    
+    .job-card-title {
+        font-size: 24px;
+    }
+    
+    .job-card-meta-item {
+        padding: 10px 15px;
+    }
+    
+    .job-card-meta-label {
+        font-size: 14px;
+    }
+    
+    .job-card-meta-value {
+        font-size: 16px;
+    }
+    
+    .job-card-apply-btn {
+        padding: 12px 30px;
+        font-size: 14px;
     }
 }
 
