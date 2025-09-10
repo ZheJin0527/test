@@ -532,7 +532,7 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: 50px;
     height: 26px;
     font-family: 'Inter', sans-serif;
     color: white;
