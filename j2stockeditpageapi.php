@@ -488,8 +488,8 @@ function handlePost() {
         
         $sql = "INSERT INTO j2stockedit_data 
                 (date, time, product_name, 
-                in_quantity, out_quantity, specification, price, code_number, remark, receiver, target_system) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                in_quantity, out_quantity, specification, price, code_number, remark, receiver, target_system, type) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -504,7 +504,8 @@ function handlePost() {
             $data['code_number'] ?? null,
             $data['remark'] ?? null,
             $data['receiver'] ?? null,
-            $data['target_system'] ?? null
+            $data['target_system'] ?? null,
+            $data['type'] ?? null
         ]);
         
         $newId = $pdo->lastInsertId();
@@ -687,7 +688,7 @@ function handlePut() {
         $sql = "UPDATE j2stockedit_data 
                 SET date = ?, time = ?, product_name = ?, 
                     in_quantity = ?, out_quantity = ?, 
-                    specification = ?, price = ?, code_number = ?, remark = ?, receiver = ?, target_system = ?
+                    specification = ?, price = ?, code_number = ?, remark = ?, receiver = ?, target_system = ?, type = ?
                 WHERE id = ?";
 
         $stmt = $pdo->prepare($sql);
@@ -703,7 +704,8 @@ function handlePut() {
             $data['code_number'] ?? null,
             $data['remark'] ?? null,
             $data['receiver'] ?? null,
-            $data['target_system'] ?? null,  // 新增这行
+            $data['target_system'] ?? null,
+            $data['type'] ?? null,
             $data['id']
         ]);
         
