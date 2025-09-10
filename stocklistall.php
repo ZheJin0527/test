@@ -357,13 +357,23 @@
             text-align: center;
             font-weight: 600;
             border: 1px solid #462d03;
+            border-right: 1px solid #462d03;
+            border-bottom: 2px solid #462d03;
             position: sticky;
             top: 0;
             z-index: 100;
             white-space: nowrap;
             min-width: 80px;
-            box-shadow: 0 2px 4px rgba(88, 62, 4, 0.3);
-            border-bottom: 2px solid #462d03;
+        }
+
+        /* 移除第一个表头的左边框重复 */
+        .stock-table th:first-child {
+            border-left: 1px solid #462d03;
+        }
+
+        /* 移除最后一个表头的右边框重复 */
+        .stock-table th:last-child {
+            border-right: 1px solid #462d03;
         }
 
         /* 确保表头完全覆盖滚动内容 */
@@ -430,6 +440,7 @@
         .stock-table td {
             padding: 12px 8px;
             border: 1px solid #d1d5db;
+            border-top: none;  /* 移除顶边框避免与表头重复 */
             text-align: center;
             vertical-align: middle;
         }
