@@ -1684,19 +1684,15 @@
                 }
             }, 100);
 
-            // 控制Type列的显示/隐藏
-            if (currentStockType === 'central') {
-                // 隐藏Type列和表单字段
-                const typeHeader = document.getElementById('type-header');
-                const typeFormGroup = document.getElementById('type-form-group');
-                if (typeHeader) typeHeader.style.display = 'none';
-                if (typeFormGroup) typeFormGroup.style.display = 'none';
-            } else {
-                // 显示Type列和表单字段
-                const typeHeader = document.getElementById('type-header');
-                const typeFormGroup = document.getElementById('type-form-group');
-                if (typeHeader) typeHeader.style.display = 'table-cell';
-                if (typeFormGroup) typeFormGroup.style.display = 'block';
+            // 控制Type字段的启用/禁用状态
+            const typeSelect = document.getElementById('add-type');
+            if (typeSelect) {
+                if (currentStockType === 'central') {
+                    typeSelect.disabled = true;
+                    typeSelect.value = '';
+                } else {
+                    typeSelect.disabled = false;
+                }
             }
         }
 
@@ -1728,21 +1724,31 @@
                     break;
             }
 
-            // 控制Type列的显示
+            // 修改Type列的控制 - 不要隐藏，而是控制禁用状态
             const typeHeader = document.getElementById('type-header');
             const typeFormGroup = document.getElementById('type-form-group');
-            const typeColumns = document.querySelectorAll('.stock-table td:nth-child(10), .stock-table th:nth-child(10)');
             
             if (stockType === 'central') {
-                // 隐藏Type相关元素
-                if (typeHeader) typeHeader.style.display = 'none';
-                if (typeFormGroup) typeFormGroup.style.display = 'none';
-                typeColumns.forEach(col => col.style.display = 'none');
-            } else {
-                // 显示Type相关元素
+                // 中央页面：显示Type列但禁用表单字段
                 if (typeHeader) typeHeader.style.display = 'table-cell';
-                if (typeFormGroup) typeFormGroup.style.display = 'block';
-                typeColumns.forEach(col => col.style.display = 'table-cell');
+                if (typeFormGroup) {
+                    typeFormGroup.style.display = 'block';
+                    const typeSelect = document.getElementById('add-type');
+                    if (typeSelect) {
+                        typeSelect.disabled = true;
+                        typeSelect.value = '';
+                    }
+                }
+            } else {
+                // J1/J2页面：显示Type列并启用
+                if (typeHeader) typeHeader.style.display = 'table-cell';
+                if (typeFormGroup) {
+                    typeFormGroup.style.display = 'block';
+                    const typeSelect = document.getElementById('add-type');
+                    if (typeSelect) {
+                        typeSelect.disabled = false;
+                    }
+                }
             }
             
             // 更新active状态
@@ -2203,11 +2209,16 @@
                         </div>
                     </td>
                     <td>
-                        ${isEditing && currentStockType !== 'central' ? 
-                            `<select class="table-select" onchange="updateField(${record.id}, 'type', this.value)">
-                                ${generateTypeOptions(record.type)}
-                            </select>` :
-                            `<span>${currentStockType !== 'central' ? (record.type || '-') : '-'}</span>`
+                        ${isEditing ? 
+                            (currentStockType !== 'central' ? 
+                                `<select class="table-select" onchange="updateField(${record.id}, 'type', this.value)">
+                                    ${generateTypeOptions(record.type)}
+                                </select>` :
+                                `<select class="table-select" disabled>
+                                    ${generateTypeOptions(record.type)}
+                                </select>`
+                            ) :
+                            `<span>${record.type || '-'}</span>`
                         }
                     </td>
                     <td style="text-align: center;">
@@ -2352,7 +2363,7 @@
                     </div>
                 </td>
                 <td>
-                    <select class="table-select" id="${rowId}-type">
+                    <select class="table-select" id="${rowId}-type" ${currentStockType === 'central' ? 'disabled' : ''}>
                         <option value="">请选择类型</option>
                         <option value="Kitchen">Kitchen</option>
                         <option value="SushiBar">SushiBar</option>
