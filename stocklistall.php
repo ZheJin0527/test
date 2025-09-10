@@ -1185,10 +1185,6 @@
                     </div>
                     
                     <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-primary" onclick="refreshData('central')">
-                            <i class="fas fa-sync-alt"></i>
-                            刷新数据
-                        </button>
                     </div>
                 </div>
                 
@@ -1272,10 +1268,6 @@
                     </div>
                     
                     <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-primary" onclick="refreshData('j1')">
-                            <i class="fas fa-sync-alt"></i>
-                            刷新数据
-                        </button>
                     </div>
                 </div>
                 
@@ -1359,10 +1351,6 @@
                     </div>
                     
                     <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-primary" onclick="refreshData('j2')">
-                            <i class="fas fa-sync-alt"></i>
-                            刷新数据
-                        </button>
                     </div>
                 </div>
                 
@@ -1429,10 +1417,6 @@
                     <button class="btn btn-secondary" onclick="resetFilters('remark')">
                         <i class="fas fa-refresh"></i>
                         重置
-                    </button>
-                    <button class="btn btn-success" onclick="refreshData('remark')">
-                        <i class="fas fa-sync-alt"></i>
-                        刷新数据
                     </button>
                     <button class="btn btn-warning" onclick="exportData('remark')">
                         <i class="fas fa-download"></i>
