@@ -714,6 +714,7 @@ updatePageIndicator(0);
             hasTriggered = false;
             dragStartTime = 0;
             
+            // 恢复文本选择和光标
             document.body.style.cursor = '';
             document.body.style.userSelect = '';
             
@@ -747,6 +748,11 @@ updatePageIndicator(0);
                 dragStartTime = Date.now();
                 hasTriggered = false;
                 isDragging = false; // 确保初始状态为false
+                
+                // 立即阻止文本选择
+                e.preventDefault();
+                document.body.style.userSelect = 'none';
+                document.body.style.cursor = 'grabbing';
             }
         });
 
@@ -756,6 +762,13 @@ updatePageIndicator(0);
         
         // 全局 mousemove 监听器，用于检测拖拽开始
         document.addEventListener('mousemove', handleDragMove);
+        
+        // 全局 mouseup 监听器，用于清理状态
+        document.addEventListener('mouseup', (e) => {
+            if (startX !== 0) {
+                handleDragEnd(e);
+            }
+        });
 
         // 触摸事件
         document.addEventListener('touchstart', (e) => {
@@ -802,8 +815,10 @@ updatePageIndicator(0);
 
         // 防止文本选择
         document.addEventListener('selectstart', (e) => {
-            if (isDragging) {
+            const card = e.target.closest('.timeline-content-item');
+            if (card && (isDragging || startX !== 0)) {
                 e.preventDefault();
+                return false;
             }
         });
 

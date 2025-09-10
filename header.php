@@ -71,7 +71,6 @@ if (!isset($mediaConfigIncluded)) {
                 <div class="language-dropdown-menu" id="languageDropdownMenu">
                     <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
                     <a href="/en/" class="language-dropdown-item" data-lang="en">English</a>
-                    <a href="/" class="language-dropdown-item" data-lang="my">Malay</a>
                 </div>
             </div>
 
