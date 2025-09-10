@@ -632,22 +632,37 @@ function getJobsConfig() {
  * @return string 职位卡片HTML
  */
 function getJobsHtml() {
-    $jobs = getJobsConfig();
+    // 数据库配置
+    $host = 'localhost';
+    $dbname = 'u857194726_kunzzgroup';
+    $dbuser = 'u857194726_kunzzgroup';
+    $dbpass = 'Kholdings1688@';
+    
     $html = '';
     $jobCounter = 1;
     
-    if (empty($jobs)) {
-        $html = '<div class="no-jobs">暂无招聘职位</div>';
-    } else {
-        foreach ($jobs as $jobId => $job) {
-            if ($job['status'] === 'active') {
-                $category = $job['category'] ?? '未分类';
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        // 获取所有职位
+        $stmt = $pdo->prepare("SELECT * FROM job_positions ORDER BY publish_date DESC, id DESC");
+        $stmt->execute();
+        $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        if (empty($jobs)) {
+            $html = '<div class="no-jobs">暂无招聘职位</div>';
+        } else {
+            foreach ($jobs as $job) {
+                $category = $job['company_category'] ?? 'KUNZZHOLDINGS';
                 $html .= '<div class="job-card" data-category="' . htmlspecialchars($category) . '" data-job-id="job' . $jobCounter . '">';
-                $html .= '<div class="job-title">' . htmlspecialchars($job['title']) . '</div>';
+                $html .= '<div class="job-title">' . htmlspecialchars($job['job_title']) . '</div>';
                 $html .= '</div>';
                 $jobCounter++;
             }
         }
+    } catch (Exception $e) {
+        $html = '<div class="no-jobs">职位数据加载失败</div>';
     }
     
     return $html;
