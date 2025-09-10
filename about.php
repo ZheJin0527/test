@@ -188,8 +188,8 @@ $timelineData = getTimelineConfig();
         
         <!-- 横向时间线导航 -->
         <div class="timeline-nav">
-            <div class="nav-arrow prev" onclick="navigateTimeline('prev')">‹</div>
-            <div class="nav-arrow next" onclick="navigateTimeline('next')">›</div>
+            <div class="nav-arrow.prev" onclick="navigateTimeline('prev')">‹</div>
+            <div class="nav-arrow.next" onclick="navigateTimeline('next')">›</div>
             
             <div class="timeline-scroll-container">
                 <div class="timeline-track"></div>

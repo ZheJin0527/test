@@ -2814,7 +2814,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #333;
     font-size: clamp(20px, 1.7vw, 32px);
     cursor: pointer;
     transition: all 0.3s ease;
