@@ -29,7 +29,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: 22px;
         }
         
         .header h1 {
@@ -514,7 +514,7 @@
         .main-content-row {
             display: flex;
             gap: 24px;
-            margin-bottom: 24px;
+            margin-bottom: 14px;
             align-items: stretch;
         }
 
