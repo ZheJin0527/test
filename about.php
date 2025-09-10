@@ -862,25 +862,15 @@ updatePageIndicator(0);
         }
 
         function selectCard(year) {
-            console.log('selectCard called with year:', year);
-            console.log('isAnimating:', isAnimating);
-            console.log('years array:', years);
-            console.log('currentIndex:', currentIndex);
+            if (isAnimating) return;
             
-            if (isAnimating) {
-                console.log('Animation in progress, ignoring');
-                return;
-            }
-            
-            const index = years.indexOf(year.toString());
-            console.log('Found index:', index);
+            // 将年份转换为数字进行比较
+            const yearNum = parseInt(year);
+            const index = years.indexOf(yearNum);
             
             if (index !== -1 && index !== currentIndex) {
-                console.log('Switching to index:', index);
                 currentIndex = index;
-                showTimelineItem(year.toString());
-            } else {
-                console.log('No change needed or invalid index');
+                showTimelineItem(yearNum.toString());
             }
         }
 
@@ -992,24 +982,11 @@ updatePageIndicator(0);
 
         // 优化的点击处理 - 添加延迟避免与拖拽冲突
         document.addEventListener('click', (e) => {
-            console.log('Click detected on:', e.target);
-            console.log('isDragging:', isDragging, 'hasTriggered:', hasTriggered, 'isAnimating:', isAnimating);
-            
-            if (isDragging || hasTriggered || isAnimating) {
-                console.log('Click ignored due to state flags');
-                return;
-            }
+            if (isDragging || hasTriggered || isAnimating) return;
             
             const card = e.target.closest('.timeline-content-item');
-            console.log('Found card:', card);
-            
             if (card) {
                 const year = card.getAttribute('data-year');
-                const cardClass = card.className;
-                console.log('Card year:', year, 'Card class:', cardClass);
-                
-                // 立即处理点击，不延迟
-                console.log('Calling selectCard with year:', year);
                 selectCard(year);
             }
         });
