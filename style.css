@@ -6718,6 +6718,8 @@ form select {
     padding: 15px;
     border-radius: 10px;
     border-left: 4px solid #ff5c00;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .job-detail-address {
@@ -6739,6 +6741,8 @@ form select {
     padding: 15px;
     border-radius: 10px;
     border-left: 4px solid #ff5c00;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .apply-btn-container {
