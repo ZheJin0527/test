@@ -632,52 +632,9 @@ function getJobsConfig() {
  * @return string 职位卡片HTML
  */
 function getJobsHtml() {
-    $jobs = getJobsConfig();
-    $html = '';
-    
-    if (empty($jobs)) {
-        $html = '<div class="no-jobs">暂无招聘职位</div>';
-    } else {
-        foreach ($jobs as $jobId => $job) {
-            if ($job['status'] === 'active') {
-                $category = $job['category'] ?? '未分类';
-                $html .= '<div class="job-card" data-category="' . htmlspecialchars($category) . '">';
-                $html .= '<div class="job-header">';
-                $html .= '<div>';
-                $html .= '<div class="job-title">' . htmlspecialchars($job['title']) . '</div>';
-                $html .= '<div class="job-meta">';
-                $html .= '<div class="job-meta-item">';
-                $html .= '<span class="job-meta-label">&#128101; 人数:</span>';
-                $html .= '<span style="color: #FF5C00; font-weight: 600;">' . htmlspecialchars($job['count']) . '</span>';
-                $html .= '</div>';
-                $html .= '<div class="job-meta-item">';
-                $html .= '<span class="job-meta-label">&#128188; 工作经验:</span>';
-                $html .= '<span style="color: #FF5C00; font-weight: 600;">' . htmlspecialchars($job['experience']) . '</span>';
-                $html .= '</div>';
-                $html .= '<div class="job-meta-item">';
-                $html .= '<span class="job-meta-label">&#128197; 发布:</span>';
-                $html .= '<span style="color: #FF5C00; font-weight: 600;">' . $job['publish_date'] . '</span>';
-                $html .= '</div>';
-                $html .= '<div class="job-meta-item">';
-                $html .= '<span class="job-meta-label">🏷️ 公司:</span>';
-                $html .= '<span style="color: #FF5C00; font-weight: 600;">' . htmlspecialchars($category) . '</span>';
-                $html .= '</div>';
-                $html .= '</div>';
-                $html .= '</div>';
-                $html .= '</div>';
-                $html .= '<div class="job-details">';
-                $html .= '<div class="detail-content">';
-                $html .= '<div class="job-description">';
-                $html .= '<strong>职位详情：</strong>' . htmlspecialchars($job['description']);
-                $html .= '</div>';
-                $html .= '<button class="apply-btn" onclick="openForm(\'' . htmlspecialchars($job['title']) . '\')">申请职位</button>';
-                $html .= '</div>';
-                $html .= '</div>';
-                $html .= '</div>';
-            }
-        }
-    }
-    
+    // 由于现在使用新的职位层级系统，这个函数主要用于向后兼容
+    // 新的职位显示逻辑在JavaScript中处理
+    $html = '<div class="no-jobs">请选择公司查看职位</div>';
     return $html;
 }
 
