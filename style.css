@@ -2830,6 +2830,30 @@ nav {
     text-indent: 0;
     padding: 0;
     margin: 0;
+    position: relative;
+    font-size: 0;
+    color: transparent;
+}
+
+.nav-arrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.nav-arrow.prev::before {
+    border-width: 6px 8px 6px 0;
+    border-color: transparent #333 transparent transparent;
+}
+
+.nav-arrow.next::before {
+    border-width: 6px 0 6px 8px;
+    border-color: transparent transparent transparent #333;
 }
 
 .nav-arrow:hover {
@@ -2837,6 +2861,14 @@ nav {
     color: #2c3e50;
     transform: translateY(-50%) scale(1.1);
     box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+}
+
+.nav-arrow:hover::before {
+    border-color: transparent #2c3e50 transparent transparent;
+}
+
+.nav-arrow.next:hover::before {
+    border-color: transparent transparent transparent #2c3e50;
 }
 
 .nav-arrow.prev {
@@ -3175,6 +3207,14 @@ nav {
         text-indent: 0;
         padding: 0;
         margin: 0;
+    }
+
+    .nav-arrow::before {
+        border-width: 8px 10px 8px 0;
+    }
+
+    .nav-arrow.next::before {
+        border-width: 8px 0 8px 10px;
     }
 
     .nav-arrow.prev {
