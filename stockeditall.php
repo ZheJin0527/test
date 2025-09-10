@@ -1335,6 +1335,88 @@
             opacity: 0.6;
             cursor: not-allowed;
         }
+
+        .search-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .search-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .unified-search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .unified-search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .unified-search-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .action-buttons-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        @media (max-width: 1024px) {
+            .search-row {
+                flex-wrap: wrap;
+            }
+            
+            .action-buttons-group {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+            
+            .filter-group,
+            .search-group {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1384,42 +1466,26 @@
         
         <!-- 搜索和过滤区域 -->
         <div class="filter-section">
-            <div class="filter-grid">
+            <div class="search-row">
                 <div class="filter-group">
                     <label for="date-filter">日期</label>
                     <input type="date" id="date-filter" class="filter-input">
                 </div>
-                <!-- 在这里添加新的货品编号搜索栏 -->
-                <div class="filter-group">
-                    <label for="code-filter">货品编号</label>
-                    <input type="text" id="code-filter" class="filter-input" placeholder="搜索货品编号...">
+                <div class="search-group">
+                    <label for="unified-filter">搜索货品</label>
+                    <input type="text" id="unified-filter" class="unified-search-input" 
+                        placeholder="搜索货品编号、货品名称或收货人...">
                 </div>
-                <div class="filter-group">
-                    <label for="product-filter">货品名称</label>
-                    <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">
+                <div class="action-buttons-group">
+                    <button class="btn btn-success" onclick="addNewRow()">
+                        <i class="fas fa-plus"></i>
+                        新增记录
+                    </button>
+                    <button class="btn btn-warning" onclick="exportData()">
+                        <i class="fas fa-download"></i>
+                        导出数据
+                    </button>
                 </div>
-                <div class="filter-group">
-                    <label for="receiver-filter">收货人</label>
-                    <input type="text" id="receiver-filter" class="filter-input" placeholder="搜索收货人...">
-                </div>
-            </div>
-            <div class="filter-actions">
-                <button class="btn btn-primary" onclick="searchData()">
-                    <i class="fas fa-search"></i>
-                    搜索
-                </button>
-                <button class="btn btn-secondary" onclick="resetFilters()">
-                    <i class="fas fa-refresh"></i>
-                    重置
-                </button>
-                <button class="btn btn-success" onclick="addNewRow()">
-                    <i class="fas fa-plus"></i>
-                    新增记录
-                </button>
-                <button class="btn btn-warning" onclick="exportData()">
-                    <i class="fas fa-download"></i>
-                    导出数据
-                </button>
             </div>
         </div>
 
@@ -1672,6 +1738,9 @@
             loadStockData();
             loadCodeNumbers();
             loadProducts();
+            
+            // 添加实时搜索监听器
+            setupRealTimeSearch();
 
             // 设置默认active状态
             document.querySelector('.selector-dropdown .dropdown-item[data-type="central"]').classList.add('active');
@@ -1693,6 +1762,30 @@
                 } else {
                     typeSelect.disabled = false;
                 }
+            }
+        }
+
+        // 设置实时搜索
+        function setupRealTimeSearch() {
+            const dateInput = document.getElementById('date-filter');
+            const searchInput = document.getElementById('unified-filter');
+            
+            // 防抖处理，避免频繁搜索
+            let debounceTimer;
+            
+            function handleSearch() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    searchData();
+                }, 300); // 300ms延迟
+            }
+            
+            if (dateInput) {
+                dateInput.addEventListener('change', handleSearch);
+            }
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', handleSearch);
             }
         }
 
@@ -2057,7 +2150,7 @@
             }
         }
 
-        // 搜索数据
+        // 实时搜索数据
         async function searchData() {
             if (isLoading) return;
             
@@ -2069,20 +2162,24 @@
                 });
                 
                 const dateFilter = document.getElementById('date-filter').value;
-                const codeFilter = document.getElementById('code-filter').value;  // 新添加
-                const productFilter = document.getElementById('product-filter').value;
-                const receiverFilter = document.getElementById('receiver-filter').value;
+                const unifiedSearch = document.getElementById('unified-filter').value;
                 
                 if (dateFilter) params.append('search_date', dateFilter);
-                if (codeFilter) params.append('product_code', codeFilter);  // 新添加
-                if (productFilter) params.append('product_name', productFilter);
-                if (receiverFilter) params.append('receiver', receiverFilter);
+                if (unifiedSearch) {
+                    // 将统一搜索框的内容应用到所有搜索字段
+                    params.append('product_code', unifiedSearch);
+                    params.append('product_name', unifiedSearch);
+                    params.append('receiver', unifiedSearch);
+                }
                 
                 const result = await apiCall(`?${params}`);
                 
                 if (result.success) {
                     stockData = result.data || [];
-                    showAlert(`找到 ${stockData.length} 条记录`, 'success');
+                    // 只在有搜索条件时显示找到记录数的提示
+                    if (dateFilter || unifiedSearch) {
+                        showAlert(`找到 ${stockData.length} 条记录`, 'success');
+                    }
                 } else {
                     stockData = [];
                     showAlert('搜索失败: ' + (result.message || '未知错误'), 'error');
