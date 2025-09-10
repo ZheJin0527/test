@@ -1219,26 +1219,13 @@
                 </div>
                 
                 <div class="filter-section">
-                    <div class="filter-grid">
-                        <div class="filter-group">
-                            <label for="j1-product-filter">货品名称</label>
-                            <input type="text" id="j1-product-filter" class="filter-input" placeholder="搜索货品名称...">
+                    <div class="search-row">
+                        <div class="search-group">
+                            <label for="central-unified-filter">搜索货品</label>
+                            <input type="text" id="central-unified-filter" class="unified-search-input" 
+                                placeholder="搜索货品名称、编号或规格单位...">
                         </div>
-                        <div class="filter-group">
-                            <label for="j1-code-filter">货品编号</label>
-                            <input type="text" id="j1-code-filter" class="filter-input" placeholder="搜索货品编号...">
-                        </div>
-                        <div class="filter-group">
-                            <label for="j1-spec-filter">规格单位</label>
-                            <input type="text" id="j1-spec-filter" class="filter-input" placeholder="搜索规格单位...">
-                        </div>
-                    </div>
-                    <div class="filter-actions">
-                        <button class="btn btn-primary" onclick="searchData('j1')">
-                            <i class="fas fa-search"></i>
-                            搜索
-                        </button>
-                        <button class="btn btn-warning" onclick="exportData('j1')">
+                        <button class="btn btn-warning" onclick="exportData('central')">
                             <i class="fas fa-download"></i>
                             导出CSV
                         </button>
@@ -1481,7 +1468,10 @@
         // 初始化应用
         function initApp() {
             loadData(currentSystem);
-            checkLowStockAlerts(); // 添加这一行
+            checkLowStockAlerts();
+            
+            // 添加实时搜索监听器
+            setupRealTimeSearch();
             
             // 点击外部关闭下拉菜单
             document.addEventListener('click', function(e) {
@@ -1490,6 +1480,25 @@
                 }
                 if (!e.target.closest('.view-selector')) {
                     document.getElementById('view-selector-dropdown').classList.remove('show');
+                }
+            });
+        }
+
+        // 设置实时搜索
+        function setupRealTimeSearch() {
+            const systems = ['central', 'j1', 'j2'];
+            
+            systems.forEach(system => {
+                const searchInput = document.getElementById(`${system}-unified-filter`);
+                if (searchInput) {
+                    // 防抖处理，避免频繁搜索
+                    let debounceTimer;
+                    searchInput.addEventListener('input', function() {
+                        clearTimeout(debounceTimer);
+                        debounceTimer = setTimeout(() => {
+                            searchData(system);
+                        }, 300); // 300ms延迟
+                    });
                 }
             });
         }
@@ -1697,33 +1706,27 @@
             return totalStockForProduct <= parseFloat(minimumQuantity);
         }
 
-        // 搜索数据
+        // 实时搜索数据
         function searchData(system) {
             if (system === 'remark') {
                 searchRemarkData();
                 return;
             }
 
-            const productFilter = document.getElementById(`${system}-product-filter`).value.toLowerCase();
-            const codeFilter = document.getElementById(`${system}-code-filter`).value.toLowerCase();
-            const specFilter = document.getElementById(`${system}-spec-filter`).value.toLowerCase();
+            const searchTerm = document.getElementById(`${system}-unified-filter`).value.toLowerCase();
 
             filteredData[system] = stockData[system].filter(item => {
-                const matchProduct = !productFilter || item.product_name.toLowerCase().includes(productFilter);
-                const matchCode = !codeFilter || (item.code_number && item.code_number.toLowerCase().includes(codeFilter));
-                const matchSpec = !specFilter || (item.specification && item.specification.toLowerCase().includes(specFilter));
-
-                return matchProduct && matchCode && matchSpec;
+                const searchText = [
+                    item.product_name || '',
+                    item.code_number || '',
+                    item.specification || ''
+                ].join(' ').toLowerCase();
+                
+                return searchText.includes(searchTerm);
             });
 
             renderStockTable(system);
             updateStats(system);
-            
-            if (filteredData[system].length === 0) {
-                showAlert('未找到匹配的记录', 'info');
-            } else {
-                showAlert(`找到 ${filteredData[system].length} 条匹配记录`, 'success');
-            }
         }
 
         // 搜索价格分析数据
@@ -1789,9 +1792,8 @@
                 sortRemarkData('name_asc');
                 renderRemarkProducts();
             } else {
-                document.getElementById(`${system}-product-filter`).value = '';
-                document.getElementById(`${system}-code-filter`).value = '';
-                document.getElementById(`${system}-spec-filter`).value = '';
+                // 修改这部分
+                document.getElementById(`${system}-unified-filter`).value = '';
                 
                 filteredData[system] = [...stockData[system]];
                 renderStockTable(system);
@@ -2188,7 +2190,7 @@
             // Ctrl+F 聚焦搜索框
             if (e.ctrlKey && e.key === 'f') {
                 e.preventDefault();
-                const activeFilterId = `${currentSystem}-product-filter`;
+                const activeFilterId = `${currentSystem}-unified-filter`;
                 const activeFilter = document.getElementById(activeFilterId);
                 if (activeFilter) {
                     activeFilter.focus();
