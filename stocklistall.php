@@ -357,11 +357,29 @@
             text-align: center;
             font-weight: 600;
             border: 1px solid #462d03;
+            border-collapse: collapse;
             position: sticky;
             top: 0;
             z-index: 10;
             white-space: nowrap;
             min-width: 80px;
+        }
+
+        /* 确保表头边框连续 */
+        .stock-table thead tr {
+            border-collapse: collapse;
+        }
+
+        .stock-table th + th {
+            border-left: none;
+        }
+
+        .stock-table th:first-child {
+            border-left: 1px solid #462d03;
+        }
+
+        .stock-table th:last-child {
+            border-right: 1px solid #462d03;
         }
 
         /* 确保表格在容器内正确显示 */
