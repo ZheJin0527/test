@@ -6838,14 +6838,8 @@ form select {
 /* 超小屏幕 */
 @media (max-width: 480px) {
     .jobs-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        grid-template-columns: 1fr;
         gap: 8px;
-    }
-    
-    .job-card {
-        width: 100%;
-        max-width: 300px;
+        justify-items: center;
     }
 }
