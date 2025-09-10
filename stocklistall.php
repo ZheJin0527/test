@@ -1159,6 +1159,10 @@
                             <i class="fas fa-search"></i>
                             搜索
                         </button>
+                        <button class="btn btn-secondary" onclick="resetFilters('central')">
+                            <i class="fas fa-refresh"></i>
+                            重置
+                        </button>
                         <button class="btn btn-warning" onclick="exportData('central')">
                             <i class="fas fa-download"></i>
                             导出CSV
@@ -1242,6 +1246,10 @@
                             <i class="fas fa-search"></i>
                             搜索
                         </button>
+                        <button class="btn btn-secondary" onclick="resetFilters('j1')">
+                            <i class="fas fa-refresh"></i>
+                            重置
+                        </button>
                         <button class="btn btn-warning" onclick="exportData('j1')">
                             <i class="fas fa-download"></i>
                             导出CSV
@@ -1324,6 +1332,10 @@
                         <button class="btn btn-primary" onclick="searchData('j2')">
                             <i class="fas fa-search"></i>
                             搜索
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetFilters('j2')">
+                            <i class="fas fa-refresh"></i>
+                            重置
                         </button>
                         <button class="btn btn-warning" onclick="exportData('j2')">
                             <i class="fas fa-download"></i>
@@ -1413,6 +1425,10 @@
                     <button class="btn btn-primary" onclick="searchData('remark')">
                         <i class="fas fa-search"></i>
                         搜索
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetFilters('remark')">
+                        <i class="fas fa-refresh"></i>
+                        重置
                     </button>
                     <button class="btn btn-success" onclick="refreshData('remark')">
                         <i class="fas fa-sync-alt"></i>
