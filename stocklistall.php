@@ -1139,26 +1139,14 @@
                     </div>
                 </div>
                 
+                <!-- 中央库存页面的过滤部分 -->
                 <div class="filter-section">
-                    <div class="filter-grid">
-                        <div class="filter-group">
-                            <label for="central-product-filter">货品名称</label>
-                            <input type="text" id="central-product-filter" class="filter-input" placeholder="搜索货品名称...">
+                    <div class="search-row">
+                        <div class="search-group">
+                            <label for="central-unified-filter">搜索货品</label>
+                            <input type="text" id="central-unified-filter" class="unified-search-input" 
+                                placeholder="搜索货品名称、编号或规格单位...">
                         </div>
-                        <div class="filter-group">
-                            <label for="central-code-filter">货品编号</label>
-                            <input type="text" id="central-code-filter" class="filter-input" placeholder="搜索货品编号...">
-                        </div>
-                        <div class="filter-group">
-                            <label for="central-spec-filter">规格单位</label>
-                            <input type="text" id="central-spec-filter" class="filter-input" placeholder="搜索规格单位...">
-                        </div>
-                    </div>
-                    <div class="filter-actions">
-                        <button class="btn btn-primary" onclick="searchData('central')">
-                            <i class="fas fa-search"></i>
-                            搜索
-                        </button>
                         <button class="btn btn-warning" onclick="exportData('central')">
                             <i class="fas fa-download"></i>
                             导出CSV
@@ -1284,27 +1272,15 @@
                     </div>
                 </div>
                 
+                <!-- 中央库存页面的过滤部分 -->
                 <div class="filter-section">
-                    <div class="filter-grid">
-                        <div class="filter-group">
-                            <label for="j2-product-filter">货品名称</label>
-                            <input type="text" id="j2-product-filter" class="filter-input" placeholder="搜索货品名称...">
+                    <div class="search-row">
+                        <div class="search-group">
+                            <label for="central-unified-filter">搜索货品</label>
+                            <input type="text" id="central-unified-filter" class="unified-search-input" 
+                                placeholder="搜索货品名称、编号或规格单位...">
                         </div>
-                        <div class="filter-group">
-                            <label for="j2-code-filter">货品编号</label>
-                            <input type="text" id="j2-code-filter" class="filter-input" placeholder="搜索货品编号...">
-                        </div>
-                        <div class="filter-group">
-                            <label for="j2-spec-filter">规格单位</label>
-                            <input type="text" id="j2-spec-filter" class="filter-input" placeholder="搜索规格单位...">
-                        </div>
-                    </div>
-                    <div class="filter-actions">
-                        <button class="btn btn-primary" onclick="searchData('j2')">
-                            <i class="fas fa-search"></i>
-                            搜索
-                        </button>
-                        <button class="btn btn-warning" onclick="exportData('j2')">
+                        <button class="btn btn-warning" onclick="exportData('central')">
                             <i class="fas fa-download"></i>
                             导出CSV
                         </button>
@@ -1352,44 +1328,15 @@
 
         <!-- 价格分析页面 -->
         <div id="remark-page" class="page-section">
+            <!-- 中央库存页面的过滤部分 -->
             <div class="filter-section">
-                <div class="filter-grid">
-                    <div class="filter-group">
-                        <label for="remark-product-filter">货品名称</label>
-                        <input type="text" id="remark-product-filter" class="filter-input" placeholder="搜索货品名称...">
+                <div class="search-row">
+                    <div class="search-group">
+                        <label for="central-unified-filter">搜索货品</label>
+                        <input type="text" id="central-unified-filter" class="unified-search-input" 
+                            placeholder="搜索货品名称、编号或规格单位...">
                     </div>
-                    <div class="filter-group">
-                        <label for="remark-code-filter">货品编号</label>
-                        <input type="text" id="remark-code-filter" class="filter-input" placeholder="搜索货品编号...">
-                    </div>
-                    <div class="filter-group">
-                        <label for="remark-min-variants">最少价格数量</label>
-                        <select id="remark-min-variants" class="filter-select">
-                            <option value="">全部</option>
-                            <option value="2">2个或以上</option>
-                            <option value="3">3个或以上</option>
-                            <option value="4">4个或以上</option>
-                            <option value="5">5个或以上</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="remark-sort-by">排序方式</label>
-                        <select id="remark-sort-by" class="filter-select">
-                            <option value="name_asc">货品名称 A-Z</option>
-                            <option value="name_desc">货品名称 Z-A</option>
-                            <option value="variants_desc">价格数量 (多-少)</option>
-                            <option value="variants_asc">价格数量 (少-多)</option>
-                            <option value="price_diff_desc">价格差异 (大-小)</option>
-                            <option value="price_diff_asc">价格差异 (小-大)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="filter-actions">
-                    <button class="btn btn-primary" onclick="searchData('remark')">
-                        <i class="fas fa-search"></i>
-                        搜索
-                    </button>
-                    <button class="btn btn-warning" onclick="exportData('remark')">
+                    <button class="btn btn-warning" onclick="exportData('central')">
                         <i class="fas fa-download"></i>
                         导出CSV
                     </button>
