@@ -406,9 +406,9 @@
             table-layout: fixed;
             width: 100%;
             min-width: 1400px;
-            border-collapse: collapse;
+            border-collapse: separate;  /* 改为 separate */
+            border-spacing: 0;          /* 添加这行 */
             font-size: 14px;
-            margin: 0;
         }
 
         /* 确保表格容器高度计算正确 */
