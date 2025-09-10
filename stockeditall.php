@@ -2151,52 +2151,50 @@
         }
 
         // 实时搜索数据
-async function searchData() {
-    if (isLoading) return;
+        async function searchData() {
+            if (isLoading) return;
 
-    isLoading = true;
+            isLoading = true;
 
-    try {
-        const params = new URLSearchParams({
-            action: 'list'
-        });
+            try {
+                const params = new URLSearchParams({
+                    action: 'list'
+                });
 
-        const dateFilter = document.getElementById('date-filter').value;
-        const unifiedSearch = document.getElementById('unified-filter').value.trim().toLowerCase();
+                const dateFilter = document.getElementById('date-filter').value;
+                const unifiedSearch = document.getElementById('unified-filter').value.trim().toLowerCase();
 
-        if (dateFilter) params.append('search_date', dateFilter);
+                if (dateFilter) params.append('search_date', dateFilter);
 
-        // 不再 append product_code / product_name / receiver
-        const result = await apiCall(`?${params}`);
+                // 不再 append product_code / product_name / receiver
+                const result = await apiCall(`?${params}`);
 
-        if (result.success) {
-            let data = result.data || [];
+                if (result.success) {
+                    let data = result.data || [];
 
-            if (unifiedSearch) {
-                data = data.filter(record =>
-                    (record.code_number && record.code_number.toLowerCase().includes(unifiedSearch)) ||
-                    (record.product_name && record.product_name.toLowerCase().includes(unifiedSearch)) ||
-                    (record.receiver && record.receiver.toLowerCase().includes(unifiedSearch))
-                );
-                showAlert(`找到 ${data.length} 条记录`, 'success');
+                    if (unifiedSearch) {
+                        data = data.filter(record =>
+                            (record.code_number && record.code_number.toLowerCase().includes(unifiedSearch)) ||
+                            (record.product_name && record.product_name.toLowerCase().includes(unifiedSearch)) ||
+                            (record.receiver && record.receiver.toLowerCase().includes(unifiedSearch))
+                        );
+                    }
+
+                    stockData = data;
+                } else {
+                    stockData = [];
+                    showAlert('搜索失败: ' + (result.message || '未知错误'), 'error');
+                }
+
+                renderStockTable();
+                updateStats();
+
+            } catch (error) {
+                showAlert('搜索时发生错误', 'error');
+            } finally {
+                isLoading = false;
             }
-
-            stockData = data;
-        } else {
-            stockData = [];
-            showAlert('搜索失败: ' + (result.message || '未知错误'), 'error');
         }
-
-        renderStockTable();
-        updateStats();
-
-    } catch (error) {
-        showAlert('搜索时发生错误', 'error');
-    } finally {
-        isLoading = false;
-    }
-}
-
 
         // 重置搜索过滤器
         function resetFilters() {
