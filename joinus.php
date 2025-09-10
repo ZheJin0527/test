@@ -148,40 +148,16 @@ header("Expires: 0");
         <h2 class="job-table-title">目前在招聘的职位</h2>
         </div>
         
-        <!-- 公司分类按钮 -->
-        <div class="company-buttons">
-            <button class="company-btn active" data-company="KUNZZHOLDINGS">KUNZZHOLDINGS</button>
-            <button class="company-btn" data-company="TOKYO CUISINE">TOKYO CUISINE</button>
+        <!-- 分类按钮 -->
+        <div class="category-buttons">
+            <button class="category-btn active" data-category="all">全部</button>
+            <button class="category-btn" data-category="KUNZZHOLDINGS">KUNZZHOLDINGS</button>
+            <button class="category-btn" data-category="TOKYO CUISINE">TOKYO CUISINE</button>
         </div>
         
-        
-        <!-- 职位标题分类弹窗 -->
-        <div id="titleModal" class="modal">
-            <div class="modal-content title-modal-content">
-                <span class="close-btn" onclick="closeTitleModal()">&times;</span>
-                <h2 id="titleModalTitle">选择职位</h2>
-                <div class="titles-grid" id="titlesGrid">
-                    <!-- 职位标题按钮将通过JavaScript动态生成 -->
-                </div>
-            </div>
-        </div>
-        
-        <!-- 职位详细弹窗 -->
-        <div id="jobDetailModal" class="modal">
-            <div class="modal-content job-detail-modal-content">
-                <span class="close-btn" onclick="closeJobDetailModal()">&times;</span>
-                <div class="job-detail-content" id="jobDetailContent">
-                    <!-- 职位详细信息将通过JavaScript动态生成 -->
-                </div>
-            </div>
-        </div>
-        
-        <!-- 职位列表容器 -->
-        <div class="jobs-container" id="jobsContainer">
-            <div class="jobs-grid" id="jobsGrid">
-                <!-- 职位卡片将通过JavaScript动态生成 -->
-            </div>
-        </div>
+        <div class="jobs-grid">
+    <?php echo getJobsHtml(); ?>
+    </div>
 </div>
 
     <!-- 弹窗表单 -->
@@ -1607,197 +1583,23 @@ window.addEventListener('resize', () => {
         initComphoto();
     </script>
     <script>
-        // 职位数据管理
-        let jobData = null;
-        let currentCompany = 'KUNZZHOLDINGS';
-        let currentDepartment = null;
-
-        // 从后台加载职位数据
-        async function loadJobData() {
-            try {
-                const response = await fetch('get_jobs_api.php');
-                jobData = await response.json();
-                initializeJobSystem();
-            } catch (error) {
-                console.error('加载职位数据失败:', error);
-                document.getElementById('jobsGrid').innerHTML = '<div class="no-jobs">职位数据加载失败，请刷新页面重试</div>';
-            }
-        }
-
-        // 初始化职位系统
-        function initializeJobSystem() {
-            if (!jobData) return;
-            
-            // 初始化公司按钮事件
-            initializeCompanyButtons();
-            
-            // 清空职位区域，不显示任何内容
-            document.getElementById('jobsGrid').innerHTML = '';
-        }
-
-        // 初始化公司按钮事件
-        function initializeCompanyButtons() {
-            const companyButtons = document.querySelectorAll('.company-btn');
-            companyButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // 移除所有按钮的active类
-                    companyButtons.forEach(btn => btn.classList.remove('active'));
-                    // 为当前按钮添加active类
-                    this.classList.add('active');
-                    
-                    // 获取公司名称
-                    currentCompany = this.getAttribute('data-company');
-                    currentDepartment = null;
-                    
-                    // 显示该公司的职位
-                    showCompanyJobs(currentCompany);
-                });
-            });
-        }
-
-        // 显示公司的职位
-        function showCompanyJobs(companyName) {
-            if (!jobData || !jobData.companies || !jobData.companies[companyName]) {
-                document.getElementById('jobsGrid').innerHTML = '<div class="no-jobs">该公司暂无招聘职位</div>';
-                return;
-            }
-            
-            const company = jobData.companies[companyName];
-            const jobsGrid = document.getElementById('jobsGrid');
-            
-            // 清空现有内容
-            jobsGrid.innerHTML = '';
-            
-            if (!company.jobs || company.jobs.length === 0) {
-                jobsGrid.innerHTML = '<div class="no-jobs">该公司暂无招聘职位</div>';
-                return;
-            }
-            
-            // 显示职位标题选择提示
-            const titlePrompt = document.createElement('div');
-            titlePrompt.className = 'title-prompt';
-            titlePrompt.innerHTML = `
-                <div style="text-align: center; padding: 40px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);">
-                    <h3 style="color: #FF5C00; font-size: 24px; margin-bottom: 15px;">选择职位查看详情</h3>
-                    <p style="color: #6c757d; font-size: 16px; margin-bottom: 25px;">点击下方按钮选择您感兴趣的职位</p>
-                    <button class="title-btn" onclick="openTitleModal('${companyName}')" style="background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%); color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
-                        选择职位
-                    </button>
-                </div>
-            `;
-            jobsGrid.appendChild(titlePrompt);
-        }
-
-
-        // 打开职位标题选择弹窗
-        function openTitleModal(companyName) {
-            if (!jobData || !jobData.companies || !jobData.companies[companyName]) return;
-            
-            const company = jobData.companies[companyName];
-            const modal = document.getElementById('titleModal');
-            const title = document.getElementById('titleModalTitle');
-            const grid = document.getElementById('titlesGrid');
-            
-            // 设置标题
-            title.textContent = `${companyName} - 选择职位`;
-            
-            // 清空并填充职位标题按钮
-            grid.innerHTML = '';
-            
-            if (company.jobs) {
-                company.jobs.forEach(job => {
-                    const titleBtn = document.createElement('button');
-                    titleBtn.className = 'title-btn';
-                    titleBtn.textContent = job.title;
-                    titleBtn.onclick = () => {
-                        closeTitleModal();
-                        openJobDetailModal(job.id, companyName);
-                    };
-                    grid.appendChild(titleBtn);
-                });
-            }
-            
-            // 显示弹窗
-            modal.style.display = 'flex';
-        }
-
-        // 关闭职位标题选择弹窗
-        function closeTitleModal() {
-            document.getElementById('titleModal').style.display = 'none';
-        }
-
-        // 打开职位详细弹窗
-        function openJobDetailModal(jobId, companyName) {
-            if (!jobData || !jobData.companies || !jobData.companies[companyName]) return;
-            
-            const company = jobData.companies[companyName];
-            const job = company.jobs.find(j => j.id === jobId);
-            
-            if (!job) return;
-            
-            const modal = document.getElementById('jobDetailModal');
-            const content = document.getElementById('jobDetailContent');
-            
-            // 生成职位详细内容
-            content.innerHTML = `
-                <div class="job-detail-header">
-                    <div class="job-detail-title">${job.title}</div>
-                </div>
-                <div class="job-detail-meta">
-                    <div class="job-meta-item">
-                        <div class="job-meta-label">招聘人数</div>
-                        <div class="job-meta-value">${job.count}</div>
-                    </div>
-                    <div class="job-meta-item">
-                        <div class="job-meta-label">工作经验</div>
-                        <div class="job-meta-value">${job.experience}</div>
-                    </div>
-                    <div class="job-meta-item">
-                        <div class="job-meta-label">发布日期</div>
-                        <div class="job-meta-value">${job.publish_date}</div>
-                    </div>
-                    <div class="job-meta-item">
-                        <div class="job-meta-label">所属公司</div>
-                        <div class="job-meta-value">${companyName}</div>
-                    </div>
-                </div>
-                <div class="job-detail-section">
-                    <h3>职位描述</h3>
-                    <div class="job-detail-description">${job.description}</div>
-                </div>
-                <div class="job-apply-section">
-                    <button class="job-apply-btn" onclick="openForm('${job.title}'); closeJobDetailModal();">
-                        申请职位
-                    </button>
-                </div>
-            `;
-            
-            // 显示弹窗
-            modal.style.display = 'flex';
-        }
-
-        // 关闭职位详细弹窗
-        function closeJobDetailModal() {
-            document.getElementById('jobDetailModal').style.display = 'none';
-        }
-
         // 粒子动画初始化
-        function initParticles() {
-            const particles = document.getElementById('particles');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.width = Math.random() * 4 + 2 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                particles.appendChild(particle);
-            }
-        }
+function initParticles() {
+    const particles = document.getElementById('particles');
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.width = Math.random() * 4 + 2 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particles.appendChild(particle);
+    }
+}
 
 // 修改后的toggleDetail函数，现在直接接收card元素
 function toggleDetail(card) {
@@ -1828,27 +1630,15 @@ function closeForm() {
 
 // 点击弹窗外部关闭
 window.onclick = function(event) {
-    const formModal = document.getElementById('formModal');
-    const titleModal = document.getElementById('titleModal');
-    const jobDetailModal = document.getElementById('jobDetailModal');
-    
-    if (event.target == formModal) {
-        formModal.style.display = 'none';
-    }
-    if (event.target == titleModal) {
-        titleModal.style.display = 'none';
-    }
-    if (event.target == jobDetailModal) {
-        jobDetailModal.style.display = 'none';
+    const modal = document.getElementById('formModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
     }
 }
 
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
     initParticles();
-    
-    // 加载职位数据
-    loadJobData();
     
     // 为所有job-card添加点击事件监听器
     document.querySelectorAll('.job-card').forEach(card => {
