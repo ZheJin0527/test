@@ -6720,6 +6720,52 @@ form select {
     border-left: 4px solid #ff5c00;
 }
 
+.job-detail-address {
+    margin-bottom: 25px;
+}
+
+.job-detail-address h3 {
+    color: #ff5c00;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.job-detail-address p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 14px;
+    background: rgba(255, 92, 0, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #ff5c00;
+}
+
+.apply-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.apply-btn {
+    background: linear-gradient(135deg, #ff5c00, #ff8000);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 92, 0, 0.3);
+}
+
+.apply-btn:hover {
+    background: linear-gradient(135deg, #e54a00, #ff6b00);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 92, 0, 0.4);
+}
+
 @media (max-width: 768px) {
     .job-detail-modal {
         height: clamp(350px, 60vw, 500px);
@@ -6745,5 +6791,19 @@ form select {
     .job-detail-label,
     .job-detail-item span:last-child {
         font-size: 12px;
+    }
+    
+    .job-detail-address h3 {
+        font-size: 16px;
+    }
+    
+    .job-detail-address p {
+        font-size: 12px;
+        padding: 12px;
+    }
+    
+    .apply-btn {
+        padding: 10px 25px;
+        font-size: 14px;
     }
 }

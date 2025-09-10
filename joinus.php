@@ -124,7 +124,13 @@ include 'header.php';
                     <h3>职位详情：</h3>
                     <p id="jobDetailDescription">-</p>
                 </div>
-                <button class="apply-btn" onclick="openFormFromDetail()">申请职位</button>
+                <div class="job-detail-address">
+                    <h3>工作地址：</h3>
+                    <p id="jobDetailAddress">-</p>
+                </div>
+                <div class="apply-btn-container">
+                    <button class="apply-btn" onclick="openFormFromDetail()">申请职位</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1417,7 +1423,8 @@ async function loadJobsData() {
                         experience: job.experience,
                         publish_date: job.publish_date,
                         company: company.name,
-                        description: job.description
+                        description: job.description,
+                        address: job.address || '待定'
                     };
                 });
             });
@@ -1477,7 +1484,8 @@ function openJobDetail(jobId) {
             experience: '1',
             publish_date: '2025-01-01',
             company: 'KUNZZHOLDINGS',
-            description: '这是一个示例职位描述。'
+            description: '这是一个示例职位描述。',
+            address: '待定'
         };
         
         document.getElementById('jobDetailTitle').textContent = defaultData.title;
@@ -1486,6 +1494,7 @@ function openJobDetail(jobId) {
         document.getElementById('jobDetailPublishDate').textContent = defaultData.publish_date;
         document.getElementById('jobDetailCompany').textContent = defaultData.company;
         document.getElementById('jobDetailDescription').textContent = defaultData.description;
+        document.getElementById('jobDetailAddress').textContent = defaultData.address;
     } else {
         // 填充弹窗数据
         document.getElementById('jobDetailTitle').textContent = jobData.title;
@@ -1494,6 +1503,7 @@ function openJobDetail(jobId) {
         document.getElementById('jobDetailPublishDate').textContent = jobData.publish_date;
         document.getElementById('jobDetailCompany').textContent = jobData.company;
         document.getElementById('jobDetailDescription').textContent = jobData.description;
+        document.getElementById('jobDetailAddress').textContent = jobData.address;
     }
     
     // 显示弹窗
