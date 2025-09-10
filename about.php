@@ -861,12 +861,16 @@ updatePageIndicator(0);
         }
 
         function selectCard(year) {
-            if (isAnimating) return;
+            if (isAnimating || isDragging) return;
             
+            console.log('selectCard called with year:', year);
             const index = years.indexOf(year.toString());
+            console.log('Found index:', index, 'currentIndex:', currentIndex);
+            
             if (index !== -1 && index !== currentIndex) {
                 currentIndex = index;
                 showTimelineItem(year.toString());
+                console.log('Card switched to:', year);
             }
         }
 
@@ -903,7 +907,7 @@ updatePageIndicator(0);
             const dragTime = Date.now() - dragStartTime;
             
             // 增加时间限制，避免过快触发
-            if (Math.abs(deltaX) >= dragThreshold && dragTime > 50) {
+            if (Math.abs(deltaX) >= dragThreshold && dragTime > 100) {
                 hasTriggered = true;
                 
                 if (deltaX > 0) {
@@ -935,8 +939,7 @@ updatePageIndicator(0);
             currentX = 0;
         }
 
-        // 改进的事件监听器
-        let clickTimeout;
+        // 拖拽事件监听器
         let dragStartTime = 0;
         let dragStartX = 0;
 
@@ -951,22 +954,7 @@ updatePageIndicator(0);
         });
 
         document.addEventListener('mousemove', handleDragMove);
-        document.addEventListener('mouseup', (e) => {
-            const card = e.target.closest('.timeline-content-item');
-            if (card && !isDragging && !isAnimating) {
-                const dragTime = Date.now() - dragStartTime;
-                const dragDistance = Math.abs(e.clientX - dragStartX);
-                
-                // 如果是短时间、短距离的点击，则切换卡片
-                if (dragTime < 200 && dragDistance < 10) {
-                    const year = card.getAttribute('data-year');
-                    if (year) {
-                        selectCard(year);
-                    }
-                }
-            }
-            handleDragEnd(e);
-        });
+        document.addEventListener('mouseup', handleDragEnd);
         document.addEventListener('mouseleave', handleDragEnd);
 
         // 触摸事件
@@ -980,22 +968,7 @@ updatePageIndicator(0);
         }, { passive: false });
 
         document.addEventListener('touchmove', handleDragMove, { passive: false });
-        document.addEventListener('touchend', (e) => {
-            const card = e.target.closest('.timeline-content-item');
-            if (card && !isDragging && !isAnimating) {
-                const dragTime = Date.now() - dragStartTime;
-                const dragDistance = Math.abs(e.changedTouches[0].clientX - dragStartX);
-                
-                // 如果是短时间、短距离的点击，则切换卡片
-                if (dragTime < 200 && dragDistance < 10) {
-                    const year = card.getAttribute('data-year');
-                    if (year) {
-                        selectCard(year);
-                    }
-                }
-            }
-            handleDragEnd(e);
-        });
+        document.addEventListener('touchend', handleDragEnd);
 
         // 导航项点击
         navItems.forEach((item, index) => {
