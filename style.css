@@ -4063,6 +4063,7 @@ nav {
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+    justify-items: center;
 }
 
 .job-card {
@@ -4305,6 +4306,7 @@ nav {
     grid-template-columns: repeat(5, 1fr);
     gap: clamp(10px, 1.5vw, 20px);
     padding: 0px;
+    justify-items: center;
   }
 
   .category-buttons {
@@ -6818,6 +6820,7 @@ form select {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
         padding: 0 10px;
+        justify-items: center;
     }
     
     .job-card {
@@ -6832,5 +6835,6 @@ form select {
     .jobs-grid {
         grid-template-columns: 1fr;
         gap: 8px;
+        justify-items: center;
     }
 }
