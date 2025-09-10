@@ -412,29 +412,29 @@
         }
 
         /* 固定表格列宽，防止编辑时宽度变化 */
-.stock-table {
-    table-layout: fixed; /* 添加这行 */
-    width: 100%;
-    min-width: 1500px; /* 增加总宽度来容纳新列 */
-    border-collapse: collapse;
-    font-size: 14px;
-}
+        .stock-table {
+            table-layout: fixed; /* 添加这行 */
+            width: 100%;
+            min-width: 1400px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
 
-/* 为每列指定固定宽度 */
-.stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* 日期 */
-.stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
-.stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* 货品 */
-.stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
-.stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
-.stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
-.stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 80px; } /* 规格 */
-.stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
-.stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
-.stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 90px; } /* 类型 (新增列) */
+        /* 为每列指定固定宽度 */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* 日期 */
+        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* 货品 */
+        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
+        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
+        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 80px; } /* 规格 */
+        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
+        .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
+        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 80px; } /* 类型 */
 .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 60px; } /* 产品备注 checkbox */
 .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 80px; } /* 备注编号 */
-.stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 150px; } /* 名字/收货人 (稍微减少宽度) */
-.stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 130px; } /* 备注 (稍微减少宽度) */
+.stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 160px; } /* 名字/收货人 */
+.stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 140px; } /* 备注 */
 .stock-table th:nth-child(15), .stock-table td:nth-child(15) { width: 100px; } /* 操作 */
 
         /* 确保输入框和选择框填满单元格 */
@@ -1469,16 +1469,6 @@
                         <option value="Nos">Nos</option>
                     </select>
                 </div>
-                <div class="form-group" id="add-type-group">
-                    <label for="add-type">类型</label>
-                    <select id="add-type" class="form-select">
-                        <option value="">请选择类型</option>
-                        <option value="Kitchen">Kitchen</option>
-                        <option value="SushiBar">SushiBar</option>
-                        <option value="Drink">Drink</option>
-                        <option value="Sake">Sake</option>
-                    </select>
-                </div>
                 <div class="form-group">
                     <label for="add-price">单价</label>
                     <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
@@ -1506,6 +1496,16 @@
                 <div class="form-group">
                     <label for="add-remark">备注</label>
                     <input type="text" id="add-remark" class="form-input" placeholder="输入备注...">
+                </div>
+                <div class="form-group" id="type-form-group">
+                    <label for="add-type">类型</label>
+                    <select id="add-type" class="form-select">
+                        <option value="">请选择类型</option>
+                        <option value="Kitchen">Kitchen</option>
+                        <option value="SushiBar">SushiBar</option>
+                        <option value="Drink">Drink</option>
+                        <option value="Sake">Sake</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="add-product-remark">货品备注</label>
@@ -1575,7 +1575,7 @@
                         <th style="min-width: 100px;">规格</th>
                         <th style="min-width: 100px;">单价</th>
                         <th style="min-width: 100px;">总价</th>
-                        <th style="min-width: 100px;" id="type-header">类型</th>
+                        <th style="min-width: 80px;" id="type-header">类型</th>
                         <th style="min-width: 80px;">货品备注</th>
                         <th style="min-width: 100px;">备注编号</th>
                         <th class="receiver-col">名字</th>
@@ -1684,15 +1684,19 @@
                 }
             }, 100);
 
-            // 初始化Type字段状态
-            const typeHeader = document.getElementById('type-header');
-            const addTypeGroup = document.getElementById('add-type-group');
-            const addTypeSelect = document.getElementById('add-type');
-
+            // 控制Type列的显示/隐藏
             if (currentStockType === 'central') {
+                // 隐藏Type列和表单字段
+                const typeHeader = document.getElementById('type-header');
+                const typeFormGroup = document.getElementById('type-form-group');
                 if (typeHeader) typeHeader.style.display = 'none';
-                if (addTypeGroup) addTypeGroup.style.display = 'none';
-                if (addTypeSelect) addTypeSelect.disabled = true;
+                if (typeFormGroup) typeFormGroup.style.display = 'none';
+            } else {
+                // 显示Type列和表单字段
+                const typeHeader = document.getElementById('type-header');
+                const typeFormGroup = document.getElementById('type-form-group');
+                if (typeHeader) typeHeader.style.display = 'table-cell';
+                if (typeFormGroup) typeFormGroup.style.display = 'block';
             }
         }
 
@@ -1722,6 +1726,23 @@
                     document.getElementById('page-title').textContent = '进出货 - J2';
                     document.getElementById('current-stock-type').textContent = 'J2';
                     break;
+            }
+
+            // 控制Type列的显示
+            const typeHeader = document.getElementById('type-header');
+            const typeFormGroup = document.getElementById('type-form-group');
+            const typeColumns = document.querySelectorAll('.stock-table td:nth-child(10), .stock-table th:nth-child(10)');
+            
+            if (stockType === 'central') {
+                // 隐藏Type相关元素
+                if (typeHeader) typeHeader.style.display = 'none';
+                if (typeFormGroup) typeFormGroup.style.display = 'none';
+                typeColumns.forEach(col => col.style.display = 'none');
+            } else {
+                // 显示Type相关元素
+                if (typeHeader) typeHeader.style.display = 'table-cell';
+                if (typeFormGroup) typeFormGroup.style.display = 'block';
+                typeColumns.forEach(col => col.style.display = 'table-cell');
             }
             
             // 更新active状态
@@ -1753,25 +1774,6 @@
             loadStockData();
             loadCodeNumbers();
             loadProducts();
-
-            // 控制Type字段的显示和启用状态
-            setTimeout(() => {
-                const typeHeader = document.getElementById('type-header');
-                const addTypeGroup = document.getElementById('add-type-group');
-                const addTypeSelect = document.getElementById('add-type');
-                
-                if (currentStockType === 'central') {
-                    // 中央页面隐藏或禁用Type字段
-                    if (typeHeader) typeHeader.style.display = 'none';
-                    if (addTypeGroup) addTypeGroup.style.display = 'none';
-                    if (addTypeSelect) addTypeSelect.disabled = true;
-                } else {
-                    // J1和J2页面显示Type字段
-                    if (typeHeader) typeHeader.style.display = '';
-                    if (addTypeGroup) addTypeGroup.style.display = '';
-                    if (addTypeSelect) addTypeSelect.disabled = false;
-                }
-            }, 100);
         }
 
         // 切换视图选择器下拉菜单
@@ -2201,15 +2203,18 @@
                         </div>
                     </td>
                     <td>
-                        ${isEditing ? 
-                            `<select class="table-select" onchange="updateField(${record.id}, 'type', this.value)" ${currentStockType === 'central' ? 'disabled' : ''}>
-                                <option value="">请选择类型</option>
-                                <option value="Kitchen" ${record.type === 'Kitchen' ? 'selected' : ''}>Kitchen</option>
-                                <option value="SushiBar" ${record.type === 'SushiBar' ? 'selected' : ''}>SushiBar</option>
-                                <option value="Drink" ${record.type === 'Drink' ? 'selected' : ''}>Drink</option>
-                                <option value="Sake" ${record.type === 'Sake' ? 'selected' : ''}>Sake</option>
+                        ${isEditing && currentStockType !== 'central' ? 
+                            `<select class="table-select" onchange="updateField(${record.id}, 'type', this.value)">
+                                ${generateTypeOptions(record.type)}
                             </select>` :
-                            `<span>${record.type || '-'}</span>`
+                            `<span>${currentStockType !== 'central' ? (record.type || '-') : '-'}</span>`
+                        }
+                    </td>
+                    <td style="text-align: center;">
+                        ${isEditing ? 
+                            `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} 
+                            onchange="updateRemarkCheck(${record.id}, this.checked)">` :
+                            `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} disabled>`
                         }
                     </td>
                     <td>
@@ -2347,7 +2352,7 @@
                     </div>
                 </td>
                 <td>
-                    <select class="table-select" id="${rowId}-type" ${currentStockType === 'central' ? 'disabled' : ''}>
+                    <select class="table-select" id="${rowId}-type">
                         <option value="">请选择类型</option>
                         <option value="Kitchen">Kitchen</option>
                         <option value="SushiBar">SushiBar</option>
@@ -2610,8 +2615,7 @@
                 price: document.getElementById(`${rowId}-price`).value,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
                 remark: document.getElementById(`${rowId}-remark`).value,
-                target: document.getElementById(`${rowId}-target`).value,
-                type: document.getElementById(`${rowId}-type`).value
+                target: document.getElementById(`${rowId}-target`).value
             };
         }
 
@@ -2628,7 +2632,6 @@
             if (document.getElementById(`${rowId}-price`)) document.getElementById(`${rowId}-price`).value = data.price;
             if (document.getElementById(`${rowId}-receiver`)) document.getElementById(`${rowId}-receiver`).value = data.receiver;
             if (document.getElementById(`${rowId}-remark`)) document.getElementById(`${rowId}-remark`).value = data.remark;
-            if (document.getElementById(`${rowId}-type`)) document.getElementById(`${rowId}-type`).value = data.type;
         }
 
         // 保存新行记录
@@ -5070,6 +5073,17 @@
                 confirmBtn.innerHTML = '<i class="fas fa-check"></i> 确认删除';
                 confirmBtn.disabled = true;
             }
+        }
+
+        // 生成Type选项
+        function generateTypeOptions(selectedValue = '') {
+            const typeOptions = ['Kitchen', 'SushiBar', 'Drink', 'Sake'];
+            let options = '<option value="">请选择类型</option>';
+            typeOptions.forEach(type => {
+                const selected = type === selectedValue ? 'selected' : '';
+                options += `<option value="${type}" ${selected}>${type}</option>`;
+            });
+            return options;
         }
 
         // 确认批量删除
