@@ -173,6 +173,7 @@ header("Expires: 0");
                     <div class="job-detail-item">
                         <span class="job-detail-label">&#128188; 工作经验:</span>
                         <span id="jobDetailExperience">-</span>
+                        <span class="job-detail-label"> 年</span>
                     </div>
                     <div class="job-detail-item">
                         <span class="job-detail-label">&#128197; 发布:</span>
