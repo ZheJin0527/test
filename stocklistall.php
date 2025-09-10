@@ -346,8 +346,7 @@
             table-layout: fixed;
             width: 100%;
             min-width: 1400px;
-            border-collapse: separate;  /* 改为 separate */
-            border-spacing: 0;          /* 添加这行 */
+            border-collapse: collapse;
             font-size: 14px;
         }
 
