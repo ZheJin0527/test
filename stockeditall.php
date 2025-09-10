@@ -2166,8 +2166,10 @@
                 
                 if (dateFilter) params.append('search_date', dateFilter);
                 if (unifiedSearch) {
-                    // 使用统一搜索参数，让后端处理多字段搜索
-                    params.append('unified_search', unifiedSearch);
+                    // 将统一搜索框的内容应用到所有搜索字段
+                    params.append('product_code', unifiedSearch);
+                    params.append('product_name', unifiedSearch);
+                    params.append('receiver', unifiedSearch);
                 }
                 
                 const result = await apiCall(`?${params}`);
