@@ -346,7 +346,8 @@
             table-layout: fixed;
             width: 100%;
             min-width: 1400px;
-            border-collapse: collapse;
+            border-collapse: separate;  /* 改为 separate */
+            border-spacing: 0;          /* 添加这行 */
             font-size: 14px;
         }
 
@@ -357,48 +358,11 @@
             text-align: center;
             font-weight: 600;
             border: 1px solid #462d03;
-            border-right: 1px solid #462d03;
-            border-bottom: 2px solid #462d03;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 10;
             white-space: nowrap;
             min-width: 80px;
-        }
-
-        /* 移除第一个表头的左边框重复 */
-        .stock-table th:first-child {
-            border-left: 1px solid #462d03;
-        }
-
-        /* 移除最后一个表头的右边框重复 */
-        .stock-table th:last-child {
-            border-right: 1px solid #462d03;
-        }
-
-        /* 确保表头完全覆盖滚动内容 */
-        .stock-table thead {
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            background: #583e04;
-        }
-
-        /* 防止表格内容穿透表头 */
-        .stock-table tbody tr:first-child td {
-            border-top: none;
-        }
-
-        /* 确保表头边框不会被内容覆盖 */
-        .stock-table th::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #462d03;
-            z-index: 101;
         }
 
         /* 确保表格在容器内正确显示 */
@@ -406,9 +370,9 @@
             table-layout: fixed;
             width: 100%;
             min-width: 1400px;
-            border-collapse: separate;  /* 改为 separate */
-            border-spacing: 0;          /* 添加这行 */
+            border-collapse: collapse;
             font-size: 14px;
+            margin: 0;
         }
 
         /* 确保表格容器高度计算正确 */
@@ -440,7 +404,6 @@
         .stock-table td {
             padding: 12px 8px;
             border: 1px solid #d1d5db;
-            border-top: none;  /* 移除顶边框避免与表头重复 */
             text-align: center;
             vertical-align: middle;
         }
