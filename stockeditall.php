@@ -2105,7 +2105,7 @@
             tbody.innerHTML = '';
             
             if (stockData.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="11" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="15" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
                 return;
             }
             
