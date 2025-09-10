@@ -9,12 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
 }
 
-// 包含数据库配置
-include_once 'media_config.php';
+// 数据库配置
+$host = 'localhost';
+$dbname = 'u857194726_kunzzgroup';
+$dbuser = 'u857194726_kunzzgroup';
+$dbpass = 'Kholdings1688@';
 
 try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
     // 获取所有活跃的职位
-    $jobs = getJobsConfig();
+    $stmt = $pdo->prepare("SELECT * FROM job_positions WHERE status = 'active' ORDER BY publish_date DESC, created_at DESC");
+    $stmt->execute();
+    $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     // 按公司分组职位数据
     $companies = [
@@ -29,10 +37,8 @@ try {
     ];
     
     // 处理每个职位
-    foreach ($jobs as $jobId => $job) {
-        if ($job['status'] !== 'active') continue;
-        
-        $company = $job['category'] ?? 'KUNZZHOLDINGS';
+    foreach ($jobs as $job) {
+        $company = $job['company_category'] ?? 'KUNZZHOLDINGS';
         
         // 确保公司存在
         if (!isset($companies[$company])) {
@@ -44,12 +50,12 @@ try {
         
         // 添加职位到对应公司
         $jobData = [
-            'id' => $jobId,
-            'title' => $job['title'],
-            'count' => $job['count'],
-            'experience' => $job['experience'],
+            'id' => $job['id'],
+            'title' => $job['job_title'],
+            'count' => $job['recruitment_count'],
+            'experience' => $job['work_experience'],
             'publish_date' => $job['publish_date'],
-            'description' => $job['description']
+            'description' => $job['job_description']
         ];
         
         $companies[$company]['jobs'][] = $jobData;

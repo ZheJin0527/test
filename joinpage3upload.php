@@ -7,17 +7,18 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$configFile = 'jobs_config.json';
+// 数据库配置
+$host = 'localhost';
+$dbname = 'u857194726_kunzzgroup';
+$dbuser = 'u857194726_kunzzgroup';
+$dbpass = 'Kholdings1688@';
 
-// 调试信息
-$debugInfo = [
-    'configFile' => $configFile,
-    'realPath' => realpath($configFile),
-    'fileExists' => file_exists($configFile),
-    'isWritable' => is_writable($configFile),
-    'dirWritable' => is_writable(dirname($configFile)),
-    'currentDir' => getcwd()
-];
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("数据库连接失败：" . $e->getMessage());
+}
 
 // 处理表单提交
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -25,96 +26,98 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($action === 'add') {
         // 添加职位
-        $jobData = [
-            'title' => trim($_POST['job_title']),
-            'count' => trim($_POST['job_count']),
-            'experience' => trim($_POST['job_experience']),
-            'publish_date' => $_POST['publish_date'],
-            'description' => trim($_POST['job_description']),
-            'category' => $_POST['job_category'],
-            'created' => date('Y-m-d H:i:s'),
-            'status' => 'active'
-        ];
-        
-        // 读取现有配置
-        $jobs = [];
-        if (file_exists($configFile)) {
-            $jobs = json_decode(file_get_contents($configFile), true) ?: [];
-        }
-        
-        // 生成唯一ID
-        $jobId = 'job_' . time() . '_' . rand(1000, 9999);
-        $jobs[$jobId] = $jobData;
-        
-        // 保存配置
-        $jsonData = json_encode($jobs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        $result = file_put_contents($configFile, $jsonData);
-        
-        if ($result !== false) {
-            $success = "职位添加成功！文件已保存，字节数: " . $result;
-        } else {
-            $error = "职位添加失败！无法写入文件。文件路径: " . realpath($configFile) . " 权限: " . (is_writable($configFile) ? '可写' : '不可写');
+        try {
+            $stmt = $pdo->prepare("
+                INSERT INTO job_positions 
+                (job_title, work_experience, recruitment_count, publish_date, company_category, job_description, company_location, status, created_at) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, 'active', NOW())
+            ");
+            
+            $result = $stmt->execute([
+                trim($_POST['job_title']),
+                trim($_POST['job_experience']),
+                trim($_POST['job_count']),
+                $_POST['publish_date'],
+                $_POST['job_category'],
+                trim($_POST['job_description']),
+                $_POST['company_location'] ?? ''
+            ]);
+            
+            if ($result) {
+                $success = "职位添加成功！";
+            } else {
+                $error = "职位添加失败！";
+            }
+        } catch (PDOException $e) {
+            $error = "添加职位失败：" . $e->getMessage();
         }
         
     } elseif ($action === 'edit') {
         // 编辑职位
-        $jobId = $_POST['job_id'];
-        $jobs = [];
-        
-        if (file_exists($configFile)) {
-            $jobs = json_decode(file_get_contents($configFile), true) ?: [];
-        }
-        
-        if (isset($jobs[$jobId])) {
-            $jobs[$jobId]['title'] = trim($_POST['job_title']);
-            $jobs[$jobId]['count'] = trim($_POST['job_count']);
-            $jobs[$jobId]['experience'] = trim($_POST['job_experience']);
-            $jobs[$jobId]['publish_date'] = $_POST['publish_date'];
-            $jobs[$jobId]['description'] = trim($_POST['job_description']);
-            $jobs[$jobId]['category'] = $_POST['job_category'];
-            $jobs[$jobId]['updated'] = date('Y-m-d H:i:s');
+        try {
+            $stmt = $pdo->prepare("
+                UPDATE job_positions 
+                SET job_title = ?, work_experience = ?, recruitment_count = ?, publish_date = ?, 
+                    company_category = ?, job_description = ?, company_location = ?, updated_at = NOW()
+                WHERE id = ?
+            ");
             
-            if (file_put_contents($configFile, json_encode($jobs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
+            $result = $stmt->execute([
+                trim($_POST['job_title']),
+                trim($_POST['job_experience']),
+                trim($_POST['job_count']),
+                $_POST['publish_date'],
+                $_POST['job_category'],
+                trim($_POST['job_description']),
+                $_POST['company_location'] ?? '',
+                $_POST['job_id']
+            ]);
+            
+            if ($result) {
                 $success = "职位更新成功！";
             } else {
                 $error = "职位更新失败！";
             }
+        } catch (PDOException $e) {
+            $error = "更新职位失败：" . $e->getMessage();
         }
         
     } elseif ($action === 'delete') {
-        // 删除职位
-        $jobId = $_POST['job_id'];
-        $jobs = [];
-        
-        if (file_exists($configFile)) {
-            $jobs = json_decode(file_get_contents($configFile), true) ?: [];
-        }
-        
-        if (isset($jobs[$jobId])) {
-            unset($jobs[$jobId]);
+        // 删除职位（软删除）
+        try {
+            $stmt = $pdo->prepare("UPDATE job_positions SET status = 'inactive', updated_at = NOW() WHERE id = ?");
+            $result = $stmt->execute([$_POST['job_id']]);
             
-            if (file_put_contents($configFile, json_encode($jobs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
+            if ($result) {
                 $success = "职位删除成功！";
             } else {
                 $error = "职位删除失败！";
             }
+        } catch (PDOException $e) {
+            $error = "删除职位失败：" . $e->getMessage();
         }
     }
 }
 
 // 读取现有职位
-$jobs = [];
-if (file_exists($configFile)) {
-    $jobs = json_decode(file_get_contents($configFile), true) ?: [];
+try {
+    $stmt = $pdo->prepare("SELECT * FROM job_positions WHERE status = 'active' ORDER BY publish_date DESC, created_at DESC");
+    $stmt->execute();
+    $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $jobs = [];
+    $error = "读取职位数据失败：" . $e->getMessage();
 }
 
 // 处理编辑请求
 $editJob = null;
 if (isset($_GET['edit'])) {
     $editId = $_GET['edit'];
-    if (isset($jobs[$editId])) {
-        $editJob = $jobs[$editId];
-        $editJob['id'] = $editId;
+    foreach ($jobs as $job) {
+        if ($job['id'] == $editId) {
+            $editJob = $job;
+            break;
+        }
     }
 }
 ?>
@@ -424,17 +427,6 @@ if (isset($_GET['edit'])) {
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
             
-            <!-- 调试信息 -->
-            <div class="debug-info" style="background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; font-family: monospace; font-size: 12px;">
-                <h4>调试信息：</h4>
-                <p><strong>配置文件路径:</strong> <?php echo $debugInfo['configFile']; ?></p>
-                <p><strong>实际路径:</strong> <?php echo $debugInfo['realPath'] ?: '文件不存在'; ?></p>
-                <p><strong>文件存在:</strong> <?php echo $debugInfo['fileExists'] ? '是' : '否'; ?></p>
-                <p><strong>文件可写:</strong> <?php echo $debugInfo['isWritable'] ? '是' : '否'; ?></p>
-                <p><strong>目录可写:</strong> <?php echo $debugInfo['dirWritable'] ? '是' : '否'; ?></p>
-                <p><strong>当前目录:</strong> <?php echo $debugInfo['currentDir']; ?></p>
-            </div>
-            
             <!-- 添加/编辑职位表单 -->
             <div class="form-section">
                 <h2><?php echo $editJob ? '编辑职位' : '添加新职位'; ?></h2>
@@ -477,15 +469,22 @@ if (isset($_GET['edit'])) {
                             <label for="job_category">公司分类 *</label>
                             <select id="job_category" name="job_category" required>
                                 <option value="">请选择公司</option>
-                                <option value="KUNZZHOLDINGS" <?php echo ($editJob && $editJob['category'] === 'KUNZZHOLDINGS') ? 'selected' : ''; ?>>KUNZZHOLDINGS</option>
-                                <option value="TOKYO CUISINE" <?php echo ($editJob && $editJob['category'] === 'TOKYO CUISINE') ? 'selected' : ''; ?>>TOKYO CUISINE</option>
+                                <option value="KUNZZHOLDINGS" <?php echo ($editJob && $editJob['company_category'] === 'KUNZZHOLDINGS') ? 'selected' : ''; ?>>KUNZZHOLDINGS</option>
+                                <option value="TOKYO CUISINE" <?php echo ($editJob && $editJob['company_category'] === 'TOKYO CUISINE') ? 'selected' : ''; ?>>TOKYO CUISINE</option>
                             </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company_location">公司地址</label>
+                            <input type="text" id="company_location" name="company_location" 
+                                   value="<?php echo $editJob ? htmlspecialchars($editJob['company_location']) : ''; ?>" 
+                                   placeholder="例如：25, Jln Tanjong 3, Taman Desa Cemerlang, 81800 Ulu Tiram, Johor">
                         </div>
                         
                         <div class="form-group full-width">
                             <label for="job_description">职位详情 *</label>
                             <textarea id="job_description" name="job_description" 
-                                      placeholder="请输入详细的职位描述..." required><?php echo $editJob ? htmlspecialchars($editJob['description']) : ''; ?></textarea>
+                                      placeholder="请输入详细的职位描述..." required><?php echo $editJob ? htmlspecialchars($editJob['job_description']) : ''; ?></textarea>
                         </div>
                     </div>
                     
@@ -507,27 +506,30 @@ if (isset($_GET['edit'])) {
                 <?php if (empty($jobs)): ?>
                     <p style="text-align: center; color: #999; padding: 40px;">暂无职位信息</p>
                 <?php else: ?>
-                    <?php foreach ($jobs as $jobId => $job): ?>
+                    <?php foreach ($jobs as $job): ?>
                         <div class="job-item">
                             <div class="job-header-item">
                                 <div>
-                                    <div class="job-title-item"><?php echo htmlspecialchars($job['title']); ?></div>
+                                    <div class="job-title-item"><?php echo htmlspecialchars($job['job_title']); ?></div>
                                     <div class="job-meta-list">
-                                        <span class="job-meta-item-list">👥 人数: <?php echo htmlspecialchars($job['count']); ?></span>
-                                        <span class="job-meta-item-list">💼 经验: <?php echo htmlspecialchars($job['experience']); ?></span>
+                                        <span class="job-meta-item-list">👥 人数: <?php echo htmlspecialchars($job['recruitment_count']); ?></span>
+                                        <span class="job-meta-item-list">💼 经验: <?php echo htmlspecialchars($job['work_experience']); ?></span>
                                         <span class="job-meta-item-list">📅 发布: <?php echo $job['publish_date']; ?></span>
-                                        <span class="job-meta-item-list">🏷️ 公司: <?php echo htmlspecialchars($job['category'] ?? '未分类'); ?></span>
+                                        <span class="job-meta-item-list">🏷️ 公司: <?php echo htmlspecialchars($job['company_category'] ?? '未分类'); ?></span>
+                                        <?php if (!empty($job['company_location'])): ?>
+                                        <span class="job-meta-item-list">📍 地址: <?php echo htmlspecialchars($job['company_location']); ?></span>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="job-description-preview">
-                                        <strong>职位详情：</strong><?php echo htmlspecialchars($job['description']); ?>
+                                        <strong>职位详情：</strong><?php echo htmlspecialchars($job['job_description']); ?>
                                     </div>
                                 </div>
                                 <div class="job-actions">
-                                    <a href="?edit=<?php echo $jobId; ?>" class="btn btn-small">编辑</a>
+                                    <a href="?edit=<?php echo $job['id']; ?>" class="btn btn-small">编辑</a>
                                     <form method="post" style="display: inline-block;" 
                                           onsubmit="return confirm('确定要删除这个职位吗？')">
                                         <input type="hidden" name="action" value="delete">
-                                        <input type="hidden" name="job_id" value="<?php echo $jobId; ?>">
+                                        <input type="hidden" name="job_id" value="<?php echo $job['id']; ?>">
                                         <button type="submit" class="btn btn-danger btn-small">删除</button>
                                     </form>
                                 </div>
