@@ -351,18 +351,23 @@
         }
 
         .stock-table th {
-            background: #583e04;
-            color: white;
-            padding: 12px 8px;
-            text-align: center;
-            font-weight: 600;
-            border: 1px solid #d1d5db;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            white-space: nowrap;
-            min-width: 80px;
-        }
+    background: #583e04;
+    color: white;
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid #462d03;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    white-space: nowrap;
+    min-width: 80px;
+    border-collapse: collapse;
+}
+
+.stock-table thead tr {
+    border-collapse: collapse;
+}
 
         /* 确保表格在容器内正确显示 */
         .stock-table {
@@ -1122,7 +1127,7 @@
             padding: 6px;
             border: 2px solid #d1d5db;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
