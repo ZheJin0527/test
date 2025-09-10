@@ -1645,7 +1645,7 @@ async function loadJobsData() {
         const data = await response.json();
         console.log('服务器返回的数据:', data); // 调试信息
         
-        if (data.success) {
+        if (data.success && data.companies) {
             // 将职位数据存储到全局变量中
             jobsData = {};
             let jobCounter = 1;
@@ -1666,10 +1666,36 @@ async function loadJobsData() {
             
             console.log('职位数据加载完成:', jobsData); // 调试信息
         } else {
-            console.log('服务器返回失败:', data.error); // 调试信息
+            console.error('服务器返回失败:', data.error); // 调试信息
+            // 显示错误信息给用户
+            showJobLoadError();
         }
     } catch (error) {
         console.error('加载职位数据失败:', error);
+        // 显示错误信息给用户
+        showJobLoadError();
+    }
+}
+
+// 显示职位加载错误信息
+function showJobLoadError() {
+    const jobsGrid = document.querySelector('.jobs-grid');
+    if (jobsGrid) {
+        jobsGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">
+                <h3>职位数据加载失败</h3>
+                <p>请稍后刷新页面重试，或联系管理员检查后台职位配置。</p>
+                <button onclick="location.reload()" style="
+                    background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    margin-top: 10px;
+                ">刷新页面</button>
+            </div>
+        `;
     }
 }
 
