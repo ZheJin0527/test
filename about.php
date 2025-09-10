@@ -655,6 +655,13 @@ updatePageIndicator(0);
             document.body.style.cursor = 'grabbing';
             document.body.style.userSelect = 'none';
             
+            // 动态添加 mousemove 和 mouseup 监听器
+            mousemoveHandler = handleDragMove;
+            mouseupHandler = handleDragEnd;
+            document.addEventListener('mousemove', mousemoveHandler);
+            document.addEventListener('mouseup', mouseupHandler);
+            document.addEventListener('mouseleave', mouseupHandler);
+            
             // 不要立即阻止事件，让点击事件先处理
             // e.preventDefault();
             // e.stopPropagation();
@@ -700,6 +707,17 @@ updatePageIndicator(0);
             document.body.style.cursor = '';
             document.body.style.userSelect = '';
             
+            // 移除动态添加的事件监听器
+            if (mousemoveHandler) {
+                document.removeEventListener('mousemove', mousemoveHandler);
+                mousemoveHandler = null;
+            }
+            if (mouseupHandler) {
+                document.removeEventListener('mouseup', mouseupHandler);
+                document.removeEventListener('mouseleave', mouseupHandler);
+                mouseupHandler = null;
+            }
+            
             startX = 0;
             currentX = 0;
         }
@@ -721,9 +739,9 @@ updatePageIndicator(0);
             }
         });
 
-        document.addEventListener('mousemove', handleDragMove);
-        document.addEventListener('mouseup', handleDragEnd);
-        document.addEventListener('mouseleave', handleDragEnd);
+        // 动态事件监听器管理
+        let mousemoveHandler = null;
+        let mouseupHandler = null;
 
         // 触摸事件
         document.addEventListener('touchstart', (e) => {
