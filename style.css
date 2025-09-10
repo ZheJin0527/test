@@ -2857,7 +2857,7 @@ nav {
 
 .nav-arrow.next::before {
     border-width: 5px 0 5px 7px;
-    border-color: transparent transparent transparent #333;
+    border-color: transparent transparent transparent #fff;
     margin-left: 1px;
 }
 

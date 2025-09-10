@@ -184,7 +184,7 @@ $timelineData = getTimelineConfig();
 
   <div class="swiper-slide">
   <section class="timeline-section" id="timeline-1">
-        <h1>— 我们的发展历史1 —</h1>
+        <h1>— 我们的发展历史 —</h1>
         
         <!-- 横向时间线导航 -->
         <div class="timeline-nav">
