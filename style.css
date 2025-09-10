@@ -4056,10 +4056,9 @@ nav {
 }
 
 .jobs-grid {
-    display: flex;
-    flex-wrap: nowrap;         /* 不换行！强制一行内 */
-    justify-content: center;   /* 水平居中 */
-    gap: clamp(50px, 5.2vw, 100px);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(15px, 2vw, 25px);
     max-width: 1300px;
     width: 100%;
     margin: 0 auto;
@@ -4303,7 +4302,8 @@ nav {
   }
 
   .jobs-grid {
-    gap: clamp(40px, 5.2vw, 100px);
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(10px, 1.5vw, 20px);
     padding: 0px;
   }
 
@@ -6809,5 +6809,28 @@ form select {
     .apply-btn {
         padding: 10px 25px;
         font-size: 14px;
+    }
+}
+
+/* 移动端职位网格布局 */
+@media (max-width: 768px) {
+    .jobs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 0 10px;
+    }
+    
+    .job-card {
+        padding: 10px 15px;
+        font-size: 12px;
+        min-width: auto;
+    }
+}
+
+/* 超小屏幕 */
+@media (max-width: 480px) {
+    .jobs-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
     }
 }
