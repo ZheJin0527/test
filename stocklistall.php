@@ -181,6 +181,7 @@
             margin-bottom: 24px;
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            height: 130px;
         }
 
         .filter-grid {
