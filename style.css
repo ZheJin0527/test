@@ -4056,14 +4056,14 @@ nav {
 }
 
 .jobs-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: clamp(15px, 2vw, 25px);
     max-width: 1300px;
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
-    justify-items: center;
 }
 
 .job-card {
@@ -4083,8 +4083,10 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
+    width: calc(20% - 12px);
     min-width: 140px;
     height: auto;
+    flex-shrink: 0;
 }
 
 .job-card:hover {
@@ -4303,10 +4305,11 @@ nav {
   }
 
   .jobs-grid {
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: clamp(10px, 1.5vw, 20px);
     padding: 0px;
-    justify-items: center;
   }
 
   .category-buttons {
@@ -6817,13 +6820,15 @@ form select {
 /* 移动端职位网格布局 */
 @media (max-width: 768px) {
     .jobs-grid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 10px;
         padding: 0 10px;
-        justify-items: center;
     }
     
     .job-card {
+        width: calc(50% - 5px);
         padding: 10px 15px;
         font-size: 16px;
         min-width: auto;
@@ -6833,8 +6838,14 @@ form select {
 /* 超小屏幕 */
 @media (max-width: 480px) {
     .jobs-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 8px;
-        justify-items: center;
+    }
+    
+    .job-card {
+        width: 100%;
+        max-width: 300px;
     }
 }
