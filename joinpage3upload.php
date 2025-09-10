@@ -83,9 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
     } elseif ($action === 'delete') {
-        // 删除职位（软删除）
+        // 删除职位
         try {
-            $stmt = $pdo->prepare("UPDATE job_positions SET status = 'inactive', updated_at = NOW() WHERE id = ?");
+            $stmt = $pdo->prepare("DELETE FROM job_positions WHERE id = ?");
             $result = $stmt->execute([$_POST['job_id']]);
             
             if ($result) {
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // 读取现有职位
 try {
-    $stmt = $pdo->prepare("SELECT * FROM job_positions WHERE status = 'active' ORDER BY publish_date DESC, created_at DESC");
+    $stmt = $pdo->prepare("SELECT * FROM job_positions ORDER BY publish_date DESC, created_at DESC");
     $stmt->execute();
     $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {

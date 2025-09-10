@@ -19,8 +19,8 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // 获取所有活跃的职位
-    $stmt = $pdo->prepare("SELECT * FROM job_positions WHERE status = 'active' ORDER BY publish_date DESC, created_at DESC");
+    // 获取所有职位
+    $stmt = $pdo->prepare("SELECT * FROM job_positions ORDER BY publish_date DESC, created_at DESC");
     $stmt->execute();
     $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
