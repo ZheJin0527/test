@@ -155,6 +155,17 @@ header("Expires: 0");
         </div>
         
         
+        <!-- 职位标题分类弹窗 -->
+        <div id="titleModal" class="modal">
+            <div class="modal-content title-modal-content">
+                <span class="close-btn" onclick="closeTitleModal()">&times;</span>
+                <h2 id="titleModalTitle">选择职位</h2>
+                <div class="titles-grid" id="titlesGrid">
+                    <!-- 职位标题按钮将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+        
         <!-- 职位详细弹窗 -->
         <div id="jobDetailModal" class="modal">
             <div class="modal-content job-detail-modal-content">
@@ -1662,46 +1673,57 @@ window.addEventListener('resize', () => {
                 return;
             }
             
-            // 只显示第一个职位（按照照片设计）
-            const job = company.jobs[0];
-            const jobCard = createJobCard(job, companyName);
-            jobsGrid.appendChild(jobCard);
-        }
-
-
-        // 创建职位卡片
-        function createJobCard(job, companyName) {
-            const card = document.createElement('div');
-            card.className = 'job-card';
-            card.innerHTML = `
-                <div class="job-card-header">
-                    <div class="job-card-title">${job.title}</div>
-                </div>
-                <div class="job-card-meta">
-                    <div class="job-card-meta-item">
-                        <div class="job-card-meta-label">人数</div>
-                        <div class="job-card-meta-value">${job.count}</div>
-                    </div>
-                    <div class="job-card-meta-item">
-                        <div class="job-card-meta-label">经验</div>
-                        <div class="job-card-meta-value">${job.experience}</div>
-                    </div>
-                    <div class="job-card-meta-item">
-                        <div class="job-card-meta-label">发布</div>
-                        <div class="job-card-meta-value">${job.publish_date}</div>
-                    </div>
-                    <div class="job-card-meta-item">
-                        <div class="job-card-meta-label">公司</div>
-                        <div class="job-card-meta-value">${companyName}</div>
-                    </div>
-                </div>
-                <div class="job-card-apply">
-                    <button class="job-card-apply-btn" onclick="openJobDetailModal('${job.id}', '${companyName}')">
-                        查看详情
+            // 显示职位标题选择提示
+            const titlePrompt = document.createElement('div');
+            titlePrompt.className = 'title-prompt';
+            titlePrompt.innerHTML = `
+                <div style="text-align: center; padding: 40px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #FF5C00; font-size: 24px; margin-bottom: 15px;">选择职位查看详情</h3>
+                    <p style="color: #6c757d; font-size: 16px; margin-bottom: 25px;">点击下方按钮选择您感兴趣的职位</p>
+                    <button class="title-btn" onclick="openTitleModal('${companyName}')" style="background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%); color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                        选择职位
                     </button>
                 </div>
             `;
-            return card;
+            jobsGrid.appendChild(titlePrompt);
+        }
+
+
+        // 打开职位标题选择弹窗
+        function openTitleModal(companyName) {
+            if (!jobData || !jobData.companies || !jobData.companies[companyName]) return;
+            
+            const company = jobData.companies[companyName];
+            const modal = document.getElementById('titleModal');
+            const title = document.getElementById('titleModalTitle');
+            const grid = document.getElementById('titlesGrid');
+            
+            // 设置标题
+            title.textContent = `${companyName} - 选择职位`;
+            
+            // 清空并填充职位标题按钮
+            grid.innerHTML = '';
+            
+            if (company.jobs) {
+                company.jobs.forEach(job => {
+                    const titleBtn = document.createElement('button');
+                    titleBtn.className = 'title-btn';
+                    titleBtn.textContent = job.title;
+                    titleBtn.onclick = () => {
+                        closeTitleModal();
+                        openJobDetailModal(job.id, companyName);
+                    };
+                    grid.appendChild(titleBtn);
+                });
+            }
+            
+            // 显示弹窗
+            modal.style.display = 'flex';
+        }
+
+        // 关闭职位标题选择弹窗
+        function closeTitleModal() {
+            document.getElementById('titleModal').style.display = 'none';
         }
 
         // 打开职位详细弹窗
@@ -1807,10 +1829,14 @@ function closeForm() {
 // 点击弹窗外部关闭
 window.onclick = function(event) {
     const formModal = document.getElementById('formModal');
+    const titleModal = document.getElementById('titleModal');
     const jobDetailModal = document.getElementById('jobDetailModal');
     
     if (event.target == formModal) {
         formModal.style.display = 'none';
+    }
+    if (event.target == titleModal) {
+        titleModal.style.display = 'none';
     }
     if (event.target == jobDetailModal) {
         jobDetailModal.style.display = 'none';

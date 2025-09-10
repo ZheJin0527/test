@@ -4002,6 +4002,69 @@ nav {
 }
 
 
+/* 职位标题分类弹窗样式 */
+.title-modal-content {
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.title-modal-content h2 {
+    text-align: center;
+    color: #FF5C00;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.title-btn {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.title-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.title-btn:hover::before {
+    left: 100%;
+}
+
+.title-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+}
+
 /* 职位详细弹窗样式 */
 .job-detail-modal-content {
     max-width: 900px;
@@ -4269,6 +4332,17 @@ nav {
         font-size: 16px;
     }
     
+    
+    .titles-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .title-btn {
+        padding: 15px;
+        font-size: 14px;
+    }
     
     .job-detail-content {
         padding: 20px;
