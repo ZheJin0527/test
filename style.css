@@ -2805,7 +2805,8 @@ nav {
 .nav-arrow {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: clamp(20px, 2.1vw, 40px);
     height: clamp(20px, 2.1vw, 40px);
     background: rgba(161, 159, 159, 0.788);
@@ -2849,24 +2850,29 @@ nav {
 }
 
 .nav-arrow.prev::before {
-    border-width: 4px 6px 4px 0;
+    border-width: 5px 7px 5px 0;
     border-color: transparent #333 transparent transparent;
-    margin-left: -2px;
-    margin-top: -1px;
+    margin-left: -1px;
 }
 
 .nav-arrow.next::before {
-    border-width: 4px 0 4px 6px;
+    border-width: 5px 0 5px 7px;
     border-color: transparent transparent transparent #333;
-    margin-left: 2px;
-    margin-top: -1px;
+    margin-left: 1px;
 }
 
 .nav-arrow:hover {
     background: white;
     color: #2c3e50;
-    transform: translateY(-50%) scale(1.1);
     box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+}
+
+.nav-arrow.prev:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.nav-arrow.next:hover {
+    transform: translate(50%, -50%) scale(1.1);
 }
 
 .nav-arrow:hover::before {
@@ -2879,10 +2885,13 @@ nav {
 
 .nav-arrow.prev {
     left: 40px;
+    transform: translate(-50%, -50%);
 }
 
 .nav-arrow.next {
     right: 40px;
+    left: auto;
+    transform: translate(50%, -50%);
 }
 
 .nav-arrow.disabled {
@@ -3216,23 +3225,32 @@ nav {
     }
 
     .nav-arrow::before {
-        border-width: 6px 8px 6px 0;
-        margin-left: -2px;
-        margin-top: -1px;
+        border-width: 7px 9px 7px 0;
+        margin-left: -1px;
     }
 
     .nav-arrow.next::before {
-        border-width: 6px 0 6px 8px;
-        margin-left: 2px;
-        margin-top: -1px;
+        border-width: 7px 0 7px 9px;
+        margin-left: 1px;
     }
 
     .nav-arrow.prev {
         left: 10px;
+        transform: translate(-50%, -50%);
     }
 
     .nav-arrow.next {
         right: 10px;
+        left: auto;
+        transform: translate(50%, -50%);
+    }
+
+    .nav-arrow.prev:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .nav-arrow.next:hover {
+        transform: translate(50%, -50%) scale(1.1);
     }
 }
 
