@@ -670,6 +670,9 @@ updatePageIndicator(0);
         function handleDragMove(e) {
             if (hasTriggered || isAnimating) return;
             
+            // 如果没有按下鼠标，直接返回
+            if (startX === 0) return;
+            
             currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
             const deltaX = currentX - startX;
             const dragTime = Date.now() - dragStartTime;
@@ -678,6 +681,13 @@ updatePageIndicator(0);
             if (Math.abs(deltaX) >= dragThreshold && dragTime > 50) {
                 isDragging = true;
                 hasTriggered = true;
+                
+                // 动态添加事件监听器
+                mousemoveHandler = handleDragMove;
+                mouseupHandler = handleDragEnd;
+                document.addEventListener('mousemove', mousemoveHandler);
+                document.addEventListener('mouseup', mouseupHandler);
+                document.addEventListener('mouseleave', mouseupHandler);
                 
                 document.body.style.cursor = 'grabbing';
                 document.body.style.userSelect = 'none';
@@ -732,16 +742,20 @@ updatePageIndicator(0);
                 if (clickTimeout) {
                     clearTimeout(clickTimeout);
                 }
-                // 不立即设置拖拽状态，等待鼠标移动
+                // 记录初始位置和时间，但不立即设置拖拽状态
                 startX = e.clientX;
                 dragStartTime = Date.now();
                 hasTriggered = false;
+                isDragging = false; // 确保初始状态为false
             }
         });
 
         // 动态事件监听器管理
         let mousemoveHandler = null;
         let mouseupHandler = null;
+        
+        // 全局 mousemove 监听器，用于检测拖拽开始
+        document.addEventListener('mousemove', handleDragMove);
 
         // 触摸事件
         document.addEventListener('touchstart', (e) => {
