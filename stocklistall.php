@@ -356,9 +356,7 @@
             padding: 12px 8px;
             text-align: center;
             font-weight: 600;
-            border: none;
-            border-right: 1px solid #462d03;
-            border-bottom: 1px solid #462d03;
+            border: 1px solid #d1d5db;
             position: sticky;
             top: 0;
             z-index: 10;
