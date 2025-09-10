@@ -862,12 +862,25 @@ updatePageIndicator(0);
         }
 
         function selectCard(year) {
-            if (isAnimating) return;
+            console.log('selectCard called with year:', year);
+            console.log('isAnimating:', isAnimating);
+            console.log('years array:', years);
+            console.log('currentIndex:', currentIndex);
+            
+            if (isAnimating) {
+                console.log('Animation in progress, ignoring');
+                return;
+            }
             
             const index = years.indexOf(year.toString());
+            console.log('Found index:', index);
+            
             if (index !== -1 && index !== currentIndex) {
+                console.log('Switching to index:', index);
                 currentIndex = index;
                 showTimelineItem(year.toString());
+            } else {
+                console.log('No change needed or invalid index');
             }
         }
 
@@ -892,8 +905,9 @@ updatePageIndicator(0);
             document.body.style.cursor = 'grabbing';
             document.body.style.userSelect = 'none';
             
-            e.preventDefault();
-            e.stopPropagation();
+            // 不要立即阻止事件，让点击事件先处理
+            // e.preventDefault();
+            // e.stopPropagation();
         }
 
         function handleDragMove(e) {
@@ -917,9 +931,10 @@ updatePageIndicator(0);
                 setTimeout(() => {
                     handleDragEnd(e);
                 }, 50);
+                
+                // 只有在真正拖拽时才阻止事件
+                e.preventDefault();
             }
-            
-            e.preventDefault();
         }
 
         function handleDragEnd(e) {
@@ -977,17 +992,25 @@ updatePageIndicator(0);
 
         // 优化的点击处理 - 添加延迟避免与拖拽冲突
         document.addEventListener('click', (e) => {
-            if (isDragging || hasTriggered || isAnimating) return;
+            console.log('Click detected on:', e.target);
+            console.log('isDragging:', isDragging, 'hasTriggered:', hasTriggered, 'isAnimating:', isAnimating);
+            
+            if (isDragging || hasTriggered || isAnimating) {
+                console.log('Click ignored due to state flags');
+                return;
+            }
             
             const card = e.target.closest('.timeline-content-item');
+            console.log('Found card:', card);
+            
             if (card) {
-                // 添加小延迟确保不是拖拽操作
-                clickTimeout = setTimeout(() => {
-                    if (!isDragging) {
-                        const year = card.getAttribute('data-year');
-                        selectCard(year);
-                    }
-                }, 10);
+                const year = card.getAttribute('data-year');
+                const cardClass = card.className;
+                console.log('Card year:', year, 'Card class:', cardClass);
+                
+                // 立即处理点击，不延迟
+                console.log('Calling selectCard with year:', year);
+                selectCard(year);
             }
         });
 
