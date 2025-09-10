@@ -225,11 +225,11 @@
         }
 
         .btn {
-            padding: 7px 17px;
+            padding: 7px 12px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
