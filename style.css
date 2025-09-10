@@ -2844,16 +2844,20 @@ nav {
     width: 0;
     height: 0;
     border-style: solid;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-arrow.prev::before {
-    border-width: 6px 8px 6px 0;
+    border-width: 5px 7px 5px 0;
     border-color: transparent #333 transparent transparent;
+    margin-left: -1px;
 }
 
 .nav-arrow.next::before {
-    border-width: 6px 0 6px 8px;
+    border-width: 5px 0 5px 7px;
     border-color: transparent transparent transparent #333;
+    margin-left: 1px;
 }
 
 .nav-arrow:hover {
@@ -3210,11 +3214,13 @@ nav {
     }
 
     .nav-arrow::before {
-        border-width: 8px 10px 8px 0;
+        border-width: 7px 9px 7px 0;
+        margin-left: -1px;
     }
 
     .nav-arrow.next::before {
-        border-width: 8px 0 8px 10px;
+        border-width: 7px 0 7px 9px;
+        margin-left: 1px;
     }
 
     .nav-arrow.prev {
