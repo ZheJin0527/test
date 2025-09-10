@@ -364,6 +364,42 @@
             min-width: 80px;
         }
 
+        /* 确保表格在容器内正确显示 */
+        .stock-table {
+            table-layout: fixed;
+            width: 100%;
+            min-width: 1400px;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* 确保表格容器高度计算正确 */
+        .main-content-row + .table-container {
+            height: calc(100vh - 300px); /* 根据页面布局调整 */
+            min-height: 400px;
+        }
+
+        /* 优化滚动条样式 */
+        .table-scroll-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .table-scroll-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .table-scroll-container::-webkit-scrollbar-thumb {
+            background: #583e04;
+            border-radius: 4px;
+        }
+
+        .table-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #462d03;
+        }
+
         .stock-table td {
             padding: 12px 8px;
             border: 1px solid #d1d5db;
@@ -394,11 +430,16 @@
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             border: 2px solid #583e04;
             overflow: visible;
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh; /* 设置最大高度 */
         }
 
         .table-scroll-container {
             overflow-x: auto;
-            overflow-y: visible;
+            overflow-y: auto;
+            flex: 1;
+            max-height: calc(80vh - 160px); /* 减去按钮区域的高度 */
         }
 
         /* 操作按钮 */
