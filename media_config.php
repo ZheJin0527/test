@@ -655,10 +655,9 @@ function getJobsHtml() {
         } else {
             foreach ($jobs as $job) {
                 $category = $job['company_category'] ?? 'KUNZZHOLDINGS';
-                $html .= '<div class="job-card" data-category="' . htmlspecialchars($category) . '" data-job-id="job' . $jobCounter . '">';
+                $html .= '<div class="job-card" data-category="' . htmlspecialchars($category) . '" data-job-id="' . $job['id'] . '">';
                 $html .= '<div class="job-title">' . htmlspecialchars($job['job_title']) . '</div>';
                 $html .= '</div>';
-                $jobCounter++;
             }
         }
     } catch (Exception $e) {

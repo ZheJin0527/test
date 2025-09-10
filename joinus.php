@@ -1408,11 +1408,10 @@ async function loadJobsData() {
         if (data.success && data.companies) {
             // 将职位数据存储到全局变量中
             jobsData = {};
-            let jobCounter = 1;
             
             Object.values(data.companies).forEach(company => {
                 company.jobs.forEach(job => {
-                    jobsData[`job${jobCounter}`] = {
+                    jobsData[job.id] = {
                         title: job.title,
                         count: job.count,
                         experience: job.experience,
@@ -1420,7 +1419,6 @@ async function loadJobsData() {
                         company: company.name,
                         description: job.description
                     };
-                    jobCounter++;
                 });
             });
             

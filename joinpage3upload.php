@@ -455,7 +455,7 @@ if (isset($_GET['edit'])) {
                             <label for="job_experience">工作经验要求 *</label>
                             <input type="text" id="job_experience" name="job_experience" 
                                    value="<?php echo $editJob ? htmlspecialchars($editJob['experience']) : ''; ?>" 
-                                   placeholder="例如：3年" required>
+                                   placeholder="例如：3" required>
                         </div>
                         
                         <div class="form-group">
