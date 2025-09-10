@@ -4011,13 +4011,13 @@ nav {
 .job-card {
     background: linear-gradient(120deg, #ff5c00 0%, #ff8000 100%);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
-    width: clamp(200px, 15vw, 300px);
-    height: clamp(80px, 8vw, 120px);
-    padding: 20px;
+    border-radius: 15px;
+    width: clamp(120px, 12vw, 180px);
+    height: clamp(50px, 6vw, 80px);
+    padding: 15px;
     color: white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
                 opacity 0.3s ease, 
                 transform 0.3s ease;
     position: relative;
@@ -4046,10 +4046,10 @@ nav {
 }
 
 .job-card:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-4px) scale(1.05);
     box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.2),
-        0 0 50px rgba(255, 107, 107, 0.1),
+        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(255, 107, 107, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     z-index: 2;
 }
@@ -4071,15 +4071,15 @@ nav {
 }
 
 .job-title {
-    font-size: clamp(20px, 1.7vw, 32px);
-    font-weight: bolder;
-    margin-top: 0px;
-    margin-bottom: 14px;
+    font-size: clamp(14px, 1.2vw, 18px);
+    font-weight: 600;
+    margin: 0;
     background: linear-gradient(135deg, #ffffff, #f0f0f0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+    line-height: 1.2;
 }
 
 .job-meta {
@@ -4283,13 +4283,13 @@ nav {
   }
 
   .job-card {
-    width: clamp(150px, 15vw, 200px);
-    height: clamp(120px, 12vw, 150px);
-    padding: clamp(0px, 1.2vw, 35px) clamp(6px, 0.8vw, 10px) 30px;
+    width: clamp(100px, 12vw, 150px);
+    height: clamp(45px, 6vw, 70px);
+    padding: 12px;
   }
 
   .job-title {
-    font-size: clamp(12px, 1.6vw, 20px);
+    font-size: clamp(10px, 1.2vw, 14px);
   }
 
   .job-meta {

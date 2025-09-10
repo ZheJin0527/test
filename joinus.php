@@ -1639,8 +1639,10 @@ let jobsData = {};
 // 从服务器获取职位数据
 async function loadJobsData() {
     try {
+        console.log('开始加载职位数据...'); // 调试信息
         const response = await fetch('get_jobs_api.php');
         const data = await response.json();
+        console.log('服务器返回的数据:', data); // 调试信息
         
         if (data.success) {
             // 将职位数据存储到全局变量中
@@ -1660,6 +1662,10 @@ async function loadJobsData() {
                     jobCounter++;
                 });
             });
+            
+            console.log('职位数据加载完成:', jobsData); // 调试信息
+        } else {
+            console.log('服务器返回失败:', data.error); // 调试信息
         }
     } catch (error) {
         console.error('加载职位数据失败:', error);
@@ -1673,16 +1679,37 @@ function getJobData(jobId) {
 
 // 打开职位详情弹窗
 function openJobDetail(jobId) {
+    console.log('尝试打开职位详情:', jobId); // 调试信息
     const jobData = getJobData(jobId);
-    if (!jobData) return;
+    console.log('职位数据:', jobData); // 调试信息
     
-    // 填充弹窗数据
-    document.getElementById('jobDetailTitle').textContent = jobData.title;
-    document.getElementById('jobDetailCount').textContent = jobData.count;
-    document.getElementById('jobDetailExperience').textContent = jobData.experience;
-    document.getElementById('jobDetailPublishDate').textContent = jobData.publish_date;
-    document.getElementById('jobDetailCompany').textContent = jobData.company;
-    document.getElementById('jobDetailDescription').textContent = jobData.description;
+    if (!jobData) {
+        console.log('未找到职位数据，使用默认数据'); // 调试信息
+        // 使用默认数据作为后备
+        const defaultData = {
+            title: '职位详情',
+            count: '1',
+            experience: '1',
+            publish_date: '2025-01-01',
+            company: 'KUNZZHOLDINGS',
+            description: '这是一个示例职位描述。'
+        };
+        
+        document.getElementById('jobDetailTitle').textContent = defaultData.title;
+        document.getElementById('jobDetailCount').textContent = defaultData.count;
+        document.getElementById('jobDetailExperience').textContent = defaultData.experience;
+        document.getElementById('jobDetailPublishDate').textContent = defaultData.publish_date;
+        document.getElementById('jobDetailCompany').textContent = defaultData.company;
+        document.getElementById('jobDetailDescription').textContent = defaultData.description;
+    } else {
+        // 填充弹窗数据
+        document.getElementById('jobDetailTitle').textContent = jobData.title;
+        document.getElementById('jobDetailCount').textContent = jobData.count;
+        document.getElementById('jobDetailExperience').textContent = jobData.experience;
+        document.getElementById('jobDetailPublishDate').textContent = jobData.publish_date;
+        document.getElementById('jobDetailCompany').textContent = jobData.company;
+        document.getElementById('jobDetailDescription').textContent = jobData.description;
+    }
     
     // 显示弹窗
     document.getElementById('jobDetailModal').style.display = 'flex';
@@ -1730,19 +1757,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // 加载职位数据
     loadJobsData();
     
-    // 为所有job-card添加点击事件监听器
-    document.querySelectorAll('.job-card').forEach(card => {
-        card.addEventListener('click', function(event) {
-            // 获取职位ID
-            const jobId = this.getAttribute('data-job-id');
-            if (jobId) {
-                openJobDetail(jobId);
-            }
-        });
-    });
-    
     // 分类筛选功能
     initCategoryFilter();
+    
+    // 使用事件委托来处理动态添加的职位卡片点击事件
+    document.addEventListener('click', function(event) {
+        const jobCard = event.target.closest('.job-card');
+        if (jobCard) {
+            const jobId = jobCard.getAttribute('data-job-id');
+            if (jobId) {
+                console.log('点击了职位卡片:', jobId); // 调试信息
+                openJobDetail(jobId);
+            }
+        }
+    });
 });
 
 // 分类筛选功能
