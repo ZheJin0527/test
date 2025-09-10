@@ -901,15 +901,19 @@ updatePageIndicator(0);
         }
 
         function handleDragMove(e) {
-            if (!isDragging || hasTriggered || isAnimating) return;
+            if (hasTriggered || isAnimating) return;
             
             currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
             const deltaX = currentX - startX;
             const dragTime = Date.now() - dragStartTime;
             
-            // 增加时间限制，避免过快触发
+            // 只有在检测到真正移动时才设置拖拽状态
             if (Math.abs(deltaX) >= dragThreshold && dragTime > 50) {
+                isDragging = true;
                 hasTriggered = true;
+                
+                document.body.style.cursor = 'grabbing';
+                document.body.style.userSelect = 'none';
                 
                 if (deltaX > 0) {
                     navigateTimeline('prev');
@@ -928,8 +932,7 @@ updatePageIndicator(0);
         }
 
         function handleDragEnd(e) {
-            if (!isDragging) return;
-            
+            // 重置所有拖拽相关状态
             isDragging = false;
             hasTriggered = false;
             dragStartTime = 0;
@@ -951,7 +954,10 @@ updatePageIndicator(0);
                 if (clickTimeout) {
                     clearTimeout(clickTimeout);
                 }
-                handleDragStart(e);
+                // 不立即设置拖拽状态，等待鼠标移动
+                startX = e.clientX;
+                dragStartTime = Date.now();
+                hasTriggered = false;
             }
         });
 
