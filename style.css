@@ -4064,6 +4064,9 @@ nav {
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
 }
 
 .job-card {
@@ -4310,6 +4313,9 @@ nav {
     justify-content: center;
     gap: clamp(10px, 1.5vw, 20px);
     padding: 0px;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
   }
 
   .category-buttons {
