@@ -1468,6 +1468,16 @@
                         <option value="Nos">Nos</option>
                     </select>
                 </div>
+                <div class="form-group" id="type-form-group" style="display: none;">
+                    <label for="add-type">类型</label>
+                    <select id="add-type" class="form-select">
+                        <option value="">请选择类型</option>
+                        <option value="Kitchen">Kitchen</option>
+                        <option value="SushiBar">SushiBar</option>
+                        <option value="Drink">Drink</option>
+                        <option value="Sake">Sake</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="add-price">单价</label>
                     <div class="currency-display" style="border: 1px solid #d1d5db; border-radius: 8px; background: white;">
@@ -1495,16 +1505,6 @@
                 <div class="form-group">
                     <label for="add-remark">备注</label>
                     <input type="text" id="add-remark" class="form-input" placeholder="输入备注...">
-                </div>
-                <div class="form-group">
-                    <label for="add-type">Type</label>
-                    <select id="add-type" class="form-select">
-                        <option value="">请选择Type</option>
-                        <option value="Kitchen">Kitchen</option>
-                        <option value="SushiBar">SushiBar</option>
-                        <option value="Drink">Drink</option>
-                        <option value="Sake">Sake</option>
-                    </select>
                 </div>
                 <div class="form-group">
                     <label for="add-product-remark">货品备注</label>
@@ -1574,7 +1574,7 @@
                         <th style="min-width: 100px;">规格</th>
                         <th style="min-width: 100px;">单价</th>
                         <th style="min-width: 100px;">总价</th>
-                        <th style="min-width: 100px;">种类</th>
+                        ${currentStockType !== 'central' ? '<th style="min-width: 80px;">类型</th>' : ''}
                         <th style="min-width: 80px;">货品备注</th>
                         <th style="min-width: 100px;">备注编号</th>
                         <th class="receiver-col">名字</th>
@@ -1675,6 +1675,16 @@
             // 设置默认active状态
             document.querySelector('.selector-dropdown .dropdown-item[data-type="central"]').classList.add('active');
 
+            // 根据当前库存类型设置Type字段显示状态
+            const typeFormGroup = document.getElementById('type-form-group');
+            if (typeFormGroup) {
+                if (currentStockType === 'central') {
+                    typeFormGroup.style.display = 'none';
+                } else {
+                    typeFormGroup.style.display = 'block';
+                }
+            }
+
             // 设置默认active状态
             setTimeout(() => {
                 const centralItem = document.querySelector('.selector-dropdown .dropdown-item[data-type="central"]');
@@ -1711,6 +1721,16 @@
                     document.getElementById('page-title').textContent = '进出货 - J2';
                     document.getElementById('current-stock-type').textContent = 'J2';
                     break;
+            }
+
+            // 控制Type字段的显示
+            const typeFormGroup = document.getElementById('type-form-group');
+            if (typeFormGroup) {
+                if (stockType === 'central') {
+                    typeFormGroup.style.display = 'none';
+                } else {
+                    typeFormGroup.style.display = 'block';
+                }
             }
             
             // 更新active状态
@@ -2075,7 +2095,7 @@
             tbody.innerHTML = '';
             
             if (stockData.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="12" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="11" style="padding: 20px; color: #6b7280;">暂无数据</td></tr>';
                 return;
             }
             
@@ -2170,18 +2190,20 @@
                             <span class="currency-amount">${formatCurrency(Math.abs(total))}</span>
                         </div>
                     </td>
-                    <td>
-                        ${isEditing ? 
-                            `<select class="table-select" onchange="updateField(${record.id}, 'type', this.value)">
-                                <option value="">请选择</option>
-                                <option value="Kitchen" ${record.type === 'Kitchen' ? 'selected' : ''}>Kitchen</option>
-                                <option value="SushiBar" ${record.type === 'SushiBar' ? 'selected' : ''}>SushiBar</option>
-                                <option value="Drink" ${record.type === 'Drink' ? 'selected' : ''}>Drink</option>
-                                <option value="Sake" ${record.type === 'Sake' ? 'selected' : ''}>Sake</option>
-                            </select>` :
-                            `<span>${record.type || '-'}</span>`
-                        }
-                    </td>
+                    ${currentStockType !== 'central' ? 
+                        `<td>
+                            ${isEditing ? 
+                                `<select class="table-select" onchange="updateField(${record.id}, 'type', this.value)">
+                                    <option value="">请选择类型</option>
+                                    <option value="Kitchen" ${record.type === 'Kitchen' ? 'selected' : ''}>Kitchen</option>
+                                    <option value="SushiBar" ${record.type === 'SushiBar' ? 'selected' : ''}>SushiBar</option>
+                                    <option value="Drink" ${record.type === 'Drink' ? 'selected' : ''}>Drink</option>
+                                    <option value="Sake" ${record.type === 'Sake' ? 'selected' : ''}>Sake</option>
+                                </select>` :
+                                `<span>${record.type || '-'}</span>`
+                            }
+                        </td>` : ''
+                    }
                     <td style="text-align: center;">
                         ${isEditing ? 
                             `<input type="checkbox" class="remark-checkbox" ${record.product_remark_checked ? 'checked' : ''} 
@@ -2323,15 +2345,17 @@
                         <span class="currency-amount">0.00</span>
                     </div>
                 </td>
-                <td>
-                    <select class="table-select" id="${rowId}-type">
-                        <option value="">请选择Type</option>
-                        <option value="Kitchen">Kitchen</option>
-                        <option value="SushiBar">SushiBar</option>
-                        <option value="Drink">Drink</option>
-                        <option value="Sake">Sake</option>
-                    </select>
-                </td>
+                ${currentStockType !== 'central' ? 
+                    `<td>
+                        <select class="table-select" id="${rowId}-type">
+                            <option value="">请选择类型</option>
+                            <option value="Kitchen">Kitchen</option>
+                            <option value="SushiBar">SushiBar</option>
+                            <option value="Drink">Drink</option>
+                            <option value="Sake">Sake</option>
+                        </select>
+                    </td>` : ''
+                }
                 <td style="text-align: center;">
                     <input type="checkbox" class="remark-checkbox" id="${rowId}-product-remark" onchange="toggleNewRowRemarkNumber('${rowId}')">
                 </td>
@@ -2586,7 +2610,6 @@
                 specification: document.getElementById(`${rowId}-specification`).value,
                 price: document.getElementById(`${rowId}-price`).value,
                 receiver: document.getElementById(`${rowId}-receiver`).value,
-                type: document.getElementById(`${rowId}-type`).value,
                 remark: document.getElementById(`${rowId}-remark`).value,
                 target: document.getElementById(`${rowId}-target`).value
             };
@@ -2631,10 +2654,10 @@
                 price: parseFloat(document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0) || 0,
                 receiver: document.getElementById(`${rowId}-receiver`) ? document.getElementById(`${rowId}-receiver`).value : '',
                 code_number: codeInput ? codeInput.value : '',
-                type: document.getElementById(`${rowId}-type`) ? document.getElementById(`${rowId}-type`).value : '',
                 remark: document.getElementById(`${rowId}-remark`) ? document.getElementById(`${rowId}-remark`).value : '',
                 product_remark_checked: document.getElementById(`${rowId}-product-remark`) ? document.getElementById(`${rowId}-product-remark`).checked : false,
-                remark_number: document.getElementById(`${rowId}-remark-number`) ? document.getElementById(`${rowId}-remark-number`).value : ''
+                remark_number: document.getElementById(`${rowId}-remark-number`) ? document.getElementById(`${rowId}-remark-number`).value : '',
+                type: currentStockType !== 'central' ? (document.getElementById(`${rowId}-type`) ? document.getElementById(`${rowId}-type`).value : '') : null
             };
 
             // 验证必填字段
@@ -2712,7 +2735,6 @@
                     specification: formData.specification,
                     price: formData.price,
                     receiver: formData.receiver,
-                    type: formData.type,
                     remark: formData.remark,
                     product_remark_checked: formData.product_remark_checked,  // 添加这行
                     remark_number: formData.remark_number,  // 添加这行
@@ -2770,7 +2792,6 @@
                 receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
-                type: document.getElementById('add-type').value,
                 remark: document.getElementById('add-remark').value,
                 product_remark_checked: document.getElementById('add-product-remark').checked,
                 remark_number: getFormRemarkNumber()
