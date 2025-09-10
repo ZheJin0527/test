@@ -4086,7 +4086,7 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: calc(20% - 12px);
+    width: calc(20% - 100px);
     min-width: 140px;
     height: auto;
     flex-shrink: 0;
