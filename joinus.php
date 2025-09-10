@@ -159,6 +159,39 @@ header("Expires: 0");
     </div>
 </div>
 
+    <!-- 职位详情弹窗 -->
+    <div id="jobDetailModal" class="modal">
+        <div class="modal-content job-detail-modal">
+            <span class="close-btn" onclick="closeJobDetail()">&times;</span>
+            <div class="job-detail-content">
+                <h2 id="jobDetailTitle">职位详情</h2>
+                <div class="job-detail-meta">
+                    <div class="job-detail-item">
+                        <span class="job-detail-label">&#128101; 人数:</span>
+                        <span id="jobDetailCount">-</span>
+                    </div>
+                    <div class="job-detail-item">
+                        <span class="job-detail-label">&#128188; 工作经验:</span>
+                        <span id="jobDetailExperience">-</span>
+                    </div>
+                    <div class="job-detail-item">
+                        <span class="job-detail-label">&#128197; 发布:</span>
+                        <span id="jobDetailPublishDate">-</span>
+                    </div>
+                    <div class="job-detail-item">
+                        <span class="job-detail-label">🏷️ 公司:</span>
+                        <span id="jobDetailCompany">-</span>
+                    </div>
+                </div>
+                <div class="job-detail-description">
+                    <h3>职位详情：</h3>
+                    <p id="jobDetailDescription">-</p>
+                </div>
+                <button class="apply-btn" onclick="openFormFromDetail()">申请职位</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 弹窗表单 -->
     <div id="formModal" class="modal">
         <div class="modal-content">
@@ -1600,22 +1633,71 @@ function initParticles() {
     }
 }
 
-// 修改后的toggleDetail函数，现在直接接收card元素
-function toggleDetail(card) {
-    const details = card.querySelector('.job-details');
-    
-    // 关闭其他已展开的卡片
-    document.querySelectorAll('.job-details.show').forEach(detail => {
-        if (detail !== details) {
-            detail.classList.remove('show');
-            const otherCard = detail.closest('.job-card');
-            otherCard.classList.remove('expanded');
+// 存储职位数据的全局变量
+let jobsData = {};
+
+// 从服务器获取职位数据
+async function loadJobsData() {
+    try {
+        const response = await fetch('get_jobs_api.php');
+        const data = await response.json();
+        
+        if (data.success) {
+            // 将职位数据存储到全局变量中
+            jobsData = {};
+            let jobCounter = 1;
+            
+            Object.values(data.companies).forEach(company => {
+                company.jobs.forEach(job => {
+                    jobsData[`job${jobCounter}`] = {
+                        title: job.title,
+                        count: job.count,
+                        experience: job.experience,
+                        publish_date: job.publish_date,
+                        company: company.name,
+                        description: job.description
+                    };
+                    jobCounter++;
+                });
+            });
         }
-    });
+    } catch (error) {
+        console.error('加载职位数据失败:', error);
+    }
+}
+
+// 获取职位数据的函数
+function getJobData(jobId) {
+    return jobsData[jobId] || null;
+}
+
+// 打开职位详情弹窗
+function openJobDetail(jobId) {
+    const jobData = getJobData(jobId);
+    if (!jobData) return;
     
-    // 切换当前卡片
-    details.classList.toggle('show');
-    card.classList.toggle('expanded');
+    // 填充弹窗数据
+    document.getElementById('jobDetailTitle').textContent = jobData.title;
+    document.getElementById('jobDetailCount').textContent = jobData.count;
+    document.getElementById('jobDetailExperience').textContent = jobData.experience;
+    document.getElementById('jobDetailPublishDate').textContent = jobData.publish_date;
+    document.getElementById('jobDetailCompany').textContent = jobData.company;
+    document.getElementById('jobDetailDescription').textContent = jobData.description;
+    
+    // 显示弹窗
+    document.getElementById('jobDetailModal').style.display = 'flex';
+}
+
+// 关闭职位详情弹窗
+function closeJobDetail() {
+    document.getElementById('jobDetailModal').style.display = 'none';
+}
+
+// 从详情弹窗打开申请表单
+function openFormFromDetail() {
+    const jobTitle = document.getElementById('jobDetailTitle').textContent;
+    closeJobDetail();
+    openForm(jobTitle);
 }
 
 function openForm(position) {
@@ -1629,9 +1711,15 @@ function closeForm() {
 
 // 点击弹窗外部关闭
 window.onclick = function(event) {
-    const modal = document.getElementById('formModal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
+    const formModal = document.getElementById('formModal');
+    const jobDetailModal = document.getElementById('jobDetailModal');
+    
+    if (event.target == formModal) {
+        formModal.style.display = 'none';
+    }
+    
+    if (event.target == jobDetailModal) {
+        jobDetailModal.style.display = 'none';
     }
 }
 
@@ -1639,17 +1727,17 @@ window.onclick = function(event) {
 document.addEventListener('DOMContentLoaded', function() {
     initParticles();
     
+    // 加载职位数据
+    loadJobsData();
+    
     // 为所有job-card添加点击事件监听器
     document.querySelectorAll('.job-card').forEach(card => {
         card.addEventListener('click', function(event) {
-            // 如果点击的是Apply按钮，不触发展开功能
-            if (event.target.classList.contains('apply-btn') || 
-                event.target.closest('.apply-btn')) {
-                return;
+            // 获取职位ID
+            const jobId = this.getAttribute('data-job-id');
+            if (jobId) {
+                openJobDetail(jobId);
             }
-            
-            // 调用toggleDetail函数
-            toggleDetail(this);
         });
     });
     
