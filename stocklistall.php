@@ -1119,7 +1119,7 @@
 
         .unified-search-input {
             width: 100%;
-            padding: 6px;
+            padding: 7px;
             border: 2px solid #d1d5db;
             border-radius: 8px;
             font-size: 14px;
