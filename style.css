@@ -561,7 +561,7 @@ body::-webkit-scrollbar {
 .language-dropdown-menu {
     position: absolute;
     top: 100%;
-    left: -10px;
+    left: -5px;
     width: 120px; /* 固定宽度 */
     background: #2F2F2F;
     border-radius: 8px;
