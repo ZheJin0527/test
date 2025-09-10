@@ -6,80 +6,16 @@ include_once 'media_config.php';
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
+
+// 设置页面特定的变量
+$pageTitle = 'KUNZZ HOLDINGS';
+$additionalCSS = ['joinusanimation.css'];
+$showPageIndicator = true;
+$totalSlides = 6;
+
+// 包含header
+include 'header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <link rel="icon" type="image/png" href="images/images/logo.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUNZZ HOLDINGS</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="joinusanimation.css" />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <?php echo getBgMusicHtml(); ?>
-  <header class="navbar">
-  <!-- 左侧 logo 和公司名 -->
-  <div class="logo-section">
-    <a href="index.php">
-    <img src="images/images/KUNZZ.png" alt="Logo" class="logo">
-    </a>
-  </div>
-
-  <!-- 中间导航（默认显示，大屏） -->
-  <nav class="nav-links" id="navMenu">
-    <div class="nav-item"><a href="index.php">首页</a></div>
-    <div class="nav-item"><a href="about.php">关于我们</a></div>
-    <div class="nav-item nav-dropdown">
-      <span class="nav-dropdown-trigger">旗下品牌</span>
-      <div class="nav-dropdown-menu" id="brandsNavDropdownMenu">
-        <a href="tokyo-japanese-cuisine.php" class="nav-dropdown-item">Tokyo Japanese Cuisine</a>
-        <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a>
-      </div>
-     </div>
-    <div class="nav-item"><a href="joinus.php">加入我们</a></div>
-  </nav>
-
-  <!-- 右侧区域 -->
-  <div class="right-section">
-    <!-- 移动端隐藏 login，仅大屏显示 -->
-    <div class="login-dropdown">
-      <button class="login-btn" id="loginBtn">LOGIN</button>
-        <div class="login-dropdown-menu" id="loginDropdownMenu">
-          <a href="login.html" class="login-dropdown-item">员工登入</a>
-          <a href="login.html" class="login-dropdown-item">会员登入</a>
-        </div>
-      </div>
-
-    <!-- 翻译按钮始终显示 -->
-    <div class="language-switch">
-      <button class="lang" id="languageBtn">EN | CN</button>
-        <div class="language-dropdown-menu" id="languageDropdownMenu">
-          <a href="/en/" class="language-dropdown-item" data-lang="en">英文</a>
-          <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
-        </div>
-      </div>
-
-    <!-- hamburger 仅在小屏显示 -->
-    <button class="hamburger" id="hamburger">&#9776;</button>
-  </div>
-</header>
-
-<div class="page-indicator">
-        <div class="page-dot active" data-slide="0"></div>
-        <div class="page-dot" data-slide="1"></div>
-        <div class="page-dot" data-slide="2"></div>
-        <div class="page-dot" data-slide="3"></div>
-        <div class="page-dot" data-slide="4"></div>
-        <div class="page-dot" data-slide="5"></div>
-    </div>
 
 <div class="swiper">
   <div class="swiper-wrapper">
@@ -401,183 +337,7 @@ header("Expires: 0");
     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="app.js"></script>
-<script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        const loginBtn = document.querySelector('.login-btn');
-
-        // 登录下拉菜单元素
-        const loginDropdownMenu = document.getElementById('loginDropdownMenu');
-
-        // 语言切换下拉菜单元素
-        const languageBtn = document.getElementById('languageBtn');
-        const languageDropdownMenu = document.getElementById('languageDropdownMenu');
-
-        function moveLoginBtn() {
-            if (window.innerWidth <= 768) {
-                if (!navMenu.contains(loginBtn)) {
-                    navMenu.appendChild(loginBtn);
-                }
-            } else {
-                // 如果宽度大于768，确保loginBtn在right-section中
-                const rightSection = document.querySelector('.right-section');
-                if (rightSection && !rightSection.contains(loginBtn)) {
-                    rightSection.insertBefore(loginBtn, rightSection.firstChild);
-                }
-            }
-        }
-
-        // 点击汉堡切换菜单
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        // ========== 登录下拉菜单功能 ==========
-        let loginHoverTimeout;
-
-        // 鼠标进入登录按钮区域时显示下拉菜单
-        loginBtn.addEventListener('mouseenter', function() {
-            // 清除可能存在的隐藏延时
-            clearTimeout(loginHoverTimeout);
-            
-            // 显示菜单
-            loginDropdownMenu.classList.add('show');
-            loginBtn.classList.add('active');
-        });
-
-        // 鼠标离开登录按钮区域时延迟隐藏下拉菜单
-        loginBtn.addEventListener('mouseleave', function() {
-            // 设置延时隐藏，给用户时间移动到下拉菜单
-            loginHoverTimeout = setTimeout(() => {
-                loginDropdownMenu.classList.remove('show');
-                loginBtn.classList.remove('active');
-            }, 100); // 200ms延迟
-        });
-
-        // 鼠标进入登录下拉菜单时保持显示
-        loginDropdownMenu.addEventListener('mouseenter', function() {
-            // 清除隐藏延时
-            clearTimeout(loginHoverTimeout);
-            
-            // 确保菜单保持显示
-            loginDropdownMenu.classList.add('show');
-            loginBtn.classList.add('active');
-        });
-
-        // 鼠标离开登录下拉菜单时隐藏
-        loginDropdownMenu.addEventListener('mouseleave', function() {
-            loginDropdownMenu.classList.remove('show');
-            loginBtn.classList.remove('active');
-        });
-
-        // 点击登录下拉菜单项时的处理
-        const loginDropdownItems = document.querySelectorAll('.login-dropdown-item');
-        loginDropdownItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                console.log('选择了登录：', this.textContent);
-                
-                // 关闭下拉菜单
-                loginDropdownMenu.classList.remove('show');
-                loginBtn.classList.remove('active');
-            });
-        });
-
-        // ========== 语言切换下拉菜单功能 ==========
-        let languageHoverTimeout;
-
-        // 鼠标进入语言按钮区域时显示下拉菜单
-        languageBtn.addEventListener('mouseenter', function() {
-            // 清除可能存在的隐藏延时
-            clearTimeout(languageHoverTimeout);
-            
-            // 显示菜单
-            languageDropdownMenu.classList.add('show');
-            languageBtn.classList.add('active');
-        });
-
-        // 鼠标离开语言按钮区域时延迟隐藏下拉菜单
-        languageBtn.addEventListener('mouseleave', function() {
-            // 设置延时隐藏，给用户时间移动到下拉菜单
-            languageHoverTimeout = setTimeout(() => {
-                languageDropdownMenu.classList.remove('show');
-                languageBtn.classList.remove('active');
-            }, 200); // 200ms延迟
-        });
-
-        // 鼠标进入语言下拉菜单时保持显示
-        languageDropdownMenu.addEventListener('mouseenter', function() {
-            // 清除隐藏延时
-            clearTimeout(languageHoverTimeout);
-            
-            // 确保菜单保持显示
-            languageDropdownMenu.classList.add('show');
-            languageBtn.classList.add('active');
-        });
-
-        // 鼠标离开语言下拉菜单时隐藏
-        languageDropdownMenu.addEventListener('mouseleave', function() {
-            languageDropdownMenu.classList.remove('show');
-            languageBtn.classList.remove('active');
-        });
-
-        // 点击语言下拉菜单项时的处理
-        const languageDropdownItems = document.querySelectorAll('.language-dropdown-item');
-        languageDropdownItems.forEach(item => {
-            item.addEventListener('click', function() {
-                console.log('选择了语言：', this.textContent);
-
-                // 关闭下拉菜单（这仍然可以保留）
-                languageDropdownMenu.classList.remove('show');
-                languageBtn.classList.remove('active');
-                
-                // 更新语言按钮显示
-                const selectedLang = this.getAttribute('data-lang');
-                if (selectedLang === 'en') {
-                    languageBtn.textContent = 'EN';
-                } else {
-                    languageBtn.textContent = 'CN';
-                }
-                
-                // 关闭下拉菜单
-                languageDropdownMenu.classList.remove('show');
-                languageBtn.classList.remove('active');
-                
-                // 这里可以添加实际的语言切换逻辑
-                console.log('切换到语言：', selectedLang);
-            });
-        });
-
-        // ESC键关闭所有下拉菜单
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                loginDropdownMenu.classList.remove('show');
-                loginBtn.classList.remove('active');
-                languageDropdownMenu.classList.remove('show');
-                languageBtn.classList.remove('active');
-            }
-        });
-
-        // 点击页面其他地方关闭下拉菜单
-        document.addEventListener('click', function(e) {
-            // 如果点击的不是登录相关元素，关闭登录下拉菜单
-            if (!loginBtn.contains(e.target) && !loginDropdownMenu.contains(e.target)) {
-                loginDropdownMenu.classList.remove('show');
-                loginBtn.classList.remove('active');
-            }
-            
-            // 如果点击的不是语言相关元素，关闭语言下拉菜单
-            if (!languageBtn.contains(e.target) && !languageDropdownMenu.contains(e.target)) {
-                languageDropdownMenu.classList.remove('show');
-                languageBtn.classList.remove('active');
-            }
-        });
-
-        // 页面加载时处理
-        window.addEventListener('DOMContentLoaded', moveLoginBtn);
-
-        // 窗口大小改变时也处理，防止resize后login位置错乱
-        window.addEventListener('resize', moveLoginBtn);
-    </script>
+<script src="header.js"></script>
 <script>
         // 通用的 animate-on-scroll observer（保持原有逻辑）
 const observer = new IntersectionObserver((entries) => {
@@ -1981,21 +1741,6 @@ function goToMap() {
     swiper.slideTo(4); // 跳转到第3个slide（公司文化）
   }
 }
-</script>
-<script>
-    // 导航栏旗下品牌下拉菜单控制
-    const navBrandsDropdown = document.querySelector('.nav-item.nav-dropdown');
-    const navBrandsDropdownMenu = document.getElementById('brandsNavDropdownMenu');
-
-    if (navBrandsDropdown && navBrandsDropdownMenu) {
-        navBrandsDropdown.addEventListener('mouseenter', function() {
-            navBrandsDropdownMenu.classList.add('show');
-        });
-
-        navBrandsDropdown.addEventListener('mouseleave', function() {
-            navBrandsDropdownMenu.classList.remove('show');
-        });
-    }
 </script>
 </body>
 </html>
