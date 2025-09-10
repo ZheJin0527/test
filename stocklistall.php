@@ -1054,6 +1054,54 @@
                 font-size: 16px;
             }
         }
+
+        .search-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .search-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .unified-search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .unified-search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .unified-search-input::placeholder {
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .search-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+        }
     </style>
 </head>
 <body>
