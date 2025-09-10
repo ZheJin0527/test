@@ -9,6 +9,16 @@ if (!isset($_SESSION['user_id'])) {
 
 $configFile = 'jobs_config.json';
 
+// 调试信息
+$debugInfo = [
+    'configFile' => $configFile,
+    'realPath' => realpath($configFile),
+    'fileExists' => file_exists($configFile),
+    'isWritable' => is_writable($configFile),
+    'dirWritable' => is_writable(dirname($configFile)),
+    'currentDir' => getcwd()
+];
+
 // 处理表单提交
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
@@ -37,10 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $jobs[$jobId] = $jobData;
         
         // 保存配置
-        if (file_put_contents($configFile, json_encode($jobs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
-            $success = "职位添加成功！";
+        $jsonData = json_encode($jobs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        $result = file_put_contents($configFile, $jsonData);
+        
+        if ($result !== false) {
+            $success = "职位添加成功！文件已保存，字节数: " . $result;
         } else {
-            $error = "职位添加失败！";
+            $error = "职位添加失败！无法写入文件。文件路径: " . realpath($configFile) . " 权限: " . (is_writable($configFile) ? '可写' : '不可写');
         }
         
     } elseif ($action === 'edit') {
@@ -410,6 +423,17 @@ if (isset($_GET['edit'])) {
             <?php if (isset($error)): ?>
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
+            
+            <!-- 调试信息 -->
+            <div class="debug-info" style="background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; font-family: monospace; font-size: 12px;">
+                <h4>调试信息：</h4>
+                <p><strong>配置文件路径:</strong> <?php echo $debugInfo['configFile']; ?></p>
+                <p><strong>实际路径:</strong> <?php echo $debugInfo['realPath'] ?: '文件不存在'; ?></p>
+                <p><strong>文件存在:</strong> <?php echo $debugInfo['fileExists'] ? '是' : '否'; ?></p>
+                <p><strong>文件可写:</strong> <?php echo $debugInfo['isWritable'] ? '是' : '否'; ?></p>
+                <p><strong>目录可写:</strong> <?php echo $debugInfo['dirWritable'] ? '是' : '否'; ?></p>
+                <p><strong>当前目录:</strong> <?php echo $debugInfo['currentDir']; ?></p>
+            </div>
             
             <!-- 添加/编辑职位表单 -->
             <div class="form-section">
