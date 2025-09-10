@@ -280,7 +280,7 @@
 
         .summary-card {
             background: white;
-            padding: 24px;
+            padding: 12px 24px;
             border-radius: 12px;
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
