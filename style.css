@@ -4010,7 +4010,7 @@ nav {
 
 .job-card {
     background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
-    color: black;
+    color: white;
     border: none;
     padding: 15px 30px;
     border-radius: 25px;
@@ -4050,7 +4050,7 @@ nav {
     font-size: 16px;
     font-weight: 600;
     margin: 0;
-    color: black;
+    color: white;
     text-transform: uppercase;
     letter-spacing: 1px;
     line-height: 1;
