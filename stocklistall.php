@@ -225,7 +225,7 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 7px 17px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -1078,7 +1078,7 @@
 
         .unified-search-input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 6px;
             border: 2px solid #d1d5db;
             border-radius: 8px;
             font-size: 16px;
