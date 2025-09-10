@@ -537,8 +537,8 @@ body::-webkit-scrollbar {
     font-family: 'Inter', sans-serif;
     color: white;
     text-decoration: none;
-    background: transparent;
-    border: 1px solid #ff5c00;
+    background-color: #ff5c00;
+    border: none;
     border-radius: 25px;
     padding: 1px 25px;
     font-size: clamp(12px, 0.7vw + 0.5rem, 16px);
@@ -547,8 +547,7 @@ body::-webkit-scrollbar {
 }
 
 .language-switch .lang:hover {
-    background-color: #ff5c00;
-    color: white;
+    background-color: #d87b00;
 }
 
 .language-switch .icon {
