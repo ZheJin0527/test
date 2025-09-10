@@ -4072,7 +4072,7 @@ nav {
     border: none;
     padding: 15px 30px;
     border-radius: 25px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -4321,7 +4321,7 @@ nav {
 
   .job-card {
     padding: 12px 24px;
-    font-size: 16px;
+    font-size: 18px;
     min-width: 120px;
   }
 
@@ -6825,7 +6825,7 @@ form select {
     
     .job-card {
         padding: 10px 15px;
-        font-size: 14px;
+        font-size: 16px;
         min-width: auto;
     }
 }
