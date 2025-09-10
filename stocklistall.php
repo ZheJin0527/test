@@ -1187,7 +1187,7 @@
                     <div style="display: flex; gap: 12px;">
                         <button class="btn btn-primary" onclick="refreshData('central')">
                             <i class="fas fa-sync-alt"></i>
-                            刷新数据1
+                            刷新数据
                         </button>
                     </div>
                 </div>
