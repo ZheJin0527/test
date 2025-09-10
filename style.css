@@ -4086,7 +4086,7 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: calc(20% - px);
+    width: calc(18% - 10px);
     min-width: 140px;
     height: auto;
     flex-shrink: 0;
@@ -4313,9 +4313,6 @@ nav {
     justify-content: center;
     gap: clamp(10px, 1.5vw, 20px);
     padding: 0px;
-    justify-items: center;
-    align-content: center;
-    justify-content: center;
   }
 
   .category-buttons {
@@ -6834,7 +6831,7 @@ form select {
     }
     
     .job-card {
-        width: calc(50% - 5px);
+        width: calc(45% - 5px);
         padding: 10px 15px;
         font-size: 16px;
         min-width: auto;
