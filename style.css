@@ -4201,6 +4201,11 @@ nav {
     min-height: 400px;
 }
 
+/* 初始状态隐藏职位区域 */
+.jobs-grid:empty {
+    display: none;
+}
+
 .job-card {
     background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
     border-radius: 20px;

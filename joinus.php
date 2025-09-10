@@ -1631,8 +1631,8 @@ window.addEventListener('resize', () => {
             // 初始化公司按钮事件
             initializeCompanyButtons();
             
-            // 显示默认公司的职位
-            showCompanyJobs(currentCompany);
+            // 清空职位区域，不显示任何内容
+            document.getElementById('jobsGrid').innerHTML = '';
         }
 
         // 初始化公司按钮事件
