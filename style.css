@@ -4009,38 +4009,29 @@ nav {
 }
 
 .job-card {
-    background: linear-gradient(135deg, #ff5c00 0%, #ff8000 100%);
-    border: none;
-    border-radius: 8px;
-    width: clamp(140px, 14vw, 200px);
-    height: clamp(45px, 5vw, 60px);
-    padding: 0 20px;
+    background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
     color: white;
-    box-shadow: 0 4px 12px rgba(255, 92, 0, 0.3);
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 92, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    min-width: 140px;
+    height: auto;
 }
 
 .job-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 92, 0, 0.4);
-    background: linear-gradient(135deg, #ff6b00 0%, #ff8a00 100%);
-}
-
-.job-card:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(255, 92, 0, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 92, 0, 0.4);
 }
 
 .job-card.expanded {
@@ -4056,11 +4047,12 @@ nav {
 }
 
 .job-title {
-    font-size: clamp(12px, 1vw, 16px);
+    font-size: 16px;
     font-weight: 600;
     margin: 0;
     color: white;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
     line-height: 1;
     white-space: nowrap;
     overflow: hidden;
@@ -4268,13 +4260,13 @@ nav {
   }
 
   .job-card {
-    width: clamp(120px, 14vw, 180px);
-    height: clamp(40px, 5vw, 55px);
-    padding: 0 16px;
+    padding: 12px 24px;
+    font-size: 14px;
+    min-width: 120px;
   }
 
   .job-title {
-    font-size: clamp(10px, 1vw, 14px);
+    font-size: 14px;
   }
 
   .job-meta {
