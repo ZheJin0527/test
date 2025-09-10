@@ -2850,15 +2850,17 @@ nav {
 }
 
 .nav-arrow.prev::before {
-    border-width: 5px 7px 5px 0;
+    border-width: 4px 6px 4px 0;
     border-color: transparent #333 transparent transparent;
-    margin-left: -1px;
+    margin-left: -2px;
+    margin-top: -1px;
 }
 
 .nav-arrow.next::before {
-    border-width: 5px 0 5px 7px;
+    border-width: 4px 0 4px 6px;
     border-color: transparent transparent transparent #333;
-    margin-left: 1px;
+    margin-left: 2px;
+    margin-top: -1px;
 }
 
 .nav-arrow:hover {
@@ -3225,13 +3227,15 @@ nav {
     }
 
     .nav-arrow::before {
-        border-width: 7px 9px 7px 0;
-        margin-left: -1px;
+        border-width: 6px 8px 6px 0;
+        margin-left: -2px;
+        margin-top: -1px;
     }
 
     .nav-arrow.next::before {
-        border-width: 7px 0 7px 9px;
-        margin-left: 1px;
+        border-width: 6px 0 6px 8px;
+        margin-left: 2px;
+        margin-top: -1px;
     }
 
     .nav-arrow.prev {
