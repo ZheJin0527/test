@@ -1187,25 +1187,21 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- 中央库存页面的过滤部分 -->
-                <div class="filter-section">
-                    <div class="search-row">
-                        <div class="search-group">
-                            <label for="central-unified-filter">搜索货品</label>
-                            <input type="text" id="central-unified-filter" class="unified-search-input" 
-                                placeholder="搜索货品名称、编号或规格单位...">
-                        </div>
-                        <button class="btn btn-warning" onclick="exportData('central')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
-                    </div>
-                </div>
             </div>
 
             <div class="table-container">
                 <div class="action-buttons">
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <button class="btn btn-warning" onclick="exportData('central')">
+                            <i class="fas fa-download"></i>
+                            导出CSV
+                        </button>
+                        <div class="search-group">
+                            <input type="text" id="central-unified-filter" class="unified-search-input" 
+                                placeholder="搜索货品名称、编号或规格单位..." style="width: 300px;">
+                        </div>
+                    </div>
+                    
                     <div class="stats-info" id="central-stock-stats">
                         <div class="stat-item">
                             <i class="fas fa-chart-bar"></i>
@@ -1215,9 +1211,6 @@
                             <i class="fas fa-boxes"></i>
                             <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
                         </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 12px;">
                     </div>
                 </div>
                 
@@ -1254,36 +1247,30 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="filter-section">
-                    <div class="search-row">
-                        <div class="search-group">
-                            <label for="central-unified-filter">搜索货品</label>
-                            <input type="text" id="central-unified-filter" class="unified-search-input" 
-                                placeholder="搜索货品名称、编号或规格单位...">
-                        </div>
-                        <button class="btn btn-warning" onclick="exportData('central')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
-                    </div>
-                </div>
             </div>
 
             <div class="table-container">
                 <div class="action-buttons">
-                    <div class="stats-info" id="j1-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="j1-displayed-records">0</span></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="j1-total-records">0</span></span>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <button class="btn btn-warning" onclick="exportData('central')">
+                            <i class="fas fa-download"></i>
+                            导出CSV
+                        </button>
+                        <div class="search-group">
+                            <input type="text" id="central-unified-filter" class="unified-search-input" 
+                                placeholder="搜索货品名称、编号或规格单位..." style="width: 300px;">
                         </div>
                     </div>
                     
-                    <div style="display: flex; gap: 12px;">
+                    <div class="stats-info" id="central-stock-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-boxes"></i>
+                            <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
+                        </div>
                     </div>
                 </div>
                 
@@ -1320,37 +1307,30 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- 中央库存页面的过滤部分 -->
-                <div class="filter-section">
-                    <div class="search-row">
-                        <div class="search-group">
-                            <label for="central-unified-filter">搜索货品</label>
-                            <input type="text" id="central-unified-filter" class="unified-search-input" 
-                                placeholder="搜索货品名称、编号或规格单位...">
-                        </div>
-                        <button class="btn btn-warning" onclick="exportData('central')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
-                    </div>
-                </div>
             </div>
 
             <div class="table-container">
                 <div class="action-buttons">
-                    <div class="stats-info" id="j2-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="j2-displayed-records">0</span></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="j2-total-records">0</span></span>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <button class="btn btn-warning" onclick="exportData('central')">
+                            <i class="fas fa-download"></i>
+                            导出CSV
+                        </button>
+                        <div class="search-group">
+                            <input type="text" id="central-unified-filter" class="unified-search-input" 
+                                placeholder="搜索货品名称、编号或规格单位..." style="width: 300px;">
                         </div>
                     </div>
                     
-                    <div style="display: flex; gap: 12px;">
+                    <div class="stats-info" id="central-stock-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-boxes"></i>
+                            <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
+                        </div>
                     </div>
                 </div>
                 
@@ -1377,21 +1357,6 @@
 
         <!-- 价格分析页面 -->
         <div id="remark-page" class="page-section">
-            <!-- 中央库存页面的过滤部分 -->
-            <div class="filter-section">
-                <div class="search-row">
-                    <div class="search-group">
-                        <label for="central-unified-filter">搜索货品</label>
-                        <input type="text" id="central-unified-filter" class="unified-search-input" 
-                            placeholder="搜索货品名称、编号或规格单位...">
-                    </div>
-                    <button class="btn btn-warning" onclick="exportData('central')">
-                        <i class="fas fa-download"></i>
-                        导出CSV
-                    </button>
-                </div>
-            </div>
-
             <div id="remark-products-container">
                 <!-- Dynamic content -->
             </div>
