@@ -640,7 +640,7 @@ updatePageIndicator(0);
             currentIndex = years.indexOf(year);
         }
 
-        // 优化后的拖拽处理
+        // 简化的拖拽处理
         function handleDragStart(e) {
             if (isAnimating) return;
             
@@ -655,42 +655,20 @@ updatePageIndicator(0);
             document.body.style.cursor = 'grabbing';
             document.body.style.userSelect = 'none';
             
-            // 动态添加 mousemove 和 mouseup 监听器
-            mousemoveHandler = handleDragMove;
-            mouseupHandler = handleDragEnd;
-            document.addEventListener('mousemove', mousemoveHandler);
-            document.addEventListener('mouseup', mouseupHandler);
-            document.addEventListener('mouseleave', mouseupHandler);
-            
-            // 不要立即阻止事件，让点击事件先处理
-            // e.preventDefault();
-            // e.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
         }
 
         function handleDragMove(e) {
-            if (hasTriggered || isAnimating) return;
-            
-            // 如果没有按下鼠标，直接返回
-            if (startX === 0) return;
+            if (!isDragging || hasTriggered || isAnimating) return;
             
             currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
             const deltaX = currentX - startX;
             const dragTime = Date.now() - dragStartTime;
             
-            // 只有在检测到真正移动时才设置拖拽状态
+            // 增加时间限制，避免过快触发
             if (Math.abs(deltaX) >= dragThreshold && dragTime > 50) {
-                isDragging = true;
                 hasTriggered = true;
-                
-                // 动态添加事件监听器
-                mousemoveHandler = handleDragMove;
-                mouseupHandler = handleDragEnd;
-                document.addEventListener('mousemove', mousemoveHandler);
-                document.addEventListener('mouseup', mouseupHandler);
-                document.addEventListener('mouseleave', mouseupHandler);
-                
-                document.body.style.cursor = 'grabbing';
-                document.body.style.userSelect = 'none';
                 
                 if (deltaX > 0) {
                     navigateTimeline('prev');
@@ -702,32 +680,20 @@ updatePageIndicator(0);
                 setTimeout(() => {
                     handleDragEnd(e);
                 }, 50);
-                
-                // 只有在真正拖拽时才阻止事件
-                e.preventDefault();
             }
+            
+            e.preventDefault();
         }
 
         function handleDragEnd(e) {
-            // 重置所有拖拽相关状态
+            if (!isDragging) return;
+            
             isDragging = false;
             hasTriggered = false;
             dragStartTime = 0;
             
-            // 恢复文本选择和光标
             document.body.style.cursor = '';
             document.body.style.userSelect = '';
-            
-            // 移除动态添加的事件监听器
-            if (mousemoveHandler) {
-                document.removeEventListener('mousemove', mousemoveHandler);
-                mousemoveHandler = null;
-            }
-            if (mouseupHandler) {
-                document.removeEventListener('mouseup', mouseupHandler);
-                document.removeEventListener('mouseleave', mouseupHandler);
-                mouseupHandler = null;
-            }
             
             startX = 0;
             currentX = 0;
@@ -743,32 +709,13 @@ updatePageIndicator(0);
                 if (clickTimeout) {
                     clearTimeout(clickTimeout);
                 }
-                // 记录初始位置和时间，但不立即设置拖拽状态
-                startX = e.clientX;
-                dragStartTime = Date.now();
-                hasTriggered = false;
-                isDragging = false; // 确保初始状态为false
-                
-                // 立即阻止文本选择
-                e.preventDefault();
-                document.body.style.userSelect = 'none';
-                document.body.style.cursor = 'grabbing';
+                handleDragStart(e);
             }
         });
 
-        // 动态事件监听器管理
-        let mousemoveHandler = null;
-        let mouseupHandler = null;
-        
-        // 全局 mousemove 监听器，用于检测拖拽开始
         document.addEventListener('mousemove', handleDragMove);
-        
-        // 全局 mouseup 监听器，用于清理状态
-        document.addEventListener('mouseup', (e) => {
-            if (startX !== 0) {
-                handleDragEnd(e);
-            }
-        });
+        document.addEventListener('mouseup', handleDragEnd);
+        document.addEventListener('mouseleave', handleDragEnd);
 
         // 触摸事件
         document.addEventListener('touchstart', (e) => {
@@ -815,10 +762,8 @@ updatePageIndicator(0);
 
         // 防止文本选择
         document.addEventListener('selectstart', (e) => {
-            const card = e.target.closest('.timeline-content-item');
-            if (card && (isDragging || startX !== 0)) {
+            if (isDragging) {
                 e.preventDefault();
-                return false;
             }
         });
 
