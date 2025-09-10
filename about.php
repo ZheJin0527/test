@@ -219,7 +219,7 @@ $timelineData = getTimelineConfig();
                 ?>
                 <!-- <?php echo $year; ?>年内容 -->
                 <div class="timeline-content-item <?php echo $itemClass; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $index; ?>">
-                    <div class="timeline-content" onclick="selectCard(<?php echo $year; ?>)">
+                    <div class="timeline-content">
                         <div class="timeline-image">
                             <img src="<?php echo $data['image_url']; ?>" alt="<?php echo $year; ?>年发展">
                         </div>
@@ -770,6 +770,7 @@ updatePageIndicator(0);
         let totalItems = years.length;
         const navItems = document.querySelectorAll('.timeline-item');
         const container = document.getElementById('timelineContainer');
+        
 
         // 拖拽相关变量 - 优化后的设置
         let isDragging = false;
@@ -979,7 +980,7 @@ updatePageIndicator(0);
             if (isDragging || hasTriggered || isAnimating) return;
             
             const card = e.target.closest('.timeline-content-item');
-            if (card && !card.classList.contains('active')) {
+            if (card) {
                 // 添加小延迟确保不是拖拽操作
                 clickTimeout = setTimeout(() => {
                     if (!isDragging) {
