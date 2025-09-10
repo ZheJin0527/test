@@ -20,7 +20,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // 获取所有职位
-    $stmt = $pdo->prepare("SELECT * FROM job_positions ORDER BY publish_date DESC, created_at DESC");
+    $stmt = $pdo->prepare("SELECT * FROM job_positions ORDER BY publish_date DESC, id DESC");
     $stmt->execute();
     $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     

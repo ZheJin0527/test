@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $pdo->prepare("
                 INSERT INTO job_positions 
-                (job_title, work_experience, recruitment_count, publish_date, company_category, job_description, company_location, status, created_at) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, 'active', NOW())
+                (job_title, work_experience, recruitment_count, publish_date, company_category, job_description, company_location) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             ");
             
             $result = $stmt->execute([
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("
                 UPDATE job_positions 
                 SET job_title = ?, work_experience = ?, recruitment_count = ?, publish_date = ?, 
-                    company_category = ?, job_description = ?, company_location = ?, updated_at = NOW()
+                    company_category = ?, job_description = ?, company_location = ?
                 WHERE id = ?
             ");
             
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // 读取现有职位
 try {
-    $stmt = $pdo->prepare("SELECT * FROM job_positions ORDER BY publish_date DESC, created_at DESC");
+    $stmt = $pdo->prepare("SELECT * FROM job_positions ORDER BY publish_date DESC, id DESC");
     $stmt->execute();
     $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
