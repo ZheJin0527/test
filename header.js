@@ -140,9 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 更新语言按钮显示
                 const selectedLang = this.getAttribute('data-lang');
                 if (selectedLang === 'en') {
-                    languageBtn.textContent = 'EN';
+                    languageBtn.textContent = 'English';
+                } else if (selectedLang === 'my') {
+                    languageBtn.textContent = 'Malay';
                 } else {
-                    languageBtn.textContent = 'CN';
+                    languageBtn.textContent = '中文';
                 }
                 
                 // 关闭下拉菜单
