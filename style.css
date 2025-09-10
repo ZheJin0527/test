@@ -2863,11 +2863,11 @@ nav {
 }
 
 .nav-arrow.prev {
-    left: 40px;
+    left: 20px;
 }
 
 .nav-arrow.next {
-    right: 40px;
+    right: 20px;
 }
 
 .nav-arrow.disabled {
@@ -3144,11 +3144,11 @@ nav {
     }
 
     .nav-arrow.prev {
-      left: 200px;
+      left: 20px;
     }
 
     .nav-arrow.next {
-      right: 200px;
+      right: 20px;
     }
 }
 
@@ -3203,11 +3203,11 @@ nav {
     }
 
     .nav-arrow.prev {
-        left: 10px;
+        left: 5px;
     }
 
     .nav-arrow.next {
-        right: 10px;
+        right: 5px;
     }
 }
 
