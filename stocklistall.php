@@ -1119,8 +1119,8 @@
 
         .unified-search-input {
             width: 100%;
-            padding: 7px;
-            border: 2px solid #d1d5db;
+            padding: 8px;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
             font-size: 14px;
             background-color: #ffffff;
