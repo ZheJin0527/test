@@ -1689,7 +1689,7 @@
                     <div class="search-group" style="margin-right: 16px;">
                         <label for="unified-filter" style="margin-bottom: 4px; font-size: 12px;">搜索</label>
                         <input type="text" id="unified-filter" class="unified-search-input" 
-                            placeholder="搜索货品编号、货品名称或收货人..." style="padding: 8px; font-size: 14px; min-width: 300px;">
+                            placeholder="搜索货品编号、货品名称或收货人..." style="padding: 8px; font-size: 14px; min-width: 240px;">
                     </div>
                     <button class="btn btn-success" onclick="addNewRow()" style="margin-right: 8px;">
                         <i class="fas fa-plus"></i>

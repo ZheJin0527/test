@@ -273,6 +273,7 @@
             background-color: #f59e0b;
             color: white;
             margin-top: 20px;
+            margin-left: 45px;
         }
         
         .btn-warning:hover {
@@ -1142,6 +1143,7 @@
 
         .unified-search-input {
             width: 100%;
+            min-width: 230px;
             padding: 8px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
