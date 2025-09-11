@@ -440,21 +440,21 @@ if (isset($_GET['edit'])) {
                         <div class="form-group">
                             <label for="job_title">职位名称 *</label>
                             <input type="text" id="job_title" name="job_title" 
-                                   value="<?php echo $editJob ? htmlspecialchars($editJob['title']) : ''; ?>" 
+                                   value="<?php echo $editJob ? htmlspecialchars($editJob['job_title']) : ''; ?>" 
                                    required>
                         </div>
                         
                         <div class="form-group">
                             <label for="job_count">招聘人数 *</label>
                             <input type="text" id="job_count" name="job_count" 
-                                   value="<?php echo $editJob ? htmlspecialchars($editJob['count']) : ''; ?>" 
+                                   value="<?php echo $editJob ? htmlspecialchars($editJob['recruitment_count']) : ''; ?>" 
                                    placeholder="例如：1人" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="job_experience">工作经验要求 *</label>
                             <input type="text" id="job_experience" name="job_experience" 
-                                   value="<?php echo $editJob ? htmlspecialchars($editJob['experience']) : ''; ?>" 
+                                   value="<?php echo $editJob ? htmlspecialchars($editJob['work_experience']) : ''; ?>" 
                                    placeholder="例如：3" required>
                         </div>
                         
