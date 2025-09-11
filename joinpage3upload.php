@@ -469,8 +469,8 @@ if (isset($_GET['edit'])) {
                             <label for="job_category">公司分类 *</label>
                             <select id="job_category" name="job_category" required>
                                 <option value="">请选择公司</option>
-                                <option value="KUNZZHOLDINGS" <?php echo ($editJob && $editJob['company_category'] === 'KUNZZHOLDINGS') ? 'selected' : ''; ?>>KUNZZHOLDINGS</option>
-                                <option value="TOKYO CUISINE" <?php echo ($editJob && $editJob['company_category'] === 'TOKYO CUISINE') ? 'selected' : ''; ?>>TOKYO CUISINE</option>
+                                <option value="KUNZZ HOLDINGS" <?php echo ($editJob && $editJob['company_category'] === 'KUNZZ HOLDINGS') ? 'selected' : ''; ?>>KUNZZ HOLDINGS</option>
+                                <option value="TOKYO JAPANESE CUISINE" <?php echo ($editJob && $editJob['company_category'] === 'TOKYO JAPANESE CUISINE') ? 'selected' : ''; ?>>TOKYO JAPANESE CUISINE</option>
                             </select>
                         </div>
                         
