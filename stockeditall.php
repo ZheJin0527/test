@@ -1417,6 +1417,60 @@
                 width: 100%;
             }
         }
+
+        .search-controls {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-controls .filter-group,
+        .search-controls .search-group {
+            display: flex;
+            flex-direction: column;
+            min-width: auto;
+        }
+
+        .search-controls label {
+            font-weight: 600;
+            color: #583e04;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1200px) {
+            .action-buttons {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+            
+            .search-controls {
+                justify-content: flex-start;
+            }
+            
+            .search-controls .search-group input {
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            
+            .search-controls .filter-group,
+            .search-controls .search-group {
+                width: 100%;
+            }
+            
+            .search-controls .search-group input {
+                min-width: auto;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1463,31 +1517,6 @@
         
         <!-- Alert Messages -->
         <div id="alert-container"></div>
-        
-        <!-- 搜索和过滤区域 -->
-        <div class="filter-section">
-            <div class="search-row">
-                <div class="filter-group">
-                    <label for="date-filter">日期</label>
-                    <input type="date" id="date-filter" class="filter-input">
-                </div>
-                <div class="search-group">
-                    <label for="unified-filter">搜索货品</label>
-                    <input type="text" id="unified-filter" class="unified-search-input" 
-                        placeholder="搜索货品编号、货品名称或收货人...">
-                </div>
-                <div class="action-buttons-group">
-                    <button class="btn btn-success" onclick="addNewRow()">
-                        <i class="fas fa-plus"></i>
-                        新增记录
-                    </button>
-                    <button class="btn btn-warning" onclick="exportData()">
-                        <i class="fas fa-download"></i>
-                        导出数据
-                    </button>
-                </div>
-            </div>
-        </div>
 
         <!-- 新增记录表单 -->
         <div id="add-form" class="add-form">
@@ -1602,26 +1631,48 @@
         <!-- 库存表格 -->
         <div class="table-container">
             <div class="action-buttons">
-                <div class="stats-info" id="stock-stats">
-                    <div class="stat-item">
-                        <i class="fas fa-boxes"></i>
-                        <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
+                <div class="search-controls">
+                    <div class="filter-group" style="margin-right: 16px;">
+                        <label for="date-filter" style="margin-bottom: 4px; font-size: 12px;">日期</label>
+                        <input type="date" id="date-filter" class="filter-input" style="padding: 8px; font-size: 14px;">
                     </div>
+                    <div class="search-group" style="margin-right: 16px;">
+                        <label for="unified-filter" style="margin-bottom: 4px; font-size: 12px;">搜索货品</label>
+                        <input type="text" id="unified-filter" class="unified-search-input" 
+                            placeholder="搜索货品编号、货品名称或收货人..." style="padding: 8px; font-size: 14px; min-width: 300px;">
+                    </div>
+                    <button class="btn btn-success" onclick="addNewRow()" style="margin-right: 8px;">
+                        <i class="fas fa-plus"></i>
+                        新增记录
+                    </button>
+                    <button class="btn btn-warning" onclick="exportData()">
+                        <i class="fas fa-download"></i>
+                        导出数据
+                    </button>
                 </div>
                 
-                <div style="display: flex; gap: 12px;">
-                    <button class="btn btn-danger" id="batch-delete-btn" onclick="toggleBatchDelete()">
-                        <i class="fas fa-trash-alt"></i>
-                        批量删除
-                    </button>
-                    <button class="btn btn-success" id="confirm-batch-delete-btn" onclick="confirmBatchDelete()" style="display: none;">
-                        <i class="fas fa-check"></i>
-                        确认删除
-                    </button>
-                    <button class="btn btn-secondary" id="cancel-batch-delete-btn" onclick="cancelBatchDelete()" style="display: none;">
-                        <i class="fas fa-times"></i>
-                        取消
-                    </button>
+                <div style="display: flex; align-items: center; gap: 24px;">
+                    <div class="stats-info" id="stock-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-boxes"></i>
+                            <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px;">
+                        <button class="btn btn-danger" id="batch-delete-btn" onclick="toggleBatchDelete()">
+                            <i class="fas fa-trash-alt"></i>
+                            批量删除
+                        </button>
+                        <button class="btn btn-success" id="confirm-batch-delete-btn" onclick="confirmBatchDelete()" style="display: none;">
+                            <i class="fas fa-check"></i>
+                            确认删除
+                        </button>
+                        <button class="btn btn-secondary" id="cancel-batch-delete-btn" onclick="cancelBatchDelete()" style="display: none;">
+                            <i class="fas fa-times"></i>
+                            取消
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="table-scroll-container">
