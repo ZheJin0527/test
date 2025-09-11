@@ -1108,21 +1108,17 @@ tokyomenuUpdateNav();
             const container = document.querySelector('.tab-container');
             
             if (slider && container && activeButton) {
-                // 获取容器的计算样式
-                const containerStyle = window.getComputedStyle(container);
-                const containerPadding = parseFloat(containerStyle.paddingLeft);
+                // 直接计算按钮相对于容器的位置
+                const containerRect = container.getBoundingClientRect();
+                const buttonRect = activeButton.getBoundingClientRect();
                 
-                // 计算按钮在容器中的索引
-                const buttons = container.querySelectorAll('.values-tab-btn');
-                const buttonIndex = Array.from(buttons).indexOf(activeButton);
+                // 计算按钮相对于容器的左偏移
+                const leftOffset = buttonRect.left - containerRect.left;
                 
-                // 计算按钮的宽度和间距
-                const buttonWidth = activeButton.offsetWidth;
-                const gap = parseFloat(containerStyle.gap) || 20; // 默认20px间距
+                // 设置滑块的宽度与按钮相同
+                slider.style.width = buttonRect.width + 'px';
                 
-                // 计算滑块应该移动到的位置
-                const leftOffset = containerPadding + buttonIndex * (buttonWidth + gap);
-                
+                // 移动滑块到按钮位置
                 slider.style.transform = `translateX(${leftOffset}px)`;
             }
         }
@@ -1169,15 +1165,27 @@ tokyomenuUpdateNav();
             // 预加载背景图片
             preloadBackgroundImages();
             
+            // 初始化滑块位置
             const firstButton = document.querySelector('.values-tab-btn.values-selected');
             if (firstButton) {
-                updateTabSlider(firstButton);
+                // 延迟一点时间确保DOM完全渲染
+                setTimeout(() => {
+                    updateTabSlider(firstButton);
+                }, 100);
             }
             
             // 初始化背景为使命背景
             const valuesSection = document.querySelector('.values-section');
             if (valuesSection) {
                 valuesSection.classList.add('mission-bg');
+            }
+        });
+        
+        // 窗口大小改变时重新计算滑块位置
+        window.addEventListener('resize', function() {
+            const activeButton = document.querySelector('.values-tab-btn.values-selected');
+            if (activeButton) {
+                updateTabSlider(activeButton);
             }
         });
     </script>
