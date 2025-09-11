@@ -396,7 +396,7 @@
 
         /* 确保表格容器高度计算正确 */
         .main-content-row + .table-container {
-            height: calc(100vh - 300px); /* 根据页面布局调整 */
+            height: calc(102vh - 300px); /* 根据页面布局调整 */
             min-height: 400px;
         }
 
