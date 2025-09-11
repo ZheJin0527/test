@@ -1254,14 +1254,14 @@
             <div class="table-container">
                 <div class="action-buttons">
                     <div style="display: flex; gap: 12px; align-items: center;">
-                        <button class="btn btn-warning" onclick="exportData('central')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
                         <div class="search-group">
                             <input type="text" id="central-unified-filter" class="unified-search-input" 
                                 placeholder="搜索货品名称、编号或规格单位...">
                         </div>
+                        <button class="btn btn-warning" onclick="exportData('central')">
+                            <i class="fas fa-download"></i>
+                            导出CSV
+                        </button>
                     </div>
                     
                     <div class="stats-info" id="central-stock-stats">
