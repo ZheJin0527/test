@@ -1168,80 +1168,6 @@
                 gap: 16px;
             }
         }
-
-        /* 统一的顶部操作区域 */
-        .top-controls-container {
-            background: white;
-            border-radius: 12px;
-            padding: 24px 32px;
-            margin-bottom: 24px;
-            border: 2px solid #583e04;
-            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 24px;
-        }
-
-        .top-controls-left {
-            display: flex;
-            align-items: flex-end;
-            gap: 24px;
-            flex: 1;
-        }
-
-        .top-controls-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-shrink: 0;
-        }
-
-        .top-controls-stats {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        .top-controls-stats .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            min-width: 120px;
-        }
-
-        .top-controls-stats .stat-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: #583e04;
-        }
-
-        @media (max-width: 768px) {
-            .top-controls-container {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 16px;
-                padding: 20px;
-            }
-            
-            .top-controls-left {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 16px;
-            }
-            
-            .top-controls-right {
-                justify-content: space-between;
-            }
-            
-            .top-controls-stats {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1316,8 +1242,8 @@
         
         <!-- 中央库存页面 -->
         <div id="central-page" class="page-section active">
-            <div class="top-controls-container">
-                <div class="top-controls-left">
+            <div class="main-content-row">
+                <div class="summary-section">
                     <div class="summary-card total-value">
                         <h3>总库存</h3>
                         <div class="summary-currency-display">
@@ -1325,16 +1251,24 @@
                             <span class="value" id="central-total-value">0.00</span>
                         </div>
                     </div>
-                    
-                    <div class="search-group">
-                        <label for="central-unified-filter">搜索</label>
-                        <input type="text" id="central-unified-filter" class="unified-search-input" 
-                            placeholder="搜索货品名称、编号或规格单位...">
-                    </div>
                 </div>
-                
-                <div class="top-controls-right">
-                    <div class="top-controls-stats" id="central-stock-stats">
+            </div>
+
+            <div class="table-container">
+                <div class="action-buttons">
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <div class="search-group">
+                            <label for="central-unified-filter">搜索</label>
+                            <input type="text" id="central-unified-filter" class="unified-search-input" 
+                                placeholder="搜索货品名称、编号或规格单位...">
+                        </div>
+                        <button class="btn btn-warning" onclick="exportData('central')">
+                            <i class="fas fa-download"></i>
+                            导出数据
+                        </button>
+                    </div>
+                    
+                    <div class="stats-info" id="central-stock-stats">
                         <div class="stat-item">
                             <i class="fas fa-chart-bar"></i>
                             <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
@@ -1344,13 +1278,7 @@
                             <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
                         </div>
                     </div>
-                    
-                    <button class="btn btn-warning" onclick="exportData('central')">
-                        <i class="fas fa-download"></i>
-                        导出数据
-                    </button>
                 </div>
-            </div>
                 
                 <div class="table-scroll-container">
                     <table class="stock-table" id="central-stock-table">
