@@ -2680,7 +2680,7 @@ nav {
 .values-tab-btn {
     width: clamp(80px, 6.25vw, 120px);
     height: clamp(30px, 2.1vw, 40px);
-    padding: clamp(10px, 0.625vw, 12px) clamp(10px, 1,6vw, 30px);
+    padding: 0;
     border: none;
     border-radius: 25px;
     background: transparent;
@@ -2691,23 +2691,26 @@ nav {
     transition: all 0.3s ease;
     position: relative;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .tab-slider {
     position: absolute;
-    top: 5px;
-    left: 5px;
+    top: 4px;
+    left: 4px;
     width: clamp(80px, 6.25vw, 120px);
     height: clamp(30px, 2.1vw, 40px);
-    background: linear-gradient(135deg, rgba(58, 31, 0, 0.9), rgba(90, 47, 0, 0.9));
+    background: linear-gradient(135deg, #3a1f00, #5a2f00);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-radius: 25px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
-    box-shadow: 0 6px 20px rgba(58, 31, 0, 0.4), 
-                0 0 0 1px rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(58, 31, 0, 0.3), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .values-tab-btn:hover {
@@ -2880,6 +2883,10 @@ nav {
     width: clamp(64px, 6.25vw, 80px);
     height: clamp(24px, 2.35vw, 30px);           
     font-size: clamp(10px, 0.94vw, 12px);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .tab-slider {
@@ -2950,14 +2957,18 @@ nav {
   }
             
   .values-tab-btn {
-    padding: 10px 20px;
+    width: 100px;
+    height: 34px;
+    padding: 0;
     font-size: 14px;
-    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .tab-slider {
-    width: clamp(64px, 6.25vw, 80px);
-    height: clamp(24px, 2.35vw, 30px);
+    width: 100px;
+    height: 34px;
   }
             
   .values-content-title {
