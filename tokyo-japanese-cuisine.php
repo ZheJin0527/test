@@ -1108,15 +1108,20 @@ tokyomenuUpdateNav();
             const container = document.querySelector('.tab-container');
             
             if (slider && container && activeButton) {
-                // 直接计算按钮相对于容器的位置
+                // 获取容器的计算样式
+                const containerStyle = window.getComputedStyle(container);
+                const containerPadding = parseFloat(containerStyle.paddingLeft);
+                
+                // 计算按钮相对于容器的位置
                 const containerRect = container.getBoundingClientRect();
                 const buttonRect = activeButton.getBoundingClientRect();
                 
-                // 计算按钮相对于容器的左偏移
-                const leftOffset = buttonRect.left - containerRect.left;
+                // 计算按钮相对于容器的左偏移，减去容器的内边距
+                const leftOffset = buttonRect.left - containerRect.left - containerPadding;
                 
-                // 设置滑块的宽度与按钮相同，使用setProperty确保优先级
+                // 设置滑块的宽度和高度与按钮相同，使用setProperty确保优先级
                 slider.style.setProperty('width', buttonRect.width + 'px', 'important');
+                slider.style.setProperty('height', buttonRect.height + 'px', 'important');
                 
                 // 移动滑块到按钮位置
                 slider.style.transform = `translateX(${leftOffset}px)`;
@@ -1128,9 +1133,9 @@ tokyomenuUpdateNav();
                     buttonWidth: buttonRect.width,
                     buttonHeight: buttonRect.height,
                     leftOffset: leftOffset,
+                    containerPadding: containerPadding,
                     sliderWidth: slider.style.width,
-                    sliderHeight: slider.style.height,
-                    containerPadding: window.getComputedStyle(container).paddingLeft
+                    sliderHeight: slider.style.height
                 });
             }
         }
@@ -1184,6 +1189,11 @@ tokyomenuUpdateNav();
                 setTimeout(() => {
                     updateTabSlider(firstButton);
                 }, 100);
+                
+                // 再次延迟确保所有样式都已应用
+                setTimeout(() => {
+                    updateTabSlider(firstButton);
+                }, 500);
             }
             
             // 初始化背景为使命背景

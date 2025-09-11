@@ -2699,8 +2699,8 @@ nav {
 
 .tab-slider {
     position: absolute;
-    top: 4px;
-    left: 4px;
+    top: 5px; /* 与容器的padding一致 */
+    left: 5px; /* 与容器的padding一致 */
     width: clamp(80px, 6.25vw, 120px); /* 默认宽度，会被JavaScript覆盖 */
     height: clamp(30px, 2.1vw, 40px);
     background: linear-gradient(135deg, #3a1f00, #5a2f00);
