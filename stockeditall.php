@@ -23,7 +23,7 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: 23px 24px;
             height: 100vh; /* 设置容器高度为视口高度 */
             display: flex;
             flex-direction: column;
