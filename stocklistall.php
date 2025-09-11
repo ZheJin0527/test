@@ -359,9 +359,27 @@
             border: 1px solid #d1d5db;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
             white-space: nowrap;
             min-width: 80px;
+        }
+
+        /* 确保表格头部完全遮盖滚动的数据 */
+        .table-scroll-container {
+            position: relative;
+        }
+
+        .stock-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #583e04;
+        }
+
+        .stock-table thead tr {
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         /* 确保表格在容器内正确显示 */
@@ -440,6 +458,7 @@
             overflow-y: auto;
             flex: 1;
             max-height: calc(80vh - 160px); /* 减去按钮区域的高度 */
+            position: relative;
         }
 
         /* 操作按钮 */
