@@ -1132,9 +1132,11 @@
         }
 
         .search-group label {
+            font-size: 12px;
             font-weight: 600;
             color: #583e04;
             white-space: nowrap;
+            margin-bottom: 5px;
         }
 
         .unified-search-input {
