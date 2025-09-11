@@ -115,12 +115,16 @@ header("Expires: 0");
   
   <div class="swiper-slide">
   <section class="values-section">
+    <div class="overlay"></div>
     <div class="values-container">
       <!-- 选项按钮 -->
       <div class="values-tab-buttons">
-        <button class="values-tab-btn values-selected" onclick="showContent('values')">使命</button>
-          <button class="values-tab-btn" onclick="showContent('mission')">愿景</button>
+        <div class="tab-container">
+          <button class="values-tab-btn values-selected" onclick="showContent('values')" data-tab="values">使命</button>
+          <button class="values-tab-btn" onclick="showContent('mission')" data-tab="mission">愿景</button>
+          <div class="tab-slider"></div>
         </div>
+      </div>
 
         <!-- 内容区域 -->
         <div class="values-content-area">
@@ -1068,19 +1072,103 @@ tokyomenuUpdateNav();
             // 为当前按钮添加选中状态
             event.target.classList.add('values-selected');
             
-            // 重新触发动画
-            const titleElement = activePanel.querySelector('.values-content-title');
-            const subtitleElement = activePanel.querySelector('.values-content-subtitle');
-            const descriptionElement = activePanel.querySelector('.values-content-description');
+            // 更新滑块位置
+            updateTabSlider(event.target);
             
-            [titleElement, subtitleElement, descriptionElement].forEach(element => {
-                if (element) {
-                    element.style.animation = 'none';
-                    element.offsetHeight; // 触发重绘
-                    element.style.animation = '';
+            // 切换背景图片
+            updateBackground(contentId);
+            
+            // 重新触发动画
+            setTimeout(() => {
+                const titleElement = activePanel.querySelector('.values-content-title');
+                const subtitleElement = activePanel.querySelector('.values-content-subtitle');
+                const descriptionElement = activePanel.querySelector('.values-content-description');
+                const imageElement = activePanel.querySelector('.values-content-image');
+                
+                // 重置并重新触发文本动画
+                [titleElement, subtitleElement, descriptionElement].forEach(element => {
+                    if (element) {
+                        element.style.animation = 'none';
+                        element.offsetHeight; // 触发重绘
+                        element.style.animation = '';
+                    }
+                });
+                
+                // 重置并重新触发图片动画
+                if (imageElement) {
+                    imageElement.style.animation = 'none';
+                    imageElement.offsetHeight; // 触发重绘
+                    imageElement.style.animation = '';
                 }
+            }, 100);
+        }
+        
+        function updateTabSlider(activeButton) {
+            const slider = document.querySelector('.tab-slider');
+            const container = document.querySelector('.tab-container');
+            
+            if (slider && container && activeButton) {
+                const containerRect = container.getBoundingClientRect();
+                const buttonRect = activeButton.getBoundingClientRect();
+                const leftOffset = buttonRect.left - containerRect.left;
+                
+                slider.style.transform = `translateX(${leftOffset}px)`;
+            }
+        }
+        
+        function updateBackground(contentId) {
+            const valuesSection = document.querySelector('.values-section');
+            
+            if (valuesSection) {
+                // 移除所有背景类
+                valuesSection.classList.remove('mission-bg', 'vision-bg');
+                
+                // 添加切换动画类
+                valuesSection.classList.add('background-transitioning');
+                
+                // 根据内容ID添加对应的背景类
+                if (contentId === 'values') {
+                    valuesSection.classList.add('mission-bg');
+                } else if (contentId === 'mission') {
+                    valuesSection.classList.add('vision-bg');
+                }
+                
+                // 移除过渡类，让CSS动画生效
+                setTimeout(() => {
+                    valuesSection.classList.remove('background-transitioning');
+                }, 50);
+            }
+        }
+        
+        // 预加载背景图片
+        function preloadBackgroundImages() {
+            const images = [
+                'images/images/fujibg.jpg',
+                'images/images/sushi.jpg'
+            ];
+            
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
             });
         }
+        
+        // 初始化滑块位置和背景
+        document.addEventListener('DOMContentLoaded', function() {
+            // 预加载背景图片
+            preloadBackgroundImages();
+            
+            const firstButton = document.querySelector('.values-tab-btn.values-selected');
+            if (firstButton) {
+                updateTabSlider(firstButton);
+            }
+            
+            // 初始化背景为使命背景
+            const valuesSection = document.querySelector('.values-section');
+            if (valuesSection) {
+                valuesSection.classList.add('mission-bg');
+            }
+        });
     </script>
     <script>
     // 导航栏旗下品牌下拉菜单控制
