@@ -463,7 +463,7 @@
 
         /* 操作按钮 */
         .action-buttons {
-            padding: 24px;
+            padding: 16px 24px;
             background: #f8f5eb;
             border-top: 2px solid #583e04;
             display: flex;
