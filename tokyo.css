@@ -2694,13 +2694,14 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .tab-slider {
     position: absolute;
     top: 4px;
     left: 4px;
-    width: clamp(80px, 6.25vw, 120px);
+    width: clamp(80px, 6.25vw, 120px); /* 默认宽度，会被JavaScript覆盖 */
     height: clamp(30px, 2.1vw, 40px);
     background: linear-gradient(135deg, #3a1f00, #5a2f00);
     backdrop-filter: blur(8px);
@@ -2711,6 +2712,8 @@ nav {
     box-shadow: 0 4px 15px rgba(58, 31, 0, 0.3), 
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    /* 确保滑块能够被JavaScript完全控制 */
+    box-sizing: border-box;
 }
 
 .values-tab-btn:hover {

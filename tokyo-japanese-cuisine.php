@@ -1115,11 +1115,23 @@ tokyomenuUpdateNav();
                 // 计算按钮相对于容器的左偏移
                 const leftOffset = buttonRect.left - containerRect.left;
                 
-                // 设置滑块的宽度与按钮相同
-                slider.style.width = buttonRect.width + 'px';
+                // 设置滑块的宽度与按钮相同，使用setProperty确保优先级
+                slider.style.setProperty('width', buttonRect.width + 'px', 'important');
                 
                 // 移动滑块到按钮位置
                 slider.style.transform = `translateX(${leftOffset}px)`;
+                
+                // 强制重绘
+                slider.offsetHeight;
+                
+                console.log('滑块更新:', {
+                    buttonWidth: buttonRect.width,
+                    buttonHeight: buttonRect.height,
+                    leftOffset: leftOffset,
+                    sliderWidth: slider.style.width,
+                    sliderHeight: slider.style.height,
+                    containerPadding: window.getComputedStyle(container).paddingLeft
+                });
             }
         }
         
