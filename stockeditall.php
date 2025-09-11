@@ -117,7 +117,7 @@
         .filter-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 0px;
         }
 
         .filter-group label {
@@ -1684,7 +1684,7 @@
                 <div class="search-controls">
                     <div class="filter-group" style="margin-right: 16px;">
                         <label for="date-filter" style="margin-bottom: 4px; font-size: 12px;">日期</label>
-                        <input type="date" id="date-filter" class="filter-input" style="padding: 8px; font-size: 14px;">
+                        <input type="date" id="date-filter" class="filter-input" style="padding: 7px; font-size: 14px;">
                     </div>
                     <div class="search-group" style="margin-right: 16px;">
                         <label for="unified-filter" style="margin-bottom: 4px; font-size: 12px;">搜索货品</label>
