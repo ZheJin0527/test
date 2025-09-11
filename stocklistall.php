@@ -29,7 +29,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 22px;
+            margin-top: 20px;
+            margin-bottom: 15px;
         }
         
         .header h1 {
@@ -597,7 +598,7 @@
         /* 总库存卡片样式调整 */
         .summary-section .summary-card {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             flex: 1;
             display: flex;
             flex-direction: column;
