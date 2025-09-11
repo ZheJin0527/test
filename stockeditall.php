@@ -23,7 +23,11 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: 0px 24px;
+            height: 100vh; /* 设置容器高度为视口高度 */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* 防止整个页面滚动 */
         }
         
         .header {
@@ -252,17 +256,6 @@
             position: sticky;
             top: 0;
             z-index: 100;
-        }
-
-        /* 固定页面布局 */
-        .container {
-            max-width: 1800px;
-            margin: 0 auto;
-            padding: 24px;
-            height: 100vh; /* 设置容器高度为视口高度 */
-            display: flex;
-            flex-direction: column;
-            overflow: hidden; /* 防止整个页面滚动 */
         }
 
         /* 确保表格容器占用剩余空间 */
