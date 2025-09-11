@@ -860,7 +860,7 @@
         }
 
         .cancel-new-btn {
-            background: #ef4444 !important;
+            background: #6b7280 !important;
         }
 
         /* Combobox 样式 */
