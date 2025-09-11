@@ -4011,10 +4011,11 @@ nav {
 /* 职位容器样式 */
 .jobs-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
     gap: 40px;
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
@@ -4026,10 +4027,12 @@ nav {
     border-radius: 20px;
     padding: 30px;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
+    min-width: 400px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 92, 0, 0.2);
     transition: all 0.3s ease;
+    flex: 1;
 }
 
 .company-job-container:hover {
@@ -4289,11 +4292,12 @@ nav {
 
   .jobs-container {
     gap: 30px;
-    max-width: 1000px;
+    max-width: 1200px;
   }
 
   .company-job-container {
-    max-width: 450px;
+    max-width: 500px;
+    min-width: 350px;
     padding: 25px;
   }
 
@@ -4319,6 +4323,19 @@ nav {
   .apply-btn {
     padding: clamp(4px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
     font-size: clamp(8px, 0.625vw, 10px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .jobs-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .company-job-container {
+    max-width: 100%;
+    min-width: unset;
   }
 }
 
