@@ -1133,9 +1133,8 @@
 
         .search-group label {
             font-weight: 600;
-            margin-bottom: 8px;
-            color: #374151;
-            font-size: 14px;
+            color: #583e04;
+            white-space: nowrap;
         }
 
         .unified-search-input {
