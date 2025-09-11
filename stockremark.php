@@ -779,14 +779,6 @@
                         <i class="fas fa-search"></i>
                         搜索
                     </button>
-                    <button class="btn btn-secondary" onclick="resetFilters()">
-                        <i class="fas fa-refresh"></i>
-                        重置
-                    </button>
-                    <button class="btn btn-success" onclick="refreshData()">
-                        <i class="fas fa-sync-alt"></i>
-                        刷新数据
-                    </button>
                 </div>
             </div>
         </div>
