@@ -280,18 +280,20 @@
             transform: translateY(-1px);
         }
 
+        /* 修改这个样式 */
         .summary-card {
-            background: white;
-            padding: 12px 24px;
+            background: transparent; /* 改为透明 */
+            padding: 0; /* 移除padding */
             border-radius: 12px;
-            border: 2px solid #583e04;
-            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            border: none; /* 移除边框 */
+            box-shadow: none; /* 移除阴影 */
             transition: transform 0.2s ease;
+            margin-bottom: 0; /* 移除底部边距 */
         }
 
         .summary-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+            transform: none; /* 移除悬停效果 */
+            box-shadow: none;
         }
 
         .summary-card h3 {
@@ -1168,6 +1170,49 @@
                 gap: 16px;
             }
         }
+
+        /* 统一的顶部内容区域 */
+        .top-content-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            display: flex;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .top-content-left {
+            flex: 0 0 320px;
+            display: flex;
+            align-items: center;
+        }
+
+        .top-content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        /* 调整搜索区域样式 */
+        .search-actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+        }
+
+        .search-section {
+            flex: 1;
+        }
+
+        .export-section {
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
@@ -1242,31 +1287,37 @@
         
         <!-- 中央库存页面 -->
         <div id="central-page" class="page-section active">
-            <div class="main-content-row">
-                <div class="summary-section">
-                    <div class="summary-card total-value">
-                        <h3>总库存</h3>
-                        <div class="summary-currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <span class="value" id="central-total-value">0.00</span>
-                        </div>
-                    </div>
+<div class="top-content-container">
+    <div class="top-content-left">
+        <div class="summary-card total-value">
+            <h3>总库存</h3>
+            <div class="summary-currency-display">
+                <span class="currency-symbol">RM</span>
+                <span class="value" id="central-total-value">0.00</span>
+            </div>
+        </div>
+    </div>
+    <div class="top-content-right">
+        <div class="search-actions-row">
+            <div class="search-section">
+                <div class="search-group">
+                    <label for="central-unified-filter">搜索</label>
+                    <input type="text" id="central-unified-filter" class="unified-search-input" 
+                        placeholder="搜索货品名称、编号或规格单位...">
                 </div>
             </div>
+            <div class="export-section">
+                <button class="btn btn-warning" onclick="exportData('central')">
+                    <i class="fas fa-download"></i>
+                    导出数据
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <div class="table-container">
-                <div class="action-buttons">
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="search-group">
-                            <label for="central-unified-filter">搜索</label>
-                            <input type="text" id="central-unified-filter" class="unified-search-input" 
-                                placeholder="搜索货品名称、编号或规格单位...">
-                        </div>
-                        <button class="btn btn-warning" onclick="exportData('central')">
-                            <i class="fas fa-download"></i>
-                            导出数据
-                        </button>
-                    </div>
+<div class="table-container">
+    <div class="action-buttons">
                     
                     <div class="stats-info" id="central-stock-stats">
                         <div class="stat-item">
