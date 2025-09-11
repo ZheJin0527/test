@@ -120,7 +120,7 @@
             background-color: #6b7280;
             color: white;
             font-weight: 500;
-            padding: 10px 20px;
+            padding: 13px 20px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
