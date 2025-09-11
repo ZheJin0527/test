@@ -639,7 +639,6 @@ function getJobsHtml() {
     $dbpass = 'Kholdings1688@';
     
     $html = '';
-    $jobCounter = 1;
     
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
@@ -653,11 +652,27 @@ function getJobsHtml() {
         if (empty($jobs)) {
             $html = '<div class="no-jobs">暂无招聘职位</div>';
         } else {
+            // 按公司分类分组
+            $groupedJobs = [];
             foreach ($jobs as $job) {
                 $category = $job['company_category'] ?? 'KUNZZHOLDINGS';
-                $html .= '<div class="job-card" data-category="' . htmlspecialchars($category) . '" data-job-id="' . $job['id'] . '">';
-                $html .= '<div class="job-title">' . htmlspecialchars($job['job_title']) . '</div>';
-                $html .= '</div>';
+                $groupedJobs[$category][] = $job;
+            }
+            
+            // 为每个公司创建独立的卡片容器
+            foreach ($groupedJobs as $company => $companyJobs) {
+                $html .= '<div class="company-job-container">';
+                $html .= '<h3 class="company-title">' . htmlspecialchars($company) . '</h3>';
+                $html .= '<div class="company-jobs-list">';
+                
+                foreach ($companyJobs as $job) {
+                    $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
+                    $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
+                    $html .= '</div>';
+                }
+                
+                $html .= '</div>'; // company-jobs-list
+                $html .= '</div>'; // company-job-container
             }
         }
     } catch (Exception $e) {

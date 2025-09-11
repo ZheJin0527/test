@@ -84,13 +84,7 @@ include 'header.php';
         <h2 class="job-table-title">目前在招聘的职位</h2>
         </div>
         
-        <!-- 分类按钮 -->
-        <div class="category-buttons">
-            <button class="category-btn active" data-category="KUNZZHOLDINGS">KUNZZHOLDINGS</button>
-            <button class="category-btn" data-category="TOKYO CUISINE">TOKYO CUISINE</button>
-        </div>
-        
-        <div class="jobs-grid">
+        <div class="jobs-container">
     <?php echo getJobsHtml(); ?>
     </div>
 </div>
@@ -1552,67 +1546,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // 加载职位数据
     loadJobsData();
     
-    // 分类筛选功能
-    initCategoryFilter();
-    
+    // 初始化职位点击功能
+    initJobClickHandlers();
+});
+
+// 职位点击功能
+function initJobClickHandlers() {
     // 使用事件委托来处理动态添加的职位卡片点击事件
     document.addEventListener('click', function(event) {
-        const jobCard = event.target.closest('.job-card');
-        if (jobCard) {
-            const jobId = jobCard.getAttribute('data-job-id');
+        const jobItem = event.target.closest('.job-item');
+        if (jobItem) {
+            const jobId = jobItem.getAttribute('data-job-id');
             if (jobId) {
-                console.log('点击了职位卡片:', jobId); // 调试信息
+                console.log('点击了职位:', jobId);
                 openJobDetail(jobId);
             }
         }
     });
-});
-
-// 分类筛选功能
-function initCategoryFilter() {
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    const jobCards = document.querySelectorAll('.job-card');
-    
-    // 初始化时显示KUNZZHOLDINGS的职位
-    filterJobsByCategory('KUNZZHOLDINGS');
-    
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // 移除所有按钮的active类
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            // 为当前按钮添加active类
-            this.classList.add('active');
-            
-            const selectedCategory = this.getAttribute('data-category');
-            filterJobsByCategory(selectedCategory);
-        });
-    });
-    
-    function filterJobsByCategory(selectedCategory) {
-        // 筛选职位卡片
-        jobCards.forEach(card => {
-            const cardCategory = card.getAttribute('data-category');
-            
-            if (cardCategory === selectedCategory) {
-                card.style.display = 'block';
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                
-                // 添加动画效果
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100);
-            } else {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);
-            }
-        });
-    }
 }
     </script>
 <script>
