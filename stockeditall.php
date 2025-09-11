@@ -1610,10 +1610,6 @@
                 </div>
                 
                 <div style="display: flex; gap: 12px;">
-                    <button class="btn btn-primary" onclick="refreshData()">
-                        <i class="fas fa-sync-alt"></i>
-                        刷新数据
-                    </button>
                     <button class="btn btn-danger" id="batch-delete-btn" onclick="toggleBatchDelete()">
                         <i class="fas fa-trash-alt"></i>
                         批量删除
