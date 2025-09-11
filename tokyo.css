@@ -2567,11 +2567,11 @@ nav {
 }
 
 .values-section.mission-bg {
-    background-image: url('images/fujibg.jpg');
+    background-image: url('images/images/fujibg.jpg');
 }
 
 .values-section.vision-bg {
-    background-image: url('images/sushi.jpg');
+    background-image: url('images/images/sushi.jpg');
 }
 
 /* 背景切换动画效果 - 更新为使用 ::after 伪元素 */
