@@ -1264,7 +1264,7 @@
                         </div>
                         <button class="btn btn-warning" onclick="exportData('central')">
                             <i class="fas fa-download"></i>
-                            导出CSV
+                            导出数据
                         </button>
                     </div>
                     
@@ -1325,7 +1325,7 @@
                         </div>
                         <button class="btn btn-warning" onclick="exportData('j1')">
                             <i class="fas fa-download"></i>
-                            导出CSV
+                            导出数据
                         </button>
                     </div>
                     
@@ -1386,7 +1386,7 @@
                         </div>
                         <button class="btn btn-warning" onclick="exportData('j2')">
                             <i class="fas fa-download"></i>
-                            导出CSV
+                            导出数据
                         </button>
                     </div>
                     
@@ -1435,7 +1435,7 @@
                     </div>
                     <button class="btn btn-warning" onclick="exportData('central')">
                         <i class="fas fa-download"></i>
-                        导出CSV
+                        导出数据
                     </button>
                 </div>
             </div>
