@@ -225,7 +225,7 @@
             padding: 12px 8px;
             text-align: center;
             font-weight: 600;
-            border: 1px solid #462d03;
+            border: 1px solid #d1d5db;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -475,11 +475,11 @@
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
         .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 80px; } /* 类型 */
-.stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 60px; } /* 产品备注 checkbox */
-.stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 80px; } /* 备注编号 */
-.stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 160px; } /* 名字/收货人 */
-.stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 140px; } /* 备注 */
-.stock-table th:nth-child(15), .stock-table td:nth-child(15) { width: 100px; } /* 操作 */
+        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 60px; } /* 产品备注 checkbox */
+        .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 80px; } /* 备注编号 */
+        .stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 160px; } /* 名字/收货人 */
+        .stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 140px; } /* 备注 */
+        .stock-table th:nth-child(15), .stock-table td:nth-child(15) { width: 100px; } /* 操作 */
 
         /* 确保输入框和选择框填满单元格 */
         .table-input, .table-select {
