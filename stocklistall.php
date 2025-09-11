@@ -476,11 +476,12 @@
         /* 统计信息 */
         .stats-info {
             display: flex;
-            gap: 24px;
+            gap: 4px;
             align-items: center;
             font-size: 14px;
             color: #6b7280;
             flex-wrap: wrap;
+            margin-right: -50px;
         }
 
         .stat-item {
