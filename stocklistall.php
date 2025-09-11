@@ -1142,7 +1142,7 @@
 
         .unified-search-input {
             width: 100%;
-            min-width: 230px;
+            min-width: 225px;
             padding: 8px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
