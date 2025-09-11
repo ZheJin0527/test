@@ -148,11 +148,11 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 7px 12px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -536,7 +536,7 @@
 
         /* 操作按钮 */
         .action-buttons {
-            padding: 24px;
+            padding: 14px 24px;
             background: #f8f5eb;
             border-top: 2px solid #583e04;
             display: flex;
@@ -638,7 +638,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 150px;
+            min-width: 120px;
         }
 
         .stat-value {
@@ -1471,7 +1471,7 @@
         .search-controls {
             display: flex;
             align-items: flex-end;
-            gap: 12px;
+            gap: 0px;
             flex-wrap: wrap;
         }
 
