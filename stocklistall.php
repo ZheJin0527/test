@@ -273,7 +273,6 @@
             background-color: #f59e0b;
             color: white;
             margin-top: 20px;
-            margin-left: 45px;
         }
         
         .btn-warning:hover {
