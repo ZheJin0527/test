@@ -1108,9 +1108,20 @@ tokyomenuUpdateNav();
             const container = document.querySelector('.tab-container');
             
             if (slider && container && activeButton) {
-                const containerRect = container.getBoundingClientRect();
-                const buttonRect = activeButton.getBoundingClientRect();
-                const leftOffset = buttonRect.left - containerRect.left;
+                // 获取容器的计算样式
+                const containerStyle = window.getComputedStyle(container);
+                const containerPadding = parseFloat(containerStyle.paddingLeft);
+                
+                // 计算按钮在容器中的索引
+                const buttons = container.querySelectorAll('.values-tab-btn');
+                const buttonIndex = Array.from(buttons).indexOf(activeButton);
+                
+                // 计算按钮的宽度和间距
+                const buttonWidth = activeButton.offsetWidth;
+                const gap = parseFloat(containerStyle.gap) || 20; // 默认20px间距
+                
+                // 计算滑块应该移动到的位置
+                const leftOffset = containerPadding + buttonIndex * (buttonWidth + gap);
                 
                 slider.style.transform = `translateX(${leftOffset}px)`;
             }
