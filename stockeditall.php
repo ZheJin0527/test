@@ -228,7 +228,7 @@
             border: 1px solid #462d03;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
             white-space: nowrap;
             min-width: 80px;
         }
@@ -238,6 +238,50 @@
             border: 1px solid #d1d5db;
             text-align: center;
             position: relative;
+        }
+
+        /* 确保表格头部完全遮盖滚动的数据 */
+        .stock-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #583e04;
+        }
+
+        .stock-table thead tr {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* 固定页面布局 */
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 24px;
+            height: 100vh; /* 设置容器高度为视口高度 */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* 防止整个页面滚动 */
+        }
+
+        /* 确保表格容器占用剩余空间 */
+        .table-container {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 防止新增表单影响布局 */
+        .add-form {
+            flex-shrink: 0; /* 不允许压缩 */
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .table-container {
+                height: calc(100vh - 500px);
+                min-height: 300px;
+            }
         }
 
         .stock-table tr:nth-child(even) {
@@ -938,7 +982,11 @@
             border-radius: 4px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             border: 2px solid #583e04;
-            overflow: visible; /* 改为 visible，允许内容溢出 */
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 400px); /* 设置固定高度 */
+            min-height: 500px;
         }
 
         .table-container > div:first-child {
@@ -948,7 +996,9 @@
         /* 为了确保水平滚动正常，添加一个内部容器 */
         .table-scroll-container {
             overflow-x: auto;
-            overflow-y: visible;
+            overflow-y: auto;
+            flex: 1;
+            position: relative;
         }
 
         .price-select {
