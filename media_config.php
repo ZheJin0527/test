@@ -659,20 +659,23 @@ function getJobsHtml() {
                 $groupedJobs[$category][] = $job;
             }
             
-            // 为每个公司创建独立的卡片容器
-            foreach ($groupedJobs as $company => $companyJobs) {
-                $html .= '<div class="company-job-container">';
-                $html .= '<h3 class="company-title">' . htmlspecialchars($company) . '</h3>';
-                $html .= '<div class="company-jobs-list">';
-                
-                foreach ($companyJobs as $job) {
-                    $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
-                    $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
-                    $html .= '</div>';
+            // 为每个公司创建独立的卡片容器，确保KUNZZHOLDINGS在左边
+            $companyOrder = ['KUNZZHOLDINGS', 'TOKYO CUISINE'];
+            foreach ($companyOrder as $company) {
+                if (isset($groupedJobs[$company])) {
+                    $html .= '<div class="company-job-container">';
+                    $html .= '<h3 class="company-title">' . htmlspecialchars($company) . '</h3>';
+                    $html .= '<div class="company-jobs-list">';
+                    
+                    foreach ($groupedJobs[$company] as $job) {
+                        $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
+                        $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
+                        $html .= '</div>';
+                    }
+                    
+                    $html .= '</div>'; // company-jobs-list
+                    $html .= '</div>'; // company-job-container
                 }
-                
-                $html .= '</div>'; // company-jobs-list
-                $html .= '</div>'; // company-job-container
             }
         }
     } catch (Exception $e) {

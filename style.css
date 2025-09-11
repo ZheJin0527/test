@@ -4014,8 +4014,8 @@ nav {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 40px;
-    max-width: 1400px;
+    gap: 30px;
+    max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
@@ -4024,12 +4024,12 @@ nav {
 .company-job-container {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 30px;
+    border-radius: 15px;
+    padding: 20px;
     width: 100%;
-    max-width: 600px;
-    min-width: 400px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    min-width: 300px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 92, 0, 0.2);
     transition: all 0.3s ease;
     flex: 1;
@@ -4042,29 +4042,29 @@ nav {
 
 .company-title {
     text-align: center;
-    font-size: clamp(24px, 3vw, 32px);
+    font-size: clamp(18px, 2.5vw, 24px);
     font-weight: 700;
     color: #FF5C00;
-    margin: 0 0 25px 0;
+    margin: 0 0 20px 0;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .company-jobs-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
 .job-item {
     background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
     color: white;
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 92, 0, 0.3);
+    box-shadow: 0 3px 12px rgba(255, 92, 0, 0.3);
     text-align: center;
 }
 
@@ -4075,11 +4075,11 @@ nav {
 }
 
 .job-item-title {
-    font-size: clamp(16px, 2vw, 20px);
+    font-size: clamp(14px, 1.8vw, 18px);
     font-weight: 600;
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 /* 保留原有的job-card样式以防其他地方使用 */
@@ -4291,14 +4291,14 @@ nav {
   }
 
   .jobs-container {
-    gap: 30px;
-    max-width: 1200px;
+    gap: 25px;
+    max-width: 900px;
   }
 
   .company-job-container {
-    max-width: 500px;
-    min-width: 350px;
-    padding: 25px;
+    max-width: 400px;
+    min-width: 280px;
+    padding: 18px;
   }
 
   .company-title {
@@ -4330,7 +4330,8 @@ nav {
   .jobs-container {
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 25px;
+    max-width: 600px;
   }
 
   .company-job-container {
