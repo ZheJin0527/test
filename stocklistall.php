@@ -296,9 +296,9 @@
 
         .summary-card h3 {
             color: #583e04;
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 7px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
