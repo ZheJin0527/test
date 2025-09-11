@@ -1317,15 +1317,15 @@
             <div class="table-container">
                 <div class="action-buttons">
                     <div style="display: flex; gap: 12px; align-items: center;">
-                        <button class="btn btn-warning" onclick="exportData('j1')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
                         <div class="search-group">
                             <label for="j1-unified-filter">搜索</label>
                             <input type="text" id="j1-unified-filter" class="unified-search-input" 
                                 placeholder="搜索货品名称、编号或规格单位...">
                         </div>
+                        <button class="btn btn-warning" onclick="exportData('j1')">
+                            <i class="fas fa-download"></i>
+                            导出CSV
+                        </button>
                     </div>
                     
                     <div class="stats-info" id="j1-stock-stats">
@@ -1378,15 +1378,15 @@
             <div class="table-container">
                 <div class="action-buttons">
                     <div style="display: flex; gap: 12px; align-items: center;">
-                        <button class="btn btn-warning" onclick="exportData('j2')">
-                            <i class="fas fa-download"></i>
-                            导出CSV
-                        </button>
                         <div class="search-group">
                             <label for="j2-unified-filter">搜索</label>
                             <input type="text" id="j2-unified-filter" class="unified-search-input" 
                                 placeholder="搜索货品名称、编号或规格单位...">
                         </div>
+                        <button class="btn btn-warning" onclick="exportData('j2')">
+                            <i class="fas fa-download"></i>
+                            导出CSV
+                        </button>
                     </div>
                     
                     <div class="stats-info" id="j2-stock-stats">
