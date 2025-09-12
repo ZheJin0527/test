@@ -6,6 +6,12 @@ $avatarLetter = isset($avatarLetter) ? $avatarLetter : strtoupper(substr($userna
 $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 ?>
 
+<style>
+/* 让侧边栏容器不再覆盖一层白色背景 */
+.informationmenu { background: transparent !important; }
+.informationmenu.show { background: transparent !important; }
+</style>
+
 <!-- 侧边菜单 -->
 <div class="informationmenu">
     <div class="informationmenu-header">
