@@ -6,8 +6,6 @@ $avatarLetter = isset($avatarLetter) ? $avatarLetter : strtoupper(substr($userna
 $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 ?>
 
-<div class="informationmenu-overlay"></div>
-
 <!-- 侧边菜单 -->
 <div class="informationmenu">
     <div class="informationmenu-header">
@@ -347,20 +345,20 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 
 <script>
     const sidebar = document.querySelector('.informationmenu');
-    const overlay = document.querySelector('.informationmenu-overlay');
+    // 移除遮罩层逻辑
+    const overlay = null;
     const userAvatar = document.getElementById('user-avatar');
     const closeBtn = document.querySelector('.informationmenu-close-btn');
 
     // 点击用户头像显示菜单
     userAvatar?.addEventListener('click', function() {
         sidebar.classList.add('show');
-        overlay.classList.add('show');
     });
 
     // 关闭菜单
     function closeSidebar() {
         sidebar.classList.remove('show');
-        overlay.classList.remove('show');
+        // 无遮罩层
         // 关闭所有下拉菜单
         document.querySelectorAll('.dropdown-menu-items').forEach(dropdown => {
             dropdown.classList.remove('show');
@@ -371,7 +369,7 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
     }
 
     closeBtn?.addEventListener('click', closeSidebar);
-    overlay?.addEventListener('click', closeSidebar);
+    // 无遮罩层点击事件
 
     // ESC键关闭菜单
     document.addEventListener('keydown', function(e) {
