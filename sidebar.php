@@ -30,8 +30,15 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 .informationmenu .section-arrow,
 .informationmenu .informationmenu-arrow {
     background: none !important;
+    width: auto !important;
+    height: auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
     -webkit-mask: none !important;
     mask: none !important;
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 .informationmenu .section-arrow::before,
 .informationmenu .informationmenu-arrow::before,
@@ -39,8 +46,8 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 .informationmenu .informationmenu-arrow::after {
     content: none !important;
 }
-.informationmenu .section-arrow { font-size: 16px; line-height: 1; display: inline-block; }
-.informationmenu .informationmenu-arrow { font-size: 18px; line-height: 1; display: inline-block; }
+.informationmenu .section-arrow { font-size: 16px; line-height: 1; display: inline-block; content: '⮞'; }
+.informationmenu .informationmenu-arrow { font-size: 18px; line-height: 1; display: inline-block; content: '›'; }
 </style>
 
 <!-- 侧边菜单 -->
