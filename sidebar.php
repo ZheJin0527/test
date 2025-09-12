@@ -25,6 +25,22 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 /* 若有使用伪元素做遮罩，强制移除 */
 .informationmenu::before,
 .informationmenu::after { display: none !important; }
+
+/* 修复箭头图标被样式覆盖为横线的问题：强制使用文本箭头并移除背景/伪元素 */
+.informationmenu .section-arrow,
+.informationmenu .informationmenu-arrow {
+    background: none !important;
+    -webkit-mask: none !important;
+    mask: none !important;
+}
+.informationmenu .section-arrow::before,
+.informationmenu .informationmenu-arrow::before,
+.informationmenu .section-arrow::after,
+.informationmenu .informationmenu-arrow::after {
+    content: none !important;
+}
+.informationmenu .section-arrow { font-size: 16px; line-height: 1; display: inline-block; }
+.informationmenu .informationmenu-arrow { font-size: 18px; line-height: 1; display: inline-block; }
 </style>
 
 <!-- 侧边菜单 -->
