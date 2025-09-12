@@ -50,29 +50,35 @@
         /* 顶部综合容器（总库存卡 + 搜索/导出/统计） */
         .top-summary-container {
             display: grid;
-            grid-template-columns: 380px 1fr;
-            gap: 16px;
-            align-items: start;
-            margin-bottom: 12px;
+            grid-template-columns: 340px 1fr; /* 左卡片更紧凑 */
+            gap: 12px;
+            align-items: stretch; /* 两侧等高 */
+            margin-bottom: 10px;
         }
         .search-stats-card {
-            background: #ffffff;
+            background: #f1dfbc; /* 与页面底色一致，贴近设计图 */
             border: 2px solid #583e04;
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 10px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.08);
-            min-height: 90px;
+            min-height: 72px;
         }
-        .search-stats-left { display: flex; align-items: center; gap: 12px; flex: 1; }
-        .search-stats-right { display: flex; align-items: center; gap: 22px; color: #583e04; font-weight: 600; }
-        .search-stats-card .unified-search-input { max-width: 360px; }
-        .search-stats-card .btn-warning { margin: 0; }
+        .search-stats-left { display: flex; align-items: center; gap: 10px; flex: 1; }
+        .search-stats-right { display: flex; align-items: center; gap: 24px; color: #583e04; font-weight: 600; font-size: 14px; }
+        .search-stats-right i { margin-right: 6px; }
+        .search-stats-card .unified-search-input { max-width: 380px; height: 44px; border-radius: 10px; font-size: 14px; }
+        .search-stats-card .btn-warning { margin: 0; height: 44px; border-radius: 10px; padding: 0 16px; display: inline-flex; align-items: center; gap: 8px; }
+
+        /* 左侧总库存卡片紧凑化，与右侧等高 */
+        .summary-section .summary-card { min-height: 72px; padding: 10px 14px; display: flex; flex-direction: column; justify-content: center; }
+        .summary-section .summary-card h3 { font-size: 18px; margin: 0 0 6px 0; }
+        .summary-section .summary-card .summary-currency-display .value { font-size: 26px; }
 
         @media (max-width: 1024px) {
-            .top-summary-container { grid-template-columns: 1fr; }
+            .top-summary-container { grid-template-columns: 1fr; gap: 10px; }
             .search-stats-card { flex-direction: column; align-items: stretch; gap: 10px; }
             .search-stats-card .unified-search-input { max-width: none; width: 100%; }
             .search-stats-right { justify-content: space-between; }
