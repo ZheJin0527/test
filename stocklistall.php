@@ -47,6 +47,37 @@
             gap: 0px;
         }
 
+        /* 顶部综合容器（总库存卡 + 搜索/导出/统计） */
+        .top-summary-container {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 16px;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+        .search-stats-card {
+            background: #ffffff;
+            border: 2px solid #583e04;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.08);
+            min-height: 90px;
+        }
+        .search-stats-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+        .search-stats-right { display: flex; align-items: center; gap: 22px; color: #583e04; font-weight: 600; }
+        .search-stats-card .unified-search-input { max-width: 360px; }
+        .search-stats-card .btn-warning { margin: 0; }
+
+        @media (max-width: 1024px) {
+            .top-summary-container { grid-template-columns: 1fr; }
+            .search-stats-card { flex-direction: column; align-items: stretch; gap: 10px; }
+            .search-stats-card .unified-search-input { max-width: none; width: 100%; }
+            .search-stats-right { justify-content: space-between; }
+        }
+
         /* 系统选择器样式 */
         .system-selector {
             position: relative;
@@ -1232,6 +1263,36 @@
                         <div class="dropdown-item" onclick="switchSystem('j1')">J1</div>
                         <div class="dropdown-item" onclick="switchSystem('j2')">J2</div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 顶部综合容器：左侧总库存卡，右侧搜索+统计 -->
+        <div class="top-summary-container">
+            <div class="summary-section">
+                <div class="summary-card total-value">
+                    <h3>总库存</h3>
+                    <div class="summary-currency-display">
+                        <span class="currency-symbol">RM</span>
+                        <span class="value" id="central-total-value">0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="search-stats-card">
+                <div class="search-stats-left">
+                    <div class="search-group">
+                        <label for="central-unified-filter" style="font-size:12px; font-weight:600; color:#583e04;">搜索</label>
+                        <input type="text" id="central-unified-filter" class="unified-search-input" 
+                            placeholder="搜索货品名称、编号或规格单位...">
+                    </div>
+                    <button class="btn btn-warning" onclick="exportData('central')">
+                        <i class="fas fa-download"></i>
+                        导出数据
+                    </button>
+                </div>
+                <div class="search-stats-right">
+                    <div><i class="fas fa-align-left"></i> 显示记录: <span id="central-displayed-records">0</span></div>
+                    <div><i class="fas fa-boxes"></i> 总记录: <span id="central-total-records">0</span></div>
                 </div>
             </div>
         </div>
