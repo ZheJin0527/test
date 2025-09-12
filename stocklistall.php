@@ -47,6 +47,31 @@
             gap: 0px;
         }
 
+        /* 顶部工具栏容器（更紧凑美观） */
+        .toolbar-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            border: 2px solid #583e04;
+            border-radius: 10px;
+            padding: 8px 10px;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.08);
+        }
+        .toolbar-container .selector-button {
+            padding: 8px 14px;
+            min-width: 110px;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .toolbar-container {
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 8px;
+            }
+            .toolbar-container .selector-button { min-width: auto; }
+        }
+
         /* 系统选择器样式 */
         .system-selector {
             position: relative;
@@ -1211,26 +1236,28 @@
                 <h1 id="page-title">总库存 - 中央</h1>
             </div>
             <div class="controls">
-                <div class="view-selector">
-                    <button class="selector-button" onclick="toggleViewSelector()">
-                        <span id="current-view">总库存</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="selector-dropdown" id="view-selector-dropdown">
-                        <div class="dropdown-item active" onclick="switchView('list')">总库存</div>
-                        <div class="dropdown-item" onclick="switchView('records')">进出货</div>
-                        <div class="dropdown-item" onclick="switchView('remark')">货品备注</div>
+                <div class="toolbar-container">
+                    <div class="view-selector">
+                        <button class="selector-button" onclick="toggleViewSelector()">
+                            <span id="current-view">总库存</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="selector-dropdown" id="view-selector-dropdown">
+                            <div class="dropdown-item active" onclick="switchView('list')">总库存</div>
+                            <div class="dropdown-item" onclick="switchView('records')">进出货</div>
+                            <div class="dropdown-item" onclick="switchView('remark')">货品备注</div>
+                        </div>
                     </div>
-                </div>
-                <div class="system-selector">
-                    <button class="selector-button" onclick="toggleSelector()">
-                        <span id="current-system">中央</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="selector-dropdown" id="selector-dropdown">
-                        <div class="dropdown-item active" onclick="switchSystem('central')">中央</div>
-                        <div class="dropdown-item" onclick="switchSystem('j1')">J1</div>
-                        <div class="dropdown-item" onclick="switchSystem('j2')">J2</div>
+                    <div class="system-selector">
+                        <button class="selector-button" onclick="toggleSelector()">
+                            <span id="current-system">中央</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="selector-dropdown" id="selector-dropdown">
+                            <div class="dropdown-item active" onclick="switchSystem('central')">中央</div>
+                            <div class="dropdown-item" onclick="switchSystem('j1')">J1</div>
+                            <div class="dropdown-item" onclick="switchSystem('j2')">J2</div>
+                        </div>
                     </div>
                 </div>
             </div>
