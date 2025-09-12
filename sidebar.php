@@ -62,6 +62,10 @@ body.has-sidebar.sidebar-collapsed {
 }
 .informationmenu .section-arrow { font-size: 16px; line-height: 1; display: inline-block; }
 .informationmenu .informationmenu-arrow { font-size: 18px; line-height: 1; display: inline-block; }
+
+/* 按用户要求，隐藏所有箭头/横线标记 */
+.informationmenu .section-arrow,
+.informationmenu .informationmenu-arrow { display: none !important; }
 </style>
 
 <!-- 侧边菜单 -->
