@@ -26,6 +26,21 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 .informationmenu::before,
 .informationmenu::after { display: none !important; }
 
+/* 页面内容右移，避免被侧栏覆盖 */
+body.has-sidebar {
+    margin-left: 250px; /* 与 .informationmenu 宽度一致 */
+    transition: margin-left 0.3s ease;
+}
+body.has-sidebar.sidebar-collapsed {
+    margin-left: 70px; /* 收起时预留更小宽度 */
+}
+@media (max-width: 768px) {
+    body.has-sidebar { margin-left: 0; }
+    /* 移动端采用抽屉式覆盖显示 */
+    .informationmenu.hide { transform: translateX(-100%); }
+    .informationmenu.show { transform: translateX(0); }
+}
+
 /* 修复箭头图标被样式覆盖为横线的问题：强制使用文本箭头并移除背景/伪元素 */
 .informationmenu .section-arrow,
 .informationmenu .informationmenu-arrow {
@@ -642,6 +657,12 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 
         sidebarMenu.classList.toggle('collapsed');
         sidebarToggle.classList.toggle('collapsed');
+        document.body.classList.toggle('sidebar-collapsed');
+    });
+
+    // 初始：为页面标记有侧栏
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('has-sidebar');
     });
 </script>
 
