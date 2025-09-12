@@ -7,9 +7,24 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 ?>
 
 <style>
-/* 让侧边栏容器不再覆盖一层白色背景 */
-.informationmenu { background: transparent !important; }
+/* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
+.informationmenu {
+    background: transparent !important; /* 容器透明，不再铺一层白底 */
+    pointer-events: none;              /* 容器非交互，避免遮挡右侧内容点击 */
+}
 .informationmenu.show { background: transparent !important; }
+
+/* 仅让侧栏内部结构保持白色背景并可交互 */
+.informationmenu .informationmenu-header,
+.informationmenu .informationmenu-content,
+.informationmenu .informationmenu-footer {
+    background: #ffffff;               /* 侧栏本体白底 */
+    pointer-events: auto;              /* 本体可交互 */
+}
+
+/* 若有使用伪元素做遮罩，强制移除 */
+.informationmenu::before,
+.informationmenu::after { display: none !important; }
 </style>
 
 <!-- 侧边菜单 -->
