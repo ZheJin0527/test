@@ -53,7 +53,6 @@ body.has-sidebar.sidebar-collapsed {
     padding: 0 !important;
     -webkit-mask: none !important;
     mask: none !important;
-    font-family: Arial, Helvetica, sans-serif !important;
 }
 .informationmenu .section-arrow::before,
 .informationmenu .informationmenu-arrow::before,
@@ -61,8 +60,8 @@ body.has-sidebar.sidebar-collapsed {
 .informationmenu .informationmenu-arrow::after {
     content: none !important;
 }
-.informationmenu .section-arrow { font-size: 16px; line-height: 1; display: inline-block; content: '⮞'; }
-.informationmenu .informationmenu-arrow { font-size: 18px; line-height: 1; display: inline-block; content: '›'; }
+.informationmenu .section-arrow { font-size: 16px; line-height: 1; display: inline-block; }
+.informationmenu .informationmenu-arrow { font-size: 18px; line-height: 1; display: inline-block; }
 </style>
 
 <!-- 侧边菜单 -->
