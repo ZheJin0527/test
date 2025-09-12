@@ -1302,44 +1302,7 @@
         
         <!-- 中央库存页面 -->
         <div id="central-page" class="page-section active">
-            <div class="main-content-row">
-                <div class="summary-section">
-                    <div class="summary-card total-value">
-                        <h3>总库存</h3>
-                        <div class="summary-currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <span class="value" id="central-total-value">0.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="table-container">
-                <div class="action-buttons">
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="search-group">
-                            <label for="central-unified-filter">搜索</label>
-                            <input type="text" id="central-unified-filter" class="unified-search-input" 
-                                placeholder="搜索货品名称、编号或规格单位...">
-                        </div>
-                        <button class="btn btn-warning" onclick="exportData('central')">
-                            <i class="fas fa-download"></i>
-                            导出数据
-                        </button>
-                    </div>
-                    
-                    <div class="stats-info" id="central-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
-                        </div>
-                    </div>
-                </div>
-                
                 <div class="table-scroll-container">
                     <table class="stock-table" id="central-stock-table">
                         <thead>
