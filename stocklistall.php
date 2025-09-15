@@ -1218,23 +1218,25 @@
         }
 
         .summary-amount .currency-symbol {
-            font-size: 30px;
+            font-size: 36px;
             font-weight: bold;
             color: #583e04;
         }
 
         .summary-amount .value {
-            font-size: 30px;
+            font-size: 36px;
+            margin-left: 6px;
             font-weight: 700;
             color: #583e04;
         }
 
         .header-search {
             flex: 1;
-            min-width: 200px;
-            max-width: 350px;
+            min-width: 250px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;  /* 改为横向布局 */
+            align-items: center;  /* 垂直居中对齐 */
+            gap: 12px;           /* 添加间距 */
         }
 
         .header-stats {
@@ -1263,8 +1265,10 @@
             font-size: 12px;
             font-weight: 600;
             color: #583e04;
-            margin-bottom: 4px;
+            margin-bottom: 0;     /* 移除底部边距 */
             display: block;
+            white-space: nowrap;  /* 防止文字换行 */
+            flex-shrink: 0;      /* 防止标签被压缩 */
         }
 
         .header-search {
