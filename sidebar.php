@@ -233,7 +233,7 @@ body.has-sidebar.sidebar-collapsed {
                         <div class="submenu-content">
                             <a href="kpi.php" class="submenu-item">集团概览</a>
                             <a href="#" class="submenu-item">工作表</a>
-                            <a href="kpiedit.html" class="submenu-item">KPI数据上传</a>
+                            <a href="kpiedit.php" class="submenu-item">KPI数据上传</a>
                         </div>
                     </div>
                 </div>
