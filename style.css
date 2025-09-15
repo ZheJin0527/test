@@ -2759,8 +2759,9 @@ nav {
     height: 100%;
     display: flex;
     align-items: center;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 2;
+    will-change: transform; /* 优化性能 */
 }
 
 /* 时间线项目 */
@@ -2771,7 +2772,9 @@ nav {
     align-items: center;
     min-width: 120px;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.3s ease;
+    will-change: transform, opacity; /* 优化性能 */
 }
 
 /* 年份圆圈 */
@@ -2787,28 +2790,32 @@ nav {
     font-weight: bold;
     font-size: clamp(10px, 0.8vw, 16px);
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: transform 0.3s ease, 
+                background-color 0.3s ease,
+                color 0.3s ease,
+                box-shadow 0.3s ease;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
     position: relative;
     z-index: 3;
+    will-change: transform, background-color, color, box-shadow; /* 优化性能 */
 }
 
 /* 活动状态的圆圈 */
 .timeline-item.active .timeline-bullet {
     background: rgb(255, 255, 255);
     color: #ff5c00;
-    transform: scale(1.2);
+    transform: scale3d(1.2, 1.2, 1);
     border-color: #fff;
 }
 
 /* 悬停效果 */
 .timeline-item:hover .timeline-bullet {
-    transform: scale(1.1);
+    transform: scale3d(1.1, 1.1, 1);
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
 }
 
 .timeline-item.active:hover .timeline-bullet {
-    transform: scale(1.25);
+    transform: scale3d(1.25, 1.25, 1);
 }
 
 .timeline-item.active .timeline-label {
@@ -2916,43 +2923,45 @@ nav {
     position: absolute;
     width: clamp(600px, 45vw, 850px);
     height: clamp(230px, 19vw, 350px);
-    transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-     margin-top: -250px;
-    will-change: transform, opacity, z-index; /* 优化性能 */
+    margin-top: -250px;
+    will-change: transform, opacity; /* 优化性能 */
+    backface-visibility: hidden; /* 防止闪烁 */
 }
 
 /* 当前活动卡片 */
 .timeline-content-item.active {
-    transform: translateX(0) scale(1) rotateY(0deg);
+    transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
     z-index: 2;
     opacity: 1;
 }
 
 /* 左侧卡片 */
 .timeline-content-item.prev {
-    transform: translateX(-280px) scale(0.80);
+    transform: translate3d(-280px, 0, 0) scale(0.80);
     z-index: 1;
     opacity: 0.8;
 }
 
 /* 右侧卡片 */
 .timeline-content-item.next {
-    transform: translateX(280px) scale(0.80);
+    transform: translate3d(280px, 0, 0) scale(0.80);
     z-index: 1;
     opacity: 0.8;
 }
 
 /* 隐藏的卡片 */
 .timeline-content-item.hidden {
-    transform: translateX(0) scale(0.7);
+    transform: translate3d(0, 0, 0) scale(0.7);
     z-index: 0;
     opacity: 0;
 }
 
 /* 堆叠隐藏的卡片 - 隐藏在中间卡片后面 */
 .timeline-content-item.stack-hidden {
-    transform: translateX(0) scale(0.95) translateZ(-50px);
+    transform: translate3d(0, 0, -50px) scale(0.95);
     z-index: 1;
     opacity: 0.3;
     pointer-events: none; /* 禁用点击事件，避免误触 */
@@ -2960,19 +2969,33 @@ nav {
 
 /* 为堆叠效果添加轻微的随机偏移 */
 .timeline-content-item.stack-hidden:nth-child(4n) {
-    transform: translateX(-5px) scale(0.94) translateZ(-60px) rotate(-0.5deg);
+    transform: translate3d(-5px, 0, -60px) scale(0.94) rotate(-0.5deg);
 }
 
 .timeline-content-item.stack-hidden:nth-child(4n+1) {
-    transform: translateX(5px) scale(0.93) translateZ(-70px) rotate(0.5deg);
+    transform: translate3d(5px, 0, -70px) scale(0.93) rotate(0.5deg);
 }
 
 .timeline-content-item.stack-hidden:nth-child(4n+2) {
-    transform: translateX(-3px) scale(0.92) translateZ(-80px) rotate(-0.3deg);
+    transform: translate3d(-3px, 0, -80px) scale(0.92) rotate(-0.3deg);
 }
 
 .timeline-content-item.stack-hidden:nth-child(4n+3) {
-    transform: translateX(3px) scale(0.91) translateZ(-90px) rotate(0.3deg);
+    transform: translate3d(3px, 0, -90px) scale(0.91) rotate(0.3deg);
+}
+
+/* 拖拽状态优化 */
+body.dragging {
+    cursor: grabbing !important;
+    user-select: none !important;
+}
+
+body.dragging * {
+    pointer-events: none;
+}
+
+body.dragging .timeline-content-item {
+    pointer-events: auto;
 }
 
 .timeline-content {

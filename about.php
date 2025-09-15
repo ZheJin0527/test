@@ -528,79 +528,108 @@ updatePageIndicator(0);
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
-        const navItems = document.querySelectorAll('.timeline-item');
-        const container = document.getElementById('timelineContainer');
         
-
+        // 缓存DOM元素，避免重复查询
+        let navItems, container, cards;
+        let containerWidth, itemWidth;
+        
         // 拖拽相关变量 - 优化后的设置
         let isDragging = false;
         let startX = 0;
         let currentX = 0;
-        let dragThreshold = 15; // 增加阈值，减少误触
+        let dragThreshold = 15;
         let hasTriggered = false;
-        let dragStartTime = 0; // 记录拖拽开始时间
-        let isAnimating = false; // 防止动画期间的操作冲突
-
-        function updateTimelineNav() {
-            const navItems = document.querySelectorAll('.timeline-item');
-            
-            // 更新导航状态
-            navItems.forEach((item, index) => {
-                item.classList.toggle('active', index === currentIndex);
-            });
-
-            // 平滑滚动到居中位置
-            const containerWidth = container.parentElement.offsetWidth;
-            const itemWidth = 120;
-            const centerOffset = containerWidth / 2 - itemWidth / 2;
-            const translateX = centerOffset - (currentIndex * itemWidth);
-            
-            // 使用CSS transition实现平滑滚动
-            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            container.style.transform = `translateX(${translateX}px)`;
-            
-            // 清除transition，避免影响后续操作
-            setTimeout(() => {
-                container.style.transition = '';
-            }, 400);
+        let dragStartTime = 0;
+        let isAnimating = false;
+        
+        // 防抖函数
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
         }
-
-        function updateCardPositions() {
-            const cards = document.querySelectorAll('.timeline-content-item');
-            
-            cards.forEach((card, index) => {
-                card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
-                
-                // 添加平滑过渡效果
-                card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                
-                if (index === currentIndex) {
-                    // 当前活动卡片
-                    card.classList.add('active');
-                    card.style.zIndex = '10';
-                } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
-                    // 左侧卡片
-                    card.classList.add('prev');
-                    card.style.zIndex = '5';
-                } else if (index === (currentIndex + 1) % totalItems) {
-                    // 右侧卡片
-                    card.classList.add('next');
-                    card.style.zIndex = '5';
-                } else {
-                    // 其他卡片都隐藏在中间后面，形成堆叠效果
-                    card.classList.add('stack-hidden');
-                    card.style.zIndex = '1';
+        
+        // 节流函数
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
                 }
-            });
+            };
+        }
+        
+        // 初始化DOM元素缓存
+        function initDOMCache() {
+            navItems = document.querySelectorAll('.timeline-item');
+            container = document.getElementById('timelineContainer');
+            cards = document.querySelectorAll('.timeline-content-item');
             
-            // 清除transition，避免影响后续操作
-            setTimeout(() => {
-                cards.forEach(card => {
-                    card.style.transition = '';
+            // 计算容器宽度
+            if (container && container.parentElement) {
+                containerWidth = container.parentElement.offsetWidth;
+                itemWidth = 120;
+            }
+        }
+        
+        // 优化的导航更新函数
+        function updateTimelineNav() {
+            if (!navItems || !container) return;
+            
+            // 使用requestAnimationFrame优化性能
+            requestAnimationFrame(() => {
+                // 批量更新导航状态
+                navItems.forEach((item, index) => {
+                    item.classList.toggle('active', index === currentIndex);
                 });
-            }, 400);
+
+                // 计算位置
+                const centerOffset = containerWidth / 2 - itemWidth / 2;
+                const translateX = centerOffset - (currentIndex * itemWidth);
+                
+                // 使用transform3d启用硬件加速
+                container.style.transform = `translate3d(${translateX}px, 0, 0)`;
+            });
         }
 
+        // 优化的卡片位置更新函数
+        function updateCardPositions() {
+            if (!cards) return;
+            
+            // 使用requestAnimationFrame优化性能
+            requestAnimationFrame(() => {
+                cards.forEach((card, index) => {
+                    // 批量移除类名
+                    card.className = card.className.replace(/active|prev|next|hidden|stack-hidden/g, '');
+                    
+                    if (index === currentIndex) {
+                        card.classList.add('active');
+                        card.style.zIndex = '10';
+                    } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+                        card.classList.add('prev');
+                        card.style.zIndex = '5';
+                    } else if (index === (currentIndex + 1) % totalItems) {
+                        card.classList.add('next');
+                        card.style.zIndex = '5';
+                    } else {
+                        card.classList.add('stack-hidden');
+                        card.style.zIndex = '1';
+                    }
+                });
+            });
+        }
+
+        // 优化的导航函数
         function navigateTimeline(direction) {
             if (isAnimating) return;
             
@@ -612,19 +641,21 @@ updatePageIndicator(0);
                 currentIndex = (currentIndex - 1 + totalItems) % totalItems;
             }
             
+            // 批量更新，减少重排
             updateTimelineNav();
             updateCardPositions();
             
-            // 动画完成后重置标志
-            setTimeout(() => {
-                isAnimating = false;
-            }, 400); // 增加到600ms匹配新的动画时长
+            // 使用requestAnimationFrame确保动画完成
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 300);
+            });
         }
 
         function selectCard(year) {
             if (isAnimating) return;
             
-            // 将年份转换为数字进行比较
             const yearNum = parseInt(year);
             const index = years.indexOf(yearNum);
             
@@ -640,7 +671,7 @@ updatePageIndicator(0);
             currentIndex = years.indexOf(year);
         }
 
-        // 简化的拖拽处理
+        // 优化的拖拽处理
         function handleDragStart(e) {
             if (isAnimating) return;
             
@@ -652,21 +683,21 @@ updatePageIndicator(0);
             dragStartTime = Date.now();
             startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
             
-            document.body.style.cursor = 'grabbing';
-            document.body.style.userSelect = 'none';
+            // 使用CSS类而不是直接修改style
+            document.body.classList.add('dragging');
             
             e.preventDefault();
             e.stopPropagation();
         }
 
-        function handleDragMove(e) {
+        // 使用节流优化拖拽移动
+        const throttledDragMove = throttle(function(e) {
             if (!isDragging || hasTriggered || isAnimating) return;
             
             currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
             const deltaX = currentX - startX;
             const dragTime = Date.now() - dragStartTime;
             
-            // 增加时间限制，避免过快触发
             if (Math.abs(deltaX) >= dragThreshold && dragTime > 50) {
                 hasTriggered = true;
                 
@@ -676,13 +707,17 @@ updatePageIndicator(0);
                     navigateTimeline('next');
                 }
                 
-                // 延迟结束拖拽，给动画时间
+                // 延迟结束拖拽
                 setTimeout(() => {
                     handleDragEnd(e);
                 }, 50);
             }
             
             e.preventDefault();
+        }, 16); // 60fps
+
+        function handleDragMove(e) {
+            throttledDragMove(e);
         }
 
         function handleDragEnd(e) {
@@ -692,20 +727,20 @@ updatePageIndicator(0);
             hasTriggered = false;
             dragStartTime = 0;
             
-            document.body.style.cursor = '';
-            document.body.style.userSelect = '';
+            // 移除CSS类
+            document.body.classList.remove('dragging');
             
             startX = 0;
             currentX = 0;
         }
 
-        // 改进的事件监听器
+        // 优化的事件监听器
         let clickTimeout;
 
+        // 使用事件委托优化性能
         document.addEventListener('mousedown', (e) => {
             const card = e.target.closest('.timeline-content-item');
             if (card && !isAnimating) {
-                // 清除之前的点击超时
                 if (clickTimeout) {
                     clearTimeout(clickTimeout);
                 }
@@ -728,22 +763,21 @@ updatePageIndicator(0);
         document.addEventListener('touchmove', handleDragMove, { passive: false });
         document.addEventListener('touchend', handleDragEnd);
 
-        // 导航项点击
-        navItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                if (!isDragging && !isAnimating) {
+        // 导航项点击 - 使用事件委托
+        document.addEventListener('click', (e) => {
+            const timelineItem = e.target.closest('.timeline-item');
+            if (timelineItem && !isDragging && !isAnimating) {
+                const index = Array.from(navItems).indexOf(timelineItem);
+                if (index !== -1) {
                     currentIndex = index;
                     showTimelineItem(years[currentIndex]);
                 }
-            });
-        });
-
-        // 优化的点击处理 - 添加延迟避免与拖拽冲突
-        document.addEventListener('click', (e) => {
-            if (isDragging || hasTriggered || isAnimating) return;
+                return;
+            }
             
+            // 卡片点击处理
             const card = e.target.closest('.timeline-content-item');
-            if (card) {
+            if (card && !isDragging && !hasTriggered && !isAnimating) {
                 const year = card.getAttribute('data-year');
                 selectCard(year);
             }
@@ -767,18 +801,32 @@ updatePageIndicator(0);
             }
         });
 
-        // 初始化
-        updateTimelineNav();
-        updateCardPositions();
-
-        // 窗口大小改变时重新计算位置
-        window.addEventListener('resize', () => {
+        // 使用防抖优化resize事件
+        const debouncedResize = debounce(() => {
             if (!isAnimating) {
-                setTimeout(() => {
-                    updateTimelineNav();
-                }, 100);
+                // 重新计算容器宽度
+                if (container && container.parentElement) {
+                    containerWidth = container.parentElement.offsetWidth;
+                }
+                updateTimelineNav();
             }
-        });
+        }, 250);
+
+        window.addEventListener('resize', debouncedResize);
+
+        // 初始化函数
+        function initTimeline() {
+            initDOMCache();
+            updateTimelineNav();
+            updateCardPositions();
+        }
+
+        // 页面加载完成后初始化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTimeline);
+        } else {
+            initTimeline();
+        }
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
