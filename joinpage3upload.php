@@ -46,7 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             
             if ($result) {
-                $success = "职位添加成功！";
+                // 添加成功后重定向，避免重复提交
+                header("Location: joinpage3upload.php?success=" . urlencode("职位添加成功！"));
+                exit();
             } else {
                 $error = "职位添加失败！";
             }
@@ -96,7 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $stmt->execute([$_POST['job_id']]);
             
             if ($result) {
-                $success = "职位删除成功！";
+                // 删除成功后重定向，避免重复提交
+                header("Location: joinpage3upload.php?success=" . urlencode("职位删除成功！"));
+                exit();
             } else {
                 $error = "职位删除失败！";
             }
