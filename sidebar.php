@@ -246,7 +246,7 @@ body.has-sidebar.sidebar-collapsed {
             <div class="dropdown-menu-items" id="hr-items">               
                 <div class="menu-item-wrapper">
                     <a href="generatecode.php" class="informationmenu-item">
-                        添加职员
+                        职员管理
                         <span class="informationmenu-arrow">›</span>
                     </a>
                 </div>
