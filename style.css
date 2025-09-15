@@ -2307,7 +2307,7 @@ nav {
 
 .vision {
     min-height: 100vh;
-    background: url('images/images/背景4.png') no-repeat center center/cover;
+    background: url('images/images/背景4.webp') no-repeat center center/cover;
     color: white;
     display: flex;
     align-items: center;
@@ -2629,7 +2629,7 @@ nav {
 }
   
 .timeline-section {
-    background: url('images/images/背景4.png') no-repeat center center/cover;
+    background: url('images/images/背景4.webp') no-repeat center center/cover;
     padding: 80px 20px;
     position: relative;
     height: 130vh;
