@@ -910,19 +910,26 @@ updatePageIndicator(0);
             });
         });
 
-        // 优化的点击处理 - 添加延迟避免与拖拽冲突
+        // 优化的点击处理 - 支持左右卡片切换
         document.addEventListener('click', (e) => {
             if (isDragging || hasTriggered || isAnimating) return;
             
             const card = e.target.closest('.timeline-content-item');
-            if (card && !card.classList.contains('active')) {
-                // 添加小延迟确保不是拖拽操作
-                clickTimeout = setTimeout(() => {
-                    if (!isDragging) {
-                const year = card.getAttribute('data-year');
-                selectCard(year);
-                    }
-                }, 10);
+            if (card) {
+                // 检查是否点击的是左右卡片
+                if (card.classList.contains('prev')) {
+                    // 点击左侧卡片，切换到上一个
+                    navigateTimeline('prev');
+                    return;
+                } else if (card.classList.contains('next')) {
+                    // 点击右侧卡片，切换到下一个
+                    navigateTimeline('next');
+                    return;
+                } else if (!card.classList.contains('active')) {
+                    // 点击其他卡片，直接跳转
+                    const year = card.getAttribute('data-year');
+                    selectCard(year);
+                }
             }
         });
 
