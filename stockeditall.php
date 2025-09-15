@@ -1483,6 +1483,70 @@
             white-space: nowrap;
         }
 
+        /* 日期过滤器样式 */
+.header-filter {
+    display: flex;
+    flex-direction: column;
+    min-width: 140px;
+    flex-shrink: 0;
+}
+
+.filter-input {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 13px;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.filter-input:focus {
+    outline: none;
+    border-color: #583e04;
+    box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+}
+
+/* 批量操作按钮组 */
+.batch-actions {
+    flex-shrink: 0;
+}
+
+/* 调整按钮大小，使其更紧凑 */
+.unified-header-row .btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* 响应式调整 */
+@media (max-width: 1400px) {
+    .unified-header-row {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .batch-actions {
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 1024px) {
+    .header-search {
+        order: 3;
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .header-stats {
+        flex-direction: row;
+        gap: 16px;
+        min-width: auto;
+    }
+}
+
         @media (max-width: 1200px) {
             .action-buttons {
                 flex-direction: column;
@@ -1672,49 +1736,45 @@
         
         <!-- 库存表格 -->
         <div class="table-container">
-            <div class="action-buttons">
-                <div class="search-controls">
-                    <div class="filter-group" style="margin-right: 16px;">
-                        <label for="date-filter" style="margin-bottom: 4px; font-size: 12px;">日期</label>
-                        <input type="date" id="date-filter" class="filter-input" style="padding: 7px; font-size: 14px;">
-                    </div>
-                    <div class="search-group" style="margin-right: 16px;">
-                        <label for="unified-filter" style="margin-bottom: 4px; font-size: 12px;">搜索</label>
-                        <input type="text" id="unified-filter" class="unified-search-input" 
-                            placeholder="搜索货品编号、货品名称或收货人..." style="padding: 8px; font-size: 14px; min-width: 240px;">
-                    </div>
-                    <button class="btn btn-success" onclick="addNewRow()" style="margin-right: 8px;">
-                        <i class="fas fa-plus"></i>
-                        新增记录
-                    </button>
-                    <button class="btn btn-warning" onclick="exportData()">
-                        <i class="fas fa-download"></i>
-                        导出数据
-                    </button>
+            <div class="unified-header-row">
+                <div class="header-filter">
+                    <label for="date-filter" class="search-label">日期</label>
+                    <input type="date" id="date-filter" class="filter-input">
                 </div>
                 
-                <div style="display: flex; align-items: center; gap: 24px;">
-                    <div class="stats-info" id="stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-danger" id="batch-delete-btn" onclick="toggleBatchDelete()">
-                            <i class="fas fa-trash-alt"></i>
-                            批量删除
-                        </button>
-                        <button class="btn btn-success" id="confirm-batch-delete-btn" onclick="confirmBatchDelete()" style="display: none;">
-                            <i class="fas fa-check"></i>
-                            确认删除
-                        </button>
-                        <button class="btn btn-secondary" id="cancel-batch-delete-btn" onclick="cancelBatchDelete()" style="display: none;">
-                            <i class="fas fa-times"></i>
-                            取消
-                        </button>
-                    </div>
+                <div class="header-search">
+                    <label for="unified-filter" class="search-label">搜索</label>
+                    <input type="text" id="unified-filter" class="unified-search-input" 
+                        placeholder="搜索货品编号、货品名称或收货人...">
+                </div>
+                
+                <button class="btn btn-success" onclick="addNewRow()">
+                    <i class="fas fa-plus"></i>
+                    新增记录
+                </button>
+                
+                <button class="btn btn-warning" onclick="exportData()">
+                    <i class="fas fa-download"></i>
+                    导出数据
+                </button>
+                
+                <div class="header-stats">
+                    <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
+                </div>
+                
+                <div class="batch-actions" style="display: flex; gap: 8px;">
+                    <button class="btn btn-danger" id="batch-delete-btn" onclick="toggleBatchDelete()">
+                        <i class="fas fa-trash-alt"></i>
+                        批量删除
+                    </button>
+                    <button class="btn btn-success" id="confirm-batch-delete-btn" onclick="confirmBatchDelete()" style="display: none;">
+                        <i class="fas fa-check"></i>
+                        确认删除
+                    </button>
+                    <button class="btn btn-secondary" id="cancel-batch-delete-btn" onclick="cancelBatchDelete()" style="display: none;">
+                        <i class="fas fa-times"></i>
+                        取消
+                    </button>
                 </div>
             </div>
             <div class="table-scroll-container">
