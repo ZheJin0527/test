@@ -4900,6 +4900,7 @@
                 
                 // 使用PDF-lib库来编辑PDF
                 const { PDFDocument, rgb, StandardFonts } = PDFLib;
+                const pdfDoc = await PDFDocument.load(templateBytes);
 
                 // 获取第一页
                 const page = pdfDoc.getPage(0);
@@ -5117,7 +5118,7 @@
                 }
                 
                 // 生成并下载PDF
-                const pdfBytes = await mainPdfDoc.save();
+                const pdfBytes = await pdfDoc.save();
                 
                 // 创建下载链接
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
@@ -5158,41 +5159,28 @@
                     invoiceNumber = generateInvoiceNumber(exportSystem);
                 }
                 
-                // 预加载所有需要的模板
-                let templateFiles = [];
-                let templateBytesArray = [];
-
-                if (exportSystem === 'j1') {
-                    // J1系统使用不同的模板文件
-                    templateFiles = [
-                        'invoice/invoice/j1invoiceMulti(1).pdf',  // 第一页模板
-                        'invoice/invoice/j1invoiceMulti(2).pdf'   // 后续页面模板
-                    ];
-                } else {
-                    // J2系统保持原有逻辑
-                    templateFiles = ['invoice/invoice/j2invoiceMulti.pdf'];
-                }
-
-                // 加载所有模板文件
-                for (let i = 0; i < templateFiles.length; i++) {
-                    const templateResponse = await fetch(templateFiles[i]);
-                    if (!templateResponse.ok) {
-                        // 如果模板不存在，使用备用模板
-                        const fallbackFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
-                        const fallbackResponse = await fetch(fallbackFile);
-                        if (!fallbackResponse.ok) {
-                            throw new Error(`无法加载PDF模板文件：${templateFiles[i]}`);
-                        }
-                        console.log(`模板 ${templateFiles[i]} 不存在，使用备用模板: ${fallbackFile}`);
-                        templateBytesArray.push(await fallbackResponse.arrayBuffer());
-                    } else {
-                        console.log(`成功加载模板: ${templateFiles[i]}`);
-                        templateBytesArray.push(await templateResponse.arrayBuffer());
+                // 下载现有的PDF模板
+                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoiceMulti.pdf' : 'invoice/invoice/j1invoiceMulti.pdf';
+                const templateResponse = await fetch(templateFile);
+                let templateBytes;
+                
+                if (!templateResponse.ok) {
+                    // 如果多页模板不存在，尝试使用单页模板
+                    const fallbackTemplateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                    const fallbackResponse = await fetch(fallbackTemplateFile);
+                    if (!fallbackResponse.ok) {
+                        throw new Error(`无法加载PDF模板文件。请确保以下文件存在：\n- ${templateFile}\n- ${fallbackTemplateFile}`);
                     }
+                    console.log(`使用备用模板: ${fallbackTemplateFile}`);
+                    templateBytes = await fallbackResponse.arrayBuffer();
+                } else {
+                    console.log(`使用多页模板: ${templateFile}`);
+                    templateBytes = await templateResponse.arrayBuffer();
                 }
                 
                 // 使用PDF-lib库来编辑PDF
                 const { PDFDocument, rgb, StandardFonts } = PDFLib;
+                const pdfDoc = await PDFDocument.load(templateBytes);
 
                 // 嵌入字体
                 const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -5223,28 +5211,18 @@
                 let currentPage = 0;
                 
                 // 为每页创建页面
-                const mainPdfDoc = await PDFDocument.create();
-
                 for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
-                    let currentTemplateBytes;
-                    let sourcePdfDoc;
+                    let page;
                     
-                    if (exportSystem === 'j1') {
-                        // J1系统：第一页使用模板1，后续页面使用模板2
-                        currentTemplateBytes = pageIndex === 0 ? templateBytesArray[0] : templateBytesArray[1] || templateBytesArray[0];
-                        sourcePdfDoc = await PDFDocument.load(currentTemplateBytes);
+                    if (pageIndex === 0) {
+                        // 使用第一页（已有模板）
+                        page = pdfDoc.getPage(0);
                     } else {
-                        // J2系统：所有页面使用同一个模板
-                        currentTemplateBytes = templateBytesArray[0];
-                        sourcePdfDoc = await PDFDocument.load(currentTemplateBytes);
+                        // 克隆第一页作为后续页面
+                        const [clonedPage] = await pdfDoc.copyPages(pdfDoc, [0]);
+                        pdfDoc.addPage(clonedPage);
+                        page = pdfDoc.getPage(pdfDoc.getPageCount() - 1);
                     }
-                    
-                    // 从源PDF复制第一页到主PDF
-                    const [sourcePage] = await mainPdfDoc.copyPages(sourcePdfDoc, [0]);
-                    mainPdfDoc.addPage(sourcePage);
-                    
-                    // 获取刚添加的页面进行编辑
-                    const page = mainPdfDoc.getPage(mainPdfDoc.getPageCount() - 1);
                     
                     const { width, height } = page.getSize();
                     
@@ -5440,7 +5418,7 @@
                 }
                 
                 // 生成并下载PDF
-                const pdfBytes = await mainPdfDoc.save();
+                const pdfBytes = await pdfDoc.save();
                 
                 // 创建下载链接
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
