@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+
+// 检查是否已登录（根据你的登录系统调整）
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit();
+}
 // Ensure variables exist when included from different pages
 $username = isset($username) ? $username : (isset($_SESSION['username']) ? $_SESSION['username'] : 'User');
 $position = isset($position) ? $position : ((isset($_SESSION['position']) && !empty($_SESSION['position'])) ? $_SESSION['position'] : 'User');
