@@ -224,13 +224,11 @@ body.has-sidebar.sidebar-collapsed {
                 <div class="menu-item-wrapper">
                     <a href="kpi.php" class="informationmenu-item">
                         仪表盘
-                        <span class="informationmenu-arrow">›</span>
                     </a>
                 </div>
                 <div class="menu-item-wrapper">
                     <a href="kpiedit.php" class="informationmenu-item">
                         KPI数据上传
-                        <span class="informationmenu-arrow">›</span>
                     </a>
                 </div>
             </div>
