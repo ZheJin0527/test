@@ -677,9 +677,12 @@ function getJobsHtml() {
                     
                     foreach ($departmentOrder as $dept) {
                         if (isset($departmentJobs[$dept]) && !empty($departmentJobs[$dept])) {
+                            $jobCount = count($departmentJobs[$dept]);
+                            $singleJobClass = ($jobCount == 1) ? ' single-job' : '';
+                            
                             $html .= '<div class="department-section">';
                             $html .= '<div class="department-title">' . htmlspecialchars($dept) . '</div>';
-                            $html .= '<div class="department-jobs">';
+                            $html .= '<div class="department-jobs' . $singleJobClass . '">';
                             
                             foreach ($departmentJobs[$dept] as $job) {
                                 $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';

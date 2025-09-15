@@ -4136,6 +4136,16 @@ nav {
     gap: 8px;
 }
 
+/* 当只有一个职位时，让它占据整行 */
+.department-jobs.single-job {
+    grid-template-columns: 1fr;
+}
+
+/* 当只有一个职位时，让它占据整行 */
+.department-jobs:has(.job-item:only-child) {
+    grid-template-columns: 1fr;
+}
+
 .no-jobs-company {
     text-align: center;
     color: #666;
