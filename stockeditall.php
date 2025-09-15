@@ -1876,10 +1876,8 @@
                 </button>
             </div>
         </div>
-        
-        <!-- 库存表格 -->
-        <div class="table-container">
-            <div class="unified-header-row">
+
+        <div class="unified-header-row">
                 <div class="header-filter">
                     <label for="date-filter" class="search-label">日期</label>
                     <input type="date" id="date-filter" class="filter-input">
@@ -1920,6 +1918,9 @@
                     </button>
                 </div>
             </div>
+        
+        <!-- 库存表格 -->
+        <div class="table-container">
             <div class="table-scroll-container">
             <table class="stock-table" id="stock-table">
                 <thead>
