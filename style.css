@@ -2916,7 +2916,7 @@ nav {
     position: absolute;
     width: clamp(600px, 45vw, 850px);
     height: clamp(230px, 19vw, 350px);
-    transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
     margin-top: -250px;
 }
@@ -2972,6 +2972,57 @@ nav {
 
 .timeline-content-item.stack-hidden:nth-child(4n+3) {
     transform: translateX(3px) scale(0.91) translateZ(-90px) rotate(0.3deg);
+}
+
+/* 拖拽状态优化 */
+body.dragging {
+    cursor: grabbing !important;
+    user-select: none !important;
+}
+
+body.dragging * {
+    pointer-events: none;
+}
+
+body.dragging .timeline-content-item {
+    pointer-events: auto;
+}
+
+/* 左右卡片点击提示 */
+.timeline-content-item.prev,
+.timeline-content-item.next {
+    cursor: pointer;
+    position: relative;
+}
+
+.timeline-content-item.prev::before,
+.timeline-content-item.next::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.timeline-content-item.prev:hover::before,
+.timeline-content-item.next:hover::before {
+    opacity: 1;
+    width: 80px;
+    height: 80px;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.timeline-content-item.prev:hover,
+.timeline-content-item.next:hover {
+    transform: scale(0.85) !important;
+    transition: transform 0.2s ease;
 }
 
 
