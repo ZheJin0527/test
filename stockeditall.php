@@ -1599,8 +1599,7 @@
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
-            margin-bottom: 0;  /* 确保没有下边距 */
-            align-self: flex-end;  /* 自己对齐到底部 */
+            padding-bottom: 8px;  /* 添加底部内边距来微调位置 */
         }
 
         .header-stats .stat-value {
