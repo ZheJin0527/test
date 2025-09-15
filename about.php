@@ -5,8 +5,6 @@ header("Pragma: no-cache");
 header("Expires: 0");
 session_start();
 include_once 'media_config.php';
-// 获取时间线数据
-$timelineData = getTimelineConfig();
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
@@ -16,6 +14,9 @@ $totalSlides = 5;
 
 // 包含header
 include 'header.php';
+
+// 在header之后获取时间线数据，避免阻塞header加载
+$timelineData = getTimelineConfig();
 ?>
     
 <div class="swiper">
