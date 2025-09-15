@@ -1082,6 +1082,40 @@ updatePageIndicator(0);
             navBrandsDropdownMenu.classList.remove('show');
         });
         }
+
+        // =========================
+        // 🚀 Scroll 动画优化
+        // =========================
+
+        // 使用 IntersectionObserver 来观察元素
+        document.addEventListener("DOMContentLoaded", () => {
+        const elements = document.querySelectorAll(".animate-on-scroll");
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                // 逐个延迟触发动画（避免同时执行卡顿）
+                setTimeout(() => {
+                    entry.target.classList.add("visible");
+                }, entry.target.dataset.delay || 0);
+
+                // 只触发一次，进入视口后取消观察
+                observer.unobserve(entry.target);
+                }
+            });
+            },
+            {
+            threshold: 0.1, // 元素至少 10% 出现在视口中才触发
+            }
+        );
+
+        elements.forEach((el, index) => {
+            // 给每个元素一个递增延迟（50ms * index）
+            el.dataset.delay = index * 50;
+            observer.observe(el);
+        });
+        });
     </script>
 </body>
 </html>

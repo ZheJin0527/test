@@ -6895,3 +6895,68 @@ form select {
         max-width: 300px;
     }
 }
+
+/* ========================= */
+/* 🚀 性能 & 顺畅度优化 Patch */
+/* ========================= */
+
+/* 让 transform/opacity 动画更流畅 */
+.animate-on-scroll,
+.navbar,
+.nav-links,
+.nav-dropdown-menu,
+.login-dropdown-menu,
+.language-dropdown-menu,
+.page-indicator,
+.social-icon {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* 避免大面积 transition all，限定属性 */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.nav-links,
+.nav-dropdown-menu,
+.login-dropdown-menu,
+.language-dropdown-menu {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Swiper 优化：只在必要处隐藏溢出 */
+html, body {
+  overflow: auto !important; /* 保留正常滚动 */
+}
+
+.swiper-slide {
+  overflow: hidden; /* 仅在单页内部需要时隐藏 */
+}
+
+/* 使用 clamp 避免 footer-slide 在不同设备频繁跳动 */
+.swiper-slide.footer-slide {
+  height: clamp(29vh, 40vh, 55vh) !important;
+}
+
+/* 背景图优化：禁用 fixed，避免掉帧 */
+.background-video,
+.about-section,
+.stats-section,
+.comprofile-section,
+.culture-section,
+.aboutus-intro,
+.vision {
+  background-attachment: scroll !important;
+  background-size: cover;
+  background-position: center;
+}
+
+/* 滚动触发的动画 - 每个元素独立触发，不一次性全部 */
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.05s; /* 可以视情况加 JS 动态延迟 */
+}
