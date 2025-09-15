@@ -26,19 +26,19 @@ try {
     
     // 按公司分组职位数据
     $companies = [
-        'KUNZZHOLDINGS' => [
-            'name' => 'KUNZZHOLDINGS',
+        'KUNZZ HOLDINGS' => [
+            'name' => 'KUNZZ HOLDINGS',
             'jobs' => []
         ],
-        'TOKYO CUISINE' => [
-            'name' => 'TOKYO CUISINE',
+        'TOKYO JAPANESE CUISINE' => [
+            'name' => 'TOKYO JAPANESE CUISINE',
             'jobs' => []
         ]
     ];
     
     // 处理每个职位
     foreach ($jobs as $job) {
-        $company = $job['company_category'] ?? 'KUNZZHOLDINGS';
+        $company = $job['company_category'] ?? 'KUNZZ HOLDINGS';
         
         // 确保公司存在
         if (!isset($companies[$company])) {
