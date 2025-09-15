@@ -778,6 +778,7 @@
     </style>
 </head>
 <body>
+    <?php include 'sidebar.php'; ?>
     <div class="container">
         <!-- 页面标题 -->
         <div class="header">
