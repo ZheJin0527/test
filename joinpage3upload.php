@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $pdo->prepare("
                 INSERT INTO job_positions 
-                (job_title, work_experience, recruitment_count, publish_date, company_category, job_description, company_location) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                (job_title, work_experience, recruitment_count, publish_date, company_category, company_department, job_description, company_location) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
             
             $result = $stmt->execute([
@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 trim($_POST['job_count']),
                 $_POST['publish_date'],
                 $_POST['job_category'],
+                $_POST['company_department'] ?? '',
                 trim($_POST['job_description']),
                 $_POST['company_location'] ?? ''
             ]);
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("
                 UPDATE job_positions 
                 SET job_title = ?, work_experience = ?, recruitment_count = ?, publish_date = ?, 
-                    company_category = ?, job_description = ?, company_location = ?
+                    company_category = ?, company_department = ?, job_description = ?, company_location = ?
                 WHERE id = ?
             ");
             
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 trim($_POST['job_count']),
                 $_POST['publish_date'],
                 $_POST['job_category'],
+                $_POST['company_department'] ?? '',
                 trim($_POST['job_description']),
                 $_POST['company_location'] ?? '',
                 $_POST['job_id']
@@ -402,6 +404,27 @@ if (isset($_GET['edit'])) {
             }
         }
     </style>
+    <script>
+        function toggleDepartmentField() {
+            const companySelect = document.getElementById('job_category');
+            const departmentGroup = document.getElementById('department-group');
+            const departmentSelect = document.getElementById('company_department');
+            
+            if (companySelect.value === 'TOKYO JAPANESE CUISINE') {
+                departmentGroup.style.display = 'flex';
+                departmentSelect.required = true;
+            } else {
+                departmentGroup.style.display = 'none';
+                departmentSelect.required = false;
+                departmentSelect.value = '';
+            }
+        }
+        
+        // 页面加载时检查是否需要显示部门字段
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleDepartmentField();
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -467,10 +490,20 @@ if (isset($_GET['edit'])) {
                         
                         <div class="form-group">
                             <label for="job_category">公司分类 *</label>
-                            <select id="job_category" name="job_category" required>
+                            <select id="job_category" name="job_category" required onchange="toggleDepartmentField()">
                                 <option value="">请选择公司</option>
                                 <option value="KUNZZ HOLDINGS" <?php echo ($editJob && $editJob['company_category'] === 'KUNZZ HOLDINGS') ? 'selected' : ''; ?>>KUNZZ HOLDINGS</option>
                                 <option value="TOKYO JAPANESE CUISINE" <?php echo ($editJob && $editJob['company_category'] === 'TOKYO JAPANESE CUISINE') ? 'selected' : ''; ?>>TOKYO JAPANESE CUISINE</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="department-group" style="display: none;">
+                            <label for="company_department">部门 *</label>
+                            <select id="company_department" name="company_department">
+                                <option value="">请选择部门</option>
+                                <option value="前台" <?php echo ($editJob && $editJob['company_department'] === '前台') ? 'selected' : ''; ?>>前台</option>
+                                <option value="厨房" <?php echo ($editJob && $editJob['company_department'] === '厨房') ? 'selected' : ''; ?>>厨房</option>
+                                <option value="sushi bar" <?php echo ($editJob && $editJob['company_department'] === 'sushi bar') ? 'selected' : ''; ?>>sushi bar</option>
                             </select>
                         </div>
                         
@@ -516,6 +549,9 @@ if (isset($_GET['edit'])) {
                                         <span class="job-meta-item-list">💼 经验: <?php echo htmlspecialchars($job['work_experience']); ?></span>
                                         <span class="job-meta-item-list">📅 发布: <?php echo $job['publish_date']; ?></span>
                                         <span class="job-meta-item-list">🏷️ 公司: <?php echo htmlspecialchars($job['company_category'] ?? '未分类'); ?></span>
+                                        <?php if (!empty($job['company_department'])): ?>
+                                        <span class="job-meta-item-list">🏢 部门: <?php echo htmlspecialchars($job['company_department']); ?></span>
+                                        <?php endif; ?>
                                         <?php if (!empty($job['company_location'])): ?>
                                         <span class="job-meta-item-list">📍 地址: <?php echo htmlspecialchars($job['company_location']); ?></span>
                                         <?php endif; ?>
