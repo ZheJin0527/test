@@ -1,4 +1,5 @@
 <?php
+
 // 禁用页面缓存
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
@@ -7,16 +8,79 @@ session_start();
 include_once 'media_config.php';
 // 获取时间线数据
 $timelineData = getTimelineConfig();
-
-// 设置页面特定的变量
-$pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['aboutanimation.css'];
-$showPageIndicator = true;
-$totalSlides = 5;
-
-// 包含header
-include 'header.php';
 ?>
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="icon" type="image/png" href="images/images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUNZZ HOLDINGS</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="aboutanimation.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <?php echo getBgMusicHtml(); ?>
+  <header class="navbar">
+  <!-- 左侧 logo 和公司名 -->
+  <div class="logo-section">
+    <a href="index.php">
+    <img src="images/images/KUNZZ.png" alt="Logo" class="logo">
+    </a>
+  </div>
+
+  <!-- 中间导航（默认显示，大屏） -->
+  <nav class="nav-links" id="navMenu">
+    <div class="nav-item"><a href="index.php">首页</a></div>
+    <div class="nav-item"><a href="about.php">关于我们</a></div>
+    <div class="nav-item nav-dropdown">
+      <span class="nav-dropdown-trigger">旗下品牌</span>
+      <div class="nav-dropdown-menu" id="brandsNavDropdownMenu">
+        <a href="tokyo-japanese-cuisine.php" class="nav-dropdown-item">Tokyo Japanese Cuisine</a>
+        <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a>
+      </div>
+     </div>
+    <div class="nav-item"><a href="joinus.php">加入我们</a></div>
+  </nav>
+
+  <!-- 右侧区域 -->
+  <div class="right-section">
+    <!-- 移动端隐藏 login，仅大屏显示 -->
+    <div class="login-dropdown">
+      <button class="login-btn" id="loginBtn">LOGIN</button>
+        <div class="login-dropdown-menu" id="loginDropdownMenu">
+          <a href="login.html" class="login-dropdown-item">员工登入</a>
+          <a href="login.html" class="login-dropdown-item">会员登入</a>
+        </div>
+      </div>
+
+    <!-- 翻译按钮始终显示 -->
+    <div class="language-switch">
+      <button class="lang" id="languageBtn">EN | CN</button>
+        <div class="language-dropdown-menu" id="languageDropdownMenu">
+          <a href="/en/" class="language-dropdown-item" data-lang="en">英文</a>
+          <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
+        </div>
+      </div>
+
+    <!-- hamburger 仅在小屏显示 -->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
+
+<div class="page-indicator">
+        <div class="page-dot active" data-slide="0"></div>
+        <div class="page-dot" data-slide="1"></div>
+        <div class="page-dot" data-slide="2"></div>
+        <div class="page-dot" data-slide="3"></div>
+        <div class="page-dot" data-slide="4"></div>
+    </div>
     
 <div class="swiper">
   <div class="swiper-wrapper">
@@ -155,7 +219,7 @@ include 'header.php';
                 ?>
                 <!-- <?php echo $year; ?>年内容 -->
                 <div class="timeline-content-item <?php echo $itemClass; ?>" data-year="<?php echo $year; ?>" data-index="<?php echo $index; ?>">
-                    <div class="timeline-content">
+                    <div class="timeline-content" onclick="selectCard(<?php echo $year; ?>)">
                         <div class="timeline-image">
                             <img src="<?php echo $data['image_url']; ?>" alt="<?php echo $year; ?>年发展">
                         </div>
@@ -246,7 +310,183 @@ include 'header.php';
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="app.js"></script>
-<script src="header.js"></script>
+<script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const loginBtn = document.querySelector('.login-btn');
+
+        // 登录下拉菜单元素
+        const loginDropdownMenu = document.getElementById('loginDropdownMenu');
+
+        // 语言切换下拉菜单元素
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdownMenu = document.getElementById('languageDropdownMenu');
+
+        function moveLoginBtn() {
+            if (window.innerWidth <= 768) {
+                if (!navMenu.contains(loginBtn)) {
+                    navMenu.appendChild(loginBtn);
+                }
+            } else {
+                // 如果宽度大于768，确保loginBtn在right-section中
+                const rightSection = document.querySelector('.right-section');
+                if (rightSection && !rightSection.contains(loginBtn)) {
+                    rightSection.insertBefore(loginBtn, rightSection.firstChild);
+                }
+            }
+        }
+
+        // 点击汉堡切换菜单
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // ========== 登录下拉菜单功能 ==========
+        let loginHoverTimeout;
+
+        // 鼠标进入登录按钮区域时显示下拉菜单
+        loginBtn.addEventListener('mouseenter', function() {
+            // 清除可能存在的隐藏延时
+            clearTimeout(loginHoverTimeout);
+            
+            // 显示菜单
+            loginDropdownMenu.classList.add('show');
+            loginBtn.classList.add('active');
+        });
+
+        // 鼠标离开登录按钮区域时延迟隐藏下拉菜单
+        loginBtn.addEventListener('mouseleave', function() {
+            // 设置延时隐藏，给用户时间移动到下拉菜单
+            loginHoverTimeout = setTimeout(() => {
+                loginDropdownMenu.classList.remove('show');
+                loginBtn.classList.remove('active');
+            }, 100); // 200ms延迟
+        });
+
+        // 鼠标进入登录下拉菜单时保持显示
+        loginDropdownMenu.addEventListener('mouseenter', function() {
+            // 清除隐藏延时
+            clearTimeout(loginHoverTimeout);
+            
+            // 确保菜单保持显示
+            loginDropdownMenu.classList.add('show');
+            loginBtn.classList.add('active');
+        });
+
+        // 鼠标离开登录下拉菜单时隐藏
+        loginDropdownMenu.addEventListener('mouseleave', function() {
+            loginDropdownMenu.classList.remove('show');
+            loginBtn.classList.remove('active');
+        });
+
+        // 点击登录下拉菜单项时的处理
+        const loginDropdownItems = document.querySelectorAll('.login-dropdown-item');
+        loginDropdownItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                console.log('选择了登录：', this.textContent);
+                
+                // 关闭下拉菜单
+                loginDropdownMenu.classList.remove('show');
+                loginBtn.classList.remove('active');
+            });
+        });
+
+        // ========== 语言切换下拉菜单功能 ==========
+        let languageHoverTimeout;
+
+        // 鼠标进入语言按钮区域时显示下拉菜单
+        languageBtn.addEventListener('mouseenter', function() {
+            // 清除可能存在的隐藏延时
+            clearTimeout(languageHoverTimeout);
+            
+            // 显示菜单
+            languageDropdownMenu.classList.add('show');
+            languageBtn.classList.add('active');
+        });
+
+        // 鼠标离开语言按钮区域时延迟隐藏下拉菜单
+        languageBtn.addEventListener('mouseleave', function() {
+            // 设置延时隐藏，给用户时间移动到下拉菜单
+            languageHoverTimeout = setTimeout(() => {
+                languageDropdownMenu.classList.remove('show');
+                languageBtn.classList.remove('active');
+            }, 200); // 200ms延迟
+        });
+
+        // 鼠标进入语言下拉菜单时保持显示
+        languageDropdownMenu.addEventListener('mouseenter', function() {
+            // 清除隐藏延时
+            clearTimeout(languageHoverTimeout);
+            
+            // 确保菜单保持显示
+            languageDropdownMenu.classList.add('show');
+            languageBtn.classList.add('active');
+        });
+
+        // 鼠标离开语言下拉菜单时隐藏
+        languageDropdownMenu.addEventListener('mouseleave', function() {
+            languageDropdownMenu.classList.remove('show');
+            languageBtn.classList.remove('active');
+        });
+
+        // 点击语言下拉菜单项时的处理
+        const languageDropdownItems = document.querySelectorAll('.language-dropdown-item');
+        languageDropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                console.log('选择了语言：', this.textContent);
+
+                // 关闭下拉菜单（这仍然可以保留）
+                languageDropdownMenu.classList.remove('show');
+                languageBtn.classList.remove('active');
+                
+                // 更新语言按钮显示
+                const selectedLang = this.getAttribute('data-lang');
+                if (selectedLang === 'en') {
+                    languageBtn.textContent = 'EN';
+                } else {
+                    languageBtn.textContent = 'CN';
+                }
+                
+                // 关闭下拉菜单
+                languageDropdownMenu.classList.remove('show');
+                languageBtn.classList.remove('active');
+                
+                // 这里可以添加实际的语言切换逻辑
+                console.log('切换到语言：', selectedLang);
+            });
+        });
+
+        // ESC键关闭所有下拉菜单
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                loginDropdownMenu.classList.remove('show');
+                loginBtn.classList.remove('active');
+                languageDropdownMenu.classList.remove('show');
+                languageBtn.classList.remove('active');
+            }
+        });
+
+        // 点击页面其他地方关闭下拉菜单
+        document.addEventListener('click', function(e) {
+            // 如果点击的不是登录相关元素，关闭登录下拉菜单
+            if (!loginBtn.contains(e.target) && !loginDropdownMenu.contains(e.target)) {
+                loginDropdownMenu.classList.remove('show');
+                loginBtn.classList.remove('active');
+            }
+            
+            // 如果点击的不是语言相关元素，关闭语言下拉菜单
+            if (!languageBtn.contains(e.target) && !languageDropdownMenu.contains(e.target)) {
+                languageDropdownMenu.classList.remove('show');
+                languageBtn.classList.remove('active');
+            }
+        });
+
+        // 页面加载时处理
+        window.addEventListener('DOMContentLoaded', moveLoginBtn);
+
+        // 窗口大小改变时也处理，防止resize后login位置错乱
+        window.addEventListener('resize', moveLoginBtn);
+    </script>
 <script>
         // 通用的 animate-on-scroll observer（保持原有逻辑）
         const observer = new IntersectionObserver((entries) => {
@@ -524,112 +764,82 @@ updatePageIndicator(0);
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
         });
     </script>
-    <script>
+<script>
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
-        
-        // 缓存DOM元素，避免重复查询
-        let navItems, container, cards;
-        let containerWidth, itemWidth;
-        
+        const navItems = document.querySelectorAll('.timeline-item');
+        const container = document.getElementById('timelineContainer');
+
         // 拖拽相关变量 - 优化后的设置
         let isDragging = false;
         let startX = 0;
         let currentX = 0;
-        let dragThreshold = 15;
+        let dragThreshold = 15; // 增加阈值，减少误触
         let hasTriggered = false;
-        let dragStartTime = 0;
-        let isAnimating = false;
-        
-        // 防抖函数
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-        
-        // 节流函数
-        function throttle(func, limit) {
-            let inThrottle;
-            return function() {
-                const args = arguments;
-                const context = this;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            };
-        }
-        
-        // 初始化DOM元素缓存
-        function initDOMCache() {
-            navItems = document.querySelectorAll('.timeline-item');
-            container = document.getElementById('timelineContainer');
-            cards = document.querySelectorAll('.timeline-content-item');
-            
-            // 计算容器宽度
-            if (container && container.parentElement) {
-                containerWidth = container.parentElement.offsetWidth;
-                itemWidth = 120;
-            }
-        }
-        
-        // 优化的导航更新函数
+        let dragStartTime = 0; // 记录拖拽开始时间
+        let isAnimating = false; // 防止动画期间的操作冲突
+
         function updateTimelineNav() {
-            if (!navItems || !container) return;
+            const navItems = document.querySelectorAll('.timeline-item');
             
-            // 使用requestAnimationFrame优化性能
-            requestAnimationFrame(() => {
-                // 批量更新导航状态
-                navItems.forEach((item, index) => {
-                    item.classList.toggle('active', index === currentIndex);
-                });
-
-                // 计算位置
-                const centerOffset = containerWidth / 2 - itemWidth / 2;
-                const translateX = centerOffset - (currentIndex * itemWidth);
-                
-                // 使用transform3d启用硬件加速
-                container.style.transform = `translate3d(${translateX}px, 0, 0)`;
+            // 更新导航状态
+            navItems.forEach((item, index) => {
+                item.classList.toggle('active', index === currentIndex);
             });
+
+            // 平滑滚动到居中位置
+            const containerWidth = container.parentElement.offsetWidth;
+            const itemWidth = 120;
+            const centerOffset = containerWidth / 2 - itemWidth / 2;
+            const translateX = centerOffset - (currentIndex * itemWidth);
+            
+            // 使用CSS transition实现平滑滚动
+            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            container.style.transform = `translateX(${translateX}px)`;
+            
+            // 清除transition，避免影响后续操作
+            setTimeout(() => {
+                container.style.transition = '';
+            }, 400);
         }
 
-        // 优化的卡片位置更新函数
         function updateCardPositions() {
-            if (!cards) return;
+            const cards = document.querySelectorAll('.timeline-content-item');
             
-            // 使用requestAnimationFrame优化性能
-            requestAnimationFrame(() => {
-                cards.forEach((card, index) => {
-                    // 批量移除类名
-                    card.className = card.className.replace(/active|prev|next|hidden|stack-hidden/g, '');
-                    
-                    if (index === currentIndex) {
-                        card.classList.add('active');
-                        card.style.zIndex = '10';
-                    } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
-                        card.classList.add('prev');
-                        card.style.zIndex = '5';
-                    } else if (index === (currentIndex + 1) % totalItems) {
-                        card.classList.add('next');
-                        card.style.zIndex = '5';
-                    } else {
-                        card.classList.add('stack-hidden');
-                        card.style.zIndex = '1';
-                    }
-                });
+            cards.forEach((card, index) => {
+                card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
+                
+                // 添加平滑过渡效果
+                card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                
+                if (index === currentIndex) {
+                    // 当前活动卡片
+                    card.classList.add('active');
+                    card.style.zIndex = '10';
+                } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+                    // 左侧卡片
+                    card.classList.add('prev');
+                    card.style.zIndex = '5';
+                } else if (index === (currentIndex + 1) % totalItems) {
+                    // 右侧卡片
+                    card.classList.add('next');
+                    card.style.zIndex = '5';
+                } else {
+                    // 其他卡片都隐藏在中间后面，形成堆叠效果
+                    card.classList.add('stack-hidden');
+                    card.style.zIndex = '1';
+                }
             });
+            
+            // 清除transition，避免影响后续操作
+            setTimeout(() => {
+                cards.forEach(card => {
+                    card.style.transition = '';
+                });
+            }, 400);
         }
 
-        // 优化的导航函数
         function navigateTimeline(direction) {
             if (isAnimating) return;
             
@@ -641,27 +851,22 @@ updatePageIndicator(0);
                 currentIndex = (currentIndex - 1 + totalItems) % totalItems;
             }
             
-            // 批量更新，减少重排
             updateTimelineNav();
             updateCardPositions();
             
-            // 使用requestAnimationFrame确保动画完成
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 300);
-            });
+            // 动画完成后重置标志
+            setTimeout(() => {
+                isAnimating = false;
+            }, 400); // 增加到600ms匹配新的动画时长
         }
 
         function selectCard(year) {
             if (isAnimating) return;
             
-            const yearNum = parseInt(year);
-            const index = years.indexOf(yearNum);
-            
+            const index = years.indexOf(year.toString());
             if (index !== -1 && index !== currentIndex) {
                 currentIndex = index;
-                showTimelineItem(yearNum.toString());
+                showTimelineItem(year.toString());
             }
         }
 
@@ -671,7 +876,7 @@ updatePageIndicator(0);
             currentIndex = years.indexOf(year);
         }
 
-        // 优化的拖拽处理
+        // 优化后的拖拽处理
         function handleDragStart(e) {
             if (isAnimating) return;
             
@@ -683,21 +888,21 @@ updatePageIndicator(0);
             dragStartTime = Date.now();
             startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
             
-            // 使用CSS类而不是直接修改style
-            document.body.classList.add('dragging');
+            document.body.style.cursor = 'grabbing';
+            document.body.style.userSelect = 'none';
             
             e.preventDefault();
             e.stopPropagation();
         }
 
-        // 使用节流优化拖拽移动
-        const throttledDragMove = throttle(function(e) {
+        function handleDragMove(e) {
             if (!isDragging || hasTriggered || isAnimating) return;
             
             currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
             const deltaX = currentX - startX;
             const dragTime = Date.now() - dragStartTime;
             
+            // 增加时间限制，避免过快触发
             if (Math.abs(deltaX) >= dragThreshold && dragTime > 50) {
                 hasTriggered = true;
                 
@@ -707,17 +912,13 @@ updatePageIndicator(0);
                     navigateTimeline('next');
                 }
                 
-                // 延迟结束拖拽
+                // 延迟结束拖拽，给动画时间
                 setTimeout(() => {
                     handleDragEnd(e);
                 }, 50);
             }
             
             e.preventDefault();
-        }, 16); // 60fps
-
-        function handleDragMove(e) {
-            throttledDragMove(e);
         }
 
         function handleDragEnd(e) {
@@ -727,20 +928,20 @@ updatePageIndicator(0);
             hasTriggered = false;
             dragStartTime = 0;
             
-            // 移除CSS类
-            document.body.classList.remove('dragging');
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
             
             startX = 0;
             currentX = 0;
         }
 
-        // 优化的事件监听器
+        // 改进的事件监听器
         let clickTimeout;
 
-        // 使用事件委托优化性能
         document.addEventListener('mousedown', (e) => {
             const card = e.target.closest('.timeline-content-item');
             if (card && !isAnimating) {
+                // 清除之前的点击超时
                 if (clickTimeout) {
                     clearTimeout(clickTimeout);
                 }
@@ -763,23 +964,29 @@ updatePageIndicator(0);
         document.addEventListener('touchmove', handleDragMove, { passive: false });
         document.addEventListener('touchend', handleDragEnd);
 
-        // 导航项点击 - 使用事件委托
-        document.addEventListener('click', (e) => {
-            const timelineItem = e.target.closest('.timeline-item');
-            if (timelineItem && !isDragging && !isAnimating) {
-                const index = Array.from(navItems).indexOf(timelineItem);
-                if (index !== -1) {
+        // 导航项点击
+        navItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                if (!isDragging && !isAnimating) {
                     currentIndex = index;
                     showTimelineItem(years[currentIndex]);
                 }
-                return;
-            }
+            });
+        });
+
+        // 优化的点击处理 - 添加延迟避免与拖拽冲突
+        document.addEventListener('click', (e) => {
+            if (isDragging || hasTriggered || isAnimating) return;
             
-            // 卡片点击处理
             const card = e.target.closest('.timeline-content-item');
-            if (card && !isDragging && !hasTriggered && !isAnimating) {
-                const year = card.getAttribute('data-year');
-                selectCard(year);
+            if (card && !card.classList.contains('active')) {
+                // 添加小延迟确保不是拖拽操作
+                clickTimeout = setTimeout(() => {
+                    if (!isDragging) {
+                        const year = card.getAttribute('data-year');
+                        selectCard(year);
+                    }
+                }, 10);
             }
         });
 
@@ -801,32 +1008,18 @@ updatePageIndicator(0);
             }
         });
 
-        // 使用防抖优化resize事件
-        const debouncedResize = debounce(() => {
+        // 初始化
+        updateTimelineNav();
+        updateCardPositions();
+
+        // 窗口大小改变时重新计算位置
+        window.addEventListener('resize', () => {
             if (!isAnimating) {
-                // 重新计算容器宽度
-                if (container && container.parentElement) {
-                    containerWidth = container.parentElement.offsetWidth;
-                }
-                updateTimelineNav();
+                setTimeout(() => {
+                    updateTimelineNav();
+                }, 100);
             }
-        }, 250);
-
-        window.addEventListener('resize', debouncedResize);
-
-        // 初始化函数
-        function initTimeline() {
-            initDOMCache();
-            updateTimelineNav();
-            updateCardPositions();
-        }
-
-        // 页面加载完成后初始化
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initTimeline);
-        } else {
-            initTimeline();
-        }
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -950,5 +1143,20 @@ updatePageIndicator(0);
         }
         }
     </script>
+    <script>
+    // 导航栏旗下品牌下拉菜单控制
+    const navBrandsDropdown = document.querySelector('.nav-item.nav-dropdown');
+    const navBrandsDropdownMenu = document.getElementById('brandsNavDropdownMenu');
+
+    if (navBrandsDropdown && navBrandsDropdownMenu) {
+        navBrandsDropdown.addEventListener('mouseenter', function() {
+            navBrandsDropdownMenu.classList.add('show');
+        });
+
+        navBrandsDropdown.addEventListener('mouseleave', function() {
+            navBrandsDropdownMenu.classList.remove('show');
+        });
+    }
+</script>
 </body>
 </html>
