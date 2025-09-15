@@ -470,7 +470,7 @@
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
         .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 80px; } /* 类型 */
-        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 60px; } /* 产品备注 checkbox */
+        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 70px; } /* 产品备注 checkbox */
         .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 80px; } /* 备注编号 */
         .stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 160px; } /* 名字/收货人 */
         .stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 140px; } /* 备注 */
