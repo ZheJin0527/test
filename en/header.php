@@ -43,7 +43,7 @@ if (!isset($mediaConfigIncluded)) {
         <!-- 中间导航（默认显示，大屏） -->
         <nav class="nav-links" id="navMenu">
             <div class="nav-item"><a href="index.php">Home</a></div>
-            <div class="nav-item"><a href="about.html">About Us</a></div>
+            <div class="nav-item"><a href="about.php">About Us</a></div>
             <div class="nav-item nav-dropdown">
                 <span class="nav-dropdown-trigger">Our Brands</span>
                 <div class="nav-dropdown-menu" id="brandsNavDropdownMenu">
