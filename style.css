@@ -4057,7 +4057,6 @@ nav {
 .company-jobs-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
 }
 
 .job-item {
