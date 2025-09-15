@@ -4809,6 +4809,59 @@ nav {
 }
 
 /* Specific optimization for 1440×806 resolution */
+/* 针对高度等于600px的特殊缩小优化 */
+@media (max-height: 600px) {
+  .job-section {
+    padding: clamp(15px, 2vw, 25px);
+    min-height: 100vh;
+  }
+
+  .job-table-title {
+    font-size: clamp(14px, 2.2vw, 18px);
+    margin: 0 auto clamp(5px, 1.5vw, 10px);
+  }
+
+  .jobs-container {
+    max-width: 700px;
+    gap: 6px;
+    padding: 0 6px;
+  }
+
+  .company-job-container {
+    max-width: 200px;
+    min-width: 140px;
+    padding: 6px;
+  }
+
+  .company-title {
+    font-size: clamp(9px, 1.2vw, 12px);
+    margin-bottom: 5px;
+  }
+
+  .job-item {
+    padding: 3px;
+    margin-bottom: 2px;
+  }
+
+  .job-item-title {
+    font-size: clamp(7px, 1vw, 9px);
+  }
+
+  .department-title {
+    font-size: clamp(7px, 1.1vw, 10px);
+    padding: 2px 4px;
+    margin-bottom: 2px;
+  }
+
+  .department-jobs {
+    gap: 2px;
+  }
+
+  .department-section {
+    margin-bottom: 4px;
+  }
+}
+
 /* 针对1280×600分辨率的特殊优化 */
 @media (min-width: 1280px) and (max-height: 600px) {
   .job-section {
