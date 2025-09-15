@@ -272,7 +272,8 @@
         .btn-warning {
             background-color: #f59e0b;
             color: white;
-            padding: 8px 16px;
+            padding: 7px 16px;
+            margin-top: 20px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -1235,6 +1236,7 @@
         }
 
         .header-stats {
+            margin-top: 20px;
             display: flex;
             gap: 16px;
             font-size: 12px;
