@@ -1232,15 +1232,11 @@
 
         .header-search {
             flex: 1;
-            min-width: 200px;
-            max-width: 350px;
+            min-width: 250px;
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 12px;
+            align-items: center; /* 改为水平对齐 */
+            gap: 12px; /* 添加间距 */
         }
-
-        
 
         .header-stats {
             margin-top: 20px;
@@ -1250,20 +1246,6 @@
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
-        }
-
-        .header-search .search-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #583e04;
-            margin-bottom: 0;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .header-search .unified-search-input {
-            flex: 1;
-            margin-bottom: 0;
         }
 
         .header-right-section {
@@ -1276,14 +1258,6 @@
         .header-stats .stat-value {
             font-weight: bold;
             color: #583e04;
-        }
-
-        .search-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #583e04;
-            margin-bottom: 4px;
-            display: block;
         }
 
         /* 响应式调整 */
@@ -1408,10 +1382,10 @@
                 
                 <div class="header-right-section">
                 <div class="header-search">
-                    <label for="central-unified-filter" class="search-label">搜索</label>
-                    <input type="text" id="central-unified-filter" class="unified-search-input" 
-                        placeholder="搜索货品名称、编号或规格单位...">
-                </div>
+    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+    <input type="text" id="central-unified-filter" class="unified-search-input" 
+        placeholder="搜索货品名称、编号或规格单位...">
+</div>
                 
                 <button class="btn btn-warning" onclick="exportData('central')">
                     <i class="fas fa-download"></i>
