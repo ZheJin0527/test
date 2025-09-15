@@ -273,7 +273,7 @@
             background-color: #f59e0b;
             color: white;
             padding: 7px 16px;
-            margin-top: 20px;
+            margin-top: 0px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -1232,14 +1232,14 @@
 
         .header-search {
             flex: 1;
-            min-width: 250px;
+            min-width: 230px;
             display: flex;
             align-items: center; /* 改为水平对齐 */
             gap: 12px; /* 添加间距 */
         }
 
         .header-stats {
-            margin-top: 20px;
+            margin-top: 0px;
             display: flex;
             gap: 16px;
             font-size: 12px;
@@ -1382,10 +1382,10 @@
                 
                 <div class="header-right-section">
                 <div class="header-search">
-    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
-    <input type="text" id="central-unified-filter" class="unified-search-input" 
-        placeholder="搜索货品名称、编号或规格单位...">
-</div>
+                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <input type="text" id="central-unified-filter" class="unified-search-input" 
+                        placeholder="搜索货品名称、编号或规格单位...">
+                </div>
                 
                 <button class="btn btn-warning" onclick="exportData('central')">
                     <i class="fas fa-download"></i>
