@@ -5276,14 +5276,18 @@
                 const pageData = outData.slice(startIndex, endIndex);
                 
                 // 填入数据行
-                let yPosition, lineHeight;
-                if (exportSystem === 'j1') {
-                    yPosition = height - 185;
-                    lineHeight = 16.01;
-                } else {
-                    yPosition = height - 223;
-                    lineHeight = 16.01;
-                }
+let yPosition, lineHeight;
+if (exportSystem === 'j1') {
+    if (pageIndex === 0) {
+        yPosition = height - 185; // 第一页位置
+    } else {
+        yPosition = height - 80;  // 第二页位置（可调整这个数值）
+    }
+    lineHeight = 16.01;
+} else {
+    yPosition = height - 223;
+    lineHeight = 16.01;
+}
 
                 pageData.forEach((record, index) => {
                     const itemNumber = startIndex + index + 1;
