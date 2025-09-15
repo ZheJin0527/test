@@ -1245,7 +1245,13 @@
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
-            margin-left: auto; /* 添加这行，让统计信息靠右 */
+        }
+
+        .header-right-section {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            margin-left: auto;
         }
 
         .header-stats .stat-value {
@@ -1388,6 +1394,7 @@
                     </div>
                 </div>
                 
+                <div class="header-right-section">
                 <div class="header-search">
                     <label for="central-unified-filter" class="search-label">搜索</label>
                     <input type="text" id="central-unified-filter" class="unified-search-input" 
@@ -1402,6 +1409,7 @@
                 <div class="header-stats">
                     <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
                     <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
+                </div>
                 </div>
             </div>
 
@@ -1438,6 +1446,7 @@
                     </div>
                 </div>
                 
+                <div class="header-right-section">
                 <div class="header-search">
                     <label for="central-unified-filter" class="search-label">搜索</label>
                     <input type="text" id="j1-unified-filter" class="unified-search-input" 
@@ -1452,6 +1461,7 @@
                 <div class="header-stats">
                     <span>显示记录: <span class="stat-value" id="j1-displayed-records">0</span></span>
                     <span>总记录: <span class="stat-value" id="j1-total-records">0</span></span>
+                </div>
                 </div>
             </div>
 
@@ -1488,6 +1498,7 @@
                     </div>
                 </div>
                 
+                <div class="header-right-section">
                 <div class="header-search">
                     <label for="central-unified-filter" class="search-label">搜索</label>
                     <input type="text" id="j2-unified-filter" class="unified-search-input" 
@@ -1502,6 +1513,7 @@
                 <div class="header-stats">
                     <span>显示记录: <span class="stat-value" id="j2-displayed-records">0</span></span>
                     <span>总记录: <span class="stat-value" id="j2-total-records">0</span></span>
+                </div>
                 </div>
             </div>
 
