@@ -1240,6 +1240,8 @@
             gap: 12px;
         }
 
+        
+
         .header-stats {
             margin-top: 20px;
             display: flex;
@@ -1282,13 +1284,6 @@
             color: #583e04;
             margin-bottom: 4px;
             display: block;
-        }
-
-        .header-search {
-            flex: 1;
-            min-width: 250px;
-            display: flex;
-            flex-direction: column;
         }
 
         /* 响应式调整 */
