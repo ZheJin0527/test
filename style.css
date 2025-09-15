@@ -1117,7 +1117,7 @@ nav {
   
 .stats-section {
     height: 20%;
-    background: url('images/images/背景4.png') no-repeat center center/cover;
+    background: url('images/images/背景4.webp') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1407,7 +1407,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('images/images/背景4.png') no-repeat center center/cover;
+    background: url('images/images/背景4.webp') no-repeat center center/cover;
     color: #000;
     gap: 53px;
     flex-wrap: nowrap;
