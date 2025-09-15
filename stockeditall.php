@@ -1531,6 +1531,14 @@
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+
+        .header-right-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-left: auto;
         }
 
         /* 日期过滤器样式 */
@@ -1878,11 +1886,12 @@
         </div>
 
         <div class="unified-header-row">
-                <div class="header-filter">
-                    <label for="date-filter" class="search-label">日期</label>
-                    <input type="date" id="date-filter" class="filter-input">
-                </div>
-                
+            <div class="header-filter">
+                <label for="date-filter" class="search-label">日期</label>
+                <input type="date" id="date-filter" class="filter-input">
+            </div>
+            
+            <div class="header-right-group">
                 <div class="header-search">
                     <label for="unified-filter" class="search-label">搜索</label>
                     <input type="text" id="unified-filter" class="unified-search-input" 
@@ -1899,10 +1908,6 @@
                     导出数据
                 </button>
                 
-                <div class="header-stats">
-                    <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
-                </div>
-                
                 <div class="batch-actions" style="display: flex; gap: 8px;">
                     <button class="btn btn-danger" id="batch-delete-btn" onclick="toggleBatchDelete()">
                         <i class="fas fa-trash-alt"></i>
@@ -1917,7 +1922,12 @@
                         取消
                     </button>
                 </div>
+                
+                <div class="header-stats">
+                    <span>总记录数: <span class="stat-value" id="total-records">0</span></span>
+                </div>
             </div>
+        </div>
         
         <!-- 库存表格 -->
         <div class="table-container">
