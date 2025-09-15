@@ -471,7 +471,7 @@
             overflow-x: auto;
             overflow-y: auto;
             flex: 1;
-            max-height: calc(80vh - 160px); /* 减去按钮区域的高度 */
+            max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
             position: relative;
         }
 
