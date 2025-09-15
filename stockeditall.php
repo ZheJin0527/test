@@ -4771,10 +4771,25 @@
                     throw new Error('获取数据失败');
                 }
                 
-                // 过滤出库数据
-                const outData = (result.data || []).filter(record => 
-                    parseFloat(record.out_quantity) > 0
-                );
+                // 过滤出库数据 - 按日期范围和出库数量筛选
+                const outData = (result.data || []).filter(record => {
+                    const outQty = parseFloat(record.out_quantity);
+                    if (outQty <= 0) return false;
+                    
+                    // 检查日期范围
+                    const recordDate = record.date || record.out_date || record.created_at;
+                    if (!recordDate) return false;
+                    
+                    const recordDateObj = new Date(recordDate);
+                    const startDateObj = new Date(startDate);
+                    const endDateObj = new Date(endDate);
+                    
+                    // 设置时间为当天的开始和结束
+                    startDateObj.setHours(0, 0, 0, 0);
+                    endDateObj.setHours(23, 59, 59, 999);
+                    
+                    return recordDateObj >= startDateObj && recordDateObj <= endDateObj;
+                });
                 
                 if (outData.length === 0) {
                     showAlert('指定日期范围内没有出库数据', 'error');
