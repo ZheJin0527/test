@@ -1434,7 +1434,7 @@
                 
                 <div class="header-right-section">
                 <div class="header-search">
-                    <label for="central-unified-filter" class="search-label">搜索</label>
+                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="j1-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
@@ -1486,7 +1486,7 @@
                 
                 <div class="header-right-section">
                 <div class="header-search">
-                    <label for="central-unified-filter" class="search-label">搜索</label>
+                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="j2-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
