@@ -4063,7 +4063,7 @@ nav {
     background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
     color: white;
     border-radius: 12px;
-    padding: 15px;
+    padding: 9px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 3px 12px rgba(255, 92, 0, 0.3);
@@ -4384,7 +4384,7 @@ nav {
   }
 
   .job-item {
-    padding: 18px;
+    padding: 12px;
   }
 
   .job-item-title {
@@ -4429,7 +4429,7 @@ nav {
   }
 
   .job-item {
-    padding: 12px;
+    padding: 6px;
     margin-bottom: 5px;
     border-radius: 10px;
   }
@@ -4479,7 +4479,7 @@ nav {
   }
 
   .job-item {
-    padding: 10px;
+    padding: 4px;
     margin-bottom: 4px;
     border-radius: 8px;
   }
@@ -4535,7 +4535,7 @@ nav {
   }
 
   .job-item {
-    padding: 14px;
+    padding: 8px;
     margin-bottom: 6px;
     border-radius: 10px;
   }
@@ -4600,7 +4600,7 @@ nav {
   }
 
   .job-item {
-    padding: 12px;
+    padding: 6px;
     margin-bottom: 5px;
     border-radius: 8px;
   }
@@ -4655,7 +4655,7 @@ nav {
   }
 
   .job-item {
-    padding: 10px;
+    padding: 4px;
     margin-bottom: 4px;
     border-radius: 6px;
   }
@@ -4705,7 +4705,7 @@ nav {
   }
 
   .job-item {
-    padding: 25px;
+    padding: 19px;
     margin-bottom: 15px;
   }
 
@@ -4745,7 +4745,7 @@ nav {
   }
 
   .job-item {
-    padding: 22px;
+    padding: 16px;
     margin-bottom: 12px;
   }
 
@@ -4785,7 +4785,7 @@ nav {
   }
 
   .job-item {
-    padding: 20px;
+    padding: 14px;
     margin-bottom: 10px;
   }
 
@@ -4830,7 +4830,7 @@ nav {
   }
 
   .job-item {
-    padding: 16px;
+    padding: 10px;
     margin-bottom: 7px;
   }
 
@@ -4870,7 +4870,7 @@ nav {
   }
 
   .job-item {
-    padding: 18px;
+    padding: 12px;
     margin-bottom: 8px;
   }
 
@@ -4910,7 +4910,7 @@ nav {
   }
 
   .job-item {
-    padding: 16px;
+    padding: 10px;
     margin-bottom: 6px;
   }
 
