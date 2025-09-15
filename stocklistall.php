@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>库存管理系统</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animation.css" />
     <style>
         * {
             margin: 0;
@@ -43,6 +45,43 @@
             display: flex;
             align-items: center;
             gap: 0px;
+        }
+
+        /* 顶部综合容器（总库存卡 + 搜索/导出/统计） */
+        .top-summary-container {
+            display: grid;
+            grid-template-columns: 340px 1fr; /* 左卡片更紧凑 */
+            gap: 12px;
+            align-items: stretch; /* 两侧等高 */
+            margin-bottom: 10px;
+        }
+        .search-stats-card {
+            background: #f1dfbc; /* 与页面底色一致，贴近设计图 */
+            border: 2px solid #583e04;
+            border-radius: 12px;
+            padding: 10px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.08);
+            min-height: 72px;
+        }
+        .search-stats-left { display: flex; align-items: center; gap: 10px; flex: 1; }
+        .search-stats-right { display: flex; align-items: center; gap: 24px; color: #583e04; font-weight: 600; font-size: 14px; }
+        .search-stats-right i { margin-right: 6px; }
+        .search-stats-card .unified-search-input { max-width: 380px; height: 44px; border-radius: 10px; font-size: 14px; }
+        .search-stats-card .btn-warning { margin: 0; height: 44px; border-radius: 10px; padding: 0 16px; display: inline-flex; align-items: center; gap: 8px; }
+
+        /* 左侧总库存卡片紧凑化，与右侧等高 */
+        .summary-section .summary-card { min-height: 72px; padding: 10px 14px; display: flex; flex-direction: column; justify-content: center; }
+        .summary-section .summary-card h3 { font-size: 18px; margin: 0 0 6px 0; }
+        .summary-section .summary-card .summary-currency-display .value { font-size: 26px; }
+
+        @media (max-width: 1024px) {
+            .top-summary-container { grid-template-columns: 1fr; gap: 10px; }
+            .search-stats-card { flex-direction: column; align-items: stretch; gap: 10px; }
+            .search-stats-card .unified-search-input { max-width: none; width: 100%; }
+            .search-stats-right { justify-content: space-between; }
         }
 
         /* 系统选择器样式 */
@@ -1171,6 +1210,7 @@
     </style>
 </head>
 <body>
+    <?php include 'sidebar.php'; ?>
     <!-- 低库存预警弹窗 -->
     <div id="low-stock-modal" class="low-stock-modal">
         <div class="low-stock-modal-content">
@@ -1230,10 +1270,36 @@
                         <div class="dropdown-item" onclick="switchSystem('j2')">J2</div>
                     </div>
                 </div>
-                <button class="back-button" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i>
-                    返回仪表盘
-                </button>
+            </div>
+        </div>
+
+        <!-- 顶部综合容器：左侧总库存卡，右侧搜索+统计 -->
+        <div class="top-summary-container">
+            <div class="summary-section">
+                <div class="summary-card total-value">
+                    <h3>总库存</h3>
+                    <div class="summary-currency-display">
+                        <span class="currency-symbol">RM</span>
+                        <span class="value" id="central-total-value">0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="search-stats-card">
+                <div class="search-stats-left">
+                    <div class="search-group">
+                        <label for="central-unified-filter" style="font-size:12px; font-weight:600; color:#583e04;">搜索</label>
+                        <input type="text" id="central-unified-filter" class="unified-search-input" 
+                            placeholder="搜索货品名称、编号或规格单位...">
+                    </div>
+                    <button class="btn btn-warning" onclick="exportData('central')">
+                        <i class="fas fa-download"></i>
+                        导出数据
+                    </button>
+                </div>
+                <div class="search-stats-right">
+                    <div><i class="fas fa-align-left"></i> 显示记录: <span id="central-displayed-records">0</span></div>
+                    <div><i class="fas fa-boxes"></i> 总记录: <span id="central-total-records">0</span></div>
+                </div>
             </div>
         </div>
         
@@ -1242,44 +1308,7 @@
         
         <!-- 中央库存页面 -->
         <div id="central-page" class="page-section active">
-            <div class="main-content-row">
-                <div class="summary-section">
-                    <div class="summary-card total-value">
-                        <h3>总库存</h3>
-                        <div class="summary-currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <span class="value" id="central-total-value">0.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="table-container">
-                <div class="action-buttons">
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="search-group">
-                            <label for="central-unified-filter">搜索</label>
-                            <input type="text" id="central-unified-filter" class="unified-search-input" 
-                                placeholder="搜索货品名称、编号或规格单位...">
-                        </div>
-                        <button class="btn btn-warning" onclick="exportData('central')">
-                            <i class="fas fa-download"></i>
-                            导出数据
-                        </button>
-                    </div>
-                    
-                    <div class="stats-info" id="central-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
-                        </div>
-                    </div>
-                </div>
-                
                 <div class="table-scroll-container">
                     <table class="stock-table" id="central-stock-table">
                         <thead>
