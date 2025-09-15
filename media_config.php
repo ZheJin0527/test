@@ -649,34 +649,32 @@ function getJobsHtml() {
         $stmt->execute();
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        if (empty($jobs)) {
-            $html = '<div class="no-jobs">暂无招聘职位</div>';
-        } else {
-            // 按公司分类分组
-            $groupedJobs = [];
-            foreach ($jobs as $job) {
-                $category = $job['company_category'] ?? 'KUNZZHOLDINGS';
-                $groupedJobs[$category][] = $job;
+        // 按公司分类分组
+        $groupedJobs = [];
+        foreach ($jobs as $job) {
+            $category = $job['company_category'] ?? 'KUNZZHOLDINGS';
+            $groupedJobs[$category][] = $job;
+        }
+        
+        // 为每个公司创建独立的卡片容器，确保KUNZZHOLDINGS在左边
+        $companyOrder = ['KUNZZHOLDINGS', 'TOKYO CUISINE'];
+        foreach ($companyOrder as $company) {
+            $html .= '<div class="company-job-container">';
+            $html .= '<h3 class="company-title">' . htmlspecialchars($company) . '</h3>';
+            $html .= '<div class="company-jobs-list">';
+            
+            if (isset($groupedJobs[$company]) && !empty($groupedJobs[$company])) {
+                foreach ($groupedJobs[$company] as $job) {
+                    $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
+                    $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
+                    $html .= '</div>';
+                }
+            } else {
+                $html .= '<div class="no-jobs-company">暂无职位</div>';
             }
             
-            // 为每个公司创建独立的卡片容器，确保KUNZZHOLDINGS在左边
-            $companyOrder = ['KUNZZHOLDINGS', 'TOKYO CUISINE'];
-            foreach ($companyOrder as $company) {
-                if (isset($groupedJobs[$company])) {
-                    $html .= '<div class="company-job-container">';
-                    $html .= '<h3 class="company-title">' . htmlspecialchars($company) . '</h3>';
-                    $html .= '<div class="company-jobs-list">';
-                    
-                    foreach ($groupedJobs[$company] as $job) {
-                        $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
-                        $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
-                        $html .= '</div>';
-                    }
-                    
-                    $html .= '</div>'; // company-jobs-list
-                    $html .= '</div>'; // company-job-container
-                }
-            }
+            $html .= '</div>'; // company-jobs-list
+            $html .= '</div>'; // company-job-container
         }
     } catch (Exception $e) {
         $html = '<div class="no-jobs">职位数据加载失败</div>';

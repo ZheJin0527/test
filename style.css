@@ -4085,6 +4085,16 @@ nav {
     letter-spacing: 0.5px;
 }
 
+.no-jobs-company {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    border: 2px dashed #ccc;
+}
+
 /* 保留原有的job-card样式以防其他地方使用 */
 
 .job-header {
