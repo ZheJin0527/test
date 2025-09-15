@@ -782,10 +782,6 @@
     <div class="container">
         <!-- 页面标题 -->
         <div class="header">
-            <button class="back-button" onclick="goBack()">
-                <i class="fas fa-arrow-left"></i>
-                返回仪表盘
-            </button>
             <h1>职员管理系统</h1>
         </div>
 
