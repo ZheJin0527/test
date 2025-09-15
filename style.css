@@ -2995,12 +2995,13 @@ nav {
     transition: all 0.3s ease;
 }
 
-.timeline-content:hover {
+/* 取消时间线内容悬停动画 */
+/* .timeline-content:hover {
     transform: translateY(-5px);
     box-shadow: 
         0 25px 50px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
+} */
 
 .timeline-content::before {
     content: '';
@@ -3032,10 +3033,11 @@ nav {
     border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-.timeline-image img:hover {
+/* 取消图片悬停动画 */
+/* .timeline-image img:hover {
     transform: scale(1.05);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
+} */
 
 .timeline-text {
     flex: 1;
@@ -3094,10 +3096,11 @@ nav {
     cursor: pointer;
 }
 
-.timeline-content-item.prev .timeline-content:hover,
+/* 取消左右卡片悬停动画 */
+/* .timeline-content-item.prev .timeline-content:hover,
 .timeline-content-item.next .timeline-content:hover {
     transform: translateY(-3px) scale(1.02);
-}
+} */
 
 /* 响应式设计 */
 @media (max-width: 1280px) {
