@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $pdo->prepare("
                 INSERT INTO job_positions 
-                (job_title, work_experience, recruitment_count, publish_date, company_category, company_department, job_description, company_location) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                (job_title, work_experience, recruitment_count, publish_date, company_category, company_department, salary_range, job_description, company_location) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
             
             $result = $stmt->execute([
@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['publish_date'],
                 $_POST['job_category'],
                 $_POST['company_department'] ?? '',
+                $_POST['salary_range'] ?? '',
                 trim($_POST['job_description']),
                 $_POST['company_location'] ?? ''
             ]);
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("
                 UPDATE job_positions 
                 SET job_title = ?, work_experience = ?, recruitment_count = ?, publish_date = ?, 
-                    company_category = ?, company_department = ?, job_description = ?, company_location = ?
+                    company_category = ?, company_department = ?, salary_range = ?, job_description = ?, company_location = ?
                 WHERE id = ?
             ");
             
@@ -70,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['publish_date'],
                 $_POST['job_category'],
                 $_POST['company_department'] ?? '',
+                $_POST['salary_range'] ?? '',
                 trim($_POST['job_description']),
                 $_POST['company_location'] ?? '',
                 $_POST['job_id']
@@ -409,14 +411,21 @@ if (isset($_GET['edit'])) {
             const companySelect = document.getElementById('job_category');
             const departmentGroup = document.getElementById('department-group');
             const departmentSelect = document.getElementById('company_department');
+            const salaryGroup = document.getElementById('salary-group');
+            const salaryInput = document.getElementById('salary_range');
             
             if (companySelect.value === 'TOKYO JAPANESE CUISINE') {
                 departmentGroup.style.display = 'flex';
+                salaryGroup.style.display = 'flex';
                 departmentSelect.required = true;
+                salaryInput.required = true;
             } else {
                 departmentGroup.style.display = 'none';
+                salaryGroup.style.display = 'none';
                 departmentSelect.required = false;
+                salaryInput.required = false;
                 departmentSelect.value = '';
+                salaryInput.value = '';
             }
         }
         
@@ -507,6 +516,15 @@ if (isset($_GET['edit'])) {
                             </select>
                         </div>
                         
+                        <div class="form-group" id="salary-group" style="display: none;">
+                            <label for="salary_range">薪资范围 *</label>
+                            <input type="text" id="salary_range" name="salary_range" 
+                                   value="<?php echo $editJob ? htmlspecialchars($editJob['salary_range']) : ''; ?>" 
+                                   placeholder="例如：3000-5000" 
+                                   pattern="\d+-\d+" 
+                                   title="请输入薪资范围，格式：最低薪资-最高薪资">
+                        </div>
+                        
                         <div class="form-group">
                             <label for="company_location">公司地址</label>
                             <input type="text" id="company_location" name="company_location" 
@@ -551,6 +569,9 @@ if (isset($_GET['edit'])) {
                                         <span class="job-meta-item-list">🏷️ 公司: <?php echo htmlspecialchars($job['company_category'] ?? '未分类'); ?></span>
                                         <?php if (!empty($job['company_department'])): ?>
                                         <span class="job-meta-item-list">🏢 部门: <?php echo htmlspecialchars($job['company_department']); ?></span>
+                                        <?php endif; ?>
+                                        <?php if (!empty($job['salary_range'])): ?>
+                                        <span class="job-meta-item-list">💰 薪资: <?php echo htmlspecialchars($job['salary_range']); ?></span>
                                         <?php endif; ?>
                                         <?php if (!empty($job['company_location'])): ?>
                                         <span class="job-meta-item-list">📍 地址: <?php echo htmlspecialchars($job['company_location']); ?></span>
