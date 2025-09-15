@@ -1314,6 +1314,7 @@
     </style>
 </head>
 <body>
+    <?php include 'sidebar.php'; ?>
     <!-- 低库存预警弹窗 -->
     <div id="low-stock-modal" class="low-stock-modal">
         <div class="low-stock-modal-content">
@@ -1345,7 +1346,6 @@
         </div>
     </div>
 
-    <?php include 'sidebar.php'; ?>
     <div class="container">
         <div class="header">
             <div>
