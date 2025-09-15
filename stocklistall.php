@@ -1235,7 +1235,9 @@
             min-width: 200px;
             max-width: 350px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
         }
 
         .header-stats {
@@ -1246,6 +1248,20 @@
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
+        }
+
+        .header-search .search-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #583e04;
+            margin-bottom: 0;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .header-search .unified-search-input {
+            flex: 1;
+            margin-bottom: 0;
         }
 
         .header-right-section {
