@@ -1484,68 +1484,211 @@
         }
 
         /* 日期过滤器样式 */
-.header-filter {
-    display: flex;
-    flex-direction: column;
-    min-width: 140px;
-    flex-shrink: 0;
-}
+        .header-filter {
+            display: flex;
+            flex-direction: column;
+            min-width: 140px;
+            flex-shrink: 0;
+        }
 
-.filter-input {
-    padding: 8px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 13px;
-    background-color: #ffffff;
-    transition: all 0.2s ease;
-}
+        .filter-input {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 13px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
 
-.filter-input:focus {
-    outline: none;
-    border-color: #583e04;
-    box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
-}
+        .filter-input:focus {
+            outline: none;
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
 
-/* 批量操作按钮组 */
-.batch-actions {
-    flex-shrink: 0;
-}
+        /* 批量操作按钮组 */
+        .batch-actions {
+            flex-shrink: 0;
+        }
 
-/* 调整按钮大小，使其更紧凑 */
-.unified-header-row .btn {
-    padding: 8px 12px;
-    font-size: 13px;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
+        /* 调整按钮大小，使其更紧凑 */
+        .unified-header-row .btn {
+            padding: 8px 12px;
+            font-size: 13px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
 
-/* 响应式调整 */
-@media (max-width: 1400px) {
-    .unified-header-row {
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-    
-    .batch-actions {
-        order: 3;
-        width: 100%;
-        justify-content: flex-start;
-    }
-}
+        /* 统一顶部行样式 - 进出货页面专用 */
+        .unified-header-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 24px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 2px solid #583e04;
+            box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
+            flex-wrap: nowrap;
+        }
 
-@media (max-width: 1024px) {
-    .header-search {
-        order: 3;
-        width: 100%;
-        min-width: auto;
-    }
-    
-    .header-stats {
-        flex-direction: row;
-        gap: 16px;
-        min-width: auto;
-    }
-}
+        /* 日期过滤器样式 */
+        .header-filter {
+            display: flex;
+            flex-direction: column;
+            min-width: 140px;
+            flex-shrink: 0;
+        }
+
+        .search-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #583e04;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .header-search {
+            flex: 1;
+            min-width: 200px;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .unified-search-input {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 13px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .filter-input {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 13px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .filter-input:focus, 
+        .unified-search-input:focus {
+            outline: none;
+            border-color: #583e04;
+            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        }
+
+        /* 统计信息样式 */
+        .header-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 12px;
+            color: #6b7280;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .header-stats .stat-value {
+            font-weight: bold;
+            color: #583e04;
+        }
+
+        /* 按钮样式调整 */
+        .unified-header-row .btn {
+            padding: 8px 12px;
+            font-size: 13px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* 批量操作按钮组 */
+        .batch-actions {
+            flex-shrink: 0;
+            display: flex;
+            gap: 8px;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1400px) {
+            .unified-header-row {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .batch-actions {
+                order: 3;
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .header-search {
+                order: 3;
+                width: 100%;
+                min-width: auto;
+                max-width: none;
+            }
+            
+            .header-stats {
+                flex-direction: row;
+                gap: 16px;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .unified-header-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            
+            .header-filter,
+            .header-stats {
+                align-items: center;
+                text-align: center;
+            }
+            
+            .batch-actions {
+                justify-content: center;
+                order: initial;
+                width: auto;
+            }
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1400px) {
+            .unified-header-row {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .batch-actions {
+                order: 3;
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .header-search {
+                order: 3;
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .header-stats {
+                flex-direction: row;
+                gap: 16px;
+                min-width: auto;
+            }
+        }
 
         @media (max-width: 1200px) {
             .action-buttons {
