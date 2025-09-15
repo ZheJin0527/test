@@ -272,7 +272,18 @@
         .btn-warning {
             background-color: #f59e0b;
             color: white;
-            margin-top: 20px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
         
         .btn-warning:hover {
@@ -1141,12 +1152,10 @@
         }
 
         .unified-search-input {
-            width: 100%;
-            min-width: 225px;
-            padding: 8px;
+            padding: 8px 12px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
@@ -1173,60 +1182,65 @@
         .unified-header-row {
             display: flex;
             align-items: center;
-            gap: 40px;
-            padding: 20px 24px;
+            gap: 20px;
+            padding: 16px 24px;
             background: white;
             border-radius: 12px;
             margin-bottom: 24px;
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .header-summary {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            min-width: 160px;
+            min-width: 140px;
+            flex-shrink: 0;
         }
 
         .summary-title {
-            font-size: 26px;
+            font-size: 14px;
             font-weight: 600;
             color: #583e04;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+            line-height: 1.2;
         }
 
         .summary-amount {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            align-items: baseline;
+            gap: 6px;
         }
 
         .summary-amount .currency-symbol {
-            font-size: 30px;
+            font-size: 18px;
             font-weight: bold;
             color: #583e04;
         }
 
         .summary-amount .value {
-            font-size: 30px;
+            font-size: 18px;
             font-weight: 700;
-            color: #583e04;
+            color: #10b981;
         }
 
         .header-search {
             flex: 1;
-            min-width: 250px;
+            min-width: 200px;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
         }
 
         .header-stats {
             display: flex;
-            flex-direction: column;
-            gap: 4px;
-            font-size: 14px;
+            gap: 16px;
+            font-size: 12px;
             color: #6b7280;
-            min-width: 120px;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .header-stats .stat-value {
@@ -1235,10 +1249,10 @@
         }
 
         .search-label {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             color: #583e04;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: block;
         }
 
