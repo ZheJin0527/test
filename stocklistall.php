@@ -1201,7 +1201,7 @@
         }
 
         .summary-title {
-            font-size: 14px;
+            font-size: 26px;
             font-weight: 600;
             color: #583e04;
             margin-bottom: 2px;
@@ -1215,15 +1215,15 @@
         }
 
         .summary-amount .currency-symbol {
-            font-size: 18px;
+            font-size: 30px;
             font-weight: bold;
             color: #583e04;
         }
 
         .summary-amount .value {
-            font-size: 18px;
+            font-size: 30px;
             font-weight: 700;
-            color: #10b981;
+            color: #583e04;
         }
 
         .header-search {
