@@ -133,6 +133,7 @@ if (isset($_GET['edit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>招聘职位管理 - KUNZZ HOLDINGS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -274,6 +275,46 @@ if (isset($_GET['edit'])) {
         
         .btn-danger:hover {
             background: #c82333;
+        }
+
+        /* 图标按钮样式 */
+        .action-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 8px;
+            font-size: 14px;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .action-btn.edit-btn {
+            background: #f59e0b;
+        }
+
+        .action-btn.edit-btn:hover {
+            background: #d97706;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .action-btn.delete-btn {
+            background: #ef4444;
+        }
+
+        .action-btn.delete-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
         
         .btn-small {
@@ -576,12 +617,16 @@ if (isset($_GET['edit'])) {
                                     </div>
                                 </div>
                                 <div class="job-actions">
-                                    <a href="?edit=<?php echo $job['id']; ?>" class="btn btn-small">编辑</a>
+                                    <a href="?edit=<?php echo $job['id']; ?>" class="action-btn edit-btn" title="编辑">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                     <form method="post" style="display: inline-block;" 
                                           onsubmit="return confirm('确定要删除这个职位吗？')">
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="job_id" value="<?php echo $job['id']; ?>">
-                                        <button type="submit" class="btn btn-danger btn-small">删除</button>
+                                        <button type="submit" class="action-btn delete-btn" title="删除">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
