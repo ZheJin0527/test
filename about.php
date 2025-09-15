@@ -717,54 +717,63 @@ updatePageIndicator(0);
         let isAnimating = false; // 防止动画期间的操作冲突
 
         function updateTimelineNav() {
-            if (!navItems || !container) return;
+            const navItems = document.querySelectorAll('.timeline-item');
             
-            // 使用requestAnimationFrame优化性能
-            requestAnimationFrame(() => {
-                // 更新导航状态
-                navItems.forEach((item, index) => {
-                    item.classList.toggle('active', index === currentIndex);
-                });
-
-                // 平滑滚动到居中位置
-                const containerWidth = container.parentElement.offsetWidth;
-                const itemWidth = 120;
-                const centerOffset = containerWidth / 2 - itemWidth / 2;
-                const translateX = centerOffset - (currentIndex * itemWidth);
-                
-                // 使用transform3d启用硬件加速
-                container.style.transform = `translate3d(${translateX}px, 0, 0)`;
+            // 更新导航状态
+            navItems.forEach((item, index) => {
+                item.classList.toggle('active', index === currentIndex);
             });
+
+            // 平滑滚动到居中位置
+            const containerWidth = container.parentElement.offsetWidth;
+            const itemWidth = 120;
+            const centerOffset = containerWidth / 2 - itemWidth / 2;
+            const translateX = centerOffset - (currentIndex * itemWidth);
+            
+            // 使用CSS transition实现平滑滚动
+            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            container.style.transform = `translateX(${translateX}px)`;
+            
+            // 清除transition，避免影响后续操作
+            setTimeout(() => {
+                container.style.transition = '';
+            }, 400);
         }
 
         function updateCardPositions() {
             const cards = document.querySelectorAll('.timeline-content-item');
             
-            // 使用requestAnimationFrame优化性能
-            requestAnimationFrame(() => {
-                cards.forEach((card, index) => {
-                    // 批量移除类名
-                    card.className = card.className.replace(/active|prev|next|hidden|stack-hidden/g, '');
-                    
-                    if (index === currentIndex) {
-                        // 当前活动卡片
-                        card.classList.add('active');
-                        card.style.zIndex = '10';
-                    } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
-                        // 左侧卡片
-                        card.classList.add('prev');
-                        card.style.zIndex = '5';
-                    } else if (index === (currentIndex + 1) % totalItems) {
-                        // 右侧卡片
-                        card.classList.add('next');
-                        card.style.zIndex = '5';
-                    } else {
-                        // 其他卡片都隐藏在中间后面，形成堆叠效果
-                        card.classList.add('stack-hidden');
-                        card.style.zIndex = '1';
-                    }
-                });
+            cards.forEach((card, index) => {
+                card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
+                
+                // 添加平滑过渡效果
+                card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                
+                if (index === currentIndex) {
+                    // 当前活动卡片
+                    card.classList.add('active');
+                    card.style.zIndex = '10';
+                } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+                    // 左侧卡片
+                    card.classList.add('prev');
+                    card.style.zIndex = '5';
+                } else if (index === (currentIndex + 1) % totalItems) {
+                    // 右侧卡片
+                    card.classList.add('next');
+                    card.style.zIndex = '5';
+                } else {
+                    // 其他卡片都隐藏在中间后面，形成堆叠效果
+                    card.classList.add('stack-hidden');
+                    card.style.zIndex = '1';
+                }
             });
+            
+            // 清除transition，避免影响后续操作
+            setTimeout(() => {
+                cards.forEach(card => {
+                    card.style.transition = '';
+                });
+            }, 400);
         }
 
         function navigateTimeline(direction) {
@@ -784,7 +793,7 @@ updatePageIndicator(0);
             // 动画完成后重置标志
             setTimeout(() => {
                 isAnimating = false;
-            }, 300); // 减少到300ms提高响应速度
+            }, 400); // 增加到600ms匹配新的动画时长
         }
 
         function selectCard(year) {
@@ -803,7 +812,7 @@ updatePageIndicator(0);
             currentIndex = years.indexOf(year);
         }
 
-        // 优化的拖拽处理
+        // 优化后的拖拽处理
         function handleDragStart(e) {
             if (isAnimating) return;
             
@@ -815,38 +824,35 @@ updatePageIndicator(0);
             dragStartTime = Date.now();
             startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
             
-            // 使用CSS类而不是直接修改style
-            document.body.classList.add('dragging');
+            document.body.style.cursor = 'grabbing';
+            document.body.style.userSelect = 'none';
             
             e.preventDefault();
             e.stopPropagation();
         }
 
-        // 使用requestAnimationFrame优化拖拽移动
         function handleDragMove(e) {
             if (!isDragging || hasTriggered || isAnimating) return;
             
-            requestAnimationFrame(() => {
-                currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
-                const deltaX = currentX - startX;
-                const dragTime = Date.now() - dragStartTime;
+            currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+            const deltaX = currentX - startX;
+            const dragTime = Date.now() - dragStartTime;
+            
+            // 增加时间限制，避免过快触发
+            if (Math.abs(deltaX) >= dragThreshold && dragTime > 50) {
+                hasTriggered = true;
                 
-                // 增加时间限制，避免过快触发
-                if (Math.abs(deltaX) >= dragThreshold && dragTime > 100) {
-                    hasTriggered = true;
-                    
-                    if (deltaX > 0) {
-                        navigateTimeline('prev');
-                    } else {
-                        navigateTimeline('next');
-                    }
-                    
-                    // 延迟结束拖拽，给动画时间
-                    setTimeout(() => {
-                        handleDragEnd(e);
-                    }, 100);
+                if (deltaX > 0) {
+                    navigateTimeline('prev');
+                } else {
+                    navigateTimeline('next');
                 }
-            });
+                
+                // 延迟结束拖拽，给动画时间
+                setTimeout(() => {
+                    handleDragEnd(e);
+                }, 50);
+            }
             
             e.preventDefault();
         }
@@ -858,8 +864,8 @@ updatePageIndicator(0);
             hasTriggered = false;
             dragStartTime = 0;
             
-            // 移除CSS类
-            document.body.classList.remove('dragging');
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
             
             startX = 0;
             currentX = 0;
@@ -904,26 +910,19 @@ updatePageIndicator(0);
             });
         });
 
-        // 优化的点击处理 - 支持左右卡片切换
+        // 优化的点击处理 - 添加延迟避免与拖拽冲突
         document.addEventListener('click', (e) => {
             if (isDragging || hasTriggered || isAnimating) return;
             
             const card = e.target.closest('.timeline-content-item');
-            if (card) {
-                // 检查是否点击的是左右卡片
-                if (card.classList.contains('prev')) {
-                    // 点击左侧卡片，切换到上一个
-                    navigateTimeline('prev');
-                    return;
-                } else if (card.classList.contains('next')) {
-                    // 点击右侧卡片，切换到下一个
-                    navigateTimeline('next');
-                    return;
-                } else if (!card.classList.contains('active')) {
-                    // 点击其他卡片，直接跳转
-                    const year = card.getAttribute('data-year');
-                    selectCard(year);
-                }
+            if (card && !card.classList.contains('active')) {
+                // 添加小延迟确保不是拖拽操作
+                clickTimeout = setTimeout(() => {
+                    if (!isDragging) {
+                const year = card.getAttribute('data-year');
+                selectCard(year);
+                    }
+                }, 10);
             }
         });
 
