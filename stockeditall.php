@@ -1486,7 +1486,8 @@
         /* 日期过滤器样式 */
         .header-filter {
             display: flex;
-            flex-direction: column;
+            align-items: center; /* 改为水平对齐 */
+            gap: 12px; /* 添加间距 */
             min-width: 140px;
             flex-shrink: 0;
         }
@@ -1541,14 +1542,6 @@
             margin-left: auto;
         }
 
-        /* 日期过滤器样式 */
-        .header-filter {
-            display: flex;
-            flex-direction: column;
-            min-width: 140px;
-            flex-shrink: 0;
-        }
-
         .search-label {
             font-size: 12px;
             font-weight: 600;
@@ -1562,7 +1555,8 @@
             min-width: 200px;
             max-width: 350px;
             display: flex;
-            flex-direction: column;
+            align-items: center; /* 改为水平对齐 */
+            gap: 12px; /* 添加间距 */
         }
 
         .unified-search-input {
@@ -1889,13 +1883,13 @@
 
         <div class="unified-header-row">
             <div class="header-filter">
-                <label for="date-filter" class="search-label">日期</label>
+                <span style="font-size: 12px; font-weight: 600; color: #583e04; white-space: nowrap;">日期</span>
                 <input type="date" id="date-filter" class="filter-input">
             </div>
             
             <div class="header-right-group">
                 <div class="header-search">
-                    <label for="unified-filter" class="search-label">搜索</label>
+                    <span style="font-size: 12px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="unified-filter" class="unified-search-input" 
                         placeholder="搜索货品编号、货品名称或收货人...">
                 </div>
