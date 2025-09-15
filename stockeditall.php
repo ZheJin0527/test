@@ -403,7 +403,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding: 8px 15px;
+            padding: 8px 10px;
             height: 40px;
             box-sizing: border-box;
             font-size: 14px;
