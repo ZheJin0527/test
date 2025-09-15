@@ -1524,7 +1524,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 18px 24px;
+            padding: 22px 24px;
             background: white;
             border-radius: 12px;
             margin-bottom: 24px;
