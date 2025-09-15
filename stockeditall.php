@@ -4802,7 +4802,7 @@
                 
                 if (useMultiPage) {
                     // 使用多页模板
-                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 40 : 30));
+                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 40 : 38));
                     showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
                     await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                 } else {
@@ -5160,7 +5160,7 @@
         }
         
         // 计算每页可容纳的记录数
-        const recordsPerPage = exportSystem === 'j1' ? 40 : 30;
+        const recordsPerPage = exportSystem === 'j1' ? 40 : 38;
         const totalPages = Math.ceil(outData.length / recordsPerPage);
         
         console.log(`多页PDF: 总记录数 ${outData.length}, 每页 ${recordsPerPage} 条, 共 ${totalPages} 页`);
@@ -5279,13 +5279,17 @@
 let yPosition, lineHeight;
 if (exportSystem === 'j1') {
     if (pageIndex === 0) {
-        yPosition = height - 185; // 第一页位置
+        yPosition = height - 185; // J1第一页位置
     } else {
-        yPosition = height - 25;  // 第二页位置（可调整这个数值）
+        yPosition = height - 25;  // J1第二页位置
     }
     lineHeight = 16.01;
-} else {
-    yPosition = height - 223;
+} else { // j2
+    if (pageIndex === 0) {
+        yPosition = height - 223; // J2第一页位置（原来的位置）
+    } else {
+        yPosition = height - 35; // J2第二页位置（可调整这个数值）
+    }
     lineHeight = 16.01;
 }
 
