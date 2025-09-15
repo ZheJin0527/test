@@ -4017,8 +4017,8 @@ nav {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 30px;
-    max-width: 1000px;
+    gap: 20px;
+    max-width: 1400px;
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
@@ -4030,8 +4030,8 @@ nav {
     border-radius: 15px;
     padding: 20px;
     width: 100%;
-    max-width: 450px;
-    min-width: 300px;
+    max-width: 400px;
+    min-width: 280px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 92, 0, 0.2);
     transition: all 0.3s ease;

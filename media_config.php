@@ -657,15 +657,15 @@ function getJobsHtml() {
         }
         
         // 为每个公司创建独立的卡片容器，确保KUNZZHOLDINGS在左边
-        $companyOrder = ['KUNZZ HOLDINGS', 'TOKYO JAPANESE CUISINE'];
+        $companyOrder = ['KUNZZ HOLDINGS', 'TOKYO JAPANESE CUISINE', 'TOKYO IZAKAYA'];
         foreach ($companyOrder as $company) {
             $html .= '<div class="company-job-container">';
             $html .= '<h3 class="company-title">' . htmlspecialchars($company) . '</h3>';
             $html .= '<div class="company-jobs-list">';
             
             if (isset($groupedJobs[$company]) && !empty($groupedJobs[$company])) {
-                if ($company === 'TOKYO JAPANESE CUISINE') {
-                    // 为TOKYO JAPANESE CUISINE按部门分组显示
+                if ($company === 'TOKYO JAPANESE CUISINE' || $company === 'TOKYO IZAKAYA') {
+                    // 为TOKYO公司按部门分组显示
                     $departmentJobs = [];
                     foreach ($groupedJobs[$company] as $job) {
                         $dept = $job['company_department'] ?? '其他';

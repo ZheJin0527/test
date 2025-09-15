@@ -578,7 +578,7 @@ if (isset($_GET['success'])) {
             const departmentGroup = document.getElementById('department-group');
             const departmentSelect = document.getElementById('company_department');
             
-            if (companySelect.value === 'TOKYO JAPANESE CUISINE') {
+            if (companySelect.value === 'TOKYO JAPANESE CUISINE' || companySelect.value === 'TOKYO IZAKAYA') {
                 departmentGroup.style.display = 'flex';
                 departmentSelect.required = true;
             } else {
@@ -736,6 +736,7 @@ if (isset($_GET['success'])) {
                                 <option value="">请选择公司</option>
                                 <option value="KUNZZ HOLDINGS" <?php echo ($editJob && $editJob['company_category'] === 'KUNZZ HOLDINGS') ? 'selected' : ''; ?>>KUNZZ HOLDINGS</option>
                                 <option value="TOKYO JAPANESE CUISINE" <?php echo ($editJob && $editJob['company_category'] === 'TOKYO JAPANESE CUISINE') ? 'selected' : ''; ?>>TOKYO JAPANESE CUISINE</option>
+                                <option value="TOKYO IZAKAYA" <?php echo ($editJob && $editJob['company_category'] === 'TOKYO IZAKAYA') ? 'selected' : ''; ?>>TOKYO IZAKAYA</option>
                             </select>
                         </div>
                         
