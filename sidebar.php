@@ -1,5 +1,32 @@
 <?php
-// Ensure variables exist when included from different pages
+// 数据库配置
+$host = 'localhost';
+$dbname = 'u857194726_kunzzgroup';
+$dbuser = 'u857194726_kunzzgroup';
+$dbpass = 'Kholdings1688@';
+
+try {
+    // 创建PDO连接
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // 如果有用户ID，从数据库获取用户信息
+    if (isset($_SESSION['user_id'])) {
+        $stmt = $pdo->prepare("SELECT username, position FROM users WHERE id = ?");
+        $stmt->execute([$_SESSION['user_id']]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($user) {
+            $username = $user['username'];
+            $position = $user['position'];
+        }
+    }
+} catch(PDOException $e) {
+    // 如果连接失败，使用默认值
+    error_log("Database connection failed: " . $e->getMessage());
+}
+
+// 设置默认值（如果数据库查询失败或没有用户登录）
 $username = isset($username) ? $username : (isset($_SESSION['username']) ? $_SESSION['username'] : 'User');
 $position = isset($position) ? $position : ((isset($_SESSION['position']) && !empty($_SESSION['position'])) ? $_SESSION['position'] : 'User');
 $avatarLetter = isset($avatarLetter) ? $avatarLetter : strtoupper(substr($username, 0, 1));
