@@ -744,36 +744,18 @@ updatePageIndicator(0);
             const cards = document.querySelectorAll('.timeline-content-item');
             
             cards.forEach((card, index) => {
-                card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
-                
-                // 添加平滑过渡效果
-                card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                card.classList.remove('active', 'prev', 'next', 'hidden');
                 
                 if (index === currentIndex) {
-                    // 当前活动卡片
                     card.classList.add('active');
-                    card.style.zIndex = '10';
                 } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
-                    // 左侧卡片
                     card.classList.add('prev');
-                    card.style.zIndex = '5';
                 } else if (index === (currentIndex + 1) % totalItems) {
-                    // 右侧卡片
                     card.classList.add('next');
-                    card.style.zIndex = '5';
                 } else {
-                    // 其他卡片都隐藏在中间后面，形成堆叠效果
-                    card.classList.add('stack-hidden');
-                    card.style.zIndex = '1';
+                    card.classList.add('hidden');
                 }
             });
-            
-            // 清除transition，避免影响后续操作
-            setTimeout(() => {
-                cards.forEach(card => {
-                    card.style.transition = '';
-                });
-            }, 400);
         }
 
         function navigateTimeline(direction) {
