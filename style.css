@@ -3977,16 +3977,16 @@ nav {
 }
 
 .job-section {
-    padding: 80px;
-    background: url('https://kunzzgroup.com/images/images/%E8%83%8C%E6%99%AF3.jpg') no-repeat center center/cover;
+    padding: clamp(60px, 8vw, 100px);
+    background: url('images/images/%E8%83%8C%E6%99%AF3.jpg') no-repeat center center/cover;
     backdrop-filter: blur(20px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    height: 100vh;
-    margin: 0 auto;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
     box-sizing: border-box;
     text-align: center;
 }
@@ -4502,6 +4502,251 @@ nav {
 
   .job-item-title {
     font-size: clamp(12px, 4vw, 14px);
+  }
+}
+
+/* Ultra-wide 4K Resolution Optimization (3840×2160 and above) */
+@media (min-width: 3840px) {
+  .jobs-container {
+    max-width: 2000px;
+    gap: 40px;
+    padding: 0 40px;
+  }
+
+  .company-job-container {
+    max-width: 600px;
+    min-width: 500px;
+    padding: 30px;
+  }
+
+  .company-title {
+    font-size: clamp(28px, 1.5vw, 36px);
+    margin-bottom: 30px;
+  }
+
+  .job-item {
+    padding: 25px;
+    margin-bottom: 15px;
+  }
+
+  .job-item-title {
+    font-size: clamp(18px, 1vw, 22px);
+  }
+
+  .department-title {
+    font-size: clamp(18px, 1.2vw, 24px);
+    padding: 12px 16px;
+    margin-bottom: 15px;
+  }
+
+  .job-table-title {
+    font-size: clamp(48px, 2.5vw, 60px);
+    margin: 0 auto clamp(30px, 2vw, 50px);
+  }
+}
+
+/* Large Desktop Optimization (2560×1440 to 3839px) */
+@media (min-width: 2560px) and (max-width: 3839px) {
+  .jobs-container {
+    max-width: 1800px;
+    gap: 35px;
+    padding: 0 35px;
+  }
+
+  .company-job-container {
+    max-width: 550px;
+    min-width: 450px;
+    padding: 25px;
+  }
+
+  .company-title {
+    font-size: clamp(24px, 1.8vw, 32px);
+    margin-bottom: 25px;
+  }
+
+  .job-item {
+    padding: 22px;
+    margin-bottom: 12px;
+  }
+
+  .job-item-title {
+    font-size: clamp(16px, 1.2vw, 20px);
+  }
+
+  .department-title {
+    font-size: clamp(16px, 1.4vw, 22px);
+    padding: 10px 14px;
+    margin-bottom: 12px;
+  }
+
+  .job-table-title {
+    font-size: clamp(40px, 3vw, 50px);
+    margin: 0 auto clamp(25px, 2.5vw, 40px);
+  }
+}
+
+/* High Resolution Desktop (1920×1080 to 2559px) */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .jobs-container {
+    max-width: 1600px;
+    gap: 30px;
+    padding: 0 30px;
+  }
+
+  .company-job-container {
+    max-width: 500px;
+    min-width: 400px;
+    padding: 22px;
+  }
+
+  .company-title {
+    font-size: clamp(22px, 2vw, 28px);
+    margin-bottom: 22px;
+  }
+
+  .job-item {
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+
+  .job-item-title {
+    font-size: clamp(15px, 1.4vw, 18px);
+  }
+
+  .department-title {
+    font-size: clamp(15px, 1.6vw, 20px);
+    padding: 9px 13px;
+    margin-bottom: 10px;
+  }
+
+  .job-table-title {
+    font-size: clamp(36px, 3.5vw, 45px);
+    margin: 0 auto clamp(20px, 3vw, 35px);
+  }
+}
+
+/* Specific optimization for 1440×806 resolution */
+@media (min-width: 1440px) and (max-height: 900px) {
+  .job-section {
+    padding: clamp(40px, 6vw, 80px);
+    min-height: 100vh;
+  }
+
+  .jobs-container {
+    max-width: 1100px;
+    gap: 22px;
+    padding: 0 22px;
+  }
+
+  .company-job-container {
+    max-width: 350px;
+    min-width: 300px;
+    padding: 18px;
+  }
+
+  .company-title {
+    font-size: clamp(18px, 2.5vw, 24px);
+    margin-bottom: 18px;
+  }
+
+  .job-item {
+    padding: 16px;
+    margin-bottom: 7px;
+  }
+
+  .job-item-title {
+    font-size: clamp(13px, 1.7vw, 16px);
+  }
+
+  .department-title {
+    font-size: clamp(13px, 1.9vw, 17px);
+    padding: 7px 11px;
+    margin-bottom: 7px;
+  }
+
+  .job-table-title {
+    font-size: clamp(30px, 4.2vw, 38px);
+    margin: 0 auto clamp(16px, 3.8vw, 28px);
+  }
+}
+
+/* Medium Desktop (1440×900 to 1919px) - Your boss's resolution range */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .jobs-container {
+    max-width: 1200px;
+    gap: 25px;
+    padding: 0 25px;
+  }
+
+  .company-job-container {
+    max-width: 380px;
+    min-width: 320px;
+    padding: 20px;
+  }
+
+  .company-title {
+    font-size: clamp(20px, 2.2vw, 26px);
+    margin-bottom: 20px;
+  }
+
+  .job-item {
+    padding: 18px;
+    margin-bottom: 8px;
+  }
+
+  .job-item-title {
+    font-size: clamp(14px, 1.6vw, 17px);
+  }
+
+  .department-title {
+    font-size: clamp(14px, 1.8vw, 18px);
+    padding: 8px 12px;
+    margin-bottom: 8px;
+  }
+
+  .job-table-title {
+    font-size: clamp(32px, 4vw, 40px);
+    margin: 0 auto clamp(18px, 3.5vw, 30px);
+  }
+}
+
+/* Small Desktop (1200×800 to 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .jobs-container {
+    max-width: 1000px;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .company-job-container {
+    max-width: 320px;
+    min-width: 280px;
+    padding: 18px;
+  }
+
+  .company-title {
+    font-size: clamp(18px, 2.5vw, 24px);
+    margin-bottom: 18px;
+  }
+
+  .job-item {
+    padding: 16px;
+    margin-bottom: 6px;
+  }
+
+  .job-item-title {
+    font-size: clamp(13px, 1.8vw, 16px);
+  }
+
+  .department-title {
+    font-size: clamp(13px, 2vw, 16px);
+    padding: 7px 11px;
+    margin-bottom: 6px;
+  }
+
+  .job-table-title {
+    font-size: clamp(28px, 4.5vw, 36px);
+    margin: 0 auto clamp(15px, 4vw, 25px);
   }
 }
 
