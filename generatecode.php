@@ -72,7 +72,7 @@
         .generate-form {
             background: transparent;
             border-radius: 15px;
-            margin-bottom: 0px;
+            margin-bottom: 25px;
             justify-items: flex-start;
         }
 
