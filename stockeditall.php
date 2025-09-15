@@ -4798,11 +4798,11 @@
                 
                 // 根据记录数量决定使用单页还是多页模板
                 const recordCount = outData.length;
-                const useMultiPage = (exportSystem === 'j1' && recordCount > 35) || (exportSystem === 'j2' && recordCount > 30);
+                const useMultiPage = (exportSystem === 'j1' && recordCount > 40) || (exportSystem === 'j2' && recordCount > 30);
                 
                 if (useMultiPage) {
                     // 使用多页模板
-                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 35 : 30));
+                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 40 : 30));
                     showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
                     await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                 } else {
@@ -5160,7 +5160,7 @@
         }
         
         // 计算每页可容纳的记录数
-        const recordsPerPage = exportSystem === 'j1' ? 35 : 30;
+        const recordsPerPage = exportSystem === 'j1' ? 40 : 30;
         const totalPages = Math.ceil(outData.length / recordsPerPage);
         
         console.log(`多页PDF: 总记录数 ${outData.length}, 每页 ${recordsPerPage} 条, 共 ${totalPages} 页`);
@@ -5222,49 +5222,51 @@
                 const { width, height } = page.getSize();
                 
                 // 填入日期和发票号码
-                const currentDate = invoiceDate ? 
-                    new Date(invoiceDate).toLocaleDateString('en-GB') : 
-                    new Date().toLocaleDateString('en-GB');
+                if (pageIndex === 0) {
+                    const currentDate = invoiceDate ? 
+                        new Date(invoiceDate).toLocaleDateString('en-GB') : 
+                        new Date().toLocaleDateString('en-GB');
 
-                if (exportSystem === 'j1') {
-                    // J1模板的日期位置
-                    page.drawText(` ${currentDate}`, {
-                        x: 470,
-                        y: height - 129.5, 
-                        size: fontSize,
-                        color: whiteColor,
-                        font: boldFont,
-                    });
-                    
-                    // J1模板的发票号码位置
-                    if (invoiceNumber) {
-                        page.drawText(invoiceNumber, {
-                            x: 105,
-                            y: height - 129.5,
+                    if (exportSystem === 'j1') {
+                        // J1模板的日期位置
+                        page.drawText(` ${currentDate}`, {
+                            x: 470,
+                            y: height - 129.5, 
                             size: fontSize,
                             color: whiteColor,
                             font: boldFont,
                         });
-                    }
-                } else if (exportSystem === 'j2') {
-                    // J2模板的日期位置
-                    page.drawText(` ${currentDate}`, {
-                        x: 470,
-                        y: height - 175,
-                        size: fontSize,
-                        color: whiteColor,
-                        font: boldFont,
-                    });
-                    
-                    // J2模板的发票号码位置
-                    if (invoiceNumber) {
-                        page.drawText(invoiceNumber, {
-                            x: 105,
+                        
+                        // J1模板的发票号码位置
+                        if (invoiceNumber) {
+                            page.drawText(invoiceNumber, {
+                                x: 105,
+                                y: height - 129.5,
+                                size: fontSize,
+                                color: whiteColor,
+                                font: boldFont,
+                            });
+                        }
+                    } else if (exportSystem === 'j2') {
+                        // J2模板的日期位置 (J2保持每页都显示)
+                        page.drawText(` ${currentDate}`, {
+                            x: 470,
                             y: height - 175,
                             size: fontSize,
                             color: whiteColor,
                             font: boldFont,
                         });
+                        
+                        // J2模板的发票号码位置
+                        if (invoiceNumber) {
+                            page.drawText(invoiceNumber, {
+                                x: 105,
+                                y: height - 175,
+                                size: fontSize,
+                                color: whiteColor,
+                                font: boldFont,
+                            });
+                        }
                     }
                 }
                 
