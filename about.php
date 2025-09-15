@@ -1,5 +1,4 @@
 <?php
-
 // 禁用页面缓存
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
@@ -8,79 +7,16 @@ session_start();
 include_once 'media_config.php';
 // 获取时间线数据
 $timelineData = getTimelineConfig();
+
+// 设置页面特定的变量
+$pageTitle = 'KUNZZ HOLDINGS';
+$additionalCSS = ['aboutanimation.css'];
+$showPageIndicator = true;
+$totalSlides = 5;
+
+// 包含header
+include 'header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <link rel="icon" type="image/png" href="images/images/logo.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUNZZ HOLDINGS</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="aboutanimation.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <?php echo getBgMusicHtml(); ?>
-  <header class="navbar">
-  <!-- 左侧 logo 和公司名 -->
-  <div class="logo-section">
-    <a href="index.php">
-    <img src="images/images/KUNZZ.png" alt="Logo" class="logo">
-    </a>
-  </div>
-
-  <!-- 中间导航（默认显示，大屏） -->
-  <nav class="nav-links" id="navMenu">
-    <div class="nav-item"><a href="index.php">首页</a></div>
-    <div class="nav-item"><a href="about.php">关于我们</a></div>
-    <div class="nav-item nav-dropdown">
-      <span class="nav-dropdown-trigger">旗下品牌</span>
-      <div class="nav-dropdown-menu" id="brandsNavDropdownMenu">
-        <a href="tokyo-japanese-cuisine.php" class="nav-dropdown-item">Tokyo Japanese Cuisine</a>
-        <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a>
-      </div>
-     </div>
-    <div class="nav-item"><a href="joinus.php">加入我们</a></div>
-  </nav>
-
-  <!-- 右侧区域 -->
-  <div class="right-section">
-    <!-- 移动端隐藏 login，仅大屏显示 -->
-    <div class="login-dropdown">
-      <button class="login-btn" id="loginBtn">LOGIN</button>
-        <div class="login-dropdown-menu" id="loginDropdownMenu">
-          <a href="login.html" class="login-dropdown-item">员工登入</a>
-          <a href="login.html" class="login-dropdown-item">会员登入</a>
-        </div>
-      </div>
-
-    <!-- 翻译按钮始终显示 -->
-    <div class="language-switch">
-      <button class="lang" id="languageBtn">EN | CN</button>
-        <div class="language-dropdown-menu" id="languageDropdownMenu">
-          <a href="/en/" class="language-dropdown-item" data-lang="en">英文</a>
-          <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
-        </div>
-      </div>
-
-    <!-- hamburger 仅在小屏显示 -->
-    <button class="hamburger" id="hamburger">&#9776;</button>
-  </div>
-</header>
-
-<div class="page-indicator">
-        <div class="page-dot active" data-slide="0"></div>
-        <div class="page-dot" data-slide="1"></div>
-        <div class="page-dot" data-slide="2"></div>
-        <div class="page-dot" data-slide="3"></div>
-        <div class="page-dot" data-slide="4"></div>
-    </div>
     
 <div class="swiper">
   <div class="swiper-wrapper">
@@ -764,7 +700,7 @@ updatePageIndicator(0);
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
         });
     </script>
-<script>
+    <script>
         let currentIndex = 0;
         let years = <?php echo json_encode(getTimelineYears()); ?>;
         let totalItems = years.length;
@@ -983,8 +919,8 @@ updatePageIndicator(0);
                 // 添加小延迟确保不是拖拽操作
                 clickTimeout = setTimeout(() => {
                     if (!isDragging) {
-                        const year = card.getAttribute('data-year');
-                        selectCard(year);
+                const year = card.getAttribute('data-year');
+                selectCard(year);
                     }
                 }, 10);
             }
@@ -1156,7 +1092,7 @@ updatePageIndicator(0);
         navBrandsDropdown.addEventListener('mouseleave', function() {
             navBrandsDropdownMenu.classList.remove('show');
         });
-    }
-</script>
+        }
+    </script>
 </body>
 </html>
