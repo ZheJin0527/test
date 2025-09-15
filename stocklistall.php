@@ -1249,7 +1249,7 @@
 
         .header-right-section {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             gap: 20px;
             margin-left: auto;
         }
