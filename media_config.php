@@ -684,8 +684,12 @@ function getJobsHtml() {
                             $html .= '<div class="department-title">' . htmlspecialchars($dept) . '</div>';
                             $html .= '<div class="department-jobs' . $singleJobClass . '">';
                             
+                            $jobIndex = 0;
                             foreach ($departmentJobs[$dept] as $job) {
-                                $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
+                                $jobIndex++;
+                                $isLastOddJob = ($jobCount > 2 && $jobCount % 2 == 1 && $jobIndex == $jobCount) ? ' last-odd-job' : '';
+                                
+                                $html .= '<div class="job-item' . $isLastOddJob . '" data-job-id="' . $job['id'] . '">';
                                 $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
                                 $html .= '</div>';
                             }

@@ -4146,6 +4146,11 @@ nav {
     grid-template-columns: 1fr;
 }
 
+/* 最后一个奇数职位占据全宽 */
+.job-item.last-odd-job {
+    grid-column: 1 / -1;
+}
+
 .no-jobs-company {
     text-align: center;
     color: #666;
