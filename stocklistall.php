@@ -1249,6 +1249,7 @@
         }
 
         .header-right-section {
+            margin-top: 35px;
             display: flex;
             align-items: center;
             gap: 20px;
