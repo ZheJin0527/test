@@ -4078,7 +4078,7 @@ nav {
 }
 
 .job-item-title {
-    font-size: clamp(14px, 1.8vw, 24px);
+    font-size: clamp(14px, 1.8vw, 18px);
     font-weight: 600;
     margin: 0 0 8px 0;
     text-transform: uppercase;
@@ -4374,7 +4374,7 @@ nav {
   }
 
   .job-item-title {
-    font-size: clamp(14px, 1.8vw, 24px);
+    font-size: clamp(14px, 1.8vw, 18px);
   }
 
   .job-item-department {
