@@ -1394,44 +1394,32 @@
 
         <!-- J1库存页面 -->
         <div id="j1-page" class="page-section">
-            <div class="main-content-row">
-                <div class="summary-section">
-                    <div class="summary-card total-value">
-                        <h3>J1总库存</h3>
-                        <div class="summary-currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <span class="value" id="j1-total-value">0.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <div class="action-buttons">
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="search-group">
-                            <label for="j1-unified-filter">搜索</label>
-                            <input type="text" id="j1-unified-filter" class="unified-search-input" 
-                                placeholder="搜索货品名称、编号或规格单位...">
-                        </div>
-                        <button class="btn btn-warning" onclick="exportData('j1')">
-                            <i class="fas fa-download"></i>
-                            导出数据
-                        </button>
-                    </div>
-                    
-                    <div class="stats-info" id="j1-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="j1-displayed-records">0</span></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="j1-total-records">0</span></span>
-                        </div>
+            <div class="unified-header-row">
+                <div class="header-summary">
+                    <div class="summary-title">总库存</div>
+                    <div class="summary-amount">
+                        <span class="currency-symbol">RM</span>
+                        <span class="value" id="j1-total-value">0.00</span>
                     </div>
                 </div>
                 
+                <div class="header-search">
+                    <input type="text" id="j1-unified-filter" class="unified-search-input" 
+                        placeholder="搜索货品名称、编号或规格单位...">
+                </div>
+                
+                <button class="btn btn-warning" onclick="exportData('j1')">
+                    <i class="fas fa-download"></i>
+                    导出数据
+                </button>
+                
+                <div class="header-stats">
+                    <span>显示记录: <span class="stat-value" id="j1-displayed-records">0</span></span>
+                    <span>总记录: <span class="stat-value" id="j1-total-records">0</span></span>
+                </div>
+            </div>
+
+            <div class="table-container">                           
                 <div class="table-scroll-container">
                     <table class="stock-table" id="j1-stock-table">
                         <thead>
@@ -1455,44 +1443,32 @@
 
         <!-- J2库存页面 -->
         <div id="j2-page" class="page-section">
-            <div class="main-content-row">
-                <div class="summary-section">
-                    <div class="summary-card total-value">
-                        <h3>J2总库存</h3>
-                        <div class="summary-currency-display">
-                            <span class="currency-symbol">RM</span>
-                            <span class="value" id="j2-total-value">0.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <div class="action-buttons">
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="search-group">
-                            <label for="j2-unified-filter">搜索</label>
-                            <input type="text" id="j2-unified-filter" class="unified-search-input" 
-                                placeholder="搜索货品名称、编号或规格单位...">
-                        </div>
-                        <button class="btn btn-warning" onclick="exportData('j2')">
-                            <i class="fas fa-download"></i>
-                            导出数据
-                        </button>
-                    </div>
-                    
-                    <div class="stats-info" id="j2-stock-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>显示记录: <span class="stat-value" id="j2-displayed-records">0</span></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-boxes"></i>
-                            <span>总记录: <span class="stat-value" id="j2-total-records">0</span></span>
-                        </div>
+            <div class="unified-header-row">
+                <div class="header-summary">
+                    <div class="summary-title">总库存</div>
+                    <div class="summary-amount">
+                        <span class="currency-symbol">RM</span>
+                        <span class="value" id="j2-total-value">0.00</span>
                     </div>
                 </div>
                 
+                <div class="header-search">
+                    <input type="text" id="j2-unified-filter" class="unified-search-input" 
+                        placeholder="搜索货品名称、编号或规格单位...">
+                </div>
+                
+                <button class="btn btn-warning" onclick="exportData('j2')">
+                    <i class="fas fa-download"></i>
+                    导出数据
+                </button>
+                
+                <div class="header-stats">
+                    <span>显示记录: <span class="stat-value" id="j2-displayed-records">0</span></span>
+                    <span>总记录: <span class="stat-value" id="j2-total-records">0</span></span>
+                </div>
+            </div>
+
+            <div class="table-container">                              
                 <div class="table-scroll-container">
                     <table class="stock-table" id="j2-stock-table">
                         <thead>
