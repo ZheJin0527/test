@@ -2759,7 +2759,10 @@ nav {
     height: 100%;
     display: flex;
     align-items: center;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     z-index: 2;
 }
 
@@ -2916,10 +2919,12 @@ nav {
     position: absolute;
     width: clamp(600px, 45vw, 850px);
     height: clamp(230px, 19vw, 350px);
-    transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
     transform-style: preserve-3d;
-     margin-top: -250px;
-    will-change: transform, opacity, z-index; /* 优化性能 */
+    margin-top: -250px;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* 当前活动卡片 */
@@ -3023,14 +3028,29 @@ nav {
     z-index: 1;
 }
 
-.timeline-image img {
+.timeline-image img,
+.timeline-img {
     width: 100%;
     height: clamp(200px, 16vw, 300px);
     object-fit: cover;
     border-radius: 15px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    transition: all 0.4s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     border: 2px solid rgba(255, 255, 255, 0.1);
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* 图片加载状态 */
+.timeline-img[loading] {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.timeline-img.loaded {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* 取消图片悬停动画 */
