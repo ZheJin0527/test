@@ -228,28 +228,10 @@ body.has-sidebar.sidebar-collapsed {
                     </a>
                 </div>
                 <div class="menu-item-wrapper">
-                    <a href="kpi.php" class="informationmenu-item">
+                    <a href="kpiedit.php" class="informationmenu-item">
                         KPI数据上传
                         <span class="informationmenu-arrow">›</span>
                     </a>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        报表系统
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">报表系统</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="#" class="submenu-item">财务</a>
-                            <a href="#" class="submenu-item">业绩</a>
-                            <a href="#" class="submenu-item">桌子</a>
-                            <a href="#" class="submenu-item">工资</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -261,38 +243,12 @@ body.has-sidebar.sidebar-collapsed {
                 人事与资源管理
                 <span class="section-arrow">⮞</span>
             </div>
-            <div class="dropdown-menu-items" id="hr-items">
+            <div class="dropdown-menu-items" id="hr-items">               
                 <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        假期申请
+                    <a href="generatecode.php" class="informationmenu-item">
+                        添加职员
                         <span class="informationmenu-arrow">›</span>
                     </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">假期申请</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="#" class="submenu-item">申请请求</a>
-                            <a href="#" class="submenu-item">假期报表</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        资源申请
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">资源申请</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="#" class="submenu-item">资源请求</a>
-                            <a href="#" class="submenu-item">分配状态</a>
-                            <a href="generatecode.php" class="submenu-item">分配申请码</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -318,13 +274,6 @@ body.has-sidebar.sidebar-collapsed {
                             <a href="stockproductname.php" class="submenu-item">货物种类</a>
                         </div>
                     </div>
-                </div>
-
-                <div class="menu-item-wrapper">
-                    <a href="stockedit.php" class="informationmenu-item">
-                        碗碟
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -404,71 +353,6 @@ body.has-sidebar.sidebar-collapsed {
                             <a href="joinpage3upload.php" class="submenu-item">第三页</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="informationmenu-section">
-            <div class="informationmenu-section-title" data-target="user-items">
-                <img src="images/images/用户与权限管理.png" alt="" class="section-icon">
-                用户与权限管理
-                <span class="section-arrow">⮞</span>
-            </div>
-            <div class="dropdown-menu-items" id="user-items">
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        我的账号
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">我的账号</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="#" class="submenu-item">个人资料</a>
-                            <a href="edit_profile.php" class="submenu-item">修改资料</a>
-                            <a href="#" class="submenu-item">消息</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        系统设置
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">系统设置</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="#" class="submenu-item">语言</a>
-                            <a href="#" class="submenu-item">权限</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="informationmenu-section">
-            <div class="informationmenu-section-title" data-target="help-items">
-                <img src="images/images/帮助与支持.png" alt="" class="section-icon">
-                帮助与支持
-                <span class="section-arrow">⮞</span>
-            </div>
-            <div class="dropdown-menu-items" id="help-items">
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        使用教学
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        问题库
-                        <span class="informationmenu-arrow">›</span>
-                    </a>                    
                 </div>
             </div>
         </div>
