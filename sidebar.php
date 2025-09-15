@@ -222,20 +222,16 @@ body.has-sidebar.sidebar-collapsed {
             </div>
             <div class="dropdown-menu-items" id="analytics-items">
                 <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
+                    <a href="kpi.php" class="informationmenu-item">
                         仪表盘
                         <span class="informationmenu-arrow">›</span>
                     </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">仪表盘</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="kpi.php" class="submenu-item">集团概览</a>
-                            <a href="#" class="submenu-item">工作表</a>
-                            <a href="kpiedit.php" class="submenu-item">KPI数据上传</a>
-                        </div>
-                    </div>
+                </div>
+                <div class="menu-item-wrapper">
+                    <a href="kpi.php" class="informationmenu-item">
+                        KPI数据上传
+                        <span class="informationmenu-arrow">›</span>
+                    </a>
                 </div>
                 
                 <div class="menu-item-wrapper">
