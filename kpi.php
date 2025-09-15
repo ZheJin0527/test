@@ -1724,7 +1724,6 @@ $avatarLetter = strtoupper($username[0]);
 <body class="restaurant-j1">
     <?php include 'sidebar.php'; ?>
     <div id="app">
-        <div class="main-content sidebar-collapsed" id="main-content">
             <div class="header">
                 <div class="logo-container">
                     <span class="title-text">KPI 仪表盘</span>
