@@ -1566,6 +1566,7 @@
         }
 
         .unified-search-input {
+            width: 250px;
             padding: 8px 12px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
