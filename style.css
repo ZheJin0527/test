@@ -4017,7 +4017,7 @@ nav {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 20px;
+    gap: 10px;
     max-width: 1400px;
     width: 100%;
     margin: 0 auto;
@@ -4370,7 +4370,7 @@ nav {
   }
 
   .jobs-container {
-    gap: 25px;
+    gap: 20px;
     max-width: 900px;
   }
 
@@ -4414,7 +4414,7 @@ nav {
 @media (max-width: 1280px) and (min-width: 1025px) {
   .jobs-container {
     max-width: 900px;
-    gap: 16px;
+    gap: 10px;
     padding: 0 16px;
   }
 
@@ -4464,7 +4464,7 @@ nav {
 @media (max-width: 1024px) and (min-width: 769px) {
   .jobs-container {
     max-width: 800px;
-    gap: 12px;
+    gap: 8px;
     padding: 0 12px;
   }
 
@@ -4520,7 +4520,7 @@ nav {
   .jobs-container {
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 0px;
     max-width: 450px;
   }
 
@@ -4585,7 +4585,7 @@ nav {
   .jobs-container {
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 0px;
     max-width: 100%;
   }
 
@@ -4643,7 +4643,7 @@ nav {
   }
 
   .jobs-container {
-    gap: 12px;
+    gap: 0px;
   }
 
   .company-job-container {
@@ -4690,7 +4690,7 @@ nav {
 @media (min-width: 3840px) {
   .jobs-container {
     max-width: 2000px;
-    gap: 40px;
+    gap: 10px;
     padding: 0 40px;
   }
 
@@ -4730,7 +4730,7 @@ nav {
 @media (min-width: 2560px) and (max-width: 3839px) {
   .jobs-container {
     max-width: 1800px;
-    gap: 35px;
+    gap: 10px;
     padding: 0 35px;
   }
 
@@ -4770,7 +4770,7 @@ nav {
 @media (min-width: 1920px) and (max-width: 2559px) {
   .jobs-container {
     max-width: 1600px;
-    gap: 30px;
+    gap: 8px;
     padding: 0 30px;
   }
 
@@ -4815,7 +4815,7 @@ nav {
 
   .jobs-container {
     max-width: 1100px;
-    gap: 22px;
+    gap: 10px;
     padding: 0 22px;
   }
 
@@ -4855,7 +4855,7 @@ nav {
 @media (min-width: 1440px) and (max-width: 1919px) {
   .jobs-container {
     max-width: 1200px;
-    gap: 25px;
+    gap: 8px;
     padding: 0 25px;
   }
 
@@ -4895,7 +4895,7 @@ nav {
 @media (min-width: 1200px) and (max-width: 1439px) {
   .jobs-container {
     max-width: 1000px;
-    gap: 20px;
+    gap: 0px;
     padding: 0 20px;
   }
 
