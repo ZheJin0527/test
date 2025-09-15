@@ -46,12 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             
             if ($result) {
-                echo "<script>showAlert('职位添加成功！', 'success');</script>";
+                $success = "职位添加成功！";
             } else {
-                echo "<script>showAlert('职位添加失败！', 'error');</script>";
+                $error = "职位添加失败！";
             }
         } catch (PDOException $e) {
-            echo "<script>showAlert('添加职位失败：" . $e->getMessage() . "', 'error');</script>";
+            $error = "添加职位失败：" . $e->getMessage();
         }
         
     } elseif ($action === 'edit') {
@@ -78,12 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             
             if ($result) {
-                echo "<script>showAlert('职位更新成功！', 'success');</script>";
+                $success = "职位更新成功！";
+                // 编辑成功后重定向，避免重复提交
+                header("Location: joinpage3upload.php?success=" . urlencode("职位更新成功！"));
+                exit();
             } else {
-                echo "<script>showAlert('职位更新失败！', 'error');</script>";
+                $error = "职位更新失败！";
             }
         } catch (PDOException $e) {
-            echo "<script>showAlert('更新职位失败：" . $e->getMessage() . "', 'error');</script>";
+            $error = "更新职位失败：" . $e->getMessage();
         }
         
     } elseif ($action === 'delete') {
@@ -93,12 +96,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $stmt->execute([$_POST['job_id']]);
             
             if ($result) {
-                echo "<script>showAlert('职位删除成功！', 'success');</script>";
+                $success = "职位删除成功！";
             } else {
-                echo "<script>showAlert('职位删除失败！', 'error');</script>";
+                $error = "职位删除失败！";
             }
         } catch (PDOException $e) {
-            echo "<script>showAlert('删除职位失败：" . $e->getMessage() . "', 'error');</script>";
+            $error = "删除职位失败：" . $e->getMessage();
         }
     }
 }
@@ -123,6 +126,11 @@ if (isset($_GET['edit'])) {
             break;
         }
     }
+}
+
+// 处理URL参数中的成功消息
+if (isset($_GET['success'])) {
+    $success = $_GET['success'];
 }
 ?>
 
@@ -579,6 +587,15 @@ if (isset($_GET['edit'])) {
         // 页面加载时检查是否需要显示部门字段
         document.addEventListener('DOMContentLoaded', function() {
             toggleDepartmentField();
+            
+            // 检查是否有成功或错误消息需要显示
+            <?php if (isset($success)): ?>
+                showAlert('<?php echo addslashes($success); ?>', 'success');
+            <?php endif; ?>
+            
+            <?php if (isset($error)): ?>
+                showAlert('<?php echo addslashes($error); ?>', 'error');
+            <?php endif; ?>
         });
 
         // 通知系统
