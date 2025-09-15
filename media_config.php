@@ -664,10 +664,40 @@ function getJobsHtml() {
             $html .= '<div class="company-jobs-list">';
             
             if (isset($groupedJobs[$company]) && !empty($groupedJobs[$company])) {
-                foreach ($groupedJobs[$company] as $job) {
-                    $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
-                    $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
-                    $html .= '</div>';
+                if ($company === 'TOKYO JAPANESE CUISINE') {
+                    // 为TOKYO JAPANESE CUISINE按部门分组显示
+                    $departmentJobs = [];
+                    foreach ($groupedJobs[$company] as $job) {
+                        $dept = $job['company_department'] ?? '其他';
+                        $departmentJobs[$dept][] = $job;
+                    }
+                    
+                    // 定义部门顺序
+                    $departmentOrder = ['前台', '厨房', 'sushi bar'];
+                    
+                    foreach ($departmentOrder as $dept) {
+                        if (isset($departmentJobs[$dept]) && !empty($departmentJobs[$dept])) {
+                            $html .= '<div class="department-section">';
+                            $html .= '<div class="department-title">' . htmlspecialchars($dept) . '</div>';
+                            $html .= '<div class="department-jobs">';
+                            
+                            foreach ($departmentJobs[$dept] as $job) {
+                                $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
+                                $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
+                                $html .= '</div>';
+                            }
+                            
+                            $html .= '</div>'; // department-jobs
+                            $html .= '</div>'; // department-section
+                        }
+                    }
+                } else {
+                    // 其他公司（KUNZZ HOLDINGS）正常显示
+                    foreach ($groupedJobs[$company] as $job) {
+                        $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
+                        $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
+                        $html .= '</div>';
+                    }
                 }
             } else {
                 $html .= '<div class="no-jobs-company">暂无职位</div>';

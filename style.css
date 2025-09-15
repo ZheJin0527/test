@@ -4113,6 +4113,29 @@ nav {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.department-section {
+    margin-bottom: 20px;
+}
+
+.department-title {
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 600;
+    color: #FF5C00;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: rgba(255, 92, 0, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #FF5C00;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.department-jobs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .no-jobs-company {
     text-align: center;
     color: #666;
