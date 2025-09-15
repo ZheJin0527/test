@@ -1173,7 +1173,7 @@
         .unified-header-row {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 40px;
             padding: 20px 24px;
             background: white;
             border-radius: 12px;
@@ -1191,7 +1191,7 @@
         }
 
         .summary-title {
-            font-size: 16px;
+            font-size: 26px;
             font-weight: 600;
             color: #583e04;
             margin-bottom: 4px;
@@ -1204,15 +1204,15 @@
         }
 
         .summary-amount .currency-symbol {
-            font-size: 24px;
+            font-size: 30px;
             font-weight: bold;
             color: #583e04;
         }
 
         .summary-amount .value {
-            font-size: 24px;
+            font-size: 30px;
             font-weight: 700;
-            color: #10b981;
+            color: #583e04;
         }
 
         .header-search {
@@ -1232,6 +1232,21 @@
         .header-stats .stat-value {
             font-weight: bold;
             color: #583e04;
+        }
+
+        .search-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #583e04;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .header-search {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
         }
 
         /* 响应式调整 */
@@ -1355,6 +1370,7 @@
                 </div>
                 
                 <div class="header-search">
+                    <label for="central-unified-filter" class="search-label">搜索</label>
                     <input type="text" id="central-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
@@ -1404,6 +1420,7 @@
                 </div>
                 
                 <div class="header-search">
+                    <label for="central-unified-filter" class="search-label">搜索</label>
                     <input type="text" id="j1-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
@@ -1453,6 +1470,7 @@
                 </div>
                 
                 <div class="header-search">
+                    <label for="central-unified-filter" class="search-label">搜索</label>
                     <input type="text" id="j2-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
@@ -1497,6 +1515,7 @@
                 <div class="search-row">
                     <div class="search-group">
                         <label for="central-unified-filter">搜索货品</label>
+                        <label for="central-unified-filter" class="search-label">搜索</label>
                         <input type="text" id="central-unified-filter" class="unified-search-input" 
                             placeholder="搜索货品名称、编号或规格单位...">
                     </div>
