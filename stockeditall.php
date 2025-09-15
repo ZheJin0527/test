@@ -5159,34 +5159,28 @@
                     invoiceNumber = generateInvoiceNumber(exportSystem);
                 }
                 
-                // 下载现有的PDF模板 - 第一页使用普通模板，后续页面使用Multi模板
-                const firstPageTemplate = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
-                const multiPageTemplate = exportSystem === 'j2' ? 'invoice/invoice/j2invoiceMulti.pdf' : 'invoice/invoice/j1invoiceMulti.pdf';
-                // 加载第一页模板
-                const firstPageResponse = await fetch(firstPageTemplate);
-                if (!firstPageResponse.ok) {
-                    throw new Error(`无法加载第一页PDF模板: ${firstPageTemplate}`);
-                }
-                const firstPageBytes = await firstPageResponse.arrayBuffer();
-
-                // 加载多页模板
-                const multiPageResponse = await fetch(multiPageTemplate);
-                let multiPageBytes = null;
-                if (multiPageResponse.ok) {
-                    multiPageBytes = await multiPageResponse.arrayBuffer();
+                // 下载现有的PDF模板
+                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoiceMulti.pdf' : 'invoice/invoice/j1invoiceMulti.pdf';
+                const templateResponse = await fetch(templateFile);
+                let templateBytes;
+                
+                if (!templateResponse.ok) {
+                    // 如果多页模板不存在，尝试使用单页模板
+                    const fallbackTemplateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                    const fallbackResponse = await fetch(fallbackTemplateFile);
+                    if (!fallbackResponse.ok) {
+                        throw new Error(`无法加载PDF模板文件。请确保以下文件存在：\n- ${templateFile}\n- ${fallbackTemplateFile}`);
+                    }
+                    console.log(`使用备用模板: ${fallbackTemplateFile}`);
+                    templateBytes = await fallbackResponse.arrayBuffer();
                 } else {
-                    console.log(`多页模板不存在: ${multiPageTemplate}, 将使用第一页模板作为后续页面`);
-                    multiPageBytes = firstPageBytes; // 使用第一页模板作为备用
+                    console.log(`使用多页模板: ${templateFile}`);
+                    templateBytes = await templateResponse.arrayBuffer();
                 }
                 
                 // 使用PDF-lib库来编辑PDF
                 const { PDFDocument, rgb, StandardFonts } = PDFLib;
-
-                // 创建主PDF文档（使用第一页模板）
-                const pdfDoc = await PDFDocument.load(firstPageBytes);
-
-                // 创建多页模板文档（用于后续页面）
-                const multiPdfDoc = await PDFDocument.load(multiPageBytes);
+                const pdfDoc = await PDFDocument.load(templateBytes);
 
                 // 嵌入字体
                 const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -5224,8 +5218,8 @@
                         // 使用第一页（已有模板）
                         page = pdfDoc.getPage(0);
                     } else {
-                        // 使用多页模板创建后续页面
-                        const [clonedPage] = await pdfDoc.copyPages(multiPdfDoc, [0]);
+                        // 克隆第一页作为后续页面
+                        const [clonedPage] = await pdfDoc.copyPages(pdfDoc, [0]);
                         pdfDoc.addPage(clonedPage);
                         page = pdfDoc.getPage(pdfDoc.getPageCount() - 1);
                     }
@@ -5431,7 +5425,7 @@
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `invoice_${exportSystem}_${startDate}_${endDate}.pdf`;
+                link.download = `invoice_${exportSystem}_multipage_${startDate}_${endDate}.pdf`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
