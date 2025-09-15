@@ -283,15 +283,15 @@ if (isset($_GET['edit'])) {
             color: white;
             border: none;
             border-radius: 6px;
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
             margin-left: 8px;
-            font-size: 14px;
+            font-size: 18px;
         }
 
         .action-btn:hover {
