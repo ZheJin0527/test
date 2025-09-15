@@ -1524,7 +1524,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 16px 24px;
+            padding: 18px 24px;
             background: white;
             border-radius: 12px;
             margin-bottom: 24px;
@@ -1536,7 +1536,7 @@
 
         .header-right-group {
             display: flex;
-            align-items: center;
+            align-items: flex-end;  /* 改为 flex-end，让元素底部对齐 */
             gap: 20px;
             margin-left: auto;
         }
@@ -1599,6 +1599,8 @@
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
+            margin-bottom: 0;  /* 确保没有下边距 */
+            align-self: flex-end;  /* 自己对齐到底部 */
         }
 
         .header-stats .stat-value {
