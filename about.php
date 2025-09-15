@@ -724,31 +724,56 @@ updatePageIndicator(0);
                 item.classList.toggle('active', index === currentIndex);
             });
 
-            // 计算居中位置
+            // 平滑滚动到居中位置
             const containerWidth = container.parentElement.offsetWidth;
             const itemWidth = 120;
             const centerOffset = containerWidth / 2 - itemWidth / 2;
             const translateX = centerOffset - (currentIndex * itemWidth);
             
+            // 使用CSS transition实现平滑滚动
+            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             container.style.transform = `translateX(${translateX}px)`;
+            
+            // 清除transition，避免影响后续操作
+            setTimeout(() => {
+                container.style.transition = '';
+            }, 400);
         }
 
         function updateCardPositions() {
             const cards = document.querySelectorAll('.timeline-content-item');
             
             cards.forEach((card, index) => {
-                card.classList.remove('active', 'prev', 'next', 'hidden');
+                card.classList.remove('active', 'prev', 'next', 'hidden', 'stack-hidden');
+                
+                // 添加平滑过渡效果
+                card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 
                 if (index === currentIndex) {
+                    // 当前活动卡片
                     card.classList.add('active');
+                    card.style.zIndex = '10';
                 } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+                    // 左侧卡片
                     card.classList.add('prev');
+                    card.style.zIndex = '5';
                 } else if (index === (currentIndex + 1) % totalItems) {
+                    // 右侧卡片
                     card.classList.add('next');
+                    card.style.zIndex = '5';
                 } else {
-                    card.classList.add('hidden');
+                    // 其他卡片都隐藏在中间后面，形成堆叠效果
+                    card.classList.add('stack-hidden');
+                    card.style.zIndex = '1';
                 }
             });
+            
+            // 清除transition，避免影响后续操作
+            setTimeout(() => {
+                cards.forEach(card => {
+                    card.style.transition = '';
+                });
+            }, 400);
         }
 
         function navigateTimeline(direction) {
@@ -762,12 +787,13 @@ updatePageIndicator(0);
                 currentIndex = (currentIndex - 1 + totalItems) % totalItems;
             }
             
-            showTimelineItem(years[currentIndex]);
+            updateTimelineNav();
+            updateCardPositions();
             
             // 动画完成后重置标志
             setTimeout(() => {
                 isAnimating = false;
-            }, 300);
+            }, 400); // 增加到600ms匹配新的动画时长
         }
 
         function selectCard(year) {
@@ -786,7 +812,7 @@ updatePageIndicator(0);
             currentIndex = years.indexOf(year);
         }
 
-        // 简化的拖拽处理
+        // 优化后的拖拽处理
         function handleDragStart(e) {
             if (isAnimating) return;
             
@@ -884,26 +910,19 @@ updatePageIndicator(0);
             });
         });
 
-        // 优化的点击处理 - 支持左右卡片切换
+        // 优化的点击处理 - 添加延迟避免与拖拽冲突
         document.addEventListener('click', (e) => {
             if (isDragging || hasTriggered || isAnimating) return;
             
             const card = e.target.closest('.timeline-content-item');
-            if (card) {
-                // 检查是否点击的是左右卡片
-                if (card.classList.contains('prev')) {
-                    // 点击左侧卡片，切换到上一个
-                    navigateTimeline('prev');
-                    return;
-                } else if (card.classList.contains('next')) {
-                    // 点击右侧卡片，切换到下一个
-                    navigateTimeline('next');
-                    return;
-                } else if (!card.classList.contains('active')) {
-                    // 点击其他卡片，直接跳转
-                    const year = card.getAttribute('data-year');
-                    selectCard(year);
-                }
+            if (card && !card.classList.contains('active')) {
+                // 添加小延迟确保不是拖拽操作
+                clickTimeout = setTimeout(() => {
+                    if (!isDragging) {
+                const year = card.getAttribute('data-year');
+                selectCard(year);
+                    }
+                }, 10);
             }
         });
 
