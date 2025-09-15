@@ -278,6 +278,7 @@ if (file_exists('media_config.json')) {
     </style>
 </head>
 <body>
+    <?php include 'sidebar.php'; ?>
     <div class="container">
         <div class="header">
             <h1>首页媒体管理</h1>

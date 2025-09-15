@@ -743,6 +743,7 @@ if (isset($_SESSION['user_id'])) {
     </style>
 </head>
 <body>
+    <?php include 'sidebar.php'; ?>
     <div class="container">
         <div class="header">
             <div>
