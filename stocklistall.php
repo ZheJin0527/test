@@ -1274,6 +1274,36 @@
             flex-direction: column;
         }
 
+        .date-section {
+            display: flex;
+            flex-direction: column;
+            min-width: 140px;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        .btn-danger {
+            background-color: #dc2626;
+            color: white;
+            padding: 7px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .btn-danger:hover {
+            background-color: #b91c1c;
+            transform: translateY(-1px);
+        }
+
         /* 响应式调整 */
         @media (max-width: 1024px) {
             .unified-header-row {
@@ -1386,30 +1416,36 @@
         <!-- 中央库存页面 -->
         <div id="central-page" class="page-section active">
             <div class="unified-header-row">
-                <div class="header-summary">
-                    <div class="summary-title">总库存</div>
-                    <div class="summary-amount">
-                        <span class="currency-symbol">RM</span>
-                        <span class="value" id="central-total-value">0.00</span>
-                    </div>
+                <div class="date-section">
+                    <label for="date-input" class="search-label">日期</label>
+                    <input type="date" id="date-input" class="unified-search-input">
                 </div>
                 
                 <div class="header-right-section">
-                <div class="header-search">
-                    <label for="central-unified-filter" class="search-label">搜索</label>
-                    <input type="text" id="central-unified-filter" class="unified-search-input" 
-                        placeholder="搜索货品名称、编号或规格单位...">
-                </div>
-                
-                <button class="btn btn-warning" onclick="exportData('central')">
-                    <i class="fas fa-download"></i>
-                    导出数据
-                </button>
-                
-                <div class="header-stats">
-                    <span>显示记录: <span class="stat-value" id="central-displayed-records">0</span></span>
-                    <span>总记录: <span class="stat-value" id="central-total-records">0</span></span>
-                </div>
+                    <div class="header-search">
+                        <label for="search-input" class="search-label">搜索</label>
+                        <input type="text" id="search-input" class="unified-search-input" 
+                            placeholder="搜索货品编号、货品名称或收货人...">
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="addNewRecord()">
+                        <i class="fas fa-plus"></i>
+                        新增记录
+                    </button>
+                    
+                    <button class="btn btn-warning" onclick="exportData()">
+                        <i class="fas fa-download"></i>
+                        导出数据
+                    </button>
+                    
+                    <button class="btn btn-danger" onclick="batchDelete()" id="batch-delete-btn">
+                        <i class="fas fa-trash"></i>
+                        批量删除
+                    </button>
+                    
+                    <div class="header-stats">
+                        <span>总记录数: <span class="stat-value" id="total-records">358</span></span>
+                    </div>
                 </div>
             </div>
 
