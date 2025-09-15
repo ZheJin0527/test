@@ -1191,6 +1191,7 @@
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             flex-wrap: nowrap;
+            justify-content: space-between; /* 添加这行，让内容两端对齐 */
         }
 
         .header-summary {
@@ -1243,6 +1244,7 @@
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
+            margin-left: auto; /* 添加这行，让统计信息靠右 */
         }
 
         .header-stats .stat-value {
