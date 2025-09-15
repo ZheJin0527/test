@@ -5281,7 +5281,7 @@ if (exportSystem === 'j1') {
     if (pageIndex === 0) {
         yPosition = height - 185; // 第一页位置
     } else {
-        yPosition = height - 30;  // 第二页位置（可调整这个数值）
+        yPosition = height - 28;  // 第二页位置（可调整这个数值）
     }
     lineHeight = 16.01;
 } else {
