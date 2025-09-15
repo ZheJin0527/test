@@ -667,6 +667,12 @@ function getJobsHtml() {
                 foreach ($groupedJobs[$company] as $job) {
                     $html .= '<div class="job-item" data-job-id="' . $job['id'] . '">';
                     $html .= '<div class="job-item-title">' . htmlspecialchars($job['job_title']) . '</div>';
+                    
+                    // 如果有部门信息，显示部门
+                    if (!empty($job['company_department'])) {
+                        $html .= '<div class="job-item-department">' . htmlspecialchars($job['company_department']) . '</div>';
+                    }
+                    
                     $html .= '</div>';
                 }
             } else {
