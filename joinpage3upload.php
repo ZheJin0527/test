@@ -411,21 +411,14 @@ if (isset($_GET['edit'])) {
             const companySelect = document.getElementById('job_category');
             const departmentGroup = document.getElementById('department-group');
             const departmentSelect = document.getElementById('company_department');
-            const salaryGroup = document.getElementById('salary-group');
-            const salaryInput = document.getElementById('salary');
             
             if (companySelect.value === 'TOKYO JAPANESE CUISINE') {
                 departmentGroup.style.display = 'flex';
-                salaryGroup.style.display = 'flex';
                 departmentSelect.required = true;
-                salaryInput.required = true;
             } else {
                 departmentGroup.style.display = 'none';
-                salaryGroup.style.display = 'none';
                 departmentSelect.required = false;
-                salaryInput.required = false;
                 departmentSelect.value = '';
-                salaryInput.value = '';
             }
         }
         
@@ -516,13 +509,14 @@ if (isset($_GET['edit'])) {
                             </select>
                         </div>
                         
-                        <div class="form-group" id="salary-group" style="display: none;">
+                        <div class="form-group">
                             <label for="salary">薪资范围 *</label>
                             <input type="text" id="salary" name="salary" 
                                    value="<?php echo $editJob ? htmlspecialchars($editJob['salary']) : ''; ?>" 
                                    placeholder="例如：3000-5000" 
                                    pattern="\d+-\d+" 
-                                   title="请输入薪资范围，格式：最低薪资-最高薪资">
+                                   title="请输入薪资范围"
+                                   required>
                         </div>
                         
                         <div class="form-group">
