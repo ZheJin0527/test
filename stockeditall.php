@@ -1883,13 +1883,13 @@
 
         <div class="unified-header-row">
             <div class="header-filter">
-                <span style="font-size: 12px; font-weight: 600; color: #583e04; white-space: nowrap;">日期</span>
+                <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">日期</span>
                 <input type="date" id="date-filter" class="filter-input">
             </div>
             
             <div class="header-right-group">
                 <div class="header-search">
-                    <span style="font-size: 12px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="unified-filter" class="unified-search-input" 
                         placeholder="搜索货品编号、货品名称或收货人...">
                 </div>
