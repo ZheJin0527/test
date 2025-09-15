@@ -6,6 +6,7 @@ $avatarLetter = isset($avatarLetter) ? $avatarLetter : strtoupper(substr($userna
 $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 ?>
 
+<link rel="stylesheet" href="style.css" />
 <style>
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
 .informationmenu {
