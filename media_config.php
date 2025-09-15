@@ -652,12 +652,12 @@ function getJobsHtml() {
         // 按公司分类分组
         $groupedJobs = [];
         foreach ($jobs as $job) {
-            $category = $job['company_category'] ?? 'KUNZZHOLDINGS';
+            $category = $job['company_category'] ?? 'KUNZZ HOLDINGS';
             $groupedJobs[$category][] = $job;
         }
         
         // 为每个公司创建独立的卡片容器，确保KUNZZHOLDINGS在左边
-        $companyOrder = ['KUNZZHOLDINGS', 'TOKYO CUISINE'];
+        $companyOrder = ['KUNZZ HOLDINGS', 'TOKYO JAPANESE CUISINE'];
         foreach ($companyOrder as $company) {
             $html .= '<div class="company-job-container">';
             $html .= '<h3 class="company-title">' . htmlspecialchars($company) . '</h3>';
