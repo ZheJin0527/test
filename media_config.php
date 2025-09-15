@@ -673,6 +673,11 @@ function getJobsHtml() {
                         $html .= '<div class="job-item-department">' . htmlspecialchars($job['company_department']) . '</div>';
                     }
                     
+                    // 如果有薪资信息，显示薪资
+                    if (!empty($job['salary'])) {
+                        $html .= '<div class="job-item-salary">💰 ' . htmlspecialchars($job['salary']) . '</div>';
+                    }
+                    
                     $html .= '</div>';
                 }
             } else {

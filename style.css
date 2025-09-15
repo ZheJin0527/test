@@ -4099,6 +4099,20 @@ nav {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.job-item-salary {
+    font-size: clamp(12px, 1.4vw, 14px);
+    font-weight: 500;
+    margin: 8px 0 0 0;
+    opacity: 0.95;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 6px 12px;
+    border-radius: 12px;
+    display: inline-block;
+    text-transform: capitalize;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .no-jobs-company {
     text-align: center;
     color: #666;
