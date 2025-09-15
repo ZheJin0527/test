@@ -1232,11 +1232,10 @@
 
         .header-search {
             flex: 1;
-            min-width: 250px;
+            min-width: 200px;
+            max-width: 350px;
             display: flex;
-            flex-direction: row;  /* 改为横向布局 */
-            align-items: center;  /* 垂直居中对齐 */
-            gap: 12px;           /* 添加间距 */
+            flex-direction: column;
         }
 
         .header-stats {
@@ -1265,10 +1264,8 @@
             font-size: 12px;
             font-weight: 600;
             color: #583e04;
-            margin-bottom: 0;     /* 移除底部边距 */
+            margin-bottom: 4px;
             display: block;
-            white-space: nowrap;  /* 防止文字换行 */
-            flex-shrink: 0;      /* 防止标签被压缩 */
         }
 
         .header-search {
