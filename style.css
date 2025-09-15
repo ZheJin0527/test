@@ -4131,8 +4131,8 @@ nav {
 }
 
 .department-jobs {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
 }
 
@@ -4407,6 +4407,11 @@ nav {
     max-width: 100%;
     min-width: unset;
   }
+
+  .department-jobs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -4427,6 +4432,11 @@ nav {
   .company-job-container {
     max-width: 100%;
     padding: 20px;
+  }
+
+  .department-jobs {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 
   .company-title {
