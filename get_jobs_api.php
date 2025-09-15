@@ -56,7 +56,9 @@ try {
             'experience' => $job['work_experience'],
             'publish_date' => $job['publish_date'],
             'description' => $job['job_description'],
-            'address' => $job['company_location'] ?? '待定'
+            'address' => $job['company_location'] ?? '待定',
+            'department' => $job['company_department'] ?? '',
+            'salary' => $job['salary'] ?? ''
         ];
         
         $companies[$company]['jobs'][] = $jobData;

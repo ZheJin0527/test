@@ -113,6 +113,14 @@ include 'header.php';
                         <span class="job-detail-label">🏷️ 公司:</span>
                         <span id="jobDetailCompany">-</span>
                     </div>
+                    <div class="job-detail-item" id="jobDetailDepartment" style="display: none;">
+                        <span class="job-detail-label">🏢 部门:</span>
+                        <span id="jobDetailDepartmentValue">-</span>
+                    </div>
+                    <div class="job-detail-item" id="jobDetailSalary" style="display: none;">
+                        <span class="job-detail-label">💰 薪资:</span>
+                        <span id="jobDetailSalaryValue">-</span>
+                    </div>
                 </div>
                 <div class="job-detail-description">
                     <h3>职位详情：</h3>
@@ -1418,7 +1426,9 @@ async function loadJobsData() {
                         publish_date: job.publish_date,
                         company: company.name,
                         description: job.description,
-                        address: job.address || '待定'
+                        address: job.address || '待定',
+                        department: job.department || '',
+                        salary: job.salary || ''
                     };
                 });
             });
@@ -1489,6 +1499,10 @@ function openJobDetail(jobId) {
         document.getElementById('jobDetailCompany').textContent = defaultData.company;
         document.getElementById('jobDetailDescription').textContent = defaultData.description;
         document.getElementById('jobDetailAddress').textContent = defaultData.address;
+        
+        // 隐藏部门和薪资信息
+        document.getElementById('jobDetailDepartment').style.display = 'none';
+        document.getElementById('jobDetailSalary').style.display = 'none';
     } else {
         // 填充弹窗数据
         document.getElementById('jobDetailTitle').textContent = jobData.title;
@@ -1498,6 +1512,21 @@ function openJobDetail(jobId) {
         document.getElementById('jobDetailCompany').textContent = jobData.company;
         document.getElementById('jobDetailDescription').textContent = jobData.description;
         document.getElementById('jobDetailAddress').textContent = jobData.address;
+        
+        // 显示部门和薪资信息（如果有的话）
+        if (jobData.department) {
+            document.getElementById('jobDetailDepartmentValue').textContent = jobData.department;
+            document.getElementById('jobDetailDepartment').style.display = 'flex';
+        } else {
+            document.getElementById('jobDetailDepartment').style.display = 'none';
+        }
+        
+        if (jobData.salary) {
+            document.getElementById('jobDetailSalaryValue').textContent = jobData.salary;
+            document.getElementById('jobDetailSalary').style.display = 'flex';
+        } else {
+            document.getElementById('jobDetailSalary').style.display = 'none';
+        }
     }
     
     // 显示弹窗
