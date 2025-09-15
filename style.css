@@ -4410,17 +4410,129 @@ nav {
   }
 }
 
-@media (max-width: 1024px) {
+/* Small Desktop (1024px-1280px) - 保持水平布局但调整尺寸 */
+@media (max-width: 1280px) and (min-width: 1025px) {
+  .jobs-container {
+    max-width: 900px;
+    gap: 18px;
+    padding: 0 18px;
+  }
+
+  .company-job-container {
+    max-width: 280px;
+    min-width: 250px;
+    padding: 16px;
+  }
+
+  .company-title {
+    font-size: clamp(16px, 2.2vw, 22px);
+    margin-bottom: 16px;
+  }
+
+  .job-item {
+    padding: 14px;
+    margin-bottom: 6px;
+  }
+
+  .job-item-title {
+    font-size: clamp(12px, 1.6vw, 15px);
+  }
+
+  .department-title {
+    font-size: clamp(12px, 1.8vw, 16px);
+    padding: 6px 10px;
+    margin-bottom: 6px;
+  }
+
+  .job-table-title {
+    font-size: clamp(26px, 4.5vw, 34px);
+    margin: 0 auto clamp(14px, 3.5vw, 24px);
+  }
+}
+
+/* Tablet Landscape (768px-1024px) - 保持水平布局但更紧凑 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .jobs-container {
+    max-width: 800px;
+    gap: 15px;
+    padding: 0 15px;
+  }
+
+  .company-job-container {
+    max-width: 250px;
+    min-width: 220px;
+    padding: 14px;
+  }
+
+  .company-title {
+    font-size: clamp(14px, 2.5vw, 20px);
+    margin-bottom: 14px;
+  }
+
+  .job-item {
+    padding: 12px;
+    margin-bottom: 5px;
+  }
+
+  .job-item-title {
+    font-size: clamp(11px, 1.8vw, 14px);
+  }
+
+  .department-title {
+    font-size: clamp(11px, 2vw, 14px);
+    padding: 5px 9px;
+    margin-bottom: 5px;
+  }
+
+  .job-table-title {
+    font-size: clamp(22px, 5vw, 30px);
+    margin: 0 auto clamp(12px, 4vw, 20px);
+  }
+
+  .department-jobs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+}
+
+/* Tablet Portrait (600px-768px) - 切换到垂直布局 */
+@media (max-width: 768px) and (min-width: 601px) {
   .jobs-container {
     flex-direction: column;
     align-items: center;
-    gap: 25px;
-    max-width: 600px;
+    gap: 20px;
+    max-width: 500px;
   }
 
   .company-job-container {
     max-width: 100%;
     min-width: unset;
+    padding: 18px;
+  }
+
+  .company-title {
+    font-size: clamp(18px, 4vw, 24px);
+    margin-bottom: 18px;
+  }
+
+  .job-item {
+    padding: 16px;
+    margin-bottom: 8px;
+  }
+
+  .job-item-title {
+    font-size: clamp(14px, 2.5vw, 16px);
+  }
+
+  .department-title {
+    font-size: clamp(14px, 2.8vw, 18px);
+    padding: 8px 12px;
+    margin-bottom: 8px;
+  }
+
+  .job-table-title {
+    font-size: clamp(24px, 5.5vw, 32px);
+    margin: 0 auto clamp(16px, 4.5vw, 24px);
   }
 
   .department-jobs {
@@ -4429,24 +4541,48 @@ nav {
   }
 }
 
-@media (max-width: 768px) {
+/* Mobile (480px-600px) - 手机竖屏 */
+@media (max-width: 600px) {
   .job-section {
-    padding: 40px 20px;
+    padding: 30px 15px;
   }
 
   .job-table-title {
-    font-size: clamp(20px, 4vw, 28px);
-    margin: 0 auto clamp(15px, 3vw, 30px);
+    font-size: clamp(20px, 6vw, 28px);
+    margin: 0 auto clamp(15px, 4vw, 25px);
   }
 
   .jobs-container {
-    gap: 25px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
     max-width: 100%;
   }
 
   .company-job-container {
     max-width: 100%;
-    padding: 20px;
+    min-width: unset;
+    padding: 16px;
+  }
+
+  .company-title {
+    font-size: clamp(16px, 5vw, 22px);
+    margin-bottom: 16px;
+  }
+
+  .job-item {
+    padding: 14px;
+    margin-bottom: 6px;
+  }
+
+  .job-item-title {
+    font-size: clamp(13px, 3.5vw, 15px);
+  }
+
+  .department-title {
+    font-size: clamp(12px, 3.8vw, 16px);
+    padding: 6px 10px;
+    margin-bottom: 6px;
   }
 
   .department-jobs {
@@ -4454,54 +4590,54 @@ nav {
     gap: 6px;
   }
 
-  .company-title {
-    font-size: clamp(18px, 4vw, 24px);
-    margin-bottom: 20px;
-  }
-
-  .job-item {
-    padding: 15px;
-  }
-
-  .job-item-title {
-    font-size: clamp(14px, 3vw, 16px);
-  }
-
   .job-item-department {
-    font-size: clamp(10px, 2.5vw, 12px);
+    font-size: clamp(10px, 2.8vw, 12px);
     padding: 3px 6px;
   }
 }
 
+/* Small Mobile (320px-480px) - 小屏手机 */
 @media (max-width: 480px) {
   .job-section {
-    padding: 30px 15px;
+    padding: 25px 10px;
   }
 
   .job-table-title {
-    font-size: clamp(18px, 5vw, 24px);
-    margin: 0 auto clamp(10px, 2vw, 20px);
+    font-size: clamp(18px, 7vw, 24px);
+    margin: 0 auto clamp(12px, 5vw, 20px);
   }
 
   .jobs-container {
-    gap: 20px;
+    gap: 15px;
   }
 
   .company-job-container {
-    padding: 15px;
+    padding: 14px;
   }
 
   .company-title {
-    font-size: clamp(16px, 5vw, 20px);
-    margin-bottom: 15px;
+    font-size: clamp(14px, 6vw, 18px);
+    margin-bottom: 14px;
   }
 
   .job-item {
     padding: 12px;
+    margin-bottom: 5px;
   }
 
   .job-item-title {
-    font-size: clamp(12px, 4vw, 14px);
+    font-size: clamp(11px, 4.5vw, 13px);
+  }
+
+  .department-title {
+    font-size: clamp(10px, 4.2vw, 14px);
+    padding: 5px 8px;
+    margin-bottom: 5px;
+  }
+
+  .department-jobs {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 }
 
