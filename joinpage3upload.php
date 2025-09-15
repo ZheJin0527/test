@@ -46,12 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             
             if ($result) {
-                $success = "职位添加成功！";
+                echo "<script>showAlert('职位添加成功！', 'success');</script>";
             } else {
-                $error = "职位添加失败！";
+                echo "<script>showAlert('职位添加失败！', 'error');</script>";
             }
         } catch (PDOException $e) {
-            $error = "添加职位失败：" . $e->getMessage();
+            echo "<script>showAlert('添加职位失败：" . $e->getMessage() . "', 'error');</script>";
         }
         
     } elseif ($action === 'edit') {
@@ -78,12 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             
             if ($result) {
-                $success = "职位更新成功！";
+                echo "<script>showAlert('职位更新成功！', 'success');</script>";
             } else {
-                $error = "职位更新失败！";
+                echo "<script>showAlert('职位更新失败！', 'error');</script>";
             }
         } catch (PDOException $e) {
-            $error = "更新职位失败：" . $e->getMessage();
+            echo "<script>showAlert('更新职位失败：" . $e->getMessage() . "', 'error');</script>";
         }
         
     } elseif ($action === 'delete') {
@@ -93,12 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $stmt->execute([$_POST['job_id']]);
             
             if ($result) {
-                $success = "职位删除成功！";
+                echo "<script>showAlert('职位删除成功！', 'success');</script>";
             } else {
-                $error = "职位删除失败！";
+                echo "<script>showAlert('职位删除失败！', 'error');</script>";
             }
         } catch (PDOException $e) {
-            $error = "删除职位失败：" . $e->getMessage();
+            echo "<script>showAlert('删除职位失败：" . $e->getMessage() . "', 'error');</script>";
         }
     }
 }
@@ -316,6 +316,119 @@ if (isset($_GET['edit'])) {
             background: #dc2626;
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
+
+        /* 通知容器 */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* 通知基础样式 */
+        .toast {
+            min-width: 300px;
+            max-width: 400px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.hide {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        /* 通知类型样式 */
+        .toast-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+            color: white;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .toast-error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
+            color: white;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .toast-info {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(37, 99, 235, 0.9));
+            color: white;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .toast-warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(217, 119, 6, 0.9));
+            color: white;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        /* 通知图标 */
+        .toast-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        /* 通知内容 */
+        .toast-content {
+            flex: 1;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* 关闭按钮 */
+        .toast-close {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            opacity: 0.7;
+            transition: all 0.2s;
+        }
+
+        .toast-close:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 进度条 */
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 0 0 8px 8px;
+            transform-origin: left;
+            animation: toastProgress 4s linear forwards;
+        }
+
+        @keyframes toastProgress {
+            from { transform: scaleX(1); }
+            to { transform: scaleX(0); }
+        }
         
         .btn-small {
             padding: 8px 16px;
@@ -467,6 +580,78 @@ if (isset($_GET['edit'])) {
         document.addEventListener('DOMContentLoaded', function() {
             toggleDepartmentField();
         });
+
+        // 通知系统
+        function showAlert(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            // 先检查并限制通知数量（在添加新通知之前）
+            let existingToasts = container.querySelectorAll('.toast');
+            while (existingToasts.length >= 3) {
+                closeToast(existingToasts[0].id);
+                // 立即从DOM移除，不等待动画
+                if (existingToasts[0].parentNode) {
+                    existingToasts[0].parentNode.removeChild(existingToasts[0]);
+                }
+                // 重新获取当前通知列表
+                existingToasts = container.querySelectorAll('.toast');
+            }
+
+            const toastId = 'toast-' + Date.now();
+            const iconClass = {
+                'success': 'fa-check-circle',
+                'error': 'fa-exclamation-circle', 
+                'info': 'fa-info-circle',
+                'warning': 'fa-exclamation-triangle'
+            }[type] || 'fa-check-circle';
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.id = toastId;
+            toast.innerHTML = `
+                <i class="fas ${iconClass} toast-icon"></i>
+                <div class="toast-content">${message}</div>
+                <button class="toast-close" onclick="closeToast('${toastId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="toast-progress"></div>
+            `;
+
+            container.appendChild(toast);
+
+            // 显示动画
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 0);
+
+            // 自动关闭
+            setTimeout(() => {
+                closeToast(toastId);
+            }, 4000);
+        }
+
+        // 添加关闭通知的函数
+        function closeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        // 添加关闭所有通知的函数（可选）
+        function closeAllToasts() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(toast => {
+                closeToast(toast.id);
+            });
+        }
     </script>
 </head>
 <body>
@@ -485,13 +670,6 @@ if (isset($_GET['edit'])) {
         <div class="content">
             <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
             
-            <?php if (isset($success)): ?>
-                <div class="alert alert-success"><?php echo $success; ?></div>
-            <?php endif; ?>
-            
-            <?php if (isset($error)): ?>
-                <div class="alert alert-error"><?php echo $error; ?></div>
-            <?php endif; ?>
             
             <!-- 添加/编辑职位表单 -->
             <div class="form-section">
@@ -635,6 +813,11 @@ if (isset($_GET['edit'])) {
                 <?php endif; ?>
             </div>
         </div>
+    </div>
+
+    <!-- 通知容器 -->
+    <div class="toast-container" id="toast-container">
+        <!-- 动态通知内容 -->
     </div>
 </body>
 </html>
