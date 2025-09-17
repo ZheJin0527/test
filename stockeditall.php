@@ -1791,11 +1791,11 @@
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
-                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.001" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.001" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <select id="add-target" class="form-select" disabled>
                     <option value="">请选择</option>
@@ -2564,13 +2564,13 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
                             `<span>${formatNumber(record.in_quantity)}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
                             `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
@@ -2717,23 +2717,11 @@
             return `${day} ${month}`;
         }
 
-        // 格式化数字 - 修改为动态小数位数
+        // 格式化数字
         function formatNumber(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
-            if (isNaN(num)) return '0.00';
-            
-            // 检查小数部分的位数
-            const str = num.toString();
-            if (str.includes('.')) {
-                const decimalPart = str.split('.')[1];
-                if (decimalPart.length === 3) {
-                    return num.toFixed(3);
-                } else if (decimalPart.length === 2 || decimalPart.length === 1) {
-                    return num.toFixed(2);
-                }
-            }
-            return num.toFixed(2);
+            return isNaN(num) ? '0.00' : num.toFixed(2);
         }
 
         // 格式化货币
@@ -2764,8 +2752,8 @@
                 <td><input type="date" class="table-input" value="${today}" id="${rowId}-date"></td>
                 <td>${createCombobox('code', '', null, rowId)}</td>
                 <td>${createCombobox('product', '', null, rowId)}</td>
-                <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
-                <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
                     <select class="table-select" id="${rowId}-target" disabled>
                         <option value="">请选择</option>
@@ -2877,8 +2865,8 @@
             const currencyAmount = totalCell.querySelector('.currency-amount');
             
             if (totalCell && currencyDisplay && currencyAmount) {
-                // 更新数值 - 确保使用新的格式化函数
-                currencyAmount.textContent = formatNumber(Math.abs(total));
+                // 更新数值
+                currencyAmount.textContent = formatCurrency(Math.abs(total));
                 
                 // 添加或移除负数样式
                 if (total < 0) {
