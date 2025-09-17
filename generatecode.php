@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1850px;
+            max-width: 850px;
             margin: 0 auto;
             padding: 50px 20px 20px;
         }
@@ -314,7 +314,7 @@
         th:nth-child(3), td:nth-child(3) { width: 200px; }     /* 英文姓名 */
         th:nth-child(4), td:nth-child(4) { width: 250px; }     /* 邮箱 */
         th:nth-child(5), td:nth-child(5) { width: 120px; }     /* 联络号码 */
-        th:nth-child(6), td:nth-child(6) { width: 100px; }     /* 操作 */
+        th:nth-child(6), td:nth-child(6) { width: 80px; }     /* 操作 */
 
         /* 当地址列显示"-"时居中对齐 */
         td:nth-child(13) em {
@@ -763,9 +763,18 @@
 
             <form id="generateForm">
                 <div class="form-row">
-                    <div class="form-group" style="flex: 2; position: relative;">
-                        <label for="searchInput">搜索职员:</label>
-                        <div style="position: relative;">
+                    <!-- 添加新职员按钮 -->
+                    <div class="form-group" style="flex: 1;">
+                        <label>&nbsp;</label> <!-- 空标签保持对齐 -->
+                        <button type="button" class="btn-generate" onclick="openAddUserModal()" 
+                                style="background: #10b981; font-size: 14px; padding: 8px 20px; width: auto;">
+                            <i class="fas fa-user-plus"></i> 添加新职员
+                        </button>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 2; position: relative; display: flex; align-items: end; gap: 10px;">
+                        <label for="searchInput" style="white-space: nowrap; margin-bottom: 0; display: flex; align-items: center; height: 40px;">搜索职员:</label>
+                        <div style="position: relative; flex: 1;">
                             <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
                                 style="padding: 10px 40px 10px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 14px; width: 100%;">
                             <button type="button" onclick="clearSearch()" 
@@ -774,15 +783,6 @@
                                 ×
                             </button>
                         </div>
-                    </div>
-                    
-                    <!-- 添加新职员按钮 -->
-                    <div class="form-group" style="flex: 1;">
-                        <label>&nbsp;</label> <!-- 空标签保持对齐 -->
-                        <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                style="background: #10b981; font-size: 14px; padding: 8px 20px; width: 115%;">
-                            <i class="fas fa-user-plus"></i> 添加新职员
-                        </button>
                     </div>
                 </div>
             </form>
