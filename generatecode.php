@@ -22,7 +22,7 @@
         .container {
             max-width: 850px;
             margin: 0 auto;
-            padding: 50px 20px 20px;
+            padding: 40px 20px 20px;
         }
 
         .header {
@@ -33,8 +33,8 @@
 
         .header h1 {
             color: #ff5c00;
-            font-size: 50px;
-            margin-bottom: 10px;
+            font-size: 60px;
+            margin-bottom: -10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
@@ -73,7 +73,7 @@
             background: transparent;
             border-radius: 15px;
             margin-bottom: 25px;
-            justify-items: flex-start;
+            justify-items: normal;
         }
 
         .form-title {
@@ -773,7 +773,6 @@
                         </div>
                         
                         <div class="form-group" style="flex: 0 0 auto; position: relative; display: flex; align-items: center; gap: 10px;">
-                            <label for="searchInput" style="margin-bottom: 0; white-space: nowrap;">搜索职员:</label>
                             <div style="position: relative;">
                                 <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
                                     style="padding: 10px 40px 10px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 14px; width: 300px;">
