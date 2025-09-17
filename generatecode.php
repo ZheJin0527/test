@@ -309,7 +309,7 @@
         }
 
         /* 设置各列的宽度 */
-        th:nth-child(1), td:nth-child(1) { width: 60px; }      /* 序号 */
+        th:nth-child(1), td:nth-child(1) { width: 80px; }      /* 序号 */
         th:nth-child(2), td:nth-child(2) { width: 150px; }     /* 职位 */
         th:nth-child(3), td:nth-child(3) { width: 200px; }     /* 英文姓名 */
         th:nth-child(4), td:nth-child(4) { width: 250px; }     /* 邮箱 */
@@ -808,7 +808,7 @@
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="19" style="text-align: center; padding: 30px;">
+                            <td colspan="6" style="text-align: center; padding: 30px;">
                                 <div class="loading"></div>
                                 正在加载数据...
                             </td>
@@ -1146,7 +1146,7 @@
                 } else {
                     tableBody.innerHTML = `
                         <tr>
-                            <td colspan="6" style="text-align: center; padding: 30px; color: #C62828;">
+                            <td colspan="19" style="text-align: center; padding: 30px; color: #C62828;">
                                 ❌ 加载失败: ${result.message}
                             </td>
                         </tr>
@@ -1217,7 +1217,7 @@
             if (!data || data.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                        <td colspan="20" style="text-align: center; padding: 30px; color: #666;">
                             📝 暂无数据
                         </td>
                     </tr>
@@ -1626,7 +1626,7 @@
                 position: row.querySelector('[data-field="position"] input').value.trim(),
                 username: row.querySelector('[data-field="username"] input').value.trim(),
                 email: row.querySelector('[data-field="email"] input').value.trim(),
-                phone_number: row.querySelector('[data-field="phone_number"] input').value.trim(),
+                phone_number: row.querySelector('[data-field="phone_number"] input').value.trim()
             };
             
             // 验证必填数据
@@ -1638,21 +1638,6 @@
             if (!newData.email) {
                 showMessage('邮箱不能为空！', 'error');
                 return;
-            }
-
-            // 验证所有字段格式
-            const fieldsToValidate = ['username', 'username_cn', 'email'];
-
-            for (let field of fieldsToValidate) {
-                if (newData[field] && !validateField(field, newData[field])) {
-                    const fieldNames = {
-                        'username': '英文姓名需要至少两个单词',
-                        'username_cn': '中文姓名需要至少两个字',
-                        'email': '邮箱格式不正确'
-                    };
-                    showMessage(fieldNames[field], 'error');
-                    return;
-                }
             }
             
             // 显示保存状态
@@ -1707,14 +1692,7 @@
                 const cell = row.querySelector(`[data-field="${field}"]`);
                 if (cell) {
                     const originalValue = cell.getAttribute('data-original') || '';
-                    
-                    if (field === 'account_type') {
-                        cell.innerHTML = `<span class="account-type-badge type-${originalValue}">${formatAccountType(originalValue)}</span>`;
-                    } else if (field === 'gender') {
-                        cell.innerHTML = formatGender(originalValue) || '<em style="color: #999;">-</em>';
-                    } else {
-                        cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
-                    }
+                    cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
                 }
             });
             
