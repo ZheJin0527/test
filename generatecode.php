@@ -309,12 +309,12 @@
         }
 
         /* 设置各列的宽度 */
-        th:nth-child(1), td:nth-child(1) { width: 80px; }      /* 序号 */
-        th:nth-child(2), td:nth-child(2) { width: 150px; }     /* 职位 */
+        th:nth-child(1), td:nth-child(1) { width: 60px; }      /* 序号 */
+        th:nth-child(2), td:nth-child(2) { width: 120px; }     /* 职位 */
         th:nth-child(3), td:nth-child(3) { width: 200px; }     /* 英文姓名 */
         th:nth-child(4), td:nth-child(4) { width: 250px; }     /* 邮箱 */
-        th:nth-child(5), td:nth-child(5) { width: 150px; }     /* 联络号码 */
-        th:nth-child(6), td:nth-child(6) { width: 120px; }     /* 操作 */
+        th:nth-child(5), td:nth-child(5) { width: 120px; }     /* 联络号码 */
+        th:nth-child(6), td:nth-child(6) { width: 100px; }     /* 操作 */
 
         /* 当地址列显示"-"时居中对齐 */
         td:nth-child(13) em {
@@ -808,7 +808,7 @@
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="19" style="text-align: center; padding: 30px;">
+                            <td colspan="6" style="text-align: center; padding: 30px;">
                                 <div class="loading"></div>
                                 正在加载数据...
                             </td>
@@ -1035,11 +1035,11 @@
     <div id="editUserModal" class="modal">
         <div class="modal-content" style="max-width: 600px; max-height: 85vh; overflow-y: auto;">
             <div class="modal-header" style="color: #f59e0b; font-size: 16px; margin-bottom: 10px;">
-                <i class="fas fa-edit"></i> 编辑职员信息
+                <i class="fas fa-user-edit"></i> 编辑职员信息
             </div>
             <div class="modal-body">
                 <form id="editUserForm">
-                    <input type="hidden" id="edit_user_id" name="id">
+                    <input type="hidden" id="edit_user_id" name="user_id">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                         <div class="form-group">
                             <label for="edit_username">英文姓名 *:</label>
@@ -1075,7 +1075,6 @@
                             <label for="edit_nationality">国籍:</label>
                             <select id="edit_nationality" name="nationality">
                                 <option value="">请选择国籍</option>
-                                <!-- 复制添加职员模态框中的所有国籍选项 -->
                                 <option value="Afghanistan">Afghanistan</option>
                                 <option value="Armenia">Armenia</option>
                                 <option value="Azerbaijan">Azerbaijan</option>
@@ -1183,7 +1182,6 @@
                             <label for="edit_bank_name">银行名称:</label>
                             <select id="edit_bank_name" name="bank_name">
                                 <option value="">请选择银行</option>
-                                <!-- 复制添加职员模态框中的所有银行选项 -->
                                 <option value="Maybank (Malayan Banking Berhad)">Maybank (Malayan Banking Berhad)</option>
                                 <option value="CIMB Bank">CIMB Bank</option>
                                 <option value="Public Bank">Public Bank</option>
@@ -1235,9 +1233,9 @@
                     
                     <div class="modal-buttons" style="margin-top: 15px;">
                         <button type="submit" class="btn-action btn-save" style="padding: 12px 20px; font-size: 14px;">
-                            <i class="fas fa-save"></i> 保存更改
+                            <i class="fas fa-save"></i> 保存修改
                         </button>
-                        <button type="button" class="btn-action btn-cancel" onclick="closeEditModal()" style="padding: 12px 12px; font-size: 14px;">
+                        <button type="button" class="btn-action btn-cancel" onclick="closeEditUserModal()" style="padding: 12px 12px; font-size: 14px;">
                             <i class="fas fa-times"></i> 取消
                         </button>
                     </div>
@@ -1361,7 +1359,7 @@
                 } else {
                     tableBody.innerHTML = `
                         <tr>
-                            <td colspan="19" style="text-align: center; padding: 30px; color: #C62828;">
+                            <td colspan="6" style="text-align: center; padding: 30px; color: #C62828;">
                                 ❌ 加载失败: ${result.message}
                             </td>
                         </tr>
@@ -1371,7 +1369,7 @@
                 console.error('Error:', error);
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="19" style="text-align: center; padding: 30px; color: #C62828;">
+                        <td colspan="6" style="text-align: center; padding: 30px; color: #C62828;">
                             ❌ 网络错误，请检查连接
                         </td>
                     </tr>
@@ -1387,10 +1385,15 @@
             // 重新绑定添加职员表单提交事件
             const addUserForm = document.getElementById('addUserForm');
             if (addUserForm) {
-                // 移除旧的事件监听器（如果存在）
                 addUserForm.removeEventListener('submit', handleAddUserSubmit);
-                // 添加新的事件监听器
                 addUserForm.addEventListener('submit', handleAddUserSubmit);
+            }
+            
+            // 重新绑定编辑职员表单提交事件
+            const editUserForm = document.getElementById('editUserForm');
+            if (editUserForm) {
+                editUserForm.removeEventListener('submit', handleEditUserSubmit);
+                editUserForm.addEventListener('submit', handleEditUserSubmit);
             }
             
             // 重新绑定模态框外部点击关闭事件
@@ -1402,20 +1405,13 @@
                     }
                 };
             }
-
-            // 重新绑定编辑职员表单提交事件
-            const editUserForm = document.getElementById('editUserForm');
-            if (editUserForm) {
-                editUserForm.removeEventListener('submit', handleEditUserSubmit);
-                editUserForm.addEventListener('submit', handleEditUserSubmit);
-            }
-
-            // 重新绑定编辑模态框外部点击关闭事件
+            
+            // 绑定编辑模态框外部点击关闭事件
             const editUserModal = document.getElementById('editUserModal');
             if (editUserModal) {
                 editUserModal.onclick = function(event) {
                     if (event.target === this) {
-                        closeEditModal();
+                        closeEditUserModal();
                     }
                 };
             }
@@ -1442,141 +1438,6 @@
             window.location.href = 'dashboard.php';
         }
 
-        // 打开编辑模态框
-        async function openEditModal(id) {
-            try {
-                // 获取用户数据
-                const response = await fetch(`generatecodeapi.php?action=get_user&id=${id}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    const userData = result.data;
-                    
-                    // 填充表单数据
-                    document.getElementById('edit_user_id').value = userData.id;
-                    document.getElementById('edit_username').value = userData.username || '';
-                    document.getElementById('edit_username_cn').value = userData.username_cn || '';
-                    document.getElementById('edit_nickname').value = userData.nickname || '';
-                    document.getElementById('edit_email').value = userData.email || '';
-                    document.getElementById('edit_ic_number').value = userData.ic_number || '';
-                    document.getElementById('edit_date_of_birth').value = userData.date_of_birth || '';
-                    document.getElementById('edit_nationality').value = userData.nationality || '';
-                    document.getElementById('edit_gender').value = userData.gender || '';
-                    document.getElementById('edit_race').value = userData.race || '';
-                    document.getElementById('edit_phone_number').value = userData.phone_number || '';
-                    document.getElementById('edit_home_address').value = userData.home_address || '';
-                    document.getElementById('edit_bank_account_holder_en').value = userData.bank_account_holder_en || '';
-                    document.getElementById('edit_bank_account').value = userData.bank_account || '';
-                    document.getElementById('edit_bank_name').value = userData.bank_name || '';
-                    document.getElementById('edit_position').value = userData.position || '';
-                    document.getElementById('edit_emergency_contact_name').value = userData.emergency_contact_name || '';
-                    document.getElementById('edit_emergency_phone_number').value = userData.emergency_phone_number || '';
-                    document.getElementById('edit_account_type').value = userData.account_type || '';
-                    
-                    // 显示模态框
-                    document.getElementById('editUserModal').style.display = 'block';
-                    
-                    // 添加输入格式化
-                    const fieldsToFormat = [
-                        'username', 'username_cn', 'email', 'ic_number', 
-                        'phone_number', 'emergency_phone_number', 'bank_account',
-                        'bank_account_holder_en', 'emergency_contact_name', 'home_address'
-                    ];
-                    
-                    fieldsToFormat.forEach(field => {
-                        const input = document.getElementById(`edit_${field}`);
-                        if (input) {
-                            addInputFormatting(input, field);
-                        }
-                    });
-                } else {
-                    showMessage('获取用户数据失败！', 'error');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showMessage('网络错误，请检查连接！', 'error');
-            }
-        }
-
-        // 关闭编辑模态框
-        function closeEditModal() {
-            document.getElementById('editUserModal').style.display = 'none';
-            document.getElementById('editUserForm').reset();
-        }
-
-        // 处理编辑表单提交
-        function handleEditUserSubmit(e) {
-            e.preventDefault();
-            updateUser();
-        }
-
-        // 更新用户数据
-        async function updateUser() {
-            const formData = new FormData(document.getElementById('editUserForm'));
-            const userData = {};
-            
-            // 收集表单数据
-            for (let [key, value] of formData.entries()) {
-                userData[key] = value.trim();
-            }
-            
-            // 验证必填字段
-            if (!userData.username || !userData.email || !userData.account_type) {
-                showMessage('请填写所有必填字段（英文姓名、邮箱、账号类型）！', 'error');
-                return;
-            }
-
-            // 验证字段格式
-            const fieldsToValidate = ['username', 'username_cn', 'email'];
-            for (let field of fieldsToValidate) {
-                if (userData[field] && !validateField(field, userData[field])) {
-                    const fieldNames = {
-                        'username': '英文姓名需要至少两个单词',
-                        'username_cn': '中文姓名需要至少两个字',
-                        'email': '邮箱格式不正确'
-                    };
-                    showMessage(fieldNames[field], 'error');
-                    return;
-                }
-            }
-            
-            // 显示加载状态
-            const submitBtn = document.querySelector('#editUserForm .btn-save');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<div class="loading"></div>保存中...';
-            submitBtn.disabled = true;
-            
-            try {
-                const response = await fetch('generatecodeapi.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'update',
-                        ...userData
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showMessage('更新成功！', 'success');
-                    closeEditModal();
-                    loadCodesAndUsers(); // 刷新表格
-                } else {
-                    showMessage(result.message || '更新失败，请重试！', 'error');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showMessage(`网络错误：${error.message}`, 'error');
-            } finally {
-                // 恢复按钮状态
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }
-        }
-
         // 显示数据
         function displayData(data) {
             const tableBody = document.getElementById('tableBody');
@@ -1584,7 +1445,7 @@
             if (!data || data.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="20" style="text-align: center; padding: 30px; color: #666;">
+                        <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
                             📝 暂无数据
                         </td>
                     </tr>
@@ -1611,7 +1472,7 @@
             });
 
             const rows = sortedData.map((item, index) => `
-                <tr id="row-${item.id}" data-id="${item.id}">
+                <tr id="row-${item.id}" data-id="${item.id}" data-user='${JSON.stringify(item).replace(/'/g, "&apos;")}'>
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
                     <td>${item.position || '<em style="color: #999;">-</em>'}</td>
                     <td>${item.username || '<em style="color: #999;">-</em>'}</td>
@@ -1760,9 +1621,9 @@
                     continue;
                 }
                 
-                // 检查英文姓名列（第3列，索引为2）和邮箱列（第12列，索引为11）
+                // 检查英文姓名列（第3列，索引为2）和邮箱列（第4列，索引为3）
                 const usernameCell = row.cells[2]; // 英文姓名列
-                const emailCell = row.cells[11]; // 邮箱列
+                const emailCell = row.cells[3]; // 邮箱列
                 
                 let isMatch = false;
                 
@@ -1804,6 +1665,127 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        }
+
+        // 打开编辑模态框
+        function openEditModal(id) {
+            const row = document.getElementById(`row-${id}`);
+            const userData = JSON.parse(row.getAttribute('data-user').replace(/&apos;/g, "'"));
+            
+            // 填充表单数据
+            document.getElementById('edit_user_id').value = userData.id;
+            document.getElementById('edit_username').value = userData.username || '';
+            document.getElementById('edit_username_cn').value = userData.username_cn || '';
+            document.getElementById('edit_nickname').value = userData.nickname || '';
+            document.getElementById('edit_email').value = userData.email || '';
+            document.getElementById('edit_ic_number').value = userData.ic_number || '';
+            document.getElementById('edit_date_of_birth').value = userData.date_of_birth || '';
+            document.getElementById('edit_nationality').value = userData.nationality || '';
+            document.getElementById('edit_gender').value = userData.gender || '';
+            document.getElementById('edit_race').value = userData.race || '';
+            document.getElementById('edit_phone_number').value = userData.phone_number || '';
+            document.getElementById('edit_home_address').value = userData.home_address || '';
+            document.getElementById('edit_bank_account_holder_en').value = userData.bank_account_holder_en || '';
+            document.getElementById('edit_bank_account').value = userData.bank_account || '';
+            document.getElementById('edit_bank_name').value = userData.bank_name || '';
+            document.getElementById('edit_position').value = userData.position || '';
+            document.getElementById('edit_emergency_contact_name').value = userData.emergency_contact_name || '';
+            document.getElementById('edit_emergency_phone_number').value = userData.emergency_phone_number || '';
+            document.getElementById('edit_account_type').value = userData.account_type || '';
+            
+            // 显示模态框
+            document.getElementById('editUserModal').style.display = 'block';
+            
+            // 添加输入格式化
+            const fieldsToFormat = [
+                'username', 'username_cn', 'email', 'ic_number', 
+                'phone_number', 'emergency_phone_number', 'bank_account',
+                'bank_account_holder_en', 'emergency_contact_name', 'home_address'
+            ];
+            
+            fieldsToFormat.forEach(field => {
+                const input = document.getElementById(`edit_${field}`);
+                if (input) {
+                    addInputFormatting(input, field);
+                }
+            });
+        }
+
+        // 关闭编辑模态框
+        function closeEditUserModal() {
+            document.getElementById('editUserModal').style.display = 'none';
+            document.getElementById('editUserForm').reset();
+        }
+
+        // 处理编辑表单提交
+        async function handleEditUserSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(document.getElementById('editUserForm'));
+            const userData = {};
+            
+            // 收集表单数据
+            for (let [key, value] of formData.entries()) {
+                userData[key] = value.trim();
+            }
+            
+            // 验证必填字段
+            if (!userData.username || !userData.email || !userData.account_type) {
+                showMessage('请填写所有必填字段（英文姓名、邮箱、账号类型）！', 'error');
+                return;
+            }
+            
+            // 验证字段格式
+            const fieldsToValidate = ['username', 'username_cn', 'email'];
+            
+            for (let field of fieldsToValidate) {
+                if (userData[field] && !validateField(field, userData[field])) {
+                    const fieldNames = {
+                        'username': '英文姓名需要至少两个单词',
+                        'username_cn': '中文姓名需要至少两个字',
+                        'email': '邮箱格式不正确'
+                    };
+                    showMessage(fieldNames[field], 'error');
+                    return;
+                }
+            }
+            
+            // 显示加载状态
+            const submitBtn = document.querySelector('#editUserForm .btn-save');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="loading"></div>保存中...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('generatecodeapi.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'update',
+                        id: userData.user_id,
+                        ...userData
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('修改成功！', 'success');
+                    closeEditUserModal();
+                    loadCodesAndUsers(); // 刷新表格
+                } else {
+                    showMessage(result.message || '修改失败！', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('网络错误，请检查连接！', 'error');
+            } finally {
+                // 恢复按钮状态
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         }
 
         // 确认删除
