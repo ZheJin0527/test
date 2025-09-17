@@ -65,6 +65,7 @@ include 'header.php';
 </div>
 
 <div class="swiper-slide">
+    <div class="particles" id="particles"></div>
 <div class="comphoto-section" id="comphoto-container">
   <div class="comphoto-title">我们的足迹</div>
     </div>
@@ -77,7 +78,6 @@ include 'header.php';
   </div>
 
 <div class="swiper-slide">
-  <div class="particles" id="particles"></div>
 
     <div class="job-section">
         <div class="job-table-container">
