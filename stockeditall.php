@@ -5081,7 +5081,7 @@
                     // Total RM (第六列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 500 : 500, 6),
+                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -5131,7 +5131,7 @@
                     const totalText = `RM${grandTotal.toFixed(2)}`;
                     page.drawText(totalText, {
                         x: getRightAlignedX(totalText, 565, 8),
-                        y: height - 755,
+                        y: height - 700,
                         size: fontSize,
                         color: textColor,
                         font: boldFont,
