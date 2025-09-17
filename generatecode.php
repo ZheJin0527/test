@@ -25,7 +25,7 @@
         }
 
         .container {
-            max-width: 850px;
+            max-width: 950px;
             margin: 0 auto;
             padding: 40px 20px 20px;
         }
@@ -319,7 +319,7 @@
         th:nth-child(3), td:nth-child(3) { width: 200px; }     /* 英文姓名 */
         th:nth-child(4), td:nth-child(4) { width: 250px; }     /* 邮箱 */
         th:nth-child(5), td:nth-child(5) { width: 120px; }     /* 联络号码 */
-        th:nth-child(6), td:nth-child(6) { width: 80px; }     /* 操作 */
+        th:nth-child(6), td:nth-child(6) { width: 79px; }     /* 操作 */
 
         /* 当地址列显示"-"时居中对齐 */
         td:nth-child(13) em {
