@@ -3093,8 +3093,8 @@
                 date: document.getElementById(`${rowId}-date`) ? document.getElementById(`${rowId}-date`).value : '',
                 time: new Date().toTimeString().slice(0, 5),
                 product_name: productInput ? productInput.value : '',
-                in_quantity: parseFloat(document.getElementById(`${rowId}-in-qty`) ? document.getElementById(`${rowId}-in-qty`).value : 0) || 0,
-                out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0) || 0,
+                in_quantity: document.getElementById(`${rowId}-in-qty`) ? document.getElementById(`${rowId}-in-qty`).value || 0 : 0,
+                out_quantity: document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value || 0 : 0,
                 specification: document.getElementById(`${rowId}-specification`) ? document.getElementById(`${rowId}-specification`).value : '',
                 price: parseFloat(document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0) || 0,
                 receiver: document.getElementById(`${rowId}-receiver`) ? document.getElementById(`${rowId}-receiver`).value : '',
@@ -3230,8 +3230,8 @@
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
                 product_name: document.getElementById('add-product-name').value,
-                in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
-                out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
+                in_quantity: document.getElementById('add-in-qty').value || 0,
+                out_quantity: document.getElementById('add-out-qty').value || 0,
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
                 receiver: document.getElementById('add-receiver').value,
@@ -3436,37 +3436,46 @@
             const netQty = inQty - outQty;
             const total = netQty * price;
             
-            // 更新页面上的总价显示
+            // 更新页面上的进货和出货数量显示
             const row = document.querySelector(`[data-record-id="${id}"]`)?.closest('tr');
             if (row) {
+                // 更新进货数量显示
+                const inCell = row.querySelector('td:nth-child(4)');
+                if (inCell) {
+                    const inSpan = inCell.querySelector('span');
+                    if (inSpan) {
+                        inSpan.textContent = formatNumber(record.in_quantity);
+                    }
+                }
+                
+                // 更新出货数量显示
+                const outCell = row.querySelector('td:nth-child(5)');
+                if (outCell) {
+                    const outSpan = outCell.querySelector('span');
+                    if (outSpan) {
+                        outSpan.textContent = formatNumber(record.out_quantity);
+                        if (outQty > 0) {
+                            outSpan.classList.add('negative-value');
+                        } else {
+                            outSpan.classList.remove('negative-value');
+                        }
+                    }
+                }
+                
+                // 现有的总价更新代码...
                 const totalCell = row.querySelector('.calculated-cell');
                 const currencyDisplay = totalCell?.querySelector('.currency-display');
                 const currencyAmount = totalCell?.querySelector('.currency-amount');
                 
                 if (totalCell && currencyDisplay && currencyAmount) {
-                    // 更新数值
                     currencyAmount.textContent = formatCurrency(Math.abs(total));
                     
-                    // 添加或移除负数样式
                     if (total < 0) {
                         totalCell.classList.add('negative-value', 'negative-parentheses');
                         currencyDisplay.classList.add('negative-value', 'negative-parentheses');
                     } else {
                         totalCell.classList.remove('negative-value', 'negative-parentheses');
                         currencyDisplay.classList.remove('negative-value', 'negative-parentheses');
-                    }
-                }
-                
-                // 更新出库数量的显示样式
-                const outCell = row.querySelector('td:nth-child(5)');
-                if (outCell) {
-                    const outSpan = outCell.querySelector('span');
-                    if (outSpan) {
-                        if (outQty > 0) {
-                            outSpan.classList.add('negative-value');
-                        } else {
-                            outSpan.classList.remove('negative-value');
-                        }
                     }
                 }
             }
