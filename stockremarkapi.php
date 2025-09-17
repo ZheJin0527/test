@@ -41,6 +41,31 @@ function sendResponse($success, $message = "", $data = null) {
     exit;
 }
 
+// 智能格式化数量函数
+function formatQuantity($number) {
+    // 转换为浮点数
+    $num = floatval($number);
+    
+    // 如果是整数，不显示小数点
+    if (floor($num) == $num) {
+        return number_format($num, 0);
+    }
+    
+    // 检查原始精度，最多3位小数
+    $decimalPart = $num - floor($num);
+    
+    if (round($decimalPart, 1) == round($decimalPart, 3)) {
+        // 只有1位有效小数
+        return number_format($num, 1);
+    } elseif (round($decimalPart, 2) == round($decimalPart, 3)) {
+        // 有2位有效小数
+        return number_format($num, 2);
+    } else {
+        // 有3位有效小数
+        return number_format($num, 3);
+    }
+}
+
 // 获取多价格产品分析数据
 function getMultiPriceAnalysis() {
     global $pdo;
@@ -128,9 +153,9 @@ function getMultiPriceAnalysis() {
                         'in_quantity' => $variant['in_quantity'],
                         'out_quantity' => $variant['out_quantity'],
                         'current_stock' => $currentStock,
-                        'formatted_quantity' => number_format($currentStock, 3),
+                        'formatted_quantity' => formatQuantity($currentStock),
                         'price' => $variant['price'],
-                        'formatted_price' => number_format($variant['price'], 3),
+                        'formatted_price' => number_format($variant['price'], 2),
                         'remark_number' => $variant['remark_number']
                     ];
                 }
@@ -144,7 +169,7 @@ function getMultiPriceAnalysis() {
                 $remarkProducts[] = [
                     'product_name' => $group['product_name'],
                     'variants' => $variants,
-                    'total_quantity' => number_format($totalQuantity, 3)
+                    'total_quantity' => formatQuantity($totalQuantity)
                 ];
             }
         }
