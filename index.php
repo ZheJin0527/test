@@ -341,7 +341,7 @@ window.addEventListener('load', () => {
     if (!document.querySelector('.home').classList.contains('gradient-loaded')) {
       triggerAnimations();
     }
-  }, 3000);
+  }, 500);
 });
 </script>
 <script>
