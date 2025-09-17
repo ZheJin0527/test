@@ -277,7 +277,7 @@
         }
 
         .table-title {
-            background: #7f7f7f;
+            background: #9d9d9d;
             color: white;
             padding: 20px;
             font-size: 20.8px;
