@@ -4013,12 +4013,15 @@ nav {
 
 /* 职位容器样式 */
 .jobs-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  width: clamp(320px, 90%, 1400px); /* 超宽屏时居中 + 限制最大宽度 */
-  margin: 0 auto;
-  padding: 0 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 8px;
 }
 
 .company-job-container {
