@@ -1131,17 +1131,7 @@
             const container = document.getElementById('toast-container');
             if (!container) return;
 
-            // 先检查并限制通知数量（在添加新通知之前）
-            const existingToasts = container.querySelectorAll('.toast');
-            while (existingToasts.length >= 999) {
-                closeToast(existingToasts[0].id);
-                // 立即从DOM移除，不等待动画
-                if (existingToasts[0].parentNode) {
-                    existingToasts[0].parentNode.removeChild(existingToasts[0]);
-                }
-                // 重新获取当前通知列表
-                existingToasts = container.querySelectorAll('.toast');
-            }
+            
 
             const toastId = 'toast-' + Date.now();
             const iconClass = {
