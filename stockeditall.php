@@ -4819,7 +4819,7 @@
                 
                 // 根据记录数量决定使用单页还是多页模板
                 const recordCount = outData.length;
-                const useMultiPage = (exportSystem === 'j1' && recordCount > 35) || (exportSystem === 'j2' && recordCount > 25);
+                const useMultiPage = (exportSystem === 'j1' && recordCount > 30) || (exportSystem === 'j2' && recordCount > 25);
                 
                 if (useMultiPage) {
                     // 使用多页模板
