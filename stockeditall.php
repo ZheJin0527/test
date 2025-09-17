@@ -5401,7 +5401,7 @@
                                 const subtotalText = `RM${subtotal.toFixed(2)}`;
                                 page.drawText(subtotalText, {
                                     x: getRightAlignedX(subtotalText, 565, 6.5),
-                                    y: height - 708,
+                                    y: height - 628,
                                     size: 11,
                                     color: textColor,
                                     font: boldFont,
@@ -5411,7 +5411,7 @@
                                 const chargeText = `RM${charge.toFixed(2)}`;
                                 page.drawText(chargeText, {
                                     x: getRightAlignedX(chargeText, 565, 6.5),
-                                    y: height - 721,
+                                    y: height - 639,
                                     size: 11,
                                     color: textColor,
                                     font: boldFont,
@@ -5421,7 +5421,7 @@
                                 const finalTotalText = `RM${finalTotal.toFixed(2)}`;
                                 page.drawText(finalTotalText, {
                                     x: getRightAlignedX(finalTotalText, 565, 8),
-                                    y: height - 745,
+                                    y: height - 660,
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
