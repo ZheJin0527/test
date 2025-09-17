@@ -15,7 +15,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #cdc8bb;
+            background-color: #ffffffff;
             background-image: url('images/images/remarkbg1.png');
             background-repeat: no-repeat;
             background-position: center;
