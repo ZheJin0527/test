@@ -4784,10 +4784,16 @@
                     throw new Error('获取数据失败');
                 }
                 
-                // 过滤出库数据 - 按日期范围和出库数量筛选
+                // 过滤出库数据 - 按日期范围、出库数量和收货单位筛选
                 const outData = (result.data || []).filter(record => {
                     const outQty = parseFloat(record.out_quantity);
                     if (outQty <= 0) return false;
+                    
+                    // 检查收货单位是否匹配选择的店面
+                    const targetSystem = record.target_system;
+                    if (!targetSystem || targetSystem.toLowerCase() !== exportSystem.toLowerCase()) {
+                        return false;
+                    }
                     
                     // 检查日期范围
                     const recordDate = record.date || record.out_date || record.created_at;
