@@ -2564,13 +2564,13 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
                             `<span>${formatNumber(record.in_quantity)}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
                             `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
@@ -2721,7 +2721,9 @@
         function formatNumber(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
-            return isNaN(num) ? '0.00' : num.toFixed(2);
+            if (isNaN(num)) return '0.00';
+            // 四舍五入到2位小数
+            return (Math.round(num * 100) / 100).toFixed(2);
         }
 
         // 格式化货币
