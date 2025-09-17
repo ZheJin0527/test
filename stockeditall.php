@@ -4909,7 +4909,7 @@
                 }
                 
                 // 下载现有的PDF模板
-                const templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+                const templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoice.pdf?ts=${Date.now()}` : `invoice/invoice/j1invoice.pdf?ts=${Date.now()}`;
                 const templateResponse = await fetch(templateFile);
                 if (!templateResponse.ok) {
                     throw new Error('无法加载PDF模板');
@@ -5190,10 +5190,10 @@
                     let templateFile;
                     if (pageIndex === 0) {
                         // 第一页使用 (1) 模板
-                        templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoiceMulti(1).pdf' : 'invoice/invoice/j1invoiceMulti(1).pdf';
+                        templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`;
                     } else {
                         // 后续页使用 (2) 模板
-                        templateFile = exportSystem === 'j2' ? 'invoice/invoice/j2invoiceMulti(2).pdf' : 'invoice/invoice/j1invoiceMulti(2).pdf';
+                        templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`;
                     }
                     templateFiles.push(templateFile);
                 }
