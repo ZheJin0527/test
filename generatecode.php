@@ -296,7 +296,7 @@
         }
 
         th {
-            background: #e5e5e5;
+            background: #ededed;
             color: black;
             padding: 15px 0px;
             text-align: center;
