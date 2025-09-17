@@ -780,7 +780,7 @@
                         <div class="form-group" style="flex: 0 0 auto; position: relative; display: flex; align-items: center; gap: 10px;">
                             <div style="position: relative;">
                                 <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
-                                    style="padding: 10px 40px 10px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 14px; width: 300px;">
+                                    style="padding: 10px 40px 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; width: 300px;">
                                 <button type="button" onclick="clearSearch()" 
                                         style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
                                         title="清除搜索">
