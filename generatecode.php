@@ -37,7 +37,7 @@
         }
 
         .header h1 {
-            color: #ff5c00;
+            color: #000000ff;
             font-size: 60px;
             margin-bottom: 50px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -273,11 +273,11 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border: 2px solid #ff5c00;
+            border: 2px solid #000000ff;
         }
 
         .table-title {
-            background: #ff5c00;
+            background: #7f7f7f;
             color: white;
             padding: 20px;
             font-size: 20.8px;
@@ -296,7 +296,7 @@
         }
 
         th {
-            background: #fff9f1;
+            background: #e5e5e5;
             color: black;
             padding: 15px 0px;
             text-align: center;
