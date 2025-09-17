@@ -128,9 +128,9 @@ function getMultiPriceAnalysis() {
                         'in_quantity' => $variant['in_quantity'],
                         'out_quantity' => $variant['out_quantity'],
                         'current_stock' => $currentStock,
-                        'formatted_quantity' => number_format($currentStock, 2),
+                        'formatted_quantity' => number_format($currentStock, 3),
                         'price' => $variant['price'],
-                        'formatted_price' => number_format($variant['price'], 2),
+                        'formatted_price' => number_format($variant['price'], 3),
                         'remark_number' => $variant['remark_number']
                     ];
                 }
@@ -144,7 +144,7 @@ function getMultiPriceAnalysis() {
                 $remarkProducts[] = [
                     'product_name' => $group['product_name'],
                     'variants' => $variants,
-                    'total_quantity' => number_format($totalQuantity, 2)
+                    'total_quantity' => number_format($totalQuantity, 3)
                 ];
             }
         }
