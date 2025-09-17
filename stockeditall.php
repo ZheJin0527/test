@@ -462,11 +462,11 @@
         /* 为每列指定固定宽度 */
         .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* 日期 */
         .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 225px; } /* 货品 */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* 货品 */
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
         .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
         .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
-        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 70px; } /* 规格 */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 80px; } /* 规格 */
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
         .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 80px; } /* 类型 */
@@ -1791,11 +1791,11 @@
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
-                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.001" placeholder="0.000" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.001" placeholder="0.000" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <select id="add-target" class="form-select" disabled>
                     <option value="">请选择</option>
@@ -2062,16 +2062,6 @@
                     typeSelect.disabled = false;
                 }
             }
-
-            // 新增：初始化时根据当前系统类型控制导出按钮
-            const exportButton = document.querySelector('.btn-warning[onclick="exportData()"]');
-            if (exportButton) {
-                if (currentStockType === 'central') {
-                    exportButton.style.display = 'inline-block';
-                } else {
-                    exportButton.style.display = 'none';
-                }
-            }
         }
 
         // 设置实时搜索
@@ -2124,15 +2114,6 @@
                     document.getElementById('page-title').textContent = '进出货 - J2';
                     document.getElementById('current-stock-type').textContent = 'J2';
                     break;
-            }
-
-            const exportButton = document.querySelector('.btn-warning[onclick="exportData()"]');
-            if (exportButton) {
-                if (stockType === 'central') {
-                    exportButton.style.display = 'inline-block';
-                } else {
-                    exportButton.style.display = 'none';
-                }
             }
 
             // 修改Type列的控制 - 不要隐藏，而是控制禁用状态
@@ -2564,13 +2545,13 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
                             `<span>${formatNumber(record.in_quantity)}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.01" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
                             `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
@@ -2721,9 +2702,7 @@
         function formatNumber(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
-            if (isNaN(num)) return '0.00';
-            // 四舍五入到2位小数
-            return (Math.round(num * 100) / 100).toFixed(2);
+            return isNaN(num) ? '0.00' : num.toFixed(2);
         }
 
         // 格式化货币
@@ -2754,8 +2733,8 @@
                 <td><input type="date" class="table-input" value="${today}" id="${rowId}-date"></td>
                 <td>${createCombobox('code', '', null, rowId)}</td>
                 <td>${createCombobox('product', '', null, rowId)}</td>
-                <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.000" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
-                <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.000" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
                     <select class="table-select" id="${rowId}-target" disabled>
                         <option value="">请选择</option>
@@ -4786,16 +4765,10 @@
                     throw new Error('获取数据失败');
                 }
                 
-                // 过滤出库数据 - 按日期范围、出库数量和收货单位筛选
+                // 过滤出库数据 - 按日期范围和出库数量筛选
                 const outData = (result.data || []).filter(record => {
                     const outQty = parseFloat(record.out_quantity);
                     if (outQty <= 0) return false;
-                    
-                    // 检查收货单位是否匹配选择的店面
-                    const targetSystem = record.target_system;
-                    if (!targetSystem || targetSystem.toLowerCase() !== exportSystem.toLowerCase()) {
-                        return false;
-                    }
                     
                     // 检查日期范围
                     const recordDate = record.date || record.out_date || record.created_at;
