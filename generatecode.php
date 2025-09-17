@@ -808,7 +808,7 @@
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="6" style="text-align: center; padding: 30px;">
+                            <td colspan="19" style="text-align: center; padding: 30px;">
                                 <div class="loading"></div>
                                 正在加载数据...
                             </td>
@@ -1031,6 +1031,221 @@
         </div>
     </div>
 
+    <!-- 编辑职员模态框 -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content" style="max-width: 600px; max-height: 85vh; overflow-y: auto;">
+            <div class="modal-header" style="color: #f59e0b; font-size: 16px; margin-bottom: 10px;">
+                <i class="fas fa-edit"></i> 编辑职员信息
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" id="edit_user_id" name="id">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                        <div class="form-group">
+                            <label for="edit_username">英文姓名 *:</label>
+                            <input type="text" id="edit_username" name="username" required maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_username_cn">中文姓名:</label>
+                            <input type="text" id="edit_username_cn" name="username_cn" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_nickname">昵称:</label>
+                            <input type="text" id="edit_nickname" name="nickname" maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_email">邮箱 *:</label>
+                            <input type="email" id="edit_email" name="email" required maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_ic_number">身份证号码:</label>
+                            <input type="text" id="edit_ic_number" name="ic_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_date_of_birth">出生日期:</label>
+                            <input type="date" id="edit_date_of_birth" name="date_of_birth">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_nationality">国籍:</label>
+                            <select id="edit_nationality" name="nationality">
+                                <option value="">请选择国籍</option>
+                                <!-- 复制添加职员模态框中的所有国籍选项 -->
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Armenia">Armenia</option>
+                                <option value="Azerbaijan">Azerbaijan</option>
+                                <option value="Bahrain">Bahrain</option>
+                                <option value="Bangladesh">Bangladesh</option>
+                                <option value="Bhutan">Bhutan</option>
+                                <option value="Brunei">Brunei</option>
+                                <option value="Cambodia">Cambodia</option>
+                                <option value="China">China</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="East Timor (Timor-Leste)">East Timor (Timor-Leste)</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="India">India</option>
+                                <option value="Indonesia">Indonesia</option>
+                                <option value="Iran">Iran</option>
+                                <option value="Iraq">Iraq</option>
+                                <option value="Israel">Israel</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Jordan">Jordan</option>
+                                <option value="Kazakhstan">Kazakhstan</option>
+                                <option value="Kuwait">Kuwait</option>
+                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                <option value="Laos">Laos</option>
+                                <option value="Lebanon">Lebanon</option>
+                                <option value="Malaysia">Malaysia</option>
+                                <option value="Maldives">Maldives</option>
+                                <option value="Mongolia">Mongolia</option>
+                                <option value="Myanmar (Burma)">Myanmar (Burma)</option>
+                                <option value="Nepal">Nepal</option>
+                                <option value="North Korea">North Korea</option>
+                                <option value="Oman">Oman</option>
+                                <option value="Pakistan">Pakistan</option>
+                                <option value="Palestine">Palestine</option>
+                                <option value="Philippines">Philippines</option>
+                                <option value="Qatar">Qatar</option>
+                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="South Korea">South Korea</option>
+                                <option value="Sri Lanka">Sri Lanka</option>
+                                <option value="Syria">Syria</option>
+                                <option value="Taiwan">Taiwan</option>
+                                <option value="Tajikistan">Tajikistan</option>
+                                <option value="Thailand">Thailand</option>
+                                <option value="Turkey">Turkey</option>
+                                <option value="Turkmenistan">Turkmenistan</option>
+                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                <option value="Uzbekistan">Uzbekistan</option>
+                                <option value="Vietnam">Vietnam</option>
+                                <option value="Yemen">Yemen</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_gender">性别:</label>
+                            <select id="edit_gender" name="gender">
+                                <option value="">请选择</option>
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_race">种族:</label>
+                            <select id="edit_race" name="race">
+                                <option value="">请选择种族</option>
+                                <option value="Malay">Malay</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Indian">Indian</option>
+                                <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
+                                <option value="Indonesian">Indonesian</option>
+                                <option value="Bangladeshi">Bangladeshi</option>
+                                <option value="Nepali">Nepali</option>
+                                <option value="Myanmar">Myanmar</option>
+                                <option value="Filipino">Filipino</option>
+                                <option value="Indian (Foreign)">Indian (Foreign)</option>
+                                <option value="Pakistani">Pakistani</option>
+                                <option value="Vietnamese">Vietnamese</option>
+                                <option value="Cambodian">Cambodian</option>
+                                <option value="Others (Foreign)">Others (Foreign)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_phone_number">联络号码:</label>
+                            <input type="tel" id="edit_phone_number" name="phone_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="edit_home_address">住址:</label>
+                            <textarea id="edit_home_address" name="home_address" rows="2" maxlength="255"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_bank_account_holder_en">银行账户持有人:</label>
+                            <input type="text" id="edit_bank_account_holder_en" name="bank_account_holder_en" maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_bank_account">银行账号:</label>
+                            <input type="text" id="edit_bank_account" name="bank_account" maxlength="30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_bank_name">银行名称:</label>
+                            <select id="edit_bank_name" name="bank_name">
+                                <option value="">请选择银行</option>
+                                <!-- 复制添加职员模态框中的所有银行选项 -->
+                                <option value="Maybank (Malayan Banking Berhad)">Maybank (Malayan Banking Berhad)</option>
+                                <option value="CIMB Bank">CIMB Bank</option>
+                                <option value="Public Bank">Public Bank</option>
+                                <option value="RHB Bank">RHB Bank</option>
+                                <option value="Hong Leong Bank">Hong Leong Bank</option>
+                                <option value="AmBank">AmBank</option>
+                                <option value="Alliance Bank">Alliance Bank</option>
+                                <option value="Affin Bank">Affin Bank</option>
+                                <option value="Bank Islam Malaysia">Bank Islam Malaysia</option>
+                                <option value="Agrobank">Agrobank</option>
+                                <option value="Bank Simpanan Nasional (BSN)">Bank Simpanan Nasional (BSN)</option>
+                                <option value="HSBC Bank Malaysia">HSBC Bank Malaysia</option>
+                                <option value="OCBC Bank (Malaysia)">OCBC Bank (Malaysia)</option>
+                                <option value="Standard Chartered Bank Malaysia">Standard Chartered Bank Malaysia</option>
+                                <option value="United Overseas Bank (UOB Malaysia)">United Overseas Bank (UOB Malaysia)</option>
+                                <option value="Bank of China (Malaysia)">Bank of China (Malaysia)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_position">职位:</label>
+                            <input type="text" id="edit_position" name="position" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_emergency_contact_name">紧急联系人:</label>
+                            <input type="text" id="edit_emergency_contact_name" name="emergency_contact_name" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit_emergency_phone_number">紧急联系人电话:</label>
+                            <input type="tel" id="edit_emergency_phone_number" name="emergency_phone_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="edit_account_type">账号类型 *:</label>
+                            <select id="edit_account_type" name="account_type" required>
+                                <option value="">请选择账号类型</option>
+                                <option value="boss">老板 (Boss)</option>
+                                <option value="admin">管理员 (Admin)</option>
+                                <option value="hr">人事部 (HR)</option>
+                                <option value="design">设计部 (Design)</option>
+                                <option value="support">支援部 (Support)</option>
+                                <option value="IT">技术部 (IT)</option>
+                                <option value="photograph">摄影部 (Photography)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-buttons" style="margin-top: 15px;">
+                        <button type="submit" class="btn-action btn-save" style="padding: 12px 20px; font-size: 14px;">
+                            <i class="fas fa-save"></i> 保存更改
+                        </button>
+                        <button type="button" class="btn-action btn-cancel" onclick="closeEditModal()" style="padding: 12px 12px; font-size: 14px;">
+                            <i class="fas fa-times"></i> 取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- 回到顶部按钮 -->
     <button class="back-to-top" id="back-to-top-btn" onclick="scrollToTop()" title="回到顶部">
         <i class="fas fa-chevron-up"></i>
@@ -1187,6 +1402,23 @@
                     }
                 };
             }
+
+            // 重新绑定编辑职员表单提交事件
+            const editUserForm = document.getElementById('editUserForm');
+            if (editUserForm) {
+                editUserForm.removeEventListener('submit', handleEditUserSubmit);
+                editUserForm.addEventListener('submit', handleEditUserSubmit);
+            }
+
+            // 重新绑定编辑模态框外部点击关闭事件
+            const editUserModal = document.getElementById('editUserModal');
+            if (editUserModal) {
+                editUserModal.onclick = function(event) {
+                    if (event.target === this) {
+                        closeEditModal();
+                    }
+                };
+            }
         }
 
         // 提取表单提交处理函数
@@ -1208,6 +1440,141 @@
         // 返回仪表盘
         function goBack() {
             window.location.href = 'dashboard.php';
+        }
+
+        // 打开编辑模态框
+        async function openEditModal(id) {
+            try {
+                // 获取用户数据
+                const response = await fetch(`generatecodeapi.php?action=get_user&id=${id}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const userData = result.data;
+                    
+                    // 填充表单数据
+                    document.getElementById('edit_user_id').value = userData.id;
+                    document.getElementById('edit_username').value = userData.username || '';
+                    document.getElementById('edit_username_cn').value = userData.username_cn || '';
+                    document.getElementById('edit_nickname').value = userData.nickname || '';
+                    document.getElementById('edit_email').value = userData.email || '';
+                    document.getElementById('edit_ic_number').value = userData.ic_number || '';
+                    document.getElementById('edit_date_of_birth').value = userData.date_of_birth || '';
+                    document.getElementById('edit_nationality').value = userData.nationality || '';
+                    document.getElementById('edit_gender').value = userData.gender || '';
+                    document.getElementById('edit_race').value = userData.race || '';
+                    document.getElementById('edit_phone_number').value = userData.phone_number || '';
+                    document.getElementById('edit_home_address').value = userData.home_address || '';
+                    document.getElementById('edit_bank_account_holder_en').value = userData.bank_account_holder_en || '';
+                    document.getElementById('edit_bank_account').value = userData.bank_account || '';
+                    document.getElementById('edit_bank_name').value = userData.bank_name || '';
+                    document.getElementById('edit_position').value = userData.position || '';
+                    document.getElementById('edit_emergency_contact_name').value = userData.emergency_contact_name || '';
+                    document.getElementById('edit_emergency_phone_number').value = userData.emergency_phone_number || '';
+                    document.getElementById('edit_account_type').value = userData.account_type || '';
+                    
+                    // 显示模态框
+                    document.getElementById('editUserModal').style.display = 'block';
+                    
+                    // 添加输入格式化
+                    const fieldsToFormat = [
+                        'username', 'username_cn', 'email', 'ic_number', 
+                        'phone_number', 'emergency_phone_number', 'bank_account',
+                        'bank_account_holder_en', 'emergency_contact_name', 'home_address'
+                    ];
+                    
+                    fieldsToFormat.forEach(field => {
+                        const input = document.getElementById(`edit_${field}`);
+                        if (input) {
+                            addInputFormatting(input, field);
+                        }
+                    });
+                } else {
+                    showMessage('获取用户数据失败！', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('网络错误，请检查连接！', 'error');
+            }
+        }
+
+        // 关闭编辑模态框
+        function closeEditModal() {
+            document.getElementById('editUserModal').style.display = 'none';
+            document.getElementById('editUserForm').reset();
+        }
+
+        // 处理编辑表单提交
+        function handleEditUserSubmit(e) {
+            e.preventDefault();
+            updateUser();
+        }
+
+        // 更新用户数据
+        async function updateUser() {
+            const formData = new FormData(document.getElementById('editUserForm'));
+            const userData = {};
+            
+            // 收集表单数据
+            for (let [key, value] of formData.entries()) {
+                userData[key] = value.trim();
+            }
+            
+            // 验证必填字段
+            if (!userData.username || !userData.email || !userData.account_type) {
+                showMessage('请填写所有必填字段（英文姓名、邮箱、账号类型）！', 'error');
+                return;
+            }
+
+            // 验证字段格式
+            const fieldsToValidate = ['username', 'username_cn', 'email'];
+            for (let field of fieldsToValidate) {
+                if (userData[field] && !validateField(field, userData[field])) {
+                    const fieldNames = {
+                        'username': '英文姓名需要至少两个单词',
+                        'username_cn': '中文姓名需要至少两个字',
+                        'email': '邮箱格式不正确'
+                    };
+                    showMessage(fieldNames[field], 'error');
+                    return;
+                }
+            }
+            
+            // 显示加载状态
+            const submitBtn = document.querySelector('#editUserForm .btn-save');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="loading"></div>保存中...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('generatecodeapi.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'update',
+                        ...userData
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('更新成功！', 'success');
+                    closeEditModal();
+                    loadCodesAndUsers(); // 刷新表格
+                } else {
+                    showMessage(result.message || '更新失败，请重试！', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage(`网络错误：${error.message}`, 'error');
+            } finally {
+                // 恢复按钮状态
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         }
 
         // 显示数据
@@ -1246,13 +1613,13 @@
             const rows = sortedData.map((item, index) => `
                 <tr id="row-${item.id}" data-id="${item.id}">
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
-                    <td data-field="position" data-original="${item.position || ''}">${item.position || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="username" data-original="${item.username || ''}">${item.username || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="email" data-original="${item.email || ''}">${item.email || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="phone_number" data-original="${item.phone_number || ''}">${item.phone_number || '<em style="color: #999;">-</em>'}</td>
+                    <td>${item.position || '<em style="color: #999;">-</em>'}</td>
+                    <td>${item.username || '<em style="color: #999;">-</em>'}</td>
+                    <td>${item.email || '<em style="color: #999;">-</em>'}</td>
+                    <td>${item.phone_number || '<em style="color: #999;">-</em>'}</td>
                     <td>
                         <div class="action-buttons">
-                            <button class="btn-action btn-edit" onclick="editRow(${item.id})">
+                            <button class="btn-action btn-edit" onclick="openEditModal(${item.id})">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.username || '未知职员'}')">
@@ -1437,280 +1804,6 @@
                 top: 0,
                 behavior: 'smooth'
             });
-        }
-
-        // 编辑行数据
-        function editRow(id) {
-            const row = document.getElementById(`row-${id}`);
-            const editBtn = row.querySelector('.btn-edit');
-            const deleteBtn = row.querySelector('.btn-delete');
-            
-            // 如果已经在编辑模式，不重复处理
-            if (editBtn.textContent.includes('保存')) {
-                return;
-            }
-            
-            // 添加编辑状态样式
-            row.classList.add('editing-row');
-            
-            // 获取所有可编辑的字段
-            const editableFields = ['position', 'username', 'email', 'phone_number'];
-            
-            editableFields.forEach(field => {
-                const cell = row.querySelector(`[data-field="${field}"]`);
-                if (cell) {
-                    const originalValue = cell.getAttribute('data-original') || '';
-                    
-                    if (field === 'account_type') {
-                        cell.innerHTML = `
-                            <select class="edit-select">
-                                <option value="boss" ${originalValue === 'boss' ? 'selected' : ''}>老板</option>
-                                <option value="admin" ${originalValue === 'admin' ? 'selected' : ''}>管理员</option>
-                                <option value="hr" ${originalValue === 'hr' ? 'selected' : ''}>人事部</option>
-                                <option value="design" ${originalValue === 'design' ? 'selected' : ''}>设计部</option>
-                                <option value="support" ${originalValue === 'support' ? 'selected' : ''}>支援部</option>
-                                <option value="IT" ${originalValue === 'IT' ? 'selected' : ''}>技术部</option>
-                                <option value="photograph" ${originalValue === 'photograph' ? 'selected' : ''}>摄影部</option>
-                            </select>
-                        `;
-                    } else if (field === 'gender') {
-                        cell.innerHTML = `
-                            <select class="edit-select">
-                                <option value="">请选择</option>
-                                <option value="male" ${originalValue === 'male' ? 'selected' : ''}>男</option>
-                                <option value="female" ${originalValue === 'female' ? 'selected' : ''}>女</option>
-                                <option value="other" ${originalValue === 'other' ? 'selected' : ''}>其他</option>
-                            </select>
-                        `;
-                    } else if (field === 'date_of_birth') {
-                        cell.innerHTML = `<input type="date" class="edit-input" value="${originalValue}">`;
-                    } else if (field === 'email') {
-                        cell.innerHTML = `<input type="email" class="edit-input" value="${originalValue}" maxlength="100" placeholder="邮箱">`;
-                        setTimeout(() => addInputFormatting(cell.querySelector('input'), 'email'), 0);
-                    } else if (field === 'phone_number' || field === 'emergency_phone_number') {
-                        cell.innerHTML = `<input type="tel" class="edit-input" value="${originalValue}" maxlength="20" placeholder="联络号码">`;
-                        setTimeout(() => addInputFormatting(cell.querySelector('input'), field), 0);
-                    } else if (field === 'home_address') {
-                        cell.innerHTML = `<textarea class="edit-input" maxlength="255" placeholder="地址" style="min-height: 60px; width: 100%; max-width: 100%; box-sizing: border-box; word-wrap: break-word; white-space: pre-wrap; resize: vertical;">${originalValue}</textarea>`;
-                        setTimeout(() => addInputFormatting(cell.querySelector('textarea'), 'home_address'), 0);
-                    } else if (field === 'ic_number') {
-                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="20" placeholder="身份证号码">`;
-                        setTimeout(() => addInputFormatting(cell.querySelector('input'), 'ic_number'), 0);
-                    } else if (field === 'bank_account') {
-                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="30" placeholder="银行账号">`;
-                        setTimeout(() => addInputFormatting(cell.querySelector('input'), 'bank_account'), 0);
-                    } else if (field === 'bank_name') {
-                        cell.innerHTML = `
-                            <select class="edit-select">
-                                <option value="">请选择银行</option>
-                                <option value="Maybank (Malayan Banking Berhad)" ${originalValue === 'Maybank (Malayan Banking Berhad)' ? 'selected' : ''}>Maybank (Malayan Banking Berhad)</option>
-                                <option value="CIMB Bank" ${originalValue === 'CIMB Bank' ? 'selected' : ''}>CIMB Bank</option>
-                                <option value="Public Bank" ${originalValue === 'Public Bank' ? 'selected' : ''}>Public Bank</option>
-                                <option value="RHB Bank" ${originalValue === 'RHB Bank' ? 'selected' : ''}>RHB Bank</option>
-                                <option value="Hong Leong Bank" ${originalValue === 'Hong Leong Bank' ? 'selected' : ''}>Hong Leong Bank</option>
-                                <option value="AmBank" ${originalValue === 'AmBank' ? 'selected' : ''}>AmBank</option>
-                                <option value="Alliance Bank" ${originalValue === 'Alliance Bank' ? 'selected' : ''}>Alliance Bank</option>
-                                <option value="Affin Bank" ${originalValue === 'Affin Bank' ? 'selected' : ''}>Affin Bank</option>
-                                <option value="Bank Islam Malaysia" ${originalValue === 'Bank Islam Malaysia' ? 'selected' : ''}>Bank Islam Malaysia</option>
-                                <option value="Agrobank" ${originalValue === 'Agrobank' ? 'selected' : ''}>Agrobank</option>
-                                <option value="Bank Simpanan Nasional (BSN)" ${originalValue === 'Bank Simpanan Nasional (BSN)' ? 'selected' : ''}>Bank Simpanan Nasional (BSN)</option>
-                                <option value="HSBC Bank Malaysia" ${originalValue === 'HSBC Bank Malaysia' ? 'selected' : ''}>HSBC Bank Malaysia</option>
-                                <option value="OCBC Bank (Malaysia)" ${originalValue === 'OCBC Bank (Malaysia)' ? 'selected' : ''}>OCBC Bank (Malaysia)</option>
-                                <option value="Standard Chartered Bank Malaysia" ${originalValue === 'Standard Chartered Bank Malaysia' ? 'selected' : ''}>Standard Chartered Bank Malaysia</option>
-                                <option value="United Overseas Bank (UOB Malaysia)" ${originalValue === 'United Overseas Bank (UOB Malaysia)' ? 'selected' : ''}>United Overseas Bank (UOB Malaysia)</option>
-                                <option value="Bank of China (Malaysia)" ${originalValue === 'Bank of China (Malaysia)' ? 'selected' : ''}>Bank of China (Malaysia)</option>
-                            </select>
-                        `;
-                    } else if (field === 'race') {
-                        cell.innerHTML = `
-                            <select class="edit-select">
-                                <option value="">请选择种族</option>
-                                <option value="Malay" ${originalValue === 'Malay' ? 'selected' : ''}>Malay</option>
-                                <option value="Chinese" ${originalValue === 'Chinese' ? 'selected' : ''}>Chinese</option>
-                                <option value="Indian" ${originalValue === 'Indian' ? 'selected' : ''}>Indian</option>
-                                <option value="Bumiputera (Sabah/Sarawak)" ${originalValue === 'Bumiputera (Sabah/Sarawak)' ? 'selected' : ''}>Bumiputera (Sabah/Sarawak)</option>
-                                <option value="Indonesian" ${originalValue === 'Indonesian' ? 'selected' : ''}>Indonesian</option>
-                                <option value="Bangladeshi" ${originalValue === 'Bangladeshi' ? 'selected' : ''}>Bangladeshi</option>
-                                <option value="Nepali" ${originalValue === 'Nepali' ? 'selected' : ''}>Nepali</option>
-                                <option value="Myanmar" ${originalValue === 'Myanmar' ? 'selected' : ''}>Myanmar</option>
-                                <option value="Filipino" ${originalValue === 'Filipino' ? 'selected' : ''}>Filipino</option>
-                                <option value="Indian (Foreign)" ${originalValue === 'Indian (Foreign)' ? 'selected' : ''}>Indian (Foreign)</option>
-                                <option value="Pakistani" ${originalValue === 'Pakistani' ? 'selected' : ''}>Pakistani</option>
-                                <option value="Vietnamese" ${originalValue === 'Vietnamese' ? 'selected' : ''}>Vietnamese</option>
-                                <option value="Cambodian" ${originalValue === 'Cambodian' ? 'selected' : ''}>Cambodian</option>
-                                <option value="Others (Foreign)" ${originalValue === 'Others (Foreign)' ? 'selected' : ''}>Others (Foreign)</option>
-                            </select>
-                        `;
-                    } else if (field === 'nationality') {
-                        cell.innerHTML = `
-                            <select class="edit-select">
-                                <option value="">请选择国籍</option>
-                                <option value="Afghanistan" ${originalValue === 'Afghanistan' ? 'selected' : ''}>Afghanistan</option>
-                                <option value="Armenia" ${originalValue === 'Armenia' ? 'selected' : ''}>Armenia</option>
-                                <option value="Azerbaijan" ${originalValue === 'Azerbaijan' ? 'selected' : ''}>Azerbaijan</option>
-                                <option value="Bahrain" ${originalValue === 'Bahrain' ? 'selected' : ''}>Bahrain</option>
-                                <option value="Bangladesh" ${originalValue === 'Bangladesh' ? 'selected' : ''}>Bangladesh</option>
-                                <option value="Bhutan" ${originalValue === 'Bhutan' ? 'selected' : ''}>Bhutan</option>
-                                <option value="Brunei" ${originalValue === 'Brunei' ? 'selected' : ''}>Brunei</option>
-                                <option value="Cambodia" ${originalValue === 'Cambodia' ? 'selected' : ''}>Cambodia</option>
-                                <option value="China" ${originalValue === 'China' ? 'selected' : ''}>China</option>
-                                <option value="Cyprus" ${originalValue === 'Cyprus' ? 'selected' : ''}>Cyprus</option>
-                                <option value="East Timor (Timor-Leste)" ${originalValue === 'East Timor (Timor-Leste)' ? 'selected' : ''}>East Timor (Timor-Leste)</option>
-                                <option value="Georgia" ${originalValue === 'Georgia' ? 'selected' : ''}>Georgia</option>
-                                <option value="India" ${originalValue === 'India' ? 'selected' : ''}>India</option>
-                                <option value="Indonesia" ${originalValue === 'Indonesia' ? 'selected' : ''}>Indonesia</option>
-                                <option value="Iran" ${originalValue === 'Iran' ? 'selected' : ''}>Iran</option>
-                                <option value="Iraq" ${originalValue === 'Iraq' ? 'selected' : ''}>Iraq</option>
-                                <option value="Israel" ${originalValue === 'Israel' ? 'selected' : ''}>Israel</option>
-                                <option value="Japan" ${originalValue === 'Japan' ? 'selected' : ''}>Japan</option>
-                                <option value="Jordan" ${originalValue === 'Jordan' ? 'selected' : ''}>Jordan</option>
-                                <option value="Kazakhstan" ${originalValue === 'Kazakhstan' ? 'selected' : ''}>Kazakhstan</option>
-                                <option value="Kuwait" ${originalValue === 'Kuwait' ? 'selected' : ''}>Kuwait</option>
-                                <option value="Kyrgyzstan" ${originalValue === 'Kyrgyzstan' ? 'selected' : ''}>Kyrgyzstan</option>
-                                <option value="Laos" ${originalValue === 'Laos' ? 'selected' : ''}>Laos</option>
-                                <option value="Lebanon" ${originalValue === 'Lebanon' ? 'selected' : ''}>Lebanon</option>
-                                <option value="Malaysia" ${originalValue === 'Malaysia' ? 'selected' : ''}>Malaysia</option>
-                                <option value="Maldives" ${originalValue === 'Maldives' ? 'selected' : ''}>Maldives</option>
-                                <option value="Mongolia" ${originalValue === 'Mongolia' ? 'selected' : ''}>Mongolia</option>
-                                <option value="Myanmar (Burma)" ${originalValue === 'Myanmar (Burma)' ? 'selected' : ''}>Myanmar (Burma)</option>
-                                <option value="Nepal" ${originalValue === 'Nepal' ? 'selected' : ''}>Nepal</option>
-                                <option value="North Korea" ${originalValue === 'North Korea' ? 'selected' : ''}>North Korea</option>
-                                <option value="Oman" ${originalValue === 'Oman' ? 'selected' : ''}>Oman</option>
-                                <option value="Pakistan" ${originalValue === 'Pakistan' ? 'selected' : ''}>Pakistan</option>
-                                <option value="Palestine" ${originalValue === 'Palestine' ? 'selected' : ''}>Palestine</option>
-                                <option value="Philippines" ${originalValue === 'Philippines' ? 'selected' : ''}>Philippines</option>
-                                <option value="Qatar" ${originalValue === 'Qatar' ? 'selected' : ''}>Qatar</option>
-                                <option value="Saudi Arabia" ${originalValue === 'Saudi Arabia' ? 'selected' : ''}>Saudi Arabia</option>
-                                <option value="Singapore" ${originalValue === 'Singapore' ? 'selected' : ''}>Singapore</option>
-                                <option value="South Korea" ${originalValue === 'South Korea' ? 'selected' : ''}>South Korea</option>
-                                <option value="Sri Lanka" ${originalValue === 'Sri Lanka' ? 'selected' : ''}>Sri Lanka</option>
-                                <option value="Syria" ${originalValue === 'Syria' ? 'selected' : ''}>Syria</option>
-                                <option value="Taiwan" ${originalValue === 'Taiwan' ? 'selected' : ''}>Taiwan</option>
-                                <option value="Tajikistan" ${originalValue === 'Tajikistan' ? 'selected' : ''}>Tajikistan</option>
-                                <option value="Thailand" ${originalValue === 'Thailand' ? 'selected' : ''}>Thailand</option>
-                                <option value="Turkey" ${originalValue === 'Turkey' ? 'selected' : ''}>Turkey</option>
-                                <option value="Turkmenistan" ${originalValue === 'Turkmenistan' ? 'selected' : ''}>Turkmenistan</option>
-                                <option value="United Arab Emirates" ${originalValue === 'United Arab Emirates' ? 'selected' : ''}>United Arab Emirates</option>
-                                <option value="Uzbekistan" ${originalValue === 'Uzbekistan' ? 'selected' : ''}>Uzbekistan</option>
-                                <option value="Vietnam" ${originalValue === 'Vietnam' ? 'selected' : ''}>Vietnam</option>
-                                <option value="Yemen" ${originalValue === 'Yemen' ? 'selected' : ''}>Yemen</option>
-                            </select>
-                        `;
-                    } else {
-                        // 其他文本字段的通用处理
-                        const maxLength = getFieldMaxLength(field);
-                        const placeholder = getFieldPlaceholder(field);
-                        cell.innerHTML = `<input type="text" class="edit-input" value="${originalValue}" maxlength="${maxLength}" placeholder="${placeholder}">`;
-                        setTimeout(() => addInputFormatting(cell.querySelector('input'), field), 0);
-                    }
-                }
-            });
-            
-            // 修改按钮
-            editBtn.innerHTML = '<i class="fas fa-save"></i>';
-            editBtn.className = 'btn-action btn-save';
-            editBtn.setAttribute('onclick', `saveRow(${id})`);
-            
-            deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
-            deleteBtn.className = 'btn-action btn-cancel';
-            deleteBtn.setAttribute('onclick', `cancelEdit(${id})`);
-        }
-
-        // 保存行数据
-        async function saveRow(id) {
-            const row = document.getElementById(`row-${id}`);
-            
-            // 收集所有数据
-                const newData = {
-                    id: id,
-                    account_type: originalTableData.find(item => item.id == id)?.account_type, // 保持原有账户类型
-                    position: row.querySelector('[data-field="position"] input').value.trim(),
-                    username: row.querySelector('[data-field="username"] input').value.trim(),
-                    email: row.querySelector('[data-field="email"] input').value.trim(),
-                    phone_number: row.querySelector('[data-field="phone_number"] input').value.trim()
-                };
-            
-            // 基本验证
-if (!newData.username) {
-    showMessage('英文姓名不能为空！', 'error');
-    return;
-}
-
-if (!newData.email) {
-    showMessage('邮箱不能为空！', 'error');
-    return;
-}
-
-// 确保 id 存在
-if (!newData.id) {
-    showMessage('数据错误，请刷新页面重试！', 'error');
-    return;
-}
-            
-            // 显示保存状态
-            const saveBtn = row.querySelector('.btn-save');
-            const originalText = saveBtn.innerHTML;
-            saveBtn.innerHTML = '<div class="loading"></div>';
-            saveBtn.disabled = true;
-            
-            try {
-                const response = await fetch('generatecodeapi.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'update',
-                        ...newData
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showMessage('保存成功！', 'success');
-                    loadCodesAndUsers(); // 重新加载数据
-                } else {
-                    showMessage(result.message || '保存失败！', 'error');
-                    saveBtn.innerHTML = originalText;
-                    saveBtn.disabled = false;
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showMessage('网络错误，请检查连接！', 'error');
-                saveBtn.innerHTML = originalText;
-                saveBtn.disabled = false;
-            }
-        }
-
-        // 取消编辑
-        function cancelEdit(id) {
-            const row = document.getElementById(`row-${id}`);
-            const editBtn = row.querySelector('.btn-save');
-            const cancelBtn = row.querySelector('.btn-cancel');
-            
-            // 移除编辑状态样式
-            row.classList.remove('editing-row');
-            
-            // 恢复原始数据
-            const editableFields = ['position', 'username', 'email', 'phone_number'];
-            
-            editableFields.forEach(field => {
-                const cell = row.querySelector(`[data-field="${field}"]`);
-                if (cell) {
-                    const originalValue = cell.getAttribute('data-original') || '';
-                    cell.innerHTML = originalValue || '<em style="color: #999;">-</em>';
-                }
-            });
-            
-            // 恢复按钮
-            editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-            editBtn.className = 'btn-action btn-edit';
-            editBtn.setAttribute('onclick', `editRow(${id})`);
-            
-            cancelBtn.innerHTML = '<i class="fas fa-trash"></i>';
-            cancelBtn.className = 'btn-action btn-delete';
-            cancelBtn.setAttribute('onclick', `confirmDelete(${id}, '${row.querySelector('[data-field="username"]').getAttribute('data-original')}')`);
         }
 
         // 确认删除
