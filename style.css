@@ -4024,6 +4024,12 @@ nav {
     padding: 0 8px;
 }
 
+.jobs-wrapper {
+  transform-origin: top center;
+  transform: scale(var(--scale, 1));
+}
+
+
 .company-job-container {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);

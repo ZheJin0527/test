@@ -83,10 +83,11 @@ include 'header.php';
         <div class="job-table-container">
         <h2 class="job-table-title">目前在招聘的职位</h2>
         </div>
-        
+    <div class ="jobs-wrapper">    
         <div class="jobs-container">
-    <?php echo getJobsHtml(); ?>
-    </div>
+            <?php echo getJobsHtml(); ?>
+        </div>
+    </div>    
 </div>
 
     <!-- 职位详情弹窗 -->
@@ -1728,6 +1729,18 @@ function goToMap() {
     swiper.slideTo(4); // 跳转到第3个slide（公司文化）
   }
 }
+
+function resizeJobs() {
+  const baseWidth = 1440;  // 设计稿宽度
+  const baseHeight = 900;  // 设计稿高度
+  const scaleX = window.innerWidth / baseWidth;
+  const scaleY = window.innerHeight / baseHeight;
+  const scale = Math.min(scaleX, scaleY);
+  document.documentElement.style.setProperty("--scale", scale);
+}
+window.addEventListener("resize", resizeJobs);
+resizeJobs();
+
 </script>
 </body>
 </html>
