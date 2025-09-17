@@ -4922,13 +4922,18 @@
                     invoiceNumber = generateInvoiceNumber(exportSystem);
                 }
                 
-                // 下载现有的PDF模板
-                const templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoice.pdf?ts=${Date.now()}` : `invoice/invoice/j1invoice.pdf?ts=${Date.now()}`;
-                const templateResponse = await fetch(templateFile);
+                // 下载现有的PDF模板（优先带时间戳，失败回退无时间戳）
+                const withTs = exportSystem === 'j2' ? `invoice/invoice/j2invoice.pdf?ts=${Date.now()}` : `invoice/invoice/j1invoice.pdf?ts=${Date.now()}`;
+                const noTs = exportSystem === 'j2' ? 'invoice/invoice/j2invoice.pdf' : 'invoice/invoice/j1invoice.pdf';
+
+                let templateResponse = await fetch(withTs, { cache: 'no-store' });
                 if (!templateResponse.ok) {
-                    throw new Error('无法加载PDF模板');
+                    // 回退：移除时间戳再试一次
+                    templateResponse = await fetch(noTs, { cache: 'no-store' });
                 }
-                
+                if (!templateResponse.ok) {
+                    throw new Error(`无法加载PDF模板: ${withTs} / ${noTs} (HTTP ${templateResponse.status})`);
+                }
                 const templateBytes = await templateResponse.arrayBuffer();
                 
                 // 使用PDF-lib库来编辑PDF
@@ -5245,13 +5250,17 @@
                 // 为每页加载模板并填入数据
                 for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
                     try {
-                        // 加载当前页的模板
-                        const templateResponse = await fetch(templateFiles[pageIndex]);
-                        if (!templateResponse.ok) {
-                            throw new Error(`无法加载模板文件: ${templateFiles[pageIndex]}`);
+                        // 加载当前页的模板（带时间戳，失败回退无时间戳）
+                        const urlWithTs = templateFiles[pageIndex];
+                        const urlNoTs = urlWithTs.replace(/\?ts=\d+$/, '');
+                        let tRes = await fetch(urlWithTs, { cache: 'no-store' });
+                        if (!tRes.ok) {
+                            tRes = await fetch(urlNoTs, { cache: 'no-store' });
                         }
-                        
-                        const templateBytes = await templateResponse.arrayBuffer();
+                        if (!tRes.ok) {
+                            throw new Error(`无法加载模板文件: ${urlWithTs} / ${urlNoTs} (HTTP ${tRes.status})`);
+                        }
+                        const templateBytes = await tRes.arrayBuffer();
                         const templateDoc = await PDFDocument.load(templateBytes);
                         
                         // 复制模板页到最终文档
