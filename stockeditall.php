@@ -2062,6 +2062,16 @@
                     typeSelect.disabled = false;
                 }
             }
+
+            // 新增：初始化时根据当前系统类型控制导出按钮
+            const exportButton = document.querySelector('.btn-warning[onclick="exportData()"]');
+            if (exportButton) {
+                if (currentStockType === 'central') {
+                    exportButton.style.display = 'inline-block';
+                } else {
+                    exportButton.style.display = 'none';
+                }
+            }
         }
 
         // 设置实时搜索
@@ -2114,6 +2124,15 @@
                     document.getElementById('page-title').textContent = '进出货 - J2';
                     document.getElementById('current-stock-type').textContent = 'J2';
                     break;
+            }
+
+            const exportButton = document.querySelector('.btn-warning[onclick="exportData()"]');
+            if (exportButton) {
+                if (stockType === 'central') {
+                    exportButton.style.display = 'inline-block';
+                } else {
+                    exportButton.style.display = 'none';
+                }
             }
 
             // 修改Type列的控制 - 不要隐藏，而是控制禁用状态
