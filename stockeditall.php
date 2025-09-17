@@ -5181,7 +5181,7 @@
                 }
                 
                 // 计算每页可容纳的记录数
-                const recordsPerPage = exportSystem === 'j1' ? 30 : 28;
+                const recordsPerPage = exportSystem === 'j1' ? 35 : 33;
                 const totalPages = Math.ceil(outData.length / recordsPerPage);
                 
                 console.log(`多页PDF: 总记录数 ${outData.length}, 每页 ${recordsPerPage} 条, 共 ${totalPages} 页`);
