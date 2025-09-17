@@ -309,41 +309,11 @@
         }
 
         /* 设置各列的宽度 */
-        th:nth-child(1), td:nth-child(1) { width: 40px; }      /* 序号 */
-        th:nth-child(2), td:nth-child(2) { width: 80px; }      /* 账号类型 */
-        th:nth-child(3), td:nth-child(3) { width: 120px; }     /* 全名（英） */
-        th:nth-child(4), td:nth-child(4) { width: 100px; }     /* 全名（中） */
-        th:nth-child(5), td:nth-child(5) { width: 80px; }      /* 小名 */
-        th:nth-child(6), td:nth-child(6) { width: 100px; }     /* 身份证号码 */
-        th:nth-child(7), td:nth-child(7) { width: 100px; }     /* 生日 */
-        th:nth-child(8), td:nth-child(8) { width: 40px; }      /* 性别 */
-        th:nth-child(9), td:nth-child(9) { width: 80px; }   /* 种族 */
-        th:nth-child(10), td:nth-child(10) { width: 80px; }      /* 国籍 */
-        th:nth-child(11), td:nth-child(11) { width: 100px; }   /* 联络号码 */
-        th:nth-child(12), td:nth-child(12) { width: 150px; }   /* 邮箱 */
-        th:nth-child(13), td:nth-child(13) { 
-            width: 200px; 
-            max-width: 200px;
-            min-width: 200px;
-        }   /* 地址 */
-        td:nth-child(13) { 
-            width: 200px; 
-            max-width: 200px;
-            min-width: 200px;
-            text-align: left;
-            word-wrap: break-word;
-            word-break: break-word;
-            white-space: pre-wrap;
-            overflow-wrap: break-word;
-            line-height: 1.3;
-        }   /* 地址 */
-        th:nth-child(14), td:nth-child(14) { width: 90px; }   /* 职位 */
-        th:nth-child(15), td:nth-child(15) { width: 120px; }   /* 紧急联络人 */
-        th:nth-child(16), td:nth-child(16) { width: 100px; }   /* 紧急联络号码 */
-        th:nth-child(17), td:nth-child(17) { width: 140px; }   /* 银行名称 */
-        th:nth-child(18), td:nth-child(18) { width: 120px; }   /* 银行账号 */
-        th:nth-child(19), td:nth-child(19) { width: 120px; }   /* 银行持有人 */
-        th:nth-child(20), td:nth-child(20) { width: 80px; }   /* 操作 */
+        th:nth-child(1), td:nth-child(1) { width: 80px; }      /* 序号 */
+        th:nth-child(2), td:nth-child(2) { width: 150px; }     /* 职位 */
+        th:nth-child(3), td:nth-child(3) { width: 200px; }     /* 英文姓名 */
+        th:nth-child(4), td:nth-child(4) { width: 250px; }     /* 邮箱 */
+        th:nth-child(5), td:nth-child(5) { width: 150px; }     /* 联络号码 */
 
         /* 当地址列显示"-"时居中对齐 */
         td:nth-child(13) em {
@@ -828,30 +798,15 @@
                     <thead>
                         <tr>
                             <th>序号</th>
-                            <th>类型</th>
-                            <th>英文姓名</th>
-                            <th>中文姓名</th>
-                            <th>昵称</th>
-                            <th>身份证</th>
-                            <th>生日</th>
-                            <th>性别</th>
-                            <th>种族</th>
-                            <th>国籍</th>
-                            <th>联络号码</th>
-                            <th>邮箱</th>
-                            <th>住址</th>
                             <th>职位</th>
-                            <th>紧急联系人</th>
-                            <th>紧急联系电话</th>
-                            <th>银行名称</th>
-                            <th>银行账号</th>
-                            <th>银行持有人</th>
-                            <th>操作</th>
+                            <th>英文姓名</th>
+                            <th>邮箱</th>
+                            <th>联络号码</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="19" style="text-align: center; padding: 30px;">
+                            <td colspan="5" style="text-align: center; padding: 30px;">
                                 <div class="loading"></div>
                                 正在加载数据...
                             </td>
@@ -1289,36 +1244,10 @@
             const rows = sortedData.map((item, index) => `
                 <tr id="row-${item.id}" data-id="${item.id}">
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
-                    <td data-field="account_type" data-original="${item.account_type}">
-                        <span class="account-type-badge type-${item.account_type}">${formatAccountType(item.account_type)}</span>
-                    </td>
-                    <td data-field="username" data-original="${item.username || ''}">${item.username || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="username_cn" data-original="${item.username_cn || ''}">${item.username_cn || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="nickname" data-original="${item.nickname || ''}">${item.nickname || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="ic_number" data-original="${item.ic_number || ''}">${item.ic_number || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="date_of_birth" data-original="${item.date_of_birth || ''}">${item.date_of_birth || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="gender" data-original="${item.gender || ''}">${formatGender(item.gender) || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="race" data-original="${item.race || ''}">${item.race || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="nationality" data-original="${item.nationality || ''}">${item.nationality || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="phone_number" data-original="${item.phone_number || ''}">${item.phone_number || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="email" data-original="${item.email || ''}">${item.email || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="home_address" data-original="${item.home_address || ''}">${item.home_address || '<em style="color: #999;">-</em>'}</td>
                     <td data-field="position" data-original="${item.position || ''}">${item.position || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="emergency_contact_name" data-original="${item.emergency_contact_name || ''}">${item.emergency_contact_name || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="emergency_phone_number" data-original="${item.emergency_phone_number || ''}">${item.emergency_phone_number || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="bank_name" data-original="${item.bank_name || ''}">${item.bank_name || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="bank_account" data-original="${item.bank_account || ''}">${item.bank_account || '<em style="color: #999;">-</em>'}</td>
-                    <td data-field="bank_account_holder_en" data-original="${item.bank_account_holder_en || ''}">${item.bank_account_holder_en || '<em style="color: #999;">-</em>'}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="btn-action btn-edit" onclick="editRow(${item.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn-action btn-delete" onclick="confirmDelete(${item.id}, '${item.username || '未知职员'}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
+                    <td data-field="username" data-original="${item.username || ''}">${item.username || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="email" data-original="${item.email || ''}">${item.email || '<em style="color: #999;">-</em>'}</td>
+                    <td data-field="phone_number" data-original="${item.phone_number || ''}">${item.phone_number || '<em style="color: #999;">-</em>'}</td>
                 </tr>
             `).join('');
 
@@ -1452,9 +1381,9 @@
                     continue;
                 }
                 
-                // 检查英文姓名列（第3列，索引为2）和邮箱列（第12列，索引为11）
+                // 检查英文姓名列（第3列，索引为2）和邮箱列（第4列，索引为3）
                 const usernameCell = row.cells[2]; // 英文姓名列
-                const emailCell = row.cells[11]; // 邮箱列
+                const emailCell = row.cells[3]; // 邮箱列
                 
                 let isMatch = false;
                 
