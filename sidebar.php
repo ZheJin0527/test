@@ -198,7 +198,6 @@ body.has-sidebar.sidebar-collapsed {
                 <div class="menu-item-wrapper">
                     <a href="generatecode.php" class="informationmenu-item">
                         职员管理
-                        <span class="informationmenu-arrow">›</span>
                     </a>
                 </div>
             </div>
@@ -214,7 +213,6 @@ body.has-sidebar.sidebar-collapsed {
                 <div class="menu-item-wrapper">
                     <a href="stocklistall.php" class="informationmenu-item">
                         库存
-                        <span class="informationmenu-arrow">›</span>
                     </a>
                 </div>
             </div>
