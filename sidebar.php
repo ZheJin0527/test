@@ -166,11 +166,58 @@ body.has-sidebar.sidebar-collapsed {
         </div>
     </div>
 
+    <div class="informationmenu-content">
+        <div class="informationmenu-section">
+            <div class="informationmenu-section-title" data-target="company-items">
+                <img src="images/images/公司架构管理.png" alt="" class="section-icon">
+                集团架构管理
+                <span class="section-arrow">⮞</span>
+            </div>
+            <div class="dropdown-menu-items" id="company-items">
+                <div class="menu-item-wrapper">
+                    <a href="#" class="informationmenu-item">
+                        Kunzz Holdings
+                    </a>
+                </div>
+                
+                <div class="menu-item-wrapper">
+                    <a href="#" class="informationmenu-item">
+                        Tokyo Japanese Cuisine
+                        <span class="informationmenu-arrow">›</span>
+                    </a>
+                    <div class="submenu">
+                        <div class="submenu-header">
+                            <div class="submenu-title">Tokyo Japanese Cuisine</div>
+                        </div>
+                        <div class="submenu-content">
+                            <a href="#" class="submenu-item">J1 (Mid Valley)</a>
+                            <a href="#" class="submenu-item">J2 (Paradigm Mall)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item-wrapper">
+                    <a href="#" class="informationmenu-item">
+                        Tokyo Izakaya
+                        <span class="informationmenu-arrow">›</span>
+                    </a>
+                    <div class="submenu">
+                        <div class="submenu-header">
+                            <div class="submenu-title">Tokyo Izakaya</div>
+                        </div>
+                        <div class="submenu-content">
+                            <a href="#" class="submenu-item">J3 (Desa Tebrau)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <?php if ($canViewAnalytics): ?>
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="analytics-items">
                 <img src="images/images/运营分析与报表.png" alt="" class="section-icon">
-                营收数据
+                运营分析与报表
                 <span class="section-arrow">⮞</span>
             </div>
             <div class="dropdown-menu-items" id="analytics-items">
