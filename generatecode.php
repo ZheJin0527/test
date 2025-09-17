@@ -762,29 +762,30 @@
             <div id="messageArea"></div>
 
             <form id="generateForm">
-                <div class="form-row">
-                    <!-- 添加新职员按钮 -->
-                    <div class="form-group" style="flex: 1;">
-                        <label>&nbsp;</label> <!-- 空标签保持对齐 -->
-                        <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                style="background: #10b981; font-size: 14px; padding: 8px 20px; width: auto;">
-                            <i class="fas fa-user-plus"></i> 添加新职员
-                        </button>
-                    </div>
-                    
-                    <div class="form-group" style="flex: 2; position: relative; display: flex; align-items: end; gap: 10px;">
-                        <label for="searchInput" style="white-space: nowrap; margin-bottom: 0; display: flex; align-items: center; height: 40px;">搜索职员:</label>
-                        <div style="position: relative; flex: 1;">
-                            <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
-                                style="padding: 10px 40px 10px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 14px; width: 100%;">
-                            <button type="button" onclick="clearSearch()" 
-                                    style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
-                                    title="清除搜索">
-                                ×
+                <form id="generateForm">
+                    <div class="form-row" style="justify-content: space-between; align-items: end;">
+                        <!-- 添加新职员按钮 -->
+                        <div class="form-group" style="flex: 0 0 auto; margin-right: 20px;">
+                            <button type="button" class="btn-generate" onclick="openAddUserModal()" 
+                                    style="background: #10b981; font-size: 14px; padding: 8px 20px;">
+                                <i class="fas fa-user-plus"></i> 添加新职员
                             </button>
                         </div>
+                        
+                        <div class="form-group" style="flex: 0 0 auto; position: relative; display: flex; align-items: center; gap: 10px;">
+                            <label for="searchInput" style="margin-bottom: 0; white-space: nowrap;">搜索职员:</label>
+                            <div style="position: relative;">
+                                <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
+                                    style="padding: 10px 40px 10px 12px; border: 2px solid #ff5c00; border-radius: 8px; font-size: 14px; width: 300px;">
+                                <button type="button" onclick="clearSearch()" 
+                                        style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
+                                        title="清除搜索">
+                                    ×
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </form>
         </div>
 
