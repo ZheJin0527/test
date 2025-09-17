@@ -4819,44 +4819,17 @@
                 
                 // 根据记录数量决定使用单页还是多页模板
                 const recordCount = outData.length;
-<<<<<<< HEAD
-
-                if (exportSystem === 'j1') {
-                    if (recordCount <= 30) {
-                        // 单页
-                        await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
-                    } else if (recordCount <= 35) {
-                        // 临界情况：强制两页，第二页只放 TOTAL
-                        await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate, true);
-                    } else {
-                        // 超过 35 正常多页
-                        await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
-                    }
-                } else if (exportSystem === 'j2') {
-                    if (recordCount <= 25) {
-                        // 单页
-                        await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
-                    } else if (recordCount <= 33) {
-                        // 临界情况：强制两页，第二页只放 TOTAL
-                        await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate, true);
-                    } else {
-                        // 超过 33 正常多页
-                        await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
-                    }
-=======
                 const useMultiPage = (exportSystem === 'j1' && recordCount > 30) || (exportSystem === 'j2' && recordCount > 25);
                 
                 if (useMultiPage) {
                     // 使用多页模板
-                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 30 : 25));
+                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 35 : 33));
                     showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
                     await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                 } else {
                     // 使用单页模板
                     await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
->>>>>>> eb08836dc57bc9ad693522e138d1d45fd34c1c7b
                 }
-
                 
                 showAlert('PDF发票生成成功', 'success');
                 closeExportModal();
@@ -5192,58 +5165,40 @@
         }
 
         // 生成多页PDF发票
-       async function generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '', invoiceDate = '', forceTwoPage = false) {
+        async function generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '', invoiceDate = '') {
             try {
                 console.log('开始生成多页PDF发票:', {
                     exportSystem,
                     dataLength: outData ? outData.length : 0,
                     startDate,
                     endDate,
-                    invoiceNumber,
-                    forceTwoPage
+                    invoiceNumber
                 });
-
+                
+                // 如果没有提供发票号码，自动生成一个
                 if (!invoiceNumber) {
                     invoiceNumber = generateInvoiceNumber(exportSystem);
                 }
-
+                
+                // 计算每页可容纳的记录数
+                const recordsPerPage = exportSystem === 'j1' ? 35 : 33;
+                const totalPages = Math.ceil(outData.length / recordsPerPage);
+                
+                console.log(`多页PDF: 总记录数 ${outData.length}, 每页 ${recordsPerPage} 条, 共 ${totalPages} 页`);
+                
+                // 加载所需的模板文件
                 const templateFiles = [];
-
-                if (forceTwoPage) {
-                    // 临界情况：强制 2 页
-                    templateFiles.push(
-                        exportSystem === 'j2'
-                            ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}`
-                            : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`
-                    );
-                    templateFiles.push(
-                        exportSystem === 'j2'
-                            ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}`
-                            : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`
-                    );
-                } else {
-                    // 正常多页逻辑
-                    const recordsPerPage = exportSystem === 'j1' ? 35 : 33;
-                    const totalPages = Math.ceil(outData.length / recordsPerPage);
-
-                    for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
-                        let templateFile;
-                        if (pageIndex === 0) {
-                            templateFile =
-                                exportSystem === 'j2'
-                                    ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}`
-                                    : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`;
-                        } else {
-                            templateFile =
-                                exportSystem === 'j2'
-                                    ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}`
-                                    : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`;
-                        }
-                        templateFiles.push(templateFile);
+                for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
+                    let templateFile;
+                    if (pageIndex === 0) {
+                        // 第一页使用 (1) 模板
+                        templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`;
+                    } else {
+                        // 后续页使用 (2) 模板
+                        templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`;
                     }
+                    templateFiles.push(templateFile);
                 }
-
-                console.log("模板文件:", templateFiles);
                 
                 // 使用PDF-lib库来创建最终PDF
                 const { PDFDocument, rgb, StandardFonts } = PDFLib;
