@@ -4834,7 +4834,7 @@
                     if (recordCount <= 25) {
                         await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                     } else if (recordCount >= 26 && recordCount <= 33) {
-                        showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
+                        showAlert(`记录数量为 ${recordCount} 条，将强制使用两页模板生成PDF`, 'info');
                         await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate, true);
                     } else {
                         const pageCount = Math.ceil(recordCount / 33);
@@ -5201,17 +5201,14 @@
                 // 加载所需的模板文件
                 const templateFiles = [];
                 if (forceTwoPage) {
-                    // 强制两页：第一页用 Multi(1)，第二页用 Multi(2)
                     templateFiles.push(exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`);
                     templateFiles.push(exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`);
                 } else {
                     for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
                         let templateFile;
                         if (pageIndex === 0) {
-                            // 第一页使用 (1) 模板
                             templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`;
                         } else {
-                            // 后续页使用 (2) 模板
                             templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`;
                         }
                         templateFiles.push(templateFile);
