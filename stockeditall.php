@@ -462,11 +462,11 @@
         /* 为每列指定固定宽度 */
         .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* 日期 */
         .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* 货品 */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 225px; } /* 货品 */
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
         .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
         .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
-        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 80px; } /* 规格 */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 70px; } /* 规格 */
         .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
         .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
         .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 80px; } /* 类型 */
@@ -4784,10 +4784,16 @@
                     throw new Error('获取数据失败');
                 }
                 
-                // 过滤出库数据 - 按日期范围和出库数量筛选
+                // 过滤出库数据 - 按日期范围、出库数量和收货单位筛选
                 const outData = (result.data || []).filter(record => {
                     const outQty = parseFloat(record.out_quantity);
                     if (outQty <= 0) return false;
+                    
+                    // 检查收货单位是否匹配选择的店面
+                    const targetSystem = record.target_system;
+                    if (!targetSystem || targetSystem.toLowerCase() !== exportSystem.toLowerCase()) {
+                        return false;
+                    }
                     
                     // 检查日期范围
                     const recordDate = record.date || record.out_date || record.created_at;
