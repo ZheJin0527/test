@@ -5121,7 +5121,7 @@
                     const finalTotalText = `RM${finalTotal.toFixed(2)}`;
                     page.drawText(finalTotalText, {
                         x: getRightAlignedX(finalTotalText, 565, 8),
-                        y: height - 666, // 调整到最终Total行
+                        y: height - 660, // 调整到最终Total行
                         size: fontSize,
                         color: textColor,
                         font: boldFont,
