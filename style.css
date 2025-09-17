@@ -845,10 +845,6 @@ nav {
   width: 100%;
   }
 
-  /* login 按钮隐藏 */
-  .login-btn {
-    display: none;
-  }
 
   /* right-section 宽度自适应，内容靠右排列 */
   .right-section {
