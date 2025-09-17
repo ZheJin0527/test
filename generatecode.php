@@ -39,7 +39,7 @@
         .header h1 {
             color: #ff5c00;
             font-size: 60px;
-            margin-bottom: 10px;
+            margin-bottom: 50px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
