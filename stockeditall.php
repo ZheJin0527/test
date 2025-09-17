@@ -4823,7 +4823,7 @@
                 
                 if (useMultiPage) {
                     // 使用多页模板
-                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 35 : 33));
+                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 30 : 25));
                     showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
                     await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                 } else {
