@@ -4817,18 +4817,30 @@
                     return;
                 }
                 
-                // 根据记录数量决定使用单页还是多页模板
                 const recordCount = outData.length;
-                const useMultiPage = (exportSystem === 'j1' && recordCount > 30) || (exportSystem === 'j2' && recordCount > 25);
-                
-                if (useMultiPage) {
-                    // 使用多页模板
-                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 35 : 33));
-                    showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
-                    await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
-                } else {
-                    // 使用单页模板
-                    await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+
+                if (exportSystem === 'j1') {
+                    if (recordCount <= 30) {
+                        // 单页
+                        await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+                    } else if (recordCount <= 35) {
+                        // 临界情况：强制两页
+                        await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate, true);
+                    } else {
+                        // 超过 35 正常多页
+                        await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+                    }
+                } else if (exportSystem === 'j2') {
+                    if (recordCount <= 25) {
+                        // 单页
+                        await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+                    } else if (recordCount <= 33) {
+                        // 临界情况：强制两页
+                        await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate, true);
+                    } else {
+                        // 超过 33 正常多页
+                        await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+                    }
                 }
                 
                 showAlert('PDF发票生成成功', 'success');
@@ -5016,125 +5028,138 @@
                     console.warn('警告：outData为空，将显示空白发票');
                 }
                 
-                outData.forEach((record, index) => {
-                    const itemNumber = index + 1;
-                    const outQty = parseFloat(record.out_quantity) || 0;
-                    const price = parseFloat(record.price) || 0;
-                    const total = outQty * price;
-                    grandTotal += total;
-                    
-                    // NO (第一列) - 居中对齐
-                    const itemText = itemNumber.toString();
-                    page.drawText(itemText, {
-                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 39, 6),
-                        y: yPosition,
-                        size: smallFontSize,
-                        color: textColor,
-                        font: boldFont,
+                if (forceTwoPage) {
+                    // 强制两页时，只在第一页绘制明细
+                    outData.forEach((record, index) => {
+                        // ✅ 只绘制前一页能容纳的记录
+                        if (index < (exportSystem === 'j1' ? 35 : 33)) {
+                            // 绘制每一条明细...
+                        }
                     });
-                    
-                    // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
-                    const productName = record.product_name || '';
-                    const maxProductNameLength = 20;
-                    const displayProductName = productName.length > maxProductNameLength 
-                        ? productName.substring(0, maxProductNameLength) + '...' 
-                        : productName;
-                    
-                    page.drawText(displayProductName.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 62 : 62,
-                        y: yPosition,
-                        size: smallFontSize,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    // Quantity (第三列) - 右对齐
-                    const qtyText = outQty.toFixed(2);
-                    page.drawText(qtyText, {
-                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 360 : 360, 5),
-                        y: yPosition,
-                        size: smallFontSize,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    // UOM (第四列) - 左对齐
-                    const uomText = record.specification || '';
-                    page.drawText(uomText.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 370 : 370,
-                        y: yPosition,
-                        size: 8, 
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    // Price RM (第五列) - 右对齐
-                    const priceText = price.toFixed(2);
-                    page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 480 : 480, 6),
-                        y: yPosition,
-                        size: smallFontSize,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    // Total RM (第六列) - 右对齐
-                    const totalText = total.toFixed(2);
-                    page.drawText(totalText, {
-                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
-                        y: yPosition,
-                        size: smallFontSize,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    yPosition -= lineHeight;
-                });                
-
-                if (exportSystem === 'j2') {
-                    // J2模板：计算subtotal, charge 15%, 和最终total
-                    const subtotal = grandTotal;
-                    const charge = subtotal * 0.15;
-                    const finalTotal = subtotal + charge;
-                    
-                    // 填入Subtotal
-                    const subtotalText = `RM${subtotal.toFixed(2)}`;
-                    page.drawText(subtotalText, {
-                        x: getRightAlignedX(subtotalText, 565, 6.5),
-                        y: height - 628, // 调整到Subtotal行
-                        size: 11,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    // 填入Charge 15%
-                    const chargeText = `RM${charge.toFixed(2)}`;
-                    page.drawText(chargeText, {
-                        x: getRightAlignedX(chargeText, 565, 6.5),
-                        y: height - 639, // 调整到Charge行
-                        size: 11,
-                        color: textColor,
-                        font: boldFont,
-                    });
-                    
-                    // 填入最终Total
-                    const finalTotalText = `RM${finalTotal.toFixed(2)}`;
-                    page.drawText(finalTotalText, {
-                        x: getRightAlignedX(finalTotalText, 565, 8),
-                        y: height - 660, // 调整到最终Total行
-                        size: fontSize,
-                        color: textColor,
-                        font: boldFont,
-                    });
+                    // 第二页只画 TOTAL，不要画明细
                 } else {
-                    // J1模板：只显示总计
-                    const totalText = `RM${grandTotal.toFixed(2)}`;
-                    page.drawText(totalText, {
-                        x: getRightAlignedX(totalText, 565, 8),
-                        y: height - 676,
-                        size: fontSize,
-                        color: textColor,
-                        font: boldFont,
+                    // 正常分页
+                    outData.forEach((record, index) => {
+                        const itemNumber = index + 1;
+                        const outQty = parseFloat(record.out_quantity) || 0;
+                        const price = parseFloat(record.price) || 0;
+                        const total = outQty * price;
+                        grandTotal += total;
+                        
+                        // NO (第一列) - 居中对齐
+                        const itemText = itemNumber.toString();
+                        page.drawText(itemText, {
+                            x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 39, 6),
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
+                        const productName = record.product_name || '';
+                        const maxProductNameLength = 20;
+                        const displayProductName = productName.length > maxProductNameLength 
+                            ? productName.substring(0, maxProductNameLength) + '...' 
+                            : productName;
+                        
+                        page.drawText(displayProductName.toUpperCase(), {
+                            x: exportSystem === 'j1' ? 62 : 62,
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // Quantity (第三列) - 右对齐
+                        const qtyText = outQty.toFixed(2);
+                        page.drawText(qtyText, {
+                            x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 360 : 360, 5),
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // UOM (第四列) - 左对齐
+                        const uomText = record.specification || '';
+                        page.drawText(uomText.toUpperCase(), {
+                            x: exportSystem === 'j1' ? 370 : 370,
+                            y: yPosition,
+                            size: 8, 
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // Price RM (第五列) - 右对齐
+                        const priceText = price.toFixed(2);
+                        page.drawText(priceText, {
+                            x: getRightAlignedX(priceText, exportSystem === 'j1' ? 480 : 480, 6),
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // Total RM (第六列) - 右对齐
+                        const totalText = total.toFixed(2);
+                        page.drawText(totalText, {
+                            x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
+                            y: yPosition,
+                            size: smallFontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        yPosition -= lineHeight;
+                    });                
+
+                    if (exportSystem === 'j2') {
+                        // J2模板：计算subtotal, charge 15%, 和最终total
+                        const subtotal = grandTotal;
+                        const charge = subtotal * 0.15;
+                        const finalTotal = subtotal + charge;
+                        
+                        // 填入Subtotal
+                        const subtotalText = `RM${subtotal.toFixed(2)}`;
+                        page.drawText(subtotalText, {
+                            x: getRightAlignedX(subtotalText, 565, 6.5),
+                            y: height - 628, // 调整到Subtotal行
+                            size: 11,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // 填入Charge 15%
+                        const chargeText = `RM${charge.toFixed(2)}`;
+                        page.drawText(chargeText, {
+                            x: getRightAlignedX(chargeText, 565, 6.5),
+                            y: height - 639, // 调整到Charge行
+                            size: 11,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                        
+                        // 填入最终Total
+                        const finalTotalText = `RM${finalTotal.toFixed(2)}`;
+                        page.drawText(finalTotalText, {
+                            x: getRightAlignedX(finalTotalText, 565, 8),
+                            y: height - 660, // 调整到最终Total行
+                            size: fontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                    } else {
+                        // J1模板：只显示总计
+                        const totalText = `RM${grandTotal.toFixed(2)}`;
+                        page.drawText(totalText, {
+                            x: getRightAlignedX(totalText, 565, 8),
+                            y: height - 676,
+                            size: fontSize,
+                            color: textColor,
+                            font: boldFont,
+                        });
+                    }
                     });
                 }
                 
@@ -5165,7 +5190,8 @@
         }
 
         // 生成多页PDF发票
-        async function generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '', invoiceDate = '') {
+        async function generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, invoiceNumber = '', invoiceDate = '', forceTwoPage = false) {
+
             try {
                 console.log('开始生成多页PDF发票:', {
                     exportSystem,
@@ -5180,25 +5206,42 @@
                     invoiceNumber = generateInvoiceNumber(exportSystem);
                 }
                 
-                // 计算每页可容纳的记录数
-                const recordsPerPage = exportSystem === 'j1' ? 35 : 33;
-                const totalPages = Math.ceil(outData.length / recordsPerPage);
-                
-                console.log(`多页PDF: 总记录数 ${outData.length}, 每页 ${recordsPerPage} 条, 共 ${totalPages} 页`);
-                
-                // 加载所需的模板文件
                 const templateFiles = [];
-                for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
-                    let templateFile;
-                    if (pageIndex === 0) {
-                        // 第一页使用 (1) 模板
-                        templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`;
-                    } else {
-                        // 后续页使用 (2) 模板
-                        templateFile = exportSystem === 'j2' ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}` : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`;
+
+                if (forceTwoPage) {
+                    // 临界情况：强制两页
+                    templateFiles.push(
+                        exportSystem === 'j2'
+                            ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}`
+                            : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`
+                    );
+                    templateFiles.push(
+                        exportSystem === 'j2'
+                            ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}`
+                            : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`
+                    );
+                } else {
+                    // 正常多页逻辑
+                    const recordsPerPage = exportSystem === 'j1' ? 35 : 33;
+                    const totalPages = Math.ceil(outData.length / recordsPerPage);
+
+                    console.log(`多页PDF: 总记录数 ${outData.length}, 每页 ${recordsPerPage} 条, 共 ${totalPages} 页`);
+
+                    for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
+                        let templateFile;
+                        if (pageIndex === 0) {
+                            templateFile = exportSystem === 'j2'
+                                ? `invoice/invoice/j2invoiceMulti(1).pdf?ts=${Date.now()}`
+                                : `invoice/invoice/j1invoiceMulti(1).pdf?ts=${Date.now()}`;
+                        } else {
+                            templateFile = exportSystem === 'j2'
+                                ? `invoice/invoice/j2invoiceMulti(2).pdf?ts=${Date.now()}`
+                                : `invoice/invoice/j1invoiceMulti(2).pdf?ts=${Date.now()}`;
+                        }
+                        templateFiles.push(templateFile);
                     }
-                    templateFiles.push(templateFile);
                 }
+
                 
                 // 使用PDF-lib库来创建最终PDF
                 const { PDFDocument, rgb, StandardFonts } = PDFLib;
