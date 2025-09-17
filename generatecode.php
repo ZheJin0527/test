@@ -1621,24 +1621,31 @@
             const row = document.getElementById(`row-${id}`);
             
             // 收集所有数据
-            const newData = {
-                id: id,
-                position: row.querySelector('[data-field="position"] input').value.trim(),
-                username: row.querySelector('[data-field="username"] input').value.trim(),
-                email: row.querySelector('[data-field="email"] input').value.trim(),
-                phone_number: row.querySelector('[data-field="phone_number"] input').value.trim()
-            };
+                const newData = {
+                    id: id,
+                    account_type: originalTableData.find(item => item.id == id)?.account_type, // 保持原有账户类型
+                    position: row.querySelector('[data-field="position"] input').value.trim(),
+                    username: row.querySelector('[data-field="username"] input').value.trim(),
+                    email: row.querySelector('[data-field="email"] input').value.trim(),
+                    phone_number: row.querySelector('[data-field="phone_number"] input').value.trim()
+                };
             
-            // 验证必填数据
-            if (!newData.username) {
-                showMessage('全名（英）不能为空！', 'error');
-                return;
-            }
+            // 基本验证
+if (!newData.username) {
+    showMessage('英文姓名不能为空！', 'error');
+    return;
+}
 
-            if (!newData.email) {
-                showMessage('邮箱不能为空！', 'error');
-                return;
-            }
+if (!newData.email) {
+    showMessage('邮箱不能为空！', 'error');
+    return;
+}
+
+// 确保 id 存在
+if (!newData.id) {
+    showMessage('数据错误，请刷新页面重试！', 'error');
+    return;
+}
             
             // 显示保存状态
             const saveBtn = row.querySelector('.btn-save');
