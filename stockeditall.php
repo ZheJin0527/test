@@ -2723,15 +2723,19 @@
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
             
-            // 如果是整数，显示 .00
-            if (num % 1 === 0) return num.toFixed(2);
-            
-            // 移除末尾的0，但保留至少2位小数
-            const fixed3 = num.toFixed(3);
-            if (fixed3.endsWith('0')) {
-                return num.toFixed(2);
+            // 检查小数部分的位数
+            const str = num.toString();
+            const decimalIndex = str.indexOf('.');
+            if (decimalIndex === -1) {
+                return num.toFixed(2); // 没有小数部分，显示两位
+            } else {
+                const decimalPlaces = str.length - decimalIndex - 1;
+                if (decimalPlaces <= 2) {
+                    return num.toFixed(2); // 小数位数<=2，显示两位
+                } else {
+                    return num.toFixed(3); // 小数位数>2，显示三位
+                }
             }
-            return fixed3;
         }
 
         // 格式化货币
