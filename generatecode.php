@@ -1472,7 +1472,7 @@
             });
 
             const rows = sortedData.map((item, index) => `
-                <tr id="row-${item.id}" data-id="${item.id}" data-user='${JSON.stringify(item).replace(/'/g, "&apos;")}'>
+                <tr id="row-${item.id}" data-id="${item.id}">
                     <td style="text-align: center; font-weight: bold; color: black;">${index + 1}</td>
                     <td>${item.position || '<em style="color: #999;">-</em>'}</td>
                     <td>${item.username || '<em style="color: #999;">-</em>'}</td>
@@ -1669,8 +1669,13 @@
 
         // 打开编辑模态框
         function openEditModal(id) {
-            const row = document.getElementById(`row-${id}`);
-            const userData = JSON.parse(row.getAttribute('data-user').replace(/&apos;/g, "'"));
+            // 从原始数据中查找用户信息，而不是从DOM属性中获取
+            const userData = originalTableData.find(user => user.id == id);
+            
+            if (!userData) {
+                showMessage('找不到用户数据！', 'error');
+                return;
+            }
             
             // 填充表单数据
             document.getElementById('edit_user_id').value = userData.id;
