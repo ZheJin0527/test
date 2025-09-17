@@ -15,7 +15,12 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
+            background-color: #f1dfbc;
+            background-image: url('images/images/remarkbg1.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
             min-height: 100vh;
         }
 
@@ -34,7 +39,7 @@
         .header h1 {
             color: #ff5c00;
             font-size: 60px;
-            margin-bottom: -10px;
+            margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
