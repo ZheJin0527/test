@@ -277,8 +277,7 @@
         }
 
         .table-title {
-            background: linear-gradient(to right, #FF5C00, #FF8C42);
-
+            background: #7f7f7f;
             color: white;
             padding: 20px;
             font-size: 20.8px;
