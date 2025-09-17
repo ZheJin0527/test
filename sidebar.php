@@ -167,68 +167,22 @@ body.has-sidebar.sidebar-collapsed {
     </div>
 
     <div class="informationmenu-content">
-        <div class="informationmenu-section">
-            <div class="informationmenu-section-title" data-target="company-items">
-                <img src="images/images/公司架构管理.png" alt="" class="section-icon">
-                集团架构管理
-                <span class="section-arrow">⮞</span>
-            </div>
-            <div class="dropdown-menu-items" id="company-items">
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        Kunzz Holdings
-                    </a>
-                </div>
-                
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        Tokyo Japanese Cuisine
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">Tokyo Japanese Cuisine</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="#" class="submenu-item">J1 (Mid Valley)</a>
-                            <a href="#" class="submenu-item">J2 (Paradigm Mall)</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        Tokyo Izakaya
-                        <span class="informationmenu-arrow">›</span>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">Tokyo Izakaya</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="#" class="submenu-item">J3 (Desa Tebrau)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <?php if ($canViewAnalytics): ?>
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="analytics-items">
                 <img src="images/images/运营分析与报表.png" alt="" class="section-icon">
-                运营分析与报表
+                营收数据
                 <span class="section-arrow">⮞</span>
             </div>
             <div class="dropdown-menu-items" id="analytics-items">
                 <div class="menu-item-wrapper">
                     <a href="kpi.php" class="informationmenu-item">
-                        仪表盘
+                        KPI报表
                     </a>
                 </div>
                 <div class="menu-item-wrapper">
                     <a href="kpiedit.php" class="informationmenu-item">
-                        KPI数据上传
+                        数据上传
                     </a>
                 </div>
             </div>
@@ -238,8 +192,7 @@ body.has-sidebar.sidebar-collapsed {
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="hr-items">
                 <img src="images/images/人事与资源管理.png" alt="" class="section-icon">
-                人事与资源管理
-                <span class="section-arrow">⮞</span>
+                人事管理
             </div>
             <div class="dropdown-menu-items" id="hr-items">               
                 <div class="menu-item-wrapper">
@@ -254,24 +207,15 @@ body.has-sidebar.sidebar-collapsed {
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="resource-items">
                 <img src="images/images/资源库管理.png" alt="" class="section-icon">
-                资源库管理
+                资源总库
                 <span class="section-arrow">⮞</span>
             </div>
-            <div class="dropdown-menu-items" id="resource-items">                    
+            <div class="dropdown-menu-items" id="resource-items">               
                 <div class="menu-item-wrapper">
-                    <a href="#" class="informationmenu-item">
-                        食品
+                    <a href="stocklistall.php" class="informationmenu-item">
+                        库存
                         <span class="informationmenu-arrow">›</span>
                     </a>
-                    <div class="submenu">
-                        <div class="submenu-header">
-                            <div class="submenu-title">食品</div>
-                        </div>
-                        <div class="submenu-content">
-                            <a href="stocklistall.php" class="submenu-item">库存清单</a>
-                            <a href="stockproductname.php" class="submenu-item">货物种类</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -279,7 +223,7 @@ body.has-sidebar.sidebar-collapsed {
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="photoupload-items">
                 <img src="images/images/网页照片上传.png" alt="" class="section-icon">
-                网页照片上传
+                视觉管理
                 <span class="section-arrow">⮞</span>
             </div>
             <div class="dropdown-menu-items" id="photoupload-items">
