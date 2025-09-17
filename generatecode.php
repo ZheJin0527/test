@@ -1635,11 +1635,6 @@
                 return;
             }
 
-            if (!newData.account_type) {
-                showMessage('账户类型不能为空！', 'error');
-                return;
-            }
-
             if (!newData.email) {
                 showMessage('邮箱不能为空！', 'error');
                 return;
