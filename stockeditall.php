@@ -4819,6 +4819,7 @@
                 
                 // 根据记录数量决定使用单页还是多页模板
                 const recordCount = outData.length;
+<<<<<<< HEAD
 
                 if (exportSystem === 'j1') {
                     if (recordCount <= 30) {
@@ -4842,6 +4843,18 @@
                         // 超过 33 正常多页
                         await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                     }
+=======
+                const useMultiPage = (exportSystem === 'j1' && recordCount > 30) || (exportSystem === 'j2' && recordCount > 25);
+                
+                if (useMultiPage) {
+                    // 使用多页模板
+                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 30 : 25));
+                    showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
+                    await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+                } else {
+                    // 使用单页模板
+                    await generateInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
+>>>>>>> eb08836dc57bc9ad693522e138d1d45fd34c1c7b
                 }
 
                 
