@@ -1791,11 +1791,11 @@
                 </div>
                 <div class="form-group">
                     <label for="add-in-qty">入库数量</label>
-                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-in-qty" class="form-input" min="0" step="0.001" placeholder="0.000" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <div class="form-group">
                     <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.01" placeholder="0.00" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.001" placeholder="0.000" oninput="handleAddFormOutQuantityChange()">
                 </div>
                 <select id="add-target" class="form-select" disabled>
                     <option value="">请选择</option>
@@ -2754,8 +2754,8 @@
                 <td><input type="date" class="table-input" value="${today}" id="${rowId}-date"></td>
                 <td>${createCombobox('code', '', null, rowId)}</td>
                 <td>${createCombobox('product', '', null, rowId)}</td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
-                <td><input type="number" class="table-input" min="0" step="0.01" placeholder="0.00" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.000" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.000" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
                 <td>
                     <select class="table-select" id="${rowId}-target" disabled>
                         <option value="">请选择</option>
