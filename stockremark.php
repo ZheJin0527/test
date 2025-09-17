@@ -804,6 +804,30 @@
         let filteredData = [];
         let isLoading = false;
 
+        // 智能格式化数量函数
+        function formatQuantity(number) {
+            const num = parseFloat(number);
+            
+            // 如果是整数，不显示小数点
+            if (Math.floor(num) === num) {
+                return num.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+            }
+            
+            // 检查原始精度，最多3位小数
+            const decimalPart = num - Math.floor(num);
+            
+            if (Math.round(decimalPart * 10) / 10 === Math.round(decimalPart * 1000) / 1000) {
+                // 只有1位有效小数
+                return num.toLocaleString('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1});
+            } else if (Math.round(decimalPart * 100) / 100 === Math.round(decimalPart * 1000) / 1000) {
+                // 有2位有效小数
+                return num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            } else {
+                // 有3位有效小数
+                return num.toLocaleString('en-US', {minimumFractionDigits: 3, maximumFractionDigits: 3});
+            }
+        }
+
         // 初始化应用
         function initApp() {
             loadStockRemarks();
@@ -1109,7 +1133,7 @@
 
             // 先检查并限制通知数量（在添加新通知之前）
             const existingToasts = container.querySelectorAll('.toast');
-            while (existingToasts.length >= 3) {
+            while (existingToasts.length >= 999) {
                 closeToast(existingToasts[0].id);
                 // 立即从DOM移除，不等待动画
                 if (existingToasts[0].parentNode) {
