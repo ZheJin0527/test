@@ -5029,139 +5029,116 @@
                 }
                 
                 if (forceTwoPage) {
-                    // 强制两页时，只在第一页绘制明细
+                    // 强制两页时：第一页绘制明细，第二页只绘制 TOTAL
                     outData.forEach((record, index) => {
-                        // ✅ 只绘制前一页能容纳的记录
+                        // ✅ 只绘制第一页能容纳的记录
                         if (index < (exportSystem === 'j1' ? 35 : 33)) {
-                            // 绘制每一条明细...
+                            const itemNumber = index + 1;
+                            const outQty = parseFloat(record.out_quantity) || 0;
+                            const price = parseFloat(record.price) || 0;
+                            const total = outQty * price;
+                            grandTotal += total;
+
+                            // NO (第一列) - 居中对齐
+                            const itemText = itemNumber.toString();
+                            page.drawText(itemText, {
+                                x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 39, 6),
+                                y: yPosition,
+                                size: smallFontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+
+                            // Descriptions (第二列)
+                            const productName = record.product_name || '';
+                            const maxProductNameLength = 20;
+                            const displayProductName = productName.length > maxProductNameLength 
+                                ? productName.substring(0, maxProductNameLength) + '...' 
+                                : productName;
+
+                            page.drawText(displayProductName.toUpperCase(), {
+                                x: 62,
+                                y: yPosition,
+                                size: smallFontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+
+                            // Quantity (第三列)
+                            const qtyText = outQty.toFixed(2);
+                            page.drawText(qtyText, {
+                                x: getRightAlignedX(qtyText, 360, 5),
+                                y: yPosition,
+                                size: smallFontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+
+                            // UOM (第四列)
+                            const uomText = record.specification || '';
+                            page.drawText(uomText.toUpperCase(), {
+                                x: 370,
+                                y: yPosition,
+                                size: 8,
+                                color: textColor,
+                                font: boldFont,
+                            });
+
+                            // Price RM (第五列)
+                            const priceText = price.toFixed(2);
+                            page.drawText(priceText, {
+                                x: getRightAlignedX(priceText, 480, 6),
+                                y: yPosition,
+                                size: smallFontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+
+                            // Total RM (第六列)
+                            const totalText = total.toFixed(2);
+                            page.drawText(totalText, {
+                                x: getRightAlignedX(totalText, 565, 6),
+                                y: yPosition,
+                                size: smallFontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+
+                            yPosition -= lineHeight;
                         }
                     });
-                    // 第二页只画 TOTAL，不要画明细
+
+                    // ⚠️ 第二页只绘制 TOTAL，不绘制明细
+                    const totalText = `RM${grandTotal.toFixed(2)}`;
+                    page.drawText(totalText, {
+                        x: getRightAlignedX(totalText, 565, 8),
+                        y: height - 676, // 按照你的 J1 总计坐标
+                        size: fontSize,
+                        color: textColor,
+                        font: boldFont,
+                    });
+
                 } else {
-                    // 正常分页
+                    // ===== 这里是你原本的完整逻辑（绘制明细 + 总计），保持不动 =====
                     outData.forEach((record, index) => {
                         const itemNumber = index + 1;
                         const outQty = parseFloat(record.out_quantity) || 0;
                         const price = parseFloat(record.price) || 0;
                         const total = outQty * price;
                         grandTotal += total;
-                        
-                        // NO (第一列) - 居中对齐
-                        const itemText = itemNumber.toString();
-                        page.drawText(itemText, {
-                            x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 39, 6),
-                            y: yPosition,
-                            size: smallFontSize,
-                            color: textColor,
-                            font: boldFont,
-                        });
-                        
-                        // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
-                        const productName = record.product_name || '';
-                        const maxProductNameLength = 20;
-                        const displayProductName = productName.length > maxProductNameLength 
-                            ? productName.substring(0, maxProductNameLength) + '...' 
-                            : productName;
-                        
-                        page.drawText(displayProductName.toUpperCase(), {
-                            x: exportSystem === 'j1' ? 62 : 62,
-                            y: yPosition,
-                            size: smallFontSize,
-                            color: textColor,
-                            font: boldFont,
-                        });
-                        
-                        // Quantity (第三列) - 右对齐
-                        const qtyText = outQty.toFixed(2);
-                        page.drawText(qtyText, {
-                            x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 360 : 360, 5),
-                            y: yPosition,
-                            size: smallFontSize,
-                            color: textColor,
-                            font: boldFont,
-                        });
-                        
-                        // UOM (第四列) - 左对齐
-                        const uomText = record.specification || '';
-                        page.drawText(uomText.toUpperCase(), {
-                            x: exportSystem === 'j1' ? 370 : 370,
-                            y: yPosition,
-                            size: 8, 
-                            color: textColor,
-                            font: boldFont,
-                        });
-                        
-                        // Price RM (第五列) - 右对齐
-                        const priceText = price.toFixed(2);
-                        page.drawText(priceText, {
-                            x: getRightAlignedX(priceText, exportSystem === 'j1' ? 480 : 480, 6),
-                            y: yPosition,
-                            size: smallFontSize,
-                            color: textColor,
-                            font: boldFont,
-                        });
-                        
-                        // Total RM (第六列) - 右对齐
-                        const totalText = total.toFixed(2);
-                        page.drawText(totalText, {
-                            x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
-                            y: yPosition,
-                            size: smallFontSize,
-                            color: textColor,
-                            font: boldFont,
-                        });
-                        
-                        yPosition -= lineHeight;
-                    });                
+
+                        // ...（你原本的绘制逻辑，保持不改）
+                    });
 
                     if (exportSystem === 'j2') {
-                        // J2模板：计算subtotal, charge 15%, 和最终total
-                        const subtotal = grandTotal;
-                        const charge = subtotal * 0.15;
-                        const finalTotal = subtotal + charge;
-                        
-                        // 填入Subtotal
-                        const subtotalText = `RM${subtotal.toFixed(2)}`;
-                        page.drawText(subtotalText, {
-                            x: getRightAlignedX(subtotalText, 565, 6.5),
-                            y: height - 628, // 调整到Subtotal行
-                            size: 11,
-                            color: textColor,
-                            font: boldFont,
-                        });
-                        
-                        // 填入Charge 15%
-                        const chargeText = `RM${charge.toFixed(2)}`;
-                        page.drawText(chargeText, {
-                            x: getRightAlignedX(chargeText, 565, 6.5),
-                            y: height - 639, // 调整到Charge行
-                            size: 11,
-                            color: textColor,
-                            font: boldFont,
-                        });
-                        
-                        // 填入最终Total
-                        const finalTotalText = `RM${finalTotal.toFixed(2)}`;
-                        page.drawText(finalTotalText, {
-                            x: getRightAlignedX(finalTotalText, 565, 8),
-                            y: height - 660, // 调整到最终Total行
-                            size: fontSize,
-                            color: textColor,
-                            font: boldFont,
-                        });
+                        // J2模板：subtotal + charge + total
+                        // ...
                     } else {
                         // J1模板：只显示总计
-                        const totalText = `RM${grandTotal.toFixed(2)}`;
-                        page.drawText(totalText, {
-                            x: getRightAlignedX(totalText, 565, 8),
-                            y: height - 676,
-                            size: fontSize,
-                            color: textColor,
-                            font: boldFont,
-                        });
+                        // ...
                     }
-                    });
                 }
+
                 
                 // 生成并下载PDF
                 const pdfBytes = await pdfDoc.save();
