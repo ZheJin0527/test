@@ -127,13 +127,15 @@
         /* 添加职员模态框中的表单样式 - 3列设计 */
         #addUserModal .modal-content,
         #editUserModal .modal-content {
-            max-width: 1200px;
+            max-width: 1200px !important;
+            width: 1200px !important;
             max-height: 90vh;
             overflow-y: auto;
             padding: 35px;
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            margin: 3% auto !important;
         }
 
         #addUserModal .modal-header,
@@ -163,24 +165,30 @@
             flex-direction: column;
         }
 
-        /* 特定字段的列跨度设置 */
-        #addUserModal .form-group:has(#add_home_address),
-        #editUserModal .form-group:has(#edit_home_address) {
+        /* 跨列元素样式 - 使用更直接的选择器 */
+        #addUserModal .form-group[style*="grid-column"],
+        #editUserModal .form-group[style*="grid-column"] {
             grid-column: 1 / -1;
         }
 
-        #addUserModal .form-group:has(#add_account_type),
-        #editUserModal .form-group:has(#edit_account_type) {
-            grid-column: 1 / 3;
+        /* 特定字段的跨列样式 */
+        #addUserModal [id="add_home_address"] {
+            grid-column: 1 / -1;
         }
 
-        #addUserModal .form-group:has(#add_bank_account_holder_en),
-        #editUserModal .form-group:has(#edit_bank_account_holder_en) {
-            grid-column: 1 / 3;
+        #editUserModal [id="edit_home_address"] {
+            grid-column: 1 / -1;
         }
 
-        #addUserModal .form-group:has(#add_emergency_contact_name),
-        #editUserModal .form-group:has(#edit_emergency_contact_name) {
+        /* 住址字段的父容器 */
+        #addUserModal .form-group:nth-child(11),
+        #editUserModal .form-group:nth-child(11) {
+            grid-column: 1 / -1;
+        }
+
+        /* 账号类型字段的父容器 */
+        #addUserModal .form-group:nth-last-child(1),
+        #editUserModal .form-group:nth-last-child(1) {
             grid-column: 1 / 3;
         }
 
