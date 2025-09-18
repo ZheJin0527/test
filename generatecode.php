@@ -127,10 +127,10 @@
         /* 添加职员模态框中的表单样式 - 3列设计 */
         #addUserModal .modal-content,
         #editUserModal .modal-content {
-            max-width: 900px;
+            max-width: 1200px;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 30px;
+            padding: 35px;
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
@@ -146,12 +146,12 @@
             border-bottom: 2px solid #e5e7eb;
         }
 
-        /* 3列网格布局 */
+        /* 3列网格布局 - 使用不同的列宽 */
         #addUserModal .modal-body > form > div,
         #editUserModal .modal-body > form > div {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px 25px;
+            grid-template-columns: 1fr 1fr 0.8fr;
+            gap: 20px 30px;
             margin-bottom: 25px;
         }
 
@@ -161,6 +161,27 @@
             margin-bottom: 0;
             display: flex;
             flex-direction: column;
+        }
+
+        /* 特定字段的列跨度设置 */
+        #addUserModal .form-group:has(#add_home_address),
+        #editUserModal .form-group:has(#edit_home_address) {
+            grid-column: 1 / -1;
+        }
+
+        #addUserModal .form-group:has(#add_account_type),
+        #editUserModal .form-group:has(#edit_account_type) {
+            grid-column: 1 / 3;
+        }
+
+        #addUserModal .form-group:has(#add_bank_account_holder_en),
+        #editUserModal .form-group:has(#edit_bank_account_holder_en) {
+            grid-column: 1 / 3;
+        }
+
+        #addUserModal .form-group:has(#add_emergency_contact_name),
+        #editUserModal .form-group:has(#edit_emergency_contact_name) {
+            grid-column: 1 / 3;
         }
 
         /* 标签样式 */
@@ -453,14 +474,46 @@
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
+
+            /* 重置移动端的列跨度 */
+            #addUserModal .form-group:has(#add_home_address),
+            #editUserModal .form-group:has(#edit_home_address),
+            #addUserModal .form-group:has(#add_account_type),
+            #editUserModal .form-group:has(#edit_account_type),
+            #addUserModal .form-group:has(#add_bank_account_holder_en),
+            #editUserModal .form-group:has(#edit_bank_account_holder_en),
+            #addUserModal .form-group:has(#add_emergency_contact_name),
+            #editUserModal .form-group:has(#edit_emergency_contact_name) {
+                grid-column: 1;
+            }
         }
 
         /* 平板响应式 */
         @media (max-width: 1024px) and (min-width: 769px) {
+            #addUserModal .modal-content,
+            #editUserModal .modal-content {
+                max-width: 95%;
+            }
+            
             #addUserModal .modal-body > form > div,
             #editUserModal .modal-body > form > div {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 18px 20px;
+                grid-template-columns: 1fr 1fr;
+                gap: 18px 25px;
+            }
+
+            /* 平板端调整列跨度 */
+            #addUserModal .form-group:has(#add_home_address),
+            #editUserModal .form-group:has(#edit_home_address),
+            #addUserModal .form-group:has(#add_account_type),
+            #editUserModal .form-group:has(#edit_account_type) {
+                grid-column: 1 / -1;
+            }
+
+            #addUserModal .form-group:has(#add_bank_account_holder_en),
+            #editUserModal .form-group:has(#edit_bank_account_holder_en),
+            #addUserModal .form-group:has(#add_emergency_contact_name),
+            #editUserModal .form-group:has(#edit_emergency_contact_name) {
+                grid-column: 1 / -1;
             }
         }
 
