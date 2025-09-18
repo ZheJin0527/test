@@ -5099,7 +5099,7 @@
                     const subtotalText = `${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
                         x: getRightAlignedX(subtotalText, 580, 6.5),
-                        y: height - 702, // 调整到Subtotal行
+                        y: height - 690, // 调整到Subtotal行
                         size: smallFontSize,
                         color: textColor,
                     });
@@ -5108,7 +5108,7 @@
                     const chargeText = `${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
                         x: getRightAlignedX(chargeText, 580, 6.5),
-                        y: height - 705, // 调整到Charge行
+                        y: height - 695, // 调整到Charge行
                         size: smallFontSize,
                         color: textColor,
                     });
