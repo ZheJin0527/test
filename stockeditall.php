@@ -5044,7 +5044,7 @@
                         : productName;
                     
                     page.drawText(displayProductName.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 58 : 58,
+                        x: exportSystem === 'j1' ? 57 : 57,
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
