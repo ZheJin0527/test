@@ -175,7 +175,7 @@
         /* 表单组基础样式 - 重新设计 */
         #addUserModal .form-group,
         #editUserModal .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 0px;
             display: flex;
             flex-direction: column;
         }
