@@ -24,16 +24,6 @@
             min-height: 100vh;
         }
 
-        /* 橙色主题变量（仅作用于两个弹窗作用域） */
-        #addUserModal, #editUserModal {
-            --o-primary: #ff5c00;
-            --o-primary-600: #e55400;
-            --o-primary-700: #cc4b00;
-            --o-border: #ffddaa;
-            --o-bg: #fff8f0;
-            --o-text: #111827;
-        }
-
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -146,7 +136,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             margin: 3% auto !important;
-            border-top: 4px solid var(--o-primary);
         }
 
         #addUserModal .modal-header,
@@ -162,7 +151,7 @@
         /* 表单区块样式（绿主题，卡片化） */
         .form-section {
             margin-bottom: 20px;
-            border: 1px solid var(--o-border);
+            border: 1px solid #ffddaa;
             border-radius: 8px;
             background-color: #ffffff;
             box-shadow: 0 2px 6px rgba(0,0,0,0.04);
@@ -170,13 +159,12 @@
 
         .form-section-header {
             padding: 10px 14px;
-            border-bottom: 1px solid var(--o-border);
+            border-bottom: 1px solid #ffddaa;
             font-size: 14px;
             font-weight: 700;
             text-align: left;
-            color: var(--o-primary);
-            background-color: var(--o-bg);
-            border-left: 4px solid var(--o-primary);
+            color: #ff5c00;
+            background-color: #fff8f0;
             border-radius: 8px 8px 0 0;
         }
 
@@ -197,7 +185,7 @@
         #editUserModal .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: var(--o-text);
+            color: #000000ff;
             font-weight: 600;
             font-size: 13px;
             text-align: left;
@@ -242,8 +230,8 @@
         #editUserModal .form-group select:focus,
         #editUserModal .form-group textarea:focus {
             outline: none;
-            border-color: var(--o-primary);
-            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.18);
+            border-color: #d16500ff;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
             background-color: #ffffff;
         }
 
@@ -350,11 +338,11 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border: 2px solid var(--o-primary);
+            border: 2px solid #ff5c00;
         }
 
         .table-title {
-            background: var(--o-primary);
+            background: #ff5c00;
             color: white;
             padding: 20px;
             font-size: 20.8px;
@@ -654,7 +642,7 @@
         }
 
         .modal-header {
-            color: var(--o-primary);
+            color: #f44336;
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 15px;
@@ -676,39 +664,12 @@
 
         .modal-buttons .btn-action {
             flex: 0 0 auto;
-            min-width: 96px;
-            padding: 8px 14px;
-            font-size: 13px;
+            min-width: 11px;
+            padding: 8px;
+            font-size: 14px;
             font-weight: 600;
             border-radius: 6px;
             transition: all 0.2s ease;
-        }
-
-        /* 弹窗按钮配色（仅作用于两个弹窗） */
-        #addUserModal .btn-save,
-        #editUserModal .btn-save {
-            background: linear-gradient(180deg, var(--o-primary) 0%, var(--o-primary-600) 100%);
-            color: #fff;
-            border: 1px solid var(--o-primary-700);
-        }
-
-        #addUserModal .btn-save:hover,
-        #editUserModal .btn-save:hover {
-            filter: brightness(0.98);
-            transform: translateY(-1px);
-        }
-
-        #addUserModal .btn-cancel,
-        #editUserModal .btn-cancel {
-            background: #6b7280;
-            color: #fff;
-            border: 1px solid #4b5563;
-        }
-
-        #addUserModal .btn-cancel:hover,
-        #editUserModal .btn-cancel:hover {
-            background: #4b5563;
-            transform: translateY(-1px);
         }
 
         /* 编辑状态下的行高亮 */
