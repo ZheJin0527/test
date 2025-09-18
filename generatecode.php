@@ -914,15 +914,13 @@
                                 <input type="text" id="add_username_cn" name="username_cn" maxlength="100">
                             </div>
                         </div>
-                        <div class="form-row-2col">
-                            <div class="form-group">
-                                <label for="add_nickname">昵称</label>
-                                <input type="text" id="add_nickname" name="nickname" maxlength="50">
-                            </div>
-                            <div class="form-group">
-                                <label for="add_email">邮箱</label>
-                                <input type="email" id="add_email" name="email" required maxlength="100">
-                            </div>
+                        <div class="form-group">
+                            <label for="add_nickname">昵称</label>
+                            <input type="text" id="add_nickname" name="nickname" maxlength="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="add_email">邮箱</label>
+                            <input type="email" id="add_email" name="email" required maxlength="100">
                         </div>
                     </div>
 
@@ -931,15 +929,13 @@
                         <div class="form-section-title">
                             <i class="fas fa-id-card"></i> 个人资料
                         </div>
-                        <div class="form-row-2col">
-                            <div class="form-group">
-                                <label for="add_ic_number">身份证号码</label>
-                                <input type="text" id="add_ic_number" name="ic_number" maxlength="20">
-                            </div>
-                            <div class="form-group">
-                                <label for="add_date_of_birth">出生日期</label>
-                                <input type="date" id="add_date_of_birth" name="date_of_birth">
-                            </div>
+                        <div class="form-group">
+                            <label for="add_ic_number">身份证号码</label>
+                            <input type="text" id="add_ic_number" name="ic_number" maxlength="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="add_date_of_birth">出生日期</label>
+                            <input type="date" id="add_date_of_birth" name="date_of_birth">
                         </div>
                         <div class="form-row-2col">
                             <div class="form-group">
@@ -1007,31 +1003,29 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-row-2col">
-                            <div class="form-group">
-                                <label for="add_race">种族</label>
-                                <select id="add_race" name="race">
-                                    <option value="">请选择种族</option>
-                                    <option value="Malay">Malay</option>
-                                    <option value="Chinese">Chinese</option>
-                                    <option value="Indian">Indian</option>
-                                    <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
-                                    <option value="Indonesian">Indonesian</option>
-                                    <option value="Bangladeshi">Bangladeshi</option>
-                                    <option value="Nepali">Nepali</option>
-                                    <option value="Myanmar">Myanmar</option>
-                                    <option value="Filipino">Filipino</option>
-                                    <option value="Indian (Foreign)">Indian (Foreign)</option>
-                                    <option value="Pakistani">Pakistani</option>
-                                    <option value="Vietnamese">Vietnamese</option>
-                                    <option value="Cambodian">Cambodian</option>
-                                    <option value="Others (Foreign)">Others (Foreign)</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="add_phone_number">联络号码</label>
-                                <input type="tel" id="add_phone_number" name="phone_number" maxlength="20">
-                            </div>
+                        <div class="form-group">
+                            <label for="add_race">种族</label>
+                            <select id="add_race" name="race">
+                                <option value="">请选择种族</option>
+                                <option value="Malay">Malay</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Indian">Indian</option>
+                                <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
+                                <option value="Indonesian">Indonesian</option>
+                                <option value="Bangladeshi">Bangladeshi</option>
+                                <option value="Nepali">Nepali</option>
+                                <option value="Myanmar">Myanmar</option>
+                                <option value="Filipino">Filipino</option>
+                                <option value="Indian (Foreign)">Indian (Foreign)</option>
+                                <option value="Pakistani">Pakistani</option>
+                                <option value="Vietnamese">Vietnamese</option>
+                                <option value="Cambodian">Cambodian</option>
+                                <option value="Others (Foreign)">Others (Foreign)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add_phone_number">联络号码</label>
+                            <input type="tel" id="add_phone_number" name="phone_number" maxlength="20">
                         </div>
                         <div class="form-group">
                             <label for="add_home_address">住址</label>
@@ -1083,15 +1077,13 @@
                         <div class="form-section-title">
                             <i class="fas fa-phone"></i> 紧急联系人
                         </div>
-                        <div class="form-row-2col">
-                            <div class="form-group">
-                                <label for="add_emergency_contact_name">紧急联系人</label>
-                                <input type="text" id="add_emergency_contact_name" name="emergency_contact_name" maxlength="100">
-                            </div>
-                            <div class="form-group">
-                                <label for="add_emergency_phone_number">紧急联系人电话</label>
-                                <input type="tel" id="add_emergency_phone_number" name="emergency_phone_number" maxlength="20">
-                            </div>
+                        <div class="form-group">
+                            <label for="add_emergency_contact_name">紧急联系人</label>
+                            <input type="text" id="add_emergency_contact_name" name="emergency_contact_name" maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="add_emergency_phone_number">紧急联系人电话</label>
+                            <input type="tel" id="add_emergency_phone_number" name="emergency_phone_number" maxlength="20">
                         </div>
                     </div>
 
@@ -1100,24 +1092,18 @@
                         <div class="form-section-title">
                             <i class="fas fa-cogs"></i> 账号设置
                         </div>
-                        <div class="form-row-2col">
-                            <div class="form-group">
-                                <label for="add_position">职位</label>
-                                <input type="text" id="add_position" name="position" maxlength="100">
-                            </div>
-                            <div class="form-group">
-                                <label for="add_account_type">账号类型</label>
-                                <select id="add_account_type" name="account_type" required>
-                                    <option value="">请选择账号类型</option>
-                                    <option value="boss">老板 (Boss)</option>
-                                    <option value="admin">管理员 (Admin)</option>
-                                    <option value="hr">人事部 (HR)</option>
-                                    <option value="design">设计部 (Design)</option>
-                                    <option value="support">支援部 (Support)</option>
-                                    <option value="IT">技术部 (IT)</option>
-                                    <option value="photograph">摄影部 (Photography)</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="add_account_type">账号类型</label>
+                            <select id="add_account_type" name="account_type" required>
+                                <option value="">请选择账号类型</option>
+                                <option value="boss">老板 (Boss)</option>
+                                <option value="admin">管理员 (Admin)</option>
+                                <option value="hr">人事部 (HR)</option>
+                                <option value="design">设计部 (Design)</option>
+                                <option value="support">支援部 (Support)</option>
+                                <option value="IT">技术部 (IT)</option>
+                                <option value="photograph">摄影部 (Photography)</option>
+                            </select>
                         </div>
                     </div>
                     
