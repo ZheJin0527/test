@@ -162,6 +162,7 @@
             border-bottom: 1px solid #e6f4ea;
             font-size: 14px;
             font-weight: 700;
+            text-align: left;
             color: #2e7d32;
             background-color: #f6fbf7;
             border-left: 4px solid #2e7d32;
@@ -380,8 +381,8 @@
         /* 设置各列的宽度 */
         th:nth-child(1), td:nth-child(1) { width: 60px; }      /* 序号 */
         th:nth-child(2), td:nth-child(2) { width: 120px; }     /* 职位 */
-        th:nth-child(3), td:nth-child(3) { width: 200px; }     /* 英文姓名 */
-        th:nth-child(4), td:nth-child(4) { width: 250px; }     /* 邮箱 */
+        th:nth-child(3), td:nth-child(3) { width: 210px; }     /* 英文姓名 */
+        th:nth-child(4), td:nth-child(4) { width: 410px; }     /* 邮箱 */
         th:nth-child(5), td:nth-child(5) { width: 120px; }     /* 联络号码 */
         th:nth-child(6), td:nth-child(6) { width: 79px; }     /* 操作 */
 
