@@ -5100,9 +5100,8 @@
                     page.drawText(subtotalText, {
                         x: getRightAlignedX(subtotalText, 565, 6.5),
                         y: height - 628, // 调整到Subtotal行
-                        size: 11,
+                        size: smallFontSize,
                         color: textColor,
-                        font: boldFont,
                     });
                     
                     // 填入Charge 15%
@@ -5110,9 +5109,8 @@
                     page.drawText(chargeText, {
                         x: getRightAlignedX(chargeText, 565, 6.5),
                         y: height - 639, // 调整到Charge行
-                        size: 11,
+                        size: smallFontSize,
                         color: textColor,
-                        font: boldFont,
                     });
                     
                     // 填入最终Total
