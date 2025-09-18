@@ -5030,7 +5030,7 @@
                     // NO (第一列) - 居中对齐
                     const itemText = itemNumber.toString();
                     page.drawText(itemText, {
-                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 41 : 41, 6),
+                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 42 : 42, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -5044,7 +5044,7 @@
                         : productName;
                     
                     page.drawText(displayProductName.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 60 : 60,
+                        x: exportSystem === 'j1' ? 58 : 58,
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
