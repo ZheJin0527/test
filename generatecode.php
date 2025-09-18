@@ -148,26 +148,28 @@
             border-bottom: none;
         }
 
-        /* 表单区块样式 */
+        /* 表单区块样式（绿主题，卡片化） */
         .form-section {
-            margin-bottom: 25px;
-            border: 1px solid #e5e5e5;
-            border-radius: 6px;
-            background-color: #f9f9f9;
+            margin-bottom: 20px;
+            border: 1px solid #d7ead9;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
 
         .form-section-header {
-            background-color: #f0f0f0;
-            padding: 8px 15px;
-            border-bottom: 1px solid #e5e5e5;
+            padding: 10px 14px;
+            border-bottom: 1px solid #e6f4ea;
             font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            border-radius: 5px 5px 0 0;
+            font-weight: 700;
+            color: #2e7d32;
+            background-color: #f6fbf7;
+            border-left: 4px solid #2e7d32;
+            border-radius: 8px 8px 0 0;
         }
 
         .form-section-content {
-            padding: 20px 15px;
+            padding: 16px 14px 18px;
         }
 
         /* 表单组基础样式 - 重新设计 */
@@ -178,13 +180,13 @@
             flex-direction: column;
         }
 
-        /* 标签样式 - 匹配图片 */
+        /* 标签样式 - 更清晰对齐 */
         #addUserModal .form-group label,
         #editUserModal .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: #333;
-            font-weight: 500;
+            color: #2f3a3f;
+            font-weight: 600;
             font-size: 13px;
             text-align: left;
         }
@@ -201,7 +203,7 @@
             font-weight: bold;
         }
 
-        /* 输入框和选择框基础样式 - 匹配图片 */
+        /* 输入框和选择框基础样式 - 绿主题 */
         #addUserModal .form-group input,
         #addUserModal .form-group select,
         #addUserModal .form-group textarea,
@@ -210,8 +212,8 @@
         #editUserModal .form-group textarea {
             width: 100%;
             padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border: 1px solid #cfe8d2;
+            border-radius: 6px;
             font-size: 13px;
             font-family: inherit;
             background-color: #ffffff;
@@ -219,7 +221,7 @@
             min-height: 34px;
         }
 
-        /* 输入框聚焦样式 */
+        /* 输入框聚焦样式 - 绿主题 */
         #addUserModal .form-group input:focus,
         #addUserModal .form-group select:focus,
         #addUserModal .form-group textarea:focus,
@@ -227,8 +229,8 @@
         #editUserModal .form-group select:focus,
         #editUserModal .form-group textarea:focus {
             outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
             background-color: #ffffff;
         }
 
@@ -245,18 +247,18 @@
             display: block;
         }
 
-        /* 双列布局样式 - 匹配图片 */
+        /* 双列布局样式 */
         .form-row-2col {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 14px;
         }
 
         /* 三列布局样式 */
         .form-row-3col {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
+            gap: 14px;
         }
 
         /* 搜索框特殊样式 */
