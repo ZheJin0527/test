@@ -5268,7 +5268,7 @@
                                 // J2模板的日期位置 (J2保持每页都显示)
                                 page.drawText(` ${currentDate}`, {
                                     x: 495.5,
-                                    y: height - 112,
+                                    y: height - 110,
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
@@ -5278,7 +5278,7 @@
                                 if (invoiceNumber) {
                                     page.drawText(invoiceNumber, {
                                         x: 500,
-                                        y: height - 98,
+                                        y: height - 96,
                                         size: fontSize,
                                         color: textColor,
                                         font: boldFont,
@@ -5305,7 +5305,7 @@
                             if (pageIndex === 0) {
                                 yPosition = height - 202; // J2第一页位置（原来的位置）
                             } else {
-                                yPosition = height - 79; // J2第二页位置（可调整这个数值）
+                                yPosition = height - 80; // J2第二页位置（可调整这个数值）
                             }
                             lineHeight = 20;
                         }
