@@ -124,7 +124,7 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
-        /* 添加职员模态框中的表单样式 - 优化版本 */
+        /* 添加职员模态框中的表单样式 - 超紧凑版本 */
         #addUserModal .modal-content {
             max-width: 900px;
             max-height: 95vh;
@@ -170,40 +170,6 @@
             box-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
         }
 
-        /* 优化的网格布局 - 根据内容重要性和长度调整 */
-        #addUserModal .modal-body form > div {
-            display: grid;
-            grid-template-columns: 2fr 2fr 1.5fr 2.5fr; /* 4列基础网格 */
-            gap: 6px;
-            grid-template-areas: 
-                "username username-cn nickname email"
-                "ic-number date-birth nationality gender"
-                "race phone-number bank-holder bank-account"
-                "bank-name position emergency-name emergency-phone"
-                "home-address home-address home-address home-address"
-                "account-type account-type account-type account-type";
-        }
-
-        /* 指定每个字段的网格位置 */
-        #addUserModal .form-group:nth-child(1) { grid-area: username; }
-        #addUserModal .form-group:nth-child(2) { grid-area: username-cn; }
-        #addUserModal .form-group:nth-child(3) { grid-area: nickname; }
-        #addUserModal .form-group:nth-child(4) { grid-area: email; }
-        #addUserModal .form-group:nth-child(5) { grid-area: ic-number; }
-        #addUserModal .form-group:nth-child(6) { grid-area: date-birth; }
-        #addUserModal .form-group:nth-child(7) { grid-area: nationality; }
-        #addUserModal .form-group:nth-child(8) { grid-area: gender; }
-        #addUserModal .form-group:nth-child(9) { grid-area: race; }
-        #addUserModal .form-group:nth-child(10) { grid-area: phone-number; }
-        #addUserModal .form-group:nth-child(11) { grid-area: home-address; }
-        #addUserModal .form-group:nth-child(12) { grid-area: bank-holder; }
-        #addUserModal .form-group:nth-child(13) { grid-area: bank-account; }
-        #addUserModal .form-group:nth-child(14) { grid-area: bank-name; }
-        #addUserModal .form-group:nth-child(15) { grid-area: position; }
-        #addUserModal .form-group:nth-child(16) { grid-area: emergency-name; }
-        #addUserModal .form-group:nth-child(17) { grid-area: emergency-phone; }
-        #addUserModal .form-group:nth-child(18) { grid-area: account-type; }
-
         /* 家庭地址和账号类型的独立样式 */
         #addUserModal #add_home_address {
             padding: 6px 8px;
@@ -229,156 +195,6 @@
             outline: none;
             border-color: #ff5c00;
             box-shadow: 0 0 6px rgba(255, 115, 0, 0.5);
-        }
-
-        /* 编辑模态框使用相同布局 */
-        #editUserModal .modal-content {
-            max-width: 900px;
-            max-height: 95vh;
-            overflow-y: auto;
-            padding: 15px;
-        }
-
-        #editUserModal .form-group {
-            margin-bottom: 6px;
-        }
-
-        #editUserModal .form-group label {
-            display: block;
-            margin-bottom: 2px;
-            color: #000000ff;
-            font-weight: bold;
-            font-size: 12px;
-            text-align: left;
-        }
-
-        #editUserModal .form-group input:not(#edit_home_address),
-        #editUserModal .form-group select:not(#edit_account_type),
-        #editUserModal .form-group textarea:not(#edit_home_address) {
-            width: 98%;
-            padding: 4px 6px;
-            border: 1px solid #ff5c00;
-            border-radius: 4px;
-            font-size: 12px;
-            transition: all 0.3s ease;
-            height: 28px;
-        }
-
-        #editUserModal .form-group textarea {
-            height: 50px;
-            resize: vertical;
-        }
-
-        #editUserModal .form-group input:not(#edit_home_address):focus,
-        #editUserModal .form-group select:not(#edit_account_type):focus,
-        #editUserModal .form-group textarea:not(#edit_home_address):focus {
-            outline: none;
-            border-color: #ff5c00;
-            box-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
-        }
-
-        /* 编辑模态框的网格布局 */
-        #editUserModal .modal-body form > div {
-            display: grid;
-            grid-template-columns: 2fr 2fr 1.5fr 2.5fr;
-            gap: 6px;
-            grid-template-areas: 
-                "username username-cn nickname email"
-                "ic-number date-birth nationality gender"
-                "race phone-number bank-holder bank-account"
-                "bank-name position emergency-name emergency-phone"
-                "home-address home-address home-address home-address"
-                "account-type account-type account-type account-type";
-        }
-
-        #editUserModal .form-group:nth-child(2) { grid-area: username; }
-        #editUserModal .form-group:nth-child(3) { grid-area: username-cn; }
-        #editUserModal .form-group:nth-child(4) { grid-area: nickname; }
-        #editUserModal .form-group:nth-child(5) { grid-area: email; }
-        #editUserModal .form-group:nth-child(6) { grid-area: ic-number; }
-        #editUserModal .form-group:nth-child(7) { grid-area: date-birth; }
-        #editUserModal .form-group:nth-child(8) { grid-area: nationality; }
-        #editUserModal .form-group:nth-child(9) { grid-area: gender; }
-        #editUserModal .form-group:nth-child(10) { grid-area: race; }
-        #editUserModal .form-group:nth-child(11) { grid-area: phone-number; }
-        #editUserModal .form-group:nth-child(12) { grid-area: home-address; }
-        #editUserModal .form-group:nth-child(13) { grid-area: bank-holder; }
-        #editUserModal .form-group:nth-child(14) { grid-area: bank-account; }
-        #editUserModal .form-group:nth-child(15) { grid-area: bank-name; }
-        #editUserModal .form-group:nth-child(16) { grid-area: position; }
-        #editUserModal .form-group:nth-child(17) { grid-area: emergency-name; }
-        #editUserModal .form-group:nth-child(18) { grid-area: emergency-phone; }
-        #editUserModal .form-group:nth-child(19) { grid-area: account-type; }
-
-        #editUserModal #edit_home_address {
-            padding: 6px 8px;
-            font-size: 13px;
-            font-family: inherit;
-            height: 60px;
-            border: 1px solid #ff5c00;
-            border-radius: 6px;
-            width: 99%;
-        }
-
-        #editUserModal #edit_account_type {
-            padding: 6px 8px;
-            font-size: 13px;
-            height: 32px;
-            border: 1px solid #ff5c00;
-            border-radius: 6px;
-            width: 99%;
-        }
-
-        #editUserModal #edit_home_address:focus,
-        #editUserModal #edit_account_type:focus {
-            outline: none;
-            border-color: #ff5c00;
-            box-shadow: 0 0 6px rgba(255, 115, 0, 0.5);
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            #addUserModal .modal-body form > div,
-            #editUserModal .modal-body form > div {
-                grid-template-columns: 1fr 1fr;
-                grid-template-areas: 
-                    "username username-cn"
-                    "nickname email"
-                    "ic-number date-birth"
-                    "nationality gender"
-                    "race phone-number"
-                    "bank-holder bank-account"
-                    "bank-name position"
-                    "emergency-name emergency-phone"
-                    "home-address home-address"
-                    "account-type account-type";
-            }
-        }
-
-        @media (max-width: 576px) {
-            #addUserModal .modal-body form > div,
-            #editUserModal .modal-body form > div {
-                grid-template-columns: 1fr;
-                grid-template-areas: 
-                    "username"
-                    "username-cn"
-                    "nickname"
-                    "email"
-                    "ic-number"
-                    "date-birth"
-                    "nationality"
-                    "gender"
-                    "race"
-                    "phone-number"
-                    "home-address"
-                    "bank-holder"
-                    "bank-account"
-                    "bank-name"
-                    "position"
-                    "emergency-name"
-                    "emergency-phone"
-                    "account-type";
-            }
         }
 
         /* 搜索框特殊样式 */
