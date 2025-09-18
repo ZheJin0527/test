@@ -165,7 +165,6 @@
             text-align: left;
             color: #ff5c00;
             background-color: #fff8f0;
-            border-left: 4px solid #ff5c00;
             border-radius: 8px 8px 0 0;
         }
 
