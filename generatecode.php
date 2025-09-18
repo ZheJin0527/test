@@ -46,7 +46,7 @@
         .header h1::after {
             content: "";
             display: block;
-            height: 2px;
+            height: 3px;
             width: 100%;
             margin-top: 16px;
             background: linear-gradient(90deg, rgba(255,92,0,0) 0%, rgba(255,92,0,1) 25%, rgba(255,92,0,1) 75%, rgba(255,92,0,0) 100%);
