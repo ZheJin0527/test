@@ -88,19 +88,6 @@ if (isset($_SESSION['user_id'])) {
 
 <link rel="stylesheet" href="style.css" />
 <style>
-    /* 防止页面加载时的布局跳动 */
-body {
-    margin-left: 0;
-}
-
-body.has-sidebar {
-    margin-left: 250px;
-}
-
-body.has-sidebar.sidebar-collapsed {
-    margin-left: 70px;
-}
-
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
 .informationmenu {
     background: transparent !important; /* 容器透明，不再铺一层白底 */
@@ -123,9 +110,11 @@ body.has-sidebar.sidebar-collapsed {
 /* 页面内容右移，避免被侧栏覆盖 */
 body.has-sidebar {
     margin-left: 250px; /* 与 .informationmenu 宽度一致 */
+    /* 移除 transition，避免进入页面时的推动效果 */
 }
 body.has-sidebar.sidebar-collapsed {
     margin-left: 70px; /* 收起时预留更小宽度 */
+    transition: margin-left 0.3s ease; /* 只在收起时添加过渡效果 */
 }
 @media (max-width: 768px) {
     body.has-sidebar { margin-left: 0; }
@@ -575,17 +564,24 @@ body.has-sidebar.sidebar-collapsed {
         document.body.classList.toggle('sidebar-collapsed');
     });
 
-    // 初始：为页面标记有侧栏，先禁用动画再启用
+    // 初始：为页面标记有侧栏
     document.addEventListener('DOMContentLoaded', function() {
-        // 先禁用动画
-        document.body.style.transition = 'none';
         document.body.classList.add('has-sidebar');
         
-        // 强制重绘后重新启用动画
-        document.body.offsetHeight; // 触发重绘
-        setTimeout(() => {
-            document.body.style.transition = 'margin-left 0.3s ease';
-        }, 10);
+        // 添加过渡效果的延迟应用
+        setTimeout(function() {
+            // 为展开状态添加过渡效果（但仅用于收起时的动画）
+            const style = document.createElement('style');
+            style.textContent = `
+                body.has-sidebar.sidebar-collapsed {
+                    transition: margin-left 0.3s ease;
+                }
+                body.has-sidebar:not(.sidebar-collapsed) {
+                    transition: margin-left 0.3s ease;
+                }
+            `;
+            document.head.appendChild(style);
+        }, 100); // 页面加载后100ms再添加过渡效果
     });
 </script>
 
