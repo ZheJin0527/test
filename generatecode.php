@@ -244,6 +244,35 @@
             background-color: #ffffff;
         }
 
+        /* 局部覆盖全局 style.css，统一本页输入控件尺寸 */
+        .generate-form input[type="text"],
+        .generate-form input[type="email"],
+        .generate-form input[type="tel"],
+        .generate-form input[type="date"],
+        #addUserModal .form-group input[type="text"],
+        #addUserModal .form-group input[type="email"],
+        #addUserModal .form-group input[type="tel"],
+        #addUserModal .form-group input[type="date"],
+        #addUserModal .form-group select,
+        #editUserModal .form-group input[type="text"],
+        #editUserModal .form-group input[type="email"],
+        #editUserModal .form-group input[type="tel"],
+        #editUserModal .form-group input[type="date"],
+        #editUserModal .form-group select,
+        #searchInput {
+            height: 36px !important;
+            padding: 8px 12px !important;
+            box-sizing: border-box !important;
+            line-height: 1.2 !important;
+        }
+
+        /* 保持文本域独立高度 */
+        #addUserModal .form-group textarea,
+        #editUserModal .form-group textarea {
+            min-height: 60px !important;
+            height: auto !important;
+        }
+
         /* 文本域特殊样式 */
         #addUserModal .form-group textarea,
         #editUserModal .form-group textarea {
