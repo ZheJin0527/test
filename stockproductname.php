@@ -76,7 +76,7 @@ if (isset($_SESSION['user_id'])) {
         .header .controls {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 0px;
         }
 
         .selector-button {
