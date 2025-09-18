@@ -164,7 +164,7 @@
             font-weight: 700;
             text-align: left;
             color: #ff5c00;
-            background: linear-gradient (135deg, #ff5c00, #fc9f69ff);
+            background: linear-gradient(135deg, #ff5c00, #ff8000);
             border-radius: 8px 8px 0 0;
         }
 
