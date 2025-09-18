@@ -127,8 +127,8 @@
         /* 添加职员模态框中的表单样式 - 3列设计 */
         #addUserModal .modal-content,
         #editUserModal .modal-content {
-            max-width: 1200px !important;
-            width: 1200px !important;
+            max-width: 1000px !important;
+            width: auto !important;
             max-height: 90vh;
             overflow-y: auto;
             padding: 35px;
@@ -148,13 +148,14 @@
             border-bottom: 2px solid #e5e7eb;
         }
 
-        /* 3列网格布局 - 使用不同的列宽 */
+        /* 3列网格布局 - 左对齐，不要右边多余空间 */
         #addUserModal .modal-body > form > div,
         #editUserModal .modal-body > form > div {
             display: grid;
-            grid-template-columns: 1.5fr 1.5fr 1fr;
+            grid-template-columns: auto auto auto;
             gap: 20px 30px;
             margin-bottom: 25px;
+            justify-content: start;
         }
 
         /* 表单组基础样式 */
@@ -163,104 +164,124 @@
             margin-bottom: 0;
             display: flex;
             flex-direction: column;
+            min-width: 200px;
         }
 
-        /* 姓名信息 - 第一行 */
+        /* Row 1: 英文姓名, 中文姓名 */
         #addUserModal .form-group:nth-child(1), /* 英文姓名 */
         #editUserModal .form-group:nth-child(1) {
             grid-column: 1;
+            min-width: 250px;
         }
 
         #addUserModal .form-group:nth-child(2), /* 中文姓名 */
         #editUserModal .form-group:nth-child(2) {
             grid-column: 2;
+            min-width: 200px;
         }
 
+        /* Row 2: 昵称, 联络号码 */
         #addUserModal .form-group:nth-child(3), /* 昵称 */
         #editUserModal .form-group:nth-child(3) {
-            grid-column: 3;
-        }
-
-        /* 联系信息 - 第二行 */
-        #addUserModal .form-group:nth-child(4), /* 邮箱 - 跨2列 */
-        #editUserModal .form-group:nth-child(4) {
-            grid-column: 1 / 3;
+            grid-column: 1;
+            min-width: 200px;
         }
 
         #addUserModal .form-group:nth-child(10), /* 联络号码 */
         #editUserModal .form-group:nth-child(10) {
-            grid-column: 3;
+            grid-column: 2;
+            min-width: 200px;
         }
 
-        /* 身份证件信息 - 第三行 */
-        #addUserModal .form-group:nth-child(5), /* 身份证号码 - 跨2列 */
-        #editUserModal .form-group:nth-child(5) {
+        /* Row 3: 邮箱 (跨2列) */
+        #addUserModal .form-group:nth-child(4), /* 邮箱 */
+        #editUserModal .form-group:nth-child(4) {
             grid-column: 1 / 3;
+            min-width: 450px;
+        }
+
+        /* Row 4: 身份证号码, 出生日期 */
+        #addUserModal .form-group:nth-child(5), /* 身份证号码 */
+        #editUserModal .form-group:nth-child(5) {
+            grid-column: 1;
+            min-width: 250px;
         }
 
         #addUserModal .form-group:nth-child(6), /* 出生日期 */
         #editUserModal .form-group:nth-child(6) {
-            grid-column: 3;
+            grid-column: 2;
+            min-width: 180px;
         }
 
-        /* 个人基本信息 - 第四行 */
+        /* Row 5: 国籍, 性别, 种族 */
         #addUserModal .form-group:nth-child(7), /* 国籍 */
         #editUserModal .form-group:nth-child(7) {
             grid-column: 1;
+            min-width: 180px;
         }
 
         #addUserModal .form-group:nth-child(8), /* 性别 */
         #editUserModal .form-group:nth-child(8) {
             grid-column: 2;
+            min-width: 150px;
         }
 
         #addUserModal .form-group:nth-child(9), /* 种族 */
         #editUserModal .form-group:nth-child(9) {
             grid-column: 3;
+            min-width: 180px;
         }
 
-        /* 住址 - 第五行，跨全部3列 */
+        /* Row 6: 住址 (跨3列) */
         #addUserModal .form-group:nth-child(11),
         #editUserModal .form-group:nth-child(11) {
             grid-column: 1 / 4;
         }
 
-        /* 银行账户信息 - 第六行 */
+        /* Row 7: 银行账户持有人, 银行账号 */
         #addUserModal .form-group:nth-child(12), /* 银行账户持有人 */
         #editUserModal .form-group:nth-child(12) {
             grid-column: 1;
+            min-width: 250px;
         }
 
         #addUserModal .form-group:nth-child(13), /* 银行账号 */
         #editUserModal .form-group:nth-child(13) {
             grid-column: 2;
+            min-width: 200px;
         }
 
-        #addUserModal .form-group:nth-child(14), /* 银行名称 - 跨2列 */
+        /* Row 8: 银行名称, 职位 */
+        #addUserModal .form-group:nth-child(14), /* 银行名称 */
         #editUserModal .form-group:nth-child(14) {
-            grid-column: 1 / 3;
+            grid-column: 1;
+            min-width: 280px;
         }
 
         #addUserModal .form-group:nth-child(15), /* 职位 */
         #editUserModal .form-group:nth-child(15) {
-            grid-column: 3;
+            grid-column: 2;
+            min-width: 200px;
         }
 
-        /* 紧急联系人信息 - 第八行 */
-        #addUserModal .form-group:nth-child(16), /* 紧急联系人姓名 - 跨2列 */
+        /* Row 9: 紧急联系人姓名, 紧急联系人电话 */
+        #addUserModal .form-group:nth-child(16), /* 紧急联系人姓名 */
         #editUserModal .form-group:nth-child(16) {
-            grid-column: 1 / 3;
+            grid-column: 1;
+            min-width: 250px;
         }
 
         #addUserModal .form-group:nth-child(17), /* 紧急联系人电话 */
         #editUserModal .form-group:nth-child(17) {
-            grid-column: 3;
+            grid-column: 2;
+            min-width: 200px;
         }
 
-        /* 账号类型 - 最后一行，跨2列 */
+        /* Row 10: 账号类型 (跨2列) */
         #addUserModal .form-group:nth-child(18),
         #editUserModal .form-group:nth-child(18) {
             grid-column: 1 / 3;
+            min-width: 450px;
         }
 
         /* 标签样式 */
