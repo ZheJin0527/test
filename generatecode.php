@@ -39,7 +39,7 @@
         .header h1 {
             color: #ff5c00;
             font-size: 60px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
@@ -48,7 +48,7 @@
             display: block;
             height: 2px;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 16px;
             background: linear-gradient(90deg, rgba(255,92,0,0) 0%, rgba(255,92,0,1) 25%, rgba(255,92,0,1) 75%, rgba(255,92,0,0) 100%);
         }
 
@@ -172,7 +172,7 @@
             font-size: 14px;
             font-weight: 700;
             text-align: left;
-            color: #ff5c00;
+            color: white;
             background: linear-gradient(135deg, #ff5c00, #ff8000);
             border-radius: 8px 8px 0 0;
         }
