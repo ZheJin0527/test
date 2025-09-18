@@ -848,6 +848,9 @@ if (isset($_SESSION['user_id'])) {
                         <div class="dropdown-item active" onclick="switchView('product')">货品种类</div>
                     </div>
                 </div>
+                <button class="selector-button" style="justify-content: center;">
+                    <span id="current-stock-type">中央</span>
+                </button>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
                     返回上一页
