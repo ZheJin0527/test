@@ -106,11 +106,11 @@ if (isset($_SESSION['user_id'])) {
             top: 96%;
             right: 0;
             background: white;
-            border: 1px solid #e5e7eb;
+            border: 2px solid #583e04;
             border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            min-width: 140px;
+            box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
+            min-width: 130px;
+            z-index: 10000;
             display: none;
         }
 
@@ -118,28 +118,30 @@ if (isset($_SESSION['user_id'])) {
             display: block;
         }
 
-        .dropdown-item {
-            padding: 12px 16px;
+        .selector-dropdown .dropdown-item {
+            padding: 8px 16px;
             cursor: pointer;
-            color: #374151;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.2s;
+            color: #583e04;
             font-size: 14px;
-            border-bottom: 1px solid #f3f4f6;
-            transition: all 0.2s ease;
+            font-weight: 500;
+            text-decoration: none;
+            display: block;
         }
 
-        .dropdown-item:last-child {
+        .selector-dropdown .dropdown-item:last-child {
             border-bottom: none;
         }
 
-        .dropdown-item:hover {
-            background-color: #f9fafb;
-            color: #583e04;
+        .selector-dropdown .dropdown-item:hover {
+            background-color: #f8f5eb;
+            border-radius: 8px;
         }
 
-        .dropdown-item.active {
-            background-color: #fef3c7;
-            color: #583e04;
-            font-weight: 600;
+        .selector-dropdown .dropdown-item.active {
+            background-color: #583e04 !important;
+            color: white !important;
         }
 
         /* 视图选择器样式 */
@@ -160,7 +162,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .view-selector .selector-dropdown {
-            min-width: 133px;
+            min-width: 120px;
         }
 
         .back-button {
