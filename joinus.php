@@ -65,23 +65,22 @@ include 'header.php';
 </div>
 
 <div class="swiper-slide">
-    <div class="particles" id="particles"></div>
-<div class="comphoto-section" id="comphoto-container">
-  <div class="comphoto-title">我们的足迹</div>
-    </div>
-    <div id="comphoto-modal" class="comphoto-modal">
-        <span class="comphoto-close">&times;</span>
-        <div class="comphoto-modal-content">
-            <img id="comphoto-modal-img" src="" alt="放大的照片">
+    <div class="comphoto-section" id="comphoto-container">
+    <div class="comphoto-title">我们的足迹</div>
+        </div>
+        <div id="comphoto-modal" class="comphoto-modal">
+            <span class="comphoto-close">&times;</span>
+            <div class="comphoto-modal-content">
+                <img id="comphoto-modal-img" src="" alt="放大的照片">
+            </div>
         </div>
     </div>
-  </div>
 
 <div class="swiper-slide">
 
     <div class="job-section">
         <div class="job-table-container">
-        <h2 class="job-table-title">目前在招聘的职位</h2>
+            <h2 class="job-table-title">目前在招聘的职位</h2>
         </div>
     <div class ="jobs-wrapper">    
         <div class="jobs-container">
