@@ -88,6 +88,19 @@ if (isset($_SESSION['user_id'])) {
 
 <link rel="stylesheet" href="style.css" />
 <style>
+    /* 防止页面加载时的布局跳动 */
+body {
+    margin-left: 0;
+}
+
+body.has-sidebar {
+    margin-left: 250px;
+}
+
+body.has-sidebar.sidebar-collapsed {
+    margin-left: 70px;
+}
+
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
 .informationmenu {
     background: transparent !important; /* 容器透明，不再铺一层白底 */
@@ -110,7 +123,6 @@ if (isset($_SESSION['user_id'])) {
 /* 页面内容右移，避免被侧栏覆盖 */
 body.has-sidebar {
     margin-left: 250px; /* 与 .informationmenu 宽度一致 */
-    transition: margin-left 0.3s ease;
 }
 body.has-sidebar.sidebar-collapsed {
     margin-left: 70px; /* 收起时预留更小宽度 */
@@ -563,8 +575,10 @@ body.has-sidebar.sidebar-collapsed {
         document.body.classList.toggle('sidebar-collapsed');
     });
 
-    // 初始：为页面标记有侧栏
+    // 初始：为页面标记有侧栏，立即应用，无动画
     document.addEventListener('DOMContentLoaded', function() {
+        // 立即应用样式，避免布局跳动
+        document.body.style.marginLeft = '250px';
         document.body.classList.add('has-sidebar');
     });
 </script>
