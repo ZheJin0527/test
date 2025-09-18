@@ -5080,7 +5080,7 @@
                     // Total RM (第六列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 575 : 575, 6),
+                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 573 : 573, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
