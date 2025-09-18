@@ -656,17 +656,19 @@
 
         .modal-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
-            margin-top: 25px;
+            align-items: center;
+            margin-top: 20px;
         }
 
         .modal-buttons .btn-action {
-            min-width: 120px;
-            padding: 10px 20px;
-            font-size: 13px;
+            flex: 0 0 auto;
+            min-width: 96px;
+            padding: 8px 14px;
+            font-size: 12px;
             font-weight: 600;
-            border-radius: 4px;
+            border-radius: 6px;
             transition: all 0.2s ease;
         }
 
