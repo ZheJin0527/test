@@ -753,6 +753,7 @@
                         <div class="dropdown-item" onclick="switchView('list')">总库存</div>
                         <div class="dropdown-item" onclick="switchView('records')">进出货</div>
                         <div class="dropdown-item active" onclick="switchView('remark')">货品备注</div>
+                        <div class="dropdown-item" onclick="switchView('product')">货品种类</div>
                     </div>
                 </div>
                 <button class="selector-button" style="justify-content: center;">
@@ -844,6 +845,9 @@
                 window.location.href = 'stocklistall.php';
             } else if (viewType === 'records') {
                 window.location.href = 'stockeditall.php';
+            } else if (viewType === 'product') {
+                // 跳转到货品种类页面
+                window.location.href = 'stockproductname.php';
             } else {
                 // 保持在当前页面（库存价格分析）
                 hideViewDropdown();

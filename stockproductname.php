@@ -79,6 +79,90 @@ if (isset($_SESSION['user_id'])) {
             gap: 16px;
         }
 
+        .selector-button {
+            background-color: #583e04;
+            color: white;
+            font-weight: 500;
+            padding: 11px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .selector-button:hover {
+            background-color: #462d03;
+            border-radius: 8px;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        }
+
+        .selector-dropdown {
+            position: absolute;
+            top: 96%;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 140px;
+            display: none;
+        }
+
+        .selector-dropdown.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            color: #374151;
+            font-size: 14px;
+            border-bottom: 1px solid #f3f4f6;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f9fafb;
+            color: #583e04;
+        }
+
+        .dropdown-item.active {
+            background-color: #fef3c7;
+            color: #583e04;
+            font-weight: 600;
+        }
+
+        /* 视图选择器样式 */
+        .view-selector {
+            position: relative;
+            margin-right: 16px;
+        }
+
+        .view-selector .selector-button {
+            background-color: #583e04;
+            min-width: 120px;
+        }
+
+        .view-selector .selector-button:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        }
+
+        .view-selector .selector-dropdown {
+            min-width: 133px;
+        }
+
         .back-button {
             background-color: #583e04;
             color: white;
@@ -750,6 +834,18 @@ if (isset($_SESSION['user_id'])) {
                 <h1>库存产品管理后台</h1>
             </div>
             <div class="controls">
+                <div class="view-selector">
+                    <button class="selector-button" onclick="toggleViewSelector()">
+                        <span id="current-view">货品种类</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="selector-dropdown" id="view-selector-dropdown">
+                        <div class="dropdown-item" onclick="switchView('list')">总库存</div>
+                        <div class="dropdown-item" onclick="switchView('records')">进出货</div>
+                        <div class="dropdown-item" onclick="switchView('remark')">货品备注</div>
+                        <div class="dropdown-item active" onclick="switchView('product')">货品种类</div>
+                    </div>
+                </div>
                 <button class="back-button" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i>
                     返回上一页
@@ -925,6 +1021,36 @@ if (isset($_SESSION['user_id'])) {
         async function initApp() {
             await initPermissions();
             loadStockData();
+        }
+
+        // 切换视图选择器下拉菜单
+        function toggleViewSelector() {
+            const dropdown = document.getElementById('view-selector-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function switchView(viewType) {
+            if (viewType === 'list') {
+                // 跳转到总库存页面
+                window.location.href = 'stocklistall.php';
+            } else if (viewType === 'records') {
+                // 跳转到进出货页面
+                window.location.href = 'stockeditall.php';
+            } else if (viewType === 'remark') {
+                // 跳转到货品备注页面
+                window.location.href = 'stockremark.php';
+            } else {
+                // 保持在当前页面（货品种类）
+                hideViewDropdown();
+            }
+        }
+
+        // 隐藏视图选择器下拉菜单
+        function hideViewDropdown() {
+            const dropdown = document.getElementById('view-selector-dropdown');
+            if (dropdown) {
+                dropdown.classList.remove('show');
+            }
         }
 
         // 返回上一页
@@ -1543,6 +1669,27 @@ if (isset($_SESSION['user_id'])) {
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('excel-input')) {
                 handleInputFocus(e.target, true);
+            }
+        });
+
+        // 点击其他地方关闭下拉菜单
+        document.addEventListener('click', function(event) {
+            const selector = event.target.closest('.selector-button');
+            const dropdown = event.target.closest('.selector-dropdown');
+            const dropdownItem = event.target.closest('.dropdown-item');
+            
+            // 如果点击的是下拉选项，立即隐藏对应的下拉菜单
+            if (dropdownItem) {
+                const parentDropdown = dropdownItem.closest('.selector-dropdown');
+                if (parentDropdown) {
+                    parentDropdown.classList.remove('show');
+                }
+                return;
+            }
+            
+            // 如果点击的不是选择器按钮或下拉菜单，隐藏所有下拉菜单
+            if (!selector && !dropdown) {
+                document.getElementById('view-selector-dropdown')?.classList.remove('show');
             }
         });
 

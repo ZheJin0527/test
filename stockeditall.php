@@ -1746,6 +1746,7 @@
                         <div class="dropdown-item" onclick="switchView('list')">总库存</div>
                         <div class="dropdown-item active" onclick="switchView('records')">进出货</div>
                         <div class="dropdown-item" onclick="switchView('remark')">货品备注</div>
+                        <div class="dropdown-item" onclick="switchView('product')">货品种类</div>
                     </div>
                 </div>
                 <div class="system-selector">
@@ -2206,6 +2207,9 @@
             } else if (viewType === 'remark') {
                 // 跳转到备注页面
                 window.location.href = 'stockremark.php';
+            } else if (viewType === 'product') {
+                // 跳转到货品种类页面
+                window.location.href = 'stockproductname.php';
             } else {
                 // 保持在当前页面（库存记录）
                 hideViewDropdown();
