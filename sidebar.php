@@ -575,11 +575,17 @@ body.has-sidebar.sidebar-collapsed {
         document.body.classList.toggle('sidebar-collapsed');
     });
 
-    // 初始：为页面标记有侧栏，立即应用，无动画
+    // 初始：为页面标记有侧栏，先禁用动画再启用
     document.addEventListener('DOMContentLoaded', function() {
-        // 立即应用样式，避免布局跳动
-        document.body.style.marginLeft = '250px';
+        // 先禁用动画
+        document.body.style.transition = 'none';
         document.body.classList.add('has-sidebar');
+        
+        // 强制重绘后重新启用动画
+        document.body.offsetHeight; // 触发重绘
+        setTimeout(() => {
+            document.body.style.transition = 'margin-left 0.3s ease';
+        }, 10);
     });
 </script>
 
