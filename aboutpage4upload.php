@@ -176,9 +176,9 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .container {
-            max-width: 1200px !important;
-            margin: 0 auto !important;
-            background: white !important;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
@@ -546,24 +546,6 @@ foreach ($defaultTimeline as $year => $data) {
                 justify-content: center;
             }
         }
-    </style>
-    <?php include 'sidebar.php'; ?>
-    <style>
-    /* 重置sidebar可能造成的影响 */
-    * {
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 然后重新应用你的原始样式，在每个重要样式后加 !important */
-    body {
-        font-family: 'Inter', sans-serif !important;
-        background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%) !important;
-        min-height: 100vh !important;
-        padding: 20px !important;
-        margin-left: 250px !important; /* 给sidebar留出空间 */
-    }
     </style>
 </head>
 <body>
