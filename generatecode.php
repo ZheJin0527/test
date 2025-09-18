@@ -186,7 +186,7 @@
         #editUserModal .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: #2f3a3f;
+            color: #bfbfbf;
             font-weight: 600;
             font-size: 13px;
             text-align: left;
@@ -910,7 +910,7 @@
     <!-- 添加职员模态框 -->
     <div id="addUserModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header" style="color: #10b981;">
+            <div class="modal-header" style="color: #ff5c00;">
                 <i class="fas fa-user-plus"></i> 添加新职员
             </div>
             <div class="modal-body">
