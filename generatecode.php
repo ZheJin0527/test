@@ -152,7 +152,7 @@
         #addUserModal .modal-body > form > div,
         #editUserModal .modal-body > form > div {
             display: grid;
-            grid-template-columns: 2fr 1.5fr 1fr;
+            grid-template-columns: 1.5fr 1.5fr 1fr;
             gap: 20px 30px;
             margin-bottom: 25px;
         }
@@ -165,73 +165,75 @@
             flex-direction: column;
         }
 
-        /* 基本信息区域 - 姓名字段 */
-        #addUserModal .form-group:nth-child(1), /* 英文姓名 - 跨2列 */
+        /* 姓名信息 - 第一行 */
+        #addUserModal .form-group:nth-child(1), /* 英文姓名 */
         #editUserModal .form-group:nth-child(1) {
-            grid-column: 1 / 3;
-        }
-
-        #addUserModal .form-group:nth-child(2), /* 中文姓名 - 1列 */
-        #editUserModal .form-group:nth-child(2) {
-            grid-column: 3;
-        }
-
-        #addUserModal .form-group:nth-child(3), /* 昵称 - 1列 */
-        #editUserModal .form-group:nth-child(3) {
             grid-column: 1;
         }
 
-        #addUserModal .form-group:nth-child(4), /* 邮箱 - 跨2列 */
-        #editUserModal .form-group:nth-child(4) {
-            grid-column: 2 / 4;
+        #addUserModal .form-group:nth-child(2), /* 中文姓名 */
+        #editUserModal .form-group:nth-child(2) {
+            grid-column: 2;
         }
 
-        /* 个人身份信息区域 */
+        #addUserModal .form-group:nth-child(3), /* 昵称 */
+        #editUserModal .form-group:nth-child(3) {
+            grid-column: 3;
+        }
+
+        /* 联系信息 - 第二行 */
+        #addUserModal .form-group:nth-child(4), /* 邮箱 - 跨2列 */
+        #editUserModal .form-group:nth-child(4) {
+            grid-column: 1 / 3;
+        }
+
+        #addUserModal .form-group:nth-child(10), /* 联络号码 */
+        #editUserModal .form-group:nth-child(10) {
+            grid-column: 3;
+        }
+
+        /* 身份证件信息 - 第三行 */
         #addUserModal .form-group:nth-child(5), /* 身份证号码 - 跨2列 */
         #editUserModal .form-group:nth-child(5) {
             grid-column: 1 / 3;
         }
 
-        #addUserModal .form-group:nth-child(6), /* 出生日期 - 1列 */
+        #addUserModal .form-group:nth-child(6), /* 出生日期 */
         #editUserModal .form-group:nth-child(6) {
             grid-column: 3;
         }
 
-        #addUserModal .form-group:nth-child(7), /* 国籍 - 1列 */
+        /* 个人基本信息 - 第四行 */
+        #addUserModal .form-group:nth-child(7), /* 国籍 */
         #editUserModal .form-group:nth-child(7) {
             grid-column: 1;
         }
 
-        #addUserModal .form-group:nth-child(8), /* 性别 - 1列 */
+        #addUserModal .form-group:nth-child(8), /* 性别 */
         #editUserModal .form-group:nth-child(8) {
             grid-column: 2;
         }
 
-        #addUserModal .form-group:nth-child(9), /* 种族 - 1列 */
+        #addUserModal .form-group:nth-child(9), /* 种族 */
         #editUserModal .form-group:nth-child(9) {
             grid-column: 3;
         }
 
-        #addUserModal .form-group:nth-child(10), /* 联络号码 - 跨2列 */
-        #editUserModal .form-group:nth-child(10) {
-            grid-column: 1 / 3;
-        }
-
-        /* 住址 - 跨全部3列 */
+        /* 住址 - 第五行，跨全部3列 */
         #addUserModal .form-group:nth-child(11),
         #editUserModal .form-group:nth-child(11) {
             grid-column: 1 / 4;
         }
 
-        /* 银行信息区域 */
-        #addUserModal .form-group:nth-child(12), /* 银行账户持有人 - 跨2列 */
+        /* 银行账户信息 - 第六行 */
+        #addUserModal .form-group:nth-child(12), /* 银行账户持有人 */
         #editUserModal .form-group:nth-child(12) {
-            grid-column: 1 / 3;
+            grid-column: 1;
         }
 
-        #addUserModal .form-group:nth-child(13), /* 银行账号 - 1列 */
+        #addUserModal .form-group:nth-child(13), /* 银行账号 */
         #editUserModal .form-group:nth-child(13) {
-            grid-column: 3;
+            grid-column: 2;
         }
 
         #addUserModal .form-group:nth-child(14), /* 银行名称 - 跨2列 */
@@ -239,26 +241,26 @@
             grid-column: 1 / 3;
         }
 
-        #addUserModal .form-group:nth-child(15), /* 职位 - 1列 */
+        #addUserModal .form-group:nth-child(15), /* 职位 */
         #editUserModal .form-group:nth-child(15) {
             grid-column: 3;
         }
 
-        /* 紧急联系人信息区域 */
-        #addUserModal .form-group:nth-child(16), /* 紧急联系人 - 跨2列 */
+        /* 紧急联系人信息 - 第八行 */
+        #addUserModal .form-group:nth-child(16), /* 紧急联系人姓名 - 跨2列 */
         #editUserModal .form-group:nth-child(16) {
             grid-column: 1 / 3;
         }
 
-        #addUserModal .form-group:nth-child(17), /* 紧急联系人电话 - 1列 */
+        #addUserModal .form-group:nth-child(17), /* 紧急联系人电话 */
         #editUserModal .form-group:nth-child(17) {
             grid-column: 3;
         }
 
-        /* 账号类型 - 跨全部3列 */
+        /* 账号类型 - 最后一行，跨2列 */
         #addUserModal .form-group:nth-child(18),
         #editUserModal .form-group:nth-child(18) {
-            grid-column: 1 / 4;
+            grid-column: 1 / 3;
         }
 
         /* 标签样式 */
