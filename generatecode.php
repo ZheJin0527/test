@@ -218,6 +218,7 @@
             font-size: 13px;
             font-family: inherit;
             background-color: #ffffff;
+            color: black;
             transition: all 0.2s ease;
             min-height: 34px;
         }
