@@ -108,13 +108,15 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu::after { display: none !important; }
 
 /* 页面内容右移，避免被侧栏覆盖 */
-body.has-sidebar {
-    margin-left: 250px; /* 与 .informationmenu 宽度一致 */
-    /* 移除 transition，避免进入页面时的推动效果 */
+body {
+    margin-left: 250px; /* 默认就给右边距，避免闪烁 */
 }
-body.has-sidebar.sidebar-collapsed {
-    margin-left: 70px; /* 收起时预留更小宽度 */
-    transition: margin-left 0.3s ease; /* 只在收起时添加过渡效果 */
+body.sidebar-collapsed {
+    margin-left: 70px;
+    transition: margin-left 0.3s ease;
+}
+body.sidebar-transition {
+    transition: margin-left 0.3s ease;
 }
 @media (max-width: 768px) {
     body.has-sidebar { margin-left: 0; }
@@ -562,26 +564,19 @@ body.has-sidebar.sidebar-collapsed {
         sidebarMenu.classList.toggle('collapsed');
         sidebarToggle.classList.toggle('collapsed');
         document.body.classList.toggle('sidebar-collapsed');
+
+        // 确保过渡动画已启用
+        if (!document.body.classList.contains('sidebar-transition')) {
+            document.body.classList.add('sidebar-transition');
+        }
     });
 
-    // 初始：为页面标记有侧栏
+    // 页面加载完成后启用过渡动画
     document.addEventListener('DOMContentLoaded', function() {
-        document.body.classList.add('has-sidebar');
-        
-        // 添加过渡效果的延迟应用
+        // 页面加载后短暂延迟再启用过渡效果
         setTimeout(function() {
-            // 为展开状态添加过渡效果（但仅用于收起时的动画）
-            const style = document.createElement('style');
-            style.textContent = `
-                body.has-sidebar.sidebar-collapsed {
-                    transition: margin-left 0.3s ease;
-                }
-                body.has-sidebar:not(.sidebar-collapsed) {
-                    transition: margin-left 0.3s ease;
-                }
-            `;
-            document.head.appendChild(style);
-        }, 100); // 页面加载后100ms再添加过渡效果
+            document.body.classList.add('sidebar-transition');
+        }, 50);
     });
 </script>
 
