@@ -5213,8 +5213,8 @@
                 const regularFont = await finalPdfDoc.embedFont(StandardFonts.Helvetica);
 
                 // 设置字体大小和颜色
-                const fontSize = 14;
-                const smallFontSize = 10;
+                const fontSize = 11;
+                const smallFontSize = 9;
                 const textColor = rgb(0, 0, 0);
                 const whiteColor = rgb(1, 1, 1);
                 
@@ -5304,18 +5304,18 @@
                         let yPosition, lineHeight;
                         if (exportSystem === 'j1') {
                             if (pageIndex === 0) {
-                                yPosition = height - 185; // J1第一页位置
+                                yPosition = height - 150; // J1第一页位置
                             } else {
                                 yPosition = height - 25;  // J1第二页位置
                             }
-                            lineHeight = 16.01;
+                            lineHeight = 20;
                         } else { // j2
                             if (pageIndex === 0) {
                                 yPosition = height - 223; // J2第一页位置（原来的位置）
                             } else {
                                 yPosition = height - 32; // J2第二页位置（可调整这个数值）
                             }
-                            lineHeight = 16.01;
+                            lineHeight = 20;
                         }
 
                         pageData.forEach((record, index) => {
