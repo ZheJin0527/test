@@ -1252,48 +1252,10 @@
                                     <label for="edit_ic_number">身份证号码</label>
                                     <input type="text" id="edit_ic_number" name="ic_number" maxlength="20">
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="edit_phone_number">联络号码</label>
-                                    <input type="tel" id="edit_phone_number" name="phone_number" maxlength="20">
-                                </div>
                                 
                                 <div class="form-group">
                                     <label for="edit_date_of_birth">出生日期</label>
                                     <input type="date" id="edit_date_of_birth" name="date_of_birth">
-                                </div>
-                            </div>
-                            
-                            <div class="form-row-3col">
-                                <div class="form-group">
-                                    <label for="edit_gender">性别</label>
-                                    <select id="edit_gender" name="gender">
-                                        <option value="">请选择</option>
-                                        <option value="male">男</option>
-                                        <option value="female">女</option>
-                                        <option value="other">其他</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="edit_race">种族</label>
-                                    <select id="edit_race" name="race">
-                                        <option value="">请选择种族</option>
-                                        <option value="Malay">Malay</option>
-                                        <option value="Chinese">Chinese</option>
-                                        <option value="Indian">Indian</option>
-                                        <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
-                                        <option value="Indonesian">Indonesian</option>
-                                        <option value="Bangladeshi">Bangladeshi</option>
-                                        <option value="Nepali">Nepali</option>
-                                        <option value="Myanmar">Myanmar</option>
-                                        <option value="Filipino">Filipino</option>
-                                        <option value="Indian (Foreign)">Indian (Foreign)</option>
-                                        <option value="Pakistani">Pakistani</option>
-                                        <option value="Vietnamese">Vietnamese</option>
-                                        <option value="Cambodian">Cambodian</option>
-                                        <option value="Others (Foreign)">Others (Foreign)</option>
-                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
@@ -1350,6 +1312,44 @@
                                         <option value="Vietnam">Vietnam</option>
                                         <option value="Yemen">Yemen</option>
                                     </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row-3col">
+                                <div class="form-group">
+                                    <label for="edit_gender">性别</label>
+                                    <select id="edit_gender" name="gender">
+                                        <option value="">请选择</option>
+                                        <option value="male">男</option>
+                                        <option value="female">女</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="edit_race">种族</label>
+                                    <select id="edit_race" name="race">
+                                        <option value="">请选择种族</option>
+                                        <option value="Malay">Malay</option>
+                                        <option value="Chinese">Chinese</option>
+                                        <option value="Indian">Indian</option>
+                                        <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="Bangladeshi">Bangladeshi</option>
+                                        <option value="Nepali">Nepali</option>
+                                        <option value="Myanmar">Myanmar</option>
+                                        <option value="Filipino">Filipino</option>
+                                        <option value="Indian (Foreign)">Indian (Foreign)</option>
+                                        <option value="Pakistani">Pakistani</option>
+                                        <option value="Vietnamese">Vietnamese</option>
+                                        <option value="Cambodian">Cambodian</option>
+                                        <option value="Others (Foreign)">Others (Foreign)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="edit_phone_number">联络号码</label>
+                                    <input type="tel" id="edit_phone_number" name="phone_number" maxlength="20">
                                 </div>
                             </div>
                             
