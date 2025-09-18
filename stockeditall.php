@@ -5248,7 +5248,7 @@
                                 // J1模板的日期位置
                                 page.drawText(` ${currentDate}`, {
                                     x: 495.5,
-                                    y: height - 112, 
+                                    y: height - 110.5, 
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
@@ -5258,7 +5258,7 @@
                                 if (invoiceNumber) {
                                     page.drawText(invoiceNumber, {
                                         x: 500,
-                                        y: height - 98,
+                                        y: height - 96.5,
                                         size: fontSize,
                                         color: textColor,
                                         font: boldFont,
