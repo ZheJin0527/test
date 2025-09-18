@@ -37,7 +37,7 @@
         }
 
         .header h1 {
-            color: #000000ff;
+            color: #ff5c00;
             font-size: 60px;
             margin-bottom: 50px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -151,7 +151,7 @@
         /* 表单区块样式（绿主题，卡片化） */
         .form-section {
             margin-bottom: 20px;
-            border: 1px solid #d7ead9;
+            border: 1px solid #ffddaa;
             border-radius: 8px;
             background-color: #ffffff;
             box-shadow: 0 2px 6px rgba(0,0,0,0.04);
@@ -159,13 +159,13 @@
 
         .form-section-header {
             padding: 10px 14px;
-            border-bottom: 1px solid #e6f4ea;
+            border-bottom: 1px solid #ffddaa;
             font-size: 14px;
             font-weight: 700;
             text-align: left;
-            color: #2e7d32;
-            background-color: #f6fbf7;
-            border-left: 4px solid #2e7d32;
+            color: #ff5c00;
+            background-color: #fff8f0;
+            border-left: 4px solid #ff5c00;
             border-radius: 8px 8px 0 0;
         }
 
@@ -213,7 +213,7 @@
         #editUserModal .form-group textarea {
             width: 100%;
             padding: 8px 12px;
-            border: 1px solid #cfe8d2;
+            border: 1px solid #bfbfbf;
             border-radius: 6px;
             font-size: 13px;
             font-family: inherit;
@@ -230,7 +230,7 @@
         #editUserModal .form-group select:focus,
         #editUserModal .form-group textarea:focus {
             outline: none;
-            border-color: #2e7d32;
+            border-color: #d16500ff;
             box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
             background-color: #ffffff;
         }
@@ -338,11 +338,11 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border: 2px solid #000000ff;
+            border: 2px solid #ff5c00;
         }
 
         .table-title {
-            background: #9d9d9d;
+            background: #ff5c00;
             color: white;
             padding: 20px;
             font-size: 20.8px;
@@ -855,7 +855,7 @@
                         <!-- 添加新职员按钮 -->
                         <div class="form-group" style="flex: 0 0 auto; margin-right: 20px;">
                             <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                    style="background: #10b981; font-size: 14px; padding: 8px 20px;">
+                                    style="background: #ff5c00; font-size: 14px; padding: 8px 20px;">
                                 <i class="fas fa-user-plus"></i> 添加新职员
                             </button>
                         </div>
