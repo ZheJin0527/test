@@ -148,90 +148,39 @@
             border-bottom: 2px solid #e5e7eb;
         }
 
-        /* 新的表单布局 */
+        /* 新的灵活表单布局 */
         #addUserModal .modal-body > form > div,
         #editUserModal .modal-body > form > div {
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
             margin-bottom: 25px;
         }
 
-        /* 第一行：英文姓名和中文姓名 */
-        #addUserModal .modal-body > form > div > .row-1,
-        #editUserModal .modal-body > form > div > .row-1 {
+        /* 表单行基础样式 */
+        .form-row-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
-        /* 第二行：邮箱 */
-        #addUserModal .modal-body > form > div > .row-2,
-        #editUserModal .modal-body > form > div > .row-2 {
-            display: grid;
+        /* 单列布局 */
+        .form-row-1col {
             grid-template-columns: 1fr;
         }
 
-        /* 第三行：昵称和联络号码 */
-        #addUserModal .modal-body > form > div > .row-3,
-        #editUserModal .modal-body > form > div > .row-3 {
-            display: grid;
+        /* 双列布局 */
+        .form-row-2col {
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
         }
 
-        /* 第四行：出生日期和身份证号码 */
-        #addUserModal .modal-body > form > div > .row-4,
-        #editUserModal .modal-body > form > div > .row-4 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        /* 第五行：性别种族国籍 */
-        #addUserModal .modal-body > form > div > .row-5,
-        #editUserModal .modal-body > form > div > .row-5 {
-            display: grid;
+        /* 三列布局 */
+        .form-row-3col {
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
         }
 
-        /* 第六行：住址 */
-        #addUserModal .modal-body > form > div > .row-6,
-        #editUserModal .modal-body > form > div > .row-6 {
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-
-        /* 第七行：银行账户持有人和银行账号 */
-        #addUserModal .modal-body > form > div > .row-7,
-        #editUserModal .modal-body > form > div > .row-7 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        /* 第八行：银行名称和职位 */
-        #addUserModal .modal-body > form > div > .row-8,
-        #editUserModal .modal-body > form > div > .row-8 {
-            display: grid;
+        /* 自定义比例双列布局 */
+        .form-row-2col-custom {
             grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-
-        /* 第九行：紧急联系人姓名和紧急联系人电话 */
-        #addUserModal .modal-body > form > div > .row-9,
-        #editUserModal .modal-body > form > div > .row-9 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        /* 第十行：账号类型 */
-        #addUserModal .modal-body > form > div > .row-10,
-        #editUserModal .modal-body > form > div > .row-10 {
-            display: grid;
-            grid-template-columns: 1fr;
         }
 
         /* 表单组基础样式 */
@@ -521,22 +470,11 @@
                 padding: 20px;
             }
 
-            /* 移动端所有行都变为单列 */
-            #addUserModal .modal-body > form > div > .row-1,
-            #addUserModal .modal-body > form > div > .row-3,
-            #addUserModal .modal-body > form > div > .row-4,
-            #addUserModal .modal-body > form > div > .row-5,
-            #addUserModal .modal-body > form > div > .row-7,
-            #addUserModal .modal-body > form > div > .row-8,
-            #addUserModal .modal-body > form > div > .row-9,
-            #editUserModal .modal-body > form > div > .row-1,
-            #editUserModal .modal-body > form > div > .row-3,
-            #editUserModal .modal-body > form > div > .row-4,
-            #editUserModal .modal-body > form > div > .row-5,
-            #editUserModal .modal-body > form > div > .row-7,
-            #editUserModal .modal-body > form > div > .row-8,
-            #editUserModal .modal-body > form > div > .row-9 {
-                grid-template-columns: 1fr;
+            /* 移动端所有多列布局都变为单列 */
+            .form-row-2col,
+            .form-row-3col,
+            .form-row-2col-custom {
+                grid-template-columns: 1fr !important;
                 gap: 15px;
             }
         }
@@ -548,27 +486,14 @@
                 max-width: 95%;
             }
             
-            /* 平板端保持原有布局，只调整间距 */
-            #addUserModal .modal-body > form > div > .row-1,
-            #addUserModal .modal-body > form > div > .row-3,
-            #addUserModal .modal-body > form > div > .row-4,
-            #addUserModal .modal-body > form > div > .row-7,
-            #addUserModal .modal-body > form > div > .row-9,
-            #editUserModal .modal-body > form > div > .row-1,
-            #editUserModal .modal-body > form > div > .row-3,
-            #editUserModal .modal-body > form > div > .row-4,
-            #editUserModal .modal-body > form > div > .row-7,
-            #editUserModal .modal-body > form > div > .row-9 {
+            /* 平板端三列变为双列，双列保持 */
+            .form-row-3col {
+                grid-template-columns: 1fr 1fr !important;
                 gap: 18px;
             }
 
-            #addUserModal .modal-body > form > div > .row-5,
-            #editUserModal .modal-body > form > div > .row-5 {
-                gap: 15px;
-            }
-
-            #addUserModal .modal-body > form > div > .row-8,
-            #editUserModal .modal-body > form > div > .row-8 {
+            .form-row-2col,
+            .form-row-2col-custom {
                 gap: 18px;
             }
         }
