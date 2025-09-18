@@ -5305,7 +5305,7 @@
                             if (pageIndex === 0) {
                                 yPosition = height - 202; // J2第一页位置（原来的位置）
                             } else {
-                                yPosition = height - 65; // J2第二页位置（可调整这个数值）
+                                yPosition = height - 75; // J2第二页位置（可调整这个数值）
                             }
                             lineHeight = 20;
                         }
@@ -5409,7 +5409,7 @@
                                 const finalTotalText = `RM${finalTotal.toFixed(2)}`;
                                 page.drawText(finalTotalText, {
                                     x: getRightAlignedX(finalTotalText, 580, 8),
-                                    y: height - 705,
+                                    y: height - 710,
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
