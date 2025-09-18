@@ -4952,15 +4952,19 @@
                     return centerX - (text.length * charWidth / 2);
                 }
                 
-                // 按小数点对齐（等宽字体下更精确）
-                function getDecimalAlignedX(text, anchorX, font, size) {
+                // 按小数点对齐：anchorX 作为右边界（文本右端对齐），小数点位于固定偏移
+                // 规则：anchorX 代表整列的右边界；若包含小数点，将小数点对齐到 (anchorX - dotOffset)
+                // 这样无需改任何坐标，只通过计算 x 返回值实现对齐
+                function getDecimalAlignedX(text, anchorX, font, size, dotOffset = 0) {
                     const str = String(text ?? '');
                     const dotIndex = str.indexOf('.');
                     if (dotIndex >= 0) {
+                        // 宽度= 整个字符串宽度；小数点左侧宽度用于将小数点放在 anchorX - dotOffset
                         const leftPart = str.substring(0, dotIndex);
                         const leftWidth = font.widthOfTextAtSize(leftPart, size);
-                        return anchorX - leftWidth;
+                        return (anchorX - dotOffset) - leftWidth;
                     }
+                    // 无小数点：按右边界对齐
                     const width = font.widthOfTextAtSize(str, size);
                     return anchorX - width;
                 }
@@ -5068,7 +5072,7 @@
                     // Quantity (第三列) - 右对齐
                     const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
-                        x: getDecimalAlignedX(qtyText, exportSystem === 'j1' ? 389 : 389, monoBoldFont, smallFontSize),
+                        x: getDecimalAlignedX(qtyText, exportSystem === 'j1' ? 389 : 389, monoBoldFont, smallFontSize, 0),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -5087,7 +5091,7 @@
                     // Price RM (第五列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getDecimalAlignedX(priceText, exportSystem === 'j1' ? 510 : 510, monoBoldFont, smallFontSize),
+                        x: getDecimalAlignedX(priceText, exportSystem === 'j1' ? 510 : 510, monoBoldFont, smallFontSize, 0),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -5097,7 +5101,7 @@
                     // Total RM (第六列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: getDecimalAlignedX(totalText, exportSystem === 'j1' ? 573 : 573, monoBoldFont, smallFontSize),
+                        x: getDecimalAlignedX(totalText, exportSystem === 'j1' ? 573 : 573, monoBoldFont, smallFontSize, 0),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -5376,7 +5380,7 @@
                             // Quantity (第三列)
                             const qtyText = outQty.toFixed(2);
                             page.drawText(qtyText, {
-                                x: getDecimalAlignedX(qtyText, 389, monoBoldFont, smallFontSize),
+                                x: getDecimalAlignedX(qtyText, 389, monoBoldFont, smallFontSize, 0),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
@@ -5395,7 +5399,7 @@
                             // Price RM (第五列)
                             const priceText = price.toFixed(2);
                             page.drawText(priceText, {
-                                x: getDecimalAlignedX(priceText, 510, monoBoldFont, smallFontSize),
+                                x: getDecimalAlignedX(priceText, 510, monoBoldFont, smallFontSize, 0),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
@@ -5405,7 +5409,7 @@
                             // Total RM (第六列)
                             const totalText = total.toFixed(2);
                             page.drawText(totalText, {
-                                x: getDecimalAlignedX(totalText, 573, monoBoldFont, smallFontSize),
+                                x: getDecimalAlignedX(totalText, 573, monoBoldFont, smallFontSize, 0),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
