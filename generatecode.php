@@ -127,8 +127,8 @@
         /* 修改后的模态框样式 - 匹配图片设计 */
         #addUserModal .modal-content,
         #editUserModal .modal-content {
-            max-width: 1000px !important;
-            width: 1000px !important;
+            max-width: 900px !important;
+            width: 900px !important;
             height: 90vh;
             overflow-y: auto;
             padding: 30px;
