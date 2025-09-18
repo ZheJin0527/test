@@ -4934,6 +4934,8 @@
                 // 嵌入字体
                 const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
                 const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+                const monoFont = await pdfDoc.embedFont(StandardFonts.Courier);
+                const monoBoldFont = await pdfDoc.embedFont(StandardFonts.CourierBold);
 
                 // 设置字体大小和颜色
                 const fontSize = 11;
@@ -4948,6 +4950,19 @@
                 
                 function getCenterAlignedX(text, centerX, charWidth = 6) {
                     return centerX - (text.length * charWidth / 2);
+                }
+                
+                // 按小数点对齐（等宽字体下更精确）
+                function getDecimalAlignedX(text, anchorX, font, size) {
+                    const str = String(text ?? '');
+                    const dotIndex = str.indexOf('.');
+                    if (dotIndex >= 0) {
+                        const leftPart = str.substring(0, dotIndex);
+                        const leftWidth = font.widthOfTextAtSize(leftPart, size);
+                        return anchorX - leftWidth;
+                    }
+                    const width = font.widthOfTextAtSize(str, size);
+                    return anchorX - width;
                 }
                 
                 // 填入日期 (右上角区域)
@@ -5038,7 +5053,7 @@
                     
                     // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
                     const productName = record.product_name || '';
-                    const maxProductNameLength = 20;
+                    const maxProductNameLength = 25;
                     const displayProductName = productName.length > maxProductNameLength 
                         ? productName.substring(0, maxProductNameLength) + '...' 
                         : productName;
@@ -5053,10 +5068,11 @@
                     // Quantity (第三列) - 右对齐
                     const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
-                        x: getRightAlignedX(qtyText, exportSystem === 'j1' ? 389 : 389, 5),
+                        x: getDecimalAlignedX(qtyText, exportSystem === 'j1' ? 389 : 389, monoBoldFont, smallFontSize),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
+                        font: monoBoldFont,
                     });
                     
                     // UOM (第四列) - 左对齐
@@ -5071,19 +5087,21 @@
                     // Price RM (第五列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 510 : 510, 6),
+                        x: getDecimalAlignedX(priceText, exportSystem === 'j1' ? 510 : 510, monoBoldFont, smallFontSize),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
+                        font: monoBoldFont,
                     });
                     
                     // Total RM (第六列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 573 : 573, 6),
+                        x: getDecimalAlignedX(totalText, exportSystem === 'j1' ? 573 : 573, monoBoldFont, smallFontSize),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
+                        font: monoBoldFont,
                     });
                     
                     yPosition -= lineHeight;
@@ -5203,6 +5221,8 @@
                 // 嵌入字体
                 const boldFont = await finalPdfDoc.embedFont(StandardFonts.HelveticaBold);
                 const regularFont = await finalPdfDoc.embedFont(StandardFonts.Helvetica);
+                const monoFont = await finalPdfDoc.embedFont(StandardFonts.Courier);
+                const monoBoldFont = await finalPdfDoc.embedFont(StandardFonts.CourierBold);
 
                 // 设置字体大小和颜色
                 const fontSize = 11;
@@ -5217,6 +5237,19 @@
                 
                 function getCenterAlignedX(text, centerX, charWidth = 6) {
                     return centerX - (text.length * charWidth / 2);
+                }
+                
+                // 按小数点对齐（等宽字体下更精确）
+                function getDecimalAlignedX(text, anchorX, font, size) {
+                    const str = String(text ?? '');
+                    const dotIndex = str.indexOf('.');
+                    if (dotIndex >= 0) {
+                        const leftPart = str.substring(0, dotIndex);
+                        const leftWidth = font.widthOfTextAtSize(leftPart, size);
+                        return anchorX - leftWidth;
+                    }
+                    const width = font.widthOfTextAtSize(str, size);
+                    return anchorX - width;
                 }
                 
                 let grandTotal = 0;
@@ -5328,7 +5361,7 @@
                             
                             // Descriptions (第二列)
                             const productName = record.product_name || '';
-                            const maxProductNameLength = 20;
+                            const maxProductNameLength = 25;
                             const displayProductName = productName.length > maxProductNameLength 
                                 ? productName.substring(0, maxProductNameLength) + '...' 
                                 : productName;
@@ -5343,10 +5376,11 @@
                             // Quantity (第三列)
                             const qtyText = outQty.toFixed(2);
                             page.drawText(qtyText, {
-                                x: getRightAlignedX(qtyText, 389, 5),
+                                x: getDecimalAlignedX(qtyText, 389, monoBoldFont, smallFontSize),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
+                                font: monoBoldFont,
                             });
                             
                             // UOM (第四列)
@@ -5361,19 +5395,21 @@
                             // Price RM (第五列)
                             const priceText = price.toFixed(2);
                             page.drawText(priceText, {
-                                x: getRightAlignedX(priceText, 510, 6),
+                                x: getDecimalAlignedX(priceText, 510, monoBoldFont, smallFontSize),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
+                                font: monoBoldFont,
                             });
                             
                             // Total RM (第六列)
                             const totalText = total.toFixed(2);
                             page.drawText(totalText, {
-                                x: getRightAlignedX(totalText, 573, 6),
+                                x: getDecimalAlignedX(totalText, 573, monoBoldFont, smallFontSize),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
+                                font: monoBoldFont,
                             });
                             
                             yPosition -= lineHeight;
