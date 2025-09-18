@@ -124,14 +124,14 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
-        /* 添加职员模态框中的表单样式 - 新的布局 */
+        /* 新的模态框样式 - 根据图片设计 */
         #addUserModal .modal-content,
         #editUserModal .modal-content {
-            max-width: 1000px !important;
-            width: 1000px !important;
+            max-width: 500px !important;
+            width: 500px !important;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 35px;
+            padding: 25px;
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
@@ -140,53 +140,65 @@
 
         #addUserModal .modal-header,
         #editUserModal .modal-header {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        /* 新的灵活表单布局 */
-        #addUserModal .modal-body > form > div,
-        #editUserModal .modal-body > form > div {
+        /* 表单区块样式 - 仿照图片中的分组 */
+        .form-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .form-section-title {
+            color: #28a745;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #28a745;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-section-title i {
+            font-size: 16px;
+        }
+
+        /* 表单行容器 */
+        .form-row-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            margin-bottom: 25px;
+            gap: 15px;
         }
 
-        /* 表单行基础样式 */
-        .form-row-container {
-            display: grid;
-            gap: 20px;
+        .form-field-row {
+            display: flex;
+            gap: 15px;
         }
 
-        /* 单列布局 */
-        .form-row-1col {
-            grid-template-columns: 1fr;
+        .form-field-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
         }
 
-        /* 双列布局 */
-        .form-row-2col {
-            grid-template-columns: 1fr 1fr;
+        /* 单独占一行的字段 */
+        .form-field-full {
+            width: 100%;
         }
 
-        /* 三列布局 */
-        .form-row-3col {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
-        /* 自定义比例双列布局 */
-        .form-row-2col-custom {
-            grid-template-columns: 2fr 1fr;
-        }
-
-        /* 表单组基础样式 */
+        /* 表单组样式 */
         #addUserModal .form-group,
         #editUserModal .form-group {
-            margin-bottom: 0;
+            margin-bottom: 15px;
             display: flex;
             flex-direction: column;
         }
@@ -195,26 +207,21 @@
         #addUserModal .form-group label,
         #editUserModal .form-group label {
             display: block;
-            margin-bottom: 6px;
-            color: #374151;
+            margin-bottom: 5px;
+            color: #495057;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
             text-align: left;
         }
 
         /* 必填字段标签样式 */
-        #addUserModal .form-group label[for*="username"]:first-child::after,
-        #addUserModal .form-group label[for*="email"]::after,
-        #addUserModal .form-group label[for*="account_type"]::after,
-        #editUserModal .form-group label[for*="username"]:first-child::after,
-        #editUserModal .form-group label[for*="email"]::after,
-        #editUserModal .form-group label[for*="account_type"]::after {
+        .required-field::after {
             content: " *";
-            color: #ef4444;
+            color: #dc3545;
             font-weight: bold;
         }
 
-        /* 输入框和选择框基础样式 */
+        /* 输入框和选择框样式 */
         #addUserModal .form-group input,
         #addUserModal .form-group select,
         #addUserModal .form-group textarea,
@@ -222,14 +229,14 @@
         #editUserModal .form-group select,
         #editUserModal .form-group textarea {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 13px;
             font-family: inherit;
             background-color: #ffffff;
             transition: all 0.2s ease;
-            min-height: 40px;
+            min-height: 35px;
         }
 
         /* 输入框聚焦样式 */
@@ -240,15 +247,15 @@
         #editUserModal .form-group select:focus,
         #editUserModal .form-group textarea:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            background-color: #fafafa;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+            background-color: #ffffff;
         }
 
         /* 文本域特殊样式 */
         #addUserModal .form-group textarea,
         #editUserModal .form-group textarea {
-            min-height: 80px;
+            min-height: 60px;
             resize: vertical;
             font-family: inherit;
         }
@@ -300,6 +307,42 @@
         .btn-generate:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 模态框按钮样式 */
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .modal-buttons .btn-action {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        /* 提交按钮样式 */
+        .btn-submit {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background: #218838;
+            transform: translateY(-1px);
         }
 
         /* 消息提示样式 */
@@ -462,7 +505,7 @@
                 font-size: 14.4px;
             }
 
-            /* 响应式模态框 - 移动端改为单列 */
+            /* 响应式模态框 - 移动端 */
             #addUserModal .modal-content,
             #editUserModal .modal-content {
                 max-width: 95%;
@@ -470,31 +513,10 @@
                 padding: 20px;
             }
 
-            /* 移动端所有多列布局都变为单列 */
-            .form-row-2col,
-            .form-row-3col,
-            .form-row-2col-custom {
-                grid-template-columns: 1fr !important;
-                gap: 15px;
-            }
-        }
-
-        /* 平板响应式 */
-        @media (max-width: 1024px) and (min-width: 769px) {
-            #addUserModal .modal-content,
-            #editUserModal .modal-content {
-                max-width: 95%;
-            }
-            
-            /* 平板端三列变为双列，双列保持 */
-            .form-row-3col {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 18px;
-            }
-
-            .form-row-2col,
-            .form-row-2col-custom {
-                gap: 18px;
+            /* 移动端表单字段堆叠 */
+            .form-field-row {
+                flex-direction: column;
+                gap: 10px;
             }
         }
 
@@ -653,22 +675,6 @@
             margin-bottom: 25px;
             color: #333;
             line-height: 1.5;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 25px;
-        }
-
-        .modal-buttons .btn-action {
-            min-width: 120px;
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.2s ease;
         }
 
         /* 编辑状态下的行高亮 */
@@ -908,208 +914,202 @@
 
     <!-- 添加职员模态框 -->
     <div id="addUserModal" class="modal">
-        <div class="modal-content" style="max-width: 600px; max-height: 85vh; overflow-y: auto;">
-            <div class="modal-header" style="color: #10b981; font-size: 16px; margin-bottom: 10px;">
-                <i class="fas fa-user-plus"></i> 添加新职员
+        <div class="modal-content">
+            <div class="modal-header" style="color: #10b981;">
+                <i class="fas fa-user-plus"></i> 用户注册表单
             </div>
             <div class="modal-body">
                 <form id="addUserForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                        <div class="form-group">
-                            <label for="add_username">英文姓名 *:</label>
-                            <input type="text" id="add_username" name="username" required maxlength="50">
+                    <!-- 基本信息 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-user"></i> 基本信息
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_username_cn">中文姓名:</label>
-                            <input type="text" id="add_username_cn" name="username_cn" maxlength="100">
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="add_username" class="required-field">英文姓名</label>
+                                    <input type="text" id="add_username" name="username" required maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_username_cn">中文姓名</label>
+                                    <input type="text" id="add_username_cn" name="username_cn" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="add_nickname">昵称</label>
+                                    <input type="text" id="add_nickname" name="nickname" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_email" class="required-field">邮箱</label>
+                                    <input type="email" id="add_email" name="email" required maxlength="100">
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_nickname">昵称:</label>
-                            <input type="text" id="add_nickname" name="nickname" maxlength="50">
+                    </div>
+
+                    <!-- 个人资料 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-id-card"></i> 个人资料
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_email">邮箱 *:</label>
-                            <input type="email" id="add_email" name="email" required maxlength="100">
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="add_ic_number">身份证号码</label>
+                                    <input type="text" id="add_ic_number" name="ic_number" maxlength="20">
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_date_of_birth">出生日期</label>
+                                    <input type="date" id="add_date_of_birth" name="date_of_birth">
+                                </div>
+                            </div>
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="add_nationality">国籍</label>
+                                    <select id="add_nationality" name="nationality">
+                                        <option value="">请选择国籍</option>
+                                        <option value="Malaysia">Malaysia</option>
+                                        <option value="China">China</option>
+                                        <option value="Singapore">Singapore</option>
+                                        <option value="Indonesia">Indonesia</option>
+                                        <option value="Thailand">Thailand</option>
+                                        <option value="Philippines">Philippines</option>
+                                        <option value="Vietnam">Vietnam</option>
+                                        <option value="Myanmar (Burma)">Myanmar (Burma)</option>
+                                        <option value="Cambodia">Cambodia</option>
+                                        <option value="India">India</option>
+                                        <option value="Bangladesh">Bangladesh</option>
+                                        <option value="Pakistan">Pakistan</option>
+                                        <option value="Nepal">Nepal</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_gender">性别</label>
+                                    <select id="add_gender" name="gender">
+                                        <option value="">请选择</option>
+                                        <option value="male">男</option>
+                                        <option value="female">女</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="add_race">种族</label>
+                                    <select id="add_race" name="race">
+                                        <option value="">请选择种族</option>
+                                        <option value="Malay">Malay</option>
+                                        <option value="Chinese">Chinese</option>
+                                        <option value="Indian">Indian</option>
+                                        <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="Bangladeshi">Bangladeshi</option>
+                                        <option value="Others (Foreign)">Others (Foreign)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_phone_number">联络号码</label>
+                                    <input type="tel" id="add_phone_number" name="phone_number" maxlength="20">
+                                </div>
+                            </div>
+                            <div class="form-field-full">
+                                <div class="form-group">
+                                    <label for="add_home_address">住址</label>
+                                    <textarea id="add_home_address" name="home_address" rows="2" maxlength="255"></textarea>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_ic_number">身份证号码:</label>
-                            <input type="text" id="add_ic_number" name="ic_number" maxlength="20">
+                    </div>
+
+                    <!-- 银行信息 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-university"></i> 银行信息
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_date_of_birth">出生日期:</label>
-                            <input type="date" id="add_date_of_birth" name="date_of_birth">
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="add_bank_account_holder_en">银行账户持有人</label>
+                                    <input type="text" id="add_bank_account_holder_en" name="bank_account_holder_en" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_bank_account">银行账号</label>
+                                    <input type="text" id="add_bank_account" name="bank_account" maxlength="30">
+                                </div>
+                            </div>
+                            <div class="form-field-full">
+                                <div class="form-group">
+                                    <label for="add_bank_name">银行名称</label>
+                                    <select id="add_bank_name" name="bank_name">
+                                        <option value="">请选择银行</option>
+                                        <option value="Maybank (Malayan Banking Berhad)">Maybank (Malayan Banking Berhad)</option>
+                                        <option value="CIMB Bank">CIMB Bank</option>
+                                        <option value="Public Bank">Public Bank</option>
+                                        <option value="RHB Bank">RHB Bank</option>
+                                        <option value="Hong Leong Bank">Hong Leong Bank</option>
+                                        <option value="AmBank">AmBank</option>
+                                        <option value="Alliance Bank">Alliance Bank</option>
+                                        <option value="Bank Islam Malaysia">Bank Islam Malaysia</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_nationality">国籍:</label>
-                            <select id="add_nationality" name="nationality">
-                                <option value="">请选择国籍</option>
-                                <option value="Afghanistan">Afghanistan</option>
-                                <option value="Armenia">Armenia</option>
-                                <option value="Azerbaijan">Azerbaijan</option>
-                                <option value="Bahrain">Bahrain</option>
-                                <option value="Bangladesh">Bangladesh</option>
-                                <option value="Bhutan">Bhutan</option>
-                                <option value="Brunei">Brunei</option>
-                                <option value="Cambodia">Cambodia</option>
-                                <option value="China">China</option>
-                                <option value="Cyprus">Cyprus</option>
-                                <option value="East Timor (Timor-Leste)">East Timor (Timor-Leste)</option>
-                                <option value="Georgia">Georgia</option>
-                                <option value="India">India</option>
-                                <option value="Indonesia">Indonesia</option>
-                                <option value="Iran">Iran</option>
-                                <option value="Iraq">Iraq</option>
-                                <option value="Israel">Israel</option>
-                                <option value="Japan">Japan</option>
-                                <option value="Jordan">Jordan</option>
-                                <option value="Kazakhstan">Kazakhstan</option>
-                                <option value="Kuwait">Kuwait</option>
-                                <option value="Kyrgyzstan">Kyrgyzstan</option>
-                                <option value="Laos">Laos</option>
-                                <option value="Lebanon">Lebanon</option>
-                                <option value="Malaysia">Malaysia</option>
-                                <option value="Maldives">Maldives</option>
-                                <option value="Mongolia">Mongolia</option>
-                                <option value="Myanmar (Burma)">Myanmar (Burma)</option>
-                                <option value="Nepal">Nepal</option>
-                                <option value="North Korea">North Korea</option>
-                                <option value="Oman">Oman</option>
-                                <option value="Pakistan">Pakistan</option>
-                                <option value="Palestine">Palestine</option>
-                                <option value="Philippines">Philippines</option>
-                                <option value="Qatar">Qatar</option>
-                                <option value="Saudi Arabia">Saudi Arabia</option>
-                                <option value="Singapore">Singapore</option>
-                                <option value="South Korea">South Korea</option>
-                                <option value="Sri Lanka">Sri Lanka</option>
-                                <option value="Syria">Syria</option>
-                                <option value="Taiwan">Taiwan</option>
-                                <option value="Tajikistan">Tajikistan</option>
-                                <option value="Thailand">Thailand</option>
-                                <option value="Turkey">Turkey</option>
-                                <option value="Turkmenistan">Turkmenistan</option>
-                                <option value="United Arab Emirates">United Arab Emirates</option>
-                                <option value="Uzbekistan">Uzbekistan</option>
-                                <option value="Vietnam">Vietnam</option>
-                                <option value="Yemen">Yemen</option>
-                            </select>
+                    </div>
+
+                    <!-- 紧急联系人 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-phone"></i> 紧急联系人
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_gender">性别:</label>
-                            <select id="add_gender" name="gender">
-                                <option value="">请选择</option>
-                                <option value="male">男</option>
-                                <option value="female">女</option>
-                                <option value="other">其他</option>
-                            </select>
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="add_emergency_contact_name">紧急联系人姓名</label>
+                                    <input type="text" id="add_emergency_contact_name" name="emergency_contact_name" maxlength="100">
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_emergency_phone_number">紧急联系人电话</label>
+                                    <input type="tel" id="add_emergency_phone_number" name="emergency_phone_number" maxlength="20">
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_race">种族:</label>
-                            <select id="add_race" name="race">
-                                <option value="">请选择种族</option>
-                                <option value="Malay">Malay</option>
-                                <option value="Chinese">Chinese</option>
-                                <option value="Indian">Indian</option>
-                                <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
-                                <option value="Indonesian">Indonesian</option>
-                                <option value="Bangladeshi">Bangladeshi</option>
-                                <option value="Nepali">Nepali</option>
-                                <option value="Myanmar">Myanmar</option>
-                                <option value="Filipino">Filipino</option>
-                                <option value="Indian (Foreign)">Indian (Foreign)</option>
-                                <option value="Pakistani">Pakistani</option>
-                                <option value="Vietnamese">Vietnamese</option>
-                                <option value="Cambodian">Cambodian</option>
-                                <option value="Others (Foreign)">Others (Foreign)</option>
-                            </select>
+                    </div>
+
+                    <!-- 账号设置 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-cog"></i> 账号设置
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="add_phone_number">联络号码:</label>
-                            <input type="tel" id="add_phone_number" name="phone_number" maxlength="20">
-                        </div>
-                        
-                        <div class="form-group" style="grid-column: 1 / -1;">
-                            <label for="add_home_address">住址:</label>
-                            <textarea id="add_home_address" name="home_address" rows="2" maxlength="255"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="add_bank_account_holder_en">银行账户持有人:</label>
-                            <input type="text" id="add_bank_account_holder_en" name="bank_account_holder_en" maxlength="50">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="add_bank_account">银行账号:</label>
-                            <input type="text" id="add_bank_account" name="bank_account" maxlength="30">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="add_bank_name">银行名称:</label>
-                            <select id="add_bank_name" name="bank_name">
-                                <option value="">请选择银行</option>
-                                <option value="Maybank (Malayan Banking Berhad)">Maybank (Malayan Banking Berhad)</option>
-                                <option value="CIMB Bank">CIMB Bank</option>
-                                <option value="Public Bank">Public Bank</option>
-                                <option value="RHB Bank">RHB Bank</option>
-                                <option value="Hong Leong Bank">Hong Leong Bank</option>
-                                <option value="AmBank">AmBank</option>
-                                <option value="Alliance Bank">Alliance Bank</option>
-                                <option value="Affin Bank">Affin Bank</option>
-                                <option value="Bank Islam Malaysia">Bank Islam Malaysia</option>
-                                <option value="Agrobank">Agrobank</option>
-                                <option value="Bank Simpanan Nasional (BSN)">Bank Simpanan Nasional (BSN)</option>
-                                <option value="HSBC Bank Malaysia">HSBC Bank Malaysia</option>
-                                <option value="OCBC Bank (Malaysia)">OCBC Bank (Malaysia)</option>
-                                <option value="Standard Chartered Bank Malaysia">Standard Chartered Bank Malaysia</option>
-                                <option value="United Overseas Bank (UOB Malaysia)">United Overseas Bank (UOB Malaysia)</option>
-                                <option value="Bank of China (Malaysia)">Bank of China (Malaysia)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="add_position">职位:</label>
-                            <input type="text" id="add_position" name="position" maxlength="100">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="add_emergency_contact_name">紧急联系人:</label>
-                            <input type="text" id="add_emergency_contact_name" name="emergency_contact_name" maxlength="100">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="add_emergency_phone_number">紧急联系人电话:</label>
-                            <input type="tel" id="add_emergency_phone_number" name="emergency_phone_number" maxlength="20">
-                        </div>
-                        
-                        <div class="form-group" style="grid-column: 1 / -1;">
-                            <label for="add_account_type">账号类型 *:</label>
-                            <select id="add_account_type" name="account_type" required>
-                                <option value="">请选择账号类型</option>
-                                <option value="boss">老板 (Boss)</option>
-                                <option value="admin">管理员 (Admin)</option>
-                                <option value="hr">人事部 (HR)</option>
-                                <option value="design">设计部 (Design)</option>
-                                <option value="support">支援部 (Support)</option>
-                                <option value="IT">技术部 (IT)</option>
-                                <option value="photograph">摄影部 (Photography)</option>
-                            </select>
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="add_position">职位</label>
+                                    <input type="text" id="add_position" name="position" maxlength="100">
+                                </div>
+                                <div class="form-group">
+                                    <label for="add_account_type" class="required-field">账号类型</label>
+                                    <select id="add_account_type" name="account_type" required>
+                                        <option value="">请选择账号类型</option>
+                                        <option value="boss">老板 (Boss)</option>
+                                        <option value="admin">管理员 (Admin)</option>
+                                        <option value="hr">人事部 (HR)</option>
+                                        <option value="design">设计部 (Design)</option>
+                                        <option value="support">支援部 (Support)</option>
+                                        <option value="IT">技术部 (IT)</option>
+                                        <option value="photograph">摄影部 (Photography)</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="modal-buttons" style="margin-top: 15px;">
-                        <button type="submit" class="btn-action btn-save" style="padding: 12px 10px; font-size: 14px;">
-                            <i class="fas fa-user-plus"></i> 添加职员
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn-action btn-submit">
+                            <i class="fas fa-user-plus"></i> 提交注册
                         </button>
-                        <button type="button" class="btn-action btn-cancel" onclick="closeAddUserModal()" style="padding: 12px 12px; font-size: 14px;">
+                        <button type="button" class="btn-action btn-cancel" onclick="closeAddUserModal()">
                             <i class="fas fa-times"></i> 取消
                         </button>
                     </div>
@@ -1120,209 +1120,203 @@
 
     <!-- 编辑职员模态框 -->
     <div id="editUserModal" class="modal">
-        <div class="modal-content" style="max-width: 600px; max-height: 85vh; overflow-y: auto;">
-            <div class="modal-header" style="color: #f59e0b; font-size: 16px; margin-bottom: 10px;">
+        <div class="modal-content">
+            <div class="modal-header" style="color: #f59e0b;">
                 <i class="fas fa-user-edit"></i> 编辑职员信息
             </div>
             <div class="modal-body">
                 <form id="editUserForm">
                     <input type="hidden" id="edit_user_id" name="user_id">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                        <div class="form-group">
-                            <label for="edit_username">英文姓名 *:</label>
-                            <input type="text" id="edit_username" name="username" required maxlength="50">
+                    <!-- 基本信息 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-user"></i> 基本信息
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_username_cn">中文姓名:</label>
-                            <input type="text" id="edit_username_cn" name="username_cn" maxlength="100">
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="edit_username" class="required-field">英文姓名</label>
+                                    <input type="text" id="edit_username" name="username" required maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_username_cn">中文姓名</label>
+                                    <input type="text" id="edit_username_cn" name="username_cn" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="edit_nickname">昵称</label>
+                                    <input type="text" id="edit_nickname" name="nickname" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_email" class="required-field">邮箱</label>
+                                    <input type="email" id="edit_email" name="email" required maxlength="100">
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_nickname">昵称:</label>
-                            <input type="text" id="edit_nickname" name="nickname" maxlength="50">
+                    </div>
+
+                    <!-- 个人资料 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-id-card"></i> 个人资料
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_email">邮箱 *:</label>
-                            <input type="email" id="edit_email" name="email" required maxlength="100">
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="edit_ic_number">身份证号码</label>
+                                    <input type="text" id="edit_ic_number" name="ic_number" maxlength="20">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_date_of_birth">出生日期</label>
+                                    <input type="date" id="edit_date_of_birth" name="date_of_birth">
+                                </div>
+                            </div>
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="edit_nationality">国籍</label>
+                                    <select id="edit_nationality" name="nationality">
+                                        <option value="">请选择国籍</option>
+                                        <option value="Malaysia">Malaysia</option>
+                                        <option value="China">China</option>
+                                        <option value="Singapore">Singapore</option>
+                                        <option value="Indonesia">Indonesia</option>
+                                        <option value="Thailand">Thailand</option>
+                                        <option value="Philippines">Philippines</option>
+                                        <option value="Vietnam">Vietnam</option>
+                                        <option value="Myanmar (Burma)">Myanmar (Burma)</option>
+                                        <option value="Cambodia">Cambodia</option>
+                                        <option value="India">India</option>
+                                        <option value="Bangladesh">Bangladesh</option>
+                                        <option value="Pakistan">Pakistan</option>
+                                        <option value="Nepal">Nepal</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_gender">性别</label>
+                                    <select id="edit_gender" name="gender">
+                                        <option value="">请选择</option>
+                                        <option value="male">男</option>
+                                        <option value="female">女</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="edit_race">种族</label>
+                                    <select id="edit_race" name="race">
+                                        <option value="">请选择种族</option>
+                                        <option value="Malay">Malay</option>
+                                        <option value="Chinese">Chinese</option>
+                                        <option value="Indian">Indian</option>
+                                        <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="Bangladeshi">Bangladeshi</option>
+                                        <option value="Others (Foreign)">Others (Foreign)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_phone_number">联络号码</label>
+                                    <input type="tel" id="edit_phone_number" name="phone_number" maxlength="20">
+                                </div>
+                            </div>
+                            <div class="form-field-full">
+                                <div class="form-group">
+                                    <label for="edit_home_address">住址</label>
+                                    <textarea id="edit_home_address" name="home_address" rows="2" maxlength="255"></textarea>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_ic_number">身份证号码:</label>
-                            <input type="text" id="edit_ic_number" name="ic_number" maxlength="20">
+                    </div>
+
+                    <!-- 银行信息 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-university"></i> 银行信息
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_date_of_birth">出生日期:</label>
-                            <input type="date" id="edit_date_of_birth" name="date_of_birth">
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="edit_bank_account_holder_en">银行账户持有人</label>
+                                    <input type="text" id="edit_bank_account_holder_en" name="bank_account_holder_en" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_bank_account">银行账号</label>
+                                    <input type="text" id="edit_bank_account" name="bank_account" maxlength="30">
+                                </div>
+                            </div>
+                            <div class="form-field-full">
+                                <div class="form-group">
+                                    <label for="edit_bank_name">银行名称</label>
+                                    <select id="edit_bank_name" name="bank_name">
+                                        <option value="">请选择银行</option>
+                                        <option value="Maybank (Malayan Banking Berhad)">Maybank (Malayan Banking Berhad)</option>
+                                        <option value="CIMB Bank">CIMB Bank</option>
+                                        <option value="Public Bank">Public Bank</option>
+                                        <option value="RHB Bank">RHB Bank</option>
+                                        <option value="Hong Leong Bank">Hong Leong Bank</option>
+                                        <option value="AmBank">AmBank</option>
+                                        <option value="Alliance Bank">Alliance Bank</option>
+                                        <option value="Bank Islam Malaysia">Bank Islam Malaysia</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_nationality">国籍:</label>
-                            <select id="edit_nationality" name="nationality">
-                                <option value="">请选择国籍</option>
-                                <option value="Afghanistan">Afghanistan</option>
-                                <option value="Armenia">Armenia</option>
-                                <option value="Azerbaijan">Azerbaijan</option>
-                                <option value="Bahrain">Bahrain</option>
-                                <option value="Bangladesh">Bangladesh</option>
-                                <option value="Bhutan">Bhutan</option>
-                                <option value="Brunei">Brunei</option>
-                                <option value="Cambodia">Cambodia</option>
-                                <option value="China">China</option>
-                                <option value="Cyprus">Cyprus</option>
-                                <option value="East Timor (Timor-Leste)">East Timor (Timor-Leste)</option>
-                                <option value="Georgia">Georgia</option>
-                                <option value="India">India</option>
-                                <option value="Indonesia">Indonesia</option>
-                                <option value="Iran">Iran</option>
-                                <option value="Iraq">Iraq</option>
-                                <option value="Israel">Israel</option>
-                                <option value="Japan">Japan</option>
-                                <option value="Jordan">Jordan</option>
-                                <option value="Kazakhstan">Kazakhstan</option>
-                                <option value="Kuwait">Kuwait</option>
-                                <option value="Kyrgyzstan">Kyrgyzstan</option>
-                                <option value="Laos">Laos</option>
-                                <option value="Lebanon">Lebanon</option>
-                                <option value="Malaysia">Malaysia</option>
-                                <option value="Maldives">Maldives</option>
-                                <option value="Mongolia">Mongolia</option>
-                                <option value="Myanmar (Burma)">Myanmar (Burma)</option>
-                                <option value="Nepal">Nepal</option>
-                                <option value="North Korea">North Korea</option>
-                                <option value="Oman">Oman</option>
-                                <option value="Pakistan">Pakistan</option>
-                                <option value="Palestine">Palestine</option>
-                                <option value="Philippines">Philippines</option>
-                                <option value="Qatar">Qatar</option>
-                                <option value="Saudi Arabia">Saudi Arabia</option>
-                                <option value="Singapore">Singapore</option>
-                                <option value="South Korea">South Korea</option>
-                                <option value="Sri Lanka">Sri Lanka</option>
-                                <option value="Syria">Syria</option>
-                                <option value="Taiwan">Taiwan</option>
-                                <option value="Tajikistan">Tajikistan</option>
-                                <option value="Thailand">Thailand</option>
-                                <option value="Turkey">Turkey</option>
-                                <option value="Turkmenistan">Turkmenistan</option>
-                                <option value="United Arab Emirates">United Arab Emirates</option>
-                                <option value="Uzbekistan">Uzbekistan</option>
-                                <option value="Vietnam">Vietnam</option>
-                                <option value="Yemen">Yemen</option>
-                            </select>
+                    </div>
+
+                    <!-- 紧急联系人 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-phone"></i> 紧急联系人
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_gender">性别:</label>
-                            <select id="edit_gender" name="gender">
-                                <option value="">请选择</option>
-                                <option value="male">男</option>
-                                <option value="female">女</option>
-                                <option value="other">其他</option>
-                            </select>
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="edit_emergency_contact_name">紧急联系人姓名</label>
+                                    <input type="text" id="edit_emergency_contact_name" name="emergency_contact_name" maxlength="100">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_emergency_phone_number">紧急联系人电话</label>
+                                    <input type="tel" id="edit_emergency_phone_number" name="emergency_phone_number" maxlength="20">
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_race">种族:</label>
-                            <select id="edit_race" name="race">
-                                <option value="">请选择种族</option>
-                                <option value="Malay">Malay</option>
-                                <option value="Chinese">Chinese</option>
-                                <option value="Indian">Indian</option>
-                                <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
-                                <option value="Indonesian">Indonesian</option>
-                                <option value="Bangladeshi">Bangladeshi</option>
-                                <option value="Nepali">Nepali</option>
-                                <option value="Myanmar">Myanmar</option>
-                                <option value="Filipino">Filipino</option>
-                                <option value="Indian (Foreign)">Indian (Foreign)</option>
-                                <option value="Pakistani">Pakistani</option>
-                                <option value="Vietnamese">Vietnamese</option>
-                                <option value="Cambodian">Cambodian</option>
-                                <option value="Others (Foreign)">Others (Foreign)</option>
-                            </select>
+                    </div>
+
+                    <!-- 账号设置 -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-cog"></i> 账号设置
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_phone_number">联络号码:</label>
-                            <input type="tel" id="edit_phone_number" name="phone_number" maxlength="20">
-                        </div>
-                        
-                        <div class="form-group" style="grid-column: 1 / -1;">
-                            <label for="edit_home_address">住址:</label>
-                            <textarea id="edit_home_address" name="home_address" rows="2" maxlength="255"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_bank_account_holder_en">银行账户持有人:</label>
-                            <input type="text" id="edit_bank_account_holder_en" name="bank_account_holder_en" maxlength="50">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_bank_account">银行账号:</label>
-                            <input type="text" id="edit_bank_account" name="bank_account" maxlength="30">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_bank_name">银行名称:</label>
-                            <select id="edit_bank_name" name="bank_name">
-                                <option value="">请选择银行</option>
-                                <option value="Maybank (Malayan Banking Berhad)">Maybank (Malayan Banking Berhad)</option>
-                                <option value="CIMB Bank">CIMB Bank</option>
-                                <option value="Public Bank">Public Bank</option>
-                                <option value="RHB Bank">RHB Bank</option>
-                                <option value="Hong Leong Bank">Hong Leong Bank</option>
-                                <option value="AmBank">AmBank</option>
-                                <option value="Alliance Bank">Alliance Bank</option>
-                                <option value="Affin Bank">Affin Bank</option>
-                                <option value="Bank Islam Malaysia">Bank Islam Malaysia</option>
-                                <option value="Agrobank">Agrobank</option>
-                                <option value="Bank Simpanan Nasional (BSN)">Bank Simpanan Nasional (BSN)</option>
-                                <option value="HSBC Bank Malaysia">HSBC Bank Malaysia</option>
-                                <option value="OCBC Bank (Malaysia)">OCBC Bank (Malaysia)</option>
-                                <option value="Standard Chartered Bank Malaysia">Standard Chartered Bank Malaysia</option>
-                                <option value="United Overseas Bank (UOB Malaysia)">United Overseas Bank (UOB Malaysia)</option>
-                                <option value="Bank of China (Malaysia)">Bank of China (Malaysia)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_position">职位:</label>
-                            <input type="text" id="edit_position" name="position" maxlength="100">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_emergency_contact_name">紧急联系人:</label>
-                            <input type="text" id="edit_emergency_contact_name" name="emergency_contact_name" maxlength="100">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edit_emergency_phone_number">紧急联系人电话:</label>
-                            <input type="tel" id="edit_emergency_phone_number" name="emergency_phone_number" maxlength="20">
-                        </div>
-                        
-                        <div class="form-group" style="grid-column: 1 / -1;">
-                            <label for="edit_account_type">账号类型 *:</label>
-                            <select id="edit_account_type" name="account_type" required>
-                                <option value="">请选择账号类型</option>
-                                <option value="boss">老板 (Boss)</option>
-                                <option value="admin">管理员 (Admin)</option>
-                                <option value="hr">人事部 (HR)</option>
-                                <option value="design">设计部 (Design)</option>
-                                <option value="support">支援部 (Support)</option>
-                                <option value="IT">技术部 (IT)</option>
-                                <option value="photograph">摄影部 (Photography)</option>
-                            </select>
+                        <div class="form-row-container">
+                            <div class="form-field-row">
+                                <div class="form-group">
+                                    <label for="edit_position">职位</label>
+                                    <input type="text" id="edit_position" name="position" maxlength="100">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_account_type" class="required-field">账号类型</label>
+                                    <select id="edit_account_type" name="account_type" required>
+                                        <option value="">请选择账号类型</option>
+                                        <option value="boss">老板 (Boss)</option>
+                                        <option value="admin">管理员 (Admin)</option>
+                                        <option value="hr">人事部 (HR)</option>
+                                        <option value="design">设计部 (Design)</option>
+                                        <option value="support">支援部 (Support)</option>
+                                        <option value="IT">技术部 (IT)</option>
+                                        <option value="photograph">摄影部 (Photography)</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="modal-buttons" style="margin-top: 15px;">
-                        <button type="submit" class="btn-action btn-save" style="padding: 12px 20px; font-size: 14px;">
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn-action btn-submit">
                             <i class="fas fa-save"></i> 保存修改
                         </button>
-                        <button type="button" class="btn-action btn-cancel" onclick="closeEditUserModal()" style="padding: 12px 12px; font-size: 14px;">
+                        <button type="button" class="btn-action btn-cancel" onclick="closeEditUserModal()">
                             <i class="fas fa-times"></i> 取消
                         </button>
                     </div>
