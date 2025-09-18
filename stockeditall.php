@@ -5057,7 +5057,6 @@
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
-                        font: boldFont,
                     });
                     
                     // UOM (第四列) - 左对齐
@@ -5067,27 +5066,24 @@
                         y: yPosition,
                         size: 8, 
                         color: textColor,
-                        font: boldFont,
                     });
                     
                     // Price RM (第五列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 480 : 480, 6),
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 500 : 500, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
-                        font: boldFont,
                     });
                     
                     // Total RM (第六列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 565 : 565, 6),
+                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 570 : 570, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
-                        font: boldFont,
                     });
                     
                     yPosition -= lineHeight;
