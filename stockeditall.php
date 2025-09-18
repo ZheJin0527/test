@@ -4823,11 +4823,11 @@
                 
                 // 根据记录数量决定使用单页还是多页模板
                 const recordCount = outData.length;
-                const useMultiPage = (exportSystem === 'j1' && recordCount > 27) || (exportSystem === 'j2' && recordCount > 25);
+                const useMultiPage = (exportSystem === 'j1' && recordCount > 27) || (exportSystem === 'j2' && recordCount > 24);
                 
                 if (useMultiPage) {
                     // 使用多页模板
-                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 27 : 25));
+                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 27 : 24));
                     showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
                     await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                 } else {
@@ -5177,7 +5177,7 @@
                 }
                 
                 // 计算每页可容纳的记录数
-                const recordsPerPage = exportSystem === 'j1' ? 27 : 25;
+                const recordsPerPage = exportSystem === 'j1' ? 27 : 24;
                 const totalPages = Math.ceil(outData.length / recordsPerPage);
                 
                 console.log(`多页PDF: 总记录数 ${outData.length}, 每页 ${recordsPerPage} 条, 共 ${totalPages} 页`);
