@@ -92,6 +92,9 @@ if (isset($_SESSION['user_id'])) {
             align-items: center;
             gap: 8px;
             transition: all 0.2s ease;
+            min-width: 130px;
+            justify-content: space-between;
+            position: relative;
         }
         
         .selector-button:hover {
