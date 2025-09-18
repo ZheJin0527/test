@@ -43,6 +43,15 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
+        .header h1::after {
+            content: "";
+            display: block;
+            height: 2px;
+            width: 100%;
+            margin-top: 10px;
+            background: linear-gradient(90deg, rgba(255,92,0,0) 0%, rgba(255,92,0,1) 25%, rgba(255,92,0,1) 75%, rgba(255,92,0,0) 100%);
+        }
+
         .header p {
             color: #ff5c00;
             font-size: 17px;
