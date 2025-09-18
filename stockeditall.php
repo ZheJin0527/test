@@ -5098,8 +5098,8 @@
                     // 填入Subtotal
                     const subtotalText = `${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
-                        x: getRightAlignedX(subtotalText, 565, 6.5),
-                        y: height - 628, // 调整到Subtotal行
+                        x: getRightAlignedX(subtotalText, 580, 6.5),
+                        y: height - 702, // 调整到Subtotal行
                         size: smallFontSize,
                         color: textColor,
                     });
@@ -5107,8 +5107,8 @@
                     // 填入Charge 15%
                     const chargeText = `${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
-                        x: getRightAlignedX(chargeText, 565, 6.5),
-                        y: height - 639, // 调整到Charge行
+                        x: getRightAlignedX(chargeText, 580, 6.5),
+                        y: height - 705, // 调整到Charge行
                         size: smallFontSize,
                         color: textColor,
                     });
@@ -5117,7 +5117,7 @@
                     const finalTotalText = `${finalTotal.toFixed(2)}`;
                     page.drawText(finalTotalText, {
                         x: getRightAlignedX(finalTotalText, 580, 8),
-                        y: height - 705, // 调整到最终Total行
+                        y: height - 708, // 调整到最终Total行
                         size: fontSize,
                         color: textColor,
                         font: boldFont,
