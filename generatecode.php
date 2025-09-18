@@ -186,7 +186,7 @@
         #editUserModal .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: #bfbfbf;
+            color: #000000ff;
             font-weight: 600;
             font-size: 13px;
             text-align: left;
