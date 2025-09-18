@@ -5335,14 +5335,14 @@
                             if (pageIndex === 0) {
                                 yPosition = height - 162; // J1第一页位置
                             } else {
-                                yPosition = height - 62;  // J1第二页位置
+                                yPosition = height - 162;  // J1第二页位置
                             }
                             lineHeight = 20;
                         } else { // j2
                             if (pageIndex === 0) {
                                 yPosition = height - 202; // J2第一页位置（原来的位置）
                             } else {
-                                yPosition = height - 80; // J2第二页位置（可调整这个数值）
+                                yPosition = height - 202; // J2第二页位置（可调整这个数值）
                             }
                             lineHeight = 20;
                         }
