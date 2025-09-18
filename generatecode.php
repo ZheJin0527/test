@@ -124,296 +124,77 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
-        /* 添加职员模态框中的表单样式 - 重新设计版本 */
+        /* 添加职员模态框中的表单样式 - 超紧凑版本 */
         #addUserModal .modal-content {
-            max-width: 850px;
+            max-width: 900px;
             max-height: 95vh;
             overflow-y: auto;
-            padding: 20px;
+            padding: 15px;
         }
 
         #addUserModal .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
 
         #addUserModal .form-group label {
             display: block;
-            margin-bottom: 4px;
-            color: #333;
-            font-weight: 600;
-            font-size: 13px;
+            margin-bottom: 2px;
+            color: #000000ff;
+            font-weight: bold;
+            font-size: 12px;
             text-align: left;
         }
 
-        /* 表单分组样式 */
-        .form-section {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #ff5c00;
+        #addUserModal .form-group input:not(#add_home_address),
+        #addUserModal .form-group select:not(#add_account_type),
+        #addUserModal .form-group textarea:not(#add_home_address) {
+            width: 98%;
+            padding: 4px 6px;
+            border: 1px solid #ff5c00;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            height: 28px;
         }
 
-        .form-section-title {
-            color: #ff5c00;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* 重新设计的网格布局 */
-        .form-grid {
-            display: grid;
-            gap: 12px;
-        }
-
-        /* 基本信息 - 2列布局 */
-        .basic-info-grid {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        /* 个人详情 - 3列布局 */
-        .personal-details-grid {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
-        /* 联系方式 - 2列布局 */
-        .contact-info-grid {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        /* 银行信息 - 2列布局 */
-        .bank-info-grid {
-            grid-template-columns: 1.2fr 0.8fr;
-        }
-
-        /* 工作信息 - 1列布局 */
-        .work-info-grid {
-            grid-template-columns: 1fr;
-        }
-
-        /* 紧急联系人 - 2列布局 */
-        .emergency-contact-grid {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        /* 全宽字段 */
-        .full-width {
-            grid-column: 1 / -1;
-        }
-
-        /* 输入框基础样式 */
-        #addUserModal .form-group input,
-        #addUserModal .form-group select,
         #addUserModal .form-group textarea {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 13px;
-            transition: all 0.3s ease;
-            font-family: inherit;
+            height: 50px;
+            resize: vertical;
         }
 
-        /* 不同类型输入框的特定样式 */
-        
-        /* 短文本输入框 */
-        #addUserModal input[type="text"]:not(#add_username):not(#add_username_cn):not(#add_bank_account_holder_en):not(#add_position):not(#add_emergency_contact_name),
-        #addUserModal input[type="tel"] {
-            min-width: 140px;
+        #addUserModal .form-group input:not(#add_home_address):focus,
+        #addUserModal .form-group select:not(#add_account_type):focus,
+        #addUserModal .form-group textarea:not(#add_home_address):focus {
+            outline: none;
+            border-color: #ff5c00;
+            box-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
         }
 
-        /* 姓名字段 - 较宽 */
-        #addUserModal #add_username,
-        #addUserModal #add_username_cn,
-        #addUserModal #add_nickname {
-            min-width: 180px;
-        }
-
-        /* 邮箱字段 - 最宽 */
-        #addUserModal #add_email {
-            min-width: 220px;
-        }
-
-        /* 身份证号码 */
-        #addUserModal #add_ic_number {
-            min-width: 160px;
-        }
-
-        /* 日期选择器 */
-        #addUserModal input[type="date"] {
-            min-width: 150px;
-        }
-
-        /* 下拉选择框 */
-        #addUserModal select {
-            min-width: 140px;
-        }
-
-        /* 国籍和种族选择框 - 较宽 */
-        #addUserModal #add_nationality,
-        #addUserModal #add_race {
-            min-width: 160px;
-        }
-
-        /* 银行名称选择框 - 更宽 */
-        #addUserModal #add_bank_name {
-            min-width: 200px;
-        }
-
-        /* 银行账号 */
-        #addUserModal #add_bank_account {
-            min-width: 160px;
-        }
-
-        /* 银行账户持有人 */
-        #addUserModal #add_bank_account_holder_en {
-            min-width: 180px;
-        }
-
-        /* 职位字段 */
-        #addUserModal #add_position {
-            min-width: 200px;
-        }
-
-        /* 紧急联系人姓名 */
-        #addUserModal #add_emergency_contact_name {
-            min-width: 180px;
-        }
-
-        /* 账号类型 - 全宽 */
-        #addUserModal #add_account_type {
-            width: 100%;
-        }
-
-        /* 地址文本域 */
+        /* 家庭地址和账号类型的独立样式 */
         #addUserModal #add_home_address {
-            width: 100%;
-            height: 60px;
-            resize: vertical;
-            min-height: 60px;
-        }
-
-        /* 焦点状态 */
-        #addUserModal .form-group input:focus,
-        #addUserModal .form-group select:focus,
-        #addUserModal .form-group textarea:focus {
-            outline: none;
-            border-color: #ff5c00;
-            box-shadow: 0 0 0 2px rgba(255, 92, 0, 0.2);
-        }
-
-        /* 必填字段标识 */
-        #addUserModal .form-group label:has(+ input[required])::after,
-        #addUserModal .form-group label:has(+ select[required])::after {
-            content: " *";
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        /* 编辑职员模态框使用相同样式 */
-        #editUserModal .modal-content {
-            max-width: 850px;
-            max-height: 95vh;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        #editUserModal .form-group {
-            margin-bottom: 12px;
-        }
-
-        #editUserModal .form-group label {
-            display: block;
-            margin-bottom: 4px;
-            color: #333;
-            font-weight: 600;
+            padding: 6px 8px;
             font-size: 13px;
-            text-align: left;
-        }
-
-        #editUserModal .form-group input,
-        #editUserModal .form-group select,
-        #editUserModal .form-group textarea {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 13px;
-            transition: all 0.3s ease;
             font-family: inherit;
+            height: 60px;
+            border: 1px solid #ff5c00;
+            border-radius: 6px;
+            width: 99%;
         }
 
-        #editUserModal .form-group input:focus,
-        #editUserModal .form-group select:focus,
-        #editUserModal .form-group textarea:focus {
+        #addUserModal #add_account_type {
+            padding: 6px 8px;
+            font-size: 13px;
+            height: 32px;
+            border: 1px solid #ff5c00;
+            border-radius: 6px;
+            width: 99%;
+        }
+
+        #addUserModal #add_home_address:focus,
+        #addUserModal #add_account_type:focus {
             outline: none;
             border-color: #ff5c00;
-            box-shadow: 0 0 0 2px rgba(255, 92, 0, 0.2);
-        }
-
-        /* 应用相同的字段宽度到编辑模态框 */
-        #editUserModal input[type="text"]:not(#edit_username):not(#edit_username_cn):not(#edit_bank_account_holder_en):not(#edit_position):not(#edit_emergency_contact_name),
-        #editUserModal input[type="tel"] {
-            min-width: 140px;
-        }
-
-        #editUserModal #edit_username,
-        #editUserModal #edit_username_cn,
-        #editUserModal #edit_nickname {
-            min-width: 180px;
-        }
-
-        #editUserModal #edit_email {
-            min-width: 220px;
-        }
-
-        #editUserModal #edit_ic_number {
-            min-width: 160px;
-        }
-
-        #editUserModal input[type="date"] {
-            min-width: 150px;
-        }
-
-        #editUserModal select {
-            min-width: 140px;
-        }
-
-        #editUserModal #edit_nationality,
-        #editUserModal #edit_race {
-            min-width: 160px;
-        }
-
-        #editUserModal #edit_bank_name {
-            min-width: 200px;
-        }
-
-        #editUserModal #edit_bank_account {
-            min-width: 160px;
-        }
-
-        #editUserModal #edit_bank_account_holder_en {
-            min-width: 180px;
-        }
-
-        #editUserModal #edit_position {
-            min-width: 200px;
-        }
-
-        #editUserModal #edit_emergency_contact_name {
-            min-width: 180px;
-        }
-
-        #editUserModal #edit_account_type {
-            width: 100%;
-        }
-
-        #editUserModal #edit_home_address {
-            width: 100%;
-            height: 60px;
-            resize: vertical;
-            min-height: 60px;
+            box-shadow: 0 0 6px rgba(255, 115, 0, 0.5);
         }
 
         /* 搜索框特殊样式 */
@@ -623,21 +404,6 @@
             th, td {
                 padding: 8px 6px;
                 font-size: 14.4px;
-            }
-
-            /* 移动端表单布局调整 */
-            .basic-info-grid,
-            .personal-details-grid,
-            .contact-info-grid,
-            .bank-info-grid,
-            .emergency-contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            #addUserModal .modal-content,
-            #editUserModal .modal-content {
-                max-width: 95%;
-                padding: 15px;
             }
         }
 
@@ -1066,135 +832,196 @@
             </div>
             <div class="modal-body">
                 <form id="addUserForm">
-                    <div class="form-section">
-    <div class="form-section-title">基本信息</div>
-    <div class="form-grid basic-info-grid">
-        <div class="form-group">
-            <label for="add_username">英文姓名</label>
-            <input type="text" id="add_username" name="username" required maxlength="50">
-        </div>
-        <div class="form-group">
-            <label for="add_username_cn">中文姓名</label>
-            <input type="text" id="add_username_cn" name="username_cn" maxlength="100">
-        </div>
-        <div class="form-group">
-            <label for="add_nickname">昵称</label>
-            <input type="text" id="add_nickname" name="nickname" maxlength="50">
-        </div>
-        <div class="form-group">
-            <label for="add_email">邮箱</label>
-            <input type="email" id="add_email" name="email" required maxlength="100">
-        </div>
-    </div>
-</div>
-
-<!-- 个人详情组 -->
-<div class="form-section">
-    <div class="form-section-title">个人详情</div>
-    <div class="form-grid personal-details-grid">
-        <div class="form-group">
-            <label for="add_ic_number">身份证号码</label>
-            <input type="text" id="add_ic_number" name="ic_number" maxlength="20">
-        </div>
-        <div class="form-group">
-            <label for="add_date_of_birth">出生日期</label>
-            <input type="date" id="add_date_of_birth" name="date_of_birth">
-        </div>
-        <div class="form-group">
-            <label for="add_nationality">国籍</label>
-            <select id="add_nationality" name="nationality">
-                <option value="">请选择国籍</option>
-                <!-- 所有国籍选项保持不变 -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="add_gender">性别</label>
-            <select id="add_gender" name="gender">
-                <option value="">请选择</option>
-                <option value="male">男</option>
-                <option value="female">女</option>
-                <option value="other">其他</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="add_race">种族</label>
-            <select id="add_race" name="race">
-                <option value="">请选择种族</option>
-                <!-- 所有种族选项保持不变 -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="add_phone_number">联络号码</label>
-            <input type="tel" id="add_phone_number" name="phone_number" maxlength="20">
-        </div>
-    </div>
-</div>
-
-<!-- 联系方式组 -->
-<div class="form-section">
-    <div class="form-section-title">联系方式</div>
-    <div class="form-grid contact-info-grid">
-        <div class="form-group full-width">
-            <label for="add_home_address">住址</label>
-            <textarea id="add_home_address" name="home_address" rows="2" maxlength="255"></textarea>
-        </div>
-    </div>
-</div>
-
-<!-- 银行信息组 -->
-<div class="form-section">
-    <div class="form-section-title">银行信息</div>
-    <div class="form-grid bank-info-grid">
-        <div class="form-group">
-            <label for="add_bank_account_holder_en">银行账户持有人</label>
-            <input type="text" id="add_bank_account_holder_en" name="bank_account_holder_en" maxlength="50">
-        </div>
-        <div class="form-group">
-            <label for="add_bank_account">银行账号</label>
-            <input type="text" id="add_bank_account" name="bank_account" maxlength="30">
-        </div>
-        <div class="form-group full-width">
-            <label for="add_bank_name">银行名称</label>
-            <select id="add_bank_name" name="bank_name">
-                <option value="">请选择银行</option>
-                <!-- 所有银行选项保持不变 -->
-            </select>
-        </div>
-    </div>
-</div>
-
-<!-- 工作信息组 -->
-<div class="form-section">
-    <div class="form-section-title">工作信息</div>
-    <div class="form-grid work-info-grid">
-        <div class="form-group">
-            <label for="add_position">职位</label>
-            <input type="text" id="add_position" name="position" maxlength="100">
-        </div>
-        <div class="form-group">
-            <label for="add_account_type">账号类型</label>
-            <select id="add_account_type" name="account_type" required>
-                <option value="">请选择账号类型</option>
-                <!-- 所有账号类型选项保持不变 -->
-            </select>
-        </div>
-    </div>
-</div>
-
-<!-- 紧急联系人组 -->
-<div class="form-section">
-    <div class="form-section-title">紧急联系人</div>
-    <div class="form-grid emergency-contact-grid">
-        <div class="form-group">
-            <label for="add_emergency_contact_name">紧急联系人</label>
-            <input type="text" id="add_emergency_contact_name" name="emergency_contact_name" maxlength="100">
-        </div>
-        <div class="form-group">
-            <label for="add_emergency_phone_number">紧急联系人电话</label>
-            <input type="tel" id="add_emergency_phone_number" name="emergency_phone_number" maxlength="20">
-        </div>
-    </div>
-</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                        <div class="form-group">
+                            <label for="add_username">英文姓名 *:</label>
+                            <input type="text" id="add_username" name="username" required maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_username_cn">中文姓名:</label>
+                            <input type="text" id="add_username_cn" name="username_cn" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_nickname">昵称:</label>
+                            <input type="text" id="add_nickname" name="nickname" maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_email">邮箱 *:</label>
+                            <input type="email" id="add_email" name="email" required maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_ic_number">身份证号码:</label>
+                            <input type="text" id="add_ic_number" name="ic_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_date_of_birth">出生日期:</label>
+                            <input type="date" id="add_date_of_birth" name="date_of_birth">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_nationality">国籍:</label>
+                            <select id="add_nationality" name="nationality">
+                                <option value="">请选择国籍</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Armenia">Armenia</option>
+                                <option value="Azerbaijan">Azerbaijan</option>
+                                <option value="Bahrain">Bahrain</option>
+                                <option value="Bangladesh">Bangladesh</option>
+                                <option value="Bhutan">Bhutan</option>
+                                <option value="Brunei">Brunei</option>
+                                <option value="Cambodia">Cambodia</option>
+                                <option value="China">China</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="East Timor (Timor-Leste)">East Timor (Timor-Leste)</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="India">India</option>
+                                <option value="Indonesia">Indonesia</option>
+                                <option value="Iran">Iran</option>
+                                <option value="Iraq">Iraq</option>
+                                <option value="Israel">Israel</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Jordan">Jordan</option>
+                                <option value="Kazakhstan">Kazakhstan</option>
+                                <option value="Kuwait">Kuwait</option>
+                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                <option value="Laos">Laos</option>
+                                <option value="Lebanon">Lebanon</option>
+                                <option value="Malaysia">Malaysia</option>
+                                <option value="Maldives">Maldives</option>
+                                <option value="Mongolia">Mongolia</option>
+                                <option value="Myanmar (Burma)">Myanmar (Burma)</option>
+                                <option value="Nepal">Nepal</option>
+                                <option value="North Korea">North Korea</option>
+                                <option value="Oman">Oman</option>
+                                <option value="Pakistan">Pakistan</option>
+                                <option value="Palestine">Palestine</option>
+                                <option value="Philippines">Philippines</option>
+                                <option value="Qatar">Qatar</option>
+                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="South Korea">South Korea</option>
+                                <option value="Sri Lanka">Sri Lanka</option>
+                                <option value="Syria">Syria</option>
+                                <option value="Taiwan">Taiwan</option>
+                                <option value="Tajikistan">Tajikistan</option>
+                                <option value="Thailand">Thailand</option>
+                                <option value="Turkey">Turkey</option>
+                                <option value="Turkmenistan">Turkmenistan</option>
+                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                <option value="Uzbekistan">Uzbekistan</option>
+                                <option value="Vietnam">Vietnam</option>
+                                <option value="Yemen">Yemen</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_gender">性别:</label>
+                            <select id="add_gender" name="gender">
+                                <option value="">请选择</option>
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_race">种族:</label>
+                            <select id="add_race" name="race">
+                                <option value="">请选择种族</option>
+                                <option value="Malay">Malay</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Indian">Indian</option>
+                                <option value="Bumiputera (Sabah/Sarawak)">Bumiputera (Sabah/Sarawak)</option>
+                                <option value="Indonesian">Indonesian</option>
+                                <option value="Bangladeshi">Bangladeshi</option>
+                                <option value="Nepali">Nepali</option>
+                                <option value="Myanmar">Myanmar</option>
+                                <option value="Filipino">Filipino</option>
+                                <option value="Indian (Foreign)">Indian (Foreign)</option>
+                                <option value="Pakistani">Pakistani</option>
+                                <option value="Vietnamese">Vietnamese</option>
+                                <option value="Cambodian">Cambodian</option>
+                                <option value="Others (Foreign)">Others (Foreign)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_phone_number">联络号码:</label>
+                            <input type="tel" id="add_phone_number" name="phone_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="add_home_address">住址:</label>
+                            <textarea id="add_home_address" name="home_address" rows="2" maxlength="255"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_bank_account_holder_en">银行账户持有人:</label>
+                            <input type="text" id="add_bank_account_holder_en" name="bank_account_holder_en" maxlength="50">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_bank_account">银行账号:</label>
+                            <input type="text" id="add_bank_account" name="bank_account" maxlength="30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_bank_name">银行名称:</label>
+                            <select id="add_bank_name" name="bank_name">
+                                <option value="">请选择银行</option>
+                                <option value="Maybank (Malayan Banking Berhad)">Maybank (Malayan Banking Berhad)</option>
+                                <option value="CIMB Bank">CIMB Bank</option>
+                                <option value="Public Bank">Public Bank</option>
+                                <option value="RHB Bank">RHB Bank</option>
+                                <option value="Hong Leong Bank">Hong Leong Bank</option>
+                                <option value="AmBank">AmBank</option>
+                                <option value="Alliance Bank">Alliance Bank</option>
+                                <option value="Affin Bank">Affin Bank</option>
+                                <option value="Bank Islam Malaysia">Bank Islam Malaysia</option>
+                                <option value="Agrobank">Agrobank</option>
+                                <option value="Bank Simpanan Nasional (BSN)">Bank Simpanan Nasional (BSN)</option>
+                                <option value="HSBC Bank Malaysia">HSBC Bank Malaysia</option>
+                                <option value="OCBC Bank (Malaysia)">OCBC Bank (Malaysia)</option>
+                                <option value="Standard Chartered Bank Malaysia">Standard Chartered Bank Malaysia</option>
+                                <option value="United Overseas Bank (UOB Malaysia)">United Overseas Bank (UOB Malaysia)</option>
+                                <option value="Bank of China (Malaysia)">Bank of China (Malaysia)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_position">职位:</label>
+                            <input type="text" id="add_position" name="position" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_emergency_contact_name">紧急联系人:</label>
+                            <input type="text" id="add_emergency_contact_name" name="emergency_contact_name" maxlength="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="add_emergency_phone_number">紧急联系人电话:</label>
+                            <input type="tel" id="add_emergency_phone_number" name="emergency_phone_number" maxlength="20">
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="add_account_type">账号类型 *:</label>
+                            <select id="add_account_type" name="account_type" required>
+                                <option value="">请选择账号类型</option>
+                                <option value="boss">老板 (Boss)</option>
+                                <option value="admin">管理员 (Admin)</option>
+                                <option value="hr">人事部 (HR)</option>
+                                <option value="design">设计部 (Design)</option>
+                                <option value="support">支援部 (Support)</option>
+                                <option value="IT">技术部 (IT)</option>
+                                <option value="photograph">摄影部 (Photography)</option>
+                            </select>
+                        </div>
+                    </div>
                     
                     <div class="modal-buttons" style="margin-top: 15px;">
                         <button type="submit" class="btn-action btn-save" style="padding: 12px 10px; font-size: 14px;">
