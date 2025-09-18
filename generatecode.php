@@ -129,7 +129,7 @@
         #editUserModal .modal-content {
             max-width: 1000px !important;
             width: 1000px !important;
-            max-height: 90vh;
+            height: 90vh;
             overflow-y: auto;
             padding: 30px;
             background: #ffffff;
@@ -169,7 +169,7 @@
         }
 
         .form-section-content {
-            padding: 16px 14px 18px;
+            padding: 0px 14px 18px;
         }
 
         /* 表单组基础样式 - 重新设计 */
