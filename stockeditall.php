@@ -5303,7 +5303,7 @@
                             lineHeight = 20;
                         } else { // j2
                             if (pageIndex === 0) {
-                                yPosition = height - 223; // J2第一页位置（原来的位置）
+                                yPosition = height - 202; // J2第一页位置（原来的位置）
                             } else {
                                 yPosition = height - 32; // J2第二页位置（可调整这个数值）
                             }
@@ -5320,11 +5320,10 @@
                             // NO (第一列)
                             const itemText = itemNumber.toString();
                             page.drawText(itemText, {
-                                x: getCenterAlignedX(itemText, 39, 6),
+                                x: getCenterAlignedX(itemText, 42, 6),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
-                                font: boldFont,
                             });
                             
                             // Descriptions (第二列)
@@ -5335,51 +5334,46 @@
                                 : productName;
                             
                             page.drawText(displayProductName.toUpperCase(), {
-                                x: 62,
+                                x: 80,
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
-                                font: boldFont,
                             });
                             
                             // Quantity (第三列)
                             const qtyText = outQty.toFixed(2);
                             page.drawText(qtyText, {
-                                x: getRightAlignedX(qtyText, 360, 5),
+                                x: getRightAlignedX(qtyText, 389, 5),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
-                                font: boldFont,
                             });
                             
                             // UOM (第四列)
                             const uomText = record.specification || '';
                             page.drawText(uomText.toUpperCase(), {
-                                x: 370,
+                                x: 510,
                                 y: yPosition,
-                                size: 8, 
+                                size: smallFontSize, 
                                 color: textColor,
-                                font: boldFont,
                             });
                             
                             // Price RM (第五列)
                             const priceText = price.toFixed(2);
                             page.drawText(priceText, {
-                                x: getRightAlignedX(priceText, 480, 6),
+                                x: getRightAlignedX(priceText, 510, 6),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
-                                font: boldFont,
                             });
                             
                             // Total RM (第六列)
                             const totalText = total.toFixed(2);
                             page.drawText(totalText, {
-                                x: getRightAlignedX(totalText, 565, 6),
+                                x: getRightAlignedX(totalText, 573, 6),
                                 y: yPosition,
                                 size: smallFontSize,
                                 color: textColor,
-                                font: boldFont,
                             });
                             
                             yPosition -= lineHeight;
@@ -5396,28 +5390,26 @@
                                 // 填入Subtotal
                                 const subtotalText = `RM${subtotal.toFixed(2)}`;
                                 page.drawText(subtotalText, {
-                                    x: getRightAlignedX(subtotalText, 565, 6.5),
-                                    y: height - 628,
-                                    size: 11,
+                                    x: getRightAlignedX(subtotalText, 588.5, 8),
+                                    y: height - 681,
+                                    size: smallFontSize,
                                     color: textColor,
-                                    font: boldFont,
                                 });
                                 
                                 // 填入Charge 15%
                                 const chargeText = `RM${charge.toFixed(2)}`;
                                 page.drawText(chargeText, {
-                                    x: getRightAlignedX(chargeText, 565, 6.5),
-                                    y: height - 639,
-                                    size: 11,
+                                    x: getRightAlignedX(chargeText, 586, 8),
+                                    y: height - 692,
+                                    size: smallFontSize,
                                     color: textColor,
-                                    font: boldFont,
                                 });
                                 
                                 // 填入最终Total
                                 const finalTotalText = `RM${finalTotal.toFixed(2)}`;
                                 page.drawText(finalTotalText, {
-                                    x: getRightAlignedX(finalTotalText, 565, 8),
-                                    y: height - 660,
+                                    x: getRightAlignedX(finalTotalText, 580, 8),
+                                    y: height - 705,
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
@@ -5426,8 +5418,8 @@
                                 // J1模板：只显示总计
                                 const totalText = `RM${grandTotal.toFixed(2)}`;
                                 page.drawText(totalText, {
-                                    x: getRightAlignedX(totalText, 565, 8),
-                                    y: height - 675,
+                                    x: getRightAlignedX(totalText, 580, 8),
+                                    y: height - 705,
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
