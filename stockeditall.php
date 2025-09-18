@@ -5352,7 +5352,7 @@
                             // UOM (第四列)
                             const uomText = record.specification || '';
                             page.drawText(uomText.toUpperCase(), {
-                                x: 510,
+                                x: 406,
                                 y: yPosition,
                                 size: smallFontSize, 
                                 color: textColor,
