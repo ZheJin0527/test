@@ -5304,7 +5304,7 @@
                         let yPosition, lineHeight;
                         if (exportSystem === 'j1') {
                             if (pageIndex === 0) {
-                                yPosition = height - 140; // J1第一页位置
+                                yPosition = height - 145; // J1第一页位置
                             } else {
                                 yPosition = height - 25;  // J1第二页位置
                             }
