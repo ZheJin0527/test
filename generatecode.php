@@ -399,7 +399,7 @@
         }
 
         th {
-            background: #ededed;
+            background: #fff4e5;
             color: black;
             padding: 15px 0px;
             text-align: center;
