@@ -4823,11 +4823,11 @@
                 
                 // 根据记录数量决定使用单页还是多页模板
                 const recordCount = outData.length;
-                const useMultiPage = (exportSystem === 'j1' && recordCount > 30) || (exportSystem === 'j2' && recordCount > 25);
+                const useMultiPage = (exportSystem === 'j1' && recordCount > 27) || (exportSystem === 'j2' && recordCount > 25);
                 
                 if (useMultiPage) {
                     // 使用多页模板
-                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 30 : 25));
+                    const pageCount = Math.ceil(recordCount / (exportSystem === 'j1' ? 27 : 25));
                     showAlert(`记录数量较多(${recordCount}条)，将使用多页模板生成PDF (共${pageCount}页)`, 'info');
                     await generateMultiPageInvoicePDF(outData, startDate, endDate, exportSystem, generatedInvoiceNumber, invoiceDate);
                 } else {
@@ -4936,7 +4936,7 @@
                 const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
                 // 设置字体大小和颜色
-                const fontSize = 14;
+                const fontSize = 11;
                 const smallFontSize = 10;
                 const textColor = rgb(0, 0, 0);
                 const whiteColor = rgb(1, 1, 1); // 白色
@@ -4961,7 +4961,7 @@
                         x: 470, // J1模板DATE冒号后面的位置
                         y: height - 129.5, 
                         size: fontSize,
-                        color: whiteColor,
+                        color: textColor,
                         font: boldFont,
                     });
                     
@@ -4971,7 +4971,7 @@
                             x: 105, // J1模板Invoice No位置
                             y: height - 129.5, // 调整到Invoice No行
                             size: fontSize,
-                            color: whiteColor,
+                            color: textColor,
                             font: boldFont,
                         });
                     }
@@ -4981,7 +4981,7 @@
                         x: 470, // J2模板DATE冒号后面的位置 (可根据需要调整)
                         y: height - 175, // J2模板的Y坐标 (可根据需要调整)
                         size: fontSize,
-                        color: whiteColor,
+                        color: textColor,
                         font: boldFont,
                     });
                     
@@ -4991,7 +4991,7 @@
                             x: 105,
                             y: height - 175, // 调整到Invoice No行
                             size: fontSize,
-                            color: whiteColor,
+                            color: textColor,
                             font: boldFont,
                         });
                     }
