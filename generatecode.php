@@ -25,7 +25,7 @@
         }
 
         .container {
-            max-width: 950px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px 20px;
         }
@@ -124,77 +124,111 @@
             box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
         }
 
-        /* 添加职员模态框中的表单样式 - 超紧凑版本 */
-        #addUserModal .modal-content {
+        /* 添加职员模态框中的表单样式 - 3列设计 */
+        #addUserModal .modal-content,
+        #editUserModal .modal-content {
             max-width: 900px;
-            max-height: 95vh;
+            max-height: 90vh;
             overflow-y: auto;
-            padding: 15px;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
         }
 
-        #addUserModal .form-group {
-            margin-bottom: 6px;
+        #addUserModal .modal-header,
+        #editUserModal .modal-header {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
         }
 
-        #addUserModal .form-group label {
+        /* 3列网格布局 */
+        #addUserModal .modal-body > form > div,
+        #editUserModal .modal-body > form > div {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 25px;
+            margin-bottom: 25px;
+        }
+
+        /* 表单组基础样式 */
+        #addUserModal .form-group,
+        #editUserModal .form-group {
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 标签样式 */
+        #addUserModal .form-group label,
+        #editUserModal .form-group label {
             display: block;
-            margin-bottom: 2px;
-            color: #000000ff;
-            font-weight: bold;
-            font-size: 12px;
+            margin-bottom: 6px;
+            color: #374151;
+            font-weight: 500;
+            font-size: 14px;
             text-align: left;
         }
 
-        #addUserModal .form-group input:not(#add_home_address),
-        #addUserModal .form-group select:not(#add_account_type),
-        #addUserModal .form-group textarea:not(#add_home_address) {
-            width: 98%;
-            padding: 4px 6px;
-            border: 1px solid #ff5c00;
-            border-radius: 4px;
-            font-size: 12px;
-            transition: all 0.3s ease;
-            height: 28px;
+        /* 必填字段标签样式 */
+        #addUserModal .form-group label[for*="username"]:first-child::after,
+        #addUserModal .form-group label[for*="email"]::after,
+        #addUserModal .form-group label[for*="account_type"]::after,
+        #editUserModal .form-group label[for*="username"]:first-child::after,
+        #editUserModal .form-group label[for*="email"]::after,
+        #editUserModal .form-group label[for*="account_type"]::after {
+            content: " *";
+            color: #ef4444;
+            font-weight: bold;
         }
 
-        #addUserModal .form-group textarea {
-            height: 50px;
-            resize: vertical;
-        }
-
-        #addUserModal .form-group input:not(#add_home_address):focus,
-        #addUserModal .form-group select:not(#add_account_type):focus,
-        #addUserModal .form-group textarea:not(#add_home_address):focus {
-            outline: none;
-            border-color: #ff5c00;
-            box-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
-        }
-
-        /* 家庭地址和账号类型的独立样式 */
-        #addUserModal #add_home_address {
-            padding: 6px 8px;
-            font-size: 13px;
+        /* 输入框和选择框基础样式 */
+        #addUserModal .form-group input,
+        #addUserModal .form-group select,
+        #addUserModal .form-group textarea,
+        #editUserModal .form-group input,
+        #editUserModal .form-group select,
+        #editUserModal .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
             font-family: inherit;
-            height: 60px;
-            border: 1px solid #ff5c00;
-            border-radius: 6px;
-            width: 99%;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+            min-height: 40px;
         }
 
-        #addUserModal #add_account_type {
-            padding: 6px 8px;
-            font-size: 13px;
-            height: 32px;
-            border: 1px solid #ff5c00;
-            border-radius: 6px;
-            width: 99%;
-        }
-
-        #addUserModal #add_home_address:focus,
-        #addUserModal #add_account_type:focus {
+        /* 输入框聚焦样式 */
+        #addUserModal .form-group input:focus,
+        #addUserModal .form-group select:focus,
+        #addUserModal .form-group textarea:focus,
+        #editUserModal .form-group input:focus,
+        #editUserModal .form-group select:focus,
+        #editUserModal .form-group textarea:focus {
             outline: none;
-            border-color: #ff5c00;
-            box-shadow: 0 0 6px rgba(255, 115, 0, 0.5);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background-color: #fafafa;
+        }
+
+        /* 文本域特殊样式 */
+        #addUserModal .form-group textarea,
+        #editUserModal .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        /* 跨列元素样式 */
+        #addUserModal .form-group[style*="grid-column"],
+        #editUserModal .form-group[style*="grid-column"] {
+            grid-column: 1 / -1;
         }
 
         /* 搜索框特殊样式 */
@@ -405,6 +439,29 @@
                 padding: 8px 6px;
                 font-size: 14.4px;
             }
+
+            /* 响应式模态框 - 移动端改为单列 */
+            #addUserModal .modal-content,
+            #editUserModal .modal-content {
+                max-width: 95%;
+                margin: 5% auto;
+                padding: 20px;
+            }
+
+            #addUserModal .modal-body > form > div,
+            #editUserModal .modal-body > form > div {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        /* 平板响应式 */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            #addUserModal .modal-body > form > div,
+            #editUserModal .modal-body > form > div {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px 20px;
+            }
         }
 
         /* 加载动画 */
@@ -566,33 +623,24 @@
 
         .modal-buttons {
             display: flex;
-            gap: 45px;
+            gap: 15px;
             justify-content: center;
+            margin-top: 25px;
+        }
+
+        .modal-buttons .btn-action {
+            min-width: 120px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
 
         /* 编辑状态下的行高亮 */
         .editing-row {
             background: #e3f2fd !important;
             box-shadow: 0 0 10px rgba(33, 150, 243, 0.2);
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .btn-action {
-                font-size: 11px;
-                padding: 5px 8px;
-                min-width: 60px;
-            }
-            
-            .action-buttons {
-                gap: 5px;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-                padding: 20px;
-            }
         }
 
         /* 回到顶部按钮 */

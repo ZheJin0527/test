@@ -108,12 +108,15 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu::after { display: none !important; }
 
 /* 页面内容右移，避免被侧栏覆盖 */
-body.has-sidebar {
-    margin-left: 250px; /* 与 .informationmenu 宽度一致 */
+body {
+    margin-left: 250px; /* 默认就给右边距，避免闪烁 */
+}
+body.sidebar-collapsed {
+    margin-left: 70px;
     transition: margin-left 0.3s ease;
 }
-body.has-sidebar.sidebar-collapsed {
-    margin-left: 70px; /* 收起时预留更小宽度 */
+body.sidebar-transition {
+    transition: margin-left 0.3s ease;
 }
 @media (max-width: 768px) {
     body.has-sidebar { margin-left: 0; }
@@ -561,11 +564,19 @@ body.has-sidebar.sidebar-collapsed {
         sidebarMenu.classList.toggle('collapsed');
         sidebarToggle.classList.toggle('collapsed');
         document.body.classList.toggle('sidebar-collapsed');
+
+        // 确保过渡动画已启用
+        if (!document.body.classList.contains('sidebar-transition')) {
+            document.body.classList.add('sidebar-transition');
+        }
     });
 
-    // 初始：为页面标记有侧栏
+    // 页面加载完成后启用过渡动画
     document.addEventListener('DOMContentLoaded', function() {
-        document.body.classList.add('has-sidebar');
+        // 页面加载后短暂延迟再启用过渡效果
+        setTimeout(function() {
+            document.body.classList.add('sidebar-transition');
+        }, 50);
     });
 </script>
 

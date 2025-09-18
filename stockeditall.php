@@ -460,7 +460,7 @@
         }
 
         /* 为每列指定固定宽度 */
-        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 90px; } /* 日期 */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 70px; } /* 日期 */
         .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
         .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 225px; } /* 货品 */
         .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
@@ -472,7 +472,7 @@
         .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 80px; } /* 类型 */
         .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 70px; } /* 产品备注 checkbox */
         .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 80px; } /* 备注编号 */
-        .stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 160px; } /* 名字/收货人 */
+        .stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 180px; } /* 名字/收货人 */
         .stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 140px; } /* 备注 */
         .stock-table th:nth-child(15), .stock-table td:nth-child(15) { width: 100px; } /* 操作 */
 
