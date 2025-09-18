@@ -5072,7 +5072,7 @@
                     // Quantity (第三列) - 右对齐
                     const qtyText = outQty.toFixed(2);
                     page.drawText(qtyText, {
-                        x: getDecimalAlignedX(qtyText, exportSystem === 'j1' ? 389 : 389, monoBoldFont, smallFontSize, 0),
+                        x: getDecimalAlignedX(qtyText, exportSystem === 'j1' ? 360 : 360, monoBoldFont, smallFontSize, 0),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -5091,7 +5091,7 @@
                     // Price RM (第五列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getDecimalAlignedX(priceText, exportSystem === 'j1' ? 510 : 510, monoBoldFont, smallFontSize, 0),
+                        x: getDecimalAlignedX(priceText, exportSystem === 'j1' ? 450 : 450, monoBoldFont, smallFontSize, 0),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -5101,7 +5101,7 @@
                     // Total RM (第六列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: getDecimalAlignedX(totalText, exportSystem === 'j1' ? 573 : 573, monoBoldFont, smallFontSize, 0),
+                        x: getDecimalAlignedX(totalText, exportSystem === 'j1' ? 550 : 550, monoBoldFont, smallFontSize, 0),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
