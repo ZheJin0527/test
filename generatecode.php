@@ -240,7 +240,7 @@
         #editUserModal .form-group textarea:focus {
             outline: none;
             border-color: #d16500ff;
-            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+            box-shadow: 0 0 0 3px rgba(212, 134, 16, 0.15);
             background-color: #ffffff;
         }
 
