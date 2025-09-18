@@ -5120,21 +5120,19 @@
                     // 填入Subtotal
                     const subtotalText = `${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
-                        x: getRightAlignedX(subtotalText, 588.5, monoBoldFont, smallFontSize, 0),
+                        x: getRightAlignedX(subtotalText, 588.5, 8),
                         y: height - 681, // 调整到Subtotal行
                         size: smallFontSize,
                         color: textColor,
-                        font: monoBoldFont,
                     });
                     
                     // 填入Charge 15%
                     const chargeText = `${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
-                        x: getRightAlignedX(chargeText, 586, monoBoldFont, smallFontSize, 0),
+                        x: getRightAlignedX(chargeText, 586, 8),
                         y: height - 692, // 调整到Charge行
                         size: smallFontSize,
                         color: textColor,
-                        font: monoBoldFont,
                     });
                     
                     // 填入最终Total
@@ -5432,21 +5430,19 @@
                                 // 填入Subtotal
                                 const subtotalText = `${subtotal.toFixed(2)}`;
                                 page.drawText(subtotalText, {
-                                    x: getDecimalAlignedX(subtotalText, 588.5, monoBoldFont, smallFontSize, 0),
+                                    x: getRightAlignedX(subtotalText, 588.5, 8),
                                     y: height - 681,
                                     size: smallFontSize,
                                     color: textColor,
-                                    font: monoBoldFont,
                                 });
                                 
                                 // 填入Charge 15%
                                 const chargeText = `${charge.toFixed(2)}`;
                                 page.drawText(chargeText, {
-                                    x: getDecimalAlignedX(chargeText, 586, monoBoldFont, smallFontSize, 0),
+                                    x: getRightAlignedX(chargeText, 586, 8),
                                     y: height - 692,
                                     size: smallFontSize,
                                     color: textColor,
-                                    font: monoBoldFont,
                                 });
                                 
                                 // 填入最终Total
