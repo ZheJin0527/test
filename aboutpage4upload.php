@@ -549,7 +549,6 @@ foreach ($defaultTimeline as $year => $data) {
     </style>
 </head>
 <body>
-    <?php include 'sidebar.php'; ?>
     <div class="container">
         <div class="header">
             <h1>发展历史管理</h1>
