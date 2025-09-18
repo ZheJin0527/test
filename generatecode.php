@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -241,6 +240,11 @@
             font-family: inherit;
         }
 
+        /* 单列布局 */
+        .form-row-1col {
+            display: block;
+        }
+
         /* 双列布局样式 - 匹配图片 */
         .form-row-2col {
             display: grid;
@@ -248,9 +252,11 @@
             gap: 15px;
         }
 
-        /* 单列布局 */
-        .form-row-1col {
-            display: block;
+        /* 三列布局样式 */
+        .form-row-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
         }
 
         /* 搜索框特殊样式 */
@@ -472,7 +478,8 @@
             }
 
             /* 移动端所有多列布局都变为单列 */
-            .form-row-2col {
+            .form-row-2col,
+            .form-row-3col {
                 grid-template-columns: 1fr !important;
                 gap: 15px;
             }
@@ -937,7 +944,7 @@
                     <div class="form-section">
                         <div class="form-section-header">个人资料</div>
                         <div class="form-section-content">
-                            <div class="form-row-2col">
+                            <div class="form-row-3col">
                                 <div class="form-group">
                                     <label for="add_ic_number">身份证号码</label>
                                     <input type="text" id="add_ic_number" name="ic_number" maxlength="20">
@@ -947,9 +954,7 @@
                                     <label for="add_date_of_birth">出生日期</label>
                                     <input type="date" id="add_date_of_birth" name="date_of_birth">
                                 </div>
-                            </div>
-                            
-                            <div class="form-row-2col">
+                                
                                 <div class="form-group">
                                     <label for="add_nationality">国籍</label>
                                     <select id="add_nationality" name="nationality">
@@ -1005,7 +1010,9 @@
                                         <option value="Yemen">Yemen</option>
                                     </select>
                                 </div>
-                                
+                            </div>
+                            
+                            <div class="form-row-3col">
                                 <div class="form-group">
                                     <label for="add_gender">性别</label>
                                     <select id="add_gender" name="gender">
@@ -1015,9 +1022,7 @@
                                         <option value="other">其他</option>
                                     </select>
                                 </div>
-                            </div>
-                            
-                            <div class="form-row-2col">
+                                
                                 <div class="form-group">
                                     <label for="add_race">种族</label>
                                     <select id="add_race" name="race">
@@ -1199,7 +1204,7 @@
                     <div class="form-section">
                         <div class="form-section-header">个人资料</div>
                         <div class="form-section-content">
-                            <div class="form-row-2col">
+                            <div class="form-row-3col">
                                 <div class="form-group">
                                     <label for="edit_ic_number">身份证号码</label>
                                     <input type="text" id="edit_ic_number" name="ic_number" maxlength="20">
@@ -1209,9 +1214,7 @@
                                     <label for="edit_date_of_birth">出生日期</label>
                                     <input type="date" id="edit_date_of_birth" name="date_of_birth">
                                 </div>
-                            </div>
-                            
-                            <div class="form-row-2col">
+                                
                                 <div class="form-group">
                                     <label for="edit_nationality">国籍</label>
                                     <select id="edit_nationality" name="nationality">
@@ -1267,7 +1270,9 @@
                                         <option value="Yemen">Yemen</option>
                                     </select>
                                 </div>
-                                
+                            </div>
+                            
+                            <div class="form-row-3col">
                                 <div class="form-group">
                                     <label for="edit_gender">性别</label>
                                     <select id="edit_gender" name="gender">
@@ -1277,9 +1282,7 @@
                                         <option value="other">其他</option>
                                     </select>
                                 </div>
-                            </div>
-                            
-                            <div class="form-row-2col">
+                                
                                 <div class="form-group">
                                     <label for="edit_race">种族</label>
                                     <select id="edit_race" name="race">
