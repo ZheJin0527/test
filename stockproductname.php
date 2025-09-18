@@ -103,7 +103,7 @@ if (isset($_SESSION['user_id'])) {
 
         .selector-dropdown {
             position: absolute;
-            top: 96%;
+            top: 110%;
             right: 0;
             background: white;
             border: 2px solid #583e04;
@@ -162,7 +162,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .view-selector .selector-dropdown {
-            min-width: 120px;
+            min-width: 132px;
         }
 
         .back-button {
