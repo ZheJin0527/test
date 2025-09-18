@@ -4937,7 +4937,7 @@
 
                 // 设置字体大小和颜色
                 const fontSize = 11;
-                const smallFontSize = 10;
+                const smallFontSize = 9;
                 const textColor = rgb(0, 0, 0);
                 const whiteColor = rgb(1, 1, 1); // 白色
                 
