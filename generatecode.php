@@ -664,9 +664,9 @@
 
         .modal-buttons .btn-action {
             flex: 0 0 auto;
-            min-width: 96px;
-            padding: 8px 14px;
-            font-size: 12px;
+            min-width: 11px;
+            padding: 8px;
+            font-size: 14px;
             font-weight: 600;
             border-radius: 6px;
             transition: all 0.2s ease;
