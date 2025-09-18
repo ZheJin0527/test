@@ -5255,8 +5255,8 @@
                             if (exportSystem === 'j1') {
                                 // J1模板的日期位置
                                 page.drawText(` ${currentDate}`, {
-                                    x: 470,
-                                    y: height - 129.5, 
+                                    x: 490,
+                                    y: height - 99, 
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
