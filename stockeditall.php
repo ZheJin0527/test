@@ -5258,7 +5258,7 @@
                                     x: 470,
                                     y: height - 129.5, 
                                     size: fontSize,
-                                    color: whiteColor,
+                                    color: textColor,
                                     font: boldFont,
                                 });
                                 
@@ -5268,7 +5268,7 @@
                                         x: 105,
                                         y: height - 129.5,
                                         size: fontSize,
-                                        color: whiteColor,
+                                        color: textColor,
                                         font: boldFont,
                                     });
                                 }
@@ -5278,7 +5278,7 @@
                                     x: 470,
                                     y: height - 175,
                                     size: fontSize,
-                                    color: whiteColor,
+                                    color: textColor,
                                     font: boldFont,
                                 });
                                 
@@ -5288,7 +5288,7 @@
                                         x: 105,
                                         y: height - 175,
                                         size: fontSize,
-                                        color: whiteColor,
+                                        color: textColor,
                                         font: boldFont,
                                     });
                                 }
