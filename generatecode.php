@@ -337,113 +337,113 @@
                 [row10-start] 1fr [row10-end];
         }
 
-        /* 简化版本 - 使用统一的网格系统 */
+        /* 使用12列网格系统for更精确控制 */
         #addUserModal .modal-body > form > div,
         #editUserModal .modal-body > form > div {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(12, 1fr);
             gap: 20px 15px;
             margin-bottom: 25px;
         }
 
-        /* Row 1: 英文姓名(3列) + 中文姓名(3列) */
+        /* Row 1: 英文姓名(6列) + 中文姓名(6列) - 一样长 */
         #addUserModal .form-group:nth-child(1),
         #editUserModal .form-group:nth-child(1) {
-            grid-column: 1 / 4;
+            grid-column: 1 / 7;
         }
 
         #addUserModal .form-group:nth-child(2),
         #editUserModal .form-group:nth-child(2) {
-            grid-column: 4 / 7;
+            grid-column: 7 / 13;
         }
 
-        /* Row 2: 邮箱(6列) */
+        /* Row 2: 邮箱(12列) - 占满整行 */
         #addUserModal .form-group:nth-child(4),
         #editUserModal .form-group:nth-child(4) {
-            grid-column: 1 / 7;
+            grid-column: 1 / 13;
         }
 
-        /* Row 3: 昵称(2列) + 联络号码(4列) */
+        /* Row 3: 昵称(短-3列) + 联络号码(长-9列) */
         #addUserModal .form-group:nth-child(3),
         #editUserModal .form-group:nth-child(3) {
-            grid-column: 1 / 3;
+            grid-column: 1 / 4;
         }
 
         #addUserModal .form-group:nth-child(10),
         #editUserModal .form-group:nth-child(10) {
-            grid-column: 3 / 7;
+            grid-column: 4 / 13;
         }
 
-        /* Row 4: 出生日期(2列) + 身份证号码(4列) */
+        /* Row 4: 出生日期(短-3列) + 身份证号码(长-9列) */
         #addUserModal .form-group:nth-child(6),
         #editUserModal .form-group:nth-child(6) {
-            grid-column: 1 / 3;
+            grid-column: 1 / 4;
         }
 
         #addUserModal .form-group:nth-child(5),
         #editUserModal .form-group:nth-child(5) {
-            grid-column: 3 / 7;
+            grid-column: 4 / 13;
         }
 
-        /* Row 5: 性别(2列) + 种族(2列) + 国籍(2列) */
+        /* Row 5: 性别(4列) + 种族(4列) + 国籍(4列) - 一样长 */
         #addUserModal .form-group:nth-child(8),
         #editUserModal .form-group:nth-child(8) {
-            grid-column: 1 / 3;
+            grid-column: 1 / 5;
         }
 
         #addUserModal .form-group:nth-child(9),
         #editUserModal .form-group:nth-child(9) {
-            grid-column: 3 / 5;
+            grid-column: 5 / 9;
         }
 
         #addUserModal .form-group:nth-child(7),
         #editUserModal .form-group:nth-child(7) {
-            grid-column: 5 / 7;
+            grid-column: 9 / 13;
         }
 
-        /* Row 6: 住址(6列) */
+        /* Row 6: 住址(12列) - 占满整行 */
         #addUserModal .form-group:nth-child(11),
         #editUserModal .form-group:nth-child(11) {
-            grid-column: 1 / 7;
+            grid-column: 1 / 13;
         }
 
-        /* Row 7: 银行账户持有人(3列) + 银行账号(3列) */
+        /* Row 7: 银行账户持有人(6列) + 银行账号(6列) - 一样长 */
         #addUserModal .form-group:nth-child(12),
         #editUserModal .form-group:nth-child(12) {
-            grid-column: 1 / 4;
+            grid-column: 1 / 7;
         }
 
         #addUserModal .form-group:nth-child(13),
         #editUserModal .form-group:nth-child(13) {
-            grid-column: 4 / 7;
+            grid-column: 7 / 13;
         }
 
-        /* Row 8: 银行名称(4列) + 职位(2列) */
+        /* Row 8: 银行名称(8列-长) + 职位(4列-短) */
         #addUserModal .form-group:nth-child(14),
         #editUserModal .form-group:nth-child(14) {
-            grid-column: 1 / 5;
+            grid-column: 1 / 9;
         }
 
         #addUserModal .form-group:nth-child(15),
         #editUserModal .form-group:nth-child(15) {
-            grid-column: 5 / 7;
+            grid-column: 9 / 13;
         }
 
-        /* Row 9: 紧急联系人姓名(3列) + 紧急联系人电话(3列) */
+        /* Row 9: 紧急联系人姓名(6列) + 紧急联系人电话(6列) - 一样长 */
         #addUserModal .form-group:nth-child(16),
         #editUserModal .form-group:nth-child(16) {
-            grid-column: 1 / 4;
+            grid-column: 1 / 7;
         }
 
         #addUserModal .form-group:nth-child(17),
         #editUserModal .form-group:nth-child(17) {
-            grid-column: 4 / 7;
+            grid-column: 7 / 13;
         }
 
-        /* Row 10: 账号类型(6列) */
+        /* Row 10: 账号类型(12列) - 占满整行 */
         #addUserModal .form-group:nth-child(18),
         #editUserModal .form-group:nth-child(18) {
-            grid-column: 1 / 7;
+            grid-column: 1 / 13;
         }
 
         /* 标签样式 */
@@ -747,70 +747,101 @@
             
             #addUserModal .modal-body > form > div,
             #editUserModal .modal-body > form > div {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(8, 1fr);
                 gap: 18px 25px;
             }
 
-            /* 平板端调整列跨度 */
+            /* 平板端调整列跨度 - 使用8列网格 */
             #addUserModal .form-group:nth-child(1),
             #editUserModal .form-group:nth-child(1) {
-                grid-column: 1 / 3;
+                grid-column: 1 / 5;
             }
 
             #addUserModal .form-group:nth-child(2),
             #editUserModal .form-group:nth-child(2) {
-                grid-column: 3 / 5;
+                grid-column: 5 / 9;
             }
 
             #addUserModal .form-group:nth-child(4),
             #editUserModal .form-group:nth-child(4) {
-                grid-column: 1 / 5;
+                grid-column: 1 / 9;
             }
 
             #addUserModal .form-group:nth-child(3),
             #editUserModal .form-group:nth-child(3) {
-                grid-column: 1 / 2;
+                grid-column: 1 / 3;
             }
 
             #addUserModal .form-group:nth-child(10),
             #editUserModal .form-group:nth-child(10) {
-                grid-column: 2 / 5;
+                grid-column: 3 / 9;
             }
 
             #addUserModal .form-group:nth-child(6),
             #editUserModal .form-group:nth-child(6) {
-                grid-column: 1 / 2;
+                grid-column: 1 / 3;
             }
 
             #addUserModal .form-group:nth-child(5),
             #editUserModal .form-group:nth-child(5) {
-                grid-column: 2 / 5;
+                grid-column: 3 / 9;
             }
 
             #addUserModal .form-group:nth-child(8),
             #editUserModal .form-group:nth-child(8) {
-                grid-column: 1 / 2;
+                grid-column: 1 / 3;
             }
 
             #addUserModal .form-group:nth-child(9),
             #editUserModal .form-group:nth-child(9) {
-                grid-column: 2 / 3;
+                grid-column: 3 / 6;
             }
 
             #addUserModal .form-group:nth-child(7),
             #editUserModal .form-group:nth-child(7) {
-                grid-column: 3 / 5;
+                grid-column: 6 / 9;
             }
 
             #addUserModal .form-group:nth-child(11),
             #editUserModal .form-group:nth-child(11) {
-                grid-column: 1 / 5;
+                grid-column: 1 / 9;
             }
 
             #addUserModal .form-group:nth-child(12),
             #editUserModal .form-group:nth-child(12) {
-                grid-column: 1 / 3;
+                grid-column: 1 / 5;
             }
+
+            #addUserModal .form-group:nth-child(13),
+            #editUserModal .form-group:nth-child(13) {
+                grid-column: 5 / 9;
+            }
+
+            #addUserModal .form-group:nth-child(14),
+            #editUserModal .form-group:nth-child(14) {
+                grid-column: 1 / 6;
+            }
+
+            #addUserModal .form-group:nth-child(15),
+            #editUserModal .form-group:nth-child(15) {
+                grid-column: 6 / 9;
+            }
+
+            #addUserModal .form-group:nth-child(16),
+            #editUserModal .form-group:nth-child(16) {
+                grid-column: 1 / 5;
+            }
+
+            #addUserModal .form-group:nth-child(17),
+            #editUserModal .form-group:nth-child(17) {
+                grid-column: 5 / 9;
+            }
+
+            #addUserModal .form-group:nth-child(18),
+            #editUserModal .form-group:nth-child(18) {
+                grid-column: 1 / 9;
+            }
+        }
 
             #addUserModal .form-group:nth-child(13),
             #editUserModal .form-group:nth-child(13) {
