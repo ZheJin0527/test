@@ -8,986 +8,685 @@
     <title>生成申请码管理系统</title>
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #ffffffff;
-    background-image: url('images/images/remarkbg1.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px 20px;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-    position: relative;
-}
-
-.header h1 {
-    color: #000000ff;
-    font-size: 60px;
-    margin-bottom: 50px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-.header p {
-    color: #ff5c00;
-    font-size: 17px;
-}
-
-.back-button {
-    background-color: #6b7280;
-    color: white;
-    font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s;
-    text-decoration: none;
-    position: absolute;
-    top: 135px;
-    right: 0;
-}
-
-.back-button:hover {
-    background-color: #4b5563;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(107, 114, 128, 0.2);
-}
-
-/* 生成代码表单样式 */
-.generate-form {
-    background: transparent;
-    border-radius: 15px;
-    margin-bottom: 25px;
-    justify-items: normal;
-}
-
-.form-title {
-    color: #E65100;
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-    border-bottom: 2px solid #ff5c00;
-    padding-bottom: 12px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-row {
-    display: flex;
-    gap: 20px;
-    align-items: end;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #BF360C;
-    font-weight: bold;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #ff5c00;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: #ff5c00;
-    box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
-}
-
-/* 添加职员模态框中的表单样式 - 重新设计版本 */
-#addUserModal .modal-content {
-    max-width: 900px;
-    max-height: 95vh;
-    overflow-y: auto;
-    padding: 20px;
-}
-
-#addUserModal .form-group {
-    margin-bottom: 12px;
-}
-
-#addUserModal .form-group label {
-    display: block;
-    margin-bottom: 4px;
-    color: #000000ff;
-    font-weight: bold;
-    font-size: 13px;
-    text-align: left;
-}
-
-/* 基本信息区域 - 紧凑排列 */
-#addUserModal .basic-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #10b981;
-}
-
-#addUserModal .basic-info-grid .form-group {
-    margin-bottom: 8px;
-}
-
-/* 个人详细信息区域 - 4列布局 */
-#addUserModal .personal-details-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f1f5f9;
-    border-radius: 8px;
-    border-left: 4px solid #3b82f6;
-}
-
-#addUserModal .personal-details-grid .form-group {
-    margin-bottom: 8px;
-}
-
-/* 联系方式区域 - 2列布局 */
-#addUserModal .contact-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #fef3c7;
-    border-radius: 8px;
-    border-left: 4px solid #f59e0b;
-}
-
-#addUserModal .contact-info-grid .form-group {
-    margin-bottom: 8px;
-}
-
-/* 银行信息区域 - 3列布局 */
-#addUserModal .bank-info-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #ecfdf5;
-    border-radius: 8px;
-    border-left: 4px solid #10b981;
-}
-
-#addUserModal .bank-info-grid .form-group {
-    margin-bottom: 8px;
-}
-
-/* 职位和紧急联系人区域 - 混合布局 */
-#addUserModal .work-emergency-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #fdf2f8;
-    border-radius: 8px;
-    border-left: 4px solid #ec4899;
-}
-
-#addUserModal .work-emergency-grid .form-group {
-    margin-bottom: 8px;
-}
-
-/* 账号类型区域 - 单独突出显示 */
-#addUserModal .account-type-section {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #fef2e2;
-    border-radius: 8px;
-    border-left: 4px solid #f59e0b;
-    border: 2px solid #f59e0b;
-}
-
-#addUserModal .account-type-section .form-group {
-    margin-bottom: 0;
-}
-
-/* 区域标题样式 */
-#addUserModal .section-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #374151;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #d1d5db;
-}
-
-/* 输入框通用样式 */
-#addUserModal .form-group input:not(#add_home_address),
-#addUserModal .form-group select:not(#add_account_type) {
-    width: 100%;
-    padding: 6px 8px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 13px;
-    transition: all 0.3s ease;
-    height: 32px;
-    background: white;
-}
-
-#addUserModal .form-group input:focus,
-#addUserModal .form-group select:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    background: #fefefe;
-}
-
-/* 特殊字段样式 */
-#addUserModal #add_home_address {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 13px;
-    font-family: inherit;
-    height: 70px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    background: white;
-    resize: vertical;
-}
-
-#addUserModal #add_account_type {
-    width: 100%;
-    padding: 8px 12px;
-    font-size: 14px;
-    font-weight: 600;
-    height: 40px;
-    border: 2px solid #f59e0b;
-    border-radius: 8px;
-    background: white;
-    color: #92400e;
-}
-
-#addUserModal #add_home_address:focus,
-#addUserModal #add_account_type:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-/* 编辑职员模态框样式 - 继承添加职员的样式 */
-#editUserModal .modal-content {
-    max-width: 900px;
-    max-height: 95vh;
-    overflow-y: auto;
-    padding: 20px;
-}
-
-#editUserModal .form-group {
-    margin-bottom: 12px;
-}
-
-#editUserModal .form-group label {
-    display: block;
-    margin-bottom: 4px;
-    color: #000000ff;
-    font-weight: bold;
-    font-size: 13px;
-    text-align: left;
-}
-
-#editUserModal .basic-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #f59e0b;
-}
-
-#editUserModal .basic-info-grid .form-group {
-    margin-bottom: 8px;
-}
-
-#editUserModal .personal-details-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f1f5f9;
-    border-radius: 8px;
-    border-left: 4px solid #3b82f6;
-}
-
-#editUserModal .personal-details-grid .form-group {
-    margin-bottom: 8px;
-}
-
-#editUserModal .contact-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #fef3c7;
-    border-radius: 8px;
-    border-left: 4px solid #f59e0b;
-}
-
-#editUserModal .contact-info-grid .form-group {
-    margin-bottom: 8px;
-}
-
-#editUserModal .bank-info-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #ecfdf5;
-    border-radius: 8px;
-    border-left: 4px solid #10b981;
-}
-
-#editUserModal .bank-info-grid .form-group {
-    margin-bottom: 8px;
-}
-
-#editUserModal .work-emergency-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #fdf2f8;
-    border-radius: 8px;
-    border-left: 4px solid #ec4899;
-}
-
-#editUserModal .work-emergency-grid .form-group {
-    margin-bottom: 8px;
-}
-
-#editUserModal .account-type-section {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #fef2e2;
-    border-radius: 8px;
-    border-left: 4px solid #f59e0b;
-    border: 2px solid #f59e0b;
-}
-
-#editUserModal .account-type-section .form-group {
-    margin-bottom: 0;
-}
-
-#editUserModal .section-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #374151;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #d1d5db;
-}
-
-#editUserModal .form-group input:not(#edit_home_address),
-#editUserModal .form-group select:not(#edit_account_type) {
-    width: 100%;
-    padding: 6px 8px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 13px;
-    transition: all 0.3s ease;
-    height: 32px;
-    background: white;
-}
-
-#editUserModal .form-group input:focus,
-#editUserModal .form-group select:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    background: #fefefe;
-}
-
-#editUserModal #edit_home_address {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 13px;
-    font-family: inherit;
-    height: 70px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    background: white;
-    resize: vertical;
-}
-
-#editUserModal #edit_account_type {
-    width: 100%;
-    padding: 8px 12px;
-    font-size: 14px;
-    font-weight: 600;
-    height: 40px;
-    border: 2px solid #f59e0b;
-    border-radius: 8px;
-    background: white;
-    color: #92400e;
-}
-
-#editUserModal #edit_home_address:focus,
-#editUserModal #edit_account_type:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-/* 搜索框特殊样式 */
-#searchInput {
-    transition: all 0.3s ease;
-}
-
-#searchInput:focus {
-    outline: none;
-    border-color: #ff5c00 !important;
-    box-shadow: 0 0 10px rgba(255, 115, 0, 0.8) !important;
-}
-
-#searchInput::placeholder {
-    color: #999;
-    font-style: italic;
-}
-
-/* 高亮搜索结果 */
-.highlight {
-    background-color: #fff3cd;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-weight: bold;
-}
-
-/* 隐藏不匹配的行 */
-.hidden-row {
-    display: none !important;
-}
-
-.btn-generate {
-    background: linear-gradient(270deg, #FF9800 0%, #E65100 100%);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-size: 17.6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    height: 40px;
-}
-
-.btn-generate:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* 消息提示样式 */
-.message {
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.message.success {
-    background: #C8E6C9;
-    color: #2E7D32;
-    border: 2px solid #4CAF50;
-}
-
-.message.error {
-    background: #FFCDD2;
-    color: #C62828;
-    border: 2px solid #F44336;
-}
-
-/* 表格样式 */
-.table-container {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    border: 2px solid #000000ff;
-}
-
-.table-title {
-    background: #9d9d9d;
-    color: white;
-    padding: 20px;
-    font-size: 20.8px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.table-wrapper {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #d1d5db;
-}
-
-th {
-    background: #ededed;
-    color: black;
-    padding: 15px 0px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-    border: 1px solid #d1d5db;
-}
-
-th:first-child {
-    text-align: center;
-}
-
-th:last-child {
-    text-align: center;
-}
-
-/* 设置各列的宽度 */
-th:nth-child(1), td:nth-child(1) { width: 60px; }      /* 序号 */
-th:nth-child(2), td:nth-child(2) { width: 120px; }     /* 职位 */
-th:nth-child(3), td:nth-child(3) { width: 200px; }     /* 英文姓名 */
-th:nth-child(4), td:nth-child(4) { width: 250px; }     /* 邮箱 */
-th:nth-child(5), td:nth-child(5) { width: 120px; }     /* 联络号码 */
-th:nth-child(6), td:nth-child(6) { width: 79px; }     /* 操作 */
-
-/* 当地址列显示"-"时居中对齐 */
-td:nth-child(13) em {
-    display: block;
-    text-align: center;
-    width: 100%;
-}
-
-td {
-    padding: 8px 6px;
-    font-size: 12px;
-    font-weight: 500;
-    border: 1px solid #d1d5db;
-    vertical-align: middle;
-    text-align: center;
-}
-
-/* 地址列编辑状态下的样式 */
-td:nth-child(13) .edit-input {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    resize: vertical;
-    min-height: 60px;
-    font-family: inherit;
-    font-size: 12px;
-}
-
-/* 表格行悬停效果 - 保持边框 */
-tr:hover {
-    background: #fff9f1;
-    transition: all 0.2s ease;
-}
-
-/* 状态标签样式 */
-.status-badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 14.4px;
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-    min-width: 80px;
-}
-
-.status-used {
-    background: #C8E6C9;
-    color: #2E7D32;
-}
-
-.status-unused {
-    background: #FFE0B2;
-    color: #E65100;
-}
-
-.account-type-badge {
-    padding: 4px 0px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .header h1 {
-        font-size: 40px;
-    }
-
-    .generate-form {
-        padding: 20px;
-    }
-
-    th, td {
-        padding: 8px 6px;
-        font-size: 14.4px;
-    }
-    
-    /* 移动端模态框调整 */
-    #addUserModal .basic-info-grid,
-    #addUserModal .personal-details-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-    }
-    
-    #addUserModal .contact-info-grid,
-    #addUserModal .bank-info-grid,
-    #addUserModal .work-emergency-grid {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-    
-    #editUserModal .basic-info-grid,
-    #editUserModal .personal-details-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-    }
-    
-    #editUserModal .contact-info-grid,
-    #editUserModal .bank-info-grid,
-    #editUserModal .work-emergency-grid {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-}
-
-/* 加载动画 */
-.loading {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid #FFE0B2;
-    border-radius: 50%;
-    border-top-color: #FF9800;
-    animation: spin 1s ease-in-out infinite;
-    margin-right: 10px;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* 操作按钮样式 */
-.action-buttons {
-    display: flex;
-    gap: 6px;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    width: 100%;
-}
-
-.btn-action {
-    padding: 8px;
-    border: none;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    min-width: 30px;
-    flex: 1;
-}
-
-.btn-edit {
-    background: #f59e0b;
-    color: white;
-}
-
-.btn-edit:hover {
-    background: #d97706;
-    transform: translateY(-1px);
-}
-
-.btn-save {
-    background: #10b981;
-    color: white;
-}
-
-.btn-save:hover {
-    background: #059669;
-    transform: translateY(-1px);
-}
-
-.btn-cancel {
-    background: #6b7280;
-    color: white;
-}
-
-.btn-cancel:hover {
-    background: #6b7280;
-    transform: translateY(-1px);
-}
-
-.btn-delete {
-    background: #ef4444;
-    color: white;
-}
-
-.btn-delete:hover {
-    background: #dc2626;
-    transform: translateY(-1px);
-}
-
-/* 编辑模式下的输入框 */
-.edit-input {
-    width: 100%;
-    padding: 6px 10px;
-    border: 1px solid #2196F3;
-    border-radius: 4px;
-    font-size: 12px;
-    font-family: inherit;
-    background: #f8f9fa;
-    box-sizing: border-box;
-}
-
-.edit-select {
-    width: 100%;
-    padding: 6px 10px;
-    border: 1px solid #2196F3;
-    border-radius: 4px;
-    font-size: 14px;
-    background: #f8f9fa;
-    box-sizing: border-box;
-}
-
-.edit-input:focus,
-.edit-select:focus {
-    outline: none;
-    border-color: #1976D2;
-    box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
-}
-
-/* 确认删除模态框 */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 25px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 450px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-header {
-    color: #f44336;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.modal-body {
-    margin-bottom: 25px;
-    color: #333;
-    line-height: 1.5;
-}
-
-.modal-buttons {
-    display: flex;
-    gap: 45px;
-    justify-content: center;
-}
-
-/* 编辑状态下的行高亮 */
-.editing-row {
-    background: #e3f2fd !important;
-    box-shadow: 0 0 10px rgba(33, 150, 243, 0.2);
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .btn-action {
-        font-size: 11px;
-        padding: 5px 8px;
-        min-width: 60px;
-    }
-    
-    .action-buttons {
-        gap: 5px;
-    }
-    
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-        padding: 20px;
-    }
-}
-
-/* 回到顶部按钮 */
-.back-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #eb8e02ff;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.3);
-    transition: all 0.3s ease;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    z-index: 1000;
-}
-
-.back-to-top.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.back-to-top:hover {
-    background-color: #d16003ff;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(88, 62, 4, 0.4);
-}
-
-.back-to-top:active {
-    transform: translateY(-1px);
-}
-
-/* 通知容器 */
-.toast-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 10000;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    pointer-events: none;
-}
-
-/* 通知基础样式 */
-.toast {
-    min-width: 300px;
-    max-width: 400px;
-    padding: 16px 20px;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    pointer-events: auto;
-    transform: translateX(100%);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.toast.show {
-    transform: translateX(0);
-    opacity: 1;
-}
-
-.toast.hide {
-    transform: translateX(100%);
-    opacity: 0;
-}
-
-/* 通知类型样式 */
-.toast-success {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
-    color: white;
-    border-color: rgba(16, 185, 129, 0.3);
-}
-
-.toast-error {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #ffffffff;
+            background-image: url('images/images/remarkbg1.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header h1 {
+            color: #000000ff;
+            font-size: 60px;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #ff5c00;
+            font-size: 17px;
+        }
+
+        .back-button {
+            background-color: #6b7280;
+            color: white;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+            position: absolute;
+            top: 135px;
+            right: 0;
+        }
+
+        .back-button:hover {
+            background-color: #4b5563;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(107, 114, 128, 0.2);
+        }
+
+        /* 生成代码表单样式 */
+        .generate-form {
+            background: transparent;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            justify-items: normal;
+        }
+
+        .form-title {
+            color: #E65100;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #ff5c00;
+            padding-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #BF360C;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ff5c00;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff5c00;
+            box-shadow: 0 0 10px rgba(255, 115, 0, 0.8);
+        }
+
+        /* 添加职员模态框中的表单样式 - 超紧凑版本 */
+        #addUserModal .modal-content {
+            max-width: 900px;
+            max-height: 95vh;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        #addUserModal .form-group {
+            margin-bottom: 6px;
+        }
+
+        #addUserModal .form-group label {
+            display: block;
+            margin-bottom: 2px;
+            color: #000000ff;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        #addUserModal .form-group input:not(#add_home_address),
+        #addUserModal .form-group select:not(#add_account_type),
+        #addUserModal .form-group textarea:not(#add_home_address) {
+            width: 98%;
+            padding: 4px 6px;
+            border: 1px solid #ff5c00;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            height: 28px;
+        }
+
+        #addUserModal .form-group textarea {
+            height: 50px;
+            resize: vertical;
+        }
+
+        #addUserModal .form-group input:not(#add_home_address):focus,
+        #addUserModal .form-group select:not(#add_account_type):focus,
+        #addUserModal .form-group textarea:not(#add_home_address):focus {
+            outline: none;
+            border-color: #ff5c00;
+            box-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
+        }
+
+        /* 家庭地址和账号类型的独立样式 */
+        #addUserModal #add_home_address {
+            padding: 6px 8px;
+            font-size: 13px;
+            font-family: inherit;
+            height: 60px;
+            border: 1px solid #ff5c00;
+            border-radius: 6px;
+            width: 99%;
+        }
+
+        #addUserModal #add_account_type {
+            padding: 6px 8px;
+            font-size: 13px;
+            height: 32px;
+            border: 1px solid #ff5c00;
+            border-radius: 6px;
+            width: 99%;
+        }
+
+        #addUserModal #add_home_address:focus,
+        #addUserModal #add_account_type:focus {
+            outline: none;
+            border-color: #ff5c00;
+            box-shadow: 0 0 6px rgba(255, 115, 0, 0.5);
+        }
+
+        /* 搜索框特殊样式 */
+        #searchInput {
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: #ff5c00 !important;
+            box-shadow: 0 0 10px rgba(255, 115, 0, 0.8) !important;
+        }
+
+        #searchInput::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* 高亮搜索结果 */
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        /* 隐藏不匹配的行 */
+        .hidden-row {
+            display: none !important;
+        }
+
+        .btn-generate {
+            background: linear-gradient(270deg, #FF9800 0%, #E65100 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 17.6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            height: 40px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 消息提示样式 */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .message.success {
+            background: #C8E6C9;
+            color: #2E7D32;
+            border: 2px solid #4CAF50;
+        }
+
+        .message.error {
+            background: #FFCDD2;
+            color: #C62828;
+            border: 2px solid #F44336;
+        }
+
+        /* 表格样式 */
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 2px solid #000000ff;
+        }
+
+        .table-title {
+            background: #9d9d9d;
+            color: white;
+            padding: 20px;
+            font-size: 20.8px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #d1d5db;
+        }
+
+        th {
+            background: #ededed;
+            color: black;
+            padding: 15px 0px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #d1d5db;
+        }
+
+        th:first-child {
+            text-align: center;
+        }
+
+        th:last-child {
+            text-align: center;
+        }
+
+        /* 设置各列的宽度 */
+        th:nth-child(1), td:nth-child(1) { width: 60px; }      /* 序号 */
+        th:nth-child(2), td:nth-child(2) { width: 120px; }     /* 职位 */
+        th:nth-child(3), td:nth-child(3) { width: 200px; }     /* 英文姓名 */
+        th:nth-child(4), td:nth-child(4) { width: 250px; }     /* 邮箱 */
+        th:nth-child(5), td:nth-child(5) { width: 120px; }     /* 联络号码 */
+        th:nth-child(6), td:nth-child(6) { width: 79px; }     /* 操作 */
+
+        /* 当地址列显示"-"时居中对齐 */
+        td:nth-child(13) em {
+            display: block;
+            text-align: center;
+            width: 100%;
+        }
+
+        td {
+            padding: 8px 6px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid #d1d5db;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        /* 地址列编辑状态下的样式 */
+        td:nth-child(13) .edit-input {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        /* 表格行悬停效果 - 保持边框 */
+        tr:hover {
+            background: #fff9f1;
+            transition: all 0.2s ease;
+        }
+
+        /* 状态标签样式 */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14.4px;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .status-used {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+
+        .status-unused {
+            background: #FFE0B2;
+            color: #E65100;
+        }
+
+        .account-type-badge {
+            padding: 4px 0px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .header h1 {
+                font-size: 40px;
+            }
+
+            .generate-form {
+                padding: 20px;
+            }
+
+            th, td {
+                padding: 8px 6px;
+                font-size: 14.4px;
+            }
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #FFE0B2;
+            border-radius: 50%;
+            border-top-color: #FF9800;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 操作按钮样式 */
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+            width: 100%;
+        }
+
+        .btn-action {
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            min-width: 30px;
+            flex: 1;
+        }
+
+        .btn-edit {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #d97706;
+            transform: translateY(-1px);
+        }
+
+        .btn-save {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-cancel {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #6b7280;
+            transform: translateY(-1px);
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        /* 编辑模式下的输入框 */
+        .edit-input {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #2196F3;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: inherit;
+            background: #f8f9fa;
+            box-sizing: border-box;
+        }
+
+        .edit-select {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #2196F3;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #f8f9fa;
+            box-sizing: border-box;
+        }
+
+        .edit-input:focus,
+        .edit-select:focus {
+            outline: none;
+            border-color: #1976D2;
+            box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+        }
+
+        /* 确认删除模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            color: #f44336;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 45px;
+            justify-content: center;
+        }
+
+        /* 编辑状态下的行高亮 */
+        .editing-row {
+            background: #e3f2fd !important;
+            box-shadow: 0 0 10px rgba(33, 150, 243, 0.2);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .btn-action {
+                font-size: 11px;
+                padding: 5px 8px;
+                min-width: 60px;
+            }
+            
+            .action-buttons {
+                gap: 5px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #eb8e02ff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background-color: #d16003ff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(88, 62, 4, 0.4);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-1px);
+        }
+
+        /* 通知容器 */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        /* 通知基础样式 */
+        .toast {
+            min-width: 300px;
+            max-width: 400px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: auto;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.hide {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        /* 通知类型样式 */
+        .toast-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+            color: white;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .toast-error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
             color: white;
             border-color: rgba(239, 68, 68, 0.3);
         }
