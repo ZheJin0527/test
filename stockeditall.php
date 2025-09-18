@@ -5267,8 +5267,8 @@
                             } else if (exportSystem === 'j2') {
                                 // J2模板的日期位置 (J2保持每页都显示)
                                 page.drawText(` ${currentDate}`, {
-                                    x: 470.5,
-                                    y: height - 175,
+                                    x: 495.5,
+                                    y: height - 112,
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
@@ -5277,8 +5277,8 @@
                                 // J2模板的发票号码位置
                                 if (invoiceNumber) {
                                     page.drawText(invoiceNumber, {
-                                        x: 105,
-                                        y: height - 175,
+                                        x: 500,
+                                        y: height - 98,
                                         size: fontSize,
                                         color: textColor,
                                         font: boldFont,
@@ -5305,7 +5305,7 @@
                             if (pageIndex === 0) {
                                 yPosition = height - 202; // J2第一页位置（原来的位置）
                             } else {
-                                yPosition = height - 32; // J2第二页位置（可调整这个数值）
+                                yPosition = height - 65; // J2第二页位置（可调整这个数值）
                             }
                             lineHeight = 20;
                         }
