@@ -5388,7 +5388,7 @@
                                 const finalTotal = subtotal + charge;
                                 
                                 // 填入Subtotal
-                                const subtotalText = `RM${subtotal.toFixed(2)}`;
+                                const subtotalText = `${subtotal.toFixed(2)}`;
                                 page.drawText(subtotalText, {
                                     x: getRightAlignedX(subtotalText, 588.5, 8),
                                     y: height - 681,
@@ -5397,7 +5397,7 @@
                                 });
                                 
                                 // 填入Charge 15%
-                                const chargeText = `RM${charge.toFixed(2)}`;
+                                const chargeText = `${charge.toFixed(2)}`;
                                 page.drawText(chargeText, {
                                     x: getRightAlignedX(chargeText, 586, 8),
                                     y: height - 692,
@@ -5406,7 +5406,7 @@
                                 });
                                 
                                 // 填入最终Total
-                                const finalTotalText = `RM${finalTotal.toFixed(2)}`;
+                                const finalTotalText = `${finalTotal.toFixed(2)}`;
                                 page.drawText(finalTotalText, {
                                     x: getRightAlignedX(finalTotalText, 580, 8),
                                     y: height - 708,
@@ -5416,7 +5416,7 @@
                                 });
                             } else {
                                 // J1模板：只显示总计
-                                const totalText = `RM${grandTotal.toFixed(2)}`;
+                                const totalText = `${grandTotal.toFixed(2)}`;
                                 page.drawText(totalText, {
                                     x: getRightAlignedX(totalText, 580, 8),
                                     y: height - 705,
