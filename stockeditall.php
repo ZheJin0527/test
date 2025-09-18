@@ -5071,7 +5071,7 @@
                     // Price RM (第五列) - 右对齐
                     const priceText = price.toFixed(2);
                     page.drawText(priceText, {
-                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 500 : 500, 6),
+                        x: getRightAlignedX(priceText, exportSystem === 'j1' ? 520 : 520, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
@@ -5080,7 +5080,7 @@
                     // Total RM (第六列) - 右对齐
                     const totalText = total.toFixed(2);
                     page.drawText(totalText, {
-                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 570 : 570, 6),
+                        x: getRightAlignedX(totalText, exportSystem === 'j1' ? 575 : 575, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
