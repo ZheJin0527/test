@@ -5306,7 +5306,7 @@
                             if (pageIndex === 0) {
                                 yPosition = height - 162; // J1第一页位置
                             } else {
-                                yPosition = height - 120;  // J1第二页位置
+                                yPosition = height - 50;  // J1第二页位置
                             }
                             lineHeight = 20;
                         } else { // j2
