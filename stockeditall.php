@@ -5098,7 +5098,7 @@
                     // 填入Subtotal
                     const subtotalText = `${subtotal.toFixed(2)}`;
                     page.drawText(subtotalText, {
-                        x: getRightAlignedX(subtotalText, 589, 8),
+                        x: getRightAlignedX(subtotalText, 588.5, 8),
                         y: height - 681, // 调整到Subtotal行
                         size: smallFontSize,
                         color: textColor,
@@ -5107,7 +5107,7 @@
                     // 填入Charge 15%
                     const chargeText = `${charge.toFixed(2)}`;
                     page.drawText(chargeText, {
-                        x: getRightAlignedX(chargeText, 587, 8),
+                        x: getRightAlignedX(chargeText, 586, 8),
                         y: height - 692, // 调整到Charge行
                         size: smallFontSize,
                         color: textColor,
