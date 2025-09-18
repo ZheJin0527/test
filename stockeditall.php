@@ -5255,8 +5255,8 @@
                             if (exportSystem === 'j1') {
                                 // J1模板的日期位置
                                 page.drawText(` ${currentDate}`, {
-                                    x: 495,
-                                    y: height - 110, 
+                                    x: 495.5,
+                                    y: height - 112, 
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
@@ -5275,7 +5275,7 @@
                             } else if (exportSystem === 'j2') {
                                 // J2模板的日期位置 (J2保持每页都显示)
                                 page.drawText(` ${currentDate}`, {
-                                    x: 470,
+                                    x: 470.5,
                                     y: height - 175,
                                     size: fontSize,
                                     color: textColor,
