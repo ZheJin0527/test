@@ -5006,7 +5006,7 @@
                     yPosition = height - 162; // J1模板的起始Y坐标
                     lineHeight = 20; // J1模板的行高
                 } else { // j2
-                    yPosition = height - 223; // J2模板的起始Y坐标
+                    yPosition = height - 180; // J2模板的起始Y坐标
                     lineHeight = 20; // J2模板的行高
                 }
 
@@ -5116,8 +5116,8 @@
                     // 填入最终Total
                     const finalTotalText = `${finalTotal.toFixed(2)}`;
                     page.drawText(finalTotalText, {
-                        x: getRightAlignedX(finalTotalText, 565, 8),
-                        y: height - 660, // 调整到最终Total行
+                        x: getRightAlignedX(finalTotalText, 580, 8),
+                        y: height - 705, // 调整到最终Total行
                         size: fontSize,
                         color: textColor,
                         font: boldFont,
