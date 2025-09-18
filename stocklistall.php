@@ -1362,10 +1362,6 @@
                         <div class="dropdown-item" onclick="switchSystem('j2')">J2</div>
                     </div>
                 </div>
-                <button class="back-button" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i>
-                    返回仪表盘
-                </button>
             </div>
         </div>
         
