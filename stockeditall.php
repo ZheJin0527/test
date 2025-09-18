@@ -5275,52 +5275,50 @@
                         const page = finalPdfDoc.addPage(templatePage);
                         const { width, height } = page.getSize();
                         
-                        // 填入日期和发票号码
-                        if (pageIndex === 0) {
-                            const currentDate = invoiceDate ? 
-                                new Date(invoiceDate).toLocaleDateString('en-GB') : 
-                                new Date().toLocaleDateString('en-GB');
+                        // 填入日期和发票号码（每一页都显示）
+                        const currentDate = invoiceDate ? 
+                            new Date(invoiceDate).toLocaleDateString('en-GB') : 
+                            new Date().toLocaleDateString('en-GB');
 
-                            if (exportSystem === 'j1') {
-                                // J1模板的日期位置
-                                page.drawText(` ${currentDate}`, {
-                                    x: 495.5,
-                                    y: height - 110.5, 
+                        if (exportSystem === 'j1') {
+                            // J1模板的日期位置
+                            page.drawText(` ${currentDate}`, {
+                                x: 495.5,
+                                y: height - 110.5, 
+                                size: fontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+                            
+                            // J1模板的发票号码位置
+                            if (invoiceNumber) {
+                                page.drawText(invoiceNumber, {
+                                    x: 500,
+                                    y: height - 96.5,
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
                                 });
-                                
-                                // J1模板的发票号码位置
-                                if (invoiceNumber) {
-                                    page.drawText(invoiceNumber, {
-                                        x: 500,
-                                        y: height - 96.5,
-                                        size: fontSize,
-                                        color: textColor,
-                                        font: boldFont,
-                                    });
-                                }
-                            } else if (exportSystem === 'j2') {
-                                // J2模板的日期位置 (J2保持每页都显示)
-                                page.drawText(` ${currentDate}`, {
-                                    x: 495.5,
-                                    y: height - 110.5,
+                            }
+                        } else if (exportSystem === 'j2') {
+                            // J2模板的日期位置
+                            page.drawText(` ${currentDate}`, {
+                                x: 495.5,
+                                y: height - 110.5,
+                                size: fontSize,
+                                color: textColor,
+                                font: boldFont,
+                            });
+                            
+                            // J2模板的发票号码位置
+                            if (invoiceNumber) {
+                                page.drawText(invoiceNumber, {
+                                    x: 500,
+                                    y: height - 96.5,
                                     size: fontSize,
                                     color: textColor,
                                     font: boldFont,
                                 });
-                                
-                                // J2模板的发票号码位置
-                                if (invoiceNumber) {
-                                    page.drawText(invoiceNumber, {
-                                        x: 500,
-                                        y: height - 96.5,
-                                        size: fontSize,
-                                        color: textColor,
-                                        font: boldFont,
-                                    });
-                                }
                             }
                         }
                         
