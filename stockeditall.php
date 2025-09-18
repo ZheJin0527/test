@@ -4978,8 +4978,8 @@
                 } else if (exportSystem === 'j2') {
                     // J2模板的日期位置
                     page.drawText(` ${currentDate}`, {
-                        x: 470, // J2模板DATE冒号后面的位置 (可根据需要调整)
-                        y: height - 175, // J2模板的Y坐标 (可根据需要调整)
+                        x: 495.5, // J2模板DATE冒号后面的位置 (可根据需要调整)
+                        y: height - 110.5, // J2模板的Y坐标 (可根据需要调整)
                         size: fontSize,
                         color: textColor,
                         font: boldFont,
@@ -4988,8 +4988,8 @@
                     // J2模板的发票号码位置
                     if (invoiceNumber) {
                         page.drawText(invoiceNumber, {
-                            x: 105,
-                            y: height - 175, // 调整到Invoice No行
+                            x: 500,
+                            y: height - 96.5, // 调整到Invoice No行
                             size: fontSize,
                             color: textColor,
                             font: boldFont,
@@ -5030,11 +5030,10 @@
                     // NO (第一列) - 居中对齐
                     const itemText = itemNumber.toString();
                     page.drawText(itemText, {
-                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 39 : 39, 6),
+                        x: getCenterAlignedX(itemText, exportSystem === 'j1' ? 41 : 41, 6),
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
-                        font: boldFont,
                     });
                     
                     // Descriptions (第二列) - 左对齐，调整产品名称显示，处理长文本
@@ -5045,11 +5044,10 @@
                         : productName;
                     
                     page.drawText(displayProductName.toUpperCase(), {
-                        x: exportSystem === 'j1' ? 62 : 62,
+                        x: exportSystem === 'j1' ? 60 : 60,
                         y: yPosition,
                         size: smallFontSize,
                         color: textColor,
-                        font: boldFont,
                     });
                     
                     // Quantity (第三列) - 右对齐
