@@ -47,8 +47,8 @@ if (!isset($mediaConfigIncluded)) {
             <div class="nav-item nav-dropdown">
                 <span class="nav-dropdown-trigger">旗下品牌</span>
                 <div class="nav-dropdown-menu" id="brandsNavDropdownMenu">
-                    <a href="tokyo-japanese-cuisine.php" class="nav-dropdown-item">Tokyo Japanese Cuisine</a>
-                    <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a>
+                    <!-- <a href="tokyo-japanese-cuisine.php" class="nav-dropdown-item">Tokyo Japanese Cuisine</a>
+                    <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a> -->
                 </div>
             </div>
             <div class="nav-item"><a href="joinus.php">加入我们</a></div>
