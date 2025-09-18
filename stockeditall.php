@@ -5003,7 +5003,7 @@
                 // 填入数据行 (从第一个数据行开始)
                 let yPosition, lineHeight;
                 if (exportSystem === 'j1') {
-                    yPosition = height - 120; // J1模板的起始Y坐标
+                    yPosition = height - 162; // J1模板的起始Y坐标
                     lineHeight = 20; // J1模板的行高
                 } else { // j2
                     yPosition = height - 223; // J2模板的起始Y坐标
