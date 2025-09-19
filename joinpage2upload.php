@@ -30,6 +30,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media_file'])) {
         $targetPath = $uploadDir . $newFileName;
         
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            // 尝试压缩与调整图片尺寸以减少页面加载压力
+            try {
+                if (function_exists('getimagesize')) {
+                    $imageInfo = @getimagesize($targetPath);
+                    if ($imageInfo) {
+                        $originalWidth = $imageInfo[0] ?? 0;
+                        $originalHeight = $imageInfo[1] ?? 0;
+                        $mime = $imageInfo['mime'] ?? '';
+
+                        // 仅在图片较大时进行缩放（例如宽或高大于1600）
+                        $maxDimension = 1600;
+                        if ($originalWidth > 0 && $originalHeight > 0 && (max($originalWidth, $originalHeight) > $maxDimension)) {
+                            $scale = $maxDimension / max($originalWidth, $originalHeight);
+                            $newWidth = (int) floor($originalWidth * $scale);
+                            $newHeight = (int) floor($originalHeight * $scale);
+
+                            // 创建源图像资源
+                            $src = null;
+                            if ($mime === 'image/jpeg' || $fileExtension === 'jpg' || $fileExtension === 'jpeg') {
+                                if (function_exists('imagecreatefromjpeg')) {
+                                    $src = @imagecreatefromjpeg($targetPath);
+                                }
+                            } elseif ($mime === 'image/png' || $fileExtension === 'png') {
+                                if (function_exists('imagecreatefrompng')) {
+                                    $src = @imagecreatefrompng($targetPath);
+                                }
+                            } elseif ($mime === 'image/webp' || $fileExtension === 'webp') {
+                                if (function_exists('imagecreatefromwebp')) {
+                                    $src = @imagecreatefromwebp($targetPath);
+                                }
+                            }
+
+                            if ($src) {
+                                $dst = imagecreatetruecolor($newWidth, $newHeight);
+
+                                // 处理 PNG 透明度
+                                if ($mime === 'image/png' || $fileExtension === 'png') {
+                                    imagealphablending($dst, false);
+                                    imagesavealpha($dst, true);
+                                }
+
+                                imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+                                // 覆盖保存，使用合理质量
+                                if (($mime === 'image/jpeg' || $fileExtension === 'jpg' || $fileExtension === 'jpeg') && function_exists('imagejpeg')) {
+                                    @imagejpeg($dst, $targetPath, 82);
+                                } elseif (($mime === 'image/png' || $fileExtension === 'png') && function_exists('imagepng')) {
+                                    // PNG 压缩级别 0-9（数值越大压缩越高）
+                                    @imagepng($dst, $targetPath, 6);
+                                } elseif (($mime === 'image/webp' || $fileExtension === 'webp') && function_exists('imagewebp')) {
+                                    @imagewebp($dst, $targetPath, 82);
+                                }
+
+                                imagedestroy($dst);
+                                imagedestroy($src);
+                            }
+                        }
+                    }
+                }
+            } catch (\Throwable $t) {
+                // 忽略压缩失败，继续后续逻辑
+            }
             // 更新配置文件
             $config = [];
             if (file_exists($configFile)) {
@@ -388,7 +450,7 @@ if (file_exists('media_config.json')) {
                         
                         <?php if (isset($config['comphoto_' . $i]) && file_exists($config['comphoto_' . $i]['file'])): ?>
                             <div class="current-image">
-                                <img src="<?php echo $config['comphoto_' . $i]['file']; ?>?v=<?php echo time(); ?>" alt="照片 <?php echo $i; ?>">
+                                <img loading="lazy" src="<?php echo $config['comphoto_' . $i]['file']; ?>?v=<?php echo file_exists($config['comphoto_' . $i]['file']) ? filemtime($config['comphoto_' . $i]['file']) : time(); ?>" alt="照片 <?php echo $i; ?>">
                                 <div class="image-info">
                                     <strong>已上传</strong><br>
                                     <small>更新: <?php echo $config['comphoto_' . $i]['updated']; ?></small>
