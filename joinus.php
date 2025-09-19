@@ -67,9 +67,6 @@ include 'header.php';
 <div class="swiper-slide">
     <div class="comphoto-section" id="comphoto-container">
         <div class="comphoto-title">我们的足迹</div>
-        <div class="comphoto-ring-container">
-            <div class="comphoto-ring" id="comphotoRing"></div>
-        </div>
     </div>
         <div id="comphoto-modal" class="comphoto-modal">
             <span class="comphoto-close">&times;</span>
@@ -1007,46 +1004,277 @@ window.addEventListener('resize', () => {
         // 示例照片数组
         const photos = <?php echo json_encode(getCompanyPhotos()); ?>;
         const comphotoContainer = document.getElementById('comphoto-container');
-        const comphotoRing = document.getElementById('comphotoRing');
         const comphotoModal = document.getElementById('comphoto-modal');
         const comphotoModalImg = document.getElementById('comphoto-modal-img');
         const comphotoModalContent = document.querySelector('.comphoto-modal-content');
         const comphotoCloseBtn = document.querySelector('.comphoto-close');
+
+        // 照片数据存储
+        const photoData = [];
         let currentClickedImg = null;
+        let animationId = null;
+        let isPaused = false;
 
-        // 在圆环上布置图片
-        function buildComphotoRing() {
-            comphotoRing.innerHTML = '';
-            const count = Math.min(photos.length, 14); // 最多14张一圈
-            const radius = Math.min(comphotoRing.clientWidth, comphotoRing.clientHeight) / 2 - 20;
-            for (let i = 0; i < count; i++) {
-                const angle = (i / count) * Math.PI * 2;
-                const x = Math.cos(angle) * radius;
-                const y = Math.sin(angle) * radius;
+        // 物理参数
+        const PHOTO_WIDTH = 120;
+        const PHOTO_HEIGHT = 80;
+        const NAVBAR_HEIGHT = 80;
+        const PHOTO_MARGIN = 10;
 
-                const item = document.createElement('div');
-                item.className = 'comphoto-item';
-                item.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${angle}rad)`;
+        // 存储已占用的位置
+        const occupiedPositions = [];
 
-                const img = document.createElement('img');
-                img.src = photos[i];
-                img.alt = '公司照片';
-                img.loading = 'lazy';
-                img.addEventListener('click', function(){ openComphotoModal(this); });
-
-                item.appendChild(img);
-                comphotoRing.appendChild(item);
+        // 生成合适的斜线角度 - 确保明显的斜线运动
+        function generateDiagonalAngle() {
+            // 定义允许的角度范围，避免接近水平和垂直
+            const minAngle = Math.PI / 6;  // 30度
+            const maxAngle = Math.PI / 3;  // 60度
+            
+            // 随机选择四个象限之一
+            const quadrant = Math.floor(Math.random() * 4);
+            let baseAngle;
+            
+            switch(quadrant) {
+                case 0: // 第一象限 (右上)
+                    baseAngle = Math.random() * (maxAngle - minAngle) + minAngle;
+                    break;
+                case 1: // 第二象限 (左上)
+                    baseAngle = Math.PI - (Math.random() * (maxAngle - minAngle) + minAngle);
+                    break;
+                case 2: // 第三象限 (左下)
+                    baseAngle = Math.PI + (Math.random() * (maxAngle - minAngle) + minAngle);
+                    break;
+                case 3: // 第四象限 (右下)
+                    baseAngle = 2 * Math.PI - (Math.random() * (maxAngle - minAngle) + minAngle);
+                    break;
             }
+            
+            return baseAngle;
         }
 
-        // 暂停/恢复旋转
-        function pauseRing() { comphotoRing.classList.add('paused'); }
-        function resumeRing() { comphotoRing.classList.remove('paused'); }
+        // 根据角度生成速度向量
+        function generateVelocityFromAngle(angle) {
+            const speed = 0.6;
+            return {
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed
+            };
+        }
+
+        // 修正反弹后的角度，确保保持斜线运动
+        function correctBounceAngle(vx, vy, isHorizontalBounce) {
+            let newVx = vx, newVy = vy;
+            
+            if (isHorizontalBounce) {
+                newVx = -vx; // 水平反弹
+            } else {
+                newVy = -vy; // 垂直反弹
+            }
+            
+            // 计算当前角度
+            let currentAngle = Math.atan2(newVy, newVx);
+            if (currentAngle < 0) currentAngle += 2 * Math.PI;
+            
+            // 检查角度是否太接近水平或垂直方向
+            const tolerance = Math.PI / 8; // 22.5度的容差
+            const horizontalAngles = [0, Math.PI, 2 * Math.PI];
+            const verticalAngles = [Math.PI / 2, 3 * Math.PI / 2];
+            
+            let needsCorrection = false;
+            
+            // 检查是否太接近水平方向
+            for (let hAngle of horizontalAngles) {
+                if (Math.abs(currentAngle - hAngle) < tolerance) {
+                    needsCorrection = true;
+                    break;
+                }
+            }
+            
+            // 检查是否太接近垂直方向
+            if (!needsCorrection) {
+                for (let vAngle of verticalAngles) {
+                    if (Math.abs(currentAngle - vAngle) < tolerance) {
+                        needsCorrection = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (needsCorrection) {
+                // 重新生成一个合适的斜线角度
+                const newAngle = generateDiagonalAngle();
+                const velocity = generateVelocityFromAngle(newAngle);
+                return { vx: velocity.vx, vy: velocity.vy };
+            }
+            
+            return { vx: newVx, vy: newVy };
+        }
+
+        // 检查两个矩形是否重叠
+        function isOverlapping(pos1, pos2, width, height, margin) {
+            return !(pos1.x + width + margin < pos2.x || 
+                    pos2.x + width + margin < pos1.x || 
+                    pos1.y + height + margin < pos2.y || 
+                    pos2.y + height + margin < pos1.y);
+        }
+
+        // 生成不重叠的随机位置
+        function getRandomNonOverlappingPosition() {
+            const boundaries = getBoundaries();
+            let attempts = 0;
+            const maxAttempts = 200;
+            
+            while (attempts < maxAttempts) {
+                const x = Math.random() * (boundaries.right - boundaries.left) + boundaries.left;
+                const y = Math.random() * (boundaries.bottom - boundaries.top) + boundaries.top;
+                
+                const newPos = { x, y };
+                
+                let overlaps = false;
+                for (let occupiedPos of occupiedPositions) {
+                    if (isOverlapping(newPos, occupiedPos, PHOTO_WIDTH, PHOTO_HEIGHT, PHOTO_MARGIN)) {
+                        overlaps = true;
+                        break;
+                    }
+                }
+                
+                if (!overlaps) {
+                    occupiedPositions.push(newPos);
+                    return newPos;
+                }
+                
+                attempts++;
+            }
+            
+            // 备选网格布局
+            const cols = Math.floor((boundaries.right - boundaries.left) / (PHOTO_WIDTH + PHOTO_MARGIN));
+            const index = occupiedPositions.length;
+            const col = index % cols;
+            const row = Math.floor(index / cols);
+            
+            const fallbackPos = {
+                x: boundaries.left + col * (PHOTO_WIDTH + PHOTO_MARGIN),
+                y: boundaries.top + row * (PHOTO_HEIGHT + PHOTO_MARGIN)
+            };
+            
+            occupiedPositions.push(fallbackPos);
+            return fallbackPos;
+        }
+
+        // 获取边界
+        function getBoundaries() {
+            return {
+                left: 0,
+                right: window.innerWidth - PHOTO_WIDTH,
+                top: NAVBAR_HEIGHT,
+                bottom: window.innerHeight - PHOTO_HEIGHT
+            };
+        }
+
+        // 创建照片元素和数据
+        function createComphoto(src, index) {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'comphoto';
+            img.loading = 'lazy';
+            
+            const pos = getRandomNonOverlappingPosition();
+            
+            // 生成斜线角度和速度
+            const angle = generateDiagonalAngle();
+            const velocity = generateVelocityFromAngle(angle);
+            
+            img.style.left = pos.x + 'px';
+            img.style.top = pos.y + 'px';
+            
+            img.addEventListener('click', function() {
+                openComphotoModal(this);
+            });
+            
+            const photoInfo = {
+                element: img,
+                x: pos.x,
+                y: pos.y,
+                vx: velocity.vx,
+                vy: velocity.vy,
+                index: index
+            };
+            
+            photoData.push(photoInfo);
+            return img;
+        }
+
+        // 更新照片位置
+        function updatePhotos() {
+            if (isPaused) return;
+            
+            const boundaries = getBoundaries();
+            
+            photoData.forEach(photo => {
+                photo.x += photo.vx;
+                photo.y += photo.vy;
+                
+                let bounced = false;
+                let isHorizontalBounce = false;
+                
+                // 检查水平边界碰撞
+                if (photo.x <= boundaries.left || photo.x >= boundaries.right) {
+                    photo.x = Math.max(boundaries.left, Math.min(boundaries.right, photo.x));
+                    bounced = true;
+                    isHorizontalBounce = true;
+                }
+                
+                // 检查垂直边界碰撞
+                if (photo.y <= boundaries.top || photo.y >= boundaries.bottom) {
+                    photo.y = Math.max(boundaries.top, Math.min(boundaries.bottom, photo.y));
+                    bounced = true;
+                    isHorizontalBounce = false;
+                }
+                
+                if (bounced) {
+                    // 使用修正后的反弹角度
+                    const correctedVelocity = correctBounceAngle(photo.vx, photo.vy, isHorizontalBounce);
+                    photo.vx = correctedVelocity.vx;
+                    photo.vy = correctedVelocity.vy;
+                    
+                    // 碰撞时改变边框颜色
+                    photo.element.style.borderColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+                }
+                
+                photo.element.style.left = photo.x + 'px';
+                photo.element.style.top = photo.y + 'px';
+            });
+        }
+
+        // 动画循环
+        function animate() {
+            updatePhotos();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // 初始化照片
+        function initComphoto() {
+            photos.forEach((photo, index) => {
+                const photoElement = createComphoto(photo, index);
+                comphotoContainer.appendChild(photoElement);
+            });
+            
+            animate();
+        }
+
+        // 暂停/恢复动画
+        function pauseAnimation() {
+            isPaused = true;
+        }
+
+        function resumeAnimation() {
+            isPaused = false;
+        }
 
         // 丝滑打开模态框
         function openComphotoModal(clickedImg) {
             currentClickedImg = clickedImg;
-            pauseRing();
+            pauseAnimation();
 
             const rect = clickedImg.getBoundingClientRect();
             comphotoModalImg.src = clickedImg.src;
@@ -1117,7 +1345,7 @@ window.addEventListener('resize', () => {
                     currentClickedImg.classList.remove('comphoto-hidden');
                 }
                 
-                resumeRing();
+                resumeAnimation();
                 currentClickedImg = null;
             }, 500);
         }
@@ -1150,10 +1378,10 @@ window.addEventListener('resize', () => {
             }
         });
 
-        window.addEventListener('resize', buildComphotoRing);
+        window.addEventListener('resize', handleResize);
 
         // 初始化
-        buildComphotoRing();
+        initComphoto();
     </script>
     <script>
         // 粒子动画初始化
