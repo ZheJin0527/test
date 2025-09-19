@@ -334,7 +334,7 @@ if (file_exists('media_config.json')) {
     <div class="container">
         <div class="header">
             <h1>我们的足迹照片管理</h1>
-            <p>管理34张公司活动照片</p>
+            <p>管理30张公司活动照片</p>
         </div>
         
         <div class="breadcrumb">
@@ -357,7 +357,7 @@ if (file_exists('media_config.json')) {
             <?php
             // 统计已上传的照片
             $uploadedCount = 0;
-            for ($i = 1; $i <= 34; $i++) {
+            for ($i = 1; $i <= 30; $i++) {
                 if (isset($config['comphoto_' . $i]) && file_exists($config['comphoto_' . $i]['file'])) {
                     $uploadedCount++;
                 }
@@ -366,20 +366,20 @@ if (file_exists('media_config.json')) {
             
             <div class="stats-bar">
                 <div class="stats-item">
-                    总照片数: <span class="stats-number">34</span>
+                    总照片数: <span class="stats-number">30</span>
                 </div>
                 <div class="stats-item">
                     已上传: <span class="stats-number"><?php echo $uploadedCount; ?></span>
                 </div>
                 <div class="stats-item">
-                    待上传: <span class="stats-number"><?php echo 34 - $uploadedCount; ?></span>
+                    待上传: <span class="stats-number"><?php echo 30 - $uploadedCount; ?></span>
                 </div>
             </div>
             
             <h2 class="section-title">照片上传管理</h2>
             
             <div class="photos-grid">
-                <?php for ($i = 1; $i <= 34; $i++): ?>
+                <?php for ($i = 1; $i <= 30; $i++): ?>
                     <div class="photo-card">
                         <div class="photo-header">
                             <div class="photo-number"><?php echo $i; ?></div>
