@@ -767,8 +767,20 @@ updatePageIndicator(0);
         let currentIndex = 0;
 const totalItems = 3;
 const years = ['2022', '2023', '2025'];
-const navItems = document.querySelectorAll('.timeline-item');
-const container = document.getElementById('timelineContainer');
+let navItems = [];
+let container = null;
+
+// 延迟初始化，确保DOM加载完成
+function initTimelineElements() {
+    navItems = document.querySelectorAll('.timeline-item');
+    container = document.getElementById('timelineContainer');
+    
+    if (navItems.length > 0 && container) {
+        updateTimelineNav();
+        updateCardPositions();
+        bindNavItemClicks();
+    }
+}
 
 // 拖拽相关变量 - 优化后的设置
 let isDragging = false;
@@ -780,18 +792,26 @@ let dragStartTime = 0; // 记录拖拽开始时间
 let isAnimating = false; // 防止动画期间的操作冲突
 
 function updateTimelineNav() {
+    // 检查元素是否存在
+    if (!container || !navItems || navItems.length === 0) {
+        console.warn('Timeline elements not found, skipping updateTimelineNav');
+        return;
+    }
+    
     // 更新导航状态
     navItems.forEach((item, index) => {
         item.classList.toggle('active', index === currentIndex);
     });
 
     // 计算居中位置
-    const containerWidth = container.parentElement.offsetWidth;
-    const itemWidth = 120;
-    const centerOffset = containerWidth / 2 - itemWidth / 2;
-    const translateX = centerOffset - (currentIndex * itemWidth);
-    
-    container.style.transform = `translateX(${translateX}px)`;
+    if (container.parentElement) {
+        const containerWidth = container.parentElement.offsetWidth;
+        const itemWidth = 120;
+        const centerOffset = containerWidth / 2 - itemWidth / 2;
+        const translateX = centerOffset - (currentIndex * itemWidth);
+        
+        container.style.transform = `translateX(${translateX}px)`;
+    }
 }
 
 function updateCardPositions() {
@@ -935,15 +955,19 @@ document.addEventListener('touchstart', (e) => {
 document.addEventListener('touchmove', handleDragMove, { passive: false });
 document.addEventListener('touchend', handleDragEnd);
 
-// 导航项点击
-navItems.forEach((item, index) => {
-    item.addEventListener('click', () => {
-        if (!isDragging && !isAnimating) {
-            currentIndex = index;
-            showTimelineItem(years[currentIndex]);
-        }
-    });
-});
+// 导航项点击 - 延迟绑定
+function bindNavItemClicks() {
+    if (navItems && navItems.length > 0) {
+        navItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                if (!isDragging && !isAnimating) {
+                    currentIndex = index;
+                    showTimelineItem(years[currentIndex]);
+                }
+            });
+        });
+    }
+}
 
 // 优化的点击处理 - 添加延迟避免与拖拽冲突
 document.addEventListener('click', (e) => {
@@ -979,9 +1003,10 @@ document.addEventListener('selectstart', (e) => {
     }
 });
 
-// 初始化
-updateTimelineNav();
-updateCardPositions();
+// 初始化 - 延迟到DOM加载完成
+document.addEventListener('DOMContentLoaded', function() {
+    initTimelineElements();
+});
 
 // 窗口大小改变时重新计算位置
 window.addEventListener('resize', () => {
@@ -1387,6 +1412,13 @@ window.addEventListener('resize', () => {
         // 粒子动画初始化
 function initParticles() {
     const particles = document.getElementById('particles');
+    
+    // 检查particles元素是否存在
+    if (!particles) {
+        console.warn('Particles element not found, skipping particle animation');
+        return;
+    }
+    
     const particleCount = 50;
     
     for (let i = 0; i < particleCount; i++) {
