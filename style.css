@@ -6904,10 +6904,7 @@ html, body {
   overflow: hidden; /* 仅在单页内部需要时隐藏 */
 }
 
-/* 使用 clamp 避免 footer-slide 在不同设备频繁跳动 */
-.swiper-slide.footer-slide {
-  height: clamp(29vh, 40vh, 55vh) !important;
-}
+
 
 /* 背景图优化：禁用 fixed，避免掉帧 */
 .background-video,
