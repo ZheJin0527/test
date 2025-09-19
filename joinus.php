@@ -81,8 +81,6 @@ include 'header.php';
     <div class="job-section">
         <div class="job-table-container">
             <h2 class="job-table-title">目前在招聘的职位</h2>
-            <!-- 临时测试按钮 -->
-            <button onclick="testClick()" style="background: #FF5C00; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 10px;">测试点击</button>
         </div>
     <div class ="jobs-wrapper">    
         <div class="jobs-container">
@@ -1412,11 +1410,36 @@ async function loadJobsData() {
     try {
         console.log('开始加载职位数据...'); // 调试信息
         console.log('正在请求: get_jobs_api.php');
-        const response = await fetch('get_jobs_api.php');
-        console.log('请求响应状态:', response.status);
         
-        if (!response.ok) {
-            throw new Error(`HTTP错误: ${response.status}`);
+        // 尝试多个可能的路径
+        const possiblePaths = [
+            'get_jobs_api.php',
+            './get_jobs_api.php',
+            '/get_jobs_api.php',
+            'job_positions_api.php'  // 备用API文件
+        ];
+        
+        let response = null;
+        let lastError = null;
+        
+        for (const path of possiblePaths) {
+            try {
+                console.log(`尝试路径: ${path}`);
+                response = await fetch(path);
+                console.log(`路径 ${path} 响应状态:`, response.status);
+                
+                if (response.ok) {
+                    console.log(`成功使用路径: ${path}`);
+                    break;
+                }
+            } catch (error) {
+                console.log(`路径 ${path} 失败:`, error.message);
+                lastError = error;
+            }
+        }
+        
+        if (!response || !response.ok) {
+            throw new Error(`所有API路径都失败，最后错误: ${lastError?.message || '未知错误'}`);
         }
         
         const data = await response.json();
@@ -1586,30 +1609,6 @@ window.onclick = function(event) {
     
     if (event.target == jobDetailModal) {
         jobDetailModal.style.display = 'none';
-    }
-}
-
-// 测试函数
-function testClick() {
-    console.log('=== 测试点击功能 ===');
-    
-    // 检查职位项目
-    const jobItems = document.querySelectorAll('.job-item');
-    console.log('找到的职位项目数量:', jobItems.length);
-    
-    if (jobItems.length > 0) {
-        const firstJob = jobItems[0];
-        console.log('第一个职位项目:', firstJob);
-        console.log('职位ID:', firstJob.getAttribute('data-job-id'));
-        console.log('职位标题:', firstJob.querySelector('.job-item-title')?.textContent);
-        
-        // 直接调用openJobDetail函数
-        if (firstJob.getAttribute('data-job-id')) {
-            console.log('直接调用openJobDetail...');
-            openJobDetail(firstJob.getAttribute('data-job-id'));
-        }
-    } else {
-        console.error('没有找到职位项目！');
     }
 }
 
