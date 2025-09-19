@@ -35,7 +35,6 @@ kunzzweb/
 │   ├── verify_code.php
 │   ├── send_verification.php
 │   ├── success.html
-│   ├── history.html
 │   ├── app.js
 │   └── account.js
 │
