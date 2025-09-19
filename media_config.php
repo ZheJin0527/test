@@ -89,7 +89,7 @@ function getCompanyPhotos() {
     if (file_exists($configFile)) {
         $config = json_decode(file_get_contents($configFile), true);
         if ($config) {
-            for ($i = 1; $i <= 100; $i++) {
+            for ($i = 1; $i <= 1000; $i++) {
                 $key = 'comphoto_' . $i;
                 if (isset($config[$key]) && file_exists($config[$key]['file'])) {
                     $photos[] = $config[$key]['file'] . '?v=' . filemtime($config[$key]['file']);
@@ -103,7 +103,7 @@ function getCompanyPhotos() {
     
     // 如果没有配置文件，返回默认照片
     if (empty($photos)) {
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 1000; $i++) {
             $photos[] = 'https://picsum.photos/400/300?random=' . $i;
         }
     }
