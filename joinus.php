@@ -1410,6 +1410,11 @@ async function loadJobsData() {
     try {
         console.log('开始加载职位数据...'); // 调试信息
         const response = await fetch('get_jobs_api.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP错误: ${response.status}`);
+        }
+        
         const data = await response.json();
         console.log('服务器返回的数据:', data); // 调试信息
         
@@ -1418,22 +1423,25 @@ async function loadJobsData() {
             jobsData = {};
             
             Object.values(data.companies).forEach(company => {
-                company.jobs.forEach(job => {
-                    jobsData[job.id] = {
-                        title: job.title,
-                        count: job.count,
-                        experience: job.experience,
-                        publish_date: job.publish_date,
-                        company: company.name,
-                        description: job.description,
-                        address: job.address || '待定',
-                        department: job.department || '',
-                        salary: job.salary || ''
-                    };
-                });
+                if (company.jobs && Array.isArray(company.jobs)) {
+                    company.jobs.forEach(job => {
+                        jobsData[job.id] = {
+                            title: job.title,
+                            count: job.count,
+                            experience: job.experience,
+                            publish_date: job.publish_date,
+                            company: company.name,
+                            description: job.description,
+                            address: job.address || '待定',
+                            department: job.department || '',
+                            salary: job.salary || ''
+                        };
+                    });
+                }
             });
             
             console.log('职位数据加载完成:', jobsData); // 调试信息
+            console.log('职位数据条目数:', Object.keys(jobsData).length);
         } else {
             console.error('服务器返回失败:', data.error); // 调试信息
             // 显示错误信息给用户
@@ -1476,6 +1484,8 @@ function getJobData(jobId) {
 // 打开职位详情弹窗
 function openJobDetail(jobId) {
     console.log('尝试打开职位详情:', jobId); // 调试信息
+    console.log('当前职位数据缓存:', jobsData); // 调试信息
+    
     const jobData = getJobData(jobId);
     console.log('职位数据:', jobData); // 调试信息
     
@@ -1504,6 +1514,7 @@ function openJobDetail(jobId) {
         document.getElementById('jobDetailDepartment').style.display = 'none';
         document.getElementById('jobDetailSalary').style.display = 'none';
     } else {
+        console.log('使用真实职位数据填充弹窗'); // 调试信息
         // 填充弹窗数据
         document.getElementById('jobDetailTitle').textContent = jobData.title;
         document.getElementById('jobDetailCount').textContent = jobData.count;
@@ -1530,6 +1541,7 @@ function openJobDetail(jobId) {
     }
     
     // 显示弹窗
+    console.log('显示职位详情弹窗'); // 调试信息
     document.getElementById('jobDetailModal').style.display = 'flex';
 }
 
@@ -1581,17 +1593,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 职位点击功能
 function initJobClickHandlers() {
+    console.log('初始化职位点击处理器...');
+    
     // 使用事件委托来处理动态添加的职位卡片点击事件
     document.addEventListener('click', function(event) {
+        console.log('点击事件触发:', event.target);
+        
         const jobItem = event.target.closest('.job-item');
         if (jobItem) {
+            console.log('找到职位项目:', jobItem);
             const jobId = jobItem.getAttribute('data-job-id');
+            console.log('职位ID:', jobId);
+            
             if (jobId) {
                 console.log('点击了职位:', jobId);
                 openJobDetail(jobId);
+            } else {
+                console.warn('职位项目缺少data-job-id属性');
             }
+        } else {
+            console.log('点击的不是职位项目');
         }
     });
+    
+    // 添加调试信息：检查页面上的职位项目
+    setTimeout(() => {
+        const jobItems = document.querySelectorAll('.job-item');
+        console.log('页面上的职位项目数量:', jobItems.length);
+        jobItems.forEach((item, index) => {
+            console.log(`职位 ${index + 1}:`, {
+                element: item,
+                jobId: item.getAttribute('data-job-id'),
+                title: item.querySelector('.job-item-title')?.textContent
+            });
+        });
+    }, 1000);
 }
     </script>
 <script>
