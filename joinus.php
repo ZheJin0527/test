@@ -81,6 +81,8 @@ include 'header.php';
     <div class="job-section">
         <div class="job-table-container">
             <h2 class="job-table-title">目前在招聘的职位</h2>
+            <!-- 临时测试按钮 -->
+            <button onclick="testClick()" style="background: #FF5C00; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 10px;">测试点击</button>
         </div>
     <div class ="jobs-wrapper">    
         <div class="jobs-container">
@@ -1585,6 +1587,30 @@ window.onclick = function(event) {
     }
 }
 
+// 测试函数
+function testClick() {
+    console.log('=== 测试点击功能 ===');
+    
+    // 检查职位项目
+    const jobItems = document.querySelectorAll('.job-item');
+    console.log('找到的职位项目数量:', jobItems.length);
+    
+    if (jobItems.length > 0) {
+        const firstJob = jobItems[0];
+        console.log('第一个职位项目:', firstJob);
+        console.log('职位ID:', firstJob.getAttribute('data-job-id'));
+        console.log('职位标题:', firstJob.querySelector('.job-item-title')?.textContent);
+        
+        // 直接调用openJobDetail函数
+        if (firstJob.getAttribute('data-job-id')) {
+            console.log('直接调用openJobDetail...');
+            openJobDetail(firstJob.getAttribute('data-job-id'));
+        }
+    } else {
+        console.error('没有找到职位项目！');
+    }
+}
+
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
     initParticles();
@@ -1605,6 +1631,7 @@ function initJobClickHandlers() {
     // 使用事件委托来处理动态添加的职位卡片点击事件
     document.addEventListener('click', function(event) {
         console.log('点击事件触发:', event.target);
+        console.log('点击的元素类名:', event.target.className);
         
         const jobItem = event.target.closest('.job-item');
         if (jobItem) {
@@ -1632,6 +1659,19 @@ function initJobClickHandlers() {
                 element: item,
                 jobId: item.getAttribute('data-job-id'),
                 title: item.querySelector('.job-item-title')?.textContent
+            });
+        });
+        
+        // 为每个职位项目添加直接的点击事件监听器作为备用
+        jobItems.forEach((item, index) => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                console.log('直接点击事件触发:', item);
+                const jobId = item.getAttribute('data-job-id');
+                if (jobId) {
+                    console.log('直接点击职位:', jobId);
+                    openJobDetail(jobId);
+                }
             });
         });
     }, 1000);
