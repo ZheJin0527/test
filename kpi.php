@@ -1448,7 +1448,7 @@ $avatarLetter = strtoupper($username[0]);
 
     <script>
         // API 配置
-        const API_BASE_URL = 'api.php';
+        const API_BASE_URL = 'kpiapi.php';
         
         // 应用状态
         let actualData = [];
