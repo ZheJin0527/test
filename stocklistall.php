@@ -412,26 +412,6 @@
             min-height: 400px;
         }
 
-        /* 优化滚动条样式 */
-        .table-scroll-container::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        .table-scroll-container::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 4px;
-        }
-
-        .table-scroll-container::-webkit-scrollbar-thumb {
-            background: #583e04;
-            border-radius: 4px;
-        }
-
-        .table-scroll-container::-webkit-scrollbar-thumb:hover {
-            background: #462d03;
-        }
-
         .stock-table td {
             padding: 12px 8px;
             border: 1px solid #d1d5db;
