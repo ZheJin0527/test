@@ -64,7 +64,7 @@ include 'header.php';
   </section>
 </div>
 
-<div class="swiper-slide">
+<!-- <div class="swiper-slide">
     <div class="comphoto-section" id="comphoto-container">
     <div class="comphoto-title">我们的足迹</div>
         </div>
@@ -74,7 +74,7 @@ include 'header.php';
                 <img id="comphoto-modal-img" src="" alt="放大的照片">
             </div>
         </div>
-    </div>
+    </div> -->
 
 <div class="swiper-slide">
 
