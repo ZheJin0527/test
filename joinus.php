@@ -1411,7 +1411,9 @@ let jobsData = {};
 async function loadJobsData() {
     try {
         console.log('开始加载职位数据...'); // 调试信息
+        console.log('正在请求: get_jobs_api.php');
         const response = await fetch('get_jobs_api.php');
+        console.log('请求响应状态:', response.status);
         
         if (!response.ok) {
             throw new Error(`HTTP错误: ${response.status}`);
