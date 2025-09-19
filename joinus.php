@@ -1,10 +1,4 @@
 <?php
-echo '<script>
-console.log("joinus.php loaded");
-window.location.assign = function(url){ console.log("Blocked JS assign:", url); };
-window.location.replace = function(url){ console.log("Blocked JS replace:", url); };
-</script>';
-
 session_start();
 include_once 'media_config.php';
 
