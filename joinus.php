@@ -67,14 +67,13 @@ include 'header.php';
 <div class="swiper-slide">
     <div class="comphoto-section" id="comphoto-container">
         <div class="comphoto-title">我们的足迹</div>
-        <div class="comphoto-ring" id="comphotoCircle"></div>
     </div>
-        <div id="comphoto-modal" class="comphoto-modal">
+        <!-- <div id="comphoto-modal" class="comphoto-modal">
             <span class="comphoto-close">&times;</span>
             <div class="comphoto-modal-content">
                 <img id="comphoto-modal-img" src="" alt="放大的照片">
             </div>
-        </div>
+        </div> -->
     </div>
 
 <div class="swiper-slide">
@@ -82,8 +81,6 @@ include 'header.php';
     <div class="job-section">
         <div class="job-table-container">
             <h2 class="job-table-title">目前在招聘的职位</h2>
-            <!-- 临时测试按钮 -->
-            <button onclick="testClick()" style="background: #FF5C00; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 10px;">测试点击</button>
         </div>
     <div class ="jobs-wrapper">    
         <div class="jobs-container">
@@ -1004,46 +1001,387 @@ window.addEventListener('resize', () => {
   }
 </script>
 <script>
-        // 将“我们的足迹”改为围成一圈自动旋转
+        // 示例照片数组
         const photos = <?php echo json_encode(getCompanyPhotos()); ?>;
-        const circleEl = document.getElementById('comphotoCircle');
+        const comphotoContainer = document.getElementById('comphoto-container');
+        const comphotoModal = document.getElementById('comphoto-modal');
+        const comphotoModalImg = document.getElementById('comphoto-modal-img');
+        const comphotoModalContent = document.querySelector('.comphoto-modal-content');
+        const comphotoCloseBtn = document.querySelector('.comphoto-close');
 
-        function initComphotoCircle() {
-            if (!circleEl) return;
-            circleEl.innerHTML = '';
+        // 照片数据存储
+        const photoData = [];
+        let currentClickedImg = null;
+        let animationId = null;
+        let isPaused = false;
 
-            // 取前12张，足够形成环。若不足则按实际数量。
-            const maxItems = 12;
-            const items = photos.slice(0, maxItems);
-            const count = items.length;
+        // 物理参数
+        const PHOTO_WIDTH = 120;
+        const PHOTO_HEIGHT = 80;
+        const NAVBAR_HEIGHT = 80;
+        const PHOTO_MARGIN = 10;
 
-            items.forEach((src, idx) => {
-                const item = document.createElement('div');
-                item.className = 'ring-item';
-                const img = document.createElement('img');
-                img.src = src;
-                img.loading = 'lazy';
-                item.appendChild(img);
+        // 存储已占用的位置
+        const occupiedPositions = [];
 
-                // 使用自定义属性让 CSS 完成分布与反向旋转
-                const angle = (360 / count) * idx;
-                item.style.setProperty('--item-angle', angle + 'deg');
-                circleEl.appendChild(item);
+        // 生成合适的斜线角度 - 确保明显的斜线运动
+        function generateDiagonalAngle() {
+            // 定义允许的角度范围，避免接近水平和垂直
+            const minAngle = Math.PI / 6;  // 30度
+            const maxAngle = Math.PI / 3;  // 60度
+            
+            // 随机选择四个象限之一
+            const quadrant = Math.floor(Math.random() * 4);
+            let baseAngle;
+            
+            switch(quadrant) {
+                case 0: // 第一象限 (右上)
+                    baseAngle = Math.random() * (maxAngle - minAngle) + minAngle;
+                    break;
+                case 1: // 第二象限 (左上)
+                    baseAngle = Math.PI - (Math.random() * (maxAngle - minAngle) + minAngle);
+                    break;
+                case 2: // 第三象限 (左下)
+                    baseAngle = Math.PI + (Math.random() * (maxAngle - minAngle) + minAngle);
+                    break;
+                case 3: // 第四象限 (右下)
+                    baseAngle = 2 * Math.PI - (Math.random() * (maxAngle - minAngle) + minAngle);
+                    break;
+            }
+            
+            return baseAngle;
+        }
+
+        // 根据角度生成速度向量
+        function generateVelocityFromAngle(angle) {
+            const speed = 0.6;
+            return {
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed
+            };
+        }
+
+        // 修正反弹后的角度，确保保持斜线运动
+        function correctBounceAngle(vx, vy, isHorizontalBounce) {
+            let newVx = vx, newVy = vy;
+            
+            if (isHorizontalBounce) {
+                newVx = -vx; // 水平反弹
+            } else {
+                newVy = -vy; // 垂直反弹
+            }
+            
+            // 计算当前角度
+            let currentAngle = Math.atan2(newVy, newVx);
+            if (currentAngle < 0) currentAngle += 2 * Math.PI;
+            
+            // 检查角度是否太接近水平或垂直方向
+            const tolerance = Math.PI / 8; // 22.5度的容差
+            const horizontalAngles = [0, Math.PI, 2 * Math.PI];
+            const verticalAngles = [Math.PI / 2, 3 * Math.PI / 2];
+            
+            let needsCorrection = false;
+            
+            // 检查是否太接近水平方向
+            for (let hAngle of horizontalAngles) {
+                if (Math.abs(currentAngle - hAngle) < tolerance) {
+                    needsCorrection = true;
+                    break;
+                }
+            }
+            
+            // 检查是否太接近垂直方向
+            if (!needsCorrection) {
+                for (let vAngle of verticalAngles) {
+                    if (Math.abs(currentAngle - vAngle) < tolerance) {
+                        needsCorrection = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (needsCorrection) {
+                // 重新生成一个合适的斜线角度
+                const newAngle = generateDiagonalAngle();
+                const velocity = generateVelocityFromAngle(newAngle);
+                return { vx: velocity.vx, vy: velocity.vy };
+            }
+            
+            return { vx: newVx, vy: newVy };
+        }
+
+        // 检查两个矩形是否重叠
+        function isOverlapping(pos1, pos2, width, height, margin) {
+            return !(pos1.x + width + margin < pos2.x || 
+                    pos2.x + width + margin < pos1.x || 
+                    pos1.y + height + margin < pos2.y || 
+                    pos2.y + height + margin < pos1.y);
+        }
+
+        // 生成不重叠的随机位置
+        function getRandomNonOverlappingPosition() {
+            const boundaries = getBoundaries();
+            let attempts = 0;
+            const maxAttempts = 200;
+            
+            while (attempts < maxAttempts) {
+                const x = Math.random() * (boundaries.right - boundaries.left) + boundaries.left;
+                const y = Math.random() * (boundaries.bottom - boundaries.top) + boundaries.top;
+                
+                const newPos = { x, y };
+                
+                let overlaps = false;
+                for (let occupiedPos of occupiedPositions) {
+                    if (isOverlapping(newPos, occupiedPos, PHOTO_WIDTH, PHOTO_HEIGHT, PHOTO_MARGIN)) {
+                        overlaps = true;
+                        break;
+                    }
+                }
+                
+                if (!overlaps) {
+                    occupiedPositions.push(newPos);
+                    return newPos;
+                }
+                
+                attempts++;
+            }
+            
+            // 备选网格布局
+            const cols = Math.floor((boundaries.right - boundaries.left) / (PHOTO_WIDTH + PHOTO_MARGIN));
+            const index = occupiedPositions.length;
+            const col = index % cols;
+            const row = Math.floor(index / cols);
+            
+            const fallbackPos = {
+                x: boundaries.left + col * (PHOTO_WIDTH + PHOTO_MARGIN),
+                y: boundaries.top + row * (PHOTO_HEIGHT + PHOTO_MARGIN)
+            };
+            
+            occupiedPositions.push(fallbackPos);
+            return fallbackPos;
+        }
+
+        // 获取边界
+        function getBoundaries() {
+            return {
+                left: 0,
+                right: window.innerWidth - PHOTO_WIDTH,
+                top: NAVBAR_HEIGHT,
+                bottom: window.innerHeight - PHOTO_HEIGHT
+            };
+        }
+
+        // 创建照片元素和数据
+        function createComphoto(src, index) {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'comphoto';
+            img.loading = 'lazy';
+            
+            const pos = getRandomNonOverlappingPosition();
+            
+            // 生成斜线角度和速度
+            const angle = generateDiagonalAngle();
+            const velocity = generateVelocityFromAngle(angle);
+            
+            img.style.left = pos.x + 'px';
+            img.style.top = pos.y + 'px';
+            
+            img.addEventListener('click', function() {
+                openComphotoModal(this);
+            });
+            
+            const photoInfo = {
+                element: img,
+                x: pos.x,
+                y: pos.y,
+                vx: velocity.vx,
+                vy: velocity.vy,
+                index: index
+            };
+            
+            photoData.push(photoInfo);
+            return img;
+        }
+
+        // 更新照片位置
+        function updatePhotos() {
+            if (isPaused) return;
+            
+            const boundaries = getBoundaries();
+            
+            photoData.forEach(photo => {
+                photo.x += photo.vx;
+                photo.y += photo.vy;
+                
+                let bounced = false;
+                let isHorizontalBounce = false;
+                
+                // 检查水平边界碰撞
+                if (photo.x <= boundaries.left || photo.x >= boundaries.right) {
+                    photo.x = Math.max(boundaries.left, Math.min(boundaries.right, photo.x));
+                    bounced = true;
+                    isHorizontalBounce = true;
+                }
+                
+                // 检查垂直边界碰撞
+                if (photo.y <= boundaries.top || photo.y >= boundaries.bottom) {
+                    photo.y = Math.max(boundaries.top, Math.min(boundaries.bottom, photo.y));
+                    bounced = true;
+                    isHorizontalBounce = false;
+                }
+                
+                if (bounced) {
+                    // 使用修正后的反弹角度
+                    const correctedVelocity = correctBounceAngle(photo.vx, photo.vy, isHorizontalBounce);
+                    photo.vx = correctedVelocity.vx;
+                    photo.vy = correctedVelocity.vy;
+                    
+                    // 碰撞时改变边框颜色
+                    photo.element.style.borderColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+                }
+                
+                photo.element.style.left = photo.x + 'px';
+                photo.element.style.top = photo.y + 'px';
             });
         }
 
-        // 悬停时暂停旋转
-        if (circleEl) {
-            circleEl.addEventListener('mouseenter', () => {
-                circleEl.style.animationPlayState = 'paused';
+        // 动画循环
+        function animate() {
+            updatePhotos();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // 初始化照片
+        function initComphoto() {
+            photos.forEach((photo, index) => {
+                const photoElement = createComphoto(photo, index);
+                comphotoContainer.appendChild(photoElement);
             });
-            circleEl.addEventListener('mouseleave', () => {
-                circleEl.style.animationPlayState = 'running';
+            
+            animate();
+        }
+
+        // 暂停/恢复动画
+        function pauseAnimation() {
+            isPaused = true;
+        }
+
+        function resumeAnimation() {
+            isPaused = false;
+        }
+
+        // 丝滑打开模态框
+        function openComphotoModal(clickedImg) {
+            currentClickedImg = clickedImg;
+            pauseAnimation();
+
+            const rect = clickedImg.getBoundingClientRect();
+            comphotoModalImg.src = clickedImg.src;
+            comphotoModal.style.display = 'block';
+            
+            comphotoModalContent.style.left = rect.left + 'px';
+            comphotoModalContent.style.top = rect.top + 'px';
+            comphotoModalContent.style.width = rect.width + 'px';
+            comphotoModalContent.style.height = rect.height + 'px';
+            comphotoModalContent.style.borderRadius = '8px';
+            
+            document.body.style.overflow = 'hidden';
+            clickedImg.classList.add('comphoto-hidden');
+            comphotoModalContent.offsetHeight;
+            
+            requestAnimationFrame(() => {
+                comphotoModal.classList.add('show');
+                
+                const scaleMultiplier = 8;
+                const targetWidth = rect.width * scaleMultiplier;
+                const targetHeight = rect.height * scaleMultiplier;
+                
+                const maxWidth = window.innerWidth * 0.9;
+                const maxHeight = window.innerHeight * 0.9;
+                
+                let finalWidth = targetWidth;
+                let finalHeight = targetHeight;
+                
+                if (targetWidth > maxWidth || targetHeight > maxHeight) {
+                    const scaleDownRatio = Math.min(
+                        maxWidth / targetWidth,
+                        maxHeight / targetHeight
+                    );
+                    finalWidth = targetWidth * scaleDownRatio;
+                    finalHeight = targetHeight * scaleDownRatio;
+                }
+                
+                const targetLeft = (window.innerWidth - finalWidth) / 2;
+                const targetTop = (window.innerHeight - finalHeight) / 1.5;
+                
+                comphotoModalContent.style.left = targetLeft + 'px';
+                comphotoModalContent.style.top = targetTop + 'px';
+                comphotoModalContent.style.width = finalWidth + 'px';
+                comphotoModalContent.style.height = finalHeight + 'px';
+                comphotoModalContent.style.borderRadius = '12px';
             });
         }
 
-        window.addEventListener('resize', initComphotoCircle);
-        initComphotoCircle();
+        // 关闭模态框
+        function closeComphotoModal() {
+            if (currentClickedImg) {
+                const rect = currentClickedImg.getBoundingClientRect();
+                
+                comphotoModalContent.style.left = rect.left + 'px';
+                comphotoModalContent.style.top = rect.top + 'px';
+                comphotoModalContent.style.width = rect.width + 'px';
+                comphotoModalContent.style.height = rect.height + 'px';
+                comphotoModalContent.style.borderRadius = '8px';
+            }
+            
+            comphotoModal.classList.remove('show');
+            
+            setTimeout(() => {
+                comphotoModal.style.display = 'none';
+                document.body.style.overflow = 'hidden';
+                
+                if (currentClickedImg) {
+                    currentClickedImg.classList.remove('comphoto-hidden');
+                }
+                
+                resumeAnimation();
+                currentClickedImg = null;
+            }, 500);
+        }
+
+        // 窗口大小改变时重新定位照片
+        function handleResize() {
+            occupiedPositions.length = 0;
+            
+            photoData.forEach(photo => {
+                const newPos = getRandomNonOverlappingPosition();
+                photo.x = newPos.x;
+                photo.y = newPos.y;
+                photo.element.style.left = photo.x + 'px';
+                photo.element.style.top = photo.y + 'px';
+            });
+        }
+
+        // 事件监听器
+        comphotoCloseBtn.addEventListener('click', closeComphotoModal);
+        
+        comphotoModal.addEventListener('click', function(e) {
+            if (e.target === comphotoModal) {
+                closeComphotoModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeComphotoModal();
+            }
+        });
+
+        window.addEventListener('resize', handleResize);
+
+        // 初始化
+        initComphoto();
     </script>
     <script>
         // 粒子动画初始化
@@ -1071,14 +1409,7 @@ let jobsData = {};
 async function loadJobsData() {
     try {
         console.log('开始加载职位数据...'); // 调试信息
-        console.log('正在请求: get_jobs_api.php');
         const response = await fetch('get_jobs_api.php');
-        console.log('请求响应状态:', response.status);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP错误: ${response.status}`);
-        }
-        
         const data = await response.json();
         console.log('服务器返回的数据:', data); // 调试信息
         
@@ -1087,39 +1418,31 @@ async function loadJobsData() {
             jobsData = {};
             
             Object.values(data.companies).forEach(company => {
-                if (company.jobs && Array.isArray(company.jobs)) {
-                    company.jobs.forEach(job => {
-                        jobsData[job.id] = {
-                            title: job.title,
-                            count: job.count,
-                            experience: job.experience,
-                            publish_date: job.publish_date,
-                            company: company.name,
-                            description: job.description,
-                            address: job.address || '待定',
-                            department: job.department || '',
-                            salary: job.salary || ''
-                        };
-                    });
-                }
+                company.jobs.forEach(job => {
+                    jobsData[job.id] = {
+                        title: job.title,
+                        count: job.count,
+                        experience: job.experience,
+                        publish_date: job.publish_date,
+                        company: company.name,
+                        description: job.description,
+                        address: job.address || '待定',
+                        department: job.department || '',
+                        salary: job.salary || ''
+                    };
+                });
             });
             
             console.log('职位数据加载完成:', jobsData); // 调试信息
-            console.log('职位数据条目数:', Object.keys(jobsData).length);
-            
-            // 验证数据是否正确加载
-            if (Object.keys(jobsData).length === 0) {
-                console.warn('警告：职位数据为空，可能是数据库中没有职位数据');
-            }
         } else {
             console.error('服务器返回失败:', data.error); // 调试信息
-            console.log('尝试使用默认数据...');
-            // 不显示错误，而是使用默认数据
+            // 显示错误信息给用户
+            showJobLoadError();
         }
     } catch (error) {
         console.error('加载职位数据失败:', error);
-        console.log('使用默认数据继续运行...');
-        // 不显示错误，而是使用默认数据
+        // 显示错误信息给用户
+        showJobLoadError();
     }
 }
 
@@ -1153,8 +1476,6 @@ function getJobData(jobId) {
 // 打开职位详情弹窗
 function openJobDetail(jobId) {
     console.log('尝试打开职位详情:', jobId); // 调试信息
-    console.log('当前职位数据缓存:', jobsData); // 调试信息
-    
     const jobData = getJobData(jobId);
     console.log('职位数据:', jobData); // 调试信息
     
@@ -1183,7 +1504,6 @@ function openJobDetail(jobId) {
         document.getElementById('jobDetailDepartment').style.display = 'none';
         document.getElementById('jobDetailSalary').style.display = 'none';
     } else {
-        console.log('使用真实职位数据填充弹窗'); // 调试信息
         // 填充弹窗数据
         document.getElementById('jobDetailTitle').textContent = jobData.title;
         document.getElementById('jobDetailCount').textContent = jobData.count;
@@ -1210,7 +1530,6 @@ function openJobDetail(jobId) {
     }
     
     // 显示弹窗
-    console.log('显示职位详情弹窗'); // 调试信息
     document.getElementById('jobDetailModal').style.display = 'flex';
 }
 
@@ -1249,94 +1568,30 @@ window.onclick = function(event) {
     }
 }
 
-// 测试函数
-function testClick() {
-    console.log('=== 测试点击功能 ===');
-    
-    // 检查职位项目
-    const jobItems = document.querySelectorAll('.job-item');
-    console.log('找到的职位项目数量:', jobItems.length);
-    
-    if (jobItems.length > 0) {
-        const firstJob = jobItems[0];
-        console.log('第一个职位项目:', firstJob);
-        console.log('职位ID:', firstJob.getAttribute('data-job-id'));
-        console.log('职位标题:', firstJob.querySelector('.job-item-title')?.textContent);
-        
-        // 直接调用openJobDetail函数
-        if (firstJob.getAttribute('data-job-id')) {
-            console.log('直接调用openJobDetail...');
-            openJobDetail(firstJob.getAttribute('data-job-id'));
-        }
-    } else {
-        console.error('没有找到职位项目！');
-    }
-}
-
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
     initParticles();
     
+    // 加载职位数据
+    loadJobsData();
+    
     // 初始化职位点击功能
     initJobClickHandlers();
-    
-    // 延迟加载职位数据，确保页面完全加载
-    setTimeout(() => {
-        loadJobsData();
-    }, 500);
 });
 
 // 职位点击功能
 function initJobClickHandlers() {
-    console.log('初始化职位点击处理器...');
-    
     // 使用事件委托来处理动态添加的职位卡片点击事件
     document.addEventListener('click', function(event) {
-        console.log('点击事件触发:', event.target);
-        console.log('点击的元素类名:', event.target.className);
-        
         const jobItem = event.target.closest('.job-item');
         if (jobItem) {
-            console.log('找到职位项目:', jobItem);
             const jobId = jobItem.getAttribute('data-job-id');
-            console.log('职位ID:', jobId);
-            
             if (jobId) {
                 console.log('点击了职位:', jobId);
                 openJobDetail(jobId);
-            } else {
-                console.warn('职位项目缺少data-job-id属性');
             }
-        } else {
-            console.log('点击的不是职位项目');
         }
     });
-    
-    // 添加调试信息：检查页面上的职位项目
-    setTimeout(() => {
-        const jobItems = document.querySelectorAll('.job-item');
-        console.log('页面上的职位项目数量:', jobItems.length);
-        jobItems.forEach((item, index) => {
-            console.log(`职位 ${index + 1}:`, {
-                element: item,
-                jobId: item.getAttribute('data-job-id'),
-                title: item.querySelector('.job-item-title')?.textContent
-            });
-        });
-        
-        // 为每个职位项目添加直接的点击事件监听器作为备用
-        jobItems.forEach((item, index) => {
-            item.addEventListener('click', function(e) {
-                e.stopPropagation();
-                console.log('直接点击事件触发:', item);
-                const jobId = item.getAttribute('data-job-id');
-                if (jobId) {
-                    console.log('直接点击职位:', jobId);
-                    openJobDetail(jobId);
-                }
-            });
-        });
-    }, 1000);
 }
     </script>
 <script>
