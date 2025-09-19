@@ -1409,7 +1409,6 @@ let jobsData = {};
 async function loadJobsData() {
     try {
         console.log('开始加载职位数据...'); // 调试信息
-<<<<<<< HEAD
         console.log('正在请求: get_jobs_api.php');
         
         // 尝试多个可能的路径
@@ -1442,10 +1441,6 @@ async function loadJobsData() {
         if (!response || !response.ok) {
             throw new Error(`所有API路径都失败，最后错误: ${lastError?.message || '未知错误'}`);
         }
-        
-=======
-        const response = await fetch('get_jobs_api.php');
->>>>>>> 9437be9e7633f20b3e230c4689fb19a795c2278a
         const data = await response.json();
         console.log('服务器返回的数据:', data); // 调试信息
         
