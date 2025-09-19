@@ -81,6 +81,8 @@ include 'header.php';
     <div class="job-section">
         <div class="job-table-container">
             <h2 class="job-table-title">目前在招聘的职位</h2>
+            <!-- 调试按钮 -->
+            <button onclick="testJobClick()" style="background: #FF5C00; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 10px;">测试职位点击</button>
         </div>
     <div class ="jobs-wrapper">    
         <div class="jobs-container">
@@ -1577,6 +1579,36 @@ window.onclick = function(event) {
     
     if (event.target == jobDetailModal) {
         jobDetailModal.style.display = 'none';
+    }
+}
+
+// 测试函数
+function testJobClick() {
+    console.log('=== 测试职位点击功能 ===');
+    
+    // 检查职位项目
+    const jobItems = document.querySelectorAll('.job-item');
+    console.log('找到的职位项目数量:', jobItems.length);
+    
+    if (jobItems.length === 0) {
+        console.error('没有找到任何职位项目！');
+        alert('没有找到任何职位项目！请检查数据库连接。');
+        return;
+    }
+    
+    // 检查第一个职位项目
+    const firstJob = jobItems[0];
+    console.log('第一个职位项目:', firstJob);
+    console.log('职位ID:', firstJob.getAttribute('data-job-id'));
+    console.log('职位标题:', firstJob.querySelector('.job-item-title')?.textContent);
+    
+    // 模拟点击第一个职位
+    if (firstJob.getAttribute('data-job-id')) {
+        console.log('模拟点击第一个职位...');
+        openJobDetail(firstJob.getAttribute('data-job-id'));
+    } else {
+        console.error('第一个职位缺少data-job-id属性');
+        alert('职位缺少ID属性，无法点击！');
     }
 }
 
