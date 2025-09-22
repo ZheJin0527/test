@@ -112,7 +112,7 @@ $currentConfig = getTokyoLocationConfig();
             max-width: 1800px;
             margin: 0 auto;
             padding: 24px;
-            background: white;
+            background: #f1dfbc;
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
