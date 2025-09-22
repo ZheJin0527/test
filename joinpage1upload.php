@@ -107,7 +107,7 @@ if (file_exists('media_config.json')) {
         }
         
         .header h1 {
-            font-size: 2.5em;
+            font-size: 50px;
             margin-bottom: 10px;
         }
         
@@ -283,7 +283,6 @@ if (file_exists('media_config.json')) {
     <div class="container">
         <div class="header">
             <h1>加入我们页面管理</h1>
-            <p>管理加入我们页面背景图片</p>
         </div>
         
         <div class="breadcrumb">

@@ -193,7 +193,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .header h1 {
-            font-size: 2.5em;
+            font-size: 50px;
             margin-bottom: 10px;
         }
         
@@ -552,7 +552,6 @@ foreach ($defaultTimeline as $year => $data) {
     <div class="container">
         <div class="header">
             <h1>发展历史管理</h1>
-            <p>管理关于我们页面的时间线照片和文案内容</p>
         </div>
         
         <div class="breadcrumb">

@@ -105,7 +105,7 @@ if (file_exists('media_config.json')) {
         }
         
         .header h1 {
-            font-size: 2.2em;
+            font-size: 50px;
             margin-bottom: 8px;
         }
         
@@ -334,7 +334,6 @@ if (file_exists('media_config.json')) {
     <div class="container">
         <div class="header">
             <h1>我们的足迹照片管理</h1>
-            <p>管理30张公司活动照片</p>
         </div>
         
         <div class="breadcrumb">

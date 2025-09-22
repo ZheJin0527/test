@@ -177,7 +177,7 @@ function formatFileSize($bytes) {
         }
         
         .header h1 {
-            font-size: 2.5em;
+            font-size: 50px;
             margin-bottom: 10px;
         }
         
@@ -429,7 +429,6 @@ function formatFileSize($bytes) {
     <div class="container">
         <div class="header">
             <h1>🎵 背景音乐管理</h1>
-            <p>管理网站所有页面的背景音乐</p>
         </div>
         
         <div class="breadcrumb">

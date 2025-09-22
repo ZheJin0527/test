@@ -178,7 +178,7 @@ if (isset($_GET['success'])) {
         }
         
         .header h1 {
-            font-size: 2.5em;
+            font-size: 50px;
             margin-bottom: 10px;
         }
         
@@ -679,7 +679,6 @@ if (isset($_GET['success'])) {
     <div class="container">
         <div class="header">
             <h1>招聘职位管理</h1>
-            <p>管理加入我们页面的招聘职位信息</p>
         </div>
         
         <div class="breadcrumb">
