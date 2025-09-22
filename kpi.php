@@ -926,7 +926,7 @@ $avatarLetter = strtoupper($username[0]);
         .divider {
             width: 1px;
             height: 24px;
-            background-color: #d1d5db;
+            background-color: #583e04;
         }
 
         /* 响应式调整 */
