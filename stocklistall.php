@@ -22,7 +22,7 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 0px 24px;
+            padding: 24px;
         }
         
         .header {
