@@ -85,7 +85,7 @@ $avatarLetter = strtoupper($username[0]);
         .container {
             max-width: 1500px;
             margin: 0 auto;
-            padding: 0px 0px 24px;
+            padding: 24px;
         }
 
         /* 主内容区域样式 */
@@ -138,12 +138,8 @@ $avatarLetter = strtoupper($username[0]);
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
-            padding: 0;
-            background: none;
-            border: none;
-            box-shadow: none;
         }
-        
+
         .header h1 {
             font-size: 56px;
             font-weight: bold;
@@ -1148,16 +1144,16 @@ $avatarLetter = strtoupper($username[0]);
 </head>
 <body class="restaurant-j1">
     <?php include 'sidebar.php'; ?>
-    <div id="app">
+        <div class="container">
             <div class="header">
                 <div>
                     <h1>KPI 仪表盘</h1>
                 </div>
                 <div class="controls">
-                    <!-- 这里可以放其他控件，现在先留空 -->
+                    <!-- 控件区域 -->
                 </div>
             </div>
-        <div class="container">           
+            <div id="app">         
             <!-- Date Controls -->
             <div class="card" style="margin-bottom: 32px;">
                 <div class="card-body">
