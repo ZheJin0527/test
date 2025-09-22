@@ -330,11 +330,11 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 8px 12px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;

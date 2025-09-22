@@ -413,11 +413,11 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 8px 12px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -461,7 +461,7 @@
             display: flex;
             gap: 24px;
             align-items: center;
-            font-size: 14px;
+            font-size: 12px;
             color: #6b7280;
             flex-wrap: wrap;
         }
@@ -474,7 +474,7 @@
         }
 
         .stat-value {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
             color: #583e04;
         }
