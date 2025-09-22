@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['animation.css', 'index.css'];
+$additionalCSS = ['demo.css', 'animation.css', 'index.css'];
 $showPageIndicator = true;
 $totalSlides = 4;
 
@@ -30,29 +30,39 @@ include 'header.php';
   <section class="home">
   <?php echo getMediaHtml('home_background'); ?>
 
-  <div class="home-content hidden animate-on-scroll">
-    <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+  <div class="home-content hidden animate-on-scroll container">
+    <h1 class="title scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
     <div class="decor-line scale-fade-in"></div>
     <p class="scale-fade-in">
       我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
       我们相信，高效源于信任，创新源于自由。一支有温度的团队，<br />
       才能创造持续的价值，向着行业标杆的方向，稳步前行。
     </p>
+    <!-- 添加测试按钮来展示你的按钮规范 -->
+    <div class="text-center mt-lg">
+      <button class="button button-primary">了解更多</button>
+      <button class="button button-secondary">加入我们</button>
+      <button class="button button-ghost">联系我们</button>
+    </div>
   </div>
 </section>
   </div>
 
   <div class="swiper-slide">
   <section class="about-section" id="comprofile">
-  <div class="comprofile-section">
+  <div class="comprofile-section container">
     <div class="comprofile-text">
         <p class="comprofile-subtitle animate-on-scroll slide-in-left delay-1">
             <span class="circle"></span>公司简介
         </p>
       <h2 class="comprofile-title animate-on-scroll slide-in-left delay-2">KUNZZ HOLDINGS</h2>
       <p class="comprofile-description animate-on-scroll slide-in-left delay-3">
-        Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
+        Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守"塑造积极向上和舒适的工作环境"为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
       </p>
+      <!-- 添加响应式按钮测试 -->
+      <div class="mt-lg">
+        <button class="button button-primary">查看详情</button>
+      </div>
     </div>
     <div class="comprofile-image animate-on-scroll rotate-3d-full">
       <!-- 你可以换成自己的图片 -->
@@ -104,13 +114,16 @@ include 'header.php';
       </div>
     </div>
 
-    <div class="culture-right animate-on-scroll">
+    <div class="culture-right animate-on-scroll container">
       <h2 class="culture-title animate-on-scroll culture-scale-fade delay-6">我们的核心价值<br>公司文化</h2>
       <p class="culture-description animate-on-scroll culture-scale-fade delay-7">
         在 Kunzz Holdings，我们相信文化决定高度。我们以目标为导向，理念为基石，打造一支具备高效执行力与高度协同精神的团队。
         我们提倡扁平沟通，尊重每一位成员的成长节奏，鼓励分享、学习与共创。在这里，每一份努力都能被看见，每一次突破都值得被鼓励。
       </p>
-      <a href="about.php" class="culture-button animate-on-scroll culture-scale-fade delay-8">了解更多 &gt;&gt;</a>
+      <div class="mt-lg">
+        <a href="about.php" class="button button-primary animate-on-scroll culture-scale-fade delay-8">了解更多</a>
+        <button class="button button-ghost">文化详情</button>
+      </div>
     </div>
   </section>
   </div>
