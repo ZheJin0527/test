@@ -981,7 +981,7 @@
             display: flex;
             flex-direction: column;
             height: calc(100vh - 400px); /* 设置固定高度 */
-            min-height: 500px;
+            min-height: 300px;
         }
 
         .table-container > div:first-child {
