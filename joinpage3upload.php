@@ -155,7 +155,7 @@ if (isset($_GET['success'])) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
+            background: #f1dfbc;
             min-height: 100vh;
             padding: 20px;
         }
