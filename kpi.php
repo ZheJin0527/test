@@ -1691,7 +1691,7 @@ $avatarLetter = strtoupper($username[0]);
             currentDateType = null;
         }
 
-                // 回到顶部功能
+        // 回到顶部功能
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
