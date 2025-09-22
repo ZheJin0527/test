@@ -1708,7 +1708,12 @@ $avatarLetter = strtoupper($username[0]);
                 const backToTopBtn = document.getElementById('back-to-top-btn');
                 const scrollThreshold = 150; // 滚动超过150px后显示按钮
                 
-                if (window.pageYOffset > scrollThreshold) {
+                // 获取实际滚动位置
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                
+                console.log('当前滚动位置:', scrollTop); // 调试用，可以删除
+                
+                if (scrollTop > scrollThreshold) {
                     backToTopBtn.classList.add('show');
                 } else {
                     backToTopBtn.classList.remove('show');
