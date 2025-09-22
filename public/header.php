@@ -19,7 +19,6 @@ if (!isset($mediaConfigIncluded)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? $pageTitle : 'KUNZZ HOLDINGS'; ?></title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="public/css/components/header.css" />
     <?php if (isset($additionalCSS)): ?>
         <?php foreach ($additionalCSS as $css): ?>
             <link rel="stylesheet" href="<?php echo $css; ?>" />

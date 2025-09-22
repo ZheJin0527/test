@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Variables 动态主题 Demo</title>
+  <style>
+    /* 定义全局变量 */
+    :root {
+      --primary-color: #007bff; /* 默认蓝色 */
+      --secondary-color: #ff5722;
+      --text-color: #ffffff;
+      --container-width: 80%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      width: var(--container-width);
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 12px;
+      background: var(--primary-color);
+      color: var(--text-color);
+      transition: background 0.3s ease;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      background: var(--secondary-color);
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌈 CSS Variables 动态换主题 Demo</h1>
+
+  <div class="container">
+    <p>我是容器，背景颜色用 <code>--primary-color</code> 控制</p>
+  </div>
+
+  <div>
+    <button onclick="setTheme('#007bff')">蓝色主题</button>
+    <button onclick="setTheme('#28a745')">绿色主题</button>
+    <button onclick="setTheme('#6f42c1')">紫色主题</button>
+    <button onclick="setTheme('#e91e63')">粉色主题</button>
+  </div>
+
+  <script>
+    function setTheme(color) {
+      document.documentElement.style.setProperty('--primary-color', color);
+    }
+  </script>
+
+</body>
+</html>
