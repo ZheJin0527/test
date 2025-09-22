@@ -163,6 +163,7 @@ if (isset($_GET['success'])) {
         .container {
             max-width: 1800px;
             margin: 0 auto;
+            padding: 24px;
             background: white;
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
