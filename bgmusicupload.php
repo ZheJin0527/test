@@ -153,9 +153,10 @@ function formatFileSize($bytes) {
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #f1dfbc;
-            color: #111827;
+            min-height: 100vh;
+            padding: 0;
         }
         
         .container {
@@ -166,6 +167,8 @@ function formatFileSize($bytes) {
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
             border: 3px solid #FF5C00;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
         
         .header {
@@ -404,28 +407,29 @@ function formatFileSize($bytes) {
             margin-bottom: 5px;
         }
 
-        /* Header styles from stockproductname.php */
-        .container {
-            max-width: 1800px;
-            margin: 0 auto;
+        /* 添加在现有样式之后 */
+        .page-header {
+            background-color: #f1dfbc;
             padding: 24px;
+            margin-bottom: 0;
         }
 
-        .header {
+        .page-header .header {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
         }
 
-        .header h1 {
+        .page-header h1 {
             font-size: 50px;
             font-weight: bold;
             color: #583e04;
             margin: 0;
         }
 
-        .header .controls {
+        .page-header .controls {
             display: flex;
             align-items: center;
             gap: 16px;
@@ -474,13 +478,13 @@ function formatFileSize($bytes) {
 </head>
 <body>
     <?php include 'sidebar.php'; ?>
-    <div class="container">
+    <div class="page-header">
         <div class="header">
             <div>
-                <h1>背景音乐管理</h1>
+                <h1>背景音乐管理后台</h1>
             </div>
             <div class="controls">
-                <button class="back-button" onclick="goBack()">
+                <button class="back-button" onclick="window.location.href='media_manager.php'">
                     <i class="fas fa-arrow-left"></i>
                     返回上一页
                 </button>
@@ -496,7 +500,7 @@ function formatFileSize($bytes) {
         </div>
         
         <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
+            
             
             <?php if (isset($_GET['success']) && $_GET['success'] == '1'): ?>
                 <div class="alert alert-success">音乐文件上传成功！</div>
