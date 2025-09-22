@@ -93,7 +93,7 @@ if (file_exists('media_config.json')) {
         }
         
         .header {
-            background: white;
+            background: transparent;
             color: #583e04;
             text-align: center;
         }

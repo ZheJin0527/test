@@ -186,7 +186,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .header {
-            background: white;
+            background: transparent;
             color: #583e04;
             text-align: center;
         }
