@@ -5945,7 +5945,7 @@ form select {
 }
 
 .user-avatar {
-    width: 40px;
+    width: 40px !important;
     height: 40px;
     background-color: #FF5C00;
     color: white;
