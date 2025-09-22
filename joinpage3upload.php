@@ -172,7 +172,7 @@ if (isset($_GET['success'])) {
         
         .header {
             background: white;
-            color: black;
+            color: #583e04;
             text-align: center;
         }
         
