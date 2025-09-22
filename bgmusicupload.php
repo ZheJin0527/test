@@ -430,7 +430,7 @@ function formatFileSize($bytes) {
     <?php include 'sidebar.php'; ?>
     <div class="container">
         <div class="header">
-            <h1>🎵 背景音乐管理</h1>
+            <h1>背景音乐管理</h1>
         </div>
         
         <div class="breadcrumb">
