@@ -260,9 +260,9 @@ if (isset($_GET['success'])) {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 7px 16px;
             border-radius: 8px;
-            font-size: 1.1em;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -535,7 +535,8 @@ if (isset($_GET['success'])) {
             background: #6c757d;
             color: white;
             text-decoration: none;
-            padding: 12px 24px;
+            padding: 7px 16px;
+            font-size: 13px;
             border-radius: 6px;
             margin-bottom: 20px;
             transition: all 0.3s ease;

@@ -139,10 +139,10 @@ if (file_exists('media_config.json')) {
             background: #6c757d;
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 7px 16px;
+            font-size: 13px;
             border-radius: 6px;
             margin-bottom: 20px;
-            font-size: 0.9em;
             transition: all 0.3s ease;
         }
         
