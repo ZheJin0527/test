@@ -474,7 +474,7 @@
         }
 
         .stat-value {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             color: #583e04;
         }
