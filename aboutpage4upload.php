@@ -176,7 +176,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1800px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
