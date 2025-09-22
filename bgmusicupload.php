@@ -153,8 +153,14 @@ function formatFileSize($bytes) {
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f1dfbc;
+            background-image: url('images/images/remarkbg1.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #111827;
             min-height: 100vh;
             padding: 20px;
         }
@@ -166,25 +172,25 @@ function formatFileSize($bytes) {
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            border: 3px solid #FF5C00;
+            border: 3px solid #583e04;
         }
         
         .header {
-            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding: 23px 24px;
+            background: transparent;
         }
-        
+
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 50px;
+            font-weight: bold;
+            color: #583e04;
+            margin-bottom: 0;
         }
         
-        .header p {
-            opacity: 0.9;
-            font-size: 1.1em;
-        }
         
         .breadcrumb {
             padding: 20px 40px;
@@ -428,8 +434,9 @@ function formatFileSize($bytes) {
     <?php include 'sidebar.php'; ?>
     <div class="container">
         <div class="header">
-            <h1>🎵 背景音乐管理</h1>
-            <p>管理网站所有页面的背景音乐</p>
+            <div>
+                <h1>背景音乐管理</h1>
+            </div>
         </div>
         
         <div class="breadcrumb">
