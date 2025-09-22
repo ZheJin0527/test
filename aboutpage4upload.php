@@ -219,7 +219,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .content {
-            padding: 40px;
+            padding: 40px 0;
         }
         
         .timeline-section {

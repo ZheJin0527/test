@@ -133,7 +133,7 @@ if (file_exists('media_config.json')) {
         }
         
         .content {
-            padding: 40px;
+            padding: 40px 0;
         }
         
         .media-section {

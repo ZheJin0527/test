@@ -195,7 +195,7 @@ if (isset($_GET['success'])) {
         }
         
         .content {
-            padding: 40px;
+            padding: 40px 0;
         }
         
         .form-section {
