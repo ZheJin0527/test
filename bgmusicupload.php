@@ -160,15 +160,9 @@ function formatFileSize($bytes) {
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1800px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-            border: 3px solid #FF5C00;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            padding: 24px;
         }
         
         .header {
@@ -192,6 +186,7 @@ function formatFileSize($bytes) {
             padding: 20px 40px;
             background: #f8f9fa;
             border-bottom: 1px solid #dee2e6;
+            border-radius: 15px 15px 0 0;
         }
         
         .breadcrumb a {
@@ -205,6 +200,10 @@ function formatFileSize($bytes) {
         
         .content {
             padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #FF5C00;
         }
         
         .music-section {
@@ -415,7 +414,7 @@ function formatFileSize($bytes) {
         }
 
         .page-header .header {
-            max-width: 1200px;
+            max-width: 1800px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
