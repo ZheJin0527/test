@@ -79,7 +79,7 @@ $avatarLetter = strtoupper($username[0]);
             color: #000000;
             min-height: 100vh;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: visible;
         }
         
         .container {
@@ -105,7 +105,7 @@ $avatarLetter = strtoupper($username[0]);
         html {
             height: 100%;
             overflow-x: hidden;
-            overflow-y: auto; 
+            overflow-y: scroll; 
         }
 
         /* 自定义滚动条样式 */
@@ -1700,21 +1700,24 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         // 监听滚动事件，控制回到顶部按钮显示
-        let scrollTimeout;
-        window.addEventListener('scroll', function() {
-            // 使用防抖优化性能
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(function() {
-                const backToTopBtn = document.getElementById('back-to-top-btn');
-                const scrollThreshold = 150; // 滚动超过150px后显示按钮
-                
-                if (window.pageYOffset > scrollThreshold) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-            }, 10);
-        });
+let scrollTimeout;
+window.addEventListener('scroll', function() {
+    // 使用防抖优化性能
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function() {
+        const backToTopBtn = document.getElementById('back-to-top-btn');
+        const scrollThreshold = 150; // 滚动超过150px后显示按钮
+        
+        // 使用多种方式获取滚动位置，确保兼容性
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        
+        if (scrollY > scrollThreshold) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    }, 10);
+});
 
         function generateDropdownContent(prefix, type) {
             const dropdown = document.getElementById(`${prefix}-dropdown`);
