@@ -161,12 +161,8 @@ function formatFileSize($bytes) {
         
         .container {
             max-width: 1800px;
-            margin: 24px auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-            border: 3px solid #FF5C00;
+            margin: 0 auto;
+            padding: 24px;
         }
         
         .header {
@@ -413,7 +409,7 @@ function formatFileSize($bytes) {
         }
 
         .page-header .header {
-            max-width: 1800px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
