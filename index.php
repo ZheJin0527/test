@@ -22,8 +22,6 @@ $totalSlides = 4;
 // 包含header
 include 'header.php';
 ?>
-  <link rel="stylesheet" href="header.css">
-  <link rel="stylesheet" href="index.css">
   <div class="swiper">
   <div class="swiper-wrapper">
 
