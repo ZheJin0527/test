@@ -79,7 +79,7 @@ $avatarLetter = strtoupper($username[0]);
             color: #000000;
             min-height: 100vh;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: visible;
         }
         
         .container {
