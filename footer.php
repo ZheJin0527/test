@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="footer.css">
+<script src="footer.js"></script>
 <div class="swiper-slide footer-slide">
     <section class="scroll-buffer">
       <footer class="footer">
