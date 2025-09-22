@@ -41,7 +41,7 @@ body::-webkit-scrollbar {
     margin: 0;
     overflow: hidden;
     /* 关键：添加背景色遮盖上页残影 */
-    background: #2F2F2F; /* 使用footer的深色背景 */
+    background: #2f2f2f; /* 使用footer的深色背景 */
     position: relative;
 }
 
