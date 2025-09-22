@@ -19,6 +19,7 @@ include 'header.php';
 $timelineData = getTimelineConfig();
 ?>
 
+<link rel="stylesheet" href="style.css" />
 <div class="swiper">
   <div class="swiper-wrapper">
 
