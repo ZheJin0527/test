@@ -5945,13 +5945,13 @@ form select {
 }
 
 .user-avatar {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: #FF5C00;
     color: white;
     font-weight: bold;
-    font-size: 16px;
-    line-height: 40px;
+    font-size: 24px;
+    line-height: 48px;
     text-align: center;
     border-radius: 50%;
     user-select: none;
