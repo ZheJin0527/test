@@ -1,6 +1,6 @@
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
-    height: 29vh; /* 保持原来的36vh */
+    height: clamp(25vh, 29vh, 35vh);
     justify-content: flex-end;
     align-items: center;
     padding: 0;
@@ -16,7 +16,7 @@
     background-color: #2f2f2f;
     display: flex;
     flex-direction: column;
-    min-height: 26vh;
+    min-height: clamp(22vh, 26vh, 30vh);
     justify-content: flex-end;
     margin: 0;
     padding: 0;
@@ -28,39 +28,41 @@
 .swiper-slide.footer-slide::before {
     content: '';
     position: absolute;
-    top: -71vh;
+    top: clamp(-60vh, -71vh, -80vh);
     left: 0;
     right: 0;
-    height: 64vh;
+    height: clamp(55vh, 64vh, 75vh);
     background: #2a2a2a;
     z-index: 1;
 }
 
 /* page下方 */
 .footer {
-    padding: 20px 0 20px 100px; /* 去掉左右 padding */
-    height: clamp(150px, 10.5vw, 200px);
+    padding: clamp(15px, 2vh, 20px) 0 clamp(15px, 2vh, 20px) clamp(20px, 8vw, 100px);
+    height: clamp(120px, 12vh, 200px);
     background-color: #2F2F2F;
     color: white;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 30px;
-    flex-wrap: nowrap;
+    gap: clamp(15px, 3vw, 30px);
+    flex-wrap: wrap;
     position: relative;
     z-index: 2;
 }
 
 .footer-section {
-    flex: 1 1 200px;
+    flex: 1 1 clamp(150px, 20vw, 200px);
     margin-bottom: 0;
-    max-width: 200px;
+    max-width: clamp(150px, 20vw, 200px);
+    min-width: clamp(120px, 15vw, 150px);
 }
 
 .footer-section h4 {
-    font-size: clamp(14px, 0.84vw, 16px);
-    margin-bottom: 0;
+    font-size: clamp(12px, 1.2vw, 16px);
+    margin-bottom: clamp(5px, 1vh, 8px);
     color: #fff;
+    font-weight: 600;
 }
 
 .footer-section h4 a {
@@ -74,9 +76,10 @@
 }
 
 .footer-section li {
-    margin-bottom: 8px;
-    font-size: clamp(14px, 0.84vw, 16px);
+    margin-bottom: clamp(4px, 1vh, 8px);
+    font-size: clamp(11px, 1vw, 16px);
     color: #ccc;
+    line-height: 1.4;
 }
 
 .footer-section li a {
@@ -87,18 +90,114 @@
 .footer-bottom {
     position: relative;
     text-align: center;
-    font-size: clamp(10px, 0.84vw, 14px);
+    font-size: clamp(9px, 1vw, 14px);
     color: #666;
     background-color: #2F2F2F;
-    padding: 10px 80px; /* 去掉左右 padding */
+    padding: clamp(8px, 1.5vh, 10px) clamp(20px, 8vw, 80px);
 }
 
 .footer-bottom::before {
     content: "";
     position: absolute;
     top: 0;
-    left: 80px;
-    right: 80px;
-    height: 1.2px;
+    left: clamp(20px, 8vw, 80px);
+    right: clamp(20px, 8vw, 80px);
+    height: 1px;
     background-color: #444;
+}
+
+/* ===========================================
+   Responsive Design - Tablet Screens (992px and below)
+   =========================================== */
+
+@media (max-width: 992px) {
+  .swiper-slide.footer-slide {
+    height: clamp(30vh, 35vh, 40vh);
+  }
+
+  .scroll-buffer {
+    min-height: clamp(25vh, 30vh, 35vh);
+  }
+
+  .footer {
+    padding: clamp(12px, 2vh, 18px) 0 clamp(12px, 2vh, 18px) clamp(30px, 6vw, 60px);
+    height: clamp(100px, 10vh, 150px);
+    gap: clamp(20px, 4vw, 25px);
+  }
+
+  .footer-section {
+    flex: 1 1 clamp(140px, 18vw, 180px);
+    max-width: clamp(140px, 18vw, 180px);
+    min-width: clamp(120px, 15vw, 140px);
+  }
+
+  .footer-section h4 {
+    font-size: clamp(11px, 1.4vw, 14px);
+    margin-bottom: clamp(4px, 0.8vh, 6px);
+  }
+
+  .footer-section li {
+    margin-bottom: clamp(3px, 0.8vh, 6px);
+    font-size: clamp(10px, 1.2vw, 14px);
+  }
+
+  .footer-bottom {
+    font-size: clamp(8px, 1.2vw, 12px);
+    padding: clamp(6px, 1.2vh, 8px) clamp(30px, 6vw, 60px);
+  }
+
+  .footer-bottom::before {
+    left: clamp(30px, 6vw, 60px);
+    right: clamp(30px, 6vw, 60px);
+  }
+}
+
+/* ===========================================
+   Responsive Design - Mobile Screens (768px and below)
+   =========================================== */
+
+@media (max-width: 768px) {
+  .swiper-slide.footer-slide {
+    height: clamp(35vh, 40vh, 45vh);
+  }
+
+  .scroll-buffer {
+    min-height: clamp(30vh, 35vh, 40vh);
+  }
+
+  .footer {
+    padding: clamp(10px, 2vh, 15px) clamp(15px, 4vw, 20px);
+    height: auto;
+    min-height: clamp(80px, 8vh, 120px);
+    gap: clamp(15px, 3vw, 20px);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-section {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 100%;
+    margin-bottom: clamp(8px, 2vh, 12px);
+  }
+
+  .footer-section h4 {
+    font-size: clamp(10px, 1.6vw, 12px);
+    margin-bottom: clamp(3px, 0.6vh, 5px);
+  }
+
+  .footer-section li {
+    margin-bottom: clamp(2px, 0.6vh, 4px);
+    font-size: clamp(9px, 1.4vw, 11px);
+  }
+
+  .footer-bottom {
+    font-size: clamp(7px, 1.4vw, 10px);
+    padding: clamp(5px, 1vh, 8px) clamp(15px, 4vw, 20px);
+  }
+
+  .footer-bottom::before {
+    left: clamp(15px, 4vw, 20px);
+    right: clamp(15px, 4vw, 20px);
+  }
 }
