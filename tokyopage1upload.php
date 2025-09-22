@@ -90,25 +90,25 @@ if (file_exists('media_config.json')) {
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1800px;
             margin: 0 auto;
+            padding: 24px;
             background: white;
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            border: 3px solid #FF5C00;
         }
         
         .header {
-            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
-            color: white;
-            padding: 30px;
+            background: white;
+            color: black;
             text-align: center;
         }
         
         .header h1 {
-            font-size: 2.5em;
+            font-size: 50px;
             margin-bottom: 10px;
+            text-align: left;
         }
         
         .header p {
@@ -117,7 +117,7 @@ if (file_exists('media_config.json')) {
         }
         
         .breadcrumb {
-            padding: 20px 40px;
+            padding: 20px 0px;
             background: #f8f9fa;
             border-bottom: 1px solid #dee2e6;
         }
