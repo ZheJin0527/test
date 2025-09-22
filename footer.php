@@ -46,8 +46,6 @@
 </div>
 </footer>
 
-<button id="backToTop" onclick="scrollToTop()">&#8673;</button>
-
 <div class="footer-bottom">
   © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
 </div>
