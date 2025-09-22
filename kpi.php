@@ -1140,6 +1140,46 @@ $avatarLetter = strtoupper($username[0]);
             background: var(--secondary-color, #805906);
             border-color: var(--secondary-color, #805906);
         }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #583e04;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background-color: #462d03;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(88, 62, 4, 0.4);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="restaurant-j1">
@@ -1427,6 +1467,11 @@ $avatarLetter = strtoupper($username[0]);
     </div>
     </div>
 
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="back-to-top-btn" onclick="scrollToTop()" title="回到顶部">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script>
         // API 配置
         const API_BASE_URL = 'kpiapi.php';
@@ -1645,6 +1690,31 @@ $avatarLetter = strtoupper($username[0]);
             currentDatePicker = null;
             currentDateType = null;
         }
+
+                // 回到顶部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 监听滚动事件，控制回到顶部按钮显示
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            // 使用防抖优化性能
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                const backToTopBtn = document.getElementById('back-to-top-btn');
+                const scrollThreshold = 150; // 滚动超过150px后显示按钮
+                
+                if (window.pageYOffset > scrollThreshold) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            }, 10);
+        });
 
         function generateDropdownContent(prefix, type) {
             const dropdown = document.getElementById(`${prefix}-dropdown`);
