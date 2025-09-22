@@ -97,7 +97,7 @@
             display: none;
             position: absolute;
             top: 120%;
-            left: 0;
+            left: -62px;
             background: white;
             border: 2px solid #583e04;
             border-radius: 12px;
