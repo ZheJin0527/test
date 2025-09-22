@@ -114,7 +114,7 @@ body::-webkit-scrollbar {
 
 @media (max-width: 1280px) {
     .scroll-buffer {
-        min-height: 29vh;
+        min-height: 26vh;
     }
     
     .swiper-slide.footer-slide {
