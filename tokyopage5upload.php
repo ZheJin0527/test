@@ -408,7 +408,6 @@ $currentConfig = getTokyoLocationConfig();
     <div class="container">
         <div class="header">
             <h1>Tokyo 位置信息管理</h1>
-            <p>管理 Tokyo Japanese Cuisine 所有店铺信息</p>
         </div>
         
         <div class="breadcrumb">

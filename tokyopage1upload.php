@@ -283,7 +283,6 @@ if (file_exists('media_config.json')) {
     <div class="container">
         <div class="header">
             <h1>Tokyo Japanese Cuisine 页面管理</h1>
-            <p>管理 Tokyo Japanese Cuisine 首页背景图片</p>
         </div>
         
         <div class="breadcrumb">
