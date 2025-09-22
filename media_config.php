@@ -60,7 +60,26 @@ function getMediaHtml($mediaType, $attributes = []) {
             $attrString .= $value === '' ? " {$key}" : " {$key}=\"{$value}\"";
         }
         
-        return "<video{$attrString}><source src=\"{$fileUrl}\" type=\"video/mp4\" /></video>";
+        // 根据文件扩展名确定MIME类型
+        $extension = strtolower(pathinfo($media['file'], PATHINFO_EXTENSION));
+        $mimeType = 'video/mp4'; // 默认
+        switch ($extension) {
+            case 'webm':
+                $mimeType = 'video/webm';
+                break;
+            case 'mov':
+                $mimeType = 'video/quicktime';
+                break;
+            case 'avi':
+                $mimeType = 'video/x-msvideo';
+                break;
+            case 'mp4':
+            default:
+                $mimeType = 'video/mp4';
+                break;
+        }
+        
+        return "<video{$attrString}><source src=\"{$fileUrl}\" type=\"{$mimeType}\" /></video>";
     } else {
         $defaultAttrs = [
             'class' => 'background-image',
