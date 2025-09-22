@@ -9,6 +9,11 @@
   --header-color: #2F2F2F;
   --paragraph-color: #888888;
 
+  --success-color: #27ae60;
+  --warning-color: #f2c94c;
+  --error-color: #eb5757;
+  --info-color: #2d9cdb;
+
   --gray-100: #f8f9fa;
   --gray-200: #e9ecef;
   --gray-300: #dee2e6;
