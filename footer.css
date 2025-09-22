@@ -102,3 +102,467 @@
     height: 1.2px;
     background-color: #444;
 }
+
+#backToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    padding: 10px 18px;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0.6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.backToTopBtn:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* 社交媒体侧边栏样式 */
+.social-sidebar {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.social-sidebar.social-loaded {
+    opacity: 1;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(50, 50, 50, 0.8);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+    background: rgba(70, 70, 70, 0.9);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.social-icon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0.8);
+    transition: filter 0.3s ease;
+}
+
+.social-icon:hover img {
+    filter: brightness(1.2);
+}
+
+/* 响应式样式 */
+@media(max-height: 760px) {
+  .scroll-buffer {
+        min-height: 32vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 32vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -68vh;
+    }
+}
+
+@media(max-height: 680px) {
+  .scroll-buffer {
+        min-height: 36vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 36vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -64vh;
+    }
+}
+
+@media(max-height: 610px) {
+  .scroll-buffer {
+        min-height: 40vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 40vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -60vh;
+    }
+}
+
+@media (max-width: 1280px) {
+    .scroll-buffer {
+        min-height: 29vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 29vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -71vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 770px) {
+    .scroll-buffer {
+        min-height: 3vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 30vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -70vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 740px) {
+    .scroll-buffer {
+        min-height: 3vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 31vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -69vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 720px) {
+    .scroll-buffer {
+        min-height: 3vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 32.1vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -67.9vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 690px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 34vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -66vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 640px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 36vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -64vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 620px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 38vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -62vh;
+    }
+}
+
+/* 针对1280x600屏幕的响应式样式 */
+@media (max-width: 1280px) and (max-height: 600px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 39vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -51vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 570px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 40vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -60vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 530px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 43vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -57vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 520px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 45vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -55vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 500px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 47vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -53vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 480px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 49vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -51vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 460px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 51vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -49vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 440px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 53vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -47vh;
+    }
+}
+
+@media (max-width: 1280px) and (max-height: 420px) {
+    .scroll-buffer {
+        min-height: 22vh;
+    }
+    
+    .swiper-slide.footer-slide {
+        height: 55vh;
+    }
+    
+    .swiper-slide.footer-slide::before {
+        top: -45vh;
+    }
+}
+
+/* ✅ 尺寸缩小响应，但保留 1920 版式 */
+@media (max-width: 1280px) {
+  .footer {
+    height: clamp(170px, 10.5vw, 200px);
+    padding: 14px 51px 14px 181px;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+
+  .footer-logo,
+  .footer-section {
+    flex: 1 1 0;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+
+  .footer-logo h1 {
+    font-size: clamp(10px, 1vw, 16px);
+  }
+
+  .footer-logo h1 img.logo {
+    width: clamp(30px, 2.5vw, 36px);
+    height: clamp(28px, 2.5vw, 36px);
+  }
+
+  .footer-logo p {
+    font-size: clamp(9px, 1vw, 11px);
+    line-height: 1.4;
+  }
+
+  .footer-logo-img {
+    width: clamp(140px, 12vw, 200px); /* 更小屏宽时进一步限制最大宽度 */
+    margin-top: 10px;
+  }
+
+  .footer-section h4 {
+    font-size: clamp(10px, 1.1vw, 13px);
+    margin-bottom: 2px;
+  }
+
+  .footer-section li {
+    font-size: clamp(10px, 1.1vw, 13px);
+    margin-bottom: 10px;
+  }
+
+  .footer-bottom {
+    font-size: clamp(9px, 0.8vw, 12px);
+    padding: 8px 40px;
+  }
+
+  .footer-bottom::before {
+    left: 51px;
+    right: 51px;
+    height: 1px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    padding: 12px 40px;
+    align-items: center;
+  }
+
+  .footer-logo {
+    flex: 1 1 120px;
+  }
+
+  .footer-section {
+    flex: 1 1 110px;
+  }
+
+  .footer-logo,
+  .footer-section {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .footer-logo h1 {
+    font-size: clamp(6px, 3vw, 12px);
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 3px;
+  }
+
+  .footer-logo h1 img.logo {
+    width: clamp(22px, 6vw, 36px);
+    height: clamp(22px, 6vw, 36px);
+    margin-bottom: 0;
+    margin-right: 8px;
+  }
+
+  .footer-logo p {
+    font-size: clamp(6px, 3vw, 12px);
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+
+  .footer-logo-img {
+    width: clamp(130px, 20vw, 140px); /* 手机屏幕上更小但不失清晰 */
+  }
+
+  .footer-section h4 {
+    font-size: clamp(6px, 3vw, 12px);
+    margin-bottom: -10px;
+  }
+
+  .footer-section li {
+    font-size: clamp(6px, 3vw, 12px);
+    margin-bottom: 2px;
+  }
+
+  .footer-bottom {
+    font-size: clamp(7px, 2.5vw, 10px);
+    padding: 6px 24px;
+  }
+
+  .footer-bottom::before {
+    left: 24px;
+    right: 24px;
+    height: 1px;
+  }
+}
