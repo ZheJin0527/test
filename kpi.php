@@ -85,7 +85,7 @@ $avatarLetter = strtoupper($username[0]);
         .container {
             max-width: 1500px;
             margin: 0 auto;
-            padding: 0px 0px 24px;
+            padding: 24px;
         }
 
         /* 主内容区域样式 */
