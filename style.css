@@ -50,7 +50,7 @@ body::-webkit-scrollbar {
     background-color: #2F2F2F;
     display: flex;
     flex-direction: column;
-    min-height: 29vh;
+    min-height: 26vh;
     justify-content: flex-end;
     margin: 0;
     padding: 0;
