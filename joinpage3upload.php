@@ -180,6 +180,7 @@ if (isset($_GET['success'])) {
         .header h1 {
             font-size: 50px;
             margin-bottom: 10px;
+            text-align: left;
         }
         
         .breadcrumb {

@@ -102,6 +102,7 @@ if (file_exists('media_config.json')) {
         .header h1 {
             font-size: 50px;
             margin-bottom: 10px;
+            text-align: left;
         }
         
         .header p {

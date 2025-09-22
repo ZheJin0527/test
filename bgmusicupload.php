@@ -179,6 +179,7 @@ function formatFileSize($bytes) {
         .header h1 {
             font-size: 50px;
             margin-bottom: 10px;
+            text-align: left;
         }
         
         .header p {
