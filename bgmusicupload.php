@@ -155,11 +155,6 @@ function formatFileSize($bytes) {
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #f1dfbc;
-            background-image: url('images/images/remarkbg1.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            background-attachment: fixed;
             color: #111827;
             min-height: 100vh;
             padding: 20px;
@@ -172,7 +167,7 @@ function formatFileSize($bytes) {
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            border: 3px solid #583e04;
+            border: 3px solid #FF5C00;
         }
         
         .header {
@@ -180,17 +175,41 @@ function formatFileSize($bytes) {
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
-            padding: 23px 24px;
-            background: transparent;
         }
 
         .header h1 {
             font-size: 50px;
             font-weight: bold;
             color: #583e04;
-            margin-bottom: 0;
         }
-        
+
+        .header .controls {
+            display: flex;
+            align-items: center;
+            gap: 0px;
+        }
+
+        .back-button {
+            background-color: #583e04;
+            color: white;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #462d03;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
+        }
         
         .breadcrumb {
             padding: 20px 40px;
@@ -435,7 +454,13 @@ function formatFileSize($bytes) {
     <div class="container">
         <div class="header">
             <div>
-                <h1>背景音乐管理</h1>
+                <h1>库存产品管理后台</h1>
+            </div>
+            <div class="controls">
+                <button class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                    返回上一页
+                </button>
             </div>
         </div>
         
