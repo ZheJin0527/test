@@ -68,7 +68,7 @@ if (isset($_SESSION['user_id'])) {
         }
         
         .header h1 {
-            font-size: 56px;
+            font-size: 50px;
             font-weight: bold;
             color: #583e04;
         }

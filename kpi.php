@@ -141,7 +141,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .header h1 {
-            font-size: 56px;
+            font-size: 50px;
             font-weight: bold;
             color: #583e04;
         }
