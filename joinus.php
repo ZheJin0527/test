@@ -17,6 +17,7 @@ $totalSlides = 6;
 include 'header.php';
 ?>
 
+<link rel="stylesheet" href="style.css" />
 <div class="swiper">
   <div class="swiper-wrapper">
 
