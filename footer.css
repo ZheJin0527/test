@@ -1,0 +1,104 @@
+/* 专门为最后一页（footer页面）设置样式 */
+.swiper-slide.footer-slide {
+    height: 29vh; /* 保持原来的36vh */
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    /* 关键：添加背景色遮盖上页残影 */
+    background: #2f2f2f; /* 使用footer的深色背景 */
+    position: relative;
+}
+
+/* 保持原来的scroll-buffer */
+.scroll-buffer {
+    background-color: #2f2f2f;
+    display: flex;
+    flex-direction: column;
+    min-height: 26vh;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* 关键修复：为footer-slide添加顶部遮罩 */
+.swiper-slide.footer-slide::before {
+    content: '';
+    position: absolute;
+    top: -71vh;
+    left: 0;
+    right: 0;
+    height: 64vh;
+    background: #2a2a2a;
+    z-index: 1;
+}
+
+/* page下方 */
+.footer {
+    padding: 20px 0 20px 100px; /* 去掉左右 padding */
+    height: clamp(150px, 10.5vw, 200px);
+    background-color: #2F2F2F;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+    margin-bottom: 0;
+    max-width: 200px;
+}
+
+.footer-section h4 {
+    font-size: clamp(14px, 0.84vw, 16px);
+    margin-bottom: 0;
+    color: #fff;
+}
+
+.footer-section h4 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 8px;
+    font-size: clamp(14px, 0.84vw, 16px);
+    color: #ccc;
+}
+
+.footer-section li a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    position: relative;
+    text-align: center;
+    font-size: clamp(10px, 0.84vw, 14px);
+    color: #666;
+    background-color: #2F2F2F;
+    padding: 10px 80px; /* 去掉左右 padding */
+}
+
+.footer-bottom::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 80px;
+    right: 80px;
+    height: 1.2px;
+    background-color: #444;
+}
