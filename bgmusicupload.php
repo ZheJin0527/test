@@ -156,11 +156,11 @@ function formatFileSize($bytes) {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1800px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
