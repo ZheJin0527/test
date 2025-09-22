@@ -138,32 +138,18 @@ $avatarLetter = strtoupper($username[0]);
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
-            background-color: white;
-            padding: 16px 60px;
-            border-radius: 0px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid #d1d5db;
-        }
-        
-        .header .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .header .logo {
-            height: 100px;
-            width: auto;
-            object-fit: contain;
+            padding: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
         }
         
         .header .title-text {
-            font-size: 30px;
+            font-size: 56px;
             font-weight: bold;
-            color: #000000;
-            background-color: transparent;
-            padding: 0 3px;
-            border-radius: 0;
+            color: #583e04;
+            background: none;
+            padding: 0;
             border: none;
             box-shadow: none;
         }
@@ -1168,8 +1154,8 @@ $avatarLetter = strtoupper($username[0]);
     <?php include 'sidebar.php'; ?>
     <div id="app">
             <div class="header">
-                <div class="logo-container">
-                    <span class="title-text">KPI 仪表盘</span>
+                <div>
+                    <h1 class="title-text">KPI 仪表盘</h1>
                 </div>
             </div>
         <div class="container">           
