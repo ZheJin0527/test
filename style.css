@@ -47,7 +47,7 @@ body::-webkit-scrollbar {
 
 /* 保持原来的scroll-buffer */
 .scroll-buffer {
-    background-color: #2F2F2F;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     min-height: 26vh;
