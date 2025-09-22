@@ -8,7 +8,7 @@ function getMediaConfig($mediaType) {
     $configFile = 'media_config.json';
     $defaultConfig = [
         'home_background' => [
-            'file' => 'video/video/Cover4.mp4',
+            'file' => 'video/video/home_background.webm',
             'type' => 'video'
         ],
         'about_background' => [
