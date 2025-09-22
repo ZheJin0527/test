@@ -114,7 +114,9 @@ include 'header.php';
     </div>
   </section>
   </div>
-  
+
+<?php include 'footer.php'; ?>
+
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
 <div class="social-sidebar">
