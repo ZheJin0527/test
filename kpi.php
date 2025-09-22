@@ -138,16 +138,16 @@ $avatarLetter = strtoupper($username[0]);
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
+            padding: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
         }
         
-        .header .title-text {
+        .header h1 {
             font-size: 56px;
             font-weight: bold;
             color: #583e04;
-            background: none;
-            padding: 0;
-            border: none;
-            box-shadow: none;
         }
         
         .header .controls {
@@ -1151,7 +1151,10 @@ $avatarLetter = strtoupper($username[0]);
     <div id="app">
             <div class="header">
                 <div>
-                    <h1 class="title-text">KPI 仪表盘</h1>
+                    <h1>KPI 仪表盘</h1>
+                </div>
+                <div class="controls">
+                    <!-- 这里可以放其他控件，现在先留空 -->
                 </div>
             </div>
         <div class="container">           
