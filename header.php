@@ -18,8 +18,6 @@ if (!isset($mediaConfigIncluded)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? $pageTitle : 'KUNZZ HOLDINGS'; ?></title>
-    <link rel="stylesheet" href="header.css" />
-    <link rel="stylesheet" href="style.css" />
     <?php if (isset($additionalCSS)): ?>
         <?php foreach ($additionalCSS as $css): ?>
             <link rel="stylesheet" href="<?php echo $css; ?>" />
@@ -33,60 +31,60 @@ if (!isset($mediaConfigIncluded)) {
 </head>
 <body>
     <?php echo getBgMusicHtml(); ?>
-    <header class="navbar">
+    <header class="header-navbar">
         <!-- 左侧 logo 和公司名 -->
-        <div class="logo-section">
+        <div class="header-logo-section">
             <a href="index.php">
-                <img src="images/images/KUNZZ.png" alt="Logo" class="logo">
+                <img src="images/images/KUNZZ.png" alt="Logo" class="header-logo">
             </a>
         </div>
 
         <!-- 中间导航（默认显示，大屏） -->
-        <nav class="nav-links" id="navMenu">
-            <div class="nav-item"><a href="index.php">首页</a></div>
-            <div class="nav-item"><a href="about.php">关于我们</a></div>
-            <div class="nav-item nav-dropdown">
-                <span class="nav-dropdown-trigger">旗下品牌</span>
-                <div class="nav-dropdown-menu" id="brandsNavDropdownMenu">
-                    <!-- <a href="tokyo-japanese-cuisine.php" class="nav-dropdown-item">Tokyo Japanese Cuisine</a>
-                    <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a> -->
+        <nav class="header-nav-links" id="navMenu">
+            <div class="header-nav-item"><a href="index.php">首页</a></div>
+            <div class="header-nav-item"><a href="about.php">关于我们</a></div>
+            <div class="header-nav-item header-nav-dropdown">
+                <span class="header-nav-dropdown-trigger">旗下品牌</span>
+                <div class="header-nav-dropdown-menu" id="brandsNavDropdownMenu">
+                    <!-- <a href="tokyo-japanese-cuisine.php" class="header-nav-dropdown-item">Tokyo Japanese Cuisine</a>
+                    <a href="tokyo-izakaya.php" class="header-nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a> -->
                 </div>
             </div>
-            <div class="nav-item"><a href="joinus.php">加入我们</a></div>
+            <div class="header-nav-item"><a href="joinus.php">加入我们</a></div>
         </nav>
 
         <!-- 右侧区域 -->
-        <div class="right-section">
+        <div class="header-right-section">
             <!-- 移动端隐藏 login，仅大屏显示 -->
-            <div class="login-dropdown">
-                <button class="login-btn" id="loginBtn">登入</button>
-                <div class="login-dropdown-menu" id="loginDropdownMenu">
-                    <a href="login.html" class="login-dropdown-item">员工登入</a>
-                    <a href="login.html" class="login-dropdown-item">会员登入</a>
+            <div class="header-login-dropdown">
+                <button class="header-login-btn" id="loginBtn">登入</button>
+                <div class="header-login-dropdown-menu" id="loginDropdownMenu">
+                    <a href="login.html" class="header-login-dropdown-item">员工登入</a>
+                    <a href="login.html" class="header-login-dropdown-item">会员登入</a>
                 </div>
             </div>
 
             <!-- 翻译按钮始终显示 -->
-            <div class="language-switch">
-                <button class="lang" id="languageBtn">中文</button>
-                <div class="language-dropdown-menu" id="languageDropdownMenu">
-                    <a href="/" class="language-dropdown-item" data-lang="cn">中文</a>
-                    <a href="/en/" class="language-dropdown-item" data-lang="en">English</a>
+            <div class="header-language-switch">
+                <button class="header-lang" id="languageBtn">中文</button>
+                <div class="header-language-dropdown-menu" id="languageDropdownMenu">
+                    <a href="/" class="header-language-dropdown-item" data-lang="cn">中文</a>
+                    <a href="/en/" class="header-language-dropdown-item" data-lang="en">English</a>
                 </div>
             </div>
 
             <!-- hamburger 仅在小屏显示 -->
-            <button class="hamburger" id="hamburger">&#9776;</button>
+            <button class="header-hamburger" id="hamburger">&#9776;</button>
         </div>
     </header>
 
     <?php if (isset($showPageIndicator) && $showPageIndicator): ?>
-    <div class="page-indicator">
+    <div class="header-page-indicator">
         <?php 
         $totalSlides = isset($totalSlides) ? $totalSlides : 4;
         for ($i = 0; $i < $totalSlides; $i++): 
         ?>
-            <div class="page-dot <?php echo $i === 0 ? 'active' : ''; ?>" data-slide="<?php echo $i; ?>"></div>
+            <div class="header-page-dot <?php echo $i === 0 ? 'active' : ''; ?>" data-slide="<?php echo $i; ?>"></div>
         <?php endfor; ?>
     </div>
     <?php endif; ?>
