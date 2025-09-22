@@ -1,0 +1,9 @@
+  [ COLOR CODE ]
+  
+  :root {
+    --primary-color: #FF5C00;
+    --secondary-color: #F7931E;
+    --container-color: #FFF1E5;
+    --header-color: #2F2F2F;
+    --paragraph-color: #888888;
+  }
