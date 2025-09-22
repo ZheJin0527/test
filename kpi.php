@@ -138,10 +138,6 @@ $avatarLetter = strtoupper($username[0]);
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
-            padding: 0;
-            background: none;
-            border: none;
-            box-shadow: none;
         }
         
         .header .title-text {
