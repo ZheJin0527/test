@@ -6447,12 +6447,12 @@ form select {
     background: linear-gradient(to bottom, #ff9850, #e97d18);
     border: none;
     border-radius: 20px;
-    padding: 12px 20px;
+    padding: 8px 12px;
     color: white;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    font-family: 'Microsoft YaHei', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     box-shadow: 
         4px 4px 10px rgba(0, 0, 0, 0.3),     
         -4px -4px 10px rgba(255, 200, 150, 0.5);
