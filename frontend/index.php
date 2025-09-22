@@ -28,7 +28,7 @@ include '../public/header.php';
 
   <div class="swiper-slide">
   <section class="home">
-  <?php echo getMediaHtml('home_background'); ?>
+  <!-- <?php echo getMediaHtml('home_background'); ?> -->
 
   <div class="home-content hidden animate-on-scroll">
     <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
