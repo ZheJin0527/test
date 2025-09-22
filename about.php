@@ -18,8 +18,10 @@ include 'header.php';
 // 在header之后获取时间线数据，避免阻塞header加载
 $timelineData = getTimelineConfig();
 ?>
+
+<link rel="stylesheet" href="header.css" />
 <link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="header.css" />   
+
 <div class="swiper">
   <div class="swiper-wrapper">
 
