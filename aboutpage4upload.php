@@ -182,7 +182,6 @@ foreach ($defaultTimeline as $year => $data) {
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            border: 3px solid #FF5C00;
         }
         
         .header {
