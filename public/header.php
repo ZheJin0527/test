@@ -18,6 +18,7 @@ if (!isset($mediaConfigIncluded)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? $pageTitle : 'KUNZZ HOLDINGS'; ?></title>
+    <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../public/css/components/header.css" />
     <?php if (isset($additionalCSS)): ?>
         <?php foreach ($additionalCSS as $css): ?>
@@ -31,7 +32,7 @@ if (!isset($mediaConfigIncluded)) {
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- <?php echo getBgMusicHtml(); ?> -->
+    <?php echo getBgMusicHtml(); ?>
     <header class="navbar">
         <!-- 左侧 logo 和公司名 -->
         <div class="logo-section">

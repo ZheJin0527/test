@@ -9,13 +9,13 @@ header("Expires: 0");
 
 // 如果已登录或记住我，跳转到 dashboard
 if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE['username']))) {
-    header("Location: dashboard.php");
+    header("Location: ../dashboard.php");
     exit();
 }
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['css/frontend-main.css', 'css/animation.css'];
+$additionalCSS = ['../animation.css'];
 $showPageIndicator = true;
 $totalSlides = 4;
 
@@ -28,7 +28,7 @@ include '../public/header.php';
 
   <div class="swiper-slide">
   <section class="home">
-  <!-- <?php echo getMediaHtml('home_background'); ?> -->
+  <?php echo getMediaHtml('home_background'); ?>
 
   <div class="home-content hidden animate-on-scroll">
     <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
@@ -51,7 +51,7 @@ include '../public/header.php';
         </p>
       <h2 class="comprofile-title animate-on-scroll slide-in-left delay-2">KUNZZ HOLDINGS</h2>
       <p class="comprofile-description animate-on-scroll slide-in-left delay-3">
-        Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守“塑造积极向上和舒适的工作环境”为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
+        Kunzz Holdings 成立于2024年，初衷是为旗下业务建立统一的管理平台，提升资源整合效率。我们坚守"塑造积极向上和舒适的工作环境"为使命，持续推动组织氛围建设，成就更有温度的企业文化。我们信奉积极、高效、灵活、诚信的核心精神，始终以目标导向、理念一致为准则，追求卓越，勇于创新。
       </p>
     </div>
     <div class="comprofile-image animate-on-scroll rotate-3d-full">
@@ -110,7 +110,7 @@ include '../public/header.php';
         在 Kunzz Holdings，我们相信文化决定高度。我们以目标为导向，理念为基石，打造一支具备高效执行力与高度协同精神的团队。
         我们提倡扁平沟通，尊重每一位成员的成长节奏，鼓励分享、学习与共创。在这里，每一份努力都能被看见，每一次突破都值得被鼓励。
       </p>
-      <a href="about.php" class="culture-button animate-on-scroll culture-scale-fade delay-8">了解更多 &gt;&gt;</a>
+      <a href="../about.php" class="culture-button animate-on-scroll culture-scale-fade delay-8">了解更多 &gt;&gt;</a>
     </div>
   </section>
   </div>
@@ -119,7 +119,7 @@ include '../public/header.php';
     <section class="scroll-buffer">
     <footer class="footer">
     <div class="footer-section">
-      <h4><a href="index.php">首页</a></h4>
+      <h4><a href="../index.php">首页</a></h4>
       <ul>
         <li><a href="#" onclick="goToSlide(1); return false;">公司简介</a></li>
         <li><a href="#" onclick="goToSlide(2); return false;">公司文化</a></li>
@@ -127,29 +127,29 @@ include '../public/header.php';
     </div>
 
     <div class="footer-section">
-      <h4><a href="about.php">关于我们</a></h4>
+      <h4><a href="../about.php">关于我们</a></h4>
       <ul>
-        <li><a href="about.php#intro">集团简介</a></li>
-        <li><a href="about.php#vision">信念与方向</a></li>
-        <li><a href="about.php#values">核心价值观</a></li>
-        <li><a href="about.php#timeline-1">发展历史</a></li>
+        <li><a href="../about.php#intro">集团简介</a></li>
+        <li><a href="../about.php#vision">信念与方向</a></li>
+        <li><a href="../about.php#values">核心价值观</a></li>
+        <li><a href="../about.php#timeline-1">发展历史</a></li>
       </ul>
     </div>
 
     <div class="footer-section">
       <h4>旗下品牌</h4>
       <ul>
-        <li><a href="tokyo-japanese-cuisine.php">TOKYO JAPANESE </br>CUISINE</li>
+        <li><a href="../tokyo-japanese-cuisine.php">TOKYO JAPANESE </br>CUISINE</li>
       </ul>
     </div>
 
     <div class="footer-section">
-      <h4><a href="joinus.php">加入我们</a></h4>
+      <h4><a href="../joinus.php">加入我们</a></h4>
       <ul>
-        <li><a href="joinus.php">公司福利</li>
-        <li><a href="joinus.php#comphoto-container">我们的足迹</li>
-        <li><a href="joinus.php#particles">招聘的职位</li>
-        <li><a href="joinus.php#map">联系我们</a></li>        
+        <li><a href="../joinus.php">公司福利</li>
+        <li><a href="../joinus.php#comphoto-container">我们的足迹</li>
+        <li><a href="../joinus.php#particles">招聘的职位</li>
+        <li><a href="../joinus.php#map">联系我们</a></li>        
       </ul>
     </div>
   </footer>
@@ -182,8 +182,8 @@ include '../public/header.php';
     </a>
 </div>
   
-<script src="js/app.js"></script>
-<script src="js/header.js"></script>
+<script src="../app.js"></script>
+<script src="../header.js"></script>
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
