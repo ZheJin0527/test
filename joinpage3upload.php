@@ -173,7 +173,6 @@ if (isset($_GET['success'])) {
         .header {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
-            padding: 30px;
             text-align: center;
         }
         
