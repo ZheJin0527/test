@@ -968,7 +968,7 @@ nav {
 .home h1 {
     font-family: 'Source Sans Pro', sans-serif;
     /* 字体大小在1920保持100px，1281缩小到70px */
-    font-size: 300px;
+    font-size: clamp(70px, 5vw, 100px);
     font-weight: bold;
     margin-bottom: clamp(20px, 2vw, 40px);
     line-height: 140%;
@@ -5945,13 +5945,13 @@ form select {
 }
 
 .user-avatar {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: #FF5C00;
     color: white;
     font-weight: bold;
-    font-size: 16px;
-    line-height: 40px;
+    font-size: 25px;
+    line-height: 48px;
     text-align: center;
     border-radius: 50%;
     user-select: none;
@@ -5964,7 +5964,7 @@ form select {
 
 .user-name {
     margin: 0;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: #333;
 }
