@@ -440,7 +440,7 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 8px;
             border: 2px solid #583e04 !important;  /* 添加 !important 确保边框显示 */
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             transition: all 0.3s ease;
             background: white;
