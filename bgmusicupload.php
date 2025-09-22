@@ -154,15 +154,19 @@ function formatFileSize($bytes) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f1dfbc;
+            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
             min-height: 100vh;
-            padding: 0;
+            padding: 20px;
         }
         
         .container {
-            max-width: 1800px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 24px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 3px solid #FF5C00;
         }
         
         .header {
@@ -400,56 +404,6 @@ function formatFileSize($bytes) {
         .tips li {
             margin-bottom: 5px;
         }
-
-        /* 添加在现有样式之后 */
-        .page-header {
-            background-color: #f1dfbc;
-            padding: 24px;
-            margin-bottom: 0;
-        }
-
-        .page-header .header {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .page-header h1 {
-            font-size: 50px;
-            font-weight: bold;
-            color: #583e04;
-            margin: 0;
-        }
-
-        .page-header .controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .back-button {
-            background-color: #583e04;
-            color: white;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-
-        .back-button:hover {
-            background-color: #462d03;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
-        }
         
         @media (max-width: 768px) {
             .content {
@@ -472,20 +426,11 @@ function formatFileSize($bytes) {
 </head>
 <body>
     <?php include 'sidebar.php'; ?>
-    <div class="page-header">
-        <div class="header">
-            <div>
-                <h1>背景音乐管理后台</h1>
-            </div>
-            <div class="controls">
-                <button class="back-button" onclick="window.location.href='media_manager.php'">
-                    <i class="fas fa-arrow-left"></i>
-                    返回上一页
-                </button>
-            </div>
-        </div>
-    </div>
     <div class="container">
+        <div class="header">
+            <h1>🎵 背景音乐管理</h1>
+            <p>管理网站所有页面的背景音乐</p>
+        </div>
         
         <div class="breadcrumb">
             <a href="dashboard.php">仪表板</a> > 
@@ -494,7 +439,7 @@ function formatFileSize($bytes) {
         </div>
         
         <div class="content">
-            
+            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
             
             <?php if (isset($_GET['success']) && $_GET['success'] == '1'): ?>
                 <div class="alert alert-success">音乐文件上传成功！</div>
