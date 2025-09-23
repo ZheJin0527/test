@@ -1585,7 +1585,7 @@
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
-            padding-bottom: clamp(5px, 0.42vw, 8px);  /* 添加底部内边距来微调位置 */
+            padding-bottom: clamp(4px, 0.42vw, 8px);  /* 添加底部内边距来微调位置 */
         }
 
         .header-stats .stat-value {
