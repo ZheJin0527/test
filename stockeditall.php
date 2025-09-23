@@ -1488,7 +1488,7 @@
             display: flex;
             align-items: center; /* 改为水平对齐 */
             gap: clamp(6px, 0.63vw, 12px);
-            min-width: 125px;
+            min-width: 115px;
             flex-shrink: 0;
         }
 
@@ -1543,7 +1543,7 @@
 
         .header-search {
             flex: 1;
-            min-width: 180px;
+            min-width: 160px;
             max-width: 350px;
             display: flex;
             align-items: center; /* 改为水平对齐 */
@@ -1551,7 +1551,7 @@
         }
 
         .unified-search-input {
-            width: clamp(150px, 13.02vw, 250px);
+            width: clamp(140px, 13.02vw, 250px);
             padding: clamp(4px, 0.42vw, 8px) 12px;
             border: 1px solid #d1d5db;
             border-radius: clamp(4px, 0.42vw, 8px);
