@@ -181,7 +181,6 @@ foreach ($defaultTimeline as $year => $data) {
             padding: 24px;
             background: #f1dfbc;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
         
@@ -218,7 +217,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .content {
-            padding: 40px 0;
+            padding: 0;
         }
         
         .timeline-section {

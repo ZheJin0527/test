@@ -202,7 +202,7 @@ function formatFileSize($bytes) {
         }
         
         .content {
-            padding: 40px 0;
+            padding: 0;
         }
         
         .music-section {

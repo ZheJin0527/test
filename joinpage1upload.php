@@ -95,7 +95,6 @@ if (file_exists('media_config.json')) {
             padding: 24px;
             background: #f1dfbc;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
         
@@ -119,7 +118,6 @@ if (file_exists('media_config.json')) {
         .breadcrumb {
             padding: 20px 0px;
             background: transparent;
-            border-bottom: 1px solid #dee2e6;
         }
         
         .breadcrumb a {
@@ -132,7 +130,7 @@ if (file_exists('media_config.json')) {
         }
         
         .content {
-            padding: 40px 0;
+            padding: 0;
         }
         
         .media-section {

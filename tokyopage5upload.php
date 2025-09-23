@@ -151,7 +151,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .content {
-            padding: 40px 0;
+            padding: 0;
         }
         
         .form-section {
