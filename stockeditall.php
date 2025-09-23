@@ -1529,7 +1529,7 @@
         .header-right-group {
             display: flex;
             align-items: flex-end;  /* 改为 flex-end，让元素底部对齐 */
-            gap: 20px;
+            gap: clamp(8px, 1.04vw, 20px);
             margin-left: auto;
         }
 
