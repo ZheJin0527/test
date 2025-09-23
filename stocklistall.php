@@ -1181,7 +1181,7 @@
             align-items: flex-start;
             min-width: 140px;
             flex-shrink: 0;
-            margin-right: 100px;
+            margin-right: 0px;
         }
 
         .summary-title {
