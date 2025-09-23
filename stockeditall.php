@@ -127,7 +127,7 @@
         }
 
         .filter-group label {
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             color: #583e04;
         }
@@ -1398,7 +1398,7 @@
             font-weight: 600;
             margin-bottom: 8px;
             color: #374151;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         .search-group {
