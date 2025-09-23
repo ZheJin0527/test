@@ -247,18 +247,19 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border: 2px solid #583e04;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
-            z-index: 1000;
-            min-width: 280px;
-            padding: 16px;
-        }
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 2px solid #583e04;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+    z-index: 1000;
+    min-width: clamp(220px, 25vw, 300px); /* 修改这行 */
+    padding: clamp(12px, 1.2vw, 16px); /* 修改这行 */
+    max-width: calc(100vw - 40px); /* 添加这行 */
+}
 
         .restaurant-dropdown-menu.show {
             display: flex;
