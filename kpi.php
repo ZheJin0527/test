@@ -256,7 +256,8 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            min-width: 280px;
+            width: clamp(180px, 14.6vw, 280px);
+            min-width: 180px;
             padding: 16px;
         }
 
