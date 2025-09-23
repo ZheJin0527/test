@@ -1516,7 +1516,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 22px 24px;
+            padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
             margin-bottom: 24px;
@@ -1551,7 +1551,7 @@
         }
 
         .unified-search-input {
-            width: clamp(180px, 13.02vw, 250px);
+            width: clamp(150px, 13.02vw, 250px);
             padding: clamp(4px, 0.42vw, 8px) 12px;
             border: 1px solid #d1d5db;
             border-radius: clamp(4px, 0.42vw, 8px);
