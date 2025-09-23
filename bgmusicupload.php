@@ -189,7 +189,6 @@ function formatFileSize($bytes) {
         .breadcrumb {
             padding: 20px 0px;
             background: transparent;
-            border-bottom: 1px solid #dee2e6;
         }
         
         .breadcrumb a {
