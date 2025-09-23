@@ -381,7 +381,7 @@
         .table-title {
             background: #f8f5eb;
             color: #583e04;
-            padding: 20px;
+            padding: clamp(14px, 1.04vw, 20px);
             font-size: clamp(14px, 1.04vw, 20px);
             font-weight: bold;
             text-align: center;
