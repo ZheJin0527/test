@@ -332,7 +332,7 @@
             padding: 8px 20px;
             height: 40px;
             box-sizing: border-box;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: 14px;
             width: 100%;
         }
 
@@ -351,7 +351,7 @@
         }
 
         .currency-symbol {
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: 14px;
             color: #6b7280;
         }
 
@@ -368,7 +368,7 @@
             color: white;
             padding: 12px 8px;
             text-align: center;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: 14px;
             font-weight: 600;
             border: 1px solid #d1d5db;
             position: sticky;
@@ -414,7 +414,7 @@
 
         .stock-table td {
             padding: 12px 8px;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: 14px;
             border: 1px solid #d1d5db;
             text-align: center;
             vertical-align: middle;
