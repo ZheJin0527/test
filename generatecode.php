@@ -400,7 +400,7 @@
 
         th {
             background: #583e04;
-            color: black;
+            color: white;
             padding: 15px 0px;
             text-align: center;
             font-weight: bold;
@@ -893,7 +893,7 @@
                         <!-- 添加新职员按钮 -->
                         <div class="form-group" style="flex: 0 0 auto; margin-right: 20px;">
                             <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                    style="background: #ff5c00; font-size: 14px; padding: 8px 20px;">
+                                    style="background: #583e04; font-size: 13px; padding: 8px 12px;">
                                 <i class="fas fa-user-plus"></i> 添加新职员
                             </button>
                         </div>
