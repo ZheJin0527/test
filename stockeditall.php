@@ -1602,14 +1602,6 @@
             color: #583e04;
         }
 
-        /* 按钮样式调整 */
-        .unified-header-row .btn {
-            padding: 8px 12px;
-            font-size: 13px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
         /* 批量操作按钮组 */
         .batch-actions {
             flex-shrink: 0;
