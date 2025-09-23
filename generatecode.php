@@ -421,7 +421,7 @@
         th:nth-child(3), td:nth-child(3) { width: 220px; }     /* 英文姓名 */
         th:nth-child(4), td:nth-child(4) { width: 410px; }     /* 邮箱 */
         th:nth-child(5), td:nth-child(5) { width: 120px; }     /* 联络号码 */
-        th:nth-child(6), td:nth-child(6) { width: 140px; }     /* 操作 */
+        th:nth-child(6), td:nth-child(6) { width: 80px; }     /* 操作 */
 
         /* 当地址列显示"-"时居中对齐 */
         td:nth-child(13) em {
