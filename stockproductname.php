@@ -326,7 +326,7 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            gap: 0px;
         }
 
         .btn {
@@ -386,7 +386,7 @@ if (isset($_SESSION['user_id'])) {
         /* 统计信息 */
         .stats-info {
             display: flex;
-            gap: 24px;
+            gap: 0px;
             align-items: center;
             font-size: clamp(8px, 0.74vw, 14px);
             color: #6b7280;
