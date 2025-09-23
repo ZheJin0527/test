@@ -724,7 +724,7 @@ $avatarLetter = strtoupper($username[0]);
         
         .form-label {
             display: block;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: bold;
             color: #583e04;
             margin-bottom: 8px;
