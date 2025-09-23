@@ -1213,7 +1213,7 @@
 
         .header-search {
             flex: 1;
-            min-width: 230px;
+            min-width: 50px;
             display: flex;
             align-items: center; /* 改为水平对齐 */
             gap: 12px; /* 添加间距 */
