@@ -330,11 +330,11 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .btn {
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -561,16 +561,16 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .filter-item label {
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             font-weight: 600;
             color: #583e04;
         }
 
         .filter-input {
-            padding: 6px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             background: white;
             color: #583e04;
             min-width: 120px;
