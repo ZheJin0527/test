@@ -421,7 +421,7 @@
         th:nth-child(3), td:nth-child(3) { width: 220px; }     /* 英文姓名 */
         th:nth-child(4), td:nth-child(4) { width: 410px; }     /* 邮箱 */
         th:nth-child(5), td:nth-child(5) { width: 120px; }     /* 联络号码 */
-        th:nth-child(6), td:nth-child(6) { width: 79px; }     /* 操作 */
+        th:nth-child(6), td:nth-child(6) { width: 140px; }     /* 操作 */
 
         /* 当地址列显示"-"时居中对齐 */
         td:nth-child(13) em {
@@ -553,15 +553,15 @@
         /* 操作按钮样式 */
         .action-buttons {
             display: flex;
-            gap: 6px;
-            justify-content: space-between;
+            gap: 4px;
+            justify-content: center;
             align-items: center;
             flex-wrap: nowrap;
             width: 100%;
         }
 
         .btn-action {
-            padding: 8px;
+            padding: 0;
             border: none;
             border-radius: 6px;
             font-size: 12px;
@@ -570,8 +570,12 @@
             transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            min-width: 30px;
-            flex: 1;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
         }
 
         .btn-edit {
