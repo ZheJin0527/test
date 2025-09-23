@@ -637,7 +637,7 @@
         }
 
         .stat-value {
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: bold;
             color: #583e04;
         }
@@ -1581,7 +1581,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
