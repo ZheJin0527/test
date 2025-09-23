@@ -397,7 +397,7 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 140px;
+            min-width: clamp(90px, 7.82vw, 150px);
         }
 
         .stat-value {
