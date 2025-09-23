@@ -1515,7 +1515,7 @@
         .unified-header-row {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 0px;
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
@@ -1543,7 +1543,7 @@
 
         .header-search {
             flex: 1;
-            min-width: 200px;
+            min-width: 180px;
             max-width: 350px;
             display: flex;
             align-items: center; /* 改为水平对齐 */
@@ -1585,7 +1585,7 @@
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
-            padding-bottom: 8px;  /* 添加底部内边距来微调位置 */
+            padding-bottom: clamp(5px, 0.42vw, 8px);  /* 添加底部内边距来微调位置 */
         }
 
         .header-stats .stat-value {
