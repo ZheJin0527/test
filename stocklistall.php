@@ -1195,7 +1195,7 @@
         .summary-amount {
             display: flex;
             align-items: baseline;
-            gap: 6px;
+            gap: clamp(0px, 0.31vw, 6px);
         }
 
         .summary-amount .currency-symbol {
