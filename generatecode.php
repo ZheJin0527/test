@@ -25,7 +25,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 40px 20px 20px;
         }
@@ -37,10 +37,10 @@
         }
 
         .header h1 {
-            color: #ff5c00;
-            font-size: 60px;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            color: #583e04;
+            font-size: 50px;
+            margin-bottom: 10px;
+            text-align: left;
         }
 
         .header h1::after {
