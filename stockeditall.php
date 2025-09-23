@@ -1487,7 +1487,7 @@
         .header-filter {
             display: flex;
             align-items: center; /* 改为水平对齐 */
-            gap: 12px; /* 添加间距 */
+            gap: clamp(6px, 0.63vw, 12px);
             min-width: 125px;
             flex-shrink: 0;
         }
@@ -1547,7 +1547,7 @@
             max-width: 350px;
             display: flex;
             align-items: center; /* 改为水平对齐 */
-            gap: 12px; /* 添加间距 */
+            gap: clamp(6px, 0.63vw, 12px);
         }
 
         .unified-search-input {
