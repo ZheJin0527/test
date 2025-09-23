@@ -260,7 +260,7 @@
         #editUserModal .form-group input[type="date"],
         #editUserModal .form-group select,
         #searchInput {
-            height: 36px !important;
+            height: clamp(30px, 1.87vw, 36px) !important;
             padding: 8px 12px !important;
             box-sizing: border-box !important;
             line-height: 1.2 !important;
@@ -903,7 +903,7 @@
                         <div class="form-group" style="flex: 0 0 auto; position: relative; display: flex; align-items: center; gap: 10px;">
                             <div style="position: relative;">
                                 <input type="text" id="searchInput" placeholder="输入英文姓名或邮箱进行搜索..."
-                                    style="padding: 10px 40px 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: clamp(8px, 0.74vw, 14px); width: 250px;">
+                                    style="padding: 10px 40px 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: clamp(8px, 0.74vw, 14px); width: clamp(200px, 13px, 250px;">
                                 <button type="button" onclick="clearSearch()" 
                                         style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #999; cursor: pointer; font-size: 16px;"
                                         title="清除搜索">
