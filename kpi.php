@@ -521,6 +521,7 @@ $avatarLetter = strtoupper($username[0]);
         .dropdown-toggle {
             display: flex;
             align-items: center;
+            font-size: clamp(8px, 0.74vw, 14px);
             gap: 8px;
         }
 
