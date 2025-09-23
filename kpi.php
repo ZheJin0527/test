@@ -756,7 +756,7 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 8px;
             padding: 6px 4px;
             gap: 0px;
-            min-width: 220px;
+            min-width: 100px;
             transition: all 0.2s;
             position: relative;
         }
