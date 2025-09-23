@@ -258,7 +258,7 @@ $avatarLetter = strtoupper($username[0]);
             z-index: 1000;
             width: clamp(280px, 17vw, 320px);
             min-width: 180px;
-            padding: 16px;
+            padding: clamp(8px, 0.84vw, 16px) 16px;
         }
 
         .restaurant-dropdown-menu.show {
