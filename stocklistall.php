@@ -53,7 +53,7 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: 8px 30px;
+            padding: 8px clamp(20px, 1.6vw, 30px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -753,7 +753,7 @@
 
         .view-selector .selector-button {
             background-color: #583e04;
-            min-width: 120px;
+            min-width: 80px;
         }
 
         .view-selector .selector-button:hover {
@@ -1165,7 +1165,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 16px 24px;
+            padding: clamp(8px, 0.83vw, 16px) 24px;
             background: white;
             border-radius: 12px;
             margin-bottom: 24px;
@@ -1230,7 +1230,7 @@
         }
 
         .header-right-section {
-            margin-top: 35px;
+            margin-top: clamp(16px, 1.83vw, 35px);
             display: flex;
             align-items: center;
             gap: 20px;
