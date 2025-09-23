@@ -155,7 +155,7 @@
 
         .btn {
             padding: 7px 12px;
-            border-radius: 8px;
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
             font-size: 13px;
@@ -1488,7 +1488,7 @@
             display: flex;
             align-items: center; /* 改为水平对齐 */
             gap: 12px; /* 添加间距 */
-            min-width: 140px;
+            min-width: 125px;
             flex-shrink: 0;
         }
 
@@ -1505,7 +1505,7 @@
 
         /* 调整按钮大小，使其更紧凑 */
         .unified-header-row .btn {
-            padding: clamp(4px, 0.42vw, 8px) 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             font-size: clamp(8px, 0.74vw, 14px);
             white-space: nowrap;
             flex-shrink: 0;
@@ -1561,7 +1561,7 @@
         }
 
         .filter-input {
-            padding: clamp(4px, 0.42vw, 8px) 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             border-radius: clamp(4px, 0.42vw, 8px);
             font-size: clamp(8px, 0.74vw, 14px);

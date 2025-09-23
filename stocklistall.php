@@ -271,7 +271,7 @@
         .btn-warning {
             background-color: #f59e0b;
             color: white;
-            padding: clamp(4px, 0.42vw, 8px) 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             margin-top: 0px;
             border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
