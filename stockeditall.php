@@ -40,7 +40,7 @@
         }
         
         .header h1 {
-            font-size: 50px;
+            font-size: clamp(20px, 2.6vw, 50px);
             font-weight: bold;
             color: #583e04;
         }
