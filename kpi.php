@@ -911,7 +911,7 @@ $avatarLetter = strtoupper($username[0]);
         .date-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: clamp(10px, 0.84vw, 16px);
             align-items: center;
         }
 
