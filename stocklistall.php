@@ -332,7 +332,7 @@
             padding: 8px 20px;
             height: 40px;
             box-sizing: border-box;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             width: 100%;
         }
 
