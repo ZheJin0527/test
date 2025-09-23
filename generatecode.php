@@ -400,7 +400,7 @@
         th {
             background: #583e04;
             color: white;
-            padding: 15px 0px;
+            padding: clamp(8px, 0.8vw, 15px) 0px;
             text-align: center;
             font-weight: bold;
             font-size: clamp(8px, 0.74vw, 14px);
@@ -431,7 +431,7 @@
         }
 
         td {
-            padding: 8px 6px;
+            padding: clamp(2px, 0.42, 8px) 6px;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             border: 1px solid #d1d5db;
