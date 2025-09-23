@@ -271,9 +271,9 @@
         .btn-warning {
             background-color: #f59e0b;
             color: white;
-            padding: 8px 12px;
+            padding: clamp(4px, 0.42vw, 8px) 12px;
             margin-top: 0px;
-            border-radius: 8px;
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
             font-size: clamp(8px, 0.74vw, 14px);
@@ -1134,9 +1134,9 @@
         }
 
         .unified-search-input {
-            padding: 8px 12px;
+            padding: clamp(4px, 0.42vw, 8px) 12px;
             border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border-radius: clamp(4px, 0.42vw, 8px);
             font-size: clamp(8px, 0.74vw, 14px);
             background-color: #ffffff;
             transition: all 0.2s ease;
@@ -1165,7 +1165,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: clamp(8px, 0.83vw, 16px) 24px;
+            padding: clamp(8px, 0.83vw, 16px) clamp(18px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
             margin-bottom: 24px;
@@ -1185,7 +1185,7 @@
         }
 
         .summary-title {
-            font-size: clamp(16px, 1.5vw, 28px);
+            font-size: clamp(14px, 1.5vw, 28px);
             font-weight: 600;
             color: #583e04;
             margin-bottom: 2px;
@@ -1199,13 +1199,13 @@
         }
 
         .summary-amount .currency-symbol {
-            font-size: clamp(20px, 1.88vw, 36px);
+            font-size: clamp(18px, 1.88vw, 36px);
             font-weight: bold;
             color: #583e04;
         }
 
         .summary-amount .value {
-            font-size: clamp(20px, 1.88vw, 36px);
+            font-size: clamp(18px, 1.88vw, 36px);
             margin-left: 6px;
             font-weight: 700;
             color: #583e04;
@@ -1222,7 +1222,7 @@
         .header-stats {
             margin-top: 0px;
             display: flex;
-            gap: 16px;
+            gap: clamp(8px, 0.83vw, 16px);
             font-size: clamp(6px, 0.63vw, 12px);
             color: #6b7280;
             flex-shrink: 0;
@@ -1230,10 +1230,10 @@
         }
 
         .header-right-section {
-            margin-top: clamp(16px, 1.83vw, 35px);
+            margin-top: clamp(18px, 1.83vw, 35px);
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: clamp(8px, 1.04vw, 20px);
             margin-left: auto;
         }
 
