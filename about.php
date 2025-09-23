@@ -8,7 +8,7 @@ include_once 'media_config.php';
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['aboutanimation.css','about.css'];
+$additionalCSS = ['aboutanimation.css'];
 $showPageIndicator = true;
 $totalSlides = 5;
 
