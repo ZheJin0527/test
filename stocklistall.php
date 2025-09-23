@@ -1164,7 +1164,7 @@
         .unified-header-row {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 0px;
             padding: clamp(8px, 0.83vw, 16px) clamp(18px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
