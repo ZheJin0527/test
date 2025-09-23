@@ -341,7 +341,6 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            height: 40px;
         }
 
         .btn-generate:hover {
