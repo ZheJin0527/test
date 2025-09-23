@@ -320,7 +320,7 @@ if (isset($_SESSION['user_id'])) {
 
         /* 操作按钮 */
         .action-buttons {
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px);
             background: #f8f5eb;
             border-top: 2px solid #583e04;
             display: flex;
