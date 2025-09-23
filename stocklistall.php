@@ -802,6 +802,7 @@
         }
 
         .low-stock-modal-header h2 {
+            font-size: clamp(18px, 1.25vw, 24px);
             margin: 0;
             display: flex;
             align-items: center;
@@ -843,12 +844,14 @@
         .low-stock-table th,
         .low-stock-table td {
             padding: 12px;
+            font-size: clamp(10px, 0.84vw, 16px);
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
 
         .low-stock-table th {
             background-color: #f9fafb;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 600;
             color: #374151;
         }
@@ -2018,7 +2021,7 @@
             // 添加总计行
             tableRows += `
                 <tr class="total-row">
-                    <td colspan="6" class="text-right" style="font-size: clamp(10px, 0.84vw, 16px); padding-right: 15px; text-align: right;">总计:</td>
+                    <td colspan="6" class="text-right" style="font-size: 16px; padding-right: 15px; text-align: right;">总计:</td>
                     <td class="price-cell positive-value" style="font-size: 16px;">
                         <div class="currency-display">
                             <span class="currency-symbol">RM</span>
