@@ -1241,44 +1241,6 @@
             font-weight: bold;
             color: #583e04;
         }
-
-        /* 响应式调整 */
-        @media (max-width: 1024px) {
-            .unified-header-row {
-                flex-wrap: wrap;
-                gap: 16px;
-            }
-            
-            .header-search {
-                order: 3;
-                width: 100%;
-                min-width: auto;
-            }
-            
-            .header-stats {
-                flex-direction: row;
-                gap: 16px;
-                min-width: auto;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .unified-header-row {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            
-            .header-summary,
-            .header-stats {
-                align-items: center;
-                text-align: center;
-            }
-            
-            .header-stats {
-                justify-content: center;
-            }
-        }
     </style>
 </head>
 <body>
