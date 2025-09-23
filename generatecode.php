@@ -399,7 +399,6 @@
             overflow-x: auto;
             overflow-y: auto;
             flex: 1;
-            min-height: 0;
         }
 
         table {
