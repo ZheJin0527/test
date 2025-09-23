@@ -914,7 +914,7 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 日期信息样式 */
         .date-info {
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: bold;
             color: #6b7280;
             padding: 8px 12px;
