@@ -1492,15 +1492,6 @@
             flex-shrink: 0;
         }
 
-        .filter-input {
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 13px;
-            background-color: #ffffff;
-            transition: all 0.2s ease;
-        }
-
         .filter-input:focus {
             outline: none;
             border-color: #583e04;
@@ -1561,19 +1552,19 @@
 
         .unified-search-input {
             width: 250px;
-            padding: 8px 12px;
+            padding: clamp(4px, 0.42vw, 8px) 12px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
 
         .filter-input {
-            padding: 8px 12px;
+            padding: clamp(4px, 0.42vw, 8px) 12px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
