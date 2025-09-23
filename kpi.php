@@ -415,7 +415,7 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             color: #583e04;
             cursor: pointer;
-            font-size: 12px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             border-radius: 4px;
             transition: all 0.15s ease;
@@ -446,7 +446,7 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             color: #583e04;
             position: relative;
-            min-width: 80px;
+            min-width: 50px;
         }
 
         .restaurant-btn.active {
