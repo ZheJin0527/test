@@ -28,6 +28,10 @@
             max-width: 1800px;
             margin: 0 auto;
             padding: 40px 20px 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
         }
 
         .header {
