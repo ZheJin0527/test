@@ -58,6 +58,10 @@ if (isset($_SESSION['user_id'])) {
             max-width: 1800px;
             margin: 0 auto;
             padding: 24px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
         
         .header {
@@ -195,9 +199,13 @@ if (isset($_SESSION['user_id'])) {
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
-            overflow: hidden;
             border: 2px solid #583e04;
-            overflow-x: auto;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 300px);
+            min-height: 400px;
+            flex: 1;
+            overflow: hidden;
         }
 
         .excel-table {
@@ -316,6 +324,40 @@ if (isset($_SESSION['user_id'])) {
         .excel-input[type="number"] {
             font-variant-numeric: tabular-nums;
             font-feature-settings: "tnum";
+        }
+
+        .table-scroll-container {
+            overflow-x: auto;
+            overflow-y: auto;
+            flex: 1;
+            position: relative;
+        }
+
+        .excel-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #583e04;
+        }
+
+        .excel-table thead tr {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .excel-table th {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .action-buttons {
+            flex-shrink: 0;
+        }
+
+        .filter-bar {
+            flex-shrink: 0;
         }
 
         /* 操作按钮 */
@@ -966,6 +1008,7 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
             
+            <div class="table-scroll-container">
             <table class="excel-table" id="excel-table">
                 <thead>
                     <tr>
@@ -984,6 +1027,7 @@ if (isset($_SESSION['user_id'])) {
                     <!-- 动态生成行 -->
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
