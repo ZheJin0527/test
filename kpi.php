@@ -786,7 +786,7 @@ $avatarLetter = strtoupper($username[0]);
             user-select: none;
             background: transparent;
             border: 1px solid transparent;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #374151;
         }
 
