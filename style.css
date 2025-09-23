@@ -2236,7 +2236,6 @@ nav {
     justify-content: center;
     text-align: center;
     padding: clamp(20px, 3vw, 60px) 0 100px 50px;
-    margin-left: 50px;
 }
 
 .intro-content h1 {
