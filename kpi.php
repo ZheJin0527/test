@@ -780,7 +780,7 @@ $avatarLetter = strtoupper($username[0]);
         .date-part {
             position: relative;
             cursor: pointer;
-            padding: 0px 10px;
+            padding: 0px clamp(6px, 0.52vw, 10px);
             border-radius: 4px;
             transition: all 0.2s;
             min-width: 30px;
