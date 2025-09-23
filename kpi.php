@@ -707,7 +707,7 @@ $avatarLetter = strtoupper($username[0]);
         .table th,
         .table td {
             font-size: clamp(8px, 0.74vw, 14px);
-            padding: 12px clamp(20px, 1.25vw, 24px);
+            padding: 12px clamp(6px, 1vw, 24px);
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
