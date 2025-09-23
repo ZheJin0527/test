@@ -388,7 +388,7 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             gap: 24px;
             align-items: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #6b7280;
             flex-wrap: wrap;
         }
@@ -401,7 +401,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .stat-value {
-            font-size: 18px;
+            font-size: clamp(12px, 0.94vw, 18px);
             font-weight: bold;
             color: #583e04;
         }
@@ -573,7 +573,7 @@ if (isset($_SESSION['user_id'])) {
             font-size: clamp(8px, 0.74vw, 14px);
             background: white;
             color: #583e04;
-            min-width: 120px;
+            min-width: 70px;
         }
 
         .filter-input:focus {
