@@ -431,7 +431,7 @@
         }
 
         td {
-            padding: clamp(2px, 0.42, 8px) 6px;
+            padding: clamp(2px, 0.42vw, 8px) 6px;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             border: 1px solid #d1d5db;
