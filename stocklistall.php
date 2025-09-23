@@ -53,16 +53,16 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: 11px 24px;
+            padding: 8px 30px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
-            min-width: 130px;
+            min-width: 80px;
             justify-content: space-between;
         }
         
