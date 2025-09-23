@@ -288,7 +288,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .section-title {
-            font-size: 12px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             color: #583e04;
             margin-bottom: 8px;
@@ -325,7 +325,7 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             color: #583e04;
             cursor: pointer;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             border-radius: 4px;
             transition: all 0.15s ease;
@@ -772,7 +772,7 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 月份选择器的特殊样式 - 更小的宽度 */
         .enhanced-date-picker.month-only {
-            min-width: 193px;
+            min-width: 100px;
         }
 
         /* 日期选择部分 */
