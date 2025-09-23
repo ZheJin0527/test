@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
-    const loginBtn = document.querySelector('.login-btn');
+    const loginBtn = document.getElementById('loginBtn');
 
     // 登录下拉菜单元素
     const loginDropdownMenu = document.getElementById('loginDropdownMenu');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             // 如果宽度大于768，确保loginBtn在right-section中
-            const rightSection = document.querySelector('.right-section');
+            const rightSection = document.querySelector('.header-right-section');
             if (rightSection && !rightSection.contains(loginBtn)) {
                 rightSection.insertBefore(loginBtn, rightSection.firstChild);
             }
