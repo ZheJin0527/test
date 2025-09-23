@@ -1115,6 +1115,9 @@ if (isset($_SESSION['user_id'])) {
             }
         }
 
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initApp);
+
         // 回到顶部功能
         function scrollToTop() {
             window.scrollTo({
@@ -1130,7 +1133,7 @@ if (isset($_SESSION['user_id'])) {
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(function() {
                 const backToTopBtn = document.getElementById('back-to-top-btn');
-                const scrollThreshold = 150; // 滚动超过150px后显示按钮
+                const scrollThreshold = 150; // 滚动超过300px后显示按钮
                 
                 if (window.pageYOffset > scrollThreshold) {
                     backToTopBtn.classList.add('show');
