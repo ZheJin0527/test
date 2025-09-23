@@ -380,6 +380,10 @@
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             border: 2px solid #583e04;
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .table-title {
@@ -393,12 +397,23 @@
 
         .table-wrapper {
             overflow-x: auto;
+            overflow-y: auto;
+            flex: 1;
+            min-height: 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             border: 1px solid #d1d5db;
+            table-layout: fixed;
+        }
+
+        /* 确保表格头部固定 */
+        .table-wrapper thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         th {
