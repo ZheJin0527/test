@@ -335,7 +335,7 @@
             border: none;
             padding: 8px 12px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
