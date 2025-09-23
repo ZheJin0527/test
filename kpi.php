@@ -803,6 +803,7 @@ $avatarLetter = strtoupper($username[0]);
 
         .date-separator {
             color: #9ca3af;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             user-select: none;
             margin: 0 2px;
