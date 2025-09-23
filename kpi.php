@@ -275,13 +275,13 @@ $avatarLetter = strtoupper($username[0]);
             flex: 1;
             border-right: 1px solid #e5e7eb;
             padding-right: 12px;
-            min-width: 140px; /* 稍微增加宽度以容纳横向布局 */
+            min-width: 70px; /* 稍微增加宽度以容纳横向布局 */
         }
 
         .number-selection {
             flex: 1;
             padding-left: 12px;
-            min-width: 120px; /* 固定最小宽度 */
+            min-width: 80px; /* 固定最小宽度 */
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
