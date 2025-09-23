@@ -81,7 +81,7 @@
             border: 2px solid #583e04;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
-            min-width: 130px;
+            width: clamp(20px, 6.25vw, 115px);
             z-index: 1000;
             display: none;
             margin-top: 4px;
@@ -97,7 +97,7 @@
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
             color: #583e04;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
         }
 
