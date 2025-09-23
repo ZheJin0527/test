@@ -230,7 +230,6 @@
             color: white;
             padding: 12px 8px;
             text-align: center;
-            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             border: 1px solid #d1d5db;
             position: sticky;
@@ -242,7 +241,6 @@
 
         .stock-table td {
             padding: 0;
-            font-size: clamp(8px, 0.74vw, 14px);
             border: 1px solid #d1d5db;
             text-align: center;
             position: relative;
