@@ -421,7 +421,7 @@
             text-align: center;
             font-weight: bold;
             font-size: clamp(8px, 0.74vw, 14px);
-            border: 1px solid #462d03;
+            border: 1px solid #d1d5db;
             position: sticky;
             top: 0;
         }
