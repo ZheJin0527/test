@@ -3989,7 +3989,7 @@ nav {
 
 .job-table-title {
     text-align: center;
-    font-size: clamp(18px, 2.8vw, 42px);
+    font-size: clamp(18px, 4.8vw, 42px);
     font-weight: 700;
     margin: clamp(0px, 2vw, 40px) auto clamp(8px, 2vw, 40px);
     background: #ff5c00;
@@ -4047,7 +4047,7 @@ nav {
 
 .company-title {
     text-align: center;
-    font-size: clamp(11px, 1.6vw, 18px);
+    font-size: clamp(11px, 2.6vw, 18px);
     font-weight: 700;
     color: #FF5C00;
     margin: 0 0 8px 0;
@@ -4082,7 +4082,7 @@ nav {
 }
 
 .job-item-title {
-    font-size: clamp(9px, 1.2vw, 13px);
+    font-size: clamp(9px, 2.2vw, 18px);
     font-weight: 600;
     margin: 0 0 2px 0;
     text-transform: uppercase;
@@ -4122,7 +4122,7 @@ nav {
 }
 
 .department-title {
-    font-size: clamp(9px, 1.2vw, 14px);
+    font-size: clamp(9px, 2.2vw, 14px);
     font-weight: 700;
     color: #FF5C00;
     margin-bottom: 4px;
