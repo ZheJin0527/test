@@ -15,7 +15,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #ffffffff;
+            background-color: #f1dfbc;
             background-image: url('images/images/remarkbg1.png');
             background-repeat: no-repeat;
             background-position: center;
@@ -49,7 +49,7 @@
             height: 3px;
             width: 100%;
             margin-top: 16px;
-            background: linear-gradient(90deg, rgba(255,92,0,0) 0%, rgba(255,92,0,1) 25%, rgba(255,92,0,1) 75%, rgba(255,92,0,0) 100%);
+            background: linear-gradient(90deg, rgba(255,92,0,0) 0%, rgba(88, 62, 4, 1) 25%, rgba(88, 62, 4, 1) 75%, rgba(255,92,0,0) 100%);
         }
 
         .header p {
