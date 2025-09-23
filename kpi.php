@@ -256,7 +256,7 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            min-width: 180px;
+            min-width: 280px;
             padding: 16px;
         }
 
@@ -275,13 +275,13 @@ $avatarLetter = strtoupper($username[0]);
             flex: 1;
             border-right: 1px solid #e5e7eb;
             padding-right: 12px;
-            min-width: 70px; /* 稍微增加宽度以容纳横向布局 */
+            min-width: 140px; /* 稍微增加宽度以容纳横向布局 */
         }
 
         .number-selection {
             flex: 1;
             padding-left: 12px;
-            min-width: 80px; /* 固定最小宽度 */
+            min-width: 120px; /* 固定最小宽度 */
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
