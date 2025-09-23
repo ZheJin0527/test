@@ -333,9 +333,9 @@
             background: linear-gradient(270deg, #FF9800 0%, #E65100 100%);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 8px 12px;
             border-radius: 8px;
-            font-size: 17.6px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -895,8 +895,7 @@
                     <div class="form-row" style="justify-content: space-between; align-items: end;">
                         <!-- 添加新职员按钮 -->
                         <div class="form-group" style="flex: 0 0 auto; margin-right: 20px;">
-                            <button type="button" class="btn-generate" onclick="openAddUserModal()" 
-                                    style="background: #583e04; font-size: 13px; padding: 8px 12px;">
+                            <button type="button" class="btn-generate" onclick="openAddUserModal()" >
                                 <i class="fas fa-user-plus"></i> 添加新职员
                             </button>
                         </div>
