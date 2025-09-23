@@ -242,7 +242,6 @@
 
         .stock-table td {
             padding: 0;
-            padding: 12px 8px;
             font-size: clamp(8px, 0.74vw, 14px);
             border: 1px solid #d1d5db;
             text-align: center;
