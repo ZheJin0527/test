@@ -376,12 +376,12 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border: 2px solid #ff5c00;
+            border: 2px solid #583e04;
         }
 
         .table-title {
-            background: linear-gradient(135deg, #ff5c00, #ff8000);
-            color: white;
+            background: #f8f5eb;
+            color: #583e04;
             padding: 20px;
             font-size: 20.8px;
             font-weight: bold;
@@ -399,13 +399,13 @@
         }
 
         th {
-            background: #fff4e5;
+            background: #583e04;
             color: black;
             padding: 15px 0px;
             text-align: center;
             font-weight: bold;
             font-size: 14px;
-            border: 1px solid #d1d5db;
+            border: 1px solid #462d03;
         }
 
         th:first-child {
