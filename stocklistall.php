@@ -400,8 +400,10 @@
         .stock-table {
             table-layout: fixed;
             width: 100%;
+            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
+            margin: 0;
         }
 
         /* 确保表格容器高度计算正确 */
@@ -443,39 +445,15 @@
             overflow: visible;
             display: flex;
             flex-direction: column;
-            max-height: 80vh;
-            width: 100%;
+            max-height: 80vh; /* 设置最大高度 */
         }
 
         .table-scroll-container {
-            overflow-x: hidden;
+            overflow-x: auto;
             overflow-y: auto;
             flex: 1;
-            max-height: calc(87vh - 160px);
+            max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
             position: relative;
-            width: 100%;
-        }
-
-        /* 确保表格内容不溢出 */
-        .stock-table th, .stock-table td {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            min-width: 0;
-        }
-
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) {
-            white-space: normal;
-            word-wrap: break-word;
-            line-height: 1.2;
-        }
-
-        /* 小屏幕优化 */
-        @media (max-width: 1200px) {
-            .stock-table th, .stock-table td {
-                font-size: 12px;
-                padding: 8px 4px;
-            }
         }
 
         /* 操作按钮 */
