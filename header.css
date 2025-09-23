@@ -95,6 +95,10 @@
    Login Button & Dropdown Styles
    =========================================== */
 
+.header-login-dropdown {
+    position: relative;
+}
+
 .header-login-btn {
     width: 100px;
     height: 26px;
@@ -168,6 +172,7 @@
    =========================================== */
 
 .header-language-switch {
+    position: relative;
     display: flex;
     align-items: center;
     color: white;
