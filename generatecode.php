@@ -399,12 +399,19 @@
             overflow-y: auto;
             flex: 1;
             min-height: 0;
+            position: relative;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             border: 1px solid #d1d5db;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         th {
@@ -415,6 +422,8 @@
             font-weight: bold;
             font-size: clamp(8px, 0.74vw, 14px);
             border: 1px solid #462d03;
+            position: sticky;
+            top: 0;
         }
 
         th:first-child {
