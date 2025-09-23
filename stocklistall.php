@@ -271,12 +271,12 @@
         .btn-warning {
             background-color: #f59e0b;
             color: white;
-            padding: 7px 16px;
+            padding: 8px 12px;
             margin-top: 0px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -368,6 +368,7 @@
             color: white;
             padding: 12px 8px;
             text-align: center;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             border: 1px solid #d1d5db;
             position: sticky;
@@ -413,6 +414,7 @@
 
         .stock-table td {
             padding: 12px 8px;
+            font-size: clamp(8px, 0.74vw, 14px);
             border: 1px solid #d1d5db;
             text-align: center;
             vertical-align: middle;
@@ -484,7 +486,7 @@
         }
 
         .stat-value {
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: bold;
             color: #583e04;
         }
@@ -1135,7 +1137,7 @@
             padding: 8px 12px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
@@ -1183,7 +1185,7 @@
         }
 
         .summary-title {
-            font-size: 26px;
+            font-size: clamp(20px, 1.5vw, 28px);
             font-weight: 600;
             color: #583e04;
             margin-bottom: 2px;
@@ -1197,13 +1199,13 @@
         }
 
         .summary-amount .currency-symbol {
-            font-size: 36px;
+            font-size: clamp(28px, 1.88vw, 36px);
             font-weight: bold;
             color: #583e04;
         }
 
         .summary-amount .value {
-            font-size: 36px;
+            font-size: clamp(28px, 1.88vw, 36px);
             margin-left: 6px;
             font-weight: 700;
             color: #583e04;
@@ -1221,7 +1223,7 @@
             margin-top: 0px;
             display: flex;
             gap: 16px;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
@@ -1360,7 +1362,7 @@
                 
                 <div class="header-right-section">
                 <div class="header-search">
-                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="central-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
@@ -1412,7 +1414,7 @@
                 
                 <div class="header-right-section">
                 <div class="header-search">
-                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="j1-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
@@ -1464,7 +1466,7 @@
                 
                 <div class="header-right-section">
                 <div class="header-search">
-                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="j2-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
