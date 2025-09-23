@@ -1185,7 +1185,7 @@
         }
 
         .summary-title {
-            font-size: clamp(20px, 1.5vw, 28px);
+            font-size: clamp(16px, 1.5vw, 28px);
             font-weight: 600;
             color: #583e04;
             margin-bottom: 2px;
@@ -1199,13 +1199,13 @@
         }
 
         .summary-amount .currency-symbol {
-            font-size: clamp(28px, 1.88vw, 36px);
+            font-size: clamp(20px, 1.88vw, 36px);
             font-weight: bold;
             color: #583e04;
         }
 
         .summary-amount .value {
-            font-size: clamp(28px, 1.88vw, 36px);
+            font-size: clamp(20px, 1.88vw, 36px);
             margin-left: 6px;
             font-weight: 700;
             color: #583e04;
