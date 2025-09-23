@@ -536,7 +536,7 @@ if (isset($_SESSION['user_id'])) {
         .filter-bar {
             background: white;
             border-radius: 12px;
-            padding: 16px 24px;
+            padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
             margin-bottom: 24px;
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
