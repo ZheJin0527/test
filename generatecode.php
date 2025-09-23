@@ -564,14 +564,14 @@
             padding: 0;
             border: none;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: clamp(8px, 0.63vw, 12px);
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            width: 32px;
-            height: 32px;
+            width: clamp(24px, 1.7vw, 32px);
+            height: clamp(24px, 1.7vw, 32px);
             display: inline-flex;
             align-items: center;
             justify-content: center;
