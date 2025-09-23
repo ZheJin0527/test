@@ -403,7 +403,7 @@
             padding: 15px 0px;
             text-align: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             border: 1px solid #462d03;
         }
 
@@ -432,7 +432,7 @@
 
         td {
             padding: 8px 6px;
-            font-size: 12px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             border: 1px solid #d1d5db;
             vertical-align: middle;
