@@ -665,7 +665,7 @@ $avatarLetter = strtoupper($username[0]);
         .kpi-card-vertical .icon {
             width: 50px;
             height: 50px;
-            font-size: 28px;
+            font-size: clamp(20px, 1.5vw, 28px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -674,14 +674,14 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .kpi-card-vertical .kpi-label {
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             color: #000000;
             font-weight: bold;
             margin-bottom: 0px;
         }
 
         .kpi-card-vertical .kpi-value {
-            font-size: 1.5rem;
+            font-size: clamp(18px, 1.25vw, 24px);
             font-weight: bold;
             color: #111827;
         }
@@ -706,6 +706,7 @@ $avatarLetter = strtoupper($username[0]);
         
         .table th,
         .table td {
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 12px 24px;
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
@@ -714,7 +715,7 @@ $avatarLetter = strtoupper($username[0]);
         .table th {
             background-color: rgb(248, 245, 235);
             font-weight: bold;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #6b7280;
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -911,7 +912,7 @@ $avatarLetter = strtoupper($username[0]);
         .date-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: clamp(10px, 0.84vw, 16px);
+            gap: clamp(10px, 1.6vw, 30px);
             align-items: center;
         }
 
@@ -1120,7 +1121,7 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             color: #6b7280;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -1324,7 +1325,7 @@ $avatarLetter = strtoupper($username[0]);
                         <div class="card-body">
                             <div class="kpi-card-vertical">
                                 <div class="icon dynamic-color">
-                                    <img src="images/images/table.png" alt="桌子图标" style="width: 40px; height: 38px;">
+                                    <img src="images/images/table.png" alt="桌子图标" style="width: clamp(30px, 2.1vw, 40px); height: clamp(28px, 1.98vw, 38px);">
                                 </div>
                                 <div>
                                     <p class="kpi-label">桌子总数</p>
@@ -1370,7 +1371,7 @@ $avatarLetter = strtoupper($username[0]);
                     <div class="card" style="height: 400px;">
                         <div class="card-body" style="height: 100%; display: flex; flex-direction: column;">
                             <div class="chart-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                                <h3 id="main-chart-title" style="font-size: 20px; font-weight: 600; color: #111827; margin: 0;">净销售额趋势</h3>
+                                <h3 id="main-chart-title" style="font-size: clamp(14px, 1.04vw, 20px); font-weight: 600; color: #111827; margin: 0;">净销售额趋势</h3>
                                 
                                 <!-- 新增：数据类型切换按钮组 -->
                                 <div class="chart-data-buttons" style="display: flex; gap: 8px; align-items: center;">
@@ -1388,7 +1389,7 @@ $avatarLetter = strtoupper($username[0]);
                                     </button>
                                 </div>
                                 
-                                <div class="date-range-display" id="chart-date-range" style="font-size: 14px; color: #6b7280; font-weight: 500;">
+                                <div class="date-range-display" id="chart-date-range" style="font-size: clamp(8px, 0.74vw, 14px); color: #6b7280; font-weight: 500;">
                                     <!-- 日期范围将在这里显示 -->
                                 </div>
                             </div>
@@ -1405,7 +1406,7 @@ $avatarLetter = strtoupper($username[0]);
             <!-- Detail Table -->
             <div class="card">
                 <div class="card-body" style="padding-bottom: 0;">
-                    <h3 style="font-size: 20px; font-weight: 600; color: #111827; margin-bottom: 24px;">详细数据</h3>
+                    <h3 style="font-size: clamp(14px, 1.04vw, 20px); font-weight: 600; color: #111827; margin-bottom: 24px;">详细数据</h3>
                 </div>
                 <div style="overflow-x: auto;">
                     <table class="table" id="dashboard-table">
