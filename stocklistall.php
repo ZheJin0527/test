@@ -53,16 +53,16 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: 8px clamp(20px, 1.6vw, 30px);
+            padding: 11px 24px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: clamp(10px, 0.84vw, 16px);
+            font-size: 16px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
-            min-width: 80px;
+            min-width: 130px;
             justify-content: space-between;
         }
         
@@ -81,7 +81,7 @@
             border: 2px solid #583e04;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
-            width: clamp(20px, 6.25vw, 115px);
+            min-width: 130px;
             z-index: 1000;
             display: none;
             margin-top: 4px;
@@ -97,7 +97,7 @@
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
             color: #583e04;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: 14px;
             font-weight: 500;
         }
 
