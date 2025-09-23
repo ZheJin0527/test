@@ -256,7 +256,7 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            width: clamp(180px, 14.6vw, 280px);
+            width: clamp(280px, 17vw, 320px);
             min-width: 180px;
             padding: 16px;
         }
@@ -276,7 +276,7 @@ $avatarLetter = strtoupper($username[0]);
             flex: 1;
             border-right: 1px solid #e5e7eb;
             padding-right: 12px;
-            min-width: 140px; /* 稍微增加宽度以容纳横向布局 */
+            min-width: 110px; /* 稍微增加宽度以容纳横向布局 */
         }
 
         .number-selection {
