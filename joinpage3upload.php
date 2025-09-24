@@ -479,7 +479,7 @@ if (isset($_GET['success'])) {
             font-size: 1.8em;
         }
         
-        .job-item {
+        body .job-item {
             border: 1px solid #e0e0e0 !important;
             border-radius: 10px !important;
             padding: 20px !important;
@@ -487,7 +487,7 @@ if (isset($_GET['success'])) {
             transition: all 0.3s ease !important;
         }
         
-        .job-item:hover {
+        body .job-item:hover {
             border-color: #FF5C00 !important;
             box-shadow: 0 5px 15px rgba(255, 92, 0, 0.1) !important;
         }
