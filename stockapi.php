@@ -97,6 +97,7 @@ function handleGet() {
             $searchDate = $_GET['search_date'] ?? null;
             $supplier = $_GET['supplier'] ?? null;
             $approvalStatus = $_GET['approval_status'] ?? null;
+            $productSearch = $_GET['product_search'] ?? null;
 
             // 如果没有提供日期范围，默认显示一年内的数据
             if (!$startDate && !$endDate && !$searchDate) {
@@ -121,22 +122,11 @@ function handleGet() {
                 $params[] = "%$supplier%";
             }
 
-            if ($productCode) {
-                $sql .= " AND product_code LIKE ?";
-                $params[] = "%$productCode%";
-            }
-
-            // 添加产品名称搜索支持
-            $productName = $_GET['product_name'] ?? null;
-            if ($productName) {
-                $sql .= " AND product_name LIKE ?";
-                $params[] = "%$productName%";
-            }
-
-            // 确保产品代码搜索也是模糊匹配
-            if ($productCode) {
-                $sql .= " AND product_code LIKE ?";
-                $params[] = "%$productCode%";
+            // 产品搜索（同时搜索产品编号和产品名称）
+            if ($productSearch) {
+                $sql .= " AND (product_code LIKE ? OR product_name LIKE ?)";
+                $params[] = "%$productSearch%";
+                $params[] = "%$productSearch%";
             }
             
             if ($approvalStatus) {
@@ -151,18 +141,18 @@ function handleGet() {
             
             $stmt = $pdo->prepare($sql);
             try {
-            $stmt->execute($params);
-            $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            // 为每条记录添加批准状态
-            foreach ($records as &$record) {
-                $record['approval_status'] = (!empty($record['approver'])) ? 'approved' : 'pending';
+                $stmt->execute($params);
+                $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                // 为每条记录添加批准状态
+                foreach ($records as &$record) {
+                    $record['approval_status'] = (!empty($record['approver'])) ? 'approved' : 'pending';
+                }
+                
+                sendResponse(true, "库存数据获取成功", $records);
+            } catch (PDOException $e) {
+                sendResponse(false, "查询数据失败：" . $e->getMessage());
             }
-            
-            sendResponse(true, "库存数据获取成功", $records);
-        } catch (PDOException $e) {
-            sendResponse(false, "查询数据失败：" . $e->getMessage());
-        }
             break;
             
         case 'summary':
