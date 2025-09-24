@@ -358,7 +358,6 @@
         .stock-table {
             table-layout: fixed;
             width: 100%;
-            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
         }
@@ -442,14 +441,12 @@
             border-radius: 4px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             border: 2px solid #583e04;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             max-height: 80vh; /* 设置最大高度 */
         }
 
         .table-scroll-container {
-            overflow-x: auto;
             overflow-y: auto;
             flex: 1;
             max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
@@ -1244,6 +1241,31 @@
             font-weight: bold;
             color: #583e04;
         }
+
+        /* 响应式字体和内边距 */
+.stock-table th {
+    padding: clamp(8px, 0.8vw, 12px) clamp(4px, 0.4vw, 8px);
+    font-size: clamp(10px, 0.8vw, 14px);
+}
+
+.stock-table td {
+    padding: clamp(8px, 0.8vw, 12px) clamp(4px, 0.4vw, 8px);
+    font-size: clamp(10px, 0.8vw, 14px);
+}
+
+/* 确保内容不换行但可以适当缩小 */
+.stock-table th, .stock-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 产品名称列允许适当换行 */
+.stock-table th:nth-child(3), .stock-table td:nth-child(3) {
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.2;
+}
     </style>
 </head>
 <body>
