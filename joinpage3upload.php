@@ -480,17 +480,28 @@ if (isset($_GET['success'])) {
         }
         
         .jobs-list .job-item {
-            border: 1px solid #e0e0e0 !important;
-            border-radius: 10px !important;
-            padding: 20px !important;
-            margin-bottom: 20px !important;
-            transition: all 0.3s ease !important;
-        }
+        /* 重置style.css中的所有冲突样式 */
+        background: white !important;  /* 覆盖linear-gradient */
+        color: #333 !important;        /* 覆盖white色彩 */
+        border-radius: 10px !important; /* 覆盖原来的border-radius */
+        box-shadow: none !important;    /* 重置box-shadow */
+        text-align: left !important;    /* 重置text-align */
+        cursor: default !important;     /* 重置cursor */
+        
+        /* 应用你想要的样式 */
+        border: 1px solid #e0e0e0 !important;
+        padding: 20px !important;
+        margin-bottom: 20px !important;
+        transition: all 0.3s ease !important;
+    }
 
-        .jobs-list .job-item:hover {
-            border-color: #FF5C00 !important;
-            box-shadow: 0 5px 15px rgba(255, 92, 0, 0.1) !important;
-        }
+    .jobs-list .job-item:hover {
+        /* 覆盖hover状态的所有样式 */
+        background: white !important;   /* 保持白色背景 */
+        transform: none !important;     /* 重置transform */
+        box-shadow: 0 5px 15px rgba(255, 92, 0, 0.1) !important; /* 你想要的shadow */
+        border-color: #FF5C00 !important;
+    }
         
         .job-header-item {
             display: flex;
