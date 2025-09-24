@@ -242,7 +242,7 @@ if (isset($_SESSION['user_id'])) {
 
         .excel-table td {
             font-size: clamp(8px, 0.74vw, 14px);
-            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            padding: 0;
             border: 1px solid #d1d5db;
             text-align: center;
             position: relative;
@@ -302,6 +302,7 @@ if (isset($_SESSION['user_id'])) {
         /* 下拉选择框样式 */
         .excel-select {
             width: 100%;
+            height: 40px;
             border: none;
             background: #f0fdf4;
             text-align: center;
