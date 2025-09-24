@@ -466,15 +466,15 @@ if (isset($_SESSION['user_id'])) {
             background: #ef4444;
             color: white;
             border: none;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
+            border-radius: clamp(4px, 0.32vw, 6px);
+            width: clamp(18px, 1.67vw, 32px);
+            height: clamp(18px, 1.67vw, 32px);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             margin: 4px;
         }
 
@@ -499,8 +499,6 @@ if (isset($_SESSION['user_id'])) {
         .status-pending {
             background-color: #fef3c7 !important;
             color: #92400e;
-            border-top: 1px solid #d1d5db !important;
-            border-bottom: 1px solid #d1d5db !important;
         }
 
         /* 响应式设计 */
@@ -734,15 +732,15 @@ if (isset($_SESSION['user_id'])) {
             background: #f59e0b;
             color: white;
             border: none;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
+            border-radius: clamp(4px, 0.32vw, 6px);
+            width: clamp(18px, 1.67vw, 32px);
+            height: clamp(18px, 1.67vw, 32px);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             margin: 2px;
         }
 
