@@ -356,26 +356,24 @@
         }
 
         .stock-table {
-            table-layout: fixed;
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(8px, 0.74vw, 14px);
+}
 
         .stock-table th {
-            background: #583e04;
-            color: white;
-            padding: 12px 8px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            border: 1px solid #d1d5db;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            white-space: nowrap;
-            min-width: 80px;
-        }
+    background: #583e04;
+    color: white;
+    padding: clamp(8px, 0.8vw, 12px) clamp(4px, 0.4vw, 8px);
+    text-align: center;
+    font-size: clamp(8px, 0.74vw, 14px);
+    font-weight: 600;
+    border: 1px solid #d1d5db;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
         /* 确保表格头部完全遮盖滚动的数据 */
         .table-scroll-container {
@@ -412,12 +410,12 @@
         }
 
         .stock-table td {
-            padding: 12px 8px;
-            font-size: 14px;
-            border: 1px solid #d1d5db;
-            text-align: center;
-            vertical-align: middle;
-        }
+    padding: clamp(6px, 0.6vw, 12px) clamp(4px, 0.4vw, 8px);
+    font-size: clamp(8px, 0.74vw, 14px);
+    border: 1px solid #d1d5db;
+    text-align: center;
+    vertical-align: middle;
+}
 
         .stock-table tr:nth-child(even) {
             background-color: white;
@@ -427,26 +425,28 @@
             background-color: #e5ebf8ff;
         }
 
-        /* 响应式列宽设置 */
-.stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: clamp(40px, 6%, 80px); }    /* No. */
-.stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: clamp(80px, 12%, 120px); }  /* Code Number */
-.stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: clamp(150px, 25%, 200px); } /* Product Name */
-.stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: clamp(80px, 15%, 120px); }  /* Total Stock */
-.stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: clamp(60px, 10%, 100px); }  /* Specification */
-.stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: clamp(80px, 16%, 120px); }  /* Unit Price */
-.stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: clamp(80px, 16%, 120px); }  /* Total Price */
+        /* 响应式列宽 */
+.stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 6%; }    /* No. */
+.stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 12%; }   /* Code Number */
+.stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 25%; }   /* Product Name */
+.stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 15%; }   /* Total Stock */
+.stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 12%; }   /* Specification */
+.stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 15%; }   /* Unit Price */
+.stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 15%; }   /* Total Price */
 
         .table-container {
             background: white;
             border-radius: 4px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             border: 2px solid #583e04;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             max-height: 80vh; /* 设置最大高度 */
         }
 
         .table-scroll-container {
+            overflow-x: auto;
             overflow-y: auto;
             flex: 1;
             max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
@@ -483,10 +483,10 @@
         }
 
         .stat-value {
-            font-size: clamp(10px, 0.84vw, 16px);
-            font-weight: bold;
-            color: #583e04;
-        }
+    font-size: clamp(8px, 0.74vw, 14px);
+    font-weight: bold;
+    color: #583e04;
+}
 
         .text-right {
             text-align: right;
@@ -1241,31 +1241,6 @@
             font-weight: bold;
             color: #583e04;
         }
-
-        /* 响应式字体和内边距 */
-.stock-table th {
-    padding: clamp(8px, 0.8vw, 12px) clamp(4px, 0.4vw, 8px);
-    font-size: clamp(10px, 0.8vw, 14px);
-}
-
-.stock-table td {
-    padding: clamp(8px, 0.8vw, 12px) clamp(4px, 0.4vw, 8px);
-    font-size: clamp(10px, 0.8vw, 14px);
-}
-
-/* 确保内容不换行但可以适当缩小 */
-.stock-table th, .stock-table td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* 产品名称列允许适当换行 */
-.stock-table th:nth-child(3), .stock-table td:nth-child(3) {
-    white-space: normal;
-    word-break: break-word;
-    line-height: 1.2;
-}
     </style>
 </head>
 <body>
