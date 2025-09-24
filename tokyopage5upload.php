@@ -211,7 +211,7 @@ $currentConfig = getTokyoLocationConfig();
         }
 
         @media (max-width: 1280px) {
-            .form-input textarea {
+            .form-group textarea {
                 margin-bottom: 0px !important;
             }
         }
