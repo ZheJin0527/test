@@ -116,7 +116,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu {
-    width: 250px;
+    width: clamp(200px, 13.02vw, 250px);
     height: 100vh;
     background-color: white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -198,7 +198,7 @@ if (isset($_SESSION['user_id'])) {
 
 .informationmenu-section-title {
     padding: 6px 20px;
-    font-size: 16px;
+    font-size: clamp(10px, 0.84vw, 16px);
     font-weight: bold;
     color: #333;
     text-transform: uppercase;
