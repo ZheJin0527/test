@@ -677,6 +677,7 @@ if (isset($_GET['success'])) {
     </script>
 </head>
 <body>
+    <?php include 'sidebar.php'; ?>
     <div class="container">
         <div class="header">
             <h1>招聘职位管理</h1>
