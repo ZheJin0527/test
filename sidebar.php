@@ -607,6 +607,75 @@ if (isset($_SESSION['user_id'])) {
     display: none !important;
 }
 
+/* 登录后头像和下拉菜单样式 */
+.user-avatar-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 46px;
+    height: 46px;
+    background-color: #FF5C00;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 50%;
+    user-select: none;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+}
+
+.user-position {
+    margin: 2px 0 0 0;
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    min-width: 100px;
+    z-index: 1000;
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
 .informationmenu {
     background: transparent !important; /* 容器透明，不再铺一层白底 */
