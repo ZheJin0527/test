@@ -158,7 +158,7 @@ if (isset($_GET['success'])) {
             font-family: 'Inter', sans-serif;
             background: #f1dfbc;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0px;
         }
         
         .container {

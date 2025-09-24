@@ -80,7 +80,7 @@ if (file_exists('media_config.json')) {
             font-family: 'Inter', sans-serif;
             background: #f1dfbc;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0px;
         }
         
         .container {
