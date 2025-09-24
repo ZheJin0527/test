@@ -356,29 +356,27 @@
         }
 
         .stock-table {
-    table-layout: fixed;
-    width: 100%;
-    border-collapse: collapse;
-    font-size: clamp(8px, 0.74vw, 14px);
-    margin: 0;
-    box-sizing: border-box;
-}
+            table-layout: fixed;
+            width: 100%;
+            min-width: 400px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
 
         .stock-table th {
-    background: #583e04;
-    color: white;
-    padding: clamp(8px, 0.8vw, 12px) clamp(4px, 0.4vw, 8px);
-    text-align: center;
-    font-size: clamp(8px, 0.74vw, 14px);
-    font-weight: 600;
-    border: 1px solid #d1d5db;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+            background: #583e04;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid #d1d5db;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            white-space: nowrap;
+            min-width: 80px;
+        }
 
         /* 确保表格头部完全遮盖滚动的数据 */
         .table-scroll-container {
@@ -402,7 +400,7 @@
         .stock-table {
             table-layout: fixed;
             width: 100%;
-            min-width: 100px;
+            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
             margin: 0;
@@ -415,16 +413,12 @@
         }
 
         .stock-table td {
-    padding: clamp(6px, 0.6vw, 12px) clamp(4px, 0.4vw, 8px);
-    font-size: clamp(8px, 0.74vw, 14px);
-    border: 1px solid #d1d5db;
-    text-align: center;
-    vertical-align: middle;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    box-sizing: border-box;
-}
+            padding: 12px 8px;
+            font-size: 14px;
+            border: 1px solid #d1d5db;
+            text-align: center;
+            vertical-align: middle;
+        }
 
         .stock-table tr:nth-child(even) {
             background-color: white;
@@ -434,35 +428,33 @@
             background-color: #e5ebf8ff;
         }
 
-        /* 响应式列宽 */
-.stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 6%; }    /* No. */
-.stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 12%; }   /* Code Number */
-.stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 25%; }   /* Product Name */
-.stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 15%; }   /* Total Stock */
-.stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 12%; }   /* Specification */
-.stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 15%; }   /* Unit Price */
-.stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 15%; }   /* Total Price */
+        /* 固定表格列宽 */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 80px; }  /* No. */
+        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 120px; } /* Code Number */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* Product Name */
+        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 120px; } /* Total Stock */
+        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 100px; } /* Specification */
+        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 120px; } /* Unit Price */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 120px; } /* Total Price */
 
         .table-container {
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
-    border: 2px solid #583e04;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    max-height: 80vh;
-    width: 100%;
-}
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
+            border: 2px solid #583e04;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh; /* 设置最大高度 */
+        }
 
         .table-scroll-container {
-    overflow-x: hidden;
-    overflow-y: auto;
-    flex: 1;
-    max-height: calc(87vh - 160px);
-    position: relative;
-    width: 100%;
-}
+            overflow-x: auto;
+            overflow-y: auto;
+            flex: 1;
+            max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
+            position: relative;
+        }
 
         /* 操作按钮 */
         .action-buttons {
@@ -494,10 +486,10 @@
         }
 
         .stat-value {
-    font-size: clamp(8px, 0.74vw, 14px);
-    font-weight: bold;
-    color: #583e04;
-}
+            font-size: clamp(10px, 0.84vw, 16px);
+            font-weight: bold;
+            color: #583e04;
+        }
 
         .text-right {
             text-align: right;
