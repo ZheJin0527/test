@@ -403,8 +403,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding: 8px 10px;
-            height: 40px;
+            padding: 0 clamp(4px, 0.42vw, 8px);
             box-sizing: border-box;
             font-size: 14px;
         }
