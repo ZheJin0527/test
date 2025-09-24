@@ -495,7 +495,7 @@ if (isset($_SESSION['user_id'])) {
 .section-icon {
     width: clamp(12px, 1.04vw, 20px);
     height: clamp(12px, 1.04vw, 20px);
-    margin-right: 25px;
+    margin-right: clamp(18px, 1.3vw, 25px);
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
