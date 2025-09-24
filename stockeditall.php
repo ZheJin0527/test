@@ -412,7 +412,7 @@
             color: #6b7280;
             font-weight: 500;
             margin-right: 6px;
-            min-width: 24px;
+            min-width: 20px;
             text-align: left;
         }
 
@@ -420,7 +420,7 @@
             font-weight: 500;
             color: #583e04;
             text-align: center;
-            min-width: 60px;
+            min-width: 36px;
         }
 
         /* 输入框容器样式 */
@@ -465,8 +465,8 @@
         .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 5%; }  /* 出货 */
         .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 6%; } /* 收货单位 */
         .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 5%; } /* 规格 */
-        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 7%; } /* 单价 */
-        .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 7%; } /* 总价 */
+        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 10%; } /* 单价 */
+        .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 10%; } /* 总价 */
         .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 6%; } /* 类型 */
         .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 5%; } /* 产品备注 checkbox */
         .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 6%; } /* 备注编号 */
