@@ -206,7 +206,7 @@ function formatFileSize($bytes) {
         }
         
         .music-section {
-            background: #f1dfbc;
+            background: #f8f9fa;
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 30px;
@@ -272,7 +272,7 @@ function formatFileSize($bytes) {
             font-size: clamp(10px, 0.84vw, 16px);
             margin-top: 15px;
             padding: 20px;
-            background: #f1dfbc;
+            background: #e8f4f8;
             border-radius: 8px;
             border-left: 4px solid #583e04;
         }
