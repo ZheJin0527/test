@@ -147,6 +147,7 @@ function formatFileSize($bytes) {
     <title>背景音乐管理 - KUNZZ HOLDINGS</title>
     <style>
         * {
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -192,6 +193,7 @@ function formatFileSize($bytes) {
         }
         
         .breadcrumb a {
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #583e04;
             text-decoration: none;
         }
