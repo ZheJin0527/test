@@ -229,8 +229,9 @@ if (isset($_SESSION['user_id'])) {
         .excel-table th {
             background: #583e04;
             color: white;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             text-align: center;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             border: 1px solid #d1d5db;
             position: sticky;
