@@ -70,6 +70,7 @@ if (file_exists('media_config.json')) {
     <title>首页媒体管理 - KUNZZ HOLDINGS</title>
     <style>
         * {
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -115,6 +116,7 @@ if (file_exists('media_config.json')) {
         }
         
         .breadcrumb a {
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #667eea;
             text-decoration: none;
         }
@@ -138,7 +140,7 @@ if (file_exists('media_config.json')) {
         .media-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: 1.8em;
+            font-size: clamp(20px, 1.5vw, 28px);
         }
         
         .upload-form {
@@ -153,6 +155,7 @@ if (file_exists('media_config.json')) {
         }
         
         .form-group label {
+            font-size: clamp(10px, 0.84vw, 16px) !important;
             font-weight: 600;
             color: #555;
         }
@@ -178,11 +181,12 @@ if (file_exists('media_config.json')) {
         
         .file-input-text {
             color: #FF5C00;
-            font-size: 1.1em;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
         }
         
         .current-file {
+            font-size: clamp(10px, 0.84vw, 16px);
             margin-top: 15px;
             padding: 15px;
             background: #e8f4f8;
@@ -191,6 +195,7 @@ if (file_exists('media_config.json')) {
         }
         
         .current-file strong {
+            font-size: clamp(10px, 0.84vw, 16px);
             color: #155724;
         }
         
@@ -198,12 +203,15 @@ if (file_exists('media_config.json')) {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
-            padding: 7px 16px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .btn:hover {
