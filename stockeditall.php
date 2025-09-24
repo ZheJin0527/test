@@ -412,7 +412,7 @@
             color: #6b7280;
             font-weight: 500;
             margin-right: 6px;
-            min-width: 20px;
+            min-width: 16px;
             text-align: left;
         }
 
@@ -420,7 +420,7 @@
             font-weight: 500;
             color: #583e04;
             text-align: center;
-            min-width: 36px;
+            min-width: 40px;
         }
 
         /* 输入框容器样式 */
