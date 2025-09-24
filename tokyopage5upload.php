@@ -96,6 +96,7 @@ $currentConfig = getTokyoLocationConfig();
     <title>Tokyo 位置信息管理 - KUNZZ HOLDINGS</title>
     <style>
         * {
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -141,6 +142,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .breadcrumb a {
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #FF5C00;
             text-decoration: none;
         }
@@ -164,7 +166,7 @@ $currentConfig = getTokyoLocationConfig();
         .form-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: 1.8em;
+            font-size: clamp(20px, 1.5vw, 28px);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -182,9 +184,9 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .form-group label {
-            font-weight: 600;
-            color: #555;
-            font-size: 1.1em;
+            font-weight: 600 !important;
+            color: #555 !important;
+            font-size: 1.1em !important;
         }
         
         .form-input {
@@ -212,9 +214,9 @@ $currentConfig = getTokyoLocationConfig();
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
-            padding: 7px 16px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -270,9 +272,9 @@ $currentConfig = getTokyoLocationConfig();
             background: #6c757d;
             color: white;
             text-decoration: none;
-            padding: 7px 16px;
-            font-size: 13px;
-            border-radius: 6px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            font-size: clamp(8px, 0.74vw, 14px);
+            border-radius: clamp(4px, 0.32vw, 6px);
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
@@ -340,7 +342,7 @@ $currentConfig = getTokyoLocationConfig();
         .store-section h3 {
             color: #FF5C00;
             margin-bottom: 20px;
-            font-size: 1.4em;
+            font-size: clamp(12px, 1.04vw, 20px);
             border-bottom: 2px solid #FF5C00;
             padding-bottom: 10px;
             display: flex;
@@ -349,7 +351,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .help-text {
-            font-size: 0.9em;
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #6c757d;
             margin-top: 5px;
             font-style: italic;
