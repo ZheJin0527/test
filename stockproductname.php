@@ -203,7 +203,7 @@ if (isset($_SESSION['user_id'])) {
         .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 10%; }  /* 第6列 */
         .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 14%; }  /* 第7列 */
         .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 10%; }  /* 第8列 */
-        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 100px; }   /* 第9列(操作按钮) */
+        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 90px; }   /* 第9列(操作按钮) */
 
         /* Excel样式表格 */
         .excel-container {
@@ -788,7 +788,7 @@ if (isset($_SESSION['user_id'])) {
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 2px;
             padding: 4px;
             width: 100%;
             height: clamp(30px, 2.08vw, 40px);
