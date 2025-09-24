@@ -442,7 +442,7 @@
             border-radius: 4px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             border: 2px solid #583e04;
-            overflow: visible;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             max-height: 80vh; /* 设置最大高度 */
