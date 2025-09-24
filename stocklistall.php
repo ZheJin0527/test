@@ -358,7 +358,6 @@
         .stock-table {
             table-layout: fixed;
             width: 100%;
-            min-width: 400px;
             border-collapse: collapse;
             font-size: 14px;
         }
@@ -449,7 +448,7 @@
         }
 
         .table-scroll-container {
-            overflow-x: auto;
+            overflow-x: hidden;
             overflow-y: auto;
             flex: 1;
             max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
