@@ -215,7 +215,7 @@ function formatFileSize($bytes) {
         .music-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: 1.8em;
+            font-size: clamp(20px, 1.5vw, 28px);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -237,6 +237,7 @@ function formatFileSize($bytes) {
         }
         
         .form-group label {
+            font-size: clamp(10px, 0.84vw, 16px) !important;
             font-weight: 600;
             color: #555;
         }
@@ -262,7 +263,7 @@ function formatFileSize($bytes) {
         
         .file-input-text {
             color: #FF5C00;
-            font-size: 1.1em;
+            font-size: clamp(20px, 1.5vw, 28px);
             font-weight: 500;
         }
         
@@ -371,9 +372,9 @@ function formatFileSize($bytes) {
             background: #6c757d;
             color: white;
             text-decoration: none;
-            padding: 7px 16px;
-            font-size: 13px;
-            border-radius: 6px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            font-size: clamp(8px, 0.74vw, 14px);
+            border-radius: clamp(4px, 0.32vw, 6px);
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
