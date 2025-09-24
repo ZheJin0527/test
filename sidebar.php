@@ -116,7 +116,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu {
-    width: clamp(200px, 13.02vw, 250px);
+    width: clamp(140px, 13.02vw, 250px);
     height: 100vh;
     background-color: white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -197,8 +197,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section-title {
-    padding: 6px 20px;
-    font-size: clamp(10px, 0.84vw, 16px);
+    padding: clamp(2px, 0.31vw, 6px) clamp(14px, 1.04vw, 20px);
+    font-size: clamp(8px, 0.84vw, 16px);
     font-weight: bold;
     color: #333;
     text-transform: uppercase;
@@ -493,8 +493,8 @@ if (isset($_SESSION['user_id'])) {
 
 /* 侧边菜单 section 图标样式 */
 .section-icon {
-    width: 20px;
-    height: 20px;
+    width: clamp(12px, 1.04vw, 20px);
+    height: clamp(12px, 1.04vw, 20px);
     margin-right: 25px;
     vertical-align: middle;
     flex-shrink: 0;
