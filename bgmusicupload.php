@@ -263,7 +263,7 @@ function formatFileSize($bytes) {
         
         .file-input-text {
             color: #FF5C00;
-            font-size: clamp(20px, 1.5vw, 28px);
+            font-size: 1.1em;
             font-weight: 500;
         }
         
