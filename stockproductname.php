@@ -268,7 +268,7 @@ if (isset($_SESSION['user_id'])) {
         /* 输入框样式 */
         .excel-input {
             width: 100%;
-            height: clamp(30px, 2.08vw, 40px);
+            height: 40px;
             border: none;
             background: #f0fdf4;
             text-align: center;
@@ -302,7 +302,7 @@ if (isset($_SESSION['user_id'])) {
         /* 下拉选择框样式 */
         .excel-select {
             width: 100%;
-            height: clamp(30px, 2.08vw, 40px);
+            height: 40px;
             border: none;
             background: #f0fdf4;
             text-align: center;
