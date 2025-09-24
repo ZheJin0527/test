@@ -302,7 +302,7 @@ if (isset($_SESSION['user_id'])) {
         /* 下拉选择框样式 */
         .excel-select {
             width: 100%;
-            height: 40px;
+
             border: none;
             background: #f0fdf4;
             text-align: center;
