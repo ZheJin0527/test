@@ -596,8 +596,59 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            gap: 24px;
             flex-wrap: wrap;
+        }
+
+        /* 确保统计信息在中间正确显示 */
+        .filter-bar .stats-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: clamp(8px, 0.74vw, 14px);
+            color: #6b7280;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-bar .stats-info .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: clamp(90px, 7.82vw, 150px);
+        }
+
+        .filter-bar .stats-info .stat-value {
+            font-size: clamp(12px, 0.94vw, 18px);
+            font-weight: bold;
+            color: #583e04;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .filter-bar {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .filter-bar .filter-group {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filter-bar .stats-info {
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            .filter-bar .stats-info .stat-item {
+                min-width: auto;
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         .filter-group {
@@ -979,21 +1030,8 @@ if (isset($_SESSION['user_id'])) {
                     </select>
                 </div>
             </div>
+            
             <div class="filter-group">
-                <button class="btn btn-primary" onclick="performSearch()">
-                    <i class="fas fa-search"></i>
-                    搜索
-                </button>
-                <button class="btn btn-secondary" onclick="clearFilters()">
-                    <i class="fas fa-times"></i>
-                    清空
-                </button>
-            </div>
-        </div>
-        
-        <!-- Excel表格 -->
-        <div class="excel-container">
-            <div class="action-buttons">
                 <div class="stats-info" id="stock-stats">
                     <div class="stat-item">
                         <i class="fas fa-boxes"></i>
@@ -1008,19 +1046,30 @@ if (isset($_SESSION['user_id'])) {
                         <span>待批准: <span class="stat-value" id="pending-count">0</span></span>
                     </div>
                 </div>
-                
-                <div style="display: flex; gap: 12px;">
-                    <button class="btn btn-success" onclick="addNewRow()">
-                        <i class="fas fa-plus"></i>
-                        添加新记录
-                    </button>
-                    <button class="btn btn-primary" onclick="saveAllData()">
-                        <i class="fas fa-save"></i>
-                        保存所有数据
-                    </button>
-                </div>
             </div>
             
+            <div class="filter-group">
+                <button class="btn btn-primary" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                    搜索
+                </button>
+                <button class="btn btn-secondary" onclick="clearFilters()">
+                    <i class="fas fa-times"></i>
+                    清空
+                </button>
+                <button class="btn btn-success" onclick="addNewRow()">
+                    <i class="fas fa-plus"></i>
+                    添加新记录
+                </button>
+                <button class="btn btn-primary" onclick="saveAllData()">
+                    <i class="fas fa-save"></i>
+                    保存所有数据
+                </button>
+            </div>
+        </div>
+        
+        <!-- Excel表格 -->
+        <div class="excel-container">          
             <div class="table-scroll-container">
             <table class="excel-table" id="excel-table">
                 <thead>
