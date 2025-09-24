@@ -220,7 +220,6 @@
         .stock-table {
             table-layout: fixed;
             width: 100%;
-            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
         }
@@ -454,7 +453,6 @@
         .stock-table {
             table-layout: fixed; /* 添加这行 */
             width: 100%;
-            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
         }
