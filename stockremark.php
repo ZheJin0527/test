@@ -268,8 +268,7 @@
         .price-variants-table th {
             background: #f8f5eb;
             color: #583e04;
-            padding: 12px;
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             text-align: center;
             font-weight: 600;
             border-bottom: 2px solid #583e04;
@@ -285,7 +284,7 @@
         .price-variants-table th,
         .price-variants-table td {
             width: 25%; /* 平均分配4列 */
-            padding: 10px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-bottom: 1px solid #e5e7eb;
             text-align: center;
             vertical-align: middle;
