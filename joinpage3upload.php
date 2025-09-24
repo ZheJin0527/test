@@ -236,19 +236,19 @@ if (isset($_GET['success'])) {
         .form-group input,
         .form-group textarea,
         .form-group select {
-            border: 2px solid #e0e0e0;
-            border-radius: clamp(4px, 0.42vw, 8px);
-            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
-            font-size: clamp(10px, 0.84vw, 16px);
-            transition: all 0.3s ease;
+            border: 2px solid #e0e0e0 !important;
+            border-radius: clamp(4px, 0.42vw, 8px)!important;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px)!important;
+            font-size: clamp(10px, 0.84vw, 16px)!important;
+            transition: all 0.3s ease!important;
         }
         
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
-            outline: none;
-            border-color: #FF5C00;
-            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1);
+            outline: none !important;
+            border-color: #FF5C00 !important;
+            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1) !important;
         }
         
         .form-group textarea {
@@ -480,16 +480,16 @@ if (isset($_GET['success'])) {
         }
         
         .job-item {
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0 !important;
+            border-radius: 10px !important;
+            padding: 20px !important;
+            margin-bottom: 20px !important;
+            transition: all 0.3s ease !important;
         }
         
         .job-item:hover {
-            border-color: #FF5C00;
-            box-shadow: 0 5px 15px rgba(255, 92, 0, 0.1);
+            border-color: #FF5C00 !important;
+            box-shadow: 0 5px 15px rgba(255, 92, 0, 0.1) !important;
         }
         
         .job-header-item {
