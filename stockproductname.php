@@ -497,7 +497,10 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .status-pending {
+            background-color: #fef3c7 !important;
             color: #92400e;
+            border-top: 1px solid #d1d5db !important;
+            border-bottom: 1px solid #d1d5db !important;
         }
 
         /* 响应式设计 */
