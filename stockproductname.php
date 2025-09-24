@@ -272,7 +272,7 @@ if (isset($_SESSION['user_id'])) {
             border: none;
             background: #f0fdf4;
             text-align: center;
-            font-size: 14px;
+            font-size: 100px;
             padding: 8px 4px;
             transition: all 0.2s;
         }
@@ -306,7 +306,7 @@ if (isset($_SESSION['user_id'])) {
             border: none;
             background: #f0fdf4;
             text-align: center;
-            font-size: 14px;
+            font-size: 100px;
             padding: 8px;
             transition: all 0.2s;
             cursor: pointer;
