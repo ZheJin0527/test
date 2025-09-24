@@ -194,6 +194,17 @@ if (isset($_SESSION['user_id'])) {
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
 
+        /* 响应式表格列宽 - 9列设置 */
+        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 8%; }   /* 第1列 */
+        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 15%; }  /* 第2列 */
+        .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 18%; }  /* 第3列 */
+        .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 12%; }  /* 第4列 */
+        .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 10%; }  /* 第5列 */
+        .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 10%; }  /* 第6列 */
+        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 12%; }  /* 第7列 */
+        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 10%; }  /* 第8列 */
+        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 5%; }   /* 第9列(操作按钮) */
+
         /* Excel样式表格 */
         .excel-container {
             background: white;
@@ -212,7 +223,7 @@ if (isset($_SESSION['user_id'])) {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            table-layout: fixed;  /* 添加这行 */
+            table-layout: fixed;  /* 添加这行确保列宽控制 */
         }
 
         .excel-table th {
@@ -325,17 +336,6 @@ if (isset($_SESSION['user_id'])) {
             font-variant-numeric: tabular-nums;
             font-feature-settings: "tnum";
         }
-
-        /* 响应式表格列宽 - 9个列 */
-        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 8%; }   /* 第1列 */
-        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 12%; }  /* 第2列 */
-        .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 20%; }  /* 第3列 */
-        .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 12%; }  /* 第4列 */
-        .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 10%; }  /* 第5列 */
-        .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 12%; }  /* 第6列 */
-        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 12%; }  /* 第7列 */
-        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 12%; }  /* 第8列 */
-        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 12%; }  /* 第9列(操作) */
 
         .table-scroll-container {
             overflow-x: hidden;
@@ -744,7 +744,6 @@ if (isset($_SESSION['user_id'])) {
             background: #f9fafb;
         }
 
-        /* 操作列样式调整 */
         .action-cell {
             display: flex;
             flex-direction: row;
@@ -752,9 +751,9 @@ if (isset($_SESSION['user_id'])) {
             justify-content: center;
             gap: 4px;
             padding: 4px;
-            width: 100%;  /* 添加这行 */
-            height: 40px; /* 添加这行 */
-            box-sizing: border-box; /* 添加这行 */
+            width: 100%;
+            height: 40px;
+            box-sizing: border-box;
         }
 
         /* 编辑行样式 */
