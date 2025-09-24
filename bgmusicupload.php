@@ -320,9 +320,9 @@ function formatFileSize($bytes) {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
-            padding: 7px 16px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
