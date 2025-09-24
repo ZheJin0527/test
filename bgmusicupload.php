@@ -210,7 +210,7 @@ function formatFileSize($bytes) {
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 30px;
-            border-left: 5px solid #FF5C00;
+            border-left: 5px solid #583e04;
         }
         
         .music-section h2 {
@@ -244,7 +244,7 @@ function formatFileSize($bytes) {
         }
         
         .file-input {
-            border: 2px dashed #FF5C00;
+            border: 2px dashed #583e04;
             border-radius: 10px;
             padding: 40px;
             text-align: center;
@@ -254,7 +254,7 @@ function formatFileSize($bytes) {
         }
         
         .file-input:hover {
-            border-color: #e54a00;
+            border-color: #583e04;
             background: #fff5f0;
         }
         
@@ -263,7 +263,7 @@ function formatFileSize($bytes) {
         }
         
         .file-input-text {
-            color: #FF5C00;
+            color: #583e04;
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
         }
@@ -274,7 +274,7 @@ function formatFileSize($bytes) {
             padding: 20px;
             background: #e8f4f8;
             border-radius: 8px;
-            border-left: 4px solid #FF5C00;
+            border-left: 4px solid #583e04;
         }
         
         .current-music strong {
@@ -319,7 +319,7 @@ function formatFileSize($bytes) {
         }
         
         .btn {
-            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+            background: #583e04;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
