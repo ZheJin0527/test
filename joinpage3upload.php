@@ -208,7 +208,7 @@ if (isset($_GET['success'])) {
         .form-section h2 {
             color: #333;
             margin-bottom: 25px;
-            font-size: clamp(18px, 1.25vw, 24px);
+            font-size: clamp(12px, 1.04vw, 20px);
         }
         
         .form-grid {
@@ -295,8 +295,8 @@ if (isset($_GET['success'])) {
             color: white;
             border: none;
             border-radius: clamp(4px, 0.32vw, 6px);
-            width: clamp(30px, 2.08vw, 40px);
-            height: clamp(30px, 2.08vw, 40px);
+            width: clamp(20px, 2.08vw, 40px);
+            height: clamp(20px, 2.08vw, 40px);
             display: inline-flex;
             align-items: center;
             justify-content: center;
