@@ -617,13 +617,13 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .user-avatar {
-    width: clamp(34px, 2.4vw, 46px);
-    height: clamp(34px, 2.4vw, 46px);
+    width: clamp(24px, 2.4vw, 46px);
+    height: clamp(24px, 2.4vw, 46px);
     background-color: #FF5C00;
     color: white;
     font-weight: bold;
-    font-size: clamp(12px, 1.04vw, 20px);
-    line-height: clamp(36px, 2.34vw, 45px);
+    font-size: clamp(10px, 1.04vw, 20px);
+    line-height: clamp(28px, 2.34vw, 45px);
     text-align: center;
     border-radius: 50%;
     user-select: none;
