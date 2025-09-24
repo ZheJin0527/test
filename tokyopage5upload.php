@@ -205,7 +205,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .form-input.textarea {
-            min-height: 80px;
+            min-height: 60px;
             resize: vertical;
             font-family: inherit;
         }
