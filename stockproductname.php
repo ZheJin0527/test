@@ -242,7 +242,7 @@ if (isset($_SESSION['user_id'])) {
 
         .excel-table td {
             font-size: clamp(8px, 0.74vw, 14px);
-            padding: 0;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             text-align: center;
             position: relative;
@@ -268,12 +268,11 @@ if (isset($_SESSION['user_id'])) {
         /* 输入框样式 */
         .excel-input {
             width: 100%;
-            height: 40px;
             border: none;
             background: #f0fdf4;
             text-align: center;
             font-size: clamp(8px, 0.74vw, 14px);
-            padding: 8px 4px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             transition: all 0.2s;
         }
 
@@ -302,12 +301,11 @@ if (isset($_SESSION['user_id'])) {
         /* 下拉选择框样式 */
         .excel-select {
             width: 100%;
-            height: 40px;
             border: none;
             background: #f0fdf4;
             text-align: center;
             font-size: clamp(8px, 0.74vw, 14px);
-            padding: 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             transition: all 0.2s;
             cursor: pointer;
         }
@@ -681,17 +679,16 @@ if (isset($_SESSION['user_id'])) {
             color: white;
             border: none;
             border-radius: 6px;
-            padding: 8px 16px;
+            padding: clamp(4px, 0.42vw, 8px);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
             transition: all 0.2s;
-            font-size: 12px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             margin: -4px auto;
-            min-width: 80px;
         }
 
         .approve-btn:hover {
