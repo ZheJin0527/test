@@ -142,7 +142,7 @@ $currentConfig = getTokyoLocationConfig();
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #FF5C00;
+            color: #583e04;
             text-decoration: none;
         }
         
@@ -159,7 +159,7 @@ $currentConfig = getTokyoLocationConfig();
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 30px;
-            border-left: 5px solid #FF5C00;
+            border-left: 5px solid #583e04;
         }
         
         .form-section h2 {
@@ -199,7 +199,7 @@ $currentConfig = getTokyoLocationConfig();
         
         .form-input:focus {
             outline: none;
-            border-color: #FF5C00;
+            border-color: #583e04;
             box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1);
         }
         
@@ -216,7 +216,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .btn {
-            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+            background: #583e04;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
@@ -307,7 +307,7 @@ $currentConfig = getTokyoLocationConfig();
             background: #f8f9fa;
             padding: 20px;
             border-radius: 8px;
-            border-left: 4px solid #FF5C00;
+            border-left: 4px solid #583e04;
         }
         
         .preview-content h2 {
@@ -322,7 +322,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .preview-content a {
-            color: #FF5C00;
+            color: #583e04;
             text-decoration: none;
         }
         
@@ -345,10 +345,10 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .store-section h3 {
-            color: #FF5C00;
+            color: #583e04;
             margin-bottom: 20px;
             font-size: clamp(12px, 1.04vw, 20px);
-            border-bottom: 2px solid #FF5C00;
+            border-bottom: 2px solid #583e04;
             padding-bottom: 10px;
             display: flex;
             align-items: center;
@@ -369,7 +369,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .store-counter {
-            background: #FF5C00;
+            background: #583e04;
             color: white;
             padding: 4px 8px;
             border-radius: 12px;
