@@ -681,7 +681,7 @@ if (isset($_SESSION['user_id'])) {
             color: white;
             border: none;
             border-radius: 6px;
-            padding: clamp(4px, 0.42vw, 8px);
+            padding: clamp(4px, 0.36vw, 8px);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -690,7 +690,7 @@ if (isset($_SESSION['user_id'])) {
             transition: all 0.2s;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
-            margin: -4px auto;
+            margin: -6px auto;
         }
 
         .approve-btn:hover {
