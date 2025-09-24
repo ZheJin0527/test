@@ -682,7 +682,6 @@ if (isset($_SESSION['user_id'])) {
             border: none;
             border-radius: 6px;
             padding: clamp(4px, 0.36vw, 8px);
-            height: clamp(18px, 1.67vw, 32px);
             cursor: pointer;
             display: flex;
             align-items: center;
