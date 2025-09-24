@@ -344,6 +344,7 @@
         }
 
         .currency-display .currency-amount {
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             color: #583e04;
             text-align: right;
@@ -351,7 +352,7 @@
         }
 
         .currency-symbol {
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #6b7280;
         }
 
@@ -365,9 +366,9 @@
         .stock-table th {
             background: #583e04;
             color: white;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             border: 1px solid #d1d5db;
             position: sticky;
@@ -411,8 +412,8 @@
         }
 
         .stock-table td {
-            padding: 12px 8px;
-            font-size: 14px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            font-size: clamp(8px, 0.74vw, 14px);
             border: 1px solid #d1d5db;
             text-align: center;
             vertical-align: middle;
@@ -2019,7 +2020,7 @@
             // 添加总计行
             tableRows += `
                 <tr class="total-row">
-                    <td colspan="6" class="text-right" style="font-size: 16px; padding-right: 15px; text-align: right;">总计:</td>
+                    <td colspan="6" class="text-right" style="font-size: clamp(10px, 0.84vw, 16px); padding-right: 15px; text-align: right;">总计:</td>
                     <td class="price-cell positive-value" style="font-size: 16px;">
                         <div class="currency-display">
                             <span class="currency-symbol">RM</span>
