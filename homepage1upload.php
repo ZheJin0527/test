@@ -209,9 +209,6 @@ if (file_exists('media_config.json')) {
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
         
         .btn:hover {
