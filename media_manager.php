@@ -99,13 +99,13 @@ if (file_exists('media_config.json')) {
         }
         
         .header h1 {
-            font-size: 2.5em;
+            font-size: clamp(20px, 2.6vw, 50px);
             margin-bottom: 10px;
         }
         
         .header p {
             opacity: 0.9;
-            font-size: 1.1em;
+            font-size: clamp(10px, 0.84vw, 16px);
         }
         
         .content {
@@ -123,7 +123,7 @@ if (file_exists('media_config.json')) {
         .media-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: 1.8em;
+            font-size: clamp(20px, 1.5vw, 28px);
         }
         
         .upload-form {
@@ -220,8 +220,8 @@ if (file_exists('media_config.json')) {
             background: #6c757d;
             color: white;
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 6px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.32vw, 6px);
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
@@ -265,14 +265,14 @@ if (file_exists('media_config.json')) {
         }
         
         .page-card h3 {
-            font-size: 1.3em;
+            font-size: clamp(12px, 1.04vw, 20px);
             margin-bottom: 10px;
             color: #333;
         }
         
         .page-card p {
             color: #666;
-            font-size: 0.95em;
+            font-size: clamp(10px, 0.84vw, 16px);
             margin-bottom: 15px;
         }
         
@@ -280,7 +280,7 @@ if (file_exists('media_config.json')) {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 1.5em;
+            font-size: clamp(18px, 1.25vw, 24px);
             color: #FF5C00;
             transition: transform 0.3s ease;
         }
