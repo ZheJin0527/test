@@ -148,6 +148,7 @@ if (isset($_GET['success'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -187,6 +188,7 @@ if (isset($_GET['success'])) {
         }
         
         .breadcrumb a {
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #FF5C00;
             text-decoration: none;
         }
