@@ -220,26 +220,26 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .timeline-section {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border-left: 5px solid #FF5C00;
+            background: #f8f9fa !important;
+            border-radius: 10px !important;
+            padding: 30px !important;
+            margin-bottom: 30px !important;
+            border-left: 5px solid #FF5C00 !important;
         }
         
         .timeline-section h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: #333 !important;
+            margin-bottom: 20px !important;
+            font-size: 1.8em !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
         }
         
         .year-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
+            display: flex !important;
+            gap: 10px !important;
+            margin-bottom: 30px !important;
         }
         
         .year-tab {
@@ -262,11 +262,11 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .timeline-content {
-            display: none;
+            display: none !important;
         }
         
         .timeline-content.active {
-            display: block;
+            display: block !important;
         }
         
         .upload-form {
