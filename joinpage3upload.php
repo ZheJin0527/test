@@ -208,7 +208,7 @@ if (isset($_GET['success'])) {
         .form-section h2 {
             color: #333;
             margin-bottom: 25px;
-            font-size: 1.8em;
+            font-size: clamp(18px, 1.25vw, 24px);
         }
         
         .form-grid {
@@ -237,9 +237,9 @@ if (isset($_GET['success'])) {
         .form-group textarea,
         .form-group select {
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 16px;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            font-size: clamp(10px, 0.84vw, 16px);
             transition: all 0.3s ease;
         }
         
@@ -260,9 +260,9 @@ if (isset($_GET['success'])) {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
-            padding: 7px 16px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -535,9 +535,9 @@ if (isset($_GET['success'])) {
             background: #6c757d;
             color: white;
             text-decoration: none;
-            padding: 7px 16px;
-            font-size: 13px;
-            border-radius: 6px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            font-size: clamp(8px, 0.74vw, 14px);
+            border-radius: clamp(4px, 0.32vw, 6px);
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
