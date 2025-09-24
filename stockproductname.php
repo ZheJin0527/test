@@ -241,6 +241,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .excel-table td {
+            font-size:100px;
             padding: 0;
             border: 1px solid #d1d5db;
             text-align: center;
