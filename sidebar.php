@@ -144,7 +144,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 其余样式保持不变 */
 .informationmenu-header {
-    padding: 24px;
+    padding: clamp(14px, 1.25vw, 24px);
     border-bottom: 1px solid #e0e0e0;
     display: flex;
     align-items: center;
@@ -623,7 +623,7 @@ if (isset($_SESSION['user_id'])) {
     color: white;
     font-weight: bold;
     font-size: clamp(10px, 1.04vw, 20px);
-    line-height: clamp(28px, 2.34vw, 45px);
+    line-height: clamp(24px, 2.34vw, 45px);
     text-align: center;
     border-radius: 50%;
     user-select: none;
