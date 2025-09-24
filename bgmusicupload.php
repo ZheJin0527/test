@@ -263,7 +263,7 @@ function formatFileSize($bytes) {
         
         .file-input-text {
             color: #FF5C00;
-            font-size: 1.1em;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
         }
         
@@ -276,6 +276,7 @@ function formatFileSize($bytes) {
         }
         
         .current-music strong {
+            font-size: clamp(10px, 0.84vw, 16px);
             color: #155724;
         }
         
@@ -294,12 +295,13 @@ function formatFileSize($bytes) {
         }
         
         .info-item .label {
-            font-size: 0.85em;
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #666;
             margin-bottom: 4px;
         }
         
         .info-item .value {
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             color: #333;
         }
