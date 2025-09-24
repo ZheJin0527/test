@@ -268,6 +268,7 @@ if (isset($_SESSION['user_id'])) {
         /* 输入框样式 */
         .excel-input {
             width: 100%;
+            height: 40px;
             border: none;
             background: #f0fdf4;
             text-align: center;
