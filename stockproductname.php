@@ -497,7 +497,6 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .status-pending {
-            background-color: #fef3c7 !important;
             color: #92400e;
         }
 
