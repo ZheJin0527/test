@@ -294,9 +294,9 @@ if (isset($_GET['success'])) {
             background: #ef4444;
             color: white;
             border: none;
-            border-radius: 6px;
-            width: 40px;
-            height: 40px;
+            border-radius: clamp(4px, 0.32vw, 6px);
+            width: clamp(30px, 2.08vw, 40px);
+            height: clamp(30px, 2.08vw, 40px);
             display: inline-flex;
             align-items: center;
             justify-content: center;
