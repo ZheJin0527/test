@@ -1014,12 +1014,8 @@ if (isset($_SESSION['user_id'])) {
         <div class="filter-bar">
             <div class="filter-group">
                 <div class="filter-item">
-                    <label>产品编号</label>
-                    <input type="text" class="filter-input" id="product-code-filter" placeholder="搜索产品编号">
-                </div>
-                <div class="filter-item">
-                    <label>产品名字</label>
-                    <input type="text" class="filter-input" id="product-name-filter" placeholder="搜索产品名字">
+                    <label>搜索产品</label>
+                    <input type="text" class="filter-input" id="product-search-filter" placeholder="搜索产品编号或产品名字">
                 </div>
                 <div class="filter-item">
                     <label>批准状态</label>
@@ -1049,14 +1045,6 @@ if (isset($_SESSION['user_id'])) {
             </div>
             
             <div class="filter-group">
-                <button class="btn btn-primary" onclick="performSearch()">
-                    <i class="fas fa-search"></i>
-                    搜索
-                </button>
-                <button class="btn btn-secondary" onclick="clearFilters()">
-                    <i class="fas fa-times"></i>
-                    清空
-                </button>
                 <button class="btn btn-success" onclick="addNewRow()">
                     <i class="fas fa-plus"></i>
                     添加新记录
@@ -1180,6 +1168,7 @@ if (isset($_SESSION['user_id'])) {
         async function initApp() {
             await initPermissions();
             loadStockData();
+            initRealTimeSearch(); // 添加这行
         }
 
         // 切换视图选择器下拉菜单
@@ -1280,63 +1269,98 @@ if (isset($_SESSION['user_id'])) {
 
         // 加载库存数据
         async function loadStockData() {
-        if (isLoading) return;
-        
-        isLoading = true;
-        
-        try {
-            // 获取搜索参数
-            const productCode = document.getElementById('product-code-filter').value.trim();
-            const productName = document.getElementById('product-name-filter').value.trim();
-            const approvalStatus = document.getElementById('approval-status-filter').value.trim();
+            if (isLoading) return;
+            
+            isLoading = true;
+            
+            try {
+                // 获取搜索参数
+                const productSearch = document.getElementById('product-search-filter').value.trim();
+                const approvalStatus = document.getElementById('approval-status-filter').value.trim();
 
-            // 构建URL参数
-            const params = new URLSearchParams();
-            params.append('action', 'list');
-            
-            if (productCode) params.append('product_code', productCode);
-            if (productName) params.append('product_name', productName);
-            if (approvalStatus) params.append('approval_status', approvalStatus);
-            
-            const url = `${API_BASE_URL}?${params.toString()}`;
-            console.log('请求URL:', url);
-            
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
+                // 构建URL参数
+                const params = new URLSearchParams();
+                params.append('action', 'list');
+
+                if (productSearch) params.append('product_search', productSearch);
+                if (approvalStatus) params.append('approval_status', approvalStatus);
+                
+                const url = `${API_BASE_URL}?${params.toString()}`;
+                console.log('请求URL:', url);
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const responseText = await response.text();
+                console.log('API响应文本:', responseText);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status} - ${responseText}`);
                 }
-            });
-            
-            const responseText = await response.text();
-            console.log('API响应文本:', responseText);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP错误: ${response.status} - ${responseText}`);
-            }
-            
-            const result = JSON.parse(responseText);
-            console.log('解析后的数据:', result);
-            
-            if (result.success) {
-                stockData = result.data || [];
+                
+                const result = JSON.parse(responseText);
+                console.log('解析后的数据:', result);
+                
+                if (result.success) {
+                    stockData = result.data || [];
+                    generateStockTable();
+                    updateStats();
+                    showAlert(`库存数据加载成功，共找到 ${stockData.length} 条记录`, 'success');
+                } else {
+                    throw new Error(result.message || '加载失败');
+                }
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                stockData = [];
                 generateStockTable();
                 updateStats();
-                showAlert(`库存数据加载成功，共找到 ${stockData.length} 条记录`, 'success');
-            } else {
-                throw new Error(result.message || '加载失败');
+                showAlert('数据加载失败: ' + error.message, 'error');
+            } finally {
+                isLoading = false;
+            }
+        }
+
+        // 实时搜索功能
+        function initRealTimeSearch() {
+            const productSearchInput = document.getElementById('product-search-filter');
+            const approvalStatusSelect = document.getElementById('approval-status-filter');
+            
+            // 防抖函数
+            function debounce(func, delay) {
+                let timeoutId;
+                return function (...args) {
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => func.apply(this, args), delay);
+                };
             }
             
-        } catch (error) {
-            console.error('加载数据失败:', error);
-            stockData = [];
-            generateStockTable();
-            updateStats();
-            showAlert('数据加载失败: ' + error.message, 'error');
-        } finally {
-            isLoading = false;
+            // 创建防抖版本的搜索函数
+            const debouncedSearch = debounce(loadStockData, 300);
+            
+            // 为产品搜索输入框添加实时搜索
+            if (productSearchInput) {
+                productSearchInput.addEventListener('input', debouncedSearch);
+            }
+            
+            // 为批准状态选择框添加实时搜索
+            if (approvalStatusSelect) {
+                approvalStatusSelect.addEventListener('change', loadStockData);
+            }
         }
-    }
+
+        // 清空过滤器函数（保留但简化）
+        function clearFilters() {
+            document.getElementById('product-search-filter').value = '';
+            document.getElementById('approval-status-filter').value = '';
+            
+            showAlert('过滤器已清空，重新加载所有数据', 'info');
+            loadStockData();
+        }
 
         // 生成库存表格
         function generateStockTable() {
@@ -1470,13 +1494,6 @@ if (isset($_SESSION['user_id'])) {
             }, 0);
             
             updateStats();
-        }
-
-        function performSearch() {
-            if (isLoading) return;
-            
-            showAlert('正在搜索...', 'info');
-            loadStockData();
         }
 
         // 删除行
@@ -1835,13 +1852,6 @@ if (isset($_SESSION['user_id'])) {
                         }
                     }, 100);
                 }
-            }
-        });
-
-        // Enter键搜索
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && e.target.classList.contains('filter-input')) {
-                loadStockData();
             }
         });
 
