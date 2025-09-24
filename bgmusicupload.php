@@ -192,7 +192,7 @@ function formatFileSize($bytes) {
         }
         
         .breadcrumb a {
-            color: #FF5C00;
+            color: #583e04;
             text-decoration: none;
         }
         
@@ -454,7 +454,7 @@ function formatFileSize($bytes) {
             
             <div class="music-section">
                 <h2>
-                    <span class="music-icon">🎵</span>
+                    <span class="music-icon"></span>
                     网站背景音乐设置
                 </h2>
                 
