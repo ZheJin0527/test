@@ -94,7 +94,7 @@ if (file_exists('media_config.json')) {
         .header {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
-            padding: 30px;
+            padding: clamp(16px, 1.56vw, 30px);
             text-align: center;
         }
         
@@ -115,7 +115,7 @@ if (file_exists('media_config.json')) {
         .media-section {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: 20px 30px;
+            padding: clamp(10px, 1.04vw, 20px) clamp(20px, 1.56vw, 30px);
             margin-bottom: 30px;
             border-left: 5px solid #FF5C00;
         }
@@ -242,7 +242,7 @@ if (file_exists('media_config.json')) {
             background: white;
             border: 2px solid #e9ecef;
             border-radius: 12px;
-            padding: 25px;
+            padding: clamp(15px, 1.3vw, 25px);
             text-decoration: none;
             color: #333;
             transition: all 0.3s ease;
