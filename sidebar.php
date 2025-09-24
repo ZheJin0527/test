@@ -612,18 +612,18 @@ if (isset($_SESSION['user_id'])) {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: clamp(4px, 0.63vw, 12px);
     cursor: pointer;
 }
 
 .user-avatar {
-    width: 46px;
-    height: 46px;
+    width: clamp(34px, 2.4vw, 46px);
+    height: clamp(34px, 2.4vw, 46px);
     background-color: #FF5C00;
     color: white;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 45px;
+    font-size: clamp(12px, 1.04vw, 20px);
+    line-height: clamp(36px, 2.34vw, 45px);
     text-align: center;
     border-radius: 50%;
     user-select: none;
@@ -636,14 +636,14 @@ if (isset($_SESSION['user_id'])) {
 
 .user-name {
     margin: 0;
-    font-size: 12px;
+    font-size: clamp(6px, 0.63vw, 12px);
     font-weight: 500;
     color: #333;
 }
 
 .user-position {
     margin: 2px 0 0 0;
-    font-size: 12px;
+    font-size: clamp(6px, 0.63vw, 12px);
     font-weight: 400;
     color: #666;
 }
