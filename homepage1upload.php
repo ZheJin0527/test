@@ -116,7 +116,7 @@ if (file_exists('media_config.json')) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #667eea;
+            color: #583e04;
             text-decoration: none;
         }
         
