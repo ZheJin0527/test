@@ -262,13 +262,13 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             align-items: center;
             width: 100%;
-            height: clamp(20px, 2.08vw, 40px);
+            height: clamp(26px, 2.08vw, 40px);
         }
 
         /* 输入框样式 */
         .excel-input {
             width: 100%;
-            height: clamp(20px, 2.08vw, 40px);
+            height: clamp(26px, 2.08vw, 40px);
             border: none;
             background: #f0fdf4;
             text-align: center;
@@ -302,7 +302,7 @@ if (isset($_SESSION['user_id'])) {
         /* 下拉选择框样式 */
         .excel-select {
             width: 100%;
-            height: clamp(20px, 2.08vw, 40px);
+            height: clamp(26px, 2.08vw, 40px);
             border: none;
             background: #f0fdf4;
             text-align: center;
@@ -791,7 +791,7 @@ if (isset($_SESSION['user_id'])) {
             gap: 4px;
             padding: 4px;
             width: 100%;
-            height: clamp(20px, 2.08vw, 40px);
+            height: clamp(26px, 2.08vw, 40px);
             box-sizing: border-box;
         }
 
