@@ -330,7 +330,6 @@
             justify-content: space-between;
             align-items: center;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
-            height: 40px;
             box-sizing: border-box;
             font-size: 14px;
             width: 100%;
