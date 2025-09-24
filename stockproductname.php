@@ -262,7 +262,7 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             align-items: center;
             width: 100%;
-            height: 40px;
+            
         }
 
         /* 输入框样式 */
