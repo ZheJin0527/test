@@ -115,7 +115,6 @@ $currentConfig = getTokyoLocationConfig();
             padding: 24px;
             background: #f1dfbc;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
         
