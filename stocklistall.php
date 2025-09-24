@@ -57,7 +57,7 @@
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -97,7 +97,7 @@
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
             color: #583e04;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
         }
 
