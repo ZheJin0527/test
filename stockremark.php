@@ -226,7 +226,7 @@
             background: #583e04;
             color: white;
             padding: 24px;
-            font-size: 18px;
+            font-size: clamp(18px, 1.46vw, 28px);
             font-weight: 600;
             display: flex;
             flex-direction: column;
@@ -269,6 +269,7 @@
             background: #f8f5eb;
             color: #583e04;
             padding: 12px;
+            font-size: 16px;
             text-align: center;
             font-weight: 600;
             border-bottom: 2px solid #583e04;
@@ -991,15 +992,15 @@
                         <div class="product-group">
                             <div class="product-header">
                                 <div class="product-info-item">
-                                    <div style="font-size: 28px; font-weight: 600;">${product.product_name}</div>
+                                    <div style="font-weight: 600;">${product.product_name}</div>
                                 </div>
                             </div>
                             <div class="product-table-container">
                                 <table class="price-variants-table">
                                     <thead>
                                         <tr>
-                                            <th style="font-size: 16px;">备注编号</th>
-                                            <th style="font-size: 16px;">数量/重量 <span style="color: #10b981; font-weight: 600; background-color: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 16px; margin-left: 70px;">总计: ${product.total_quantity}</span></th>
+                                            <th>备注编号</th>
+                                            <th>数量/重量 <span style="color: #10b981; font-weight: 600; background-color: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 16px; margin-left: 70px;">总计: ${product.total_quantity}</span></th>
                                         </tr>
                                     </thead>
                                     <tbody>`;
