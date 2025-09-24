@@ -189,7 +189,7 @@ if (isset($_GET['success'])) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #FF5C00;
+            color: #583e04;
             text-decoration: none;
         }
         
@@ -202,7 +202,7 @@ if (isset($_GET['success'])) {
             border-radius: 10px;
             padding: clamp(20px, 1.56vw, 30px);
             margin-bottom: 30px;
-            border-left: 5px solid #FF5C00;
+            border-left: 5px solid #583e04;
         }
         
         .form-section h2 {
@@ -247,7 +247,7 @@ if (isset($_GET['success'])) {
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none !important;
-            border-color: #FF5C00 !important;
+            border-color: #583e04 !important;
             box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1) !important;
         }
         
@@ -257,7 +257,7 @@ if (isset($_GET['success'])) {
         }
         
         .btn {
-            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+            background: #583e04;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
@@ -470,7 +470,7 @@ if (isset($_GET['success'])) {
             background: white;
             border-radius: 10px;
             padding: 30px;
-            border-left: 5px solid #FF5C00;
+            border-left: 5px solid #583e04;
         }
         
         .jobs-list h2 {
@@ -500,7 +500,7 @@ if (isset($_GET['success'])) {
         background: white !important;   /* 保持白色背景 */
         transform: none !important;     /* 重置transform */
         box-shadow: 0 5px 15px rgba(255, 92, 0, 0.1) !important; /* 你想要的shadow */
-        border-color: #FF5C00 !important;
+        border-color: #583e04 !important;
     }
         
         .job-header-item {
@@ -513,7 +513,7 @@ if (isset($_GET['success'])) {
         .job-title-item {
             font-size: 1.3em;
             font-weight: 700;
-            color: #FF5C00;
+            color: #583e04;
             margin-bottom: 10px;
         }
         

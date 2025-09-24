@@ -122,7 +122,7 @@ if (file_exists('media_config.json')) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #FF5C00;
+            color: #583e04;
             text-decoration: none;
         }
         
@@ -182,7 +182,7 @@ if (file_exists('media_config.json')) {
             background: #f8f9fa;
             border-radius: 12px;
             padding: 20px;
-            border-left: 4px solid #FF5C00;
+            border-left: 4px solid #583e04;
             transition: all 0.3s ease;
         }
         
@@ -198,7 +198,7 @@ if (file_exists('media_config.json')) {
         }
         
         .photo-number {
-            background: #FF5C00;
+            background: #583e04;
             color: white;
             width: clamp(20px, 1.82vw, 35px);
             height: clamp(20px, 1.82vw, 35px);
@@ -218,7 +218,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input {
-            border: 2px dashed #FF5C00;
+            border: 2px dashed #583e04;
             border-radius: 8px;
             padding: 20px;
             text-align: center;
@@ -229,7 +229,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input:hover {
-            border-color: #e54a00;
+            border-color: #583e04;
             background: #fff5f0;
         }
         
@@ -238,7 +238,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input-text {
-            color: #FF5C00;
+            color: #583e04;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
         }
@@ -265,7 +265,7 @@ if (file_exists('media_config.json')) {
         }
         
         .upload-btn {
-            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
+            background: #583e04;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
@@ -287,7 +287,7 @@ if (file_exists('media_config.json')) {
             font-size: clamp(20px, 1.5vw, 28px);
             margin-bottom: 20px;
             text-align: center;
-            border-bottom: 2px solid #FF5C00;
+            border-bottom: 2px solid #583e04;
             padding-bottom: 10px;
         }
         
@@ -310,7 +310,7 @@ if (file_exists('media_config.json')) {
         .stats-number {
             font-size: clamp(12px, 1.04vw, 20px);
             font-weight: 600;
-            color: #FF5C00;
+            color: #583e04;
         }
         
         @media (max-width: 768px) {
