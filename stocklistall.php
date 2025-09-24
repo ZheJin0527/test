@@ -360,6 +360,8 @@
     width: 100%;
     border-collapse: collapse;
     font-size: clamp(8px, 0.74vw, 14px);
+    margin: 0;
+    box-sizing: border-box;
 }
 
         .stock-table th {
@@ -373,6 +375,9 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
         /* 确保表格头部完全遮盖滚动的数据 */
@@ -415,6 +420,10 @@
     border: 1px solid #d1d5db;
     text-align: center;
     vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
 }
 
         .stock-table tr:nth-child(even) {
@@ -435,23 +444,25 @@
 .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 15%; }   /* Total Price */
 
         .table-container {
-            background: white;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
-            border: 2px solid #583e04;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            max-height: 80vh; /* 设置最大高度 */
-        }
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
+    border: 2px solid #583e04;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    width: 100%;
+}
 
         .table-scroll-container {
-            overflow-x: auto;
-            overflow-y: auto;
-            flex: 1;
-            max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
-            position: relative;
-        }
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex: 1;
+    max-height: calc(87vh - 160px);
+    position: relative;
+    width: 100%;
+}
 
         /* 操作按钮 */
         .action-buttons {
