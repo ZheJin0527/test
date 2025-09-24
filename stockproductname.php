@@ -201,7 +201,7 @@ if (isset($_SESSION['user_id'])) {
         .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 24%; }  /* 第4列 */
         .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 10%; }  /* 第5列 */
         .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 10%; }  /* 第6列 */
-        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 12%; }  /* 第7列 */
+        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 14%; }  /* 第7列 */
         .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 10%; }  /* 第8列 */
         .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 100px; }   /* 第9列(操作按钮) */
 
