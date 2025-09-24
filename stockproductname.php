@@ -241,7 +241,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .excel-table td {
-            font-size:100px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 0;
             border: 1px solid #d1d5db;
             text-align: center;
@@ -272,7 +272,7 @@ if (isset($_SESSION['user_id'])) {
             border: none;
             background: #f0fdf4;
             text-align: center;
-            font-size: 100px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 8px 4px;
             transition: all 0.2s;
         }
@@ -306,7 +306,7 @@ if (isset($_SESSION['user_id'])) {
             border: none;
             background: #f0fdf4;
             text-align: center;
-            font-size: 100px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 8px;
             transition: all 0.2s;
             cursor: pointer;
