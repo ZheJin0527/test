@@ -411,7 +411,7 @@
         .currency-display .currency-symbol {
             color: #6b7280;
             font-weight: 500;
-            margin-right: 6px;
+            margin-right: 0px;
             min-width: 16px;
             text-align: left;
         }
