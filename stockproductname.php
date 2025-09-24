@@ -1028,6 +1028,15 @@ if (isset($_SESSION['user_id'])) {
             </div>
             
             <div class="filter-group">
+                <button class="btn btn-success" onclick="addNewRow()">
+                    <i class="fas fa-plus"></i>
+                    添加新记录
+                </button>
+                <button class="btn btn-primary" onclick="saveAllData()">
+                    <i class="fas fa-save"></i>
+                    保存所有数据
+                </button>
+                
                 <div class="stats-info" id="stock-stats">
                     <div class="stat-item">
                         <i class="fas fa-boxes"></i>
@@ -1042,17 +1051,6 @@ if (isset($_SESSION['user_id'])) {
                         <span>待批准: <span class="stat-value" id="pending-count">0</span></span>
                     </div>
                 </div>
-            </div>
-            
-            <div class="filter-group">
-                <button class="btn btn-success" onclick="addNewRow()">
-                    <i class="fas fa-plus"></i>
-                    添加新记录
-                </button>
-                <button class="btn btn-primary" onclick="saveAllData()">
-                    <i class="fas fa-save"></i>
-                    保存所有数据
-                </button>
             </div>
         </div>
         
