@@ -332,7 +332,7 @@
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             height: 40px;
             box-sizing: border-box;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: 14px;
             width: 100%;
         }
 
