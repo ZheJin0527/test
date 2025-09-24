@@ -402,7 +402,7 @@
         .stock-table {
             table-layout: fixed;
             width: 100%;
-            min-width: 1400px;
+            min-width: 100px;
             border-collapse: collapse;
             font-size: 14px;
             margin: 0;
