@@ -268,6 +268,7 @@ function formatFileSize($bytes) {
         }
         
         .current-music {
+            font-size: clamp(10px, 0.84vw, 16px);
             margin-top: 15px;
             padding: 20px;
             background: #e8f4f8;
