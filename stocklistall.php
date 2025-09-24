@@ -329,10 +329,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 20px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             height: 40px;
             box-sizing: border-box;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             width: 100%;
         }
 
