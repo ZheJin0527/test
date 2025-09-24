@@ -427,14 +427,14 @@
             background-color: #e5ebf8ff;
         }
 
-        /* 固定表格列宽 */
-        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 80px; }  /* No. */
-        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 120px; } /* Code Number */
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 200px; } /* Product Name */
-        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 120px; } /* Total Stock */
-        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 100px; } /* Specification */
-        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 120px; } /* Unit Price */
-        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 120px; } /* Total Price */
+        /* 响应式表格列宽 */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 8%; }   /* No. */
+        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 12%; }  /* Code Number */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 25%; }  /* Product Name */
+        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 15%; }  /* Total Stock */
+        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 12%; }  /* Specification */
+        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 14%; }  /* Unit Price */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 14%; }  /* Total Price */
 
         .table-container {
             background: white;
