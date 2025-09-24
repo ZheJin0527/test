@@ -163,6 +163,7 @@ foreach ($defaultTimeline as $year => $data) {
     <title>发展历史管理 - KUNZZ HOLDINGS</title>
     <style>
         * {
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -207,6 +208,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .breadcrumb a {
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #FF5C00;
             text-decoration: none;
         }
@@ -246,8 +248,9 @@ foreach ($defaultTimeline as $year => $data) {
             background: #6c757d;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
+            font-size: clamp(6px, 0.63vw, 12px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.32vw, 6px);
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
@@ -282,6 +285,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .form-group label {
+            font-size: clamp(10px, 0.84vw, 16px) !important;
             font-weight: 600;
             color: #555;
         }
@@ -307,11 +311,12 @@ foreach ($defaultTimeline as $year => $data) {
         
         .file-input-text {
             color: #FF5C00;
-            font-size: 1.1em;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
         }
         
         .current-file {
+            font-size: clamp(10px, 0.84vw, 16px);
             margin-top: 15px;
             padding: 15px;
             background: #e8f4f8;
@@ -320,6 +325,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .current-file strong {
+            font-size: clamp(10px, 0.84vw, 16px);
             color: #155724;
         }
         
@@ -345,6 +351,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .content-form h3 {
+            font-size: clamp(12px, 0.94vw, 18px);
             color: #333;
             margin-bottom: 20px;
             padding-bottom: 10px;
@@ -353,10 +360,10 @@ foreach ($defaultTimeline as $year => $data) {
         
         .form-input {
             width: 100%;
-            padding: 12px;
+            padding: clamp(4px, 0.42vw, 8px) 12px;
             border: 2px solid #e9ecef;
             border-radius: 6px;
-            font-size: 1em;
+            font-size: clamp(10px, 0.84vw, 16px);
             transition: border-color 0.3s ease;
         }
         
@@ -386,9 +393,9 @@ foreach ($defaultTimeline as $year => $data) {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             border: none;
-            padding: 7px 16px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -432,9 +439,9 @@ foreach ($defaultTimeline as $year => $data) {
             background: #6c757d;
             color: white;
             text-decoration: none;
-            padding: 7px 16px;
-            font-size: 13px;
-            border-radius: 6px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            font-size: clamp(8px, 0.74vw, 14px);
+            border-radius: clamp(4px, 0.32vw, 6px);
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
@@ -488,8 +495,8 @@ foreach ($defaultTimeline as $year => $data) {
         
         .btn-add {
             background: #28a745;
-            font-size: 0.9em;
-            padding: 10px 20px;
+            font-size: clamp(6px, 0.63vw, 12px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
         }
         
         .btn-add:hover {
