@@ -212,7 +212,7 @@ if (isset($_SESSION['user_id'])) {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            table-layout: fixed; /* 添加这行以确保列宽控制 */
+            table-layout: fixed;  /* 添加这行 */
         }
 
         .excel-table th {
@@ -326,16 +326,16 @@ if (isset($_SESSION['user_id'])) {
             font-feature-settings: "tnum";
         }
 
-        /* 响应式表格列宽 - 调整操作列更宽 */
-.excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 9%; }   /* 日期 */
-.excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 7%; }   /* 时间 */
-.excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 10%; }  /* 产品编号 */
-.excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 20%; }  /* 产品名字 */
-.excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 7%; }   /* 供应商 */
-.excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 7%; }   /* 申请人 */
-.excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 12%; }  /* 批准状态 */
-.excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 10%; }  /* 状态 */
-.excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 18%; }  /* 操作 - 增加到18% */
+        /* 响应式表格列宽 - 9个列 */
+        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 8%; }   /* 第1列 */
+        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 12%; }  /* 第2列 */
+        .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 20%; }  /* 第3列 */
+        .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 12%; }  /* 第4列 */
+        .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 10%; }  /* 第5列 */
+        .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 12%; }  /* 第6列 */
+        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 12%; }  /* 第7列 */
+        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 12%; }  /* 第8列 */
+        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 12%; }  /* 第9列(操作) */
 
         .table-scroll-container {
             overflow-x: hidden;
@@ -752,6 +752,9 @@ if (isset($_SESSION['user_id'])) {
             justify-content: center;
             gap: 4px;
             padding: 4px;
+            width: 100%;  /* 添加这行 */
+            height: 40px; /* 添加这行 */
+            box-sizing: border-box; /* 添加这行 */
         }
 
         /* 编辑行样式 */
