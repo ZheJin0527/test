@@ -227,7 +227,7 @@
         .stock-table th {
             background: #583e04;
             color: white;
-            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            padding: clamp(4px, 0.42vw, 8px) 0;
             text-align: center;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
