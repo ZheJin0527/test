@@ -615,26 +615,13 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: clamp(90px, 7.82vw, 150px);
+            min-width: clamp(25px, 2.61vw, 50px);
         }
 
         .filter-bar .stats-info .stat-value {
             font-size: clamp(12px, 0.94vw, 18px);
             font-weight: bold;
             color: #583e04;
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 1200px) {
-            .filter-bar {
-                flex-direction: column;
-                gap: 16px;
-            }
-            
-            .filter-bar .filter-group {
-                width: 100%;
-                justify-content: center;
-            }
         }
 
         @media (max-width: 768px) {
