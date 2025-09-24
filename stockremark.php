@@ -275,6 +275,7 @@
         }
 
         .price-variants-table td {
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 12px;
             border-bottom: 1px solid #e5e7eb;
             text-align: center;
