@@ -483,10 +483,10 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .sidebar-menu-hamburger span {
-    width: 18px;
-    height: 2px;
+    width: clamp(10px, 0.94vw, 18px);
+    height: clamp(1px, 0.1vw, 2px);
     background-color: #333;
-    margin: 2px 0;
+    margin: clamp(1px, 0.1vw, 2px) 0;
     transition: all 0.3s ease;
     border-radius: 1px;
 }
