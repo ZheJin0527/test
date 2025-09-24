@@ -227,8 +227,9 @@
         .stock-table th {
             background: #583e04;
             color: white;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             text-align: center;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             border: 1px solid #d1d5db;
             position: sticky;
@@ -239,6 +240,7 @@
         }
 
         .stock-table td {
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 0;
             border: 1px solid #d1d5db;
             text-align: center;
@@ -290,13 +292,12 @@
         .stock-table td span {
             display: inline-block;
             width: 100%;
-            height: 40px;
             line-height: 24px;
-            padding: 8px 4px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             box-sizing: border-box;
             vertical-align: middle;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         /* 货币显示的特殊样式 */
