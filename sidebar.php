@@ -697,7 +697,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 页面内容右移，避免被侧栏覆盖 */
 body {
-    margin-left: clamp(100px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
+    margin-left: clamp(140px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
 }
 body.sidebar-collapsed {
     margin-left: 70px;
@@ -706,7 +706,7 @@ body.sidebar-collapsed {
 
 /* 确保主内容区域能够自适应剩余空间 */
 .main-content {
-    width: calc(100vw - clamp(100px, 13.02vw, 250px));
+    width: calc(100vw - clamp(120px, 13.02vw, 250px));
     max-width: none;
     box-sizing: border-box;
 }
