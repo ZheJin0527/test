@@ -6,7 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // 包含媒体配置
 if (!isset($mediaConfigIncluded)) {
-    include_once 'media_config.php';
+    include_once '../media_config.php';
     $mediaConfigIncluded = true;
 }
 ?>
@@ -36,7 +36,7 @@ if (!isset($mediaConfigIncluded)) {
         <!-- 左侧 logo 和公司名 -->
         <div class="header-logo-section">
             <a href="index.php">
-                <img src="images/images/KUNZZ.png" alt="Logo" class="header-logo">
+                <img src="../images/images/KUNZZ.png" alt="Logo" class="header-logo">
             </a>
         </div>
 
