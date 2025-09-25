@@ -430,6 +430,7 @@
         .btn-primary {
             background-color: #583e04;
             color: white;
+            white-space: nowrap;
         }
         
         .btn-primary:hover {
