@@ -36,7 +36,7 @@ if (!isset($mediaConfigIncluded)) {
         <!-- 左侧 logo 和公司名 -->
         <div class="header-logo-section">
             <a href="index.php">
-                <img src="/images/images/KUNZZ.png" alt="Logo" class="header-logo">
+                <img src="../images/images/KUNZZ.png" alt="Logo" class="header-logo">
             </a>
         </div>
 
@@ -51,7 +51,7 @@ if (!isset($mediaConfigIncluded)) {
                     <a href="tokyo-izakaya.php" class="header-nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a> -->
                 </div>
             </div>
-            <div class="header-nav-item"><a href="joinus.php">加入1我们</a></div>
+            <div class="header-nav-item"><a href="joinus.php">加入我们</a></div>
         </nav>
 
         <!-- 右侧区域 -->
