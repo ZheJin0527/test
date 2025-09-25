@@ -126,7 +126,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .selector-dropdown .dropdown-item {
-            padding: 8px 16px;
+            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
