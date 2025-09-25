@@ -367,7 +367,7 @@
         }
 
         .excel-table tr:hover {
-            background-color: #000000ff;
+            background-color: #f3f4f6;
         }
 
         /* 日期列样式 */
