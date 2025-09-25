@@ -415,7 +415,7 @@
 
         .currency-prefix {
             position: absolute;
-            left: 8px;
+            left: clamp(2px, 0.42vw, 8px);
             color: #6b7280;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
