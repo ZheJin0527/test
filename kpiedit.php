@@ -366,8 +366,12 @@
             background-color: #f9fafb;
         }
 
-        .excel-table tr:hover {
-            background-color: #f3f4f6;
+        .excel-table tbody tr:hover {
+            background-color: #f3f4f6 !important;
+        }
+
+        .excel-table tbody tr:hover td {
+            background-color: #f3f4f6 !important;
         }
 
         /* 日期列样式 */
