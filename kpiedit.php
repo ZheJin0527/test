@@ -436,9 +436,9 @@
         }
 
         .excel-input.currency-input {
-            padding-left: 32px;
+            padding-left: clamp(16px, 1.67vw, 32px);
             text-align: right;
-            padding-right: 8px;
+            padding-right: clamp(2px, 0.42vw, 8px);
             background: #f0fdf4;
         }
 
