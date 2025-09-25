@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../media_config.php';
+include_once 'media_config.php';
 
 // 禁用页面缓存
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -15,12 +15,12 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['index.css', 'animation.css'];
+$additionalCSS = ['animation.css', 'index.css'];
 $showPageIndicator = true;
 $totalSlides = 4;
 
 // 包含header
-include '../public/header.php';
+include 'header.php';
 ?>
   <div class="swiper">
   <div class="swiper-wrapper">
@@ -55,7 +55,7 @@ include '../public/header.php';
     </div>
     <div class="comprofile-image animate-on-scroll rotate-3d-full">
       <!-- 你可以换成自己的图片 -->
-      <img src="../images/images/logo.png" alt="公司介绍图" />
+      <img src="images/images/logo.png" alt="公司介绍图" />
     </div>
   </div>
 
@@ -92,12 +92,12 @@ include '../public/header.php';
         <p>说到做到，快速响应<br>追求结果导向与行动力</p>
       </div>
       <div class="culture-card">
-        <img src="../images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
+        <img src="images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
         <h3>灵活应变</h3>
         <p>面对市场变化和问题<br>保持开放思维，快速调整策略</p>
       </div>
       <div class="culture-card">
-        <img src="../images/images/诚信待人 (1).png" alt="icon" class="culture-icon">
+        <img src="images/images/诚信待人 (1).png" alt="icon" class="culture-icon">
         <h3>诚信待人</h3>
         <p>以真诚与责任建立合作与信任<br>是我们最基本的做人原则</p>
       </div>
@@ -114,7 +114,7 @@ include '../public/header.php';
   </section>
   </div>
 
-<?php include 'public/footer.php'; ?>
+<?php include 'footer.php'; ?>
 
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
@@ -131,12 +131,12 @@ include '../public/header.php';
 
     <!-- WhatsApp -->
     <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="../images/images/wsicon.png" alt="WhatsApp">
+        <img src="images/images/wsicon.png" alt="WhatsApp">
     </a>
 </div>
   
 <script src="app.js"></script>
-<script src="../public/header.js"></script>
+<script src="header.js"></script>
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
