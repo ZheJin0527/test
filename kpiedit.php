@@ -319,6 +319,7 @@
         }
 
         .excel-table td {
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 0;
             border: 1px solid #d1d5db;
             text-align: center;
