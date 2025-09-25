@@ -295,6 +295,29 @@
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             overflow: hidden;
             border: 2px solid #583e04;
+            height: 70vh; /* 设置固定高度，70%视窗高度 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table-scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            table-layout: fixed;
+        }
+
+        /* 确保表头固定 */
+        .excel-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .excel-table {
@@ -403,15 +426,15 @@
             min-width: 100px;
         }
 
-        /* 操作按钮 */
         .action-buttons {
-            padding: clamp(12px, 1.25vw, 24px);;
+            padding: clamp(12px, 1.25vw, 24px);
             background: #f8f5eb;
-            border-top: 2px solid #583e04;
+            border-bottom: 2px solid #583e04; /* 改成 border-bottom */
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: clamp(0px, 0.83vw, 16px);
+            flex-shrink: 0; /* 防止按钮区域被压缩 */
         }
 
         .btn {
@@ -811,6 +834,7 @@
                     </button>
                 </div>
             </div>
+            <div class="table-scroll-container">
             <table class="excel-table" id="excel-table">
                 <thead>
                     <tr>
@@ -835,6 +859,7 @@
                     <!-- 动态生成行 -->
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
