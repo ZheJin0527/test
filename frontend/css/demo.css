@@ -1,144 +1,203 @@
-/* ==============================
-   Color System
-============================== */
-:root {
-  --primary-color: #FF5C00;
-  --secondary-color: #F7931E;
-  --container-color: #FFF1E5;
+/* ========================================
+   KUNZZ HOLDINGS - 演示页面样式
+   ======================================== */
 
-  --title-color: #FFFFFF;
-  --header-color: #2F2F2F;
-  --paragraph-color: #888888;
-
-  --success-color: #27ae60;
-  --warning-color: #f2c94c;
-  --error-color: #eb5757;
-  --info-color: #2d9cdb;
-
-  --gray-100: #f8f9fa;
-  --gray-200: #e9ecef;
-  --gray-300: #dee2e6;
-  --gray-400: #ced4da;
-  --gray-500: #adb5bd;
-  --gray-600: #6c757d;
-  --gray-700: #495057;
-  --gray-800: #343a40;
-  --gray-900: #212529;
-
-  /* Spacing */
-  --space-xxs: 0.25rem; /* 4px */
-  --space-xs: 0.5rem;   /* 8px */
-  --space-sm: 0.75rem;  /* 12px */
-  --space-md: 1rem;     /* 16px */
-  --space-lg: 1.5rem;   /* 24px */
-  --space-xl: 2rem;     /* 32px */
-  --space-xxl: 3rem;    /* 48px */
+/* ========== 演示容器 ========== */
+.demo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-/* ==============================
-   Container Responsive
-============================== */
-.container {
-  width: 100%;
-  margin: auto;
-  padding: 0 var(--space-md);
-}
-
-@media (min-width: 768px)  { .container { max-width: 90%; } }
-@media (min-width: 992px)  { .container { max-width: 85%; } }
-@media (min-width: 1200px) { .container { max-width: 80%; } }
-@media (min-width: 1400px) { .container { max-width: 75%; } }
-@media (min-width: 1600px) { .container { max-width: 70%; } }
-
-/* ==============================
-   Typography
-============================== */
-.title {
-  font-size: clamp(24px, 1.5vw + 18px, 48px);
-  font-weight: 700;
-  color: var(--header-color);
-  margin-bottom: var(--space-md);
-}
-
-h1 {
-  font-size: clamp(22px, 1.3vw + 16px, 40px);
-  font-weight: 600;
-  color: var(--header-color);
-  margin: var(--space-md) 0;
-}
-
-h2 {
-  font-size: clamp(20px, 1.1vw + 14px, 32px);
-  font-weight: 600;
-  color: var(--header-color);
-  margin: var(--space-md) 0;
-}
-
-h3 {
-  font-size: clamp(18px, 1vw + 12px, 28px);
-  font-weight: 600;
-  color: var(--header-color);
-  margin: var(--space-sm) 0;
-}
-
-p {
-  font-size: clamp(16px, 0.8vw + 10px, 20px);
-  line-height: 1.6;
-  color: var(--paragraph-color);
-  margin: var(--space-xs) 0;
-}
-
-/* ==============================
-   Buttons
-============================== */
-.button {
-  display: inline-block;
-  padding: var(--space-sm) var(--space-md);
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
+.demo-header {
   text-align: center;
-  transition: all 0.3s ease;
+  margin-bottom: 3rem;
 }
 
-/* 主按钮 */
-.button-primary {
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-}
-.button-primary:hover {
-  background-color: #e65100;
+.demo-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
 }
 
-/* 副按钮 */
-.button-secondary {
-  background-color: var(--secondary-color);
-  color: #fff;
-  border: none;
-}
-.button-secondary:hover {
-  background-color: #d97a15;
+.demo-header p {
+  font-size: 1.1rem;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/* 幽灵按钮 */
-.button-ghost {
-  background: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
+/* ========== 演示网格 ========== */
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
-.button-ghost:hover {
+
+.demo-card {
+  background: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 2rem;
+  text-align: center;
+  transition: all var(--transition-normal);
+  border: 1px solid #e9ecef;
+}
+
+.demo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.demo-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
+}
+
+.demo-card p {
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.demo-card .btn {
+  margin-top: 1rem;
+}
+
+/* ========== 功能展示 ========== */
+.feature-showcase {
+  background: var(--light-gray);
+  padding: 3rem 0;
+  margin: 3rem 0;
+  border-radius: var(--border-radius-lg);
+}
+
+.feature-showcase h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  margin-bottom: 2rem;
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: var(--white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
   background: var(--primary-color);
-  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  color: var(--white);
+  font-weight: bold;
 }
 
-/* ==============================
-   Utilities
-============================== */
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-.mt-lg { margin-top: var(--space-lg); }
-.mb-lg { margin-bottom: var(--space-lg); }
-.pt-md { padding-top: var(--space-md); }
-.pb-md { padding-bottom: var(--space-md); }
+.feature-text {
+  flex: 1;
+}
+
+.feature-text h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin-bottom: 0.25rem;
+}
+
+.feature-text p {
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin: 0;
+}
+
+/* ========== 代码示例 ========== */
+.code-example {
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 2rem;
+  border-radius: var(--border-radius-lg);
+  margin: 2rem 0;
+  overflow-x: auto;
+}
+
+.code-example h3 {
+  color: #68d391;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.code-example pre {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+  .demo-container {
+    padding: 1rem;
+  }
+  
+  .demo-header h1 {
+    font-size: 2rem;
+  }
+  
+  .demo-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .demo-card {
+    padding: 1.5rem;
+  }
+  
+  .feature-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .feature-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .feature-icon {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .demo-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .demo-card h3 {
+    font-size: 1.25rem;
+  }
+  
+  .feature-showcase h2 {
+    font-size: 1.75rem;
+  }
+}
