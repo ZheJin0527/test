@@ -5,7 +5,7 @@
  * @return array 媒体信息
  */
 function getMediaConfig($mediaType) {
-    $configFile = 'media_config.json';
+    $configFile = '../media_config.json';
     $defaultConfig = [
         'home_background' => [
             'file' => '../video/video/home_background.webm',
