@@ -853,7 +853,7 @@ nav {
 }
 
 .about-section {
-    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    background: url('../images/images/背景3.jpg') no-repeat center center/cover;
     height: 100vh;
     scroll-snap-align: start;
     display: flex;
@@ -866,7 +866,7 @@ nav {
   
 .stats-section {
     height: 20%;
-    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    background: url('../images/images/背景4.webp') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1159,7 +1159,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    background: url('../images/images/背景4.webp') no-repeat center center/cover;
     color: #000;
     gap: 53px;
     flex-wrap: nowrap;
@@ -1981,7 +1981,7 @@ nav {
 }
 
 .aboutus-intro {
-    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    background: url('../images/images/背景3.jpg') no-repeat center center/cover;
     padding: 0px 20px 90px 20px;
     display: flex;
     justify-content: center;
@@ -2065,7 +2065,7 @@ nav {
 
 .vision {
     min-height: 100vh;
-    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    background: url('../images/images/背景4.webp') no-repeat center center/cover;
     color: white;
     display: flex;
     align-items: center;
@@ -2247,7 +2247,7 @@ nav {
 
 .values-section {
     padding-top: 80px; /* 预留navbar高度 */
-    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    background: url('../images/images/背景3.jpg') no-repeat center center/cover;
     margin: 0px auto 0;
     box-sizing: border-box;
     min-height: 100vh;
@@ -2389,7 +2389,7 @@ nav {
 }
   
 .timeline-section {
-    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    background: url('../images/images/背景4.webp') no-repeat center center/cover;
     padding: 80px 20px;
     position: relative;
     height: 130vh;
@@ -3109,7 +3109,7 @@ nav {
 }
 
 .benefits-wrapper {
-    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    background: url('../images/images/背景3.jpg') no-repeat center center/cover;
     padding: clamp(0px, 1.8vw, 40px) 20px;
     text-align: center;
     box-sizing: border-box;
@@ -4324,7 +4324,7 @@ form select:focus {
     width: 100%;
     min-height: 100vh;
     padding: 20px 0;
-    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    background: url('../images/images/背景4.webp') no-repeat center center/cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -4913,7 +4913,7 @@ form select:focus {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('images/images/loginbg.jpg') no-repeat center center/cover;
+    background: url('../images/images/loginbg.jpg') no-repeat center center/cover;
 }
 
 .login-form {
@@ -5202,7 +5202,7 @@ form select:focus {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('images/images/loginbg.jpg') no-repeat center center/cover;
+    background: url('../images/images/loginbg.jpg') no-repeat center center/cover;
 }
 
 .register-form {
