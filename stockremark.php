@@ -419,7 +419,7 @@
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: clamp(10px, 0.84vw, 16px);
+            font-size: clamp(10px, 0.73vw, 14px);
             display: inline-flex;
             align-items: center;
             gap: 8px;
