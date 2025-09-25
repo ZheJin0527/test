@@ -42,8 +42,8 @@ if (!isset($mediaConfigIncluded)) {
 
         <!-- 中间导航（默认显示，大屏） -->
         <nav class="header-nav-links" id="navMenu">
-            <div class="header-nav-item"><a href="index.php">首页</a></div>
-            <div class="header-nav-item"><a href="about.php">关于我们</a></div>
+            <div class="header-nav-item"><a href="../frontend/index.php">首页</a></div>
+            <div class="header-nav-item"><a href="../about.php">关于我们</a></div>
             <div class="header-nav-item header-nav-dropdown">
                 <span class="header-nav-dropdown-trigger">旗下品牌</span>
                 <div class="header-nav-dropdown-menu" id="brandsNavDropdownMenu">
