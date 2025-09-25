@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['/css/animation.css', '/css/index.css'];
+$additionalCSS = ['/css/animation.css', '/css/index.css','/css/frontend.css'];
 $showPageIndicator = true;
 $totalSlides = 4;
 
@@ -55,7 +55,7 @@ include '../public/header.php';
     </div>
     <div class="comprofile-image animate-on-scroll rotate-3d-full">
       <!-- 你可以换成自己的图片 -->
-      <img src="images/images/logo.png" alt="公司介绍图" />
+      <img src="../images/images/logo.png" alt="公司介绍图" />
     </div>
   </div>
 
