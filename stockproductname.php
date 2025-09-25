@@ -87,7 +87,7 @@ if (isset($_SESSION['user_id'])) {
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: 11px 24px;
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -96,7 +96,7 @@ if (isset($_SESSION['user_id'])) {
             align-items: center;
             gap: 8px;
             transition: all 0.2s ease;
-            min-width: 130px;
+            width: clamp(90px, 6.77vw, 130px);
             justify-content: space-between;
             position: relative;
         }
@@ -157,10 +157,10 @@ if (isset($_SESSION['user_id'])) {
             margin-right: 16px;
         }
 
-        .view-selector .selector-button {
+        /* .view-selector .selector-button {
             background-color: #583e04;
             min-width: 120px;
-        }
+        } */
 
         .view-selector .selector-button:hover {
             background-color: #462d03;
