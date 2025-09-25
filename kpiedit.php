@@ -295,14 +295,13 @@
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             overflow: hidden;
             border: 2px solid #583e04;
-            overflow-x: auto;
         }
 
         .excel-table {
             width: 100%;
-            min-width: 1600px;
             border-collapse: collapse;
             font-size: 14px;
+            table-layout: fixed;
         }
 
         .excel-table th {
@@ -815,21 +814,21 @@
             <table class="excel-table" id="excel-table">
                 <thead>
                     <tr>
-                        <th style="min-width: 100px;">日期</th>
-                        <th style="min-width: 120px;">总销售额</th>
-                        <th style="min-width: 100px;">折扣</th>
-                        <th style="min-width: 120px;">净销售额</th>
-                        <th style="min-width: 120px;">税</th>
-                        <th style="min-width: 120px;">服务费</th>
-                        <th style="min-width: 100px;">调整金额</th>
-                        <th style="min-width: 120px;">投标金额</th>
-                        <th style="min-width: 100px;">桌数总数</th>
-                        <th style="min-width: 100px;">顾客总数</th>
-                        <th style="min-width: 120px;">人均消费</th>
-                        <th style="min-width: 100px;">新客人数</th>
-                        <th style="min-width: 100px;">常客人数</th>
-                        <th style="min-width: 100px;">常客人率 (%)</th>
-                        <th style="min-width: 120px;">操作</th>
+                        <th style="width: 7%;">日期</th>
+                        <th style="width: 8%;">总销售额</th>
+                        <th style="width: 6%;">折扣</th>
+                        <th style="width: 8%;">净销售额</th>
+                        <th style="width: 7%;">税</th>
+                        <th style="width: 7%;">服务费</th>
+                        <th style="width: 7%;">调整金额</th>
+                        <th style="width: 8%;">投标金额</th>
+                        <th style="width: 6%;">桌数总数</th>
+                        <th style="width: 6%;">顾客总数</th>
+                        <th style="width: 8%;">人均消费</th>
+                        <th style="width: 6%;">新客人数</th>
+                        <th style="width: 6%;">常客人数</th>
+                        <th style="width: 7%;">常客人率 (%)</th>
+                        <th style="width: 9%;">操作</th>
                     </tr>
                 </thead>
                 <tbody id="excel-tbody">
