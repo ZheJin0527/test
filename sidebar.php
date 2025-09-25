@@ -518,8 +518,8 @@ if (isset($_SESSION['user_id'])) {
 /* 侧边栏收起状态下的图标样式 */
 .informationmenu.collapsed .section-icon {
     margin-right: 0 !important;
-    width: 22px !important;
-    height: 22px !important;
+    width: clamp(12px, 1.15vw, 22px) !important;
+    height: clamp(12px, 1.15vw, 22px) !important;
     display: block !important;
 }
 
