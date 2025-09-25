@@ -53,7 +53,11 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
+<<<<<<< HEAD
             padding: 11px 24px;
+=======
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -62,7 +66,11 @@
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
+<<<<<<< HEAD
             min-width: 130px;
+=======
+            width: clamp(90px, 6.77vw, 130px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             justify-content: space-between;
         }
         
@@ -81,7 +89,11 @@
             border: 2px solid #583e04;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
+<<<<<<< HEAD
             min-width: 130px;
+=======
+            width: 100%;
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             z-index: 1000;
             display: none;
             margin-top: 4px;
@@ -749,10 +761,17 @@
             margin-right: 16px;
         }
 
+<<<<<<< HEAD
         .view-selector .selector-button {
             background-color: #583e04;
             min-width: 80px;
         }
+=======
+        /* .view-selector .selector-button {
+            background-color: #583e04;
+            min-width: 80px;
+        } */
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
 
         .view-selector .selector-button:hover {
             background-color: #462d03;
@@ -761,7 +780,11 @@
         }
 
         .view-selector .selector-dropdown {
+<<<<<<< HEAD
             min-width: 120px;
+=======
+            width: 100%;
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
         }
 
         .low-stock-modal {
