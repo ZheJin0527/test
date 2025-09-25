@@ -306,7 +306,6 @@ if (file_exists('media_config.json')) {
     <div class="container">
         <div class="header">
             <h1>媒体管理中心</h1>
-            <p>管理网站背景媒体文件</p>
         </div>
         
         <div class="content">
