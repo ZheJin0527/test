@@ -328,17 +328,18 @@
         }
 
         .excel-table th {
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: clamp(10px, 1.2vw, 18px);
             background: #583e04;
             color: white;
-            padding: clamp(4px, 0.42vw, 8px) 0;
+            padding: clamp(6px, 0.6vw, 12px) 0;
             text-align: center;
             font-weight: 600;
-            border: 1px solid #d1d5db;
+            border: 1px solid #462d03;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100; /* 增加z-index值 */
             white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影，增强分离感 */
         }
 
         .excel-table td {
