@@ -763,7 +763,6 @@ $avatarLetter = strtoupper($username[0]);
             padding: 0px clamp(6px, 0.52vw, 10px);
             border-radius: 4px;
             transition: all 0.2s;
-            min-width: 30px;
             text-align: center;
             user-select: none;
             background: transparent;
@@ -1095,7 +1094,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .chart-data-btn {
-            padding: 6px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             background: white;
             color: #6b7280;
