@@ -712,7 +712,7 @@ body.sidebar-collapsed {
 }
 
 body.sidebar-collapsed .main-content {
-    width: calc(100vw - 70px);
+    width: calc(100vw - 200px);
 }
 
 /* 响应式调整 */
