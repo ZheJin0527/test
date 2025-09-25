@@ -4,16 +4,16 @@ header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
 session_start();
-include_once 'media_config.php';
+include_once '../media_config.php';
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['about.css','public/css/components/header.css','public/css/components/footer.css'];
+$additionalCSS = ['about.css','../public/css/components/header.css','../public/css/components/footer.css'];
 $showPageIndicator = true;
 $totalSlides = 5;
 
 // 包含header
-include 'public/header.php';
+include '../public/header.php';
 
 // 在header之后获取时间线数据，避免阻塞header加载
 $timelineData = getTimelineConfig();
@@ -96,22 +96,22 @@ $timelineData = getTimelineConfig();
       
         <div class="values-bottom animate-on-scroll card-tilt-in-left">
             <div class="values-card">
-                <img src="images/images/目标导向.png" alt="icon" class="values-icon">
+                <img src="../images/images/目标导向.png" alt="icon" class="values-icon">
                 <h3>目标导向</h3>
                 <p>以结果为导向，聚焦关键任务，明确每一步的方向与意义。</p>
             </div>
             <div class="values-card">
-                <img src="images/images/理念一致.png" alt="icon" class="values-icon">
+                <img src="../images/images/理念一致.png" alt="icon" class="values-icon">
                 <h3>理念一致</h3>
                 <p>保持高度共识，思想同频，目标一致，减少内耗。</p>
             </div>
             <div class="values-card">
-                <img src="images/images/追求卓越.png" alt="icon" class="values-icon">
+                <img src="../images/images/追求卓越.png" alt="icon" class="values-icon">
                 <h3>追求卓越</h3>
                 <p>不满足于完成任务，要追求干得更好，更高标准地完成目标，持续优化每项工作。</p>
             </div>
             <div class="values-card">
-                <img src="images/images/创新精神.png" alt="icon" class="values-icon">
+                <img src="../images/images/创新精神.png" alt="icon" class="values-icon">
                 <h3>创新精神</h3>
                 <p>拥抱变化、敢于尝试，突破既有框架，不断探索新方法、新工具与新角度，推动企业成长。</p>
             </div>
@@ -177,7 +177,7 @@ $timelineData = getTimelineConfig();
     </section>
   </div>
 
-<?php include 'public/footer.php'; ?>
+<?php include '../public/footer.php'; ?>
 
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
@@ -185,23 +185,23 @@ $timelineData = getTimelineConfig();
 <div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="images/images/fbicon.png" alt="Facebook">
+        <img src="../images/images/fbicon.png" alt="Facebook">
     </a>
 
     <!-- Instagram -->
     <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="images/images/igicon.png" alt="Instagram">
+        <img src="../images/images/igicon.png" alt="Instagram">
     </a>
 
     <!-- WhatsApp -->
     <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="images/images/wsicon.png" alt="WhatsApp">
+        <img src="../images/images/wsicon.png" alt="WhatsApp">
     </a>
 </div>
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="app.js"></script>
-<script src="public/header.js"></script>
+<script src="../app.js"></script>
+<script src="../public/header.js"></script>
 <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
