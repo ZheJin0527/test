@@ -8,7 +8,7 @@ include_once 'media_config.php';
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['aboutanimation.css','style.css'];
+$additionalCSS = ['about.css','public/css/components/header.css','public/css/components/footer.css'];
 $showPageIndicator = true;
 $totalSlides = 5;
 
@@ -661,8 +661,8 @@ const swiper = new Swiper('.swiper', {
     }
 });
 
-// 页面指示器功能
-const pageDots = document.querySelectorAll('.page-dot');
+// 页面指示器功能（与 header 中的指示器类名保持一致）
+const pageDots = document.querySelectorAll('.header-page-dot');
 
 // 点击圆点跳转到对应页面
 pageDots.forEach((dot, index) => {
@@ -697,7 +697,7 @@ updatePageIndicator(0);
             if (socialSidebar) socialSidebar.classList.add('social-loaded');
             
             // 显示页面指示器
-            const pageIndicator = document.querySelector('.page-indicator');
+            const pageIndicator = document.querySelector('.header-page-indicator');
             if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
         });
     </script>
