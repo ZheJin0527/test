@@ -14,7 +14,7 @@ if (!isset($mediaConfigIncluded)) {
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <link rel="icon" type="image/png" href="/images/images/logo.png">
+    <link rel="icon" type="image/png" href="../images/images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="header.css" />
@@ -36,7 +36,7 @@ if (!isset($mediaConfigIncluded)) {
         <!-- 左侧 logo 和公司名 -->
         <div class="header-logo-section">
             <a href="index.php">
-                <img src="/images/images/KUNZZ.png" alt="Logo" class="header-logo">
+                <img src="../images/images/KUNZZ.png" alt="Logo" class="header-logo">
             </a>
         </div>
 
