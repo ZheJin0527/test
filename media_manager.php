@@ -123,7 +123,7 @@ if (file_exists('media_config.json')) {
         .media-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: clamp(20px, 1.5vw, 28px);
+            font-size: clamp(18px, 1.5vw, 28px);
         }
         
         .upload-form {
