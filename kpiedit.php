@@ -471,7 +471,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            width: clamp(80px, 9.37vw, 180px);
         }
 
         .stat-value {
