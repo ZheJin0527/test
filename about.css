@@ -196,38 +196,66 @@ body {
    About 顶部横幅与简介
    =========================================== */
 .aboutus-section {
-   width: 100%;
-   display: block;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .aboutus-banner {
-   background-size: cover;
-   background-position: center;
-   min-height: 200px;
-   position: relative;
-   display: flex;
-   align-items: center;
-   justify-content: center;
+    position: relative;
+    padding: 80px 0 0 80px;
+    background: url('images/images/背景2.jpg') no-repeat center center/cover;
+    min-height: 200px;
 }
 
 .aboutus-content {
-   text-align: center;
-   color: white;
+    margin-top: 76px;
+    width: 402px;
+    text-align: left;
+    color: white;
 }
 
 .aboutus-content h1 {
-   margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(50px, 4.5vw, 86px);
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    color: white;
+}
+
+.aboutus-content p {
+    font-size: clamp(12px, 1.05vw, 20px);
+    font-weight: normal;
+    margin: 0;
+    color: white;
 }
 
 .aboutus-intro {
-   background-size: cover;
-   background-position: center;
+    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    padding: 0px 20px 90px 20px;
+    min-height: 300px;
 }
 
 .intro-content {
-   max-width: 800px;
-   margin: 0 auto;
-   text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.intro-content h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(40px, 4vw, 60px);
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+.intro-content p {
+    font-size: clamp(14px, 1.2vw, 18px);
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
 }
 
 /* 进入视口时依次出现（JS 会加类） */
@@ -269,38 +297,78 @@ body {
    Vision
    =========================================== */
 .vision {
-   width: 100%;
+    min-height: 100vh;
+    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .vision-content {
-   max-width: 1140px;
-   margin: 0 auto;
-   text-align: center;
-   padding: 40px 20px;
+    width: 100%;    
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.vision-content h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(20px, 3.75vw, 70px);
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+.vision-content p {
+    font-size: clamp(10px, 1.1vw, 20px);
+    font-weight: normal;
+    margin: 0 0 40px 0;
+    color: #666;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .vision-cards {
-   display: grid;
-   grid-template-columns: repeat(2, minmax(240px, 1fr));
-   gap: 20px;
-   align-items: stretch;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .vision-card {
-   background: #FFF1E5;
-   border-radius: 16px;
-   padding: 24px;
-   text-align: left;
+    width: clamp(500px, 45vw, 870px);
+    height: clamp(280px, 22vw, 410px);
+    background: #FFF1E5;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .vision-label {
-   font-size: 14px;
-   color: #ff5c00;
-   margin-bottom: 8px;
+    display: inline-block;
+    background-color: white;
+    color: #ff5c00;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: clamp(16px, 1.9vw, 28px);
+    font-weight: bold;
+    margin: clamp(10px, 1.7vw, 32px) 0 10px 0;
 }
 
 .vision-card h2 {
-   margin: 8px 0 12px 0;
+    font-size: clamp(20px, 2vw, 38px);
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.vision-card p {
+    font-size: clamp(16px, 1vw, 18px);
+    font-weight: normal;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
 }
 
 .vision-slide-down {
@@ -319,56 +387,103 @@ body {
    Values
    =========================================== */
 .values-section {
-   width: 100%;
+    padding-top: 80px;
+    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .values-top {
-   text-align: center;
-   padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
 }
 
 .values-title {
-   margin: 0 0 10px 0;
+    font-size: clamp(20px, 3.75vw, 70px);
+    color: black;
+    font-weight: bold;
+    margin: 0 0 20px 0;
 }
 
 .values-description {
-   margin: 0 auto;
-   max-width: 900px;
+    font-size: clamp(10px, 1.1vw, 20px);
+    color: #888888;
+    max-width: 800px;
+    margin: 0;
+    line-height: 1.6;
 }
 
 .values-bottom {
-   display: grid;
-   grid-template-columns: repeat(4, minmax(180px, 1fr));
-   gap: 20px;
-   padding: 20px;
+    display: flex;
+    flex-wrap: nowrap;     
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1400px;
 }
 
 .values-card {
-   background: #FFF1E5;
-   border-radius: 16px;
-   padding: 20px;
-   text-align: center;
+    width: clamp(260px, 18vw, 350px); 
+    height: clamp(260px, 18vw, 350px);
+    background: #FFF1E5;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .values-icon {
-   width: 96px;
-   height: 96px;
-   object-fit: contain;
-   margin: 12px auto;
-   display: block;
+    width: clamp(80px, 5.2vw, 100px);
+    height: clamp(80px, 5.2vw, 100px);
+    object-fit: contain;
+    margin: 0 0 20px 0;
+}
+
+.values-card h3 {
+    font-size: clamp(18px, 2vw, 38px);
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.values-card p {
+    width: clamp(200px, 17vw, 320px);
+    font-size: clamp(12px, 1.1vw, 20px);
+    line-height: 1.5;
+    color: #666;
+    margin: 0;
 }
 
 /* ===========================================
    时间线 Timeline
    =========================================== */
 .timeline-section {
-   width: 100%;
-   padding: 20px;
-   box-sizing: border-box;
+    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    padding: 80px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .timeline-section h1 {
-   text-align: center;
+    text-align: center;
+    font-size: clamp(20px, 2.6vw, 50px);
+    font-weight: bold;
+    margin: 0 0 40px 0;
+    color: #333;
 }
 
 .timeline-nav {
@@ -410,6 +525,12 @@ body {
    justify-content: center;
 }
 
+.timeline-item.active .timeline-bullet {
+   background: #ff5c00;
+   color: white;
+   border-color: #ff5c00;
+}
+
 .timeline-bullet {
    width: 80px;
    height: 32px;
@@ -420,6 +541,135 @@ body {
    align-items: center;
    justify-content: center;
    font-weight: 600;
+}
+
+/* 导航箭头 */
+.nav-arrow {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   width: 40px;
+   height: 40px;
+   background: rgba(255, 255, 255, 0.9);
+   border: 1px solid #ddd;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   font-size: 18px;
+   color: #333;
+   transition: all 0.3s ease;
+}
+
+.nav-arrow:hover {
+   background: #ff5c00;
+   color: white;
+   border-color: #ff5c00;
+}
+
+.nav-arrow.prev {
+   left: 20px;
+}
+
+.nav-arrow.next {
+   right: 20px;
+}
+
+/* 时间线动画状态 */
+.timeline-section.timeline-active h1 {
+    animation: titleFadeIn 0.4s ease-out forwards;
+    animation-delay: 0s;
+}
+
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-section.timeline-active .timeline-track {
+    animation: trackExpand 0.5s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes trackExpand {
+    from {
+        transform: translateY(-50%) scaleX(0);
+    }
+    to {
+        transform: translateY(-50%) scaleX(1);
+    }
+}
+
+.timeline-section.timeline-active .timeline-items-container {
+    animation: itemsFadeIn 0.4s ease-out forwards;
+    animation-delay: 0.7s;
+}
+
+@keyframes itemsFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.timeline-section.timeline-active .timeline-item {
+    animation: bulletAppear 0.4s ease-out forwards;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(2) {
+    animation-delay: 0.45s;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(4) {
+    animation-delay: 0.75s;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(5) {
+    animation-delay: 0.9s;
+}
+
+@keyframes bulletAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.timeline-section.timeline-active .nav-arrow {
+    animation: arrowFadeIn 0.3s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+@keyframes arrowFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
 }
 
 .timeline-content-container {
@@ -599,5 +849,346 @@ body {
 @media (max-width: 768px) {
    .page-indicator {
       display: none;
+   }
+}
+
+/* ===========================================
+   Footer 样式（基础版本）
+   =========================================== */
+.footer-slide {
+   position: relative;
+}
+
+.scroll-buffer {
+   min-height: 30vh;
+}
+
+.footer {
+   background: #f8f9fa;
+   padding: 40px 20px;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+   gap: 30px;
+}
+
+.footer-section h4 {
+   margin: 0 0 15px 0;
+   color: #333;
+}
+
+.footer-section h4 a {
+   color: #333;
+   text-decoration: none;
+}
+
+.footer-section ul {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+.footer-section li {
+   margin-bottom: 8px;
+}
+
+.footer-section li a {
+   color: #666;
+   text-decoration: none;
+   transition: color 0.3s ease;
+}
+
+.footer-section li a:hover {
+   color: #ff5c00;
+}
+
+.footer-bottom {
+   text-align: center;
+   padding: 20px;
+   color: #666;
+   border-top: 1px solid #eee;
+}
+
+/* 回到顶部按钮 */
+#backToTop {
+   position: fixed;
+   bottom: 20px;
+   right: 20px;
+   width: 50px;
+   height: 50px;
+   background: #ff5c00;
+   color: white;
+   border: none;
+   border-radius: 50%;
+   font-size: 20px;
+   cursor: pointer;
+   z-index: 1000;
+   transition: all 0.3s ease;
+   display: none;
+}
+
+#backToTop:hover {
+   background: #e04800;
+   transform: translateY(-2px);
+}
+
+/* 社交图标特定样式 */
+.social-icon.facebook:hover {
+   background: #1877f2;
+}
+
+.social-icon.instagram:hover {
+   background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-icon.whatsapp:hover {
+   background: #25d366;
+}
+
+/* ===========================================
+   加载状态类
+   =========================================== */
+.social-sidebar.social-loaded {
+   opacity: 1;
+   visibility: visible;
+}
+
+.page-indicator.indicator-loaded {
+   opacity: 1;
+}
+
+.navbar.navbar-loaded {
+   opacity: 1;
+   transform: translateY(0);
+}
+
+/* ===========================================
+   响应式设计
+   =========================================== */
+@media (max-width: 1280px) {
+   .aboutus-banner {
+      padding: 60px 20px 0 20px;
+      background-position: center top;
+   }
+
+   .aboutus-content h1 {
+      font-size: clamp(40px, 4vw, 50px);
+      margin-left: 90px;
+   }
+
+   .aboutus-content p {
+      font-size: clamp(12px, 1.1vw, 14px);
+      margin-left: 80px;
+   }
+
+   .aboutus-intro {
+      height: 316px;
+      padding-left: 20px;
+   }
+
+   .intro-content {
+      margin-left: 0px;
+   }
+
+   .intro-content h1 {
+      font-size: clamp(40px, 4vw, 50px);
+   }
+
+   .intro-content p {
+      font-size: clamp(12px, 1.1vw, 16px);
+   }
+
+   .vision {
+      height: auto;
+      padding: 51px;
+   }
+
+   .vision-content h1 {
+      font-size: clamp(20px, 3.65vw, 70px);
+      margin-bottom: 10px;
+   }
+
+   .vision-content p {
+      font-size: clamp(10px, 1.04vw, 20px);
+      margin-top: 0px;
+   }
+
+   .vision-cards {
+      flex-wrap: nowrap;
+      gap: 30px;
+   }
+
+   .vision-card {
+      width: clamp(320px, 40vw, 800px);
+      height: clamp(180px, 21vw, 400px);
+   }
+
+   .vision-label {
+      font-size: clamp(16px, 1.9vw, 36px);
+      margin: clamp(10px, 1.7vw, 32px) 10px 10px;
+   }
+
+   .vision-card h2 {
+      font-size: clamp(16px, 1.9vw, 36px);
+   }
+
+   .vision-card p {
+      font-size: clamp(6px, 1.25vw, 24px);
+   }
+
+   .values-title {
+      font-size: clamp(20px, 3.65vw, 70px);
+      margin-top: 0;
+   }
+
+   .values-description {
+      font-size: clamp(10px, 1.04vw, 20px);
+      margin-bottom: 0;
+   }
+
+   .values-bottom { 
+      gap: 15px;  
+   }
+
+   .values-card {
+      width: clamp(160px, 22vw, 300px);
+      height: clamp(160px, 22vw, 300px);
+   }
+
+   .values-icon {
+      width: clamp(50px, 6vw, 120px);
+      height: clamp(50px, 6vw, 120px);
+   }
+
+   .values-card h3 {
+      font-size: clamp(16px, 2vw, 28px);
+   }
+
+   .values-card p {
+      width: clamp(150px, 16vw, 240px);
+      font-size: clamp(12px, 1.2vw, 18px);
+   }
+
+   .timeline-content {
+      grid-template-columns: 1fr;
+      gap: 20px;
+   }
+
+   .timeline-content-item {
+      width: 90%;
+   }
+}
+
+@media (max-width: 768px) {
+   .aboutus-banner {
+      padding: 60px 40px 0 0px;
+      height: 150px;
+   }
+
+   .aboutus-content {
+      transform: translateY(-40px);
+      margin-top: 40px;
+   }
+
+   .aboutus-content h1 {
+      font-size: 28px;
+   }
+
+   .aboutus-content p {
+      font-size: 7px;
+   }
+
+   .aboutus-intro {
+      height: 180px;
+      padding: 80px 40px;
+   }
+
+   .intro-content h1 {
+      font-size: 28px;
+   }
+
+   .intro-content p {
+      font-size: 14px;
+   }
+
+   .vision {
+      height: auto;
+      padding: 40px;
+   }
+
+   .vision-cards {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .vision-card {
+      width: calc(100% - 80px);
+      max-width: 600px;
+   }
+
+   .vision-label {
+      width: auto;
+      font-size: clamp(14px, 2.5vw, 20px);
+   }
+
+   .vision-content h1 {
+      font-size: clamp(20px, 3.5vw, 28px);
+   }
+
+   .vision-content p {
+      font-size: clamp(7px, 1.5vw, 10px);
+   }
+
+   .vision-card h2 {
+      font-size: clamp(18px, 3vw, 20px);
+   }
+
+   .vision-card p {
+      font-size: clamp(7px, 1.5vw, 10px);
+   }
+
+   .values-bottom {
+      grid-template-columns: 1fr;
+      max-width: 350px;
+   }
+
+   .values-card {
+      padding: 15px;
+   }
+
+   .timeline-section {
+      padding: 15px;
+   }
+
+   .timeline-content-item {
+      width: 95%;
+   }
+
+   .nav-arrow {
+      width: 35px;
+      height: 35px;
+      font-size: 16px;
+   }
+
+   .nav-arrow.prev {
+      left: 10px;
+   }
+
+   .nav-arrow.next {
+      right: 10px;
+   }
+
+   .social-sidebar {
+      right: 15px;
+      bottom: 15px;
+   }
+
+   .social-icon {
+      width: 35px;
+      height: 35px;
+   }
+
+   .social-icon img {
+      width: 28px;
+      height: 28px;
    }
 }
