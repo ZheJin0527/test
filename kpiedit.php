@@ -355,6 +355,7 @@
             display: flex;
             align-items: center;
             width: 100%;
+            height: 40px;
         }
 
         .currency-prefix {
@@ -370,6 +371,7 @@
         /* 输入框样式 */
         .excel-input {
             width: 100%;
+            height: 40px;
             border: none;
             background: #fee2e2;
             text-align: center;
