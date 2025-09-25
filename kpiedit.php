@@ -83,7 +83,7 @@
             transition: all 0.3s ease;
             background: white;
             color: #583e04;
-            min-width: 60px;
+            width: clamp(30px, 3.13vw, 60px);
             display: flex;
             align-items: center;
             justify-content: center;
