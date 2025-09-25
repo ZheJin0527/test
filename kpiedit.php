@@ -334,7 +334,7 @@
             padding: clamp(6px, 0.6vw, 12px) 0;
             text-align: center;
             font-weight: 600;
-            border: 1px solid #462d03;
+            border: 1px solid #d1d5db;
             position: sticky;
             top: 0;
             z-index: 100; /* 增加z-index值 */
