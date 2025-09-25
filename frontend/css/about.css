@@ -205,7 +205,7 @@ body {
 .aboutus-banner {
     position: relative;
     padding: 80px 0 0 80px;
-    background: url('../images/images/背景2.jpg') no-repeat center center/cover;
+    background: url('../../images/images/背景2.jpg') no-repeat center center/cover;
     min-height: 200px;
 }
 
@@ -232,7 +232,7 @@ body {
 }
 
 .aboutus-intro {
-    background: url('../images/images/背景3.jpg') no-repeat center center/cover;
+    background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
     padding: 0px 20px 90px 20px;
     min-height: 300px;
 }
@@ -299,7 +299,7 @@ body {
    =========================================== */
 .vision {
     min-height: 100vh;
-    background: url('../images/images/背景4.webp') no-repeat center center/cover;
+    background: url('../../images/images/背景4.webp') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -389,7 +389,7 @@ body {
    =========================================== */
 .values-section {
     padding-top: 80px;
-    background: url('../images/images/背景3.jpg') no-repeat center center/cover;
+    background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -470,7 +470,7 @@ body {
    时间线 Timeline
    =========================================== */
 .timeline-section {
-    background: url('../images/images/背景4.webp') no-repeat center center/cover;
+    background: url('../../images/images/背景4.webp') no-repeat center center/cover;
     padding: 80px 20px;
     min-height: 100vh;
     display: flex;
