@@ -842,14 +842,14 @@
         .low-stock-table th,
         .low-stock-table td {
             padding: clamp(8px, 0.63vw, 12px);
-            font-size: clamp(10px, 0.84vw, 16px);
+            font-size: clamp(8px, 0.84vw, 16px);
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
 
         .low-stock-table th {
             background-color: #f9fafb;
-            font-size: clamp(12px, 0.84vw, 16px);
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 600;
             color: #374151;
         }
