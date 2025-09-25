@@ -362,7 +362,7 @@
             position: absolute;
             left: 8px;
             color: #6b7280;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             pointer-events: none;
             z-index: 2;
