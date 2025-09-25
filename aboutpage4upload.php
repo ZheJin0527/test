@@ -232,7 +232,7 @@ foreach ($defaultTimeline as $year => $data) {
         .timeline-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: 1.8em;
+            font-size: clamp(18px, 1.5vw, 28px);
             display: flex;
             align-items: center;
             gap: 10px;

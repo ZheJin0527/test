@@ -165,7 +165,7 @@ $currentConfig = getTokyoLocationConfig();
         .form-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: clamp(20px, 1.5vw, 28px);
+            font-size: clamp(18px, 1.5vw, 28px);
             display: flex;
             align-items: center;
             gap: 10px;

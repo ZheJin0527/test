@@ -284,7 +284,7 @@ if (file_exists('media_config.json')) {
         
         .section-title {
             color: #333;
-            font-size: clamp(20px, 1.5vw, 28px);
+            font-size: clamp(18px, 1.5vw, 28px);
             margin-bottom: 20px;
             text-align: center;
             border-bottom: 2px solid #583e04;

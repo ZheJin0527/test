@@ -476,7 +476,7 @@ if (isset($_GET['success'])) {
         .jobs-list h2 {
             color: #333;
             margin-bottom: 25px;
-            font-size: 1.8em;
+            font-size: clamp(12px, 1.04vw, 20px);
         }
         
         .jobs-list .job-item {
