@@ -255,7 +255,7 @@
         .month-selector {
             background: white;
             border-radius: 12px;
-            padding: 16px 24px;
+            padding: clamp(8px, 0.83vw, 16px) clamp(16px, 1.25vw, 24px);
             margin-bottom: 24px;
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
@@ -414,11 +414,11 @@
         }
 
         .btn {
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
