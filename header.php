@@ -14,7 +14,7 @@ if (!isset($mediaConfigIncluded)) {
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <link rel="icon" type="image/png" href="../../images/images/logo.png">
+    <link rel="icon" type="image/png" href="/images/images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="header.css" />
