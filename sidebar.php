@@ -698,21 +698,23 @@ if (isset($_SESSION['user_id'])) {
 /* 页面内容右移，避免被侧栏覆盖 */
 body {
     margin-left: clamp(140px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
+    transition: margin-left 0.3s ease;
 }
 body.sidebar-collapsed {
-    margin-left: 70px;
+    margin-left: clamp(50px, 3.65vw, 70px);
     transition: margin-left 0.3s ease;
 }
 
 /* 确保主内容区域能够自适应剩余空间 */
 .main-content {
-    width: calc(100vw - clamp(80px, 13.02vw, 250px));
+    width: calc(100vw - clamp(140px, 13.02vw, 250px));
     max-width: none;
     box-sizing: border-box;
+    transition: width 0.3s ease;
 }
 
 body.sidebar-collapsed .main-content {
-    width: calc(100vw - 200px);
+    width: calc(100vw - clamp(50px, 3.65vw, 70px));
 }
 
 /* 响应式调整 */
