@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
-            font-size: clamp(8px, 0.84vw, 16px);
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
