@@ -48,7 +48,7 @@
         /* 餐厅选择器样式 */
         .restaurant-selector {
             background: white;
-            border-radius: 12px;
+            border-radius: clamp(6px, 0.63vw, 12px);
             padding: 6px;
             display: flex;
             gap: 0;
