@@ -415,16 +415,28 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
+<<<<<<< HEAD
             padding: 11px 24px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
             font-size: 16px;
+=======
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.84vw, 16px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
+<<<<<<< HEAD
             min-width: 130px;
+=======
+            width: clamp(90px, 6.77vw, 130px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             justify-content: space-between;
             position: relative; /* 添加这个，因为下拉菜单需要 */
         }
@@ -443,7 +455,11 @@
             border: 2px solid #583e04;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
+<<<<<<< HEAD
             min-width: 130px;
+=======
+            width: 100%;
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             z-index: 10000;
             display: none;
             margin-top: 4px;
@@ -459,7 +475,11 @@
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
             color: #583e04;
+<<<<<<< HEAD
             font-size: 14px;
+=======
+            font-size: clamp(8px, 0.74vw, 14px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             font-weight: 500;
             text-decoration: none;
             display: block;
@@ -485,10 +505,17 @@
             margin-right: 16px;
         }
 
+<<<<<<< HEAD
         .view-selector .selector-button {
             background-color: #583e04;
             min-width: 120px;
         }
+=======
+        /* .view-selector .selector-button {
+            background-color: #583e04;
+            min-width: 120px;
+        } */
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
 
         .view-selector .selector-button:hover {
             background-color: #462d03;
@@ -497,7 +524,11 @@
         }
 
         .view-selector .selector-dropdown {
+<<<<<<< HEAD
             min-width: 133px;
+=======
+            width: 100%;
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
         }
 
         @media (max-width: 768px) {
