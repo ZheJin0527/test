@@ -328,10 +328,10 @@
         }
 
         .excel-table th {
-            font-size: clamp(10px, 1.2vw, 18px);
+            font-size: clamp(8px, 0.74vw, 14px);
             background: #583e04;
             color: white;
-            padding: clamp(6px, 0.6vw, 12px) 0;
+            padding: clamp(4px, 0.42vw, 8px) 0;
             text-align: center;
             font-weight: 600;
             border: 1px solid #d1d5db;
