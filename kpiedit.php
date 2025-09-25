@@ -367,11 +367,11 @@
         }
 
         .excel-table tbody tr:hover {
-            background-color: #6f7070ff !important;
+            background-color: #f3f4f6 !important;
         }
 
         .excel-table tbody tr:hover td {
-            background-color: #df6262ff !important;
+            background-color: #f3f4f6 !important;
         }
 
         /* 覆盖所有特殊单元格的背景色 */
@@ -391,7 +391,7 @@
             background-color: #f3f4f6 !important;
         }
 
-        .excel-table tbody tr:hover td * {
+        .excel-table tbody tr:hover td *:not(.edit-btn):not(.delete-day-btn):not(button) {
             background-color: #f3f4f6 !important;
         }
 
