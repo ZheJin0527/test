@@ -371,12 +371,11 @@
         /* 输入框样式 */
         .excel-input {
             width: 100%;
-            height: 40px;
             border: none;
             background: #fee2e2;
             text-align: center;
-            font-size: 14px;
-            padding: 8px 4px;
+            font-size: clamp(8px, 0.74vw, 14px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             transition: all 0.2s;
         }
 
