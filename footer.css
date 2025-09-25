@@ -265,8 +265,8 @@
     }
 }
 
-/* 响应式设计 */
-@media (max-width: 1280px) {
+/* 响应式设计 - 普通桌面适配 */
+@media screen and (max-width: 1200px) {
   .social-sidebar {
     right: 15px;
     bottom: 15px;
@@ -373,7 +373,8 @@
     }
 }
 
-@media (max-width: 1280px) {
+/* 普通桌面适配 */
+@media screen and (max-width: 1200px) {
     .scroll-buffer {
         min-height: 29vh;
     }
@@ -387,7 +388,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 770px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 770px) {
     .scroll-buffer {
         min-height: 3vh;
     }
@@ -401,7 +403,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 740px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 740px) {
     .scroll-buffer {
         min-height: 3vh;
     }
@@ -598,8 +601,8 @@
     }
 }
 
-/* ✅ 尺寸缩小响应，但保留 1920 版式 */
-@media (max-width: 1280px) {
+/* 普通桌面适配 - 尺寸缩小响应，但保留 1920 版式 */
+@media screen and (max-width: 1200px) {
   .footer {
     height: clamp(170px, 10.5vw, 200px);
     padding: 14px 51px 14px 181px;
@@ -655,7 +658,8 @@
   }
 }
 
-@media (max-width: 768px) {
+/* 手机适配 */
+@media screen and (max-width: 768px) {
   .footer {
     flex-direction: column;
     padding: 12px 40px;

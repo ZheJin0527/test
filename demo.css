@@ -36,61 +36,139 @@
 }
 
 /* ==============================
-   Container Responsive
-============================== */
+   Container Responsive (Desktop First)
+   ============================== */
 .container {
   width: 100%;
   margin: auto;
   padding: 0 var(--space-md);
+  max-width: 1400px; /* 默认4K/2K */
 }
 
-@media (min-width: 768px)  { .container { max-width: 90%; } }
-@media (min-width: 992px)  { .container { max-width: 85%; } }
-@media (min-width: 1200px) { .container { max-width: 80%; } }
-@media (min-width: 1400px) { .container { max-width: 75%; } }
-@media (min-width: 1600px) { .container { max-width: 70%; } }
+/* 2K显示器适配 */
+@media screen and (max-width: 1600px) {
+  .container { 
+    max-width: 1200px; 
+    padding: 0 var(--space-sm);
+  }
+}
+
+/* 普通桌面适配 */
+@media screen and (max-width: 1200px) {
+  .container { 
+    max-width: 1000px; 
+    padding: 0 var(--space-sm);
+  }
+}
+
+/* 平板适配 */
+@media screen and (max-width: 992px) {
+  .container { 
+    max-width: 100%; 
+    padding: 0 var(--space-sm);
+  }
+}
+
+/* 手机适配 */
+@media screen and (max-width: 768px) {
+  .container { 
+    padding: 0 var(--space-xs);
+  }
+}
+
+/* 小手机适配 */
+@media screen and (max-width: 576px) {
+  .container { 
+    padding: 0 var(--space-xxs);
+  }
+}
 
 /* ==============================
-   Typography
-============================== */
+   Typography (Desktop First)
+   ============================== */
 .title {
-  font-size: clamp(24px, 1.5vw + 18px, 48px);
+  font-size: 3rem; /* 默认4K/2K */
   font-weight: 700;
   color: var(--header-color);
   margin-bottom: var(--space-md);
 }
 
 h1 {
-  font-size: clamp(22px, 1.3vw + 16px, 40px);
+  font-size: 2.5rem; /* 默认4K/2K */
   font-weight: 600;
   color: var(--header-color);
   margin: var(--space-md) 0;
 }
 
 h2 {
-  font-size: clamp(20px, 1.1vw + 14px, 32px);
+  font-size: 2rem; /* 默认4K/2K */
   font-weight: 600;
   color: var(--header-color);
   margin: var(--space-md) 0;
 }
 
 h3 {
-  font-size: clamp(18px, 1vw + 12px, 28px);
+  font-size: 1.75rem; /* 默认4K/2K */
   font-weight: 600;
   color: var(--header-color);
   margin: var(--space-sm) 0;
 }
 
 p {
-  font-size: clamp(16px, 0.8vw + 10px, 20px);
+  font-size: 1.125rem; /* 默认4K/2K */
   line-height: 1.6;
   color: var(--paragraph-color);
   margin: var(--space-xs) 0;
 }
 
+/* 2K显示器文字 */
+@media screen and (max-width: 1600px) {
+  .title { font-size: 2.75rem; }
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.875rem; }
+  h3 { font-size: 1.625rem; }
+  p { font-size: 1rem; }
+}
+
+/* 普通桌面文字 */
+@media screen and (max-width: 1200px) {
+  .title { font-size: 2.5rem; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+  p { font-size: 0.95rem; }
+}
+
+/* 平板文字 */
+@media screen and (max-width: 992px) {
+  .title { font-size: 2.25rem; }
+  h1 { font-size: 1.875rem; }
+  h2 { font-size: 1.625rem; }
+  h3 { font-size: 1.375rem; }
+  p { font-size: 0.9rem; }
+}
+
+/* 手机文字 */
+@media screen and (max-width: 768px) {
+  .title { font-size: 2rem; }
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  p { font-size: 0.875rem; }
+}
+
+/* 小手机文字 */
+@media screen and (max-width: 576px) {
+  .title { font-size: 1.75rem; }
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.125rem; }
+  p { font-size: 0.8rem; }
+}
+
 /* ==============================
-   Buttons
-============================== */
+   Buttons (Desktop First)
+   ============================== */
 .button {
   display: inline-block;
   padding: var(--space-sm) var(--space-md);
@@ -100,6 +178,48 @@ p {
   cursor: pointer;
   text-align: center;
   transition: all 0.3s ease;
+}
+
+/* 2K显示器按钮 */
+@media screen and (max-width: 1600px) {
+  .button {
+    padding: var(--space-sm) var(--space-sm);
+    font-size: 0.95rem;
+  }
+}
+
+/* 普通桌面按钮 */
+@media screen and (max-width: 1200px) {
+  .button {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.9rem;
+  }
+}
+
+/* 平板按钮 */
+@media screen and (max-width: 992px) {
+  .button {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.875rem;
+  }
+}
+
+/* 手机按钮 */
+@media screen and (max-width: 768px) {
+  .button {
+    width: 100%;
+    padding: var(--space-sm);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-xs);
+  }
+}
+
+/* 小手机按钮 */
+@media screen and (max-width: 576px) {
+  .button {
+    font-size: 0.8rem;
+    padding: var(--space-xs);
+  }
 }
 
 /* 主按钮 */
