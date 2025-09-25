@@ -49,8 +49,8 @@ body::-webkit-scrollbar {
     left: -100px;
     width: 1px;
     height: 1px;
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -184,8 +184,8 @@ body::-webkit-scrollbar {
 }
 
 .comprofile-image img {
-    max-width: 100%;
-    height: auto;
+        max-width: 100%;
+        height: auto;
     border-radius: 10px;
 }
 
@@ -248,27 +248,63 @@ body::-webkit-scrollbar {
     margin-right: 60px;
 }
 
-.culture-right {
-    flex: 1;
-    max-width: 500px;
+.culture-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
-.culture-title {
+.culture-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+  .culture-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+    object-fit: contain;
+  }
+
+  .culture-card h3 {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  .culture-card p {
+    font-size: 0.9rem;
+    color: #cccccc;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .culture-right {
+    flex: 1;
+    max-width: 500px;
+  }
+
+  .culture-title {
     font-size: 2.5rem;
     font-weight: 300;
     color: white;
     margin-bottom: 30px;
     line-height: 1.3;
-}
-
-.culture-description {
+  }
+  
+  .culture-description {
     font-size: 1.1rem;
     line-height: 1.8;
     color: #cccccc;
     margin-bottom: 40px;
-}
+  }
 
-.culture-button {
+  .culture-button {
     display: inline-block;
     padding: 15px 30px;
     background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
@@ -285,310 +321,6 @@ body::-webkit-scrollbar {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
 }
-
-/* ========================================
-   动画系统
-   ======================================== */
-
-/* 基础动画系统 */
-.animate-on-scroll {
-  opacity: 0;
-}
-
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.4s ease-out forwards;
-}
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.3s; }
-.delay-3 { animation-delay: 0.5s; }
-.delay-4 { animation-delay: 0.7s; }
-.delay-5 { animation-delay: 0.9s; }
-.delay-6 { animation-delay: 1.1s; }
-.delay-7 { animation-delay: 1.3s; }
-.delay-8 { animation-delay: 1.5s; }
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease-out;
-}
-
-.animate-on-scroll.visible:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 滑入动画 */
-.slide-in-left {
-  opacity: 0 !important;
-  transform: translateX(-300px) !important;
-  transition: all 0.8s ease-out;
-  animation: none !important;
-}
-
-.slide-in-left.visible {
-  opacity: 1 !important;
-  transform: translateX(0) !important;
-}
-
-.slide-in-left.delay-1 { transition-delay: 0.6s; }
-.slide-in-left.delay-2 { transition-delay: 0.8s; }
-.slide-in-left.delay-3 { transition-delay: 1.0s; }
-.slide-in-left.delay-4 { transition-delay: 1.0s; }
-.slide-in-left.delay-5 { transition-delay: 1.2s; }
-
-.slide-in-left:not(.visible) {
-  transition-delay: 0s !important;
-}
-
-.slide-in-right {
-  opacity: 0 !important;
-  transform: translateX(300px) !important;
-  transition: all 0.4s ease-out;
-  animation: none !important;
-}
-
-.slide-in-right.visible {
-  opacity: 1 !important;
-  transform: translateX(0) !important;
-}
-
-.slide-in-right:not(.visible) {
-  transition-delay: 0s !important;
-}
-
-/* 缩放动画 */
-.scale-fade-in {
-  opacity: 0;
-  transform: scale(0.8);
-  animation: scaleFadeIn 1.6s ease forwards;
-  animation-play-state: paused;
-}
-
-.animate-on-scroll.visible .scale-fade-in {
-  animation-play-state: running;
-}
-
-.animate-on-scroll:not(.visible) .scale-fade-in {
-  animation-play-state: paused;
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-@keyframes scaleFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.home-content .scale-fade-in {
-  animation-delay: 0.15s;
-}
-
-.home-content .decor-line.scale-fade-in {
-  animation-delay: 0.15s;
-}
-
-.decor-line.scale-fade-in {
-  opacity: 0;
-  transform: scale(0.8);
-  animation: scaleFadeIn 1.6s ease forwards;
-  animation-play-state: paused;
-}
-
-.animate-on-scroll.visible .decor-line.scale-fade-in {
-  animation-play-state: running;
-}
-
-.animate-on-scroll:not(.visible) .decor-line.scale-fade-in {
-  animation-play-state: paused;
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-/* 其他动画 */
-.fade-in-down {
-  opacity: 0 !important;
-  transform: translateY(-40px) !important;
-  transition: all 0.8s ease-out;
-  animation: none !important;
-}
-
-.fade-in-down.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-.fade-in-down:not(.visible) {
-  transition-delay: 0s !important;
-}
-
-.scale-out {
-  opacity: 0 !important;
-  transform: scale(0.3) !important;
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation: none !important;
-}
-
-.scale-out.visible {
-  opacity: 1 !important;
-  transform: scale(1) !important;
-}
-
-.scale-out:not(.visible) {
-  transition-delay: 0s !important;
-}
-
-/* 首页渐变效果 */
-.home::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    z-index: 1;
-    transition: opacity 0.8s ease-in-out;
-}
-
-.home.gradient-loaded::before {
-    opacity: 1;
-    transition-delay: 0.2s;
-}
-
-.home.slow-gradient::before {
-    transition: opacity 3s ease-in-out;
-    transition-delay: 1s;
-}
-
-/* 3D旋转和特效动画 */
-.card-tilt-in-left {
-  opacity: 0 !important;
-  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
-  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation: none !important;
-}
-
-.card-tilt-in-left.visible {
-  opacity: 1 !important;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) !important;
-}
-
-.culture-card {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.card-tilt-in-left.visible .culture-card:nth-child(1) {
-  transition-delay: 0.2s;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card-tilt-in-left.visible .culture-card:nth-child(2) {
-  transition-delay: 0.4s;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card-tilt-in-left.visible .culture-card:nth-child(3) {
-  transition-delay: 0.6s;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card-tilt-in-left.visible .culture-card:nth-child(4) {
-  transition-delay: 0.8s;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.text-zoom-in-right {
-  opacity: 0 !important;
-  transform: scale(0.8) translateX(50px) !important;
-  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation: none !important;
-}
-
-.text-zoom-in-right.visible {
-  opacity: 1 !important;
-  transform: scale(1) translateX(0) !important;
-}
-
-.text-zoom-in-right:not(.visible) {
-  transition-delay: 0s !important;
-}
-
-.text-zoom-in-right.delay-1 { transition-delay: 0.3s; }
-.text-zoom-in-right.delay-2 { transition-delay: 0.6s; }
-.text-zoom-in-right.delay-3 { transition-delay: 0.9s; }
-
-/* Culture 内容缩放渐显特效 */
-.culture-scale-fade {
-  opacity: 0 !important;
-  transform: scale(0.8) !important;
-  transition: all 1.6s ease;
-  animation: none !important;
-}
-
-.culture-scale-fade.visible {
-  opacity: 1 !important;
-  transform: scale(1) !important;
-}
-
-.culture-scale-fade:not(.visible) { 
-  transition-delay: 0s !important; 
-}
-
-.culture-scale-fade.delay-1.visible { transition-delay: 0.1s !important; }
-.culture-scale-fade.delay-2.visible { transition-delay: 0.2s !important; }
-.culture-scale-fade.delay-3.visible { transition-delay: 0.3s !important; }
-.culture-scale-fade.delay-4.visible { transition-delay: 0.4s !important; }
-.culture-scale-fade.delay-5.visible { transition-delay: 0.5s !important; }
-.culture-scale-fade.delay-6.visible { transition-delay: 0.6s !important; }
-.culture-scale-fade.delay-7.visible { transition-delay: 0.7s !important; }
-.culture-scale-fade.delay-8.visible { transition-delay: 0.8s !important; }
-.culture-scale-fade.delay-9.visible { transition-delay: 0.9s !important; }
-.culture-scale-fade.delay-10.visible { transition-delay: 1.0s !important; }
-
-/* 360度3D旋转进场 */
-.rotate-3d-full {
-  opacity: 0 !important;
-  transform: perspective(1000px) rotateY(360deg) scale(0.6) !important;
-  transition: all 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation: none !important;
-}
-
-.rotate-3d-full.visible {
-  opacity: 1 !important;
-  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
-}
-
-.rotate-3d-full:not(.visible) { 
-  transition-delay: 0s !important; 
-}
-
-.rotate-3d-full.delay-1 { transition-delay: 0.2s; }
-.rotate-3d-full.delay-2 { transition-delay: 0.4s; }
-.rotate-3d-full.delay-3 { transition-delay: 0.6s; }
 
 /* ========================================
    社交侧边栏
@@ -629,41 +361,6 @@ body::-webkit-scrollbar {
     object-fit: contain;
 }
 
-/* 社交侧边栏动画 */
-.social-sidebar {
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.social-sidebar.social-loaded {
-    opacity: 1;
-    visibility: visible;
-}
-
-.social-sidebar.social-loaded .social-icon:nth-child(1) {
-    animation: slideInLeft 0.6s ease 0.2s both;
-}
-
-.social-sidebar.social-loaded .social-icon:nth-child(2) {
-    animation: slideInLeft 0.6s ease 0.4s both;
-}
-
-.social-sidebar.social-loaded .social-icon:nth-child(3) {
-    animation: slideInLeft 0.6s ease 0.6s both;
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-100px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
 /* ========================================
    响应式设计
    ======================================== */
@@ -671,8 +368,8 @@ body::-webkit-scrollbar {
 /* 普通桌面适配 */
 @media screen and (max-width: 1200px) {
     .comprofile-section {
-        flex-direction: column;
-        text-align: center;
+    flex-direction: column;
+    text-align: center;
         gap: 40px;
     }
 
@@ -682,18 +379,18 @@ body::-webkit-scrollbar {
     }
 
     .culture-section {
-        flex-direction: column;
-        text-align: center;
+    flex-direction: column;
+    text-align: center;
     }
 
     .culture-left {
         margin-right: 0;
-        margin-bottom: 40px;
+    margin-bottom: 40px;
         max-width: 100%;
     }
 
     .stats-section {
-        gap: 30px;
+    gap: 30px;
     }
 
     .stat-number {
@@ -721,7 +418,7 @@ body::-webkit-scrollbar {
     }
 
     .stats-section {
-        flex-direction: column;
+    flex-direction: column;
         gap: 20px;
     }
 
@@ -740,9 +437,9 @@ body::-webkit-scrollbar {
     .home-content h1 {
         font-size: 2rem;
     }
-
+            
     .home-content p {
-        font-size: 1rem;
+    font-size: 1rem;
     }
 
     .about-section,
@@ -759,10 +456,10 @@ body::-webkit-scrollbar {
     }
 
     .social-sidebar {
-        right: 15px;
+    right: 15px;
         bottom: 15px;
-        gap: 10px;
-    }
+    gap: 10px;
+}
 
     .social-icon {
         width: 45px;
@@ -770,8 +467,8 @@ body::-webkit-scrollbar {
     }
 
     .social-icon img {
-        width: 20px;
-        height: 20px;
+    width: 20px;
+    height: 20px;
     }
 }
 
@@ -790,7 +487,7 @@ body::-webkit-scrollbar {
     }
 
     .stats-section {
-        gap: 15px;
+    gap: 15px;
     }
 
     .stat-number {
