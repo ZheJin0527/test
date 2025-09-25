@@ -360,6 +360,7 @@
             border: 1px solid #d1d5db;
             text-align: center;
             position: relative;
+            height: clamp(20px, 3.3vw, 40px);
         }
 
         .excel-table tr:nth-child(even) {
@@ -394,7 +395,7 @@
             background: #f8f5eb !important;
             font-weight: 600;
             color: #583e04;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             min-width: 100px;
         }
 
@@ -409,7 +410,7 @@
             display: flex;
             align-items: center;
             width: 100%;
-            height: 40px;
+            height: clamp(20px, 3.3vw, 40px);
         }
 
         .currency-prefix {
@@ -425,7 +426,7 @@
         /* 输入框样式 */
         .excel-input {
             width: 100%;
-            height: 40px;
+            height: clamp(20px, 3.3vw, 40px);
             border: none;
             background: #fee2e2;
             text-align: center;
@@ -454,7 +455,7 @@
             background: #f0f9ff !important;
             color: #0369a1;
             font-weight: 600;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             min-width: 100px;
         }
 
@@ -636,7 +637,7 @@
             justify-content: center;
             transition: all 0.2s;
             font-size: clamp(6px, 0.63vw, 12px);
-            margin: 3px;
+            margin: clamp(1px, 0.31vw, 3px);
         }
 
         .delete-day-btn:hover {
@@ -671,7 +672,7 @@
             justify-content: center;
             transition: all 0.2s;
             font-size: clamp(6px, 0.63vw, 12px);
-            margin: 2px;
+            margin: clamp(1px, 0.21vw, 2px);
         }
 
         .edit-btn:hover {
@@ -715,8 +716,8 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 4px;
+            gap: clamp(2px, 0.42vw, 4px);
+            padding: clamp(2px, 0.42vw, 4px);
         }
 
         /* 编辑行样式 */
