@@ -208,7 +208,7 @@ function formatFileSize($bytes) {
         .music-section {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: 30px;
+            padding: clamp(24px, 1.56vw, 30px);
             margin-bottom: 30px;
             border-left: 5px solid #583e04;
         }
