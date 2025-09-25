@@ -60,9 +60,9 @@
         .restaurant-prefix {
             background: #583e04;
             color: white;
-            padding: 10px 16px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: 8px 0 0 8px;
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 700;
             min-width: 40px;
             text-align: center;
@@ -74,11 +74,11 @@
         }
 
         .number-btn {
-            padding: 10px 16px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: 0 8px 8px 0;
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 600;
             transition: all 0.3s ease;
             background: white;
