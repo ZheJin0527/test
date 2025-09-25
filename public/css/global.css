@@ -1,0 +1,458 @@
+/* ========================================
+   KunzzWeb - 全局样式 (Desktop First)
+   ======================================== */
+
+/* 
+ * 基于 Desktop First 的全局样式
+ * 适合办公环境，主要用户使用电脑
+ */
+
+/* ========================================
+   CSS 重置
+   ======================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;
+  background-color: #fff;
+  line-height: 1.6;
+}
+
+/* ========================================
+   基础元素样式 (Desktop First)
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* 默认标题大小（4K/2K） */
+h1 { font-size: 3rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.75rem; }
+h5 { font-size: 1.5rem; }
+h6 { font-size: 1.25rem; }
+
+/* 2K显示器标题 */
+@media screen and (max-width: 1600px) {
+  h1 { font-size: 2.75rem; }
+  h2 { font-size: 2.25rem; }
+  h3 { font-size: 1.875rem; }
+  h4 { font-size: 1.625rem; }
+  h5 { font-size: 1.375rem; }
+  h6 { font-size: 1.125rem; }
+}
+
+/* 普通桌面标题 */
+@media screen and (max-width: 1200px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.75rem; }
+  h4 { font-size: 1.5rem; }
+  h5 { font-size: 1.25rem; }
+  h6 { font-size: 1rem; }
+}
+
+/* 平板标题 */
+@media screen and (max-width: 992px) {
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.875rem; }
+  h3 { font-size: 1.625rem; }
+  h4 { font-size: 1.375rem; }
+  h5 { font-size: 1.125rem; }
+  h6 { font-size: 0.875rem; }
+}
+
+/* 手机标题 */
+@media screen and (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+  h4 { font-size: 1.25rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: 0.875rem; }
+}
+
+/* 小手机标题 */
+@media screen and (max-width: 576px) {
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  h4 { font-size: 1.125rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: 0.875rem; }
+}
+
+p {
+  margin: 0 0 1rem 0;
+  font-size: 1.125rem; /* 默认18px */
+  line-height: 1.6;
+}
+
+/* 2K显示器段落 */
+@media screen and (max-width: 1600px) {
+  p { font-size: 1rem; }
+}
+
+/* 普通桌面段落 */
+@media screen and (max-width: 1200px) {
+  p { font-size: 0.95rem; }
+}
+
+/* 平板段落 */
+@media screen and (max-width: 992px) {
+  p { font-size: 0.9rem; }
+}
+
+/* 手机段落 */
+@media screen and (max-width: 768px) {
+  p { font-size: 0.875rem; }
+}
+
+/* 小手机段落 */
+@media screen and (max-width: 576px) {
+  p { font-size: 0.8rem; }
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ========================================
+   表单元素
+   ======================================== */
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem; /* 默认较大padding */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* 2K显示器表单 */
+@media screen and (max-width: 1600px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    padding: 0.625rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* 普通桌面表单 */
+@media screen and (max-width: 1200px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* 平板表单 */
+@media screen and (max-width: 992px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* 手机表单 */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* ========================================
+   列表样式
+   ======================================== */
+
+ul, ol {
+  margin: 0 0 1rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  margin-bottom: 0.25rem;
+}
+
+/* ========================================
+   表格样式
+   ======================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 1rem; /* 默认较大字体 */
+}
+
+/* 2K显示器表格 */
+@media screen and (max-width: 1600px) {
+  table { font-size: 0.95rem; }
+}
+
+/* 普通桌面表格 */
+@media screen and (max-width: 1200px) {
+  table { font-size: 0.9rem; }
+}
+
+/* 平板表格 */
+@media screen and (max-width: 992px) {
+  table { font-size: 0.875rem; }
+}
+
+/* 手机表格 */
+@media screen and (max-width: 768px) {
+  table { font-size: 0.8rem; }
+}
+
+th,
+td {
+  padding: 1rem; /* 默认较大padding */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 2K显示器表格单元格 */
+@media screen and (max-width: 1600px) {
+  th, td { padding: 0.875rem; }
+}
+
+/* 普通桌面表格单元格 */
+@media screen and (max-width: 1200px) {
+  th, td { padding: 0.75rem; }
+}
+
+/* 平板表格单元格 */
+@media screen and (max-width: 992px) {
+  th, td { padding: 0.625rem; }
+}
+
+/* 手机表格单元格 */
+@media screen and (max-width: 768px) {
+  th, td { padding: 0.5rem; }
+}
+
+th {
+  font-weight: 600;
+  background-color: #f8f9fa;
+}
+
+/* ========================================
+   工具类
+   ======================================== */
+
+/* 显示/隐藏 */
+.hidden { display: none !important; }
+.visible { display: block !important; }
+
+/* 文本对齐 */
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+
+/* 文本样式 */
+.text-bold { font-weight: bold !important; }
+.text-normal { font-weight: normal !important; }
+.text-italic { font-style: italic !important; }
+
+/* 颜色 */
+.text-primary { color: #007bff !important; }
+.text-secondary { color: #6c757d !important; }
+.text-success { color: #28a745 !important; }
+.text-danger { color: #dc3545 !important; }
+.text-warning { color: #ffc107 !important; }
+.text-info { color: #17a2b8 !important; }
+.text-light { color: #f8f9fa !important; }
+.text-dark { color: #343a40 !important; }
+
+/* 背景色 */
+.bg-primary { background-color: #007bff !important; }
+.bg-secondary { background-color: #6c757d !important; }
+.bg-success { background-color: #28a745 !important; }
+.bg-danger { background-color: #dc3545 !important; }
+.bg-warning { background-color: #ffc107 !important; }
+.bg-info { background-color: #17a2b8 !important; }
+.bg-light { background-color: #f8f9fa !important; }
+.bg-dark { background-color: #343a40 !important; }
+
+/* 间距 */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: 0.25rem !important; }
+.m-2 { margin: 0.5rem !important; }
+.m-3 { margin: 1rem !important; }
+.m-4 { margin: 1.5rem !important; }
+.m-5 { margin: 3rem !important; }
+
+.p-0 { padding: 0 !important; }
+.p-1 { padding: 0.25rem !important; }
+.p-2 { padding: 0.5rem !important; }
+.p-3 { padding: 1rem !important; }
+.p-4 { padding: 1.5rem !important; }
+.p-5 { padding: 3rem !important; }
+
+/* 宽度 */
+.w-25 { width: 25% !important; }
+.w-50 { width: 50% !important; }
+.w-75 { width: 75% !important; }
+.w-100 { width: 100% !important; }
+
+/* 高度 */
+.h-25 { height: 25% !important; }
+.h-50 { height: 50% !important; }
+.h-75 { height: 75% !important; }
+.h-100 { height: 100% !important; }
+
+/* ========================================
+   可访问性
+   ======================================== */
+
+/* 屏幕阅读器专用 */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* 焦点样式 */
+.focus-visible:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* ========================================
+   打印样式
+   ======================================== */
+
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  
+  .print-hidden {
+    display: none !important;
+  }
+}
