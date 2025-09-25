@@ -793,7 +793,7 @@
         .low-stock-modal-header {
             background: linear-gradient(135deg, #dc2626, #ef4444);
             color: white;
-            padding: 20px 24px;
+            padding: clamp(10px, 1.04vw, 20px) clamp(18px, 1.25vw, 24px);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -828,7 +828,7 @@
         }
 
         .low-stock-modal-body {
-            padding: 24px;
+            padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
             max-height: 60vh;
             overflow-y: auto;
         }
@@ -2346,7 +2346,7 @@
             const summary = document.getElementById('alert-summary');
             
             let html = `
-                <div style="margin-bottom: 16px; padding: 12px; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
+                <div style="font-size: clamp(10px, 0.84vw, 16px); margin-bottom: 16px; padding: 12px; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
                     <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
                     发现 ${alerts.length} 个货品库存不足，请及时补货！
                 </div>
