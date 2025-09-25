@@ -425,13 +425,13 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .logout-btn {
-    width: 120px;
+    
     background: linear-gradient(to bottom, #ff9850, #e97d18);
     border: none;
     border-radius: 20px;
-    padding: 8px 12px;
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
     color: white;
-    font-size: 13px;
+    font-size: clamp(8px, 0.74vw, 14px);
     font-weight: 500;
     cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

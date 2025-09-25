@@ -110,7 +110,7 @@ if (file_exists('media_config.json')) {
         }
         
         .breadcrumb {
-            padding: 20px 0px;
+            padding: clamp(2px, 1.04vw, 20px) 0px 20px;
             background: transparent;
         }
         
