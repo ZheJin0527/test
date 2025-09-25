@@ -55,7 +55,7 @@ include '../public/header.php';
     </div>
     <div class="comprofile-image animate-on-scroll rotate-3d-full">
       <!-- 你可以换成自己的图片 -->
-      <img src="images/images/logo.png" alt="公司介绍图" />
+      <img src="/images/images/logo.png" alt="公司介绍图" />
     </div>
   </div>
 
@@ -121,22 +121,22 @@ include '../public/header.php';
 <div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="images/images/fbicon.png" alt="Facebook">
+        <img src="/images/images/fbicon.png" alt="Facebook">
     </a>
 
     <!-- Instagram -->
     <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="images/images/igicon.png" alt="Instagram">
+        <img src="/images/images/igicon.png" alt="Instagram">
     </a>
 
     <!-- WhatsApp -->
     <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="images/images/wsicon.png" alt="WhatsApp">
+        <img src="/images/images/wsicon.png" alt="WhatsApp">
     </a>
 </div>
   
 <script src="../app.js"></script>
-<script src="../header.js"></script>
+<script src="../public/header.js"></script>
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
