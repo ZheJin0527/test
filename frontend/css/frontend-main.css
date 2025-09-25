@@ -1,0 +1,1082 @@
+/* ========================================
+   KunzzWeb Frontend Main CSS
+   ======================================== */
+
+/* ========================================
+   INDEX 页面样式
+   ======================================== */
+
+/* 基础动画系统 */
+.animate-on-scroll {
+  opacity: 0;
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+.delay-4 { animation-delay: 0.7s; }
+.delay-5 { animation-delay: 0.9s; }
+.delay-6 { animation-delay: 1.1s; }
+.delay-7 { animation-delay: 1.3s; }
+.delay-8 { animation-delay: 1.5s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.animate-on-scroll.visible:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 滑入动画 */
+.slide-in-left {
+  opacity: 0 !important;
+  transform: translateX(-300px) !important;
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.slide-in-left.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.slide-in-left.delay-1 { transition-delay: 0.6s; }
+.slide-in-left.delay-2 { transition-delay: 0.8s; }
+.slide-in-left.delay-3 { transition-delay: 1.0s; }
+.slide-in-left.delay-4 { transition-delay: 1.0s; }
+.slide-in-left.delay-5 { transition-delay: 1.2s; }
+
+.slide-in-left:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+.slide-in-right {
+  opacity: 0 !important;
+  transform: translateX(300px) !important;
+  transition: all 0.4s ease-out;
+  animation: none !important;
+}
+
+.slide-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.slide-in-right:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 缩放动画 */
+.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+.animate-on-scroll.visible .scale-fade-in {
+  animation-play-state: running;
+}
+
+.animate-on-scroll:not(.visible) .scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+@keyframes scaleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.home-content .scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+.home-content .decor-line.scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+.decor-line.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+.animate-on-scroll.visible .decor-line.scale-fade-in {
+  animation-play-state: running;
+}
+
+.animate-on-scroll:not(.visible) .decor-line.scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* 其他动画 */
+.fade-in-down {
+  opacity: 0 !important;
+  transform: translateY(-40px) !important;
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.fade-in-down.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.fade-in-down:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+.scale-out {
+  opacity: 0 !important;
+  transform: scale(0.3) !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: none !important;
+}
+
+.scale-out.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.scale-out:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 首页渐变效果 */
+.home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.home.gradient-loaded::before {
+    opacity: 1;
+    transition-delay: 0.2s;
+}
+
+.home-content {
+    position: relative;
+    z-index: 2;
+}
+
+.home.slow-gradient::before {
+    transition: opacity 3s ease-in-out;
+    transition-delay: 1s;
+}
+
+/* ========================================
+   ABOUT 页面样式
+   ======================================== */
+
+/* 图片专用 3D 旋转特效 */
+img.image-3d-rotate,
+.image-3d-rotate img {
+  opacity: 0 !important;
+  transform: perspective(1000px) rotateY(-90deg) scale(1.4) !important;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.3s;
+  transform-origin: center;
+  border-radius: 8px;
+  animation: none !important;
+}
+
+/* 图片3D旋转显示状态 */
+img.image-3d-rotate.visible,
+.image-3d-rotate.visible img {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+}
+
+/* 重置图片3D旋转延迟 */
+img.image-3d-rotate:not(.visible),
+.image-3d-rotate:not(.visible) img {
+  transition-delay: 0s !important;
+}
+
+/* 图片悬浮3D效果 */
+img.image-3d-rotate:hover,
+.image-3d-rotate img:hover {
+  transform: perspective(1000px) rotateY(5deg) rotateX(5deg) scale(1.05) !important;
+  transition-delay: 0s !important;
+}
+
+/* Culture 特效 */
+.card-tilt-in-left {
+  opacity: 0 !important;
+  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
+  transform-origin: left center;
+  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-tilt-in-left.visible {
+  opacity: 1 !important;
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) !important;
+}
+
+/* 卡片单独延迟进入 */
+.culture-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.card-tilt-in-left.visible .culture-card:nth-child(1) {
+  transition-delay: 0.2s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .culture-card:nth-child(2) {
+  transition-delay: 0.4s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .culture-card:nth-child(3) {
+  transition-delay: 0.6s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .culture-card:nth-child(4) {
+  transition-delay: 0.8s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 右侧文字缩放滑入 */
+.text-zoom-in-right {
+  opacity: 0 !important;
+  transform: translateX(100px) translateY(30px) scale(0.8) !important;
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.text-zoom-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) translateY(0) scale(1) !important;
+}
+
+.text-zoom-in-right.delay-1 { transition-delay: 0.3s; }
+.text-zoom-in-right.delay-2 { transition-delay: 0.6s; }
+.text-zoom-in-right.delay-3 { transition-delay: 0.9s; }
+
+/* Culture 内容缩放渐显特效 */
+.culture-scale-fade {
+  opacity: 0 !important;
+  transform: scale(0.8) !important;
+  transition: all 1.6s ease;
+  animation: none !important;
+}
+
+.culture-scale-fade.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.culture-scale-fade:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+/* 为 culture 标题和描述添加渐进延迟 */
+.culture-scale-fade.delay-1.visible { transition-delay: 0.1s !important; }
+.culture-scale-fade.delay-2.visible { transition-delay: 0.2s !important; }
+.culture-scale-fade.delay-3.visible { transition-delay: 0.3s !important; }
+.culture-scale-fade.delay-4.visible { transition-delay: 0.4s !important; }
+.culture-scale-fade.delay-5.visible { transition-delay: 0.5s !important; }
+.culture-scale-fade.delay-6.visible { transition-delay: 0.6s !important; }
+.culture-scale-fade.delay-7.visible { transition-delay: 0.7s !important; }
+.culture-scale-fade.delay-8.visible { transition-delay: 0.8s !important; }
+.culture-scale-fade.delay-9.visible { transition-delay: 0.9s !important; }
+.culture-scale-fade.delay-10.visible { transition-delay: 1.0s !important; }
+
+/* 360度3D旋转进场 */
+.rotate-3d-full {
+  opacity: 0 !important;
+  transform: perspective(1000px) rotateY(360deg) scale(0.6) !important;
+  transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+.rotate-3d-full.visible {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+}
+
+.rotate-3d-full:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+.rotate-3d-full.delay-1 { transition-delay: 0.2s; }
+.rotate-3d-full.delay-2 { transition-delay: 0.4s; }
+.rotate-3d-full.delay-3 { transition-delay: 0.6s; }
+
+/* ========================================
+   JOINUS 页面样式
+   ======================================== */
+
+/* Navbar 延迟淡入特效 - 等待加载完成后触发 */
+.navbar {
+  opacity: 0;
+  transform: translateY(-20px);
+  /* 移除自动动画，等待JavaScript触发 */
+}
+
+/* 只有当添加了 navbar-loaded 类后才开始动画 */
+.navbar.navbar-loaded {
+  animation: navbarFadeIn 1.2s ease-out forwards;
+  animation-delay: 0.3s; /* 延迟0.3秒开始 */
+}
+
+@keyframes navbarFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 为navbar子元素添加渐进淡入效果 - 同样等待触发 */
+.navbar .logo-section {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .logo-section {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 0.6s; /* logo先出现 */
+}
+
+.navbar .nav-links {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .nav-links {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 0.8s; /* 导航菜单稍后出现 */
+}
+
+.navbar .right-section {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 1.0s; /* 右侧区域最后出现 */
+}
+
+@keyframes fadeInElement {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 导航项目逐个淡入效果 */
+.nav-links .nav-item {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .nav-links .nav-item {
+  animation: fadeInElement 0.6s ease-out forwards;
+}
+
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(1) { animation-delay: 0.9s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(2) { animation-delay: 1.0s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(3) { animation-delay: 1.1s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(4) { animation-delay: 1.2s; }
+
+/* 右侧元素逐个淡入 */
+.right-section .login-btn {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .login-btn {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.1s;
+}
+
+.right-section .language-switch {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .language-switch {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+.right-section .hamburger {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .hamburger {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+/* ========================================
+   通用组件样式
+   ======================================== */
+
+/* 加载完成后显示 */
+.social-sidebar.social-loaded {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 可选：添加延迟效果，让每个图标依次出现 */
+.social-sidebar.social-loaded .social-icon:nth-child(1) {
+  animation: slideInLeft 0.6s ease 0.2s both;
+}
+
+.social-sidebar.social-loaded .social-icon:nth-child(2) {
+  animation: slideInLeft 0.6s ease 0.4s both;
+}
+
+.social-sidebar.social-loaded .social-icon:nth-child(3) {
+  animation: slideInLeft 0.6s ease 0.6s both;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 加载完成后显示 */
+.page-indicator.indicator-loaded {
+  opacity: 1;
+}
+
+/* 可选：添加每个点的依次出现效果 */
+.page-indicator.indicator-loaded .page-dot {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(1) { animation-delay: 0.1s; }
+.page-indicator.indicator-loaded .page-dot:nth-child(2) { animation-delay: 0.2s; }
+.page-indicator.indicator-loaded .page-dot:nth-child(3) { animation-delay: 0.3s; }
+.page-indicator.indicator-loaded .page-dot:nth-child(4) { animation-delay: 0.4s; }
+.page-indicator.indicator-loaded .page-dot:nth-child(5) { animation-delay: 0.5s; }
+.page-indicator.indicator-loaded .page-dot:nth-child(6) { animation-delay: 0.6s; }
+.page-indicator.indicator-loaded .page-dot:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   ABOUT 页面动画
+   ======================================== */
+
+.aboutus-banner {
+    opacity: 1; /* 背景直接显示 */
+    transform: translateY(0); /* 背景无位移 */
+    background-size: cover;
+    background-position: center;
+    min-height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* About Banner 内容初始状态 - 强制隐藏 */
+.aboutus-content {
+    opacity: 0 !important;
+    transform: translateY(30px) !important;
+    transition: all 0.8s ease-out;
+    text-align: center;
+    color: white;
+    visibility: hidden;
+}
+
+/* About Banner 内容动画 - 只有添加 content-loaded 类才显示 */
+.aboutus-banner.content-loaded .aboutus-content {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.3s;
+}
+
+/* About Intro 初始状态 */
+.aboutus-intro {
+    background-size: cover;
+    background-position: center;
+}
+
+/* Intro 内容初始状态 - 强制隐藏 */
+.intro-content {
+    opacity: 0 !important;
+    transform: translateY(40px) !important;
+    transition: all 1.0s ease-out;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    visibility: hidden;
+}
+
+/* Intro 内容动画 - 只有添加 intro-loaded 类才显示 */
+.aboutus-intro.intro-loaded .intro-content {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.6s;
+}
+
+/* Banner 标题和段落的渐进动画 - 强制隐藏初始状态 */
+.aboutus-content h1,
+.aboutus-content p {
+    opacity: 0 !important;
+    transform: translateY(-60px) !important;
+    transition: all 0.8s ease-out;
+    visibility: hidden;
+}
+
+/* Intro 标题和段落强制隐藏初始状态 */
+.intro-content h1 {
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+    transition: all 0.6s ease-out;
+    visibility: hidden;
+}
+
+.intro-content p {
+    opacity: 0 !important;
+    transform: translateY(15px) !important;
+    transition: all 0.6s ease-out;
+    visibility: hidden;
+}
+
+/* Banner 当内容准备好后，子元素依次从上往下出现 */
+.aboutus-banner.content-loaded .aboutus-content h1 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.5s;
+}
+
+.aboutus-banner.content-loaded .aboutus-content p {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.7s;
+}
+
+/* Intro 保持原来的从下往上动画 */
+.aboutus-intro.intro-loaded .intro-content h1 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 1.1s;
+}
+
+.aboutus-intro.intro-loaded .intro-content p {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 1.3s;
+}
+
+/* Vision Content 从上面滑下特效 */
+.vision-slide-down {
+  opacity: 0 !important;
+  transform: translateY(-60px) !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: none !important;
+}
+
+.vision-slide-down.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: 0.5s !important;
+}
+
+.vision-slide-down:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 时间线标题初始状态 */
+.timeline-section h1 {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: none;
+}
+
+/* 标题动画（加速） */
+.timeline-section.timeline-active h1 {
+    animation: titleFadeIn 0.4s ease-out forwards;
+    animation-delay: 0s;
+}
+
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 时间线轨道初始状态 */
+.timeline-track {
+    transform-origin: center;
+    transform: translateY(-50%) scaleX(0);
+    animation: none;
+}
+
+/* 轨道动画（加速） */
+.timeline-section.timeline-active .timeline-track {
+    animation: trackExpand 0.5s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes trackExpand {
+    from {
+        transform: translateY(-50%) scaleX(0);
+    }
+    to {
+        transform: translateY(-50%) scaleX(1);
+    }
+}
+
+/* 光效延迟 */
+.timeline-section.timeline-active .timeline-track::before {
+    animation-delay: 1.0s;
+}
+
+/* 项目容器初始状态 */
+.timeline-items-container {
+    opacity: 0;
+    animation: none;
+}
+
+/* 项目容器动画（加速） */
+.timeline-section.timeline-active .timeline-items-container {
+    animation: itemsFadeIn 0.4s ease-out forwards;
+    animation-delay: 0.7s;
+}
+
+@keyframes itemsFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 圆点初始状态 */
+.timeline-item {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+    animation: none;
+}
+
+/* 圆点动画（加速） */
+.timeline-section.timeline-active .timeline-item {
+    animation: bulletAppear 0.4s ease-out forwards;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(1) { animation-delay: 0.3s; }
+.timeline-section.timeline-active .timeline-item:nth-child(2) { animation-delay: 0.45s; }
+.timeline-section.timeline-active .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+.timeline-section.timeline-active .timeline-item:nth-child(4) { animation-delay: 0.75s; }
+.timeline-section.timeline-active .timeline-item:nth-child(5) { animation-delay: 0.9s; }
+
+@keyframes bulletAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 导航箭头初始状态 */
+.nav-arrow {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.8);
+    animation: none;
+}
+
+/* 导航箭头动画（加速） */
+.timeline-section.timeline-active .nav-arrow {
+    animation: arrowFadeIn 0.3s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+@keyframes arrowFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+/* ========================================
+   JOINUS 页面动画
+   ======================================== */
+
+/* 加入我们 Banner 背景 */
+.joinus-banner {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 从小变大（带缓冲）动画 */
+@keyframes scaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 初始状态：透明且缩小 */
+.joinus-content h1,
+.joinus-content p {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* 标题动画 */
+.joinus-banner.joinus-loaded .joinus-content h1 {
+    animation: scaleIn 2.3s forwards;
+    animation-delay: 0.3s;
+}
+
+/* 段落动画 */
+.joinus-banner.joinus-loaded .joinus-content p {
+    animation: scaleIn 2.3s forwards;
+    animation-delay: 0.5s;
+}
+
+/* 公司福利特效 - 从中心向两边展开 */
+.benefits-wrapper {
+    opacity: 1;
+}
+
+/* 福利标题初始状态 */
+.benefits-wrapper h2 {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.benefits-wrapper.benefits-loaded h2 {
+    animation: scaleIn 2.5s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+    animation-delay: 0.5s;
+}
+
+/* 福利项目初始状态 */
+.benefits-wrapper .benefit-item {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* 福利项目显示动画 - 使用 scaleIn 动画 */
+.benefits-wrapper.benefits-loaded .benefit-item {
+    animation: scaleIn 2s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+/* 对称延迟：中间开始，向两边展开 */
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(3),
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(4) {
+    animation-delay: 0.9s;
+}
+
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(2),
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(5) {
+    animation-delay: 1.1s;
+}
+
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(1),
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(6) {
+    animation-delay: 1.3s;
+}
+
+/* 悬浮效果保持 */
+.benefits-wrapper .benefit-item:hover {
+    transform: scale(1.05) translateY(-5px) !important;
+    transition: all 0.3s ease !important;
+    transition-delay: 0s !important;
+}
+
+.benefits-wrapper .benefit-item:hover img {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.benefits-wrapper .benefit-item:hover p {
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+/* 不可见时立即重置 */
+.benefits-wrapper:not(.benefits-loaded) .benefit-item {
+    opacity: 0 !important;
+    transform: scale(0.5) !important;
+    animation: none !important;
+}
+
+.benefits-wrapper:not(.benefits-loaded) h2 {
+    opacity: 0 !important;
+    transform: scale(0.5) !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+/* 我们的足迹标题特效 - 透明到清晰 */
+.comphoto-title {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 2s ease-out;
+}
+
+/* 当容器添加 comphoto-loaded 类时显示 */
+#comphoto-container.comphoto-loaded .comphoto-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+/* 当容器移除 comphoto-loaded 类时快速重置 - 避免残影 */
+#comphoto-container:not(.comphoto-loaded) .comphoto-title {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
+
+/* 招聘职位标题特效 - 从下往上滑入 */
+.job-table-title {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 当父容器添加 job-table-loaded 类时显示 */
+.job-table-container.job-table-loaded .job-table-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+/* 重置状态 - 当不可见时快速重置 */
+.job-table-container:not(.job-table-loaded) .job-table-title {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
+
+/* 职位卡片从下往上显示特效 */
+.job-card {
+    pointer-events: none; /* 初始不能点击 */
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 动画结束后允许点击 */
+.job-card.interactive {
+    pointer-events: auto;
+}
+
+/* hover 效果照常写 */
+.job-card.interactive:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 当jobs-grid添加 jobs-loaded 类时显示 */
+.jobs-grid.jobs-loaded .job-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 逐个延迟显示 - 创建瀑布式效果 */
+.jobs-grid.jobs-loaded .job-card:nth-child(1) { transition-delay: 0.6s; }
+.jobs-grid.jobs-loaded .job-card:nth-child(2) { transition-delay: 0.6s; }
+.jobs-grid.jobs-loaded .job-card:nth-child(3) { transition-delay: 0.6s; }
+.jobs-grid.jobs-loaded .job-card:nth-child(4) { transition-delay: 1.2s; }
+.jobs-grid.jobs-loaded .job-card:nth-child(5) { transition-delay: 1.4s; }
+.jobs-grid.jobs-loaded .job-card:nth-child(6) { transition-delay: 1.6s; }
+
+/* 重置状态 - 当不可见时快速重置 */
+.jobs-grid:not(.jobs-loaded) .job-card {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
+
+/* 保持卡片原有的悬浮效果 */
+.job-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+    transition: all 0.3s ease !important;
+    transition-delay: 0s !important;
+}
+
+/* 添加文字和地图的进入动画 */
+.contact-info,
+.map-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+/* 当 contact-loaded 类加到 wrapper 上时，让内部内容显示 */
+.contact-section-wrapper.contact-loaded .contact-info,
+.contact-section-wrapper.contact-loaded .map-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+/* 非加载状态下的复位 */
+.contact-section-wrapper:not(.contact-loaded) .contact-info,
+.contact-section-wrapper:not(.contact-loaded) .map-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
+
+/* ========================================
+   VALUES 页面样式
+   ======================================== */
+
+/* Values 特效 */
+.values-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(1) {
+  transition-delay: 0.6s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(2) {
+  transition-delay: 0.8s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(3) {
+  transition-delay: 1.0s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(4) {
+  transition-delay: 1.2s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Values 内容缩放渐显特效 */
+.values-scale-fade {
+  opacity: 0 !important;
+  transform: scale(0.8) !important;
+  transition: all 1.6s ease;
+  animation: none !important;
+}
+
+.values-scale-fade.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  transition: all 1.0s ease !important;
+}
+
+.values-scale-fade:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+/* 为 values 标题和描述添加渐进延迟 */
+.values-scale-fade.delay-1.visible { transition-delay: 0.1s !important; }
+.values-scale-fade.delay-2.visible { transition-delay: 0.2s !important; }
+.values-scale-fade.delay-3.visible { transition-delay: 0.3s !important; }
+.values-scale-fade.delay-4.visible { transition-delay: 0.4s !important; }
+.values-scale-fade.delay-5.visible { transition-delay: 0.5s !important; }
+.values-scale-fade.delay-6.visible { transition-delay: 0.6s !important; }
+.values-scale-fade.delay-7.visible { transition-delay: 0.7s !important; }
+.values-scale-fade.delay-8.visible { transition-delay: 0.8s !important; }
+.values-scale-fade.delay-9.visible { transition-delay: 0.9s !important; }
+.values-scale-fade.delay-10.visible { transition-delay: 1.0s !important; }
+
