@@ -17,7 +17,7 @@ if (!isset($mediaConfigIncluded)) {
     <link rel="icon" type="image/png" href="../images/images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/components/header.css" />
+    <link rel="stylesheet" href="../public/css/components/header.css" />
     <title><?php echo isset($pageTitle) ? $pageTitle : 'KUNZZ HOLDINGS'; ?></title>
     <?php if (isset($additionalCSS)): ?>
         <?php foreach ($additionalCSS as $css): ?>
