@@ -256,7 +256,7 @@
             background: white;
             border-radius: 12px;
             padding: clamp(8px, 0.83vw, 16px) clamp(16px, 1.25vw, 24px);
-            margin-bottom: 24px;
+            margin-bottom: clamp(16px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             display: flex;
