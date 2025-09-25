@@ -829,7 +829,7 @@
 
         .low-stock-modal-body {
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
-            max-height: 60vh;
+            height: clamp(58vh, 33vw, 60vh);
             overflow-y: auto;
         }
 
