@@ -90,7 +90,7 @@
         .generate-form {
             background: transparent;
             border-radius: 15px;
-            margin-bottom: 25px;
+            margin-bottom: clamp(0px, 1.3vw, 25px);
             justify-items: normal;
         }
 
