@@ -543,7 +543,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 提高选择器权重 */
 .informationmenu.collapsed {
-    width: 70px !important;
+    width: clamp(50px, 3.65vw, 70px) !important;
     overflow: visible;
 }
 
@@ -554,7 +554,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu.collapsed .informationmenu-section-title {
-    padding: 12px 10px !important;
+    padding: clamp(2px, 0.63vw, 12px) 10px !important;
     text-align: center;
     font-size: 0; /* 隐藏文字 */
     /* 确保图标仍然显示 */
