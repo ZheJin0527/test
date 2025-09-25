@@ -192,7 +192,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section {
-    padding: 10px 0;
+    padding: clamp(6px,0.52vw, 10px) 0;
     /* 让所有section占据剩余空间，但footer会被推到底部 */
 }
 
@@ -518,8 +518,8 @@ if (isset($_SESSION['user_id'])) {
 /* 侧边栏收起状态下的图标样式 */
 .informationmenu.collapsed .section-icon {
     margin-right: 0 !important;
-    width: clamp(12px, 1.15vw, 22px) !important;
-    height: clamp(12px, 1.15vw, 22px) !important;
+    width: clamp(10px, 1.15vw, 22px) !important;
+    height: clamp(10px, 1.15vw, 22px) !important;
     display: block !important;
 }
 
