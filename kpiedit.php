@@ -64,7 +64,7 @@
             border-radius: 8px 0 0 8px;
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 700;
-            min-width: 40px;
+            width: clamp(26px, 2.08vw, 40px);
             text-align: center;
         }
 
