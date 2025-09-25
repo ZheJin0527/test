@@ -716,14 +716,7 @@ body.sidebar-collapsed .main-content {
 }
 
 /* 响应式调整 */
-@media (max-width: 1200px) {
-    body {
-        margin-left: clamp(140px, 15vw, 200px);
-    }
-    .main-content {
-        width: calc(100vw - clamp(140px, 15vw, 200px));
-    }
-}
+
 body.sidebar-transition {
     transition: margin-left 0.3s ease;
 }

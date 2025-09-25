@@ -577,7 +577,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .card-body {
-            padding: 13.5px 24px;
+            padding: clamp(7.5px, 0.7vw, 13.5px) clamp(18px, 1.25vw, 24px);
         }
         
         .grid {
