@@ -356,10 +356,11 @@
 
         .excel-table td {
             font-size: clamp(8px, 0.74vw, 14px);
-            padding: clamp(2px, 0.3vw, 6px) 0; 
+            padding: 0;
             border: 1px solid #d1d5db;
             text-align: center;
             position: relative;
+            height: clamp(20px, 3.3vw, 40px);
         }
 
         .excel-table tr:nth-child(even) {
@@ -409,7 +410,7 @@
             display: flex;
             align-items: center;
             width: 100%;
-            height: 40px;
+            height: clamp(20px, 3.3vw, 40px);
         }
 
         .currency-prefix {
@@ -425,7 +426,7 @@
         /* 输入框样式 */
         .excel-input {
             width: 100%;
-            height: clamp(24px, 3vw, 40px); 
+            height: clamp(20px, 3.3vw, 40px);
             border: none;
             background: #fee2e2;
             text-align: center;
@@ -636,7 +637,7 @@
             justify-content: center;
             transition: all 0.2s;
             font-size: clamp(6px, 0.63vw, 12px);
-            margin: 3px;
+            margin: clamp(1px, 0.31vw, 3px);
         }
 
         .delete-day-btn:hover {
@@ -671,7 +672,7 @@
             justify-content: center;
             transition: all 0.2s;
             font-size: clamp(6px, 0.63vw, 12px);
-            margin: 2px;
+            margin: clamp(1px, 0.21vw, 2px);
         }
 
         .edit-btn:hover {
@@ -715,8 +716,8 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 4px;
+            gap: clamp(2px, 0.42vw, 4px);
+            padding: clamp(2px, 0.42vw, 4px);
         }
 
         /* 编辑行样式 */
