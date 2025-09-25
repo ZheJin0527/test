@@ -697,7 +697,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 页面内容右移，避免被侧栏覆盖 */
 body {
-    margin-left: clamp(140px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
+    margin-left: clamp(100px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
 }
 body.sidebar-collapsed {
     margin-left: 70px;
