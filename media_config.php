@@ -8,16 +8,16 @@ function getMediaConfig($mediaType) {
     $configFile = 'media_config.json';
     $defaultConfig = [
         'home_background' => [
-            'file' => 'video/video/home_background.webm',
+            'file' => '../video/video/home_background.webm',
             'type' => 'video'
         ],
         'about_background' => [
-            'file' => 'images/images/关于我们bg8.jpg',
+            'file' => '../images/images/关于我们bg8.jpg',
             'type' => 'image'
         ],
         // 添加这个配置
         'joinus_background' => [
-            'file' => 'images/images/加入我们bg2.jpg',
+            'file' => '../images/images/加入我们bg2.jpg',
             'type' => 'image'
         ]
     ];
