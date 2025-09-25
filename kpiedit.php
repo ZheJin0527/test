@@ -334,12 +334,24 @@
             padding: clamp(6px, 0.6vw, 12px) 0;
             text-align: center;
             font-weight: 600;
-            border: 1px solid #d1d5db;
+            border: 1px solid #462d03;
             position: sticky;
             top: 0;
-            z-index: 100; /* 增加z-index值 */
+            z-index: 100; /* 改成更高的值 */
             white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影，增强分离感 */
+        }
+
+        .excel-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #583e04; /* 确保背景色覆盖 */
+        }
+
+        .excel-table thead tr {
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .excel-table td {
