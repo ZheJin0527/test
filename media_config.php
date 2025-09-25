@@ -12,7 +12,7 @@ function getMediaConfig($mediaType) {
             'type' => 'video'
         ],
         'about_background' => [
-            'file' => 'images/images/关于我们bg8.jpg',
+            'file' => '/images/images/关于我们bg8.jpg',
             'type' => 'image'
         ],
         // 添加这个配置
