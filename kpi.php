@@ -774,7 +774,7 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 月份选择器的特殊样式 - 更小的宽度 */
         .enhanced-date-picker.month-only {
-            min-width: 100px;
+            min-width: clamp(100px, 6.77vw, 130px);
         }
 
         /* 日期选择部分 */
