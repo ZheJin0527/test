@@ -53,7 +53,7 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
