@@ -55,7 +55,7 @@ include '../public/header.php';
     </div>
     <div class="comprofile-image animate-on-scroll rotate-3d-full">
       <!-- 你可以换成自己的图片 -->
-      <img src="/images/images/logo.png" alt="公司介绍图" />
+      <img src="../images/images/logo.png" alt="公司介绍图" />
     </div>
   </div>
 
@@ -82,22 +82,22 @@ include '../public/header.php';
   <section id="culture" class="culture-section">
     <div class="culture-left animate-on-scroll card-tilt-in-left">
       <div class="culture-card">
-        <img src="images/images/积极向上 (1).png" alt="icon" class="culture-icon">
+        <img src="../images/images/积极向上 (1).png" alt="icon" class="culture-icon">
         <h3>积极向上</h3>
         <p>始终以正面心态面对挑战<br>在变化中寻找成长机会</p>
       </div>
       <div class="culture-card">
-        <img src="images/images/高效执行 (1).png" alt="icon" class="culture-icon">
+        <img src="../images/images/高效执行 (1).png" alt="icon" class="culture-icon">
         <h3>高效执行</h3>
         <p>说到做到，快速响应<br>追求结果导向与行动力</p>
       </div>
       <div class="culture-card">
-        <img src="images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
+        <img src="../images/images/灵活应变 (1).png" alt="icon" class="culture-icon">
         <h3>灵活应变</h3>
         <p>面对市场变化和问题<br>保持开放思维，快速调整策略</p>
       </div>
       <div class="culture-card">
-        <img src="images/images/诚信待人 (1).png" alt="icon" class="culture-icon">
+        <img src="../images/images/诚信待人 (1).png" alt="icon" class="culture-icon">
         <h3>诚信待人</h3>
         <p>以真诚与责任建立合作与信任<br>是我们最基本的做人原则</p>
       </div>
@@ -121,17 +121,17 @@ include '../public/header.php';
 <div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="/images/images/fbicon.png" alt="Facebook">
+        <img src="../images/images/fbicon.png" alt="Facebook">
     </a>
 
     <!-- Instagram -->
     <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="/images/images/igicon.png" alt="Instagram">
+        <img src="../images/images/igicon.png" alt="Instagram">
     </a>
 
     <!-- WhatsApp -->
     <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="/images/images/wsicon.png" alt="WhatsApp">
+        <img src="../images/images/wsicon.png" alt="WhatsApp">
     </a>
 </div>
   
