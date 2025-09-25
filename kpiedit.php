@@ -627,15 +627,15 @@
             background: #ef4444;
             color: white;
             border: none;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
+            border-radius: clamp(4px, 0.32vw, 6px);
+            width: clamp(18px, 1.67vw, 32px);
+            height: clamp(18px, 1.67vw, 32px);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             margin: 3px;
         }
 
