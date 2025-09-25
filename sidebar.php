@@ -952,7 +952,7 @@ body.sidebar-transition {
         title.addEventListener('click', function(e) {
             const targetId = this.getAttribute('data-target');
             const targetDropdown = document.getElementById(targetId);
-
+    
             // 检查侧边栏是否处于收起状态
             if (sidebarMenu.classList.contains('collapsed')) {
                 e.preventDefault();
@@ -961,9 +961,6 @@ body.sidebar-transition {
                 // 展开侧边栏
                 sidebarMenu.classList.remove('collapsed');
                 sidebarToggle.classList.remove('collapsed');
-                
-                // 添加这行：移除body的sidebar-collapsed类
-                document.body.classList.remove('sidebar-collapsed');
         
                 // 同时展开点击的选项
                 // 关闭其他section的下拉菜单
