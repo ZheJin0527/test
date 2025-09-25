@@ -367,7 +367,7 @@
         }
 
         .excel-table tr:hover {
-            background-color: #f3f4f6;
+            background-color: #000000ff;
         }
 
         /* 日期列样式 */
@@ -1057,8 +1057,8 @@
                 const existingData = monthData[day] || {};
                 
                 const row = document.createElement('tr');
-row.innerHTML = `
-    <td class="date-cell ${isWeekend ? 'weekend' : ''}">${currentMonth}月${day}<small> (周${['日', '一', '二', '三', '四', '五', '六'][date.getDay()]})</small></td>
+                row.innerHTML = `
+                    <td class="date-cell ${isWeekend ? 'weekend' : ''}">${currentMonth}月${day}<small> (周${['日', '一', '二', '三', '四', '五', '六'][date.getDay()]})</small></td>
                     <td>
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
