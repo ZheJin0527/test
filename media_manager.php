@@ -321,7 +321,7 @@ if (file_exists('media_config.json')) {
             
             <!-- 页面分类管理 -->
             <div class="media-section">
-                <h2>🎵 背景音乐管理</h2>
+                <h2>背景音乐管理</h2>
                 <div class="page-grid">
                     <a href="bgmusicupload.php" class="page-card">
                         <div class="page-icon"></div>
@@ -332,7 +332,7 @@ if (file_exists('media_config.json')) {
             </div>
 
             <div class="media-section">
-                <h2>📁 首页管理</h2>
+                <h2>首页管理</h2>
                 <div class="page-grid">
                     <a href="homepage1upload.php" class="page-card">
                         <div class="page-icon"></div>
@@ -344,7 +344,7 @@ if (file_exists('media_config.json')) {
             </div>
             
             <div class="media-section">
-                <h2>📋 关于我们管理</h2>
+                <h2>关于我们管理</h2>
                 <div class="page-grid">
                     <a href="aboutpage1upload.php" class="page-card">
                         <div class="page-icon"></div>
@@ -363,7 +363,7 @@ if (file_exists('media_config.json')) {
             
             <!-- 页面分类管理 -->
             <div class="media-section">
-                <h2>🏢 旗下品牌管理</h2>
+                <h2>旗下品牌管理</h2>
                 <div class="page-grid">
                     <a href="tokyopage1upload.php" class="page-card">
                         <div class="page-icon"></div>
@@ -381,7 +381,7 @@ if (file_exists('media_config.json')) {
             </div>
             
             <div class="media-section">
-                <h2>👥 加入我们管理</h2>
+                <h2>加入我们管理</h2>
                 <div class="page-grid">
                     <a href="joinpage1upload.php" class="page-card">
                         <div class="page-icon"></div>
