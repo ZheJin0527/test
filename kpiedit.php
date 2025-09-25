@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
+            font-size: clamp(10px, 0.84vw, 16px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -265,10 +266,10 @@
         }
 
         .month-selector select {
-            padding: 8px 16px;
+            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
             background: white;
             color: #583e04;
@@ -282,7 +283,7 @@
         }
 
         .month-selector label {
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 600;
             color: #583e04;
         }
@@ -474,7 +475,7 @@
         }
 
         .stat-value {
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: bold;
             color: #583e04;
         }
@@ -735,10 +736,6 @@
                         </div>
                     </div>
                 </div>
-                <button class="back-button" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i>
-                    返回上一页
-                </button>
             </div>
         </div>
         
