@@ -135,8 +135,8 @@ include '../public/header.php';
     </a>
 </div>
   
-<script src="app.js"></script>
-<script src="header.js"></script>
+<script src="../app.js"></script>
+<script src="../header.js"></script>
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
