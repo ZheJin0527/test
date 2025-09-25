@@ -225,11 +225,11 @@
         }
 
         .btn {
-            padding: 7px 12px;
-            border-radius: 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -800,7 +800,7 @@
         }
 
         .low-stock-modal-header h2 {
-            font-size: clamp(18px, 1.25vw, 24px);
+            font-size: clamp(14px, 1.25vw, 24px);
             margin: 0;
             display: flex;
             align-items: center;
@@ -841,8 +841,8 @@
 
         .low-stock-table th,
         .low-stock-table td {
-            padding: 12px;
-            font-size: clamp(12px, 0.84vw, 16px);
+            padding: clamp(8px, 0.63vw, 12px);
+            font-size: clamp(10px, 0.84vw, 16px);
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
@@ -869,7 +869,7 @@
         }
 
         .modal-footer {
-            padding: 20px 24px;
+            padding: clamp(10px, 1.04vw, 20px) 24px;
             background-color: #f9fafb;
             display: flex;
             justify-content: space-between;
@@ -879,7 +879,7 @@
 
         .alert-summary {
             color: #6b7280;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         @keyframes fadeIn {
