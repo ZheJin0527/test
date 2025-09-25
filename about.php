@@ -13,7 +13,7 @@ $showPageIndicator = true;
 $totalSlides = 5;
 
 // 包含header
-include 'header.php';
+include 'public/header.php';
 
 // 在header之后获取时间线数据，避免阻塞header加载
 $timelineData = getTimelineConfig();
@@ -177,7 +177,7 @@ $timelineData = getTimelineConfig();
     </section>
   </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'public/footer.php'; ?>
 
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
@@ -201,7 +201,7 @@ $timelineData = getTimelineConfig();
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="app.js"></script>
-<script src="header.js"></script>
+<script src="public/header.js"></script>
 <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
