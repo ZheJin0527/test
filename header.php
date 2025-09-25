@@ -36,7 +36,7 @@ if (!isset($mediaConfigIncluded)) {
         <!-- 左侧 logo 和公司名 -->
         <div class="header-logo-section">
             <a href="index.php">
-                <img src="images/images/KUNZZ.png" alt="Logo" class="header-logo">
+                <img src="/images/images/KUNZZ.png" alt="Logo" class="header-logo">
             </a>
         </div>
 
