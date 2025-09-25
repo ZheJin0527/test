@@ -3,15 +3,14 @@
    ========================================
    
    文件说明：
-   - 包含所有前台页面的核心样式
-   - 首页、关于我们、公司文化等页面样式
-   - 使用统一的颜色变量系统
-   - 响应式设计，支持移动端
+   - 包含所有前台页面的核心样式（默认桌面优先）
+   - 包含页面/组件特定的响应式规则
+   - 全局响应式规则请查看 responsive.css
    
    主要页面：
    1. 首页 (Home) - 横幅、公司简介、文化展示
    2. 关于我们 (About) - 横幅、介绍、愿景、时间线
-   3. 公司文化 (Culture) - 价值观卡片、文化描述
+   3. 加入我们 (Join Us) - 招聘页面样式
    
    更新时间：2024年
    ======================================== */
@@ -64,12 +63,8 @@ body {
 }
 
 /* ========== 通用布局类 ========== */
-/* 常用的布局工具类，如容器、文本对齐、间距等 */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
-}
+/* 常用的布局工具类，如文本对齐、间距等 */
+/* 注意：容器样式已移至 responsive.css */
 
 .section {
   padding: var(--spacing-xxl) 0;
@@ -123,24 +118,24 @@ body {
 /* ========== 首页样式 ========== */
 /* 网站首页的横幅区域和主要内容区域样式 */
 .home {
-    position: relative;
+  position: relative;
   min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .home-content {
-    text-align: center;
+  text-align: center;
   color: var(--white);
   z-index: 2;
-    position: relative;
+  position: relative;
 }
 
 .home-content h1 {
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: 700;
   margin-bottom: var(--spacing-lg);
   line-height: 1.2;
@@ -153,14 +148,69 @@ body {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  }
+}
 
-  .decor-line {
+.decor-line {
   width: 100px;
   height: 4px;
   background: var(--white);
   margin: var(--spacing-lg) auto;
   border-radius: var(--border-radius-sm);
+}
+
+/* 首页特定响应式规则 */
+@media (max-width: 1600px) {
+  .home-content h1 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .home-content h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .home-content h1 {
+    font-size: 2.75rem;
+  }
+  
+  .home-content p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .home-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .home {
+    min-height: 70vh;
+    padding: 1rem;
+  }
+  
+  .home-content h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+  
+  .home-content p {
+    font-size: 0.95rem;
+  }
+  
+  .decor-line {
+    width: 60px;
+    height: 3px;
+    margin: 1rem auto;
+  }
 }
 
 /* ========== 公司简介样式 ========== */
@@ -174,7 +224,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-xxl);
-    align-items: center;
+  align-items: center;
   margin-bottom: var(--spacing-xxl);
 }
 
@@ -183,8 +233,8 @@ body {
 }
 
 .comprofile-subtitle {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
   font-size: 1rem;
   color: var(--primary-color);
   margin-bottom: var(--spacing-md);
@@ -195,12 +245,12 @@ body {
   width: 8px;
   height: 8px;
   background: var(--primary-color);
-    border-radius: 50%;
+  border-radius: 50%;
   margin-right: var(--spacing-sm);
 }
 
 .comprofile-title {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: var(--dark-gray);
   margin-bottom: var(--spacing-lg);
@@ -217,8 +267,8 @@ body {
 }
 
 .comprofile-image img {
-        max-width: 100%;
-        height: auto;
+  max-width: 100%;
+  height: auto;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
 }
@@ -257,6 +307,95 @@ body {
   opacity: 0.3;
 }
 
+/* 公司简介特定响应式规则 */
+@media (max-width: 1600px) {
+  .comprofile-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .comprofile-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .comprofile-title {
+    font-size: 2.25rem;
+  }
+  
+  .comprofile-description {
+    font-size: 1rem;
+  }
+  
+  .comprofile-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .comprofile-text {
+    padding-right: 0;
+  }
+  
+  .stats-section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .divider {
+    width: 60px;
+    height: 1px;
+  }
+}
+
+@media (max-width: 768px) {
+  .comprofile-title {
+    font-size: 2rem;
+  }
+  
+  .comprofile-description {
+    font-size: 0.95rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .stat-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .comprofile-title {
+    font-size: 1.75rem;
+  }
+  
+  .comprofile-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .comprofile-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .stat-box {
+    padding: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
+  }
+}
+
 /* ========== 公司文化样式 ========== */
 /* 公司文化展示区域，包括价值观卡片和文化描述 */
 .culture-section {
@@ -265,7 +404,7 @@ body {
 }
 
 .culture-left {
-    display: grid;
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-lg);
   margin-bottom: var(--spacing-xxl);
@@ -276,7 +415,7 @@ body {
   padding: var(--spacing-xl);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
-    text-align: center;
+  text-align: center;
   transition: all var(--transition-normal);
   border: 1px solid #e9ecef;
 }
@@ -286,51 +425,51 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
-  .culture-icon {
+.culture-icon {
   width: 60px;
   height: 60px;
   margin-bottom: var(--spacing-md);
-  }
+}
 
-  .culture-card h3 {
+.culture-card h3 {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--dark-gray);
   margin-bottom: var(--spacing-sm);
-  }
+}
 
-  .culture-card p {
+.culture-card p {
   color: var(--gray);
   line-height: 1.6;
-  }
+}
 
-  .culture-right {
+.culture-right {
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  }
+}
 
-  .culture-title {
-  font-size: 2.5rem;
+.culture-title {
+  font-size: 3.5rem;
   font-weight: 700;
   color: var(--dark-gray);
   margin-bottom: var(--spacing-lg);
   line-height: 1.2;
-  }
+}
 
-  .culture-description {
+.culture-description {
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--gray);
   margin-bottom: var(--spacing-xl);
-  }
+}
 
-  .culture-button {
+.culture-button {
   display: inline-block;
   padding: var(--spacing-md) var(--spacing-xl);
   background: var(--primary-color);
   color: var(--white);
-    text-decoration: none;
+  text-decoration: none;
   border-radius: var(--border-radius-md);
   font-weight: 500;
   transition: all var(--transition-normal);
@@ -342,6 +481,96 @@ body {
   box-shadow: var(--shadow-md);
 }
 
+/* 公司文化特定响应式规则 */
+@media (max-width: 1600px) {
+  .culture-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .culture-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .culture-title {
+    font-size: 2.25rem;
+  }
+  
+  .culture-description {
+    font-size: 1rem;
+  }
+  
+  .culture-left {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .culture-title {
+    font-size: 2rem;
+  }
+  
+  .culture-description {
+    font-size: 0.95rem;
+  }
+  
+  .culture-card {
+    padding: 1.5rem;
+  }
+  
+  .culture-card h3 {
+    font-size: 1.1rem;
+  }
+  
+  .culture-card p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .culture-title {
+    font-size: 1.75rem;
+  }
+  
+  .culture-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .culture-left {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .culture-card {
+    padding: 1rem;
+  }
+  
+  .culture-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .culture-card p {
+    font-size: 0.85rem;
+  }
+  
+  .culture-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .culture-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* ========== 关于我们页面样式 ========== */
 /* 关于我们页面的完整样式，包括横幅、介绍、愿景、时间线等所有组件 */
 /* 关于我们横幅区域 */
@@ -349,26 +578,26 @@ body {
   background-size: cover;
   background-position: center;
   min-height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .aboutus-content {
   text-align: center;
   color: var(--white);
-    z-index: 2;
-    position: relative;
+  z-index: 2;
+  position: relative;
 }
-  
+
 .aboutus-content h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--white);
 }
-  
+
 .aboutus-content p {
   font-size: 1.2rem;
   opacity: 0.9;
@@ -388,11 +617,11 @@ body {
 .intro-content {
   max-width: 800px;
   margin: 0 auto;
-    text-align: center;
+  text-align: center;
 }
 
 .intro-content h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: var(--dark-gray);
   margin-bottom: 1.5rem;
@@ -411,13 +640,13 @@ body {
 }
 
 .vision-content {
-    text-align: center;
+  text-align: center;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .vision-content h2 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: var(--dark-gray);
   margin-bottom: 1.5rem;
@@ -436,9 +665,9 @@ body {
 }
 
 .timeline-section h1 {
-    text-align: center;
-  font-size: 2.5rem;
-    font-weight: 700;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
   color: var(--dark-gray);
   margin-bottom: 3rem;
 }
@@ -448,32 +677,32 @@ body {
   height: 4px;
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   margin: 2rem 0;
-    border-radius: 2px;
+  border-radius: 2px;
 }
 
 .timeline-items-container {
-    display: flex;
+  display: flex;
   justify-content: space-between;
-    align-items: center;
+  align-items: center;
   margin-top: 2rem;
 }
 
 .timeline-item {
   background: var(--white);
   border: 3px solid var(--primary-color);
-    border-radius: 50%;
+  border-radius: 50%;
   width: 20px;
   height: 20px;
-    position: relative;
+  position: relative;
   z-index: 2;
 }
 
 .timeline-item::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 10px;
   height: 10px;
   background: var(--primary-color);
@@ -481,20 +710,20 @@ body {
 }
 
 /* 时间线导航箭头 */
-    .nav-arrow {
-    position: absolute;
-    top: 50%;
+.nav-arrow {
+  position: absolute;
+  top: 50%;
   transform: translateY(-50%);
   background: var(--white);
   border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
   z-index: 3;
   color: var(--primary-color);
 }
@@ -512,43 +741,46 @@ body {
   right: -20px;
 }
 
-/* ========== 响应式设计 ========== */
-/* 移动端和不同屏幕尺寸的适配样式，确保在所有设备上都有良好的显示效果 */
-@media (max-width: 768px) {
-  .home-content h1 {
+/* 关于我们页面特定响应式规则 */
+@media (max-width: 1600px) {
+  .aboutus-content h1 {
+    font-size: 3rem;
+  }
+  
+  .intro-content h1,
+  .vision-content h2,
+  .timeline-section h1 {
     font-size: 2.5rem;
   }
-  
-  .home-content p {
-    font-size: 1.1rem;
-  }
-  
-  .comprofile-section {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-  }
-  
-  .comprofile-text {
-    padding-right: 0;
-  }
-  
-  .culture-left {
-    grid-template-columns: 1fr;
 }
 
-  .stats-section {
-    flex-direction: column;
-    gap: var(--spacing-lg);
-  }
-  
-  .divider {
-    width: 60px;
-    height: 1px;
-  }
-  
-  /* 关于我们页面响应式 */
+@media (max-width: 1200px) {
   .aboutus-content h1 {
     font-size: 2.5rem;
+  }
+  
+  .intro-content h1,
+  .vision-content h2,
+  .timeline-section h1 {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .aboutus-content h1 {
+    font-size: 2.25rem;
+  }
+  
+  .intro-content h1,
+  .vision-content h2,
+  .timeline-section h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .aboutus-content h1 {
+    font-size: 2rem;
   }
   
   .aboutus-content p {
@@ -558,7 +790,12 @@ body {
   .intro-content h1,
   .vision-content h2,
   .timeline-section h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+  
+  .intro-content p,
+  .vision-content p {
+    font-size: 1rem;
   }
   
   .timeline-items-container {
@@ -567,36 +804,35 @@ body {
   }
   
   .timeline-track {
-  display: none;
-}
+    display: none;
+  }
 }
 
-@media (max-width: 480px) {
-  .home-content h1 {
-    font-size: 2rem;
-  }
-  
-  .comprofile-title,
-  .culture-title {
-    font-size: 2rem;
-  }
-  
-  .stat-number {
-    font-size: 2rem;
-  }
-  
-  /* 关于我们页面小屏幕响应式 */
+@media (max-width: 576px) {
   .aboutus-banner {
     min-height: 200px;
   }
   
   .aboutus-content h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+  
+  .aboutus-content p {
+    font-size: 0.9rem;
   }
   
   .intro-content h1,
   .vision-content h2,
   .timeline-section h1 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+  }
+  
+  .intro-content p,
+  .vision-content p {
+    font-size: 0.9rem;
   }
 }
+
+/* ========== 响应式设计 ========== */
+/* 注意：具体的响应式样式已移至 responsive.css 文件中 */
+/* 采用 Desktop First 设计，针对不同屏幕尺寸优化 */

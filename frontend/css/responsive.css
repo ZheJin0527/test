@@ -1,27 +1,186 @@
 /* ========================================
-   KUNZZ HOLDINGS - 响应式样式文件
+   KUNZZ HOLDINGS - 全局响应式样式文件 (Desktop First)
    ========================================
    
    文件说明：
-   - 移动端优先的响应式设计
-   - 支持平板、手机等不同屏幕尺寸
-   - 确保在所有设备上都有良好的用户体验
+   - 只包含全局通用的响应式规则
+   - 页面/组件特定的响应式规则在各页面的 main.css 中
+   - 桌面优先设计，主要用户为公司内部员工
    
-   断点说明：
-   - 768px以下：平板和手机适配
-   - 480px以下：小屏手机优化
-   - 375px以下：超小屏设备适配
+   全局规则包括：
+   - 容器宽度控制 (.container)
+   - 全局字体缩放 (body, h1-h6)
+   - 全局排版调整 (section padding)
+   - 通用工具类响应式
+   
+   断点设计：
+   - 默认：≥1400px (4K/2K大屏) - 容器1600px
+   - ≤1600px：普通2K显示器 - 容器1400px
+   - ≤1200px：普通桌面/笔电 - 容器1140px
+   - ≤992px：大平板/小笔电 - 容器960px
+   - ≤768px：小平板/横屏手机 - 容器720px
+   - ≤576px：小手机 - 容器100%
    
    更新时间：2024年
    ======================================== */
-@media (max-width: 768px) {
-  .home-content h1 { font-size: 2.5rem; }
-  .comprofile-section { grid-template-columns: 1fr; }
-  .culture-left { grid-template-columns: 1fr; }
-  .stats-section { flex-direction: column; }
+
+/* ========== 默认样式 (≥1400px) ========== */
+/* 针对4K/2K大屏显示器优化 */
+
+/* 全局容器样式 */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-@media (max-width: 480px) {
-  .home-content h1 { font-size: 2rem; }
-  .comprofile-title, .culture-title { font-size: 2rem; }
+/* 全局字体样式 */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1 { font-size: 3.5rem; line-height: 1.2; }
+h2 { font-size: 3rem; line-height: 1.2; }
+h3 { font-size: 2.5rem; line-height: 1.3; }
+h4 { font-size: 2rem; line-height: 1.3; }
+h5 { font-size: 1.5rem; line-height: 1.4; }
+h6 { font-size: 1.25rem; line-height: 1.4; }
+
+/* 全局间距样式 */
+.section {
+  padding: 5rem 0;
+}
+
+/* ========== 2K显示器适配 (≤1600px) ========== */
+@media (max-width: 1600px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 1.5rem;
+  }
+  
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.5rem; }
+  h3 { font-size: 2.25rem; }
+}
+
+/* ========== 普通桌面/笔电 (≤1200px) ========== */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 1140px;
+    padding: 0 1.25rem;
+  }
+  
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2.25rem; }
+  h3 { font-size: 2rem; }
+  
+  .section {
+    padding: 4rem 0;
+  }
+}
+
+/* ========== 大平板/小笔电 (≤992px) ========== */
+@media (max-width: 992px) {
+  .container {
+    max-width: 960px;
+    padding: 0 1rem;
+  }
+  
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.75rem; }
+  
+  body {
+    font-size: 15px;
+  }
+  
+  .section {
+    padding: 3.5rem 0;
+  }
+}
+
+/* ========== 小平板/横屏手机 (≤768px) ========== */
+@media (max-width: 768px) {
+  .container {
+    max-width: 720px;
+    padding: 0 0.875rem;
+  }
+  
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  .section {
+    padding: 3rem 0;
+  }
+}
+
+/* ========== 小手机 (≤576px) ========== */
+@media (max-width: 576px) {
+  .container {
+    max-width: 100%;
+    padding: 0 0.75rem;
+  }
+  
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  
+  body {
+    font-size: 13px;
+  }
+  
+  .section {
+    padding: 2rem 0;
+  }
+}
+
+/* ========== 超小屏设备 (≤375px) ========== */
+@media (max-width: 375px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.125rem; }
+  
+  body {
+    font-size: 12px;
+  }
+  
+  .section {
+    padding: 1.5rem 0;
+  }
+}
+
+/* ========== 横屏手机适配 ========== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .section {
+    padding: 1rem 0;
+  }
+}
+
+/* ========== 高分辨率屏幕优化 ========== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* ========== 可访问性增强 ========== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
