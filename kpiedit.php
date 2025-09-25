@@ -367,11 +367,11 @@
         }
 
         .excel-table tbody tr:hover {
-            background-color: #f3f4f6 !important;
+            background-color: #ffffffff !important;
         }
 
         .excel-table tbody tr:hover td {
-            background-color: #f3f4f6 !important;
+            background-color: #ffffffff !important;
         }
 
         /* 确保hover效果覆盖所有单元格样式 */
@@ -381,7 +381,7 @@
         .excel-table tbody tr:hover .excel-input.has-data,
         .excel-table tbody tr:hover .excel-input.no-data,
         .excel-table tbody tr:hover .input-container {
-            background-color: #f3f4f6 !important;
+            background-color: #ffffffff !important;
         }
 
         /* 编辑行不受hover影响 */
