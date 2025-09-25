@@ -410,7 +410,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            gap: clamp(0px, 0.83vw, 16px);
         }
 
         .btn {
