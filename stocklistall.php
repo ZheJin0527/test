@@ -62,7 +62,7 @@
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
-            min-width: 130px;
+            width: 130px;
             justify-content: space-between;
         }
         
@@ -749,10 +749,10 @@
             margin-right: 16px;
         }
 
-        .view-selector .selector-button {
+        /* .view-selector .selector-button {
             background-color: #583e04;
             min-width: 80px;
-        }
+        } */
 
         .view-selector .selector-button:hover {
             background-color: #462d03;
