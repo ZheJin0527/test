@@ -137,7 +137,7 @@ $avatarLetter = strtoupper($username[0]);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: clamp(16px, 1.67vw, 32px);
         }
 
         .header h1 {
@@ -1159,7 +1159,7 @@ $avatarLetter = strtoupper($username[0]);
             </div>
             <div id="app">         
             <!-- Date Controls -->
-            <div class="card" style="margin-bottom: 32px;">
+            <div class="card" style="margin-bottom: clamp(22px, 1.67vw, 32px);">
                 <div class="card-body">
                     <div class="date-controls">
     
