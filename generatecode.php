@@ -36,7 +36,7 @@
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: clamp(10px, 1.56vw, 30px);
             position: relative;
         }
 
