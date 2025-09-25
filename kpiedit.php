@@ -355,7 +355,6 @@
             display: flex;
             align-items: center;
             width: 100%;
-            height: 40px;
         }
 
         .currency-prefix {
