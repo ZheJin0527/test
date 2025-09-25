@@ -218,8 +218,8 @@ const swiper = new Swiper('.swiper', {
     }
 });
 
-// 页面指示器功能
-const pageDots = document.querySelectorAll('.page-dot');
+// 页面指示器功能（与 header 中的指示器类名保持一致）
+const pageDots = document.querySelectorAll('.header-page-dot');
 
 // 点击圆点跳转到对应页面
 pageDots.forEach((dot, index) => {
@@ -266,7 +266,8 @@ window.addEventListener('load', () => {
     document.querySelector('.social-sidebar').classList.add('social-loaded');
     
     // 显示页面指示器
-    document.querySelector('.page-indicator').classList.add('indicator-loaded');
+    const indicatorEl = document.querySelector('.header-page-indicator');
+    if (indicatorEl) indicatorEl.classList.add('indicator-loaded');
   }
   
   // 处理视频背景
