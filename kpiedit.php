@@ -646,6 +646,10 @@
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
 
+        .delete-day-btn i {
+            font-size: clamp(4px, 0.63vw, 12px);
+        }
+
         .delete-day-btn:disabled {
             background: #9ca3af;
             cursor: not-allowed;
