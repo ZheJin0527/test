@@ -716,8 +716,8 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: clamp(2px, 0.42vw, 4px);
-            padding: clamp(2px, 0.42vw, 4px);
+            gap: clamp(2px, 0.21vw, 4px);
+            padding: clamp(2px, 0.21vw, 4px);
         }
 
         /* 编辑行样式 */
@@ -879,11 +879,11 @@
                         <th style="width: 7%;">服务费</th>
                         <th style="width: 7%;">调整金额</th>
                         <th style="width: 8%;">投标金额</th>
-                        <th style="width: 6%;">桌数总数</th>
-                        <th style="width: 6%;">顾客总数</th>
+                        <th style="width: 5%;">桌数总数</th>
+                        <th style="width: 5%;">顾客总数</th>
                         <th style="width: 8%;">人均消费</th>
-                        <th style="width: 6%;">新客人数</th>
-                        <th style="width: 6%;">常客人数</th>
+                        <th style="width: 5%;">新客人数</th>
+                        <th style="width: 5%;">常客人数</th>
                         <th style="width: 7%;">常客人率 (%)</th>
                         <th style="width: 9%;">操作</th>
                     </tr>
