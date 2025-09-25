@@ -15,12 +15,12 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['/css/index.css','../public/css/components/header.css'];
+$additionalCSS = ['css/index.css','../public/css/components/header.css'];
 $showPageIndicator = true;
 $totalSlides = 4;
 
 // 包含header
-include 'header.php';
+include '../public/header.php';
 ?>
   <div class="swiper">
   <div class="swiper-wrapper">
@@ -114,7 +114,7 @@ include 'header.php';
   </section>
   </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../public/footer.php'; ?>
 
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
