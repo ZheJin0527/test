@@ -1,0 +1,258 @@
+/* ========================================
+   KunzzWeb - Frontend Main Styles
+   ======================================== */
+
+/* 
+ * 前台主要样式文件
+ * 整合所有前台页面的通用样式
+ */
+
+/* ========================================
+   引入基础样式
+   ======================================== */
+
+@import url('../../public/css/variables.css');
+@import url('../../public/css/global.css');
+@import url('../../public/css/breakpoints.css');
+
+/* ========================================
+   前台特定样式
+   ======================================== */
+
+/* 前台页面容器 */
+.frontend-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 前台页面内容 */
+.frontend-content {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+/* 前台页面标题 */
+.frontend-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #2F2F2F;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* 前台页面副标题 */
+.frontend-subtitle {
+  font-size: 1.5rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* 前台卡片样式 */
+.frontend-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 1rem 0;
+  border: 1px solid #e9ecef;
+}
+
+/* 前台按钮样式 */
+.frontend-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.frontend-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.frontend-btn-secondary {
+  background-color: #6c757d;
+}
+
+.frontend-btn-secondary:hover {
+  background-color: #545b62;
+}
+
+/* 前台表单样式 */
+.frontend-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.frontend-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.frontend-form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.frontend-form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.frontend-form-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* 前台导航样式 */
+.frontend-nav {
+  background: #2F2F2F;
+  color: white;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+.frontend-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.frontend-nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.frontend-nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.frontend-nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.frontend-nav-links a:hover {
+  color: #007bff;
+}
+
+/* 前台页脚样式 */
+.frontend-footer {
+  background: #2F2F2F;
+  color: white;
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+.frontend-footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+/* 前台响应式样式 */
+@media screen and (max-width: 1200px) {
+  .frontend-title {
+    font-size: 2.5rem;
+  }
+  
+  .frontend-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .frontend-card {
+    padding: 1.5rem;
+  }
+  
+  .frontend-form {
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .frontend-title {
+    font-size: 2.25rem;
+  }
+  
+  .frontend-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .frontend-nav-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .frontend-nav-links {
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .frontend-title {
+    font-size: 2rem;
+  }
+  
+  .frontend-subtitle {
+    font-size: 1rem;
+  }
+  
+  .frontend-card {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .frontend-form {
+    padding: 1rem;
+  }
+  
+  .frontend-nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .frontend-title {
+    font-size: 1.75rem;
+  }
+  
+  .frontend-subtitle {
+    font-size: 0.875rem;
+  }
+  
+  .frontend-btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

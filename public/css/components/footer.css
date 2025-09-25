@@ -418,7 +418,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 720px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 720px) {
     .scroll-buffer {
         min-height: 3vh;
     }
@@ -432,7 +433,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 690px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 690px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -446,7 +448,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 640px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 640px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -460,7 +463,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 620px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 620px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -474,8 +478,8 @@
     }
 }
 
-/* 针对1280x600屏幕的响应式样式 */
-@media (max-width: 1280px) and (max-height: 600px) {
+/* 普通桌面 + 中等高度 - 针对1200x600屏幕的响应式样式 */
+@media screen and (max-width: 1200px) and (max-height: 600px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -489,7 +493,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 570px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 570px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -503,7 +508,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 530px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 530px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -517,7 +523,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 520px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 520px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -531,7 +538,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 500px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 500px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -545,7 +553,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 480px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 480px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -559,7 +568,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 460px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 460px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -573,7 +583,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 440px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 440px) {
     .scroll-buffer {
         min-height: 22vh;
     }
@@ -587,7 +598,8 @@
     }
 }
 
-@media (max-width: 1280px) and (max-height: 420px) {
+/* 普通桌面 + 中等高度 */
+@media screen and (max-width: 1200px) and (max-height: 420px) {
     .scroll-buffer {
         min-height: 22vh;
     }
