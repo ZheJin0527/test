@@ -183,13 +183,7 @@ kunzzweb/
 
 1. 优化文件架构：
 
-    -按照项目文件结构，拆分并分类管理 CSS，例如：
-
-    -global.css：全局通用样式（变量、reset、基础排版）。
-
-    -components/：组件级别样式（header、footer、button、card 等）。
-
-    -pages/：页面级别样式（如 index.css、about.css、joinus.css）。
+    -按照项目文件结构，拆分并分类管理 CSS
 
 2. 保留原有的设计、排版和内容，仅调整存放位置与结构。
 
