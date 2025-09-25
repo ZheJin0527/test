@@ -615,28 +615,7 @@ $avatarLetter = strtoupper($username[0]);
             gap: 24px;
         }
 
-        @media (max-width: 1200px) {
-            .kpi-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .kpi-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .bottom-charts {
-                grid-template-columns: 1fr;
-            }
-            /* ... */
-        }
-
-        @media (max-width: 640px) {
-            .kpi-grid {
-                grid-template-columns: 1fr;
-            }
-            /* ... */
-        }
+        
         
         .kpi-card {
             display: flex;
