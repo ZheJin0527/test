@@ -1189,7 +1189,7 @@
 
         .view-selector .selector-button {
             background-color: #583e04;
-            min-width: 120px;
+            width: 100%;
         }
 
         .view-selector .selector-button:hover {

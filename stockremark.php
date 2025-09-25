@@ -443,7 +443,7 @@
             border: 2px solid #583e04;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
-            min-width: 130px;
+            width: 100%;
             z-index: 10000;
             display: none;
             margin-top: 4px;
@@ -497,7 +497,7 @@
         }
 
         .view-selector .selector-dropdown {
-            min-width: 133px;
+            width: 100%;
         }
 
         @media (max-width: 768px) {
