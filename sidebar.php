@@ -588,7 +588,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu.collapsed .informationmenu-header {
-    padding: 29px 20px !important;
+    padding: clamp(15px, 1.51vw, 29px) clamp(10px, 16.67vw ,20px) !important;
     flex-direction: row !important;
     justify-content: space-between !important;
     align-items: center !important;
