@@ -460,7 +460,7 @@
         /* 统计信息 */
         .stats-info {
             display: flex;
-            gap: 24px;
+            gap: clamp(0px, 1.25vw, 24px);
             align-items: center;
             font-size: 12px;
             color: #6b7280;
