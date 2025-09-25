@@ -367,11 +367,11 @@
         }
 
         .excel-table tbody tr:hover {
-            background-color: #ffffffff !important;
+            background-color: #fff9f1 !important;
         }
 
         .excel-table tbody tr:hover td {
-            background-color: #ffffffff !important;
+            background-color: #fff9f1 !important;
         }
 
         /* 确保hover效果覆盖所有单元格样式 */
@@ -381,12 +381,12 @@
         .excel-table tbody tr:hover .excel-input.has-data,
         .excel-table tbody tr:hover .excel-input.no-data,
         .excel-table tbody tr:hover .input-container {
-            background-color: #ffffffff !important;
+            background-color: #fff9f1 !important;
         }
 
         /* 编辑行不受hover影响 */
         .excel-table tbody tr.editing-row:hover td {
-            background-color: #d1fae5 !important;
+            background-color: #fff9f1 !important;
         }
 
         /* 日期列样式 */
