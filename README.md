@@ -16,11 +16,8 @@ kunzzweb/
 ├── frontend/                        # 前台用户界面
 │   ├── css/
 │   │   ├── index.css
-│   │   ├── indexanimation.css
 │   │   ├── about.css
-│   │   ├── aboutanimation.css
 │   │   ├── joinus.css
-│   │   ├── joinusanimation.css
 │   │   └── responsive.css
 │   │
 │   ├── index.php
