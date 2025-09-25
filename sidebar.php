@@ -706,7 +706,7 @@ body.sidebar-collapsed {
 
 /* 确保主内容区域能够自适应剩余空间 */
 .main-content {
-    width: calc(100vw - clamp(120px, 13.02vw, 250px));
+    width: calc(100vw - clamp(80px, 13.02vw, 250px));
     max-width: none;
     box-sizing: border-box;
 }
