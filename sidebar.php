@@ -312,7 +312,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .submenu-header {
-    padding: clamp(18px, 1.56vw, 30px) clamp(20px, 1.3px, 25px) clamp(17px, 1.25vw, 24px);
+    padding: clamp(18px, 1.98vw, 38px) clamp(20px, 1.67px, 32px) clamp(17px, 1.67vw, 32px);
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -343,9 +343,9 @@ if (isset($_SESSION['user_id'])) {
     transition: all 0.3s ease;
     cursor: pointer;
     border-bottom: 1px solid rgba(255,255,255,0.08);
-    margin: 0 15px;
+    margin: 0 clamp(10px, 0.78vw, 15px);
     border-radius: 8px;
-    margin-bottom: 5px;
+    margin-bottom: clamp(0px, 0.26vw, 5px);
 }
 
 .submenu-item:last-child {
