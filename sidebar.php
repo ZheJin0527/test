@@ -278,9 +278,9 @@ if (isset($_SESSION['user_id'])) {
 /* 子菜单 - 固定定位覆盖屏幕 */
 .submenu {
     position: fixed;
-    left: clamp(120px, 13.02vw, 250px);
+    left: clamp(140px, 13.02vw, 250px);
     top: 0;
-    width: clamp(200px, 18.23vw, 350px);
+    width: clamp(160px, 18.23vw, 350px);
     height: 100vh;
     background: linear-gradient(135deg, #ff8019 0%, #ffb342 100%);
     color: white;
