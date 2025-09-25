@@ -598,7 +598,7 @@ $avatarLetter = strtoupper($username[0]);
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 16px;
-            margin-bottom: 32px;
+            margin-bottom: clamp(22px, 1.67vw, 32px);
         }
 
         /* 图表容器 - 改为全宽 */
