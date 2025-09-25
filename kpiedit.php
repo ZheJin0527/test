@@ -647,7 +647,7 @@
         }
 
         .delete-day-btn i {
-            font-size: clamp(4px, 0.63vw, 12px);
+            font-size: clamp(6px, 0.63vw, 12px);
         }
 
         .delete-day-btn:disabled {
@@ -683,6 +683,10 @@
             background: #d97706;
             transform: scale(1.1);
             box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .edit-btn i {
+            font-size: clamp(6px, 0.63vw, 12px);
         }
 
         .edit-btn:disabled {
