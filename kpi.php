@@ -660,7 +660,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .kpi-card-vertical .kpi-value {
-            font-size: clamp(18px, 1.25vw, 24px);
+            font-size: clamp(16px, 1.25vw, 24px);
             font-weight: bold;
             color: #111827;
         }
