@@ -312,7 +312,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .submenu-header {
-    padding: 30px 25px 24px;
+    padding: clamp(18px, 1.56vw, 30px) clamp(20px, 1.3px, 25px) clamp(17px, 1.25vw, 24px);
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,0.2);
