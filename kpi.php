@@ -153,7 +153,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .btn {
-            padding: 8.5px 16px;
+            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -735,7 +735,7 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            padding: 6px 4px;
+            padding: clamp(4px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
             min-width: 100px;
             transition: all 0.2s;
@@ -891,7 +891,7 @@ $avatarLetter = strtoupper($username[0]);
         .date-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: clamp(10px, 1.6vw, 30px);
+            gap: clamp(10px, 1.5vw, 30px);
             align-items: center;
         }
 
