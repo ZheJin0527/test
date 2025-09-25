@@ -1,0 +1,1823 @@
+/* ===========================================
+   Index.php 专用样式文件
+   包含所有 index.php 需要的 CSS 样式
+   =========================================== */
+
+/* ===========================================
+   基础样式
+   =========================================== */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden; /* 禁止默认滚动，交给 Swiper 控制 */
+}
+
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* ===========================================
+   Swiper 相关样式
+   =========================================== */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-wrapper {
+    /* Swiper 内部容器 - 样式由 Swiper 库自动处理 */
+    position: relative;
+}
+
+.swiper-slide {
+    background-color: #2F2F2F;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto; /* 允许每页内容内部滚动 */
+    padding-top: 0px; /* 给 navbar 留空间 */
+    overflow: hidden;
+}
+
+/* ===========================================
+   动画相关样式 (来自 animation.css)
+   =========================================== */
+
+/* 确保所有动画元素初始状态都是隐藏的 */
+.animate-on-scroll {
+  opacity: 0;
+}
+
+/* 渐显向上动画 */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* 动画延迟 - 保持原设置 */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+.delay-4 { animation-delay: 0.7s; }
+.delay-5 { animation-delay: 0.9s; }
+.delay-6 { animation-delay: 1.1s; }
+.delay-7 { animation-delay: 1.3s; }
+.delay-8 { animation-delay: 1.5s; }
+
+/* 向上淡入关键帧 */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 初始隐藏状态 - 修复：排除所有特定动画类，避免冲突 */
+.animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.animate-on-scroll.visible:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 向左滑入动画 - 修改为更慢的动画 */
+.slide-in-left {
+  opacity: 0 !important;
+  transform: translateX(-300px) !important;
+  transition: all 0.8s ease-out;
+  animation: none !important; /* 确保没有其他动画干扰 */
+}
+
+.slide-in-left.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* 为slide-in-left添加延迟类支持 */
+.slide-in-left.delay-1 { transition-delay: 0.6s; }
+.slide-in-left.delay-2 { transition-delay: 0.8s; }
+.slide-in-left.delay-3 { transition-delay: 1.0s; }
+.slide-in-left.delay-4 { transition-delay: 1.0s; }
+.slide-in-left.delay-5 { transition-delay: 1.2s; }
+
+/* 重置延迟 - 当不可见时移除延迟 */
+.slide-in-left:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 向右滑入动画 - 保持原速度 */
+.slide-in-right {
+  opacity: 0 !important;
+  transform: translateX(300px) !important;
+  transition: all 0.4s ease-out;
+  animation: none !important;
+}
+
+.slide-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.slide-in-right:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 修复:给 scale-fade-in 元素单独设置,避免继承 translateY */
+.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+/* 当父容器可见时,启动动画 */
+.animate-on-scroll.visible .scale-fade-in {
+  animation-play-state: running;
+}
+
+/* 当父容器不可见时,重置动画 */
+.animate-on-scroll:not(.visible) .scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+@keyframes scaleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 首页所有元素统一,延迟0.3秒后开始1.6s动画 */
+.home-content .scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+/* 装饰线条也使用相同的0.3秒延迟 */
+.home-content .decor-line.scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+/* 装饰线条使用相同的从中间放大效果 */
+.decor-line.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+.animate-on-scroll.visible .decor-line.scale-fade-in {
+  animation-play-state: running;
+}
+
+.animate-on-scroll:not(.visible) .decor-line.scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* 向下滑入动画 */
+.fade-in-down {
+  opacity: 0 !important;
+  transform: translateY(-40px) !important;
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.fade-in-down.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.fade-in-down:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+.scale-out {
+  opacity: 0 !important;
+  transform: scale(0.3) !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: none !important;
+}
+
+.scale-out.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.scale-out:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* ========== Culture 特效（新增） ========== */
+/* 左卡片组整体进入：带倾斜翻转 + 缩放 */
+.card-tilt-in-left {
+  opacity: 0 !important;
+  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
+  transform-origin: left center;
+  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-tilt-in-left.visible {
+  opacity: 1 !important;
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) !important;
+}
+
+/* 卡片单独延迟进入 */
+.culture-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.card-tilt-in-left.visible .culture-card:nth-child(1) {
+  transition-delay: 0.2s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .culture-card:nth-child(2) {
+  transition-delay: 0.4s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .culture-card:nth-child(3) {
+  transition-delay: 0.6s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .culture-card:nth-child(4) {
+  transition-delay: 0.8s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 右侧文字缩放滑入 */
+.text-zoom-in-right {
+  opacity: 0 !important;
+  transform: translateX(100px) translateY(30px) scale(0.8) !important;
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.text-zoom-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) translateY(0) scale(1) !important;
+}
+
+.text-zoom-in-right.delay-1 {
+  transition-delay: 0.3s;
+}
+
+.text-zoom-in-right.delay-2 {
+  transition-delay: 0.6s;
+}
+
+.text-zoom-in-right.delay-3 {
+  transition-delay: 0.9s;
+}
+
+/* ========== Culture 内容缩放渐显特效（类似 home 的 scale-fade-in） ========== */
+.culture-scale-fade {
+  opacity: 0 !important;
+  transform: scale(0.8) !important;
+  transition: all 1.6s ease;
+  animation: none !important;
+}
+
+.culture-scale-fade.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.culture-scale-fade:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+/* 为 culture 标题和描述添加渐进延迟 - 精确控制 */
+.culture-scale-fade.delay-1.visible {
+  transition-delay: 0.1s !important;
+}
+
+.culture-scale-fade.delay-2.visible {
+  transition-delay: 0.2s !important;
+}
+
+.culture-scale-fade.delay-3.visible {
+  transition-delay: 0.3s !important;
+}
+
+.culture-scale-fade.delay-4.visible {
+  transition-delay: 0.4s !important;
+}
+
+.culture-scale-fade.delay-5.visible {
+  transition-delay: 0.5s !important;
+}
+
+.culture-scale-fade.delay-6.visible {
+  transition-delay: 0.6s !important;
+}
+
+.culture-scale-fade.delay-7.visible {
+  transition-delay: 0.7s !important;
+}
+
+.culture-scale-fade.delay-8.visible {
+  transition-delay: 0.8s !important;
+}
+
+.culture-scale-fade.delay-9.visible {
+  transition-delay: 0.9s !important;
+}
+
+.culture-scale-fade.delay-10.visible {
+  transition-delay: 1.0s !important;
+}
+
+/* 360度3D旋转进场 */
+.rotate-3d-full {
+  opacity: 0 !important;
+  transform: perspective(1000px) rotateY(360deg) scale(0.6) !important;
+  transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+.rotate-3d-full.visible {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+}
+
+.rotate-3d-full:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+.rotate-3d-full.delay-1 { transition-delay: 0.2s; }
+.rotate-3d-full.delay-2 { transition-delay: 0.4s; }
+.rotate-3d-full.delay-3 { transition-delay: 0.6s; }
+
+/* ========== Navbar 延迟淡入特效 - 等待加载完成后触发 ========== */
+.navbar {
+  opacity: 0;
+  transform: translateY(-20px);
+  /* 移除自动动画，等待JavaScript触发 */
+}
+
+/* 只有当添加了 navbar-loaded 类后才开始动画 */
+.navbar.navbar-loaded {
+  animation: navbarFadeIn 1.2s ease-out forwards;
+  animation-delay: 0.3s; /* 延迟0.3秒开始 */
+}
+
+@keyframes navbarFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 为navbar子元素添加渐进淡入效果 - 同样等待触发 */
+.navbar .logo-section {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .logo-section {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 0.6s; /* logo先出现 */
+}
+
+.navbar .nav-links {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .nav-links {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 0.8s; /* 导航菜单稍后出现 */
+}
+
+.navbar .right-section {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 1.0s; /* 右侧区域最后出现 */
+}
+
+@keyframes fadeInElement {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 导航项目逐个淡入效果 */
+.nav-links .nav-item {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .nav-links .nav-item {
+  animation: fadeInElement 0.6s ease-out forwards;
+}
+
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(1) { animation-delay: 0.9s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(2) { animation-delay: 1.0s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(3) { animation-delay: 1.1s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(4) { animation-delay: 1.2s; }
+
+/* 右侧元素逐个淡入 */
+.right-section .login-btn {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .login-btn {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.1s;
+}
+
+.right-section .language-switch {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .language-switch {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+.right-section .hamburger {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .hamburger {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+/* 使用伪元素来创建渐变覆盖层 */
+.home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* 0.4 可根据需要调整透明度 */
+
+    opacity: 0; /* 初始透明 */
+    z-index: 1;
+    transition: opacity 0.8s ease-in-out; /* 2秒渐变过渡 */
+}
+
+/* 当添加loaded类时，渐变开始显示 */
+.home.gradient-loaded::before {
+    opacity: 1;
+    transition-delay: 0.2s; /* 延迟0.5秒开始 */
+}
+
+/* 确保home-content在渐变层之上 */
+.home-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* 如果你想要更慢的渐变效果，可以使用这个版本 */
+.home.slow-gradient::before {
+    transition: opacity 3s ease-in-out;
+    transition-delay: 1s; /* 延迟1秒开始，持续3秒 */
+}
+
+/* 加载完成后显示 */
+.social-sidebar.social-loaded {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 可选：添加延迟效果，让每个图标依次出现 */
+.social-sidebar.social-loaded .social-icon:nth-child(1) {
+  animation: slideInLeft 0.6s ease 0.2s both;
+}
+
+.social-sidebar.social-loaded .social-icon:nth-child(2) {
+  animation: slideInLeft 0.6s ease 0.4s both;
+}
+
+.social-sidebar.social-loaded .social-icon:nth-child(3) {
+  animation: slideInLeft 0.6s ease 0.6s both;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 加载完成后显示 */
+.page-indicator.indicator-loaded {
+  opacity: 1;
+}
+
+/* 可选：添加每个点的依次出现效果 */
+.page-indicator.indicator-loaded .page-dot {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================================
+   通用状态类
+   =========================================== */
+.hidden {
+  display: none;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.active {
+  /* 激活状态样式 - 具体样式在各组件中定义 */
+  opacity: 1;
+}
+
+/* ===========================================
+   导航栏样式
+   =========================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 0 80px 0 70px;
+    font-size: clamp(12px, 1vw + 0.5rem, 16px);
+    background-color: #2F2F2F;
+    color: white;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box; /* ✅ 让 padding 不撑大 */
+    transition: transform 0.3s ease-in-out;
+}  
+
+/* 导航栏内部容器 */
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 52px;
+    width: auto;
+}
+
+.company-name {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(10px, 1.2vw, 13px);
+    font-weight: bold;
+    line-height: 140%;
+}
+
+.nav-links {
+    height: 80px;
+    font-family: 'Inter', sans-serif;
+    font-weight: lighter;
+    display: flex;
+    gap: 30px; /* 减少项间距 */
+    font-size: clamp(12px, 0.8vw + 0.3rem, 16px);
+    margin-left: 36px; /* 这里控制 .nav-links 左侧的偏移量 */
+}
+
+/* 每个导航项的样式 */
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px; /* 添加左右 padding，便于在悬停时变宽 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+    white-space: nowrap; /* 防止文字换行 */
+}
+
+.nav-item {
+    position: relative;
+}
+
+/* 当前页高亮 */
+.nav-links a.active {
+    background-color: #FF5C00;
+    color: white;
+    padding: 0 40px;
+}
+
+/* 鼠标悬停时 */
+.nav-links a:hover {
+    background-color: #FF5C00;
+    color: white;
+    padding: 0 40px; /* 在鼠标悬停时增大 padding，使得区域变宽 */
+    text-decoration: none;
+}
+
+.right-section {
+    width: 221px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 26px 0 28px 0;
+}
+
+.login-btn {
+    width: 100px;
+    height: 26px;
+    background-color: #ff5c00;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 1px 25px;
+    font-size: clamp(12px, 0.7vw + 0.5rem, 16px);
+    cursor: pointer;
+    display: inline-block; /* 让 <a> 看起来像按钮 */
+    text-align: center;     /* 让文字居中 */
+    text-decoration: none;  /* 移除下划线 */
+    line-height: 26px;
+}
+
+.login-btn:hover {
+    background-color: #d87b00;
+}
+
+.language-switch {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: clamp(12px, 0.7vw + 0.5rem, 16px);
+    gap: 8px;
+}
+
+.language-switch .lang {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 26px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid #ff5c00;
+    border-radius: 25px;
+    padding: 1px 25px;
+    font-size: clamp(12px, 0.7vw + 0.5rem, 16px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.language-switch .lang:hover {
+    background-color: #ff5c00;
+    color: white;
+}
+
+.language-switch .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* 汉堡菜单按钮，默认隐藏 */
+.hamburger {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px 0px;
+}
+
+/* ===========================================
+   首页样式
+   =========================================== */
+.home {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* 视频全屏背景 */
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.home-content {
+    text-align: center;
+    width: 1144px;
+    height: auto; /* 允许高度自适应 */
+    z-index: 1;
+}
+
+.home h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    /* 字体大小在1920保持100px，1281缩小到70px */
+    font-size: clamp(70px, 5vw, 100px);
+    font-weight: bold;
+    margin-bottom: clamp(20px, 2vw, 40px);
+    line-height: 140%;
+    letter-spacing: 1.4%;
+    text-shadow:
+        10px 10px 12px rgba(0, 0, 0, 0.5),
+        4px 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.home p {
+    /* 字体大小响应式缩小 */
+    font-size: clamp(16px, 1.8vw, 20px);
+    font-weight: normal;
+    letter-spacing: clamp(3px, 0.4vw, 7px);
+    line-height: 165%;
+    margin-top: 0px;
+    margin-bottom: clamp(50px, 5vw, 90px);
+    text-shadow:
+        10px 10px 12px rgba(0, 0, 0, 0.5),
+        4px 4px 20px rgb(0, 0, 0, 0.5);
+}
+
+.decor-line {
+    width: clamp(800px, 60vw, 1200px);
+    height: 2px;
+    margin: clamp(20px, 4vw, 40px) auto clamp(30px, 5vw, 50px);
+    margin-left: calc(50% - clamp(400px, 30vw, 600px) + -10px);
+    background: linear-gradient(to right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.4) 25%,
+        rgba(255,255,255,1) 50%,
+        rgba(255,255,255,0.4) 75%,
+        rgba(255,255,255,0) 100%);
+    position: relative;
+}
+
+/* ===========================================
+   关于我们区域样式
+   =========================================== */
+.about-section {
+    background: url('images/images/背景3.jpg') no-repeat center center/cover;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 80px 0; /* 预留 navbar 高度 */
+    background-color: white;
+}
+
+.comprofile-section {
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(40px, 6vw, 80px) clamp(40px, 6vw, 80px) 0; /* 上左右内边距响应 */
+    box-sizing: border-box;
+    max-width: 1920px;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+    gap: clamp(60px, 8vw, 160px); /* 子元素间距响应 */
+}
+
+.comprofile-text {
+    flex: 1 1 0;
+    min-width: 200px; /* 最小宽度缩小一点 */
+    padding-right: clamp(20px, 2vw, 40px); /* 右内边距响应 */
+}
+
+.comprofile-subtitle {
+    display: flex;
+    align-items: center;
+    height: clamp(36px, 3vw, 56px); /* 高度响应 */
+    color: black;
+    font-size: clamp(16px, 1.5vw, 25px); /* 字号响应 */
+    font-weight: bold;
+    margin-bottom: clamp(-5px, -1vw, -10px); /* 下边距响应 */
+}
+
+.circle {
+    width: clamp(18px, 1.8vw, 28px); /* 圆形大小响应 */
+    height: clamp(18px, 1.8vw, 28px);
+    border-radius: 50%;
+    background-color: #ff5c00;
+    margin-right: clamp(5px, 1vw, 10px);
+    margin-left: clamp(2px, 0.5vw, 5px);
+}
+
+.comprofile-title {
+    font-size: clamp(40px, 4vw, 72px); /* 标题响应 */
+    color: #ff5c00;
+    margin: 0px 0 clamp(5px, 1vw, 10px) 0;
+}
+
+.comprofile-description {
+    width: 100%;
+    max-width: 780px;
+    height: clamp(80px, 8vw, 170px); /* 高度响应 */
+    font-size: clamp(14px, 1.25vw, 20px); /* 字号响应 */
+    font-weight: normal;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #888888;
+    line-height: 1.6;
+    margin-left: clamp(2px, 0.5vw, 4px);
+}
+
+.comprofile-image {
+    flex: 0 0 auto;
+    width: clamp(320px, 30vw, 600px); /* 图片宽度响应 */
+    max-width: 50vw;
+    aspect-ratio: 884 / 639;
+    padding: clamp(40px, 6vw, 80px) 0; /* 上下内边距响应 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: clamp(8px, 1vw, 16px); /* 圆角响应 */
+    overflow: hidden;
+}
+
+.comprofile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: transparent;
+}
+
+.stats-section {
+    height: 20%;
+    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(20px, 5vw, 60px);
+    color: white;
+    padding: 0 clamp(20px, 10vw, 257px);
+    flex-wrap: nowrap;
+    margin-bottom: -80px;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1 1 auto;
+    min-width: 100px;
+}
+
+.stat-number {
+    /* 1920px=60px，1281px=40px，屏幕变窄会早缩小 */
+    font-size: clamp(40px, 3.125vw, 60px);
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.stat-label {
+    /* 1920px=20px，1281px=14px */
+    font-size: clamp(14px, 1.04vw, 20px);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.divider {
+    width: 2px;
+    height: clamp(30px, 6vw, 80px);
+    background-color: white;
+    flex-shrink: 0;
+}
+
+/* ===========================================
+   公司文化区域样式
+   =========================================== */
+.culture-section {
+    padding-top: clamp(40px, 8vh, 80px); /* 预留navbar高度 */
+    margin: 0px auto;
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100%;
+    padding-bottom: clamp(16px, 4vh, 32px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('images/images/背景4.webp') no-repeat center center/cover;
+    color: #000;
+    gap: 53px;
+    flex-wrap: nowrap;
+}
+
+.culture-left {
+    display: grid;
+    grid-template-columns: repeat(2, clamp(180px, 18vw, 350px));
+    grid-gap: clamp(10px, 1.8vw, 32px); /* 📌 响应式gap */
+    margin-top: 60px;
+    margin-left: 32px;
+}
+
+.culture-card {
+    width: clamp(140px, 18vw, 350px);  /* 卡片宽度更小 */
+    height: clamp(140px, 18vw, 350px); /* 卡片高度更小 */
+    background-color: #FFF1E5;
+    padding: clamp(10px, 1.8vw, 24px) clamp(8px, 1.2vw, 16px); /* 内边距略缩小 */
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.culture-icon {
+    width: clamp(32px, 5vw, 124px);  /* 图标更小 */
+    height: clamp(32px, 5vw, 124px);
+    margin-top: clamp(8px, 1.8vw, 60px); /* 上间距缩小 */
+}
+
+.culture-card h3 {
+    font-size: clamp(14px, 2vw, 38px); /* 标题更小 */
+    font-weight: bold;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 140%;
+    margin-bottom: 0;
+}
+
+.culture-card p {
+    width: clamp(120px, 15vw, 320px); /* 描述文字区域缩小 */
+    font-size: clamp(10px, 1.1vw, 20px); /* 描述文字更小 */
+    font-weight: normal;
+    color: #888888;
+    line-height: 140%;
+    padding: 0 clamp(8px, 1.8vw, 28px);
+    margin-bottom: clamp(12px, 3vw, 40px);
+}
+
+.culture-right {
+    flex: 1 1 auto;
+    min-width: 280px; /* 允许右边部分更窄 */
+    max-width: clamp(300px, 45vw, 600px); /* 最大宽度保持 */
+    height: clamp(250px, 35vw, 550px); /* 右边高度响应式缩小 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: clamp(16px, 3vw, 48px);
+    padding-right: clamp(16px, 3vw, 48px);
+    box-sizing: border-box;
+}
+
+.culture-title {
+    font-size: clamp(20px, 2.5vw, 70px); /* 标题字体响应式缩小 */
+    color: white;
+    font-weight: bold;
+    margin-top: clamp(20px, 4vh, 32px);
+    margin-bottom: clamp(16px, 3vh, 24px);
+}
+
+.culture-description {
+    font-size: clamp(10px, 1.2vw, 20px); /* 描述文字更小 */
+    color: white;
+    margin-bottom: clamp(24px, 4vh, 48px);
+    line-height: 140%;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.culture-button {
+    background-color: white;
+    width: clamp(80px, 7vw, 110px);
+    height: clamp(22px, 2vw, 30px);
+    padding: clamp(4px, 0.7vw, 8px) clamp(12px, 1.4vw, 18px);
+    display: flex; /* ✅ 改成 flex */
+    align-items: center; /* 垂直居中 */
+    border: 2px solid white;
+    border-radius: clamp(6px, 0.8vw, 14px);
+    font-size: clamp(12px, 1.3vw, 20px);
+    color: #ff5c00;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 140%;
+    text-decoration: none;
+    margin-bottom: clamp(12px, 2vw, 32px);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.culture-button:hover {
+    background-color: white;
+    color: #FF5C00;
+}
+
+/* ===========================================
+   社交侧边栏样式
+   =========================================== */
+.social-sidebar {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.social-icon {
+    width: clamp(36px, 2.24vw, 43px);
+    height: clamp(36px, 2.24vw, 43px);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.3), 
+        rgba(0, 0, 0, 0.2));
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.social-icon:hover::before {
+    left: 100%;
+}
+
+.social-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.2), transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+}
+
+.social-icon:hover::after {
+    width: 20px;
+    height: 20px;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px) translateX(-3px) rotateY(5deg) scale(1.1);
+    box-shadow: 
+        0 15px 30px rgba(0,0,0,0.4),
+        0 0 0 4px rgba(0, 0, 0, 0.1),
+        0 0 0 8px rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+.social-icon:active {
+    transform: translateY(-4px) scale(1.05);
+}
+
+/* Facebook 悬停样式 */
+.facebook:hover {
+    background: linear-gradient(135deg, 
+        rgba(24, 119, 242, 0.9), 
+        rgba(24, 119, 242, 0.7));
+    box-shadow: 
+        0 15px 30px rgba(24, 119, 242, 0.4),
+        0 0 0 4px rgba(24, 119, 242, 0.2),
+        0 0 0 8px rgba(24, 119, 242, 0.1),
+        0 0 20px rgba(24, 119, 242, 0.3);
+}
+
+/* Instagram 悬停样式 */
+.instagram:hover {
+    background: linear-gradient(135deg, 
+        rgba(253, 29, 29, 0.9), 
+        rgba(131, 58, 180, 0.9));
+    box-shadow: 
+        0 15px 30px rgba(253, 29, 29, 0.4),
+        0 0 0 4px rgba(253, 29, 29, 0.2),
+        0 0 0 8px rgba(131, 58, 180, 0.1),
+        0 0 20px rgba(131, 58, 180, 0.3);
+}
+
+/* WhatsApp 悬停样式 */
+.whatsapp:hover {
+    background: linear-gradient(135deg, 
+        rgba(37, 211, 102, 0.9), 
+        rgba(37, 211, 102, 0.7));
+    box-shadow: 
+        0 15px 30px rgba(37, 211, 102, 0.4),
+        0 0 0 4px rgba(37, 211, 102, 0.2),
+        0 0 0 8px rgba(37, 211, 102, 0.1),
+        0 0 20px rgba(37, 211, 102, 0.3);
+}
+
+/* 图标 PNG 样式 - 默认状态稍微透明 */
+.social-icon img {
+    width: clamp(35px, 2.2vw, 42px);
+    height: clamp(35px, 2.2vw, 42px);
+    filter: grayscale(100%) brightness(0.7) drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    transition: all 0.4s ease;
+    z-index: 2;
+    position: relative;
+    opacity: 0.5; /* 只对图片应用透明度 */
+}
+
+.social-icon:hover img {
+    transform: scale(1.15) rotateZ(-3deg);
+    filter: grayscale(0%) brightness(1) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    opacity: 1; /* 悬停时完全不透明 */
+}
+
+/* 脉冲动画 - 修改为不影响图片透明度 */
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1);
+    }
+    50% { 
+        transform: scale(1.05);
+    }
+}
+
+/* ===========================================
+   页面指示器样式
+   =========================================== */
+.page-indicator {
+    position: fixed;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 8px;
+    background: rgba(50, 50, 50, 0.3);
+    border-radius: 25px;
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.15); /* 轻微边框提升质感 */
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.page-dot {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.page-dot:hover {
+    background-color: rgba(255, 255, 255, 1);
+    border-color: rgba(255, 255, 255, 1);
+    transform: scale(1.3);
+}
+
+.page-dot.active {
+    width: 2px;
+    height: 24px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 1);
+    border-color: rgba(255, 255, 255, 1);
+}
+
+.page-dot.active:hover {
+    transform: scale(1.12);
+}
+
+/* ===========================================
+   响应式设计
+   =========================================== */
+
+/* 1280px以下屏幕 */
+@media (max-width: 1280px) {
+  .navbar {
+    height: 50px;
+    padding: 0 51px 0 44px;
+  } 
+
+  .logo {
+    height: 38px;
+    width: auto;
+  }
+
+  .company-name {
+    font-size: 8px;
+  }
+
+  .nav-links {
+    height: 50px;
+    gap: 20px;
+    margin-left: clamp(10px, 12vw, 90px);
+    font-size: 12px;
+  }
+
+  .nav-links a {
+    padding: 0 4px;
+  }
+
+  .nav-links a.active {
+    padding: 0 30px;
+  }
+
+  .nav-links a:hover {
+    padding: 0 30px;
+  }
+
+  .login-btn {
+    width: 60px;
+    height: 18px;
+    border-radius: 17px;
+    padding: 0px 12px;
+    font-size: 12px;
+    line-height: 18px;
+    margin-left: 80px;
+    margin-right: -20px;
+  }
+
+  .language-switch {
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .language-switch .lang {
+    width: 80px;
+    height: 22px;
+    border-radius: 20px;
+    padding: 1px 20px;
+    font-size: 12px;
+  }
+
+  .language-switch .icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+  }
+
+  .home {
+    padding: 0 0 0 clamp(20px, 4vw, 51px);
+    min-height: 100vh; /* 使用min-height确保内容不被截断 */
+    height: auto; /* 允许高度自适应 */
+    background-position: center top;
+    background-attachment: scroll; /* 确保背景图在移动设备上正常显示 */
+  }
+
+  .home-content {
+    width: clamp(320px, 67vw, 858px);
+    height: auto; /* 允许高度自适应内容 */
+    margin-top: clamp(60px, 16vh, 150px); /* 使用vh单位适应不同高度 */
+    padding-bottom: clamp(30px, 5vh, 50px); /* 添加底部间距 */
+  }
+
+  .home h1 {
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 130%;
+    margin-bottom: clamp(15px, 2vh, 25px); /* 优化间距 */
+  }
+
+  .home p {
+    font-size: clamp(12px, 1.4vw, 30px);
+    margin-bottom: clamp(30px, 4vh, 60px); /* 使用vh单位适应高度 */
+    letter-spacing: clamp(2px, 0.5vw, 7px); /* 调整字间距 */
+  }
+
+  .decor-line {
+    width: clamp(600px, 70vw, 900px);
+    margin: clamp(20px, 3vh, 40px) auto clamp(25px, 4vh, 50px);
+  }
+
+  .about-section {
+    padding: 50px 0; /* navbar 高度适配缩小 */
+  }
+
+  .comprofile-section {
+    margin-top: 20px;
+    padding: 0 51px;
+    gap: 50px;
+  }
+
+  .comprofile-text {
+    padding-right: 20px;
+    min-width: 150px;
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+
+  .comprofile-subtitle {
+    font-size: clamp(16px, 1.3vw, 25px);
+    height: 32px; /* 从40px减小到32px */
+  }
+
+  .circle {
+    width: clamp(14px, 1.1vw, 21px); /* 从14px减小到12px */
+    height: clamp(14px, 1.1vw, 21px);
+  }
+
+  .comprofile-title {
+    font-size: clamp(28px, 2.66vw, 51px); /* 从32px减小到28px */
+    margin: 12px 0 26px 0; /* 从16px 0 46px 0改为12px 0 32px 0 */
+  }
+
+  .comprofile-description {
+    max-width: 550px;
+    width: auto;
+    height: auto;
+    font-size: clamp(10px, 1.6vw, 15px); /* 从11px减小到10px */
+    margin-bottom: 18px; /* 从24px减小到18px */
+  }
+
+  .comprofile-image {
+    max-width: 35vw; /* 从45vw大幅减小到35vw */
+    width: auto;
+    padding: 50px 0; /* 从80px 0减小到50px 0 */
+    flex-shrink: 0;
+  }
+
+  .stats-section {
+    margin-bottom: -50px;
+  }
+
+  .stat-number {
+    font-size: clamp(30px, 3.125vw, 60px);
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .divider {
+    width: 2px;
+    height: clamp(30px, 4.2vw, 80px);
+    background-color: white;
+    flex-shrink: 0;
+  }
+
+  .culture-section {
+    width: 100%;
+    margin: 0;
+    height: 100vh;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding-top: 80px; /* 为navbar留出空间 */
+    box-sizing: border-box;
+  }
+
+  .culture-left {
+    width: auto;
+    margin-left: 24px; /* 从32px减小到24px */
+    display: grid;
+    grid-template-columns: repeat(2, minmax(80px, 1fr)); /* 最小宽度从100px减到80px */
+    gap: 12px; /* 从16px减小到12px */
+    margin-top: 20px;
+  }
+
+  .culture-icon {
+    width: clamp(32px, 4.5vw, 80px); /* 从40px-100px减小到32px-80px */
+    height: clamp(32px, 4.5vw, 80px);
+    margin-top: clamp(8px, 1.2vw, 20px); /* 从10px-32px减小到8px-20px */
+  }
+
+  .culture-card {
+    width: 95%;
+    height: 95%;
+    aspect-ratio: 1 / 1; /* 保持正方形 */
+    padding: clamp(4px, 0.8vw, 12px); /* 从6px-16px减小到4px-12px */
+    box-sizing: border-box;
+  }
+
+  .culture-card h3 {
+    font-size: clamp(12px, 0.94vw, 18px); /* 从10px-18px减小到8px-14px */
+    margin-bottom: clamp(2px, 0.4vw, 6px);
+  }
+
+  .culture-card p {
+    font-size: clamp(8px, 0.73vw, 14px); /* 从8px-14px减小到6px-11px */
+    padding: 0 2px; /* 从4px减小到2px */
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .culture-right {
+    max-width: clamp(240px, 32vw, 480px); /* 从280px-560px减小到240px-480px */
+    padding: 0 clamp(10px, 2vw, 20px); /* 从12px-28px减小到10px-20px */
+  }
+
+  .culture-title {
+    font-size: clamp(20px, 1.9vw, 36px); /* 从20px-46px减小到16px-36px */
+    margin-bottom: clamp(8px, 1.2vw, 16px);
+  }
+
+  .culture-description {
+    font-size: clamp(8px, 1.1vw, 13px); /* 从10px-16px减小到8px-13px */
+    line-height: 1.3;
+    margin-bottom: clamp(12px, 2vw, 20px);
+  }
+
+  .culture-button {
+    width: clamp(50px, 3.65vw, 90px); /* 从40px-80px减小到35px-70px */
+    height: clamp(22px, 1.6vw, 26px); /* 从26px-30px减小到22px-26px */
+    padding: clamp(3px, 0.4vw, 6px) clamp(8px, 1vw, 14px); /* 减小内边距 */
+    font-size: clamp(9px, 0.7vw, 15px); /* 从12px-18px减小到10px-15px */
+    border-radius: clamp(6px, 0.6vw, 10px); /* 从8px-12px减小到6px-10px */
+  }
+
+  .page-indicator {
+    left: 16px;
+    padding: 12px 6px;
+    gap: 8px;
+    border-radius: 20px;
+  }
+  
+  .page-dot {
+    width: 3px;
+    height: 3px;
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+  }
+  
+  .page-dot:hover {
+    transform: scale(1.25);
+  }
+  
+  .page-dot.active {
+    width: 3px;
+    height: 20px;
+    border-radius: 5px;
+  }
+  
+  .page-dot.active:hover {
+    transform: scale(1.1);
+  }
+
+  .social-sidebar {
+    right: 15px;
+    bottom: 15px;
+    gap: 10px;
+  }
+            
+  .social-icon {
+    width: clamp(28px, 3vw, 38px);
+    height: clamp(28px, 3vw, 38px);
+    border-radius: 10px;
+  }
+
+  .social-icon svg {
+    width: clamp(18px, 2vw, 24px);
+    height: clamp(18px, 2vw, 24px);
+  }
+
+  .social-icon:hover {
+    transform: translateY(-4px) scale(1.08);
+  }
+}
+
+/* 768px 以下，移动端主要布局 */
+@media (max-width: 768px) {
+  .navbar {
+    height: 47px;
+    padding: 0 20px 0 14px;
+  }
+
+  .logo {
+    height: 32px;
+    width: auto;
+  }
+
+  .company-name {
+    font-size: 8px;
+  }
+
+  /* 导航菜单改为侧边栏 */
+  .nav-links {
+    display: flex;
+    position: fixed;
+    top: 47px;
+    left: 0;
+    margin-top: 0;
+    margin-left: 0;
+    width: 100%;
+    height: 40vh;
+    background-color: #2F2F2F;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    gap: 30px;
+    z-index: 1000;
+    transform: translateY(-160%);
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  .nav-links.active {
+    display: flex;
+    transform: translateY(0);
+  }
+
+  .nav-item {
+  width: 100%;
+  }
+
+  /* right-section 宽度自适应，内容靠右排列 */
+  .right-section {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* 语言切换按钮 */
+  .language-switch {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .language-switch .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .language-switch .lang {
+    width: 80px;
+    height: 22px;
+    border-radius: 20px;
+    padding: 1px 20px;
+    font-size: 12px;
+  }
+
+  /* hamburger 靠右边，不要 margin-left:auto */
+  .hamburger {
+    display: block;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px 0;
+  }
+
+  .nav-links a {
+    padding: 8px 0 8px 10px; /* 固定 padding，左边 10px，上下 8px */
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: stretch;
+  }
+
+  .nav-links a:hover {
+    background-color: transparent;
+    color: white;
+    padding: 8px 0 8px 10px; /* 同样固定 padding，不要变 */
+  }
+
+  .nav-links a.active {
+    background-color: transparent;
+    color: white;
+    padding: 8px 0 8px 10px; /* 同样固定 padding */
+  }
+
+  .login-btn {
+    margin-right: 74px;
+  }
+
+  /* login 按钮放在菜单底部，样式微调 */
+  .nav-links .login-btn {
+    width: 100px;
+    height: 20px;
+    padding: 0 8px 30px 8px;
+    font-size: 14px;
+    margin-top: auto;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 30px;
+  }
+
+  .nav-links .login-btn:hover {
+    background-color: #d87b00;
+    padding: 0 8px 30px 8px;
+    line-height: 30px;    /* 和默认状态保持一致 */
+  }
+
+  .home {
+    padding: 40px 40px 0 20px;
+    height: 251px;
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .home-content {
+    width: 322px;
+    height: 28px;
+    margin-top: 50px;
+  }
+
+  .home h1 {
+    font-size: 28px;
+    line-height: 130%;
+    margin-bottom: 20px;
+  }
+
+  .home p {
+    font-size: 7px;
+    margin-bottom: 30px;
+    line-height: 160%;
+  }
+
+  .comprofile-section {
+    padding: 20px 20px;
+    gap: 15px;
+    flex-wrap: nowrap;
+  }
+
+  .comprofile-text {
+    padding-right: 10px;
+    min-width: 150px;
+    flex: 1 1 auto;
+  }
+
+  .comprofile-subtitle {
+    font-size: clamp(10px, 2vw, 14px);
+    height: 30px;
+  }
+
+  .circle {
+    width: clamp(8px, 2vw, 12px);
+    height: clamp(8px, 2vw, 12px);
+  }
+
+  .comprofile-title {
+    font-size: clamp(18px, 3vw, 24px);
+    margin: 10px 0 20px 0;
+  }
+
+  .comprofile-description {
+    max-width: 100%;
+    height: auto;
+    font-size: clamp(7px, 2vw, 12px);
+  }
+
+  .comprofile-image {
+    width: 40vw;
+    max-width: none;
+    aspect-ratio: 884 / 639;
+    flex-shrink: 0;
+    height: auto;
+    padding: 40px 0;
+  }
+
+  .culture-section {
+    transform-origin: top left;
+    transform: scale(0.6);
+    width: 170%;
+    justify-content: center;
+    border-radius: 0;
+    margin: 0 0px -120px -8px; /* 上右下左 */
+  }
+
+  .culture-card {
+    padding: 10px;
+  }
+
+  .culture-card p {
+    width: 120px;
+  }
+  
+  .culture-description {
+    font-size: clamp(10px, 1.4vw, 16px); /* 原12px -> 10px起 */
+  }
+
+  .culture-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(52px, 4vw, 60px);
+    height: clamp(22px, 1.8vw, 26px);
+    font-size: clamp(10px, 1vw, 14px);
+    border-radius: clamp(6px, 0.6vw, 10px);
+    padding: 0 clamp(8px, 1vw, 14px); /* 上下去掉 */
+  }
+
+  /* Hide page indicator on mobile */
+  .page-indicator {
+    display: none;
+  }
+}
