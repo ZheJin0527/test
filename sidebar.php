@@ -278,7 +278,7 @@ if (isset($_SESSION['user_id'])) {
 /* 子菜单 - 固定定位覆盖屏幕 */
 .submenu {
     position: fixed;
-    left: 250px;
+    left: clamp(120px, 13.02vw, 250px);
     top: 0;
     width: 350px;
     height: 100vh;
