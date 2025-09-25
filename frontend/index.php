@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'media_config.php';
+include_once '../media_config.php';
 
 // 禁用页面缓存
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -15,12 +15,12 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['css/animation.css', 'css/index.css'];
+$additionalCSS = ['/css/animation.css', '/css/index.css'];
 $showPageIndicator = true;
 $totalSlides = 4;
 
 // 包含header
-include 'header.php';
+include '../public/header.php';
 ?>
   <div class="swiper">
   <div class="swiper-wrapper">
