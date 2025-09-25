@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <link rel="icon" type="image/png" href="images/images/logo.png">
+    <link rel="icon" type="image/png" href="../../images/images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登入 - KUNZZ HOLDINGS</title>
-    <link rel="stylesheet" href="tokyo.css" />
+    <link rel="stylesheet" href="css/tokyo.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
@@ -22,13 +22,13 @@
           <input type="password" id="password" name="password" placeholder="密码" required
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
             title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
-          <img src="images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
+          <img src="../../images/images/眼睛.png" class="eye-icon" id="toggle-password" alt="显示密码">
         </div>
         <div class="password-container">
           <input type="password" id="confirm_password" name="confirm_password" placeholder="确认密码" required
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*[\u4e00-\u9fa5]).{8,}$"
             title="密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊符号，且不少于8个字符，且不能包含中文字符">
-          <img src="images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
+          <img src="../../images/images/眼睛.png" class="eye-icon" id="toggle-confirm" alt="显示密码">
         </div>
         <button type="submit">发送验证码</button>
       </form>
@@ -40,7 +40,7 @@
     </div>
   </section>
 
-  <script src="app.js"></script>
+  <script src="../app.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function () {
     // 密码显示切换

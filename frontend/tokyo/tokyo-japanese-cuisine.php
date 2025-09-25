@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'media_config.php';
+include_once '../../backend/upload/media_config.php';
 
 // 禁用页面缓存
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -11,12 +11,12 @@ header("Expires: 0");
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <link rel="icon" type="image/png" href="images/images/tokyo.png">
+    <link rel="icon" type="image/png" href="../../images/images/tokyo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOKYO JAPANESE CUISINE</title>
-    <link rel="stylesheet" href="tokyo.css" />
-    <link rel="stylesheet" href="tokyoanimation.css" />
+    <link rel="stylesheet" href="css/tokyo.css" />
+    <link rel="stylesheet" href="css/tokyoanimation.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,14 +28,14 @@ header("Expires: 0");
   <!-- 左侧 logo 和公司名 -->
   <div class="logo-section">
     <a href="index.php">
-    <img src="images/images/KUNZZ.png" alt="Logo" class="logo">
+    <img src="../../images/images/KUNZZ.png" alt="Logo" class="logo">
     </a>
   </div>
 
   <!-- 中间导航（默认显示，大屏） -->
   <nav class="nav-links" id="navMenu">
-    <div class="nav-item"><a href="index.php">首页</a></div>
-    <div class="nav-item"><a href="about.php">关于我们</a></div>
+    <div class="nav-item"><a href="../index.php">首页</a></div>
+    <div class="nav-item"><a href="../about.php">关于我们</a></div>
     <div class="nav-item nav-dropdown">
       <span class="nav-dropdown-trigger">旗下品牌</span>
       <div class="nav-dropdown-menu" id="brandsNavDropdownMenu">
@@ -43,7 +43,7 @@ header("Expires: 0");
         <a href="tokyo-izakaya.php" class="nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a>
       </div>
      </div>
-    <div class="nav-item"><a href="joinus.php">加入我们</a></div>
+    <div class="nav-item"><a href="../joinus.php">加入我们</a></div>
   </nav>
 
   <!-- 右侧区域 -->
@@ -52,8 +52,8 @@ header("Expires: 0");
     <div class="login-dropdown">
       <button class="login-btn" id="loginBtn">LOGIN</button>
         <div class="login-dropdown-menu" id="loginDropdownMenu">
-          <a href="login.html" class="login-dropdown-item">员工登入</a>
-          <a href="login.html" class="login-dropdown-item">会员登入</a>
+          <a href="../login.html" class="login-dropdown-item">员工登入</a>
+          <a href="../login.html" class="login-dropdown-item">会员登入</a>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ header("Expires: 0");
     <?php echo getMediaHtml('tokyo_background', ['style' => 'width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;']); ?>
     <div class="home-content hidden animate-on-scroll">
       <div class="home-logo-container scale-fade-in">
-      <img src="images/images/tokyo.png" alt="餐厅Logo" class="home-logo scale-fade-in">
+      <img src="../../images/images/tokyo.png" alt="餐厅Logo" class="home-logo scale-fade-in">
       <h1 class="scale-fade-in">TOKYO JAPANESE<br />
         CUISINE
       </h1>
@@ -131,7 +131,7 @@ header("Expires: 0");
           <!-- 价值观内容 -->
             <div id="values" class="content-panel active">
               <div class="values-image-section">
-                <img class="values-content-image" src="images/images/fujibg.jpg" alt="使命图片">
+                <img class="values-content-image" src="../../images/images/fujibg.jpg" alt="使命图片">
               </div>
               <div class="values-text-section">
                 <h1 class="values-content-title">使命</h1>
@@ -143,7 +143,7 @@ header("Expires: 0");
               <!-- 海底捞使命内容 -->
               <div id="mission" class="content-panel">
                 <div class="values-image-section">
-                  <img class="values-content-image" src="images/images/sushi.jpg" alt="愿景图片">
+                  <img class="values-content-image" src="../../images/images/sushi.jpg" alt="愿景图片">
                 </div>
               <div class="values-text-section">
                 <h1 class="values-content-title">愿景</h1>
@@ -165,7 +165,7 @@ header("Expires: 0");
       <div class="tokyomenu-page tokyomenu-page-left" id="tokyomenu-page-left" style="z-index: 2;">
         <div class="tokyomenu-page-front">
           <div class="tokyomenu-content">
-            <img src="tokyomenu/tokyomenu/1.jpg" class="tokyomenu-image" alt="封面">
+            <img src="../../images/tokyomenu/tokyomenu/1.jpg" class="tokyomenu-image" alt="封面">
             <div class="tokyomenu-number">1</div>
           </div>
         </div>
@@ -468,22 +468,22 @@ header("Expires: 0");
 <div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="images/images/fbicon.png" alt="Facebook">
+        <img src="../../images/images/fbicon.png" alt="Facebook">
     </a>
 
     <!-- Instagram -->
     <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="images/images/igicon.png" alt="Instagram">
+        <img src="../../images/images/igicon.png" alt="Instagram">
     </a>
 
     <!-- WhatsApp -->
     <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="images/images/wsicon.png" alt="WhatsApp">
+        <img src="../../images/images/wsicon.png" alt="WhatsApp">
     </a>
 </div>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="app.js"></script>
+  <script src="../app.js"></script>
 <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
