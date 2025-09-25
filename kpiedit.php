@@ -356,7 +356,7 @@
 
         .excel-table td {
             font-size: clamp(8px, 0.74vw, 14px);
-            padding: 0;
+            padding: clamp(2px, 0.3vw, 6px) 0; 
             border: 1px solid #d1d5db;
             text-align: center;
             position: relative;
@@ -394,7 +394,7 @@
             background: #f8f5eb !important;
             font-weight: 600;
             color: #583e04;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             min-width: 100px;
         }
 
@@ -425,7 +425,7 @@
         /* 输入框样式 */
         .excel-input {
             width: 100%;
-            height: 40px;
+            height: clamp(24px, 3vw, 40px); 
             border: none;
             background: #fee2e2;
             text-align: center;
@@ -454,7 +454,7 @@
             background: #f0f9ff !important;
             color: #0369a1;
             font-weight: 600;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             min-width: 100px;
         }
 
