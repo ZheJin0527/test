@@ -144,7 +144,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 其余样式保持不变 */
 .informationmenu-header {
-    padding: clamp(10px, 1.25vw, 24px);
+    padding: clamp(10px, 1.25vw, 24px) clamp(14px, 1.25vw, 24px);
     border-bottom: 1px solid #e0e0e0;
     display: flex;
     align-items: center;
@@ -192,7 +192,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section {
-    padding: 10px 0;
+    padding: clamp(6px,0.52vw, 10px) 0;
     /* 让所有section占据剩余空间，但footer会被推到底部 */
 }
 
@@ -518,8 +518,8 @@ if (isset($_SESSION['user_id'])) {
 /* 侧边栏收起状态下的图标样式 */
 .informationmenu.collapsed .section-icon {
     margin-right: 0 !important;
-    width: clamp(12px, 1.15vw, 22px) !important;
-    height: clamp(12px, 1.15vw, 22px) !important;
+    width: clamp(10px, 1.15vw, 22px) !important;
+    height: clamp(10px, 1.15vw, 22px) !important;
     display: block !important;
 }
 
@@ -698,21 +698,23 @@ if (isset($_SESSION['user_id'])) {
 /* 页面内容右移，避免被侧栏覆盖 */
 body {
     margin-left: clamp(140px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
+    transition: margin-left 0.3s ease;
 }
 body.sidebar-collapsed {
-    margin-left: 70px;
+    margin-left: clamp(50px, 3.65vw, 70px);
     transition: margin-left 0.3s ease;
 }
 
 /* 确保主内容区域能够自适应剩余空间 */
 .main-content {
-    width: calc(100vw - clamp(80px, 13.02vw, 250px));
+    width: calc(100vw - clamp(140px, 13.02vw, 250px));
     max-width: none;
     box-sizing: border-box;
+    transition: width 0.3s ease;
 }
 
 body.sidebar-collapsed .main-content {
-    width: calc(100vw - 70px);
+    width: calc(100vw - clamp(50px, 3.65vw, 70px));
 }
 
 /* 响应式调整 */
