@@ -144,7 +144,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 其余样式保持不变 */
 .informationmenu-header {
-    padding: clamp(14px, 1.25vw, 24px);
+    padding: clamp(12px, 1.25vw, 24px);
     border-bottom: 1px solid #e0e0e0;
     display: flex;
     align-items: center;
@@ -425,13 +425,13 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .logout-btn {
-    width: 120px;
+    width: clamp(60px, 6.25vw, 120px);
     background: linear-gradient(to bottom, #ff9850, #e97d18);
     border: none;
     border-radius: 20px;
-    padding: 8px 12px;
+    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
     color: white;
-    font-size: 13px;
+    font-size: clamp(8px, 0.74vw, 14px);
     font-weight: 500;
     cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -453,7 +453,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu-footer {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: clamp(10px, 1.04vw, 20px);
     border-top: 1px solid #e0e0e0;
     background-color: white;
     /* 确保footer固定在底部 */
@@ -518,8 +518,8 @@ if (isset($_SESSION['user_id'])) {
 /* 侧边栏收起状态下的图标样式 */
 .informationmenu.collapsed .section-icon {
     margin-right: 0 !important;
-    width: 22px !important;
-    height: 22px !important;
+    width: clamp(12px, 1.15vw, 22px) !important;
+    height: clamp(12px, 1.15vw, 22px) !important;
     display: block !important;
 }
 
@@ -543,7 +543,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 提高选择器权重 */
 .informationmenu.collapsed {
-    width: 70px !important;
+    width: clamp(50px, 3.65vw, 70px) !important;
     overflow: visible;
 }
 
@@ -554,7 +554,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu.collapsed .informationmenu-section-title {
-    padding: 12px 10px !important;
+    padding: clamp(2px, 0.63vw, 12px) 10px !important;
     text-align: center;
     font-size: 0; /* 隐藏文字 */
     /* 确保图标仍然显示 */
@@ -588,7 +588,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu.collapsed .informationmenu-header {
-    padding: 29px 20px !important;
+    padding: clamp(15px, 1.51vw, 29px) clamp(10px, 1.04vw, 20px) !important;
     flex-direction: row !important;
     justify-content: space-between !important;
     align-items: center !important;
@@ -697,12 +697,26 @@ if (isset($_SESSION['user_id'])) {
 
 /* 页面内容右移，避免被侧栏覆盖 */
 body {
-    margin-left: 250px; /* 默认就给右边距，避免闪烁 */
+    margin-left: clamp(140px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
 }
 body.sidebar-collapsed {
     margin-left: 70px;
     transition: margin-left 0.3s ease;
 }
+
+/* 确保主内容区域能够自适应剩余空间 */
+.main-content {
+    width: calc(100vw - clamp(80px, 13.02vw, 250px));
+    max-width: none;
+    box-sizing: border-box;
+}
+
+body.sidebar-collapsed .main-content {
+    width: calc(100vw - 70px);
+}
+
+/* 响应式调整 */
+
 body.sidebar-transition {
     transition: margin-left 0.3s ease;
 }

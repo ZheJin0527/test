@@ -29,7 +29,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: clamp(22px, 1.67vw, 32px);
         }
         
         .header h1 {

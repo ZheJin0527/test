@@ -68,7 +68,7 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: clamp(22px, 1.67vw, 32px);
         }
         
         .header h1 {
@@ -987,10 +987,6 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 <button class="selector-button" style="justify-content: center;">
                     <span id="current-stock-type">中央</span>
-                </button>
-                <button class="back-button" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i>
-                    返回上一页
                 </button>
             </div>
         </div>

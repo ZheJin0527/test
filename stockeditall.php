@@ -36,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: clamp(22px, 1.67vw, 32px);
         }
         
         .header h1 {

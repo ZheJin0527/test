@@ -137,7 +137,7 @@ $avatarLetter = strtoupper($username[0]);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: clamp(16px, 1.67vw, 32px);
         }
 
         .header h1 {
@@ -577,7 +577,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .card-body {
-            padding: 13.5px 24px;
+            padding: clamp(7.5px, 0.7vw, 13.5px) clamp(18px, 1.25vw, 24px);
         }
         
         .grid {
@@ -598,7 +598,7 @@ $avatarLetter = strtoupper($username[0]);
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 16px;
-            margin-bottom: 32px;
+            margin-bottom: clamp(22px, 1.67vw, 32px);
         }
 
         /* 图表容器 - 改为全宽 */
@@ -615,28 +615,7 @@ $avatarLetter = strtoupper($username[0]);
             gap: 24px;
         }
 
-        @media (max-width: 1200px) {
-            .kpi-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .kpi-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .bottom-charts {
-                grid-template-columns: 1fr;
-            }
-            /* ... */
-        }
-
-        @media (max-width: 640px) {
-            .kpi-grid {
-                grid-template-columns: 1fr;
-            }
-            /* ... */
-        }
+        
         
         .kpi-card {
             display: flex;
@@ -681,7 +660,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .kpi-card-vertical .kpi-value {
-            font-size: clamp(18px, 1.25vw, 24px);
+            font-size: clamp(16px, 1.25vw, 24px);
             font-weight: bold;
             color: #111827;
         }
@@ -774,7 +753,7 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 月份选择器的特殊样式 - 更小的宽度 */
         .enhanced-date-picker.month-only {
-            min-width: 100px;
+            min-width: clamp(100px, 6.77vw, 130px);
         }
 
         /* 日期选择部分 */
@@ -1159,7 +1138,7 @@ $avatarLetter = strtoupper($username[0]);
             </div>
             <div id="app">         
             <!-- Date Controls -->
-            <div class="card" style="margin-bottom: 32px;">
+            <div class="card" style="margin-bottom: clamp(22px, 1.67vw, 32px);">
                 <div class="card-body">
                     <div class="date-controls">
     
