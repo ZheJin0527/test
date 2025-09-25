@@ -374,6 +374,27 @@
             background-color: #df6262ff !important;
         }
 
+        /* 覆盖所有特殊单元格的背景色 */
+        .excel-table tbody tr:hover .date-cell,
+        .excel-table tbody tr:hover .weekend,
+        .excel-table tbody tr:hover .calculated-cell,
+        .excel-table tbody tr:hover .excel-input,
+        .excel-table tbody tr:hover .excel-input.has-data,
+        .excel-table tbody tr:hover .excel-input.no-data,
+        .excel-table tbody tr:hover .excel-input.currency-input,
+        .excel-table tbody tr:hover .input-container {
+            background-color: #f3f4f6 !important;
+        }
+
+        /* 确保输入框容器也变色 */
+        .excel-table tbody tr:hover td {
+            background-color: #f3f4f6 !important;
+        }
+
+        .excel-table tbody tr:hover td * {
+            background-color: #f3f4f6 !important;
+        }
+
         /* 日期列样式 */
         .date-cell {
             background: #f8f5eb !important;
