@@ -61,7 +61,7 @@
             background: #583e04;
             color: white;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
-            border-radius: 8px 0 0 8px;
+            border-radius: clamp(4px, 0.42vw, 8px) 0 0 clamp(4px, 0.42vw, 8px);
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 700;
             width: clamp(26px, 2.08vw, 40px);
