@@ -220,6 +220,7 @@ if (file_exists('media_config.json')) {
             background: #6c757d;
             color: white;
             text-decoration: none;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: clamp(4px, 0.32vw, 6px);
             margin-bottom: 20px;
