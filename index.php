@@ -30,7 +30,7 @@ include 'header.php';
   <?php echo getMediaHtml('home_background'); ?>
 
   <div class="home-content hidden animate-on-scroll">
-    <h1 class="scale-fade-in">让11空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
+    <h1 class="scale-fade-in">让空间温暖 <span style="font-size: 1.5em;">.</span> 让团队闪光</h1>
     <div class="decor-line scale-fade-in"></div>
     <p class="scale-fade-in">
       我们用细节构建舒适的氛围，在积极的文化中滋养每一份热情与专注。<br />
