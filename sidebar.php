@@ -322,7 +322,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .submenu-title {
-    font-size: 16px;
+    font-size: clamp(10px, 0.84vw, 16px);
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -336,10 +336,10 @@ if (isset($_SESSION['user_id'])) {
 .submenu-item {
     display: flex;
     align-items: center;
-    padding: 18px 25px;
+    padding: clamp(10px, 0.94vw, 18px) clamp(15px, 1.3vw, 25px);
     color: rgba(255,255,255,0.9);
     text-decoration: none;
-    font-size: 15px;
+    font-size: clamp(10px, 0.84vw, 16px);
     transition: all 0.3s ease;
     cursor: pointer;
     border-bottom: 1px solid rgba(255,255,255,0.08);
