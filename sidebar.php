@@ -425,7 +425,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .logout-btn {
-    
+    width: clamp(60px, 6.25vw, 120px);
     background: linear-gradient(to bottom, #ff9850, #e97d18);
     border: none;
     border-radius: 20px;
