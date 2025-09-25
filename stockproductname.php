@@ -131,7 +131,7 @@ if (isset($_SESSION['user_id'])) {
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
             color: #583e04;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;
             display: block;
