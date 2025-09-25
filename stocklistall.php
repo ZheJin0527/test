@@ -782,8 +782,7 @@
             padding: 0;
             border: none;
             border-radius: 12px;
-            width: 80%;
-            max-width: 800px;
+            max-width: clamp(600px, 41.67vw, 800px);
             max-height: 80vh;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
