@@ -491,7 +491,7 @@ if (isset($_GET['success'])) {
         
         /* 应用你想要的样式 */
         border: 1px solid #e0e0e0 !important;
-        padding: clamp(12px, 1.04vw, 20px) !important;
+        padding: clamp(10px, 1.04vw, 20px) !important;
         margin-bottom: clamp(10px, 1.04vw, 20px) !important;
         transition: all 0.3s ease !important;
     }
