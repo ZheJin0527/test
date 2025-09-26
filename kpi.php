@@ -598,7 +598,7 @@ $avatarLetter = strtoupper($username[0]);
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 16px;
-            margin-bottom: clamp(22px, 1.67vw, 32px);
+            margin-bottom: clamp(14px, 1.67vw, 32px);
         }
 
         /* 图表容器 - 改为全宽 */
@@ -1137,7 +1137,7 @@ $avatarLetter = strtoupper($username[0]);
             </div>
             <div id="app">         
             <!-- Date Controls -->
-            <div class="card" style="margin-bottom: clamp(22px, 1.67vw, 32px);">
+            <div class="card" style="margin-bottom: clamp(14px, 1.67vw, 32px);">
                 <div class="card-body">
                     <div class="date-controls">
     
