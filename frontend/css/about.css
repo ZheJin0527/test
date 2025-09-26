@@ -1,8 +1,13 @@
 /* ===========================================
-   About.php 专用样式（从 style.css 和 aboutanimation.css 提取）
+   About.php 专用样式 - 现代化响应式版本
+   使用 clamp() 和 rem/vw/vh 单位实现响应式设计
    =========================================== */
 
 /* 基础样式 */
+html {
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.125rem); /* 响应式根字体大小 */
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -37,7 +42,7 @@ body::-webkit-scrollbar {
 }
 
 .swiper-slide.footer-slide {
-    height: 29vh; /* 保持原来的36vh */
+    height: clamp(25vh, 35vh, 40vh); /* 响应式高度 */
     justify-content: flex-end;
     align-items: center;
     padding: 0;
@@ -48,7 +53,7 @@ body::-webkit-scrollbar {
 .swiper-slide.footer-slide::before {
     content: '';
     position: absolute;
-    top: -71vh;
+    top: clamp(-60vh, -70vh, -80vh); /* 响应式顶部位置 */
     left: 0;
     right: 0;
     height: 100vh;
@@ -86,7 +91,7 @@ body::-webkit-scrollbar {
 
 .aboutus-banner {
     position: relative;
-    padding: 80px 0 0 80px;
+    padding: clamp(4rem, 8vw, 6rem) 0 0 clamp(4rem, 8vw, 6rem); /* 响应式内边距 */
     flex: 0 0 50%;
     
     display: flex;
@@ -96,49 +101,49 @@ body::-webkit-scrollbar {
 }
   
 .aboutus-content {
-    margin-top: 76px;
-    width: 402px;
-    height: 140px;
+    margin-top: clamp(4rem, 6vw, 5rem); /* 响应式上边距 */
+    width: clamp(20rem, 25vw, 25rem); /* 响应式宽度 */
+    height: clamp(8rem, 10vw, 9rem); /* 响应式高度 */
     display: flex;
     flex-direction: column;
     align-items: center; /* 水平居中 */
     justify-content: center;
     text-align: center;
-    transform: translateY(-60px); /* 👈 内容整体往上移 60px 可调整 */
+    transform: translateY(clamp(-3rem, -4vw, -4rem)); /* 响应式向上移动 */
 }
 
 .aboutus-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(50px, 4.5vw, 86px);
+    font-size: clamp(3rem, 4.5vw, 5.5rem); /* 响应式字体大小 */
     font-weight: bold;
     line-height: 1;
-    letter-spacing: 1.4%;
-    margin: -100px 100px 0 0;
+    letter-spacing: 0.014em; /* 使用 em 单位 */
+    margin: clamp(-6rem, -8vw, -6.5rem) clamp(6rem, 8vw, 6.5rem) 0 0; /* 响应式边距 */
     padding: 0;
     white-space: nowrap;
     text-shadow:
-        10px 10px 12px rgba(0, 0, 0, 0.3),
-        4px 4px 20px rgba(0, 0, 0, 0.3);
+        clamp(0.5rem, 1vw, 0.75rem) clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem) rgba(0, 0, 0, 0.3), /* 响应式阴影 */
+        clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.3);
     color: white;
 }
 
 .aboutus-content p {
-    font-size: clamp(12px, 1.05vw, 20px);
+    font-size: clamp(0.75rem, 1.05vw, 1.25rem); /* 响应式字体大小 */
     font-weight: normal;
     line-height: 1.2;
-    letter-spacing: 0.5%;
-    margin: 20px 120px 0 20px; /* 确保p和h1的间距是80px */
+    letter-spacing: 0.005em; /* 使用 em 单位 */
+    margin: clamp(1.25rem, 2vw, 1.5rem) clamp(7.5rem, 10vw, 7.5rem) 0 clamp(1.25rem, 2vw, 1.5rem); /* 响应式边距 */
     padding: 0;
     white-space: nowrap;
     text-shadow:
-        10px 10px 12px rgba(0, 0, 0, 0.3),
-        4px 4px 20px rgba(0, 0, 0, 0.3);
+        clamp(0.5rem, 1vw, 0.75rem) clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem) rgba(0, 0, 0, 0.3), /* 响应式阴影 */
+        clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.3);
     color: white;
 }
 
 .aboutus-intro {
     background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
-    padding: 0px 20px 90px 20px;
+    padding: 0 clamp(1.25rem, 2vw, 1.5rem) clamp(5rem, 8vw, 6rem) clamp(1.25rem, 2vw, 1.5rem); /* 响应式内边距 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -146,32 +151,32 @@ body::-webkit-scrollbar {
 }
 
 .intro-content {
-    width: 502px;
+    width: clamp(25rem, 35vw, 32rem); /* 响应式宽度 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: clamp(20px, 3vw, 60px) 0 100px 50px;
+    padding: clamp(1.25rem, 3vw, 4rem) 0 clamp(6rem, 8vw, 6.5rem) clamp(3rem, 4vw, 3.5rem); /* 响应式内边距 */
 }
 
 .intro-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(50px, 4.5vw, 86px);
+    font-size: clamp(3rem, 4.5vw, 5.5rem); /* 响应式字体大小 */
     font-weight: bold;
-    line-height: 140%;
-    letter-spacing: 0.5%;
-    margin: 0 58px 0 0;
+    line-height: 1.4;
+    letter-spacing: 0.005em; /* 使用 em 单位 */
+    margin: 0 clamp(3.5rem, 4vw, 3.75rem) 0 0; /* 响应式边距 */
     padding: 0;
     color: #FF5C00;
 }
 
 .intro-content p {
-    font-size: clamp(12px, 1.05vw, 20px);
+    font-size: clamp(0.75rem, 1.05vw, 1.25rem); /* 响应式字体大小 */
     font-weight: normal;
-    line-height: 170%;
-    letter-spacing: 3px;
-    margin: 0 58px 0 0;
+    line-height: 1.7;
+    letter-spacing: clamp(0.15rem, 0.3vw, 0.2rem); /* 响应式字母间距 */
+    margin: 0 clamp(3.5rem, 4vw, 3.75rem) 0 0; /* 响应式边距 */
     padding: 0;
     color: #888888;
     white-space: nowrap;
@@ -187,7 +192,7 @@ body::-webkit-scrollbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 80px;
+    padding: clamp(1.25rem, 2vw, 1.5rem) clamp(4rem, 8vw, 6rem); /* 响应式内边距 */
 }
 
 .vision-content {
@@ -197,76 +202,76 @@ body::-webkit-scrollbar {
 
 .vision-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(20px, 3.75vw, 70px);
+    font-size: clamp(1.25rem, 3.75vw, 4.5rem); /* 响应式字体大小 */
     font-weight: bold;
-    line-height: 140%;
-    letter-spacing: 0.5%;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    line-height: 1.4;
+    letter-spacing: 0.005em; /* 使用 em 单位 */
+    margin-bottom: clamp(1.25rem, 2vw, 1.5rem); /* 响应式下边距 */
+    margin-top: clamp(1.25rem, 2vw, 1.5rem); /* 响应式上边距 */
 }
 
 .vision-content p {
-    font-size: clamp(10px, 1.1vw, 20px);
+    font-size: clamp(0.625rem, 1.1vw, 1.25rem); /* 响应式字体大小 */
     font-weight: normal;
-    line-height: 150%;
-    letter-spacing: 2%;
+    line-height: 1.5;
+    letter-spacing: 0.02em; /* 使用 em 单位 */
     color: white;
-    margin-top: 0px;
-    margin-bottom: 40px;
+    margin-top: 0;
+    margin-bottom: clamp(2rem, 4vw, 2.5rem); /* 响应式下边距 */
 }
 
 .vision-cards {
     display: flex;
     justify-content: center;   /* 或 flex-start */
-    gap: 30px;                 /* 固定间距 */
-    padding: 0 40px;
+    gap: clamp(1.5rem, 3vw, 2rem); /* 响应式间距 */
+    padding: 0 clamp(2rem, 4vw, 2.5rem); /* 响应式内边距 */
     flex-wrap: nowrap;         /* ✅ 不允许换行 */
 }
 
 .vision-card {
-    width: clamp(500px, 45vw, 870px);
-    height: clamp(280px, 22vw, 410px);
+    width: clamp(25rem, 45vw, 55rem); /* 响应式宽度 */
+    height: clamp(17rem, 22vw, 26rem); /* 响应式高度 */
     background-color: #FFF3E6;
-    border-radius: 20px;
-    padding: 0 clamp(0px, 1.2vw, 32px);
+    border-radius: clamp(1rem, 2vw, 1.5rem); /* 响应式圆角 */
+    padding: 0 clamp(0, 1.2vw, 2rem); /* 响应式内边距 */
     text-align: left;
     color: #888888;
     box-shadow: 
-    0px 4px 6px rgba(0, 0, 0, 0.1),
-    0px 10px 20px rgba(0, 0, 0, 0.15);
+        clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.6vw, 0.5rem) rgba(0, 0, 0, 0.1), /* 响应式阴影 */
+        clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.25rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.15);
 }
 
 .vision-label {
     display: inline-block;
     background-color: white;
     color: #FF5C00;
-    font-size: clamp(24px, 2.4vw, 45px);
+    font-size: clamp(1.5rem, 2.4vw, 2.8rem); /* 响应式字体大小 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
-    padding: 8px 18px;
-    border-radius: 32px;
-    margin: clamp(10px, 1.7vw, 32px) 10px 10px;
-    width: clamp(100px, 12vw, 225px);
+    padding: clamp(0.5rem, 1vw, 1rem) clamp(1rem, 1.5vw, 1.25rem); /* 响应式内边距 */
+    border-radius: clamp(1.5rem, 2.5vw, 2rem); /* 响应式圆角 */
+    margin: clamp(0.625rem, 1.7vw, 2rem) clamp(0.625rem, 1vw, 0.75rem) clamp(0.625rem, 1vw, 0.75rem); /* 响应式边距 */
+    width: clamp(6rem, 12vw, 14rem); /* 响应式宽度 */
 }
 
 .vision-card h2 {
-    font-size: clamp(20px, 2vw, 38px);
+    font-size: clamp(1.25rem, 2vw, 2.4rem); /* 响应式字体大小 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
-    line-height: 140%;
-    letter-spacing: 2%;
-    margin: clamp(10px, 1vw, 20px) 10px;
+    line-height: 1.4;
+    letter-spacing: 0.02em; /* 使用 em 单位 */
+    margin: clamp(0.625rem, 1vw, 1.25rem) clamp(0.625rem, 1vw, 0.75rem); /* 响应式边距 */
     color: black;
-    width: clamp(400px, 36vw, 700px)
+    width: clamp(20rem, 36vw, 44rem); /* 响应式宽度 */
 }
 
 .vision-card p {
-    font-size: clamp(16px, 1vw, 18px);
+    font-size: clamp(1rem, 1vw, 1.125rem); /* 响应式字体大小 */
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
-    line-height: 150%;
-    letter-spacing: 2%;
-    margin: 20px 10px;
+    line-height: 1.5;
+    letter-spacing: 0.02em; /* 使用 em 单位 */
+    margin: clamp(1.25rem, 1.5vw, 1.5rem) clamp(0.625rem, 1vw, 0.75rem); /* 响应式边距 */
     color: #888888;
 }
 
@@ -274,13 +279,13 @@ body::-webkit-scrollbar {
    Values 部分样式
    =========================================== */
 .values-section {
-    padding-top: 80px; /* 预留navbar高度 */
+    padding-top: clamp(4rem, 6vw, 5rem); /* 响应式顶部内边距 */
     background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
-    margin: 0px auto 0;
+    margin: 0 auto 0;
     box-sizing: border-box;
     min-height: 100vh;
     width: 100%;
-    padding-bottom: 32px;
+    padding-bottom: clamp(1.5rem, 3vw, 2rem); /* 响应式底部内边距 */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -293,25 +298,25 @@ body::-webkit-scrollbar {
     justify-content: center;
     align-items: center;
     text-align: center;
-    max-width: clamp(350px, 44vw, 850px);
-    padding: 0 clamp(20px, 4vw, 48px);
+    max-width: clamp(22rem, 44vw, 53rem); /* 响应式最大宽度 */
+    padding: 0 clamp(1.25rem, 4vw, 3rem); /* 响应式内边距 */
     box-sizing: border-box;
 }
 
 .values-title {
-    font-size: clamp(20px, 3.75vw, 70px);
+    font-size: clamp(1.25rem, 3.75vw, 4.5rem); /* 响应式字体大小 */
     color: black;
     font-weight: bold;
-    margin-top: 24px;
-    margin-bottom: 16px;
+    margin-top: clamp(1.5rem, 2vw, 1.75rem); /* 响应式上边距 */
+    margin-bottom: clamp(1rem, 1.5vw, 1.25rem); /* 响应式下边距 */
 }
 
 .values-description {
-    font-size: clamp(10px, 1.1vw, 20px);
+    font-size: clamp(0.625rem, 1.1vw, 1.25rem); /* 响应式字体大小 */
     color: #888888;
-    margin-top: 0px;
-    margin-bottom: clamp(0px, 1.2vw, 24px);
-    line-height: 150%;
+    margin-top: 0;
+    margin-bottom: clamp(0, 1.2vw, 1.5rem); /* 响应式下边距 */
+    line-height: 1.5;
     word-break: break-word;
     max-width: 100%;
 }
@@ -319,20 +324,20 @@ body::-webkit-scrollbar {
 .values-bottom {
     display: flex;
     flex-wrap: nowrap;     
-    gap: 32px;  
-    padding: 0 20px;
+    gap: clamp(1.5rem, 3vw, 2rem); /* 响应式间距 */
+    padding: 0 clamp(1.25rem, 2vw, 1.5rem); /* 响应式内边距 */
     justify-content: flex-start;
     scroll-behavior: smooth;
 }
 
 .values-card {
-    width: clamp(260px, 18vw, 350px); 
-    height: clamp(260px, 18vw, 350px);
+    width: clamp(16rem, 18vw, 22rem); /* 响应式宽度 */
+    height: clamp(16rem, 18vw, 22rem); /* 响应式高度 */
     background-color: #FFF1E5;
-    padding: clamp(15px, 2vw, 24px) clamp(10px, 1.5vw, 16px);
-    border-radius: 16px;
+    padding: clamp(0.9rem, 2vw, 1.5rem) clamp(0.625rem, 1.5vw, 1rem); /* 响应式内边距 */
+    border-radius: clamp(1rem, 1.5vw, 1.25rem); /* 响应式圆角 */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.6rem) rgba(0, 0, 0, 0.05); /* 响应式阴影 */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -341,27 +346,27 @@ body::-webkit-scrollbar {
 }
 
 .values-icon {
-    width: clamp(80px, 5.2vw, 100px);
-    height: clamp(80px, 5.2vw, 100px);
-    margin-top: clamp(30px, 2vw, 40px);
+    width: clamp(5rem, 5.2vw, 6.25rem); /* 响应式宽度 */
+    height: clamp(5rem, 5.2vw, 6.25rem); /* 响应式高度 */
+    margin-top: clamp(1.875rem, 2vw, 2.5rem); /* 响应式上边距 */
 }
 
 .values-card h3 {
-    font-size: clamp(18px, 2vw, 38px);
+    font-size: clamp(1.125rem, 2vw, 2.375rem); /* 响应式字体大小 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
-    line-height: 140%;
+    line-height: 1.4;
     margin-bottom: 0;
 }
 
 .values-card p {
-    width: clamp(200px, 17vw, 320px);
-    font-size: clamp(12px, 1.1vw, 20px);
+    width: clamp(12.5rem, 17vw, 20rem); /* 响应式宽度 */
+    font-size: clamp(0.75rem, 1.1vw, 1.25rem); /* 响应式字体大小 */
     font-weight: normal;
     color: #888888;
-    line-height: 140%;
-    padding: 0 clamp(10px, 2vw, 28px);
-    margin-bottom: clamp(20px, 5vw, 40px);
+    line-height: 1.4;
+    padding: 0 clamp(0.625rem, 2vw, 1.75rem); /* 响应式内边距 */
+    margin-bottom: clamp(1.25rem, 5vw, 2.5rem); /* 响应式下边距 */
 }
 
 /* ===========================================
@@ -369,7 +374,7 @@ body::-webkit-scrollbar {
    =========================================== */
 .timeline-section {
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
-    padding: 80px 20px;
+    padding: clamp(4rem, 6vw, 5rem) clamp(1.25rem, 2vw, 1.5rem); /* 响应式内边距 */
     position: relative;
     height: 130vh;
     display: flex;
@@ -380,31 +385,31 @@ body::-webkit-scrollbar {
 
 .timeline-section h1 {
     text-align: center;
-    font-size: clamp(20px, 2.6vw, 50px);
+    font-size: clamp(1.25rem, 2.6vw, 3.125rem); /* 响应式字体大小 */
     color: white; /* 直接使用白色文字 */
-    margin-bottom: clamp(10px, 1.6vw, 30px);
-    margin-top: clamp(10px, 3.2vw, 60px);
+    margin-bottom: clamp(0.625rem, 1.6vw, 1.875rem); /* 响应式下边距 */
+    margin-top: clamp(0.625rem, 3.2vw, 3.75rem); /* 响应式上边距 */
     position: relative;
     font-weight: 700;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4); /* 阴影加在文字上 */
+    letter-spacing: clamp(0.1rem, 0.2vw, 0.15rem); /* 响应式字母间距 */
+    text-shadow: clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.3rem, 0.5vw, 0.4rem) rgba(0, 0, 0, 0.4); /* 响应式阴影 */
 }
 
 .timeline-nav {
     position: relative;
-    margin-bottom: -60px;
-    padding: 0 100px;
+    margin-bottom: clamp(-3rem, -4vw, -4rem); /* 响应式下边距 */
+    padding: 0 clamp(6rem, 8vw, 6.25rem); /* 响应式内边距 */
     width: 100%;
-    max-width: 800px;
+    max-width: clamp(40rem, 50vw, 50rem); /* 响应式最大宽度 */
 }
 
 /* 主时间线 */
 .timeline-line {
     position: absolute;
     top: 50%;
-    left: 100px;
-    right: 100px;
-    height: 5px;
+    left: clamp(6rem, 8vw, 6.25rem); /* 响应式左边距 */
+    right: clamp(6rem, 8vw, 6.25rem); /* 响应式右边距 */
+    height: clamp(0.25rem, 0.4vw, 0.35rem); /* 响应式高度 */
     background: linear-gradient(90deg, 
         #FFD1A1 0%,     
         #FFB84D 25%,    
@@ -412,9 +417,9 @@ body::-webkit-scrollbar {
         #FF7A00 75%,    
         #FF5C00 100%);  
     transform: translateY(-50%);
-    border-radius: 2.5px;
+    border-radius: clamp(0.15rem, 0.25vw, 0.2rem); /* 响应式圆角 */
     z-index: 1;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.3rem) clamp(0.25rem, 0.4vw, 0.3rem) rgba(0, 0, 0, 0.1); /* 响应式阴影 */
 }
 
 .timeline-line::before {
@@ -438,10 +443,10 @@ body::-webkit-scrollbar {
 
 .timeline-nav {
     position: relative;
-    margin: 0 auto clamp(10px, 2.1vw, 40px) auto;
+    margin: 0 auto clamp(0.625rem, 2.1vw, 2.5rem) auto; /* 响应式边距 */
     width: 100%;
-    max-width: 800px;
-    height: clamp(10px, 6.25vw, 120px);
+    max-width: clamp(40rem, 50vw, 50rem); /* 响应式最大宽度 */
+    height: clamp(0.625rem, 6.25vw, 7.5rem); /* 响应式高度 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -450,7 +455,7 @@ body::-webkit-scrollbar {
 .timeline-scroll-container {
     position: relative;
     width: 100%;
-    height: clamp(10px, 4.2vw, 80px);
+    height: clamp(0.625rem, 4.2vw, 5rem); /* 响应式高度 */
     overflow: hidden;
     mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
     -webkit-mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
@@ -461,12 +466,12 @@ body::-webkit-scrollbar {
     top: 50%;
     left: 0;
     right: 0;
-    height: clamp(2px, 0.21vw, 4px);
+    height: clamp(0.125rem, 0.21vw, 0.25rem); /* 响应式高度 */
     background: white;
     transform: translateY(-50%);
-    border-radius: 2px;
+    border-radius: clamp(0.1rem, 0.15vw, 0.15rem); /* 响应式圆角 */
     z-index: 1;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.3rem) clamp(0.25rem, 0.4vw, 0.3rem) rgba(0, 0, 0, 0.1); /* 响应式阴影 */
 }
 
 .timeline-track::before {
@@ -502,14 +507,14 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 120px;
+    min-width: clamp(7rem, 8vw, 7.5rem); /* 响应式最小宽度 */
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .timeline-bullet {
-    width: clamp(30px, 2.6vw, 50px);
-    height: clamp(30px, 2.6vw, 50px);
+    width: clamp(1.875rem, 2.6vw, 3.125rem); /* 响应式宽度 */
+    height: clamp(1.875rem, 2.6vw, 3.125rem); /* 响应式高度 */
     border-radius: 50%;
     background: rgb(204, 198, 198);
     color: #666;
@@ -517,21 +522,21 @@ body::-webkit-scrollbar {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: clamp(10px, 0.8vw, 16px);
+    font-size: clamp(0.625rem, 0.8vw, 1rem); /* 响应式字体大小 */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 clamp(0.125rem, 0.2vw, 0.15rem) clamp(0.25rem, 0.4vw, 0.3rem) rgba(0, 0, 0, 0.1); /* 响应式阴影 */
 }
 
 .timeline-item.active .timeline-bullet {
     background: rgb(255, 255, 255);
     color: #ff5c00;
     transform: scale(1.2);
-    box-shadow: 0 6px 12px rgba(255, 92, 0, 0.3);
+    box-shadow: 0 clamp(0.375rem, 0.6vw, 0.5rem) clamp(0.75rem, 1.2vw, 1rem) rgba(255, 92, 0, 0.3); /* 响应式阴影 */
 }
 
 .timeline-item:hover .timeline-bullet {
     transform: scale(1.1);
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 clamp(0.375rem, 0.6vw, 0.5rem) clamp(0.375rem, 0.6vw, 0.5rem) rgba(0, 0, 0, 0.2); /* 响应式阴影 */
 }
 
 .timeline-item.active:hover .timeline-bullet {
@@ -549,20 +554,20 @@ body::-webkit-scrollbar {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: clamp(20px, 2.1vw, 40px);
-    height: clamp(20px, 2.1vw, 40px);
+    width: clamp(1.25rem, 2.1vw, 2.5rem); /* 响应式宽度 */
+    height: clamp(1.25rem, 2.1vw, 2.5rem); /* 响应式高度 */
     background: rgba(161, 159, 159, 0.788);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #333;
-    font-size: clamp(20px, 1.7vw, 32px);
+    font-size: clamp(1.25rem, 1.7vw, 2rem); /* 响应式字体大小 */
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10;
-    border: clamp(1px, 0.15vw, 2px) solid rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
+    border: clamp(0.05rem, 0.15vw, 0.125rem) solid rgba(255, 255, 255, 0.5); /* 响应式边框 */
+    backdrop-filter: blur(clamp(0.5rem, 1vw, 0.75rem)); /* 响应式模糊 */
     user-select: none;
     font-family: Arial, sans-serif;
     font-size: 0;
@@ -580,12 +585,12 @@ body::-webkit-scrollbar {
 }
 
 .nav-arrow.prev::before {
-    border-width: 5px 7px 5px 0;
+    border-width: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.6vw, 0.5rem) clamp(0.3rem, 0.5vw, 0.4rem) 0; /* 响应式边框宽度 */
     border-color: transparent #333 transparent transparent;
 }
 
 .nav-arrow.next::before {
-    border-width: 5px 0 5px 7px;
+    border-width: clamp(0.3rem, 0.5vw, 0.4rem) 0 clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.6vw, 0.5rem); /* 响应式边框宽度 */
     border-color: transparent transparent transparent #333;
 }
 
@@ -593,7 +598,7 @@ body::-webkit-scrollbar {
     background: white;
     color: #2c3e50;
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 clamp(0.5rem, 1vw, 0.75rem) clamp(1.25rem, 2vw, 1.5rem) rgba(255, 215, 0, 0.3); /* 响应式阴影 */
 }
 
 .nav-arrow:hover::before {
@@ -605,11 +610,11 @@ body::-webkit-scrollbar {
 }
 
 .nav-arrow.prev {
-    left: 40px;
+    left: clamp(2.5rem, 4vw, 2.75rem); /* 响应式左边距 */
 }
 
 .nav-arrow.next {
-    right: 40px;
+    right: clamp(2.5rem, 4vw, 2.75rem); /* 响应式右边距 */
 }
 
 .nav-arrow.disabled {
@@ -621,16 +626,16 @@ body::-webkit-scrollbar {
 .timeline-content-container {
     position: relative;
     width: 100%;
-    max-width: 1600px;
-    height: 1000px;
+    max-width: clamp(80rem, 100vw, 100rem); /* 响应式最大宽度 */
+    height: clamp(50rem, 60vw, 62.5rem); /* 响应式高度 */
     overflow: hidden;
-    perspective: 1000px;
+    perspective: clamp(50rem, 60vw, 62.5rem); /* 响应式透视 */
 }
 
 .timeline-cards-wrapper {
     position: relative;
     width: 100%;
-    height: clamp(500px, 33vw, 630px);
+    height: clamp(31.25rem, 33vw, 39.375rem); /* 响应式高度 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -638,11 +643,11 @@ body::-webkit-scrollbar {
 
 .timeline-content-item {
     position: absolute;
-    width: clamp(600px, 45vw, 850px);
-    height: clamp(230px, 19vw, 350px);
+    width: clamp(37.5rem, 45vw, 53.125rem); /* 响应式宽度 */
+    height: clamp(14.375rem, 19vw, 21.875rem); /* 响应式高度 */
     transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-    margin-top: -250px;
+    margin-top: clamp(-15rem, -18vw, -16rem); /* 响应式上边距 */
 }
 
 .timeline-content-item.active {
@@ -652,13 +657,13 @@ body::-webkit-scrollbar {
 }
 
 .timeline-content-item.prev {
-    transform: translateX(-280px) scale(0.80);
+    transform: translateX(clamp(-17.5rem, -20vw, -18.75rem)) scale(0.80); /* 响应式变换 */
     z-index: 1;
     opacity: 0.8;
 }
 
 .timeline-content-item.next {
-    transform: translateX(280px) scale(0.80);
+    transform: translateX(clamp(17.5rem, 20vw, 18.75rem)) scale(0.80); /* 响应式变换 */
     z-index: 1;
     opacity: 0.8;
 }
@@ -671,45 +676,45 @@ body::-webkit-scrollbar {
 
 /* 堆叠隐藏的卡片 - 隐藏在中间卡片后面 */
 .timeline-content-item.stack-hidden {
-    transform: translateX(0) scale(0.95) translateZ(-50px);
+    transform: translateX(0) scale(0.95) translateZ(clamp(-3rem, -4vw, -3.5rem)); /* 响应式变换 */
     z-index: 1;
     opacity: 0.3;
 }
 
 /* 为堆叠效果添加轻微的随机偏移 */
 .timeline-content-item.stack-hidden:nth-child(4n) {
-    transform: translateX(-5px) scale(0.94) translateZ(-60px) rotate(-0.5deg);
+    transform: translateX(clamp(-0.3rem, -0.4vw, -0.35rem)) scale(0.94) translateZ(clamp(-3.5rem, -4.5vw, -4rem)) rotate(-0.5deg); /* 响应式变换 */
 }
 
 .timeline-content-item.stack-hidden:nth-child(4n+1) {
-    transform: translateX(5px) scale(0.93) translateZ(-70px) rotate(0.5deg);
+    transform: translateX(clamp(0.3rem, 0.4vw, 0.35rem)) scale(0.93) translateZ(clamp(-4rem, -5vw, -4.5rem)) rotate(0.5deg); /* 响应式变换 */
 }
 
 .timeline-content-item.stack-hidden:nth-child(4n+2) {
-    transform: translateX(-3px) scale(0.92) translateZ(-80px) rotate(-0.3deg);
+    transform: translateX(clamp(-0.2rem, -0.3vw, -0.25rem)) scale(0.92) translateZ(clamp(-4.5rem, -5.5vw, -5rem)) rotate(-0.3deg); /* 响应式变换 */
 }
 
 .timeline-content-item.stack-hidden:nth-child(4n+3) {
-    transform: translateX(3px) scale(0.91) translateZ(-90px) rotate(0.3deg);
+    transform: translateX(clamp(0.2rem, 0.3vw, 0.25rem)) scale(0.91) translateZ(clamp(-5rem, -6vw, -5.5rem)) rotate(0.3deg); /* 响应式变换 */
 }
 
 .timeline-content {
     display: flex;
-    gap: clamp(10px, 2.1vw, 40px);
+    gap: clamp(0.625rem, 2.1vw, 2.5rem); /* 响应式间距 */
     align-items: center;
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 1), 
         rgba(255, 255, 255, 1));
-    padding: clamp(20px, 2.1vw, 40px);
-    border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: clamp(1.25rem, 2.1vw, 2.5rem); /* 响应式内边距 */
+    border-radius: clamp(1.5rem, 2vw, 1.75rem); /* 响应式圆角 */
+    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(255, 255, 255, 0.3); /* 响应式边框 */
     box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.1),
-        0 0 0 1px rgba(255, 255, 255, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 clamp(1.25rem, 2.5vw, 2rem) clamp(2.5rem, 4vw, 3rem) rgba(0, 0, 0, 0.1), /* 响应式阴影 */
+        0 0 0 clamp(0.05rem, 0.1vw, 0.08rem) rgba(255, 255, 255, 0.05),
+        inset 0 clamp(0.05rem, 0.1vw, 0.08rem) 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(clamp(0.5rem, 1vw, 0.75rem)); /* 响应式模糊 */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -729,35 +734,35 @@ body::-webkit-scrollbar {
 
 .timeline-image {
     flex: 1;
-    max-width: 350px;
+    max-width: clamp(20rem, 25vw, 22rem); /* 响应式最大宽度 */
     position: relative;
     z-index: 1;
 }
 
 .timeline-image img {
     width: 100%;
-    height: clamp(200px, 16vw, 300px);
+    height: clamp(12.5rem, 16vw, 18.75rem); /* 响应式高度 */
     object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    border-radius: clamp(0.9rem, 1.2vw, 1rem); /* 响应式圆角 */
+    box-shadow: 0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(0, 0, 0, 0.2); /* 响应式阴影 */
     transition: all 0.4s ease;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: clamp(0.1rem, 0.15vw, 0.15rem) solid rgba(255, 255, 255, 0.1); /* 响应式边框 */
 }
 
 .timeline-text {
     flex: 1;
-    max-width: 500px;
+    max-width: clamp(25rem, 35vw, 31.25rem); /* 响应式最大宽度 */
     position: relative;
     z-index: 1;
 }
 
 .timeline-text h3 {
-    font-size: clamp(14px, 1.2vw, 26px);
+    font-size: clamp(0.875rem, 1.2vw, 1.625rem); /* 响应式字体大小 */
     background: #ff5c00;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 20px;
+    margin-bottom: clamp(1.25rem, 1.5vw, 1.5rem); /* 响应式下边距 */
     position: relative;
     font-weight: 700;
     line-height: 1.2;
@@ -766,30 +771,30 @@ body::-webkit-scrollbar {
 .timeline-text h3::after {
     content: '';
     position: absolute;
-    bottom: -12px;
+    bottom: clamp(-0.75rem, -1vw, -0.8rem); /* 响应式底部位置 */
     left: 0;
-    width: 100px;
-    height: 2px;
+    width: clamp(6rem, 8vw, 6.25rem); /* 响应式宽度 */
+    height: clamp(0.1rem, 0.15vw, 0.15rem); /* 响应式高度 */
     background: linear-gradient(90deg, #ff5c00, transparent);
 }
 
 .timeline-text p {
-    font-size: clamp(12px, 1vw, 16px);
+    font-size: clamp(0.75rem, 1vw, 1rem); /* 响应式字体大小 */
     color: #555;
     line-height: 1.6;
-    margin-bottom: 12px;
+    margin-bottom: clamp(0.75rem, 1vw, 0.8rem); /* 响应式下边距 */
 }
 
 .timeline-text .year-badge {
     display: inline-block;
-    padding: 4px 12px;
+    padding: clamp(0.25rem, 0.4vw, 0.3rem) clamp(0.75rem, 1vw, 0.8rem); /* 响应式内边距 */
     background: linear-gradient(135deg, #ff5c00, #ff8c00);
     color: white;
-    border-radius: 20px;
-    font-size: clamp(10px, 0.8vw, 14px);
+    border-radius: clamp(1.25rem, 1.5vw, 1.3rem); /* 响应式圆角 */
+    font-size: clamp(0.625rem, 0.8vw, 0.875rem); /* 响应式字体大小 */
     font-weight: 600;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 8px rgba(255, 92, 0, 0.3);
+    margin-bottom: clamp(0.9rem, 1.2vw, 1rem); /* 响应式下边距 */
+    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.3rem) clamp(0.5rem, 0.8vw, 0.6rem) rgba(255, 92, 0, 0.3); /* 响应式阴影 */
 }
 
 /* 侧边卡片点击效果 */
@@ -803,19 +808,19 @@ body::-webkit-scrollbar {
    =========================================== */
 .social-sidebar {
     position: fixed;
-    right: 20px;
-    bottom: 20px;
+    right: clamp(1.25rem, 2vw, 1.5rem); /* 响应式位置 */
+    bottom: clamp(1.25rem, 2vw, 1.5rem); /* 响应式位置 */
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: clamp(0.75rem, 1vw, 1rem); /* 响应式间距 */
     z-index: 1000;
     animation: pulse 4s ease-in-out infinite;
 }
 
 .social-icon {
-    width: clamp(36px, 2.24vw, 43px);
-    height: clamp(36px, 2.24vw, 43px);
-    border-radius: 12px;
+    width: clamp(2.25rem, 2.24vw, 2.7rem); /* 响应式尺寸 */
+    height: clamp(2.25rem, 2.24vw, 2.7rem); /* 响应式尺寸 */
+    border-radius: clamp(0.6rem, 1vw, 0.8rem); /* 响应式圆角 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -824,8 +829,8 @@ body::-webkit-scrollbar {
     position: relative;
     overflow: hidden;
     background: rgba(0, 0, 0, .3);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, .2);
+    backdrop-filter: blur(clamp(0.6rem, 1vw, 0.8rem)); /* 响应式模糊 */
+    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(0, 0, 0, .2); /* 响应式边框 */
 }
 
 .social-icon::before {
@@ -857,21 +862,21 @@ body::-webkit-scrollbar {
 }
 
 .social-icon:hover::after {
-    width: 20px;
-    height: 20px;
+    width: clamp(1rem, 1.5vw, 1.3rem); /* 响应式尺寸 */
+    height: clamp(1rem, 1.5vw, 1.3rem); /* 响应式尺寸 */
 }
 
 .social-icon:hover {
-    transform: translateY(-5px) translateX(-3px) rotateY(5deg) scale(1.1);
+    transform: translateY(clamp(-0.3rem, -0.5vw, -0.4rem)) translateX(clamp(-0.2rem, -0.3vw, -0.25rem)) rotateY(5deg) scale(1.1); /* 响应式变换 */
     box-shadow: 
-        0 15px 30px rgba(0,0,0,0.4),
-        0 0 0 4px rgba(0, 0, 0, 0.1),
-        0 0 0 8px rgba(0, 0, 0, 0.05);
+        0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(0,0,0,0.4), /* 响应式阴影 */
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(0, 0, 0, 0.1),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.3);
 }
 
 .social-icon:active {
-    transform: translateY(-4px) scale(1.05);
+    transform: translateY(clamp(-0.25rem, -0.4vw, -0.3rem)) scale(1.05); /* 响应式变换 */
 }
 
 .facebook:hover {
@@ -879,9 +884,9 @@ body::-webkit-scrollbar {
         rgba(24, 119, 242, 0.9), 
         rgba(24, 119, 242, 0.7));
     box-shadow: 
-        0 15px 30px rgba(24, 119, 242, 0.4),
-        0 0 0 4px rgba(24, 119, 242, 0.2),
-        0 0 0 8px rgba(24, 119, 242, 0.1);
+        0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(24, 119, 242, 0.4), /* 响应式阴影 */
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(24, 119, 242, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(24, 119, 242, 0.1);
 }
 
 .instagram:hover {
@@ -889,9 +894,9 @@ body::-webkit-scrollbar {
         rgba(225, 48, 108, 0.9), 
         rgba(255, 119, 0, 0.7));
     box-shadow: 
-        0 15px 30px rgba(225, 48, 108, 0.4),
-        0 0 0 4px rgba(225, 48, 108, 0.2),
-        0 0 0 8px rgba(225, 48, 108, 0.1);
+        0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(225, 48, 108, 0.4), /* 响应式阴影 */
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(225, 48, 108, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(225, 48, 108, 0.1);
 }
 
 .whatsapp:hover {
@@ -899,15 +904,15 @@ body::-webkit-scrollbar {
         rgba(37, 211, 102, 0.9), 
         rgba(37, 211, 102, 0.7));
     box-shadow: 
-        0 15px 30px rgba(37, 211, 102, 0.4),
-        0 0 0 4px rgba(37, 211, 102, 0.2),
-        0 0 0 8px rgba(37, 211, 102, 0.1);
+        0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(37, 211, 102, 0.4), /* 响应式阴影 */
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(37, 211, 102, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(37, 211, 102, 0.1);
 }
 
 .social-icon img {
-    width: clamp(35px, 2.2vw, 42px);
-    height: clamp(35px, 2.2vw, 42px);
-    filter: grayscale(100%) brightness(0.7) drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    width: clamp(2.2rem, 2.2vw, 2.6rem); /* 响应式尺寸 */
+    height: clamp(2.2rem, 2.2vw, 2.6rem); /* 响应式尺寸 */
+    filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.05rem, 0.1vw, 0.08rem) clamp(0.1rem, 0.15vw, 0.15rem) rgba(0,0,0,0.5)); /* 响应式阴影 */
     transition: all 0.4s ease;
     z-index: 2;
     position: relative;
@@ -916,7 +921,7 @@ body::-webkit-scrollbar {
 
 .social-icon:hover img {
     transform: scale(1.15) rotateZ(-3deg);
-    filter: grayscale(0%) brightness(1) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    filter: grayscale(0%) brightness(1) drop-shadow(0 clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.2rem, 0.3vw, 0.3rem) rgba(0,0,0,0.6)); /* 响应式阴影 */
     opacity: 1; /* 悬停时完全不透明 */
 }
 
@@ -934,18 +939,18 @@ body::-webkit-scrollbar {
    =========================================== */
 .page-indicator {
     position: fixed;
-    left: 30px;
+    left: clamp(1.875rem, 2.5vw, 2rem); /* 响应式位置 */
     top: 50%;
     transform: translateY(-50%);
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 15px 8px;
+    gap: clamp(0.625rem, 1vw, 0.75rem); /* 响应式间距 */
+    padding: clamp(0.9rem, 1.2vw, 1rem) clamp(0.5rem, 0.8vw, 0.6rem); /* 响应式内边距 */
     background: rgba(50, 50, 50, 0.3);
-    border-radius: 25px;
-    backdrop-filter: blur(12px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: clamp(1.5rem, 2vw, 1.75rem); /* 响应式圆角 */
+    backdrop-filter: blur(clamp(0.6rem, 1vw, 0.8rem)) saturate(160%); /* 响应式模糊 */
+    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(255, 255, 255, .15); /* 响应式边框 */
     opacity: 0;
     transition: opacity .8s ease, transform .8s ease;
 }
@@ -955,11 +960,11 @@ body::-webkit-scrollbar {
 }
 
 .page-dot {
-    width: 2px;
-    height: 2px;
+    width: clamp(0.125rem, 0.15vw, 0.15rem); /* 响应式宽度 */
+    height: clamp(0.125rem, 0.15vw, 0.15rem); /* 响应式高度 */
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    border: clamp(0.125rem, 0.15vw, 0.15rem) solid rgba(255, 255, 255, 0.8); /* 响应式边框 */
     cursor: pointer;
     transition: all 0.4s ease;
     position: relative;
@@ -972,9 +977,9 @@ body::-webkit-scrollbar {
 }
 
 .page-dot.active {
-    width: 2px;
-    height: 24px;
-    border-radius: 6px;
+    width: clamp(0.125rem, 0.15vw, 0.15rem); /* 响应式宽度 */
+    height: clamp(1.5rem, 2vw, 1.75rem); /* 响应式高度 */
+    border-radius: clamp(0.35rem, 0.5vw, 0.4rem); /* 响应式圆角 */
     background-color: rgba(255, 255, 255, 1);
     border-color: rgba(255, 255, 255, 1);
 }
@@ -984,426 +989,10 @@ body::-webkit-scrollbar {
 }
 
 /* ===========================================
-   响应式设计
+   响应式设计 - 使用 clamp() 实现
    =========================================== */
-@media (max-width: 1280px) {
-    .aboutus-banner {
-        padding: 60px 20px 0 20px;
-        background-position: center top;
-    }
 
-    .aboutus-content h1 {
-        font-size: clamp(40px, 4vw, 50px);
-        margin-left: 90px;
-    }
-
-    .aboutus-content p {
-        font-size: clamp(12px, 1.1vw, 14px);
-        margin-left: 80px;
-    }
-
-    .aboutus-intro {
-        height: 316px;
-        padding-left: 20px;
-        padding-top: 10px;
-    }
-
-    .intro-content {
-        margin-left: 0px;
-    }
-
-    .intro-content h1 {
-        font-size: clamp(40px, 4vw, 50px);
-    }
-
-    .intro-content p {
-        font-size: clamp(10px, 1.1vw, 14px);
-    }
-
-    .vision {
-        height: auto;
-        padding: 51px;
-    }
-
-    .vision-content h1 {
-        font-size: clamp(20px, 3.65vw, 70px);
-        margin-bottom: 10px;
-        margin-top: -80px;
-    }
-
-    .vision-content p {
-        font-size: clamp(10px, 1.04vw, 20px);
-        margin-top: 0px;
-        margin-bottom: 40px;
-    }
-
-    .vision-cards {
-        flex-wrap: nowrap;
-        gap: 30px;
-        padding: 0;
-    }
-
-    .vision-card {
-        width: clamp(320px, 40vw, 800px);
-        height: clamp(180px, 21vw, 400px);
-        padding: 12px;
-    }
-
-    .vision-label {
-        font-size: clamp(16px, 1.9vw, 36px);
-        margin: clamp(10px, 1.7vw, 32px) 10px 10px;
-        width: auto;
-    }
-
-    .vision-card h2 {
-        font-size: clamp(16px, 1.9vw, 36px);
-    }
-
-    .vision-card p {
-        font-size: clamp(6px, 1.25vw, 24px);
-    }
-
-    .values-title {
-        font-size: clamp(20px, 3.65vw, 70px);
-        margin-top: 0;
-        margin-bottom: clamp(12px, 2vh, 24px);
-    }
-
-    .values-description {
-        font-size: clamp(10px, 1.04vw, 20px);
-        margin-bottom: 0;
-    }
-
-    .values-bottom { 
-        gap: 15px;  
-    }
-
-    .values-card {
-        width: clamp(160px, 22vw, 300px);
-        height: clamp(160px, 22vw, 300px);
-        padding: clamp(16px, 3vw, 24px);
-    }
-
-    .values-icon {
-        width: clamp(50px, 6vw, 120px);
-        height: clamp(50px, 6vw, 120px);
-        margin-top: clamp(20px, 3vw, 40px);
-    }
-
-    .values-card h3 {
-        font-size: clamp(16px, 2vw, 28px);
-    }
-
-    .values-card p {
-        width: clamp(150px, 16vw, 240px);
-        font-size: clamp(12px, 1.2vw, 18px);
-        padding: 0 clamp(8px, 2vw, 24px);
-        margin-bottom: clamp(16px, 4vw, 32px);
-    }
-
-    .timeline-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .timeline-content-item {
-        width: 90%;
-    }
-
-    .page-indicator {
-        left: 16px;
-        padding: 12px 6px;
-        gap: 8px;
-        border-radius: 20px;
-    }
-    
-    .page-dot {
-        width: 3px;
-        height: 3px;
-        border: 1.5px solid rgba(255, 255, 255, 0.8);
-    }
-    
-    .page-dot:hover {
-        transform: scale(1.25);
-    }
-    
-    .page-dot.active {
-        width: 3px;
-        height: 20px;
-        border-radius: 5px;
-    }
-    
-    .page-dot.active:hover {
-        transform: scale(1.1);
-    }
-
-    .social-sidebar {
-        right: 15px;
-        bottom: 15px;
-        gap: 10px;
-    }
-            
-    .social-icon {
-        width: clamp(28px, 3vw, 38px);
-        height: clamp(28px, 3vw, 38px);
-        border-radius: 10px;
-    }
-
-    .social-icon svg {
-        width: clamp(18px, 2vw, 24px);
-        height: clamp(18px, 2vw, 24px);
-    }
-
-    .social-icon:hover {
-        transform: translateY(-4px) scale(1.08);
-    }
-}
-
-@media (max-width: 768px) {
-    .aboutus-banner {
-        padding: 60px 40px 0 0px;
-        height: 150px;
-        background-position: center top;
-    }
-
-    .aboutus-content {
-        transform: translateY(-40px);
-        margin-top: 40px;
-    }
-
-    .aboutus-content h1 {
-        font-size: 28px;
-    }
-
-    .aboutus-content p {
-        font-size: 7px;
-    }
-
-    .aboutus-intro {
-        height: 180px;
-        padding: 80px 40px;
-        box-sizing: border-box;
-    }
-
-    .intro-content h1 {
-        font-size: 28px;
-        margin-left: 48px;
-    }
-
-    .intro-content p {
-        font-size: 7px;
-        line-height: 160%;
-        margin-left: 48px;
-    }
-
-    .vision {
-        height: auto;
-        padding: 40px;
-        flex-direction: column;
-    }
-
-    .vision-cards {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .vision-card {
-        width: calc(100% - 80px);
-        max-width: 600px;
-        height: auto;
-        padding: 16px 24px;
-        margin: 0 40px;
-        box-sizing: border-box;
-    }
-
-    .vision-label {
-        width: auto;
-        font-size: clamp(14px, 2.5vw, 20px);
-        margin: 8px 10px;
-    }
-
-    .vision-content h1 {
-        font-size: clamp(20px, 3.5vw, 28px);
-    }
-
-    .vision-content p {
-        font-size: clamp(7px, 1.5vw, 10px);
-    }
-
-    .vision-card h2 {
-        font-size: clamp(18px, 3vw, 20px);
-    }
-
-    .vision-card p {
-        font-size: clamp(7px, 1.5vw, 10px);
-    }
-
-    .values-bottom {
-        grid-template-columns: 1fr;
-        max-width: 350px;
-    }
-
-    .timeline-section {
-        padding: 15px;
-    }
-
-    .timeline-content-item {
-        width: 95%;
-    }
-
-    .nav-arrow {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
-    }
-
-    .nav-arrow::before {
-        border-width: 7px 9px 7px 0;
-    }
-
-    .nav-arrow.next::before {
-        border-width: 7px 0 7px 9px;
-    }
-
-    .nav-arrow.prev {
-        left: 10px;
-    }
-
-    .nav-arrow.next {
-        right: 10px;
-    }
-
-    .page-indicator {
-        display: none;
-    }
-}
-
-/* Timeline 专用响应式样式 */
-@media (max-width: 1280px) {
-    .timeline-section h1 {
-      margin-bottom: clamp(10px, 1.6vw, 30px);
-      margin-top: 0;
-    }
-
-    .timeline-content-item {
-      width: 700px;
-    }
-
-    .timeline-content-item {
-      width: clamp(400px, 45vw, 600px);
-      height: clamp(180px, 20vw, 300px);
-    }
-
-    .timeline-content {
-      padding: clamp(10px, 2vw, 40px) clamp(10px, 2.1vw, 40px);
-    }
-
-    .timeline-cards-wrapper {
-      height: clamp(500px, 40vw, 600px);
-    }
-
-    .timeline-bullet {
-      width: clamp(25px, 2.4vw, 40px);
-      height: clamp(25px, 2.4vw, 40px);
-    }
-
-    .timeline-scroll-container {
-      width: 60%;
-      height: clamp(10px, 4.2vw, 80px);
-    }
-
-    .timeline-text .year-badge {
-      font-size: clamp(4px, 0.63vw, 8px);
-    }
-
-    .timeline-image img {
-      width: 100%;
-      height: clamp(140px, 13vw, 250px);
-    }
-
-    .timeline-text h3 {
-      font-size: clamp(10px, 1.15vw, 22px);
-      margin-bottom: 20px;
-    }
-
-    .timeline-text p {
-      font-size: clamp(8px, 0.85vw, 16px);
-    }
-            
-    .timeline-content-item.prev {
-      transform: translateX(clamp(-200px, -16vw, -300px)) scale(0.8) rotateY(10deg);
-    }
-            
-    .timeline-content-item.next {
-      transform: translateX(clamp(200px, 16vw, 300px)) scale(0.8) rotateY(-10deg);
-    }
-
-    .nav-arrow.prev {
-      left: 200px;
-    }
-
-    .nav-arrow.next {
-      right: 200px;
-    }
-}
-
-@media (max-width: 768px) {
-    .timeline-section {
-        padding: 30px 15px;
-        height: auto;
-        min-height: 100vh;
-    }
-
-    .timeline-content-item {
-        width: 320px;
-        height: 400px;
-    }
-
-    .timeline-content-item.prev {
-        transform: translateX(-180px) scale(0.7);
-    }
-            
-    .timeline-content-item.next {
-        transform: translateX(180px) scale(0.7);
-    }
-
-    .timeline-content {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .timeline-image {
-        max-width: 100%;
-    }
-
-    .timeline-image img {
-        height: 180px;
-    }
-
-    .nav-arrow {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-        font-size: 0;
-        color: transparent;
-    }
-
-    .nav-arrow::before {
-        border-width: 7px 9px 7px 0;
-    }
-
-    .nav-arrow.next::before {
-        border-width: 7px 0 7px 9px;
-    }
-
-    .nav-arrow.prev {
-        left: 10px;
-    }
-
-    .nav-arrow.next {
-        right: 10px;
-    }
-}
+/* Timeline 专用响应式样式 - 使用 clamp() 实现 */
 
 /* ===========================================
    背景图片优化
@@ -1422,7 +1011,7 @@ body::-webkit-scrollbar {
 /* 渐显向上动画 */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(clamp(1.5rem, 2vw, 2rem)); /* 响应式变换 */
   animation: fadeInUp 0.4s ease-out forwards;
 }
 
@@ -1447,7 +1036,7 @@ body::-webkit-scrollbar {
 /* 向左滑入动画 */
 .slide-in-left {
   opacity: 0 !important;
-  transform: translateX(-300px) !important;
+  transform: translateX(clamp(-15rem, -20vw, -20rem)) !important; /* 响应式变换 */
   transition: all 0.8s ease-out;
   animation: none !important;
 }
@@ -1477,7 +1066,7 @@ body::-webkit-scrollbar {
 /* 向右滑入动画 */
 .slide-in-right {
   opacity: 0 !important;
-  transform: translateX(300px) !important;
+  transform: translateX(clamp(15rem, 20vw, 20rem)) !important; /* 响应式变换 */
   transition: all 0.8s ease-out;
   animation: none !important;
 }
@@ -1552,14 +1141,14 @@ body::-webkit-scrollbar {
 /* values/图文进入特效 */
 .card-tilt-in-left {
   opacity: 0 !important;
-  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) translateX(clamp(-7rem, -8vw, -8rem)) rotateY(25deg) scale(0.9) !important; /* 响应式变换 */
   transform-origin: left center;
   transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .card-tilt-in-left.visible {
   opacity: 1 !important;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) translateX(0) rotateY(0deg) scale(1) !important; /* 响应式变换 */
 }
 
 /* 卡片单独延迟进入 */
@@ -1649,7 +1238,7 @@ body::-webkit-scrollbar {
 /* 右侧文字缩放滑入 */
 .text-zoom-in-right {
   opacity: 0 !important;
-  transform: translateX(100px) translateY(30px) scale(0.8) !important;
+  transform: translateX(clamp(6rem, 8vw, 6.25rem)) translateY(clamp(1.5rem, 2vw, 2rem)) scale(0.8) !important; /* 响应式变换 */
   transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -1673,7 +1262,7 @@ body::-webkit-scrollbar {
 /* 360度3D旋转进场 */
 .rotate-3d-full {
   opacity: 0 !important;
-  transform: perspective(1000px) rotateY(360deg) scale(0.6) !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(360deg) scale(0.6) !important; /* 响应式变换 */
   transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
   transform-origin: center;
   transform-style: preserve-3d;
@@ -1681,7 +1270,7 @@ body::-webkit-scrollbar {
 
 .rotate-3d-full.visible {
   opacity: 1 !important;
-  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(0deg) scale(1) !important; /* 响应式变换 */
 }
 
 .rotate-3d-full:not(.visible) { 
