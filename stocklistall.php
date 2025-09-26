@@ -436,23 +436,23 @@
         .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 14%; }  /* Total Price */
 
         .table-container {
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
-    border: 2px solid #583e04;
-    overflow: visible;
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 260px); /* 改为固定高度计算 */
-}
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
+            border: 2px solid #583e04;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh; /* 设置最大高度 */
+        }
 
         .table-scroll-container {
-    overflow-x: hidden;
-    overflow-y: auto;
-    flex: 1;
-    max-height: calc(100vh - 280px); /* 调整计算方式 */
-    position: relative;
-}
+            overflow-x: hidden;
+            overflow-y: auto;
+            flex: 1;
+            max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
+            position: relative;
+        }
 
         /* 操作按钮 */
         .action-buttons {
