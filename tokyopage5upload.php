@@ -208,12 +208,6 @@ $currentConfig = getTokyoLocationConfig();
             resize: vertical;
             font-family: inherit;
         }
-
-        @media (max-width: 1280px) {
-            .form-group textarea {
-                margin-bottom: 0px !important;
-            }
-        }
         
         .btn {
             background: #583e04;
