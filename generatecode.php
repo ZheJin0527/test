@@ -273,7 +273,7 @@
         /* 保持文本域独立高度 */
         #addUserModal .form-group textarea,
         #editUserModal .form-group textarea {
-            min-height: 60px !important;
+            min-height: 30px !important;
             height: auto !important;
         }
 
