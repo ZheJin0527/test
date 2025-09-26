@@ -17,9 +17,6 @@ $totalSlides = 6;
 include '../public/header.php';
 ?>
 
-<!-- 添加 footer 导入 -->
-<?php include '../public/footer.php'; ?>
-
 <div class="swiper">
   <div class="swiper-wrapper">
 
@@ -279,6 +276,8 @@ include '../public/header.php';
   </div>
 </section>
 </div>
+<!-- 添加 footer 导入 -->
+<?php include '../public/footer.php'; ?>
 </div>
 
 <div class="social-sidebar">
