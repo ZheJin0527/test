@@ -240,6 +240,7 @@ if (isset($_GET['success'])) {
             border-radius: clamp(4px, 0.42vw, 8px)!important;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px)!important;
             font-size: clamp(10px, 0.84vw, 16px)!important;
+            font-family: 'Inter', sans-serif !important;
             transition: all 0.3s ease!important;
         }
         
