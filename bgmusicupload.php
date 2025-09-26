@@ -246,7 +246,7 @@ function formatFileSize($bytes) {
         .file-input {
             border: 2px dashed #583e04;
             border-radius: 10px;
-            padding: 40px;
+            padding: clamp(20px, 2.08vw, 40px);
             text-align: center;
             background: #fff9f5;
             transition: all 0.3s ease;
@@ -291,7 +291,7 @@ function formatFileSize($bytes) {
         
         .info-item {
             background: white;
-            padding: 12px;
+            padding: clamp(8px, 0.63vw, 12px);
             border-radius: 6px;
             border: 1px solid #dee2e6;
         }

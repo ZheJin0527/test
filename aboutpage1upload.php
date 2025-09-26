@@ -169,7 +169,7 @@ if (file_exists('media_config.json')) {
         .file-input {
             border: 2px dashed #583e04;
             border-radius: 10px;
-            padding: 40px;
+            padding: clamp(20px, 2.08vw, 40px);
             text-align: center;
             background: #fff9f5;
             transition: all 0.3s ease;
