@@ -68,12 +68,12 @@ include '../public/header.php';
     <div class="comphoto-section" id="comphoto-container">
         <div class="comphoto-title">我们的足迹</div>
     </div>
-        <div id="comphoto-modal" class="comphoto-modal">
+        <!-- <div id="comphoto-modal" class="comphoto-modal">
             <span class="comphoto-close">&times;</span>
             <div class="comphoto-modal-content">
                 <img id="comphoto-modal-img" src="" alt="放大的照片">
             </div>
-        </div>
+        </div> -->
     </div>
 
 <div class="swiper-slide">
