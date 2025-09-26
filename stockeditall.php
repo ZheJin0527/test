@@ -1032,7 +1032,7 @@
         .export-modal h3 {
             margin: 0 0 20px 0;
             color: #1f2937;
-            font-size: 18px;
+            font-size: clamp(12px, 0.94vw, 18px);
             font-weight: 600;
         }
 
@@ -1045,16 +1045,16 @@
             margin-bottom: 6px;
             font-weight: 500;
             color: #374151;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         .export-form-group input,
         .export-form-group select {
             width: 100%;
-            padding: 10px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             transition: border-color 0.2s;
         }
 
