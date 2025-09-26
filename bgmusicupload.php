@@ -314,9 +314,11 @@ function formatFileSize($bytes) {
         }
         
         .audio-player audio {
-            width: 100%;
-            max-width: 500px;
-        }
+    width: 100%;
+    max-width: 500px;
+    transform: scale(clamp(0.6, 2vw, 1));
+    transform-origin: left center;
+}
         
         .btn {
             background: #583e04;
