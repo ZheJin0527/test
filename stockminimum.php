@@ -11,6 +11,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -41,7 +42,7 @@ session_start();
         }
 
         .header h1 {
-            font-size: clamp(20px, 2.6vw, 50px);
+            font-size: clamp(16px, 2.08vw, 40px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -186,7 +187,7 @@ session_start();
         }
 
         .table-header {
-            padding: 20px;
+            padding: clamp(10px, 1.04vw, 20px);
             background: #f9fafb;
             border-bottom: 1px solid #e5e7eb;
             display: flex;
@@ -227,10 +228,10 @@ session_start();
 
         .quantity-input {
             width: 100px;
-            padding: 6px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         .toggle-switch {
@@ -651,7 +652,7 @@ session_start();
                         <td>
                             <button class="btn btn-primary btn-sm" 
                                     onclick="saveIndividualSetting('${product.product_name}')"
-                                    style="padding: 4px 8px; font-size: 12px;">
+                                    style="padding: 4px 8px; font-size: clamp(8px, 0.63vw, 12px);">
                                 <i class="fas fa-save"></i>
                                 保存
                             </button>
