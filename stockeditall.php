@@ -25,7 +25,7 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             height: 100vh; /* 设置容器高度为视口高度 */
             display: flex;
             flex-direction: column;
@@ -36,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(22px, 1.67vw, 32px);
+            margin-bottom: clamp(18px, 1.67vw, 32px);
         }
         
         .header h1 {
@@ -154,11 +154,11 @@
         }
 
         .btn {
-            padding: 7px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -420,7 +420,7 @@
             font-weight: 500;
             color: #583e04;
             text-align: center;
-            min-width: 40px;
+            min-width: 28px;
         }
 
         /* 输入框容器样式 */
@@ -477,11 +477,10 @@
         /* 确保输入框和选择框填满单元格 */
         .table-input, .table-select {
             width: 100%;
-            height: 40px;
             border: none;
             background: transparent;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 8px 4px;
             transition: all 0.2s;
             box-sizing: border-box; /* 添加这行 */
@@ -491,11 +490,11 @@
         .currency-input-edit {
             text-align: right;
             padding: 8px 4px;
-            min-width: 60px;
+            min-width: 45px;
             font-weight: 500;
             border: none;
             background: transparent;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             box-sizing: border-box;
             vertical-align: middle;
             line-height: 24px;
@@ -557,7 +556,7 @@
             align-items: center;
             justify-content: center;
             gap: clamp(0px, 0.21vw, 4px);
-            padding: 8px 4px;
+            padding: 8px clamp(0px, 0.21vw, 4px);
             width: 100%;
             height: 20px;
             line-height: normal;
@@ -864,11 +863,10 @@
 
         .combobox-input {
             width: 100%;
-            height: 40px;
             border: none;
             background: transparent;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 8px 20px 8px 4px;
             transition: all 0.2s;
             box-sizing: border-box;
@@ -932,21 +930,6 @@
         .combobox-option.highlighted {
             background-color: #583e04;
             color: white;
-        }
-
-        /* 输入框样式优化 */
-        .combobox-input {
-            width: 100%;
-            height: 40px;
-            border: none;
-            background: transparent;
-            text-align: center;
-            font-size: 14px;
-            padding: 8px 20px 8px 4px;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            cursor: text;
-            ime-mode: disabled; /* 禁用输入法 */
         }
 
         .combobox-input:focus {
@@ -1021,40 +1004,43 @@
         }
 
         .export-modal-content {
+            position: fixed; /* 固定在屏幕 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 位移来居中 */
             background-color: white;
-            margin: 10% auto;
-            padding: 30px;
+            padding: clamp(20px, 1.56vw, 30px);
             border-radius: 12px;
-            width: 450px;
+            width: clamp(300px, 23.44vw, 450px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
 
         .export-modal h3 {
             margin: 0 0 20px 0;
             color: #1f2937;
-            font-size: 18px;
+            font-size: clamp(12px, 0.94vw, 18px);
             font-weight: 600;
         }
 
         .export-form-group {
-            margin-bottom: 16px;
+            margin-bottom: clamp(6px, 0.83vw, 16px);
         }
 
         .export-form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: clamp(2px, 0.32vw, 6px);
             font-weight: 500;
             color: #374151;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         .export-form-group input,
         .export-form-group select {
             width: 100%;
-            padding: 10px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             transition: border-color 0.2s;
         }
 
@@ -1084,10 +1070,10 @@
 
         .export-modal-actions {
             display: flex;
-            gap: 12px;
+            gap: clamp(6px, 0.63vw, 12px);
             justify-content: flex-end;
-            margin-top: 24px;
-            padding-top: 20px;
+            margin-top: clamp(14px, 1.25vw, 24px);
+            padding-top: clamp(10px, 1.04vw, 20px);
             border-top: 1px solid #e5e7eb;
         }
 
@@ -1116,16 +1102,52 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
+<<<<<<< HEAD
             padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
             font-size: clamp(10px, 0.73vw, 14px);
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            padding: 11px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+=======
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.84vw, 16px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
+=======
+            padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.73vw, 14px);
+>>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
+>>>>>>> main
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
+<<<<<<< HEAD
             width: clamp(90px, 6.77vw, 130px);
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            min-width: 130px;
+=======
+            width: clamp(90px, 6.77vw, 130px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
+=======
+            width: clamp(80px, 6.77vw, 130px);
+>>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
+>>>>>>> main
             justify-content: space-between;
             position: relative; /* 添加这个，因为下拉菜单需要 */
         }
@@ -1258,14 +1280,13 @@
 
         /* 通知基础样式 */
         .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            border-radius: 8px;
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -1314,7 +1335,7 @@
 
         /* 通知图标 */
         .toast-icon {
-            font-size: 18px;
+            font-size: clamp(14px, 0.94vw, 18px);
             flex-shrink: 0;
         }
 
@@ -1517,7 +1538,7 @@
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             flex-wrap: nowrap;
@@ -2840,12 +2861,12 @@
             return `
                 <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" ${disabled ? 'data-disabled="true"' : ''}>
                     <input type="text" class="table-input remark-prefix" value="${prefix}" placeholder="" 
-                        style="border: none; border-radius: 4px 0 0 4px; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: clamp(14px, 1.56vw, 30px; text-align: center; background: transparent; padding: 0px;" 
                         ${disabled ? 'disabled' : ''} 
                         onchange="updateRemarkNumber(${recordId})">
-                    <span style="padding: 0 2px; color: #6b7280; font-weight: bold;">-</span>
+                    <span style="padding: 0px; color: #6b7280; font-weight: bold;">-</span>
                     <input type="text" class="table-input remark-suffix" value="${suffix}" placeholder="" 
-                        style="border: none; border-radius: 0 4px 4px 0; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: clamp(16px, 1.56vw, 30px; text-align: center; background: transparent; padding: 0px;" 
                         ${disabled ? 'disabled' : ''} 
                         onchange="updateRemarkNumber(${recordId})">
                 </div>
@@ -2857,11 +2878,11 @@
             return `
                 <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" id="${rowId}-remark-wrapper" data-disabled="true">
                     <input type="text" class="table-input remark-prefix" placeholder="" 
-                        style="border: none; border-radius: 4px 0 0 4px; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: clamp(14px, 1.56vw, 30px); text-align: center; background: transparent; padding: 0px;" 
                         id="${rowId}-remark-prefix" disabled>
-                    <span style="padding: 0 2px; color: #6b7280; font-weight: bold;">-</span>
+                    <span style="padding: 0px; color: #6b7280; font-weight: bold;">-</span>
                     <input type="text" class="table-input remark-suffix" placeholder="" 
-                        style="border: none; border-radius: 0 4px 4px 0; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: clamp(16px, 1.56vw, 30px); text-align: center; background: transparent; padding: 0px;" 
                         id="${rowId}-remark-suffix" disabled>
                 </div>
             `;

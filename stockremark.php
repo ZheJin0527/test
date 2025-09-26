@@ -27,14 +27,14 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 23px 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
         }
         
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(22px, 1.67vw, 32px);
+            margin-bottom: clamp(18px, 1.67vw, 32px);
         }
         
         .header h1 {
@@ -112,7 +112,7 @@
             background: white;
             border-radius: 12px;
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
         }
@@ -215,7 +215,7 @@
         .product-group {
             background: white;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             overflow: hidden;
@@ -226,7 +226,7 @@
             background: #583e04;
             color: white;
             padding: 24px;
-            font-size: clamp(18px, 1.46vw, 28px);
+            font-size: clamp(16px, 1.46vw, 28px);
             font-weight: 600;
             display: flex;
             flex-direction: column;
@@ -415,11 +415,35 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
+<<<<<<< HEAD
             padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
             font-size: clamp(10px, 0.73vw, 14px);
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            padding: 11px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+=======
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.84vw, 16px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
+=======
+            padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.73vw, 14px);
+>>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
+>>>>>>> main
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -577,10 +601,10 @@
         /* 回到顶部按钮 */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            bottom: clamp(16px, 1.56vw, 30px);
+            right: clamp(12px, 1.04vw, 20px);
+            width: clamp(36px, 2.6vw, 50px);
+            height: clamp(36px, 2.6vw, 50px);
             background-color: #583e04;
             color: white;
             border: none;
@@ -589,7 +613,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: clamp(12px, 0.94vw, 18px);
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.3);
             transition: all 0.3s ease;
             opacity: 0;
@@ -638,14 +662,13 @@
 
         /* 通知基础样式 */
         .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            border-radius: 8px;
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -694,7 +717,7 @@
 
         /* 通知图标 */
         .toast-icon {
-            font-size: 18px;
+            font-size: clamp(14px, 0.94vw, 18px);
             flex-shrink: 0;
         }
 
@@ -768,7 +791,7 @@
         
         <!-- 搜索和过滤区域 -->
         <div class="filter-section">
-            <div style="display: flex; align-items: end; gap: 26px; margin-bottom: 16px;">
+            <div style="display: flex; align-items: end; gap: 26px; margin-bottom: clamp(10px, 0.83vw, 16px);">
                 <div class="filter-group" style="flex: 1;">
                     <label for="product-filter">货品名称</label>
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">

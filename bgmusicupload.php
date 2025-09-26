@@ -163,7 +163,7 @@ function formatFileSize($bytes) {
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             background: #f1dfbc;
             border-radius: 15px;
             overflow: hidden;
@@ -187,7 +187,7 @@ function formatFileSize($bytes) {
         }
         
         .breadcrumb {
-            padding: clamp(2px, 1.04vw, 20px) 0px 20px;
+            padding: clamp(2px, 1.04vw, 20px) 0px clamp(10px, 1.04vw, 20px);
             background: transparent;
         }
         
@@ -208,18 +208,18 @@ function formatFileSize($bytes) {
         .music-section {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: clamp(24px, 1.56vw, 30px);
+            padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
             border-left: 5px solid #583e04;
         }
         
         .music-section h2 {
             color: #333;
-            margin-bottom: 20px;
-            font-size: clamp(20px, 1.5vw, 28px);
+            margin-bottom: clamp(10px, 1.04vw, 20px);
+            font-size: clamp(16px, 1.5vw, 28px);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0px;
         }
         
         .music-icon {
@@ -228,7 +228,7 @@ function formatFileSize($bytes) {
         
         .upload-form {
             display: grid;
-            gap: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
         }
         
         .form-group {
@@ -442,8 +442,7 @@ function formatFileSize($bytes) {
             <span>背景音乐</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
+        <div class="content">  
             
             <?php if (isset($_GET['success']) && $_GET['success'] == '1'): ?>
                 <div class="alert alert-success">音乐文件上传成功！</div>

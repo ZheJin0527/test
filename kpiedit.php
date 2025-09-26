@@ -23,7 +23,7 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
         }
         
         .header {
@@ -266,7 +266,7 @@
         }
 
         .month-selector select {
-            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
+            padding: 8px 16px;
             border: 1px solid #d1d5db;
             border-radius: clamp(4px, 0.42vw, 8px);
             font-size: clamp(10px, 0.84vw, 16px);
@@ -775,6 +775,140 @@
             z-index: 5;
             position: relative;
         }
+
+        /* 通知容器 */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        /* 通知基础样式 */
+        .toast {
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-size: clamp(8px, 0.74vw, 14px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: auto;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.hide {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        /* 通知类型样式 */
+        .toast-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+            color: white;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .toast-error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
+            color: white;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .toast-info {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(37, 99, 235, 0.9));
+            color: white;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .toast-warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(217, 119, 6, 0.9));
+            color: white;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        /* 通知图标 */
+        .toast-icon {
+            font-size: clamp(14px, 0.94vw, 18px);
+            flex-shrink: 0;
+        }
+
+        /* 通知内容 */
+        .toast-content {
+            flex: 1;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* 关闭按钮 */
+        .toast-close {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 进度条 */
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 0 0 8px 8px;
+            transform-origin: left;
+            animation: toastProgress 4s linear forwards;
+        }
+
+        @keyframes toastProgress {
+            0% {
+                transform: scaleX(1);
+            }
+            100% {
+                transform: scaleX(0);
+            }
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .toast-container {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+            }
+            
+            .toast {
+                min-width: auto;
+                max-width: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -902,6 +1036,10 @@
             </table>
             </div>
         </div>
+    </div>
+
+    <div class="toast-container" id="toast-container">
+    <!-- 动态通知内容 -->
     </div>
 
     <script>
@@ -1179,6 +1317,81 @@
                 // 只在失去焦点时格式化
             }
         }
+
+        // 完全替换现有的 showAlert 函数
+        function showAlert(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            // 先检查并限制通知数量（在添加新通知之前）
+            const existingToasts = container.querySelectorAll('.toast');
+            while (existingToasts.length >= 3) {
+                closeToast(existingToasts[0].id);
+                // 立即从DOM移除，不等待动画
+                if (existingToasts[0].parentNode) {
+                    existingToasts[0].parentNode.removeChild(existingToasts[0]);
+                }
+                // 重新获取当前通知列表
+                existingToasts = container.querySelectorAll('.toast');
+            }
+
+            const toastId = 'toast-' + Date.now();
+            const iconClass = {
+                'success': 'fa-check-circle',
+                'error': 'fa-exclamation-circle', 
+                'info': 'fa-info-circle',
+                'warning': 'fa-exclamation-triangle'
+            }[type] || 'fa-check-circle';
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.id = toastId;
+            toast.innerHTML = `
+                <i class="fas ${iconClass} toast-icon"></i>
+                <div class="toast-content">${message}</div>
+                <button class="toast-close" onclick="closeToast('${toastId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="toast-progress"></div>
+            `;
+
+            container.appendChild(toast);
+
+            // 显示动画
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 0);
+
+            // 自动关闭
+            setTimeout(() => {
+                closeToast(toastId);
+            }, 700);
+        }
+
+        // 添加关闭通知的函数
+        function closeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        // 添加关闭所有通知的函数（可选）
+        function closeAllToasts() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(toast => {
+                closeToast(toast.id);
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initApp);
 
         // 设置行的只读状态
         function setRowReadonly(day, readonly) {
