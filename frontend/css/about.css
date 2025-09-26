@@ -70,6 +70,12 @@ body::-webkit-scrollbar {
 /* ===========================================
    About Us 部分样式
    =========================================== */
+.about-section {
+    background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
+    height: 100vh;
+    scroll-snap-align: start;
+}
+
 .aboutus-section {
     display: flex;
     flex-direction: column;
@@ -1309,6 +1315,34 @@ body::-webkit-scrollbar {
   }
 }
 
+/* 首页所有元素统一,延迟0.3秒后开始1.6s动画 */
+.home-content .scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+/* 装饰线条也使用相同的0.3秒延迟 */
+.home-content .decor-line.scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+/* 装饰线条使用相同的从中间放大效果 */
+.decor-line.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+.animate-on-scroll.visible .decor-line.scale-fade-in {
+  animation-play-state: running;
+}
+
+.animate-on-scroll:not(.visible) .decor-line.scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
 /* values/图文进入特效 */
 .card-tilt-in-left {
   opacity: 0 !important;
@@ -1363,6 +1397,156 @@ body::-webkit-scrollbar {
 
 .values-scale-fade:not(.visible) { 
   transition-delay: 0s !important; 
+}
+
+/* 为 values 标题和描述添加渐进延迟 */
+.values-scale-fade.delay-1.visible {
+  transition-delay: 0.1s !important;
+}
+
+.values-scale-fade.delay-2.visible {
+  transition-delay: 0.2s !important;
+}
+
+.values-scale-fade.delay-3.visible {
+  transition-delay: 0.3s !important;
+}
+
+.values-scale-fade.delay-4.visible {
+  transition-delay: 0.4s !important;
+}
+
+.values-scale-fade.delay-5.visible {
+  transition-delay: 0.5s !important;
+}
+
+.values-scale-fade.delay-6.visible {
+  transition-delay: 0.6s !important;
+}
+
+.values-scale-fade.delay-7.visible {
+  transition-delay: 0.7s !important;
+}
+
+.values-scale-fade.delay-8.visible {
+  transition-delay: 0.8s !important;
+}
+
+.values-scale-fade.delay-9.visible {
+  transition-delay: 0.9s !important;
+}
+
+.values-scale-fade.delay-10.visible {
+  transition-delay: 1.0s !important;
+}
+
+/* 右侧文字缩放滑入 */
+.text-zoom-in-right {
+  opacity: 0 !important;
+  transform: translateX(100px) translateY(30px) scale(0.8) !important;
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.text-zoom-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) translateY(0) scale(1) !important;
+}
+
+.text-zoom-in-right.delay-1 {
+  transition-delay: 0.3s;
+}
+
+.text-zoom-in-right.delay-2 {
+  transition-delay: 0.6s;
+}
+
+.text-zoom-in-right.delay-3 {
+  transition-delay: 0.9s;
+}
+
+/* 360度3D旋转进场 */
+.rotate-3d-full {
+  opacity: 0 !important;
+  transform: perspective(1000px) rotateY(360deg) scale(0.6) !important;
+  transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+.rotate-3d-full.visible {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+}
+
+.rotate-3d-full:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+.rotate-3d-full.delay-1 { transition-delay: 0.2s; }
+.rotate-3d-full.delay-2 { transition-delay: 0.4s; }
+.rotate-3d-full.delay-3 { transition-delay: 0.6s; }
+
+/* 向下滑入动画 */
+.fade-in-down {
+  opacity: 0 !important;
+  transform: translateY(-40px) !important;
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.fade-in-down.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.fade-in-down:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 缩放淡出动画 */
+.scale-out {
+  opacity: 0 !important;
+  transform: scale(0.3) !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: none !important;
+}
+
+.scale-out.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.scale-out:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 图片专用 3D 旋转特效 */
+img.image-3d-rotate,
+.image-3d-rotate img {
+  opacity: 0 !important;
+  transform: perspective(1000px) rotateY(-90deg) scale(1.4) !important;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.3s;
+  transform-origin: center;
+  border-radius: 8px;
+  animation: none !important;
+}
+
+img.image-3d-rotate.visible,
+.image-3d-rotate.visible img {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+}
+
+img.image-3d-rotate:not(.visible),
+.image-3d-rotate:not(.visible) img {
+  transition-delay: 0s !important;
+}
+
+img.image-3d-rotate:hover,
+.image-3d-rotate img:hover {
+  transform: perspective(1000px) rotateY(5deg) rotateX(5deg) scale(1.05) !important;
+  transition-delay: 0s !important;
 }
 
 /* Vision Content 从上面滑下特效 */
