@@ -189,7 +189,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .form-input {
-            padding: 12px 16px;
+            padding: clamp(6px, 0.63vw, 12px) clamp(8px, 0.83vw, 16px);
             border: 2px solid #e9ecef;
             border-radius: 8px;
             font-size: 1em;
@@ -204,7 +204,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .form-input.textarea {
-            min-height: 60px;
+            min-height: 40px;
             resize: vertical;
             font-family: inherit;
         }
@@ -219,7 +219,7 @@ $currentConfig = getTokyoLocationConfig();
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: clamp(10px, 1.04vw, 20px);
         }
         
         .btn:hover {
@@ -241,7 +241,7 @@ $currentConfig = getTokyoLocationConfig();
         
         .btn-add {
             background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-            margin-bottom: 20px;
+            margin-bottom: clamp(10px, 1.04vw, 20px);
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -328,8 +328,8 @@ $currentConfig = getTokyoLocationConfig();
             background: white;
             border: 2px solid #e9ecef;
             border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: clamp(15px, 1.3vw, 25px);
+            margin-bottom: clamp(10px, 1.04vw, 20px);
             position: relative;
         }
         
