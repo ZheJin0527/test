@@ -420,7 +420,7 @@
             font-weight: 500;
             color: #583e04;
             text-align: center;
-            min-width: 40px;
+            min-width: 28px;
         }
 
         /* 输入框容器样式 */
@@ -557,7 +557,7 @@
             align-items: center;
             justify-content: center;
             gap: clamp(0px, 0.21vw, 4px);
-            padding: 8px 4px;
+            padding: 8px clamp(0px, 0.21vw, 4px);
             width: 100%;
             height: 20px;
             line-height: normal;
