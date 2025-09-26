@@ -310,24 +310,19 @@ $avatarLetter = strtoupper($username[0]);
             justify-content: center;
         }
 
-        .number-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: clamp(2px, 0.4vw, 4px); /* 响应式间距 */
-        }
-
         .letter-item,
         .number-item,
         .number-item.total-option {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: clamp(20px, 1.8vw, 28px); /* 增加最小值 */
-            height: clamp(20px, 1.8vw, 28px); /* 增加最小值 */
+            width: clamp(14px, 1.25vw, 24px); /* 增加最小值 */
+            height: clamp(14px, 1.25vw, 24px); /* 增加最小值 */
             border: 1px solid #e5e7eb;
             background: white;
             color: #583e04;
             cursor: pointer;
-            font-size: clamp(10px, 0.9vw, 14px); /* 增加最小值 */
+            font-size: clamp(7px, 0.63vw, 12px); /* 增加最小值 */
             font-weight: 500;
             border-radius: 4px;
             transition: all 0.15s ease;
@@ -403,24 +398,8 @@ $avatarLetter = strtoupper($username[0]);
 
         .number-grid {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 2px;
-        }
-
-        .number-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: clamp(14px, 1.3vw, 28px);
-            height: clamp(14px, 1.3vw, 28px);
-            border: 1px solid #e5e7eb;
-            background: white;
-            color: #583e04;
-            cursor: pointer;
-            font-size: clamp(8px, 0.74vw, 14px);
-            font-weight: 500;
-            border-radius: 4px;
-            transition: all 0.15s ease;
         }
 
         .number-item:hover {
