@@ -481,7 +481,7 @@
             border: none;
             background: transparent;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 8px 4px;
             transition: all 0.2s;
             box-sizing: border-box; /* 添加这行 */
@@ -491,11 +491,11 @@
         .currency-input-edit {
             text-align: right;
             padding: 8px 4px;
-            min-width: 60px;
+            min-width: 45px;
             font-weight: 500;
             border: none;
             background: transparent;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             box-sizing: border-box;
             vertical-align: middle;
             line-height: 24px;
@@ -868,7 +868,7 @@
             border: none;
             background: transparent;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 8px 20px 8px 4px;
             transition: all 0.2s;
             box-sizing: border-box;
