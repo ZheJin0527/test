@@ -276,10 +276,10 @@ include '../public/header.php';
   </div>
 </section>
 </div>
-<!-- 添加 footer 导入 -->
-<?php include '../public/footer.php'; ?>
 </div>
 
+<!-- 添加 footer 导入 -->
+<?php include '../public/footer.php'; ?>
 <div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
