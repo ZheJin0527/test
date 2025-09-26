@@ -256,9 +256,9 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            width: clamp(240px, 17vw, 320px); /* 缩小最小值 */
-            min-width: 200px; /* 调整最小宽度 */
-            padding: clamp(8px, 0.84vw, 16px) 16px;
+            width: clamp(240px, 25vw, 320px); /* 调整响应式宽度 */
+            min-width: 200px;
+            padding: clamp(6px, 0.8vw, 16px) clamp(8px, 1vw, 16px); /* 响应式内边距 */
         }
 
         .restaurant-dropdown-menu.show {
@@ -289,10 +289,10 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .section-title {
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: clamp(10px, 0.9vw, 14px); /* 增加最小值 */
             font-weight: 600;
             color: #583e04;
-            margin-bottom: 8px;
+            margin-bottom: clamp(4px, 0.6vw, 8px); /* 响应式边距 */
             text-align: center;
         }
 
@@ -305,13 +305,14 @@ $avatarLetter = strtoupper($username[0]);
         .letter-grid {
             display: flex;
             flex-direction: row;
-            gap: 8px;
+            gap: clamp(4px, 0.8vw, 8px); /* 响应式间距 */
             align-items: center;
             justify-content: center;
         }
 
         .number-grid {
             grid-template-columns: repeat(3, 1fr);
+            gap: clamp(2px, 0.4vw, 4px); /* 响应式间距 */
         }
 
         .letter-item,
@@ -320,13 +321,13 @@ $avatarLetter = strtoupper($username[0]);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: clamp(14px, 1.3vw, 28px);
-            height: clamp(14px, 1.3vw, 28px);
+            width: clamp(20px, 1.8vw, 28px); /* 增加最小值 */
+            height: clamp(20px, 1.8vw, 28px); /* 增加最小值 */
             border: 1px solid #e5e7eb;
             background: white;
             color: #583e04;
             cursor: pointer;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: clamp(10px, 0.9vw, 14px); /* 增加最小值 */
             font-weight: 500;
             border-radius: 4px;
             transition: all 0.15s ease;
