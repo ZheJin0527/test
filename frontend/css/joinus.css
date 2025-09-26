@@ -1,0 +1,1034 @@
+/* ===========================================
+   JoinUs 页面专用 CSS
+   从 style.css 和 joinusanimation.css 原封不动复制
+   =========================================== */
+
+/* 基础样式 - 从 style.css 原封不动复制 */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+/* Swiper 基础样式 - 从 style.css 原封不动复制 */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    background-color: #2F2F2F;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto; /* 允许每页内容内部滚动 */
+    padding-top: 0px; /* 给 navbar 留空间 */
+    overflow: hidden;
+}
+
+.swiper-slide.footer-slide {
+    height: 29vh; /* 保持原来的36vh */
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    /* 关键：添加背景色遮盖上页残影 */
+    background: #2f2f2f; /* 使用footer的深色背景 */
+    position: relative;
+}
+
+.scroll-buffer {
+    background-color: #2f2f2f;
+    display: flex;
+    flex-direction: column;
+    min-height: 26vh;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.swiper-slide.footer-slide::before {
+    content: '';
+    position: absolute;
+    top: -71vh;
+    left: 0;
+    right: 0;
+    height: 64vh;
+    background: #2a2a2a;
+    z-index: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+    pointer-events: none;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* 加入我们部分 - 从 style.css 原封不动复制 */
+.joinus-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 上半部分 60% */
+.joinus-banner {
+    padding: 80px 0 0 80px;
+    flex: 0 0 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+}
+  
+.joinus-content {
+    margin-top: 76px;
+    margin-left: -20px;
+    width: 402px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    justify-content: center;
+    text-align: center;
+    transform: translateY(-60px); /* 👈 内容整体往上移 60px 可调整 */
+}
+  
+.joinus-content h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(50px, 4.5vw, 86px);
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: 1.4%;
+    margin: 0 58px 0 0;
+    padding: 0;
+    white-space: nowrap;
+    text-shadow:
+        3px 3px 6px rgba(139, 69, 19, 0.3),
+        4px 4px 6px rgba(111, 58, 18, 0.3),
+        5px 5px 6px rgba(85, 44, 16, 0.3),
+        6px 6px 6px rgba(59, 30, 12, 0.3),
+        7px 7px 10px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+  
+.joinus-content p {
+    font-size: clamp(12px, 1.05vw, 20px);
+    font-weight: normal;
+    line-height: 1.2;
+    letter-spacing: 0.5%;
+    margin: 20px 58px 0 20px;
+    padding: 0;
+    white-space: nowrap;
+    text-shadow:
+        0.5px 0.5px 2px rgba(111, 58, 18, 0.3),
+        1px 1px 2px rgba(85, 44, 16, 0.3),
+        1.5px 1.5px 2px rgba(59, 30, 12, 0.3),
+        2px 2px 10px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(2px 1px 1px rgba(0, 0, 0, 0.6));
+}
+
+/* 福利部分 - 从 style.css 原封不动复制 */
+.benefits-wrapper {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.benefits-wrapper h2 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: bold;
+    margin: 0 0 40px 0;
+    color: #333;
+}
+
+.benefits-wrapper .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.benefits-wrapper .benefit-item {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.benefits-wrapper .benefit-item img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.benefits-wrapper .benefit-item p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    transition: all 0.3s ease;
+}
+
+/* ===========================================
+   动画样式 - 从 joinusanimation.css 原封不动复制
+   =========================================== */
+
+/* 确保所有动画元素初始状态都是隐藏的 */
+.animate-on-scroll {
+  opacity: 0;
+}
+
+/* 渐显向上动画 */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* 动画延迟 - 保持原设置 */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+.delay-4 { animation-delay: 0.7s; }
+.delay-5 { animation-delay: 0.9s; }
+.delay-6 { animation-delay: 1.1s; }
+.delay-7 { animation-delay: 1.3s; }
+.delay-8 { animation-delay: 1.5s; }
+
+/* 向上淡入关键帧 */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 初始隐藏状态 - 修复：排除所有特定动画类，避免冲突 */
+.animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.animate-on-scroll.visible:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 向左滑入动画 - 修改为更慢的动画 */
+.slide-in-left {
+  opacity: 0 !important;
+  transform: translateX(-300px) !important;
+  transition: all 0.8s ease-out;
+  animation: none !important; /* 确保没有其他动画干扰 */
+}
+
+.slide-in-left.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  transition-delay: 0.6s !important;
+}
+
+/* 为slide-in-left添加延迟类支持 */
+.slide-in-left.delay-1 {
+  transition-delay: 0.4s;
+}
+
+.slide-in-left.delay-2 {
+  transition-delay: 0.6s;
+}
+
+.slide-in-left.delay-3 {
+  transition-delay: 1.0s;
+}
+
+.slide-in-left.delay-4 {
+  transition-delay: 0.8s;
+}
+
+.slide-in-left.delay-5 {
+  transition-delay: 1.0s;
+}
+
+/* 重置延迟 - 当不可见时移除延迟 */
+.slide-in-left:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 向右滑入动画 - 保持原速度 */
+.slide-in-right {
+  opacity: 0 !important;
+  transform: translateX(300px) !important;
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.slide-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  transition-delay: 0.6s !important;
+}
+
+.slide-in-right:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 修复:给 scale-fade-in 元素单独设置,避免继承 translateY */
+.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+/* 当父容器可见时,启动动画 */
+.animate-on-scroll.visible .scale-fade-in {
+  animation-play-state: running;
+}
+
+/* 当父容器不可见时,重置动画 */
+.animate-on-scroll:not(.visible) .scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+@keyframes scaleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 首页所有元素统一,延迟0.3秒后开始1.6s动画 */
+.home-content .scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+/* 装饰线条也使用相同的0.3秒延迟 */
+.home-content .decor-line.scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+/* 装饰线条使用相同的从中间放大效果 */
+.decor-line.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+.animate-on-scroll.visible .decor-line.scale-fade-in {
+  animation-play-state: running;
+}
+
+.animate-on-scroll:not(.visible) .decor-line.scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* 向下滑入动画 */
+.fade-in-down {
+  opacity: 0 !important;
+  transform: translateY(-40px) !important;
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.fade-in-down.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.fade-in-down:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+.scale-out {
+  opacity: 0 !important;
+  transform: scale(0.3) !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: none !important;
+}
+
+.scale-out.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.scale-out:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* ========== 图片专用 3D 旋转特效 ========== */
+/* 图片3D旋转容器 */
+img.image-3d-rotate,
+.image-3d-rotate img {
+  opacity: 0 !important;
+  transform: perspective(1000px) rotateY(-90deg) scale(1.4) !important;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.3s;
+  transform-origin: center;
+  border-radius: 8px;
+  animation: none !important;
+}
+
+/* 图片3D旋转显示状态 */
+img.image-3d-rotate.visible,
+.image-3d-rotate.visible img {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+}
+
+/* 重置图片3D旋转延迟 */
+img.image-3d-rotate:not(.visible),
+.image-3d-rotate:not(.visible) img {
+  transition-delay: 0s !important;
+}
+
+/* 图片悬浮3D效果 */
+img.image-3d-rotate:hover,
+.image-3d-rotate img:hover {
+  transform: perspective(1000px) rotateY(5deg) rotateX(5deg) scale(1.05) !important;
+  transition-delay: 0s !important;
+}
+
+/* ========== values 特效（新增） ========== */
+/* 左卡片组整体进入：带倾斜翻转 + 缩放 */
+.card-tilt-in-left {
+  opacity: 0 !important;
+  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
+  transform-origin: left center;
+  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-tilt-in-left.visible {
+  opacity: 1 !important;
+  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) !important;
+}
+
+/* 卡片单独延迟进入 */
+.values-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(1) {
+  transition-delay: 0.6s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(2) {
+  transition-delay: 0.8s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(3) {
+  transition-delay: 1.0s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(4) {
+  transition-delay: 1.2s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 右侧文字缩放滑入 */
+.text-zoom-in-right {
+  opacity: 0 !important;
+  transform: translateX(100px) translateY(30px) scale(0.8) !important;
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.text-zoom-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) translateY(0) scale(1) !important;
+}
+
+.text-zoom-in-right.delay-1 {
+  transition-delay: 0.3s;
+}
+
+.text-zoom-in-right.delay-2 {
+  transition-delay: 0.6s;
+}
+
+.text-zoom-in-right.delay-3 {
+  transition-delay: 0.9s;
+}
+
+/* ========== values 内容缩放渐显特效（类似 home 的 scale-fade-in） ========== */
+.values-scale-fade {
+  opacity: 0 !important;
+  transform: scale(0.8) !important;
+  transition: all 1.6s ease;
+  animation: none !important;
+}
+
+.values-scale-fade.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  transition: all 1.0s ease !important;
+}
+
+.values-scale-fade:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+/* 为 values 标题和描述添加渐进延迟 - 精确控制 */
+.values-scale-fade.delay-1.visible {
+  transition-delay: 0.1s !important;
+}
+
+.values-scale-fade.delay-2.visible {
+  transition-delay: 0.2s !important;
+}
+
+.values-scale-fade.delay-3.visible {
+  transition-delay: 0.3s !important;
+}
+
+.values-scale-fade.delay-4.visible {
+  transition-delay: 0.4s !important;
+}
+
+.values-scale-fade.delay-5.visible {
+  transition-delay: 0.5s !important;
+}
+
+.values-scale-fade.delay-6.visible {
+  transition-delay: 0.6s !important;
+}
+
+.values-scale-fade.delay-7.visible {
+  transition-delay: 0.7s !important;
+}
+
+.values-scale-fade.delay-8.visible {
+  transition-delay: 0.8s !important;
+}
+
+.values-scale-fade.delay-9.visible {
+  transition-delay: 0.9s !important;
+}
+
+.values-scale-fade.delay-10.visible {
+  transition-delay: 1.0s !important;
+}
+
+/* 360度3D旋转进场 */
+.rotate-3d-full {
+  opacity: 0 !important;
+  transform: perspective(1000px) rotateY(360deg) scale(0.6) !important;
+  transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+.rotate-3d-full.visible {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+}
+
+.rotate-3d-full:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+.rotate-3d-full.delay-1 { transition-delay: 0.2s; }
+.rotate-3d-full.delay-2 { transition-delay: 0.4s; }
+.rotate-3d-full.delay-3 { transition-delay: 0.6s; }
+
+/* ========== Navbar 延迟淡入特效 - 等待加载完成后触发 ========== */
+.navbar {
+  opacity: 0;
+  transform: translateY(-20px);
+  /* 移除自动动画，等待JavaScript触发 */
+}
+
+/* 只有当添加了 navbar-loaded 类后才开始动画 */
+.navbar.navbar-loaded {
+  animation: navbarFadeIn 1.2s ease-out forwards;
+  animation-delay: 0.3s; /* 延迟0.3秒开始 */
+}
+
+@keyframes navbarFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 为navbar子元素添加渐进淡入效果 - 同样等待触发 */
+.navbar .logo-section {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .logo-section {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 0.6s; /* logo先出现 */
+}
+
+.navbar .nav-links {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .nav-links {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 0.8s; /* 导航菜单稍后出现 */
+}
+
+.navbar .right-section {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section {
+  animation: fadeInElement 0.8s ease-out forwards;
+  animation-delay: 1.0s; /* 右侧区域最后出现 */
+}
+
+@keyframes fadeInElement {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 导航项目逐个淡入效果 */
+.nav-links .nav-item {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .nav-links .nav-item {
+  animation: fadeInElement 0.6s ease-out forwards;
+}
+
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(1) { animation-delay: 0.9s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(2) { animation-delay: 1.0s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(3) { animation-delay: 1.1s; }
+.navbar.navbar-loaded .nav-links .nav-item:nth-child(4) { animation-delay: 1.2s; }
+
+/* 右侧元素逐个淡入 */
+.right-section .login-btn {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .login-btn {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.1s;
+}
+
+.right-section .language-switch {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .language-switch {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+.right-section .hamburger {
+  opacity: 0;
+}
+
+.navbar.navbar-loaded .right-section .hamburger {
+  animation: fadeInElement 0.6s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+/* 加载完成后显示 */
+.social-sidebar.social-loaded {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 可选：添加延迟效果，让每个图标依次出现 */
+.social-sidebar.social-loaded .social-icon:nth-child(1) {
+  animation: slideInLeft 0.6s ease 0.2s both;
+}
+
+.social-sidebar.social-loaded .social-icon:nth-child(2) {
+  animation: slideInLeft 0.6s ease 0.4s both;
+}
+
+.social-sidebar.social-loaded .social-icon:nth-child(3) {
+  animation: slideInLeft 0.6s ease 0.6s both;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 加载完成后显示 */
+.page-indicator.indicator-loaded {
+  opacity: 1;
+}
+
+/* 可选：添加每个点的依次出现效果 */
+.page-indicator.indicator-loaded .page-dot {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.page-indicator.indicator-loaded .page-dot:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 加入我们 Banner 背景 */
+.joinus-banner {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 从小变大（带缓冲）动画 */
+@keyframes scaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 初始状态：透明且缩小 */
+.joinus-content h1,
+.joinus-content p {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* 标题动画 */
+.joinus-banner.joinus-loaded .joinus-content h1 {
+    animation: scaleIn 2.3s forwards;
+    animation-delay: 0.3s;
+}
+
+/* 段落动画 */
+.joinus-banner.joinus-loaded .joinus-content p {
+    animation: scaleIn 2.3s forwards;
+    animation-delay: 0.5s;
+}
+
+/* ========== 公司福利特效 - 从中心向两边展开 ========== */
+/* 福利包装器初始状态 */
+/* scaleIn 动画已定义过，不用重新定义 */
+
+.benefits-wrapper {
+    opacity: 1;
+}
+
+/* 福利标题初始状态 */
+.benefits-wrapper h2 {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.benefits-wrapper.benefits-loaded h2 {
+    animation: scaleIn 2.5s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+    animation-delay: 0.5s;
+}
+
+/* 福利项目初始状态 */
+.benefits-wrapper .benefit-item {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* 福利项目显示动画 - 使用 scaleIn 动画 */
+.benefits-wrapper.benefits-loaded .benefit-item {
+    animation: scaleIn 2s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+/* 对称延迟：中间开始，向两边展开 */
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(3),
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(4) {
+    animation-delay: 0.9s;
+}
+
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(2),
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(5) {
+    animation-delay: 1.1s;
+}
+
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(1),
+.benefits-wrapper.benefits-loaded .benefit-item:nth-child(6) {
+    animation-delay: 1.3s;
+}
+
+/* 悬浮效果保持 */
+.benefits-wrapper .benefit-item:hover {
+    transform: scale(1.05) translateY(-5px) !important;
+    transition: all 0.3s ease !important;
+    transition-delay: 0s !important;
+}
+
+.benefits-wrapper .benefit-item:hover img {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.benefits-wrapper .benefit-item:hover p {
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+/* 不可见时立即重置 */
+.benefits-wrapper:not(.benefits-loaded) .benefit-item {
+    opacity: 0 !important;
+    transform: scale(0.5) !important;
+    animation: none !important;
+}
+
+.benefits-wrapper:not(.benefits-loaded) h2 {
+    opacity: 0 !important;
+    transform: scale(0.5) !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+/* ========== 我们的足迹标题特效 - 透明到清晰 ========== */
+/* 初始状态：完全透明 */
+.comphoto-title {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 2s ease-out;
+}
+
+/* 当容器添加 comphoto-loaded 类时显示 */
+#comphoto-container.comphoto-loaded .comphoto-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+/* 当容器移除 comphoto-loaded 类时快速重置 - 避免残影 */
+#comphoto-container:not(.comphoto-loaded) .comphoto-title {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
+
+/* ========== 招聘职位标题特效 - 从下往上滑入 ========== */
+/* 初始状态：在下方且透明 */
+.job-table-title {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 当父容器添加 job-table-loaded 类时显示 */
+.job-table-container.job-table-loaded .job-table-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+/* 重置状态 - 当不可见时快速重置 */
+.job-table-container:not(.job-table-loaded) .job-table-title {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
+
+/* ========== 职位卡片从下往上显示特效 ========== */
+/* 初始状态：在下方且透明 */
+.job-card {
+    pointer-events: none; /* 初始不能点击 */
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 动画结束后允许点击 */
+.job-card.interactive {
+    pointer-events: auto;
+}
+
+/* hover 效果照常写 */
+.job-card.interactive:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 当jobs-grid添加 jobs-loaded 类时显示 */
+.jobs-grid.jobs-loaded .job-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 逐个延迟显示 - 创建瀑布式效果 */
+.jobs-grid.jobs-loaded .job-card:nth-child(1) {
+    transition-delay: 0.6s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(2) {
+    transition-delay: 0.6s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(3) {
+    transition-delay: 0.6s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(4) {
+    transition-delay: 1.2s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(5) {
+    transition-delay: 1.4s;
+}
+
+.jobs-grid.jobs-loaded .job-card:nth-child(6) {
+    transition-delay: 1.6s;
+}
+
+/* 重置状态 - 当不可见时快速重置 */
+.jobs-grid:not(.jobs-loaded) .job-card {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
+
+/* 保持卡片原有的悬浮效果 */
+.job-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+    transition: all 0.3s ease !important;
+    transition-delay: 0s !important;
+}
+
+/* 添加文字和地图的进入动画 */
+.contact-info,
+.map-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+/* 当 contact-loaded 类加到 wrapper 上时，让内部内容显示 */
+.contact-section-wrapper.contact-loaded .contact-info,
+.contact-section-wrapper.contact-loaded .map-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+/* 非加载状态下的复位 */
+.contact-section-wrapper:not(.contact-loaded) .contact-info,
+.contact-section-wrapper:not(.contact-loaded) .map-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.3s ease-out;
+    transition-delay: 0s;
+}
