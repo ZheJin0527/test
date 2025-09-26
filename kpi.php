@@ -226,20 +226,22 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-btn {
-            background: white;
-            border: 2px solid #583e04;
-            border-radius: 8px;
             padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px solid #583e04 !important;
             cursor: pointer;
-            font-size: 16px;
             font-weight: 600;
+            background: white;
             color: #583e04;
+            position: relative;
+            min-width: 80px;
+
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 80px;
+
             transition: all 0.3s ease;
-            border-color: var(--primary-color, #583e04) !important; /* 确保边框颜色跟随主题 */
+            border-color: var(--primary-color, #583e04) !important;
         }
 
         .restaurant-btn:hover {
@@ -415,20 +417,6 @@ $avatarLetter = strtoupper($username[0]);
             color: white;
             border-color: #583e04;
             font-weight: 600;
-        }
-
-        .restaurant-btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 2px solid #583e04 !important;  /* 添加 !important 确保边框显示 */
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            background: white;
-            color: #583e04;
-            position: relative;
-            min-width: 50px;
         }
 
         .restaurant-btn.active {
