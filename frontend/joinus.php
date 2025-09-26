@@ -645,34 +645,13 @@ const swiper = new Swiper('.swiper', {
     direction: 'vertical',
     mousewheel: true,
     speed: 800,
-    simulateTouch: true,
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    // 添加这个配置来处理不同高度的slide
-    slidesPerView: 1,
-    spaceBetween: 0,
+    allowTouchMove: true,
+    allowSlideNext: true,
+    allowSlidePrev: true,
     on: {
         slideChange: function() {
             // 更新页面指示器
             updatePageIndicator(this.activeIndex);
-        },
-        // 添加这个事件来处理最后一页的特殊情况
-        reachEnd: function() {
-            // 确保最后一页正确显示
-            this.allowTouchMove = true;
-        },
-        // 添加进度监听来处理最后一页的双向滑动
-        setTransition: function(duration) {
-            // 在过渡结束后检查进度
-            setTimeout(() => {
-                if (this.progress > 0.95) {
-                    updatePageIndicator(5); // 滑到最后一页
-                } else {
-                    updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
-                }
-            }, duration + 50);
         }
     }
 });

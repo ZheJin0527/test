@@ -7,8 +7,9 @@
 html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
     font-family: 'Source Sans Pro', sans-serif;
-    overflow-x: hidden;
+    overflow: hidden; /* 禁止默认滚动，交给 Swiper 控制 */
 }
 
 body {
@@ -25,6 +26,7 @@ body::-webkit-scrollbar {
 .swiper {
     width: 100%;
     height: 100%;
+    touch-action: pan-y; /* 只允许垂直平移 */
 }
 
 .swiper-slide {
