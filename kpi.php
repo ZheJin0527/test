@@ -536,7 +536,8 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            min-width: 100%;
+            width: 100%; /* 改为固定 100% 宽度 */
+            box-sizing: border-box; /* 确保边框不会增加宽度 */
         }
 
         .dropdown-menu.show {
@@ -613,9 +614,7 @@ $avatarLetter = strtoupper($username[0]);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
-        }
-
-        
+        }      
         
         .kpi-card {
             display: flex;
