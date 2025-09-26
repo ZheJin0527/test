@@ -68,7 +68,7 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(22px, 1.67vw, 32px);
+            margin-bottom: clamp(18px, 1.67vw, 32px);
         }
         
         .header h1 {
@@ -87,7 +87,7 @@ if (isset($_SESSION['user_id'])) {
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -195,14 +195,14 @@ if (isset($_SESSION['user_id'])) {
         }
 
         /* 响应式表格列宽 - 9列设置 */
-        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 8%; }   /* 第1列 */
-        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 8%; }  /* 第2列 */
+        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 12%; }   /* 第1列 */
+        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 9%; }  /* 第2列 */
         .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 12%; }  /* 第3列 */
         .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 24%; }  /* 第4列 */
         .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 10%; }  /* 第5列 */
         .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 10%; }  /* 第6列 */
-        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 14%; }  /* 第7列 */
-        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 10%; }  /* 第8列 */
+        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 10%; }  /* 第7列 */
+        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 8%; }  /* 第8列 */
         .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 90px; }   /* 第9列(操作按钮) */
 
         /* Excel样式表格 */
@@ -283,7 +283,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .excel-input.datetime-input {
-            padding: 8px;
+            padding: clamp(0px, 0.42vw, 8px);
             text-align: center;
         }
 
@@ -592,7 +592,7 @@ if (isset($_SESSION['user_id'])) {
             background: white;
             border-radius: 12px;
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             display: flex;
@@ -621,7 +621,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .filter-bar .stats-info .stat-value {
-            font-size: clamp(12px, 0.94vw, 18px);
+            font-size: clamp(10px, 0.94vw, 18px);
             font-weight: bold;
             color: #583e04;
         }
@@ -643,7 +643,7 @@ if (isset($_SESSION['user_id'])) {
         .filter-group {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: clamp(10px, 0.83vw, 16px);
             flex-wrap: wrap;
         }
 
@@ -826,14 +826,13 @@ if (isset($_SESSION['user_id'])) {
 
         /* 通知基础样式 */
         .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            border-radius: 8px;
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -882,7 +881,7 @@ if (isset($_SESSION['user_id'])) {
 
         /* 通知图标 */
         .toast-icon {
-            font-size: 18px;
+            font-size: clamp(14px, 0.94vw, 18px);
             flex-shrink: 0;
         }
 

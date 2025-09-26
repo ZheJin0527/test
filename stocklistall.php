@@ -29,7 +29,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(22px, 1.67vw, 32px);
+            margin-bottom: clamp(18px, 1.67vw, 32px);
         }
         
         .header h1 {
@@ -53,7 +53,7 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -62,7 +62,7 @@
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
-            width: clamp(90px, 6.77vw, 130px);
+            width: clamp(80px, 6.77vw, 130px);
             justify-content: space-between;
         }
         
@@ -934,14 +934,13 @@
 
         /* 通知基础样式 */
         .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            border-radius: 8px;
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -990,7 +989,7 @@
 
         /* 通知图标 */
         .toast-icon {
-            font-size: 18px;
+            font-size: clamp(14px, 0.94vw, 18px);
             flex-shrink: 0;
         }
 
@@ -1168,7 +1167,7 @@
             padding: clamp(8px, 0.83vw, 16px) clamp(18px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             flex-wrap: nowrap;
@@ -2227,7 +2226,7 @@
             // 自动关闭
             setTimeout(() => {
                 closeToast(toastId);
-            }, 700);
+            }, 70000);
         }
 
         // 添加关闭通知的函数
@@ -2345,7 +2344,7 @@
             const summary = document.getElementById('alert-summary');
             
             let html = `
-                <div style="font-size: clamp(10px, 0.84vw, 16px); padding: 12px; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
+                <div style="font-size: clamp(10px, 0.84vw, 16px); padding: clamp(8px, 0.63vw, 12px); background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
                     <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
                     发现 ${alerts.length} 个货品库存不足，请及时补货！
                 </div>

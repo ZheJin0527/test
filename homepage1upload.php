@@ -110,7 +110,7 @@ if (file_exists('media_config.json')) {
         }
         
         .breadcrumb {
-            padding: clamp(2px, 1.04vw, 20px) 0px 20px;
+            padding: clamp(2px, 1.04vw, 20px) 0px clamp(10px, 1.04vw, 20px);
             background: transparent;
         }
         
@@ -131,15 +131,15 @@ if (file_exists('media_config.json')) {
         .media-section {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: 30px;
+            padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
             border-left: 5px solid #583e04;
         }
         
         .media-section h2 {
             color: #333;
-            margin-bottom: 20px;
-            font-size: clamp(18px, 1.5vw, 28px);
+            margin-bottom: clamp(10px, 1.04vw, 20px);
+            font-size: clamp(16px, 1.5vw, 28px);
         }
         
         .upload-form {

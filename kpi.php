@@ -226,20 +226,20 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-btn {
-            background: white;
-            border: 2px solid #583e04;
+            padding: clamp(6px, 0.52vw, 10px) clamp(14px, 1.04vw, 20px);
             border-radius: 8px;
-            padding: 10px 20px;
+            border: 2px solid #583e04 !important;
             cursor: pointer;
-            font-size: 16px;
             font-weight: 600;
+            background: white;
             color: #583e04;
+            position: relative;
+            width: clamp(60px, 5.21vw, 100px);
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 80px;
             transition: all 0.3s ease;
-            border-color: var(--primary-color, #583e04) !important; /* 确保边框颜色跟随主题 */
+            border-color: var(--primary-color, #583e04) !important;
         }
 
         .restaurant-btn:hover {
@@ -256,9 +256,9 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            width: clamp(280px, 17vw, 320px);
-            min-width: 180px;
-            padding: clamp(8px, 0.84vw, 16px) 16px;
+            width: clamp(240px, 25vw, 320px); /* 调整响应式宽度 */
+            min-width: 200px;
+            padding: clamp(6px, 0.8vw, 16px) clamp(8px, 1vw, 16px); /* 响应式内边距 */
         }
 
         .restaurant-dropdown-menu.show {
@@ -281,18 +281,18 @@ $avatarLetter = strtoupper($username[0]);
 
         .number-selection {
             flex: 1;
-            padding-left: 12px;
-            min-width: 120px; /* 固定最小宽度 */
+            padding-left: 0px;
+            min-width: 90px; /* 固定最小宽度 */
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .section-title {
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: clamp(10px, 0.9vw, 14px); /* 增加最小值 */
             font-weight: 600;
             color: #583e04;
-            margin-bottom: 8px;
+            margin-bottom: clamp(4px, 0.6vw, 8px); /* 响应式边距 */
             text-align: center;
         }
 
@@ -305,13 +305,9 @@ $avatarLetter = strtoupper($username[0]);
         .letter-grid {
             display: flex;
             flex-direction: row;
-            gap: 8px;
+            gap: clamp(4px, 0.8vw, 8px); /* 响应式间距 */
             align-items: center;
             justify-content: center;
-        }
-
-        .number-grid {
-            grid-template-columns: repeat(3, 1fr);
         }
 
         .letter-item,
@@ -320,13 +316,13 @@ $avatarLetter = strtoupper($username[0]);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: clamp(14px, 1.3vw, 28px);
-            height: clamp(14px, 1.3vw, 28px);
+            width: clamp(12px, 1.25vw, 24px); /* 增加最小值 */
+            height: clamp(12px, 1.25vw, 24px); /* 增加最小值 */
             border: 1px solid #e5e7eb;
             background: white;
             color: #583e04;
             cursor: pointer;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: clamp(7px, 0.63vw, 12px); /* 增加最小值 */
             font-weight: 500;
             border-radius: 4px;
             transition: all 0.15s ease;
@@ -401,25 +397,10 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .number-grid {
+            margin-left: 10px;
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            grid-template-columns: repeat(4, 0.2fr);
             gap: 2px;
-        }
-
-        .number-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: clamp(14px, 1.3vw, 28px);
-            height: clamp(14px, 1.3vw, 28px);
-            border: 1px solid #e5e7eb;
-            background: white;
-            color: #583e04;
-            cursor: pointer;
-            font-size: clamp(8px, 0.74vw, 14px);
-            font-weight: 500;
-            border-radius: 4px;
-            transition: all 0.15s ease;
         }
 
         .number-item:hover {
@@ -434,20 +415,6 @@ $avatarLetter = strtoupper($username[0]);
             color: white;
             border-color: #583e04;
             font-weight: 600;
-        }
-
-        .restaurant-btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 2px solid #583e04 !important;  /* 添加 !important 确保边框显示 */
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            background: white;
-            color: #583e04;
-            position: relative;
-            min-width: 50px;
         }
 
         .restaurant-btn.active {
@@ -509,9 +476,7 @@ $avatarLetter = strtoupper($username[0]);
             transform: translateY(-1px) !important;
             box-shadow: none !important;
             text-shadow: none !important;
-        }
-
-       
+        }    
         
         /* 下拉菜单样式 */
         .dropdown {
@@ -536,7 +501,8 @@ $avatarLetter = strtoupper($username[0]);
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            min-width: 100%;
+            width: 100%; /* 改为固定 100% 宽度 */
+            box-sizing: border-box; /* 确保边框不会增加宽度 */
         }
 
         .dropdown-menu.show {
@@ -546,12 +512,12 @@ $avatarLetter = strtoupper($username[0]);
         .dropdown-item {
             display: block;
             width: 100%;
-            padding: 10px 20px;
+            padding: clamp(6px, 0.52vw, 10px) clamp(10px, 1.04vw, 20px);
             border: none;
             background: transparent;
             color: #583e04;
             cursor: pointer;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             text-align: left;
             transition: background-color 0.2s;
@@ -598,7 +564,7 @@ $avatarLetter = strtoupper($username[0]);
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 16px;
-            margin-bottom: clamp(22px, 1.67vw, 32px);
+            margin-bottom: clamp(14px, 1.67vw, 32px);
         }
 
         /* 图表容器 - 改为全宽 */
@@ -613,9 +579,7 @@ $avatarLetter = strtoupper($username[0]);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
-        }
-
-        
+        }      
         
         .kpi-card {
             display: flex;
@@ -649,7 +613,7 @@ $avatarLetter = strtoupper($username[0]);
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            margin-bottom: 4px;
+            margin-bottom: clamp(0px, 0.21vw, 4px);
         }
 
         .kpi-card-vertical .kpi-label {
@@ -1137,7 +1101,7 @@ $avatarLetter = strtoupper($username[0]);
             </div>
             <div id="app">         
             <!-- Date Controls -->
-            <div class="card" style="margin-bottom: clamp(22px, 1.67vw, 32px);">
+            <div class="card" style="margin-bottom: clamp(14px, 1.67vw, 32px);">
                 <div class="card-body">
                     <div class="date-controls">
     
@@ -1240,8 +1204,7 @@ $avatarLetter = strtoupper($username[0]);
                                 </div>
                             </div>
                         </div>
-    
-                        <div id="date-info" class="date-info"></div>
+
                         <!-- 餐厅选择器 -->
                         <div class="restaurant-selector">
                             <button class="restaurant-btn dropdown-toggle" onclick="toggleRestaurantDropdown()">
