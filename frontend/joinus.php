@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'media_config.php';
+include_once '../media_config.php';
 
 // 禁用页面缓存
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -14,7 +14,7 @@ $showPageIndicator = true;
 $totalSlides = 6;
 
 // 包含header
-include 'header.php';
+include '../piblic/header.php';
 ?>
 
 <div class="swiper">
