@@ -207,7 +207,7 @@ if (isset($_GET['success'])) {
         
         .form-section h2 {
             color: #333;
-            margin-bottom: 25px;
+            margin-bottom: clamp(10px, 1.04vw, 20px);
             font-size: clamp(12px, 1.04vw, 20px);
         }
         

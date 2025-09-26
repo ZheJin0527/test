@@ -215,7 +215,7 @@ function formatFileSize($bytes) {
         
         .music-section h2 {
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: clamp(10px, 1.04vw, 20px);
             font-size: clamp(16px, 1.5vw, 28px);
             display: flex;
             align-items: center;
