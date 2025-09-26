@@ -186,7 +186,7 @@ if (file_exists('media_config.json')) {
         
         .current-file {
             font-size: clamp(10px, 0.84vw, 16px);
-            margin-top: 15px;
+            margin-top: clamp(5px, 0.78vw, 15px);
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
