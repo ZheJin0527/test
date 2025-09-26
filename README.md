@@ -28,10 +28,6 @@ kunzzweb/
 │   ├── joinus.php
 │   ├── login.php
 │   ├── login.html
-│   ├── register.php
-│   ├── register.html
-│   ├── register_member.php
-│   ├── register_member.html
 │   ├── reset_password.php
 │   ├── reset_password.html
 │   ├── verify_code.php
@@ -76,12 +72,6 @@ kunzzweb/
 │   │   ├── kpi.php
 │   │   ├── kpiedit.php
 │   │   └── kpi.js
-│   │
-│   ├── account/                     # 账户管理模块
-│   │   ├── css/
-│   │   │   ├── account.css
-│   │   │
-│   │   └── account.js
 │   │
 │   ├── stock/                       # 库存管理模块
 │   │   ├── css/
