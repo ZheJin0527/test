@@ -293,9 +293,9 @@ if (file_exists('media_config.json')) {
         
         .stats-bar {
             background: #f8f9fa;
-            padding: 15px;
+            padding: clamp(8px, 0.78vw, 15px);
             border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: clamp(10px, 1.3vw, 25px);
             text-align: center;
             border: 1px solid #dee2e6;
         }
