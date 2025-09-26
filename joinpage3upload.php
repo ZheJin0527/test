@@ -532,6 +532,7 @@ if (isset($_GET['success'])) {
         .job-actions {
             display: flex;
             gap: 0px;
+            margin-top: clamp(30px, 1.82vw, 35px);
         }
         
         .job-description-preview {
