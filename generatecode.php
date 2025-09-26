@@ -144,7 +144,7 @@
             width: clamp(400px, 41.67vw, 800px) !important;
             height: 90vh;
             overflow-y: auto;
-            padding: clamp(18px, 1.56vw, 30px) clamp(18px, 1.56vw, 30px) clamp(18px, 1.56vw, 30px);
+            padding: clamp(18px, 1.56vw, 30px) clamp(18px, 1.56vw, 30px) clamp(0px, 1.56vw, 30px);
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -155,7 +155,7 @@
         #editUserModal .modal-header {
             font-size: clamp(12px, 1.04vw, 20px);
             font-weight: 600;
-            margin-bottom: clamp(16px, 1.56vw, 30px);
+            margin-bottom: clamp(14px, 1.56vw, 30px);
             text-align: center;
             padding-bottom: 0;
             border-bottom: none;
