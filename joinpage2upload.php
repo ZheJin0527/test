@@ -288,12 +288,12 @@ if (file_exists('media_config.json')) {
             margin-bottom: clamp(10px, 1.04vw, 20px);
             text-align: center;
             border-bottom: 2px solid #583e04;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
         
         .stats-bar {
             background: #f8f9fa;
-            padding: clamp(8px, 0.78vw, 15px);
+            padding: clamp(6px, 0.78vw, 15px);
             border-radius: 8px;
             margin-bottom: clamp(10px, 1.3vw, 25px);
             text-align: center;

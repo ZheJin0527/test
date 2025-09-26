@@ -259,7 +259,7 @@ if (file_exists('media_config.json')) {
         }
         
         .preview-container {
-            margin-top: 20px;
+            margin-top: clamp(10px, 1.04vw, 20px);
             border: 1px solid #dee2e6;
             border-radius: 8px;
             overflow: hidden;

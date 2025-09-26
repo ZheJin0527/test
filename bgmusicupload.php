@@ -286,7 +286,7 @@ function formatFileSize($bytes) {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin: 15px 0;
+            margin: clamp(10px, 0.78vw, 15px) 0;
         }
         
         .info-item {
@@ -309,7 +309,7 @@ function formatFileSize($bytes) {
         }
         
         .audio-player {
-            margin: 15px 0;
+            margin: clamp(0px, 0.78vw, 15px) 0;
             width: 100%;
         }
         

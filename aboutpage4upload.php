@@ -275,7 +275,7 @@ foreach ($defaultTimeline as $year => $data) {
         .upload-form {
             display: grid;
             gap: clamp(10px, 1.04vw, 20px);
-            margin-bottom: 30px;
+            margin-bottom: clamp(20px, 1.56vw, 30px);
         }
         
         .form-group {
@@ -330,7 +330,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .preview-container {
-            margin-top: 20px;
+            margin-top: clamp(10px, 1.04vw, 20px);
             border: 1px solid #dee2e6;
             border-radius: 8px;
             overflow: hidden;
@@ -344,7 +344,7 @@ foreach ($defaultTimeline as $year => $data) {
         
         .content-form {
             background: white;
-            padding: 25px;
+            padding: clamp(15px, 1.3vw, 25px);
             border-radius: 10px;
             border: 1px solid #dee2e6;
             margin-top: 20px;
@@ -353,7 +353,7 @@ foreach ($defaultTimeline as $year => $data) {
         .content-form h3 {
             font-size: clamp(12px, 0.94vw, 18px);
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: clamp(10px, 1.04vw, 20px);
             padding-bottom: 10px;
             border-bottom: 2px solid #583e04;
         }
@@ -483,7 +483,7 @@ foreach ($defaultTimeline as $year => $data) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: clamp(0px, 1.04vw, 20px);
             flex-wrap: wrap;
             gap: 20px;
         }
