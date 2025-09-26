@@ -1804,5 +1804,42 @@ window.addEventListener("resize", resizeJobs);
 resizeJobs();
 
 </script>
+
+<script>
+// Footer 相关功能
+function scrollToTop() {
+    if (typeof swiper !== 'undefined') {
+        swiper.slideTo(0);
+    }
+}
+
+// 显示/隐藏回到顶部按钮
+function toggleBackToTopButton() {
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        if (typeof swiper !== 'undefined') {
+            // 当在最后一页时显示按钮
+            if (swiper.activeIndex === swiper.slides.length - 1) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        }
+    }
+}
+
+// 监听 Swiper 变化
+if (typeof swiper !== 'undefined') {
+    swiper.on('slideChange', function() {
+        toggleBackToTopButton();
+    });
+}
+
+// 页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    toggleBackToTopButton();
+});
+</script>
+
 </body>
 </html>
