@@ -283,7 +283,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .excel-input.datetime-input {
-            padding: 8px;
+            padding: clamp(0px, 0.42vw, 8px);
             text-align: center;
         }
 
