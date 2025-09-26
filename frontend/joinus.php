@@ -278,9 +278,53 @@ include '../public/header.php';
 </div>
 </div>
 
-<!-- 添加 footer 导入 -->
-<?php include '../public/footer.php'; ?>
-<div class="social-sidebar">
+     <div class="swiper-slide footer-slide">
+    <section class="scroll-buffer">
+    <footer class="footer">
+    <div class="footer-section">
+      <h4><a href="index.php">首页</a></h4>
+      <ul>
+        <li><a href="index.php#comprofile">公司简介</a></li>
+        <li><a href="index.php#culture">公司文化</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4><a href="about.php">关于我们</a></h4>
+      <ul>
+        <li><a href="about.php#intro">集团简介</a></li>
+        <li><a href="about.php#vision">信念与方向</a></li>
+        <li><a href="about.php#values">核心价值观</a></li>
+        <li><a href="about.php#timeline-1">发展历史</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>旗下品牌</h4>
+      <ul>
+        <li><a href="tokyo-japanese-cuisine.php">TOKYO JAPANESE </br>CUISINE</li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4><a href="joinus.php">加入我们</a></h4>
+      <ul>
+        <li><a href="#" onclick="goToSlide(0); return false;">公司福利</li>
+        <li><a href="#" onclick="goToSlide(1); return false;">我们的足迹</li>
+        <li><a href="#" onclick="goToSlide(2); return false;">招聘的职位</li>
+        <li><a href="#" onclick="goToSlide(4); return false;">联系我们</a></li>        
+      </ul>
+    </div>
+  </footer>
+
+  <button id="backToTop" onclick="scrollToTop()">&#8673;</button>
+  
+  <div class="footer-bottom">
+    © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
+  </div>
+  </section>
+  </div>
+</div>
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
         <img src="images/images/fbicon.png" alt="Facebook">
