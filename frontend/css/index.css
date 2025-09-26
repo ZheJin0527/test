@@ -1,11 +1,15 @@
 /* ===========================================
-   Index.php 专用样式文件 - 清理版
-   只包含 index.php 页面特有的样式
+   Index.php 专用样式文件 - 现代化响应式版本
+   使用 clamp() 和 rem/vw/vh 单位实现响应式设计
    =========================================== */
 
 /* ===========================================
-   基础样式
+   基础样式 - 现代化响应式
    =========================================== */
+html {
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.125rem);
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -24,11 +28,11 @@ body::-webkit-scrollbar {
 }
 
 /* ===========================================
-   Swiper 相关样式
+   Swiper 相关样式 - 现代化响应式
    =========================================== */
 .swiper {
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
 .swiper-wrapper {
@@ -44,7 +48,7 @@ body::-webkit-scrollbar {
     align-items: center;
     height: 100vh;
     overflow-y: auto; /* 允许每页内容内部滚动 */
-    padding-top: 0px; /* 给 navbar 留空间 */
+    padding-top: 0; /* 给 navbar 留空间 */
     overflow: hidden;
 }
 
@@ -60,7 +64,7 @@ body::-webkit-scrollbar {
 /* 渐显向上动画 */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(clamp(1.5rem, 2vw, 2rem));
   animation: fadeInUp 0.4s ease-out forwards;
 }
 
@@ -85,7 +89,7 @@ body::-webkit-scrollbar {
 /* 初始隐藏状态 - 修复：排除所有特定动画类，避免冲突 */
 .animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(clamp(1rem, 1.5vw, 1.5rem));
   transition: all 0.8s ease-out;
 }
 
@@ -97,7 +101,7 @@ body::-webkit-scrollbar {
 /* 向左滑入动画 - 修改为更慢的动画 */
 .slide-in-left {
   opacity: 0 !important;
-  transform: translateX(-300px) !important;
+  transform: translateX(clamp(-15rem, -20vw, -20rem)) !important;
   transition: all 0.8s ease-out;
   animation: none !important; /* 确保没有其他动画干扰 */
 }
@@ -122,7 +126,7 @@ body::-webkit-scrollbar {
 /* 向右滑入动画 - 保持原速度 */
 .slide-in-right {
   opacity: 0 !important;
-  transform: translateX(300px) !important;
+  transform: translateX(clamp(15rem, 20vw, 20rem)) !important;
   transition: all 0.4s ease-out;
   animation: none !important;
 }
@@ -198,7 +202,7 @@ body::-webkit-scrollbar {
 /* 向下滑入动画 */
 .fade-in-down {
   opacity: 0 !important;
-  transform: translateY(-40px) !important;
+  transform: translateY(clamp(-2rem, -3vw, -3rem)) !important;
   transition: all 0.8s ease-out;
   animation: none !important;
 }
@@ -232,20 +236,20 @@ body::-webkit-scrollbar {
 /* 左卡片组整体进入：带倾斜翻转 + 缩放 */
 .card-tilt-in-left {
   opacity: 0 !important;
-  transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
+  transform: perspective(clamp(50rem, 60vw, 80rem)) translateX(clamp(-6rem, -8vw, -8rem)) rotateY(25deg) scale(0.9) !important;
   transform-origin: left center;
   transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .card-tilt-in-left.visible {
   opacity: 1 !important;
-  transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1) !important;
+  transform: perspective(clamp(50rem, 60vw, 80rem)) translateX(0) rotateY(0deg) scale(1) !important;
 }
 
 /* 卡片单独延迟进入 */
 .culture-card {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(clamp(1.5rem, 2vw, 2rem));
   transition: all 0.8s ease-out;
 }
 
@@ -276,7 +280,7 @@ body::-webkit-scrollbar {
 /* 右侧文字缩放滑入 */
 .text-zoom-in-right {
   opacity: 0 !important;
-  transform: translateX(100px) translateY(30px) scale(0.8) !important;
+  transform: translateX(clamp(5rem, 6vw, 8rem)) translateY(clamp(1.5rem, 2vw, 2rem)) scale(0.8) !important;
   transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -358,7 +362,7 @@ body::-webkit-scrollbar {
 /* 360度3D旋转进场 */
 .rotate-3d-full {
   opacity: 0 !important;
-  transform: perspective(1000px) rotateY(360deg) scale(0.6) !important;
+  transform: perspective(clamp(50rem, 60vw, 80rem)) rotateY(360deg) scale(0.6) !important;
   transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
   transform-origin: center;
   transform-style: preserve-3d;
@@ -366,7 +370,7 @@ body::-webkit-scrollbar {
 
 .rotate-3d-full.visible {
   opacity: 1 !important;
-  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+  transform: perspective(clamp(50rem, 60vw, 80rem)) rotateY(0deg) scale(1) !important;
 }
 
 .rotate-3d-full:not(.visible) { 
@@ -420,42 +424,42 @@ body::-webkit-scrollbar {
 
 .home-content {
     text-align: center;
-    width: 1144px;
+    width: clamp(60rem, 70vw, 80rem);
     height: auto; /* 允许高度自适应 */
     z-index: 1;
 }
 
 .home h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    /* 字体大小在1920保持100px，1281缩小到70px */
-    font-size: clamp(70px, 5vw, 100px);
+    /* 字体大小响应式缩放 */
+    font-size: clamp(3.5rem, 6vw, 6rem);
     font-weight: bold;
-    margin-bottom: clamp(20px, 2vw, 40px);
+    margin-bottom: clamp(1rem, 2vw, 2.5rem);
     line-height: 140%;
-    letter-spacing: 1.4%;
+    letter-spacing: 0.014em;
     text-shadow:
-        10px 10px 12px rgba(0, 0, 0, 0.5),
-        4px 4px 20px rgba(0, 0, 0, 0.5);
+        clamp(0.5rem, 1vw, 0.75rem) clamp(0.5rem, 1vw, 0.75rem) clamp(0.6rem, 1.2vw, 0.9rem) rgba(0, 0, 0, 0.5),
+        clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.2rem, 0.4vw, 0.3rem) clamp(1rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.5);
 }
 
 .home p {
-    /* 字体大小响应式缩小 */
-    font-size: clamp(16px, 1.8vw, 20px);
+    /* 字体大小响应式缩放 */
+    font-size: clamp(1rem, 2vw, 1.25rem);
     font-weight: normal;
-    letter-spacing: clamp(3px, 0.4vw, 7px);
+    letter-spacing: clamp(0.15rem, 0.4vw, 0.5rem);
     line-height: 165%;
-    margin-top: 0px;
-    margin-bottom: clamp(50px, 5vw, 90px);
+    margin-top: 0;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
     text-shadow:
-        10px 10px 12px rgba(0, 0, 0, 0.5),
-        4px 4px 20px rgb(0, 0, 0, 0.5);
+        clamp(0.5rem, 1vw, 0.75rem) clamp(0.5rem, 1vw, 0.75rem) clamp(0.6rem, 1.2vw, 0.9rem) rgba(0, 0, 0, 0.5),
+        clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.2rem, 0.4vw, 0.3rem) clamp(1rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.5);
 }
 
 .decor-line {
-    width: clamp(800px, 60vw, 1200px);
-    height: 2px;
-    margin: clamp(20px, 4vw, 40px) auto clamp(30px, 5vw, 50px);
-    margin-left: calc(50% - clamp(400px, 30vw, 600px) + -10px);
+    width: clamp(40rem, 60vw, 75rem);
+    height: clamp(0.1rem, 0.2vw, 0.15rem);
+    margin: clamp(1rem, 4vw, 2.5rem) auto clamp(1.5rem, 5vw, 3rem);
+    margin-left: calc(50% - clamp(20rem, 30vw, 37.5rem) + -0.5rem);
     background: linear-gradient(to right,
         rgba(255,255,255,0) 0%,
         rgba(255,255,255,0.4) 25%,
@@ -476,7 +480,7 @@ body::-webkit-scrollbar {
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 80px 0; /* 预留 navbar 高度 */
+    padding: clamp(4rem, 8vh, 5rem) 0; /* 预留 navbar 高度 */
     background-color: white;
 }
 
@@ -485,67 +489,67 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: clamp(40px, 6vw, 80px) clamp(40px, 6vw, 80px) 0; /* 上左右内边距响应 */
+    padding: clamp(2.5rem, 6vw, 5rem) clamp(2.5rem, 6vw, 5rem) 0; /* 上左右内边距响应 */
     box-sizing: border-box;
-    max-width: 1920px;
+    max-width: clamp(75rem, 100vw, 120rem);
     margin: 0 auto;
     flex-wrap: nowrap;
-    gap: clamp(60px, 8vw, 160px); /* 子元素间距响应 */
+    gap: clamp(3.75rem, 8vw, 10rem); /* 子元素间距响应 */
 }
 
 .comprofile-text {
     flex: 1 1 0;
-    min-width: 200px; /* 最小宽度缩小一点 */
-    padding-right: clamp(20px, 2vw, 40px); /* 右内边距响应 */
+    min-width: clamp(12.5rem, 15vw, 20rem); /* 最小宽度响应式 */
+    padding-right: clamp(1.25rem, 2vw, 2.5rem); /* 右内边距响应 */
 }
 
 .comprofile-subtitle {
     display: flex;
     align-items: center;
-    height: clamp(36px, 3vw, 56px); /* 高度响应 */
+    height: clamp(2.25rem, 3vw, 3.5rem); /* 高度响应 */
     color: black;
-    font-size: clamp(16px, 1.5vw, 25px); /* 字号响应 */
+    font-size: clamp(1rem, 1.5vw, 1.6rem); /* 字号响应 */
     font-weight: bold;
-    margin-bottom: clamp(-5px, -1vw, -10px); /* 下边距响应 */
+    margin-bottom: clamp(-0.3rem, -1vw, -0.6rem); /* 下边距响应 */
 }
 
 .circle {
-    width: clamp(18px, 1.8vw, 28px); /* 圆形大小响应 */
-    height: clamp(18px, 1.8vw, 28px);
+    width: clamp(1.1rem, 1.8vw, 1.75rem); /* 圆形大小响应 */
+    height: clamp(1.1rem, 1.8vw, 1.75rem);
     border-radius: 50%;
     background-color: #ff5c00;
-    margin-right: clamp(5px, 1vw, 10px);
-    margin-left: clamp(2px, 0.5vw, 5px);
+    margin-right: clamp(0.3rem, 1vw, 0.6rem);
+    margin-left: clamp(0.1rem, 0.5vw, 0.3rem);
 }
 
 .comprofile-title {
-    font-size: clamp(40px, 4vw, 72px); /* 标题响应 */
+    font-size: clamp(2.5rem, 4vw, 4.5rem); /* 标题响应 */
     color: #ff5c00;
-    margin: 0px 0 clamp(5px, 1vw, 10px) 0;
+    margin: 0 0 clamp(0.3rem, 1vw, 0.6rem) 0;
 }
 
 .comprofile-description {
     width: 100%;
-    max-width: 780px;
-    height: clamp(80px, 8vw, 170px); /* 高度响应 */
-    font-size: clamp(14px, 1.25vw, 20px); /* 字号响应 */
+    max-width: clamp(40rem, 50vw, 48.75rem);
+    height: clamp(5rem, 8vw, 10.6rem); /* 高度响应 */
+    font-size: clamp(0.875rem, 1.25vw, 1.25rem); /* 字号响应 */
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
     color: #888888;
     line-height: 1.6;
-    margin-left: clamp(2px, 0.5vw, 4px);
+    margin-left: clamp(0.1rem, 0.5vw, 0.25rem);
 }
 
 .comprofile-image {
     flex: 0 0 auto;
-    width: clamp(320px, 30vw, 600px); /* 图片宽度响应 */
+    width: clamp(20rem, 30vw, 37.5rem); /* 图片宽度响应 */
     max-width: 50vw;
     aspect-ratio: 884 / 639;
-    padding: clamp(40px, 6vw, 80px) 0; /* 上下内边距响应 */
+    padding: clamp(2.5rem, 6vw, 5rem) 0; /* 上下内边距响应 */
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: clamp(8px, 1vw, 16px); /* 圆角响应 */
+    border-radius: clamp(0.5rem, 1vw, 1rem); /* 圆角响应 */
     overflow: hidden;
 }
 
@@ -562,11 +566,11 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(20px, 5vw, 60px);
+    gap: clamp(1.25rem, 5vw, 3.75rem);
     color: white;
-    padding: 0 clamp(20px, 10vw, 257px);
+    padding: 0 clamp(1.25rem, 10vw, 16rem);
     flex-wrap: nowrap;
-    margin-bottom: -80px;
+    margin-bottom: clamp(-4rem, -8vh, -5rem);
 }
 
 .stat-box {
@@ -576,12 +580,12 @@ body::-webkit-scrollbar {
     justify-content: center;
     text-align: center;
     flex: 1 1 auto;
-    min-width: 100px;
+    min-width: clamp(6.25rem, 8vw, 10rem);
 }
 
 .stat-number {
-    /* 1920px=60px，1281px=40px，屏幕变窄会早缩小 */
-    font-size: clamp(40px, 3.125vw, 60px);
+    /* 响应式字体大小 */
+    font-size: clamp(2.5rem, 3.125vw, 3.75rem);
     font-weight: bold;
     font-family: 'Inter', sans-serif;
     line-height: 1.2;
@@ -589,16 +593,16 @@ body::-webkit-scrollbar {
 }
 
 .stat-label {
-    /* 1920px=20px，1281px=14px */
-    font-size: clamp(14px, 1.04vw, 20px);
+    /* 响应式字体大小 */
+    font-size: clamp(0.875rem, 1.04vw, 1.25rem);
     font-family: 'Inter', sans-serif;
     line-height: 1.2;
     white-space: nowrap;
 }
 
 .divider {
-    width: 2px;
-    height: clamp(30px, 6vw, 80px);
+    width: clamp(0.1rem, 0.2vw, 0.15rem);
+    height: clamp(1.875rem, 6vw, 5rem);
     background-color: white;
     flex-shrink: 0;
 }
@@ -607,37 +611,37 @@ body::-webkit-scrollbar {
    公司文化区域样式
    =========================================== */
 .culture-section {
-    padding-top: clamp(40px, 8vh, 80px); /* 预留navbar高度 */
-    margin: 0px auto;
+    padding-top: clamp(2.5rem, 8vh, 5rem); /* 预留navbar高度 */
+    margin: 0 auto;
     box-sizing: border-box;
     height: 100vh;
     width: 100%;
-    padding-bottom: clamp(16px, 4vh, 32px);
+    padding-bottom: clamp(1rem, 4vh, 2rem);
     display: flex;
     justify-content: center;
     align-items: center;
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
     color: #000;
-    gap: 53px;
+    gap: clamp(2rem, 4vw, 3.3rem);
     flex-wrap: nowrap;
 }
 
 .culture-left {
     display: grid;
-    grid-template-columns: repeat(2, clamp(180px, 18vw, 350px));
-    grid-gap: clamp(10px, 1.8vw, 32px); /* 📌 响应式gap */
-    margin-top: 60px;
-    margin-left: 32px;
+    grid-template-columns: repeat(2, clamp(11.25rem, 18vw, 21.875rem));
+    grid-gap: clamp(0.625rem, 1.8vw, 2rem); /* 响应式gap */
+    margin-top: clamp(3.75rem, 6vh, 4rem);
+    margin-left: clamp(1.5rem, 3vw, 2rem);
 }
 
 .culture-card {
-    width: clamp(140px, 18vw, 350px);  /* 卡片宽度更小 */
-    height: clamp(140px, 18vw, 350px); /* 卡片高度更小 */
+    width: clamp(8.75rem, 18vw, 21.875rem);  /* 卡片宽度响应式 */
+    height: clamp(8.75rem, 18vw, 21.875rem); /* 卡片高度响应式 */
     background-color: #FFF1E5;
-    padding: clamp(10px, 1.8vw, 24px) clamp(8px, 1.2vw, 16px); /* 内边距略缩小 */
-    border-radius: 16px;
+    padding: clamp(0.625rem, 1.8vw, 1.5rem) clamp(0.5rem, 1.2vw, 1rem); /* 内边距响应式 */
+    border-radius: clamp(0.8rem, 1.5vw, 1.2rem);
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 clamp(0.2rem, 0.3vw, 0.4rem) clamp(0.4rem, 0.6vw, 0.6rem) rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -646,13 +650,13 @@ body::-webkit-scrollbar {
 }
 
 .culture-icon {
-    width: clamp(32px, 5vw, 124px);  /* 图标更小 */
-    height: clamp(32px, 5vw, 124px);
-    margin-top: clamp(8px, 1.8vw, 60px); /* 上间距缩小 */
+    width: clamp(2rem, 5vw, 7.75rem);  /* 图标响应式 */
+    height: clamp(2rem, 5vw, 7.75rem);
+    margin-top: clamp(0.5rem, 1.8vw, 3.75rem); /* 上间距响应式 */
 }
 
 .culture-card h3 {
-    font-size: clamp(14px, 2vw, 38px); /* 标题更小 */
+    font-size: clamp(0.875rem, 2vw, 2.375rem); /* 标题响应式 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
@@ -660,40 +664,40 @@ body::-webkit-scrollbar {
 }
 
 .culture-card p {
-    width: clamp(120px, 15vw, 320px); /* 描述文字区域缩小 */
-    font-size: clamp(10px, 1.1vw, 20px); /* 描述文字更小 */
+    width: clamp(7.5rem, 15vw, 20rem); /* 描述文字区域响应式 */
+    font-size: clamp(0.625rem, 1.1vw, 1.25rem); /* 描述文字响应式 */
     font-weight: normal;
     color: #888888;
     line-height: 140%;
-    padding: 0 clamp(8px, 1.8vw, 28px);
-    margin-bottom: clamp(12px, 3vw, 40px);
+    padding: 0 clamp(0.5rem, 1.8vw, 1.75rem);
+    margin-bottom: clamp(0.75rem, 3vw, 2.5rem);
 }
 
 .culture-right {
     flex: 1 1 auto;
-    min-width: 280px; /* 允许右边部分更窄 */
-    max-width: clamp(300px, 45vw, 600px); /* 最大宽度保持 */
-    height: clamp(250px, 35vw, 550px); /* 右边高度响应式缩小 */
+    min-width: clamp(17.5rem, 20vw, 25rem); /* 允许右边部分更窄 */
+    max-width: clamp(18.75rem, 45vw, 37.5rem); /* 最大宽度保持 */
+    height: clamp(15.625rem, 35vw, 34.375rem); /* 右边高度响应式缩小 */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: clamp(16px, 3vw, 48px);
-    padding-right: clamp(16px, 3vw, 48px);
+    padding-left: clamp(1rem, 3vw, 3rem);
+    padding-right: clamp(1rem, 3vw, 3rem);
     box-sizing: border-box;
 }
 
 .culture-title {
-    font-size: clamp(20px, 2.5vw, 70px); /* 标题字体响应式缩小 */
+    font-size: clamp(1.25rem, 2.5vw, 4.375rem); /* 标题字体响应式缩小 */
     color: white;
     font-weight: bold;
-    margin-top: clamp(20px, 4vh, 32px);
-    margin-bottom: clamp(16px, 3vh, 24px);
+    margin-top: clamp(1.25rem, 4vh, 2rem);
+    margin-bottom: clamp(1rem, 3vh, 1.5rem);
 }
 
 .culture-description {
-    font-size: clamp(10px, 1.2vw, 20px); /* 描述文字更小 */
+    font-size: clamp(0.625rem, 1.2vw, 1.25rem); /* 描述文字响应式 */
     color: white;
-    margin-bottom: clamp(24px, 4vh, 48px);
+    margin-bottom: clamp(1.5rem, 4vh, 3rem);
     line-height: 140%;
     word-break: break-word;
     max-width: 100%;
@@ -701,19 +705,19 @@ body::-webkit-scrollbar {
 
 .culture-button {
     background-color: white;
-    width: clamp(80px, 7vw, 110px);
-    height: clamp(22px, 2vw, 30px);
-    padding: clamp(4px, 0.7vw, 8px) clamp(12px, 1.4vw, 18px);
+    width: clamp(5rem, 7vw, 6.875rem);
+    height: clamp(1.375rem, 2vw, 1.875rem);
+    padding: clamp(0.25rem, 0.7vw, 0.5rem) clamp(0.75rem, 1.4vw, 1.125rem);
     display: flex; /* ✅ 改成 flex */
     align-items: center; /* 垂直居中 */
-    border: 2px solid white;
-    border-radius: clamp(6px, 0.8vw, 14px);
-    font-size: clamp(12px, 1.3vw, 20px);
+    border: clamp(0.1rem, 0.15vw, 0.15rem) solid white;
+    border-radius: clamp(0.375rem, 0.8vw, 0.875rem);
+    font-size: clamp(0.75rem, 1.3vw, 1.25rem);
     color: #ff5c00;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 140%;
     text-decoration: none;
-    margin-bottom: clamp(12px, 2vw, 32px);
+    margin-bottom: clamp(0.75rem, 2vw, 2rem);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -727,19 +731,19 @@ body::-webkit-scrollbar {
    =========================================== */
 .social-sidebar {
     position: fixed;
-    right: 20px;
-    bottom: 20px;
+    right: clamp(1.25rem, 2vw, 1.5rem);
+    bottom: clamp(1.25rem, 2vw, 1.5rem);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: clamp(0.75rem, 1vw, 1rem);
     z-index: 1000;
     animation: pulse 4s ease-in-out infinite;
 }
 
 .social-icon {
-    width: clamp(36px, 2.24vw, 43px);
-    height: clamp(36px, 2.24vw, 43px);
-    border-radius: 12px;
+    width: clamp(2.25rem, 2.24vw, 2.7rem);
+    height: clamp(2.25rem, 2.24vw, 2.7rem);
+    border-radius: clamp(0.6rem, 1vw, 0.8rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -747,15 +751,15 @@ body::-webkit-scrollbar {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(clamp(0.8rem, 1.2vw, 1rem));
+    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(0, 0, 0, 0.2);
     transform-style: preserve-3d;
     background: linear-gradient(135deg, 
         rgba(0, 0, 0, 0.3), 
         rgba(0, 0, 0, 0.2));
     box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 clamp(0.3rem, 0.5vw, 0.4rem) clamp(1rem, 1.5vw, 1.3rem) rgba(0, 0, 0, 0.2),
+        inset 0 clamp(0.05rem, 0.1vw, 0.08rem) 0 rgba(255, 255, 255, 0.1);
 }
 
 .social-icon::before {
@@ -787,21 +791,21 @@ body::-webkit-scrollbar {
 }
 
 .social-icon:hover::after {
-    width: 20px;
-    height: 20px;
+    width: clamp(1rem, 1.5vw, 1.3rem);
+    height: clamp(1rem, 1.5vw, 1.3rem);
 }
 
 .social-icon:hover {
-    transform: translateY(-5px) translateX(-3px) rotateY(5deg) scale(1.1);
+    transform: translateY(clamp(-0.3rem, -0.5vw, -0.4rem)) translateX(clamp(-0.2rem, -0.3vw, -0.25rem)) rotateY(5deg) scale(1.1);
     box-shadow: 
-        0 15px 30px rgba(0,0,0,0.4),
-        0 0 0 4px rgba(0, 0, 0, 0.1),
-        0 0 0 8px rgba(0, 0, 0, 0.05);
+        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(0,0,0,0.4),
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(0, 0, 0, 0.1),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.3);
 }
 
 .social-icon:active {
-    transform: translateY(-4px) scale(1.05);
+    transform: translateY(clamp(-0.25rem, -0.4vw, -0.3rem)) scale(1.05);
 }
 
 /* Facebook 悬停样式 */
@@ -810,10 +814,10 @@ body::-webkit-scrollbar {
         rgba(24, 119, 242, 0.9), 
         rgba(24, 119, 242, 0.7));
     box-shadow: 
-        0 15px 30px rgba(24, 119, 242, 0.4),
-        0 0 0 4px rgba(24, 119, 242, 0.2),
-        0 0 0 8px rgba(24, 119, 242, 0.1),
-        0 0 20px rgba(24, 119, 242, 0.3);
+        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(24, 119, 242, 0.4),
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(24, 119, 242, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(24, 119, 242, 0.1),
+        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(24, 119, 242, 0.3);
 }
 
 /* Instagram 悬停样式 */
@@ -822,10 +826,10 @@ body::-webkit-scrollbar {
         rgba(253, 29, 29, 0.9), 
         rgba(131, 58, 180, 0.9));
     box-shadow: 
-        0 15px 30px rgba(253, 29, 29, 0.4),
-        0 0 0 4px rgba(253, 29, 29, 0.2),
-        0 0 0 8px rgba(131, 58, 180, 0.1),
-        0 0 20px rgba(131, 58, 180, 0.3);
+        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(253, 29, 29, 0.4),
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(253, 29, 29, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(131, 58, 180, 0.1),
+        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(131, 58, 180, 0.3);
 }
 
 /* WhatsApp 悬停样式 */
@@ -834,17 +838,17 @@ body::-webkit-scrollbar {
         rgba(37, 211, 102, 0.9), 
         rgba(37, 211, 102, 0.7));
     box-shadow: 
-        0 15px 30px rgba(37, 211, 102, 0.4),
-        0 0 0 4px rgba(37, 211, 102, 0.2),
-        0 0 0 8px rgba(37, 211, 102, 0.1),
-        0 0 20px rgba(37, 211, 102, 0.3);
+        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(37, 211, 102, 0.4),
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(37, 211, 102, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(37, 211, 102, 0.1),
+        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(37, 211, 102, 0.3);
 }
 
 /* 图标 PNG 样式 - 默认状态稍微透明 */
 .social-icon img {
-    width: clamp(35px, 2.2vw, 42px);
-    height: clamp(35px, 2.2vw, 42px);
-    filter: grayscale(100%) brightness(0.7) drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    width: clamp(2.2rem, 2.2vw, 2.6rem);
+    height: clamp(2.2rem, 2.2vw, 2.6rem);
+    filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.05rem, 0.1vw, 0.08rem) clamp(0.1rem, 0.15vw, 0.15rem) rgba(0,0,0,0.5));
     transition: all 0.4s ease;
     z-index: 2;
     position: relative;
@@ -853,7 +857,7 @@ body::-webkit-scrollbar {
 
 .social-icon:hover img {
     transform: scale(1.15) rotateZ(-3deg);
-    filter: grayscale(0%) brightness(1) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    filter: grayscale(0%) brightness(1) drop-shadow(0 clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.2rem, 0.3vw, 0.3rem) rgba(0,0,0,0.6));
     opacity: 1; /* 悬停时完全不透明 */
 }
 

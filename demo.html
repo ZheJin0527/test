@@ -1,26 +1,99 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSS Standard Demo</title>
-  <link rel="stylesheet" href="demo.css">
+  <title>em vs rem Demo</title>
+  <style>
+    html {
+      font-size: 16px; /* 初始 1rem = 16px */
+    }
+
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .box {
+      border: 2px solid #333;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* em 示例 */
+    .em-parent {
+      font-size: 20px; /* 父元素字体变大 */
+    }
+
+    .em-child {
+      font-size: 1.5em; /* 相对父元素 (20px) = 30px */
+      padding: 1em;     /* 相对父元素的字体大小 (20px) = 20px */
+      background: lightcoral;
+    }
+
+    /* rem 示例 */
+    .rem-parent {
+      font-size: 20px; /* 父元素字体变大 */
+    }
+
+    .rem-child {
+      font-size: 1.5rem; /* 相对根元素 (16px) = 24px */
+      padding: 1rem;     /* 相对根元素 (16px) = 16px */
+      background: lightblue;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">设计系统 Demo</div>
-    
-    <h1>这是 H1 标题</h1>
-    <h2>这是 H2 副标题</h2>
-    <h3>这是 H3 小标题</h3>
-    <p>这是段落文字。字体大小会根据屏幕宽度自动调整。</p>
-    <p>容器宽度在不同断点也会变化，你可以拖动窗口测试。</p>
+  <h2>em vs rem 对比 Demo</h2>
 
-    <div class="mt-lg">
-      <button class="button button-primary">主按钮</button>
-      <button class="button button-secondary">副按钮</button>
-      <button class="button button-ghost">幽灵按钮</button>
+  <button id="increase">增加根字体 (html font-size)</button>
+  <button id="decrease">减少根字体 (html font-size)</button>
+  <p>当前 <code>html</code> font-size: <span id="currentSize">16</span>px</p>
+
+  <div class="box em-parent">
+    <p>父元素 (font-size: 20px)</p>
+    <div class="em-child">
+      子元素 (font-size: 1.5em)<br>
+      padding: 1em
     </div>
   </div>
+
+  <div class="box rem-parent">
+    <p>父元素 (font-size: 20px)</p>
+    <div class="rem-child">
+      子元素 (font-size: 1.5rem)<br>
+      padding: 1rem
+    </div>
+  </div>
+
+  <script>
+    const html = document.documentElement;
+    const currentSizeEl = document.getElementById("currentSize");
+    let currentSize = 16;
+
+    function updateSize() {
+      html.style.fontSize = currentSize + "px";
+      currentSizeEl.textContent = currentSize;
+    }
+
+    document.getElementById("increase").addEventListener("click", () => {
+      currentSize += 2;
+      updateSize();
+    });
+
+    document.getElementById("decrease").addEventListener("click", () => {
+      currentSize = Math.max(10, currentSize - 2);
+      updateSize();
+    });
+
+    updateSize();
+  </script>
 </body>
 </html>
