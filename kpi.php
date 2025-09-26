@@ -281,8 +281,8 @@ $avatarLetter = strtoupper($username[0]);
 
         .number-selection {
             flex: 1;
-            padding-left: 12px;
-            min-width: 120px; /* 固定最小宽度 */
+            padding-left: 0px;
+            min-width: 90px; /* 固定最小宽度 */
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -316,8 +316,8 @@ $avatarLetter = strtoupper($username[0]);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: clamp(14px, 1.25vw, 24px); /* 增加最小值 */
-            height: clamp(14px, 1.25vw, 24px); /* 增加最小值 */
+            width: clamp(12px, 1.25vw, 24px); /* 增加最小值 */
+            height: clamp(12px, 1.25vw, 24px); /* 增加最小值 */
             border: 1px solid #e5e7eb;
             background: white;
             color: #583e04;
@@ -397,8 +397,9 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .number-grid {
+            margin-left: 10px;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(4, 0.2fr);
             gap: 2px;
         }
 
