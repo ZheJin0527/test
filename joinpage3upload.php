@@ -164,7 +164,7 @@ if (isset($_GET['success'])) {
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             background: #f1dfbc;
             border-radius: 15px;
             overflow: hidden;
@@ -476,7 +476,7 @@ if (isset($_GET['success'])) {
         .jobs-list h2 {
             color: #333;
             margin-bottom: 25px;
-            font-size: 1.8em;
+            font-size: clamp(12px, 1.04vw, 20px);
         }
         
         .jobs-list .job-item {

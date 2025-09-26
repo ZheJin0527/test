@@ -179,7 +179,7 @@ foreach ($defaultTimeline as $year => $data) {
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             background: #f1dfbc;
             border-radius: 15px;
             overflow: hidden;
@@ -232,7 +232,7 @@ foreach ($defaultTimeline as $year => $data) {
         .timeline-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: 1.8em;
+            font-size: clamp(18px, 1.5vw, 28px);
             display: flex;
             align-items: center;
             gap: 10px;

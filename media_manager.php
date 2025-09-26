@@ -123,7 +123,7 @@ if (file_exists('media_config.json')) {
         .media-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: clamp(20px, 1.5vw, 28px);
+            font-size: clamp(18px, 1.5vw, 28px);
         }
         
         .upload-form {
@@ -220,6 +220,7 @@ if (file_exists('media_config.json')) {
             background: #6c757d;
             color: white;
             text-decoration: none;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: clamp(4px, 0.32vw, 6px);
             margin-bottom: 20px;
@@ -305,7 +306,6 @@ if (file_exists('media_config.json')) {
     <div class="container">
         <div class="header">
             <h1>媒体管理中心</h1>
-            <p>管理网站背景媒体文件</p>
         </div>
         
         <div class="content">
@@ -321,7 +321,7 @@ if (file_exists('media_config.json')) {
             
             <!-- 页面分类管理 -->
             <div class="media-section">
-                <h2>🎵 背景音乐管理</h2>
+                <h2>背景音乐管理</h2>
                 <div class="page-grid">
                     <a href="bgmusicupload.php" class="page-card">
                         <div class="page-icon"></div>
@@ -332,7 +332,7 @@ if (file_exists('media_config.json')) {
             </div>
 
             <div class="media-section">
-                <h2>📁 首页管理</h2>
+                <h2>首页管理</h2>
                 <div class="page-grid">
                     <a href="homepage1upload.php" class="page-card">
                         <div class="page-icon"></div>
@@ -344,7 +344,7 @@ if (file_exists('media_config.json')) {
             </div>
             
             <div class="media-section">
-                <h2>📋 关于我们管理</h2>
+                <h2>关于我们管理</h2>
                 <div class="page-grid">
                     <a href="aboutpage1upload.php" class="page-card">
                         <div class="page-icon"></div>
@@ -363,7 +363,7 @@ if (file_exists('media_config.json')) {
             
             <!-- 页面分类管理 -->
             <div class="media-section">
-                <h2>🏢 旗下品牌管理</h2>
+                <h2>旗下品牌管理</h2>
                 <div class="page-grid">
                     <a href="tokyopage1upload.php" class="page-card">
                         <div class="page-icon"></div>
@@ -381,7 +381,7 @@ if (file_exists('media_config.json')) {
             </div>
             
             <div class="media-section">
-                <h2>👥 加入我们管理</h2>
+                <h2>加入我们管理</h2>
                 <div class="page-grid">
                     <a href="joinpage1upload.php" class="page-card">
                         <div class="page-icon"></div>

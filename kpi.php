@@ -85,7 +85,7 @@ $avatarLetter = strtoupper($username[0]);
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
         }
 
         /* 主内容区域样式 */
@@ -153,7 +153,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .btn {
-            padding: 8.5px 16px;
+            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -577,7 +577,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .card-body {
-            padding: clamp(7.5px, 0.7vw, 13.5px) clamp(18px, 1.25vw, 24px);
+            padding: clamp(5.5px, 0.7vw, 13.5px) clamp(18px, 1.25vw, 24px);
         }
         
         .grid {
@@ -735,7 +735,7 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            padding: 6px 4px;
+            padding: clamp(4px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
             min-width: 100px;
             transition: all 0.2s;
@@ -763,7 +763,6 @@ $avatarLetter = strtoupper($username[0]);
             padding: 0px clamp(6px, 0.52vw, 10px);
             border-radius: 4px;
             transition: all 0.2s;
-            min-width: 30px;
             text-align: center;
             user-select: none;
             background: transparent;
@@ -891,7 +890,7 @@ $avatarLetter = strtoupper($username[0]);
         .date-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: clamp(10px, 1.6vw, 30px);
+            gap: clamp(10px, 1.5vw, 30px);
             align-items: center;
         }
 
@@ -1095,7 +1094,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .chart-data-btn {
-            padding: 6px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             background: white;
             color: #6b7280;

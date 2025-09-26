@@ -27,7 +27,7 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -90,7 +90,7 @@
         .generate-form {
             background: transparent;
             border-radius: 15px;
-            margin-bottom: 25px;
+            margin-bottom: clamp(0px, 1.3vw, 25px);
             justify-items: normal;
         }
 

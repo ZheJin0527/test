@@ -91,7 +91,7 @@ if (file_exists('media_config.json')) {
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             background: #f1dfbc;
             border-radius: 15px;
             overflow: hidden;
@@ -284,7 +284,7 @@ if (file_exists('media_config.json')) {
         
         .section-title {
             color: #333;
-            font-size: clamp(20px, 1.5vw, 28px);
+            font-size: clamp(18px, 1.5vw, 28px);
             margin-bottom: 20px;
             text-align: center;
             border-bottom: 2px solid #583e04;
