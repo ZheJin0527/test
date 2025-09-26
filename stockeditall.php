@@ -2825,12 +2825,12 @@
             return `
                 <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" ${disabled ? 'data-disabled="true"' : ''}>
                     <input type="text" class="table-input remark-prefix" value="${prefix}" placeholder="" 
-                        style="border: none; border-radius: 4px 0 0 4px; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: clamp(16px, 1.56vw, 30px; text-align: center; background: transparent; padding: 0px;" 
                         ${disabled ? 'disabled' : ''} 
                         onchange="updateRemarkNumber(${recordId})">
                     <span style="padding: 0px; color: #6b7280; font-weight: bold;">-</span>
                     <input type="text" class="table-input remark-suffix" value="${suffix}" placeholder="" 
-                        style="border: none; border-radius: 0 4px 4px 0; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: clamp(16px, 1.56vw, 30px; text-align: center; background: transparent; padding: 0px;" 
                         ${disabled ? 'disabled' : ''} 
                         onchange="updateRemarkNumber(${recordId})">
                 </div>
