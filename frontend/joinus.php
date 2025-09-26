@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../media_config.php';
+include_once 'media_config.php';
 
 // 禁用页面缓存
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -9,12 +9,12 @@ header("Expires: 0");
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['css/joinus.css','../public/css/components/header.css','../public/css/components/footer.css'];
+$additionalCSS = ['joinusanimation.css','style.css'];
 $showPageIndicator = true;
 $totalSlides = 6;
 
 // 包含header
-include '../public/header.php';
+include 'header.php';
 ?>
 
 <div class="swiper">
@@ -36,27 +36,27 @@ include '../public/header.php';
       <h2>公司福利</h2>
       <div class="benefits-grid">
         <div class="benefit-item">
-          <img src="../images/images/带薪假期.png" alt="带薪假期">
+          <img src="images/images/带薪假期.png" alt="带薪假期">
           <p>带薪假期</p>
         </div>
         <div class="benefit-item">
-          <img src="../images/images/旅游奖励.png" alt="旅游奖励">
+          <img src="images/images/旅游奖励.png" alt="旅游奖励">
           <p>旅游奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="../images/images/汽车奖励.png" alt="汽车奖励">
+          <img src="images/images/汽车奖励.png" alt="汽车奖励">
           <p>汽车奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="../images/images/房子奖励.png" alt="房子奖励">
+          <img src="images/images/房子奖励.png" alt="房子奖励">
           <p>房子奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="../images/images/年度绩效奖励.png" alt="年度绩效奖励">
+          <img src="images/images/年度绩效奖励.png" alt="年度绩效奖励">
           <p>年度绩效奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="../images/images/专业培训与学习机会.png" alt="专业培训与学习机会">
+          <img src="images/images/专业培训与学习机会.png" alt="专业培训与学习机会">
           <p>专业培训与学习机会</p>
         </div>
       </div>
@@ -278,7 +278,7 @@ include '../public/header.php';
 </div>
 </div>
 
-     <div class="swiper-slide footer-slide">
+  <div class="swiper-slide footer-slide">
     <section class="scroll-buffer">
     <footer class="footer">
     <div class="footer-section">
@@ -325,6 +325,8 @@ include '../public/header.php';
   </section>
   </div>
 </div>
+
+<div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
         <img src="images/images/fbicon.png" alt="Facebook">
@@ -342,8 +344,8 @@ include '../public/header.php';
 </div>
     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../app.js"></script>
-<script src="../public/header.js"></script>
+<script src="app.js"></script>
+<script src="header.js"></script>
 <script>
         // 通用的 animate-on-scroll observer（保持原有逻辑）
 const observer = new IntersectionObserver((entries) => {
@@ -689,13 +691,34 @@ const swiper = new Swiper('.swiper', {
     direction: 'vertical',
     mousewheel: true,
     speed: 800,
-    allowTouchMove: true,
-    allowSlideNext: true,
-    allowSlidePrev: true,
+    simulateTouch: false,
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    // 添加这个配置来处理不同高度的slide
+    slidesPerView: 'auto',
+    spaceBetween: 0,
     on: {
         slideChange: function() {
             // 更新页面指示器
             updatePageIndicator(this.activeIndex);
+        },
+        // 添加这个事件来处理最后一页的特殊情况
+        reachEnd: function() {
+            // 确保最后一页正确显示
+            this.allowTouchMove = true;
+        },
+        // 添加进度监听来处理最后一页的双向滑动
+        setTransition: function(duration) {
+            // 在过渡结束后检查进度
+            setTimeout(() => {
+                if (this.progress > 0.95) {
+                    updatePageIndicator(5); // 滑到最后一页
+                } else {
+                    updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
+                }
+            }, duration + 50);
         }
     }
 });
