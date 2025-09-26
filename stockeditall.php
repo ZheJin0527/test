@@ -154,11 +154,11 @@
         }
 
         .btn {
-            padding: 7px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -1023,9 +1023,9 @@
         .export-modal-content {
             background-color: white;
             margin: 10% auto;
-            padding: 30px;
+            padding: clamp(20px, 1.56vw, 30px);
             border-radius: 12px;
-            width: 450px;
+            width: clamp(300px, 23.44vw, 450px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
 
@@ -1037,12 +1037,12 @@
         }
 
         .export-form-group {
-            margin-bottom: 16px;
+            margin-bottom: clamp(6px, 0.83vw, 16px);
         }
 
         .export-form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: clamp(2px, 0.32vw, 6px);
             font-weight: 500;
             color: #374151;
             font-size: clamp(8px, 0.74vw, 14px);
@@ -1086,8 +1086,8 @@
             display: flex;
             gap: 12px;
             justify-content: flex-end;
-            margin-top: 24px;
-            padding-top: 20px;
+            margin-top: clamp(14px, 1.25vw, 24px);
+            padding-top: clamp(10px, 1.04vw, 20px);
             border-top: 1px solid #e5e7eb;
         }
 
