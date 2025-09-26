@@ -227,7 +227,7 @@ session_start();
         }
 
         .quantity-input {
-            width: 100px;
+            width: clamp(70px, 5.21vw, 100px);
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             border-radius: 4px;
