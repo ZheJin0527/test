@@ -295,9 +295,7 @@ if (file_exists('media_config.json')) {
             <span>Tokyo Japanese Cuisine 页面</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
-            
+        <div class="content">              
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
             <?php endif; ?>

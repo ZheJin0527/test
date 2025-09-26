@@ -567,9 +567,7 @@ foreach ($defaultTimeline as $year => $data) {
             <span>发展历史管理</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
-            
+        <div class="content">           
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
             <?php endif; ?>
