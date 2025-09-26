@@ -935,8 +935,8 @@
         /* 通知基础样式 */
         .toast {
             width: clamp(100px, 15.63vw, 300px);
-            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
-            border-radius: clamp(4px, 0.42vw, 8px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -989,7 +989,7 @@
 
         /* 通知图标 */
         .toast-icon {
-            font-size: 18px;
+            font-size: clamp(14px, 0.94vw, 18px);
             flex-shrink: 0;
         }
 
