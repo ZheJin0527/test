@@ -214,8 +214,8 @@ if (isset($_GET['success'])) {
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
+            margin-bottom: clamp(10px, 1.04vw, 20px);
         }
         
         .form-group {
@@ -469,13 +469,13 @@ if (isset($_GET['success'])) {
         .jobs-list {
             background: white;
             border-radius: 10px;
-            padding: 30px;
+            padding: clamp(18px, 1.56vw, 30px);
             border-left: 5px solid #583e04;
         }
         
         .jobs-list h2 {
             color: #333;
-            margin-bottom: 25px;
+            margin-bottom: clamp(15px, 1.3vw, 25px);
             font-size: clamp(12px, 1.04vw, 20px);
         }
         
@@ -490,8 +490,8 @@ if (isset($_GET['success'])) {
         
         /* 应用你想要的样式 */
         border: 1px solid #e0e0e0 !important;
-        padding: 20px !important;
-        margin-bottom: 20px !important;
+        padding: clamp(12px, 1.04vw, 20px) !important;
+        margin-bottom: clamp(10px, 1.04vw, 20px) !important;
         transition: all 0.3s ease !important;
     }
 
@@ -530,7 +530,7 @@ if (isset($_GET['success'])) {
         
         .job-actions {
             display: flex;
-            gap: 10px;
+            gap: 0px;
         }
         
         .job-description-preview {
@@ -561,7 +561,7 @@ if (isset($_GET['success'])) {
         .form-buttons {
             display: flex;
             gap: 15px;
-            margin-top: 25px;
+            margin-top: clamp(15px, 1.3vw, 25px);
         }
         
         @media (max-width: 768px) {

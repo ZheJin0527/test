@@ -274,7 +274,7 @@ foreach ($defaultTimeline as $year => $data) {
         
         .upload-form {
             display: grid;
-            gap: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
             margin-bottom: 30px;
         }
         

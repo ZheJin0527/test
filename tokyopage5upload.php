@@ -173,19 +173,19 @@ $currentConfig = getTokyoLocationConfig();
         
         .form-grid {
             display: grid;
-            gap: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
         }
         
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: clamp(4px, 0.42vw, 8px);
         }
         
         .form-group label {
             font-weight: 600 !important;
             color: #555 !important;
-            font-size: 1.1em !important;
+            font-size: clamp(8px, 0.74vw, 14px) !important;
         }
         
         .form-input {
