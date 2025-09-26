@@ -1084,7 +1084,7 @@
 
         .export-modal-actions {
             display: flex;
-            gap: 12px;
+            gap: clamp(6px, 0.63vw, 12px);
             justify-content: flex-end;
             margin-top: clamp(14px, 1.25vw, 24px);
             padding-top: clamp(10px, 1.04vw, 20px);
