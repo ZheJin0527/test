@@ -1116,7 +1116,7 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -1125,7 +1125,7 @@
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
-            width: clamp(90px, 6.77vw, 130px);
+            width: clamp(80px, 6.77vw, 130px);
             justify-content: space-between;
             position: relative; /* 添加这个，因为下拉菜单需要 */
         }
