@@ -49,11 +49,11 @@ session_start();
         }
 
         .btn {
-            padding: 10px 16px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: none;
-            border-radius: 6px;
+            border-radius: clamp(4px, 0.32vw, 6px);
             cursor: pointer;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;
             display: inline-flex;
@@ -126,10 +126,10 @@ session_start();
         }
 
         .filter-input {
-            padding: 10px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             transition: border-color 0.2s;
         }
 
@@ -206,7 +206,8 @@ session_start();
 
         .settings-table th,
         .settings-table td {
-            padding: 12px 20px;
+            font-size: clamp(8px, 0.74vw, 14px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
