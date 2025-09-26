@@ -18,7 +18,7 @@ session_start();
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffe7d5 0%, #f3ebe0ff 100%);
+            background: #f1dfbc;
             color: #1a202c;
             line-height: 1.6;
         }
@@ -30,17 +30,18 @@ session_start();
         }
 
         .header {
-            background: #ff5c00;
+            background: #583e04;
             color: white;
-            padding: 20px;
+            padding: clamp(14px, 1.04vw, 20px);
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .header h1 {
+            font-size: clamp(20px, 2.6vw, 50px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -118,6 +119,7 @@ session_start();
         }
 
         .filter-group label {
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             color: #374151;
             margin-bottom: 6px;

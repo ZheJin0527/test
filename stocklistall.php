@@ -2345,7 +2345,7 @@
             const summary = document.getElementById('alert-summary');
             
             let html = `
-                <div style="font-size: clamp(10px, 0.84vw, 16px); padding: 12px; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
+                <div style="font-size: clamp(10px, 0.84vw, 16px); padding: clamp(8px, 0.63vw, 12px); background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
                     <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
                     发现 ${alerts.length} 个货品库存不足，请及时补货！
                 </div>
