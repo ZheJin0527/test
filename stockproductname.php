@@ -592,7 +592,7 @@ if (isset($_SESSION['user_id'])) {
             background: white;
             border-radius: 12px;
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
-            margin-bottom: clamp(13px, 1.25vw, 24px);
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             display: flex;
