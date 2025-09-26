@@ -8,24 +8,23 @@ html,
 body {
    margin: 0;
    padding: 0;
+   height: 100%;
    font-family: "Segoe UI", sans-serif;
 }
 
 .swiper {
    width: 100%;
-   height: 100vh;
+   height: 100%;
 }
 
 .swiper-wrapper {
    position: relative;
-   height: 100%;
 }
 
 .swiper-slide {
    height: 100vh;
    overflow: hidden;
    display: flex;
-   flex-direction: column;
 }
 
 .swiper-slide.footer-slide {
@@ -95,8 +94,8 @@ body {
 }
 
 .animate-on-scroll:not(.scale-fade-in):not(.slide-in-left):not(.slide-in-right):not(.fade-in-down):not(.rotate-3d):not(.flip-3d):not(.spin-3d):not(.card-tilt-in-left):not(.text-zoom-in-right):not(.rotate-3d-full) {
-   opacity: 1;
-   transform: translateY(0);
+   opacity: 0;
+   transform: translateY(20px);
    transition: all 0.8s ease-out;
 }
 
@@ -106,8 +105,8 @@ body {
 }
 
 .slide-in-left {
-   opacity: 1 !important;
-   transform: translateX(0) !important;
+   opacity: 0 !important;
+   transform: translateX(-300px) !important;
    transition: all 0.8s ease-out;
 }
 
@@ -129,8 +128,8 @@ body {
 }
 
 .slide-in-right {
-   opacity: 1 !important;
-   transform: translateX(0) !important;
+   opacity: 0 !important;
+   transform: translateX(300px) !important;
    transition: all 0.8s ease-out;
 }
 
@@ -140,10 +139,10 @@ body {
 }
 
 .scale-fade-in {
-   opacity: 1;
-   transform: scale(1);
+   opacity: 0;
+   transform: scale(0.8);
    animation: scaleFadeIn 1.6s ease forwards;
-   animation-play-state: running;
+   animation-play-state: paused;
 }
 
 .animate-on-scroll.visible .scale-fade-in {
@@ -170,8 +169,8 @@ body {
 
 /* values/图文进入特效 */
 .card-tilt-in-left {
-   opacity: 1 !important;
-   transform: perspective(1000px) translateX(0) rotateY(0) scale(1) !important;
+   opacity: 0 !important;
+   transform: perspective(1000px) translateX(-120px) rotateY(25deg) scale(0.9) !important;
    transform-origin: left center;
    transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -182,8 +181,8 @@ body {
 }
 
 .values-scale-fade {
-   opacity: 1 !important;
-   transform: scale(1) !important;
+   opacity: 0 !important;
+   transform: scale(0.8) !important;
    transition: all 1.6s ease;
 }
 
@@ -262,10 +261,10 @@ body {
 /* 进入视口时依次出现（JS 会加类） */
 .aboutus-content,
 .intro-content {
-   opacity: 1 !important;
-   transform: translateY(0) !important;
+   opacity: 0 !important;
+   transform: translateY(20px) !important;
    transition: all 0.8s ease-out;
-   visibility: visible;
+   visibility: hidden;
 }
 
 .aboutus-banner.content-loaded .aboutus-content {
@@ -373,8 +372,8 @@ body {
 }
 
 .vision-slide-down {
-   opacity: 1 !important;
-   transform: translateY(0) !important;
+   opacity: 0 !important;
+   transform: translateY(-60px) !important;
    transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -816,7 +815,7 @@ body {
    border-radius: 25px;
    backdrop-filter: blur(12px) saturate(160%);
    border: 1px solid rgba(255, 255, 255, .15);
-   opacity: 1;
+   opacity: 0;
    transition: opacity .8s ease, transform .8s ease;
 }
 
@@ -948,11 +947,6 @@ body {
 /* ===========================================
    加载状态类
    =========================================== */
-.social-sidebar {
-   opacity: 1;
-   visibility: visible;
-}
-
 .social-sidebar.social-loaded {
    opacity: 1;
    visibility: visible;
