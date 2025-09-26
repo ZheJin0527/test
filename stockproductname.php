@@ -195,7 +195,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         /* 响应式表格列宽 - 9列设置 */
-        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 9%; }   /* 第1列 */
+        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 12%; }   /* 第1列 */
         .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 9%; }  /* 第2列 */
         .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 12%; }  /* 第3列 */
         .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 24%; }  /* 第4列 */
