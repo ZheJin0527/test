@@ -349,7 +349,7 @@ function formatFileSize($bytes) {
         .btn-group {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: clamp(0px, 1.04vw, 20px);
         }
         
         .alert {

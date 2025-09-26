@@ -454,7 +454,7 @@ foreach ($defaultTimeline as $year => $data) {
         .form-actions {
             display: flex;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: clamp(10px, 1.04vw, 20px);
         }
         
         @media (max-width: 768px) {
