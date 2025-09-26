@@ -36,27 +36,27 @@ include '../public/header.php';
       <h2>公司福利</h2>
       <div class="benefits-grid">
         <div class="benefit-item">
-          <img src="images/images/带薪假期.png" alt="带薪假期">
+          <img src="../../images/images/带薪假期.png" alt="带薪假期">
           <p>带薪假期</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/旅游奖励.png" alt="旅游奖励">
+          <img src="../../images/images/旅游奖励.png" alt="旅游奖励">
           <p>旅游奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/汽车奖励.png" alt="汽车奖励">
+          <img src="../../images/images/汽车奖励.png" alt="汽车奖励">
           <p>汽车奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/房子奖励.png" alt="房子奖励">
+          <img src="../../images/images/房子奖励.png" alt="房子奖励">
           <p>房子奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/年度绩效奖励.png" alt="年度绩效奖励">
+          <img src="../../images/images/年度绩效奖励.png" alt="年度绩效奖励">
           <p>年度绩效奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/专业培训与学习机会.png" alt="专业培训与学习机会">
+          <img src="../../images/images/专业培训与学习机会.png" alt="专业培训与学习机会">
           <p>专业培训与学习机会</p>
         </div>
       </div>
@@ -329,17 +329,17 @@ include '../public/header.php';
 <div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="images/images/fbicon.png" alt="Facebook">
+        <img src="../../images/images/fbicon.png" alt="Facebook">
     </a>
 
     <!-- Instagram -->
     <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="images/images/igicon.png" alt="Instagram">
+        <img src="../../images/images/igicon.png" alt="Instagram">
     </a>
 
     <!-- WhatsApp -->
     <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="images/images/wsicon.png" alt="WhatsApp">
+        <img src="../../images/images/wsicon.png" alt="WhatsApp">
     </a>
 </div>
     
@@ -607,7 +607,7 @@ function isElementInViewport(el) {
     console.log('开始加载背景图...');
     
     const bgImg = new Image();
-    bgImg.src = "images/images/加入我们bg2.jpg";
+    bgImg.src = "../../images/images/加入我们bg2.jpg";
 
     bgImg.onload = function () {
         console.log('背景图加载完成！开始显示动画');
