@@ -579,8 +579,8 @@
             position: fixed;
             bottom: clamp(16px, 1.56vw, 30px);
             right: clamp(12px, 1.04vw, 20px);
-            width: 50px;
-            height: 50px;
+            width: clamp(36px, 2.6vw, 50px);
+            height: clamp(36px, 2.6vw, 50px);
             background-color: #583e04;
             color: white;
             border: none;
