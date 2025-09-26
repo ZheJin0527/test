@@ -138,7 +138,7 @@ if (file_exists('media_config.json')) {
         .media-section {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: 30px;
+            padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
             border-left: 5px solid #583e04;
         }
@@ -146,7 +146,7 @@ if (file_exists('media_config.json')) {
         .media-section h2 {
             color: #333;
             margin-bottom: 20px;
-            font-size: clamp(18px, 1.5vw, 28px);
+            font-size: clamp(16px, 1.5vw, 28px);
         }
         
         .upload-form {

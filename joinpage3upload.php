@@ -200,7 +200,7 @@ if (isset($_GET['success'])) {
         .form-section {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: clamp(20px, 1.56vw, 30px);
+            padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
             border-left: 5px solid #583e04;
         }
