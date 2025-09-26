@@ -312,8 +312,8 @@
 
         #searchInput:focus {
             outline: none;
-            border-color: #ff5c00 !important;
-            box-shadow: 0 0 10px rgba(255, 115, 0, 0.8) !important;
+            border-color: #6d4700ff !important;
+            box-shadow: 0 0 10px rgba(148, 67, 0, 0.8) !important;
         }
 
         #searchInput::placeholder {
