@@ -14,7 +14,7 @@ $showPageIndicator = true;
 $totalSlides = 6;
 
 // 包含header
-include '../piblic/header.php';
+include '../public/header.php';
 ?>
 
 <div class="swiper">
