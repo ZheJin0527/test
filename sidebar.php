@@ -355,7 +355,7 @@ if (isset($_SESSION['user_id'])) {
 .submenu-item:hover {
     background: rgba(255,255,255,0.15);
     color: white;
-    padding-left: 30px;
+    padding-left: clamp(10px, 1.56vw, 30px);
     transform: translateX(5px);
 }
 
