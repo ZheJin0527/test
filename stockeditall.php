@@ -934,21 +934,6 @@
             color: white;
         }
 
-        /* 输入框样式优化 */
-        .combobox-input {
-            width: 100%;
-            height: 40px;
-            border: none;
-            background: transparent;
-            text-align: center;
-            font-size: 14px;
-            padding: 8px 20px 8px 4px;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            cursor: text;
-            ime-mode: disabled; /* 禁用输入法 */
-        }
-
         .combobox-input:focus {
             background: #fff;
             border: 2px solid #583e04;
@@ -1021,17 +1006,16 @@
         }
 
         .export-modal-content {
-    position: fixed; /* 固定在屏幕 */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 位移来居中 */
-    background-color: white;
-    padding: clamp(20px, 1.56vw, 30px);
-    border-radius: 12px;
-    width: clamp(300px, 23.44vw, 450px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-}
-
+            position: fixed; /* 固定在屏幕 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 位移来居中 */
+            background-color: white;
+            padding: clamp(20px, 1.56vw, 30px);
+            border-radius: 12px;
+            width: clamp(300px, 23.44vw, 450px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
 
         .export-modal h3 {
             margin: 0 0 20px 0;
