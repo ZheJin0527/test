@@ -280,6 +280,8 @@ include '../public/header.php';
 
 <?php include '../public/footer.php'; ?>
 
+    </div> <!-- 关闭 swiper-wrapper -->
+</div> <!-- 关闭 swiper -->
 <div class="social-sidebar">
     <!-- Facebook -->
     <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
