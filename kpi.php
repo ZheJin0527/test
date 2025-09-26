@@ -1206,8 +1206,7 @@ $avatarLetter = strtoupper($username[0]);
                                 </div>
                             </div>
                         </div>
-    
-                        <div id="date-info" class="date-info"></div>
+
                         <!-- 餐厅选择器 -->
                         <div class="restaurant-selector">
                             <button class="restaurant-btn dropdown-toggle" onclick="toggleRestaurantDropdown()">
