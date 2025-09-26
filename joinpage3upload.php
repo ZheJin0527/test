@@ -700,10 +700,7 @@ if (isset($_GET['success'])) {
             <span>招聘职位管理</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
-            
-            
+        <div class="content">       
             <!-- 添加/编辑职位表单 -->
             <div class="form-section">
                 <h2><?php echo $editJob ? '编辑职位' : '添加新职位'; ?></h2>

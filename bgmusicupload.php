@@ -442,8 +442,7 @@ function formatFileSize($bytes) {
             <span>背景音乐</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
+        <div class="content">  
             
             <?php if (isset($_GET['success']) && $_GET['success'] == '1'): ?>
                 <div class="alert alert-success">音乐文件上传成功！</div>
