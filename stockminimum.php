@@ -25,7 +25,7 @@ session_start();
         }
 
         .container {
-            max-width: 900px;
+            width: clamp(600px, 46.88vw, 900px);
             margin: 0 auto;
             padding: 20px;
         }
@@ -104,14 +104,14 @@ session_start();
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 24px;
+            margin-bottom: clamp(16px, 1.25vw, 24px);
         }
 
         .filter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            margin-bottom: 20px;
+            gap: clamp(10px, 0.83vw, 16px);
+            margin-bottom: clamp(14px, 1.04vw, 20px);
         }
 
         .filter-group {
