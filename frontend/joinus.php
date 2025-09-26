@@ -9,7 +9,7 @@ header("Expires: 0");
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['joinusanimation.css','style.css'];
+$additionalCSS = ['css/joinus.css','../public/css/header.css'];
 $showPageIndicator = true;
 $totalSlides = 6;
 
