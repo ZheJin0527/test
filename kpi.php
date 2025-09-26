@@ -226,7 +226,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .restaurant-btn {
-            padding: 10px 20px;
+            padding: clamp(6px, 0.52vw, 10px) clamp(14px, 1.04vw, 20px);
             border-radius: 8px;
             border: 2px solid #583e04 !important;
             cursor: pointer;
@@ -234,12 +234,10 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             color: #583e04;
             position: relative;
-            min-width: 80px;
-
+            width: clamp(60px, 5.21vw, 100px);
             display: flex;
             align-items: center;
             gap: 8px;
-
             transition: all 0.3s ease;
             border-color: var(--primary-color, #583e04) !important;
         }
