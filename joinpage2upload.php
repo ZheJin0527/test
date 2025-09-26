@@ -225,7 +225,7 @@ if (file_exists('media_config.json')) {
             background: #fff9f5;
             transition: all 0.3s ease;
             cursor: pointer;
-            margin-bottom: 15px;
+            margin-bottom: clamp(8px, 0.78vw, 15px);
         }
         
         .file-input:hover {

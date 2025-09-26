@@ -239,7 +239,7 @@ if (isset($_GET['success'])) {
             border: 2px solid #e0e0e0 !important;
             border-radius: clamp(4px, 0.42vw, 8px)!important;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px)!important;
-            font-size: clamp(10px, 0.84vw, 16px)!important;
+            font-size: clamp(8px, 0.84vw, 16px)!important;
             font-family: 'Inter', sans-serif !important;
             transition: all 0.3s ease!important;
         }
@@ -521,11 +521,11 @@ if (isset($_GET['success'])) {
         .job-meta-list {
             display: flex;
             gap: 20px;
-            margin-bottom: 15px;
+            margin-bottom: clamp(10px, 0.78vw, 15px);
         }
         
         .job-meta-item-list {
-            font-size: 0.9em;
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #666;
         }
         
