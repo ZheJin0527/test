@@ -182,7 +182,7 @@
         }
 
         .form-section-content {
-            padding: 0px 14px 18px;
+            padding: clamp(2px, 0.21vw, 4px) clamp(10px, 0.73vw, 14px) clamp(14px, 0.94vw, 18px);
         }
 
         /* 表单组基础样式 - 重新设计 */
@@ -542,15 +542,6 @@
             .form-row-3col {
                 grid-template-columns: 1fr !important;
                 gap: 15px;
-            }
-        }
-
-        /* 平板响应式 */
-        @media (max-width: 1024px) and (min-width: 769px) {
-            #addUserModal .modal-content,
-            #editUserModal .modal-content {
-                max-width: 90%;
-                width: 90%;
             }
         }
 
