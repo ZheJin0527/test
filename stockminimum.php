@@ -59,7 +59,7 @@ session_start();
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: clamp(4px, 0.42vw, 8px);
             transition: all 0.2s;
         }
 
