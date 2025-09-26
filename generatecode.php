@@ -153,9 +153,9 @@
 
         #addUserModal .modal-header,
         #editUserModal .modal-header {
-            font-size: 20px;
+            font-size: clamp(12px, 1.04vw, 20px);
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: clamp(16px, 1.56vw, 30px);
             text-align: center;
             padding-bottom: 0;
             border-bottom: none;
@@ -171,9 +171,9 @@
         }
 
         .form-section-header {
-            padding: 10px 14px;
+            padding: clamp(6px, 0.52vw, 10px) clamp(10px, 0.73vw, 14px);
             border-bottom: 1px solid #ffddaa;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 700;
             text-align: left;
             color: white;
@@ -197,10 +197,10 @@
         #addUserModal .form-group label,
         #editUserModal .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: clamp(0px, 0.26vw, 5px);
             color: #000000ff;
             font-weight: 600;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             text-align: left;
         }
 
@@ -227,12 +227,12 @@
             padding: 8px 12px;
             border: 1px solid #bfbfbf;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-family: inherit;
             background-color: #ffffff;
             color: black;
             transition: all 0.2s ease;
-            min-height: 34px;
+            min-height: 0px;
         }
 
         /* 输入框聚焦样式 - 绿主题 */
@@ -264,8 +264,8 @@
         #editUserModal .form-group input[type="date"],
         #editUserModal .form-group select,
         #searchInput {
-            height: clamp(30px, 1.87vw, 36px) !important;
-            padding: 8px 12px !important;
+            height: clamp(20px, 1.87vw, 36px) !important;
+            padding: clamp(0px, 0.42vw, 8px) clamp(8px, 0.63vw, 12px) !important;
             box-sizing: border-box !important;
             line-height: 1.2 !important;
         }
@@ -700,13 +700,6 @@
         @keyframes slideIn {
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
-            color: #f44336;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
         }
 
         .modal-body {
