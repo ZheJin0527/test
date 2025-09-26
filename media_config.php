@@ -17,7 +17,7 @@ function getMediaConfig($mediaType) {
         ],
         // 添加这个配置
         'joinus_background' => [
-            'file' => 'images/images/加入我们bg2.jpg',
+            'file' => '/images/images/加入我们bg2.jpg',
             'type' => 'image'
         ]
     ];
