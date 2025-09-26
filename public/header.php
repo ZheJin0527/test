@@ -51,7 +51,7 @@ if (!isset($mediaConfigIncluded)) {
                     <a href="tokyo-izakaya.php" class="header-nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a> -->
                 </div>
             </div>
-            <div class="header-nav-item"><a href="joinus.php">加入我们</a></div>
+            <div class="header-nav-item"><a href="../frontend/joinus.php">加入我们</a></div>
         </nav>
 
         <!-- 右侧区域 -->
