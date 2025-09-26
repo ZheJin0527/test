@@ -2,127 +2,56 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>em vs rem Demo with Grid</title>
+  <title>Clamp Padding Demo</title>
   <style>
     html {
-      font-size: 16px; /* 初始 1rem = 16px */
+      font-size: 16px; /* 1rem = 16px */
     }
-
     body {
       font-family: sans-serif;
       padding: 20px;
-      line-height: 1.5;
-      background-image: linear-gradient(to right, #ddd 1px, transparent 1px),
-                        linear-gradient(to bottom, #ddd 1px, transparent 1px);
-      background-size: 16px 16px; /* 每格 16px，方便对比 rem */
     }
-
-    button {
-      padding: 10px 20px;
-      margin-bottom: 20px;
-      font-size: 1rem;
-      cursor: pointer;
+    .box {
+      background: lightblue;
+      border: 2px solid #333;
+      padding: clamp(4rem, 6vw, 5rem) clamp(1.25rem, 2vw, 1.5rem);
+      margin: 20px 0;
     }
-
     .info {
-      margin-bottom: 20px;
+      font-family: monospace;
       background: #f9f9f9;
       padding: 10px;
-      border: 1px solid #ccc;
-    }
-
-    .box {
-      border: 2px solid #333;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    /* em 示例 */
-    .em-parent {
-      font-size: 20px; /* 父元素字体变大 */
-    }
-
-    .em-child {
-      font-size: 1.5em; /* 相对父元素 (20px) = 30px */
-      padding: 1em;     /* 相对父元素的字体大小 (20px) = 20px */
-      background: rgba(255, 100, 100, 0.5);
-    }
-
-    /* rem 示例 */
-    .rem-parent {
-      font-size: 20px; /* 父元素字体变大 */
-    }
-
-    .rem-child {
-      font-size: 1.5rem; /* 相对根元素 (16px) = 24px */
-      padding: 1rem;     /* 相对根元素 (16px) = 16px */
-      background: rgba(100, 150, 255, 0.5);
-    }
-
-    .grid-label {
-      font-size: 12px;
-      position: fixed;
-      top: 5px;
-      right: 10px;
-      background: rgba(255,255,255,0.8);
-      padding: 4px 8px;
       border: 1px solid #ccc;
     }
   </style>
 </head>
 <body>
-  <h2>em vs rem 对比 Demo + Grid</h2>
+  <h2>Clamp Padding Demo</h2>
+  <p>拖动浏览器宽度，观察 padding 值变化：</p>
 
-  <button id="increase">增加根字体 (html font-size)</button>
-  <button id="decrease">减少根字体 (html font-size)</button>
-
-  <div class="info">
-    当前 <code>html</code> font-size: <span id="currentSize">16</span>px  
-    <br>背景格子：每格 16px = 初始 1rem
+  <div class="box">
+    我是带 clamp padding 的盒子
   </div>
 
-  <div class="box em-parent">
-    <p>父元素 (font-size: 20px)</p>
-    <div class="em-child">
-      子元素 (font-size: 1.5em)<br>
-      padding: 1em
-    </div>
-  </div>
-
-  <div class="box rem-parent">
-    <p>父元素 (font-size: 20px)</p>
-    <div class="rem-child">
-      子元素 (font-size: 1.5rem)<br>
-      padding: 1rem
-    </div>
-  </div>
-
-  <div class="grid-label">背景格子：16px</div>
+  <div class="info" id="info"></div>
 
   <script>
-    const html = document.documentElement;
-    const currentSizeEl = document.getElementById("currentSize");
-    let currentSize = 16;
+    const box = document.querySelector(".box");
+    const info = document.getElementById("info");
 
-    function updateSize() {
-      html.style.fontSize = currentSize + "px";
-      currentSizeEl.textContent = currentSize;
-
-      // 让背景格子永远代表 1rem
-      document.body.style.backgroundSize = currentSize + "px " + currentSize + "px";
+    function updateInfo() {
+      const styles = getComputedStyle(box);
+      info.innerHTML = `
+        视口宽度: ${window.innerWidth}px<br>
+        上 padding: ${styles.paddingTop}<br>
+        右 padding: ${styles.paddingRight}<br>
+        下 padding: ${styles.paddingBottom}<br>
+        左 padding: ${styles.paddingLeft}
+      `;
     }
 
-    document.getElementById("increase").addEventListener("click", () => {
-      currentSize += 2;
-      updateSize();
-    });
-
-    document.getElementById("decrease").addEventListener("click", () => {
-      currentSize = Math.max(10, currentSize - 2);
-      updateSize();
-    });
-
-    updateSize();
+    window.addEventListener("resize", updateInfo);
+    window.addEventListener("load", updateInfo);
   </script>
 </body>
 </html>
