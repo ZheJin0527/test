@@ -144,7 +144,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 其余样式保持不变 */
 .informationmenu-header {
-    padding: clamp(12px, 1.25vw, 24px);
+    padding: clamp(10px, 1.25vw, 24px) clamp(14px, 1.25vw, 24px);
     border-bottom: 1px solid #e0e0e0;
     display: flex;
     align-items: center;
@@ -192,7 +192,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section {
-    padding: 10px 0;
+    padding: clamp(6px,0.52vw, 10px) 0;
     /* 让所有section占据剩余空间，但footer会被推到底部 */
 }
 
@@ -278,9 +278,9 @@ if (isset($_SESSION['user_id'])) {
 /* 子菜单 - 固定定位覆盖屏幕 */
 .submenu {
     position: fixed;
-    left: 250px;
+    left: clamp(140px, 13.02vw, 250px);
     top: 0;
-    width: 350px;
+    width: clamp(160px, 18.23vw, 350px);
     height: 100vh;
     background: linear-gradient(135deg, #ff8019 0%, #ffb342 100%);
     color: white;
@@ -312,7 +312,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .submenu-header {
-    padding: 30px 25px 24px;
+    padding: clamp(18px, 1.98vw, 38px) clamp(20px, 1.67vw, 32px) clamp(17px, 1.67vw, 32px);
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -322,7 +322,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .submenu-title {
-    font-size: 16px;
+    font-size: clamp(10px, 0.84vw, 16px);
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -330,22 +330,22 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .submenu-content {
-    padding: 20px 0;
+    padding: clamp(8px, 1.04vw, 20px) 0;
 }
 
 .submenu-item {
     display: flex;
     align-items: center;
-    padding: 18px 25px;
+    padding: clamp(10px, 0.94vw, 18px) clamp(15px, 1.3vw, 25px);
     color: rgba(255,255,255,0.9);
     text-decoration: none;
-    font-size: 15px;
+    font-size: clamp(8px, 0.84vw, 16px);
     transition: all 0.3s ease;
     cursor: pointer;
     border-bottom: 1px solid rgba(255,255,255,0.08);
-    margin: 0 15px;
+    margin: 0 clamp(10px, 0.78vw, 15px);
     border-radius: 8px;
-    margin-bottom: 5px;
+    margin-bottom: clamp(0px, 0.26vw, 5px);
 }
 
 .submenu-item:last-child {
@@ -518,8 +518,8 @@ if (isset($_SESSION['user_id'])) {
 /* 侧边栏收起状态下的图标样式 */
 .informationmenu.collapsed .section-icon {
     margin-right: 0 !important;
-    width: clamp(12px, 1.15vw, 22px) !important;
-    height: clamp(12px, 1.15vw, 22px) !important;
+    width: clamp(10px, 1.15vw, 22px) !important;
+    height: clamp(10px, 1.15vw, 22px) !important;
     display: block !important;
 }
 
@@ -617,12 +617,12 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .user-avatar {
-    width: clamp(24px, 2.4vw, 46px);
-    height: clamp(24px, 2.4vw, 46px);
+    width: clamp(22px, 2.4vw, 46px);
+    height: clamp(22px, 2.4vw, 46px);
     background-color: #FF5C00;
     color: white;
     font-weight: bold;
-    font-size: clamp(10px, 1.04vw, 20px);
+    font-size: clamp(7px, 1.04vw, 20px);
     line-height: clamp(24px, 2.34vw, 45px);
     text-align: center;
     border-radius: 50%;
@@ -643,37 +643,9 @@ if (isset($_SESSION['user_id'])) {
 
 .user-position {
     margin: 2px 0 0 0;
-    font-size: clamp(6px, 0.63vw, 12px);
+    font-size: clamp(7px, 0.63vw, 12px);
     font-weight: 400;
     color: #666;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 45px;
-    right: 0;
-    background: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    border-radius: 4px;
-    min-width: 100px;
-    z-index: 1000;
-    display: none;
-}
-
-.dropdown-menu.show {
-    display: block;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 8px 12px;
-    color: #333;
-    text-decoration: none;
-}
-
-.dropdown-menu a:hover {
-    background-color: #f0f0f0;
 }
 
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
@@ -698,21 +670,23 @@ if (isset($_SESSION['user_id'])) {
 /* 页面内容右移，避免被侧栏覆盖 */
 body {
     margin-left: clamp(140px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
+    transition: margin-left 0.3s ease;
 }
 body.sidebar-collapsed {
-    margin-left: 70px;
+    margin-left: clamp(50px, 3.65vw, 70px);
     transition: margin-left 0.3s ease;
 }
 
 /* 确保主内容区域能够自适应剩余空间 */
 .main-content {
-    width: calc(100vw - clamp(80px, 13.02vw, 250px));
+    width: calc(100vw - clamp(140px, 13.02vw, 250px));
     max-width: none;
     box-sizing: border-box;
+    transition: width 0.3s ease;
 }
 
 body.sidebar-collapsed .main-content {
-    width: calc(100vw - 70px);
+    width: calc(100vw - clamp(50px, 3.65vw, 70px));
 }
 
 /* 响应式调整 */
@@ -950,7 +924,7 @@ body.sidebar-transition {
         title.addEventListener('click', function(e) {
             const targetId = this.getAttribute('data-target');
             const targetDropdown = document.getElementById(targetId);
-    
+
             // 检查侧边栏是否处于收起状态
             if (sidebarMenu.classList.contains('collapsed')) {
                 e.preventDefault();
@@ -959,6 +933,8 @@ body.sidebar-transition {
                 // 展开侧边栏
                 sidebarMenu.classList.remove('collapsed');
                 sidebarToggle.classList.remove('collapsed');
+                // ⭐ 添加这行：移除 body 的 sidebar-collapsed 类
+                document.body.classList.remove('sidebar-collapsed');
         
                 // 同时展开点击的选项
                 // 关闭其他section的下拉菜单

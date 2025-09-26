@@ -11,6 +11,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -18,29 +19,30 @@ session_start();
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffe7d5 0%, #f3ebe0ff 100%);
+            background: #f1dfbc;
             color: #1a202c;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
+            width: clamp(600px, 46.88vw, 900px);
             margin: 0 auto;
             padding: 20px;
         }
 
         .header {
-            background: #ff5c00;
+            background: #583e04;
             color: white;
-            padding: 20px;
+            padding: clamp(14px, 1.04vw, 20px);
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .header h1 {
+            font-size: clamp(16px, 2.08vw, 40px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -48,16 +50,16 @@ session_start();
         }
 
         .btn {
-            padding: 10px 16px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: none;
-            border-radius: 6px;
+            border-radius: clamp(4px, 0.32vw, 6px);
             cursor: pointer;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: clamp(4px, 0.42vw, 8px);
             transition: all 0.2s;
         }
 
@@ -102,14 +104,14 @@ session_start();
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 24px;
+            margin-bottom: clamp(16px, 1.25vw, 24px);
         }
 
         .filter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            margin-bottom: 20px;
+            gap: clamp(10px, 0.83vw, 16px);
+            margin-bottom: clamp(14px, 1.04vw, 20px);
         }
 
         .filter-group {
@@ -118,16 +120,17 @@ session_start();
         }
 
         .filter-group label {
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             color: #374151;
             margin-bottom: 6px;
         }
 
         .filter-input {
-            padding: 10px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             transition: border-color 0.2s;
         }
 
@@ -184,7 +187,7 @@ session_start();
         }
 
         .table-header {
-            padding: 20px;
+            padding: clamp(10px, 1.04vw, 20px);
             background: #f9fafb;
             border-bottom: 1px solid #e5e7eb;
             display: flex;
@@ -204,7 +207,8 @@ session_start();
 
         .settings-table th,
         .settings-table td {
-            padding: 12px 20px;
+            font-size: clamp(8px, 0.74vw, 14px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
@@ -223,11 +227,11 @@ session_start();
         }
 
         .quantity-input {
-            width: 100px;
-            padding: 6px 8px;
+            width: clamp(70px, 5.21vw, 100px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         .toggle-switch {
@@ -648,7 +652,7 @@ session_start();
                         <td>
                             <button class="btn btn-primary btn-sm" 
                                     onclick="saveIndividualSetting('${product.product_name}')"
-                                    style="padding: 4px 8px; font-size: 12px;">
+                                    style="padding: 4px 8px; font-size: clamp(8px, 0.63vw, 12px);">
                                 <i class="fas fa-save"></i>
                                 保存
                             </button>

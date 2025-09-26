@@ -27,7 +27,7 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -90,7 +90,6 @@
         .generate-form {
             background: transparent;
             border-radius: 15px;
-            margin-bottom: 25px;
             justify-items: normal;
         }
 
@@ -141,10 +140,10 @@
         #addUserModal .modal-content,
         #editUserModal .modal-content {
             max-width: 800px !important;
-            width: 800px !important;
+            width: clamp(400px, 41.67vw, 800px) !important;
             height: 90vh;
             overflow-y: auto;
-            padding: 30px;
+            padding: clamp(18px, 1.56vw, 30px) clamp(18px, 1.56vw, 30px) clamp(0px, 1.56vw, 30px);
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -153,9 +152,9 @@
 
         #addUserModal .modal-header,
         #editUserModal .modal-header {
-            font-size: 20px;
+            font-size: clamp(12px, 1.04vw, 20px);
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: clamp(14px, 1.56vw, 30px);
             text-align: center;
             padding-bottom: 0;
             border-bottom: none;
@@ -163,7 +162,7 @@
 
         /* 表单区块样式（绿主题，卡片化） */
         .form-section {
-            margin-bottom: 20px;
+            margin-bottom: clamp(10px, 1.04vw, 20px);
             border: 1px solid #ffddaa;
             border-radius: 8px;
             background-color: #ffffff;
@@ -171,9 +170,9 @@
         }
 
         .form-section-header {
-            padding: 10px 14px;
+            padding: clamp(6px, 0.52vw, 10px) clamp(10px, 0.73vw, 14px);
             border-bottom: 1px solid #ffddaa;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 700;
             text-align: left;
             color: white;
@@ -182,7 +181,7 @@
         }
 
         .form-section-content {
-            padding: 0px 14px 18px;
+            padding: clamp(2px, 0.21vw, 4px) clamp(10px, 0.73vw, 14px) clamp(12px, 0.94vw, 18px);
         }
 
         /* 表单组基础样式 - 重新设计 */
@@ -197,10 +196,10 @@
         #addUserModal .form-group label,
         #editUserModal .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: clamp(0px, 0.26vw, 5px);
             color: #000000ff;
             font-weight: 600;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             text-align: left;
         }
 
@@ -227,12 +226,12 @@
             padding: 8px 12px;
             border: 1px solid #bfbfbf;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-family: inherit;
             background-color: #ffffff;
             color: black;
             transition: all 0.2s ease;
-            min-height: 34px;
+            min-height: 0px;
         }
 
         /* 输入框聚焦样式 - 绿主题 */
@@ -264,8 +263,8 @@
         #editUserModal .form-group input[type="date"],
         #editUserModal .form-group select,
         #searchInput {
-            height: clamp(30px, 1.87vw, 36px) !important;
-            padding: 8px 12px !important;
+            height: clamp(20px, 1.87vw, 36px) !important;
+            padding: clamp(0px, 0.42vw, 8px) clamp(8px, 0.63vw, 12px) !important;
             box-sizing: border-box !important;
             line-height: 1.2 !important;
         }
@@ -273,7 +272,7 @@
         /* 保持文本域独立高度 */
         #addUserModal .form-group textarea,
         #editUserModal .form-group textarea {
-            min-height: 60px !important;
+            min-height: 30px !important;
             height: auto !important;
         }
 
@@ -312,8 +311,8 @@
 
         #searchInput:focus {
             outline: none;
-            border-color: #ff5c00 !important;
-            box-shadow: 0 0 10px rgba(255, 115, 0, 0.8) !important;
+            border-color: #6d4700ff !important;
+            box-shadow: 0 0 10px rgba(148, 67, 0, 0.8) !important;
         }
 
         #searchInput::placeholder {
@@ -451,7 +450,7 @@
         }
 
         td {
-            padding: clamp(2px, 0.42vw, 8px) 6px;
+            padding: clamp(0px, 0.31vw, 6px) 6px;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             border: 1px solid #d1d5db;
@@ -542,15 +541,6 @@
             .form-row-3col {
                 grid-template-columns: 1fr !important;
                 gap: 15px;
-            }
-        }
-
-        /* 平板响应式 */
-        @media (max-width: 1024px) and (min-width: 769px) {
-            #addUserModal .modal-content,
-            #editUserModal .modal-content {
-                max-width: 90%;
-                width: 90%;
             }
         }
 
@@ -702,13 +692,6 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        .modal-header {
-            color: #f44336;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
         .modal-body {
             margin-bottom: 25px;
             color: #333;
@@ -725,9 +708,9 @@
 
         .modal-buttons .btn-action {
             flex: 0 0 auto;
-            width: 110px;
+            width: clamp(70px, 5.73vw, 110px);
             padding: 8px;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             border-radius: 6px;
             transition: all 0.2s ease;
@@ -793,14 +776,13 @@
 
         /* 通知基础样式 */
         .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            border-radius: 8px;
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -849,7 +831,7 @@
 
         /* 通知图标 */
         .toast-icon {
-            font-size: 18px;
+            font-size: clamp(14px, 0.94vw, 18px);
             flex-shrink: 0;
         }
 

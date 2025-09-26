@@ -22,14 +22,14 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
         }
         
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(22px, 1.67vw, 32px);
+            margin-bottom: clamp(18px, 1.67vw, 32px);
         }
         
         .header h1 {
@@ -54,23 +54,31 @@
             color: white;
             font-weight: 500;
 <<<<<<< HEAD
+<<<<<<< HEAD
             padding: 11px 24px;
 =======
             padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
 >>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
+=======
+            padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+>>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: clamp(10px, 0.84vw, 16px);
+            font-size: clamp(10px, 0.73vw, 14px);
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
 <<<<<<< HEAD
+<<<<<<< HEAD
             min-width: 130px;
 =======
             width: clamp(90px, 6.77vw, 130px);
 >>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
+=======
+            width: clamp(80px, 6.77vw, 130px);
+>>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
             justify-content: space-between;
         }
         
@@ -104,7 +112,7 @@
         }
 
         .dropdown-item {
-            padding: 8px 16px;
+            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
@@ -237,11 +245,11 @@
         }
 
         .btn {
-            padding: 7px 12px;
-            border-radius: 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -439,13 +447,13 @@
         }
 
         /* 响应式表格列宽 */
-.stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 8%; }   /* No. */
-.stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 12%; }  /* Code Number */
-.stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 25%; }  /* Product Name */
-.stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 15%; }  /* Total Stock */
-.stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 12%; }  /* Specification */
-.stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 14%; }  /* Unit Price */
-.stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 14%; }  /* Total Price */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 8%; }   /* No. */
+        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 12%; }  /* Code Number */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 25%; }  /* Product Name */
+        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 15%; }  /* Total Stock */
+        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 12%; }  /* Specification */
+        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 14%; }  /* Unit Price */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 14%; }  /* Total Price */
 
         .table-container {
             background: white;
@@ -805,8 +813,7 @@
             padding: 0;
             border: none;
             border-radius: 12px;
-            width: 80%;
-            max-width: 800px;
+            max-width: clamp(600px, 41.67vw, 800px);
             max-height: 80vh;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -816,14 +823,14 @@
         .low-stock-modal-header {
             background: linear-gradient(135deg, #dc2626, #ef4444);
             color: white;
-            padding: 20px 24px;
+            padding: clamp(10px, 1.04vw, 20px) clamp(18px, 1.25vw, 24px);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .low-stock-modal-header h2 {
-            font-size: clamp(18px, 1.25vw, 24px);
+            font-size: clamp(14px, 1.25vw, 24px);
             margin: 0;
             display: flex;
             align-items: center;
@@ -851,8 +858,8 @@
         }
 
         .low-stock-modal-body {
-            padding: 24px;
-            max-height: 60vh;
+            padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
+            height: clamp(58vh, 30vw, 60vh);
             overflow-y: auto;
         }
 
@@ -864,15 +871,15 @@
 
         .low-stock-table th,
         .low-stock-table td {
-            padding: 12px;
-            font-size: clamp(12px, 0.84vw, 16px);
+            padding: clamp(8px, 0.63vw, 12px);
+            font-size: clamp(8px, 0.84vw, 16px);
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
 
         .low-stock-table th {
             background-color: #f9fafb;
-            font-size: clamp(12px, 0.84vw, 16px);
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 600;
             color: #374151;
         }
@@ -892,7 +899,7 @@
         }
 
         .modal-footer {
-            padding: 20px 24px;
+            padding: clamp(10px, 1.04vw, 20px) 24px;
             background-color: #f9fafb;
             display: flex;
             justify-content: space-between;
@@ -902,7 +909,7 @@
 
         .alert-summary {
             color: #6b7280;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         @keyframes fadeIn {
@@ -958,14 +965,13 @@
 
         /* 通知基础样式 */
         .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            border-radius: 8px;
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -1014,7 +1020,7 @@
 
         /* 通知图标 */
         .toast-icon {
-            font-size: 18px;
+            font-size: clamp(14px, 0.94vw, 18px);
             flex-shrink: 0;
         }
 
@@ -1192,7 +1198,7 @@
             padding: clamp(8px, 0.83vw, 16px) clamp(18px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             flex-wrap: nowrap;
@@ -2251,7 +2257,7 @@
             // 自动关闭
             setTimeout(() => {
                 closeToast(toastId);
-            }, 700);
+            }, 70000);
         }
 
         // 添加关闭通知的函数
@@ -2369,7 +2375,7 @@
             const summary = document.getElementById('alert-summary');
             
             let html = `
-                <div style="margin-bottom: 16px; padding: 12px; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
+                <div style="font-size: clamp(10px, 0.84vw, 16px); padding: clamp(8px, 0.63vw, 12px); background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
                     <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
                     发现 ${alerts.length} 个货品库存不足，请及时补货！
                 </div>

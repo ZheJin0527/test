@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
+            font-size: clamp(8px, 0.74vw, 14px);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -22,14 +23,14 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
         }
         
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: clamp(22px, 1.67vw, 32px);
         }
         
         .header h1 {
@@ -47,7 +48,7 @@
         /* 餐厅选择器样式 */
         .restaurant-selector {
             background: white;
-            border-radius: 12px;
+            border-radius: clamp(6px, 0.63vw, 12px);
             padding: 6px;
             display: flex;
             gap: 0;
@@ -59,11 +60,11 @@
         .restaurant-prefix {
             background: #583e04;
             color: white;
-            padding: 10px 16px;
-            border-radius: 8px 0 0 8px;
-            font-size: 16px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px) 0 0 clamp(4px, 0.42vw, 8px);
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 700;
-            min-width: 40px;
+            width: clamp(26px, 2.08vw, 40px);
             text-align: center;
         }
 
@@ -73,16 +74,16 @@
         }
 
         .number-btn {
-            padding: 10px 16px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: 0 8px 8px 0;
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 600;
             transition: all 0.3s ease;
             background: white;
             color: #583e04;
-            min-width: 60px;
+            width: clamp(30px, 3.13vw, 60px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -254,8 +255,8 @@
         .month-selector {
             background: white;
             border-radius: 12px;
-            padding: 16px 24px;
-            margin-bottom: 24px;
+            padding: clamp(8px, 0.83vw, 16px) clamp(16px, 1.25vw, 24px);
+            margin-bottom: clamp(16px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             display: flex;
@@ -265,10 +266,10 @@
         }
 
         .month-selector select {
-            padding: 8px 16px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(8px, 0.83vw, 16px);
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
             background: white;
             color: #583e04;
@@ -282,7 +283,7 @@
         }
 
         .month-selector label {
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 600;
             color: #583e04;
         }
@@ -294,42 +295,99 @@
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             overflow: hidden;
             border: 2px solid #583e04;
-            overflow-x: auto;
+            height: 70vh; /* 设置固定高度，70%视窗高度 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table-scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .excel-table {
             width: 100%;
-            min-width: 1600px;
             border-collapse: collapse;
             font-size: 14px;
+            table-layout: fixed;
         }
 
-        .excel-table th {
-            background: #583e04;
-            color: white;
-            padding: 12px 8px;
-            text-align: center;
-            font-weight: 600;
-            border: 1px solid #462d03;
+        /* 确保表头固定 */
+        .excel-table thead {
             position: sticky;
             top: 0;
             z-index: 10;
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            table-layout: fixed;
+        }
+
+        .excel-table th {
+            font-size: clamp(8px, 0.74vw, 14px);
+            background: #583e04;
+            color: white;
+            padding: clamp(4px, 0.42vw, 8px) 0;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #d1d5db;
+            position: sticky;
+            top: 0;
+            z-index: 100; /* 改成更高的值 */
             white-space: nowrap;
         }
 
+        .excel-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #583e04; /* 确保背景色覆盖 */
+        }
+
+        .excel-table thead tr {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
         .excel-table td {
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 0;
             border: 1px solid #d1d5db;
             text-align: center;
             position: relative;
+            height: clamp(20px, 3.3vw, 40px);
         }
 
         .excel-table tr:nth-child(even) {
             background-color: #f9fafb;
         }
 
-        .excel-table tr:hover {
-            background-color: #f3f4f6;
+        .excel-table tbody tr:hover {
+            background-color: #fff9f1 !important;
+        }
+
+        .excel-table tbody tr:hover td {
+            background-color: #fff9f1 !important;
+        }
+
+        /* 确保hover效果覆盖所有单元格样式 */
+        .excel-table tbody tr:hover .date-cell,
+        .excel-table tbody tr:hover .calculated-cell,
+        .excel-table tbody tr:hover .weekend,
+        .excel-table tbody tr:hover .excel-input.has-data,
+        .excel-table tbody tr:hover .excel-input.no-data,
+        .excel-table tbody tr:hover .input-container {
+            background-color: #fff9f1 !important;
+        }
+
+        /* 编辑行不受hover影响 */
+        .excel-table tbody tr.editing-row:hover td {
+            background-color: #fff9f1 !important;
         }
 
         /* 日期列样式 */
@@ -337,7 +395,7 @@
             background: #f8f5eb !important;
             font-weight: 600;
             color: #583e04;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             min-width: 100px;
         }
 
@@ -352,14 +410,14 @@
             display: flex;
             align-items: center;
             width: 100%;
-            height: 40px;
+            height: clamp(20px, 3.3vw, 40px);
         }
 
         .currency-prefix {
             position: absolute;
-            left: 8px;
+            left: clamp(2px, 0.42vw, 8px);
             color: #6b7280;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             pointer-events: none;
             z-index: 2;
@@ -368,19 +426,19 @@
         /* 输入框样式 */
         .excel-input {
             width: 100%;
-            height: 40px;
+            height: clamp(20px, 3.3vw, 40px);
             border: none;
             background: #fee2e2;
             text-align: center;
-            font-size: 14px;
-            padding: 8px 4px;
+            font-size: clamp(8px, 0.74vw, 14px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             transition: all 0.2s;
         }
 
         .excel-input.currency-input {
-            padding-left: 32px;
+            padding-left: clamp(16px, 1.67vw, 32px);
             text-align: right;
-            padding-right: 8px;
+            padding-right: clamp(2px, 0.42vw, 8px);
             background: #f0fdf4;
         }
 
@@ -397,27 +455,27 @@
             background: #f0f9ff !important;
             color: #0369a1;
             font-weight: 600;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             min-width: 100px;
         }
 
-        /* 操作按钮 */
         .action-buttons {
-            padding: 24px;
+            padding: clamp(12px, 1.25vw, 24px);
             background: #f8f5eb;
-            border-top: 2px solid #583e04;
+            border-bottom: 2px solid #583e04; /* 改成 border-bottom */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            gap: clamp(0px, 0.83vw, 16px);
+            flex-shrink: 0; /* 防止按钮区域被压缩 */
         }
 
         .btn {
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -429,6 +487,7 @@
         .btn-primary {
             background-color: #583e04;
             color: white;
+            white-space: nowrap;
         }
         
         .btn-primary:hover {
@@ -459,7 +518,7 @@
         /* 统计信息 */
         .stats-info {
             display: flex;
-            gap: 24px;
+            gap: clamp(0px, 1.25vw, 24px);
             align-items: center;
             font-size: 12px;
             color: #6b7280;
@@ -470,11 +529,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 180px;
         }
 
         .stat-value {
-            font-size: 16px;
+            font-size: clamp(8px, 0.84vw, 16px);
             font-weight: bold;
             color: #583e04;
         }
@@ -570,22 +628,26 @@
             background: #ef4444;
             color: white;
             border: none;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
+            border-radius: clamp(4px, 0.32vw, 6px);
+            width: clamp(18px, 1.67vw, 32px);
+            height: clamp(18px, 1.67vw, 32px);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 12px;
-            margin: 3px;
+            font-size: clamp(6px, 0.63vw, 12px);
+            margin: clamp(1px, 0.31vw, 3px);
         }
 
         .delete-day-btn:hover {
             background: #dc2626;
             transform: scale(1.1);
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .delete-day-btn i {
+            font-size: clamp(6px, 0.63vw, 12px);
         }
 
         .delete-day-btn:disabled {
@@ -605,22 +667,26 @@
             background: #f59e0b;
             color: white;
             border: none;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
+            border-radius: clamp(4px, 0.32vw, 6px);
+            width: clamp(18px, 1.67vw, 32px);
+            height: clamp(18px, 1.67vw, 32px);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 12px;
-            margin: 2px;
+            font-size: clamp(6px, 0.63vw, 12px);
+            margin: clamp(1px, 0.21vw, 2px);
         }
 
         .edit-btn:hover {
             background: #d97706;
             transform: scale(1.1);
             box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .edit-btn i {
+            font-size: clamp(6px, 0.63vw, 12px);
         }
 
         .edit-btn:disabled {
@@ -658,8 +724,8 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 4px;
+            gap: clamp(2px, 0.21vw, 4px);
+            padding: clamp(2px, 0.21vw, 4px);
         }
 
         /* 编辑行样式 */
@@ -709,6 +775,140 @@
             z-index: 5;
             position: relative;
         }
+
+        /* 通知容器 */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        /* 通知基础样式 */
+        .toast {
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-size: clamp(8px, 0.74vw, 14px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: auto;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.hide {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        /* 通知类型样式 */
+        .toast-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+            color: white;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .toast-error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
+            color: white;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .toast-info {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(37, 99, 235, 0.9));
+            color: white;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .toast-warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(217, 119, 6, 0.9));
+            color: white;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        /* 通知图标 */
+        .toast-icon {
+            font-size: clamp(14px, 0.94vw, 18px);
+            flex-shrink: 0;
+        }
+
+        /* 通知内容 */
+        .toast-content {
+            flex: 1;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* 关闭按钮 */
+        .toast-close {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 进度条 */
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 0 0 8px 8px;
+            transform-origin: left;
+            animation: toastProgress 4s linear forwards;
+        }
+
+        @keyframes toastProgress {
+            0% {
+                transform: scaleX(1);
+            }
+            100% {
+                transform: scaleX(0);
+            }
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .toast-container {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+            }
+            
+            .toast {
+                min-width: auto;
+                max-width: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -735,10 +935,6 @@
                         </div>
                     </div>
                 </div>
-                <button class="back-button" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i>
-                    返回上一页
-                </button>
             </div>
         </div>
         
@@ -813,31 +1009,37 @@
                     </button>
                 </div>
             </div>
+            <div class="table-scroll-container">
             <table class="excel-table" id="excel-table">
                 <thead>
                     <tr>
-                        <th style="min-width: 100px;">日期</th>
-                        <th style="min-width: 120px;">总销售额</th>
-                        <th style="min-width: 100px;">折扣</th>
-                        <th style="min-width: 120px;">净销售额</th>
-                        <th style="min-width: 120px;">税</th>
-                        <th style="min-width: 120px;">服务费</th>
-                        <th style="min-width: 100px;">调整金额</th>
-                        <th style="min-width: 120px;">投标金额</th>
-                        <th style="min-width: 100px;">桌数总数</th>
-                        <th style="min-width: 100px;">顾客总数</th>
-                        <th style="min-width: 120px;">人均消费</th>
-                        <th style="min-width: 100px;">新客人数</th>
-                        <th style="min-width: 100px;">常客人数</th>
-                        <th style="min-width: 100px;">常客人率 (%)</th>
-                        <th style="min-width: 120px;">操作</th>
+                        <th style="width: 7%;">日期</th>
+                        <th style="width: 8%;">总销售额</th>
+                        <th style="width: 6%;">折扣</th>
+                        <th style="width: 8%;">净销售额</th>
+                        <th style="width: 7%;">税</th>
+                        <th style="width: 7%;">服务费</th>
+                        <th style="width: 7%;">调整金额</th>
+                        <th style="width: 8%;">投标金额</th>
+                        <th style="width: 5%;">桌数总数</th>
+                        <th style="width: 5%;">顾客总数</th>
+                        <th style="width: 8%;">人均消费</th>
+                        <th style="width: 5%;">新客人数</th>
+                        <th style="width: 5%;">常客人数</th>
+                        <th style="width: 7%;">常客人率 (%)</th>
+                        <th style="width: 9%;">操作</th>
                     </tr>
                 </thead>
                 <tbody id="excel-tbody">
                     <!-- 动态生成行 -->
                 </tbody>
             </table>
+            </div>
         </div>
+    </div>
+
+    <div class="toast-container" id="toast-container">
+    <!-- 动态通知内容 -->
     </div>
 
     <script>
@@ -1021,8 +1223,8 @@
                 const existingData = monthData[day] || {};
                 
                 const row = document.createElement('tr');
-row.innerHTML = `
-    <td class="date-cell ${isWeekend ? 'weekend' : ''}">${currentMonth}月${day}<small> (周${['日', '一', '二', '三', '四', '五', '六'][date.getDay()]})</small></td>
+                row.innerHTML = `
+                    <td class="date-cell ${isWeekend ? 'weekend' : ''}">${currentMonth}月${day}<small> (周${['日', '一', '二', '三', '四', '五', '六'][date.getDay()]})</small></td>
                     <td>
                         <div class="input-container">
                             <span class="currency-prefix">RM</span>
@@ -1115,6 +1317,81 @@ row.innerHTML = `
                 // 只在失去焦点时格式化
             }
         }
+
+        // 完全替换现有的 showAlert 函数
+        function showAlert(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            // 先检查并限制通知数量（在添加新通知之前）
+            const existingToasts = container.querySelectorAll('.toast');
+            while (existingToasts.length >= 3) {
+                closeToast(existingToasts[0].id);
+                // 立即从DOM移除，不等待动画
+                if (existingToasts[0].parentNode) {
+                    existingToasts[0].parentNode.removeChild(existingToasts[0]);
+                }
+                // 重新获取当前通知列表
+                existingToasts = container.querySelectorAll('.toast');
+            }
+
+            const toastId = 'toast-' + Date.now();
+            const iconClass = {
+                'success': 'fa-check-circle',
+                'error': 'fa-exclamation-circle', 
+                'info': 'fa-info-circle',
+                'warning': 'fa-exclamation-triangle'
+            }[type] || 'fa-check-circle';
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.id = toastId;
+            toast.innerHTML = `
+                <i class="fas ${iconClass} toast-icon"></i>
+                <div class="toast-content">${message}</div>
+                <button class="toast-close" onclick="closeToast('${toastId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="toast-progress"></div>
+            `;
+
+            container.appendChild(toast);
+
+            // 显示动画
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 0);
+
+            // 自动关闭
+            setTimeout(() => {
+                closeToast(toastId);
+            }, 700);
+        }
+
+        // 添加关闭通知的函数
+        function closeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        // 添加关闭所有通知的函数（可选）
+        function closeAllToasts() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(toast => {
+                closeToast(toast.id);
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initApp);
 
         // 设置行的只读状态
         function setRowReadonly(day, readonly) {

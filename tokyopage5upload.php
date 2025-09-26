@@ -112,7 +112,7 @@ $currentConfig = getTokyoLocationConfig();
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             background: #f1dfbc;
             border-radius: 15px;
             overflow: hidden;
@@ -136,7 +136,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .breadcrumb {
-            padding: clamp(2px, 1.04vw, 20px) 0px 20px;
+            padding: clamp(2px, 1.04vw, 20px) 0px clamp(10px, 1.04vw, 20px);
             background: transparent;
         }
         
@@ -157,35 +157,35 @@ $currentConfig = getTokyoLocationConfig();
         .form-section {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: 30px;
+            padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
             border-left: 5px solid #583e04;
         }
         
         .form-section h2 {
             color: #333;
-            margin-bottom: 20px;
-            font-size: clamp(20px, 1.5vw, 28px);
+            margin-bottom: clamp(10px, 1.04vw, 20px);
+            font-size: clamp(16px, 1.5vw, 28px);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0px;
         }
         
         .form-grid {
             display: grid;
-            gap: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
         }
         
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: clamp(4px, 0.42vw, 8px);
         }
         
         .form-group label {
             font-weight: 600 !important;
             color: #555 !important;
-            font-size: 1.1em !important;
+            font-size: clamp(8px, 0.74vw, 14px) !important;
         }
         
         .form-input {
@@ -423,9 +423,7 @@ $currentConfig = getTokyoLocationConfig();
             <span>Tokyo 位置信息</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
-            
+        <div class="content">          
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
             <?php endif; ?>
