@@ -1021,13 +1021,17 @@
         }
 
         .export-modal-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: clamp(20px, 1.56vw, 30px);
-            border-radius: 12px;
-            width: clamp(300px, 23.44vw, 450px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-        }
+    position: fixed; /* 固定在屏幕 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 位移来居中 */
+    background-color: white;
+    padding: clamp(20px, 1.56vw, 30px);
+    border-radius: 12px;
+    width: clamp(300px, 23.44vw, 450px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
 
         .export-modal h3 {
             margin: 0 0 20px 0;
