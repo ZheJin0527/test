@@ -276,9 +276,8 @@ include '../public/header.php';
   </div>
 </section>
 </div>
-</div>
-
 <?php include '../public/footer.php'; ?>
+</div>
 
 <div class="social-sidebar">
     <!-- Facebook -->
