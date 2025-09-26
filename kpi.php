@@ -545,12 +545,12 @@ $avatarLetter = strtoupper($username[0]);
         .dropdown-item {
             display: block;
             width: 100%;
-            padding: 10px 20px;
+            padding: clamp(6px, 0.52vw, 10px) clamp(10px, 1.04vw, 20px);
             border: none;
             background: transparent;
             color: #583e04;
             cursor: pointer;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             text-align: left;
             transition: background-color 0.2s;
