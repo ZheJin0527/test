@@ -648,34 +648,6 @@ if (isset($_SESSION['user_id'])) {
     color: #666;
 }
 
-.dropdown-menu {
-    position: absolute;
-    top: 45px;
-    right: 0;
-    background: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    border-radius: 4px;
-    min-width: 100px;
-    z-index: 1000;
-    display: none;
-}
-
-.dropdown-menu.show {
-    display: block;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 8px 12px;
-    color: #333;
-    text-decoration: none;
-}
-
-.dropdown-menu a:hover {
-    background-color: #f0f0f0;
-}
-
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
 .informationmenu {
     background: transparent !important; /* 容器透明，不再铺一层白底 */

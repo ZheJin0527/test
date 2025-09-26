@@ -509,9 +509,7 @@ $avatarLetter = strtoupper($username[0]);
             transform: translateY(-1px) !important;
             box-shadow: none !important;
             text-shadow: none !important;
-        }
-
-       
+        }    
         
         /* 下拉菜单样式 */
         .dropdown {
