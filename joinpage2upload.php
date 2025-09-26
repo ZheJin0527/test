@@ -175,7 +175,7 @@ if (file_exists('media_config.json')) {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: clamp(10px, 1.04vw, 20px);
-            margin-top: 20px;
+            margin-top: clamp(10px, 1.04vw, 20px);
         }
         
         .photo-card {
