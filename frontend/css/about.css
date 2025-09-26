@@ -1346,6 +1346,7 @@ body::-webkit-scrollbar {
     .timeline-section {
         padding: 30px 15px;
         height: auto;
+        min-height: 100vh;
     }
 
     .timeline-content-item {
