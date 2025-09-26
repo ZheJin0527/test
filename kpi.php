@@ -571,7 +571,7 @@ $avatarLetter = strtoupper($username[0]);
         .main-chart-container {
             display: flex;
             flex-direction: column;
-            margin-bottom: 32px;
+            margin-bottom: clamp(16px, 1.67vw, 32px);
         }
         
         /* 下方图表网格 - 现在只有一个图表 */
