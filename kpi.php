@@ -649,7 +649,7 @@ $avatarLetter = strtoupper($username[0]);
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            margin-bottom: 4px;
+            margin-bottom: clamp(0px, 0.21vw, 4px);
         }
 
         .kpi-card-vertical .kpi-label {
