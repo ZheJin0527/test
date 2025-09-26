@@ -645,13 +645,13 @@ const swiper = new Swiper('.swiper', {
     direction: 'vertical',
     mousewheel: true,
     speed: 800,
-    simulateTouch: false,
+    simulateTouch: true,
     pagination: {
         el: '.swiper-pagination',
         clickable: true,
     },
     // 添加这个配置来处理不同高度的slide
-    slidesPerView: 'auto',
+    slidesPerView: 1,
     spaceBetween: 0,
     on: {
         slideChange: function() {

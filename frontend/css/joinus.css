@@ -36,7 +36,6 @@ body::-webkit-scrollbar {
     height: 100vh;
     overflow-y: auto; /* 允许每页内容内部滚动 */
     padding-top: 0px; /* 给 navbar 留空间 */
-    overflow: hidden;
 }
 
 /* 专门为最后一页（footer页面）设置样式 */
