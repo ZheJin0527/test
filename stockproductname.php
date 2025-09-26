@@ -256,22 +256,6 @@ if (isset($_SESSION['user_id'])) {
             background-color: #f3f4f6;
         }
 
-        /* 表格容器水平滚动 */
-        .table-scroll-container {
-            overflow-x: auto;
-            overflow-y: auto;
-            flex: 1;
-            position: relative;
-        }
-
-        .excel-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            table-layout: fixed;
-            min-width: 1000px; /* 确保表格最小宽度 */
-        }
-
         /* 输入框容器样式 */
         .input-container {
             position: relative;
