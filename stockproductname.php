@@ -195,15 +195,15 @@ if (isset($_SESSION['user_id'])) {
         }
 
         /* 响应式表格列宽 - 9列设置 */
-        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 120px; min-width: 100px; }   /* 第1列 - 日期 */
-        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 80px; min-width: 70px; }  /* 第2列 - 时间 */
-        .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 12%; min-width: 120px; }  /* 第3列 */
-        .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 24%; min-width: 200px; }  /* 第4列 */
-        .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 10%; min-width: 120px; }  /* 第5列 */
-        .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 10%; min-width: 100px; }  /* 第6列 */
-        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 10%; min-width: 100px; }  /* 第7列 */
-        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 8%; min-width: 80px; }  /* 第8列 */
-        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 100px; min-width: 100px; }   /* 第9列(操作按钮) */
+        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 9%; }   /* 第1列 */
+        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 9%; }  /* 第2列 */
+        .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 12%; }  /* 第3列 */
+        .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 24%; }  /* 第4列 */
+        .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 10%; }  /* 第5列 */
+        .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 10%; }  /* 第6列 */
+        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 10%; }  /* 第7列 */
+        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 8%; }  /* 第8列 */
+        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 90px; }   /* 第9列(操作按钮) */
 
         /* Excel样式表格 */
         .excel-container {
