@@ -141,7 +141,7 @@
         #addUserModal .modal-content,
         #editUserModal .modal-content {
             max-width: 800px !important;
-            width: 800px !important;
+            width: clamp(400px, 41.67vw, 800px) !important;
             height: 90vh;
             overflow-y: auto;
             padding: 30px;
@@ -163,7 +163,7 @@
 
         /* 表单区块样式（绿主题，卡片化） */
         .form-section {
-            margin-bottom: 20px;
+            margin-bottom: clamp(10px, 1.04vw, 20px);
             border: 1px solid #ffddaa;
             border-radius: 8px;
             background-color: #ffffff;
@@ -182,7 +182,7 @@
         }
 
         .form-section-content {
-            padding: clamp(2px, 0.21vw, 4px) clamp(10px, 0.73vw, 14px) clamp(14px, 0.94vw, 18px);
+            padding: clamp(2px, 0.21vw, 4px) clamp(10px, 0.73vw, 14px) clamp(12px, 0.94vw, 18px);
         }
 
         /* 表单组基础样式 - 重新设计 */
