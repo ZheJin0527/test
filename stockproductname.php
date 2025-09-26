@@ -621,7 +621,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .filter-bar .stats-info .stat-value {
-            font-size: clamp(12px, 0.94vw, 18px);
+            font-size: clamp(10px, 0.94vw, 18px);
             font-weight: bold;
             color: #583e04;
         }

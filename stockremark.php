@@ -215,7 +215,7 @@
         .product-group {
             background: white;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             overflow: hidden;
@@ -226,7 +226,7 @@
             background: #583e04;
             color: white;
             padding: 24px;
-            font-size: clamp(18px, 1.46vw, 28px);
+            font-size: clamp(16px, 1.46vw, 28px);
             font-weight: 600;
             display: flex;
             flex-direction: column;
@@ -577,8 +577,8 @@
         /* 回到顶部按钮 */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 20px;
+            bottom: clamp(16px, 1.56vw, 30px);
+            right: clamp(12px, 1.04vw, 20px);
             width: 50px;
             height: 50px;
             background-color: #583e04;
@@ -589,7 +589,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: clamp(12px, 0.94vw, 18px);
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.3);
             transition: all 0.3s ease;
             opacity: 0;
@@ -767,7 +767,7 @@
         
         <!-- 搜索和过滤区域 -->
         <div class="filter-section">
-            <div style="display: flex; align-items: end; gap: 26px; margin-bottom: 16px;">
+            <div style="display: flex; align-items: end; gap: 26px; margin-bottom: clamp(10px, 0.83vw, 16px);">
                 <div class="filter-group" style="flex: 1;">
                     <label for="product-filter">货品名称</label>
                     <input type="text" id="product-filter" class="filter-input" placeholder="搜索货品名称...">
