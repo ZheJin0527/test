@@ -1,6 +1,11 @@
+/* ===========================================
+   Footer Component Styles - 现代化响应式版本
+   使用 clamp() 和 rem/vw/vh 单位实现响应式设计
+   =========================================== */
+
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
-    height: 29vh; /* 保持原来的36vh */
+    height: clamp(25vh, 35vh, 40vh); /* 响应式高度 */
     justify-content: flex-end;
     align-items: center;
     padding: 0;
@@ -16,7 +21,7 @@
     background-color: #2f2f2f;
     display: flex;
     flex-direction: column;
-    min-height: 26vh;
+    min-height: clamp(20vh, 30vh, 35vh); /* 响应式最小高度 */
     justify-content: flex-end;
     margin: 0;
     padding: 0;
@@ -28,18 +33,18 @@
 .swiper-slide.footer-slide::before {
     content: '';
     position: absolute;
-    top: -71vh;
+    top: clamp(-60vh, -70vh, -80vh); /* 响应式顶部位置 */
     left: 0;
     right: 0;
-    height: 64vh;
+    height: clamp(50vh, 60vh, 70vh); /* 响应式高度 */
     background: #2a2a2a;
     z-index: 1;
 }
 
 /* page下方 */
 .footer {
-    padding: 20px 0 20px 100px; /* 去掉左右 padding */
-    height: clamp(150px, 10.5vw, 200px);
+    padding: clamp(1rem, 2vw, 1.5rem) 0 clamp(1rem, 2vw, 1.5rem) clamp(4rem, 8vw, 6.25rem); /* 响应式内边距 */
+    height: clamp(8rem, 10.5vw, 12.5rem); /* 响应式高度 */
     background-color: #2F2F2F;
     color: white;
     display: flex;
@@ -52,13 +57,13 @@
 }
 
 .footer-section {
-    flex: 1 1 200px;
+    flex: 1 1 clamp(10rem, 15vw, 12.5rem); /* 响应式弹性基础 */
     margin-bottom: 0;
-    max-width: 200px;
+    max-width: clamp(10rem, 15vw, 12.5rem); /* 响应式最大宽度 */
 }
 
 .footer-section h4 {
-    font-size: clamp(14px, 0.84vw, 16px);
+    font-size: clamp(0.875rem, 0.84vw, 1rem); /* 响应式字体大小 */
     margin-bottom: 0;
     color: #fff;
 }
@@ -74,8 +79,8 @@
 }
 
 .footer-section li {
-    margin-bottom: 8px;
-    font-size: clamp(14px, 0.84vw, 16px);
+    margin-bottom: clamp(0.4rem, 0.8vw, 0.6rem); /* 响应式下边距 */
+    font-size: clamp(0.875rem, 0.84vw, 1rem); /* 响应式字体大小 */
     color: #ccc;
 }
 
@@ -87,29 +92,29 @@
 .footer-bottom {
     position: relative;
     text-align: center;
-    font-size: clamp(10px, 0.84vw, 14px);
+    font-size: clamp(0.625rem, 0.84vw, 0.875rem); /* 响应式字体大小 */
     color: #666;
     background-color: #2F2F2F;
-    padding: 10px 80px; /* 去掉左右 padding */
+    padding: clamp(0.5rem, 1vw, 0.75rem) clamp(3rem, 6vw, 5rem); /* 响应式内边距 */
 }
 
 .footer-bottom::before {
     content: "";
     position: absolute;
     top: 0;
-    left: 80px;
-    right: 80px;
-    height: 1.2px;
+    left: clamp(3rem, 6vw, 5rem); /* 响应式左边距 */
+    right: clamp(3rem, 6vw, 5rem); /* 响应式右边距 */
+    height: clamp(0.05rem, 0.1vw, 0.08rem); /* 响应式高度 */
     background-color: #444;
 }
 
 #backToTop {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: clamp(1rem, 2vw, 1.5rem); /* 响应式底部位置 */
+    right: clamp(1rem, 2vw, 1.5rem); /* 响应式右边位置 */
     display: none;
-    padding: 10px 18px;
-    font-size: 24px;
+    padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.8rem, 1.5vw, 1.2rem); /* 响应式内边距 */
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem); /* 响应式字体大小 */
     border: none;
     border-radius: 50%;
     background-color: #444;
@@ -117,7 +122,7 @@
     cursor: pointer;
     z-index: 999;
     opacity: 0.6;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.4rem, 0.8vw, 0.6rem) rgba(0,0,0,0.3); /* 响应式阴影 */
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -128,19 +133,19 @@
 
 .social-sidebar {
     position: fixed;
-    right: 20px;
-    bottom: 20px;
+    right: clamp(1.25rem, 2vw, 1.5rem); /* 响应式位置 */
+    bottom: clamp(1.25rem, 2vw, 1.5rem); /* 响应式位置 */
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: clamp(0.75rem, 1vw, 1rem); /* 响应式间距 */
     z-index: 1000;
     animation: pulse 4s ease-in-out infinite;
 }
 
 .social-icon {
-    width: clamp(36px, 2.24vw, 43px);
-    height: clamp(36px, 2.24vw, 43px);
-    border-radius: 12px;
+    width: clamp(2.25rem, 2.24vw, 2.7rem); /* 响应式尺寸 */
+    height: clamp(2.25rem, 2.24vw, 2.7rem); /* 响应式尺寸 */
+    border-radius: clamp(0.6rem, 1vw, 0.8rem); /* 响应式圆角 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,8 +153,8 @@
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(clamp(0.8rem, 1.2vw, 1rem)); /* 响应式模糊 */
+    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(0, 0, 0, 0.2); /* 响应式边框 */
     transform-style: preserve-3d;
     background: linear-gradient(135deg, 
         rgba(0, 0, 0, 0.3), 
@@ -185,21 +190,21 @@
 }
 
 .social-icon:hover::after {
-    width: 20px;
-    height: 20px;
+    width: clamp(1rem, 1.5vw, 1.3rem); /* 响应式尺寸 */
+    height: clamp(1rem, 1.5vw, 1.3rem); /* 响应式尺寸 */
 }
 
 .social-icon:hover {
-    transform: translateY(-5px) translateX(-3px) rotateY(5deg) scale(1.1);
+    transform: translateY(clamp(-0.3rem, -0.5vw, -0.4rem)) translateX(clamp(-0.2rem, -0.3vw, -0.25rem)) rotateY(5deg) scale(1.1); /* 响应式变换 */
     box-shadow: 
-        0 15px 30px rgba(0,0,0,0.4),
-        0 0 0 4px rgba(0, 0, 0, 0.1),
-        0 0 0 8px rgba(0, 0, 0, 0.05);
+        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(0,0,0,0.4), /* 响应式阴影 */
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(0, 0, 0, 0.1),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.3);
 }
 
 .social-icon:active {
-    transform: translateY(-4px) scale(1.05);
+    transform: translateY(clamp(-0.25rem, -0.4vw, -0.3rem)) scale(1.05); /* 响应式变换 */
 }
 
 /* Facebook 悬停样式 */
@@ -208,10 +213,10 @@
         rgba(24, 119, 242, 0.9), 
         rgba(24, 119, 242, 0.7));
     box-shadow: 
-        0 15px 30px rgba(24, 119, 242, 0.4),
-        0 0 0 4px rgba(24, 119, 242, 0.2),
-        0 0 0 8px rgba(24, 119, 242, 0.1),
-        0 0 20px rgba(24, 119, 242, 0.3);
+        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(24, 119, 242, 0.4), /* 响应式阴影 */
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(24, 119, 242, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(24, 119, 242, 0.1),
+        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(24, 119, 242, 0.3);
 }
 
 /* Instagram 悬停样式 */
@@ -220,10 +225,10 @@
         rgba(225, 48, 108, 0.9), 
         rgba(255, 119, 48, 0.7));
     box-shadow: 
-        0 15px 30px rgba(225, 48, 108, 0.4),
-        0 0 0 4px rgba(225, 48, 108, 0.2),
-        0 0 0 8px rgba(225, 48, 108, 0.1),
-        0 0 20px rgba(225, 48, 108, 0.3);
+        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(225, 48, 108, 0.4), /* 响应式阴影 */
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(225, 48, 108, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(225, 48, 108, 0.1),
+        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(225, 48, 108, 0.3);
 }
 
 /* WhatsApp 悬停样式 */
@@ -232,17 +237,17 @@
         rgba(37, 211, 102, 0.9), 
         rgba(37, 211, 102, 0.7));
     box-shadow: 
-        0 15px 30px rgba(37, 211, 102, 0.4),
-        0 0 0 4px rgba(37, 211, 102, 0.2),
-        0 0 0 8px rgba(37, 211, 102, 0.1),
-        0 0 20px rgba(37, 211, 102, 0.3);
+        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(37, 211, 102, 0.4), /* 响应式阴影 */
+        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(37, 211, 102, 0.2),
+        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(37, 211, 102, 0.1),
+        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(37, 211, 102, 0.3);
 }
 
 /* 图标 PNG 样式 - 默认状态稍微透明 */
 .social-icon img {
-    width: clamp(35px, 2.2vw, 42px);
-    height: clamp(35px, 2.2vw, 42px);
-    filter: grayscale(100%) brightness(0.7) drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    width: clamp(2.2rem, 2.2vw, 2.6rem); /* 响应式尺寸 */
+    height: clamp(2.2rem, 2.2vw, 2.6rem); /* 响应式尺寸 */
+    filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.05rem, 0.1vw, 0.08rem) clamp(0.1rem, 0.15vw, 0.15rem) rgba(0,0,0,0.5)); /* 响应式阴影 */
     transition: all 0.4s ease;
     z-index: 2;
     position: relative;
@@ -251,7 +256,7 @@
 
 .social-icon:hover img {
     transform: scale(1.15) rotateZ(-3deg);
-    filter: grayscale(0%) brightness(1) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    filter: grayscale(0%) brightness(1) drop-shadow(0 clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.2rem, 0.3vw, 0.3rem) rgba(0,0,0,0.6)); /* 响应式阴影 */
     opacity: 1; /* 悬停时完全不透明 */
 }
 
@@ -265,29 +270,7 @@
     }
 }
 
-/* 响应式设计 */
-@media (max-width: 1280px) {
-  .social-sidebar {
-    right: 15px;
-    bottom: 15px;
-    gap: 10px;
-  }
-            
-  .social-icon {
-    width: clamp(28px, 3vw, 38px);
-    height: clamp(28px, 3vw, 38px);
-    border-radius: 10px;
-  }
-
-  .social-icon svg {
-    width: clamp(18px, 2vw, 24px);
-    height: clamp(18px, 2vw, 24px);
-  }
-
-  .social-icon:hover {
-    transform: translateY(-4px) scale(1.08);
-  }
-}
+/* 响应式设计 - 使用 clamp() 实现 */
 
 /* 额外的视觉效果 */
 .social-icon {
@@ -315,12 +298,12 @@
 .social-sidebar::before {
     content: '';
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
+    top: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式位置 */
+    left: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式位置 */
+    right: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式位置 */
+    bottom: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式位置 */
     background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 50%);
-    border-radius: 30px;
+    border-radius: clamp(1.5rem, 3vw, 2rem); /* 响应式圆角 */
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -330,394 +313,42 @@
     opacity: 1;
 }
 
-/* 响应式样式 */
-@media(max-height: 760px) {
-  .scroll-buffer {
-        min-height: 32vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 32vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -68vh;
-    }
-}
+/* ===========================================
+   移动端响应式设计 - 使用 clamp() 实现
+   =========================================== */
 
-@media(max-height: 680px) {
-  .scroll-buffer {
-        min-height: 36vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 36vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -64vh;
-    }
-}
-
-@media(max-height: 610px) {
-  .scroll-buffer {
-        min-height: 40vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 40vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -60vh;
-    }
-}
-
-@media (max-width: 1280px) {
-    .scroll-buffer {
-        min-height: 29vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 29vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -71vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 770px) {
-    .scroll-buffer {
-        min-height: 3vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 30vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -70vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 740px) {
-    .scroll-buffer {
-        min-height: 3vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 31vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -69vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 720px) {
-    .scroll-buffer {
-        min-height: 3vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 32.1vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -67.9vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 690px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 34vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -66vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 640px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 36vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -64vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 620px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 38vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -62vh;
-    }
-}
-
-/* 针对1280x600屏幕的响应式样式 */
-@media (max-width: 1280px) and (max-height: 600px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 39vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -51vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 570px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 40vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -60vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 530px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 43vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -57vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 520px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 45vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -55vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 500px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 47vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -53vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 480px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 49vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -51vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 460px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 51vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -49vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 440px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 53vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -47vh;
-    }
-}
-
-@media (max-width: 1280px) and (max-height: 420px) {
-    .scroll-buffer {
-        min-height: 22vh;
-    }
-    
-    .swiper-slide.footer-slide {
-        height: 55vh;
-    }
-    
-    .swiper-slide.footer-slide::before {
-        top: -45vh;
-    }
-}
-
-/* ✅ 尺寸缩小响应，但保留 1920 版式 */
-@media (max-width: 1280px) {
-  .footer {
-    height: clamp(170px, 10.5vw, 200px);
-    padding: 14px 51px 14px 181px;
-    gap: 20px;
-    flex-wrap: nowrap;
-  }
-
-  .footer-logo,
-  .footer-section {
-    flex: 1 1 0;
-    min-width: 0;
-    margin-bottom: 0;
-  }
-
-  .footer-logo h1 {
-    font-size: clamp(10px, 1vw, 16px);
-  }
-
-  .footer-logo h1 img.logo {
-    width: clamp(30px, 2.5vw, 36px);
-    height: clamp(28px, 2.5vw, 36px);
-  }
-
-  .footer-logo p {
-    font-size: clamp(9px, 1vw, 11px);
-    line-height: 1.4;
-  }
-
-  .footer-logo-img {
-    width: clamp(140px, 12vw, 200px); /* 更小屏宽时进一步限制最大宽度 */
-    margin-top: 10px;
-  }
-
-  .footer-section h4 {
-    font-size: clamp(10px, 1.1vw, 13px);
-    margin-bottom: 2px;
-  }
-
-  .footer-section li {
-    font-size: clamp(10px, 1.1vw, 13px);
-    margin-bottom: 10px;
-  }
-
-  .footer-bottom {
-    font-size: clamp(9px, 0.8vw, 12px);
-    padding: 8px 40px;
-  }
-
-  .footer-bottom::before {
-    left: 51px;
-    right: 51px;
-    height: 1px;
-  }
-}
-
+/* 移动端 footer 样式 - 当屏幕宽度小于 768px 时显示 */
 @media (max-width: 768px) {
   .footer {
     flex-direction: column;
-    padding: 12px 40px;
+    padding: clamp(0.6rem, 2vw, 1rem) clamp(2rem, 5vw, 2.5rem); /* 响应式内边距 */
     align-items: center;
   }
 
-  .footer-logo {
-    flex: 1 1 120px;
-  }
-
   .footer-section {
-    flex: 1 1 110px;
-  }
-
-  .footer-logo,
-  .footer-section {
+    flex: 1 1 clamp(6rem, 12vw, 8rem); /* 响应式弹性基础 */
     width: 100%;
     margin-bottom: 0;
   }
 
-  .footer-logo h1 {
-    font-size: clamp(6px, 3vw, 12px);
-    flex-direction: row;
-    align-items: flex-start;
-    margin-bottom: 3px;
-  }
-
-  .footer-logo h1 img.logo {
-    width: clamp(22px, 6vw, 36px);
-    height: clamp(22px, 6vw, 36px);
-    margin-bottom: 0;
-    margin-right: 8px;
-  }
-
-  .footer-logo p {
-    font-size: clamp(6px, 3vw, 12px);
-    line-height: 1.3;
-    margin-bottom: 3px;
-  }
-
-  .footer-logo-img {
-    width: clamp(130px, 20vw, 140px); /* 手机屏幕上更小但不失清晰 */
-  }
-
   .footer-section h4 {
-    font-size: clamp(6px, 3vw, 12px);
-    margin-bottom: -10px;
+    font-size: clamp(0.375rem, 3vw, 0.75rem); /* 响应式字体大小 */
+    margin-bottom: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式下边距 */
   }
 
   .footer-section li {
-    font-size: clamp(6px, 3vw, 12px);
-    margin-bottom: 2px;
+    font-size: clamp(0.375rem, 3vw, 0.75rem); /* 响应式字体大小 */
+    margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); /* 响应式下边距 */
   }
 
   .footer-bottom {
-    font-size: clamp(7px, 2.5vw, 10px);
-    padding: 6px 24px;
+    font-size: clamp(0.375rem, 2.5vw, 0.625rem); /* 响应式字体大小 */
+    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(1.25rem, 3vw, 1.75rem); /* 响应式内边距 */
   }
 
   .footer-bottom::before {
-    left: 24px;
-    right: 24px;
-    height: 1px;
+    left: clamp(1.25rem, 3vw, 1.75rem); /* 响应式左边距 */
+    right: clamp(1.25rem, 3vw, 1.75rem); /* 响应式右边距 */
+    height: clamp(0.05rem, 0.1vw, 0.08rem); /* 响应式高度 */
   }
 }
