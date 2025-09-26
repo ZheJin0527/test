@@ -561,6 +561,11 @@ body::-webkit-scrollbar {
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10;
+    border: clamp(1px, 0.15vw, 2px) solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    user-select: none;
+    font-family: Arial, sans-serif;
+    font-size: 0;
 }
 
 .nav-arrow::before {
