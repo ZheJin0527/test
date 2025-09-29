@@ -189,7 +189,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .btn-secondary:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
         }
         
         .back-button {
