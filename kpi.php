@@ -843,9 +843,9 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 日期网格的星期标题 */
         .day-header {
-            padding: 4px;
+            padding: clamp(2px, 0.21vw, 4px);
             text-align: center;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             color: #6b7280;
             font-weight: 600;
         }

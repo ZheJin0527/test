@@ -782,8 +782,8 @@
             padding: 0;
             border: none;
             border-radius: 12px;
-            max-width: clamp(600px, 41.67vw, 800px);
-            max-height: 80vh;
+            width: clamp(500px, 41.67vw, 800px);
+            height: 80vh;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             animation: slideIn 0.3s ease-out;
@@ -810,11 +810,11 @@
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: clamp(18px, 1.25vw, 24px);
             cursor: pointer;
             padding: 0;
-            width: 30px;
-            height: 30px;
+            width: clamp(20px, 1.56vw, 30px);
+            height: clamp(20px, 1.56vw, 30px);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -2344,7 +2344,7 @@
             const summary = document.getElementById('alert-summary');
             
             let html = `
-                <div style="font-size: clamp(10px, 0.84vw, 16px); padding: clamp(8px, 0.63vw, 12px); background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
+                <div style="font-size: clamp(8px, 0.84vw, 16px); padding: clamp(6px, 0.63vw, 12px); background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c;">
                     <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
                     发现 ${alerts.length} 个货品库存不足，请及时补货！
                 </div>
