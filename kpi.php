@@ -404,16 +404,16 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .number-item:hover {
-            background: #583e04;
+            background: #000000ff;
             color: white;
-            border-color: #583e04;
+            border-color: #000000ff;
             transform: scale(1.05);
         }
 
         .number-item.selected {
-            background: #583e04;
+            background: #000000ff;
             color: white;
-            border-color: #583e04;
+            border-color: #000000ff;
             font-weight: 600;
         }
 
