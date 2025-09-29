@@ -25,7 +25,7 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 20px 24px;
+            padding: clamp(16px, 1.25vw, 24px) 24px;
             height: 100vh; /* 设置容器高度为视口高度 */
             display: flex;
             flex-direction: column;
@@ -36,11 +36,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: clamp(18px, 1.67vw, 32px);
         }
         
         .header h1 {
-            font-size: 56px;
+            font-size: clamp(20px, 2.6vw, 50px);
             font-weight: bold;
             color: #583e04;
         }
@@ -127,7 +127,7 @@
         }
 
         .filter-group label {
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             color: #583e04;
         }
@@ -154,11 +154,11 @@
         }
 
         .btn {
-            padding: 7px 12px;
-            border-radius: 8px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -220,7 +220,6 @@
         .stock-table {
             table-layout: fixed;
             width: 100%;
-            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
         }
@@ -228,8 +227,9 @@
         .stock-table th {
             background: #583e04;
             color: white;
-            padding: 12px 8px;
+            padding: clamp(4px, 0.42vw, 8px) 0;
             text-align: center;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             border: 1px solid #d1d5db;
             position: sticky;
@@ -240,6 +240,7 @@
         }
 
         .stock-table td {
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 0;
             border: 1px solid #d1d5db;
             text-align: center;
@@ -291,13 +292,12 @@
         .stock-table td span {
             display: inline-block;
             width: 100%;
-            height: 40px;
-            line-height: 24px;
-            padding: 8px 4px;
+            line-height: clamp(14px, 1.25vw, 24px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             box-sizing: border-box;
             vertical-align: middle;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         /* 货币显示的特殊样式 */
@@ -403,8 +403,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding: 8px 10px;
-            height: 40px;
+            padding: 0 clamp(4px, 0.42vw, 8px);
             box-sizing: border-box;
             font-size: 14px;
         }
@@ -412,8 +411,8 @@
         .currency-display .currency-symbol {
             color: #6b7280;
             font-weight: 500;
-            margin-right: 6px;
-            min-width: 24px;
+            margin-right: 0px;
+            min-width: 16px;
             text-align: left;
         }
 
@@ -421,7 +420,7 @@
             font-weight: 500;
             color: #583e04;
             text-align: center;
-            min-width: 60px;
+            min-width: 28px;
         }
 
         /* 输入框容器样式 */
@@ -454,36 +453,34 @@
         .stock-table {
             table-layout: fixed; /* 添加这行 */
             width: 100%;
-            min-width: 1400px;
             border-collapse: collapse;
             font-size: 14px;
         }
 
-        /* 为每列指定固定宽度 */
-        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 70px; } /* 日期 */
-        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 100px; } /* 货品编号 */
-        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 225px; } /* 货品 */
-        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 70px; }  /* 进货 */
-        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 70px; }  /* 出货 */
-        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 80px; } /* 收货单位 */
-        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 70px; } /* 规格 */
-        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 100px; } /* 单价 */
-        .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 100px; } /* 总价 */
-        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 80px; } /* 类型 */
-        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 70px; } /* 产品备注 checkbox */
-        .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 80px; } /* 备注编号 */
-        .stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 180px; } /* 名字/收货人 */
-        .stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 140px; } /* 备注 */
-        .stock-table th:nth-child(15), .stock-table td:nth-child(15) { width: 100px; } /* 操作 */
+        /* 响应式表格列宽 */
+        .stock-table th:nth-child(1), .stock-table td:nth-child(1) { width: 5%; } /* 日期 */
+        .stock-table th:nth-child(2), .stock-table td:nth-child(2) { width: 7%; } /* 货品编号 */
+        .stock-table th:nth-child(3), .stock-table td:nth-child(3) { width: 16%; } /* 货品 */
+        .stock-table th:nth-child(4), .stock-table td:nth-child(4) { width: 5%; }  /* 进货 */
+        .stock-table th:nth-child(5), .stock-table td:nth-child(5) { width: 5%; }  /* 出货 */
+        .stock-table th:nth-child(6), .stock-table td:nth-child(6) { width: 6%; } /* 收货单位 */
+        .stock-table th:nth-child(7), .stock-table td:nth-child(7) { width: 5%; } /* 规格 */
+        .stock-table th:nth-child(8), .stock-table td:nth-child(8) { width: 10%; } /* 单价 */
+        .stock-table th:nth-child(9), .stock-table td:nth-child(9) { width: 10%; } /* 总价 */
+        .stock-table th:nth-child(10), .stock-table td:nth-child(10) { width: 6%; } /* 类型 */
+        .stock-table th:nth-child(11), .stock-table td:nth-child(11) { width: 5%; } /* 产品备注 checkbox */
+        .stock-table th:nth-child(12), .stock-table td:nth-child(12) { width: 6%; } /* 备注编号 */
+        .stock-table th:nth-child(13), .stock-table td:nth-child(13) { width: 13%; } /* 名字/收货人 */
+        .stock-table th:nth-child(14), .stock-table td:nth-child(14) { width: 10%; } /* 备注 */
+        .stock-table th:nth-child(15), .stock-table td:nth-child(15) { width: 7%; } /* 操作 */
 
         /* 确保输入框和选择框填满单元格 */
         .table-input, .table-select {
             width: 100%;
-            height: 40px;
             border: none;
             background: transparent;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 8px 4px;
             transition: all 0.2s;
             box-sizing: border-box; /* 添加这行 */
@@ -493,11 +490,11 @@
         .currency-input-edit {
             text-align: right;
             padding: 8px 4px;
-            min-width: 60px;
+            min-width: 45px;
             font-weight: 500;
             border: none;
             background: transparent;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             box-sizing: border-box;
             vertical-align: middle;
             line-height: 24px;
@@ -558,10 +555,10 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 8px 4px;
+            gap: clamp(0px, 0.21vw, 4px);
+            padding: 8px clamp(0px, 0.21vw, 4px);
             width: 100%;
-            height: 40px;
+            height: 20px;
             line-height: normal;
             box-sizing: border-box;
         }
@@ -570,15 +567,15 @@
             background: #ef4444;
             color: white;
             border: none;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
+            border-radius: clamp(4px, 0.32vw, 6px);
+            width: clamp(18px, 1.67vw, 32px);
+            height: clamp(18px, 1.67vw, 32px);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             margin: 2px;
         }
 
@@ -637,7 +634,7 @@
         }
 
         .stat-value {
-            font-size: 16px;
+            font-size: clamp(10px, 0.84vw, 16px);
             font-weight: bold;
             color: #583e04;
         }
@@ -866,11 +863,10 @@
 
         .combobox-input {
             width: 100%;
-            height: 40px;
             border: none;
             background: transparent;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             padding: 8px 20px 8px 4px;
             transition: all 0.2s;
             box-sizing: border-box;
@@ -936,21 +932,6 @@
             color: white;
         }
 
-        /* 输入框样式优化 */
-        .combobox-input {
-            width: 100%;
-            height: 40px;
-            border: none;
-            background: transparent;
-            text-align: center;
-            font-size: 14px;
-            padding: 8px 20px 8px 4px;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            cursor: text;
-            ime-mode: disabled; /* 禁用输入法 */
-        }
-
         .combobox-input:focus {
             background: #fff;
             border: 2px solid #583e04;
@@ -990,7 +971,7 @@
 
         /* 为了确保水平滚动正常，添加一个内部容器 */
         .table-scroll-container {
-            overflow-x: auto;
+            overflow-x: hidden;
             overflow-y: auto;
             flex: 1;
             position: relative;
@@ -1023,40 +1004,43 @@
         }
 
         .export-modal-content {
+            position: fixed; /* 固定在屏幕 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 位移来居中 */
             background-color: white;
-            margin: 10% auto;
-            padding: 30px;
+            padding: clamp(20px, 1.56vw, 30px);
             border-radius: 12px;
-            width: 450px;
+            width: clamp(300px, 23.44vw, 450px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
 
         .export-modal h3 {
             margin: 0 0 20px 0;
             color: #1f2937;
-            font-size: 18px;
+            font-size: clamp(12px, 0.94vw, 18px);
             font-weight: 600;
         }
 
         .export-form-group {
-            margin-bottom: 16px;
+            margin-bottom: clamp(6px, 0.83vw, 16px);
         }
 
         .export-form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: clamp(2px, 0.32vw, 6px);
             font-weight: 500;
             color: #374151;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         .export-form-group input,
         .export-form-group select {
             width: 100%;
-            padding: 10px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             transition: border-color 0.2s;
         }
 
@@ -1086,10 +1070,10 @@
 
         .export-modal-actions {
             display: flex;
-            gap: 12px;
+            gap: clamp(6px, 0.63vw, 12px);
             justify-content: flex-end;
-            margin-top: 24px;
-            padding-top: 20px;
+            margin-top: clamp(14px, 1.25vw, 24px);
+            padding-top: clamp(10px, 1.04vw, 20px);
             border-top: 1px solid #e5e7eb;
         }
 
@@ -1118,52 +1102,16 @@
             background-color: #583e04;
             color: white;
             font-weight: 500;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             padding: 11px 24px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
             font-size: 16px;
-=======
-            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: clamp(10px, 0.84vw, 16px);
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
-=======
-            padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: clamp(10px, 0.73vw, 14px);
->>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
-=======
-            padding: 11px 24px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
->>>>>>> dcd100e1 (4614)
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             min-width: 130px;
-=======
-            width: clamp(90px, 6.77vw, 130px);
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
-=======
-            width: clamp(80px, 6.77vw, 130px);
->>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
-=======
-            min-width: 130px;
->>>>>>> dcd100e1 (4614)
             justify-content: space-between;
             position: relative; /* 添加这个，因为下拉菜单需要 */
         }
@@ -1183,15 +1131,7 @@
             border: 2px solid #583e04;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
-<<<<<<< HEAD
-<<<<<<< HEAD
             min-width: 130px;
-=======
-            width: 100%;
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
-=======
-            min-width: 130px;
->>>>>>> dcd100e1 (4614)
             z-index: 10000;
             display: none;
             margin-top: 4px;
@@ -1202,20 +1142,12 @@
         }
 
         .selector-dropdown .dropdown-item {
-            padding: 8px 16px;
+            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
             color: #583e04;
-<<<<<<< HEAD
-<<<<<<< HEAD
             font-size: 14px;
-=======
-            font-size: clamp(8px, 0.74vw, 14px);
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
-=======
-            font-size: 14px;
->>>>>>> dcd100e1 (4614)
             font-weight: 500;
             text-decoration: none;
             display: block;
@@ -1241,24 +1173,10 @@
             margin-right: 16px;
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         .view-selector .selector-button {
             background-color: #583e04;
             min-width: 120px;
         }
-=======
-        /* .view-selector .selector-button {
-            background-color: #583e04;
-            min-width: 120px;
-        } */
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
-=======
-        .view-selector .selector-button {
-            background-color: #583e04;
-            min-width: 120px;
-        }
->>>>>>> dcd100e1 (4614)
 
         .view-selector .selector-button:hover {
             background-color: #462d03;
@@ -1267,15 +1185,7 @@
         }
 
         .view-selector .selector-dropdown {
-<<<<<<< HEAD
-<<<<<<< HEAD
             min-width: 120px;
-=======
-            width: 100%;
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
-=======
-            min-width: 120px;
->>>>>>> dcd100e1 (4614)
         }
 
         /* 回到顶部按钮 */
@@ -1334,14 +1244,13 @@
 
         /* 通知基础样式 */
         .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            border-radius: 8px;
+            width: clamp(100px, 15.63vw, 300px);
+            padding: clamp(2px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            border-radius: clamp(6px, 0.42vw, 8px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -1390,7 +1299,7 @@
 
         /* 通知图标 */
         .toast-icon {
-            font-size: 18px;
+            font-size: clamp(14px, 0.94vw, 18px);
             flex-shrink: 0;
         }
 
@@ -1472,7 +1381,7 @@
             font-weight: 600;
             margin-bottom: 8px;
             color: #374151;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
         }
 
         .search-group {
@@ -1557,28 +1466,296 @@
             white-space: nowrap;
         }
 
-        /* 日期过滤器样式 */
-        .header-filter {
-            display: flex;
-            align-items: center; /* 改为水平对齐 */
-            gap: 12px; /* 添加间距 */
-            min-width: 140px;
-            flex-shrink: 0;
+        /* 日期选择器标签样式 */
+        .date-label {
+            display: block;
+            font-size: clamp(8px, 0.74vw, 14px);
+            font-weight: bold;
+            color: #583e04;
+            white-space: nowrap;
+            margin: 0;
+            line-height: 1.2;
         }
 
-        .filter-input {
-            padding: 8px 12px;
+        .date-label-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: clamp(8px, 0.74vw, 14px);
+            font-weight: 600;
+            color: #583e04;
+            white-space: nowrap;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* 增强型日期选择器样式 */
+        .date-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(2px, 0.62vw, 12px);
+            align-items: flex-end;
+            flex: 1;
+        }
+
+        .enhanced-date-picker {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            padding: clamp(2px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
+            gap: 0px;
+            min-width: 108px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .enhanced-date-picker:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .enhanced-date-picker:hover {
+            border-color: #9ca3af;
+        }
+
+        .enhanced-date-picker.month-only {
+            min-width: clamp(80px, 6.77vw, 130px);
+        }
+
+        .date-part {
+            position: relative;
+            cursor: pointer;
+            padding: 0px clamp(2px, 0.1vw, 8px);
+            border-radius: 4px;
+            transition: all 0.2s;
+            text-align: center;
+            user-select: none;
+            background: transparent;
+            border: 1px solid transparent;
+            font-size: clamp(8px, 0.74vw, 14px);
+            color: #374151;
+        }
+
+        .date-part:hover {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .date-part.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .date-separator {
+            color: #9ca3af;
+            font-size: clamp(8px, 0.74vw, 14px);
+            font-weight: 500;
+            user-select: none;
+            margin: 0 2px;
+        }
+
+        .date-dropdown {
+            position: absolute;
+            top: 120%;
+            left: 0;
+            right: 0;
+            background: white;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: 13px;
-            background-color: #ffffff;
-            transition: all 0.2s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            margin-top: 4px;
+            max-height: 220px;
+            overflow-y: auto;
+            display: none;
         }
 
-        .filter-input:focus {
-            outline: none;
-            border-color: #583e04;
-            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+        .date-dropdown.show {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease-out;
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .year-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0px, 0.21vw, 4px);
+            padding: clamp(2px, 0.36vw, 8px);
+        }
+
+        .month-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0px, 0.21vw, 4px);
+            padding: clamp(4px, 0.42vw, 8px);
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0px;
+            padding: 2px;
+        }
+
+        .date-option {
+            padding: clamp(1px, 0.1vw, 2px);
+            text-align: center;
+            cursor: pointer;
+            border-radius: clamp(4px, 0.31vw, 6px);
+            transition: all 0.2s;
+            font-size: clamp(6px, 0.63vw, 12px);
+            color: #374151;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .date-option:hover {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .date-option.selected {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .date-option.today.selected {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .day-header {
+            padding: clamp(2px, 0.21vw, 4px);
+            text-align: center;
+            font-size: clamp(6px, 0.63vw, 12px);
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .date-info {
+            font-size: clamp(8px, 0.74vw, 14px);
+            font-weight: bold;
+            color: #6b7280;
+            padding: 8px 12px;
+            background: transparent;
+            border-radius: 6px;
+        }
+
+        .divider {
+            width: 1px;
+            height: 24px;
+            background-color: #583e04 !important;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            font-size: clamp(8px, 0.74vw, 14px);
+            gap: 8px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #583e04;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
+            z-index: 1000;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: clamp(6px, 0.52vw, 10px) clamp(10px, 1.04vw, 20px);
+            border: none;
+            background: transparent;
+            color: #583e04;
+            cursor: pointer;
+            font-size: clamp(8px, 0.74vw, 14px);
+            font-weight: 600;
+            text-align: left;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(88, 62, 4, 0.1);
+        }
+
+        .dropdown-item:first-child {
+            border-radius: 6px 6px 0 0;
+        }
+
+        .dropdown-item:last-child {
+            border-radius: 0 0 6px 6px;
+        }
+
+        .btn {
+            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
+            border-radius: clamp(4px, 0.42vw, 8px);
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-secondary {
+            background-color: #583e04;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #462d03;
+        }
+
+        @media (max-width: 768px) {
+            .enhanced-date-picker {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .enhanced-date-picker.month-only {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .date-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
         }
 
         /* 批量操作按钮组 */
@@ -1588,8 +1765,8 @@
 
         /* 调整按钮大小，使其更紧凑 */
         .unified-header-row .btn {
-            padding: 8px 12px;
-            font-size: 13px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            font-size: clamp(8px, 0.74vw, 14px);
             white-space: nowrap;
             flex-shrink: 0;
         }
@@ -1598,21 +1775,21 @@
         .unified-header-row {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 22px 24px;
+            gap: clamp(10px, 1.5vw, 30px);
+            padding: clamp(10px, 1.15vw, 22px) clamp(10px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             justify-content: space-between;
         }
 
         .header-right-group {
             display: flex;
             align-items: flex-end;  /* 改为 flex-end，让元素底部对齐 */
-            gap: 20px;
+            gap: clamp(2px, 0.32vw, 8px);
             margin-left: auto;
         }
 
@@ -1626,28 +1803,26 @@
 
         .header-search {
             flex: 1;
-            min-width: 200px;
-            max-width: 350px;
             display: flex;
             align-items: center; /* 改为水平对齐 */
-            gap: 12px; /* 添加间距 */
+            gap: clamp(6px, 0.63vw, 12px);
         }
 
         .unified-search-input {
-            width: 250px;
-            padding: 8px 12px;
+            width: clamp(140px, 13.02vw, 250px);
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 13px;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
 
         .filter-input {
-            padding: 8px 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 13px;
+            border-radius: clamp(4px, 0.42vw, 8px);
+            font-size: clamp(8px, 0.74vw, 14px);
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
@@ -1664,11 +1839,11 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
-            padding-bottom: 8px;  /* 添加底部内边距来微调位置 */
+            padding-bottom: clamp(4px, 0.42vw, 8px);  /* 添加底部内边距来微调位置 */
         }
 
         .header-stats .stat-value {
@@ -1676,130 +1851,11 @@
             color: #583e04;
         }
 
-        /* 按钮样式调整 */
-        .unified-header-row .btn {
-            padding: 8px 12px;
-            font-size: 13px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
         /* 批量操作按钮组 */
         .batch-actions {
             flex-shrink: 0;
             display: flex;
             gap: 8px;
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 1400px) {
-            .unified-header-row {
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-            
-            .batch-actions {
-                order: 3;
-                width: 100%;
-                justify-content: flex-start;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .header-search {
-                order: 3;
-                width: 100%;
-                min-width: auto;
-                max-width: none;
-            }
-            
-            .header-stats {
-                flex-direction: row;
-                gap: 16px;
-                min-width: auto;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .unified-header-row {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            
-            .header-filter,
-            .header-stats {
-                align-items: center;
-                text-align: center;
-            }
-            
-            .batch-actions {
-                justify-content: center;
-                order: initial;
-                width: auto;
-            }
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 1400px) {
-            .unified-header-row {
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-            
-            .batch-actions {
-                order: 3;
-                width: 100%;
-                justify-content: flex-start;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .header-search {
-                order: 3;
-                width: 100%;
-                min-width: auto;
-            }
-            
-            .header-stats {
-                flex-direction: row;
-                gap: 16px;
-                min-width: auto;
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .action-buttons {
-                flex-direction: column;
-                gap: 16px;
-                align-items: stretch;
-            }
-            
-            .search-controls {
-                justify-content: flex-start;
-            }
-            
-            .search-controls .search-group input {
-                min-width: 250px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .search-controls {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            
-            .search-controls .filter-group,
-            .search-controls .search-group {
-                width: 100%;
-            }
-            
-            .search-controls .search-group input {
-                min-width: auto;
-                width: 100%;
-            }
         }
     </style>
 </head>
@@ -1957,14 +2013,108 @@
         </div>
 
         <div class="unified-header-row">
-            <div class="header-filter">
-                <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">日期</span>
-                <input type="date" id="date-filter" class="filter-input">
+            <div class="date-controls">
+                <!-- 开始日期选择器 -->
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="date-label">开始日期</label>
+                    <div class="enhanced-date-picker" id="start-date-picker">
+                        <div class="date-part" data-type="year" onclick="showDateDropdown('start', 'year')">
+                            <span id="start-year-display">2024</span>
+                        </div>
+                        <span class="date-separator">年</span>
+                        <div class="date-part" data-type="month" onclick="showDateDropdown('start', 'month')">
+                            <span id="start-month-display">01</span>
+                        </div>
+                        <span class="date-separator">月</span>
+                        <div class="date-part" data-type="day" onclick="showDateDropdown('start', 'day')">
+                            <span id="start-day-display">01</span>
+                        </div>
+                        <span class="date-separator">日</span>
+    
+                        <!-- 下拉选择面板 -->
+                        <div class="date-dropdown" id="start-dropdown">
+                            <!-- 动态内容将在这里生成 -->
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- 结束日期选择器 -->
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="date-label">结束日期</label>
+                    <div class="enhanced-date-picker" id="end-date-picker">
+                        <div class="date-part" data-type="year" onclick="showDateDropdown('end', 'year')">
+                            <span id="end-year-display">2024</span>
+                        </div>
+                        <span class="date-separator">年</span>
+                        <div class="date-part" data-type="month" onclick="showDateDropdown('end', 'month')">
+                            <span id="end-month-display">01</span>
+                        </div>
+                        <span class="date-separator">月</span>
+                        <div class="date-part" data-type="day" onclick="showDateDropdown('end', 'day')">
+                            <span id="end-day-display">01</span>
+                        </div>
+                        <span class="date-separator">日</span>
+    
+                        <!-- 下拉选择面板 -->
+                        <div class="date-dropdown" id="end-dropdown">
+                            <!-- 动态内容将在这里生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- 月份选择器 - 改为增强型选择器 -->
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="date-label-with-icon">
+                        <i class="fas fa-calendar" style="color: #583e04;"></i>
+                        选择年份和月份
+                    </label>
+                    <div class="enhanced-date-picker month-only" id="month-date-picker">
+                        <div class="date-part" data-type="year" onclick="showDateDropdown('month', 'year')">
+                            <span id="month-year-display">2024</span>
+                        </div>
+                        <span class="date-separator">年</span>
+                        <div class="date-part" data-type="month" onclick="showDateDropdown('month', 'month')">
+                            <span id="month-month-display">01</span>
+                        </div>
+                        <span class="date-separator">月</span>
+    
+                        <!-- 下拉选择面板 -->
+                        <div class="date-dropdown" id="month-dropdown">
+                            <!-- 动态内容将在这里生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="date-label-with-icon">
+                        <i class="fas fa-clock" style="color: #583e04;"></i>
+                        快速选择
+                    </label>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span id="quick-select-text">时段</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="quick-select-dropdown">
+                            <button class="dropdown-item" onclick="selectQuickRange('today')">今天</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('yesterday')">昨天</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('thisWeek')">本周</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('lastWeek')">上周</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('thisMonth')">这个月</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('lastMonth')">上个月</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('thisYear')">今年</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('lastYear')">去年</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="header-right-group">
                 <div class="header-search">
-                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="unified-filter" class="unified-search-input" 
                         placeholder="搜索货品编号、货品名称或收货人...">
                 </div>
@@ -2101,12 +2251,554 @@
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
 
+        // 日期选择器状态
+        let currentDatePicker = null;
+        let currentDateType = null;
+        let startDateValue = { year: null, month: null, day: null };
+        let endDateValue = { year: null, month: null, day: null };
+        let monthDateValue = { year: null, month: null };
+        let dateRange = {
+            startDate: null,
+            endDate: null
+        };
+
+        // 增强的日期选择器功能
+        function initEnhancedDatePickers() {
+            // 获取当前日期
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth() + 1;
+
+            // 计算本月第一天和最后一天
+            const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
+            const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
+
+            // 正确设置dateRange为当月第一天和最后一天
+            dateRange = {
+                startDate: `${currentYear}-${String(currentMonth).padStart(2, '0')}-01`,
+                endDate: `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(lastDayOfMonth.getDate()).padStart(2, '0')}`
+            };
+    
+            // 设置开始和结束日期初始值为当月第一天和最后一天
+            startDateValue = {
+                year: currentYear,
+                month: currentMonth,
+                day: 1
+            };
+
+            endDateValue = {
+                year: currentYear,
+                month: currentMonth,
+                day: lastDayOfMonth.getDate()
+            };
+    
+            // 月份选择器初始值为未选择状态（显示"--"）
+            monthDateValue = {
+                year: null,
+                month: null
+            };
+    
+            // 更新显示
+            updateDateDisplay('start');
+            updateDateDisplay('end');
+            updateDateDisplay('month');
+    
+            // 绑定全局点击事件以关闭下拉框
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.enhanced-date-picker')) {
+                    hideAllDropdowns();
+                }
+            });
+        }
+
+        function updateDateDisplay(prefix) {
+            if (prefix === 'month') {
+                // 显示年份，如果未选择显示"--"
+                document.getElementById('month-year-display').textContent = monthDateValue.year || '--';
+                // 显示月份，如果未选择显示"--"
+                document.getElementById('month-month-display').textContent = monthDateValue.month ? String(monthDateValue.month).padStart(2, '0') : '--';
+            } else {
+                const dateValue = prefix === 'start' ? startDateValue : endDateValue;
+        
+                document.getElementById(`${prefix}-year-display`).textContent = dateValue.year;
+                document.getElementById(`${prefix}-month-display`).textContent = String(dateValue.month).padStart(2, '0');
+                document.getElementById(`${prefix}-day-display`).textContent = String(dateValue.day).padStart(2, '0');
+            }
+        }
+
+        function showDateDropdown(prefix, type) {
+            // 隐藏其他下拉框
+            hideAllDropdowns();
+            
+            const dropdown = document.getElementById(`${prefix}-dropdown`);
+            const datePicker = document.getElementById(`${prefix}-date-picker`);
+            
+            // 设置当前状态
+            currentDatePicker = prefix;
+            currentDateType = type;
+            
+            // 移除所有active状态
+            datePicker.querySelectorAll('.date-part').forEach(part => {
+                part.classList.remove('active');
+            });
+            
+            // 添加当前选中的active状态
+            datePicker.querySelector(`[data-type="${type}"]`).classList.add('active');
+            
+            // 生成下拉内容
+            generateDropdownContent(prefix, type);
+            
+            // 显示下拉框
+            dropdown.classList.add('show');
+        }
+
+        function hideAllDropdowns() {
+            document.querySelectorAll('.date-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+            
+            document.querySelectorAll('.date-part').forEach(part => {
+                part.classList.remove('active');
+            });
+            
+            currentDatePicker = null;
+            currentDateType = null;
+        }
+
+        function generateDropdownContent(prefix, type) {
+            const dropdown = document.getElementById(`${prefix}-dropdown`);
+            let dateValue;
+    
+            if (prefix === 'month') {
+                dateValue = monthDateValue;
+            } else {
+                dateValue = prefix === 'start' ? startDateValue : endDateValue;
+            }
+    
+            const today = new Date();
+    
+            dropdown.innerHTML = '';
+    
+            if (type === 'year') {
+                // 生成年份选择
+                const yearGrid = document.createElement('div');
+                yearGrid.className = 'year-grid';
+        
+                const currentYear = today.getFullYear();
+                const startYear = 2022;
+                const endYear = currentYear + 1;
+        
+                for (let year = startYear; year <= endYear; year++) {
+                    const yearOption = document.createElement('div');
+                    yearOption.className = 'date-option';
+                    yearOption.textContent = year;
+            
+                    if (year === dateValue.year) {
+                        yearOption.classList.add('selected');
+                    }
+            
+                    if (year === currentYear) {
+                        yearOption.classList.add('today');
+                    }
+            
+                    yearOption.addEventListener('click', function() {
+                        selectDateValue(prefix, 'year', year);
+                    });
+            
+                    yearGrid.appendChild(yearOption);
+                }
+        
+                dropdown.appendChild(yearGrid);
+        
+            } else if (type === 'month') {
+                // 生成月份选择
+                const monthGrid = document.createElement('div');
+                monthGrid.className = 'month-grid';
+
+                // 添加"无"选项
+                const noneOption = document.createElement('div');
+                noneOption.className = 'date-option';
+                noneOption.textContent = '无';
+                noneOption.style.gridColumn = '1 / -1'; // 让"无"选项占满整行
+
+                if (!dateValue.month) {
+                    noneOption.classList.add('selected');
+                }
+
+                noneOption.addEventListener('click', function() {
+                    selectDateValue(prefix, 'month', null);
+                });
+
+                monthGrid.appendChild(noneOption);
+
+                const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+
+                months.forEach((monthName, index) => {
+                    const monthValue = index + 1;
+                    const monthOption = document.createElement('div');
+                    monthOption.className = 'date-option';
+                    monthOption.textContent = monthName;
+
+                    if (monthValue === dateValue.month) {
+                        monthOption.classList.add('selected');
+                    }
+
+                    if (dateValue.year === today.getFullYear() && monthValue === today.getMonth() + 1) {
+                        monthOption.classList.add('today');
+                    }
+
+                    monthOption.addEventListener('click', function() {
+                        selectDateValue(prefix, 'month', monthValue);
+                    });
+
+                    monthGrid.appendChild(monthOption);
+                });
+
+                dropdown.appendChild(monthGrid);
+        
+            } else if (type === 'day') {
+                // 日期选择逻辑保持不变
+                const dayGrid = document.createElement('div');
+                dayGrid.className = 'day-grid';
+        
+                // 添加星期标题
+                const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+                weekdays.forEach(day => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'day-header';
+                    dayHeader.textContent = day;
+                    dayGrid.appendChild(dayHeader);
+                });
+        
+                // 计算当月信息
+                const year = dateValue.year;
+                const month = dateValue.month;
+                const firstDay = new Date(year, month - 1, 1);
+                const lastDay = new Date(year, month, 0);
+                const daysInMonth = lastDay.getDate();
+                const startDayOfWeek = firstDay.getDay();
+        
+                // 添加空白日期（上个月的）
+                for (let i = 0; i < startDayOfWeek; i++) {
+                    const emptyDay = document.createElement('div');
+                    dayGrid.appendChild(emptyDay);
+                }
+        
+                // 添加当月日期
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayOption = document.createElement('div');
+                    dayOption.className = 'date-option';
+                    dayOption.textContent = day;
+            
+                    if (day === dateValue.day) {
+                        dayOption.classList.add('selected');
+                    }
+            
+                    if (year === today.getFullYear() && 
+                        month === today.getMonth() + 1 && 
+                        day === today.getDate()) {
+                        dayOption.classList.add('today');
+                    }
+            
+                    dayOption.addEventListener('click', function() {
+                        selectDateValue(prefix, 'day', day);
+                    });
+            
+                    dayGrid.appendChild(dayOption);
+                }
+        
+                dropdown.appendChild(dayGrid);
+            }
+        }
+
+        function selectDateValue(prefix, type, value) {
+            let dateValue;
+    
+            if (prefix === 'month') {
+                dateValue = monthDateValue;
+        
+                // 更新值
+                dateValue[type] = value;
+        
+                // 更新显示
+                updateDateDisplay('month');
+        
+                // 隐藏下拉框
+                hideAllDropdowns();
+        
+                // 处理月份选择器的数据加载逻辑
+                handleMonthPickerChange();
+        
+                return; // 提前返回，不执行后面的日期选择器逻辑
+            } else {
+                dateValue = prefix === 'start' ? startDateValue : endDateValue;
+        
+                // 更新值
+                dateValue[type] = value;
+        
+                // 如果选择了年份或月份，需要验证日期的有效性
+                if (type === 'year' || type === 'month') {
+                    const daysInMonth = new Date(dateValue.year, dateValue.month, 0).getDate();
+                    if (dateValue.day > daysInMonth) {
+                        dateValue.day = daysInMonth;
+                    }
+                }
+        
+                // 更新显示
+                updateDateDisplay(prefix);
+        
+                // 隐藏下拉框
+                hideAllDropdowns();
+        
+                // 更新日期范围
+                updateDateRangeFromPickers();
+            }
+        }
+
+        // 处理月份选择器变化
+        async function handleMonthPickerChange() {
+            const year = monthDateValue.year;
+            const month = monthDateValue.month;
+
+            // 如果年份和月份都选择了，显示整个月的数据
+            if (year && month) {
+                const firstDay = `${year}-${String(month).padStart(2, '0')}-01`;
+                const lastDay = new Date(year, month, 0).getDate();
+                const lastDayFormatted = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
+
+                dateRange = {
+                    startDate: firstDay,
+                    endDate: lastDayFormatted
+                };
+
+                // 更新开始和结束日期选择器的值
+                startDateValue = {
+                    year: year,
+                    month: month,
+                    day: 1
+                };
+
+                endDateValue = {
+                    year: year,
+                    month: month,
+                    day: lastDay
+                };
+
+                updateDateDisplay('start');
+                updateDateDisplay('end');
+            }
+            // 如果只选择了年份，显示整年的数据
+            else if (year && !month) {
+                const firstDay = `${year}-01-01`;
+                const lastDay = `${year}-12-31`;
+
+                dateRange = {
+                    startDate: firstDay,
+                    endDate: lastDay
+                };
+
+                // 更新开始和结束日期选择器的值为整年
+                startDateValue = {
+                    year: year,
+                    month: 1,
+                    day: 1
+                };
+
+                endDateValue = {
+                    year: year,
+                    month: 12,
+                    day: 31
+                };
+
+                updateDateDisplay('start');
+                updateDateDisplay('end');
+            }
+            // 如果都没选择，不做任何操作
+            else {
+                return;
+            }
+
+            // 重新搜索数据
+            await searchData();
+            document.getElementById('quick-select-text').textContent = '选择时间段';
+        }
+
+        async function updateDateRangeFromPickers() {
+            const startDateStr = `${startDateValue.year}-${String(startDateValue.month).padStart(2, '0')}-${String(startDateValue.day).padStart(2, '0')}`;
+            const endDateStr = `${endDateValue.year}-${String(endDateValue.month).padStart(2, '0')}-${String(endDateValue.day).padStart(2, '0')}`;
+            
+            // 验证日期有效性
+            if (new Date(startDateStr) > new Date(endDateStr)) {
+                alert('开始日期不能晚于结束日期');
+                return;
+            }
+            
+            dateRange = {
+                startDate: startDateStr,
+                endDate: endDateStr
+            };
+            
+            // 重新搜索数据
+            await searchData();
+            document.getElementById('quick-select-text').textContent = '选择时间段';
+        }
+
+        // 快速选择下拉菜单控制
+        function toggleQuickSelectDropdown() {
+            const dropdown = document.getElementById('quick-select-dropdown');
+    
+            // 关闭其他所有下拉菜单
+            hideAllDropdowns();
+    
+            // 切换当前下拉菜单
+            dropdown.classList.toggle('show');
+        }
+
+        // 快速选择时间范围
+        async function selectQuickRange(range) {
+            const today = new Date();
+            let startDate, endDate;
+
+            switch(range) {
+                case 'today':
+                    // 今天
+                    startDate = new Date(today);
+                    endDate = new Date(today);
+                    break;
+                
+                case 'yesterday':
+                    // 昨天
+                    const yesterday = new Date(today);
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    
+                    startDate = yesterday;
+                    endDate = yesterday;
+                    break;
+
+                case 'thisWeek':
+                    // 本周（周一到今天）
+                    const thisWeekStart = new Date(today);
+                    const dayOfWeek = thisWeekStart.getDay();
+                    const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+                    thisWeekStart.setDate(thisWeekStart.getDate() - daysToMonday);
+            
+                    startDate = thisWeekStart;
+                    endDate = new Date(today);
+                    break;
+            
+                case 'lastWeek':
+                    // 上周（上周一到上周日）
+                    const lastWeekEnd = new Date(today);
+                    const lastWeekDayOfWeek = lastWeekEnd.getDay();
+                    const daysToLastSunday = lastWeekDayOfWeek === 0 ? 0 : lastWeekDayOfWeek;
+                    lastWeekEnd.setDate(lastWeekEnd.getDate() - daysToLastSunday - 1);
+            
+                    const lastWeekStart = new Date(lastWeekEnd);
+                    lastWeekStart.setDate(lastWeekStart.getDate() - 6);
+            
+                    startDate = lastWeekStart;
+                    endDate = lastWeekEnd;
+                    break;
+            
+                case 'thisMonth':
+                    // 这个月（本月1号到今天）
+                    startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                    endDate = new Date(today);
+                    break;
+            
+                case 'lastMonth':
+                    // 上个月
+                    const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+                    const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+            
+                    startDate = lastMonth;
+                    endDate = lastMonthEnd;
+                    break;
+            
+                case 'thisYear':
+                    // 今年
+                    startDate = new Date(today.getFullYear(), 0, 1);
+                    endDate = new Date(today);
+                    break;
+            
+                case 'lastYear':
+                    // 去年
+                    startDate = new Date(today.getFullYear() - 1, 0, 1);
+                    endDate = new Date(today.getFullYear() - 1, 11, 31);
+                    break;
+            
+                default:
+                    return;
+            }
+
+            // 格式化日期为 YYYY-MM-DD 格式
+            const formatDate = (date) => {
+                return date.getFullYear() + '-' + 
+                    String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(date.getDate()).padStart(2, '0');
+            };
+
+            // 更新日期范围
+            dateRange = {
+                startDate: formatDate(startDate),
+                endDate: formatDate(endDate)
+            };
+
+            // 更新开始和结束日期选择器的值
+            startDateValue = {
+                year: startDate.getFullYear(),
+                month: startDate.getMonth() + 1,
+                day: startDate.getDate()
+            };
+
+            endDateValue = {
+                year: endDate.getFullYear(),
+                month: endDate.getMonth() + 1,
+                day: endDate.getDate()
+            };
+
+            // 重置月份选择器（因为我们现在使用的是自定义范围）
+            monthDateValue = {
+                year: null,
+                month: null
+            };
+
+            // 更新所有日期选择器的显示
+            updateDateDisplay('start');
+            updateDateDisplay('end');
+            updateDateDisplay('month');
+
+            // 更新按钮显示文本
+            const quickSelectText = document.getElementById('quick-select-text');
+            const rangeTexts = {
+                'today': '今天',
+                'yesterday': '昨天',
+                'thisWeek': '本周',
+                'lastWeek': '上周',
+                'thisMonth': '这个月',
+                'lastMonth': '上个月',
+                'thisYear': '今年',
+                'lastYear': '去年'
+            };
+            quickSelectText.textContent = rangeTexts[range] || '选择时间段';
+
+            // 关闭下拉菜单
+            document.getElementById('quick-select-dropdown').classList.remove('show');
+
+            // 重新搜索数据
+            await searchData();
+        }
+
+
         // 初始化应用
         function initApp() {
             // 设置默认日期为今天
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('add-date').value = today;
             document.getElementById('add-time').value = new Date().toTimeString().slice(0, 5);
+            
+            // 初始化增强型日期选择器
+            initEnhancedDatePickers();
             
             // 加载数据
             loadStockData();
@@ -2151,7 +2843,6 @@
 
         // 设置实时搜索
         function setupRealTimeSearch() {
-            const dateInput = document.getElementById('date-filter');
             const searchInput = document.getElementById('unified-filter');
             
             // 防抖处理，避免频繁搜索
@@ -2162,10 +2853,6 @@
                 debounceTimer = setTimeout(() => {
                     searchData();
                 }, 300); // 300ms延迟
-            }
-            
-            if (dateInput) {
-                dateInput.addEventListener('change', handleSearch);
             }
             
             if (searchInput) {
@@ -2557,10 +3244,11 @@
                     action: 'list'
                 });
 
-                const dateFilter = document.getElementById('date-filter').value;
                 const unifiedSearch = document.getElementById('unified-filter').value.trim().toLowerCase();
 
-                if (dateFilter) params.append('search_date', dateFilter);
+                // 使用新的日期范围
+                if (dateRange.startDate) params.append('start_date', dateRange.startDate);
+                if (dateRange.endDate) params.append('end_date', dateRange.endDate);
 
                 // 不再 append product_code / product_name / receiver
                 const result = await apiCall(`?${params}`);
@@ -3044,12 +3732,12 @@
             return `
                 <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" ${disabled ? 'data-disabled="true"' : ''}>
                     <input type="text" class="table-input remark-prefix" value="${prefix}" placeholder="" 
-                        style="border: none; border-radius: 4px 0 0 4px; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: clamp(14px, 1.56vw, 30px; text-align: center; background: transparent; padding: 0px;" 
                         ${disabled ? 'disabled' : ''} 
                         onchange="updateRemarkNumber(${recordId})">
-                    <span style="padding: 0 2px; color: #6b7280; font-weight: bold;">-</span>
+                    <span style="padding: 0px; color: #6b7280; font-weight: bold;">-</span>
                     <input type="text" class="table-input remark-suffix" value="${suffix}" placeholder="" 
-                        style="border: none; border-radius: 0 4px 4px 0; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: clamp(16px, 1.56vw, 30px; text-align: center; background: transparent; padding: 0px;" 
                         ${disabled ? 'disabled' : ''} 
                         onchange="updateRemarkNumber(${recordId})">
                 </div>
@@ -3061,11 +3749,11 @@
             return `
                 <div class="remark-number-input-wrapper" style="display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 4px; background: white; padding: 0;" id="${rowId}-remark-wrapper" data-disabled="true">
                     <input type="text" class="table-input remark-prefix" placeholder="" 
-                        style="border: none; border-radius: 4px 0 0 4px; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 4px 0 0 4px; width: clamp(14px, 1.56vw, 30px); text-align: center; background: transparent; padding: 0px;" 
                         id="${rowId}-remark-prefix" disabled>
-                    <span style="padding: 0 2px; color: #6b7280; font-weight: bold;">-</span>
+                    <span style="padding: 0px; color: #6b7280; font-weight: bold;">-</span>
                     <input type="text" class="table-input remark-suffix" placeholder="" 
-                        style="border: none; border-radius: 0 4px 4px 0; width: 30px; text-align: center; background: transparent; padding: 4px;" 
+                        style="border: none; border-radius: 0 4px 4px 0; width: clamp(16px, 1.56vw, 30px); text-align: center; background: transparent; padding: 0px;" 
                         id="${rowId}-remark-suffix" disabled>
                 </div>
             `;
@@ -3794,6 +4482,19 @@
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initApp);
 
+        // 添加快速选择下拉菜单的关闭逻辑
+        document.addEventListener('click', function(e) {
+            // 关闭日期选择器下拉菜单
+            if (!e.target.closest('.enhanced-date-picker')) {
+                hideAllDropdowns();
+            }
+    
+            // 关闭快速选择下拉菜单
+            if (!e.target.closest('.dropdown')) {
+                document.getElementById('quick-select-dropdown').classList.remove('show');
+            }
+        });
+
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
             // Ctrl+S 保存所有编辑
@@ -3905,7 +4606,7 @@
         // 显示下拉列表
         function showComboboxDropdown(input) {
             // 隐藏其他所有下拉列表
-            hideAllDropdowns();
+            hideAllComboboxDropdowns();
             
             const container = input.closest('.combobox-container');
             const dropdown = container.querySelector('.combobox-dropdown');
@@ -3925,7 +4626,7 @@
         }
 
         // 隐藏所有下拉列表
-        function hideAllDropdowns() {
+        function hideAllComboboxDropdowns() {
             document.querySelectorAll('.combobox-dropdown.show').forEach(dropdown => {
                 dropdown.classList.remove('show');
             });
@@ -3988,7 +4689,7 @@
             input._isSelecting = true;
             
             input.value = value;
-            hideAllDropdowns();
+            hideAllComboboxDropdowns();
             
             // 清除选择标记
             setTimeout(() => {
@@ -4163,7 +4864,7 @@
                     break;
                     
                 case 'Escape':
-                    hideAllDropdowns();
+                    hideAllComboboxDropdowns();
                     break;
             }
         }
@@ -4272,13 +4973,13 @@
         // 全局点击事件（隐藏下拉列表）
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.combobox-container')) {
-                hideAllDropdowns();
+                hideAllComboboxDropdowns();
             }
         });
 
         // 窗口滚动和大小变化时重新计算位置
-        window.addEventListener('scroll', hideAllDropdowns);
-        window.addEventListener('resize', hideAllDropdowns);
+        window.addEventListener('scroll', hideAllComboboxDropdowns);
+        window.addEventListener('resize', hideAllComboboxDropdowns);
     </script>
     <script>
         // 加载货品的所有进货价格选项
