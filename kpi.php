@@ -543,7 +543,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .card-body {
-            padding: clamp(5.5px, 0.7vw, 13.5px) clamp(18px, 1.25vw, 24px);
+            padding: clamp(5.5px, 0.7vw, 13.5px) clamp(14px, 1.25vw, 24px);
         }
         
         .grid {
@@ -571,7 +571,7 @@ $avatarLetter = strtoupper($username[0]);
         .main-chart-container {
             display: flex;
             flex-direction: column;
-            margin-bottom: 32px;
+            margin-bottom: clamp(16px, 1.67vw, 32px);
         }
         
         /* 下方图表网格 - 现在只有一个图表 */
@@ -699,7 +699,7 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            padding: clamp(4px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
+            padding: clamp(2px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
             min-width: 100px;
             transition: all 0.2s;
@@ -717,14 +717,14 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 月份选择器的特殊样式 - 更小的宽度 */
         .enhanced-date-picker.month-only {
-            min-width: clamp(100px, 6.77vw, 130px);
+            min-width: clamp(80px, 6.77vw, 130px);
         }
 
         /* 日期选择部分 */
         .date-part {
             position: relative;
             cursor: pointer;
-            padding: 0px clamp(6px, 0.52vw, 10px);
+            padding: 0px clamp(2px, 0.42vw, 8px);
             border-radius: 4px;
             transition: all 0.2s;
             text-align: center;
@@ -791,8 +791,8 @@ $avatarLetter = strtoupper($username[0]);
         .year-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            padding: 8px;
+            gap: clamp(0px, 0.21vw, 4px);
+            padding: clamp(2px, 0.36vw, 8px);
         }
 
         /* 月份选择网格 */
@@ -813,12 +813,12 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 选择项通用样式 */
         .date-option {
-            padding: 4px;
+            padding: clamp(1px, 0.21vw, 4px);
             text-align: center;
             cursor: pointer;
             border-radius: 6px;
             transition: all 0.2s;
-            font-size: 14px;
+            font-size: clamp(6px, 0.73vw, 14px);
             color: #374151;
             background: transparent;
             border: 1px solid transparent;
@@ -843,9 +843,9 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 日期网格的星期标题 */
         .day-header {
-            padding: 4px;
+            padding: clamp(2px, 0.21vw, 4px);
             text-align: center;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             color: #6b7280;
             font-weight: 600;
         }
@@ -863,8 +863,8 @@ $avatarLetter = strtoupper($username[0]);
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: bold;
             color: #6b7280;
-            padding: 8px 12px;
-            background: transparent;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            background: rgb(248, 245, 235);
             border-radius: 6px;
         }
 
@@ -1098,6 +1098,11 @@ $avatarLetter = strtoupper($username[0]);
                 <div class="controls">
                     <!-- 控件区域 -->
                 </div>
+            </div>
+            
+            <!-- 日期信息显示 -->
+            <div class="date-info" id="date-info" style="margin-bottom: 16px; border: 1px solid #e5e7eb;">
+                正在加载数据...
             </div>
             <div id="app">         
             <!-- Date Controls -->
@@ -1852,12 +1857,14 @@ $avatarLetter = strtoupper($username[0]);
                 hideBackButtons();
             }
 
-            // 加载数据并更新仪表板
-            await loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            });
-            updateDashboard();
+            // 只有选择了餐厅才加载数据
+            if (isRestaurantSelected) {
+                await loadData({
+                    start_date: dateRange.startDate,
+                    end_date: dateRange.endDate
+                });
+                updateDashboard();
+            }
             document.getElementById('quick-select-text').textContent = '选择时间段';
             
             // 更新图表日期范围显示
@@ -1887,11 +1894,14 @@ $avatarLetter = strtoupper($username[0]);
                 hideBackButtons();
             }
             
-            await loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            });
-            updateDashboard();
+            // 只有选择了餐厅才加载数据
+            if (isRestaurantSelected) {
+                await loadData({
+                    start_date: dateRange.startDate,
+                    end_date: dateRange.endDate
+                });
+                updateDashboard();
+            }
             document.getElementById('quick-select-text').textContent = '选择时间段';
             
             // 更新图表日期范围显示
@@ -3057,12 +3067,14 @@ $avatarLetter = strtoupper($username[0]);
                 hideBackButtons();
             }
 
-            // 加载数据并更新仪表板
-            await loadData({
-                start_date: dateRange.startDate,
-                end_date: dateRange.endDate
-            });
-            updateDashboard();
+            // 只有选择了餐厅才加载数据
+            if (isRestaurantSelected) {
+                await loadData({
+                    start_date: dateRange.startDate,
+                    end_date: dateRange.endDate
+                });
+                updateDashboard();
+            }
             
             // 更新图表日期范围显示
             updateChartDateRange();

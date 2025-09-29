@@ -228,7 +228,7 @@ function formatFileSize($bytes) {
         
         .upload-form {
             display: grid;
-            gap: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
         }
         
         .form-group {
@@ -246,7 +246,7 @@ function formatFileSize($bytes) {
         .file-input {
             border: 2px dashed #583e04;
             border-radius: 10px;
-            padding: 40px;
+            padding: clamp(20px, 2.08vw, 40px);
             text-align: center;
             background: #fff9f5;
             transition: all 0.3s ease;
@@ -270,7 +270,7 @@ function formatFileSize($bytes) {
         
         .current-music {
             font-size: clamp(10px, 0.84vw, 16px);
-            margin-top: 15px;
+            margin-top: clamp(5px, 0.78vw, 15px);
             padding: 20px;
             background: #e8f4f8;
             border-radius: 8px;
@@ -286,12 +286,12 @@ function formatFileSize($bytes) {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin: 15px 0;
+            margin: clamp(10px, 0.78vw, 15px) 0;
         }
         
         .info-item {
             background: white;
-            padding: 12px;
+            padding: clamp(8px, 0.63vw, 12px);
             border-radius: 6px;
             border: 1px solid #dee2e6;
         }
@@ -309,7 +309,7 @@ function formatFileSize($bytes) {
         }
         
         .audio-player {
-            margin: 15px 0;
+            margin: clamp(0px, 0.78vw, 15px) 0;
             width: 100%;
         }
         
@@ -349,7 +349,7 @@ function formatFileSize($bytes) {
         .btn-group {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: clamp(0px, 1.04vw, 20px);
         }
         
         .alert {
@@ -442,8 +442,7 @@ function formatFileSize($bytes) {
             <span>背景音乐</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
+        <div class="content">  
             
             <?php if (isset($_GET['success']) && $_GET['success'] == '1'): ?>
                 <div class="alert alert-success">音乐文件上传成功！</div>

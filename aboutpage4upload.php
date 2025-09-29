@@ -274,8 +274,8 @@ foreach ($defaultTimeline as $year => $data) {
         
         .upload-form {
             display: grid;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: clamp(10px, 1.04vw, 20px);
+            margin-bottom: clamp(20px, 1.56vw, 30px);
         }
         
         .form-group {
@@ -293,7 +293,7 @@ foreach ($defaultTimeline as $year => $data) {
         .file-input {
             border: 2px dashed #583e04;
             border-radius: 10px;
-            padding: 40px;
+            padding: clamp(20px, 2.08vw, 40px);
             text-align: center;
             background: #fff9f5;
             transition: all 0.3s ease;
@@ -317,7 +317,7 @@ foreach ($defaultTimeline as $year => $data) {
         
         .current-file {
             font-size: clamp(10px, 0.84vw, 16px);
-            margin-top: 15px;
+            margin-top: clamp(5px, 0.78vw, 15px);
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
@@ -330,7 +330,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .preview-container {
-            margin-top: 20px;
+            margin-top: clamp(10px, 1.04vw, 20px);
             border: 1px solid #dee2e6;
             border-radius: 8px;
             overflow: hidden;
@@ -344,7 +344,7 @@ foreach ($defaultTimeline as $year => $data) {
         
         .content-form {
             background: white;
-            padding: 25px;
+            padding: clamp(15px, 1.3vw, 25px);
             border-radius: 10px;
             border: 1px solid #dee2e6;
             margin-top: 20px;
@@ -353,7 +353,7 @@ foreach ($defaultTimeline as $year => $data) {
         .content-form h3 {
             font-size: clamp(12px, 0.94vw, 18px);
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: clamp(10px, 1.04vw, 20px);
             padding-bottom: 10px;
             border-bottom: 2px solid #583e04;
         }
@@ -454,7 +454,7 @@ foreach ($defaultTimeline as $year => $data) {
         .form-actions {
             display: flex;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: clamp(10px, 1.04vw, 20px);
         }
         
         @media (max-width: 768px) {
@@ -483,7 +483,7 @@ foreach ($defaultTimeline as $year => $data) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: clamp(0px, 1.04vw, 20px);
             flex-wrap: wrap;
             gap: 20px;
         }
@@ -567,9 +567,7 @@ foreach ($defaultTimeline as $year => $data) {
             <span>发展历史管理</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
-            
+        <div class="content">           
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
             <?php endif; ?>

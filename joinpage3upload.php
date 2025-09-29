@@ -201,7 +201,7 @@ if (isset($_GET['success'])) {
             background: #f8f9fa;
             border-radius: 10px;
             padding: clamp(18px, 1.56vw, 30px);
-            margin-bottom: 30px;
+            margin-bottom: clamp(20px, 1.56vw, 30px);
             border-left: 5px solid #583e04;
         }
         
@@ -214,8 +214,8 @@ if (isset($_GET['success'])) {
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
+            margin-bottom: clamp(10px, 1.04vw, 20px);
         }
         
         .form-group {
@@ -239,7 +239,8 @@ if (isset($_GET['success'])) {
             border: 2px solid #e0e0e0 !important;
             border-radius: clamp(4px, 0.42vw, 8px)!important;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px)!important;
-            font-size: clamp(10px, 0.84vw, 16px)!important;
+            font-size: clamp(8px, 0.84vw, 16px)!important;
+            font-family: 'Inter', sans-serif !important;
             transition: all 0.3s ease!important;
         }
         
@@ -469,13 +470,13 @@ if (isset($_GET['success'])) {
         .jobs-list {
             background: white;
             border-radius: 10px;
-            padding: 30px;
+            padding: clamp(18px, 1.56vw, 30px);
             border-left: 5px solid #583e04;
         }
         
         .jobs-list h2 {
             color: #333;
-            margin-bottom: 25px;
+            margin-bottom: clamp(15px, 1.3vw, 25px);
             font-size: clamp(12px, 1.04vw, 20px);
         }
         
@@ -490,8 +491,8 @@ if (isset($_GET['success'])) {
         
         /* 应用你想要的样式 */
         border: 1px solid #e0e0e0 !important;
-        padding: 20px !important;
-        margin-bottom: 20px !important;
+        padding: clamp(10px, 1.04vw, 20px) !important;
+        margin-bottom: clamp(10px, 1.04vw, 20px) !important;
         transition: all 0.3s ease !important;
     }
 
@@ -520,17 +521,18 @@ if (isset($_GET['success'])) {
         .job-meta-list {
             display: flex;
             gap: 20px;
-            margin-bottom: 15px;
+            margin-bottom: clamp(10px, 0.78vw, 15px);
         }
         
         .job-meta-item-list {
-            font-size: 0.9em;
+            font-size: clamp(8px, 0.74vw, 14px);
             color: #666;
         }
         
         .job-actions {
             display: flex;
-            gap: 10px;
+            gap: 0px;
+            margin-top: clamp(30px, 1.82vw, 35px);
         }
         
         .job-description-preview {
@@ -561,7 +563,7 @@ if (isset($_GET['success'])) {
         .form-buttons {
             display: flex;
             gap: 15px;
-            margin-top: 25px;
+            margin-top: clamp(15px, 1.3vw, 25px);
         }
         
         @media (max-width: 768px) {
@@ -700,10 +702,7 @@ if (isset($_GET['success'])) {
             <span>招聘职位管理</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
-            
-            
+        <div class="content">       
             <!-- 添加/编辑职位表单 -->
             <div class="form-section">
                 <h2><?php echo $editJob ? '编辑职位' : '添加新职位'; ?></h2>

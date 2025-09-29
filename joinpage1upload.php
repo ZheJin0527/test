@@ -151,7 +151,7 @@ if (file_exists('media_config.json')) {
         
         .upload-form {
             display: grid;
-            gap: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
         }
         
         .form-group {
@@ -169,7 +169,7 @@ if (file_exists('media_config.json')) {
         .file-input {
             border: 2px dashed #583e04;
             border-radius: 10px;
-            padding: 40px;
+            padding: clamp(20px, 2.08vw, 40px);
             text-align: center;
             background: #fff9f5;
             transition: all 0.3s ease;
@@ -193,7 +193,7 @@ if (file_exists('media_config.json')) {
         
         .current-file {
             font-size: clamp(10px, 0.84vw, 16px);
-            margin-top: 15px;
+            margin-top: clamp(5px, 0.78vw, 15px);
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
@@ -259,7 +259,7 @@ if (file_exists('media_config.json')) {
         }
         
         .preview-container {
-            margin-top: 20px;
+            margin-top: clamp(10px, 1.04vw, 20px);
             border: 1px solid #dee2e6;
             border-radius: 8px;
             overflow: hidden;
@@ -295,9 +295,7 @@ if (file_exists('media_config.json')) {
             <span>加入我们页面</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
-            
+        <div class="content">          
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
             <?php endif; ?>

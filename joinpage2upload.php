@@ -174,8 +174,8 @@ if (file_exists('media_config.json')) {
         .photos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: clamp(10px, 1.04vw, 20px);
+            margin-top: clamp(10px, 1.04vw, 20px);
         }
         
         .photo-card {
@@ -220,12 +220,12 @@ if (file_exists('media_config.json')) {
         .file-input {
             border: 2px dashed #583e04;
             border-radius: 8px;
-            padding: 20px;
+            padding: clamp(10px, 1.04vw, 20px);
             text-align: center;
             background: #fff9f5;
             transition: all 0.3s ease;
             cursor: pointer;
-            margin-bottom: 15px;
+            margin-bottom: clamp(8px, 0.78vw, 15px);
         }
         
         .file-input:hover {
@@ -288,14 +288,14 @@ if (file_exists('media_config.json')) {
             margin-bottom: clamp(10px, 1.04vw, 20px);
             text-align: center;
             border-bottom: 2px solid #583e04;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
         
         .stats-bar {
             background: #f8f9fa;
-            padding: 15px;
+            padding: clamp(6px, 0.78vw, 15px);
             border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: clamp(10px, 1.3vw, 25px);
             text-align: center;
             border: 1px solid #dee2e6;
         }
@@ -343,9 +343,7 @@ if (file_exists('media_config.json')) {
             <span>我们的足迹照片</span>
         </div>
         
-        <div class="content">
-            <a href="media_manager.php" class="back-btn">← 返回媒体管理</a>
-            
+        <div class="content">            
             <?php if (isset($success)): ?>
                 <div class="alert alert-success"><?php echo $success; ?></div>
             <?php endif; ?>
