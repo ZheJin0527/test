@@ -213,9 +213,8 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu-section-title:hover {
     background-color: #ff5c00;
     color: #ffffff;
-    border-radius: 8px;
+    border-radius: clamp(4px, 0.42vw, 8px);
     margin: 0 10px;
-    padding: 10px;
 }
 
 .informationmenu-section-title.active {
@@ -244,6 +243,8 @@ if (isset($_SESSION['user_id'])) {
 
 .dropdown-menu-items.show {
     max-height: 500px;
+    border-radius: clamp(4px, 0.42vw, 8px);
+    margin: 0 10px;
 }
 
 .menu-item-wrapper {
