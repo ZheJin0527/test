@@ -195,7 +195,7 @@ body::-webkit-scrollbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: clamp(1.25rem, 2vw, 1.5rem) clamp(4rem, 8vw, 6rem); /* 响应式内边距 */
+    padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 5vw, 4rem); /* 优化iPad Mini内边距 */
 }
 
 .vision-content {
@@ -205,80 +205,88 @@ body::-webkit-scrollbar {
 
 .vision-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(1.5rem, 5vw, 3.5rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1.8rem, 4vw, 2.8rem); /* 优化iPad Mini字体大小 */
     font-weight: bold;
-    line-height: 1.4;
-    letter-spacing: 0.005em; /* 使用 em 单位 */
-    margin-bottom: clamp(1.25rem, 2vw, 1.5rem); /* 响应式下边距 */
-    margin-top: clamp(1.25rem, 2vw, 1.5rem); /* 响应式上边距 */
+    line-height: 1.3;
+    letter-spacing: 0.003em; /* 使用 em 单位 */
+    margin-bottom: clamp(1rem, 2.5vw, 1.8rem); /* 优化iPad Mini下边距 */
+    margin-top: clamp(1rem, 2.5vw, 1.8rem); /* 优化iPad Mini上边距 */
 }
 
 .vision-content p {
-    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem); /* 优化iPad Mini字体大小 */
     font-weight: normal;
-    line-height: 1.5;
-    letter-spacing: 0.02em; /* 使用 em 单位 */
+    line-height: 1.6;
+    letter-spacing: 0.015em; /* 使用 em 单位 */
     color: white;
     margin-top: 0;
-    margin-bottom: clamp(2rem, 4vw, 2.5rem); /* 响应式下边距 */
+    margin-bottom: clamp(1.5rem, 3vw, 2.2rem); /* 优化iPad Mini下边距 */
+    max-width: clamp(25rem, 70vw, 50rem); /* 限制最大宽度，提高可读性 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .vision-cards {
     display: flex;
     justify-content: center;
-    gap: clamp(0.8rem, 3vw, 2rem); /* 智能间距，小屏幕更紧凑 */
-    padding: 0 clamp(0.5rem, 4vw, 2.5rem); /* 智能内边距 */
+    gap: clamp(1rem, 4vw, 2.5rem); /* 优化iPad Mini间距 */
+    padding: 0 clamp(0.5rem, 3vw, 2rem); /* 优化iPad Mini内边距 */
     flex-wrap: wrap;
     align-items: stretch;
+    max-width: clamp(60rem, 95vw, 80rem); /* 限制最大宽度 */
+    margin: 0 auto; /* 居中显示 */
 }
 
 .vision-card {
-    width: clamp(18rem, 50vw, 32rem); /* 智能宽度，iPad Mini时更宽 */
-    height: clamp(16rem, 22vw, 24rem); /* 智能高度 */
+    width: clamp(22rem, 45vw, 28rem); /* 优化iPad Mini卡片宽度 */
+    height: clamp(18rem, 20vw, 22rem); /* 优化iPad Mini卡片高度 */
     background-color: #FFF3E6;
-    border-radius: clamp(0.8rem, 1.8vw, 1.5rem); /* 智能圆角 */
-    padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); /* 智能内边距 */
+    border-radius: clamp(1rem, 2vw, 1.5rem); /* 优化iPad Mini圆角 */
+    padding: clamp(1.2rem, 2.5vw, 1.8rem) clamp(1.2rem, 2.5vw, 1.8rem); /* 优化iPad Mini内边距 */
     text-align: left;
     color: #888888;
     box-shadow: 
-        clamp(0.1rem, 0.3vw, 0.25rem) clamp(0.2rem, 0.5vw, 0.4rem) clamp(0.3rem, 0.6vw, 0.5rem) rgba(0, 0, 0, 0.1), /* 智能阴影 */
-        clamp(0.4rem, 1vw, 0.8rem) clamp(0.6rem, 1.5vw, 1.25rem) clamp(1rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.15);
-    flex: 1 1 clamp(18rem, 45vw, 28rem); /* 智能弹性布局 */
-    max-width: clamp(20rem, 55vw, 35rem); /* 设置最大宽度 */
+        clamp(0.15rem, 0.4vw, 0.3rem) clamp(0.25rem, 0.6vw, 0.5rem) clamp(0.4rem, 0.8vw, 0.6rem) rgba(0, 0, 0, 0.1), /* 优化iPad Mini阴影 */
+        clamp(0.5rem, 1.2vw, 1rem) clamp(0.8rem, 1.8vw, 1.5rem) clamp(1.2rem, 2.5vw, 2rem) rgba(0, 0, 0, 0.15);
+    flex: 1 1 clamp(22rem, 42vw, 26rem); /* 优化iPad Mini弹性布局 */
+    max-width: clamp(24rem, 50vw, 30rem); /* 优化iPad Mini最大宽度 */
+    min-width: clamp(20rem, 40vw, 24rem); /* 设置最小宽度确保可读性 */
 }
 
 .vision-label {
     display: inline-block;
     background-color: white;
     color: #FF5C00;
-    font-size: clamp(1rem, 3vw, 1.8rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem); /* 优化iPad Mini标签字体大小 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
-    padding: clamp(0.5rem, 1vw, 0.8rem) clamp(1rem, 1.5vw, 1.25rem); /* 调整内边距 */
-    border-radius: clamp(1.5rem, 2.5vw, 2rem); /* 响应式圆角 */
-    margin: clamp(0.5rem, 1.5vw, 1rem) 0 clamp(0.5rem, 1vw, 0.75rem) 0; /* 简化边距 */
+    padding: clamp(0.6rem, 1.2vw, 1rem) clamp(1.2rem, 2vw, 1.5rem); /* 优化iPad Mini内边距 */
+    border-radius: clamp(1.8rem, 3vw, 2.5rem); /* 优化iPad Mini圆角 */
+    margin: clamp(0.3rem, 1vw, 0.8rem) 0 clamp(0.8rem, 1.5vw, 1.2rem) 0; /* 优化iPad Mini边距 */
     width: auto; /* 自适应宽度 */
+    box-shadow: 0 clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.3rem, 0.5vw, 0.4rem) rgba(0, 0, 0, 0.1); /* 添加轻微阴影 */
 }
 
 .vision-card h2 {
-    font-size: clamp(1.125rem, 2.5vw, 1.8rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem); /* 优化iPad Mini标题字体大小 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
-    line-height: 1.4;
-    letter-spacing: 0.02em; /* 使用 em 单位 */
-    margin: clamp(0.5rem, 1.5vw, 1rem) 0; /* 简化边距 */
+    line-height: 1.3;
+    letter-spacing: 0.015em; /* 使用 em 单位 */
+    margin: clamp(0.3rem, 1vw, 0.8rem) 0 clamp(0.8rem, 1.5vw, 1.2rem) 0; /* 优化iPad Mini边距 */
     color: black;
     width: 100%; /* 占满卡片宽度 */
 }
 
 .vision-card p {
-    font-size: clamp(0.875rem, 1.5vw, 1rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.9rem, 1.4vw, 1.1rem); /* 优化iPad Mini段落字体大小 */
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
-    line-height: 1.5;
-    letter-spacing: 0.02em; /* 使用 em 单位 */
-    margin: clamp(0.75rem, 1.5vw, 1rem) 0; /* 简化边距 */
+    line-height: 1.6;
+    letter-spacing: 0.015em; /* 使用 em 单位 */
+    margin: clamp(0.5rem, 1vw, 0.8rem) 0; /* 优化iPad Mini边距 */
     color: #888888;
+    text-align: justify; /* 两端对齐，提高可读性 */
 }
 
 /* ===========================================
