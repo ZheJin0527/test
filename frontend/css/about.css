@@ -449,9 +449,9 @@ body::-webkit-scrollbar {
 .timeline-nav {
     position: relative;
     margin: 0 auto clamp(0.5rem, 1.5vw, 2rem) auto; /* 居中边距 */
-    padding: 0; /* 移除padding，避免影响绝对定位 */
+    padding: 0 clamp(1rem, 2vw, 2rem); /* 添加适当的左右padding */
     width: 100%;
-    max-width: clamp(60rem, 80vw, 80rem); /* 与content-container保持一致 */
+    max-width: clamp(40rem, 60vw, 60rem); /* 调整最大宽度 */
     height: clamp(0.5rem, 5vw, 6rem); /* 优化小屏幕高度 */
     display: flex;
     align-items: center;
@@ -462,8 +462,8 @@ body::-webkit-scrollbar {
 .timeline-line {
     position: absolute;
     top: 50%;
-    left: 0; /* 让线条占满整个父容器 */
-    right: 0; /* 让线条占满整个父容器 */
+    left: clamp(1rem, 2vw, 2rem); /* 与padding匹配 */
+    right: clamp(1rem, 2vw, 2rem); /* 与padding匹配 */
     height: clamp(0.2rem, 0.3vw, 0.3rem); /* 优化小屏幕高度 */
     background: linear-gradient(90deg, 
         #FFD1A1 0%,     
@@ -674,7 +674,7 @@ body::-webkit-scrollbar {
 .timeline-content-container {
     position: relative;
     width: 100%;
-    max-width: clamp(60rem, 80vw, 80rem); /* 与timeline-nav保持一致 */
+    max-width: clamp(40rem, 60vw, 60rem); /* 与timeline-nav保持一致 */
     height: clamp(35rem, 45vw, 50rem); /* 优化小屏幕高度 */
     overflow: hidden;
     perspective: clamp(35rem, 45vw, 50rem); /* 优化小屏幕透视 */
