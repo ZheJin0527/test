@@ -1229,7 +1229,7 @@ form select:focus {
 .form-wrapper {
     width: 100%;
     min-height: 100vh;
-    padding: clamp(1rem, 3vh, 2rem) clamp(0.5rem, 2vw, 1rem) clamp(0.5rem, 1vh, 1rem);
+    padding: clamp(1.5rem, 5vh, 3rem) clamp(0.5rem, 2vw, 1rem) clamp(0.5rem, 1vh, 1rem);
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
     display: flex;
     flex-direction: column;
@@ -1244,7 +1244,7 @@ form select:focus {
     text-align: center;
     font-size: clamp(18px, 2.5vw, 35px);
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    margin: clamp(25px, 4vh, 50px) auto clamp(20px, 3vh, 35px);
+    margin: clamp(35px, 6vh, 70px) auto clamp(25px, 4vh, 45px);
     font-weight: 700;
     line-height: 1.4;
     font-family: 'Inter', sans-serif;
@@ -1256,7 +1256,7 @@ form select:focus {
     width: clamp(280px, 80vw, 550px);
     min-height: clamp(350px, 50vh, 500px);
     height: auto;
-    margin: clamp(10px, 2vh, 20px) auto clamp(15px, 2vh, 30px);
+    margin: clamp(15px, 3vh, 30px) auto clamp(15px, 2vh, 30px);
     padding: clamp(15px, 3vw, 30px);
     background: #f5f5f5;
     border-radius: clamp(12px, 2.5vw, 18px);
