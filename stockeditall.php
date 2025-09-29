@@ -1774,9 +1774,9 @@
         /* 统一顶部行样式 - 进出货页面专用 */
         .unified-header-row {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: clamp(10px, 1.5vw, 30px);
-            padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
+            padding: clamp(10px, 1.15vw, 22px) clamp(10px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
             margin-bottom: clamp(14px, 1.25vw, 24px);
