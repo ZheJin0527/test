@@ -1435,7 +1435,7 @@ form select:focus {
 /* 提交按钮 */
 .submit-btn {
     width: 20%;
-    padding: clamp(10px, 1.5vw, 14px);
+    padding: clamp(5px, 1.5vw, 10px);
     background: linear-gradient(145deg, #ff5c00 0%, #ff8000 100%);
     color: white;
     font-size: clamp(11px, 1vw, 14px);
@@ -1449,7 +1449,7 @@ form select:focus {
     box-shadow: 0 3px 12px rgba(255, 107, 107, 0.3);
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    line-height: 0.2;
+    line-height: 1.2;
 }
 
 /* 小屏幕优化 - 使用纯 clamp() 方案确保表单不被遮挡 */
