@@ -91,18 +91,19 @@ body::-webkit-scrollbar {
 
 .aboutus-banner {
     position: relative;
-    padding: clamp(4rem, 8vw, 6rem) 0 0 clamp(4rem, 8vw, 6rem); /* 响应式内边距 */
+    padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 4vw, 3rem) 0 clamp(2rem, 4vw, 3rem); /* 响应式内边距，左右对称 */
     flex: 0 0 50%;
     
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
+    width: 100%; /* 确保容器占满宽度 */
 }
   
 .aboutus-content {
     margin-top: clamp(4rem, 6vw, 5rem); /* 响应式上边距 */
-    width: clamp(20rem, 25vw, 25rem); /* 响应式宽度 */
+    width: 100%; /* 使用全宽度，让内容能够居中 */
     height: clamp(8rem, 10vw, 9rem); /* 响应式高度 */
     display: flex;
     flex-direction: column;
@@ -110,6 +111,7 @@ body::-webkit-scrollbar {
     justify-content: center;
     text-align: center;
     transform: translateY(clamp(-3rem, -4vw, -4rem)); /* 响应式向上移动 */
+    padding: 0 clamp(2rem, 4vw, 3rem); /* 添加左右内边距，确保内容不会贴边 */
 }
 
 .aboutus-content h1 {
@@ -145,21 +147,22 @@ body::-webkit-scrollbar {
 
 .aboutus-intro {
     background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
-    padding: 0 clamp(1.25rem, 2vw, 1.5rem) clamp(5rem, 8vw, 6rem) clamp(1.25rem, 2vw, 1.5rem); /* 响应式内边距 */
+    padding: 0 clamp(2rem, 4vw, 3rem) clamp(5rem, 8vw, 6rem) clamp(2rem, 4vw, 3rem); /* 响应式内边距，左右对称 */
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 0 0 40%;
+    width: 100%; /* 确保容器占满宽度 */
 }
 
 .intro-content {
-    width: clamp(25rem, 35vw, 32rem); /* 响应式宽度 */
+    width: 100%; /* 使用全宽度，让内容能够居中 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: clamp(1.25rem, 3vw, 4rem) 0 clamp(6rem, 8vw, 6.5rem) clamp(3rem, 4vw, 3.5rem); /* 响应式内边距 */
+    padding: clamp(1.25rem, 3vw, 4rem) clamp(2rem, 4vw, 3rem) clamp(6rem, 8vw, 6.5rem) clamp(2rem, 4vw, 3rem); /* 响应式内边距，左右对称 */
 }
 
 .intro-content h1 {
