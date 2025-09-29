@@ -3062,7 +3062,7 @@
             isLoading = true;
             
             try {
-                const result = await apiCall('?action=list&limit=1000');
+                const result = await apiCall('?action=list&limit=5000');
                 
                 if (result.success) {
                     stockData = result.data || [];
