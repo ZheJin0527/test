@@ -864,7 +864,7 @@ $avatarLetter = strtoupper($username[0]);
             font-weight: bold;
             color: #6b7280;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
-            background: #f1dfbc;
+            background: rgb(248, 245, 235);
             border-radius: 6px;
         }
 
