@@ -444,21 +444,22 @@ body::-webkit-scrollbar {
     text-shadow: 0.125rem 0.125rem 0.375rem rgba(0, 0, 0, 0.4); /* 2px 2px 6px转换为rem */
 }
 
+/* 时间线导航 */
 .timeline-nav {
     position: relative;
-    margin-bottom: -3.75rem; /* -60px转换为rem */
-    padding: 0 6.25rem; /* 0 100px转换为rem */
+    margin-bottom: -60px;
+    padding: 0 100px;
     width: 100%;
-    max-width: 50rem; /* 800px转换为rem */
+    max-width: 800px;
 }
 
 /* 主时间线 */
 .timeline-line {
     position: absolute;
     top: 50%;
-    left: 6.25rem; /* 100px转换为rem */
-    right: 6.25rem; /* 100px转换为rem */
-    height: 0.3125rem; /* 5px转换为rem */
+    left: 100px;
+    right: 100px;
+    height: 5px;
     background: linear-gradient(90deg, 
         #FFD1A1 0%,     
         #FFB84D 25%,    
@@ -466,7 +467,7 @@ body::-webkit-scrollbar {
         #FF7A00 75%,    
         #FF5C00 100%);  
     transform: translateY(-50%);
-    border-radius: 0.1875rem; /* 3px转换为rem */
+    border-radius: 3px;
     z-index: 1;
     overflow: hidden;
 }
@@ -480,9 +481,9 @@ body::-webkit-scrollbar {
     height: 100%;
     background: linear-gradient(90deg, 
         transparent, 
-        rgba(255, 255, 255, 0.6), 
+        rgba(255, 255, 255, 0.4), 
         transparent);
-    animation: shimmer 2s infinite;
+    animation: shimmer 3s infinite;
 }
 
 @keyframes shimmer {
@@ -490,27 +491,40 @@ body::-webkit-scrollbar {
     100% { left: 100%; }
 }
 
+/* 时间线导航容器 */
+.timeline-nav {
+    position: relative;
+    margin: 0 auto clamp(10px, 2.1vw, 40px) auto;
+    width: 100%;
+    max-width: 800px;
+    height: clamp(10px, 6.25vw, 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+/* 可滚动的时间线容器 */
 .timeline-scroll-container {
     position: relative;
     width: 100%;
-    height: clamp(0.5rem, 3.5vw, 4rem); /* 优化小屏幕高度 */
+    height: clamp(10px, 4.2vw, 80px);
     overflow: hidden;
     mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
     -webkit-mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
+/* 时间线轨道 */
 .timeline-track {
     position: absolute;
     top: 50%;
     left: 0;
     right: 0;
-    height: 0.25rem; /* 4px转换为rem */
+    height: clamp(2px, 0.21vw, 4px);
     background: white;
     transform: translateY(-50%);
-    border-radius: 0.125rem; /* 2px转换为rem */
+    border-radius: 2px;
     z-index: 1;
-    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.1); /* 0 4px 4px转换为rem */
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .timeline-track::before {
@@ -524,7 +538,7 @@ body::-webkit-scrollbar {
         transparent, 
         rgba(255, 255, 255, 0.6), 
         transparent);
-    animation: shimmer 2s infinite;
+    animation: shimmer 3s infinite;
 }
 
 @keyframes shimmer {
@@ -532,6 +546,7 @@ body::-webkit-scrollbar {
     100% { left: 100%; }
 }
 
+/* 时间线项目容器 */
 .timeline-items-container {
     position: relative;
     height: 100%;
@@ -541,19 +556,21 @@ body::-webkit-scrollbar {
     z-index: 2;
 }
 
+/* 时间线项目 */
 .timeline-item {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 7.5rem; /* 120px转换为rem */
+    min-width: 120px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* 年份圆圈 */
 .timeline-bullet {
-    width: clamp(1.875rem, 2.6vw, 3.125rem); /* 30px, 2.6vw, 50px转换为rem */
-    height: clamp(1.875rem, 2.6vw, 3.125rem); /* 30px, 2.6vw, 50px转换为rem */
+    width: clamp(30px, 2.6vw, 50px);
+    height: clamp(30px, 2.6vw, 50px);
     border-radius: 50%;
     background: rgb(204, 198, 198);
     color: #666;
@@ -561,24 +578,26 @@ body::-webkit-scrollbar {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: clamp(0.625rem, 0.8vw, 1rem); /* 10px, 0.8vw, 16px转换为rem */
+    font-size: clamp(10px, 0.8vw, 16px);
     cursor: pointer;
     transition: all 0.4s ease;
-    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.2); /* 0 4px 4px转换为rem */
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
     position: relative;
     z-index: 3;
 }
 
+/* 活动状态的圆圈 */
 .timeline-item.active .timeline-bullet {
     background: rgb(255, 255, 255);
     color: #ff5c00;
     transform: scale(1.2);
-    box-shadow: 0 clamp(0.375rem, 0.6vw, 0.5rem) clamp(0.75rem, 1.2vw, 1rem) rgba(255, 92, 0, 0.3); /* 响应式阴影 */
+    box-shadow: 0 6px 12px rgba(255, 92, 0, 0.3);
 }
 
+/* 悬停效果 */
 .timeline-item:hover .timeline-bullet {
     transform: scale(1.1);
-    box-shadow: 0 clamp(0.375rem, 0.6vw, 0.5rem) clamp(0.375rem, 0.6vw, 0.5rem) rgba(0, 0, 0, 0.2); /* 响应式阴影 */
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
 }
 
 .timeline-item.active:hover .timeline-bullet {
