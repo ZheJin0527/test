@@ -522,21 +522,14 @@ body::-webkit-scrollbar {
     }
 
 /* 职位容器样式 */
-.jobs-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 8px;
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 8px;
-}
 
 .jobs-wrapper {
   transform-origin: top center;
   transform: scale(var(--scale, 1));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 
