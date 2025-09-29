@@ -1493,7 +1493,7 @@
         .date-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: clamp(8px, 0.83vw, 16px);
+            gap: clamp(2px, 0.62vw, 12px);
             align-items: flex-end;
             flex: 1;
         }
