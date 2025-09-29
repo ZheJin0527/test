@@ -423,9 +423,9 @@ body::-webkit-scrollbar {
    =========================================== */
 .timeline-section {
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
-    padding: clamp(2rem, 9vw, 6rem) clamp(1rem, 1.5vw, 1.25rem); /* 优化小屏幕内边距 */
+    padding: 5rem 1.25rem; /* 80px 20px转换为rem */
     position: relative;
-    height: 100vh; /* 固定高度，始终保持一致 */
+    height: 130vh; /* 恢复原来的高度 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -434,31 +434,31 @@ body::-webkit-scrollbar {
 
 .timeline-section h1 {
     text-align: center;
-    font-size: clamp(1.2rem, 3.5vw, 2.2rem); /* 优化小屏幕字体大小 */
-    color: white; /* 直接使用白色文字 */
-    margin-bottom: clamp(0.5rem, 1.2vw, 1.5rem); /* 优化小屏幕下边距 */
-    margin-top: clamp(0.5rem, 2.5vw, 3rem); /* 优化小屏幕上边距 */
+    font-size: clamp(1.25rem, 2.6vw, 3.125rem); /* 20px, 2.6vw, 50px转换为rem */
+    color: white;
+    margin-bottom: clamp(0.625rem, 1.6vw, 1.875rem); /* 10px, 1.6vw, 30px转换为rem */
+    margin-top: clamp(0.625rem, 3.2vw, 3.75rem); /* 10px, 3.2vw, 60px转换为rem */
     position: relative;
     font-weight: 700;
-    letter-spacing: clamp(0.08rem, 0.15vw, 0.12rem); /* 优化小屏幕字母间距 */
-    text-shadow: clamp(0.08rem, 0.15vw, 0.12rem) clamp(0.08rem, 0.15vw, 0.12rem) clamp(0.25rem, 0.4vw, 0.35rem) rgba(0, 0, 0, 0.4); /* 优化小屏幕阴影 */
+    letter-spacing: 0.125rem; /* 2px转换为rem */
+    text-shadow: 0.125rem 0.125rem 0.375rem rgba(0, 0, 0, 0.4); /* 2px 2px 6px转换为rem */
 }
 
 .timeline-nav {
     position: relative;
-    margin-bottom: -3.75rem; /* 60px转换为rem */
-    padding: 0 clamp(4rem, 6vw, 5rem); /* 优化小屏幕内边距 */
+    margin-bottom: -3.75rem; /* -60px转换为rem */
+    padding: 0 6.25rem; /* 0 100px转换为rem */
     width: 100%;
-    max-width: clamp(30rem, 40vw, 45rem); /* 优化小屏幕最大宽度 */
+    max-width: 50rem; /* 800px转换为rem */
 }
 
 /* 主时间线 */
 .timeline-line {
     position: absolute;
     top: 50%;
-    left: clamp(4rem, 6vw, 5rem); /* 优化小屏幕左边距 */
-    right: clamp(4rem, 6vw, 5rem); /* 优化小屏幕右边距 */
-    height: clamp(0.2rem, 0.3vw, 0.3rem); /* 优化小屏幕高度 */
+    left: 6.25rem; /* 100px转换为rem */
+    right: 6.25rem; /* 100px转换为rem */
+    height: 0.3125rem; /* 5px转换为rem */
     background: linear-gradient(90deg, 
         #FFD1A1 0%,     
         #FFB84D 25%,    
@@ -466,9 +466,9 @@ body::-webkit-scrollbar {
         #FF7A00 75%,    
         #FF5C00 100%);  
     transform: translateY(-50%);
-    border-radius: clamp(0.12rem, 0.2vw, 0.18rem); /* 优化小屏幕圆角 */
+    border-radius: 0.1875rem; /* 3px转换为rem */
     z-index: 1;
-    box-shadow: 0 clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.2rem, 0.3vw, 0.25rem) rgba(0, 0, 0, 0.1); /* 优化小屏幕阴影 */
+    overflow: hidden;
 }
 
 .timeline-line::before {
@@ -505,12 +505,12 @@ body::-webkit-scrollbar {
     top: 50%;
     left: 0;
     right: 0;
-    height: clamp(0.1rem, 0.18vw, 0.2rem); /* 优化小屏幕高度 */
+    height: 0.25rem; /* 4px转换为rem */
     background: white;
     transform: translateY(-50%);
-    border-radius: clamp(0.08rem, 0.12vw, 0.12rem); /* 优化小屏幕圆角 */
+    border-radius: 0.125rem; /* 2px转换为rem */
     z-index: 1;
-    box-shadow: 0 clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.2rem, 0.3vw, 0.25rem) rgba(0, 0, 0, 0.1); /* 优化小屏幕阴影 */
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.1); /* 0 4px 4px转换为rem */
 }
 
 .timeline-track::before {
@@ -546,14 +546,14 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: clamp(5rem, 6vw, 6.5rem); /* 优化小屏幕最小宽度 */
+    min-width: 7.5rem; /* 120px转换为rem */
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .timeline-bullet {
-    width: clamp(1.5rem, 2.2vw, 2.5rem); /* 优化小屏幕宽度 */
-    height: clamp(1.5rem, 2.2vw, 2.5rem); /* 优化小屏幕高度 */
+    width: clamp(1.875rem, 2.6vw, 3.125rem); /* 30px, 2.6vw, 50px转换为rem */
+    height: clamp(1.875rem, 2.6vw, 3.125rem); /* 30px, 2.6vw, 50px转换为rem */
     border-radius: 50%;
     background: rgb(204, 198, 198);
     color: #666;
@@ -561,9 +561,12 @@ body::-webkit-scrollbar {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: clamp(0.5rem, 0.7vw, 0.8rem); /* 优化小屏幕字体大小 */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 clamp(0.1rem, 0.15vw, 0.12rem) clamp(0.2rem, 0.3vw, 0.25rem) rgba(0, 0, 0, 0.1); /* 优化小屏幕阴影 */
+    font-size: clamp(0.625rem, 0.8vw, 1rem); /* 10px, 0.8vw, 16px转换为rem */
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.2); /* 0 4px 4px转换为rem */
+    position: relative;
+    z-index: 3;
 }
 
 .timeline-item.active .timeline-bullet {
