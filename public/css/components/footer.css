@@ -64,7 +64,7 @@
     min-width: clamp(6rem, 15vw, 10rem);
     padding: clamp(0.5rem, 1vw, 1rem);
     box-sizing: border-box;
-    text-align: center; /* 改为居中对齐 */
+    text-align: left; /* 每列内容左对齐 */
 }
 
 .footer-section h4 {
@@ -72,7 +72,7 @@
     margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
     color: #fff;
     font-weight: 600;
-    text-align: center; /* 改为居中对齐 */
+    text-align: left; /* 标题左对齐 */
 }
 
 .footer-section h4 a {
@@ -84,7 +84,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    text-align: center; /* 改为居中对齐 */
+    text-align: left; /* 列表左对齐 */
 }
 
 .footer-section li {
@@ -92,7 +92,7 @@
     font-size: clamp(0.7rem, 1vw, 0.9rem); /* 响应式字体大小 */
     color: #ccc;
     line-height: 1.4;
-    text-align: center; /* 改为居中对齐 */
+    text-align: left; /* 列表项左对齐 */
 }
 
 .footer-section li a {
