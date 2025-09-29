@@ -2628,17 +2628,17 @@ img.image-3d-rotate:hover,
     }
 }
 
-/* 现代CSS Grid 自适应布局 */
+/* 协调的CSS Grid 布局 */
 .benefits-wrapper .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 20vw, 18rem), 1fr));
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    max-width: 1500px;
-    margin: clamp(1.875rem, 3vh, 1.875rem) auto clamp(2.5rem, 4vh, 2.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 15vw, 12rem), 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+    max-width: 1200px;
+    margin: clamp(1.5rem, 2vh, 2rem) auto clamp(2rem, 3vh, 2.5rem);
     padding: 0 clamp(1rem, 2vw, 2rem);
 }
 
-/* 现代Flexbox 自适应布局 */
+/* 协调的Flexbox 布局 */
 .jobs-container {
     display: flex;
     flex-wrap: wrap;
@@ -2650,122 +2650,122 @@ img.image-3d-rotate:hover,
 }
 
 .company-job-container {
-    flex: 1 1 clamp(15rem, 30vw, 25rem);
-    min-width: clamp(15rem, 30vw, 25rem);
-    max-width: clamp(15rem, 30vw, 25rem);
+    flex: 1 1 clamp(12rem, 25vw, 20rem);
+    min-width: clamp(12rem, 25vw, 20rem);
+    max-width: clamp(12rem, 25vw, 20rem);
 }
 
-/* 智能流体排版 */
+/* 协调的流体排版 */
 .joinus-content h1 {
-    font-size: clamp(2.5rem, 8vw, 8rem);
-    line-height: 1;
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 1.1;
     margin: 0;
 }
 
 .joinus-content p {
-    font-size: clamp(0.875rem, 2.5vw, 1.5rem);
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
     line-height: 1.4;
-    margin: clamp(1rem, 3vw, 2rem) 0 0 0;
+    margin: clamp(1rem, 2vh, 1.5rem) 0 0 0;
 }
 
 .comphoto-title {
-    font-size: clamp(3rem, 10vw, 12rem);
-    letter-spacing: clamp(0.2em, 1vw, 0.8em);
+    font-size: clamp(3rem, 6vw, 6rem);
+    letter-spacing: clamp(0.1em, 0.5vw, 0.4em);
 }
 
 .job-table-title {
-    font-size: clamp(1.5rem, 4vw, 3rem);
-    margin: clamp(1rem, 3vh, 3rem) auto clamp(1rem, 2vh, 2rem);
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    margin: clamp(1rem, 2vh, 2rem) auto clamp(0.5rem, 1vh, 1rem);
 }
 
-/* 现代模态框流体设计 */
+/* 协调的模态框设计 */
 .modal-content {
-    width: min(90vw, 35rem);
-    height: min(85vh, 45rem);
-    padding: clamp(1rem, 3vw, 2rem);
+    width: min(90vw, 28rem);
+    height: min(80vh, 35rem);
+    padding: clamp(1rem, 2vw, 1.5rem);
     margin: auto;
 }
 
 .job-detail-modal {
-    width: min(90vw, 50rem);
-    height: min(80vh, 40rem);
-    padding: clamp(1rem, 3vw, 2rem);
+    width: min(90vw, 40rem);
+    height: min(75vh, 35rem);
+    padding: clamp(1rem, 2vw, 1.5rem);
     margin: auto;
 }
 
-/* 智能网格自适应 */
+/* 协调的网格自适应 */
 .job-detail-meta {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(12rem, 25vw, 18rem), 1fr));
-    gap: clamp(0.75rem, 2vw, 1.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(clamp(10rem, 20vw, 15rem), 1fr));
+    gap: clamp(0.75rem, 1.5vw, 1rem);
 }
 
-/* 现代表单布局 */
+/* 协调的表单布局 */
 .form-group-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 20vw, 15rem), 1fr));
-    gap: clamp(1rem, 2vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 18vw, 12rem), 1fr));
+    gap: clamp(1rem, 1.5vw, 1.5rem);
 }
 
-/* 智能间距系统 */
+/* 协调的间距系统 */
 .joinus-banner {
-    padding: clamp(3rem, 8vh, 6rem) clamp(2rem, 5vw, 4rem) 0;
+    padding: clamp(2rem, 5vh, 4rem) clamp(1.5rem, 4vw, 3rem) 0;
 }
 
 .benefits-wrapper {
-    padding: clamp(2rem, 5vh, 4rem) clamp(1rem, 3vw, 2rem);
+    padding: clamp(1.5rem, 3vh, 3rem) clamp(1rem, 2vw, 1.5rem);
 }
 
 .job-section {
-    padding: clamp(2rem, 6vw, 5rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
 }
 
-/* 现代按钮响应式 */
+/* 协调的按钮响应式 */
 .submit-btn,
 .apply-btn {
-    padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1.5rem, 4vw, 2.5rem);
-    font-size: clamp(0.875rem, 2vw, 1.125rem);
-    border-radius: clamp(1rem, 3vw, 2rem);
+    padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1.25rem, 3vw, 2rem);
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    border-radius: clamp(0.75rem, 2vw, 1.5rem);
 }
 
-/* 智能图片响应式 */
+/* 协调的图片响应式 */
 .benefits-wrapper .benefit-item img {
-    width: clamp(3rem, 8vw, 6rem);
-    height: clamp(3rem, 8vw, 6rem);
+    width: clamp(2.5rem, 6vw, 4rem);
+    height: clamp(2.5rem, 6vw, 4rem);
 }
 
 .comphoto {
-    width: clamp(4rem, 10vw, 8rem);
-    height: clamp(3rem, 7vw, 6rem);
+    width: clamp(3rem, 8vw, 6rem);
+    height: clamp(2.5rem, 6vw, 4.5rem);
 }
 
-/* 现代社交侧边栏 */
+/* 协调的社交侧边栏 */
 .social-sidebar {
-    right: clamp(1rem, 3vw, 2rem);
-    bottom: clamp(1rem, 3vw, 2rem);
-    gap: clamp(0.75rem, 2vw, 1rem);
+    right: clamp(1rem, 2vw, 1.5rem);
+    bottom: clamp(1rem, 2vw, 1.5rem);
+    gap: clamp(0.5rem, 1vw, 0.75rem);
 }
 
 .social-icon {
-    width: clamp(2.5rem, 6vw, 3.5rem);
-    height: clamp(2.5rem, 6vw, 3.5rem);
-    border-radius: clamp(0.75rem, 2vw, 1rem);
+    width: clamp(2rem, 4vw, 2.5rem);
+    height: clamp(2rem, 4vw, 2.5rem);
+    border-radius: clamp(0.5rem, 1vw, 0.75rem);
 }
 
-/* 智能地图响应式 */
+/* 协调的地图响应式 */
 .map-container iframe {
     width: 100%;
-    height: clamp(20rem, 40vh, 30rem);
+    height: clamp(15rem, 30vh, 25rem);
     max-width: 100%;
 }
 
-/* 现代联系信息布局 */
+/* 协调的联系信息布局 */
 .contact-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(20rem, 40vw, 30rem), 1fr));
-    gap: clamp(2rem, 4vw, 4rem);
-    padding: clamp(2rem, 4vw, 4rem);
-    max-width: 100rem;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(18rem, 35vw, 25rem), 1fr));
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding: clamp(1.5rem, 3vw, 3rem);
+    max-width: 80rem;
     margin: 0 auto;
 }
 
