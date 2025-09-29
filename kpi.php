@@ -1101,7 +1101,7 @@ $avatarLetter = strtoupper($username[0]);
             </div>
             
             <!-- 日期信息显示 -->
-            <div class="date-info" id="date-info" style="margin-bottom: 16px; padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; font-weight: 500;">
+            <div class="date-info" id="date-info" style="margin-bottom: 16px; border: 1px solid #e5e7eb; color: #6b7280; font-weight: 500;">
                 正在加载数据...
             </div>
             <div id="app">         
