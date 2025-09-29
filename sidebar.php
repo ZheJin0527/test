@@ -211,8 +211,10 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section-title:hover {
-    background-color: #ffffff;
-    color: #ee8a17;
+    background-color: #ff5c00;
+    color: #ffffff;
+    border-radius: 8px;
+    margin: 0 10px;
 }
 
 .informationmenu-section-title.active {
