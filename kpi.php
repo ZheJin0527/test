@@ -543,7 +543,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .card-body {
-            padding: clamp(5.5px, 0.7vw, 13.5px) clamp(18px, 1.25vw, 24px);
+            padding: clamp(5.5px, 0.7vw, 13.5px) clamp(14px, 1.25vw, 24px);
         }
         
         .grid {
@@ -863,8 +863,8 @@ $avatarLetter = strtoupper($username[0]);
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: bold;
             color: #6b7280;
-            padding: 8px 12px;
-            background: transparent;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
+            background: #f1dfbc;
             border-radius: 6px;
         }
 
@@ -1101,7 +1101,7 @@ $avatarLetter = strtoupper($username[0]);
             </div>
             
             <!-- 日期信息显示 -->
-            <div class="date-info" id="date-info" style="margin-bottom: 16px; border: 1px solid #e5e7eb; color: #6b7280; font-weight: 500;">
+            <div class="date-info" id="date-info" style="margin-bottom: 16px; border: 1px solid #e5e7eb;">
                 正在加载数据...
             </div>
             <div id="app">         
