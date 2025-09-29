@@ -1504,7 +1504,7 @@
             background: white;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            padding: clamp(4px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
+            padding: clamp(2px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
             min-width: 100px;
             transition: all 0.2s;
@@ -1527,7 +1527,7 @@
         .date-part {
             position: relative;
             cursor: pointer;
-            padding: 0px clamp(6px, 0.52vw, 10px);
+            padding: 0px clamp(2px, 0.42vw, 8px);
             border-radius: 4px;
             transition: all 0.2s;
             text-align: center;
@@ -1720,7 +1720,7 @@
 
         .btn {
             padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
-            border-radius: 8px;
+            border-radius: clamp(4px, 0.42vw, 8px);
             border: none;
             cursor: pointer;
             font-size: 14px;

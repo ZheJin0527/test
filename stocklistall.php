@@ -783,7 +783,7 @@
             border: none;
             border-radius: 12px;
             width: clamp(500px, 41.67vw, 800px);
-            height: 80vh;
+            max-height: 80vh;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             animation: slideIn 0.3s ease-out;
