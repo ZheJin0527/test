@@ -749,7 +749,7 @@ body.sidebar-transition {
         <?php if ($canViewAnalytics): ?>
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="analytics-items">
-                <img src="images/images/运营分析与报表.svg" alt="" class="section-icon">
+                <img src="images/images/运营分析与报表.png" alt="" class="section-icon">
                 营收数据
                 <span class="section-arrow">⮞</span>
             </div>
@@ -770,7 +770,7 @@ body.sidebar-transition {
 
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="hr-items">
-                <img src="images/images/人事与资源管理.svg" alt="" class="section-icon">
+                <img src="images/images/人事与资源管理.png" alt="" class="section-icon">
                 人事管理
             </div>
             <div class="dropdown-menu-items" id="hr-items">               
@@ -784,7 +784,7 @@ body.sidebar-transition {
 
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="resource-items">
-                <img src="images/images/资源库管理.svg" alt="" class="section-icon">
+                <img src="images/images/资源库管理.png" alt="" class="section-icon">
                 资源总库
                 <span class="section-arrow">⮞</span>
             </div>
@@ -799,7 +799,7 @@ body.sidebar-transition {
 
         <div class="informationmenu-section">
             <div class="informationmenu-section-title" data-target="photoupload-items">
-                <img src="images/images/网页照片上传.svg" alt="" class="section-icon">
+                <img src="images/images/网页照片上传.png" alt="" class="section-icon">
                 视觉管理
                 <span class="section-arrow">⮞</span>
             </div>
