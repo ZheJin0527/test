@@ -664,10 +664,11 @@ updatePageIndicator(0);
                 item.classList.toggle('active', index === currentIndex);
             });
 
-            // 平滑滚动到居中位置 - 使用动态计算
+            // 简化的居中逻辑 - 让CSS的justify-content: center处理居中
+            // 只处理当前选中项的居中
             const containerWidth = container.parentElement.offsetWidth;
             const totalItems = navItems.length;
-            const itemWidth = containerWidth / totalItems; // 动态计算item宽度
+            const itemWidth = 120; // 使用固定宽度，更稳定
             const centerOffset = containerWidth / 2 - itemWidth / 2;
             const translateX = centerOffset - (currentIndex * itemWidth);
             
