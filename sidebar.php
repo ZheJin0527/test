@@ -266,7 +266,7 @@ if (isset($_SESSION['user_id'])) {
     transition: all 0.2s ease;
     cursor: pointer;
     position: relative;
-    border-left: 1px solid #ff5c00;
+    border-left: clamp(1px, 0.1vw, 2px) solid #ff5c00;
 }
 
 .informationmenu-item:hover {
