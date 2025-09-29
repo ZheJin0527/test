@@ -2397,7 +2397,7 @@ img.image-3d-rotate:hover,
 }
 
 .job-table-title {
-    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    font-size: clamp(1.25rem, 2.5vw, 3rem);
     margin: clamp(1rem, 2vh, 2rem) auto clamp(0.5rem, 1vh, 1rem);
 }
 
@@ -2411,7 +2411,7 @@ img.image-3d-rotate:hover,
 
 .job-detail-modal {
     width: min(85vw, 32rem);
-    height: min(70vh, 28rem);
+    height: min(65vh, 35rem);
     padding: clamp(0.75rem, 1.5vw, 1.25rem);
     margin: auto;
 }
