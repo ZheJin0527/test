@@ -11,7 +11,7 @@ header("Expires: 0");
 $pageTitle = 'KUNZZ HOLDINGS';
 $additionalCSS = ['css/joinus.css','../public/css/components/header.css','../public/css/components/footer.css','../public/css/components/social.css'];
 $showPageIndicator = true;
-$totalSlides = 6;
+$totalSlides = 5;
 
 // 包含header
 include '../public/header.php';
@@ -621,7 +621,7 @@ const swiper = new Swiper('.swiper', {
             // 在过渡结束后检查进度
             setTimeout(() => {
                 if (this.progress > 0.95) {
-                    updatePageIndicator(5); // 滑到最后一页
+                    updatePageIndicator(4); // 滑到最后一页（索引0-4，共5页）
                 } else {
                     updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
                 }
@@ -630,8 +630,8 @@ const swiper = new Swiper('.swiper', {
     }
 });
 
-// 页面指示器功能
-const pageDots = document.querySelectorAll('.page-dot');
+// 页面指示器功能（与 header 中的指示器类名保持一致）
+const pageDots = document.querySelectorAll('.header-page-dot');
 
 // 点击圆点跳转到对应页面
 pageDots.forEach((dot, index) => {
