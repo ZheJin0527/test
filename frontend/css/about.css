@@ -490,13 +490,6 @@ body::-webkit-scrollbar {
     100% { left: 100%; }
 }
 
-.timeline-nav {
-    position: relative;
-    margin: 0 auto clamp(0.5rem, 1.5vw, 2rem) auto; /* 优化小屏幕边距 */
-    width: 100%;
-    max-width: clamp(30rem, 40vw, 45rem); /* 优化小屏幕最大宽度 */
-    height: clamp(0.5rem, 5vw, 6rem); /* 优化小屏幕高度 */
-}
 
 .timeline-scroll-container {
     position: relative;
@@ -693,7 +686,7 @@ body::-webkit-scrollbar {
     height: clamp(11rem, 15vw, 18rem); /* 优化小屏幕高度 */
     transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-    margin-top: clamp(-5rem, -6vw, -6rem); /* 优化小屏幕上边距 */
+    margin-top: clamp(-3rem, -4vw, -4rem); /* 优化小屏幕上边距 */
 }
 
 .timeline-content-item.active {
