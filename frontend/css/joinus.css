@@ -2317,115 +2317,11 @@ img.image-3d-rotate:hover,
 }
 
 /* ===========================================
-   现代CSS响应式设计 - 无媒体查询断点
+   现代流体响应式设计 - 纯clamp缩放
    =========================================== */
 
-/* 使用CSS容器查询和现代单位实现真正的流体响应式 */
+/* 使用clamp()函数实现真正的流体响应式缩放 */
 
-/* 横屏模式优化 */
-@media (max-height: 600px) and (orientation: landscape) {
-    .joinus-banner {
-        height: 60vh;
-    }
-    
-    .benefits-wrapper {
-        height: 40vh;
-        padding: 0.5rem 1rem;
-    }
-    
-    .benefits-wrapper h2 {
-        margin-bottom: 0.5rem;
-        font-size: clamp(1rem, 2vw, 1.5rem);
-    }
-    
-    .benefits-wrapper .benefits-grid {
-        gap: 0.5rem;
-        margin: 0.5rem auto 0;
-    }
-    
-    .benefits-wrapper .benefit-item img {
-        width: clamp(1.5rem, 3vw, 2rem);
-        height: clamp(1.5rem, 3vw, 2rem);
-    }
-    
-    .benefits-wrapper .benefit-item p {
-        font-size: clamp(0.5rem, 0.8vw, 0.75rem);
-        margin-bottom: 0.25rem;
-    }
-    
-    .comphoto-title {
-        font-size: clamp(2rem, 4vw, 3rem);
-    }
-    
-    .job-section {
-        padding: 1rem;
-    }
-    
-    .job-table-title {
-        font-size: clamp(1rem, 2vw, 1.5rem);
-        margin-bottom: 1rem;
-    }
-}
-
-/* ===========================================
-   现代流体响应式设计 - 无媒体查询
-   =========================================== */
-
-/* 使用容器查询和现代单位实现真正的流体响应式 */
-
-/* 容器查询支持 - 现代浏览器 */
-@supports (container-type: inline-size) {
-    /* 意见表单容器查询 */
-    .form-wrapper {
-        container-type: inline-size;
-        container-name: form-wrapper;
-    }
-    
-    @container form-wrapper (max-width: 500px) {
-        .join-us-form {
-            width: 95%;
-            padding: 1rem;
-            height: auto;
-        }
-        
-        .form-group-row {
-            flex-direction: column;
-        }
-        
-        .phone-input {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-    }
-    
-    /* 职位详情容器查询 */
-    .job-detail-modal {
-        container-type: inline-size;
-        container-name: job-detail;
-    }
-    
-    @container job-detail (max-width: 600px) {
-        .job-detail-meta {
-            grid-template-columns: 1fr;
-        }
-        
-        .job-detail-item {
-            padding: 0.75rem;
-        }
-    }
-    
-    @container job-detail (min-width: 601px) and (max-width: 900px) {
-        .job-detail-meta {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    
-    @container job-detail (min-width: 901px) {
-        .job-detail-meta {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-}
 
 /* 协调的Flexbox 布局 - 始终一行居中 */
 .benefits-wrapper .benefits-grid {
@@ -2583,32 +2479,4 @@ img.image-3d-rotate:hover,
     padding: clamp(1.5rem, 3vw, 3rem);
     max-width: 80rem;
     margin: 0 auto;
-}
-
-/* 横屏模式优化 - 仅保留必要的媒体查询 */
-@media (max-height: 600px) and (orientation: landscape) {
-    .joinus-banner {
-        height: 60vh;
-        padding: clamp(1rem, 3vh, 2rem) 0 0 clamp(1rem, 3vw, 2rem);
-    }
-    
-    .benefits-wrapper {
-        height: 40vh;
-        padding: clamp(0.5rem, 2vh, 1rem) clamp(0.5rem, 2vw, 1rem);
-    }
-    
-    .comphoto-title {
-        font-size: clamp(2rem, 6vw, 4rem);
-    }
-    
-    .job-section {
-        padding: clamp(1rem, 3vw, 2rem);
-    }
-    
-    /* 模态框横屏优化 */
-    .modal-content,
-    .job-detail-modal {
-        height: 95vh;
-        margin: 2.5vh auto;
-    }
 }
