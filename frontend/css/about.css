@@ -420,9 +420,9 @@ body::-webkit-scrollbar {
    =========================================== */
 .timeline-section {
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
-    padding: clamp(4rem, 6vw, 5rem) clamp(1.25rem, 2vw, 1.5rem); /* 响应式内边距 */
+    padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 1.5vw, 1.25rem); /* 优化小屏幕内边距 */
     position: relative;
-    height: 130vh;
+    height: 100vh; /* 缩小高度从130vh到100vh */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -431,31 +431,31 @@ body::-webkit-scrollbar {
 
 .timeline-section h1 {
     text-align: center;
-    font-size: clamp(1.5rem, 4vw, 2.5rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1.2rem, 3.5vw, 2.2rem); /* 优化小屏幕字体大小 */
     color: white; /* 直接使用白色文字 */
-    margin-bottom: clamp(0.625rem, 1.6vw, 1.875rem); /* 响应式下边距 */
-    margin-top: clamp(0.625rem, 3.2vw, 3.75rem); /* 响应式上边距 */
+    margin-bottom: clamp(0.5rem, 1.2vw, 1.5rem); /* 优化小屏幕下边距 */
+    margin-top: clamp(0.5rem, 2.5vw, 3rem); /* 优化小屏幕上边距 */
     position: relative;
     font-weight: 700;
-    letter-spacing: clamp(0.1rem, 0.2vw, 0.15rem); /* 响应式字母间距 */
-    text-shadow: clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.3rem, 0.5vw, 0.4rem) rgba(0, 0, 0, 0.4); /* 响应式阴影 */
+    letter-spacing: clamp(0.08rem, 0.15vw, 0.12rem); /* 优化小屏幕字母间距 */
+    text-shadow: clamp(0.08rem, 0.15vw, 0.12rem) clamp(0.08rem, 0.15vw, 0.12rem) clamp(0.25rem, 0.4vw, 0.35rem) rgba(0, 0, 0, 0.4); /* 优化小屏幕阴影 */
 }
 
 .timeline-nav {
     position: relative;
-    margin-bottom: clamp(-3rem, -4vw, -4rem); /* 响应式下边距 */
-    padding: 0 clamp(6rem, 8vw, 6.25rem); /* 响应式内边距 */
+    margin-bottom: clamp(-2rem, -3vw, -3rem); /* 优化小屏幕下边距 */
+    padding: 0 clamp(4rem, 6vw, 5rem); /* 优化小屏幕内边距 */
     width: 100%;
-    max-width: clamp(40rem, 50vw, 50rem); /* 响应式最大宽度 */
+    max-width: clamp(30rem, 40vw, 45rem); /* 优化小屏幕最大宽度 */
 }
 
 /* 主时间线 */
 .timeline-line {
     position: absolute;
     top: 50%;
-    left: clamp(6rem, 8vw, 6.25rem); /* 响应式左边距 */
-    right: clamp(6rem, 8vw, 6.25rem); /* 响应式右边距 */
-    height: clamp(0.25rem, 0.4vw, 0.35rem); /* 响应式高度 */
+    left: clamp(4rem, 6vw, 5rem); /* 优化小屏幕左边距 */
+    right: clamp(4rem, 6vw, 5rem); /* 优化小屏幕右边距 */
+    height: clamp(0.2rem, 0.3vw, 0.3rem); /* 优化小屏幕高度 */
     background: linear-gradient(90deg, 
         #FFD1A1 0%,     
         #FFB84D 25%,    
@@ -463,9 +463,9 @@ body::-webkit-scrollbar {
         #FF7A00 75%,    
         #FF5C00 100%);  
     transform: translateY(-50%);
-    border-radius: clamp(0.15rem, 0.25vw, 0.2rem); /* 响应式圆角 */
+    border-radius: clamp(0.12rem, 0.2vw, 0.18rem); /* 优化小屏幕圆角 */
     z-index: 1;
-    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.3rem) clamp(0.25rem, 0.4vw, 0.3rem) rgba(0, 0, 0, 0.1); /* 响应式阴影 */
+    box-shadow: 0 clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.2rem, 0.3vw, 0.25rem) rgba(0, 0, 0, 0.1); /* 优化小屏幕阴影 */
 }
 
 .timeline-line::before {
@@ -489,10 +489,10 @@ body::-webkit-scrollbar {
 
 .timeline-nav {
     position: relative;
-    margin: 0 auto clamp(0.625rem, 2.1vw, 2.5rem) auto; /* 响应式边距 */
+    margin: 0 auto clamp(0.5rem, 1.5vw, 2rem) auto; /* 优化小屏幕边距 */
     width: 100%;
-    max-width: clamp(40rem, 50vw, 50rem); /* 响应式最大宽度 */
-    height: clamp(0.625rem, 6.25vw, 7.5rem); /* 响应式高度 */
+    max-width: clamp(30rem, 40vw, 45rem); /* 优化小屏幕最大宽度 */
+    height: clamp(0.5rem, 5vw, 6rem); /* 优化小屏幕高度 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -501,7 +501,7 @@ body::-webkit-scrollbar {
 .timeline-scroll-container {
     position: relative;
     width: 100%;
-    height: clamp(0.625rem, 4.2vw, 5rem); /* 响应式高度 */
+    height: clamp(0.5rem, 3.5vw, 4rem); /* 优化小屏幕高度 */
     overflow: hidden;
     mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
     -webkit-mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
@@ -512,12 +512,12 @@ body::-webkit-scrollbar {
     top: 50%;
     left: 0;
     right: 0;
-    height: clamp(0.125rem, 0.21vw, 0.25rem); /* 响应式高度 */
+    height: clamp(0.1rem, 0.18vw, 0.2rem); /* 优化小屏幕高度 */
     background: white;
     transform: translateY(-50%);
-    border-radius: clamp(0.1rem, 0.15vw, 0.15rem); /* 响应式圆角 */
+    border-radius: clamp(0.08rem, 0.12vw, 0.12rem); /* 优化小屏幕圆角 */
     z-index: 1;
-    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.3rem) clamp(0.25rem, 0.4vw, 0.3rem) rgba(0, 0, 0, 0.1); /* 响应式阴影 */
+    box-shadow: 0 clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.2rem, 0.3vw, 0.25rem) rgba(0, 0, 0, 0.1); /* 优化小屏幕阴影 */
 }
 
 .timeline-track::before {
@@ -553,14 +553,14 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: clamp(7rem, 8vw, 7.5rem); /* 响应式最小宽度 */
+    min-width: clamp(5rem, 6vw, 6.5rem); /* 优化小屏幕最小宽度 */
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .timeline-bullet {
-    width: clamp(1.875rem, 2.6vw, 3.125rem); /* 响应式宽度 */
-    height: clamp(1.875rem, 2.6vw, 3.125rem); /* 响应式高度 */
+    width: clamp(1.5rem, 2.2vw, 2.5rem); /* 优化小屏幕宽度 */
+    height: clamp(1.5rem, 2.2vw, 2.5rem); /* 优化小屏幕高度 */
     border-radius: 50%;
     background: rgb(204, 198, 198);
     color: #666;
@@ -568,9 +568,9 @@ body::-webkit-scrollbar {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: clamp(0.625rem, 0.8vw, 1rem); /* 响应式字体大小 */
+    font-size: clamp(0.5rem, 0.7vw, 0.8rem); /* 优化小屏幕字体大小 */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 clamp(0.125rem, 0.2vw, 0.15rem) clamp(0.25rem, 0.4vw, 0.3rem) rgba(0, 0, 0, 0.1); /* 响应式阴影 */
+    box-shadow: 0 clamp(0.1rem, 0.15vw, 0.12rem) clamp(0.2rem, 0.3vw, 0.25rem) rgba(0, 0, 0, 0.1); /* 优化小屏幕阴影 */
 }
 
 .timeline-item.active .timeline-bullet {
@@ -600,20 +600,20 @@ body::-webkit-scrollbar {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: clamp(1.25rem, 2.1vw, 2.5rem); /* 响应式宽度 */
-    height: clamp(1.25rem, 2.1vw, 2.5rem); /* 响应式高度 */
+    width: clamp(1rem, 1.8vw, 2rem); /* 优化小屏幕宽度 */
+    height: clamp(1rem, 1.8vw, 2rem); /* 优化小屏幕高度 */
     background: rgba(161, 159, 159, 0.788);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #333;
-    font-size: clamp(1.25rem, 1.7vw, 2rem); /* 响应式字体大小 */
+    font-size: clamp(1rem, 1.4vw, 1.6rem); /* 优化小屏幕字体大小 */
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10;
-    border: clamp(0.05rem, 0.15vw, 0.125rem) solid rgba(255, 255, 255, 0.5); /* 响应式边框 */
-    backdrop-filter: blur(clamp(0.5rem, 1vw, 0.75rem)); /* 响应式模糊 */
+    border: clamp(0.04rem, 0.12vw, 0.1rem) solid rgba(255, 255, 255, 0.5); /* 优化小屏幕边框 */
+    backdrop-filter: blur(clamp(0.4rem, 0.8vw, 0.6rem)); /* 优化小屏幕模糊 */
     user-select: none;
     font-family: Arial, sans-serif;
     font-size: 0;
@@ -656,11 +656,11 @@ body::-webkit-scrollbar {
 }
 
 .nav-arrow.prev {
-    left: clamp(2.5rem, 4vw, 2.75rem); /* 响应式左边距 */
+    left: clamp(1.5rem, 3vw, 2rem); /* 优化小屏幕左边距 */
 }
 
 .nav-arrow.next {
-    right: clamp(2.5rem, 4vw, 2.75rem); /* 响应式右边距 */
+    right: clamp(1.5rem, 3vw, 2rem); /* 优化小屏幕右边距 */
 }
 
 .nav-arrow.disabled {
@@ -672,16 +672,16 @@ body::-webkit-scrollbar {
 .timeline-content-container {
     position: relative;
     width: 100%;
-    max-width: clamp(80rem, 100vw, 100rem); /* 响应式最大宽度 */
-    height: clamp(50rem, 60vw, 62.5rem); /* 响应式高度 */
+    max-width: clamp(60rem, 80vw, 80rem); /* 优化小屏幕最大宽度 */
+    height: clamp(35rem, 45vw, 50rem); /* 优化小屏幕高度 */
     overflow: hidden;
-    perspective: clamp(50rem, 60vw, 62.5rem); /* 响应式透视 */
+    perspective: clamp(35rem, 45vw, 50rem); /* 优化小屏幕透视 */
 }
 
 .timeline-cards-wrapper {
     position: relative;
     width: 100%;
-    height: clamp(31.25rem, 33vw, 39.375rem); /* 响应式高度 */
+    height: clamp(22rem, 28vw, 32rem); /* 优化小屏幕高度 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -689,11 +689,11 @@ body::-webkit-scrollbar {
 
 .timeline-content-item {
     position: absolute;
-    width: clamp(37.5rem, 45vw, 53.125rem); /* 响应式宽度 */
-    height: clamp(14.375rem, 19vw, 21.875rem); /* 响应式高度 */
+    width: clamp(28rem, 35vw, 42rem); /* 优化小屏幕宽度 */
+    height: clamp(11rem, 15vw, 18rem); /* 优化小屏幕高度 */
     transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-    margin-top: clamp(-15rem, -18vw, -16rem); /* 响应式上边距 */
+    margin-top: clamp(-10rem, -12vw, -12rem); /* 优化小屏幕上边距 */
 }
 
 .timeline-content-item.active {
@@ -703,13 +703,13 @@ body::-webkit-scrollbar {
 }
 
 .timeline-content-item.prev {
-    transform: translateX(clamp(-17.5rem, -20vw, -18.75rem)) scale(0.80); /* 响应式变换 */
+    transform: translateX(clamp(-13rem, -15vw, -15rem)) scale(0.80); /* 优化小屏幕变换 */
     z-index: 1;
     opacity: 0.8;
 }
 
 .timeline-content-item.next {
-    transform: translateX(clamp(17.5rem, 20vw, 18.75rem)) scale(0.80); /* 响应式变换 */
+    transform: translateX(clamp(13rem, 15vw, 15rem)) scale(0.80); /* 优化小屏幕变换 */
     z-index: 1;
     opacity: 0.8;
 }
@@ -746,21 +746,21 @@ body::-webkit-scrollbar {
 
 .timeline-content {
     display: flex;
-    gap: clamp(0.625rem, 2.1vw, 2.5rem); /* 响应式间距 */
+    gap: clamp(0.5rem, 1.5vw, 2rem); /* 优化小屏幕间距 */
     align-items: center;
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 1), 
         rgba(255, 255, 255, 1));
-    padding: clamp(1.25rem, 2.1vw, 2.5rem); /* 响应式内边距 */
-    border-radius: clamp(1.5rem, 2vw, 1.75rem); /* 响应式圆角 */
-    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(255, 255, 255, 0.3); /* 响应式边框 */
+    padding: clamp(1rem, 1.8vw, 2rem); /* 优化小屏幕内边距 */
+    border-radius: clamp(1.2rem, 1.6vw, 1.5rem); /* 优化小屏幕圆角 */
+    border: clamp(0.04rem, 0.08vw, 0.06rem) solid rgba(255, 255, 255, 0.3); /* 优化小屏幕边框 */
     box-shadow: 
-        0 clamp(1.25rem, 2.5vw, 2rem) clamp(2.5rem, 4vw, 3rem) rgba(0, 0, 0, 0.1), /* 响应式阴影 */
-        0 0 0 clamp(0.05rem, 0.1vw, 0.08rem) rgba(255, 255, 255, 0.05),
-        inset 0 clamp(0.05rem, 0.1vw, 0.08rem) 0 rgba(255, 255, 255, 0.1);
+        0 clamp(1rem, 2vw, 1.5rem) clamp(2rem, 3vw, 2.5rem) rgba(0, 0, 0, 0.1), /* 优化小屏幕阴影 */
+        0 0 0 clamp(0.04rem, 0.08vw, 0.06rem) rgba(255, 255, 255, 0.05),
+        inset 0 clamp(0.04rem, 0.08vw, 0.06rem) 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(clamp(0.5rem, 1vw, 0.75rem)); /* 响应式模糊 */
+    backdrop-filter: blur(clamp(0.4rem, 0.8vw, 0.6rem)); /* 优化小屏幕模糊 */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -780,35 +780,35 @@ body::-webkit-scrollbar {
 
 .timeline-image {
     flex: 1;
-    max-width: clamp(20rem, 25vw, 22rem); /* 响应式最大宽度 */
+    max-width: clamp(15rem, 20vw, 18rem); /* 优化小屏幕最大宽度 */
     position: relative;
     z-index: 1;
 }
 
 .timeline-image img {
     width: 100%;
-    height: clamp(12.5rem, 16vw, 18.75rem); /* 响应式高度 */
+    height: clamp(9rem, 12vw, 15rem); /* 优化小屏幕高度 */
     object-fit: cover;
-    border-radius: clamp(0.9rem, 1.2vw, 1rem); /* 响应式圆角 */
-    box-shadow: 0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(0, 0, 0, 0.2); /* 响应式阴影 */
+    border-radius: clamp(0.7rem, 1vw, 0.8rem); /* 优化小屏幕圆角 */
+    box-shadow: 0 clamp(0.7rem, 1.2vw, 1rem) clamp(1.5rem, 2vw, 1.6rem) rgba(0, 0, 0, 0.2); /* 优化小屏幕阴影 */
     transition: all 0.4s ease;
-    border: clamp(0.1rem, 0.15vw, 0.15rem) solid rgba(255, 255, 255, 0.1); /* 响应式边框 */
+    border: clamp(0.08rem, 0.12vw, 0.12rem) solid rgba(255, 255, 255, 0.1); /* 优化小屏幕边框 */
 }
 
 .timeline-text {
     flex: 1;
-    max-width: clamp(25rem, 35vw, 31.25rem); /* 响应式最大宽度 */
+    max-width: clamp(18rem, 25vw, 25rem); /* 优化小屏幕最大宽度 */
     position: relative;
     z-index: 1;
 }
 
 .timeline-text h3 {
-    font-size: clamp(1rem, 2vw, 1.5rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.8rem, 1.6vw, 1.2rem); /* 优化小屏幕字体大小 */
     background: #ff5c00;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: clamp(1.25rem, 1.5vw, 1.5rem); /* 响应式下边距 */
+    margin-bottom: clamp(1rem, 1.2vw, 1.2rem); /* 优化小屏幕下边距 */
     position: relative;
     font-weight: 700;
     line-height: 1.2;
@@ -825,22 +825,22 @@ body::-webkit-scrollbar {
 }
 
 .timeline-text p {
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem); /* 优化小屏幕字体大小 */
     color: #555;
     line-height: 1.6;
-    margin-bottom: clamp(0.75rem, 1vw, 0.8rem); /* 响应式下边距 */
+    margin-bottom: clamp(0.6rem, 0.8vw, 0.7rem); /* 优化小屏幕下边距 */
 }
 
 .timeline-text .year-badge {
     display: inline-block;
-    padding: clamp(0.25rem, 0.4vw, 0.3rem) clamp(0.75rem, 1vw, 0.8rem); /* 响应式内边距 */
+    padding: clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.6rem, 0.8vw, 0.7rem); /* 优化小屏幕内边距 */
     background: linear-gradient(135deg, #ff5c00, #ff8c00);
     color: white;
-    border-radius: clamp(1.25rem, 1.5vw, 1.3rem); /* 响应式圆角 */
-    font-size: clamp(0.625rem, 0.8vw, 0.875rem); /* 响应式字体大小 */
+    border-radius: clamp(1rem, 1.2vw, 1.1rem); /* 优化小屏幕圆角 */
+    font-size: clamp(0.5rem, 0.7vw, 0.7rem); /* 优化小屏幕字体大小 */
     font-weight: 600;
-    margin-bottom: clamp(0.9rem, 1.2vw, 1rem); /* 响应式下边距 */
-    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.3rem) clamp(0.5rem, 0.8vw, 0.6rem) rgba(255, 92, 0, 0.3); /* 响应式阴影 */
+    margin-bottom: clamp(0.7rem, 1vw, 0.8rem); /* 优化小屏幕下边距 */
+    box-shadow: 0 clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.6vw, 0.5rem) rgba(255, 92, 0, 0.3); /* 优化小屏幕阴影 */
 }
 
 /* 侧边卡片点击效果 */
