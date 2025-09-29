@@ -338,7 +338,7 @@ body::-webkit-scrollbar {
 }
 
 .values-title {
-    font-size: clamp(1.3rem, 4.5vw, 3rem); /* 优化小屏幕字体大小 */
+    font-size: clamp(1.3rem, 4vw, 3rem); /* 优化小屏幕字体大小 */
     color: black;
     font-weight: bold;
     margin-top: clamp(1rem, 1.5vw, 1.75rem); /* 优化小屏幕上边距 */
