@@ -423,13 +423,15 @@ body::-webkit-scrollbar {
    =========================================== */
 .timeline-section {
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
-    padding: clamp(2rem, 9vw, 6rem) clamp(1rem, 1.5vw, 1.25rem); /* 优化小屏幕内边距 */
+    padding: clamp(2rem, 9vw, 6rem) 0; /* 移除左右padding，只保留上下padding */
     position: relative;
     height: 100vh; /* 固定高度，始终保持一致 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%; /* 确保占满全宽 */
+    box-sizing: border-box;
 }
 
 .timeline-section h1 {
