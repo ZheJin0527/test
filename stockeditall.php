@@ -1509,6 +1509,29 @@
             white-space: nowrap;
         }
 
+        /* 日期选择器标签样式 */
+        .date-label {
+            display: block;
+            font-size: clamp(8px, 0.74vw, 14px);
+            font-weight: 600;
+            color: #583e04;
+            white-space: nowrap;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .date-label-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: clamp(8px, 0.74vw, 14px);
+            font-weight: 600;
+            color: #583e04;
+            white-space: nowrap;
+            margin: 0;
+            line-height: 1.2;
+        }
+
         /* 增强型日期选择器样式 */
         .date-controls {
             display: flex;
@@ -2038,7 +2061,7 @@
             <div class="date-controls">
                 <!-- 开始日期选择器 -->
                 <div style="display: flex; flex-direction: column; gap: 2px;">
-                    <label class="form-label" style="margin: 0; font-size: clamp(8px, 0.74vw, 14px);">开始日期</label>
+                    <label class="date-label">开始日期</label>
                     <div class="enhanced-date-picker" id="start-date-picker">
                         <div class="date-part" data-type="year" onclick="showDateDropdown('start', 'year')">
                             <span id="start-year-display">2024</span>
@@ -2062,7 +2085,7 @@
     
                 <!-- 结束日期选择器 -->
                 <div style="display: flex; flex-direction: column; gap: 2px;">
-                    <label class="form-label" style="margin: 0; font-size: clamp(8px, 0.74vw, 14px);">结束日期</label>
+                    <label class="date-label">结束日期</label>
                     <div class="enhanced-date-picker" id="end-date-picker">
                         <div class="date-part" data-type="year" onclick="showDateDropdown('end', 'year')">
                             <span id="end-year-display">2024</span>
@@ -2088,7 +2111,7 @@
 
                 <!-- 月份选择器 - 改为增强型选择器 -->
                 <div style="display: flex; flex-direction: column; gap: 2px;">
-                    <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px; font-size: clamp(8px, 0.74vw, 14px);">
+                    <label class="date-label-with-icon">
                         <i class="fas fa-calendar" style="color: #583e04;"></i>
                         选择年份和月份
                     </label>
@@ -2110,7 +2133,7 @@
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 2px;">
-                    <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px; font-size: clamp(8px, 0.74vw, 14px);">
+                    <label class="date-label-with-icon">
                         <i class="fas fa-clock" style="color: #583e04;"></i>
                         快速选择
                     </label>
