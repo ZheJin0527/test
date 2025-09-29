@@ -177,10 +177,10 @@ $timelineData = getTimelineConfig();
     </section>
   </div>
 
+  <?php include '../public/footer.php'; ?>
+
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
-
-<?php include '../public/footer.php'; ?>
 <?php include '../public/social.php'; ?>
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
