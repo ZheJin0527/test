@@ -8,7 +8,7 @@ include_once '../media_config.php';
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['css/about.css','../public/css/components/header.css','../public/css/components/footer.css'];
+$additionalCSS = ['css/about.css','../public/css/components/header.css','../public/css/components/footer.css','../public/css/components/social.css'];
 $showPageIndicator = true;
 $totalSlides = 5;
 
@@ -182,26 +182,12 @@ $timelineData = getTimelineConfig();
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
 
-<div class="social-sidebar">
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="../images/images/fbicon.png" alt="Facebook">
-    </a>
-
-    <!-- Instagram -->
-    <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="../images/images/igicon.png" alt="Instagram">
-    </a>
-
-    <!-- WhatsApp -->
-    <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="../images/images/wsicon.png" alt="WhatsApp">
-    </a>
-</div>
+<?php include '../public/social.php'; ?>
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../app.js"></script>
 <script src="../public/header.js"></script>
+<script src="../public/social.js"></script>
 <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
