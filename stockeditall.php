@@ -1506,7 +1506,7 @@
             border-radius: clamp(4px, 0.42vw, 8px);
             padding: clamp(2px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
-            min-width: 100px;
+            min-width: 80px;
             transition: all 0.2s;
             position: relative;
         }
@@ -1803,8 +1803,6 @@
 
         .header-search {
             flex: 1;
-            min-width: 160px;
-            max-width: 350px;
             display: flex;
             align-items: center; /* 改为水平对齐 */
             gap: clamp(6px, 0.63vw, 12px);
