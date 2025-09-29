@@ -446,7 +446,7 @@ body::-webkit-scrollbar {
 
 .timeline-nav {
     position: relative;
-    margin-bottom: -60px; /* 固定负边距，与原来版本一致 */
+    margin-bottom: -3.75rem; /* 60px转换为rem */
     padding: 0 clamp(4rem, 6vw, 5rem); /* 优化小屏幕内边距 */
     width: 100%;
     max-width: clamp(30rem, 40vw, 45rem); /* 优化小屏幕最大宽度 */
@@ -686,7 +686,7 @@ body::-webkit-scrollbar {
     height: clamp(11rem, 15vw, 18rem); /* 优化小屏幕高度 */
     transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-    margin-top: -80px; /* 固定负边距，与原来版本一致 */
+    margin-top: -5rem; /* 80px转换为rem */
 }
 
 .timeline-content-item.active {
