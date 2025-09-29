@@ -101,19 +101,22 @@
 }
 
 .header-login-btn {
-    width: clamp(5rem, 8vw, 6.25rem);
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: clamp(2.5rem, 5vw, 3.125rem);
     height: clamp(1.25rem, 2.5vw, 1.625rem);
-    background-color: #ff5c00;
+    font-family: 'Inter', sans-serif;
     color: white;
-    border: clamp(0.05rem, 0.1vw, 0.08rem) solid #ff5c00; /* 添加与语言按钮相同的边框 */
+    text-decoration: none;
+    background-color: #ff5c00;
+    border: clamp(0.05rem, 0.1vw, 0.08rem) solid #ff5c00;
     border-radius: clamp(1.25rem, 2.5vw, 1.625rem);
     padding: clamp(0.05rem, 0.1vw, 0.08rem) clamp(1.25rem, 2.5vw, 1.625rem);
     font-size: clamp(0.75rem, 0.7vw + 0.5rem, 1rem);
     cursor: pointer;
-    display: inline-block; /* 让 <a> 看起来像按钮 */
-    text-align: center;     /* 让文字居中 */
-    text-decoration: none;  /* 移除下划线 */
-    line-height: clamp(1.25rem, 2.5vw, 1.625rem);
+    transition: all 0.3s ease;
 }
 
 .header-login-btn:hover {
@@ -204,6 +207,7 @@
 .header-language-switch .header-lang:hover {
     background-color: #ff5c00;
     color: white;
+    border-color: #ff5c00;
 }
 
 .header-language-switch .header-icon {
