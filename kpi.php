@@ -331,9 +331,9 @@ $avatarLetter = strtoupper($username[0]);
         .letter-item:hover,
         .number-item:hover,
         .number-item.total-option:hover {
-            background: #f99e00;
+            background-color: #f3f4f6;
             color: white;
-            border-color: #f99e00;
+            border-color: #d1d5db;
             transform: scale(1.05);
         }
 
@@ -405,6 +405,7 @@ $avatarLetter = strtoupper($username[0]);
 
         .number-item:hover {
             background-color: #f3f4f6;
+            color: black;
             border-color: #d1d5db;
             transform: scale(1.05);
         }
