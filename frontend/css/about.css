@@ -496,9 +496,6 @@ body::-webkit-scrollbar {
     width: 100%;
     max-width: clamp(30rem, 40vw, 45rem); /* 优化小屏幕最大宽度 */
     height: clamp(0.5rem, 5vw, 6rem); /* 优化小屏幕高度 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .timeline-scroll-container {
