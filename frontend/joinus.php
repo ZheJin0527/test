@@ -97,28 +97,28 @@ include '../public/header.php';
                 <h2 id="jobDetailTitle">职位详情</h2>
                 <div class="job-detail-meta">
                     <div class="job-detail-item">
-                        <span class="job-detail-label">&#128101; 人数:</span>
+                        <span class="job-detail-label">人数:</span>
                         <span id="jobDetailCount">-</span>
                     </div>
                     <div class="job-detail-item">
-                        <span class="job-detail-label">&#128188; 工作经验:</span>
+                        <span class="job-detail-label">工作经验:</span>
                         <span id="jobDetailExperience">-</span>
                         <span class="job-detail-label"> 年</span>
                     </div>
                     <div class="job-detail-item">
-                        <span class="job-detail-label">&#128197; 发布:</span>
+                        <span class="job-detail-label">发布:</span>
                         <span id="jobDetailPublishDate">-</span>
                     </div>
                     <div class="job-detail-item">
-                        <span class="job-detail-label">🏷️ 公司:</span>
+                        <span class="job-detail-label">公司:</span>
                         <span id="jobDetailCompany">-</span>
                     </div>
                     <div class="job-detail-item" id="jobDetailDepartment" style="display: none;">
-                        <span class="job-detail-label">🏢 部门:</span>
+                        <span class="job-detail-label">部门:</span>
                         <span id="jobDetailDepartmentValue">-</span>
                     </div>
                     <div class="job-detail-item" id="jobDetailSalary" style="display: none;">
-                        <span class="job-detail-label">💰 薪资:</span>
+                        <span class="job-detail-label">薪资:</span>
                         <span id="jobDetailSalaryValue">-</span>
                     </div>
                 </div>
