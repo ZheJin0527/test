@@ -145,7 +145,7 @@ if (isset($_SESSION['user_id'])) {
 /* 其余样式保持不变 */
 .informationmenu-header {
     padding: clamp(10px, 1.25vw, 24px) clamp(14px, 1.25vw, 24px);
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #474747;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -200,7 +200,7 @@ if (isset($_SESSION['user_id'])) {
     padding: clamp(2px, 0.31vw, 6px) clamp(14px, 1.04vw, 20px);
     font-size: clamp(8px, 0.84vw, 16px);
     font-weight: bold;
-    color: #333;
+    color: #ffffffff;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
@@ -435,9 +435,6 @@ if (isset($_SESSION['user_id'])) {
     font-weight: 500;
     cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    box-shadow: 
-        4px 4px 10px rgba(0, 0, 0, 0.3),     
-        -4px -4px 10px rgba(255, 200, 150, 0.5);
     transition: all 0.3s ease;
 }
 
@@ -454,7 +451,7 @@ if (isset($_SESSION['user_id'])) {
     display: flex;
     justify-content: center;
     padding: clamp(10px, 1.04vw, 20px);
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #474747;
     background-color: white;
     /* 确保footer固定在底部 */
     margin-top: auto;
@@ -485,7 +482,7 @@ if (isset($_SESSION['user_id'])) {
 .sidebar-menu-hamburger span {
     width: clamp(10px, 0.94vw, 18px);
     height: clamp(1px, 0.1vw, 2px);
-    background-color: #333;
+    background-color: #ffffffff;
     margin: clamp(1px, 0.1vw, 2px) 0;
     transition: all 0.3s ease;
     border-radius: 1px;
@@ -499,6 +496,7 @@ if (isset($_SESSION['user_id'])) {
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 /* 更新 section-title 的 flexbox 布局 */
@@ -638,14 +636,14 @@ if (isset($_SESSION['user_id'])) {
     margin: 0;
     font-size: clamp(6px, 0.63vw, 12px);
     font-weight: 500;
-    color: #333;
+    color: #ffffffff;
 }
 
 .user-position {
     margin: 2px 0 0 0;
     font-size: clamp(7px, 0.63vw, 12px);
     font-weight: 400;
-    color: #666;
+    color: #ffffffff;
 }
 
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
@@ -659,7 +657,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu .informationmenu-header,
 .informationmenu .informationmenu-content,
 .informationmenu .informationmenu-footer {
-    background: #ffffff;               /* 侧栏本体白底 */
+    background: #2F2F2F;               /* 侧栏本体白底 */
     pointer-events: auto;              /* 本体可交互 */
 }
 
