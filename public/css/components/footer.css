@@ -43,7 +43,7 @@
 
 /* page下方 */
 .footer {
-    padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 4vw, 3rem); /* 响应式内边距 */
+    padding: clamp(1rem, 1vw, 2rem) clamp(1rem, 4vw, 3rem); /* 响应式内边距 */
     min-height: clamp(8rem, 15vh, 12rem); /* 响应式最小高度 */
     background-color: #2F2F2F;
     color: white;
@@ -84,7 +84,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    text-align: left; /* 列表左对齐 */
+    text-align: center; /* 改为居中对齐 */
 }
 
 .footer-section li {
@@ -92,7 +92,7 @@
     font-size: clamp(0.7rem, 1vw, 0.9rem); /* 响应式字体大小 */
     color: #ccc;
     line-height: 1.4;
-    text-align: left; /* 列表项左对齐 */
+    text-align: center; /* 改为居中对齐 */
 }
 
 .footer-section li a {
