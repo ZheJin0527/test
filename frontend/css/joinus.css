@@ -117,7 +117,7 @@ body::-webkit-scrollbar {
   
 .joinus-content {
     margin-top: clamp(3.75rem, 6vh, 4.75rem);
-    margin-left: clamp(-1.25rem, -2vw, -1.25rem);
+    margin-left: 0; /* 移除左偏移，让内容真正居中 */
     width: clamp(20rem, 25vw, 25.125rem);
     height: clamp(8.75rem, 15vh, 8.75rem);
     display: flex;
@@ -134,7 +134,7 @@ body::-webkit-scrollbar {
     font-weight: bold;
     line-height: 1;
     letter-spacing: 0.014em;
-    margin: 0 clamp(3rem, 6vw, 3.625rem) 0 0;
+    margin: 0; /* 移除所有margin，让标题完全居中 */
     padding: 0;
     white-space: nowrap;
     text-shadow:
@@ -151,7 +151,7 @@ body::-webkit-scrollbar {
     font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.5%;
-    margin: clamp(1.25rem, 2vw, 1.25rem) clamp(3rem, 6vw, 3.625rem) 0 clamp(1.25rem, 2vw, 1.25rem);
+    margin: clamp(1.25rem, 2vw, 1.25rem) 0 0 0; /* 只保留上边距，让文本居中 */
     padding: 0;
     white-space: nowrap;
     text-shadow:
