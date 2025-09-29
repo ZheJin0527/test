@@ -1611,10 +1611,10 @@
         }
 
         .date-option {
-            padding: clamp(1px, 0.21vw, 4px);
+            padding: clamp(1px, 0.1vw, 2px);
             text-align: center;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: clamp(4px, 0.31vw, 6px);
             transition: all 0.2s;
             font-size: clamp(6px, 0.63vw, 12px);
             color: #374151;
