@@ -741,9 +741,9 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .date-part.active {
-            background-color: #3b82f6;
+            background-color: #f99e00;
             color: white;
-            border-color: #3b82f6;
+            border-color: #f99e00;
         }
 
         .date-separator {
@@ -836,9 +836,9 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .date-option.today.selected {
-            background-color: #3b82f6;
+            background-color: #f99e00;
             color: white;
-            border-color: #3b82f6;
+            border-color: #f99e00;
         }
 
         /* 日期网格的星期标题 */
