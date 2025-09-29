@@ -143,7 +143,7 @@ $avatarLetter = strtoupper($username[0]);
         .header h1 {
             font-size: clamp(20px, 2.6vw, 50px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
         
         .header .controls {
@@ -184,7 +184,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .btn-secondary {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
         }
         
@@ -672,7 +672,7 @@ $avatarLetter = strtoupper($username[0]);
             display: block;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
             margin-bottom: 8px;
         }
         
@@ -1077,9 +1077,9 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .chart-data-btn.active {
-            background: var(--primary-color, #583e04);
+            background: #f99e00;
             color: white;
-            border-color: var(--primary-color, #583e04);
+            border-color: #f99e00;
         }
 
         .chart-data-btn.active:hover {
