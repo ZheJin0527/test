@@ -1194,7 +1194,7 @@ $avatarLetter = strtoupper($username[0]);
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
                                     <i class="fas fa-calendar-alt"></i>
-                                    <span id="quick-select-text">--</span>
+                                    <span id="quick-select-text">时段</span>
                                     <i class="fas fa-chevron-down"></i>
                                 </button>
                                 <div class="dropdown-menu" id="quick-select-dropdown">
