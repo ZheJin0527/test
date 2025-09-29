@@ -153,7 +153,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .btn {
-            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
+            padding: clamp(5px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
