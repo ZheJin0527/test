@@ -331,79 +331,88 @@ body::-webkit-scrollbar {
     justify-content: center;
     align-items: center;
     text-align: center;
-    max-width: clamp(22rem, 44vw, 53rem); /* 响应式最大宽度 */
-    padding: 0 clamp(1.25rem, 4vw, 3rem); /* 响应式内边距 */
+    max-width: clamp(20rem, 40vw, 53rem); /* 优化小屏幕最大宽度 */
+    padding: 0 clamp(1rem, 3vw, 3rem); /* 优化小屏幕内边距 */
     box-sizing: border-box;
+    margin-bottom: clamp(1rem, 2vw, 2rem); /* 添加下边距，与卡片区域分离 */
 }
 
 .values-title {
-    font-size: clamp(1.5rem, 5vw, 3rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1.3rem, 4.5vw, 3rem); /* 优化小屏幕字体大小 */
     color: black;
     font-weight: bold;
-    margin-top: clamp(1.5rem, 2vw, 1.75rem); /* 响应式上边距 */
-    margin-bottom: clamp(1rem, 1.5vw, 1.25rem); /* 响应式下边距 */
+    margin-top: clamp(1rem, 1.5vw, 1.75rem); /* 优化小屏幕上边距 */
+    margin-bottom: clamp(0.8rem, 1.2vw, 1.25rem); /* 优化小屏幕下边距 */
+    line-height: 1.2; /* 优化行高 */
 }
 
 .values-description {
-    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.8rem, 1.8vw, 1.125rem); /* 优化小屏幕字体大小 */
     color: #888888;
     margin-top: 0;
-    margin-bottom: clamp(0, 1.2vw, 1.5rem); /* 响应式下边距 */
-    line-height: 1.5;
+    margin-bottom: 0; /* 移除下边距，由父元素控制 */
+    line-height: 1.6; /* 增加行高，提高可读性 */
     word-break: break-word;
     max-width: 100%;
 }
 
 .values-bottom {
     display: flex;
-    flex-wrap: nowrap;     
-    gap: clamp(1.5rem, 3vw, 2rem); /* 响应式间距 */
-    padding: 0 clamp(1.25rem, 2vw, 1.5rem); /* 响应式内边距 */
-    justify-content: flex-start;
+    flex-wrap: wrap; /* 允许换行，适应小屏幕 */
+    gap: clamp(1rem, 2.5vw, 2rem); /* 优化小屏幕间距 */
+    padding: 0 clamp(1rem, 2vw, 1.5rem); /* 优化小屏幕内边距 */
+    justify-content: center; /* 居中对齐 */
+    align-items: stretch; /* 让卡片高度一致 */
     scroll-behavior: smooth;
+    max-width: clamp(60rem, 90vw, 80rem); /* 限制最大宽度，避免在大屏幕上过宽 */
+    margin: 0 auto; /* 居中显示 */
 }
 
 .values-card {
-    width: clamp(14rem, 20vw, 18rem); /* 调整卡片宽度，更协调 */
-    height: clamp(18rem, 22vw, 22rem); /* 调整卡片高度，更协调 */
+    width: clamp(12rem, 18vw, 18rem); /* 优化小屏幕宽度，更紧凑 */
+    height: clamp(16rem, 20vw, 22rem); /* 优化小屏幕高度，更紧凑 */
     background-color: #FFF1E5;
-    padding: clamp(1rem, 2vw, 1.5rem); /* 简化内边距 */
-    border-radius: clamp(1rem, 1.5vw, 1.25rem); /* 响应式圆角 */
+    padding: clamp(0.8rem, 1.8vw, 1.5rem); /* 优化小屏幕内边距 */
+    border-radius: clamp(0.8rem, 1.5vw, 1.25rem); /* 优化小屏幕圆角 */
     text-align: center;
-    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.6rem) rgba(0, 0, 0, 0.05); /* 响应式阴影 */
+    box-shadow: 0 clamp(0.2rem, 0.4vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem) rgba(0, 0, 0, 0.05); /* 优化小屏幕阴影 */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex: 1 1 clamp(12rem, 18vw, 18rem); /* 弹性布局，最小宽度12rem */
+    min-width: clamp(12rem, 18vw, 18rem); /* 确保最小宽度 */
+    max-width: clamp(12rem, 18vw, 18rem); /* 确保最大宽度 */
 }
 
 .values-icon {
-    width: clamp(4rem, 5vw, 5rem); /* 调整图标尺寸 */
-    height: clamp(4rem, 5vw, 5rem); /* 调整图标尺寸 */
-    margin-top: clamp(1rem, 2vw, 1.5rem); /* 调整上边距 */
-    margin-bottom: clamp(0.5rem, 1vw, 0.75rem); /* 添加下边距 */
+    width: clamp(3rem, 4.5vw, 5rem); /* 优化小屏幕图标尺寸 */
+    height: clamp(3rem, 4.5vw, 5rem); /* 优化小屏幕图标尺寸 */
+    margin-top: clamp(0.8rem, 1.8vw, 1.5rem); /* 优化小屏幕上边距 */
+    margin-bottom: clamp(0.4rem, 0.8vw, 0.75rem); /* 优化小屏幕下边距 */
 }
 
 .values-card h3 {
-    font-size: clamp(1rem, 2.5vw, 1.5rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.9rem, 2.2vw, 1.5rem); /* 优化小屏幕字体大小 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.4;
-    margin-bottom: clamp(0.5rem, 1vw, 0.75rem); /* 调整下边距 */
+    margin-bottom: clamp(0.4rem, 0.8vw, 0.75rem); /* 优化小屏幕下边距 */
 }
 
 .values-card p {
     width: 100%; /* 占满卡片宽度 */
-    font-size: clamp(0.75rem, 1.5vw, 0.95rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.7rem, 1.4vw, 0.95rem); /* 优化小屏幕字体大小 */
     font-weight: normal;
     color: #888888;
-    line-height: 1.4;
+    line-height: 1.5; /* 增加行高，提高可读性 */
     padding: 0; /* 移除内边距 */
     margin-bottom: 0; /* 移除下边距 */
     flex-grow: 1; /* 让文字区域填充剩余空间 */
     display: flex;
     align-items: center;
+    text-align: center; /* 确保文字居中 */
 }
 
 /* ===========================================
