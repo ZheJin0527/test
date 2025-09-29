@@ -1470,8 +1470,9 @@
         .date-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: clamp(10px, 1.5vw, 30px);
-            align-items: center;
+            gap: clamp(8px, 1vw, 16px);
+            align-items: flex-end;
+            flex: 1;
         }
 
         .enhanced-date-picker {
@@ -1750,15 +1751,15 @@
         /* 统一顶部行样式 - 进出货页面专用 */
         .unified-header-row {
             display: flex;
-            align-items: center;
-            gap: 0px;
+            align-items: flex-start;
+            gap: clamp(10px, 1.5vw, 30px);
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
             background: white;
             border-radius: 12px;
             margin-bottom: clamp(14px, 1.25vw, 24px);
             border: 2px solid #583e04;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             justify-content: space-between;
         }
 
@@ -1990,117 +1991,105 @@
             </div>
         </div>
 
-        <!-- 日期信息显示 -->
-        <div class="date-info" id="date-info" style="margin-bottom: 16px; padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; font-weight: 500;">
-            正在加载数据...
-            </div>
-
-        <!-- Date Controls -->
-        <div class="card" style="margin-bottom: clamp(14px, 1.67vw, 32px);">
-            <div class="card-body">
-                <div class="date-controls">
+        <div class="unified-header-row">
+            <div class="date-controls">
+                <!-- 开始日期选择器 -->
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="form-label" style="margin: 0; font-size: clamp(8px, 0.74vw, 14px);">开始日期</label>
+                    <div class="enhanced-date-picker" id="start-date-picker">
+                        <div class="date-part" data-type="year" onclick="showDateDropdown('start', 'year')">
+                            <span id="start-year-display">2024</span>
+                        </div>
+                        <span class="date-separator">年</span>
+                        <div class="date-part" data-type="month" onclick="showDateDropdown('start', 'month')">
+                            <span id="start-month-display">01</span>
+                        </div>
+                        <span class="date-separator">月</span>
+                        <div class="date-part" data-type="day" onclick="showDateDropdown('start', 'day')">
+                            <span id="start-day-display">01</span>
+                        </div>
+                        <span class="date-separator">日</span>
     
-                    <!-- 开始日期选择器 -->
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <label class="form-label" style="margin: 0;">开始日期</label>
-                        <div class="enhanced-date-picker" id="start-date-picker">
-                            <div class="date-part" data-type="year" onclick="showDateDropdown('start', 'year')">
-                                <span id="start-year-display">2024</span>
-                            </div>
-                            <span class="date-separator">年</span>
-                            <div class="date-part" data-type="month" onclick="showDateDropdown('start', 'month')">
-                                <span id="start-month-display">01</span>
-                            </div>
-                            <span class="date-separator">月</span>
-                            <div class="date-part" data-type="day" onclick="showDateDropdown('start', 'day')">
-                                <span id="start-day-display">01</span>
-                            </div>
-                            <span class="date-separator">日</span>
-        
-                            <!-- 下拉选择面板 -->
-                            <div class="date-dropdown" id="start-dropdown">
-                                <!-- 动态内容将在这里生成 -->
-                            </div>
+                        <!-- 下拉选择面板 -->
+                        <div class="date-dropdown" id="start-dropdown">
+                            <!-- 动态内容将在这里生成 -->
                         </div>
                     </div>
+                </div>
     
-                    <!-- 结束日期选择器 -->
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <label class="form-label" style="margin: 0;">结束日期</label>
-                        <div class="enhanced-date-picker" id="end-date-picker">
-                            <div class="date-part" data-type="year" onclick="showDateDropdown('end', 'year')">
-                                <span id="end-year-display">2024</span>
-                            </div>
-                            <span class="date-separator">年</span>
-                            <div class="date-part" data-type="month" onclick="showDateDropdown('end', 'month')">
-                                <span id="end-month-display">01</span>
-                            </div>
-                            <span class="date-separator">月</span>
-                            <div class="date-part" data-type="day" onclick="showDateDropdown('end', 'day')">
-                                <span id="end-day-display">01</span>
-                            </div>
-                            <span class="date-separator">日</span>
-        
-                            <!-- 下拉选择面板 -->
-                            <div class="date-dropdown" id="end-dropdown">
-                                <!-- 动态内容将在这里生成 -->
-                            </div>
+                <!-- 结束日期选择器 -->
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="form-label" style="margin: 0; font-size: clamp(8px, 0.74vw, 14px);">结束日期</label>
+                    <div class="enhanced-date-picker" id="end-date-picker">
+                        <div class="date-part" data-type="year" onclick="showDateDropdown('end', 'year')">
+                            <span id="end-year-display">2024</span>
+                        </div>
+                        <span class="date-separator">年</span>
+                        <div class="date-part" data-type="month" onclick="showDateDropdown('end', 'month')">
+                            <span id="end-month-display">01</span>
+                        </div>
+                        <span class="date-separator">月</span>
+                        <div class="date-part" data-type="day" onclick="showDateDropdown('end', 'day')">
+                            <span id="end-day-display">01</span>
+                        </div>
+                        <span class="date-separator">日</span>
+    
+                        <!-- 下拉选择面板 -->
+                        <div class="date-dropdown" id="end-dropdown">
+                            <!-- 动态内容将在这里生成 -->
                         </div>
                     </div>
+                </div>
 
-                    <div class="divider"></div>
+                <div class="divider"></div>
 
-                    <!-- 月份选择器 - 改为增强型选择器 -->
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px;">
-                            <i class="fas fa-calendar" style="color: #583e04;"></i>
-                            选择年份和月份
-                        </label>
-                        <div class="enhanced-date-picker month-only" id="month-date-picker">
-                            <div class="date-part" data-type="year" onclick="showDateDropdown('month', 'year')">
-                                <span id="month-year-display">2024</span>
-                            </div>
-                            <span class="date-separator">年</span>
-                            <div class="date-part" data-type="month" onclick="showDateDropdown('month', 'month')">
-                                <span id="month-month-display">01</span>
-                            </div>
-                            <span class="date-separator">月</span>
-        
-                            <!-- 下拉选择面板 -->
-                            <div class="date-dropdown" id="month-dropdown">
-                                <!-- 动态内容将在这里生成 -->
-                            </div>
+                <!-- 月份选择器 - 改为增强型选择器 -->
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px; font-size: clamp(8px, 0.74vw, 14px);">
+                        <i class="fas fa-calendar" style="color: #583e04;"></i>
+                        选择年份和月份
+                    </label>
+                    <div class="enhanced-date-picker month-only" id="month-date-picker">
+                        <div class="date-part" data-type="year" onclick="showDateDropdown('month', 'year')">
+                            <span id="month-year-display">2024</span>
+                        </div>
+                        <span class="date-separator">年</span>
+                        <div class="date-part" data-type="month" onclick="showDateDropdown('month', 'month')">
+                            <span id="month-month-display">01</span>
+                        </div>
+                        <span class="date-separator">月</span>
+    
+                        <!-- 下拉选择面板 -->
+                        <div class="date-dropdown" id="month-dropdown">
+                            <!-- 动态内容将在这里生成 -->
                         </div>
                     </div>
+                </div>
 
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px;">
-                            <i class="fas fa-clock" style="color: #583e04;"></i>
-                            快速选择
-                        </label>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
-                                <i class="fas fa-calendar-alt"></i>
-                                <span id="quick-select-text">选择时间段</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="dropdown-menu" id="quick-select-dropdown">
-                                <button class="dropdown-item" onclick="selectQuickRange('today')">今天</button>
-                                <button class="dropdown-item" onclick="selectQuickRange('yesterday')">昨天</button>
-                                <button class="dropdown-item" onclick="selectQuickRange('thisWeek')">本周</button>
-                                <button class="dropdown-item" onclick="selectQuickRange('lastWeek')">上周</button>
-                                <button class="dropdown-item" onclick="selectQuickRange('thisMonth')">这个月</button>
-                                <button class="dropdown-item" onclick="selectQuickRange('lastMonth')">上个月</button>
-                                <button class="dropdown-item" onclick="selectQuickRange('thisYear')">今年</button>
-                                <button class="dropdown-item" onclick="selectQuickRange('lastYear')">去年</button>
-                            </div>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px; font-size: clamp(8px, 0.74vw, 14px);">
+                        <i class="fas fa-clock" style="color: #583e04;"></i>
+                        快速选择
+                    </label>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span id="quick-select-text">选择时间段</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="quick-select-dropdown">
+                            <button class="dropdown-item" onclick="selectQuickRange('today')">今天</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('yesterday')">昨天</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('thisWeek')">本周</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('lastWeek')">上周</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('thisMonth')">这个月</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('lastMonth')">上个月</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('thisYear')">今年</button>
+                            <button class="dropdown-item" onclick="selectQuickRange('lastYear')">去年</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="unified-header-row">
             
             <div class="header-right-group">
                 <div class="header-search">
@@ -2779,28 +2768,6 @@
             await searchData();
         }
 
-        // 更新日期信息显示
-        function updateDateInfo() {
-            const dateInfo = document.getElementById('date-info');
-            if (!dateInfo) return;
-            
-            if (dateRange.startDate && dateRange.endDate) {
-                const startDate = new Date(dateRange.startDate);
-                const endDate = new Date(dateRange.endDate);
-                
-                const formatDate = (date) => {
-                    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
-                };
-                
-                if (dateRange.startDate === dateRange.endDate) {
-                    dateInfo.textContent = `显示 ${formatDate(startDate)} 的数据`;
-                } else {
-                    dateInfo.textContent = `显示 ${formatDate(startDate)} 至 ${formatDate(endDate)} 的数据`;
-                }
-            } else {
-                dateInfo.textContent = '正在加载数据...';
-            }
-        }
 
         // 初始化应用
         function initApp() {
@@ -3277,9 +3244,6 @@
                     }
 
                     stockData = data;
-                    
-                    // 更新日期信息显示
-                    updateDateInfo();
                 } else {
                     stockData = [];
                     showAlert('搜索失败: ' + (result.message || '未知错误'), 'error');
