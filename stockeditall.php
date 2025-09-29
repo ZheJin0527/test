@@ -1635,15 +1635,15 @@
         .year-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: clamp(2px, 0.21vw, 4px);
-            padding: clamp(4px, 0.42vw, 8px);
+            gap: clamp(0px, 0.21vw, 4px);
+            padding: clamp(2px, 0.36vw, 8px);
         }
 
         .month-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            padding: 8px;
+            gap: clamp(0px, 0.21vw, 4px);
+            padding: clamp(4px, 0.42vw, 8px);
         }
 
         .day-grid {
@@ -2138,7 +2138,7 @@
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
                             <i class="fas fa-calendar-alt"></i>
-                            <span id="quick-select-text">选择时间段</span>
+                            <span id="quick-select-text">选择时间</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="dropdown-menu" id="quick-select-dropdown">
