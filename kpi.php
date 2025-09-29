@@ -656,10 +656,10 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .table th {
-            background-color: rgba(235, 235, 235, 1);
+            background-color: rgba(255, 255, 255, 1);
             font-weight: bold;
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #6b7280;
+            color: #000000ff;
             text-transform: uppercase;
             letter-spacing: 0.8px;
         }
