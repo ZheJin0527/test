@@ -118,6 +118,7 @@ include '../public/header.php';
 
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
+<?php include '../public/social.php'; ?>
   
 <script src="../app.js"></script>
 <script src="../public/header.js"></script>

@@ -282,7 +282,7 @@ include '../public/header.php';
 
   </div>
 </div>
-
+<?php include '../public/social.php'; ?>
     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="app.js"></script>
