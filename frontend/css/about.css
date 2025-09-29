@@ -99,6 +99,7 @@ body::-webkit-scrollbar {
     justify-content: center;
     color: white;
     width: 100%; /* 确保容器占满宽度 */
+    text-align: center; /* 确保文本居中 */
 }
   
 .aboutus-content {
@@ -153,6 +154,7 @@ body::-webkit-scrollbar {
     align-items: center;
     flex: 0 0 40%;
     width: 100%; /* 确保容器占满宽度 */
+    text-align: center; /* 确保文本居中 */
 }
 
 .intro-content {
@@ -1412,8 +1414,7 @@ img.image-3d-rotate:hover,
     opacity: 0 !important;
     transform: translateY(clamp(2rem, 3vw, 2.5rem)) !important; /* 响应式变换 */
     transition: all 1.0s ease-out;
-    max-width: clamp(40rem, 50vw, 50rem); /* 响应式最大宽度 */
-    margin: 0 auto;
+    width: 100%; /* 使用全宽度，确保居中 */
     text-align: center;
     visibility: hidden;
 }
