@@ -20,8 +20,8 @@
 
 /* 社交图标基础样式 */
 .social-icon {
-    width: clamp(1.4rem, 1.8vw, 2.7rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
-    height: clamp(1.4rem, 1.8vw, 2.7rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    width: clamp(1.4rem, 1.6vw, 2.7rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    height: clamp(1.4rem, 1.6vw, 2.7rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
     border-radius: clamp(0.4rem, 0.8vw, 0.8rem); /* 使用clamp()实现完全响应式圆角 */
     display: flex;
     align-items: center;
