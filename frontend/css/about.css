@@ -423,13 +423,15 @@ body::-webkit-scrollbar {
    =========================================== */
 .timeline-section {
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
-    padding: clamp(2rem, 9vw, 6rem) clamp(1rem, 1.5vw, 1.25rem); /* 优化小屏幕内边距 */
+    padding: clamp(2rem, 9vw, 6rem) 0; /* 移除左右padding，只保留上下padding */
     position: relative;
     height: 100vh; /* 固定高度，始终保持一致 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%; /* 确保占满全宽 */
+    box-sizing: border-box;
 }
 
 .timeline-section h1 {
@@ -447,7 +449,7 @@ body::-webkit-scrollbar {
 .timeline-nav {
     position: relative;
     margin: 0 auto clamp(0.5rem, 1.5vw, 2rem) auto; /* 居中边距 */
-    padding: 0 clamp(1rem, 2vw, 2rem); /* 减少左右padding */
+    padding: 0; /* 移除padding，避免影响绝对定位 */
     width: 100%;
     max-width: clamp(60rem, 80vw, 80rem); /* 与content-container保持一致 */
     height: clamp(0.5rem, 5vw, 6rem); /* 优化小屏幕高度 */
@@ -460,8 +462,8 @@ body::-webkit-scrollbar {
 .timeline-line {
     position: absolute;
     top: 50%;
-    left: clamp(1rem, 2vw, 2rem); /* 与padding匹配 */
-    right: clamp(1rem, 2vw, 2rem); /* 与padding匹配 */
+    left: 0; /* 让线条占满整个父容器 */
+    right: 0; /* 让线条占满整个父容器 */
     height: clamp(0.2rem, 0.3vw, 0.3rem); /* 优化小屏幕高度 */
     background: linear-gradient(90deg, 
         #FFD1A1 0%,     
@@ -502,6 +504,9 @@ body::-webkit-scrollbar {
     overflow: hidden;
     mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
     -webkit-mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 确保内容居中 */
 }
 
 .timeline-track {
