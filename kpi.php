@@ -1271,7 +1271,7 @@ $avatarLetter = strtoupper($username[0]);
                         <div class="card-body">
                             <div class="kpi-card-vertical">
                                 <div class="icon dynamic-color">
-                                    <img src="images/images/table.png" alt="桌子图标" style="width: clamp(30px, 2.1vw, 40px); height: clamp(28px, 1.98vw, 38px);">
+                                    <img src="images/images/table.svg" alt="桌子图标" style="width: clamp(30px, 2.1vw, 40px); height: clamp(28px, 1.98vw, 38px);">
                                 </div>
                                 <div>
                                     <p class="kpi-label">桌子总数</p>
