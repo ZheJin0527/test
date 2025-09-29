@@ -1099,6 +1099,11 @@ $avatarLetter = strtoupper($username[0]);
                     <!-- 控件区域 -->
                 </div>
             </div>
+            
+            <!-- 日期信息显示 -->
+            <div class="date-info" id="date-info" style="margin-bottom: 16px; padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; font-weight: 500;">
+                正在加载数据...
+            </div>
             <div id="app">         
             <!-- Date Controls -->
             <div class="card" style="margin-bottom: clamp(14px, 1.67vw, 32px);">
@@ -2069,6 +2074,13 @@ $avatarLetter = strtoupper($username[0]);
                 // 确保有有效的日期范围
                 const startDate = params.start_date || dateRange.startDate;
                 const endDate = params.end_date || dateRange.endDate;
+                
+                console.log('loadData 调用:', {
+                    currentRestaurant,
+                    startDate,
+                    endDate,
+                    dateRange
+                });
         
                 if (currentRestaurant === 'total') {
                     // 加载所有餐厅数据
@@ -2083,11 +2095,15 @@ $avatarLetter = strtoupper($username[0]);
                         end_date: endDate
                     });
             
+                    console.log('API调用参数:', queryParams.toString());
                     const result = await apiCall(`?${queryParams}`);
+                    console.log('API响应:', result);
             
                     // 即使API返回success: false，也可能有数据
                     actualData = result.data || [];
                 }
+                
+                console.log('加载的数据:', actualData);
                 return actualData;
             } catch (error) {
                 console.error('加载数据失败:', error);
@@ -2175,23 +2191,22 @@ $avatarLetter = strtoupper($username[0]);
             // 初始化增强日期选择器
             initEnhancedDatePickers();
     
-            // 如果餐厅未选择，不加载数据
+            // 如果餐厅未选择，设置默认餐厅为J1并加载数据
             if (!isRestaurantSelected) {
-                console.log('等待餐厅选择...');
-                // 清空显示
-                document.getElementById('total-sales').textContent = '--';
-                document.getElementById('net-sales').textContent = '--';
-                document.getElementById('total-tables').textContent = '--';
-                document.getElementById('total-diners').textContent = '--';
-                document.getElementById('avg-per-diner').textContent = '--';
-                document.getElementById('date-info').textContent = '请先选择餐厅';
-                return;
+                console.log('设置默认餐厅为J1...');
+                currentLetter = 'J';
+                currentNumber = '1';
+                currentRestaurant = 'j1';
+                isRestaurantSelected = true;
+                
+                // 更新餐厅按钮显示
+                updateRestaurantButton('J1');
+                
+                // 更新主题颜色
+                updateThemeColors(currentRestaurant);
             }
 
             console.log('初始化后的日期范围:', dateRange);
-    
-            // 初始化主题色
-            updateThemeColors(currentRestaurant);
     
             await loadData();
             updateDashboard();
@@ -2238,8 +2253,15 @@ $avatarLetter = strtoupper($username[0]);
 
         // 更新仪表板
         async function updateDashboard() {
+            console.log('updateDashboard 开始执行');
             const summary = await loadSummary(dateRange.startDate, dateRange.endDate);
             const filteredData = getFilteredKPIData();
+            
+            console.log('updateDashboard 数据:', {
+                summary,
+                filteredData,
+                actualData
+            });
     
             // 使用前端数据重新计算精确的汇总统计 (匹配 edit 页面的计算逻辑)
             let displaySummary;
