@@ -933,7 +933,7 @@ body::-webkit-scrollbar {
 
 .job-detail-meta {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 16vw, 12rem), 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: clamp(0.5rem, 1vw, 0.75rem);
     margin-bottom: clamp(1rem, 2vw, 1.25rem);
 }
@@ -2409,7 +2409,7 @@ img.image-3d-rotate:hover,
 
 .job-detail-modal {
     width: min(85vw, 32rem);
-    height: min(65vh, 35rem);
+    height: min(70vh, 35rem);
     padding: clamp(0.75rem, 1.5vw, 1.25rem);
     margin: auto;
 }
@@ -2417,7 +2417,7 @@ img.image-3d-rotate:hover,
 /* 协调的网格自适应 */
 .job-detail-meta {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 16vw, 12rem), 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: clamp(0.5rem, 1vw, 0.75rem);
 }
 
