@@ -218,8 +218,10 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section-title.active {
-    background-color: #e97d18;
+    background-color: #ff5c00;
     color: #ffffff;
+    border-radius: 8px;
+    margin: 0 10px;
 }
 
 .section-arrow {
