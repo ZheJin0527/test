@@ -237,7 +237,7 @@ if (isset($_SESSION['user_id'])) {
 .dropdown-menu-items {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.1s ease;
     background: #f8f9fa;
     border-radius: clamp(4px, 0.42vw, 8px);
     margin: 0 10px;
