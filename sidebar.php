@@ -213,14 +213,14 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu-section-title:hover {
     background-color: #ff5c00;
     color: #ffffff;
-    border-radius: 20px;
+    border-radius: clamp(4px, 0.42vw, 8px);
     margin: 0 10px;
 }
 
 .informationmenu-section-title.active {
     background-color: #ff5c00;
     color: #ffffff;
-    border-radius: 20px;
+    border-radius: clamp(4px, 0.42vw, 8px);
     margin: 0 10px;
 }
 
