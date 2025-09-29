@@ -1195,7 +1195,7 @@ form select {
     padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
     border: 2px solid rgba(15, 13, 13, 0.2);
     border-radius: 10px;
-    font-size: clamp(8px, 0.73vw, 14px);
+    font-size: clamp(12px, 0.73vw, 14px);
     box-sizing: border-box;
     margin-bottom: 0px;
     background: rgba(255, 255, 255, 0.8);
@@ -2401,9 +2401,9 @@ img.image-3d-rotate:hover,
 /* 协调的模态框设计 */
 .modal-content {
     width: min(90vw, 28rem);
-    height: min(80vh, 35rem);
+    height: min(80vh, 38rem);
     padding: clamp(1rem, 2vw, 1.5rem);
-    margin: auto;
+    margin-top: 3.34rem;
 }
 
 .job-detail-modal {
