@@ -422,7 +422,7 @@ body::-webkit-scrollbar {
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
     padding: clamp(2rem, 9vw, 6rem) clamp(1rem, 1.5vw, 1.25rem); /* 优化小屏幕内边距 */
     position: relative;
-    height: 100vh; /* 缩小高度从130vh到100vh */
+    height: 100vh; /* 固定高度，始终保持一致 */
     display: flex;
     flex-direction: column;
     align-items: center;
