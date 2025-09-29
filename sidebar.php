@@ -220,7 +220,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu-section-title.active {
     background-color: #ff5c00;
     color: #ffffff;
-    border-radius: clamp(4px, 0.42vw, 8px);
+    border-radius: 20px;
     margin: 0 10px;
 }
 
@@ -237,8 +237,8 @@ if (isset($_SESSION['user_id'])) {
 .dropdown-menu-items {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.1s ease;
-    background: #f8f9fa;
+    transition: max-height 0.3s ease;
+    background: transparent;
     border-radius: clamp(4px, 0.42vw, 8px);
     margin: 0 10px;
 }
@@ -258,14 +258,13 @@ if (isset($_SESSION['user_id'])) {
     align-items: center;
     justify-content: space-between;
     padding: clamp(4px, 0.52vw, 10px) clamp(20px, 1.56vw, 30px);
-    color: #333;
+    color: #ffffffff;
     text-decoration: none;
     font-size: clamp(8px, 0.73vw, 14px);
     font-weight: bold;
     transition: all 0.2s ease;
     cursor: pointer;
     position: relative;
-    border-bottom: 1px solid #eee;
 }
 
 .informationmenu-item:hover {
