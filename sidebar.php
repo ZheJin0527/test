@@ -215,6 +215,7 @@ if (isset($_SESSION['user_id'])) {
     color: #ffffff;
     border-radius: 8px;
     margin: 0 10px;
+    padding: 10px;
 }
 
 .informationmenu-section-title.active {
