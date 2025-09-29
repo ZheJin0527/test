@@ -664,21 +664,21 @@ updatePageIndicator(0);
                 item.classList.toggle('active', index === currentIndex);
             });
 
-            // 恢复原始的动态计算逻辑
-            const containerWidth = container.parentElement.offsetWidth;
-            const totalItems = navItems.length;
-            const itemWidth = containerWidth / totalItems; // 动态计算item宽度
-            const centerOffset = containerWidth / 2 - itemWidth / 2;
-            const translateX = centerOffset - (currentIndex * itemWidth);
+            // 暂时禁用transform，看看是否解决偏移问题
+            // const containerWidth = container.parentElement.offsetWidth;
+            // const totalItems = navItems.length;
+            // const itemWidth = containerWidth / totalItems;
+            // const centerOffset = containerWidth / 2 - itemWidth / 2;
+            // const translateX = centerOffset - (currentIndex * itemWidth);
             
             // 使用CSS transition实现平滑滚动
-            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            container.style.transform = `translateX(${translateX}px)`;
+            // container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            // container.style.transform = `translateX(${translateX}px)`;
             
             // 清除transition，避免影响后续操作
-            setTimeout(() => {
-                container.style.transition = '';
-            }, 400);
+            // setTimeout(() => {
+            //     container.style.transition = '';
+            // }, 400);
         }
 
         function updateCardPositions() {
