@@ -1602,7 +1602,7 @@
 
         .date-dropdown {
             position: absolute;
-            top: (20px, 2.08vw, 40px);
+            top: 120%;
             left: 0;
             right: 0;
             background: white;
@@ -1654,12 +1654,12 @@
         }
 
         .date-option {
-            padding: clamp(0px, 0.21vw, 4px);
+            padding: clamp(1px, 0.21vw, 4px);
             text-align: center;
             cursor: pointer;
-            border-radius: clamp(4px, 0.31vw, 6px);
+            border-radius: 6px;
             transition: all 0.2s;
-            font-size: 14px;
+            font-size: clamp(6px, 0.73vw, 14px);
             color: #374151;
             background: transparent;
             border: 1px solid transparent;
@@ -1683,9 +1683,9 @@
         }
 
         .day-header {
-            padding: 4px;
+            padding: clamp(2px, 0.21vw, 4px);
             text-align: center;
-            font-size: 12px;
+            font-size: clamp(6px, 0.63vw, 12px);
             color: #6b7280;
             font-weight: 600;
         }

@@ -799,8 +799,8 @@ $avatarLetter = strtoupper($username[0]);
         .month-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            padding: 8px;
+            gap: clamp(0px, 0.21vw, 4px);
+            padding: clamp(4px, 0.42vw, 8px);
         }
 
         /* 日期选择网格 */
