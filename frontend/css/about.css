@@ -239,7 +239,7 @@ body::-webkit-scrollbar {
 
 .vision-card {
     width: clamp(20rem, 40vw, 35rem); /* 调整卡片宽度，更协调 */
-    height: clamp(18rem, 25vw, 24rem); /* 调整卡片高度，更协调 */
+    height: clamp(18rem, 25vw, 18rem); /* 调整卡片高度，更协调 */
     background-color: #FFF3E6;
     border-radius: clamp(1rem, 2vw, 1.5rem); /* 响应式圆角 */
     padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); /* 调整内边距 */
