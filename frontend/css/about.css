@@ -423,15 +423,13 @@ body::-webkit-scrollbar {
    =========================================== */
 .timeline-section {
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
-    padding: clamp(2rem, 9vw, 6rem) 0; /* 移除左右padding，只保留上下padding */
+    padding: clamp(2rem, 9vw, 6rem) clamp(1rem, 1.5vw, 1.25rem); /* 优化小屏幕内边距 */
     position: relative;
     height: 100vh; /* 固定高度，始终保持一致 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%; /* 确保占满全宽 */
-    box-sizing: border-box;
 }
 
 .timeline-section h1 {
@@ -448,22 +446,18 @@ body::-webkit-scrollbar {
 
 .timeline-nav {
     position: relative;
-    margin: 0 auto clamp(0.5rem, 1.5vw, 2rem) auto; /* 优化小屏幕边距 */
-    padding: 0 clamp(0.5rem, 1vw, 1rem); /* 进一步减少左右padding */
+    margin-bottom: clamp(-2rem, -3vw, -3rem); /* 优化小屏幕下边距 */
+    padding: 0 clamp(4rem, 6vw, 5rem); /* 优化小屏幕内边距 */
     width: 100%;
-    max-width: clamp(35rem, 50vw, 50rem); /* 增加小屏幕最大宽度 */
-    height: clamp(0.5rem, 5vw, 6rem); /* 优化小屏幕高度 */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* 确保年份居中 */
+    max-width: clamp(30rem, 40vw, 45rem); /* 优化小屏幕最大宽度 */
 }
 
 /* 主时间线 */
 .timeline-line {
     position: absolute;
     top: 50%;
-    left: clamp(0.5rem, 1vw, 1rem); /* 与padding匹配 */
-    right: clamp(0.5rem, 1vw, 1rem); /* 与padding匹配 */
+    left: clamp(4rem, 6vw, 5rem); /* 优化小屏幕左边距 */
+    right: clamp(4rem, 6vw, 5rem); /* 优化小屏幕右边距 */
     height: clamp(0.2rem, 0.3vw, 0.3rem); /* 优化小屏幕高度 */
     background: linear-gradient(90deg, 
         #FFD1A1 0%,     
@@ -496,6 +490,16 @@ body::-webkit-scrollbar {
     100% { left: 100%; }
 }
 
+.timeline-nav {
+    position: relative;
+    margin: 0 auto clamp(0.5rem, 1.5vw, 2rem) auto; /* 优化小屏幕边距 */
+    width: 100%;
+    max-width: clamp(30rem, 40vw, 45rem); /* 优化小屏幕最大宽度 */
+    height: clamp(0.5rem, 5vw, 6rem); /* 优化小屏幕高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .timeline-scroll-container {
     position: relative;
@@ -675,7 +679,6 @@ body::-webkit-scrollbar {
     height: clamp(35rem, 45vw, 50rem); /* 优化小屏幕高度 */
     overflow: hidden;
     perspective: clamp(35rem, 45vw, 50rem); /* 优化小屏幕透视 */
-    margin: 0 auto; /* 确保容器居中 */
 }
 
 .timeline-cards-wrapper {
