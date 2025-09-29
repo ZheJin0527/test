@@ -3424,22 +3424,22 @@ $avatarLetter = strtoupper($username[0]);
 
         // 显示返回按钮
         function showBackButtons() {
-    document.querySelectorAll('.chart-back-button').forEach(button => {
-        if (button.id === 'sales-chart-back') {  // 只显示主图表的返回按钮
-            button.style.display = 'flex';
-            button.textContent = `返回年度视图`;
-            button.innerHTML = '<i class="fas fa-arrow-left"></i> 返回年度视图';
+            document.querySelectorAll('.chart-back-button').forEach(button => {
+                if (button.id === 'sales-chart-back') {  // 只显示主图表的返回按钮
+                    button.style.display = 'flex';
+                    button.textContent = `返回年度视图`;
+                    button.innerHTML = '<i class="fas fa-arrow-left"></i> 返回年度视图';
+                }
+            });
         }
-    });
-}
 
-function hideBackButtons() {
-    document.querySelectorAll('.chart-back-button').forEach(button => {
-        if (button.id === 'sales-chart-back') {  // 只隐藏主图表的返回按钮
-            button.style.display = 'none';
+        function hideBackButtons() {
+            document.querySelectorAll('.chart-back-button').forEach(button => {
+                if (button.id === 'sales-chart-back') {  // 只隐藏主图表的返回按钮
+                    button.style.display = 'none';
+                }
+            });
         }
-    });
-}
     </script>
     <script>
         // 格式化日期显示
