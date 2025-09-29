@@ -5577,16 +5577,18 @@
                     }
                     
                     // 检查日期范围
-                    // 检查日期范围
-const recordDate = record.date || record.out_date || record.created_at;
-if (!recordDate) return false;
-
-// 统一转换为本地日期字符串（YYYY-MM-DD）进行比较
-const recordDateStr = new Date(recordDate).toLocaleDateString('en-CA'); // en-CA 格式为 YYYY-MM-DD
-const startDateStr = startDate;
-const endDateStr = endDate;
-
-return recordDateStr >= startDateStr && recordDateStr <= endDateStr;
+                    const recordDate = record.date || record.out_date || record.created_at;
+                    if (!recordDate) return false;
+                    
+                    const recordDateObj = new Date(recordDate);
+                    const startDateObj = new Date(startDate);
+                    const endDateObj = new Date(endDate);
+                    
+                    // 设置时间为当天的开始和结束
+                    startDateObj.setHours(0, 0, 0, 0);
+                    endDateObj.setHours(23, 59, 59, 999);
+                    
+                    return recordDateObj >= startDateObj && recordDateObj <= endDateObj;
                 });
                 
                 if (outData.length === 0) {
