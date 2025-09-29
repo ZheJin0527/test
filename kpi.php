@@ -404,9 +404,8 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .number-item:hover {
-            background: #f9fafb;
-            color: white;
-            border-color: #9ca3af;
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
             transform: scale(1.05);
         }
 
