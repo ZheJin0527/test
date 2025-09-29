@@ -699,7 +699,7 @@ $avatarLetter = strtoupper($username[0]);
             background: white;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            padding: clamp(4px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
+            padding: clamp(2px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
             min-width: 100px;
             transition: all 0.2s;
@@ -717,14 +717,14 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 月份选择器的特殊样式 - 更小的宽度 */
         .enhanced-date-picker.month-only {
-            min-width: clamp(100px, 6.77vw, 130px);
+            min-width: clamp(80px, 6.77vw, 130px);
         }
 
         /* 日期选择部分 */
         .date-part {
             position: relative;
             cursor: pointer;
-            padding: 0px clamp(6px, 0.52vw, 10px);
+            padding: 0px clamp(2px, 0.42vw, 8px);
             border-radius: 4px;
             transition: all 0.2s;
             text-align: center;
@@ -791,8 +791,8 @@ $avatarLetter = strtoupper($username[0]);
         .year-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            padding: 8px;
+            gap: clamp(0px, 0.21vw, 4px);
+            padding: clamp(2px, 0.36vw, 8px);
         }
 
         /* 月份选择网格 */
@@ -813,12 +813,12 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 选择项通用样式 */
         .date-option {
-            padding: 4px;
+            padding: clamp(1px, 0.21vw, 4px);
             text-align: center;
             cursor: pointer;
             border-radius: 6px;
             transition: all 0.2s;
-            font-size: 14px;
+            font-size: clamp(6px, 0.73vw, 14px);
             color: #374151;
             background: transparent;
             border: 1px solid transparent;
