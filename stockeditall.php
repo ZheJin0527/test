@@ -1559,7 +1559,7 @@
 
         .date-dropdown {
             position: absolute;
-            top: 120%;
+            top: (20px, 2.08vw, 40px);
             left: 0;
             right: 0;
             background: white;
@@ -1592,8 +1592,8 @@
         .year-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            padding: 8px;
+            gap: clamp(2px, 0.21vw, 4px);
+            padding: clamp(4px, 0.42vw, 8px);
         }
 
         .month-grid {
@@ -1611,10 +1611,10 @@
         }
 
         .date-option {
-            padding: 4px;
+            padding: clamp(0px, 0.21vw, 4px);
             text-align: center;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: clamp(4px, 0.31vw, 6px);
             transition: all 0.2s;
             font-size: 14px;
             color: #374151;
