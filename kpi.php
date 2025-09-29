@@ -258,7 +258,7 @@ $avatarLetter = strtoupper($username[0]);
             z-index: 1000;
             width: clamp(240px, 25vw, 320px); /* 调整响应式宽度 */
             min-width: 200px;
-            padding: clamp(6px, 0.8vw, 16px) clamp(8px, 1vw, 16px); /* 响应式内边距 */
+            padding: clamp(6px, 0.63vw, 12px) clamp(8px, 1vw, 16px); /* 响应式内边距 */
         }
 
         .restaurant-dropdown-menu.show {
