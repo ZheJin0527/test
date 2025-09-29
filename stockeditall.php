@@ -1564,13 +1564,13 @@
         }
 
         .enhanced-date-picker.month-only {
-            min-width: clamp(100px, 6.77vw, 130px);
+            min-width: clamp(80px, 6.77vw, 130px);
         }
 
         .date-part {
             position: relative;
             cursor: pointer;
-            padding: 0px clamp(2px, 0.42vw, 8px);
+            padding: 0px clamp(2px, 0.1vw, 8px);
             border-radius: 4px;
             transition: all 0.2s;
             text-align: center;
@@ -1832,7 +1832,7 @@
         .header-right-group {
             display: flex;
             align-items: flex-end;  /* 改为 flex-end，让元素底部对齐 */
-            gap: clamp(8px, 1.04vw, 20px);
+            gap: clamp(2px, 0.32vw, 8px);
             margin-left: auto;
         }
 
