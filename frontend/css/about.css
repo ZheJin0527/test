@@ -693,7 +693,7 @@ body::-webkit-scrollbar {
     height: clamp(11rem, 15vw, 18rem); /* 优化小屏幕高度 */
     transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-    margin-top: clamp(-10rem, -12vw, -12rem); /* 优化小屏幕上边距 */
+    margin-top: clamp(-5rem, -6vw, -6rem); /* 优化小屏幕上边距 */
 }
 
 .timeline-content-item.active {
