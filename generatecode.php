@@ -1485,6 +1485,7 @@
                 case 'username':
                 case 'emergency_contact_name':
                 case 'bank_account_holder_en':
+                case 'position':  // 添加这一行
                     // 只允许大写字母和空格，自动转换为大写
                     value = value.toUpperCase().replace(/[^A-Z\s]/g, '');
                     break;
@@ -1923,7 +1924,7 @@
             const fieldsToFormat = [
                 'username', 'username_cn', 'email', 'ic_number', 
                 'phone_number', 'emergency_phone_number', 'bank_account',
-                'bank_account_holder_en', 'emergency_contact_name', 'home_address'
+                'bank_account_holder_en', 'emergency_contact_name', 'home_address', 'position'
             ];
             
             fieldsToFormat.forEach(field => {
@@ -2156,7 +2157,7 @@
             const fieldsToFormat = [
                 'username', 'username_cn', 'email', 'ic_number', 
                 'phone_number', 'emergency_phone_number', 'bank_account',
-                'bank_account_holder_en', 'emergency_contact_name', 'home_address'
+                'bank_account_holder_en', 'emergency_contact_name', 'home_address', 'position'
             ];
             
             fieldsToFormat.forEach(field => {
