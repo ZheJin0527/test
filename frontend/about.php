@@ -664,9 +664,10 @@ updatePageIndicator(0);
                 item.classList.toggle('active', index === currentIndex);
             });
 
-            // 平滑滚动到居中位置
+            // 平滑滚动到居中位置 - 使用动态计算
             const containerWidth = container.parentElement.offsetWidth;
-            const itemWidth = 120;
+            const totalItems = navItems.length;
+            const itemWidth = containerWidth / totalItems; // 动态计算item宽度
             const centerOffset = containerWidth / 2 - itemWidth / 2;
             const translateX = centerOffset - (currentIndex * itemWidth);
             
