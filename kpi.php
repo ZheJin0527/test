@@ -331,18 +331,18 @@ $avatarLetter = strtoupper($username[0]);
         .letter-item:hover,
         .number-item:hover,
         .number-item.total-option:hover {
-            background: #000000ff;
+            background: #f99e00;
             color: white;
-            border-color: #000000ff;
+            border-color: #f99e00;
             transform: scale(1.05);
         }
 
         .letter-item.selected,
         .number-item.selected,
         .number-item.total-option.selected {
-            background: #000000ff;
+            background: #f99e00;
             color: white;
-            border-color: #000000ff;
+            border-color: #f99e00;
             font-weight: 600;
         }
 
@@ -404,16 +404,16 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .number-item:hover {
-            background: #000000ff;
+            background: #f99e00;
             color: white;
-            border-color: #000000ff;
+            border-color: #f99e00;
             transform: scale(1.05);
         }
 
         .number-item.selected {
-            background: #000000ff;
+            background: #f99e00;
             color: white;
-            border-color: #000000ff;
+            border-color: #f99e00;
             font-weight: 600;
         }
 
@@ -656,7 +656,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .table th {
-            background-color: rgb(248, 245, 235);
+            background-color: rgba(235, 235, 235, 1);
             font-weight: bold;
             font-size: clamp(8px, 0.74vw, 14px);
             color: #6b7280;
