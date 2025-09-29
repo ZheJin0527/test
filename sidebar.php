@@ -220,7 +220,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu-section-title.active {
     background-color: #ff5c00;
     color: #ffffff;
-    border-radius: 8px;
+    border-radius: clamp(4px, 0.42vw, 8px);
     margin: 0 10px;
 }
 
@@ -239,6 +239,8 @@ if (isset($_SESSION['user_id'])) {
     overflow: hidden;
     transition: max-height 0.3s ease;
     background: #f8f9fa;
+    border-radius: clamp(4px, 0.42vw, 8px);
+    margin: 0 10px;
 }
 
 .dropdown-menu-items.show {
