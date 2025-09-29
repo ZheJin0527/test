@@ -1190,7 +1190,7 @@ form select {
     border-radius: clamp(8px, 1.5vw, 12px);
     font-size: clamp(12px, 1vw, 16px);
     box-sizing: border-box;
-    margin-bottom: clamp(5px, 1vw, 10px);
+    margin-bottom: clamp(0px, 1vw, 5px);
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
@@ -1251,10 +1251,11 @@ form select:focus {
 
 .join-us-form {
     box-sizing: border-box;
-    width: clamp(280px, 90vw, 600px);
-    height: clamp(400px, 60vh, 600px);
+    width: clamp(320px, 85vw, 700px);
+    min-height: clamp(500px, 70vh, 700px);
+    height: auto;
     margin: 0 auto;
-    padding: clamp(20px, 4vw, 60px);
+    padding: clamp(25px, 5vw, 50px);
     background: #f5f5f5;
     border-radius: clamp(15px, 3vw, 20px);
     font-family: 'Inter', sans-serif;
@@ -1266,17 +1267,17 @@ form select:focus {
 
 /* 表单一般行 */
 .form-group {
-    margin-bottom: clamp(-5px, -1vw, -10px);
+    margin-bottom: clamp(0px, 1vw, 5px);
     display: flex;
     flex-direction: column;
 }
 
 /* 表单两列（中文姓名+性别） */
 .form-group-row {
-    margin-bottom: clamp(-10px, -2vw, -15px);
+    margin-bottom: clamp(0px, 1vw, 5px);
     display: flex;
     flex-direction: column;
-    gap: clamp(10px, 2vw, 20px);
+    gap: clamp(8px, 1.5vw, 15px);
 }
 
 /* 左右半格 */
@@ -1290,8 +1291,8 @@ form select:focus {
 /* label通用 */
 .form-group label,
 .form-group-row label {
-    margin-top: clamp(15px, 3vw, 25px);
-    margin-bottom: clamp(6px, 0.63vw, 12px);
+    margin-top: clamp(10px, 2vw, 20px);
+    margin-bottom: clamp(4px, 0.5vw, 8px);
     font-weight: 600;
     font-size: clamp(12px, 1vw, 16px);
     color: #444;
@@ -1342,7 +1343,7 @@ form select:focus {
 }
 
 .form-group textarea {
-    height: clamp(60px, 8vw, 120px);
+    height: clamp(50px, 6vw, 100px);
     font-family: 'Inter', sans-serif;
     resize: vertical;
 }
@@ -1441,7 +1442,7 @@ form select:focus {
     border-radius: clamp(8px, 1.5vw, 12px);
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: clamp(15px, 3vw, 25px);
+    margin-top: clamp(10px, 2vw, 20px);
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
     text-transform: uppercase;
     letter-spacing: 0.5px;
