@@ -664,21 +664,24 @@ updatePageIndicator(0);
                 item.classList.toggle('active', index === currentIndex);
             });
 
-            // 暂时禁用transform，看看是否解决偏移问题
-            // const containerWidth = container.parentElement.offsetWidth;
-            // const totalItems = navItems.length;
-            // const itemWidth = containerWidth / totalItems;
-            // const centerOffset = containerWidth / 2 - itemWidth / 2;
-            // const translateX = centerOffset - (currentIndex * itemWidth);
+            // 简化的居中计算：让当前选中的年份在中间
+            const containerWidth = container.parentElement.offsetWidth;
+            const totalItems = navItems.length;
+            const itemWidth = 120; // 使用固定的item宽度（与CSS中的min-width一致）
+            
+            // 计算让当前年份居中的translateX值
+            const centerPosition = containerWidth / 2;
+            const currentItemPosition = currentIndex * itemWidth + itemWidth / 2;
+            const translateX = centerPosition - currentItemPosition;
             
             // 使用CSS transition实现平滑滚动
-            // container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            // container.style.transform = `translateX(${translateX}px)`;
+            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            container.style.transform = `translateX(${translateX}px)`;
             
             // 清除transition，避免影响后续操作
-            // setTimeout(() => {
-            //     container.style.transition = '';
-            // }, 400);
+            setTimeout(() => {
+                container.style.transition = '';
+            }, 400);
         }
 
         function updateCardPositions() {
