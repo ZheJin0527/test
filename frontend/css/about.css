@@ -494,7 +494,6 @@ body::-webkit-scrollbar {
 /* 时间线导航容器 */
 .timeline-nav {
     position: relative;
-    margin: 0 auto clamp(10px, 2.1vw, 40px) auto;
     width: 100%;
     max-width: 800px;
     height: clamp(10px, 6.25vw, 120px);
@@ -616,8 +615,8 @@ body::-webkit-scrollbar {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: clamp(1rem, 1.8vw, 2rem); /* 优化小屏幕宽度 */
-    height: clamp(1rem, 1.8vw, 2rem); /* 优化小屏幕高度 */
+    width: clamp(1rem, 2.8vw, 2rem); /* 优化小屏幕宽度 */
+    height: clamp(1rem, 2.8vw, 2rem); /* 优化小屏幕高度 */
     background: rgba(161, 159, 159, 0.788);
     border-radius: 50%;
     display: flex;
