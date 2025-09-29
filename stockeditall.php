@@ -1513,7 +1513,7 @@
         .date-label {
             display: block;
             font-size: clamp(8px, 0.74vw, 14px);
-            font-weight: 600;
+            font-weight: bold;
             color: #583e04;
             white-space: nowrap;
             margin: 0;
