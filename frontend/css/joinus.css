@@ -1359,15 +1359,15 @@ form select:focus {
 /* 手机输入区 */
 .phone-input {
     display: flex;
-    flex-wrap: wrap;
-    gap: clamp(8px, 1.5vw, 15px);
+    flex-wrap: nowrap;
+    gap: clamp(6px, 1vw, 12px);
 }
 
 .phone-input select {
-    flex: 0 0 clamp(70px, 18vw, 100px);
-    min-width: clamp(70px, 18vw, 100px);
-    font-size: clamp(9px, 0.9vw, 12px);
-    padding: clamp(6px, 0.8vw, 10px);
+    flex: 0 0 clamp(60px, 15vw, 90px);
+    min-width: clamp(60px, 15vw, 90px);
+    font-size: clamp(8px, 0.8vw, 11px);
+    padding: clamp(5px, 0.7vw, 8px);
     border: 2px solid rgba(255, 107, 107, 0.2);
     border-radius: clamp(6px, 1.2vw, 10px);
     box-sizing: border-box;
@@ -1381,9 +1381,9 @@ form select:focus {
 
 .phone-input input {
     flex: 1 1 auto;
-    min-width: clamp(100px, 35vw, 180px);
-    font-size: clamp(9px, 0.9vw, 12px);
-    padding: clamp(6px, 0.8vw, 10px);
+    min-width: clamp(80px, 25vw, 150px);
+    font-size: clamp(8px, 0.8vw, 11px);
+    padding: clamp(5px, 0.7vw, 8px);
     border: 2px solid rgba(255, 107, 107, 0.2);
     border-radius: clamp(6px, 1.2vw, 10px);
     box-sizing: border-box;
