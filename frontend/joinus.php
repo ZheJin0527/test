@@ -283,26 +283,11 @@ include '../public/header.php';
   </div>
 </div>
 
-<div class="social-sidebar">
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="../../images/images/fbicon.png" alt="Facebook">
-    </a>
-
-    <!-- Instagram -->
-    <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="../../images/images/igicon.png" alt="Instagram">
-    </a>
-
-    <!-- WhatsApp -->
-    <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="../../images/images/wsicon.png" alt="WhatsApp">
-    </a>
-</div>
     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="app.js"></script>
-<script src="header.js"></script>
+<script src="../public/header.js"></script>
+<script src="../public/social.js"></script>
 <script>
         // 通用的 animate-on-scroll observer（保持原有逻辑）
 const observer = new IntersectionObserver((entries) => {
@@ -550,9 +535,6 @@ function isElementInViewport(el) {
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const homeContent = document.querySelector('.home-content');
-    const navbar = document.querySelector('.navbar');
-    const socialSidebar = document.querySelector('.social-sidebar');
-    const pageIndicator = document.querySelector('.page-indicator');
     
     // 强制隐藏主内容，等待背景图加载
     if (homeContent) {
@@ -569,18 +551,6 @@ function isElementInViewport(el) {
     bgImg.onload = function () {
         console.log('背景图加载完成！开始显示动画');
         
-        // 背景图加载完成后，立即触发导航栏等元素的动画
-        if (navbar) {
-            navbar.classList.add('navbar-loaded');
-        }
-        
-        if (socialSidebar) {
-            socialSidebar.classList.add('social-loaded');
-        }
-        
-        if (pageIndicator) {
-            pageIndicator.classList.add('indicator-loaded');
-        }
         
         // 显示背景渐变
         const homeSection = document.querySelector('.home');
@@ -601,18 +571,6 @@ function isElementInViewport(el) {
     bgImg.onerror = function () {
         console.error('背景图加载失败，但仍显示界面元素');
         
-        // 即使背景图加载失败，也要显示界面元素
-        if (navbar) {
-            navbar.classList.add('navbar-loaded');
-        }
-        
-        if (socialSidebar) {
-            socialSidebar.classList.add('social-loaded');
-        }
-        
-        if (pageIndicator) {
-            pageIndicator.classList.add('indicator-loaded');
-        }
         
         if (homeContent) {
             homeContent.style.opacity = '1';
@@ -624,19 +582,11 @@ function isElementInViewport(el) {
 
     // 添加超时保护：如果5秒内背景图还没加载完成，强制显示所有元素
     setTimeout(() => {
-        if (!navbar || !navbar.classList.contains('navbar-loaded')) {
-            console.log('超时保护：强制开始动画');
-            
-            if (navbar) navbar.classList.add('navbar-loaded');
-            if (socialSidebar) socialSidebar.classList.add('social-loaded');
-            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
-            
-            if (homeContent && homeContent.style.opacity === '0') {
-                homeContent.style.opacity = '1';
-                homeContent.style.visibility = 'visible';
-                homeContent.style.transform = 'translateY(0)';
-                homeContent.classList.remove('hidden');
-            }
+        if (homeContent && homeContent.style.opacity === '0') {
+            homeContent.style.opacity = '1';
+            homeContent.style.visibility = 'visible';
+            homeContent.style.transform = 'translateY(0)';
+            homeContent.classList.remove('hidden');
         }
     }, 5000);
 });
@@ -705,20 +655,6 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-        // 页面加载完成后的处理 - 简化版本
-        window.addEventListener('load', () => {
-            // 启动navbar动画 - 页面加载完成就可以开始
-            const navbar = document.querySelector('.navbar');
-            if (navbar) navbar.classList.add('navbar-loaded');
-            
-            // 显示社交侧边栏
-            const socialSidebar = document.querySelector('.social-sidebar');
-            if (socialSidebar) socialSidebar.classList.add('social-loaded');
-            
-            // 显示页面指示器
-            const pageIndicator = document.querySelector('.page-indicator');
-            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
-        });
     </script>
 <script>
         let currentIndex = 0;

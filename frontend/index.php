@@ -118,25 +118,10 @@ include '../public/header.php';
 
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
-<div class="social-sidebar">
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="../images/images/fbicon.png" alt="Facebook">
-    </a>
-
-    <!-- Instagram -->
-    <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="../images/images/igicon.png" alt="Instagram">
-    </a>
-
-    <!-- WhatsApp -->
-    <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="../images/images/wsicon.png" alt="WhatsApp">
-    </a>
-</div>
   
 <script src="../app.js"></script>
 <script src="../public/header.js"></script>
+<script src="../public/social.js"></script>
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -259,15 +244,6 @@ window.addEventListener('load', () => {
     document.querySelector('.home-content h1').classList.add('scale-fade-in');
     document.querySelector('.home-content p').classList.add('scale-fade-in');
 
-    // 启动navbar动画
-    document.querySelector('.navbar').classList.add('navbar-loaded');
-    
-    // 显示社交侧边栏
-    document.querySelector('.social-sidebar').classList.add('social-loaded');
-    
-    // 显示页面指示器
-    const indicatorEl = document.querySelector('.header-page-indicator');
-    if (indicatorEl) indicatorEl.classList.add('indicator-loaded');
   }
   
   // 处理视频背景

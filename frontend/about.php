@@ -185,6 +185,7 @@ $timelineData = getTimelineConfig();
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../app.js"></script>
+<script src="../public/header.js"></script>
 <script src="../public/social.js"></script>
 <script>
         const hamburger = document.getElementById('hamburger');
@@ -625,20 +626,6 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-        // 页面加载完成后的处理 - 简化版本
-        window.addEventListener('load', () => {
-            // 启动navbar动画 - 页面加载完成就可以开始
-            const navbar = document.querySelector('.navbar');
-            if (navbar) navbar.classList.add('navbar-loaded');
-            
-            // 显示社交侧边栏
-            const socialSidebar = document.querySelector('.social-sidebar');
-            if (socialSidebar) socialSidebar.classList.add('social-loaded');
-            
-            // 显示页面指示器
-            const pageIndicator = document.querySelector('.header-page-indicator');
-            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
-        });
     </script>
     <script>
         let currentIndex = 0;
