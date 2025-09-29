@@ -1502,7 +1502,7 @@ form select:focus {
     line-height: 1.4;
     margin: 0 0 clamp(1rem, 2vw, 1.5rem) 0;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
-    color: white;
+    color: #000000;
 }
 
 .contact-info p {
@@ -1510,7 +1510,7 @@ form select:focus {
     margin: 0;
     padding: clamp(0.25rem, 0.5vw, 0.5rem) 0;
     font-family: 'Source Sans Pro', sans-serif;
-    color: white;
+    color: #000000;
     line-height: 1.6;
 }
 
