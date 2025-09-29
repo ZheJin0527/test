@@ -30,6 +30,6 @@ if (strpos($_SERVER['PHP_SELF'], '/frontend/') !== false) {
 
     <!-- WhatsApp -->
     <a href="https://wa.me/60123456789" target="_blank" class="social-icon whatsapp" title="通过 WhatsApp 联系我们">
-        <img src="<?php echo $imagePath; ?>waicon.png" alt="WhatsApp">
+        <img src="<?php echo $imagePath; ?>wsicon.png" alt="WhatsApp">
     </a>
 </div>
