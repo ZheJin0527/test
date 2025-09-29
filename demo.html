@@ -1,57 +1,51 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Clamp Padding Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media vs Clamp Demo</title>
   <style>
-    html {
-      font-size: 16px; /* 1rem = 16px */
-    }
     body {
-      font-family: sans-serif;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      margin: 2rem;
     }
-    .box {
-      background: lightblue;
-      border: 2px solid #333;
-      padding: clamp(4rem, 6vw, 5rem) clamp(1.25rem, 2vw, 1.5rem);
-      margin: 20px 0;
+
+    /* 传统 @media 响应式 */
+    .media-box {
+      background: #ffdfdf;
+      font-size: 16px; /* 默认 */
+      padding: 1rem;
+      margin-bottom: 2rem;
     }
-    .info {
-      font-family: monospace;
-      background: #f9f9f9;
-      padding: 10px;
-      border: 1px solid #ccc;
+    @media (min-width: 600px) {
+      .media-box {
+        font-size: 20px;
+      }
+    }
+    @media (min-width: 900px) {
+      .media-box {
+        font-size: 28px;
+      }
+    }
+
+    /* clamp() 响应式 */
+    .clamp-box {
+      background: #dfffe0;
+      /* 最小 16px，中间随 viewport 宽度变化，最大 28px */
+      font-size: clamp(16px, 2vw + 1rem, 28px);
+      padding: clamp(1rem, 2vw, 2rem);
     }
   </style>
 </head>
 <body>
-  <h2>Clamp Padding Demo</h2>
-  <p>拖动浏览器宽度，观察 padding 值变化：</p>
-
-  <div class="box">
-    我是带 clamp padding 的盒子
+  <h2>传统 @media 写法</h2>
+  <div class="media-box">
+    我是文字，字体会在 600px / 900px 时突然跳变。
   </div>
 
-  <div class="info" id="info"></div>
-
-  <script>
-    const box = document.querySelector(".box");
-    const info = document.getElementById("info");
-
-    function updateInfo() {
-      const styles = getComputedStyle(box);
-      info.innerHTML = `
-        视口宽度: ${window.innerWidth}px<br>
-        上 padding: ${styles.paddingTop}<br>
-        右 padding: ${styles.paddingRight}<br>
-        下 padding: ${styles.paddingBottom}<br>
-        左 padding: ${styles.paddingLeft}
-      `;
-    }
-
-    window.addEventListener("resize", updateInfo);
-    window.addEventListener("load", updateInfo);
-  </script>
+  <h2>现代 clamp() 写法</h2>
+  <div class="clamp-box">
+    我是文字，字体会随窗口宽度平滑缩放，介于 16px ~ 28px。
+  </div>
 </body>
 </html>

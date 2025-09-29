@@ -163,48 +163,10 @@ body::-webkit-scrollbar {
 }
 
 /* 响应式：1280px 以下 */
-@media (max-width: 1280px) {
-  .joinus-banner {
-    padding: 60px 20px 0 20px;
-    background-position: center top;
-  }
-
-  .joinus-content {
-    margin-left: -50px;
-  }
-
-  .joinus-content h1 {
-    font-size: clamp(40px, 4vw, 50px);
-    margin-left: 90px;
-  }
-
-  .joinus-content p {
-    font-size: clamp(12px, 1.1vw, 14px);
-    margin-left: 80px;
-  }
-}
+/* 移除媒体查询，改用现代响应式技术 */
 
 /* 响应式：768px 以下 */
-@media (max-width: 768px) {
-  .joinus {
-    padding: 60px 40px 0 0px;
-    height: 150px;
-    background-position: center top;
-  }
-
-  .joinus-content {
-    transform: translateY(-40px);
-    margin-top: 40px;
-  }
-
-  .joinus-content h1 {
-    font-size: 28px;
-  }
-
-  .joinus-content p {
-    font-size: 7px;
-  }
-}
+/* 移除媒体查询，改用现代响应式技术 */
 
 .benefits-wrapper {
     background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
@@ -255,74 +217,9 @@ body::-webkit-scrollbar {
     margin-bottom: clamp(2.5rem, 4vh, 3.125rem);
 }
 
-@media (max-width: 1280px) {
-  .benefits-wrapper {
-    padding: clamp(12px, 4vw, 20px) 16px;
-  }
+/* 移除媒体查询，改用现代响应式技术 */
 
-  .benefits-wrapper h2 {
-    font-size: clamp(24px, 3vw, 32px);
-    margin-right: 20px;
-    text-align: center;
-    margin-top: 0px;
-  }
-
-  .benefits-wrapper .benefits-grid {
-    gap: 0px;
-    padding-bottom: 12px;
-    margin: 0 auto 40px;
-  }
-
-  .benefits-wrapper .benefit-item {
-    flex: 0 0 auto;
-    width: clamp(100px, 15vw, 160px); /* 更小更紧凑 */
-  }
-
-  .benefits-wrapper .benefit-item img {
-    width: clamp(30px, 5vw, 60px);
-    height: clamp(30px, 5vw, 60px);
-    margin-bottom: clamp(4px, 1.5vw, 10px);
-  }
-
-  .benefits-wrapper .benefit-item p {
-    font-size: clamp(10px, 1.3vw, 14px);
-    margin-bottom: 24px;
-  }
-}
-
-@media (max-width: 768px) {
-  .benefits {
-    padding: 30px 55px 0 5px;
-  }
-
-  .benefits h2 {
-    font-size: 20px;
-    margin-right: 0px;
-    margin-top: 0px;
-  }
-
-  .benefits .benefits-grid {
-    gap: 0px;
-    padding-bottom: 12px;
-    margin: 0 auto 40px;
-  }
-
-  .benefits .benefit-item {
-    flex: 0 0 auto;
-    width: clamp(100px, 15vw, 160px); /* 更小更紧凑 */
-  }
-
-  .benefits .benefit-item img {
-    width: clamp(30px, 5vw, 60px);
-    height: clamp(30px, 5vw, 60px);
-    margin-bottom: clamp(4px, 1.5vw, 10px);
-  }
-
-  .benefits .benefit-item p {
-    font-size: clamp(10px, 1.3vw, 14px);
-    margin-bottom: 24px;
-  }
-}
+/* 移除媒体查询，改用现代响应式技术 */
 
 .comphoto-section {
     position: relative;
@@ -590,40 +487,7 @@ body::-webkit-scrollbar {
     pointer-events: none;
 }
 
-/* 响应式设计 */
-@media (max-width: 1280px) {
-  .comphoto-title {
-    font-size: clamp(40px, 6.7vw, 128px);
-  }
-
-  .comphoto-modal {
-    margin-top: 16px;
-  }
-
-  .comphoto-modal img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .comphoto-close {
-    top: 60px;
-    right: 20px;
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
-  }    
-}
-
-@media (max-width: 480px) {
-    .comphoto-title {
-        font-size: 2rem;
-    }
-            
-    .comphoto {
-        width: 80px;
-        height: 53px;
-    }
-}
+/* 移除媒体查询，改用现代响应式技术 */
 
 .job-section {
     padding: clamp(3.75rem, 8vw, 6.25rem);
@@ -992,47 +856,7 @@ body::-webkit-scrollbar {
     transform: translateY(0) scale(1.02);
 }
 
-@media (max-width: 768px) {
-    .job-detail-modal {
-        height: clamp(350px, 60vw, 500px);
-        margin: 30px auto 20px auto;
-        padding: 20px;
-        width: clamp(300px, 90vw, 500px);
-    }
-    
-    .job-detail-meta {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .job-detail-content h2 {
-        font-size: clamp(20px, 4vw, 24px);
-        margin-bottom: 20px;
-    }
-    
-    .job-detail-item {
-        padding: 10px 12px;
-    }
-    
-    .job-detail-label,
-    .job-detail-item span:last-child {
-        font-size: 12px;
-    }
-    
-    .job-detail-address h3 {
-        font-size: 16px;
-    }
-    
-    .job-detail-address p {
-        font-size: 12px;
-        padding: 12px;
-    }
-    
-    .apply-btn {
-        padding: 10px 25px;
-        font-size: 14px;
-    }
-}
+/* 移除媒体查询，改用现代响应式技术 */
 
 .job-description {
     text-align: start;
@@ -1070,23 +894,24 @@ body::-webkit-scrollbar {
 .job-detail-modal {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
     backdrop-filter: blur(20px);
-    height: clamp(400px, 50vw, 600px);
-    margin: 50px auto 20px auto;
-    padding: 30px;
-    border-radius: 20px;
-    width: clamp(400px, 40vw, 600px);
+    height: clamp(25rem, 70vh, 37.5rem);
+    margin: clamp(2rem, 5vh, 3.125rem) auto clamp(1.25rem, 2vh, 1.25rem) auto;
+    padding: clamp(1.5rem, 3vw, 1.875rem);
+    border-radius: clamp(1.25rem, 2vw, 1.25rem);
+    width: clamp(18.75rem, 85vw, 37.5rem);
+    max-width: 85vw;
     font-family: 'Inter', sans-serif;
     box-shadow: 
-        0 25px 60px rgba(0, 0, 0, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+        0 clamp(1.5625rem, 3vw, 3.75rem) clamp(3.75rem, 6vw, 3.75rem) rgba(0, 0, 0, 0.2),
+        0 0 0 clamp(0.0625rem, 0.1vw, 0.0625rem) rgba(255, 255, 255, 0.1);
+    border: clamp(0.0625rem, 0.1vw, 0.0625rem) solid rgba(255, 255, 255, 0.2);
     position: relative;
     overflow-y: auto;
 }
 
 .job-detail-content h2 {
     color: #ff5c00;
-    font-size: clamp(24px, 3vw, 32px);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 700;
     margin-bottom: 25px;
     text-align: center;
@@ -1098,19 +923,19 @@ body::-webkit-scrollbar {
 
 .job-detail-meta {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(12rem, 20vw, 15rem), 1fr));
+    gap: clamp(0.9375rem, 1.5vw, 0.9375rem);
+    margin-bottom: clamp(1.5625rem, 2.5vw, 1.5625rem);
 }
 
 .job-detail-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
+    gap: clamp(0.625rem, 1vw, 0.625rem);
+    padding: clamp(0.75rem, 1.2vw, 0.75rem) clamp(1rem, 1.5vw, 1rem);
     background: rgba(255, 92, 0, 0.1);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 92, 0, 0.2);
+    border-radius: clamp(0.75rem, 1.2vw, 0.75rem);
+    border: clamp(0.0625rem, 0.1vw, 0.0625rem) solid rgba(255, 92, 0, 0.2);
     transition: all 0.3s ease;
 }
 
@@ -1122,57 +947,57 @@ body::-webkit-scrollbar {
 .job-detail-label {
     font-weight: 600;
     color: #ff5c00;
-    font-size: 14px;
+    font-size: clamp(0.875rem, 1.2vw, 0.875rem);
 }
 
 .job-detail-item span:last-child {
     color: #333;
     font-weight: 600;
-    font-size: 14px;
+    font-size: clamp(0.875rem, 1.2vw, 0.875rem);
 }
 
 .job-detail-description {
-    margin-bottom: 25px;
+    margin-bottom: clamp(1.5625rem, 2.5vw, 1.5625rem);
 }
 
 .job-detail-description h3 {
     color: #ff5c00;
-    font-size: 18px;
+    font-size: clamp(1.125rem, 1.8vw, 1.125rem);
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: clamp(0.625rem, 1vw, 0.625rem);
 }
 
 .job-detail-description p {
     color: #555;
     line-height: 1.6;
-    font-size: 14px;
+    font-size: clamp(0.875rem, 1.2vw, 0.875rem);
     background: rgba(255, 92, 0, 0.05);
-    padding: 15px;
-    border-radius: 10px;
-    border-left: 4px solid #ff5c00;
+    padding: clamp(0.9375rem, 1.5vw, 0.9375rem);
+    border-radius: clamp(0.625rem, 1vw, 0.625rem);
+    border-left: clamp(0.25rem, 0.4vw, 0.25rem) solid #ff5c00;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
 
 .job-detail-address {
-    margin-bottom: 25px;
+    margin-bottom: clamp(1.5625rem, 2.5vw, 1.5625rem);
 }
 
 .job-detail-address h3 {
     color: #ff5c00;
-    font-size: 18px;
+    font-size: clamp(1.125rem, 1.8vw, 1.125rem);
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: clamp(0.625rem, 1vw, 0.625rem);
 }
 
 .job-detail-address p {
     color: #555;
     line-height: 1.6;
-    font-size: 14px;
+    font-size: clamp(0.875rem, 1.2vw, 0.875rem);
     background: rgba(255, 92, 0, 0.05);
-    padding: 15px;
-    border-radius: 10px;
-    border-left: 4px solid #ff5c00;
+    padding: clamp(0.9375rem, 1.5vw, 0.9375rem);
+    border-radius: clamp(0.625rem, 1vw, 0.625rem);
+    border-left: clamp(0.25rem, 0.4vw, 0.25rem) solid #ff5c00;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
@@ -1180,20 +1005,20 @@ body::-webkit-scrollbar {
 .apply-btn-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: clamp(1.25rem, 2vw, 1.25rem);
 }
 
 .apply-btn {
     background: linear-gradient(135deg, #ff5c00, #ff8000);
     color: white;
     border: none;
-    padding: 12px 30px;
-    border-radius: 25px;
-    font-size: 16px;
+    padding: clamp(0.75rem, 1.2vw, 0.75rem) clamp(1.875rem, 3vw, 1.875rem);
+    border-radius: clamp(1.5625rem, 2.5vw, 1.5625rem);
+    font-size: clamp(1rem, 1.5vw, 1rem);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 92, 0, 0.3);
+    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.25rem) clamp(0.9375rem, 1.5vw, 0.9375rem) rgba(255, 92, 0, 0.3);
 }
 
 .apply-btn:hover {
@@ -1281,18 +1106,20 @@ body::-webkit-scrollbar {
 .modal-content {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
     backdrop-filter: blur(20px);
-    height: clamp(500px, 36.5vw, 700px);
-    margin: 100px auto 20px auto;
-    padding: 0px 25px;
-    border-radius: 15px;
-    width: clamp(300px, 26vw, 500px);
+    height: clamp(500px, 80vh, 700px);
+    margin: clamp(2rem, 5vh, 6.25rem) auto clamp(1.25rem, 2vh, 1.25rem) auto;
+    padding: clamp(1.5rem, 3vw, 1.5rem) clamp(1.5rem, 3vw, 1.5rem);
+    border-radius: clamp(0.9375rem, 1.5vw, 0.9375rem);
+    width: clamp(18.75rem, 90vw, 31.25rem);
+    max-width: 90vw;
     font-family: 'Inter', sans-serif;
     box-shadow: 
-        0 25px 60px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        0 clamp(1.5625rem, 3vw, 3.75rem) clamp(3.75rem, 6vw, 3.75rem) rgba(0, 0, 0, 0.2),
+        inset 0 clamp(0.0625rem, 0.1vw, 0.0625rem) 0 rgba(255, 255, 255, 0.8);
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: clamp(0.0625rem, 0.1vw, 0.0625rem) solid rgba(255, 255, 255, 0.3);
     animation: modalSlideIn 0.4s cubic-bezier(0.68, -0.35, 0.265, 1.35);
+    overflow-y: auto;
 }
 
 @keyframes modalSlideIn {
@@ -1688,130 +1515,9 @@ form select:focus {
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.8);
 }
 
-/* 1280px 及以下 */
-@media (max-width: 1280px) {
-  .form-wrapper {
-    width: 100%;
-    min-height: 100vh;
-    padding: clamp(1.25rem, 2vh, 1.25rem) 0;
-  }
+/* 移除媒体查询，改用现代响应式技术 */
 
-  .main-title {
-    font-size: clamp(1.25rem, 2.1vw, 2.25rem);
-    margin-bottom: 0px;
-    margin-right: 20px;
-    margin-top: 0;
-  }
-
-  .join-us-form {
-    width: 30%;
-    max-width: 960px; /* 限制最大宽度 */
-    padding: 0px 25px;
-    height: clamp(300px, 32.8vw, 420px);
-  }
-
-  .join-us-form h2 {
-    font-size: clamp(18px, 3vw, 24px);
-  }
-
-  .form-group label,
-  .form-group-row label {
-    font-size: clamp(6px, 0.8vw, 14px);
-    margin-top: clamp(6px, 2vw, 26px);
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group-row input,
-  .form-group-row select,
-  .form-group-row textarea {
-    padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.625vw, 12px);
-    font-size: clamp(6px, 0.73vw, 10px);
-  }
-
-  .form-group textarea {
-    margin-bottom: 10px;
-  }
-
-  .submit-btn {
-    padding: 12px;
-    font-size: 14px;
-  }
-
-  .contact-section-wrapper {
-    padding: clamp(1.875rem, 3vh, 1.875rem) 0;
-  }
-
-  .contact-container {
-    max-width: 1200px;
-    height: 500px;
-    padding-left: clamp(20px, 4vw, 60px);
-    padding-right: clamp(20px, 4vw, 60px);
-    margin: clamp(60px, 5vw, 100px) auto 50px auto;
-  }
-
-  .contact-info {
-    width: 40%;
-    padding: 40px 20px 10px;
-  }
-
-  .contact-info h2 {
-    font-size: clamp(16px, 3vw, 36px);
-    margin-bottom: 18px;
-  }
-}
-
-/* 768px 及以下 */
-@media (max-width: 768px) {
-    .join-us-form {
-        width: 92%;
-        max-width: 700px;
-        padding-left: 40px;
-        padding-right: 40px;
-        padding-top: 10px;
-        padding-bottom: 15px;
-        height: auto;
-        white-space: normal;
-        box-sizing: border-box;
-    }
-
-    .join-us-form h2 {
-        font-size: clamp(16px, 4vw, 20px);
-        margin-bottom: 12px;
-    }
-
-    .form-group {
-        margin-bottom: 6px;
-    }
-
-    .form-group-row {
-        flex-direction: column;
-        gap: 6px;
-        margin-bottom: 6px;
-    }
-
-    .form-group label,
-    .form-group-row label {
-        font-size: clamp(10px, 3vw, 12px);
-        margin-top: 4px;
-        margin-bottom: 3px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea,
-    .form-group-row input,
-    .form-group-row select,
-    .form-group-row textarea {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-
-    .submit-btn {
-        padding: 10px;
-        font-size: 14px;
-    }
-}
+/* 移除媒体查询，改用现代响应式技术 */
 
 /* 社交侧边栏样式 */
 .social-sidebar {
@@ -1956,29 +1662,7 @@ form select:focus {
     }
 }
 
-/* 响应式设计 */
-@media (max-width: 1280px) {
-  .social-sidebar {
-    right: 15px;
-    bottom: 15px;
-    gap: 10px;
-  }
-            
-  .social-icon {
-    width: clamp(28px, 3vw, 38px);
-    height: clamp(28px, 3vw, 38px);
-    border-radius: 10px;
-  }
-
-  .social-icon svg {
-    width: clamp(18px, 2vw, 24px);
-    height: clamp(18px, 2vw, 24px);
-  }
-
-  .social-icon:hover {
-    transform: translateY(-4px) scale(1.08);
-  }
-}
+/* 移除媒体查询，改用现代响应式技术 */
 
 /* 额外的视觉效果 */
 .social-icon {
@@ -2834,295 +2518,10 @@ img.image-3d-rotate:hover,
 }
 
 /* ===========================================
-   现代化响应式媒体查询 - 更多断点
+   现代CSS响应式设计 - 无媒体查询断点
    =========================================== */
 
-/* 超大屏幕 (1920px+) */
-@media (min-width: 1920px) {
-    .joinus-content h1 {
-        font-size: 5.5rem;
-    }
-    
-    .comphoto-title {
-        font-size: 10rem;
-    }
-    
-    .job-table-title {
-        font-size: 3rem;
-    }
-}
-
-/* 大屏幕 (1440px - 1919px) */
-@media (min-width: 1440px) and (max-width: 1919px) {
-    .joinus-content {
-        width: 28rem;
-    }
-    
-    .benefits-wrapper .benefits-grid {
-        gap: 3rem;
-    }
-    
-    .job-section {
-        padding: 5rem;
-    }
-}
-
-/* 中等屏幕 (1024px - 1439px) */
-@media (min-width: 1024px) and (max-width: 1439px) {
-    .joinus-banner {
-        padding: clamp(3rem, 6vh, 4rem) 0 0 clamp(3rem, 5vw, 4rem);
-    }
-    
-    .joinus-content {
-        width: 22rem;
-        margin-left: clamp(-1rem, -1.5vw, -1rem);
-    }
-    
-    .benefits-wrapper .benefit-item {
-        width: clamp(12rem, 12vw, 18rem);
-    }
-    
-    .comphoto-title {
-        font-size: clamp(4rem, 6vw, 7rem);
-    }
-}
-
-/* 平板横屏 (768px - 1023px) */
-@media (min-width: 768px) and (max-width: 1023px) {
-    .joinus-banner {
-        padding: clamp(2.5rem, 5vh, 3rem) 0 0 clamp(2.5rem, 4vw, 3rem);
-    }
-    
-    .joinus-content {
-        width: 18rem;
-        margin-top: clamp(2.5rem, 4vh, 3rem);
-    }
-    
-    .joinus-content h1 {
-        font-size: clamp(2rem, 3.5vw, 2.8rem);
-    }
-    
-    .joinus-content p {
-        font-size: clamp(0.875rem, 1.2vw, 1.125rem);
-    }
-    
-    .benefits-wrapper {
-        padding: clamp(1rem, 3vw, 1.5rem) clamp(1.5rem, 3vw, 2rem);
-    }
-    
-    .benefits-wrapper .benefits-grid {
-        gap: 1.5rem;
-    }
-    
-    .benefits-wrapper .benefit-item {
-        width: clamp(10rem, 14vw, 14rem);
-    }
-    
-    .comphoto-title {
-        font-size: clamp(3rem, 5vw, 5rem);
-    }
-    
-    .job-section {
-        padding: clamp(2.5rem, 5vw, 3rem);
-    }
-    
-    .job-table-title {
-        font-size: clamp(1.5rem, 2.5vw, 2rem);
-    }
-}
-
-/* 平板竖屏 (480px - 767px) */
-@media (min-width: 480px) and (max-width: 767px) {
-    .joinus-banner {
-        padding: clamp(2rem, 4vh, 2.5rem) 0 0 clamp(2rem, 3vw, 2.5rem);
-    }
-    
-    .joinus-content {
-        width: 16rem;
-        margin-top: clamp(2rem, 3vh, 2.5rem);
-        margin-left: clamp(-0.5rem, -1vw, -0.5rem);
-    }
-    
-    .joinus-content h1 {
-        font-size: clamp(1.75rem, 3vw, 2.25rem);
-        margin: 0 clamp(2rem, 4vw, 2.5rem) 0 0;
-    }
-    
-    .joinus-content p {
-        font-size: clamp(0.75rem, 1.1vw, 1rem);
-        margin: clamp(1rem, 1.5vw, 1.25rem) clamp(2rem, 4vw, 2.5rem) 0 clamp(1rem, 1.5vw, 1.25rem);
-    }
-    
-    .benefits-wrapper {
-        padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 2vw, 1.25rem);
-    }
-    
-    .benefits-wrapper h2 {
-        font-size: clamp(1.5rem, 2.5vw, 1.875rem);
-    }
-    
-    .benefits-wrapper .benefits-grid {
-        gap: 1rem;
-    }
-    
-    .benefits-wrapper .benefit-item {
-        width: clamp(8rem, 12vw, 12rem);
-    }
-    
-    .benefits-wrapper .benefit-item img {
-        width: clamp(2rem, 4vw, 3rem);
-        height: clamp(2rem, 4vw, 3rem);
-    }
-    
-    .benefits-wrapper .benefit-item p {
-        font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-    }
-    
-    .comphoto-title {
-        font-size: clamp(2.5rem, 4vw, 3.5rem);
-    }
-    
-    .job-section {
-        padding: clamp(2rem, 4vw, 2.5rem);
-    }
-    
-    .job-table-title {
-        font-size: clamp(1.25rem, 2vw, 1.5rem);
-    }
-    
-    .contact-container {
-        flex-direction: column;
-        gap: 2rem;
-        padding: 1.5rem;
-    }
-    
-    .contact-info h2 {
-        font-size: clamp(1.5rem, 2.5vw, 1.875rem);
-    }
-    
-    .contact-info p {
-        font-size: clamp(0.875rem, 1.2vw, 1rem);
-    }
-}
-
-/* 小屏幕手机 (320px - 479px) */
-@media (max-width: 479px) {
-    .joinus-banner {
-        padding: clamp(1.5rem, 3vh, 2rem) 0 0 clamp(1.5rem, 2.5vw, 2rem);
-    }
-    
-    .joinus-content {
-        width: 14rem;
-        margin-top: clamp(1.5rem, 2.5vh, 2rem);
-        margin-left: clamp(-0.25rem, -0.5vw, -0.25rem);
-    }
-    
-    .joinus-content h1 {
-        font-size: clamp(1.5rem, 2.5vw, 1.875rem);
-        margin: 0 clamp(1.5rem, 3vw, 2rem) 0 0;
-        white-space: normal;
-        line-height: 1.1;
-    }
-    
-    .joinus-content p {
-        font-size: clamp(0.625rem, 1vw, 0.875rem);
-        margin: clamp(0.75rem, 1vw, 1rem) clamp(1.5rem, 3vw, 2rem) 0 clamp(0.75rem, 1vw, 1rem);
-        white-space: normal;
-        line-height: 1.3;
-    }
-    
-    .benefits-wrapper {
-        padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
-    }
-    
-    .benefits-wrapper h2 {
-        font-size: clamp(1.25rem, 2vw, 1.5rem);
-        margin-bottom: 1rem;
-    }
-    
-    .benefits-wrapper .benefits-grid {
-        gap: 0.75rem;
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .benefits-wrapper .benefit-item {
-        width: 100%;
-    }
-    
-    .benefits-wrapper .benefit-item img {
-        width: clamp(1.5rem, 3vw, 2.5rem);
-        height: clamp(1.5rem, 3vw, 2.5rem);
-    }
-    
-    .benefits-wrapper .benefit-item p {
-        font-size: clamp(0.625rem, 1vw, 0.75rem);
-        margin-bottom: 0.5rem;
-    }
-    
-    .comphoto-title {
-        font-size: clamp(2rem, 3vw, 2.5rem);
-    }
-    
-    .comphoto {
-        width: clamp(3rem, 6vw, 4rem);
-        height: clamp(2rem, 4vw, 2.5rem);
-    }
-    
-    .job-section {
-        padding: clamp(1.5rem, 3vw, 2rem);
-    }
-    
-    .job-table-title {
-        font-size: clamp(1rem, 1.8vw, 1.25rem);
-    }
-    
-    .contact-container {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1rem;
-    }
-    
-    .contact-info h2 {
-        font-size: clamp(1.25rem, 2vw, 1.5rem);
-    }
-    
-    .contact-info p {
-        font-size: clamp(0.75rem, 1vw, 0.875rem);
-    }
-    
-    .map-container iframe {
-        height: 200px;
-    }
-    
-    /* 表单在小屏幕上的优化 */
-    .form-wrapper {
-        padding: 1rem 0;
-    }
-    
-    .join-us-form {
-        width: 95%;
-        padding: 1rem;
-    }
-    
-    .form-group-row {
-        flex-direction: column;
-    }
-    
-    .half-width {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-    
-    .phone-input {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .phone-input select,
-    .phone-input input {
-        width: 100%;
-    }
-}
+/* 使用CSS容器查询和现代单位实现真正的流体响应式 */
 
 /* 横屏模式优化 */
 @media (max-height: 600px) and (orientation: landscape) {
@@ -3166,5 +2565,234 @@ img.image-3d-rotate:hover,
     .job-table-title {
         font-size: clamp(1rem, 2vw, 1.5rem);
         margin-bottom: 1rem;
+    }
+}
+
+/* ===========================================
+   现代流体响应式设计 - 无媒体查询
+   =========================================== */
+
+/* 使用容器查询和现代单位实现真正的流体响应式 */
+
+/* 容器查询支持 - 现代浏览器 */
+@supports (container-type: inline-size) {
+    /* 意见表单容器查询 */
+    .form-wrapper {
+        container-type: inline-size;
+        container-name: form-wrapper;
+    }
+    
+    @container form-wrapper (max-width: 500px) {
+        .join-us-form {
+            width: 95%;
+            padding: 1rem;
+            height: auto;
+        }
+        
+        .form-group-row {
+            flex-direction: column;
+        }
+        
+        .phone-input {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+    
+    /* 职位详情容器查询 */
+    .job-detail-modal {
+        container-type: inline-size;
+        container-name: job-detail;
+    }
+    
+    @container job-detail (max-width: 600px) {
+        .job-detail-meta {
+            grid-template-columns: 1fr;
+        }
+        
+        .job-detail-item {
+            padding: 0.75rem;
+        }
+    }
+    
+    @container job-detail (min-width: 601px) and (max-width: 900px) {
+        .job-detail-meta {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @container job-detail (min-width: 901px) {
+        .job-detail-meta {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+/* 现代CSS Grid 自适应布局 */
+.benefits-wrapper .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 20vw, 18rem), 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    max-width: 1500px;
+    margin: clamp(1.875rem, 3vh, 1.875rem) auto clamp(2.5rem, 4vh, 2.5rem);
+    padding: 0 clamp(1rem, 2vw, 2rem);
+}
+
+/* 现代Flexbox 自适应布局 */
+.jobs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 1rem);
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 clamp(0.5rem, 1vw, 1rem);
+}
+
+.company-job-container {
+    flex: 1 1 clamp(15rem, 30vw, 25rem);
+    min-width: clamp(15rem, 30vw, 25rem);
+    max-width: clamp(15rem, 30vw, 25rem);
+}
+
+/* 智能流体排版 */
+.joinus-content h1 {
+    font-size: clamp(2.5rem, 8vw, 8rem);
+    line-height: 1;
+    margin: 0;
+}
+
+.joinus-content p {
+    font-size: clamp(0.875rem, 2.5vw, 1.5rem);
+    line-height: 1.4;
+    margin: clamp(1rem, 3vw, 2rem) 0 0 0;
+}
+
+.comphoto-title {
+    font-size: clamp(3rem, 10vw, 12rem);
+    letter-spacing: clamp(0.2em, 1vw, 0.8em);
+}
+
+.job-table-title {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    margin: clamp(1rem, 3vh, 3rem) auto clamp(1rem, 2vh, 2rem);
+}
+
+/* 现代模态框流体设计 */
+.modal-content {
+    width: min(90vw, 35rem);
+    height: min(85vh, 45rem);
+    padding: clamp(1rem, 3vw, 2rem);
+    margin: auto;
+}
+
+.job-detail-modal {
+    width: min(90vw, 50rem);
+    height: min(80vh, 40rem);
+    padding: clamp(1rem, 3vw, 2rem);
+    margin: auto;
+}
+
+/* 智能网格自适应 */
+.job-detail-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(12rem, 25vw, 18rem), 1fr));
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+/* 现代表单布局 */
+.form-group-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(8rem, 20vw, 15rem), 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+}
+
+/* 智能间距系统 */
+.joinus-banner {
+    padding: clamp(3rem, 8vh, 6rem) clamp(2rem, 5vw, 4rem) 0;
+}
+
+.benefits-wrapper {
+    padding: clamp(2rem, 5vh, 4rem) clamp(1rem, 3vw, 2rem);
+}
+
+.job-section {
+    padding: clamp(2rem, 6vw, 5rem);
+}
+
+/* 现代按钮响应式 */
+.submit-btn,
+.apply-btn {
+    padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1.5rem, 4vw, 2.5rem);
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
+    border-radius: clamp(1rem, 3vw, 2rem);
+}
+
+/* 智能图片响应式 */
+.benefits-wrapper .benefit-item img {
+    width: clamp(3rem, 8vw, 6rem);
+    height: clamp(3rem, 8vw, 6rem);
+}
+
+.comphoto {
+    width: clamp(4rem, 10vw, 8rem);
+    height: clamp(3rem, 7vw, 6rem);
+}
+
+/* 现代社交侧边栏 */
+.social-sidebar {
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    gap: clamp(0.75rem, 2vw, 1rem);
+}
+
+.social-icon {
+    width: clamp(2.5rem, 6vw, 3.5rem);
+    height: clamp(2.5rem, 6vw, 3.5rem);
+    border-radius: clamp(0.75rem, 2vw, 1rem);
+}
+
+/* 智能地图响应式 */
+.map-container iframe {
+    width: 100%;
+    height: clamp(20rem, 40vh, 30rem);
+    max-width: 100%;
+}
+
+/* 现代联系信息布局 */
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(20rem, 40vw, 30rem), 1fr));
+    gap: clamp(2rem, 4vw, 4rem);
+    padding: clamp(2rem, 4vw, 4rem);
+    max-width: 100rem;
+    margin: 0 auto;
+}
+
+/* 横屏模式优化 - 仅保留必要的媒体查询 */
+@media (max-height: 600px) and (orientation: landscape) {
+    .joinus-banner {
+        height: 60vh;
+        padding: clamp(1rem, 3vh, 2rem) 0 0 clamp(1rem, 3vw, 2rem);
+    }
+    
+    .benefits-wrapper {
+        height: 40vh;
+        padding: clamp(0.5rem, 2vh, 1rem) clamp(0.5rem, 2vw, 1rem);
+    }
+    
+    .comphoto-title {
+        font-size: clamp(2rem, 6vw, 4rem);
+    }
+    
+    .job-section {
+        padding: clamp(1rem, 3vw, 2rem);
+    }
+    
+    /* 模态框横屏优化 */
+    .modal-content,
+    .job-detail-modal {
+        height: 95vh;
+        margin: 2.5vh auto;
     }
 }
