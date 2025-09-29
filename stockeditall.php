@@ -292,7 +292,7 @@
         .stock-table td span {
             display: inline-block;
             width: 100%;
-            line-height: 24px;
+            line-height: clamp(14px, 1.25vw, 24px);
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             box-sizing: border-box;
             vertical-align: middle;
@@ -1659,7 +1659,7 @@
             cursor: pointer;
             border-radius: 6px;
             transition: all 0.2s;
-            font-size: clamp(6px, 0.73vw, 14px);
+            font-size: clamp(6px, 0.63vw, 12px);
             color: #374151;
             background: transparent;
             border: 1px solid transparent;
