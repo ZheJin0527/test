@@ -6,11 +6,11 @@
 /* 社交侧边栏容器 */
 .social-sidebar {
     position: fixed;
-    right: clamp(0.8rem, 1.5vw, 1.5rem); /* 优化小屏幕位置，更靠近边缘 */
-    bottom: clamp(0.8rem, 1.5vw, 1.5rem); /* 优化小屏幕位置，更靠近边缘 */
+    right: clamp(0.5rem, 1.5vw, 1.5rem); /* 使用clamp()实现完全响应式位置 */
+    bottom: clamp(0.5rem, 1.5vw, 1.5rem); /* 使用clamp()实现完全响应式位置 */
     display: flex;
     flex-direction: column;
-    gap: clamp(0.5rem, 0.8vw, 1rem); /* 优化小屏幕间距，更紧凑 */
+    gap: clamp(0.4rem, 0.8vw, 1rem); /* 使用clamp()实现完全响应式间距 */
     z-index: 1000;
     animation: pulse 4s ease-in-out infinite;
     opacity: 0;
@@ -20,9 +20,9 @@
 
 /* 社交图标基础样式 */
 .social-icon {
-    width: clamp(1.7rem, 1.8vw, 2.7rem); /* 优化小屏幕尺寸，更小 */
-    height: clamp(1.7rem, 1.8vw, 2.7rem); /* 优化小屏幕尺寸，更小 */
-    border-radius: clamp(0.5rem, 0.8vw, 0.8rem); /* 优化小屏幕圆角 */
+    width: clamp(1.4rem, 1.8vw, 2.7rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    height: clamp(1.4rem, 1.8vw, 2.7rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    border-radius: clamp(0.4rem, 0.8vw, 0.8rem); /* 使用clamp()实现完全响应式圆角 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,8 +31,8 @@
     position: relative;
     overflow: hidden;
     background: rgba(0, 0, 0, .3);
-    backdrop-filter: blur(clamp(0.4rem, 0.8vw, 0.8rem)); /* 优化小屏幕模糊 */
-    border: clamp(0.05rem, 0.08vw, 0.08rem) solid rgba(0, 0, 0, .2); /* 优化小屏幕边框 */
+    backdrop-filter: blur(clamp(0.3rem, 0.8vw, 0.8rem)); /* 使用clamp()实现完全响应式模糊 */
+    border: clamp(0.03rem, 0.08vw, 0.08rem) solid rgba(0, 0, 0, .2); /* 使用clamp()实现完全响应式边框 */
 }
 
 /* 悬停效果 - 光效 */
@@ -66,30 +66,30 @@
 }
 
 .social-icon:hover::after {
-    width: clamp(0.8rem, 1.2vw, 1.3rem); /* 优化小屏幕尺寸，更小 */
-    height: clamp(0.8rem, 1.2vw, 1.3rem); /* 优化小屏幕尺寸，更小 */
+    width: clamp(0.6rem, 1.2vw, 1.3rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    height: clamp(0.6rem, 1.2vw, 1.3rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
 }
 
 /* 悬停变换效果 */
 .social-icon:hover {
-    transform: translateY(clamp(-0.2rem, -0.4vw, -0.4rem)) translateX(clamp(-0.15rem, -0.25vw, -0.25rem)) rotateY(5deg) scale(1.05); /* 优化小屏幕变换，更温和 */
+    transform: translateY(clamp(-0.1rem, -0.4vw, -0.4rem)) translateX(clamp(-0.1rem, -0.25vw, -0.25rem)) rotateY(5deg) scale(1.05); /* 使用clamp()实现完全响应式变换，超小屏幕更温和 */
     box-shadow: 
-        0 clamp(0.6rem, 1.2vw, 1.25rem) clamp(1.2rem, 2vw, 2rem) rgba(0,0,0,0.4), /* 优化小屏幕阴影 */
-        0 0 0 clamp(0.15rem, 0.25vw, 0.3rem) rgba(0, 0, 0, 0.1),
-        0 0 0 clamp(0.3rem, 0.5vw, 0.6rem) rgba(0, 0, 0, 0.05);
+        0 clamp(0.4rem, 1.2vw, 1.25rem) clamp(0.8rem, 2vw, 2rem) rgba(0,0,0,0.4), /* 使用clamp()实现完全响应式阴影 */
+        0 0 0 clamp(0.1rem, 0.25vw, 0.3rem) rgba(0, 0, 0, 0.1),
+        0 0 0 clamp(0.2rem, 0.5vw, 0.6rem) rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.3);
 }
 
 /* 点击效果 */
 .social-icon:active {
-    transform: translateY(clamp(-0.15rem, -0.3vw, -0.3rem)) scale(1.03); /* 优化小屏幕变换，更温和 */
+    transform: translateY(clamp(-0.1rem, -0.3vw, -0.3rem)) scale(1.03); /* 使用clamp()实现完全响应式变换，超小屏幕更温和 */
 }
 
 /* 社交图标图片 */
 .social-icon img {
-    width: clamp(1.6rem, 1.6vw, 2.6rem); /* 优化小屏幕尺寸，更小 */
-    height: clamp(1.6rem, 1.6vw, 2.6rem); /* 优化小屏幕尺寸，更小 */
-    filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.03rem, 0.06vw, 0.08rem) clamp(0.06rem, 0.1vw, 0.15rem) rgba(0,0,0,0.5)); /* 优化小屏幕阴影 */
+    width: clamp(1.2rem, 1.6vw, 2.6rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    height: clamp(1.2rem, 1.6vw, 2.6rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.02rem, 0.06vw, 0.08rem) clamp(0.04rem, 0.1vw, 0.15rem) rgba(0,0,0,0.5)); /* 使用clamp()实现完全响应式阴影 */
     transition: all 0.4s ease;
     z-index: 2;
     position: relative;
@@ -109,9 +109,9 @@
         rgba(24, 119, 242, 0.9), 
         rgba(24, 119, 242, 0.7));
     box-shadow: 
-        0 clamp(0.6rem, 1.2vw, 1.25rem) clamp(1.2rem, 2vw, 2rem) rgba(24, 119, 242, 0.4), /* 优化小屏幕阴影 */
-        0 0 0 clamp(0.15rem, 0.25vw, 0.3rem) rgba(24, 119, 242, 0.2),
-        0 0 0 clamp(0.3rem, 0.5vw, 0.6rem) rgba(24, 119, 242, 0.1);
+        0 clamp(0.4rem, 1.2vw, 1.25rem) clamp(0.8rem, 2vw, 2rem) rgba(24, 119, 242, 0.4), /* 使用clamp()实现完全响应式阴影 */
+        0 0 0 clamp(0.1rem, 0.25vw, 0.3rem) rgba(24, 119, 242, 0.2),
+        0 0 0 clamp(0.2rem, 0.5vw, 0.6rem) rgba(24, 119, 242, 0.1);
 }
 
 /* Instagram 悬停效果 */
@@ -120,9 +120,9 @@
         rgba(225, 48, 108, 0.9), 
         rgba(255, 119, 0, 0.7));
     box-shadow: 
-        0 clamp(0.6rem, 1.2vw, 1.25rem) clamp(1.2rem, 2vw, 2rem) rgba(225, 48, 108, 0.4), /* 优化小屏幕阴影 */
-        0 0 0 clamp(0.15rem, 0.25vw, 0.3rem) rgba(225, 48, 108, 0.2),
-        0 0 0 clamp(0.3rem, 0.5vw, 0.6rem) rgba(225, 48, 108, 0.1);
+        0 clamp(0.4rem, 1.2vw, 1.25rem) clamp(0.8rem, 2vw, 2rem) rgba(225, 48, 108, 0.4), /* 使用clamp()实现完全响应式阴影 */
+        0 0 0 clamp(0.1rem, 0.25vw, 0.3rem) rgba(225, 48, 108, 0.2),
+        0 0 0 clamp(0.2rem, 0.5vw, 0.6rem) rgba(225, 48, 108, 0.1);
 }
 
 /* WhatsApp 悬停效果 */
@@ -131,9 +131,9 @@
         rgba(37, 211, 102, 0.9), 
         rgba(37, 211, 102, 0.7));
     box-shadow: 
-        0 clamp(0.6rem, 1.2vw, 1.25rem) clamp(1.2rem, 2vw, 2rem) rgba(37, 211, 102, 0.4), /* 优化小屏幕阴影 */
-        0 0 0 clamp(0.15rem, 0.25vw, 0.3rem) rgba(37, 211, 102, 0.2),
-        0 0 0 clamp(0.3rem, 0.5vw, 0.6rem) rgba(37, 211, 102, 0.1);
+        0 clamp(0.4rem, 1.2vw, 1.25rem) clamp(0.8rem, 2vw, 2rem) rgba(37, 211, 102, 0.4), /* 使用clamp()实现完全响应式阴影 */
+        0 0 0 clamp(0.1rem, 0.25vw, 0.3rem) rgba(37, 211, 102, 0.2),
+        0 0 0 clamp(0.2rem, 0.5vw, 0.6rem) rgba(37, 211, 102, 0.1);
 }
 
 /* 脉冲动画 */
@@ -176,60 +176,3 @@
     }
 }
 
-/* 响应式设计 - 超小屏幕优化 */
-@media screen and (max-width: 480px) {
-    .social-sidebar {
-        right: 0.5rem;
-        bottom: 0.5rem;
-        gap: 0.4rem;
-    }
-    
-    .social-icon {
-        width: 1.6rem;
-        height: 1.6rem;
-        border-radius: 0.4rem;
-    }
-    
-    .social-icon img {
-        width: 1.4rem;
-        height: 1.4rem;
-    }
-}
-
-/* 响应式设计 - 中等屏幕 */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-    .social-sidebar {
-        right: 1rem;
-        bottom: 1rem;
-        gap: 0.75rem;
-    }
-    
-    .social-icon {
-        width: 2.2rem;
-        height: 2.2rem;
-    }
-    
-    .social-icon img {
-        width: 2rem;
-        height: 2rem;
-    }
-}
-
-/* 响应式设计 - 大屏幕 */
-@media screen and (min-width: 1025px) {
-    .social-sidebar {
-        right: 1.5rem;
-        bottom: 1.5rem;
-        gap: 1rem;
-    }
-    
-    .social-icon {
-        width: 2.7rem;
-        height: 2.7rem;
-    }
-    
-    .social-icon img {
-        width: 2.6rem;
-        height: 2.6rem;
-    }
-}
