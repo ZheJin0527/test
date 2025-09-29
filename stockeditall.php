@@ -25,7 +25,7 @@
         .container {
             max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: 20px 24px;
             height: 100vh; /* 设置容器高度为视口高度 */
             display: flex;
             flex-direction: column;
@@ -40,7 +40,7 @@
         }
         
         .header h1 {
-            font-size: clamp(20px, 2.6vw, 50px);
+            font-size: 56px;
             font-weight: bold;
             color: #583e04;
         }
@@ -637,7 +637,7 @@
         }
 
         .stat-value {
-            font-size: clamp(10px, 0.84vw, 16px);
+            font-size: 16px;
             font-weight: bold;
             color: #583e04;
         }
@@ -1492,6 +1492,15 @@
             flex-shrink: 0;
         }
 
+        .filter-input {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 13px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
         .filter-input:focus {
             outline: none;
             border-color: #583e04;
@@ -1505,8 +1514,8 @@
 
         /* 调整按钮大小，使其更紧凑 */
         .unified-header-row .btn {
-            padding: clamp(4px, 0.42vw, 8px) 12px;
-            font-size: clamp(8px, 0.74vw, 14px);
+            padding: 8px 12px;
+            font-size: 13px;
             white-space: nowrap;
             flex-shrink: 0;
         }
@@ -1529,7 +1538,7 @@
         .header-right-group {
             display: flex;
             align-items: flex-end;  /* 改为 flex-end，让元素底部对齐 */
-            gap: clamp(8px, 1.04vw, 20px);
+            gap: 20px;
             margin-left: auto;
         }
 
@@ -1552,19 +1561,19 @@
 
         .unified-search-input {
             width: 250px;
-            padding: clamp(4px, 0.42vw, 8px) 12px;
+            padding: 8px 12px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: 13px;
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
 
         .filter-input {
-            padding: clamp(4px, 0.42vw, 8px) 12px;
+            padding: 8px 12px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            font-size: clamp(8px, 0.74vw, 14px);
+            font-size: 13px;
             background-color: #ffffff;
             transition: all 0.2s ease;
         }
@@ -1581,7 +1590,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
-            font-size: clamp(6px, 0.63vw, 12px);
+            font-size: 12px;
             color: #6b7280;
             flex-shrink: 0;
             white-space: nowrap;
@@ -1591,6 +1600,14 @@
         .header-stats .stat-value {
             font-weight: bold;
             color: #583e04;
+        }
+
+        /* 按钮样式调整 */
+        .unified-header-row .btn {
+            padding: 8px 12px;
+            font-size: 13px;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         /* 批量操作按钮组 */
@@ -1867,13 +1884,13 @@
 
         <div class="unified-header-row">
             <div class="header-filter">
-                <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #583e04; white-space: nowrap;">日期</span>
+                <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">日期</span>
                 <input type="date" id="date-filter" class="filter-input">
             </div>
             
             <div class="header-right-group">
                 <div class="header-search">
-                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <span style="font-size: 14px; font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
                     <input type="text" id="unified-filter" class="unified-search-input" 
                         placeholder="搜索货品编号、货品名称或收货人...">
                 </div>
