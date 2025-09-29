@@ -1493,7 +1493,7 @@
         .date-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: clamp(8px, 1vw, 16px);
+            gap: clamp(8px, 0.83vw, 16px);
             align-items: flex-end;
             flex: 1;
         }
@@ -1503,7 +1503,7 @@
             align-items: center;
             background: white;
             border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border-radius: clamp(4px, 0.42vw, 8px);
             padding: clamp(2px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
             min-width: 100px;
@@ -1812,7 +1812,7 @@
 
         .unified-search-input {
             width: clamp(140px, 13.02vw, 250px);
-            padding: clamp(4px, 0.42vw, 8px) 12px;
+            padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border: 1px solid #d1d5db;
             border-radius: clamp(4px, 0.42vw, 8px);
             font-size: clamp(8px, 0.74vw, 14px);
