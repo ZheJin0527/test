@@ -845,19 +845,19 @@ body::-webkit-scrollbar {
    =========================================== */
 .social-sidebar {
     position: fixed;
-    right: clamp(1.25rem, 2vw, 1.5rem); /* 响应式位置 */
-    bottom: clamp(1.25rem, 2vw, 1.5rem); /* 响应式位置 */
+    right: clamp(0.8rem, 1.5vw, 1.5rem); /* 优化小屏幕位置，更靠近边缘 */
+    bottom: clamp(0.8rem, 1.5vw, 1.5rem); /* 优化小屏幕位置，更靠近边缘 */
     display: flex;
     flex-direction: column;
-    gap: clamp(0.75rem, 1vw, 1rem); /* 响应式间距 */
+    gap: clamp(0.5rem, 0.8vw, 1rem); /* 优化小屏幕间距，更紧凑 */
     z-index: 1000;
     animation: pulse 4s ease-in-out infinite;
 }
 
 .social-icon {
-    width: clamp(2.25rem, 2.24vw, 2.7rem); /* 响应式尺寸 */
-    height: clamp(2.25rem, 2.24vw, 2.7rem); /* 响应式尺寸 */
-    border-radius: clamp(0.6rem, 1vw, 0.8rem); /* 响应式圆角 */
+    width: clamp(1.8rem, 1.8vw, 2.7rem); /* 优化小屏幕尺寸，更小 */
+    height: clamp(1.8rem, 1.8vw, 2.7rem); /* 优化小屏幕尺寸，更小 */
+    border-radius: clamp(0.5rem, 0.8vw, 0.8rem); /* 优化小屏幕圆角 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -866,8 +866,8 @@ body::-webkit-scrollbar {
     position: relative;
     overflow: hidden;
     background: rgba(0, 0, 0, .3);
-    backdrop-filter: blur(clamp(0.6rem, 1vw, 0.8rem)); /* 响应式模糊 */
-    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(0, 0, 0, .2); /* 响应式边框 */
+    backdrop-filter: blur(clamp(0.4rem, 0.8vw, 0.8rem)); /* 优化小屏幕模糊 */
+    border: clamp(0.05rem, 0.08vw, 0.08rem) solid rgba(0, 0, 0, .2); /* 优化小屏幕边框 */
 }
 
 .social-icon::before {
@@ -899,21 +899,21 @@ body::-webkit-scrollbar {
 }
 
 .social-icon:hover::after {
-    width: clamp(1rem, 1.5vw, 1.3rem); /* 响应式尺寸 */
-    height: clamp(1rem, 1.5vw, 1.3rem); /* 响应式尺寸 */
+    width: clamp(0.8rem, 1.2vw, 1.3rem); /* 优化小屏幕尺寸，更小 */
+    height: clamp(0.8rem, 1.2vw, 1.3rem); /* 优化小屏幕尺寸，更小 */
 }
 
 .social-icon:hover {
-    transform: translateY(clamp(-0.3rem, -0.5vw, -0.4rem)) translateX(clamp(-0.2rem, -0.3vw, -0.25rem)) rotateY(5deg) scale(1.1); /* 响应式变换 */
+    transform: translateY(clamp(-0.2rem, -0.4vw, -0.4rem)) translateX(clamp(-0.15rem, -0.25vw, -0.25rem)) rotateY(5deg) scale(1.05); /* 优化小屏幕变换，更温和 */
     box-shadow: 
-        0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(0,0,0,0.4), /* 响应式阴影 */
-        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(0, 0, 0, 0.1),
-        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(0, 0, 0, 0.05);
+        0 clamp(0.6rem, 1.2vw, 1.25rem) clamp(1.2rem, 2vw, 2rem) rgba(0,0,0,0.4), /* 优化小屏幕阴影 */
+        0 0 0 clamp(0.15rem, 0.25vw, 0.3rem) rgba(0, 0, 0, 0.1),
+        0 0 0 clamp(0.3rem, 0.5vw, 0.6rem) rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.3);
 }
 
 .social-icon:active {
-    transform: translateY(clamp(-0.25rem, -0.4vw, -0.3rem)) scale(1.05); /* 响应式变换 */
+    transform: translateY(clamp(-0.15rem, -0.3vw, -0.3rem)) scale(1.03); /* 优化小屏幕变换，更温和 */
 }
 
 .facebook:hover {
@@ -921,9 +921,9 @@ body::-webkit-scrollbar {
         rgba(24, 119, 242, 0.9), 
         rgba(24, 119, 242, 0.7));
     box-shadow: 
-        0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(24, 119, 242, 0.4), /* 响应式阴影 */
-        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(24, 119, 242, 0.2),
-        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(24, 119, 242, 0.1);
+        0 clamp(0.6rem, 1.2vw, 1.25rem) clamp(1.2rem, 2vw, 2rem) rgba(24, 119, 242, 0.4), /* 优化小屏幕阴影 */
+        0 0 0 clamp(0.15rem, 0.25vw, 0.3rem) rgba(24, 119, 242, 0.2),
+        0 0 0 clamp(0.3rem, 0.5vw, 0.6rem) rgba(24, 119, 242, 0.1);
 }
 
 .instagram:hover {
@@ -931,9 +931,9 @@ body::-webkit-scrollbar {
         rgba(225, 48, 108, 0.9), 
         rgba(255, 119, 0, 0.7));
     box-shadow: 
-        0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(225, 48, 108, 0.4), /* 响应式阴影 */
-        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(225, 48, 108, 0.2),
-        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(225, 48, 108, 0.1);
+        0 clamp(0.6rem, 1.2vw, 1.25rem) clamp(1.2rem, 2vw, 2rem) rgba(225, 48, 108, 0.4), /* 优化小屏幕阴影 */
+        0 0 0 clamp(0.15rem, 0.25vw, 0.3rem) rgba(225, 48, 108, 0.2),
+        0 0 0 clamp(0.3rem, 0.5vw, 0.6rem) rgba(225, 48, 108, 0.1);
 }
 
 .whatsapp:hover {
@@ -941,15 +941,15 @@ body::-webkit-scrollbar {
         rgba(37, 211, 102, 0.9), 
         rgba(37, 211, 102, 0.7));
     box-shadow: 
-        0 clamp(0.9rem, 1.5vw, 1.25rem) clamp(1.875rem, 2.5vw, 2rem) rgba(37, 211, 102, 0.4), /* 响应式阴影 */
-        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(37, 211, 102, 0.2),
-        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(37, 211, 102, 0.1);
+        0 clamp(0.6rem, 1.2vw, 1.25rem) clamp(1.2rem, 2vw, 2rem) rgba(37, 211, 102, 0.4), /* 优化小屏幕阴影 */
+        0 0 0 clamp(0.15rem, 0.25vw, 0.3rem) rgba(37, 211, 102, 0.2),
+        0 0 0 clamp(0.3rem, 0.5vw, 0.6rem) rgba(37, 211, 102, 0.1);
 }
 
 .social-icon img {
-    width: clamp(2.2rem, 2.2vw, 2.6rem); /* 响应式尺寸 */
-    height: clamp(2.2rem, 2.2vw, 2.6rem); /* 响应式尺寸 */
-    filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.05rem, 0.1vw, 0.08rem) clamp(0.1rem, 0.15vw, 0.15rem) rgba(0,0,0,0.5)); /* 响应式阴影 */
+    width: clamp(1.6rem, 1.6vw, 2.6rem); /* 优化小屏幕尺寸，更小 */
+    height: clamp(1.6rem, 1.6vw, 2.6rem); /* 优化小屏幕尺寸，更小 */
+    filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.03rem, 0.06vw, 0.08rem) clamp(0.06rem, 0.1vw, 0.15rem) rgba(0,0,0,0.5)); /* 优化小屏幕阴影 */
     transition: all 0.4s ease;
     z-index: 2;
     position: relative;
@@ -957,8 +957,8 @@ body::-webkit-scrollbar {
 }
 
 .social-icon:hover img {
-    transform: scale(1.15) rotateZ(-3deg);
-    filter: grayscale(0%) brightness(1) drop-shadow(0 clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.2rem, 0.3vw, 0.3rem) rgba(0,0,0,0.6)); /* 响应式阴影 */
+    transform: scale(1.1) rotateZ(-3deg); /* 优化小屏幕缩放，更温和 */
+    filter: grayscale(0%) brightness(1) drop-shadow(0 clamp(0.08rem, 0.15vw, 0.15rem) clamp(0.15rem, 0.25vw, 0.3rem) rgba(0,0,0,0.6)); /* 优化小屏幕阴影 */
     opacity: 1; /* 悬停时完全不透明 */
 }
 
