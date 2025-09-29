@@ -1284,7 +1284,7 @@ body::-webkit-scrollbar {
 /* 向下滑入动画 */
 .fade-in-down {
   opacity: 0 !important;
-  transform: translateY(-40px) !important;
+  transform: translateY(clamp(-2rem, -3vw, -2.5rem)) !important; /* 响应式变换 */
   transition: all 0.8s ease-out;
   animation: none !important;
 }
@@ -1319,18 +1319,18 @@ body::-webkit-scrollbar {
 img.image-3d-rotate,
 .image-3d-rotate img {
   opacity: 0 !important;
-  transform: perspective(1000px) rotateY(-90deg) scale(1.4) !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(-90deg) scale(1.4) !important; /* 响应式变换 */
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transition-delay: 0.3s;
   transform-origin: center;
-  border-radius: 8px;
+  border-radius: clamp(0.4rem, 0.6vw, 0.5rem); /* 响应式圆角 */
   animation: none !important;
 }
 
 img.image-3d-rotate.visible,
 .image-3d-rotate.visible img {
   opacity: 1 !important;
-  transform: perspective(1000px) rotateY(0deg) scale(1) !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(0deg) scale(1) !important; /* 响应式变换 */
 }
 
 img.image-3d-rotate:not(.visible),
@@ -1340,14 +1340,14 @@ img.image-3d-rotate:not(.visible),
 
 img.image-3d-rotate:hover,
 .image-3d-rotate img:hover {
-  transform: perspective(1000px) rotateY(5deg) rotateX(5deg) scale(1.05) !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(5deg) rotateX(5deg) scale(1.05) !important; /* 响应式变换 */
   transition-delay: 0s !important;
 }
 
 /* Vision Content 从上面滑下特效 */
 .vision-slide-down {
   opacity: 0 !important;
-  transform: translateY(-60px) !important;
+  transform: translateY(clamp(-3rem, -4vw, -4rem)) !important; /* 响应式变换 */
   transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
   animation: none !important;
 }
@@ -1371,7 +1371,7 @@ img.image-3d-rotate:hover,
 @keyframes titleFadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(clamp(1rem, 1.5vw, 1.25rem)); /* 响应式变换 */
     }
     to {
         opacity: 1;
@@ -1434,7 +1434,7 @@ img.image-3d-rotate:hover,
 @keyframes bulletAppear {
     from {
         opacity: 0;
-        transform: scale(0.5) translateY(20px);
+        transform: scale(0.5) translateY(clamp(1rem, 1.5vw, 1.25rem)); /* 响应式变换 */
     }
     to {
         opacity: 1;
@@ -1464,7 +1464,7 @@ img.image-3d-rotate:hover,
     transform: translateY(0);
     background-size: cover;
     background-position: center;
-    min-height: 200px;
+    min-height: clamp(12rem, 15vw, 15rem); /* 响应式最小高度 */
     position: relative;
     display: flex;
     align-items: center;
@@ -1473,7 +1473,7 @@ img.image-3d-rotate:hover,
 
 .aboutus-content {
     opacity: 0 !important;
-    transform: translateY(30px) !important;
+    transform: translateY(clamp(1.5rem, 2vw, 2rem)) !important; /* 响应式变换 */
     transition: all 0.8s ease-out;
     text-align: center;
     color: white;
@@ -1494,9 +1494,9 @@ img.image-3d-rotate:hover,
 
 .intro-content {
     opacity: 0 !important;
-    transform: translateY(40px) !important;
+    transform: translateY(clamp(2rem, 3vw, 2.5rem)) !important; /* 响应式变换 */
     transition: all 1.0s ease-out;
-    max-width: 800px;
+    max-width: clamp(40rem, 50vw, 50rem); /* 响应式最大宽度 */
     margin: 0 auto;
     text-align: center;
     visibility: hidden;
@@ -1512,21 +1512,21 @@ img.image-3d-rotate:hover,
 .aboutus-content h1,
 .aboutus-content p {
     opacity: 0 !important;
-    transform: translateY(-60px) !important;
+    transform: translateY(clamp(-3rem, -4vw, -4rem)) !important; /* 响应式变换 */
     transition: all 0.8s ease-out;
     visibility: hidden;
 }
 
 .intro-content h1 {
     opacity: 0 !important;
-    transform: translateY(20px) !important;
+    transform: translateY(clamp(1rem, 1.5vw, 1.25rem)) !important; /* 响应式变换 */
     transition: all 0.6s ease-out;
     visibility: hidden;
 }
 
 .intro-content p {
     opacity: 0 !important;
-    transform: translateY(15px) !important;
+    transform: translateY(clamp(0.75rem, 1vw, 1rem)) !important; /* 响应式变换 */
     transition: all 0.6s ease-out;
     visibility: hidden;
 }
@@ -1579,7 +1579,7 @@ img.image-3d-rotate:hover,
    =========================================== */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(clamp(1rem, 1.5vw, 1.25rem)); /* 响应式变换 */
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
