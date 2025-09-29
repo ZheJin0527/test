@@ -87,8 +87,8 @@
 
 /* 社交图标图片 */
 .social-icon img {
-    width: clamp(1.2rem, 1.6vw, 2.6rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
-    height: clamp(1.2rem, 1.6vw, 2.6rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    width: clamp(1.4rem, 1.6vw, 2.8rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
+    height: clamp(1.4rem, 1.6vw, 2.8rem); /* 使用clamp()实现完全响应式尺寸，超小屏幕更小 */
     filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.02rem, 0.06vw, 0.08rem) clamp(0.04rem, 0.1vw, 0.15rem) rgba(0,0,0,0.5)); /* 使用clamp()实现完全响应式阴影 */
     transition: all 0.4s ease;
     z-index: 2;
