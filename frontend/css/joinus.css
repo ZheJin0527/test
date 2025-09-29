@@ -1467,7 +1467,7 @@ form select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: clamp(2.5rem, 4vh, 2.5rem) 0;
+    padding: clamp(1.5rem, 3vh, 2.5rem) clamp(0.5rem, 2vw, 1rem);
     box-sizing: border-box;
 }
 
@@ -1475,56 +1475,60 @@ form select:focus {
     display: flex;
     flex-direction: row;
     width: 100%;
-    max-width: 1648px;
-    height: 500px;
-    margin: clamp(100px, 6.7vw, 130px) clamp(40px, 7vw, 160px) 70px clamp(40px, 7vw, 160px);
-    padding-left: clamp(40px, 5vw, 80px);
-    padding-right: clamp(40px, 5vw, 80px);
+    max-width: clamp(60rem, 90vw, 80rem);
+    height: clamp(25rem, 50vh, 35rem);
+    margin: 0 auto;
+    padding: clamp(1rem, 2vw, 2rem);
     background: transparent;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    box-sizing: border-box;
 }
 
 .contact-info {
-    width: 35%;
+    flex: 0 0 clamp(15rem, 35vw, 25rem);
     background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 60px 30px;
+    padding: clamp(1rem, 2vw, 2rem);
     box-sizing: border-box;
 }
 
 .contact-info h2 {
-    font-size: clamp(40px, 2.6vw, 50px);
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
     line-height: 1.4;
-    margin: 0 0 24px 0;
+    margin: 0 0 clamp(1rem, 2vw, 1.5rem) 0;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    color: white;
 }
 
 .contact-info p {
-    font-size: clamp(12px, 1.04vw, 20px);
+    font-size: clamp(0.75rem, 1.2vw, 1.125rem);
     margin: 0;
-    padding: 8px 0;
+    padding: clamp(0.25rem, 0.5vw, 0.5rem) 0;
     font-family: 'Source Sans Pro', sans-serif;
-    color: #000000;
-    line-height: 2;
+    color: white;
+    line-height: 1.6;
 }
 
 .map-container {
-    width: 60%;
+    flex: 1 1 auto;
     height: auto;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .map-container iframe {
-    margin-top: 50px;
-    width: clamp(600px, 45vw, 900px);
-    height: clamp(380px, 25vw, 400px);
+    width: 100%;
+    height: clamp(15rem, 30vh, 25rem);
     border: none;
-    display: block;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.8);
+    border-radius: clamp(0.5rem, 1vw, 1rem);
+    box-shadow: 0 clamp(0.5rem, 1vw, 1rem) clamp(1rem, 2vw, 2rem) rgba(0, 0, 0, 0.3);
 }
 
 /* 移除媒体查询，改用现代响应式技术 */
@@ -2465,19 +2469,4 @@ img.image-3d-rotate:hover,
 
 /* 社交侧边栏已删除 */
 
-/* 协调的地图响应式 */
-.map-container iframe {
-    width: 100%;
-    height: clamp(15rem, 30vh, 25rem);
-    max-width: 100%;
-}
-
-/* 协调的联系信息布局 */
-.contact-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(18rem, 35vw, 25rem), 1fr));
-    gap: clamp(1.5rem, 3vw, 3rem);
-    padding: clamp(1.5rem, 3vw, 3rem);
-    max-width: 80rem;
-    margin: 0 auto;
-}
+/* 地图部分响应式优化已完成 */
