@@ -232,14 +232,14 @@ $avatarLetter = strtoupper($username[0]);
             cursor: pointer;
             font-weight: 600;
             background: white;
-            color: #583e04;
+            color: #000000ff;
             position: relative;
             width: clamp(60px, 5.21vw, 100px);
             display: flex;
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
-            border-color: var(--primary-color, #583e04) !important;
+            border-color: #000000ff !important;
         }
 
         .restaurant-btn:hover {
@@ -252,7 +252,7 @@ $avatarLetter = strtoupper($username[0]);
             top: 100%;
             right: 0;
             background: white;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
@@ -291,7 +291,7 @@ $avatarLetter = strtoupper($username[0]);
         .section-title {
             font-size: clamp(10px, 0.9vw, 14px); /* 增加最小值 */
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
             margin-bottom: clamp(4px, 0.6vw, 8px); /* 响应式边距 */
             text-align: center;
         }
@@ -320,7 +320,7 @@ $avatarLetter = strtoupper($username[0]);
             height: clamp(12px, 1.25vw, 24px); /* 增加最小值 */
             border: 1px solid #e5e7eb;
             background: white;
-            color: #583e04;
+            color: #000000ff;
             cursor: pointer;
             font-size: clamp(7px, 0.63vw, 12px); /* 增加最小值 */
             font-weight: 500;
@@ -340,9 +340,9 @@ $avatarLetter = strtoupper($username[0]);
         .letter-item.selected,
         .number-item.selected,
         .number-item.total-option.selected {
-            background: #583e04;
+            background: #000000ff;
             color: white;
-            border-color: #583e04;
+            border-color: #000000ff;
             font-weight: 600;
         }
 
@@ -497,7 +497,7 @@ $avatarLetter = strtoupper($username[0]);
             top: 100%;
             left: 0;
             background: white;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
@@ -515,7 +515,7 @@ $avatarLetter = strtoupper($username[0]);
             padding: clamp(6px, 0.52vw, 10px) clamp(10px, 1.04vw, 20px);
             border: none;
             background: transparent;
-            color: #583e04;
+            color: #000000ff;
             cursor: pointer;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
@@ -1083,8 +1083,8 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .chart-data-btn.active:hover {
-            background: var(--secondary-color, #805906);
-            border-color: var(--secondary-color, #805906);
+            background: #f98500ff;
+            border-color: #f98500ff;
         }
     </style>
 </head>
@@ -1165,7 +1165,7 @@ $avatarLetter = strtoupper($username[0]);
                         <!-- 月份选择器 - 改为增强型选择器 -->
                         <div style="display: flex; flex-direction: column; gap: 4px;">
                             <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px;">
-                                <i class="fas fa-calendar" style="color: #583e04;"></i>
+                                <i class="fas fa-calendar" style="color: #000000ff;"></i>
                                 选择年份和月份
                             </label>
                             <div class="enhanced-date-picker month-only" id="month-date-picker">
@@ -1188,7 +1188,7 @@ $avatarLetter = strtoupper($username[0]);
 
                         <div style="display: flex; flex-direction: column; gap: 4px;">
                             <label class="form-label" style="margin: 0; display: flex; align-items: center; gap: 4px;">
-                                <i class="fas fa-clock" style="color: #583e04;"></i>
+                                <i class="fas fa-clock" style="color: #000000ff;"></i>
                                 快速选择
                             </label>
                             <div class="dropdown">
