@@ -448,23 +448,23 @@ body::-webkit-scrollbar {
 
 .timeline-nav {
     position: relative;
-    margin: 0 auto clamp(0.5rem, 1.5vw, 2rem) auto; /* 居中边距 */
-    padding: 0 clamp(1rem, 2vw, 2rem); /* 添加适当的左右padding */
+    margin: 0 auto clamp(0.5rem, 1.5vw, 2rem) auto;
+    padding: 0;
     width: 100%;
-    max-width: clamp(40rem, 60vw, 60rem); /* 调整最大宽度 */
-    height: clamp(0.5rem, 5vw, 6rem); /* 优化小屏幕高度 */
+    max-width: clamp(60rem, 80vw, 80rem); /* 恢复原始设置 */
+    height: clamp(0.5rem, 5vw, 6rem);
     display: flex;
     align-items: center;
-    justify-content: center; /* 确保年份居中 */
+    justify-content: center;
 }
 
 /* 主时间线 */
 .timeline-line {
     position: absolute;
     top: 50%;
-    left: clamp(1rem, 2vw, 2rem); /* 与padding匹配 */
-    right: clamp(1rem, 2vw, 2rem); /* 与padding匹配 */
-    height: clamp(0.2rem, 0.3vw, 0.3rem); /* 优化小屏幕高度 */
+    left: 0; /* 恢复原始设置 */
+    right: 0; /* 恢复原始设置 */
+    height: clamp(0.2rem, 0.3vw, 0.3rem);
     background: linear-gradient(90deg, 
         #FFD1A1 0%,     
         #FFB84D 25%,    
@@ -675,11 +675,11 @@ body::-webkit-scrollbar {
 .timeline-content-container {
     position: relative;
     width: 100%;
-    max-width: clamp(40rem, 60vw, 60rem); /* 与timeline-nav保持一致 */
-    height: clamp(35rem, 45vw, 50rem); /* 优化小屏幕高度 */
+    max-width: clamp(60rem, 80vw, 80rem); /* 恢复原始设置 */
+    height: clamp(35rem, 45vw, 50rem);
     overflow: hidden;
-    perspective: clamp(35rem, 45vw, 50rem); /* 优化小屏幕透视 */
-    margin: 0 auto; /* 确保容器居中 */
+    perspective: clamp(35rem, 45vw, 50rem);
+    margin: 0 auto;
 }
 
 .timeline-cards-wrapper {
