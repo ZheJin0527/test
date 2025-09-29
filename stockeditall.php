@@ -2138,7 +2138,7 @@
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" onclick="toggleQuickSelectDropdown()">
                             <i class="fas fa-calendar-alt"></i>
-                            <span id="quick-select-text">选择时间</span>
+                            <span id="quick-select-text">--</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="dropdown-menu" id="quick-select-dropdown">
