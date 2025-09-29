@@ -8,7 +8,7 @@ include_once '../media_config.php';
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['css/about.css','../public/css/components/header.css','../public/css/components/footer.css','../public/css/components/social.css'];
+$additionalCSS = ['css/about.css','../public/css/components/footer.css','../public/css/components/social.css'];
 $showPageIndicator = true;
 $totalSlides = 5;
 
@@ -177,16 +177,14 @@ $timelineData = getTimelineConfig();
     </section>
   </div>
 
-<?php include '../public/footer.php'; ?>
-
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
 
+<?php include '../public/footer.php'; ?>
 <?php include '../public/social.php'; ?>
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../app.js"></script>
-<script src="../public/header.js"></script>
 <script src="../public/social.js"></script>
 <script>
         const hamburger = document.getElementById('hamburger');
