@@ -5577,18 +5577,16 @@
                     }
                     
                     // 检查日期范围
-                    const recordDate = record.date || record.out_date || record.created_at;
-                    if (!recordDate) return false;
-                    
-                    const recordDateObj = new Date(recordDate);
-                    const startDateObj = new Date(startDate);
-                    const endDateObj = new Date(endDate);
-                    
-                    // 设置时间为当天的开始和结束
-                    startDateObj.setHours(0, 0, 0, 0);
-                    endDateObj.setHours(23, 59, 59, 999);
-                    
-                    return recordDateObj >= startDateObj && recordDateObj <= endDateObj;
+const recordDate = record.date || record.out_date || record.created_at;
+if (!recordDate) return false;
+
+// 标准化日期字符串，只比较年月日
+const recordDateStr = recordDate.split(' ')[0]; // 取日期部分，去掉时间
+const recordDateObj = new Date(recordDateStr + 'T00:00:00');
+const startDateObj = new Date(startDate + 'T00:00:00');
+const endDateObj = new Date(endDate + 'T23:59:59');
+
+return recordDateObj >= startDateObj && recordDateObj <= endDateObj;
                 });
                 
                 if (outData.length === 0) {
