@@ -1506,7 +1506,7 @@
             border-radius: clamp(4px, 0.42vw, 8px);
             padding: clamp(2px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
-            min-width: 80px;
+            min-width: 108px;
             transition: all 0.2s;
             position: relative;
         }
