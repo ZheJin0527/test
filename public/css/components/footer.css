@@ -49,8 +49,8 @@
     color: white;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* 让内容整体居中 */
-    align-items: center;
+    justify-content: flex-start; /* 改为左对齐 */
+    align-items: flex-start;
     margin-top: auto;
     position: relative;
     z-index: 2;
@@ -64,6 +64,7 @@
     min-width: clamp(6rem, 15vw, 10rem);
     padding: clamp(0.5rem, 1vw, 1rem);
     box-sizing: border-box;
+    text-align: left; /* 确保内容左对齐 */
 }
 
 .footer-section h4 {
@@ -71,6 +72,7 @@
     margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
     color: #fff;
     font-weight: 600;
+    text-align: left; /* 标题左对齐 */
 }
 
 .footer-section h4 a {
@@ -82,6 +84,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    text-align: left; /* 列表左对齐 */
 }
 
 .footer-section li {
@@ -89,6 +92,7 @@
     font-size: clamp(0.7rem, 1vw, 0.9rem); /* 响应式字体大小 */
     color: #ccc;
     line-height: 1.4;
+    text-align: left; /* 列表项左对齐 */
 }
 
 .footer-section li a {
