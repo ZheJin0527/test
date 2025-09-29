@@ -75,7 +75,7 @@ $avatarLetter = strtoupper($username[0]);
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f1dfbc;
+            background-color: #faf7f2;
             color: #000000;
             min-height: 100vh;
             overflow-x: hidden;
@@ -536,7 +536,7 @@ $avatarLetter = strtoupper($username[0]);
         }
 
         .card {
-            background: rgb(248, 245, 235);
+            background: rgba(255, 255, 255, 1);
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border: 1px solid #e5e7eb;
@@ -864,7 +864,7 @@ $avatarLetter = strtoupper($username[0]);
             font-weight: bold;
             color: #6b7280;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
-            background: rgb(248, 245, 235);
+            background: rgba(255, 255, 255, 1);
             border-radius: 6px;
         }
 
@@ -909,7 +909,7 @@ $avatarLetter = strtoupper($username[0]);
         }
         
         .text-green {
-            color: #583e04;
+            color: #000000ff;
         }
         
         .text-blue {
@@ -985,7 +985,7 @@ $avatarLetter = strtoupper($username[0]);
 
         /* 动态应用颜色 */
         .dynamic-color {
-            color: var(--primary-color) !important;
+            color: #000000 !important;
         }
 
         .dynamic-bg {
@@ -1271,7 +1271,7 @@ $avatarLetter = strtoupper($username[0]);
                         <div class="card-body">
                             <div class="kpi-card-vertical">
                                 <div class="icon dynamic-color">
-                                    <img src="images/images/table.svg" alt="桌子图标" style="width: clamp(30px, 2.1vw, 40px); height: clamp(28px, 1.98vw, 38px);">
+                                    <img src="images/images/table.svg" alt="桌子图标" style="width: clamp(30px, 2.1vw, 40px); height: clamp(28px, 1.98vw, 38px); filter: brightness(0);">
                                 </div>
                                 <div>
                                     <p class="kpi-label">桌子总数</p>
