@@ -2409,7 +2409,7 @@ img.image-3d-rotate:hover,
 /* 协调的模态框设计 */
 .modal-content {
     width: min(90vw, 28rem);
-    height: min(80vh, 38rem);
+    height: min(80vh, 40rem);
     padding: clamp(1rem, 2vw, 1.5rem);
     margin-top: 3.34rem;
 }
