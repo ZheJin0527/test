@@ -5,7 +5,7 @@
 
 /* 基础样式 */
 html {
-    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.125rem); /* 响应式根字体大小 */
+    font-size: clamp(0.75rem, 1.2vw + 0.4rem, 1rem); /* 优化iPad Mini响应式根字体大小 */
 }
 
 html, body {
@@ -114,30 +114,32 @@ body::-webkit-scrollbar {
 
 .aboutus-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(2rem, 6vw, 4rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1.5rem, 4.5vw, 3rem); /* 优化iPad Mini响应式字体大小 */
     font-weight: bold;
-    line-height: 1;
-    letter-spacing: 0.014em; /* 使用 em 单位 */
-    margin: clamp(-3rem, -5vw, -4rem) clamp(3rem, 5vw, 4rem) 0 0; /* 调整边距 */
+    line-height: 1.2;
+    letter-spacing: 0.01em; /* 使用 em 单位 */
+    margin: clamp(-2rem, -3vw, -2.5rem) clamp(1.5rem, 3vw, 2.5rem) 0 0; /* 优化边距 */
     padding: 0;
-    white-space: nowrap;
+    white-space: normal; /* 允许换行 */
+    text-align: center; /* 居中对齐 */
     text-shadow:
-        clamp(0.5rem, 1vw, 0.75rem) clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem) rgba(0, 0, 0, 0.3), /* 响应式阴影 */
-        clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.3);
+        clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.5rem, 1vw, 0.8rem) rgba(0, 0, 0, 0.3), /* 优化阴影 */
+        clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.8rem, 1.5vw, 1.2rem) rgba(0, 0, 0, 0.3);
     color: white;
 }
 
 .aboutus-content p {
-    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.75rem, 1.8vw, 1rem); /* 优化iPad Mini响应式字体大小 */
     font-weight: normal;
-    line-height: 1.2;
-    letter-spacing: 0.005em; /* 使用 em 单位 */
-    margin: clamp(1rem, 2.5vw, 1.5rem) clamp(2rem, 4vw, 3rem) 0 clamp(1rem, 2.5vw, 1.5rem); /* 调整边距 */
+    line-height: 1.4;
+    letter-spacing: 0.003em; /* 使用 em 单位 */
+    margin: clamp(0.8rem, 2vw, 1.2rem) clamp(1.5rem, 3vw, 2.5rem) 0 clamp(0.8rem, 2vw, 1.2rem); /* 优化边距 */
     padding: 0;
-    white-space: nowrap;
+    white-space: normal; /* 允许换行 */
+    text-align: center; /* 居中对齐 */
     text-shadow:
-        clamp(0.5rem, 1vw, 0.75rem) clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem) rgba(0, 0, 0, 0.3), /* 响应式阴影 */
-        clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.3);
+        clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.5rem, 1vw, 0.8rem) rgba(0, 0, 0, 0.3), /* 优化阴影 */
+        clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.8rem, 1.5vw, 1.2rem) rgba(0, 0, 0, 0.3);
     color: white;
 }
 
@@ -175,11 +177,12 @@ body::-webkit-scrollbar {
     font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
     font-weight: normal;
     line-height: 1.7;
-    letter-spacing: clamp(0.15rem, 0.3vw, 0.2rem); /* 响应式字母间距 */
-    margin: 0 clamp(2rem, 4vw, 3rem) 0 0; /* 调整边距 */
+    letter-spacing: clamp(0.1rem, 0.2vw, 0.15rem); /* 响应式字母间距 */
+    margin: 0 clamp(1rem, 3vw, 2.5rem) 0 0; /* 调整边距 */
     padding: 0;
     color: #888888;
-    white-space: nowrap;
+    white-space: normal; /* 允许换行 */
+    text-align: center; /* 居中对齐 */
 }
 
 /* ===========================================
@@ -222,23 +225,26 @@ body::-webkit-scrollbar {
 
 .vision-cards {
     display: flex;
-    justify-content: center;   /* 或 flex-start */
-    gap: clamp(1.5rem, 3vw, 2rem); /* 响应式间距 */
-    padding: 0 clamp(2rem, 4vw, 2.5rem); /* 响应式内边距 */
-    flex-wrap: nowrap;         /* ✅ 不允许换行 */
+    justify-content: center;
+    gap: clamp(0.8rem, 3vw, 2rem); /* 智能间距，小屏幕更紧凑 */
+    padding: 0 clamp(0.5rem, 4vw, 2.5rem); /* 智能内边距 */
+    flex-wrap: wrap;
+    align-items: stretch;
 }
 
 .vision-card {
-    width: clamp(20rem, 40vw, 35rem); /* 调整卡片宽度，更协调 */
-    height: clamp(18rem, 25vw, 24rem); /* 调整卡片高度，更协调 */
+    width: clamp(18rem, 50vw, 32rem); /* 智能宽度，iPad Mini时更宽 */
+    height: clamp(16rem, 22vw, 24rem); /* 智能高度 */
     background-color: #FFF3E6;
-    border-radius: clamp(1rem, 2vw, 1.5rem); /* 响应式圆角 */
-    padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); /* 调整内边距 */
+    border-radius: clamp(0.8rem, 1.8vw, 1.5rem); /* 智能圆角 */
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); /* 智能内边距 */
     text-align: left;
     color: #888888;
     box-shadow: 
-        clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.6vw, 0.5rem) rgba(0, 0, 0, 0.1), /* 响应式阴影 */
-        clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.25rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.15);
+        clamp(0.1rem, 0.3vw, 0.25rem) clamp(0.2rem, 0.5vw, 0.4rem) clamp(0.3rem, 0.6vw, 0.5rem) rgba(0, 0, 0, 0.1), /* 智能阴影 */
+        clamp(0.4rem, 1vw, 0.8rem) clamp(0.6rem, 1.5vw, 1.25rem) clamp(1rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.15);
+    flex: 1 1 clamp(18rem, 45vw, 28rem); /* 智能弹性布局 */
+    max-width: clamp(20rem, 55vw, 35rem); /* 设置最大宽度 */
 }
 
 .vision-label {
@@ -323,26 +329,29 @@ body::-webkit-scrollbar {
 
 .values-bottom {
     display: flex;
-    flex-wrap: nowrap;     
-    gap: clamp(1.5rem, 3vw, 2rem); /* 响应式间距 */
-    padding: 0 clamp(1.25rem, 2vw, 1.5rem); /* 响应式内边距 */
-    justify-content: flex-start;
+    flex-wrap: wrap;     
+    gap: clamp(0.8rem, 3vw, 2rem); /* 智能间距 */
+    padding: 0 clamp(0.5rem, 4vw, 2rem); /* 智能内边距 */
+    justify-content: center;
     scroll-behavior: smooth;
+    align-items: stretch;
 }
 
 .values-card {
-    width: clamp(14rem, 20vw, 18rem); /* 调整卡片宽度，更协调 */
-    height: clamp(18rem, 22vw, 22rem); /* 调整卡片高度，更协调 */
+    width: clamp(14rem, 40vw, 18rem); /* 智能宽度，iPad Mini时更宽 */
+    height: clamp(18rem, 20vw, 22rem); /* 智能高度 */
     background-color: #FFF1E5;
-    padding: clamp(1rem, 2vw, 1.5rem); /* 简化内边距 */
-    border-radius: clamp(1rem, 1.5vw, 1.25rem); /* 响应式圆角 */
+    padding: clamp(1rem, 2vw, 1.5rem); /* 智能内边距 */
+    border-radius: clamp(0.8rem, 1.5vw, 1.25rem); /* 智能圆角 */
     text-align: center;
-    box-shadow: 0 clamp(0.25rem, 0.4vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.6rem) rgba(0, 0, 0, 0.05); /* 响应式阴影 */
+    box-shadow: 0 clamp(0.2rem, 0.4vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem) rgba(0, 0, 0, 0.05); /* 智能阴影 */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex: 1 1 clamp(14rem, 35vw, 16rem); /* 智能弹性布局 */
+    max-width: clamp(16rem, 45vw, 20rem); /* 设置最大宽度 */
 }
 
 .values-icon {
@@ -704,22 +713,24 @@ body::-webkit-scrollbar {
 
 .timeline-content {
     display: flex;
-    gap: clamp(0.625rem, 2.1vw, 2.5rem); /* 响应式间距 */
+    gap: clamp(0.8rem, 2.5vw, 2.5rem); /* 智能间距，小屏幕时更紧凑 */
     align-items: center;
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 1), 
         rgba(255, 255, 255, 1));
-    padding: clamp(1.25rem, 2.1vw, 2.5rem); /* 响应式内边距 */
-    border-radius: clamp(1.5rem, 2vw, 1.75rem); /* 响应式圆角 */
+    padding: clamp(1.2rem, 2.5vw, 2.5rem); /* 智能内边距 */
+    border-radius: clamp(1.2rem, 2vw, 1.75rem); /* 智能圆角 */
     border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(255, 255, 255, 0.3); /* 响应式边框 */
     box-shadow: 
-        0 clamp(1.25rem, 2.5vw, 2rem) clamp(2.5rem, 4vw, 3rem) rgba(0, 0, 0, 0.1), /* 响应式阴影 */
+        0 clamp(1rem, 2.5vw, 2rem) clamp(2rem, 4vw, 3rem) rgba(0, 0, 0, 0.1), /* 智能阴影 */
         0 0 0 clamp(0.05rem, 0.1vw, 0.08rem) rgba(255, 255, 255, 0.05),
         inset 0 clamp(0.05rem, 0.1vw, 0.08rem) 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(clamp(0.5rem, 1vw, 0.75rem)); /* 响应式模糊 */
+    backdrop-filter: blur(clamp(0.5rem, 1vw, 0.75rem)); /* 智能模糊 */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    flex-wrap: wrap; /* 允许内容换行 */
+    justify-content: center; /* 居中对齐 */
 }
 
 .timeline-content::before {
@@ -738,7 +749,8 @@ body::-webkit-scrollbar {
 
 .timeline-image {
     flex: 1;
-    max-width: clamp(20rem, 25vw, 22rem); /* 响应式最大宽度 */
+    max-width: clamp(15rem, 35vw, 25rem); /* 智能最大宽度，iPad Mini时更宽 */
+    min-width: clamp(12rem, 30vw, 20rem); /* 设置最小宽度 */
     position: relative;
     z-index: 1;
 }
@@ -755,7 +767,8 @@ body::-webkit-scrollbar {
 
 .timeline-text {
     flex: 1;
-    max-width: clamp(25rem, 35vw, 31.25rem); /* 响应式最大宽度 */
+    max-width: clamp(18rem, 40vw, 35rem); /* 智能最大宽度，iPad Mini时更宽 */
+    min-width: clamp(15rem, 35vw, 28rem); /* 设置最小宽度 */
     position: relative;
     z-index: 1;
 }
@@ -995,6 +1008,7 @@ body::-webkit-scrollbar {
 /* ===========================================
    响应式设计 - 使用 clamp() 实现
    =========================================== */
+
 
 /* Timeline 专用响应式样式 - 使用 clamp() 实现 */
 
