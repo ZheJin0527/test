@@ -242,7 +242,7 @@ foreach ($defaultTimeline as $year => $data) {
         .year-tabs {
             display: flex;
             gap: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 0px;
         }
         
         .year-tab {
@@ -485,7 +485,7 @@ foreach ($defaultTimeline as $year => $data) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(0px, 1.04vw, 20px);
+            margin-bottom: clamp(0px, 1.56vw, 30px);
             flex-wrap: wrap;
             gap: 20px;
         }
