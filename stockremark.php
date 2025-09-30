@@ -40,7 +40,7 @@
         .header h1 {
             font-size: clamp(20px, 2.6vw, 50px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
         
         .header .controls {
@@ -113,7 +113,7 @@
             border-radius: 12px;
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
             margin-bottom: clamp(14px, 1.25vw, 24px);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
         }
 
@@ -133,7 +133,7 @@
         .filter-group label {
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
         }
 
         .filter-input, .filter-select {
@@ -172,12 +172,12 @@
         }
         
         .btn-primary {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
         }
         
         .btn-primary:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             transform: translateY(-1px);
         }
         
@@ -412,7 +412,7 @@
         }
 
         .selector-button {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
             font-weight: 500;
 <<<<<<< HEAD
@@ -450,7 +450,7 @@
         }
 
         .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
@@ -460,7 +460,7 @@
             top: 96%;
             right: 0;
             background: white;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
 <<<<<<< HEAD
@@ -483,9 +483,6 @@
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
             color: #583e04;
-<<<<<<< HEAD
-            font-size: 14px;
-=======
             font-size: clamp(8px, 0.74vw, 14px);
 >>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             font-weight: 500;
