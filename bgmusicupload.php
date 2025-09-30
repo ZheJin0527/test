@@ -255,7 +255,7 @@ function formatFileSize($bytes) {
         }
         
         .file-input:hover {
-            border-color: #583e04;
+            border-color: #000000ff;
             background: #fff5f0;
         }
         

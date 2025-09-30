@@ -178,7 +178,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input:hover {
-            border-color: #583e04;
+            border-color: #000000ff;
             background: #fff5f0;
         }
         
