@@ -47,7 +47,7 @@ html {
 
 /* page下方 */
 .footer {
-    padding: clamp(0.8rem, 1.5vw + 0.5rem, 2.5rem) 0 clamp(0.8rem, 1.5vw + 0.5rem, 2.5rem) clamp(1.5rem, 8vw + 2rem, 12rem); /* 响应式padding */
+    padding: clamp(0.8rem, 1.5vw + 0.5rem, 2.5rem) 0 0 clamp(1.5rem, 8vw + 2rem, 12rem); /* 响应式padding */
     height: clamp(12rem, 15vh, 22rem); /* 使用vh实现高度响应式 */
     background-color: #2F2F2F;
     color: white;
