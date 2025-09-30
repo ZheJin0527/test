@@ -62,9 +62,9 @@ if (!isset($mediaConfigIncluded)) {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
-                        <div class="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg opacity-0 invisible transition-all duration-200 login-menu">
-                            <a href="login.html" class="block px-4 py-2 text-gray-800 hover:bg-[#2f2f2f]">员工登入</a>
-                            <a href="login.html" class="block px-4 py-2 text-gray-800 hover:bg-[#2f2f2f]">会员登入</a>
+                        <div class="absolute right-0 mt-2 w-40 bg-[#2f2f2f] rounded shadow-lg opacity-0 invisible transition-all duration-200 login-menu">
+                            <a href="login.html" class="block px-4 py-2 text-white hover:bg-[#ff5c00]">员工登入</a>
+                            <a href="login.html" class="block px-4 py-2 text-white hover:bg-[#ff5c00]">会员登入</a>
                         </div>
                     </div>
 
