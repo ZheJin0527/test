@@ -182,7 +182,7 @@ if (file_exists('media_config.json')) {
             background: #f8f9fa;
             border-radius: 12px;
             padding: 20px;
-            border-left: 4px solid #583e04;
+            border-left: 4px solid #000000ff;
             transition: all 0.3s ease;
         }
         
@@ -198,7 +198,7 @@ if (file_exists('media_config.json')) {
         }
         
         .photo-number {
-            background: #583e04;
+            background: #000000ff;
             color: white;
             width: clamp(20px, 1.82vw, 35px);
             height: clamp(20px, 1.82vw, 35px);
@@ -218,7 +218,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input {
-            border: 2px dashed #583e04;
+            border: 2px dashed #000000ff;
             border-radius: 8px;
             padding: clamp(10px, 1.04vw, 20px);
             text-align: center;
@@ -229,7 +229,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input:hover {
-            border-color: #583e04;
+            border-color: #000000ff;
             background: #fff5f0;
         }
         
@@ -238,7 +238,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input-text {
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
         }
@@ -265,7 +265,7 @@ if (file_exists('media_config.json')) {
         }
         
         .upload-btn {
-            background: #583e04;
+            background: #f99e00;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
@@ -278,8 +278,9 @@ if (file_exists('media_config.json')) {
         }
         
         .upload-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(255, 92, 0, 0.3);
+            background: #f98500ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
         
         .section-title {
