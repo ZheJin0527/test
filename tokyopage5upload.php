@@ -339,6 +339,8 @@ $currentConfig = getTokyoLocationConfig();
             margin-bottom: clamp(10px, 1.04vw, 20px);
             position: relative;
             border-left: 4px solid #000000ff;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
         }
         
         .store-section.new-store {
