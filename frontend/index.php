@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['css/index.css','../public/css/components/header.css','../public/css/components/social.css','../public/css/components/footer.css']; // footer.css 放最后，确保样式优先级
+$additionalCSS = ['css/index.css','../public/css/components/header.css','../public/css/components/social.css','../public/css/components/footer.css','./dist/output.css'];
 $showPageIndicator = true;
 $totalSlides = 4;
 
