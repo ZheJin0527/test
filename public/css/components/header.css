@@ -3,6 +3,10 @@
    KUNZZ HOLDINGS Website Header Navigation
    使用 clamp() 和 rem/vw/vh 单位实现响应式设计
    =========================================== */
+html {
+    font-size: 62.5%; /* 基础字体大小，1rem = 10px */
+}
+
 
 /* 导航栏 - 现代化响应式 */
 .header-navbar {
