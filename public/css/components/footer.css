@@ -9,12 +9,14 @@ html {
 
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
-    height: clamp(30vh, 35vh, 40vh); /* 响应式高度，小屏幕增加高度 */
-    justify-content: flex-start; /* 改为从顶部开始，避免偏下 */
+    height: clamp(30vh, 35vh, 40vh) !important; /* 强制响应式高度 */
+    justify-content: flex-start !important; /* 强制从顶部开始 */
     align-items: center;
     padding: 0;
     margin: 0;
     overflow: hidden;
+    display: flex !important; /* 确保flex布局 */
+    flex-direction: column !important; /* 确保垂直排列 */
     /* 关键：添加背景色遮盖上页残影 */
     background: #2f2f2f; /* 使用footer的深色背景 */
     position: relative;
