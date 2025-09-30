@@ -281,7 +281,7 @@ if (file_exists('media_config.json')) {
             top: 20px;
             right: 20px;
             font-size: clamp(18px, 1.25vw, 24px);
-            color: #FF5C00;
+            color: #f99e00;
             transition: transform 0.3s ease;
         }
         
