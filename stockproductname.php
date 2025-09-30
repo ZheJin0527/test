@@ -114,7 +114,7 @@ if (isset($_SESSION['user_id'])) {
             right: 0;
             background: white;
             border: 2px solid #000000ff;
-            border-radius: 8px;
+            border-bottom: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
             width: 100%;
             z-index: 10000;
