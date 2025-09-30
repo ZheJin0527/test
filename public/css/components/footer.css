@@ -2,6 +2,10 @@
    Footer Component Styles - 现代化响应式版本
    使用 clamp() 和 rem/vw/vh 单位实现响应式设计
    =========================================== */
+html {
+    font-size: 62.5%; /* 基础字体大小，1rem = 10px */
+}
+
 
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
