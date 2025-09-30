@@ -200,7 +200,7 @@ if (isset($_SESSION['user_id'])) {
     padding: clamp(2px, 0.31vw, 6px) clamp(14px, 1.04vw, 20px);
     font-size: clamp(8px, 0.84vw, 16px);
     font-weight: bold;
-    color: #ffffffff;
+    color: #000000ff;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
@@ -491,7 +491,7 @@ if (isset($_SESSION['user_id'])) {
 .sidebar-menu-hamburger span {
     width: clamp(10px, 0.94vw, 18px);
     height: clamp(1px, 0.1vw, 2px);
-    background-color: #ffffffff;
+    background-color: #000000ff;
     margin: clamp(1px, 0.1vw, 2px) 0;
     transition: all 0.3s ease;
     border-radius: 1px;
@@ -505,7 +505,6 @@ if (isset($_SESSION['user_id'])) {
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
-    filter: brightness(0) invert(1);
 }
 
 /* 更新 section-title 的 flexbox 布局 */
@@ -645,14 +644,14 @@ if (isset($_SESSION['user_id'])) {
     margin: 0;
     font-size: clamp(6px, 0.63vw, 12px);
     font-weight: 500;
-    color: #ffffffff;
+    color: #000000ff;
 }
 
 .user-position {
     margin: 2px 0 0 0;
     font-size: clamp(7px, 0.63vw, 12px);
     font-weight: 400;
-    color: #ffffffff;
+    color: #000000ff;
 }
 
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
@@ -666,7 +665,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu .informationmenu-header,
 .informationmenu .informationmenu-content,
 .informationmenu .informationmenu-footer {
-    background: #2F2F2F;               /* 侧栏本体白底 */
+    background: #ffffffff;               /* 侧栏本体白底 */
     pointer-events: auto;              /* 本体可交互 */
 }
 
