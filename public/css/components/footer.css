@@ -47,7 +47,7 @@ html {
 
 /* page下方 */
 .footer {
-    padding: clamp(1rem, 2vw + 0.5rem, 2.5rem) 0 clamp(0.5rem, 1vh, 1rem) clamp(1.5rem, 8vw + 2rem, 12rem); /* 增加底部padding */
+    padding: clamp(1rem, 2vw + 0.5rem, 2.5rem) 0 0 clamp(1.5rem, 8vw + 2rem, 12rem); /* 增加底部padding */
     height: auto; /* 改为auto，让内容决定高度 */
     min-height: clamp(14rem, 18vh, 20rem); /* 使用min-height代替固定height */
     background-color: #2F2F2F;
