@@ -115,7 +115,7 @@ if (file_exists('media_config.json')) {
             background: #f8f9fa;
             border-radius: 10px;
             padding: clamp(10px, 1.04vw, 20px) clamp(20px, 1.56vw, 30px);
-            margin-bottom: 30px;
+            margin-bottom: clamp(20px, 1.56vw, 30px);
             border-left: 5px solid #000000ff;
         }
         
