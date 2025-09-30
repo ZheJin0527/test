@@ -76,7 +76,7 @@ if (file_exists('media_config.json')) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #ffffffff 0%, #f3ebe0ff 100%);
+            background: #faf7f2;
             min-height: 100vh;
             padding: 20px;
         }
@@ -95,7 +95,7 @@ if (file_exists('media_config.json')) {
             background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
             color: white;
             padding: clamp(16px, 1.56vw, 30px);
-            text-align: center;
+            text-align: left;
         }
         
         .header h1 {
@@ -117,7 +117,7 @@ if (file_exists('media_config.json')) {
             border-radius: 10px;
             padding: clamp(10px, 1.04vw, 20px) clamp(20px, 1.56vw, 30px);
             margin-bottom: 30px;
-            border-left: 5px solid #FF5C00;
+            border-left: 5px solid #000000ff;
         }
         
         .media-section h2 {
