@@ -5,7 +5,7 @@
 
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
-    height: 29vh; /* 保持原来的36vh */
+    height: clamp(25vh, 29vh, 35vh); /* 响应式高度，适配不同屏幕 */
     justify-content: flex-end;
     align-items: center;
     padding: 0;
@@ -21,7 +21,7 @@
     background-color: #2f2f2f;
     display: flex;
     flex-direction: column;
-    min-height: 26vh;
+    min-height: clamp(20vh, 26vh, 30vh); /* 响应式最小高度 */
     justify-content: flex-end;
     margin: 0;
     padding: 0;
@@ -33,40 +33,46 @@
 .swiper-slide.footer-slide::before {
     content: '';
     position: absolute;
-    top: -71vh;
+    top: clamp(-60vh, -71vh, -80vh); /* 响应式顶部位置 */
     left: 0;
     right: 0;
-    height: 64vh;
+    height: clamp(50vh, 64vh, 70vh); /* 响应式高度 */
     background: #2a2a2a;
     z-index: 1;
 }
 
 /* page下方 */
 .footer {
-    padding: 20px 0 20px 100px; /* 去掉左右 padding */
-    height: clamp(150px, 10.5vw, 200px);
+    padding: 1.25rem 0 1.25rem 6.25rem; /* 20px 0 20px 100px */
+    height: clamp(9.375rem, 10.5vw, 12.5rem); /* 150px-200px */
     background-color: #2F2F2F;
     color: white;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* 让内容整体居中 */
+    justify-content: center;
     margin-top: auto;
     min-height: auto;
     position: relative;
     z-index: 2;
-    text-align: left; /* 文字左对齐 */
+    text-align: left;
+    box-sizing: border-box;
 }
 
 .footer-section {
-    flex: 1 1 200px;
+    flex: 1 1 clamp(12.5rem, 20vw, 15.625rem); /* 200px-250px */
     margin-bottom: 0;
-    max-width: 200px;
+    max-width: clamp(12.5rem, 20vw, 15.625rem);
+    min-width: 10rem; /* 160px */
+    padding: 0 0.5rem; /* 8px */
+    box-sizing: border-box;
 }
 
 .footer-section h4 {
-    font-size: clamp(14px, 0.84vw, 16px);
-    margin-bottom: 0;
+    font-size: clamp(0.875rem, 1.2vw, 1rem); /* 14px-16px */
+    margin-bottom: 0.5rem; /* 8px */
     color: #fff;
+    font-weight: 600;
+    line-height: 1.2;
 }
 
 .footer-section h4 a {
@@ -80,9 +86,10 @@
 }
 
 .footer-section li {
-    margin-bottom: 8px;
-    font-size: clamp(14px, 0.84vw, 16px);
+    margin-bottom: 0.5rem; /* 8px */
+    font-size: clamp(0.875rem, 1vw, 1rem); /* 14px-16px */
     color: #ccc;
+    line-height: 1.4;
 }
 
 .footer-section li a {
@@ -93,19 +100,20 @@
 .footer-bottom {
     position: relative;
     text-align: center;
-    font-size: clamp(10px, 0.84vw, 14px);
+    font-size: clamp(0.625rem, 0.8vw, 0.875rem); /* 10px-14px */
     color: #666;
     background-color: #2F2F2F;
-    padding: 10px 80px; /* 去掉左右 padding */
+    padding: 0.625rem 5rem; /* 10px 80px */
+    line-height: 1.5;
 }
 
 .footer-bottom::before {
     content: "";
     position: absolute;
     top: 0;
-    left: 80px;
-    right: 80px;
-    height: 1.2px;
+    left: 5rem; /* 80px */
+    right: 5rem; /* 80px */
+    height: 0.075rem; /* 1.2px */
     background-color: #444;
 }
 
@@ -314,17 +322,70 @@
     opacity: 1;
 }
 
-/* 响应式断点优化 */
-@media (max-width: 768px) {
+/* ===========================================
+   响应式断点优化 - 使用rem/vw/vh单位
+   =========================================== */
+
+/* 大屏幕桌面 (1200px+) */
+@media (min-width: 75rem) {
     .footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        padding: 1.5rem 0 1.5rem 8rem; /* 24px 0 24px 128px */
     }
     
     .footer-section {
+        flex: 1 1 18.75rem; /* 300px */
+        max-width: 18.75rem;
+    }
+}
+
+/* 平板横屏模式 (768px - 1024px) */
+@media (min-width: 48rem) and (max-width: 64rem) {
+    .footer {
+        padding: 1rem 0 1rem 4rem; /* 16px 0 16px 64px */
+        height: clamp(8rem, 12vh, 10rem); /* 128px-160px */
+    }
+    
+    .footer-section {
+        flex: 1 1 clamp(10rem, 18vw, 12.5rem); /* 160px-200px */
+        max-width: clamp(10rem, 18vw, 12.5rem);
+        padding: 0 0.25rem; /* 4px */
+    }
+    
+    .footer-section h4 {
+        font-size: clamp(0.75rem, 1.1vw, 0.875rem); /* 12px-14px */
+        margin-bottom: 0.375rem; /* 6px */
+    }
+    
+    .footer-section li {
+        font-size: clamp(0.75rem, 0.9vw, 0.875rem); /* 12px-14px */
+        margin-bottom: 0.375rem; /* 6px */
+    }
+    
+    .footer-bottom {
+        padding: 0.5rem 3rem; /* 8px 48px */
+        font-size: clamp(0.5rem, 0.7vw, 0.75rem); /* 8px-12px */
+    }
+    
+    .footer-bottom::before {
+        left: 3rem; /* 48px */
+        right: 3rem; /* 48px */
+    }
+}
+
+/* 平板竖屏模式 (481px - 767px) */
+@media (min-width: 30.0625rem) and (max-width: 47.9375rem) {
+    .footer {
+        padding: 0.75rem 0 0.75rem 2rem; /* 12px 0 12px 32px */
+        height: clamp(7rem, 15vh, 9rem); /* 112px-144px */
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-section {
+        flex: 1 1 100%;
+        max-width: 20rem; /* 320px */
+        margin-bottom: 1rem; /* 16px */
         text-align: center;
-        margin-bottom: 1.5rem;
     }
     
     .footer-section h4,
@@ -332,11 +393,52 @@
     .footer-section li {
         text-align: center;
     }
+    
+    .footer-bottom {
+        padding: 0.5rem 1rem; /* 8px 16px */
+        font-size: 0.625rem; /* 10px */
+    }
+    
+    .footer-bottom::before {
+        left: 1rem; /* 16px */
+        right: 1rem; /* 16px */
+    }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+/* 手机模式 (最大480px) */
+@media (max-width: 30rem) {
     .footer {
-        justify-content: space-around;
+        padding: 0.5rem 0 0.5rem 1rem; /* 8px 0 8px 16px */
+        height: clamp(6rem, 18vh, 8rem); /* 96px-128px */
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-section {
+        flex: 1 1 100%;
+        max-width: 18rem; /* 288px */
+        margin-bottom: 0.75rem; /* 12px */
+        text-align: center;
+    }
+    
+    .footer-section h4 {
+        font-size: 0.75rem; /* 12px */
+        margin-bottom: 0.25rem; /* 4px */
+    }
+    
+    .footer-section li {
+        font-size: 0.625rem; /* 10px */
+        margin-bottom: 0.25rem; /* 4px */
+    }
+    
+    .footer-bottom {
+        padding: 0.375rem 0.5rem; /* 6px 8px */
+        font-size: 0.5rem; /* 8px */
+    }
+    
+    .footer-bottom::before {
+        left: 0.5rem; /* 8px */
+        right: 0.5rem; /* 8px */
     }
 }
 
