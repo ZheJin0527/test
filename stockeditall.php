@@ -311,7 +311,7 @@
         .date-cell {
             background: #f8f5eb !important;
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
             padding: 12px 8px;
             min-width: 100px;
             text-align: center;
@@ -418,7 +418,7 @@
 
         .currency-display .currency-amount {
             font-weight: 500;
-            color: #583e04;
+            color: #000000ff;
             text-align: center;
             min-width: 28px;
         }
@@ -512,7 +512,7 @@
         .date-cell {
             background: #f8f5eb !important;
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
             padding: 12px 8px;
             min-width: 100px;
         }
