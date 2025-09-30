@@ -214,14 +214,14 @@ if (isset($_SESSION['user_id'])) {
     background-color: #ff5c00;
     color: #ffffff;
     border-radius: clamp(4px, 0.42vw, 8px);
-    margin: 0 10px;
+    margin: 0;
 }
 
 .informationmenu-section-title.active {
     background-color: #ff5c00;
     color: #ffffff;
     border-radius: clamp(4px, 0.42vw, 8px);
-    margin: 0 10px;
+    margin: 0;
 }
 
 .section-arrow {
