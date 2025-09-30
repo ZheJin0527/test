@@ -156,7 +156,7 @@ if (isset($_GET['success'])) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1dfbc;
+            background: #faf7f2;
             min-height: 100vh;
             padding: 0px;
         }
@@ -165,14 +165,14 @@ if (isset($_GET['success'])) {
             max-width: 1800px;
             margin: 0 auto;
             padding: clamp(16px, 1.25vw, 24px) 24px;
-            background: #f1dfbc;
+            background: #faf7f2;
             border-radius: 15px;
             overflow: hidden;
         }
         
         .header {
             background: transparent;
-            color: #583e04;
+            color: #000000ff;
             text-align: center;
         }
         
@@ -189,7 +189,7 @@ if (isset($_GET['success'])) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #583e04;
+            color: #636363;
             text-decoration: none;
         }
         
@@ -202,7 +202,7 @@ if (isset($_GET['success'])) {
             border-radius: 10px;
             padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: clamp(20px, 1.56vw, 30px);
-            border-left: 5px solid #583e04;
+            border-left: 5px solid #000000ff;
         }
         
         .form-section h2 {
@@ -258,7 +258,7 @@ if (isset($_GET['success'])) {
         }
         
         .btn {
-            background: #583e04;
+            background: #f99e00;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
@@ -270,6 +270,7 @@ if (isset($_GET['success'])) {
         }
         
         .btn:hover {
+            background: #f98500ff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
