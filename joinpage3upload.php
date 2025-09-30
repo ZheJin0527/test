@@ -472,7 +472,7 @@ if (isset($_GET['success'])) {
             background: white;
             border-radius: 10px;
             padding: clamp(18px, 1.56vw, 30px);
-            border-left: 5px solid #583e04;
+            border-left: 5px solid #000000ff;
         }
         
         .jobs-list h2 {
@@ -513,9 +513,9 @@ if (isset($_GET['success'])) {
         }
         
         .job-title-item {
-            font-size: 1.3em;
+            font-size: clamp(8px, 0.73vw, 14px);
             font-weight: 700;
-            color: #583e04;
+            color: #000000ff;
             margin-bottom: 10px;
         }
         
