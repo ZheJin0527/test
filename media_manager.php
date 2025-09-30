@@ -302,8 +302,10 @@ if (file_exists('media_config.json')) {
     </style>
 </head>
 <body>
-    <h1>媒体管理中心</h1>
     <div class="container">
+        <div class="header">
+            <h1>媒体管理中心</h1>
+        </div>
         
         <div class="content">
             <a href="dashboard.php" class="back-btn">← 返回仪表板</a>
