@@ -86,7 +86,7 @@ if (file_exists('media_config.json')) {
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0px 5px 15px rgb(0 0 0 / 60%);
             overflow: hidden;
         }
         
