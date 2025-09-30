@@ -126,7 +126,7 @@
             height: clamp(20px, 2.08vw, 40px);
             border: 2px solid #e5e7eb;
             background: white;
-            color: #583e04;
+            color: #000000ff;
             cursor: pointer;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
@@ -135,9 +135,9 @@
         }
 
         .number-item:hover {
-            background: #583e04;
-            color: white;
-            border-color: #583e04;
+            background-color: #f3f4f6;
+            color: black;
+            border-color: #d1d5db;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
