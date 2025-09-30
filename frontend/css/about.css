@@ -35,7 +35,7 @@ body::-webkit-scrollbar {
     background-color: #2F2F2F;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 改为居中 */
+    justify-content: start; /* 与index和joinus保持一致 */
     align-items: center;
     height: 100vh;
     overflow: hidden;
