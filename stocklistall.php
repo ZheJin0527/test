@@ -133,7 +133,7 @@
         .dropdown-item.active {
             background-color: #f99e00;
             color: white;
-            border-radius: 4px;
+            border-top: 4px;
         }
 
         .back-button {
