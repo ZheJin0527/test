@@ -211,8 +211,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section-title:hover {
-    background-color: #ff5c00;
-    color: #ffffff;
+    background-color: #ffffffff;
+    color: #ff5c00;
     margin: 0;
 }
 
