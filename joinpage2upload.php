@@ -83,7 +83,7 @@ if (file_exists('media_config.json')) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1dfbc;
+            background: #faf7f2;
             min-height: 100vh;
             padding: 0px;
         }
@@ -92,14 +92,14 @@ if (file_exists('media_config.json')) {
             max-width: 1800px;
             margin: 0 auto;
             padding: clamp(16px, 1.25vw, 24px) 24px;
-            background: #f1dfbc;
+            background: #faf7f2;
             border-radius: 15px;
             overflow: hidden;
         }
         
         .header {
             background: transparent;
-            color: #583e04;
+            color: #000000ff;
             text-align: center;
         }
         
@@ -122,7 +122,7 @@ if (file_exists('media_config.json')) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #583e04;
+            color: #636363;
             text-decoration: none;
         }
         
@@ -287,7 +287,7 @@ if (file_exists('media_config.json')) {
             font-size: clamp(16px, 1.5vw, 28px);
             margin-bottom: clamp(10px, 1.04vw, 20px);
             text-align: center;
-            border-bottom: 2px solid #583e04;
+            border-bottom: 2px solid #000000ff;
             padding-bottom: 8px;
         }
         
@@ -310,7 +310,7 @@ if (file_exists('media_config.json')) {
         .stats-number {
             font-size: clamp(12px, 1.04vw, 20px);
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
         }
         
         @media (max-width: 768px) {
