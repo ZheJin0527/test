@@ -553,7 +553,3 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
-
-html {
-  font-size: 62.5%;
-}
