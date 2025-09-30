@@ -1,31 +1,77 @@
-// Header - Tailwind版本 (使用group-hover，JavaScript仅处理移动端菜单)
+// Header - Tailwind版本
 document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    const languageBtn = document.getElementById('languageBtn');
-
-    // 移动端汉堡菜单切换
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('-translate-y-full');
-            navMenu.classList.toggle('translate-y-0');
-            navMenu.classList.toggle('hidden');
-            navMenu.classList.toggle('flex');
+    // Login dropdown hover
+    const loginDropdown = document.querySelector('.login-dropdown');
+    const loginMenu = document.querySelector('.login-menu');
+    
+    if (loginDropdown && loginMenu) {
+        loginDropdown.addEventListener('mouseenter', () => {
+            loginMenu.classList.remove('opacity-0', 'invisible');
+            loginMenu.classList.add('opacity-100', 'visible');
+        });
+        
+        loginDropdown.addEventListener('mouseleave', () => {
+            loginMenu.classList.add('opacity-0', 'invisible');
+            loginMenu.classList.remove('opacity-100', 'visible');
         });
     }
 
-    // 语言切换更新按钮文字
-    const languageItems = document.querySelectorAll('[data-lang]');
-    languageItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const selectedLang = this.getAttribute('data-lang');
-            if (selectedLang === 'en') {
-                languageBtn.textContent = 'English';
-            } else {
-                languageBtn.textContent = '中文';
+    // Language dropdown hover
+    const languageDropdown = document.querySelector('.language-dropdown');
+    const languageMenu = document.querySelector('.language-menu');
+    
+    if (languageDropdown && languageMenu) {
+        languageDropdown.addEventListener('mouseenter', () => {
+            languageMenu.classList.remove('opacity-0', 'invisible');
+            languageMenu.classList.add('opacity-100', 'visible');
+        });
+        
+        languageDropdown.addEventListener('mouseleave', () => {
+            languageMenu.classList.add('opacity-0', 'invisible');
+            languageMenu.classList.remove('opacity-100', 'visible');
+        });
+    }
+
+    // Language switch
+    const languageText = document.querySelector('.language-text');
+    const languageOptions = document.querySelectorAll('.language-option');
+    const mobileLangOptions = document.querySelectorAll('.mobile-lang-option');
+    
+    languageOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const lang = option.getAttribute('data-lang');
+            if (languageText) {
+                languageText.textContent = lang;
             }
+            localStorage.setItem('language', lang);
         });
     });
+
+    mobileLangOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const lang = option.getAttribute('data-lang');
+            if (languageText) {
+                languageText.textContent = lang;
+            }
+            localStorage.setItem('language', lang);
+        });
+    });
+
+    // Load saved language
+    const savedLang = localStorage.getItem('language');
+    if (savedLang && languageText) {
+        languageText.textContent = savedLang;
+    }
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
 
     // 页面指示器点击处理（如果存在）
     const pageDots = document.querySelectorAll('[data-slide]');
@@ -43,3 +89,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
