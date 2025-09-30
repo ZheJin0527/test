@@ -479,7 +479,6 @@ session_start();
     <div class="container">
         <div class="header">
             <h1>
-                <i class="fas fa-cog"></i>
                 最低库存设置
             </h1>
             <button class="btn btn-secondary" onclick="goBack()">
