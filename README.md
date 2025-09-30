@@ -166,40 +166,12 @@ kunzzweb/
 ├── composer.lock
 └── phpinfo.php
 
-改进方向与目标
+现代化响应式：
+1. 使用clamp{}跟随屏幕的PPI/DPI/DPR去改变元素的像素大小
+2. @media只用于手机/平板竖屏的断点来改变排版布局，元素大小
 
-1. 优化文件架构：
-
-    -按照项目文件结构，拆分并分类管理 CSS，例如：
-
-    -global.css：全局通用样式（变量、reset、基础排版）。
-
-    -components/：组件级别样式（header、footer、button、card 等）。
-
-    -pages/：页面级别样式（如 index.css、about.css、joinus.css）。
-
-2. 保留原有的设计、排版和内容，仅调整存放位置与结构。
-
-3. 统一响应式断点
-
-    -制定统一的断点体系，覆盖主流设备分辨率：
-
-    -/* Mobile (小于 768px) */
-
-    -/* Tablet (768px 及以上) */
-
-    -/* Laptop (992px 及以上) */
-
-    -/* Desktop Full HD (1200px 及以上) */
-
-    -/* Desktop 2K (1600px 及以上) */
-
-    -/* Desktop 4K (2560px 及以上) */
-
-    -所有样式遵循统一断点体系，避免重复和混乱。
-
-4. 明确标注与规范
-
-    -在 CSS 文件内添加清晰的注释和分区说明，方便日后快速定位问题。
-
-    -规范命名与注释格式，降低团队成员理解和维护成本。
+预设网页像素：
+html {
+    font-size: 62.5%;
+}
+1. 把像素点默认在10px，方便换算rem: 1rem = 10px

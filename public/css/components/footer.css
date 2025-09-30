@@ -47,13 +47,14 @@ html {
 
 /* page下方 */
 .footer {
-    padding: 1.25rem 0 1.25rem 6.25rem; /* 20px 0 20px 100px */
-    height: clamp(9.375rem, 10.5vw, 12.5rem); /* 150px-200px */
+    padding: clamp(0.8rem, 1.5vw + 0.5rem, 2.5rem) 0 clamp(0.8rem, 1.5vw + 0.5rem, 2.5rem) clamp(1.5rem, 8vw + 2rem, 12rem); /* 响应式padding */
+    height: clamp(12rem, 15vh, 22rem); /* 使用vh实现高度响应式 */
     background-color: #2F2F2F;
     color: white;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
     margin-top: auto;
     min-height: auto;
     position: relative;
@@ -63,17 +64,17 @@ html {
 }
 
 .footer-section {
-    flex: 1 1 clamp(12.5rem, 20vw, 15.625rem); /* 200px-250px */
-    margin-bottom: 0;
-    max-width: clamp(12.5rem, 20vw, 15.625rem);
-    min-width: 10rem; /* 160px */
-    padding: 0 0.5rem; /* 8px */
+    flex: 1 1 clamp(11rem, 18vw + 2rem, 22rem); /* 110px-220px 流畅响应 */
+    margin-bottom: clamp(0rem, 2vw, 1.5rem); /* 小屏幕0，大屏幕15px */
+    max-width: clamp(11rem, 18vw + 2rem, 22rem);
+    min-width: clamp(10rem, 15vw, 12rem); /* 100px-120px */
+    padding: 0 clamp(0.4rem, 0.8vw, 1rem); /* 4px-10px */
     box-sizing: border-box;
 }
 
 .footer-section h4 {
-    font-size: clamp(0.875rem, 1.2vw, 1rem); /* 14px-16px */
-    margin-bottom: 0.5rem; /* 8px */
+    font-size: clamp(0.8rem, 0.5vw + 0.6rem, 1.6rem); /* 8px-16px 平滑过渡 */
+    margin-bottom: clamp(0.4rem, 0.5vw + 0.2rem, 0.8rem); /* 4px-8px */
     color: #fff;
     font-weight: 600;
     line-height: 1.2;
@@ -90,8 +91,8 @@ html {
 }
 
 .footer-section li {
-    margin-bottom: 0.5rem; /* 8px */
-    font-size: clamp(0.875rem, 1vw, 1rem); /* 14px-16px */
+    margin-bottom: clamp(0.3rem, 0.4vw + 0.2rem, 0.8rem); /* 3px-8px */
+    font-size: clamp(0.8rem, 0.4vw + 0.5rem, 1.4rem); /* 8px-14px 平滑过渡 */
     color: #ccc;
     line-height: 1.4;
 }
@@ -104,10 +105,10 @@ html {
 .footer-bottom {
     position: relative;
     text-align: center;
-    font-size: clamp(0.625rem, 0.8vw, 0.875rem); /* 10px-14px */
+    font-size: clamp(0.8rem, 0.3vw + 0.5rem, 1.2rem); /* 8px-12px 平滑过渡 */
     color: #666;
     background-color: #2F2F2F;
-    padding: 0.625rem 5rem; /* 10px 80px */
+    padding: clamp(0.6rem, 0.5vw + 0.4rem, 1rem) clamp(1.5rem, 6vw + 1rem, 8rem); /* 响应式padding */
     line-height: 1.5;
 }
 
@@ -115,215 +116,8 @@ html {
     content: "";
     position: absolute;
     top: 0;
-    left: 5rem; /* 80px */
-    right: 5rem; /* 80px */
-    height: 0.075rem; /* 1.2px */
+    left: clamp(1.5rem, 6vw + 1rem, 8rem); /* 15px-80px */
+    right: clamp(1.5rem, 6vw + 1rem, 8rem); /* 15px-80px */
+    height: 0.1rem; /* 1px */
     background-color: #444;
 }
-
-#backToTop {
-    position: fixed;
-    bottom: clamp(1rem, 2vw, 1.5rem); /* 响应式底部位置 */
-    right: clamp(1rem, 2vw, 1.5rem); /* 响应式右边位置 */
-    display: none;
-    padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.8rem, 1.5vw, 1.2rem); /* 响应式内边距 */
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem); /* 响应式字体大小 */
-    border: none;
-    border-radius: 50%;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    z-index: 999;
-    opacity: 0.6;
-    box-shadow: 0 clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.4rem, 0.8vw, 0.6rem) rgba(0,0,0,0.3); /* 响应式阴影 */
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.backToTopBtn:hover {
-    transform: scale(1.2);
-    opacity: 1;
-}
-
-.social-sidebar {
-    position: fixed;
-    right: clamp(1.25rem, 2vw, 1.5rem); /* 响应式位置 */
-    bottom: clamp(1.25rem, 2vw, 1.5rem); /* 响应式位置 */
-    display: flex;
-    flex-direction: column;
-    gap: clamp(0.75rem, 1vw, 1rem); /* 响应式间距 */
-    z-index: 1000;
-    animation: pulse 4s ease-in-out infinite;
-}
-
-.social-icon {
-    width: clamp(2.25rem, 2.24vw, 2.7rem); /* 响应式尺寸 */
-    height: clamp(2.25rem, 2.24vw, 2.7rem); /* 响应式尺寸 */
-    border-radius: clamp(0.6rem, 1vw, 0.8rem); /* 响应式圆角 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(clamp(0.8rem, 1.2vw, 1rem)); /* 响应式模糊 */
-    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(0, 0, 0, 0.2); /* 响应式边框 */
-    transform-style: preserve-3d;
-    background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.3), 
-        rgba(0, 0, 0, 0.1));
-}
-
-.social-icon::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.3), transparent);
-    transition: left 0.6s ease;
-}
-
-.social-icon:hover::before {
-    left: 100%;
-}
-
-.social-icon::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.2), transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.4s ease;
-}
-
-.social-icon:hover::after {
-    width: clamp(1rem, 1.5vw, 1.3rem); /* 响应式尺寸 */
-    height: clamp(1rem, 1.5vw, 1.3rem); /* 响应式尺寸 */
-}
-
-.social-icon:hover {
-    transform: translateY(clamp(-0.3rem, -0.5vw, -0.4rem)) translateX(clamp(-0.2rem, -0.3vw, -0.25rem)) rotateY(5deg) scale(1.1); /* 响应式变换 */
-    box-shadow: 
-        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(0,0,0,0.4), /* 响应式阴影 */
-        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(0, 0, 0, 0.1),
-        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.3);
-}
-
-.social-icon:active {
-    transform: translateY(clamp(-0.25rem, -0.4vw, -0.3rem)) scale(1.05); /* 响应式变换 */
-}
-
-/* Facebook 悬停样式 */
-.facebook:hover {
-    background: linear-gradient(135deg, 
-        rgba(24, 119, 242, 0.9), 
-        rgba(24, 119, 242, 0.7));
-    box-shadow: 
-        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(24, 119, 242, 0.4), /* 响应式阴影 */
-        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(24, 119, 242, 0.2),
-        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(24, 119, 242, 0.1),
-        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(24, 119, 242, 0.3);
-}
-
-/* Instagram 悬停样式 */
-.instagram:hover {
-    background: linear-gradient(135deg, 
-        rgba(225, 48, 108, 0.9), 
-        rgba(255, 119, 48, 0.7));
-    box-shadow: 
-        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(225, 48, 108, 0.4), /* 响应式阴影 */
-        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(225, 48, 108, 0.2),
-        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(225, 48, 108, 0.1),
-        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(225, 48, 108, 0.3);
-}
-
-/* WhatsApp 悬停样式 */
-.whatsapp:hover {
-    background: linear-gradient(135deg, 
-        rgba(37, 211, 102, 0.9), 
-        rgba(37, 211, 102, 0.7));
-    box-shadow: 
-        0 clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem) rgba(37, 211, 102, 0.4), /* 响应式阴影 */
-        0 0 0 clamp(0.2rem, 0.3vw, 0.3rem) rgba(37, 211, 102, 0.2),
-        0 0 0 clamp(0.4rem, 0.6vw, 0.6rem) rgba(37, 211, 102, 0.1),
-        0 0 clamp(1rem, 1.5vw, 1.3rem) rgba(37, 211, 102, 0.3);
-}
-
-/* 图标 PNG 样式 - 默认状态稍微透明 */
-.social-icon img {
-    width: clamp(2.2rem, 2.2vw, 2.6rem); /* 响应式尺寸 */
-    height: clamp(2.2rem, 2.2vw, 2.6rem); /* 响应式尺寸 */
-    filter: grayscale(100%) brightness(0.7) drop-shadow(0 clamp(0.05rem, 0.1vw, 0.08rem) clamp(0.1rem, 0.15vw, 0.15rem) rgba(0,0,0,0.5)); /* 响应式阴影 */
-    transition: all 0.4s ease;
-    z-index: 2;
-    position: relative;
-    opacity: 0.5; /* 只对图片应用透明度 */
-}
-
-.social-icon:hover img {
-    transform: scale(1.15) rotateZ(-3deg);
-    filter: grayscale(0%) brightness(1) drop-shadow(0 clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.2rem, 0.3vw, 0.3rem) rgba(0,0,0,0.6)); /* 响应式阴影 */
-    opacity: 1; /* 悬停时完全不透明 */
-}
-
-/* 脉冲动画 - 修改为不影响图片透明度 */
-@keyframes pulse {
-    0%, 100% { 
-        transform: scale(1);
-    }
-    50% { 
-        transform: scale(1.05);
-    }
-}
-
-/* 响应式设计 - 使用 clamp() 实现 */
-
-/* 额外的视觉效果 */
-.social-icon {
-    background-attachment: fixed;
-}
-
-.social-icon:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.social-icon:nth-child(2) {
-    animation-delay: 0.5s;
-}
-
-.social-icon:nth-child(3) {
-    animation-delay: 1s;
-}
-
-/* 悬浮粒子效果 */
-.social-icon:hover {
-    animation: none;
-}
-
-/* 特殊的磨砂玻璃效果 */
-.social-sidebar::before {
-    content: '';
-    position: absolute;
-    top: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式位置 */
-    left: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式位置 */
-    right: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式位置 */
-    bottom: clamp(-0.5rem, -1vw, -0.75rem); /* 响应式位置 */
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 50%);
-    border-radius: clamp(1.5rem, 3vw, 2rem); /* 响应式圆角 */
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.social-sidebar:hover::before {
-    opacity: 1;
-}
-
-/* Footer响应式优化已完成 - 使用纯clamp()方案 */
