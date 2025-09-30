@@ -54,8 +54,8 @@ if (function_exists('getBgMusicHtml')) {
     echo getBgMusicHtml();
 }
 
-// 包含 Header（简化版，纯Tailwind工具类）
-include 'public/header_simple.php';
+// 包含 Header（调试版，所有元素都显示）
+include 'public/header_debug.php';
 ?>
   <div class="swiper">
   <div class="swiper-wrapper">
