@@ -1718,19 +1718,6 @@
             border-radius: 0 0 6px 6px;
         }
 
-        .btn {
-            padding: clamp(6px, 0.42vw, 8px) clamp(10px, 0.83vw, 16px);
-            border-radius: clamp(4px, 0.42vw, 8px);
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-
         .btn-secondary {
             background-color: #f99e00;
             color: white;
