@@ -148,7 +148,7 @@ if (isset($_SESSION['user_id'])) {
 
         .selector-dropdown .dropdown-item.active {
             background-color: #f99e00 !important;
-            border-bottom: 4px !important;
+            border-radius: 4px !important;
             color: white !important;
         }
 
