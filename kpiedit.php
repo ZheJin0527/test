@@ -294,7 +294,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
             overflow: hidden;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             height: 70vh; /* 设置固定高度，70%视窗高度 */
             display: flex;
             flex-direction: column;
@@ -461,8 +461,8 @@
 
         .action-buttons {
             padding: clamp(12px, 1.25vw, 24px);
-            background: #f8f5eb;
-            border-bottom: 2px solid #583e04; /* 改成 border-bottom */
+            background: #ffffffff;
+            border-bottom: 2px solid #000000ff; /* 改成 border-bottom */
             display: flex;
             justify-content: space-between;
             align-items: center;
