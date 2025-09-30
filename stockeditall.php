@@ -18,7 +18,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f1dfbc;
+            background-color: #faf7f2;
             color: #111827;
         }
         
@@ -42,7 +42,7 @@
         .header h1 {
             font-size: clamp(20px, 2.6vw, 50px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
         
         .header .controls {
@@ -1099,7 +1099,7 @@
         }
 
         .selector-button {
-            background-color: #583e04;
+            background-color: #ff9e00;
             color: white;
             font-weight: 500;
             padding: 11px 24px;
@@ -1117,7 +1117,7 @@
         }
 
         .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             border-radius: 8px;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
@@ -1179,7 +1179,7 @@
         }
 
         .view-selector .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
@@ -1483,7 +1483,7 @@
             gap: 4px;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
             white-space: nowrap;
             margin: 0;
             line-height: 1.2;
@@ -1780,7 +1780,7 @@
             background: white;
             border-radius: 12px;
             margin-bottom: clamp(14px, 1.25vw, 24px);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             flex-wrap: wrap;
             justify-content: space-between;
@@ -2067,7 +2067,7 @@
                 <!-- 月份选择器 - 改为增强型选择器 -->
                 <div style="display: flex; flex-direction: column; gap: 2px;">
                     <label class="date-label-with-icon">
-                        <i class="fas fa-calendar" style="color: #583e04;"></i>
+                        <i class="fas fa-calendar" style="color: #000000ff;"></i>
                         选择年份和月份
                     </label>
                     <div class="enhanced-date-picker month-only" id="month-date-picker">
@@ -2089,7 +2089,7 @@
 
                 <div style="display: flex; flex-direction: column; gap: 2px;">
                     <label class="date-label-with-icon">
-                        <i class="fas fa-clock" style="color: #583e04;"></i>
+                        <i class="fas fa-clock" style="color: #000000ff;"></i>
                         快速选择
                     </label>
                     <div class="dropdown">
