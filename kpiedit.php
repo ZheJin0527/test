@@ -97,8 +97,8 @@
         .number-dropdown-menu {
             display: none;
             position: absolute;
-            top: 120%;
-            left: -62px;
+            top: clamp(29px, 2.29vw, 44px);
+            right: clamp(-24px, -1.25vw, -15px);
             background: white;
             border: 2px solid #583e04;
             border-radius: clamp(8px, 0.63vw, 12px);
