@@ -46,8 +46,8 @@ if (!isset($mediaConfigIncluded)) {
 
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex items-center space-x-10 xl:space-x-12">
-                    <a href="index.php" class="text-white hover:text-gray-300 transition-colors text-16">首页</a>
-                    <a href="about.php" class="text-white hover:text-gray-300 transition-colors text-10">关于我们</a>
+                    <a href="index.php" class="text-white hover:text-gray-300 transition-colors text-xl">首页</a>
+                    <a href="about.php" class="text-white hover:text-gray-300 transition-colors text-lg">关于我们</a>
                     <a href="#" class="text-white hover:text-gray-300 transition-colors text-lg">旗下品牌</a>
                     <a href="joinus.php" class="text-white hover:text-gray-300 transition-colors text-lg">加入我们</a>
                 </div>
