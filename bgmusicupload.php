@@ -193,7 +193,7 @@ function formatFileSize($bytes) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #583e04;
+            color: #636363;
             text-decoration: none;
         }
         
@@ -245,7 +245,7 @@ function formatFileSize($bytes) {
         }
         
         .file-input {
-            border: 2px dashed #583e04;
+            border: 2px dashed #000000ff;
             border-radius: 10px;
             padding: clamp(20px, 2.08vw, 40px);
             text-align: center;
@@ -264,7 +264,7 @@ function formatFileSize($bytes) {
         }
         
         .file-input-text {
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
         }
