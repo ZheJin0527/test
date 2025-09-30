@@ -18,15 +18,15 @@
             </div>
 
             <!-- 桌面导航 -->
-            <div class="hidden lg:flex items-center space-x-10 xl:space-x-12">
-                <a href="index.php" class="text-white hover:text-gray-300 transition-colors text-lg">首页</a>
-                <a href="about.php" class="text-white hover:text-gray-300 transition-colors text-lg">关于我们</a>
-                <a href="#" class="text-white hover:text-gray-300 transition-colors text-lg">旗下品牌</a>
-                <a href="joinus.php" class="text-white hover:text-gray-300 transition-colors text-lg">加入我们</a>
+            <div class="hidden md:flex items-center space-x-6 lg:space-x-10 xl:space-x-12">
+                <a href="index.php" class="text-white hover:text-gray-300 transition-colors text-base lg:text-lg">首页</a>
+                <a href="about.php" class="text-white hover:text-gray-300 transition-colors text-base lg:text-lg">关于我们</a>
+                <a href="#" class="text-white hover:text-gray-300 transition-colors text-base lg:text-lg">旗下品牌</a>
+                <a href="joinus.php" class="text-white hover:text-gray-300 transition-colors text-base lg:text-lg">加入我们</a>
             </div>
 
             <!-- 右侧按钮 -->
-            <div class="hidden lg:flex items-center space-x-5 xl:space-x-6">
+            <div class="hidden md:flex items-center space-x-3 lg:space-x-5 xl:space-x-6">
                 
                 <!-- 登入按钮 -->
                 <div class="relative login-dropdown">
@@ -68,7 +68,7 @@
             </div>
 
             <!-- 移动端汉堡菜单 -->
-            <button class="lg:hidden text-white hover:text-[#ff5c00] transition-colors" id="mobile-menu-btn">
+            <button class="md:hidden text-white hover:text-[#ff5c00] transition-colors" id="mobile-menu-btn">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -76,7 +76,7 @@
         </div>
 
         <!-- 移动端菜单 -->
-        <div id="mobile-menu" class="lg:hidden hidden">
+        <div id="mobile-menu" class="md:hidden hidden">
             <div class="px-2 pt-2 pb-4 space-y-1 bg-[#2f2f2f]">
                 <a href="index.php" class="block text-white hover:bg-[#ff5c00] px-4 py-3 rounded-md transition-colors text-base">
                     首页
