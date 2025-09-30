@@ -144,7 +144,7 @@ if (isset($_SESSION['user_id'])) {
 
 /* 其余样式保持不变 */
 .informationmenu-header {
-    padding: clamp(10px, 1.25vw, 24px) clamp(14px, 1.25vw, 24px);
+    padding: clamp(10px, 1.25vw, 24px) clamp(12px, 1.25vw, 24px);
     border-bottom: 1px solid #d5d5d5;
     display: flex;
     align-items: center;
