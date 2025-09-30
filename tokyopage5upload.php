@@ -448,7 +448,7 @@ $currentConfig = getTokyoLocationConfig();
                 </div>
                 
                 <button type="button" class="btn btn-add" onclick="addNewStore()">
-                    ➕ 添加新店铺
+                    + 添加新店铺
                 </button>
                 
                 <div id="storesContainer">
