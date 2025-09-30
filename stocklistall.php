@@ -543,7 +543,7 @@
             background: #f8f5eb !important;
             border-top: 2px solid #000000ff;
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
         }
 
         /* 总库存价值专用的货币显示样式 */
