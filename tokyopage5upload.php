@@ -200,8 +200,8 @@ $currentConfig = getTokyoLocationConfig();
         
         .form-input:focus {
             outline: none;
-            border-color: #583e04;
-            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1);
+            border-color: #000000ff;
+            box-shadow: 0 0 0 3px rgba(29, 11, 0, 0.1);
         }
         
         .form-input.textarea {
