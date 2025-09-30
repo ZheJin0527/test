@@ -17,7 +17,7 @@ if (!isset($mediaConfigIncluded)) {
     <link rel="icon" type="image/png" href="/images/images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="../frontend/dist/output.css" />
     <title><?php echo isset($pageTitle) ? $pageTitle : 'KUNZZ HOLDINGS'; ?></title>
     <?php if (isset($additionalCSS)): ?>
         <?php foreach ($additionalCSS as $css): ?>
@@ -32,55 +32,55 @@ if (!isset($mediaConfigIncluded)) {
 </head>
 <body>
     <?php echo getBgMusicHtml(); ?>
-    <header class="header-navbar">
+    <header class="header-navbar-fixed">
         <!-- 左侧 logo 和公司名 -->
-        <div class="header-logo-section">
+        <div class="flex items-center">
             <a href="index.php">
-                <img src="../images/images/KUNZZ.png" alt="Logo" class="header-logo">
+                <img src="../images/images/KUNZZ.png" alt="Logo" class="header-logo-img">
             </a>
         </div>
 
         <!-- 中间导航（默认显示，大屏） -->
-        <nav class="header-nav-links" id="navMenu">
-            <div class="header-nav-item"><a href="index.php">首页</a></div>
-            <div class="header-nav-item"><a href="about.php">关于我们</a></div>
-            <div class="header-nav-item header-nav-dropdown">
+        <nav class="header-nav-container" id="navMenu">
+            <div class="header-nav-item"><a href="index.php" class="header-nav-link">首页</a></div>
+            <div class="header-nav-item"><a href="about.php" class="header-nav-link">关于我们</a></div>
+            <div class="header-nav-item relative">
                 <span class="header-nav-dropdown-trigger">旗下品牌</span>
-                <div class="header-nav-dropdown-menu" id="brandsNavDropdownMenu">
+                <div class="header-nav-dropdown-content" id="brandsNavDropdownMenu">
                     <!-- <a href="tokyo-japanese-cuisine.php" class="header-nav-dropdown-item">Tokyo Japanese Cuisine</a>
                     <a href="tokyo-izakaya.php" class="header-nav-dropdown-item">Tokyo Izakaya Japanese Cuisine</a> -->
                 </div>
             </div>
-            <div class="header-nav-item"><a href="joinus.php">加入我们</a></div>
+            <div class="header-nav-item"><a href="joinus.php" class="header-nav-link">加入我们</a></div>
         </nav>
 
         <!-- 右侧区域 -->
-        <div class="header-right-section">
+        <div class="header-right-container">
             <!-- 移动端隐藏 login，仅大屏显示 -->
-            <div class="header-login-dropdown">
-                <button class="header-login-btn" id="loginBtn">登入</button>
-                <div class="header-login-dropdown-menu" id="loginDropdownMenu">
-                    <a href="login.html" class="header-login-dropdown-item">员工登入</a>
-                    <a href="login.html" class="header-login-dropdown-item">会员登入</a>
+            <div class="header-login-dropdown-wrapper">
+                <button class="header-login-button" id="loginBtn">登入</button>
+                <div class="header-login-dropdown-content" id="loginDropdownMenu">
+                    <a href="login.html" class="header-dropdown-item">员工登入</a>
+                    <a href="login.html" class="header-dropdown-item">会员登入</a>
                 </div>
             </div>
 
             <!-- 翻译按钮始终显示 -->
-            <div class="header-language-switch">
-                <button class="header-lang" id="languageBtn">中文</button>
-                <div class="header-language-dropdown-menu" id="languageDropdownMenu">
-                    <a href="/" class="header-language-dropdown-item" data-lang="cn">中文</a>
-                    <a href="/en/" class="header-language-dropdown-item" data-lang="en">English</a>
+            <div class="relative flex items-center">
+                <button class="header-lang-button" id="languageBtn">中文</button>
+                <div class="header-language-dropdown-content" id="languageDropdownMenu">
+                    <a href="/" class="header-dropdown-item" data-lang="cn">中文</a>
+                    <a href="/en/" class="header-dropdown-item" data-lang="en">English</a>
                 </div>
             </div>
 
             <!-- hamburger 仅在小屏显示 -->
-            <button class="header-hamburger" id="hamburger">&#9776;</button>
+            <button class="header-hamburger-btn" id="hamburger">&#9776;</button>
         </div>
     </header>
 
     <?php if (isset($showPageIndicator) && $showPageIndicator): ?>
-    <div class="header-page-indicator">
+    <div class="header-page-indicator-container">
         <?php 
         $totalSlides = isset($totalSlides) ? $totalSlides : 4;
         for ($i = 0; $i < $totalSlides; $i++): 

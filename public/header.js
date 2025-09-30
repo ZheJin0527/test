@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', moveLoginBtn);
 
     // 导航栏旗下品牌下拉菜单控制
-    const navBrandsDropdown = document.querySelector('.nav-item.nav-dropdown');
+    const navBrandsDropdown = document.querySelector('.header-nav-item.relative');
     const navBrandsDropdownMenu = document.getElementById('brandsNavDropdownMenu');
 
     if (navBrandsDropdown && navBrandsDropdownMenu) {
