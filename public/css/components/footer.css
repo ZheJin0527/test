@@ -27,7 +27,6 @@ html {
     flex-direction: column;
     min-height: clamp(28vh, 32vh, 38vh); /* 增加最小高度，防止小屏偏下 */
     justify-content: flex-start; /* 改为从顶部开始 */
-    padding-top: clamp(2rem, 4vh, 4rem); /* 添加顶部padding */
     margin: 0;
     padding-bottom: 0;
     position: relative;
