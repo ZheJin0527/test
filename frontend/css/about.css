@@ -41,27 +41,6 @@ body::-webkit-scrollbar {
     overflow: hidden;
 }
 
-/* .swiper-slide.footer-slide {
-    height: clamp(25vh, 35vh, 40vh);
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    position: relative;
-}
-
-.swiper-slide.footer-slide::before {
-    content: '';
-    position: absolute;
-    top: clamp(-60vh, -70vh, -80vh); 
-    left: 0;
-    right: 0;
-    height: 100vh;
-    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%);
-    pointer-events: none;
-    z-index: 1;
-} */
-
 /* 通用样式 */
 .hidden {
     display: none;

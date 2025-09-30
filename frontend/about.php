@@ -8,7 +8,7 @@ include_once '../media_config.php';
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['css/about.css','../public/css/components/header.css','../public/css/components/footer.css','../public/css/components/social.css'];
+$additionalCSS = ['css/about.css','../public/css/components/header.css','../public/css/components/social.css','../public/css/components/footer.css']; // footer.css 放最后，确保样式优先级
 $showPageIndicator = true;
 $totalSlides = 5;
 
