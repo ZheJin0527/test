@@ -58,7 +58,7 @@
         }
 
         .restaurant-prefix {
-            background: #000000ff;
+            background: #f99e00;
             color: white;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: clamp(4px, 0.42vw, 8px) 0 0 clamp(4px, 0.42vw, 8px);
@@ -100,7 +100,7 @@
             top: clamp(29px, 2.29vw, 44px);
             right: clamp(-24px, -1.25vw, -15px);
             background: white;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             border-radius: clamp(8px, 0.63vw, 12px);
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.15);
             z-index: 1000;
@@ -143,9 +143,9 @@
         }
 
         .number-item.selected {
-            background: #583e04;
+            background: #f99e00;
             color: white;
-            border-color: #583e04;
+            border-color: #f99e00;
         }
 
         .restaurant-btn {
@@ -257,7 +257,7 @@
             border-radius: 12px;
             padding: clamp(8px, 0.83vw, 16px) clamp(16px, 1.25vw, 24px);
             margin-bottom: clamp(16px, 1.25vw, 24px);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             display: flex;
             align-items: center;
@@ -272,20 +272,20 @@
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
             background: white;
-            color: #583e04;
+            color: #000000ff;
             cursor: pointer;
         }
 
         .month-selector select:focus {
             outline: none;
-            border-color: #583e04;
-            box-shadow: 0 0 0 3px rgba(88, 62, 4, 0.1);
+            border-color: #000000ff;
+            box-shadow: 0 0 0 3px rgba(20, 14, 0, 0.1);
         }
 
         .month-selector label {
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
         }
 
         /* Excel样式表格 */
@@ -329,7 +329,7 @@
 
         .excel-table th {
             font-size: clamp(8px, 0.74vw, 14px);
-            background: #583e04;
+            background: #636363;
             color: white;
             padding: clamp(4px, 0.42vw, 8px) 0;
             text-align: center;
@@ -485,7 +485,7 @@
         }
         
         .btn-primary {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
             white-space: nowrap;
         }
@@ -534,7 +534,7 @@
         .stat-value {
             font-size: clamp(8px, 0.84vw, 16px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
 
         /* 响应式设计 */
