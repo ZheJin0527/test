@@ -158,7 +158,7 @@
         /* 表单区块样式（绿主题，卡片化） */
         .form-section {
             margin-bottom: clamp(10px, 1.04vw, 20px);
-            border: 1px solid #ffddaa;
+            border: 1px solid #000000ff;
             border-radius: 8px;
             background-color: #ffffff;
             box-shadow: 0 2px 6px rgba(0,0,0,0.04);
