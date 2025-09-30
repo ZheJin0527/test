@@ -197,7 +197,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section-title {
-    padding: clamp(8px, 0.73vw, 14px) clamp(14px, 1.04vw, 20px);
+    padding: clamp(8px, 0.63vw, 12px) clamp(14px, 1.04vw, 20px);
     font-size: clamp(8px, 0.84vw, 16px);
     font-weight: bold;
     color: #000000ff;
