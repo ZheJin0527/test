@@ -88,12 +88,12 @@ if (file_exists('media_config.json')) {
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            border: 3px solid #FF5C00;
+            border: 3px solid #F99e00;
         }
         
         .header {
-            background: linear-gradient(135deg, #FF5C00 0%, #ff7a33 100%);
-            color: white;
+            background: #f99e00;
+            color: black;
             padding: clamp(16px, 1.56vw, 30px);
             text-align: left;
         }
