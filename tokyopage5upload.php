@@ -159,7 +159,8 @@ $currentConfig = getTokyoLocationConfig();
             border-radius: 10px;
             padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
-            border-left: 5px solid #583e04;
+            border-left: 5px solid #000000ff;
+            box-shadow: 0px 5px 15px rgb(0 0 0 / 60%);
         }
         
         .form-section h2 {
@@ -331,6 +332,7 @@ $currentConfig = getTokyoLocationConfig();
             padding: clamp(15px, 1.3vw, 25px);
             margin-bottom: clamp(10px, 1.04vw, 20px);
             position: relative;
+            border-left: 4px solid #000000ff;
         }
         
         .store-section.new-store {
@@ -339,10 +341,10 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .store-section h3 {
-            color: #583e04;
+            color: #000000ff;
             margin-bottom: 20px;
             font-size: clamp(12px, 1.04vw, 20px);
-            border-bottom: 2px solid #583e04;
+            border-bottom: 2px solid #000000ff;
             padding-bottom: 10px;
             display: flex;
             align-items: center;
