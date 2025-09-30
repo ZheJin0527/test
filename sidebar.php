@@ -289,7 +289,7 @@ if (isset($_SESSION['user_id'])) {
     position: fixed;
     left: clamp(140px, 13.02vw, 250px);
     top: 0;
-    width: clamp(160px, 18.23vw, 350px);
+    width: clamp(170px, 15.63vw, 300px);
     height: 100vh;
     background: linear-gradient(135deg, #ff8019 0%, #ffb342 100%);
     color: white;
