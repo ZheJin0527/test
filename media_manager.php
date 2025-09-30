@@ -82,7 +82,7 @@ if (file_exists('media_config.json')) {
         }
         
         .container {
-            max-width: 1200px;
+            width: clamp(600px, 52.08vw, 1000px);
             margin: 0 auto;
             background: white;
             border-radius: 15px;
