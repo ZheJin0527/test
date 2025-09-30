@@ -171,7 +171,7 @@ foreach ($defaultTimeline as $year => $data) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1dfbc;
+            background: #faf7f2;
             min-height: 100vh;
             padding: 0px;
         }
@@ -180,14 +180,14 @@ foreach ($defaultTimeline as $year => $data) {
             max-width: 1800px;
             margin: 0 auto;
             padding: clamp(16px, 1.25vw, 24px) 24px;
-            background: #f1dfbc;
+            background: #faf7f2;
             border-radius: 15px;
             overflow: hidden;
         }
         
         .header {
             background: transparent;
-            color: #583e04;
+            color: #000000ff;
             text-align: center;
         }
         
@@ -209,7 +209,7 @@ foreach ($defaultTimeline as $year => $data) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #583e04;
+            color: #636363;
             text-decoration: none;
         }
         
@@ -226,7 +226,7 @@ foreach ($defaultTimeline as $year => $data) {
             border-radius: 10px;
             padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
-            border-left: 5px solid #583e04;
+            border-left: 5px solid #000000ff;
         }
         
         .timeline-section h2 {
@@ -257,7 +257,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .year-tab.active {
-            background: #583e04;
+            background: #f99e00;
         }
         
         .year-tab:hover {
@@ -291,7 +291,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .file-input {
-            border: 2px dashed #583e04;
+            border: 2px dashed #000000ff;
             border-radius: 10px;
             padding: clamp(20px, 2.08vw, 40px);
             text-align: center;
@@ -310,7 +310,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .file-input-text {
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
         }
@@ -321,7 +321,7 @@ foreach ($defaultTimeline as $year => $data) {
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
-            border-left: 4px solid #583e04;
+            border-left: 4px solid #000000ff;
         }
         
         .current-file strong {
@@ -355,7 +355,7 @@ foreach ($defaultTimeline as $year => $data) {
             color: #333;
             margin-bottom: clamp(10px, 1.04vw, 20px);
             padding-bottom: 10px;
-            border-bottom: 2px solid #583e04;
+            border-bottom: 2px solid #000000ff;
         }
         
         .form-input {
@@ -386,11 +386,11 @@ foreach ($defaultTimeline as $year => $data) {
         
         .form-textarea:focus {
             outline: none;
-            border-color: #583e04;
+            border-color: #000000ff;
         }
         
         .btn {
-            background: #583e04;
+            background: #f99e00;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
@@ -402,6 +402,7 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .btn:hover {
+            background: #f98500ff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
@@ -508,7 +509,10 @@ foreach ($defaultTimeline as $year => $data) {
         }
         
         .btn-danger:hover {
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
             background: #c82333;
+            border-color: #bd2130;
+            transform: translateY(-2px);
         }
         
         .modal {
@@ -577,7 +581,7 @@ foreach ($defaultTimeline as $year => $data) {
             <?php endif; ?>
             
             <div class="timeline-section">
-                <h2>📅 时间线内容管理</h2>
+                <h2>时间线内容管理</h2>
                 
                 <!-- 年份管理区域 -->
                 <div class="year-management">
@@ -650,7 +654,7 @@ foreach ($defaultTimeline as $year => $data) {
                     
                     <!-- 文案编辑表单 -->
                     <div class="content-form">
-                        <h3>📝 编辑 <?php echo $year; ?> 年文案内容</h3>
+                        <h3>编辑 <?php echo $year; ?> 年文案内容</h3>
                         <form method="post">
                             <input type="hidden" name="year" value="<?php echo $year; ?>">
                             <input type="hidden" name="update_content" value="1">
