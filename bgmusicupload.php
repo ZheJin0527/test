@@ -164,7 +164,7 @@ function formatFileSize($bytes) {
             max-width: 1800px;
             margin: 0 auto;
             padding: clamp(16px, 1.25vw, 24px) 24px;
-            background: #f1dfbc;
+            background: #faf7f2;
             border-radius: 15px;
             overflow: hidden;
         }
