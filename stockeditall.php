@@ -1471,7 +1471,7 @@
             display: block;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
             white-space: nowrap;
             margin: 0;
             line-height: 1.2;
