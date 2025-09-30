@@ -15,12 +15,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f1dfbc;
-            background-image: url('images/images/remarkbg1.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            background-attachment: fixed;
+            background-color: #faf7f2;
             min-height: 100vh;
         }
 
@@ -41,7 +36,7 @@
         }
 
         .header h1 {
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(20px, 2.6vw, 50px);
             margin-bottom: 10px;
             text-align: left;
@@ -53,7 +48,7 @@
             height: 3px;
             width: 100%;
             margin-top: 16px;
-            background: linear-gradient(90deg, rgba(255,92,0,0) 0%, rgba(88, 62, 4, 1) 25%, rgba(88, 62, 4, 1) 75%, rgba(255,92,0,0) 100%);
+            background: linear-gradient(90deg, rgba(255,92,0,0) 0%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 75%, rgba(255,92,0,0) 100%);
         }
 
         .header p {
@@ -311,8 +306,8 @@
 
         #searchInput:focus {
             outline: none;
-            border-color: #6d4700ff !important;
-            box-shadow: 0 0 10px rgba(148, 67, 0, 0.8) !important;
+            border-color: #000000ff !important;
+            box-shadow: 0 0 10px rgba(31, 14, 0, 0.8) !important;
         }
 
         #searchInput::placeholder {
@@ -334,7 +329,7 @@
         }
 
         .btn-generate {
-            background: #583e04;
+            background: #f99e00;
             color: white;
             border: none;
             padding: 8px 12px;
@@ -348,6 +343,7 @@
         }
 
         .btn-generate:hover {
+            background: #f98500ff;
             transform: translateY(-2px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
         }
@@ -379,15 +375,15 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             min-height: 0;
             display: flex;
             flex-direction: column;
         }
 
         .table-title {
-            background: #f8f5eb;
-            color: #583e04;
+            background: #ffffffff;
+            color: #000000ff;
             padding: clamp(12px, 1.04vw, 20px);
             font-size: clamp(12px, 1.04vw, 20px);
             font-weight: bold;
@@ -415,7 +411,7 @@
         }
 
         th {
-            background: #583e04;
+            background: #636363;
             color: white;
             padding: clamp(8px, 0.8vw, 15px) 0px;
             text-align: center;
