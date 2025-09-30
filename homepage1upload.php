@@ -134,6 +134,7 @@ if (file_exists('media_config.json')) {
             padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
             border-left: 5px solid #000000ff;
+            box-shadow: 0px 5px 15px rgb(0 0 0 / 60%);
         }
         
         .media-section h2 {
