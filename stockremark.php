@@ -15,7 +15,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f1dfbc;
+            background-color: #faf7f2;
             background-image: url('images/images/remarkbg1.png');
             background-repeat: no-repeat;
             background-position: center;
@@ -500,7 +500,7 @@
         }
 
         .selector-dropdown .dropdown-item.active {
-            background-color: #583e04 !important;
+            background-color: #f98500ff !important;
             color: white !important;
         }
 
@@ -523,7 +523,7 @@
 >>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
 
         .view-selector .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
