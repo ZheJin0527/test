@@ -216,14 +216,14 @@
             background: white;
             border-radius: 12px;
             margin-bottom: clamp(14px, 1.25vw, 24px);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             overflow: hidden;
             display: flex; /* 新增 */
         }
 
         .product-header {
-            background: #583e04;
+            background: #f99e00;
             color: white;
             padding: 24px;
             font-size: clamp(16px, 1.46vw, 28px);
@@ -267,11 +267,11 @@
 
         .price-variants-table th {
             background: #f8f5eb;
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(10px, 0.84vw, 16px);
             text-align: center;
             font-weight: 600;
-            border-bottom: 2px solid #583e04;
+            border-bottom: 2px solid #887d66ff;
         }
 
         .price-variants-table td {
@@ -286,7 +286,7 @@
         .price-variants-table td {
             width: 25%; /* 平均分配4列 */
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #dbdbdb;
             text-align: center;
             vertical-align: middle;
         }
@@ -581,7 +581,7 @@
             right: clamp(12px, 1.04vw, 20px);
             width: clamp(36px, 2.6vw, 50px);
             height: clamp(36px, 2.6vw, 50px);
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
             border: none;
             border-radius: 50%;
@@ -605,7 +605,7 @@
         }
 
         .back-to-top:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             transform: translateY(-3px);
             box-shadow: 0 6px 16px rgba(88, 62, 4, 0.4);
         }
