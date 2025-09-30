@@ -333,7 +333,6 @@ $currentConfig = getTokyoLocationConfig();
         
         .store-section {
             background: white;
-            border: 2px solid #e9ecef;
             border-radius: 8px;
             padding: clamp(15px, 1.3vw, 25px);
             margin-bottom: clamp(10px, 1.04vw, 20px);
