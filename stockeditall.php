@@ -1128,7 +1128,7 @@
             top: 96%;
             right: 0;
             background: white;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
             width: 100%;
@@ -1146,7 +1146,7 @@
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;
@@ -1163,7 +1163,7 @@
         }
 
         .selector-dropdown .dropdown-item.active {
-            background-color: #583e04 !important;
+            background-color: #f99e00 !important;
             color: white !important;
         }
 
