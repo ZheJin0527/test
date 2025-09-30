@@ -346,6 +346,9 @@ function formatFileSize($bytes) {
         
         .btn-danger:hover {
             box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+            background: #c82333;
+            border-color: #bd2130;
+            transform: translateY(-2px);
         }
         
         .btn-group {
