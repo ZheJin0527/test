@@ -19,7 +19,7 @@ session_start();
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f1dfbc;
+            background: #faf7f2;
             color: #1a202c;
             line-height: 1.6;
         }
@@ -31,11 +31,11 @@ session_start();
         }
 
         .header {
-            background: #583e04;
-            color: white;
-            padding: clamp(14px, 1.04vw, 20px);
+            background: transparent;
+            color: #000000ff;
+            padding: clamp(14px, 1.04vw, 20px) 0;
             border-radius: 12px;
-            margin-bottom: clamp(14px, 1.25vw, 24px);
+            margin-bottom: clamp(12px, 1.25vw, 24px);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -91,12 +91,12 @@ session_start();
         }
 
         .btn-warning {
-            background-color: #d97706;
+            background-color: #f99e00;
             color: white;
         }
 
         .btn-warning:hover {
-            background-color: #b45309;
+            background-color: #f98500ff;
         }
 
         .filter-section {
