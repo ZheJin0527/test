@@ -1409,8 +1409,8 @@
 
         .unified-search-input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #000000ff;
+            box-shadow: 0 0 0 3px rgba(0, 14, 37, 0.1);
         }
 
         .unified-search-input::placeholder {
