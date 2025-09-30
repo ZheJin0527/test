@@ -33,7 +33,7 @@ session_start();
         .header {
             background: transparent;
             color: #000000ff;
-            padding: clamp(14px, 1.04vw, 20px) 0;
+            padding: clamp(10px, 1.04vw, 20px) 0px;
             border-radius: 12px;
             margin-bottom: clamp(12px, 1.25vw, 24px);
             display: flex;

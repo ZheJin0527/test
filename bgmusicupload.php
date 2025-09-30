@@ -155,7 +155,7 @@ function formatFileSize($bytes) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1dfbc;
+            background: #faf7f2;
             min-height: 100vh;
             padding: 0px;
         }
@@ -171,7 +171,7 @@ function formatFileSize($bytes) {
         
         .header {
             background: transparent;
-            color: #583e04;
+            color: #000000ff;
             text-align: center;
         }
         
