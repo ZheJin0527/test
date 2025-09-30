@@ -171,7 +171,7 @@
             font-weight: 700;
             text-align: left;
             color: white;
-            background: linear-gradient(135deg, #ff5c00, #ff8000);
+            background: #f99e00;
             border-radius: 8px 8px 0 0;
         }
 
@@ -948,7 +948,7 @@
     <!-- 添加职员模态框 -->
     <div id="addUserModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header" style="color: #ff5c00;">
+            <div class="modal-header" style="color: #000000ff;">
                 <i class="fas fa-user-plus"></i> 添加新职员
             </div>
             <div class="modal-body">
@@ -1192,10 +1192,10 @@
                     
                     <div class="modal-buttons">
                         <button type="submit" class="btn-action btn-save">
-                            <i class="fas fa-user-plus"></i> 添加职员
+                            添加职员
                         </button>
                         <button type="button" class="btn-action btn-cancel" onclick="closeAddUserModal()">
-                            <i class="fas fa-times"></i> 取消
+                            取消
                         </button>
                     </div>
                 </form>
