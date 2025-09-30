@@ -8,7 +8,7 @@
    =========================================== */
 html {
     font-size: clamp(0.875rem, 1vw + 0.5rem, 1.125rem);
-}
+} /* 基础字体大小响应式，最小14px，最大18px */
 
 html, body {
     margin: 0;
@@ -470,7 +470,7 @@ body::-webkit-scrollbar {
 }
 
 /* ===========================================
-   关于我们区域样式
+   公司简介区域样式
    =========================================== */
 .about-section {
     background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
