@@ -184,6 +184,7 @@ if (file_exists('media_config.json')) {
             padding: 20px;
             border-left: 4px solid #000000ff;
             transition: all 0.3s ease;
+            box-shadow: 0px 5px 15px rgb(0 0 0 / 60%);
         }
         
         .photo-card:hover {
