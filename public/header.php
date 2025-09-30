@@ -35,7 +35,7 @@ if (!isset($mediaConfigIncluded)) {
     
     <!-- Header -->
     <header class="bg-[#2f2f2f] sticky top-0 z-50">
-        <nav class="container mx-auto px-4">
+        <nav class="w-full px-8 md:px-16">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
