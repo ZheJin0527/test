@@ -15,16 +15,47 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = [
-    'css/index.css',
-    '../public/css/components/social.css',
-    '../public/css/components/footer.css'
-];
 $showPageIndicator = true;
 $totalSlides = 4;
+?>
 
-// 包含新的 Tailwind header
-include 'public/header.php';
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/images/images/logo.png">
+    <title><?php echo $pageTitle; ?></title>
+    
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="dist/output.css" />
+    
+    <!-- 页面特定CSS -->
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="../public/css/components/social.css" />
+    <link rel="stylesheet" href="../public/css/components/footer.css" />
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body class="font-inter">
+
+<?php
+// 背景音乐
+if (function_exists('getBgMusicHtml')) {
+    echo getBgMusicHtml();
+}
+
+// 包含 Header（只有header部分，不含完整HTML结构）
+include 'public/header_only.php';
 ?>
   <div class="swiper">
   <div class="swiper-wrapper">
