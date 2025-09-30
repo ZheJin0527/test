@@ -341,7 +341,7 @@ function formatFileSize($bytes) {
         }
         
         .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: #dc3545;
         }
         
         .btn-danger:hover {
