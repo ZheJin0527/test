@@ -203,6 +203,7 @@ if (isset($_GET['success'])) {
             padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: clamp(20px, 1.56vw, 30px);
             border-left: 5px solid #000000ff;
+            box-shadow: 0px 5px 15px rgb(0 0 0 / 60%);
         }
         
         .form-section h2 {
@@ -473,6 +474,7 @@ if (isset($_GET['success'])) {
             border-radius: 10px;
             padding: clamp(18px, 1.56vw, 30px);
             border-left: 5px solid #000000ff;
+            box-shadow: 0px 5px 15px rgb(0 0 0 / 60%);
         }
         
         .jobs-list h2 {
