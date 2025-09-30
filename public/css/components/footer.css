@@ -55,7 +55,6 @@ html {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    margin-top: auto;
     min-height: auto;
     position: relative;
     z-index: 2;
