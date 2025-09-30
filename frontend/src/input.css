@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-size: 62.5%; /* 1rem = 10px */
-  }
+  /* html {
+    font-size: 62.5%;
+  } */
 }
