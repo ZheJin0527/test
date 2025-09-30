@@ -225,7 +225,7 @@
         }
 
         .stock-table th {
-            background: #583e04;
+            background: #636363;
             color: white;
             padding: clamp(4px, 0.42vw, 8px) 0;
             text-align: center;
@@ -636,7 +636,7 @@
         .stat-value {
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
 
         /* 新增记录表单 */
@@ -957,7 +957,7 @@
             background: white;
             border-radius: 4px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             overflow: visible;
             display: flex;
             flex-direction: column;
@@ -1544,9 +1544,9 @@
         }
 
         .date-part.active {
-            background-color: #3b82f6;
+            background-color: #f99e00;
             color: white;
-            border-color: #3b82f6;
+            border-color: #f99e00;
         }
 
         .date-separator {
@@ -1628,15 +1628,15 @@
         }
 
         .date-option.selected {
-            background-color: #3b82f6;
+            background-color: #f99e00;
             color: white;
-            border-color: #3b82f6;
+            border-color: #f99e00;
         }
 
         .date-option.today.selected {
-            background-color: #3b82f6;
+            background-color: #f99e00;
             color: white;
-            border-color: #3b82f6;
+            border-color: #f99e00;
         }
 
         .day-header {
@@ -1680,7 +1680,7 @@
             top: 100%;
             left: 0;
             background: white;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.15);
             z-index: 1000;
@@ -1698,7 +1698,7 @@
             padding: clamp(6px, 0.52vw, 10px) clamp(10px, 1.04vw, 20px);
             border: none;
             background: transparent;
-            color: #583e04;
+            color: #000000ff;
             cursor: pointer;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
@@ -1732,12 +1732,12 @@
         }
 
         .btn-secondary {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
         }
         
         .btn-secondary:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
         }
 
         @media (max-width: 768px) {
@@ -1848,7 +1848,7 @@
 
         .header-stats .stat-value {
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
 
         /* 批量操作按钮组 */
@@ -2114,7 +2114,7 @@
             
             <div class="header-right-group">
                 <div class="header-search">
-                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #000000ff; white-space: nowrap;">搜索</span>
                     <input type="text" id="unified-filter" class="unified-search-input" 
                         placeholder="搜索货品编号、货品名称或收货人...">
                 </div>
