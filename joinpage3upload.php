@@ -248,8 +248,8 @@ if (isset($_GET['success'])) {
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none !important;
-            border-color: #583e04 !important;
-            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1) !important;
+            border-color: #000000ff !important;
+            box-shadow: 0 0 0 3px rgba(34, 13, 0, 0.1) !important;
         }
         
         .form-group textarea {
