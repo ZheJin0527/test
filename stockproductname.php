@@ -84,7 +84,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .selector-button {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
             font-weight: 500;
             padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
@@ -130,7 +130,7 @@ if (isset($_SESSION['user_id'])) {
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;
@@ -147,7 +147,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .selector-dropdown .dropdown-item.active {
-            background-color: #583e04 !important;
+            background-color: #f99e00 !important;
             color: white !important;
         }
 
@@ -163,7 +163,7 @@ if (isset($_SESSION['user_id'])) {
         } */
 
         .view-selector .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f99e00;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
