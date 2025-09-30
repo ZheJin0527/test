@@ -192,12 +192,12 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section {
-    padding: clamp(6px,0.52vw, 10px) 0;
+    padding: 0;
     /* 让所有section占据剩余空间，但footer会被推到底部 */
 }
 
 .informationmenu-section-title {
-    padding: clamp(2px, 0.31vw, 6px) clamp(14px, 1.04vw, 20px);
+    padding: clamp(8px, 0.73vw, 14px) clamp(14px, 1.04vw, 20px);
     font-size: clamp(8px, 0.84vw, 16px);
     font-weight: bold;
     color: #000000ff;
