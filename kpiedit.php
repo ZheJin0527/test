@@ -128,7 +128,7 @@
             background: white;
             color: #583e04;
             cursor: pointer;
-            font-size: 14px;
+            font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 600;
             border-radius: clamp(4px, 0.42vw, 8px);
             transition: all 0.2s ease;
