@@ -15,7 +15,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f1dfbc;
+            background-color: #faf7f2;
             color: #111827;
         }
         
@@ -35,7 +35,7 @@
         .header h1 {
             font-size: clamp(20px, 2.6vw, 50px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
         
         .header .controls {
@@ -50,7 +50,7 @@
         }
 
         .selector-button {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
             font-weight: 500;
 <<<<<<< HEAD
@@ -83,7 +83,7 @@
         }
         
         .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             border-radius: 8px;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
@@ -116,7 +116,7 @@
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
         }
@@ -289,7 +289,7 @@
         }
 
         .btn-warning {
-            background-color: #f59e0b;
+            background-color: #f99e00;
             color: white;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             margin-top: 0px;
@@ -307,7 +307,7 @@
         }
         
         .btn-warning:hover {
-            background-color: #d97706;
+            background-color: #f98500ff;
             transform: translateY(-1px);
         }
 
@@ -383,7 +383,7 @@
         }
 
         .stock-table th {
-            background: #583e04;
+            background: #636363;
             color: white;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             text-align: center;
@@ -459,7 +459,7 @@
             background: white;
             border-radius: 4px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             overflow: visible;
             display: flex;
             flex-direction: column;
@@ -1174,8 +1174,8 @@
 
         .unified-search-input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #000000ff;
+            box-shadow: 0 0 10px rgba(31, 14, 0, 0.8);
         }
 
         .unified-search-input::placeholder {
@@ -1199,7 +1199,7 @@
             background: white;
             border-radius: 12px;
             margin-bottom: clamp(14px, 1.25vw, 24px);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             flex-wrap: nowrap;
             justify-content: space-between; /* 添加这行，让内容两端对齐 */
@@ -1217,7 +1217,7 @@
         .summary-title {
             font-size: clamp(14px, 1.5vw, 28px);
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
             margin-bottom: 2px;
             line-height: 1.2;
         }
@@ -1231,14 +1231,14 @@
         .summary-amount .currency-symbol {
             font-size: clamp(18px, 1.88vw, 36px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
 
         .summary-amount .value {
             font-size: clamp(18px, 1.88vw, 36px);
             margin-left: 6px;
             font-weight: 700;
-            color: #583e04;
+            color: #000000ff;
         }
 
         .header-search {
@@ -1269,7 +1269,7 @@
 
         .header-stats .stat-value {
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
     </style>
 </head>
@@ -1354,7 +1354,7 @@
                 
                 <div class="header-right-section">
                 <div class="header-search">
-                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #583e04; white-space: nowrap;">搜索</span>
+                    <span style="font-size: clamp(8px, 0.74vw, 14px); font-weight: 600; color: #000000ff; white-space: nowrap;">搜索</span>
                     <input type="text" id="central-unified-filter" class="unified-search-input" 
                         placeholder="搜索货品名称、编号或规格单位...">
                 </div>
