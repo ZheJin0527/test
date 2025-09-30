@@ -399,12 +399,12 @@ if (isset($_SESSION['user_id'])) {
         }
         
         .btn-primary {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
         }
         
         .btn-primary:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             transform: translateY(-1px);
         }
         
@@ -671,8 +671,8 @@ if (isset($_SESSION['user_id'])) {
 
         .filter-input:focus {
             outline: none;
-            border-color: #583e04;
-            box-shadow: 0 0 0 2px rgba(88, 62, 4, 0.1);
+            border-color: #000000ff;
+            box-shadow: 0 0 0 2px rgba(32, 22, 0, 0.1);
         }
 
         /* 批准按钮样式 */
