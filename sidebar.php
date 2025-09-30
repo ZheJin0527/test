@@ -238,7 +238,7 @@ if (isset($_SESSION['user_id'])) {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.1s ease;
-    background: rgba(255, 92, 0, 0.2);
+    background: transparent;
     border-radius: clamp(4px, 0.42vw, 8px);
     margin: 0 10px;
 }
@@ -266,6 +266,7 @@ if (isset($_SESSION['user_id'])) {
     transition: all 0.2s ease;
     cursor: pointer;
     position: relative;
+    border-left: 1px solid #ff5c00;
 }
 
 .informationmenu-item:hover {
