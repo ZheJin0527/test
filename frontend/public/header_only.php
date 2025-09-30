@@ -5,17 +5,6 @@
  * 用于已有 HTML 结构的页面
  * ========================================
  */
-
-// 如果还没有 session，启动它
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-// 尝试包含媒体配置
-if (!isset($mediaConfigIncluded) && file_exists('../../media_config.php')) {
-    include_once '../../media_config.php';
-    $mediaConfigIncluded = true;
-}
 ?>
 
 <!-- Header -->
