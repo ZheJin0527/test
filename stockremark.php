@@ -475,7 +475,7 @@
         }
 
         .selector-dropdown .dropdown-item.active {
-            background-color: #f98500ff !important;
+            background-color: #f99e00 !important;
             color: white !important;
         }
 
