@@ -16,7 +16,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f1dfbc;
+            background-color: #faf7f2;
             color: #111827;
         }
         
@@ -36,7 +36,7 @@
         .header h1 {
             font-size: clamp(20px, 2.6vw, 50px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
         
         .header .controls {
@@ -52,13 +52,13 @@
             padding: 6px;
             display: flex;
             gap: 0;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             align-items: center;
         }
 
         .restaurant-prefix {
-            background: #583e04;
+            background: #000000ff;
             color: white;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             border-radius: clamp(4px, 0.42vw, 8px) 0 0 clamp(4px, 0.42vw, 8px);
@@ -82,7 +82,7 @@
             font-weight: 600;
             transition: all 0.3s ease;
             background: white;
-            color: #583e04;
+            color: #000000ff;
             width: clamp(30px, 3.13vw, 60px);
             display: flex;
             align-items: center;
@@ -101,11 +101,11 @@
             left: -62px;
             background: white;
             border: 2px solid #583e04;
-            border-radius: 12px;
+            border-radius: clamp(8px, 0.63vw, 12px);
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.15);
             z-index: 1000;
-            padding: 8px;
-            min-width: 150px;
+            padding: clamp(6px, 0.42vw, 8px);
+            min-width: 90px;
         }
 
         .number-dropdown-menu.show {
@@ -122,15 +122,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: clamp(20px, 2.08vw, 40px);
+            height: clamp(20px, 2.08vw, 40px);
             border: 2px solid #e5e7eb;
             background: white;
             color: #583e04;
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: clamp(4px, 0.42vw, 8px);
             transition: all 0.2s ease;
         }
 
