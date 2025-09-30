@@ -5,7 +5,7 @@
 
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
-    height: clamp(25vh, 35vh, 40vh); /* 响应式高度 */
+    height: 29vh; /* 保持原来的36vh */
     justify-content: flex-end;
     align-items: center;
     padding: 0;
@@ -21,7 +21,7 @@
     background-color: #2f2f2f;
     display: flex;
     flex-direction: column;
-    min-height: clamp(20vh, 30vh, 35vh); /* 响应式最小高度 */
+    min-height: 26vh;
     justify-content: flex-end;
     margin: 0;
     padding: 0;
@@ -33,46 +33,40 @@
 .swiper-slide.footer-slide::before {
     content: '';
     position: absolute;
-    top: clamp(-60vh, -70vh, -80vh); /* 响应式顶部位置 */
+    top: -71vh;
     left: 0;
     right: 0;
-    height: clamp(50vh, 60vh, 70vh); /* 响应式高度 */
+    height: 64vh;
     background: #2a2a2a;
     z-index: 1;
 }
 
 /* page下方 */
 .footer {
-    padding: clamp(1rem, 1vw, 2rem) clamp(1rem, 4vw, 3rem); /* 响应式内边距 */
-    min-height: clamp(8rem, 15vh, 12rem); /* 响应式最小高度 */
+    padding: 20px 0 20px 100px; /* 去掉左右 padding */
+    height: clamp(150px, 10.5vw, 200px);
     background-color: #2F2F2F;
     color: white;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* 改为居中对齐 */
-    align-items: center;
+    justify-content: center; /* 让内容整体居中 */
     margin-top: auto;
+    min-height: auto;
     position: relative;
     z-index: 2;
-    box-sizing: border-box;
+    text-align: left; /* 文字左对齐 */
 }
 
 .footer-section {
-    flex: 1 1 clamp(8rem, 20vw, 15rem); /* 响应式弹性基础 */
-    margin-bottom: clamp(0.5rem, 1vw, 1rem);
-    max-width: clamp(8rem, 20vw, 15rem); /* 响应式最大宽度 */
-    min-width: clamp(6rem, 15vw, 10rem);
-    padding: clamp(0.5rem, 1vw, 1rem);
-    box-sizing: border-box;
-    text-align: left; /* 每列内容左对齐 */
+    flex: 1 1 200px;
+    margin-bottom: 0;
+    max-width: 200px;
 }
 
 .footer-section h4 {
-    font-size: clamp(0.75rem, 1.2vw, 1.125rem); /* 响应式字体大小 */
-    margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+    font-size: clamp(14px, 0.84vw, 16px);
+    margin-bottom: 0;
     color: #fff;
-    font-weight: 600;
-    text-align: left; /* 标题左对齐 */
 }
 
 .footer-section h4 a {
@@ -83,16 +77,12 @@
 .footer-section ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-    text-align: center; /* 改为居中对齐 */
 }
 
 .footer-section li {
-    margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem); /* 响应式下边距 */
-    font-size: clamp(0.7rem, 1vw, 0.9rem); /* 响应式字体大小 */
+    margin-bottom: 8px;
+    font-size: clamp(14px, 0.84vw, 16px);
     color: #ccc;
-    line-height: 1.4;
-    text-align: center; /* 改为居中对齐 */
 }
 
 .footer-section li a {
@@ -103,21 +93,19 @@
 .footer-bottom {
     position: relative;
     text-align: center;
-    font-size: clamp(0.6rem, 0.9vw, 0.8rem); /* 响应式字体大小 */
+    font-size: clamp(10px, 0.84vw, 14px);
     color: #666;
     background-color: #2F2F2F;
-    padding: clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem); /* 响应式内边距 */
-    margin-top: clamp(0.5rem, 1vw, 1rem);
-    line-height: 1.5;
+    padding: 10px 80px; /* 去掉左右 padding */
 }
 
 .footer-bottom::before {
     content: "";
     position: absolute;
     top: 0;
-    left: clamp(1rem, 3vw, 2rem); /* 响应式左边距 */
-    right: clamp(1rem, 3vw, 2rem); /* 响应式右边距 */
-    height: clamp(0.05rem, 0.1vw, 0.08rem); /* 响应式高度 */
+    left: 80px;
+    right: 80px;
+    height: 1.2px;
     background-color: #444;
 }
 
@@ -324,6 +312,32 @@
 
 .social-sidebar:hover::before {
     opacity: 1;
+}
+
+/* 响应式断点优化 */
+@media (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-section {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .footer-section h4,
+    .footer-section ul,
+    .footer-section li {
+        text-align: center;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .footer {
+        justify-content: space-around;
+    }
 }
 
 /* Footer响应式优化已完成 - 使用纯clamp()方案 */
