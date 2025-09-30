@@ -6441,32 +6441,6 @@ form select {
     font-weight: bold;
 }
 
-.logout-btn {
-    width: 120px;
-    background: linear-gradient(to bottom, #ff9850, #e97d18);
-    border: none;
-    border-radius: 20px;
-    padding: 8px 12px;
-    color: white;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    box-shadow: 
-        4px 4px 10px rgba(0, 0, 0, 0.3),     
-        -4px -4px 10px rgba(255, 200, 150, 0.5);
-    transition: all 0.3s ease;
-}
-
-.logout-btn:hover {
-    background: #ff7700;
-    transform: translateY(-1px);
-}
-
-.logout-btn:active {
-    transform: translateY(0);
-}
-
 .informationmenu-footer {
     display: flex;
     justify-content: center;
