@@ -1,5 +1,5 @@
 <!-- Header - 调试版本，所有元素都显示 -->
-<header class="sticky top-0 z-50 bg-[#2f2f2f] shadow-md">
+<header class="fixed top-0 w-full z-50 bg-[#2f2f2f] shadow-md">
     <nav class="w-full px-10 md:px-20 lg:px-28">
         <div class="flex items-center justify-between h-20 lg:h-24">
             
@@ -77,7 +77,7 @@
     $totalSlides = isset($totalSlides) ? $totalSlides : 4;
     for ($i = 0; $i < $totalSlides; $i++): 
     ?>
-        <div class="w-2 h-2 rounded-full bg-white/80 border-2 border-white/80 cursor-pointer hover:scale-125 transition-all duration-300 <?php echo $i === 0 ? '!h-10 !rounded-md' : ''; ?>" data-slide="<?php echo $i; ?>"></div>
+        <div class="header-page-dot w-2 h-2 rounded-full bg-white/80 border-2 border-white/80 cursor-pointer hover:scale-125 transition-all duration-300 <?php echo $i === 0 ? 'active !h-10 !rounded-md' : ''; ?>" data-slide="<?php echo $i; ?>"></div>
     <?php endfor; ?>
 </div>
 <?php endif; ?>
@@ -135,20 +135,5 @@ if (savedLang && languageText) {
     languageText.textContent = savedLang;
 }
 
-// 页面指示器点击
-const pageDots = document.querySelectorAll('[data-slide]');
-pageDots.forEach(dot => {
-    dot.addEventListener('click', function() {
-        const slideIndex = this.getAttribute('data-slide');
-        pageDots.forEach(d => {
-            d.classList.remove('!h-10', '!rounded-md');
-        });
-        this.classList.add('!h-10', '!rounded-md');
-        
-        const event = new CustomEvent('slideChange', { 
-            detail: { index: parseInt(slideIndex) } 
-        });
-        document.dispatchEvent(event);
-    });
-});
+// 页面指示器由 index.php 中的 swiper 配置处理
 </script>
