@@ -211,7 +211,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .btn {
-            background: #583e04;
+            background: #f99e00;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
@@ -224,6 +224,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .btn:hover {
+            background: #f98500ff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
