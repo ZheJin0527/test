@@ -94,7 +94,7 @@
             top: 96%;
             right: 0;
             background: white;
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
 <<<<<<< HEAD
@@ -133,6 +133,7 @@
         .dropdown-item.active {
             background-color: #f99e00;
             color: white;
+            border-radius: 4px;
         }
 
         .back-button {
@@ -365,7 +366,7 @@
         .currency-display .currency-amount {
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
-            color: #583e04;
+            color: #000000ff;
             text-align: right;
             flex-shrink: 0;
         }
@@ -560,7 +561,7 @@
 
         .total-row {
             background: #f8f5eb !important;
-            border-top: 2px solid #583e04;
+            border-top: 2px solid #000000ff;
             font-weight: 600;
             color: #583e04;
         }
