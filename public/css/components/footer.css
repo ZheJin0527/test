@@ -9,12 +9,14 @@ html {
 
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
-    height: clamp(30vh, 35vh, 40vh); /* 响应式高度，小屏幕增加高度 */
-    justify-content: flex-start; /* 改为从顶部开始，避免偏下 */
+    height: clamp(26vh, 30vh, 35vh) !important; /* 减少高度，让footer更紧凑 */
+    justify-content: flex-start !important; /* 强制从顶部开始 */
     align-items: center;
-    padding: 0;
-    margin: 0;
+    padding: 0 !important;
+    margin: 0 !important;
     overflow: hidden;
+    display: flex !important;
+    flex-direction: column !important;
     /* 关键：添加背景色遮盖上页残影 */
     background: #2f2f2f; /* 使用footer的深色背景 */
     position: relative;
@@ -25,10 +27,11 @@ html {
     background-color: #2f2f2f;
     display: flex;
     flex-direction: column;
-    min-height: clamp(28vh, 32vh, 38vh); /* 增加最小高度，防止小屏偏下 */
+    min-height: clamp(24vh, 28vh, 32vh); /* 减少最小高度，让footer更靠上 */
     justify-content: flex-start; /* 改为从顶部开始 */
     margin: 0;
     padding-bottom: 0;
+    padding-top: 0; /* 确保没有顶部padding */
     position: relative;
     z-index: 2;
 }
@@ -47,9 +50,9 @@ html {
 
 /* page下方 */
 .footer {
-    padding: clamp(1rem, 2vw + 0.5rem, 2.5rem) 0 clamp(0rem, 1vh, 1rem) clamp(1.5rem, 8vw + 2rem, 12rem); /* 增加底部padding */
+    padding: clamp(0.5rem, 1vw, 1.5rem) 0 0 clamp(1.5rem, 8vw + 2rem, 12rem); /* 减少顶部padding */
     height: auto; /* 改为auto，让内容决定高度 */
-    min-height: clamp(14rem, 18vh, 20rem); /* 使用min-height代替固定height */
+    min-height: auto; /* 移除最小高度限制 */
     background-color: #2F2F2F;
     color: white;
     display: flex;
@@ -107,9 +110,10 @@ html {
     font-size: clamp(0.8rem, 0.3vw + 0.5rem, 1.2rem); /* 8px-12px 平滑过渡 */
     color: #666;
     background-color: #2F2F2F;
-    padding: clamp(0.8rem, 1vh + 0.5rem, 1.5rem) clamp(1.5rem, 6vw + 1rem, 8rem); /* 增加上下padding */
+    padding: clamp(0.6rem, 0.8vh, 1rem) clamp(1.5rem, 6vw + 1rem, 8rem); /* 减少上下padding */
     line-height: 1.5;
-    margin-bottom: clamp(0.5rem, 1vh, 1rem); /* 添加底部边距 */
+    margin-bottom: 0; /* 移除底部边距 */
+    margin-top: clamp(0.5rem, 1vh, 1rem); /* 添加顶部边距 */
 }
 
 .footer-bottom::before {
