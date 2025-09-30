@@ -111,7 +111,7 @@
         }
 
         .dropdown-item.active {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
         }
 
@@ -755,7 +755,7 @@
         } */
 
         .view-selector .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
