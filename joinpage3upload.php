@@ -189,7 +189,7 @@ if (isset($_GET['success'])) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #636363;
+            color: #f99e00;
             text-decoration: none;
         }
         
