@@ -210,7 +210,7 @@ function formatFileSize($bytes) {
             border-radius: 10px;
             padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
-            border-left: 5px solid #583e04;
+            border-left: 5px solid #000000ff;
         }
         
         .music-section h2 {
@@ -274,7 +274,7 @@ function formatFileSize($bytes) {
             padding: 20px;
             background: #e8f4f8;
             border-radius: 8px;
-            border-left: 4px solid #583e04;
+            border-left: 4px solid #000000ff;
         }
         
         .current-music strong {
