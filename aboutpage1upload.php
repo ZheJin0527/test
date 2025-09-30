@@ -85,7 +85,7 @@ if (file_exists('media_config.json')) {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1dfbc;
+            background: #faf7f2;
             min-height: 100vh;
             padding: 0px;
         }
@@ -94,14 +94,14 @@ if (file_exists('media_config.json')) {
             max-width: 1800px;
             margin: 0 auto;
             padding: clamp(16px, 1.25vw, 24px) 24px;
-            background: #f1dfbc;
+            background: #faf7f2;
             border-radius: 15px;
             overflow: hidden;
         }
         
         .header {
             background: transparent;
-            color: #583e04;
+            color: #000000ff;
             text-align: center;
         }
         
@@ -123,7 +123,7 @@ if (file_exists('media_config.json')) {
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #583e04;
+            color: #636363;
             text-decoration: none;
         }
         
@@ -140,7 +140,8 @@ if (file_exists('media_config.json')) {
             border-radius: 10px;
             padding: clamp(18px, 1.56vw, 30px);
             margin-bottom: 30px;
-            border-left: 5px solid #583e04;
+            border-left: 5px solid #000000ff;
+            box-shadow: 0px 5px 15px rgb(0 0 0 / 60%);
         }
         
         .media-section h2 {
@@ -167,7 +168,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input {
-            border: 2px dashed #583e04;
+            border: 2px dashed #000000ff;
             border-radius: 10px;
             padding: clamp(20px, 2.08vw, 40px);
             text-align: center;
@@ -186,7 +187,7 @@ if (file_exists('media_config.json')) {
         }
         
         .file-input-text {
-            color: #583e04;
+            color: #000000ff;
             font-size: clamp(10px, 0.84vw, 16px);
             font-weight: 500;
         }
@@ -197,7 +198,7 @@ if (file_exists('media_config.json')) {
             padding: 15px;
             background: #e8f4f8;
             border-radius: 8px;
-            border-left: 4px solid #583e04;
+            border-left: 4px solid #000000ff;
         }
         
         .current-file strong {
@@ -206,7 +207,7 @@ if (file_exists('media_config.json')) {
         }
         
         .btn {
-            background: #583e04;
+            background: #f99e00;
             color: white;
             border: none;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
@@ -218,6 +219,7 @@ if (file_exists('media_config.json')) {
         }
         
         .btn:hover {
+            background: #f98500ff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 92, 0, 0.3);
         }
