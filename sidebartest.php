@@ -259,7 +259,7 @@ if (isset($_SESSION['user_id'])) {
     padding: clamp(4px, 0.52vw, 10px) clamp(20px, 1.56vw, 30px);
     color: #000000ff;
     text-decoration: none;
-    font-size: clamp(8px, 0.73vw, 14px);
+    font-size: clamp(6px, 0.73vw, 14px);
     font-weight: bold;
     transition: all 0.2s ease;
     cursor: pointer;
