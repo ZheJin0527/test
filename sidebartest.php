@@ -145,7 +145,7 @@ if (isset($_SESSION['user_id'])) {
 /* 其余样式保持不变 */
 .informationmenu-header {
     padding: clamp(10px, 1.25vw, 24px) clamp(14px, 1.25vw, 24px);
-    border-bottom: 1px solid #474747;
+    border-bottom: 1px solid #d5d5d5;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -458,7 +458,7 @@ if (isset($_SESSION['user_id'])) {
     display: flex;
     justify-content: center;
     padding: clamp(10px, 1.04vw, 20px);
-    border-top: 1px solid #474747;
+    border-top: 1px solid #d5d5d5;
     background-color: white;
     /* 确保footer固定在底部 */
     margin-top: auto;
