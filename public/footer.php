@@ -12,7 +12,7 @@
         </div>
 
         <div class="footer-section">
-          <h4><a href="about.php">关于我们</a></h4>
+          <h4><a href="about.php">关于1我们</a></h4>
           <ul>
             <li><a href="about.php#intro">集团简介</a></li>
             <li><a href="about.php#vision">信念与方向</a></li>
