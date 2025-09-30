@@ -457,7 +457,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu-footer {
     display: flex;
     justify-content: center;
-    padding: clamp(10px, 1.04vw, 20px);
+    padding: clamp(8px, 0.94vw, 18px);
     border-top: 1px solid #d5d5d5;
     background-color: white;
     /* 确保footer固定在底部 */
