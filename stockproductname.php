@@ -102,7 +102,7 @@ if (isset($_SESSION['user_id'])) {
         }
         
         .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             border-radius: 8px;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
