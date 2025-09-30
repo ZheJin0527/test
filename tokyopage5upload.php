@@ -341,7 +341,7 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .store-section.new-store {
-            border-color: #17a2b8;
+            border-color: #f99e00;
             background: #f8fdfe;
         }
         
