@@ -242,11 +242,15 @@ $currentConfig = getTokyoLocationConfig();
         }
         
         .btn-add {
-            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            background: #28a745;
             margin-bottom: clamp(10px, 1.04vw, 20px);
             display: inline-flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .btn-add:hover {
+            background: #218838;
         }
         
         .alert {
