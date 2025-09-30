@@ -513,7 +513,7 @@ if (isset($_GET['success'])) {
         }
         
         .job-title-item {
-            font-size: clamp(8px, 0.73vw, 14px);
+            font-size: clamp(10px, 0.73vw, 14px);
             font-weight: 700;
             color: #000000ff;
             margin-bottom: 10px;
