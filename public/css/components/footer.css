@@ -9,8 +9,8 @@ html {
 
 /* 专门为最后一页（footer页面）设置样式 */
 .swiper-slide.footer-slide {
-    height: clamp(25vh, 29vh, 35vh); /* 响应式高度，适配不同屏幕 */
-    justify-content: flex-end;
+    height: clamp(30vh, 35vh, 40vh); /* 响应式高度，小屏幕增加高度 */
+    justify-content: flex-start; /* 改为从顶部开始，避免偏下 */
     align-items: center;
     padding: 0;
     margin: 0;
@@ -25,10 +25,11 @@ html {
     background-color: #2f2f2f;
     display: flex;
     flex-direction: column;
-    min-height: clamp(20vh, 26vh, 30vh); /* 响应式最小高度 */
-    justify-content: flex-end;
+    min-height: clamp(28vh, 32vh, 38vh); /* 增加最小高度，防止小屏偏下 */
+    justify-content: flex-start; /* 改为从顶部开始 */
+    padding-top: clamp(2rem, 4vh, 4rem); /* 添加顶部padding */
     margin: 0;
-    padding: 0;
+    padding-bottom: 0;
     position: relative;
     z-index: 2;
 }
@@ -47,15 +48,15 @@ html {
 
 /* page下方 */
 .footer {
-    padding: clamp(0.8rem, 1.5vw + 0.5rem, 2.5rem) 0 0 clamp(1.5rem, 8vw + 2rem, 12rem); /* 响应式padding */
-    height: clamp(17rem, 15vh, 22rem); /* 使用vh实现高度响应式 */
+    padding: clamp(1rem, 2vw + 0.5rem, 2.5rem) 0 clamp(0.5rem, 1vh, 1rem) clamp(1.5rem, 8vw + 2rem, 12rem); /* 增加底部padding */
+    height: auto; /* 改为auto，让内容决定高度 */
+    min-height: clamp(14rem, 18vh, 20rem); /* 使用min-height代替固定height */
     background-color: #2F2F2F;
     color: white;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    min-height: auto;
     position: relative;
     z-index: 2;
     text-align: left;
@@ -107,8 +108,9 @@ html {
     font-size: clamp(0.8rem, 0.3vw + 0.5rem, 1.2rem); /* 8px-12px 平滑过渡 */
     color: #666;
     background-color: #2F2F2F;
-    padding: clamp(0.6rem, 0.5vw + 0.4rem, 1rem) clamp(1.5rem, 6vw + 1rem, 8rem); /* 响应式padding */
+    padding: clamp(0.8rem, 1vh + 0.5rem, 1.5rem) clamp(1.5rem, 6vw + 1rem, 8rem); /* 增加上下padding */
     line-height: 1.5;
+    margin-bottom: clamp(0.5rem, 1vh, 1rem); /* 添加底部边距 */
 }
 
 .footer-bottom::before {
