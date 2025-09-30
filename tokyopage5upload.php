@@ -104,7 +104,7 @@ $currentConfig = getTokyoLocationConfig();
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1dfbc;
+            background: #faf7f2;
             min-height: 100vh;
             padding: 0px;
         }
@@ -113,14 +113,14 @@ $currentConfig = getTokyoLocationConfig();
             max-width: 1800px;
             margin: 0 auto;
             padding: clamp(16px, 1.25vw, 24px) 24px;
-            background: #f1dfbc;
+            background: #faf7f2;
             border-radius: 15px;
             overflow: hidden;
         }
         
         .header {
             background: transparent;
-            color: #583e04;
+            color: #000000ff;
             text-align: center;
         }
         
@@ -142,7 +142,7 @@ $currentConfig = getTokyoLocationConfig();
         
         .breadcrumb a {
             font-size: clamp(8px, 0.74vw, 14px);
-            color: #583e04;
+            color: #636363;
             text-decoration: none;
         }
         
