@@ -511,6 +511,7 @@ if (isset($_SESSION['user_id'])) {
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
+    transition: filter 0.3s ease; /* 给icon加动画 */
 }
 
 /* 更新 section-title 的 flexbox 布局 */
