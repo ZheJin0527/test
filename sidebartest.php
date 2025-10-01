@@ -273,7 +273,7 @@ if (isset($_SESSION['user_id'])) {
     transition: all 0.2s ease;
     cursor: pointer;
     position: relative;
-    border-left: 2px solid #ff5c00;
+    border-left: 2px solid rgba(177, 177, 177, 0.6);
 }
 
 .informationmenu-item:hover {
