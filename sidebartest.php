@@ -319,7 +319,7 @@ if (isset($_SESSION['user_id'])) {
 .menu-item-wrapper:hover .informationmenu-item,
 .submenu:hover ~ .informationmenu-item {
     background-color: transparent;
-    color: #000000ff;
+    color: #ff5c00;
 }
 
 .submenu-header {
