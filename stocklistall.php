@@ -24,6 +24,7 @@
             max-width: 1800px;
             margin: 0 auto;
             padding: clamp(16px, 1.25vw, 24px) 24px;
+            height: 100vh;
         }
         
         .header {
@@ -465,14 +466,13 @@
             overflow: visible;
             display: flex;
             flex-direction: column;
-            max-height: 80vh; /* 设置最大高度 */
+            max-height: 69vh; /* 设置最大高度 */
         }
 
         .table-scroll-container {
             overflow-x: hidden;
             overflow-y: auto;
             flex: 1;
-            max-height: calc(87vh - 160px); /* 减去按钮区域的高度 */
             position: relative;
         }
 
