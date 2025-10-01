@@ -220,6 +220,7 @@ if (isset($_SESSION['user_id'])) {
     background-color: rgba(177, 177, 177, 0.2);
     color: #ff5c00;
     margin: 0;
+    border-left: 2px solid #ff5c00;
 }
 
 .informationmenu-section-title:hover .section-icon {
