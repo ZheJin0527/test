@@ -254,7 +254,7 @@ if (isset($_SESSION['user_id'])) {
     max-height: 500px;
     border-radius: 0px;
     transition: max-height 0.3s ease;
-    margin: 4px 0px 4px 10px;
+    margin: 4px 0px 4px clamp(20px, 1.56vw, 30px);
 }
 
 .menu-item-wrapper {
