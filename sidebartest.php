@@ -192,7 +192,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section {
-    padding: 0;
+    padding: clamp(4px, 0.42vw, 8px) 0px;
     /* 让所有section占据剩余空间，但footer会被推到底部 */
 }
 
