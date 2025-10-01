@@ -4866,11 +4866,11 @@
                 const focusHandler = () => showComboboxDropdown(input);
                 const inputHandler = () => filterComboboxOptions(input);
                 const keydownHandler = (e) => {
-                    // 限制只能输入英文、数字和空格
+                    // 限制只能输入英文、数字、空格和特殊符号 -/&
                     const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '];
-                    const isAlphaNumeric = /^[a-zA-Z0-9]$/.test(e.key);
+                    const isAlphaNumericOrSpecial = /^[a-zA-Z0-9\-/&]$/.test(e.key);
                     
-                    if (!allowedKeys.includes(e.key) && !isAlphaNumeric) {
+                    if (!allowedKeys.includes(e.key) && !isAlphaNumericOrSpecial) {
                         e.preventDefault();
                         return;
                     }
