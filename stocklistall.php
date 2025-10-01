@@ -466,7 +466,7 @@
             overflow: visible;
             display: flex;
             flex-direction: column;
-            max-height: 69vh; /* 设置最大高度 */
+            max-height: 68vh; /* 设置最大高度 */
         }
 
         .table-scroll-container {
