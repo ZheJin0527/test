@@ -318,7 +318,7 @@ if (isset($_SESSION['user_id'])) {
 /* 保持菜单项高亮当子菜单被hover时 */
 .menu-item-wrapper:hover .informationmenu-item,
 .submenu:hover ~ .informationmenu-item {
-    background-color: transparent;
+    background-color: rgba(255, 92, 0, 0.2);
     color: #ff5c00;
 }
 
