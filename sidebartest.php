@@ -663,7 +663,10 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu .informationmenu-header,
 .informationmenu .informationmenu-content,
 .informationmenu .informationmenu-footer {
-    background: #ffffffff;               /* 侧栏本体白底 */
+    background: rgba(255, 255, 255, 0.6); /* 半透明白 */
+    backdrop-filter: blur(10px);          /* 模糊背景 */
+    -webkit-backdrop-filter: blur(10px);  /* Safari 支持 */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* 给点边框提升层次 */
     pointer-events: auto;              /* 本体可交互 */
 }
 
