@@ -222,6 +222,10 @@ if (isset($_SESSION['user_id'])) {
     margin: 0;
 }
 
+.informationmenu-section-title.active .section-icon {
+    filter: brightness(0) saturate(100%) invert(45%) sepia(98%) saturate(2000%) hue-rotate(0deg) brightness(102%) contrast(105%);
+}
+
 .section-arrow {
     font-size: 12px;
     transition: transform 0.3s ease;
