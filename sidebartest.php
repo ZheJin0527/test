@@ -264,7 +264,7 @@ if (isset($_SESSION['user_id'])) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: clamp(4px, 0.52vw, 10px) 0px clamp(4px, 0.52vw, 10px) clamp(20px, 1.56vw, 30px);
+    padding: clamp(4px, 0.52vw, 10px) 0px clamp(4px, 0.52vw, 10px) clamp(16px, 1.56vw, 30px);
     color: #000000ff;
     text-decoration: none;
     font-size: clamp(6px, 0.73vw, 14px);
