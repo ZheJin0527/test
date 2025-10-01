@@ -322,6 +322,26 @@ if (isset($_SESSION['user_id'])) {
             position: relative;
         }
 
+        .excel-select[disabled] {
+            background: #f9fafb !important;
+            pointer-events: none;
+            cursor: not-allowed;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .excel-select.readonly {
+            background: #f9fafb !important;
+            pointer-events: none;
+            cursor: not-allowed;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
         .excel-input[readonly] {
             background-color: #f0fdf4 !important;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -1402,8 +1422,20 @@ if (isset($_SESSION['user_id'])) {
                         value="${data.product_name || ''}" placeholder="产品名称" required ${!isNewRow ? 'readonly disabled' : ''}>
                 </td>
                 <td>
-                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="specification" data-row="${rowId}" 
-                        value="${data.specification || ''}" placeholder="规格" required ${!isNewRow ? 'readonly disabled' : ''}>
+                    <select class="excel-select ${!isNewRow ? 'readonly' : ''}" data-field="specification" data-row="${rowId}" 
+                        required ${!isNewRow ? 'disabled' : ''}>
+                        <option value="">选择规格</option>
+                        <option value="Tub" ${data.specification === 'Tub' ? 'selected' : ''}>Tub</option>
+                        <option value="Kilo" ${data.specification === 'Kilo' ? 'selected' : ''}>Kilo</option>
+                        <option value="Piece" ${data.specification === 'Piece' ? 'selected' : ''}>Piece</option>
+                        <option value="Bottle" ${data.specification === 'Bottle' ? 'selected' : ''}>Bottle</option>
+                        <option value="Box" ${data.specification === 'Box' ? 'selected' : ''}>Box</option>
+                        <option value="Packet" ${data.specification === 'Packet' ? 'selected' : ''}>Packet</option>
+                        <option value="Carton" ${data.specification === 'Carton' ? 'selected' : ''}>Carton</option>
+                        <option value="Tin" ${data.specification === 'Tin' ? 'selected' : ''}>Tin</option>
+                        <option value="Roll" ${data.specification === 'Roll' ? 'selected' : ''}>Roll</option>
+                        <option value="Nos" ${data.specification === 'Nos' ? 'selected' : ''}>Nos</option>
+                    </select>
                 </td>
                 <td>
                     <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="supplier" data-row="${rowId}" 
@@ -1620,10 +1652,18 @@ if (isset($_SESSION['user_id'])) {
         function extractRowData(row) {
             const data = {};
             const inputs = row.querySelectorAll('input');
+            const selects = row.querySelectorAll('select');
             
             inputs.forEach(input => {
                 const field = input.dataset.field;
                 let value = input.value.trim();
+                
+                data[field] = value;
+            });
+            
+            selects.forEach(select => {
+                const field = select.dataset.field;
+                let value = select.value.trim();
                 
                 data[field] = value;
             });
@@ -1643,9 +1683,17 @@ if (isset($_SESSION['user_id'])) {
         // 更新行ID
         function updateRowId(row, oldId, newId) {
             const inputs = row.querySelectorAll('input');
+            const selects = row.querySelectorAll('select');
+            
             inputs.forEach(input => {
                 if (input.dataset.row === oldId) {
                     input.dataset.row = newId;
+                }
+            });
+            
+            selects.forEach(select => {
+                if (select.dataset.row === oldId) {
+                    select.dataset.row = newId;
                 }
             });
             
@@ -1764,7 +1812,7 @@ if (isset($_SESSION['user_id'])) {
             });
         }
 
-        // 输入框事件处理
+        // 输入框和下拉选择框事件处理
         document.addEventListener('input', function(e) {
             if (e.target.classList.contains('excel-input')) {
                 const field = e.target.dataset.field;
@@ -1776,12 +1824,17 @@ if (isset($_SESSION['user_id'])) {
             }
         });
 
-        // 输入框事件处理
-        document.addEventListener('input', function(e) {
-            if (e.target.classList.contains('excel-input')) {
-                // ... 现有代码保持不变 ...
+        // 下拉选择框事件处理
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('excel-select')) {
+                const field = e.target.dataset.field;
+                const value = e.target.value;
+                const row = e.target.closest('tr');
+
+                updateStats();
             }
         });
+
 
         // 键盘快捷键支持
         document.addEventListener('keydown', function(e) {
@@ -1797,47 +1850,57 @@ if (isset($_SESSION['user_id'])) {
                 addNewRow();
             }
             
-            // Tab键在输入框间移动
+            // Tab键在输入框和下拉选择框间移动
             if (e.key === 'Tab') {
                 const inputs = Array.from(document.querySelectorAll('.excel-input:not([readonly]):not([data-field="date"]):not([data-field="time"])'));
-                const currentIndex = inputs.indexOf(document.activeElement);
+                const selects = Array.from(document.querySelectorAll('.excel-select:not([disabled])'));
+                const allElements = [...inputs, ...selects].sort((a, b) => {
+                    const aRow = a.closest('tr');
+                    const bRow = b.closest('tr');
+                    if (aRow === bRow) {
+                        return Array.from(aRow.children).indexOf(a.closest('td')) - Array.from(bRow.children).indexOf(b.closest('td'));
+                    }
+                    return Array.from(document.querySelectorAll('#excel-tbody tr')).indexOf(aRow) - Array.from(document.querySelectorAll('#excel-tbody tr')).indexOf(bRow);
+                });
+                
+                const currentIndex = allElements.indexOf(document.activeElement);
                 
                 if (currentIndex !== -1) {
                     e.preventDefault();
                     const nextIndex = e.shiftKey ? 
-                        (currentIndex - 1 + inputs.length) % inputs.length : 
-                        (currentIndex + 1) % inputs.length;
-                    inputs[nextIndex].focus();
+                        (currentIndex - 1 + allElements.length) % allElements.length : 
+                        (currentIndex + 1) % allElements.length;
+                    allElements[nextIndex].focus();
                 }
             }
             
             // Enter键移动到下一行同一列  
-            if (e.key === 'Enter' && document.activeElement.classList.contains('excel-input') && !document.activeElement.readOnly) {
+            if (e.key === 'Enter' && (document.activeElement.classList.contains('excel-input') || document.activeElement.classList.contains('excel-select')) && !document.activeElement.readOnly && !document.activeElement.disabled) {
                 e.preventDefault();
-                const currentInput = document.activeElement;
-                const field = currentInput.dataset.field;
+                const currentElement = document.activeElement;
+                const field = currentElement.dataset.field;
                 
                 // 跳过日期和时间字段
                 if (field === 'date' || field === 'time') {
                     return;
                 }
                 
-                const currentRow = currentInput.closest('tr');
+                const currentRow = currentElement.closest('tr');
                 const nextRow = currentRow.nextElementSibling;
                 
                 if (nextRow) {
-                    const nextInput = nextRow.querySelector(`input[data-field="${field}"]:not([readonly]):not([data-field="date"]):not([data-field="time"])`);
-                    if (nextInput) {
-                        nextInput.focus();
+                    const nextElement = nextRow.querySelector(`input[data-field="${field}"]:not([readonly]):not([data-field="date"]):not([data-field="time"]), select[data-field="${field}"]:not([disabled])`);
+                    if (nextElement) {
+                        nextElement.focus();
                     }
                 } else {
                     // 如果是最后一行，添加新行并聚焦
                     addNewRow();
                     setTimeout(() => {
                         const newRow = document.querySelector('#excel-tbody tr:last-child');
-                        const newInput = newRow.querySelector(`input[data-field="${field}"]:not([readonly]):not([data-field="date"]):not([data-field="time"])`);
-                        if (newInput) {
-                            newInput.focus();
+                        const newElement = newRow.querySelector(`input[data-field="${field}"]:not([readonly]):not([data-field="date"]):not([data-field="time"]), select[data-field="${field}"]:not([disabled])`);
+                        if (newElement) {
+                            newElement.focus();
                         }
                     }, 100);
                 }
@@ -1976,6 +2039,7 @@ if (isset($_SESSION['user_id'])) {
         // 设置行的只读状态
         function setRowReadonly(rowId, readonly) {
             const inputs = document.querySelectorAll(`input[data-row="${rowId}"]`);
+            const selects = document.querySelectorAll(`select[data-row="${rowId}"]`);
             const row = document.querySelector(`input[data-row="${rowId}"]`)?.closest('tr');
             
             if (!row) {
@@ -1983,6 +2047,7 @@ if (isset($_SESSION['user_id'])) {
                 return;
             }
             
+            // 处理输入框
             inputs.forEach(input => {
                 // 跳过日期和时间字段，它们始终保持只读
                 if (input.dataset.field === 'date' || input.dataset.field === 'time') {
@@ -1997,6 +2062,17 @@ if (isset($_SESSION['user_id'])) {
                     input.classList.remove('readonly');
                     input.removeAttribute('readonly');
                     input.removeAttribute('disabled');
+                }
+            });
+            
+            // 处理下拉选择框
+            selects.forEach(select => {
+                if (readonly) {
+                    select.classList.add('readonly');
+                    select.setAttribute('disabled', 'disabled');
+                } else {
+                    select.classList.remove('readonly');
+                    select.removeAttribute('disabled');
                 }
             });
             
@@ -2130,6 +2206,14 @@ if (isset($_SESSION['user_id'])) {
             inputs.forEach(input => {
                 if (input.dataset.row === oldId) {
                     input.dataset.row = newId;
+                }
+            });
+            
+            // 更新所有select的data-row属性
+            const selects = row.querySelectorAll('select');
+            selects.forEach(select => {
+                if (select.dataset.row === oldId) {
+                    select.dataset.row = newId;
                 }
             });
             
