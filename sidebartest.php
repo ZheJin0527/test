@@ -249,7 +249,7 @@ if (isset($_SESSION['user_id'])) {
     max-height: 500px;
     border-radius: clamp(4px, 0.42vw, 8px);
     transition: max-height 0.3s ease;
-    margin: 4px 10px;
+    margin: 4px 0px 4px 10px;
 }
 
 .menu-item-wrapper {
@@ -260,7 +260,7 @@ if (isset($_SESSION['user_id'])) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: clamp(4px, 0.52vw, 10px) clamp(20px, 1.56vw, 30px);
+    padding: clamp(4px, 0.52vw, 10px) 0px clamp(4px, 0.52vw, 10px) clamp(20px, 1.56vw, 30px);
     color: #000000ff;
     text-decoration: none;
     font-size: clamp(6px, 0.73vw, 14px);
@@ -729,7 +729,7 @@ body.sidebar-transition {
     content: none !important;
 }
 .informationmenu .section-arrow { font-size: 16px; line-height: 1; display: inline-block; }
-.informationmenu .informationmenu-arrow { font-size: clamp(12px, 0.94vw, 18px); line-height: 1; display: inline-block; }
+.informationmenu .informationmenu-arrow { font-size: clamp(12px, 0.94vw, 18px); line-height: 1; display: inline-block; margin-right: clamp(10px, 0.94vw, 18px) !important;}
 
 /* 按用户要求，隐藏“分组标题”的箭头，保留子项箭头 */
 .informationmenu .section-arrow { display: none !important; }
