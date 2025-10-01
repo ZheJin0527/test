@@ -198,16 +198,17 @@ if (isset($_SESSION['user_id'])) {
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
 
-        /* 响应式表格列宽 - 9列设置 */
-        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 12%; }   /* 第1列 */
-        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 9%; }  /* 第2列 */
-        .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 12%; }  /* 第3列 */
-        .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 24%; }  /* 第4列 */
-        .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 10%; }  /* 第5列 */
-        .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 10%; }  /* 第6列 */
-        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 10%; }  /* 第7列 */
-        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 8%; }  /* 第8列 */
-        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 90px; }   /* 第9列(操作按钮) */
+        /* 响应式表格列宽 - 10列设置 */
+        .excel-table th:nth-child(1), .excel-table td:nth-child(1) { width: 10%; }   /* 第1列 - 日期 */
+        .excel-table th:nth-child(2), .excel-table td:nth-child(2) { width: 8%; }  /* 第2列 - 时间 */
+        .excel-table th:nth-child(3), .excel-table td:nth-child(3) { width: 10%; }  /* 第3列 - 产品编号 */
+        .excel-table th:nth-child(4), .excel-table td:nth-child(4) { width: 18%; }  /* 第4列 - 产品名字 */
+        .excel-table th:nth-child(5), .excel-table td:nth-child(5) { width: 12%; }  /* 第5列 - 规格 */
+        .excel-table th:nth-child(6), .excel-table td:nth-child(6) { width: 12%; }  /* 第6列 - 供应商 */
+        .excel-table th:nth-child(7), .excel-table td:nth-child(7) { width: 10%; }  /* 第7列 - 申请人 */
+        .excel-table th:nth-child(8), .excel-table td:nth-child(8) { width: 10%; }  /* 第8列 - 批准状态 */
+        .excel-table th:nth-child(9), .excel-table td:nth-child(9) { width: 8%; }  /* 第9列 - 状态 */
+        .excel-table th:nth-child(10), .excel-table td:nth-child(10) { width: 90px; }   /* 第10列(操作按钮) */
 
         /* Excel样式表格 */
         .excel-container {
@@ -1051,6 +1052,7 @@ if (isset($_SESSION['user_id'])) {
                         <th style="min-width: 80px;">时间</th>
                         <th style="min-width: 120px;">产品编号</th>
                         <th style="min-width: 200px;">产品名字</th>
+                        <th style="min-width: 150px;">规格</th>
                         <th style="min-width: 150px;">供应商</th>
                         <th style="min-width: 120px;">申请人</th>
                         <th style="min-width: 120px;">批准状态</th>
@@ -1403,6 +1405,10 @@ if (isset($_SESSION['user_id'])) {
                         value="${data.product_name || ''}" placeholder="产品名称" required ${!isNewRow ? 'readonly disabled' : ''}>
                 </td>
                 <td>
+                    <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="specification" data-row="${rowId}" 
+                        value="${data.specification || ''}" placeholder="规格" required ${!isNewRow ? 'readonly disabled' : ''}>
+                </td>
+                <td>
                     <input type="text" class="excel-input text-input ${!isNewRow ? 'readonly' : ''}" data-field="supplier" data-row="${rowId}" 
                         value="${data.supplier || ''}" placeholder="供应商名称" required ${!isNewRow ? 'readonly disabled' : ''}>
                 </td>
@@ -1455,6 +1461,7 @@ if (isset($_SESSION['user_id'])) {
                 time: defaultTime,
                 product_code: '',
                 product_name: '',
+                specification: '',
                 supplier: '',
                 applicant: '',
                 approver: ''
@@ -1541,7 +1548,7 @@ if (isset($_SESSION['user_id'])) {
                     
                     // 验证必填字段
                     if (!rowData.date || !rowData.time || !rowData.product_code || 
-                        !rowData.product_name || !rowData.supplier || 
+                        !rowData.product_name || !rowData.specification || !rowData.supplier || 
                         !rowData.applicant) {
                         continue; // 跳过不完整的行
                     }
@@ -1625,7 +1632,7 @@ if (isset($_SESSION['user_id'])) {
             });
             
             // 检查是否已批准（通过查看批准状态列的内容）
-            const approvalStatusCell = row.querySelector('td:nth-child(7)'); // 批准状态列
+            const approvalStatusCell = row.querySelector('td:nth-child(8)'); // 批准状态列
             const isApproved = approvalStatusCell && approvalStatusCell.textContent.includes('已批准');
             
             // 如果已批准，设置 approver 字段
@@ -1663,7 +1670,7 @@ if (isset($_SESSION['user_id'])) {
             
             rows.forEach(row => {
                 // 检查是否已批准（通过查看批准状态列的内容）
-                const approvalStatusCell = row.querySelector('td:nth-child(7)'); // 批准状态列
+                const approvalStatusCell = row.querySelector('td:nth-child(8)'); // 批准状态列
                 const isApproved = approvalStatusCell && approvalStatusCell.textContent.includes('已批准');
                 
                 if (isApproved) {
@@ -2031,7 +2038,7 @@ if (isset($_SESSION['user_id'])) {
                 if (isNewRecord) {
                     // 新记录必须填写所有必填字段
                     if (!rowData.date || !rowData.time || !rowData.product_code || 
-                        !rowData.product_name || !rowData.supplier || !rowData.applicant) {
+                        !rowData.product_name || !rowData.specification || !rowData.supplier || !rowData.applicant) {
                         throw new Error('请填写所有必填字段');
                     }
                 } else {

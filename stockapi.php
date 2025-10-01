@@ -272,7 +272,7 @@ function handlePost() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'specification', 'supplier', 'applicant'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -281,8 +281,8 @@ function handlePost() {
     
     try {
         $sql = "INSERT INTO stock_data 
-                (date, time, product_code, product_name, supplier, applicant, approver) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
+                (date, time, product_code, product_name, specification, supplier, applicant, approver) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -291,6 +291,7 @@ function handlePost() {
             $data['time'],
             $data['product_code'],
             $data['product_name'],
+            $data['specification'],
             $data['supplier'],
             $data['applicant'],
             $data['approver'] ?? null
@@ -371,7 +372,7 @@ function handlePut() {
     }
     
     // 验证必填字段
-    $required_fields = ['date', 'time', 'product_code', 'product_name', 'supplier', 'applicant'];
+    $required_fields = ['date', 'time', 'product_code', 'product_name', 'specification', 'supplier', 'applicant'];
     foreach ($required_fields as $field) {
         if (empty($data[$field])) {
             sendResponse(false, "缺少必填字段：$field");
@@ -380,7 +381,7 @@ function handlePut() {
     
     try {
         $sql = "UPDATE stock_data 
-                SET date = ?, time = ?, product_code = ?, product_name = ?, supplier = ?, 
+                SET date = ?, time = ?, product_code = ?, product_name = ?, specification = ?, supplier = ?, 
                     applicant = ?, approver = ?
                 WHERE id = ?";
 
@@ -391,6 +392,7 @@ function handlePut() {
             $data['time'],
             $data['product_code'],
             $data['product_name'],
+            $data['specification'],
             $data['supplier'],
             $data['applicant'],
             $data['approver'] ?? null,
