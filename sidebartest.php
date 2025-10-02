@@ -217,14 +217,9 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section-title.active {
-    background-color: rgba(177, 177, 177, 0.2);
+    background-color: rgba(255, 92, 0, 0.2);
     color: #ff5c00;
     margin: 0;
-    border-left: 2px solid #ff5c00;
-}
-
-.informationmenu-section-title:hover .section-icon {
-    filter: brightness(0) saturate(100%) invert(45%) sepia(98%) saturate(2000%) hue-rotate(0deg) brightness(102%) contrast(105%);
 }
 
 .informationmenu-section-title.active .section-icon {
@@ -252,9 +247,9 @@ if (isset($_SESSION['user_id'])) {
 
 .dropdown-menu-items.show {
     max-height: 500px;
-    border-radius: 0px;
+    border-radius: clamp(4px, 0.42vw, 8px);
     transition: max-height 0.3s ease;
-    margin: 4px 0px 4px clamp(20px, 1.56vw, 30px);
+    margin: 4px 10px;
 }
 
 .menu-item-wrapper {
@@ -265,7 +260,7 @@ if (isset($_SESSION['user_id'])) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: clamp(4px, 0.52vw, 10px) 0px clamp(4px, 0.52vw, 10px) clamp(16px, 1.56vw, 30px);
+    padding: clamp(4px, 0.52vw, 10px) clamp(20px, 1.56vw, 30px);
     color: #000000ff;
     text-decoration: none;
     font-size: clamp(6px, 0.73vw, 14px);
@@ -273,7 +268,7 @@ if (isset($_SESSION['user_id'])) {
     transition: all 0.2s ease;
     cursor: pointer;
     position: relative;
-    border-left: 2px solid rgba(177, 177, 177, 0.6);
+    border-left: 2px solid #ff5c00;
 }
 
 .informationmenu-item:hover {
@@ -323,8 +318,8 @@ if (isset($_SESSION['user_id'])) {
 /* 保持菜单项高亮当子菜单被hover时 */
 .menu-item-wrapper:hover .informationmenu-item,
 .submenu:hover ~ .informationmenu-item {
-    background-color: rgba(177, 177, 177, 0.2);
-    color: #ff5c00;
+    background-color: transparent;
+    color: #000000ff;
 }
 
 .submenu-header {
@@ -512,7 +507,6 @@ if (isset($_SESSION['user_id'])) {
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
-    transition: filter 0.3s ease; /* 给icon加动画 */
 }
 
 /* 更新 section-title 的 flexbox 布局 */
@@ -735,7 +729,7 @@ body.sidebar-transition {
     content: none !important;
 }
 .informationmenu .section-arrow { font-size: 16px; line-height: 1; display: inline-block; }
-.informationmenu .informationmenu-arrow { font-size: clamp(12px, 0.94vw, 18px); line-height: 1; display: inline-block; margin-right: clamp(10px, 0.94vw, 18px) !important;}
+.informationmenu .informationmenu-arrow { font-size: clamp(12px, 0.94vw, 18px); line-height: 1; display: inline-block; }
 
 /* 按用户要求，隐藏“分组标题”的箭头，保留子项箭头 */
 .informationmenu .section-arrow { display: none !important; }
@@ -1171,4 +1165,3 @@ body.sidebar-transition {
         }, 50);
     });
 </script>
-
