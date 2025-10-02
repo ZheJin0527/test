@@ -3586,7 +3586,7 @@
                                 `<div class="currency-display">
                                     <span class="currency-symbol">RM</span>
                                     <input type="number" class="currency-input-edit" 
-                                        value="${record.price || ''}" min="0" step="0.01" 
+                                        value="${record.price || ''}" min="0" step="0.00001" 
                                         onchange="updateField(${record.id}, 'price', this.value)">
                                 </div>`
                             ) :
@@ -3706,9 +3706,9 @@
 
         // 格式化货币
         function formatCurrency(value) {
-            if (!value || value === '' || value === '0') return '0.00';
+            if (!value || value === '' || value === '0') return '0.00000';
             const num = parseFloat(value);
-            return isNaN(num) ? '0.00' : num.toFixed(2);
+            return isNaN(num) ? '0.00000' : num.toFixed(5);
         }
 
         // 更新统计信息
@@ -3749,7 +3749,7 @@
                 <td>
                     <div class="currency-display">
                         <span class="currency-symbol">RM</span>
-                        <input type="number" class="currency-input-edit" min="0" step="0.01" placeholder="0.00" id="${rowId}-price" oninput="updateNewRowTotal(this)">
+                        <input type="number" class="currency-input-edit" min="0" step="0.00001" placeholder="0.00000" id="${rowId}-price" oninput="updateNewRowTotal(this)">
                     </div>
                 </td>
                 <td class="calculated-cell">
@@ -5307,7 +5307,7 @@
                     
                     result.data.forEach(price => {
                         const selected = price == currentPrice ? 'selected' : '';
-                        options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)}</option>`;
+                        options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(5)}</option>`;
                     });
                     selectElement.innerHTML = options;
                 } else {
@@ -5375,7 +5375,7 @@
                         
                         // 只显示库存足够的价格选项
                         if (availableStock >= requiredQty) {
-                            options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)} (库存: ${availableStock})</option>`;
+                            options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(5)} (库存: ${availableStock})</option>`;
                         }
                     });
                     
@@ -5446,7 +5446,7 @@
                         // 只显示库存足够的价格选项，但当前价格即使库存不足也要显示（已选中的选项）
                         if (availableStock >= requiredQty || price == currentPrice) {
                             const stockInfo = availableStock >= requiredQty ? `(库存: ${availableStock})` : `(库存不足: ${availableStock})`;
-                            options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)} ${stockInfo}</option>`;
+                            options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(5)} ${stockInfo}</option>`;
                         }
                     });
                     
@@ -5480,7 +5480,7 @@
                 input.type = 'number';
                 input.className = 'table-input currency-input-edit manual-price-input';
                 input.min = '0';
-                input.step = '0.01';
+                input.step = '0.00001';
                 input.placeholder = '输入价格';
                 input.style.marginLeft = '5px';
                 input.style.width = '80px';
@@ -5556,7 +5556,7 @@
                     options += '<option value="manual">手动输入价格</option>';
                     
                     result.data.forEach(price => {
-                        options += `<option value="${price}">${parseFloat(price).toFixed(2)}</option>`;
+                        options += `<option value="${price}">${parseFloat(price).toFixed(5)}</option>`;
                     });
                     selectElement.innerHTML = options;
                     selectElement.style.display = 'block';
@@ -5750,7 +5750,7 @@
                     
                     result.data.forEach(price => {
                         const selected = price == currentPrice ? 'selected' : '';
-                        options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(2)}</option>`;
+                        options += `<option value="${price}" ${selected}>${parseFloat(price).toFixed(5)}</option>`;
                     });
                     selectElement.innerHTML = options;
                 } else {
@@ -5777,7 +5777,7 @@
                 manualInput.type = 'number';
                 manualInput.className = 'table-input currency-input-edit manual-price-input';
                 manualInput.min = '0';
-                manualInput.step = '0.01';
+                manualInput.step = '0.00001';
                 manualInput.placeholder = '输入价格';
                 manualInput.style.marginLeft = '5px';
                 manualInput.style.width = '80px';
