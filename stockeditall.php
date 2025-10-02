@@ -1947,9 +1947,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
-                    <div id="add-receiver-container">
-                        ${createReceiverCombobox('', null, 'add', true)}
-                    </div>
+                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required disabled>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -2223,20 +2221,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <script>    
-        // 收货人选项列表
-        const receiverOptions = [
-            'John Tan',
-            'Mary Lim',
-            'David Wong',
-            'Sarah Lee',
-            'Michael Chen',
-            'Emily Ng',
-            'James Ong',
-            'Linda Teo',
-            'Robert Koh',
-            'Alice Goh'
-        ];
+    <script>
         // API 配置
         let API_BASE_URL = 'stockeditapi.php';
         let currentStockType = 'central';
@@ -3254,7 +3239,7 @@
                 }
                 
                 // 控制收货单位输入框状态
-                const receiverInput = row.querySelector(`input[data-field="receiver"]`);
+                const receiverInput = row.querySelector(`input[onchange*="updateField(${recordId}, 'receiver'"]`);
                 if (receiverInput) {
                     if (outQty > 0) {
                         receiverInput.disabled = false;
@@ -3263,8 +3248,6 @@
                         receiverInput.disabled = true;
                         receiverInput.value = '';
                         receiverInput.required = false;
-                        // 同时更新数据
-                        updateField(recordId, 'receiver', '');
                     }
                 }
             }
@@ -3293,7 +3276,7 @@
                 }
                 
                 // 控制收货单位输入框状态
-                const receiverInput = document.getElementById(`${rowId}-receiver-input`);
+                const receiverInput = document.getElementById(`${rowId}-receiver`);
                 if (receiverInput) {
                     if (outQty > 0) {
                         receiverInput.disabled = false;
@@ -3659,7 +3642,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            createReceiverCombobox(record.receiver, record.id, false, parseFloat(record.out_quantity || 0) === 0) :
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>` :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3802,7 +3785,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td>${createReceiverCombobox('', null, rowId, true)}</td>
+                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver" disabled></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -4804,54 +4787,6 @@
             `;
         }
 
-        // 创建收货人 Combobox
-        function createReceiverCombobox(value = '', recordId = null, isNewRow = false, disabled = false) {
-            let containerId;
-            if (isNewRow === true) {
-                containerId = `new-receiver`;
-            } else if (typeof isNewRow === 'string') {
-                containerId = `${isNewRow}-receiver`;
-            } else {
-                containerId = `combo-receiver-${recordId}`;
-            }
-            const inputId = `${containerId}-input`;
-            const dropdownId = `${containerId}-dropdown`;
-            
-            return `
-                <div class="combobox-container" id="${containerId}">
-                    <input 
-                        type="text" 
-                        class="combobox-input receiver-combobox" 
-                        id="${inputId}"
-                        value="${value || ''}" 
-                        placeholder="输入或选择收货人..."
-                        autocomplete="off"
-                        ${recordId ? `data-record-id="${recordId}"` : ''}
-                        data-field="receiver"
-                        data-type="receiver"
-                        ${disabled ? 'disabled' : ''}
-                    />
-                    <i class="fas fa-chevron-down combobox-arrow"></i>
-                    <div class="combobox-dropdown" id="${dropdownId}">
-                        ${generateReceiverOptions()}
-                    </div>
-                </div>
-            `;
-        }
-
-        // 生成收货人下拉选项
-        function generateReceiverOptions() {
-            if (!receiverOptions || receiverOptions.length === 0) {
-                return '<div class="no-results">暂无选项</div>';
-            }
-            
-            return receiverOptions.map(receiver => 
-                `<div class="combobox-option" data-value="${receiver}">
-                    ${receiver}
-                </div>`
-            ).join('');
-        }
-
         // 生成下拉选项
         function generateComboboxOptions(options, displayField) {
             if (!options || options.length === 0) {
@@ -5087,11 +5022,6 @@
                     // 更新单价选项
                     updatePriceOptions(container, value);
                 }
-            }else if (type === 'receiver') {
-                // 收货人字段直接更新值即可
-                if (recordId) {
-                    updateField(parseInt(recordId), 'receiver', value);
-                }
             }
             
             // 如果是编辑模式，更新字段
@@ -5237,8 +5167,8 @@
                         if (input._isSelecting) {
                             return;
                         }
-                        // 验证输入值（收货人字段允许自由输入）
-                        if (input.value.trim() && input.dataset.type !== 'receiver' && !validateComboboxInput(input)) {
+                        // 验证输入值
+                        if (input.value.trim() && !validateComboboxInput(input)) {
                             const type = input.dataset.type;
                             const fieldName = type === 'code' ? '货品编号' : '货品名称';
                             showAlert(`${fieldName}不存在，请从下拉列表中选择`, 'error');
@@ -5631,7 +5561,7 @@
             }
             
             // 控制收货单位输入框状态
-            const receiverInput = document.querySelector('#add-receiver-container .combobox-input');
+            const receiverInput = document.getElementById('add-receiver');
             if (receiverInput) {
                 if (outQty > 0) {
                     receiverInput.disabled = false;
