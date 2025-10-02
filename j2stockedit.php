@@ -1144,7 +1144,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-code-number">编号</label>
-                    <select id="add-code-number" class="form-select" onchange="handleCodeNumberChange(this, document.getElementById('add-product-name'))">
+                    <select id="add-code-number" class="form-select" onchange="handleAddFormCodeNumberChange(this, document.getElementById('add-product-name'))">
                         <option value="">请选择编号</option>
                     </select>
                 </div>
@@ -1397,6 +1397,24 @@
                         }
                     }
                 }
+
+                // 自动获取并设置规格
+                const specification = await getSpecificationByProduct(productName);
+                if (specification) {
+                    const row = selectElement.closest('tr');
+                    const specificationElement = row.querySelector('td:nth-child(7) select') || row.querySelector('td:nth-child(7) input');
+                    if (specificationElement && specificationElement.tagName === 'SELECT') {
+                        specificationElement.value = specification;
+                        
+                        // 如果是在编辑模式，更新数据
+                        if (row && !row.classList.contains('new-row')) {
+                            const recordId = parseInt(selectElement.getAttribute('data-record-id'));
+                            if (recordId) {
+                                updateField(recordId, 'specification', specification);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -1409,6 +1427,32 @@
                 }
             } catch (error) {
                 console.error('获取产品名称失败:', error);
+            }
+            return '';
+        }
+
+        // 根据code number获取规格
+        async function getSpecificationByCode(codeNumber) {
+            try {
+                const result = await apiCall(`?action=specification_by_code&code_number=${encodeURIComponent(codeNumber)}`);
+                if (result.success && result.data) {
+                    return result.data.specification;
+                }
+            } catch (error) {
+                console.error('获取规格失败:', error);
+            }
+            return '';
+        }
+
+        // 根据产品名称获取规格
+        async function getSpecificationByProduct(productName) {
+            try {
+                const result = await apiCall(`?action=specification_by_product&product_name=${encodeURIComponent(productName)}`);
+                if (result.success && result.data) {
+                    return result.data.specification;
+                }
+            } catch (error) {
+                console.error('获取规格失败:', error);
             }
             return '';
         }
@@ -1453,6 +1497,24 @@
                         const recordId = parseInt(selectElement.getAttribute('data-record-id'));
                         if (recordId) {
                             updateField(recordId, 'product_name', productName);
+                        }
+                    }
+                }
+
+                // 自动获取并设置规格
+                const specification = await getSpecificationByCode(codeNumber);
+                if (specification) {
+                    const row = selectElement.closest('tr');
+                    const specificationElement = row.querySelector('td:nth-child(7) select') || row.querySelector('td:nth-child(7) input');
+                    if (specificationElement && specificationElement.tagName === 'SELECT') {
+                        specificationElement.value = specification;
+                        
+                        // 如果是在编辑模式，更新数据
+                        if (row && !row.classList.contains('new-row')) {
+                            const recordId = parseInt(selectElement.getAttribute('data-record-id'));
+                            if (recordId) {
+                                updateField(recordId, 'specification', specification);
+                            }
                         }
                     }
                 }
@@ -2159,7 +2221,7 @@
                     
                     if (addCodeSelect) {
                         addCodeSelect.onchange = function() {
-                            handleCodeNumberChange(this, addProductSelect);
+                            handleAddFormCodeNumberChange(this, addProductSelect);
                         };
                     }
                 }, 100);
@@ -2786,9 +2848,40 @@
     </script>
     <script>
         // 处理新增表单中产品变化时加载价格选项
-        function handleAddFormProductChange(selectElement, codeNumberElement) {
+        async function handleAddFormProductChange(selectElement, codeNumberElement) {
             // 只保留原有的产品变化处理，删除价格相关代码
             handleProductChange(selectElement, codeNumberElement);
+            
+            // 自动获取并设置规格
+            const productName = selectElement.value;
+            if (productName) {
+                const specification = await getSpecificationByProduct(productName);
+                if (specification) {
+                    const specificationElement = document.getElementById('add-specification');
+                    if (specificationElement) {
+                        specificationElement.value = specification;
+                    }
+                }
+            }
+        }
+
+        // 处理新增表单中编号变化时自动设置产品名称和规格
+        async function handleAddFormCodeNumberChange(selectElement, productNameElement) {
+            const codeNumber = selectElement.value;
+            
+            // 原有的编号变化处理
+            handleCodeNumberChange(selectElement, productNameElement);
+            
+            // 自动获取并设置规格
+            if (codeNumber) {
+                const specification = await getSpecificationByCode(codeNumber);
+                if (specification) {
+                    const specificationElement = document.getElementById('add-specification');
+                    if (specificationElement) {
+                        specificationElement.value = specification;
+                    }
+                }
+            }
         }
 
         // 加载新增表单的价格选项
