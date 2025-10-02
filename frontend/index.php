@@ -48,27 +48,22 @@ $totalSlides = 4;
     
     <!-- 修复 Swiper 高度问题 -->
     <style>
-        /* 确保 swiper 不被 header 遮挡 */
+        /* 确保 swiper 不被 header 遮挡，但不添加额外的空白 */
         .swiper {
-            padding-top: 80px !important; /* header 高度 */
             height: 100vh !important;
             box-sizing: border-box !important;
         }
         
-        @media (min-width: 1024px) {
-            .swiper {
-                padding-top: 96px !important; /* 大屏 header 高度 */
-            }
-        }
-        
         /* 确保 swiper-slide 正确显示 */
         .swiper-slide {
-            height: calc(100vh - 80px) !important;
+            height: 100vh !important;
+            padding-top: 80px !important; /* 只在slide内部添加padding */
+            box-sizing: border-box !important;
         }
         
         @media (min-width: 1024px) {
             .swiper-slide {
-                height: calc(100vh - 96px) !important;
+                padding-top: 96px !important; /* 大屏 header 高度 */
             }
         }
     </style>
