@@ -478,7 +478,7 @@ body::-webkit-scrollbar {
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* 改为从顶部开始排列 */
+    justify-content: space-between; /* 恢复space-between，让stats-section贴底部 */
     box-sizing: border-box;
     padding: clamp(2.5rem, 6vh, 4rem) 0 0 0; /* 只设置顶部padding */
     background-color: white;
@@ -486,9 +486,7 @@ body::-webkit-scrollbar {
 }
 
 .comprofile-section {
-    flex: 0 1 auto; /* 改为不自动扩展 */
-    height: clamp(60vh, 70vh, 75vh); /* 设置固定高度范围 */
-    max-height: clamp(60vh, 70vh, 75vh); /* 确保不超过最大高度 */
+    flex: 1 1 auto; /* 恢复自动扩展，占据剩余空间 */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -499,6 +497,7 @@ body::-webkit-scrollbar {
     flex-wrap: wrap;
     gap: clamp(2rem, 6vw, 8rem);
     overflow: hidden; /* 防止内容溢出 */
+    min-height: 0; /* 允许flex子项收缩 */
 }
 
 .comprofile-text {
@@ -535,8 +534,8 @@ body::-webkit-scrollbar {
 .comprofile-description {
     width: 100%;
     max-width: clamp(40rem, 50vw, 48.75rem);
-    height: clamp(4rem, 8vw, 10rem); /* 设置固定高度，防止内容过高 */
-    max-height: clamp(4rem, 8vw, 10rem); /* 确保不超过最大高度 */
+    height: auto; /* 恢复自动高度 */
+    max-height: clamp(6rem, 10vw, 12rem); /* 设置最大高度限制 */
     font-size: clamp(0.875rem, 1.25vw, 1.25rem);
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
@@ -545,8 +544,8 @@ body::-webkit-scrollbar {
     margin-left: clamp(0.1rem, 0.5vw, 0.25rem);
     overflow: hidden; /* 隐藏超出部分 */
     display: -webkit-box;
-    -webkit-line-clamp: 6; /* 限制显示行数 */
-    line-clamp: 6; /* 标准属性 */
+    -webkit-line-clamp: 8; /* 增加显示行数 */
+    line-clamp: 8; /* 标准属性 */
     -webkit-box-orient: vertical;
 }
 
@@ -571,7 +570,7 @@ body::-webkit-scrollbar {
 }
 
 .stats-section {
-    flex: 0 0 auto;
+    flex: 0 0 auto; /* 不扩展，固定高度 */
     height: clamp(8rem, 12vh, 15rem); /* 设置固定高度 */
     width: 100%; /* 确保占满宽度 */
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
@@ -585,6 +584,8 @@ body::-webkit-scrollbar {
     flex-wrap: wrap;
     margin: 0; /* 移除所有边距 */
     box-sizing: border-box;
+    /* 确保stats-section紧贴底部 */
+    margin-top: auto;
 }
 
 .stat-box {
