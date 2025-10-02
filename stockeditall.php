@@ -1947,7 +1947,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required disabled>
+                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -3222,7 +3222,7 @@
         function handleEditOutQuantityChange(recordId, value) {
             const outQty = parseFloat(value) || 0;
             const row = document.querySelector(`tr[data-record-id="${recordId}"]`) || 
-                       document.querySelector(`input[data-record-id="${recordId}"]`)?.closest('tr');
+                    document.querySelector(`input[data-record-id="${recordId}"]`)?.closest('tr');
             
             if (row) {
                 // 控制Target下拉框状态
@@ -3235,19 +3235,6 @@
                         targetSelect.disabled = true;
                         targetSelect.value = '';
                         targetSelect.required = false;
-                    }
-                }
-                
-                // 控制收货单位输入框状态
-                const receiverInput = row.querySelector(`input[onchange*="updateField(${recordId}, 'receiver'"]`);
-                if (receiverInput) {
-                    if (outQty > 0) {
-                        receiverInput.disabled = false;
-                        receiverInput.required = true;
-                    } else {
-                        receiverInput.disabled = true;
-                        receiverInput.value = '';
-                        receiverInput.required = false;
                     }
                 }
             }
@@ -3272,19 +3259,6 @@
                         targetSelect.disabled = true;
                         targetSelect.value = '';
                         targetSelect.required = false;
-                    }
-                }
-                
-                // 控制收货单位输入框状态
-                const receiverInput = document.getElementById(`${rowId}-receiver`);
-                if (receiverInput) {
-                    if (outQty > 0) {
-                        receiverInput.disabled = false;
-                        receiverInput.required = true;
-                    } else {
-                        receiverInput.disabled = true;
-                        receiverInput.value = '';
-                        receiverInput.required = false;
                     }
                 }
             }
@@ -3642,7 +3616,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>` :
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3785,7 +3759,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver" disabled></td>
+                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -5558,19 +5532,6 @@
                 targetSelect.disabled = true;
                 targetSelect.value = '';
                 targetSelect.required = false;
-            }
-            
-            // 控制收货单位输入框状态
-            const receiverInput = document.getElementById('add-receiver');
-            if (receiverInput) {
-                if (outQty > 0) {
-                    receiverInput.disabled = false;
-                    receiverInput.required = true;
-                } else {
-                    receiverInput.disabled = true;
-                    receiverInput.value = '';
-                    receiverInput.required = false;
-                }
             }
         }
     </script>
