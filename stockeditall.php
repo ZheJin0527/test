@@ -1913,7 +1913,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-out-qty">出库数量</label>
-                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.001" placeholder="0.000" oninput="handleAddFormOutQuantityChange()">
+                    <input type="number" id="add-out-qty" class="form-input" min="0" step="0.001" placeholder="0.000" oninput="handleAddFormOutQuantityChange()" onchange="handleAddFormOutQuantityChange()">
                 </div>
                 <select id="add-target" class="form-select" disabled>
                     <option value="">请选择</option>
@@ -1947,7 +1947,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required>
+                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required disabled>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -3139,14 +3139,6 @@
                 outQtyInput.dispatchEvent(new Event('change', { bubbles: true }));
             }
             
-            // 清空收货单位
-            const receiverInput = container.querySelector('input[id*="-receiver"], input[data-field="receiver"]');
-            if (receiverInput) {
-                receiverInput.value = '';
-                receiverInput.disabled = true;
-                receiverInput.required = false;
-            }
-            
             // 清空单价
             const priceInput = container.querySelector('input[id*="-price"], input[data-field="price"]');
             if (priceInput) {
@@ -3157,6 +3149,14 @@
             const totalInput = container.querySelector('input[id*="-total"], input[data-field="total_value"]');
             if (totalInput) {
                 totalInput.value = '';
+            }
+            
+            // 清空收货单位
+            const receiverInput = container.querySelector('input[id*="-receiver"], input[data-field="receiver"]');
+            if (receiverInput) {
+                receiverInput.value = '';
+                receiverInput.disabled = true;
+                receiverInput.required = false;
             }
             
             // 更新单价选项
@@ -3185,6 +3185,93 @@
                     }
                 } else {
                     priceSelect.innerHTML = '<option value="">请先选择货品</option>';
+                }
+            }
+        }
+
+        // 处理出货数量变化，控制收货单位输入框状态
+        function handleOutQuantityChange(container, outQty) {
+            const receiverInput = container.querySelector('input[id*="-receiver"], input[data-field="receiver"]');
+            if (receiverInput) {
+                if (outQty > 0) {
+                    receiverInput.disabled = false;
+                    receiverInput.required = true;
+                } else {
+                    receiverInput.disabled = true;
+                    receiverInput.value = '';
+                    receiverInput.required = false;
+                }
+            }
+        }
+
+        // 处理编辑模式下出货数量变化
+        function handleEditOutQuantityChange(recordId, value) {
+            const outQty = parseFloat(value) || 0;
+            const row = document.querySelector(`tr[data-record-id="${recordId}"]`) || 
+                       document.querySelector(`input[data-record-id="${recordId}"]`)?.closest('tr');
+            
+            if (row) {
+                // 控制Target下拉框状态
+                const targetSelect = document.getElementById(`target-select-${recordId}`);
+                if (targetSelect) {
+                    if (outQty > 0) {
+                        targetSelect.disabled = false;
+                        targetSelect.required = true;
+                    } else {
+                        targetSelect.disabled = true;
+                        targetSelect.value = '';
+                        targetSelect.required = false;
+                    }
+                }
+                
+                // 控制收货单位输入框状态
+                const receiverInput = row.querySelector(`input[onchange*="updateField(${recordId}, 'receiver'"]`);
+                if (receiverInput) {
+                    if (outQty > 0) {
+                        receiverInput.disabled = false;
+                        receiverInput.required = true;
+                    } else {
+                        receiverInput.disabled = true;
+                        receiverInput.value = '';
+                        receiverInput.required = false;
+                    }
+                }
+            }
+            
+            // 更新数据库中的值
+            updateField(recordId, 'out_quantity', value);
+        }
+
+        // 处理新行中出货数量变化
+        function handleNewRowOutQuantityChange(rowId, value) {
+            const outQty = parseFloat(value) || 0;
+            const row = document.getElementById(`${rowId}-out-qty`)?.closest('tr');
+            
+            if (row) {
+                // 控制Target下拉框状态
+                const targetSelect = document.getElementById(`${rowId}-target`);
+                if (targetSelect) {
+                    if (outQty > 0) {
+                        targetSelect.disabled = false;
+                        targetSelect.required = true;
+                    } else {
+                        targetSelect.disabled = true;
+                        targetSelect.value = '';
+                        targetSelect.required = false;
+                    }
+                }
+                
+                // 控制收货单位输入框状态
+                const receiverInput = document.getElementById(`${rowId}-receiver`);
+                if (receiverInput) {
+                    if (outQty > 0) {
+                        receiverInput.disabled = false;
+                        receiverInput.required = true;
+                    } else {
+                        receiverInput.disabled = true;
+                        receiverInput.value = '';
+                        receiverInput.required = false;
+                    }
                 }
             }
         }
@@ -3624,7 +3711,7 @@
                 <td>${createCombobox('code', '', null, rowId)}</td>
                 <td>${createCombobox('product', '', null, rowId)}</td>
                 <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.000" id="${rowId}-in-qty" oninput="updateNewRowTotal(this)"></td>
-                <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.000" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)"></td>
+                <td><input type="number" class="table-input" min="0" step="0.001" placeholder="0.000" id="${rowId}-out-qty" oninput="updateNewRowTotal(this)" onchange="handleNewRowOutQuantityChange('${rowId}', this.value)"></td>
                 <td>
                     <select class="table-select" id="${rowId}-target" disabled>
                         <option value="">请选择</option>
@@ -3664,7 +3751,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
+                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver" disabled></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -3712,19 +3799,6 @@
                     targetSelect.disabled = true;
                     targetSelect.value = '';
                     targetSelect.required = false;
-                }
-            }
-            
-            // 新增：控制收货单位输入框的启用/禁用状态
-            const receiverInput = document.getElementById(`${rowId}-receiver`);
-            if (receiverInput) {
-                if (outQty > 0) {
-                    receiverInput.disabled = false;
-                    receiverInput.required = true;
-                } else {
-                    receiverInput.disabled = true;
-                    receiverInput.value = '';
-                    receiverInput.required = false;
                 }
             }
             
@@ -5406,40 +5480,6 @@
             } else {
                 inputElement.value = selectElement.value;
             }
-        }
-        
-        // 处理编辑模式下出货数量变化
-        function handleEditOutQuantityChange(recordId, value) {
-            const outQty = parseFloat(value) || 0;
-            
-            // 控制Target下拉框状态
-            const targetSelect = document.getElementById(`target-select-${recordId}`);
-            if (targetSelect) {
-                if (outQty > 0) {
-                    targetSelect.disabled = false;
-                    targetSelect.required = true;
-                } else {
-                    targetSelect.disabled = true;
-                    targetSelect.value = '';
-                    targetSelect.required = false;
-                }
-            }
-            
-            // 控制收货单位输入框状态
-            const receiverInput = document.querySelector(`input[onchange*="updateField(${recordId}, 'receiver'"]`);
-            if (receiverInput) {
-                if (outQty > 0) {
-                    receiverInput.disabled = false;
-                    receiverInput.required = true;
-                } else {
-                    receiverInput.disabled = true;
-                    receiverInput.value = '';
-                    receiverInput.required = false;
-                }
-            }
-            
-            // 更新数据库中的值
-            updateField(recordId, 'out_quantity', value);
         }
     </script>
     <script>
