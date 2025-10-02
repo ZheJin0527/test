@@ -119,7 +119,7 @@ if (isset($_SESSION['user_id'])) {
     width: clamp(140px, 13.02vw, 250px);
     height: 100vh;
     background-color: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
     position: fixed;
     left: 0;
     top: 0;
