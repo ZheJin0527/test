@@ -1947,7 +1947,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required>
+                    ${createCombobox('receiver', '', null, 'add')}
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -3202,6 +3202,16 @@
             }
         }
 
+        // 收货人选项列表
+        const receiverOptions = [
+            '张三', '李四', '王五', '赵六', '陈七', '刘八', '黄九', '周十', '吴十一',
+            '郑十二', '孙十三', '马十四', '朱十五', '胡十六', '郭十七', '何十八', '高十九', '林二十',
+            '罗二十一', '梁二十二', '徐二十三', '苏二十四', '卢二十五', '蒋二十六', '沈二十七', '韩二十八',
+            '杨二十九', '朱三十', '秦三十一', '尤三十二', '许三十三', '何三十四', '吕三十五', '施三十六',
+            '张三十七', '孔三十八', '曹三十九', '严四十', '华四十一', '金四十二', '魏四十三', '陶四十四',
+            '姜四十五', '戚四十六', '谢四十七', '邹四十八', '喻四十九', '柏五十'
+        ];
+
         // 处理出货数量变化，控制收货单位输入框状态
         function handleOutQuantityChange(container, outQty) {
             // 收货人字段保持始终可输入状态，不需要根据出货数量控制
@@ -3352,6 +3362,16 @@
             window.codeNumberOptions.forEach(item => {
                 const selected = item.code_number === selectedValue ? 'selected' : '';
                 options += `<option value="${item.code_number}" ${selected}>${item.code_number}</option>`;
+            });
+            return options;
+        }
+
+        // 生成收货人选项
+        function generateReceiverOptions(selectedValue = '') {
+            let options = '<option value="">请选择收货人</option>';
+            receiverOptions.forEach(receiver => {
+                const selected = receiver === selectedValue ? 'selected' : '';
+                options += `<option value="${receiver}" ${selected}>${receiver}</option>`;
             });
             return options;
         }
@@ -3610,7 +3630,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
+                            createCombobox('receiver', record.receiver || '', record.id) :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3753,7 +3773,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
+                <td>${createCombobox('receiver', '', null, rowId)}</td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -4718,10 +4738,30 @@
     <script>
         // 创建 Combobox 组件
         function createCombobox(type, value = '', recordId = null, isNewRow = false) {
-            const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
-            const placeholder = type === 'code' ? '输入或选择编号...' : '输入或选择货品...';
-            const fieldName = type === 'code' ? 'code_number' : 'product_name';
-            const displayField = type === 'code' ? 'code_number' : 'product_name';
+            let options, placeholder, fieldName, displayField;
+            
+            if (type === 'code') {
+                options = window.codeNumberOptions;
+                placeholder = '输入或选择编号...';
+                fieldName = 'code_number';
+                displayField = 'code_number';
+            } else if (type === 'product') {
+                options = window.productOptions;
+                placeholder = '输入或选择货品...';
+                fieldName = 'product_name';
+                displayField = 'product_name';
+            } else if (type === 'receiver') {
+                options = receiverOptions;
+                placeholder = '输入或选择收货人...';
+                fieldName = 'receiver';
+                displayField = 'receiver';
+            } else {
+                // 默认处理
+                options = window.productOptions;
+                placeholder = '输入或选择货品...';
+                fieldName = 'product_name';
+                displayField = 'product_name';
+            }
             
             let containerId;
             if (isNewRow === true) {
@@ -4749,7 +4789,7 @@
                     />
                     <i class="fas fa-chevron-down combobox-arrow"></i>
                     <div class="combobox-dropdown" id="${dropdownId}">
-                        ${generateComboboxOptions(options, displayField)}
+                        ${generateComboboxOptions(options, displayField || '')}
                     </div>
                 </div>
             `;
@@ -4761,6 +4801,16 @@
                 return '<div class="no-results">暂无选项</div>';
             }
             
+            // 如果是收货人选项，直接使用字符串数组
+            if (Array.isArray(options) && typeof options[0] === 'string') {
+                return options.map(option => 
+                    `<div class="combobox-option" data-value="${option}">
+                        ${option}
+                    </div>`
+                ).join('');
+            }
+            
+            // 其他情况，使用对象数组
             return options.map(option => 
                 `<div class="combobox-option" data-value="${option[displayField]}">
                     ${option[displayField]}
@@ -4836,19 +4886,36 @@
                 if (!dropdown) return;
                 
                 const searchTerm = input.value.toLowerCase();
-                const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
-                const displayField = type === 'code' ? 'code_number' : 'product_name';
+                let options, displayField, filteredOptions;
                 
-                if (!options) return;
-                
-                const filteredOptions = options.filter(option => 
-                    option[displayField].toLowerCase().includes(searchTerm)
-                );
+                if (type === 'code') {
+                    options = window.codeNumberOptions;
+                    displayField = 'code_number';
+                    if (!options) return;
+                    filteredOptions = options.filter(option => 
+                        option[displayField].toLowerCase().includes(searchTerm)
+                    );
+                } else if (type === 'product') {
+                    options = window.productOptions;
+                    displayField = 'product_name';
+                    if (!options) return;
+                    filteredOptions = options.filter(option => 
+                        option[displayField].toLowerCase().includes(searchTerm)
+                    );
+                } else if (type === 'receiver') {
+                    options = receiverOptions;
+                    if (!options) return;
+                    filteredOptions = options.filter(option => 
+                        option.toLowerCase().includes(searchTerm)
+                    );
+                } else {
+                    return;
+                }
                 
                 if (filteredOptions.length === 0) {
                     dropdown.innerHTML = '<div class="no-results">未找到匹配项</div>';
                 } else {
-                    dropdown.innerHTML = generateComboboxOptions(filteredOptions, displayField);
+                    dropdown.innerHTML = generateComboboxOptions(filteredOptions, displayField || '');
                     
                     // 重新绑定点击事件
                     dropdown.querySelectorAll('.combobox-option').forEach(option => {
@@ -4990,6 +5057,11 @@
                     // 更新单价选项
                     updatePriceOptions(container, value);
                 }
+            } else if (type === 'receiver') {
+                // 收货人类型不需要特殊处理，直接更新字段
+                if (recordId) {
+                    updateField(parseInt(recordId), 'receiver', value);
+                }
             }
             
             // 如果是编辑模式，更新字段
@@ -5019,6 +5091,8 @@
             } else if (type === 'product' && window.productOptions) {
                 const validProducts = window.productOptions.map(p => p.product_name);
                 return validProducts.includes(value);
+            } else if (type === 'receiver' && receiverOptions) {
+                return receiverOptions.includes(value);
             }
             
             return true;
