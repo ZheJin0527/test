@@ -3101,20 +3101,17 @@
             }
         }
 
-        // 根据货品名称获取货品编号和规格
+        // 根据货品名称获取货品编号
         async function getCodeByProduct(productName) {
             try {
                 const result = await apiCall(`?action=code_by_product&product_name=${encodeURIComponent(productName)}`);
                 if (result.success && result.data) {
-                    return {
-                        product_code: result.data.product_code,
-                        specification: result.data.specification
-                    };
+                    return result.data.product_code;
                 }
             } catch (error) {
-                console.error('获取货品信息失败:', error);
+                console.error('获取货品编号失败:', error);
             }
-            return null;
+            return '';
         }
 
         // 生成货品名称下拉选项
@@ -3133,8 +3130,8 @@
         async function handleProductChange(selectElement, codeNumberElement) {
             const productName = selectElement.value;
             if (productName) {
-                const productInfo = await getCodeByProduct(productName);
-                if (productInfo) {
+                const productCode = await getCodeByProduct(productName);
+                if (productCode) {
                     // 如果没有传入codeNumberElement，自动查找
                     if (!codeNumberElement) {
                         const row = selectElement.closest('tr');
@@ -3144,49 +3141,37 @@
                     if (codeNumberElement) {
                         if (codeNumberElement.tagName === 'SELECT') {
                             // 如果是下拉框，设置对应的值
-                            codeNumberElement.value = productInfo.product_code;
+                            codeNumberElement.value = productCode;
                         } else if (codeNumberElement.tagName === 'INPUT') {
-                            codeNumberElement.value = productInfo.product_code;
+                            codeNumberElement.value = productCode;
                         } else {
-                            codeNumberElement.textContent = productInfo.product_code;
+                            codeNumberElement.textContent = productCode;
                         }
                     }
                     
-                    // 自动填充规格
-                    const row = selectElement.closest('tr');
-                    const specificationElement = row.querySelector('td:nth-child(6) select') || row.querySelector('td:nth-child(6) input');
-                    if (specificationElement && productInfo.specification) {
-                        specificationElement.value = productInfo.specification;
-                    }
-                    
                     // 如果是在编辑模式，更新数据
+                    const row = selectElement.closest('tr');
                     if (row && !row.classList.contains('new-row')) {
                         const recordId = parseInt(selectElement.getAttribute('data-record-id'));
                         if (recordId) {
-                            updateField(recordId, 'code_number', productInfo.product_code);
-                            if (productInfo.specification) {
-                                updateField(recordId, 'specification', productInfo.specification);
-                            }
+                            updateField(recordId, 'code_number', productCode);
                         }
                     }
                 }
             }
         }
 
-        // 根据code number获取货品名称和规格
+        // 根据code number获取货品名称
         async function getProductByCode(codeNumber) {
             try {
                 const result = await apiCall(`?action=product_by_code&code_number=${encodeURIComponent(codeNumber)}`);
                 if (result.success && result.data) {
-                    return {
-                        product_name: result.data.product_name,
-                        specification: result.data.specification
-                    };
+                    return result.data.product_name;
                 }
             } catch (error) {
-                console.error('获取货品信息失败:', error);
+                console.error('获取货品名称失败:', error);
             }
-            return null;
+            return '';
         }
 
         // 生成code number下拉选项
@@ -3205,8 +3190,8 @@
         async function handleCodeNumberChange(selectElement, productNameElement) {
             const codeNumber = selectElement.value;
             if (codeNumber) {
-                const productInfo = await getProductByCode(codeNumber);
-                if (productInfo) {
+                const productName = await getProductByCode(codeNumber);
+                if (productName) {
                     // 如果没有传入productNameElement，自动查找
                     if (!productNameElement) {
                         const row = selectElement.closest('tr');
@@ -3215,29 +3200,20 @@
                     
                     if (productNameElement) {
                         if (productNameElement.tagName === 'INPUT') {
-                            productNameElement.value = productInfo.product_name;
+                            productNameElement.value = productName;
                         } else if (productNameElement.tagName === 'SELECT') {
-                            productNameElement.value = productInfo.product_name;
+                            productNameElement.value = productName;
                         } else {
-                            productNameElement.textContent = productInfo.product_name;
+                            productNameElement.textContent = productName;
                         }
                     }
                     
-                    // 自动填充规格
-                    const row = selectElement.closest('tr');
-                    const specificationElement = row.querySelector('td:nth-child(6) select') || row.querySelector('td:nth-child(6) input');
-                    if (specificationElement && productInfo.specification) {
-                        specificationElement.value = productInfo.specification;
-                    }
-                    
                     // 如果是在编辑模式，更新数据
+                    const row = selectElement.closest('tr');
                     if (row && !row.classList.contains('new-row')) {
                         const recordId = parseInt(selectElement.getAttribute('data-record-id'));
                         if (recordId) {
-                            updateField(recordId, 'product_name', productInfo.product_name);
-                            if (productInfo.specification) {
-                                updateField(recordId, 'specification', productInfo.specification);
-                            }
+                            updateField(recordId, 'product_name', productName);
                         }
                     }
                 }
@@ -4709,8 +4685,8 @@
             
             // 触发联动更新
             if (type === 'code') {
-                const productInfo = await getProductByCode(value);
-                if (productInfo) {
+                const productName = await getProductByCode(value); // 注意：这里应该是 getProductByCode
+                if (productName) {
                     const containerId = input.closest('.combobox-container').id;
                     const isNewRow = containerId.includes('new-');
                     
@@ -4729,25 +4705,15 @@
                     
                     const relatedInput = document.getElementById(relatedInputId);
                     if (relatedInput) {
-                        relatedInput.value = productInfo.product_name;
+                        relatedInput.value = productName;
                         if (recordId) {
-                            updateField(parseInt(recordId), 'product_name', productInfo.product_name);
-                        }
-                    }
-                    
-                    // 自动填充规格
-                    const row = input.closest('tr');
-                    const specificationElement = row.querySelector('td:nth-child(6) select') || row.querySelector('td:nth-child(6) input');
-                    if (specificationElement && productInfo.specification) {
-                        specificationElement.value = productInfo.specification;
-                        if (recordId) {
-                            updateField(parseInt(recordId), 'specification', productInfo.specification);
+                            updateField(parseInt(recordId), 'product_name', productName);
                         }
                     }
                 }
             } else if (type === 'product') {
-                const productInfo = await getCodeByProduct(value);
-                if (productInfo) {
+                const productCode = await getCodeByProduct(value);
+                if (productCode) {
                     const containerId = input.closest('.combobox-container').id;
                     const isNewRow = containerId.includes('new-');
                     
@@ -4766,19 +4732,9 @@
                     
                     const relatedInput = document.getElementById(relatedInputId);
                     if (relatedInput) {
-                        relatedInput.value = productInfo.product_code;
+                        relatedInput.value = productCode;
                         if (recordId) {
-                            updateField(parseInt(recordId), 'code_number', productInfo.product_code);
-                        }
-                    }
-                    
-                    // 自动填充规格
-                    const row = input.closest('tr');
-                    const specificationElement = row.querySelector('td:nth-child(6) select') || row.querySelector('td:nth-child(6) input');
-                    if (specificationElement && productInfo.specification) {
-                        specificationElement.value = productInfo.specification;
-                        if (recordId) {
-                            updateField(parseInt(recordId), 'specification', productInfo.specification);
+                            updateField(parseInt(recordId), 'code_number', productCode);
                         }
                     }
                 }
