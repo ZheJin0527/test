@@ -3386,7 +3386,7 @@
                                 `<div class="currency-display">
                                     <span class="currency-symbol">RM</span>
                                     <select class="table-select price-select" id="price-select-${record.id}" 
-                                            onchange="handlePriceChange(${record.id}, this.value)"
+                                            onchange="updateField(${record.id}, 'price', this.value)"
                                             data-product-name="${record.product_name}" 
                                             data-current-price="${record.price}">
                                         <option value="">请选择价格</option>
@@ -3396,7 +3396,7 @@
                                     <span class="currency-symbol">RM</span>
                                     <input type="number" class="currency-input-edit" 
                                         value="${record.price || ''}" min="0" step="0.01" 
-                                        onchange="handlePriceChange(${record.id}, this.value)">
+                                        onchange="updateField(${record.id}, 'price', this.value)">
                                 </div>`
                             ) :
                             `<div class="currency-display">
@@ -4171,28 +4171,6 @@
         }
 
         // 更新字段
-        // 处理价格变化（包括清空总价）
-        function handlePriceChange(id, value) {
-            updateField(id, 'price', value);
-            
-            // 清空总价（找到总价单元格）
-            const row = document.querySelector(`tr:has(#price-select-${id})`);
-            if (!row) {
-                // 如果没找到price-select，尝试查找包含该id记录的行
-                const allRows = document.querySelectorAll('#stock-tbody tr');
-                for (let r of allRows) {
-                    const editBtn = r.querySelector(`[onclick*="editRecord(${id})"]`);
-                    if (editBtn) {
-                        row = r;
-                        break;
-                    }
-                }
-            }
-            
-            // 不清空总价，因为updateCalculatedValues会自动重新计算
-            // 这里只是触发updateField来更新价格
-        }
-
         function updateField(id, field, value) {
             const record = stockData.find(r => r.id === id);
             if (record) {
@@ -4823,10 +4801,8 @@
                     }
                 }
 
-                // 更新价格下拉列表（适用于新增行和编辑模式）
+                // 新增：检查是否需要更新价格下拉列表
                 const containerId = input.closest('.combobox-container').id;
-                
-                // 处理新增行
                 if (containerId.includes('new-')) {
                     const rowIdMatch = containerId.match(/^(new-\d+)-/) || containerId.match(/^(new)-/);
                     if (rowIdMatch) {
@@ -4839,21 +4815,8 @@
                             const inQty = parseFloat(inInput.value) || 0;
                             
                             if (outQty > 0 && inQty === 0) {
-                                createNewRowPriceSelectWithStock(baseRowId, value, '', outQty);
+                                createNewRowPriceSelect(baseRowId, value);
                             }
-                        }
-                    }
-                }
-                // 处理编辑模式
-                else if (recordId) {
-                    const record = stockData.find(r => r.id === parseInt(recordId));
-                    if (record) {
-                        const outQty = parseFloat(record.out_quantity || 0);
-                        const inQty = parseFloat(record.in_quantity || 0);
-                        
-                        // 如果是纯出库，重新加载价格选项
-                        if (outQty > 0 && inQty === 0) {
-                            loadProductPricesWithStock(value, `price-select-${recordId}`, '', outQty);
                         }
                     }
                 }
@@ -5302,31 +5265,19 @@
             // 原有的货品变化处理
             handleProductChange(selectElement, codeNumberElement);
             
-            // 清空价格和总价
-            const priceSelect = document.getElementById('add-price-select');
-            const priceInput = document.getElementById('add-price');
-            const totalPriceInput = document.getElementById('add-total-price');
-            
-            if (priceSelect) {
-                priceSelect.value = '';
-            }
-            if (priceInput) {
-                priceInput.value = '';
-            }
-            if (totalPriceInput) {
-                totalPriceInput.value = '';
-            }
-            
             // 根据出库数量决定是否加载价格选项
             if (productName) {
                 handleAddFormOutQuantityChange();
             } else {
+                const priceSelect = document.getElementById('add-price-select');
+                const priceInput = document.getElementById('add-price');
                 if (priceSelect) {
                     priceSelect.innerHTML = '<option value="">请先选择货品</option>';
                     priceSelect.style.display = 'none';
                 }
                 if (priceInput) {
                     priceInput.style.display = 'block';
+                    priceInput.value = '';
                 }
             }
         }
@@ -5362,7 +5313,6 @@
         function handleAddFormPriceChange() {
             const selectElement = document.getElementById('add-price-select');
             const inputElement = document.getElementById('add-price');
-            const totalPriceInput = document.getElementById('add-total-price');
             
             if (selectElement.value === 'manual') {
                 selectElement.style.display = 'none';
@@ -5370,11 +5320,6 @@
                 inputElement.focus();
             } else {
                 inputElement.value = selectElement.value;
-            }
-            
-            // 清空总价
-            if (totalPriceInput) {
-                totalPriceInput.value = '';
             }
         }
     </script>
