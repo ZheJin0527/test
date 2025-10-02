@@ -220,6 +220,7 @@ if (isset($_SESSION['user_id'])) {
     background-color: #ff5c00;
     color: #ffffff;
     margin: 0;
+    box-shadow: 0px 2px 6px #ff7a2e;
 }
 
 .section-arrow {
