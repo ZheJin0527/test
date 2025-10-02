@@ -695,11 +695,9 @@ if (isset($_SESSION['user_id'])) {
 /* 页面内容右移，避免被侧栏覆盖 */
 body {
     margin-left: clamp(140px, 13.02vw, 250px); /* 默认就给右边距，避免闪烁 */
-    transition: margin-left 0.3s ease;
 }
 body.sidebar-collapsed {
     margin-left: clamp(50px, 3.65vw, 70px);
-    transition: margin-left 0.3s ease;
 }
 
 /* 确保主内容区域能够自适应剩余空间 */
@@ -1168,6 +1166,10 @@ body.sidebar-transition {
         sidebarToggle.classList.toggle('collapsed');
         document.body.classList.toggle('sidebar-collapsed');
 
+        // 保存侧边栏状态到localStorage
+        const isCollapsed = sidebarMenu.classList.contains('collapsed');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
+
         // 确保过渡动画已启用
         if (!document.body.classList.contains('sidebar-transition')) {
             document.body.classList.add('sidebar-transition');
@@ -1176,9 +1178,17 @@ body.sidebar-transition {
 
     // 页面加载完成后启用过渡动画
     document.addEventListener('DOMContentLoaded', function() {
+        // 立即检查是否需要应用collapsed状态（从localStorage读取）
+        const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+        if (isCollapsed) {
+            document.body.classList.add('sidebar-collapsed');
+            sidebarMenu?.classList.add('collapsed');
+            sidebarToggle?.classList.add('collapsed');
+        }
+        
         // 页面加载后短暂延迟再启用过渡效果
         setTimeout(function() {
             document.body.classList.add('sidebar-transition');
-        }, 50);
+        }, 100);
     });
 </script>
