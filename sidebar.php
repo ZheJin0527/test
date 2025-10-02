@@ -144,8 +144,8 @@ if (isset($_SESSION['user_id'])) {
 
 /* 其余样式保持不变 */
 .informationmenu-header {
-    padding: clamp(10px, 1.25vw, 24px) clamp(14px, 1.25vw, 24px);
-    border-bottom: 1px solid #474747;
+    padding: clamp(10px, 1.25vw, 24px) clamp(12px, 1.25vw, 24px);
+    border-bottom: 1px solid #d5d5d5;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -192,15 +192,15 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section {
-    padding: clamp(6px,0.52vw, 10px) 0;
+    padding: clamp(4px, 0.42vw, 8px) 0px;
     /* 让所有section占据剩余空间，但footer会被推到底部 */
 }
 
 .informationmenu-section-title {
-    padding: clamp(2px, 0.31vw, 6px) clamp(14px, 1.04vw, 20px);
+    padding: clamp(8px, 0.63vw, 12px) clamp(14px, 1.04vw, 20px);
     font-size: clamp(8px, 0.84vw, 16px);
     font-weight: bold;
-    color: #ffffffff;
+    color: #000000ff;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
@@ -210,18 +210,28 @@ if (isset($_SESSION['user_id'])) {
     transition: all 0.3s ease;
 }
 
-.informationmenu-section-title:hover {
+.informationmenu-section-title:hover:not(.active) {
+    background-color: #ffffffff;
+    color: #ff5c00;
+    margin: 0;
+}
+
+/* 禁用active状态下的hover效果 */
+.informationmenu-section-title.active:hover {
     background-color: #ff5c00;
     color: #ffffff;
-    border-radius: 20px;
-    margin: 0 10px;
+}
+
+.informationmenu-section-title.active:hover .section-icon {
+    filter: brightness(0) invert(1);
 }
 
 .informationmenu-section-title.active {
     background-color: #ff5c00;
     color: #ffffff;
-    border-radius: 20px;
-    margin: 0 10px;
+    margin: 0px 4px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 6px #ff7a2e;
 }
 
 .section-arrow {
@@ -259,14 +269,14 @@ if (isset($_SESSION['user_id'])) {
     align-items: center;
     justify-content: space-between;
     padding: clamp(4px, 0.52vw, 10px) clamp(20px, 1.56vw, 30px);
-    color: #ffffffff;
+    color: #000000ff;
     text-decoration: none;
-    font-size: clamp(8px, 0.73vw, 14px);
+    font-size: clamp(6px, 0.73vw, 14px);
     font-weight: bold;
     transition: all 0.2s ease;
     cursor: pointer;
     position: relative;
-    border-left: 1px solid #ff5c00;
+    border-left: 2px solid #ff5c00;
 }
 
 .informationmenu-item:hover {
@@ -321,7 +331,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .submenu-header {
-    padding: clamp(18px, 1.98vw, 38px) clamp(20px, 1.67vw, 32px) clamp(17px, 1.67vw, 32px);
+    padding: clamp(25px, 1.98vw, 38px) clamp(20px, 1.67vw, 32px) clamp(17px, 1.67vw, 32px);
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -459,8 +469,8 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu-footer {
     display: flex;
     justify-content: center;
-    padding: clamp(10px, 1.04vw, 20px);
-    border-top: 1px solid #474747;
+    padding: clamp(8px, 0.94vw, 18px);
+    border-top: 1px solid #d5d5d5;
     background-color: white;
     /* 确保footer固定在底部 */
     margin-top: auto;
@@ -479,7 +489,7 @@ if (isset($_SESSION['user_id'])) {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    padding: 5px;
+    padding: 0px;
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
@@ -491,7 +501,7 @@ if (isset($_SESSION['user_id'])) {
 .sidebar-menu-hamburger span {
     width: clamp(10px, 0.94vw, 18px);
     height: clamp(1px, 0.1vw, 2px);
-    background-color: #ffffffff;
+    background-color: #000000ff;
     margin: clamp(1px, 0.1vw, 2px) 0;
     transition: all 0.3s ease;
     border-radius: 1px;
@@ -505,7 +515,15 @@ if (isset($_SESSION['user_id'])) {
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
+    transition: filter 0.3s ease; /* 给icon加动画 */
+}
+
+.informationmenu-section-title.active .section-icon {
     filter: brightness(0) invert(1);
+}
+
+.informationmenu-section-title:hover:not(.active) .section-icon {
+    filter: brightness(0) saturate(100%) invert(45%) sepia(98%) saturate(2000%) hue-rotate(0deg) brightness(102%) contrast(105%);
 }
 
 /* 更新 section-title 的 flexbox 布局 */
@@ -645,14 +663,14 @@ if (isset($_SESSION['user_id'])) {
     margin: 0;
     font-size: clamp(6px, 0.63vw, 12px);
     font-weight: 500;
-    color: #ffffffff;
+    color: #000000ff;
 }
 
 .user-position {
     margin: 2px 0 0 0;
     font-size: clamp(7px, 0.63vw, 12px);
     font-weight: 400;
-    color: #ffffffff;
+    color: #000000ff;
 }
 
 /* 取消整页白色覆盖，但保留侧栏本体为白色卡片 */
@@ -666,7 +684,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu .informationmenu-header,
 .informationmenu .informationmenu-content,
 .informationmenu .informationmenu-footer {
-    background: #2F2F2F;               /* 侧栏本体白底 */
+    background: #ffffffff;               /* 侧栏本体白底 */
     pointer-events: auto;              /* 本体可交互 */
 }
 
@@ -1164,4 +1182,3 @@ body.sidebar-transition {
         }, 50);
     });
 </script>
-
