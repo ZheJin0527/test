@@ -27,7 +27,7 @@
                 
                 <!-- 登入按钮 -->
                 <div class="relative login-dropdown">
-                    <button class="flex items-center space-x-2 px-6 lg:px-8 py-2 lg:py-3 text-base lg:text-lg bg-[#ff5c00] hover:bg-[#f7931e] text-white rounded-[30px] border-2 border-[#ff5c00] hover:border-[#ff5c00] transition-colors">
+                    <button class="flex items-center space-x-2 px-6 lg:px-8 py-2 lg:py-3 text-base lg:text-lg bg-[#ff5c00] hover:bg-[#f7931e] text-white rounded-[30px] border-2 border-[#ff5c00] hover:border-[#f7931e] transition-colors">
                         <span>登入</span>
                     </button>
                     
