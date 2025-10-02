@@ -217,13 +217,9 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .informationmenu-section-title.active {
-    background-color: rgba(255, 92, 0, 0.2);
-    color: #ff5c00;
+    background-color: #ff5c00;
+    color: #ffffff;
     margin: 0;
-}
-
-.informationmenu-section-title.active .section-icon {
-    filter: brightness(0) saturate(100%) invert(45%) sepia(98%) saturate(2000%) hue-rotate(0deg) brightness(102%) contrast(105%);
 }
 
 .section-arrow {
@@ -319,7 +315,7 @@ if (isset($_SESSION['user_id'])) {
 .menu-item-wrapper:hover .informationmenu-item,
 .submenu:hover ~ .informationmenu-item {
     background-color: transparent;
-    color: #000000ff;
+    color: #ff5c00;
 }
 
 .submenu-header {
