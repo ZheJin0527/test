@@ -3592,7 +3592,7 @@
                             ) :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
-                                <span class="currency-amount">${formatCurrency(record.price)}</span>
+                                <span class="currency-amount">${record.price ? parseFloat(record.price).toFixed(5) : '0.00000'}</span>
                             </div>`
                         }
                     </td>
@@ -4068,7 +4068,7 @@
                 in_quantity: parseFloat(document.getElementById(`${rowId}-in-qty`) ? document.getElementById(`${rowId}-in-qty`).value : 0) || 0,
                 out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0) || 0,
                 specification: document.getElementById(`${rowId}-specification`) ? document.getElementById(`${rowId}-specification`).value : '',
-                price: parseFloat(document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0) || 0,
+                price: document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0,
                 receiver: receiverInput ? receiverInput.value : '',
                 code_number: codeInput ? codeInput.value : '',
                 remark: document.getElementById(`${rowId}-remark`) ? document.getElementById(`${rowId}-remark`).value : '',
@@ -4211,7 +4211,7 @@
                 in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
-                price: parseFloat(document.getElementById('add-price').value) || 0,
+                price: document.getElementById('add-price').value || 0,
                 receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
