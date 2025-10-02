@@ -1947,7 +1947,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required>
+                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required disabled>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -3205,15 +3205,24 @@
 
         // 处理出货数量变化，控制收货单位输入框状态
         function handleOutQuantityChange(container, outQty) {
-            // 此函数保留用于向后兼容，但不再控制receiver字段
-            // receiver字段现在始终可以输入
+            const receiverInput = container.querySelector('input[id*="-receiver"], input[data-field="receiver"]');
+            if (receiverInput) {
+                if (outQty > 0) {
+                    receiverInput.disabled = false;
+                    receiverInput.required = true;
+                } else {
+                    receiverInput.disabled = true;
+                    receiverInput.value = '';
+                    receiverInput.required = false;
+                }
+            }
         }
 
         // 处理编辑模式下出货数量变化
         function handleEditOutQuantityChange(recordId, value) {
             const outQty = parseFloat(value) || 0;
             const row = document.querySelector(`tr[data-record-id="${recordId}"]`) || 
-                    document.querySelector(`input[data-record-id="${recordId}"]`)?.closest('tr');
+                       document.querySelector(`input[data-record-id="${recordId}"]`)?.closest('tr');
             
             if (row) {
                 // 控制Target下拉框状态
@@ -3229,7 +3238,18 @@
                     }
                 }
                 
-                // receiver字段现在始终可以输入，不再根据出库数量控制
+                // 控制收货单位输入框状态
+                const receiverInput = row.querySelector(`input[onchange*="updateField(${recordId}, 'receiver'"]`);
+                if (receiverInput) {
+                    if (outQty > 0) {
+                        receiverInput.disabled = false;
+                        receiverInput.required = true;
+                    } else {
+                        receiverInput.disabled = true;
+                        receiverInput.value = '';
+                        receiverInput.required = false;
+                    }
+                }
             }
             
             // 更新数据库中的值
@@ -3255,7 +3275,18 @@
                     }
                 }
                 
-                // receiver字段现在始终可以输入，不再根据出库数量控制
+                // 控制收货单位输入框状态
+                const receiverInput = document.getElementById(`${rowId}-receiver`);
+                if (receiverInput) {
+                    if (outQty > 0) {
+                        receiverInput.disabled = false;
+                        receiverInput.required = true;
+                    } else {
+                        receiverInput.disabled = true;
+                        receiverInput.value = '';
+                        receiverInput.required = false;
+                    }
+                }
             }
         }
 
@@ -3611,7 +3642,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>` :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3754,7 +3785,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
+                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver" disabled></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -5527,6 +5558,19 @@
                 targetSelect.disabled = true;
                 targetSelect.value = '';
                 targetSelect.required = false;
+            }
+            
+            // 控制收货单位输入框状态
+            const receiverInput = document.getElementById('add-receiver');
+            if (receiverInput) {
+                if (outQty > 0) {
+                    receiverInput.disabled = false;
+                    receiverInput.required = true;
+                } else {
+                    receiverInput.disabled = true;
+                    receiverInput.value = '';
+                    receiverInput.required = false;
+                }
             }
         }
     </script>
