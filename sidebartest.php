@@ -328,6 +328,7 @@ if (isset($_SESSION['user_id'])) {
 .submenu:hover ~ .informationmenu-item {
     background-color: transparent;
     color: #ff5c00;
+    text-shadow: 2px 2px 4px rgba(255, 92, 0, 0.3);
 }
 
 .submenu-header {
