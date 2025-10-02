@@ -478,24 +478,27 @@ body::-webkit-scrollbar {
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start; /* 改为从顶部开始排列 */
     box-sizing: border-box;
-    padding: clamp(2.5rem, 6vh, 4rem) 0; /* 优化顶部padding，在平板上更紧凑 */
+    padding: clamp(2.5rem, 6vh, 4rem) 0 0 0; /* 只设置顶部padding */
     background-color: white;
+    overflow: hidden; /* 防止内容溢出 */
 }
 
 .comprofile-section {
-    flex: 1 1 auto;
-    min-height: 0; /* 允许flex子项收缩 */
+    flex: 0 1 auto; /* 改为不自动扩展 */
+    height: clamp(60vh, 70vh, 75vh); /* 设置固定高度范围 */
+    max-height: clamp(60vh, 70vh, 75vh); /* 确保不超过最大高度 */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem) 0; /* 优化内边距，在平板上更紧凑 */
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem) 0;
     box-sizing: border-box;
     max-width: clamp(75rem, 100vw, 120rem);
     margin: 0 auto;
-    flex-wrap: wrap; /* 允许换行，在小屏幕上自动变为垂直布局 */
-    gap: clamp(2rem, 6vw, 8rem); /* 优化间距，在平板上更紧凑 */
+    flex-wrap: wrap;
+    gap: clamp(2rem, 6vw, 8rem);
+    overflow: hidden; /* 防止内容溢出 */
 }
 
 .comprofile-text {
@@ -532,14 +535,19 @@ body::-webkit-scrollbar {
 .comprofile-description {
     width: 100%;
     max-width: clamp(40rem, 50vw, 48.75rem);
-    height: auto; /* 改为自动高度，允许内容自适应 */
-    min-height: clamp(3rem, 6vw, 8rem); /* 设置最小高度 */
-    font-size: clamp(0.875rem, 1.25vw, 1.25rem); /* 字号响应 */
+    height: clamp(4rem, 8vw, 10rem); /* 设置固定高度，防止内容过高 */
+    max-height: clamp(4rem, 8vw, 10rem); /* 确保不超过最大高度 */
+    font-size: clamp(0.875rem, 1.25vw, 1.25rem);
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
     color: #888888;
     line-height: 1.6;
     margin-left: clamp(0.1rem, 0.5vw, 0.25rem);
+    overflow: hidden; /* 隐藏超出部分 */
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* 限制显示行数 */
+    line-clamp: 6; /* 标准属性 */
+    -webkit-box-orient: vertical;
 }
 
 .comprofile-image {
@@ -564,16 +572,19 @@ body::-webkit-scrollbar {
 
 .stats-section {
     flex: 0 0 auto;
-    min-height: clamp(6rem, 10vh, 10rem); /* 优化最小高度，确保在平板上能显示 */
+    height: clamp(8rem, 12vh, 15rem); /* 设置固定高度 */
+    width: 100%; /* 确保占满宽度 */
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
+    background-size: cover; /* 确保背景覆盖整个区域 */
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(1rem, 4vw, 3rem); /* 优化间距 */
+    gap: clamp(1rem, 4vw, 3rem);
     color: white;
-    padding: clamp(0.8rem, 2.5vh, 1.5rem) clamp(1rem, 8vw, 12rem); /* 优化内边距 */
-    flex-wrap: wrap; /* 允许换行，在小屏幕上自动调整 */
-    margin-bottom: 0; /* 移除负边距 */
+    padding: clamp(0.8rem, 2.5vh, 1.5rem) clamp(1rem, 8vw, 12rem);
+    flex-wrap: wrap;
+    margin: 0; /* 移除所有边距 */
+    box-sizing: border-box;
 }
 
 .stat-box {
