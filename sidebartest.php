@@ -667,7 +667,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu .informationmenu-header,
 .informationmenu .informationmenu-content,
 .informationmenu .informationmenu-footer {
-    background: #ffffffff;               /* 侧栏本体白底 */
+    background: #fff6eb;               /* 侧栏本体白底 */
     pointer-events: auto;              /* 本体可交互 */
 }
 
