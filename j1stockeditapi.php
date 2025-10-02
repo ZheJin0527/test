@@ -215,42 +215,6 @@ function handleGet() {
             }
             break;
 
-        case 'specification_by_code':
-            // 根据code_number获取对应的specification
-            $codeNumber = $_GET['code_number'] ?? null;
-            if (!$codeNumber) {
-                sendResponse(false, "缺少编号参数");
-            }
-            
-            $stmt = $pdo->prepare("SELECT DISTINCT specification FROM stock_data WHERE product_code = ? AND specification IS NOT NULL AND specification != '' LIMIT 1");
-            $stmt->execute([$codeNumber]);
-            $specification = $stmt->fetchColumn();
-            
-            if ($specification) {
-                sendResponse(true, "获取规格成功", ["specification" => $specification]);
-            } else {
-                sendResponse(false, "未找到对应的规格");
-            }
-            break;
-
-        case 'specification_by_product':
-            // 根据product_name获取对应的specification
-            $productName = $_GET['product_name'] ?? null;
-            if (!$productName) {
-                sendResponse(false, "缺少产品名称参数");
-            }
-            
-            $stmt = $pdo->prepare("SELECT DISTINCT specification FROM stock_data WHERE product_name = ? AND specification IS NOT NULL AND specification != '' LIMIT 1");
-            $stmt->execute([$productName]);
-            $specification = $stmt->fetchColumn();
-            
-            if ($specification) {
-                sendResponse(true, "获取规格成功", ["specification" => $specification]);
-            } else {
-                sendResponse(false, "未找到对应的规格");
-            }
-            break;
-
         case 'types':
             // 获取所有唯一的类型列表
             $stmt = $pdo->prepare("SELECT DISTINCT type FROM j1stockinout_data WHERE type IS NOT NULL AND type != '' ORDER BY type");
