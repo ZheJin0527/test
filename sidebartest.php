@@ -219,7 +219,7 @@ if (isset($_SESSION['user_id'])) {
 .informationmenu-section-title.active {
     background-color: #ff5c00;
     color: #ffffff;
-    margin: 4px;
+    margin: 0px 4px;
     border-radius: 10px;
     box-shadow: 0px 2px 6px #ff7a2e;
 }
