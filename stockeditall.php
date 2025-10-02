@@ -1947,9 +1947,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
-                    <div id="add-receiver-container">
-                        ${createCombobox('receiver', '', null, 'add')}
-                    </div>
+                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -2793,7 +2791,6 @@
             loadStockData();
             loadCodeNumbers();
             loadProducts();
-            loadReceivers();
             
             // 添加实时搜索监听器
             setupRealTimeSearch();
@@ -3101,24 +3098,6 @@
             } catch (error) {
                 console.error('加载货品列表失败:', error);
                 window.productOptions = [];
-            }
-        }
-
-        // 加载收货人选项
-        async function loadReceivers() {
-            try {
-                // 这里暂时使用静态数据，你之后可以改成从API获取
-                window.receiverOptions = [
-                    { name: '张三' },
-                    { name: '李四' },
-                    { name: '王五' },
-                    { name: '赵六' },
-                    { name: '陈七' },
-                    { name: '刘八' }
-                ];
-            } catch (error) {
-                console.error('加载收货人列表失败:', error);
-                window.receiverOptions = [];
             }
         }
 
@@ -3631,7 +3610,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            createCombobox('receiver', record.receiver, record.id) :
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3774,7 +3753,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td>${createCombobox('receiver', '', null, rowId)}</td>
+                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -4064,7 +4043,7 @@
                 out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0) || 0,
                 specification: document.getElementById(`${rowId}-specification`) ? document.getElementById(`${rowId}-specification`).value : '',
                 price: parseFloat(document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0) || 0,
-                receiver: document.getElementById(`${rowId}-receiver-input`) ? document.getElementById(`${rowId}-receiver-input`).value : '',
+                receiver: document.getElementById(`${rowId}-receiver`) ? document.getElementById(`${rowId}-receiver`).value : '',
                 code_number: codeInput ? codeInput.value : '',
                 remark: document.getElementById(`${rowId}-remark`) ? document.getElementById(`${rowId}-remark`).value : '',
                 product_remark_checked: document.getElementById(`${rowId}-product-remark`) ? document.getElementById(`${rowId}-product-remark`).checked : false,
@@ -4201,7 +4180,7 @@
                 out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
                 price: parseFloat(document.getElementById('add-price').value) || 0,
-                receiver: document.getElementById('add-receiver-input') ? document.getElementById('add-receiver-input').value : '',
+                receiver: document.getElementById('add-receiver').value,
                 applicant: document.getElementById('add-applicant').value,
                 code_number: document.getElementById('add-code-number').value,
                 remark: document.getElementById('add-remark').value,
@@ -4739,25 +4718,6 @@
     <script>
         // 创建 Combobox 组件
         function createCombobox(type, value = '', recordId = null, isNewRow = false) {
-            let options, placeholder, fieldName, displayField;
-            
-            if (type === 'receiver') {
-                options = window.receiverOptions;
-                placeholder = '输入或选择收货人...';
-                fieldName = 'receiver';
-                displayField = 'name';
-            } else if (type === 'code') {
-                options = window.codeNumberOptions;
-                placeholder = '输入或选择编号...';
-                fieldName = 'code_number';
-                displayField = 'code_number';
-            } else {
-                options = window.productOptions;
-                placeholder = '输入或选择货品...';
-                fieldName = 'product_name';
-                displayField = 'product_name';
-            }
-
             const options = type === 'code' ? window.codeNumberOptions : window.productOptions;
             const placeholder = type === 'code' ? '输入或选择编号...' : '输入或选择货品...';
             const fieldName = type === 'code' ? 'code_number' : 'product_name';
@@ -5029,12 +4989,6 @@
                     
                     // 更新单价选项
                     updatePriceOptions(container, value);
-                }
-            }} else if (type === 'receiver') {
-                // 收货人选择不需要联动更新其他字段
-                // 如果是编辑模式，更新字段
-                if (recordId) {
-                    updateField(parseInt(recordId), 'receiver', value);
                 }
             }
             
