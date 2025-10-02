@@ -505,6 +505,10 @@ if (isset($_SESSION['user_id'])) {
     object-fit: contain;
 }
 
+.informationmenu-section-title.active .section-icon {
+    filter: brightness(0) invert(1);
+}
+
 /* 更新 section-title 的 flexbox 布局 */
 .informationmenu-section-title {
     display: flex;
