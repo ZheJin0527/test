@@ -1506,7 +1506,7 @@
             border-radius: clamp(4px, 0.42vw, 8px);
             padding: clamp(2px, 0.31vw, 6px) clamp(0px, 0.21vw, 4px);
             gap: 0px;
-            min-width: 108px;
+            width: clamp(100px, 8.33vw, 160px);
             transition: all 0.2s;
             position: relative;
         }
@@ -1554,7 +1554,7 @@
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             user-select: none;
-            margin: 0 2px;
+            margin: 0 clamp(2px, 0.32vw, 6px);
         }
 
         .date-dropdown {
