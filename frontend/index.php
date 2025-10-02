@@ -15,71 +15,12 @@ if (isset($_SESSION['user_id']) || (isset($_COOKIE['user_id']) && isset($_COOKIE
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
+$additionalCSS = ['css/index.css','../public/css/components/header.css','../public/css/components/footer.css'];
 $showPageIndicator = true;
 $totalSlides = 4;
-?>
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/images/images/logo.png">
-    <title><?php echo $pageTitle; ?></title>
-    
-    
-    <!-- 页面特定CSS -->
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="../public/css/components/social.css" />
-    <link rel="stylesheet" href="../public/css/components/footer.css" />
-    
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
-    <!-- 字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
-    <!-- 修复 Swiper 高度问题 -->
-    <style>
-        /* 确保 swiper 不被 header 遮挡，内容紧贴header */
-        .swiper {
-            height: 100vh !important;
-            box-sizing: border-box !important;
-        }
-        
-        /* 确保 swiper-slide 正确显示，内容从顶部开始 */
-        .swiper-slide {
-            height: 100vh !important;
-            box-sizing: border-box !important;
-        }
-        
-        /* 让header固定在顶部，内容从header下方开始 */
-        .swiper-slide .home {
-            padding-top: 80px; /* 只在home section添加padding */
-        }
-        
-        @media (min-width: 1024px) {
-            .swiper-slide .home {
-                padding-top: 96px; /* 大屏 header 高度 */
-            }
-        }
-    </style>
-</head>
-<body class="font-inter">
-
-<?php
-// 背景音乐
-if (function_exists('getBgMusicHtml')) {
-    echo getBgMusicHtml();
-}
-
-// 包含 Header
-include 'public/header.php';
+// 包含header
+include '../public/header.php';
 ?>
   <div class="swiper">
   <div class="swiper-wrapper">
