@@ -1947,7 +1947,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required disabled>
+                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required>
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -3135,14 +3135,6 @@
             const outQtyInput = container.querySelector('input[id*="-out-qty"], input[data-field="out_quantity"]');
             if (outQtyInput) {
                 outQtyInput.value = '';
-                // 触发change事件以更新相关UI
-                outQtyInput.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-            
-            // 清空收货单位
-            const receiverInput = container.querySelector('input[id*="-receiver"], input[data-field="receiver"]');
-            if (receiverInput) {
-                receiverInput.value = '';
             }
             
             // 清空单价
@@ -3437,7 +3429,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="handleEditOutQuantityChange(${record.id}, this.value)">` :
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
                             `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
@@ -3519,7 +3511,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>` :
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3662,7 +3654,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver" disabled></td>
+                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -3710,19 +3702,6 @@
                     targetSelect.disabled = true;
                     targetSelect.value = '';
                     targetSelect.required = false;
-                }
-            }
-            
-            // 新增：控制收货单位输入框的启用/禁用状态
-            const receiverInput = document.getElementById(`${rowId}-receiver`);
-            if (receiverInput) {
-                if (outQty > 0) {
-                    receiverInput.disabled = false;
-                    receiverInput.required = true;
-                } else {
-                    receiverInput.disabled = true;
-                    receiverInput.value = '';
-                    receiverInput.required = false;
                 }
             }
             
@@ -4908,18 +4887,6 @@
             // 如果是编辑模式，更新字段
             if (recordId) {
                 updateField(parseInt(recordId), input.dataset.field, value);
-                
-                // 在编辑模式下，如果更换了货品，需要清空相关字段的数据库值
-                if (type === 'product' || type === 'code') {
-                    // 清空出货数量
-                    updateField(parseInt(recordId), 'out_quantity', '');
-                    // 清空收货单位
-                    updateField(parseInt(recordId), 'receiver', '');
-                    // 清空单价
-                    updateField(parseInt(recordId), 'price', '');
-                    // 清空总价（通过重新计算）
-                    updateField(parseInt(recordId), 'total_value', '');
-                }
             }
 
             // 如果是编辑模式，确保数据已更新
@@ -4927,14 +4894,6 @@
                 const record = stockData.find(r => r.id === parseInt(recordId));
                 if (record) {
                     record[input.dataset.field] = value;
-                    
-                    // 在编辑模式下，如果更换了货品，需要清空相关字段的内存值
-                    if (type === 'product' || type === 'code') {
-                        record.out_quantity = '';
-                        record.receiver = '';
-                        record.price = '';
-                        record.total_value = '';
-                    }
                 }
             }
         }
@@ -5427,40 +5386,6 @@
         }
     </script>
     <script>
-        // 处理编辑模式下出货数量变化
-        function handleEditOutQuantityChange(recordId, value) {
-            const outQty = parseFloat(value) || 0;
-            
-            // 控制Target下拉框状态
-            const targetSelect = document.getElementById(`target-select-${recordId}`);
-            if (targetSelect) {
-                if (outQty > 0) {
-                    targetSelect.disabled = false;
-                    targetSelect.required = true;
-                } else {
-                    targetSelect.disabled = true;
-                    targetSelect.value = '';
-                    targetSelect.required = false;
-                }
-            }
-            
-            // 控制收货单位输入框状态
-            const receiverInput = document.querySelector(`input[onchange*="updateField(${recordId}, 'receiver'"]`);
-            if (receiverInput) {
-                if (outQty > 0) {
-                    receiverInput.disabled = false;
-                    receiverInput.required = true;
-                } else {
-                    receiverInput.disabled = true;
-                    receiverInput.value = '';
-                    receiverInput.required = false;
-                }
-            }
-            
-            // 更新数据库中的值
-            updateField(recordId, 'out_quantity', value);
-        }
-
         // 处理新增表单出库数量变化
         function handleAddFormOutQuantityChange() {
             const outQty = parseFloat(document.getElementById('add-out-qty').value) || 0;
@@ -5493,17 +5418,6 @@
                 targetSelect.disabled = true;
                 targetSelect.value = '';
                 targetSelect.required = false;
-            }
-            
-            // 控制收货单位输入框状态
-            const receiverInput = document.getElementById('add-receiver');
-            if (outQty > 0) {
-                receiverInput.disabled = false;
-                receiverInput.required = true;
-            } else {
-                receiverInput.disabled = true;
-                receiverInput.value = '';
-                receiverInput.required = false;
             }
         }
     </script>
