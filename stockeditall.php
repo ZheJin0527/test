@@ -3129,9 +3129,64 @@
             return options;
         }
 
+        // 清空出货相关字段的辅助函数
+        function clearOutboundFields(container) {
+            // 清空出货数量
+            const outQtyInput = container.querySelector('input[id*="-out-qty"], input[data-field="out_quantity"]');
+            if (outQtyInput) {
+                outQtyInput.value = '';
+            }
+            
+            // 清空单价
+            const priceInput = container.querySelector('input[id*="-price"], input[data-field="price"]');
+            if (priceInput) {
+                priceInput.value = '';
+            }
+            
+            // 清空总价
+            const totalInput = container.querySelector('input[id*="-total"], input[data-field="total_value"]');
+            if (totalInput) {
+                totalInput.value = '';
+            }
+            
+            // 更新单价选项
+            updatePriceOptions(container, '');
+        }
+
+        // 更新单价选项的辅助函数
+        async function updatePriceOptions(container, productName) {
+            const priceSelect = container.querySelector('select[id*="-price"], select[data-field="price"]');
+            if (priceSelect) {
+                if (productName) {
+                    try {
+                        const result = await apiCall(`?action=product_prices&product_name=${encodeURIComponent(productName)}`);
+                        if (result.success && result.data && result.data.length > 0) {
+                            let options = '<option value="">选择单价</option>';
+                            result.data.forEach(price => {
+                                options += `<option value="${price}">RM ${parseFloat(price).toFixed(2)}</option>`;
+                            });
+                            priceSelect.innerHTML = options;
+                        } else {
+                            priceSelect.innerHTML = '<option value="">无可用价格</option>';
+                        }
+                    } catch (error) {
+                        console.error('获取价格选项失败:', error);
+                        priceSelect.innerHTML = '<option value="">加载失败</option>';
+                    }
+                } else {
+                    priceSelect.innerHTML = '<option value="">请先选择货品</option>';
+                }
+            }
+        }
+
         // 处理货品名称变化
         async function handleProductChange(selectElement, codeNumberElement) {
             const productName = selectElement.value;
+            const container = selectElement.closest('tr') || selectElement.closest('.form-container') || document;
+            
+            // 清空出货相关字段
+            clearOutboundFields(container);
+            
             if (productName) {
                 const result = await getCodeByProduct(productName);
                 if (result) {
@@ -3140,7 +3195,7 @@
                     // 如果没有传入codeNumberElement，自动查找
                     if (!codeNumberElement) {
                         const row = selectElement.closest('tr');
-                        codeNumberElement = row.querySelector('td:nth-child(2) select') || row.querySelector('td:nth-child(2) input');
+                        codeNumberElement = row ? row.querySelector('td:nth-child(2) select') || row.querySelector('td:nth-child(2) input') : null;
                     }
                     
                     if (codeNumberElement) {
@@ -3168,13 +3223,19 @@
                     
                     // 自动填充规格
                     if (specification) {
-                        const specificationSelect = row.querySelector('select[id$="-specification"]');
+                        const specificationSelect = container.querySelector('select[id$="-specification"]');
                         if (specificationSelect) {
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
                         }
                     }
+                    
+                    // 更新单价选项
+                    updatePriceOptions(container, productName);
                 }
+            } else {
+                // 如果清空了货品名称，也要清空相关字段
+                clearOutboundFields(container);
             }
         }
 
@@ -3209,6 +3270,11 @@
         // 处理code number变化
         async function handleCodeNumberChange(selectElement, productNameElement) {
             const codeNumber = selectElement.value;
+            const container = selectElement.closest('tr') || selectElement.closest('.form-container') || document;
+            
+            // 清空出货相关字段
+            clearOutboundFields(container);
+            
             if (codeNumber) {
                 const result = await getProductByCode(codeNumber);
                 if (result) {
@@ -3217,7 +3283,7 @@
                     // 如果没有传入productNameElement，自动查找
                     if (!productNameElement) {
                         const row = selectElement.closest('tr');
-                        productNameElement = row.querySelector('td:nth-child(3) select') || row.querySelector('td:nth-child(3) input');
+                        productNameElement = row ? row.querySelector('td:nth-child(3) select') || row.querySelector('td:nth-child(3) input') : null;
                     }
                     
                     if (productNameElement) {
@@ -3244,13 +3310,19 @@
                     
                     // 自动填充规格
                     if (specification) {
-                        const specificationSelect = row.querySelector('select[id$="-specification"]');
+                        const specificationSelect = container.querySelector('select[id$="-specification"]');
                         if (specificationSelect) {
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
                         }
                     }
+                    
+                    // 更新单价选项
+                    updatePriceOptions(container, product_name);
                 }
+            } else {
+                // 如果清空了编号，也要清空相关字段
+                clearOutboundFields(container);
             }
         }
 
@@ -4705,6 +4777,10 @@
             const value = optionElement.dataset.value;
             const type = input.dataset.type;
             const recordId = input.dataset.recordId;
+            const container = input.closest('tr') || input.closest('.form-container') || document;
+            
+            // 清空出货相关字段
+            clearOutboundFields(container);
             
             // 标记正在进行选择操作
             input._isSelecting = true;
@@ -4752,12 +4828,15 @@
                     // 自动填充规格
                     if (specification) {
                         const row = input.closest('tr');
-                        const specificationSelect = row.querySelector('select[id$="-specification"]');
+                        const specificationSelect = row ? row.querySelector('select[id$="-specification"]') : null;
                         if (specificationSelect) {
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
                         }
                     }
+                    
+                    // 更新单价选项
+                    updatePriceOptions(container, product_name);
                 }
             } else if (type === 'product') {
                 const result = await getCodeByProduct(value);
@@ -4793,32 +4872,15 @@
                     // 自动填充规格
                     if (specification) {
                         const row = input.closest('tr');
-                        const specificationSelect = row.querySelector('select[id$="-specification"]');
+                        const specificationSelect = row ? row.querySelector('select[id$="-specification"]') : null;
                         if (specificationSelect) {
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
                         }
                     }
-                }
-
-                // 新增：检查是否需要更新价格下拉列表
-                const containerId = input.closest('.combobox-container').id;
-                if (containerId.includes('new-')) {
-                    const rowIdMatch = containerId.match(/^(new-\d+)-/) || containerId.match(/^(new)-/);
-                    if (rowIdMatch) {
-                        const baseRowId = rowIdMatch[1];
-                        const outInput = document.getElementById(`${baseRowId}-out-qty`);
-                        const inInput = document.getElementById(`${baseRowId}-in-qty`);
-                        
-                        if (outInput && inInput) {
-                            const outQty = parseFloat(outInput.value) || 0;
-                            const inQty = parseFloat(inInput.value) || 0;
-                            
-                            if (outQty > 0 && inQty === 0) {
-                                createNewRowPriceSelect(baseRowId, value);
-                            }
-                        }
-                    }
+                    
+                    // 更新单价选项
+                    updatePriceOptions(container, value);
                 }
             }
             
