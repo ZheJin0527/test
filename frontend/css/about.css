@@ -1,0 +1,1495 @@
+/* ===========================================
+   About.php 专用样式 - 现代化响应式版本
+   使用 clamp() 和 rem/vw/vh 单位实现响应式设计
+   =========================================== */
+
+/* 基础样式 */
+html {
+    font-size: 62.5%; /* 基础字体大小，1rem = 10px */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden; /* 禁止默认滚动，交给 Swiper 控制 */
+}
+
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Swiper 样式 */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    background-color: #2F2F2F;
+    display: flex;
+    flex-direction: column;
+    justify-content: start; /* 与index和joinus保持一致 */
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 通用样式 */
+.hidden {
+    display: none;
+}
+
+.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===========================================
+   About Us 部分样式
+   =========================================== */
+.about-section {
+    background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
+    height: 100vh;
+    scroll-snap-align: start;
+}
+
+.aboutus-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    justify-content: center; /* 确保垂直居中 */
+    align-items: center; /* 确保水平居中 */
+}
+
+.aboutus-banner {
+    position: relative;
+    padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 4vw, 3rem) 0 clamp(2rem, 4vw, 3rem); /* 响应式内边距，左右对称 */
+    flex: 1; /* 改为flex: 1，让内容自然分布 */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 100%; /* 确保容器占满宽度 */
+    text-align: center; /* 确保文本居中 */
+}
+  
+.aboutus-content {
+    margin-top: clamp(4rem, 6vw, 5rem); /* 响应式上边距 */
+    width: 100%; /* 使用全宽度，让内容能够居中 */
+    height: clamp(8rem, 10vw, 9rem); /* 响应式高度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    justify-content: center;
+    text-align: center;
+    transform: translateY(clamp(-3rem, -4vw, -4rem)); /* 响应式向上移动 */
+    padding: 0 clamp(2rem, 4vw, 3rem); /* 添加左右内边距，确保内容不会贴边 */
+}
+
+.aboutus-content h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(2rem, 6vw, 4rem); /* 更明显的响应式字体大小 */
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: 0.014em; /* 使用 em 单位 */
+    margin: clamp(-3rem, -5vw, -4rem) 0 0 0; /* 移除右边距，让标题居中 */
+    padding: 0;
+    white-space: nowrap;
+    text-align: center; /* 确保文字居中对齐 */
+    text-shadow:
+        clamp(0.5rem, 1vw, 0.75rem) clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem) rgba(0, 0, 0, 0.3), /* 响应式阴影 */
+        clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.aboutus-content p {
+    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-weight: normal;
+    line-height: 1.2;
+    letter-spacing: 0.005em; /* 使用 em 单位 */
+    margin: clamp(1rem, 2.5vw, 1.5rem) 0 0 0; /* 移除左右边距，让段落居中 */
+    padding: 0;
+    white-space: nowrap;
+    text-align: center; /* 确保文字居中对齐 */
+    text-shadow:
+        clamp(0.5rem, 1vw, 0.75rem) clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem) rgba(0, 0, 0, 0.3), /* 响应式阴影 */
+        clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.aboutus-intro {
+    background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* 改为flex: 1，让内容自然分布 */
+    width: 100%; /* 确保容器占满宽度 */
+    text-align: center; /* 确保文本居中 */
+}
+
+.intro-content {
+    width: 100%; /* 使用全宽度，让内容能够居中 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(1.25rem, 3vw, 4rem) clamp(2rem, 4vw, 3rem) clamp(6rem, 8vw, 6.5rem) clamp(2rem, 4vw, 3rem); /* 响应式内边距，左右对称 */
+}
+
+.intro-content h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.5rem); /* 更明显的响应式字体大小 */
+    font-weight: bold;
+    line-height: 1.4;
+    letter-spacing: 0.005em; /* 使用 em 单位 */
+    margin: 0 0 0 0; /* 移除右边距，让标题居中 */
+    padding: 0;
+    color: #FF5C00;
+    text-align: center; /* 确保文字居中对齐 */
+}
+
+.intro-content p {
+    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-weight: normal;
+    line-height: 1.7;
+    letter-spacing: clamp(0.15rem, 0.3vw, 0.2rem); /* 响应式字母间距 */
+    margin: 0 0 0 0; /* 移除右边距，让段落居中 */
+    padding: 0;
+    color: #888888;
+    white-space: nowrap;
+    text-align: center; /* 确保文字居中对齐 */
+}
+
+/* ===========================================
+   Vision 部分样式
+   =========================================== */
+.vision {
+    min-height: 100vh;
+    background: url('../../images/images/背景4.webp') no-repeat center center/cover;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1.25rem, 2vw, 1.5rem) clamp(4rem, 8vw, 6rem); /* 响应式内边距 */
+    transform: scale(clamp(0.8, 1vw + 0.4, 1)); /* 智能缩放比例 */
+    transform-origin: center center; /* 缩放中心点 */
+    transition: transform 0.3s ease; /* 平滑缩放过渡 */
+}
+
+.vision-content {
+    width: 100%;    
+    text-align: center;
+    transform: scale(clamp(0.85, 1.2vw + 0.5, 1.1)); /* 内容独立缩放 */
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+
+.vision-content h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 3.5rem); /* 更明显的响应式字体大小 */
+    font-weight: bold;
+    line-height: 1.4;
+    letter-spacing: 0.005em; /* 使用 em 单位 */
+    margin-bottom: clamp(1.25rem, 2vw, 1.5rem); /* 响应式下边距 */
+    margin-top: clamp(1.25rem, 2vw, 1.5rem); /* 响应式上边距 */
+}
+
+.vision-content p {
+    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-weight: normal;
+    line-height: 1.5;
+    letter-spacing: 0.02em; /* 使用 em 单位 */
+    color: white;
+    margin-top: 0;
+    margin-bottom: clamp(2rem, 4vw, 2.5rem); /* 响应式下边距 */
+}
+
+.vision-cards {
+    display: flex;
+    justify-content: center;   /* 或 flex-start */
+    gap: clamp(1.5rem, 3vw, 2rem); /* 响应式间距 */
+    padding: 0 clamp(2rem, 4vw, 2.5rem); /* 响应式内边距 */
+    flex-wrap: nowrap;         /* ✅ 不允许换行 */
+    transform: scale(clamp(0.75, 1.5vw + 0.3, 1.05)); /* 卡片容器缩放 */
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+
+.vision-card {
+    width: clamp(20rem, 40vw, 35rem); /* 调整卡片宽度，更协调 */
+    height: clamp(18rem, 25vw, 18rem); /* 调整卡片高度，更协调 */
+    background-color: #FFF3E6;
+    border-radius: clamp(1rem, 2vw, 1.5rem); /* 响应式圆角 */
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); /* 调整内边距 */
+    text-align: left;
+    color: #888888;
+    box-shadow: 
+        clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.6vw, 0.5rem) rgba(0, 0, 0, 0.1), /* 响应式阴影 */
+        clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.25rem) clamp(1.25rem, 2vw, 1.5rem) rgba(0, 0, 0, 0.15);
+    transform: scale(clamp(0.7, 1.8vw + 0.2, 1.1)); /* 卡片独立缩放 */
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+
+.vision-label {
+    display: inline-block;
+    background-color: white;
+    color: #FF5C00;
+    font-size: clamp(1rem, 3vw, 1.8rem); /* 更明显的响应式字体大小 */
+    font-weight: bold;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: clamp(0.5rem, 1vw, 0.8rem) clamp(1rem, 1.5vw, 1.25rem); /* 调整内边距 */
+    border-radius: clamp(1.5rem, 2.5vw, 2rem); /* 响应式圆角 */
+    margin: clamp(0.5rem, 1.5vw, 1rem) 0 clamp(0.5rem, 1vw, 0.75rem) 0; /* 简化边距 */
+    width: auto; /* 自适应宽度 */
+    transform: scale(clamp(0.8, 2vw + 0.1, 1.2)); /* 标签缩放 */
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+
+.vision-card h2 {
+    font-size: clamp(1.125rem, 2.5vw, 1.8rem); /* 更明显的响应式字体大小 */
+    font-weight: bold;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.4;
+    letter-spacing: 0.02em; /* 使用 em 单位 */
+    margin: clamp(0.5rem, 1.5vw, 1rem) 0; /* 简化边距 */
+    color: black;
+    width: 100%; /* 占满卡片宽度 */
+}
+
+.vision-card p {
+    font-size: clamp(0.875rem, 1.5vw, 1rem); /* 更明显的响应式字体大小 */
+    font-weight: normal;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.5;
+    letter-spacing: 0.02em; /* 使用 em 单位 */
+    margin: clamp(0.75rem, 1.5vw, 1rem) 0; /* 简化边距 */
+    color: #888888;
+}
+
+/* Vision卡片悬停缩放效果 */
+.vision-card:hover {
+    transform: scale(clamp(0.75, 2vw + 0.3, 1.15)); /* 悬停时放大 */
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.vision-label:hover {
+    transform: scale(clamp(0.9, 2.2vw + 0.2, 1.3)); /* 悬停时放大 */
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ===========================================
+   Values 部分样式
+   =========================================== */
+.values-section {
+    padding-top: clamp(4rem, 6vw, 5rem); /* 响应式顶部内边距 */
+    background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
+    margin: 0 auto 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    width: 100%;
+    padding-bottom: clamp(1.5rem, 3vw, 2rem); /* 响应式底部内边距 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.values-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: clamp(20rem, 40vw, 53rem); /* 优化小屏幕最大宽度 */
+    padding: 0 clamp(1rem, 3vw, 3rem); /* 优化小屏幕内边距 */
+    box-sizing: border-box;
+    margin-bottom: clamp(1rem, 2vw, 2rem); /* 添加下边距，与卡片区域分离 */
+}
+
+.values-title {
+    font-size: clamp(1.3rem, 4vw, 3rem); /* 优化小屏幕字体大小 */
+    color: black;
+    font-weight: bold;
+    margin-top: clamp(1rem, 1.5vw, 1.75rem); /* 优化小屏幕上边距 */
+    margin-bottom: clamp(0.8rem, 1.2vw, 1.25rem); /* 优化小屏幕下边距 */
+    line-height: 1.2; /* 优化行高 */
+}
+
+.values-description {
+    font-size: clamp(0.8rem, 1.8vw, 1.125rem); /* 优化小屏幕字体大小 */
+    color: #888888;
+    margin-top: 0;
+    margin-bottom: 0; /* 移除下边距，由父元素控制 */
+    line-height: 1.6; /* 增加行高，提高可读性 */
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.values-bottom {
+    display: flex;
+    flex-wrap: wrap; /* 允许换行，适应小屏幕 */
+    gap: clamp(1rem, 2.5vw, 2rem); /* 优化小屏幕间距 */
+    padding: 0 clamp(1rem, 2vw, 1.5rem); /* 优化小屏幕内边距 */
+    justify-content: center; /* 居中对齐 */
+    align-items: stretch; /* 让卡片高度一致 */
+    scroll-behavior: smooth;
+    max-width: clamp(60rem, 90vw, 80rem); /* 限制最大宽度，避免在大屏幕上过宽 */
+    margin: 0 auto; /* 居中显示 */
+}
+
+.values-card {
+    width: clamp(12rem, 18vw, 18rem); /* 优化小屏幕宽度，更紧凑 */
+    height: clamp(16rem, 20vw, 22rem); /* 优化小屏幕高度，更紧凑 */
+    background-color: #FFF1E5;
+    padding: clamp(0.8rem, 1.8vw, 1.5rem); /* 优化小屏幕内边距 */
+    border-radius: clamp(0.8rem, 1.5vw, 1.25rem); /* 优化小屏幕圆角 */
+    text-align: center;
+    box-shadow: 0 clamp(0.2rem, 0.4vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem) rgba(0, 0, 0, 0.05); /* 优化小屏幕阴影 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 clamp(12rem, 18vw, 18rem); /* 弹性布局，最小宽度12rem */
+    min-width: clamp(12rem, 18vw, 18rem); /* 确保最小宽度 */
+    max-width: clamp(12rem, 18vw, 18rem); /* 确保最大宽度 */
+}
+
+.values-icon {
+    width: clamp(3rem, 4.5vw, 5rem); /* 优化小屏幕图标尺寸 */
+    height: clamp(3rem, 4.5vw, 5rem); /* 优化小屏幕图标尺寸 */
+    margin-top: clamp(0.8rem, 1.8vw, 1.5rem); /* 优化小屏幕上边距 */
+    margin-bottom: clamp(0.4rem, 0.8vw, 0.75rem); /* 优化小屏幕下边距 */
+}
+
+.values-card h3 {
+    font-size: clamp(0.9rem, 2.2vw, 1.5rem); /* 优化小屏幕字体大小 */
+    font-weight: bold;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.4;
+    margin-bottom: clamp(0.4rem, 0.8vw, 0.75rem); /* 优化小屏幕下边距 */
+}
+
+.values-card p {
+    width: 100%; /* 占满卡片宽度 */
+    font-size: clamp(0.7rem, 1.4vw, 0.95rem); /* 优化小屏幕字体大小 */
+    font-weight: normal;
+    color: #888888;
+    line-height: 1.5; /* 增加行高，提高可读性 */
+    padding: 0; /* 移除内边距 */
+    margin-bottom: 0; /* 移除下边距 */
+    flex-grow: 1; /* 让文字区域填充剩余空间 */
+    display: flex;
+    align-items: center;
+    text-align: center; /* 确保文字居中 */
+}
+
+/* ===========================================
+   Timeline 部分样式
+   =========================================== */
+.timeline-section {
+    background: url('../../images/images/背景4.webp') no-repeat center center/cover;
+    padding: 5rem 1.25rem; /* 80px 20px转换为rem */
+    position: relative;
+    height: 100vh; /* 改为标准100vh，与其他页面一致 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeline-section h1 {
+    text-align: center;
+    font-size: clamp(1.25rem, 2.6vw, 3.125rem); /* 20px, 2.6vw, 50px转换为rem */
+    color: white;
+    margin-bottom: clamp(0.625rem, 1.6vw, 1.875rem); /* 10px, 1.6vw, 30px转换为rem */
+    margin-top: clamp(0.625rem, 3.2vw, 3.75rem); /* 10px, 3.2vw, 60px转换为rem */
+    position: relative;
+    font-weight: 700;
+    letter-spacing: 0.125rem; /* 2px转换为rem */
+    text-shadow: 0.125rem 0.125rem 0.375rem rgba(0, 0, 0, 0.4); /* 2px 2px 6px转换为rem */
+}
+
+/* 时间线导航 */
+.timeline-nav {
+    position: relative;
+    margin-bottom: -60px;
+    padding: 0 100px;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* 主时间线 */
+.timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    right: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, 
+        #FFD1A1 0%,     
+        #FFB84D 25%,    
+        #FFA500 50%,    
+        #FF7A00 75%,    
+        #FF5C00 100%);  
+    transform: translateY(-50%);
+    border-radius: 3px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* 时间线导航容器 */
+.timeline-nav {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: clamp(10px, 6.25vw, 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 可滚动的时间线容器 */
+.timeline-scroll-container {
+    position: relative;
+    width: 100%;
+    height: clamp(10px, 4.2vw, 80px);
+    overflow: hidden;
+    mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+/* 时间线轨道 */
+.timeline-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: clamp(2px, 0.21vw, 4px);
+    background: white;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    z-index: 1;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.6), 
+        transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* 时间线项目容器 */
+.timeline-items-container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 恢复默认对齐，让JavaScript控制位置 */
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 2;
+}
+
+/* 时间线项目 */
+.timeline-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 年份圆圈 */
+.timeline-bullet {
+    width: clamp(30px, 2.6vw, 50px);
+    height: clamp(30px, 2.6vw, 50px);
+    border-radius: 50%;
+    background: rgb(204, 198, 198);
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: clamp(10px, 0.8vw, 16px);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 3;
+}
+
+/* 活动状态的圆圈 */
+.timeline-item.active .timeline-bullet {
+    background: rgb(255, 255, 255);
+    color: #ff5c00;
+    transform: scale(1.2);
+    box-shadow: 0 6px 12px rgba(255, 92, 0, 0.3);
+}
+
+/* 悬停效果 */
+.timeline-item:hover .timeline-bullet {
+    transform: scale(1.1);
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-item.active:hover .timeline-bullet {
+    transform: scale(1.25);
+}
+
+.timeline-item.active .timeline-label {
+    color: #ff5c00;
+    opacity: 1;
+    transform: translateY(0);
+    font-weight: 700;
+}
+
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(1rem, 2.8vw, 2rem); /* 优化小屏幕宽度 */
+    height: clamp(1rem, 2.8vw, 2rem); /* 优化小屏幕高度 */
+    background: rgba(161, 159, 159, 0.788);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: clamp(1rem, 1.4vw, 1.6rem); /* 优化小屏幕字体大小 */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    border: clamp(0.04rem, 0.12vw, 0.1rem) solid rgba(255, 255, 255, 0.5); /* 优化小屏幕边框 */
+    backdrop-filter: blur(clamp(0.4rem, 0.8vw, 0.6rem)); /* 优化小屏幕模糊 */
+    user-select: none;
+    font-family: Arial, sans-serif;
+    font-size: 0;
+}
+
+.nav-arrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.nav-arrow.prev::before {
+    border-width: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.6vw, 0.5rem) clamp(0.3rem, 0.5vw, 0.4rem) 0; /* 响应式边框宽度 */
+    border-color: transparent #333 transparent transparent;
+}
+
+.nav-arrow.next::before {
+    border-width: clamp(0.3rem, 0.5vw, 0.4rem) 0 clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.6vw, 0.5rem); /* 响应式边框宽度 */
+    border-color: transparent transparent transparent #333;
+}
+
+.nav-arrow:hover {
+    background: white;
+    color: #2c3e50;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 clamp(0.5rem, 1vw, 0.75rem) clamp(1.25rem, 2vw, 1.5rem) rgba(255, 215, 0, 0.3); /* 响应式阴影 */
+}
+
+.nav-arrow:hover::before {
+    border-color: transparent #2c3e50 transparent transparent;
+}
+
+.nav-arrow.next:hover::before {
+    border-color: transparent transparent transparent #2c3e50;
+}
+
+.nav-arrow.prev {
+    left: clamp(1.5rem, 3vw, 2rem); /* 优化小屏幕左边距 */
+}
+
+.nav-arrow.next {
+    right: clamp(1.5rem, 3vw, 2rem); /* 优化小屏幕右边距 */
+}
+
+.nav-arrow.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.timeline-content-container {
+    position: relative;
+    width: 100%;
+    max-width: clamp(60rem, 80vw, 80rem); /* 优化小屏幕最大宽度 */
+    height: clamp(35rem, 45vw, 50rem); /* 优化小屏幕高度 */
+    overflow: hidden;
+    perspective: clamp(35rem, 45vw, 50rem); /* 优化小屏幕透视 */
+}
+
+.timeline-cards-wrapper {
+    position: relative;
+    width: 100%;
+    height: clamp(22rem, 28vw, 32rem); /* 优化小屏幕高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeline-content-item {
+    position: absolute;
+    width: clamp(28rem, 35vw, 42rem); /* 优化小屏幕宽度 */
+    height: clamp(11rem, 15vw, 18rem); /* 优化小屏幕高度 */
+    transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    margin-top: -5rem; /* 80px转换为rem */
+}
+
+.timeline-content-item.active {
+    transform: translateX(0) scale(1) rotateY(0deg);
+    z-index: 2;
+    opacity: 1;
+}
+
+.timeline-content-item.prev {
+    transform: translateX(clamp(-13rem, -15vw, -15rem)) scale(0.80); /* 优化小屏幕变换 */
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.timeline-content-item.next {
+    transform: translateX(clamp(13rem, 15vw, 15rem)) scale(0.80); /* 优化小屏幕变换 */
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.timeline-content-item.hidden {
+    transform: translateX(0) scale(0.7);
+    z-index: 0;
+    opacity: 0;
+}
+
+/* 堆叠隐藏的卡片 - 隐藏在中间卡片后面 */
+.timeline-content-item.stack-hidden {
+    transform: translateX(0) scale(0.95) translateZ(clamp(-3rem, -4vw, -3.5rem)); /* 响应式变换 */
+    z-index: 1;
+    opacity: 0.3;
+}
+
+/* 为堆叠效果添加轻微的随机偏移 */
+.timeline-content-item.stack-hidden:nth-child(4n) {
+    transform: translateX(clamp(-0.3rem, -0.4vw, -0.35rem)) scale(0.94) translateZ(clamp(-3.5rem, -4.5vw, -4rem)) rotate(-0.5deg); /* 响应式变换 */
+}
+
+.timeline-content-item.stack-hidden:nth-child(4n+1) {
+    transform: translateX(clamp(0.3rem, 0.4vw, 0.35rem)) scale(0.93) translateZ(clamp(-4rem, -5vw, -4.5rem)) rotate(0.5deg); /* 响应式变换 */
+}
+
+.timeline-content-item.stack-hidden:nth-child(4n+2) {
+    transform: translateX(clamp(-0.2rem, -0.3vw, -0.25rem)) scale(0.92) translateZ(clamp(-4.5rem, -5.5vw, -5rem)) rotate(-0.3deg); /* 响应式变换 */
+}
+
+.timeline-content-item.stack-hidden:nth-child(4n+3) {
+    transform: translateX(clamp(0.2rem, 0.3vw, 0.25rem)) scale(0.91) translateZ(clamp(-5rem, -6vw, -5.5rem)) rotate(0.3deg); /* 响应式变换 */
+}
+
+.timeline-content {
+    display: flex;
+    gap: clamp(0.5rem, 1.5vw, 2rem); /* 优化小屏幕间距 */
+    align-items: center;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 1), 
+        rgba(255, 255, 255, 1));
+    padding: clamp(1rem, 1.8vw, 2rem); /* 优化小屏幕内边距 */
+    border-radius: clamp(1.2rem, 1.6vw, 1.5rem); /* 优化小屏幕圆角 */
+    border: clamp(0.04rem, 0.08vw, 0.06rem) solid rgba(255, 255, 255, 0.3); /* 优化小屏幕边框 */
+    box-shadow: 
+        0 clamp(1rem, 2vw, 1.5rem) clamp(2rem, 3vw, 2.5rem) rgba(0, 0, 0, 0.1), /* 优化小屏幕阴影 */
+        0 0 0 clamp(0.04rem, 0.08vw, 0.06rem) rgba(255, 255, 255, 0.05),
+        inset 0 clamp(0.04rem, 0.08vw, 0.06rem) 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(clamp(0.4rem, 0.8vw, 0.6rem)); /* 优化小屏幕模糊 */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(255, 92, 0, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.timeline-image {
+    flex: 1;
+    max-width: clamp(15rem, 20vw, 18rem); /* 优化小屏幕最大宽度 */
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-image img {
+    width: 100%;
+    height: clamp(9rem, 12vw, 15rem); /* 优化小屏幕高度 */
+    object-fit: cover;
+    border-radius: clamp(0.7rem, 1vw, 0.8rem); /* 优化小屏幕圆角 */
+    box-shadow: 0 clamp(0.7rem, 1.2vw, 1rem) clamp(1.5rem, 2vw, 1.6rem) rgba(0, 0, 0, 0.2); /* 优化小屏幕阴影 */
+    transition: all 0.4s ease;
+    border: clamp(0.08rem, 0.12vw, 0.12rem) solid rgba(255, 255, 255, 0.1); /* 优化小屏幕边框 */
+}
+
+.timeline-text {
+    flex: 1;
+    max-width: clamp(18rem, 25vw, 25rem); /* 优化小屏幕最大宽度 */
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-text h3 {
+    font-size: clamp(0.8rem, 1.6vw, 1.2rem); /* 优化小屏幕字体大小 */
+    background: #ff5c00;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: clamp(1rem, 1.2vw, 1.2rem); /* 优化小屏幕下边距 */
+    position: relative;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.timeline-text h3::after {
+    content: '';
+    position: absolute;
+    bottom: clamp(-0.75rem, -1vw, -0.8rem); /* 响应式底部位置 */
+    left: 0;
+    width: clamp(6rem, 8vw, 6.25rem); /* 响应式宽度 */
+    height: clamp(0.1rem, 0.15vw, 0.15rem); /* 响应式高度 */
+    background: linear-gradient(90deg, #ff5c00, transparent);
+}
+
+.timeline-text p {
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem); /* 优化小屏幕字体大小 */
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: clamp(0.6rem, 0.8vw, 0.7rem); /* 优化小屏幕下边距 */
+}
+
+.timeline-text .year-badge {
+    display: inline-block;
+    padding: clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.6rem, 0.8vw, 0.7rem); /* 优化小屏幕内边距 */
+    background: linear-gradient(135deg, #ff5c00, #ff8c00);
+    color: white;
+    border-radius: clamp(1rem, 1.2vw, 1.1rem); /* 优化小屏幕圆角 */
+    font-size: clamp(0.5rem, 0.7vw, 0.7rem); /* 优化小屏幕字体大小 */
+    font-weight: 600;
+    margin-bottom: clamp(0.7rem, 1vw, 0.8rem); /* 优化小屏幕下边距 */
+    box-shadow: 0 clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.6vw, 0.5rem) rgba(255, 92, 0, 0.3); /* 优化小屏幕阴影 */
+}
+
+/* 侧边卡片点击效果 */
+.timeline-content-item.prev .timeline-content,
+.timeline-content-item.next .timeline-content {
+    cursor: pointer;
+}
+
+
+/* ===========================================
+   页面指示器样式
+   =========================================== */
+.page-indicator {
+    position: fixed;
+    left: clamp(1.875rem, 2.5vw, 2rem); /* 响应式位置 */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.625rem, 1vw, 0.75rem); /* 响应式间距 */
+    padding: clamp(0.9rem, 1.2vw, 1rem) clamp(0.5rem, 0.8vw, 0.6rem); /* 响应式内边距 */
+    background: rgba(50, 50, 50, 0.3);
+    border-radius: clamp(1.5rem, 2vw, 1.75rem); /* 响应式圆角 */
+    backdrop-filter: blur(clamp(0.6rem, 1vw, 0.8rem)) saturate(160%); /* 响应式模糊 */
+    border: clamp(0.05rem, 0.1vw, 0.08rem) solid rgba(255, 255, 255, .15); /* 响应式边框 */
+    opacity: 0;
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.page-indicator.indicator-loaded {
+    opacity: 1;
+}
+
+.page-dot {
+    width: clamp(0.125rem, 0.15vw, 0.15rem); /* 响应式宽度 */
+    height: clamp(0.125rem, 0.15vw, 0.15rem); /* 响应式高度 */
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: clamp(0.125rem, 0.15vw, 0.15rem) solid rgba(255, 255, 255, 0.8); /* 响应式边框 */
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.page-dot:hover {
+    background-color: rgba(255, 255, 255, 1);
+    border-color: rgba(255, 255, 255, 1);
+    transform: scale(1.3);
+}
+
+.page-dot.active {
+    width: clamp(0.125rem, 0.15vw, 0.15rem); /* 响应式宽度 */
+    height: clamp(1.5rem, 2vw, 1.75rem); /* 响应式高度 */
+    border-radius: clamp(0.35rem, 0.5vw, 0.4rem); /* 响应式圆角 */
+    background-color: rgba(255, 255, 255, 1);
+    border-color: rgba(255, 255, 255, 1);
+}
+
+.page-dot.active:hover {
+    transform: scale(1.12);
+}
+
+/* ===========================================
+   响应式设计 - 使用 clamp() 实现
+   =========================================== */
+
+/* Timeline 专用响应式样式 - 使用 clamp() 实现 */
+
+/* ===========================================
+   背景图片优化
+   =========================================== */
+.aboutus-intro,
+.vision {
+  background-attachment: scroll !important;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ===========================================
+   动画样式（从 aboutanimation.css 提取）
+   =========================================== */
+
+/* 渐显向上动画 */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(clamp(1.5rem, 2vw, 2rem)); /* 响应式变换 */
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* 动画延迟 - 保持原设置 */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+.delay-4 { animation-delay: 0.7s; }
+.delay-5 { animation-delay: 0.9s; }
+.delay-6 { animation-delay: 1.1s; }
+.delay-7 { animation-delay: 1.3s; }
+.delay-8 { animation-delay: 1.5s; }
+
+/* 向上淡入关键帧 */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 向左滑入动画 */
+.slide-in-left {
+  opacity: 0 !important;
+  transform: translateX(clamp(-15rem, -20vw, -20rem)) !important; /* 响应式变换 */
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.slide-in-left.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  transition-delay: 0.6s !important;
+}
+
+.slide-in-left.delay-1 {
+  transition-delay: 0.4s;
+}
+
+.slide-in-left.delay-2 {
+  transition-delay: 0.6s;
+}
+
+.slide-in-left.delay-3 {
+  transition-delay: 1.0s;
+}
+
+.slide-in-left:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 向右滑入动画 */
+.slide-in-right {
+  opacity: 0 !important;
+  transform: translateX(clamp(15rem, 20vw, 20rem)) !important; /* 响应式变换 */
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.slide-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  transition-delay: 0.6s !important;
+}
+
+.slide-in-right:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 缩放淡入动画 */
+.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+.animate-on-scroll.visible .scale-fade-in {
+  animation-play-state: running;
+}
+
+.animate-on-scroll:not(.visible) .scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+@keyframes scaleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 首页所有元素统一,延迟0.3秒后开始1.6s动画 */
+.home-content .scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+/* 装饰线条也使用相同的0.3秒延迟 */
+.home-content .decor-line.scale-fade-in {
+  animation-delay: 0.15s;
+}
+
+/* 装饰线条使用相同的从中间放大效果 */
+.decor-line.scale-fade-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scaleFadeIn 1.6s ease forwards;
+  animation-play-state: paused;
+}
+
+.animate-on-scroll.visible .decor-line.scale-fade-in {
+  animation-play-state: running;
+}
+
+.animate-on-scroll:not(.visible) .decor-line.scale-fade-in {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* values/图文进入特效 */
+.card-tilt-in-left {
+  opacity: 0 !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) translateX(clamp(-7rem, -8vw, -8rem)) rotateY(25deg) scale(0.9) !important; /* 响应式变换 */
+  transform-origin: left center;
+  transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-tilt-in-left.visible {
+  opacity: 1 !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) translateX(0) rotateY(0deg) scale(1) !important; /* 响应式变换 */
+}
+
+/* 卡片单独延迟进入 */
+.card-tilt-in-left.visible .values-card:nth-child(1) {
+  transition-delay: 0.6s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(2) {
+  transition-delay: 0.8s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(3) {
+  transition-delay: 1.0s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-tilt-in-left.visible .values-card:nth-child(4) {
+  transition-delay: 1.2s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* values 内容缩放渐显特效 */
+.values-scale-fade {
+  opacity: 0 !important;
+  transform: scale(0.8) !important;
+  transition: all 1.6s ease;
+  animation: none !important;
+}
+
+.values-scale-fade.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  transition: all 1.0s ease !important;
+}
+
+.values-scale-fade:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+/* 为 values 标题和描述添加渐进延迟 */
+.values-scale-fade.delay-1.visible {
+  transition-delay: 0.1s !important;
+}
+
+.values-scale-fade.delay-2.visible {
+  transition-delay: 0.2s !important;
+}
+
+.values-scale-fade.delay-3.visible {
+  transition-delay: 0.3s !important;
+}
+
+.values-scale-fade.delay-4.visible {
+  transition-delay: 0.4s !important;
+}
+
+.values-scale-fade.delay-5.visible {
+  transition-delay: 0.5s !important;
+}
+
+.values-scale-fade.delay-6.visible {
+  transition-delay: 0.6s !important;
+}
+
+.values-scale-fade.delay-7.visible {
+  transition-delay: 0.7s !important;
+}
+
+.values-scale-fade.delay-8.visible {
+  transition-delay: 0.8s !important;
+}
+
+.values-scale-fade.delay-9.visible {
+  transition-delay: 0.9s !important;
+}
+
+.values-scale-fade.delay-10.visible {
+  transition-delay: 1.0s !important;
+}
+
+/* 右侧文字缩放滑入 */
+.text-zoom-in-right {
+  opacity: 0 !important;
+  transform: translateX(clamp(6rem, 8vw, 6.25rem)) translateY(clamp(1.5rem, 2vw, 2rem)) scale(0.8) !important; /* 响应式变换 */
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.text-zoom-in-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) translateY(0) scale(1) !important;
+}
+
+.text-zoom-in-right.delay-1 {
+  transition-delay: 0.3s;
+}
+
+.text-zoom-in-right.delay-2 {
+  transition-delay: 0.6s;
+}
+
+.text-zoom-in-right.delay-3 {
+  transition-delay: 0.9s;
+}
+
+/* 360度3D旋转进场 */
+.rotate-3d-full {
+  opacity: 0 !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(360deg) scale(0.6) !important; /* 响应式变换 */
+  transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+.rotate-3d-full.visible {
+  opacity: 1 !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(0deg) scale(1) !important; /* 响应式变换 */
+}
+
+.rotate-3d-full:not(.visible) { 
+  transition-delay: 0s !important; 
+}
+
+.rotate-3d-full.delay-1 { transition-delay: 0.2s; }
+.rotate-3d-full.delay-2 { transition-delay: 0.4s; }
+.rotate-3d-full.delay-3 { transition-delay: 0.6s; }
+
+/* 向下滑入动画 */
+.fade-in-down {
+  opacity: 0 !important;
+  transform: translateY(clamp(-2rem, -3vw, -2.5rem)) !important; /* 响应式变换 */
+  transition: all 0.8s ease-out;
+  animation: none !important;
+}
+
+.fade-in-down.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.fade-in-down:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 缩放淡出动画 */
+.scale-out {
+  opacity: 0 !important;
+  transform: scale(0.3) !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: none !important;
+}
+
+.scale-out.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.scale-out:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 图片专用 3D 旋转特效 */
+img.image-3d-rotate,
+.image-3d-rotate img {
+  opacity: 0 !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(-90deg) scale(1.4) !important; /* 响应式变换 */
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.3s;
+  transform-origin: center;
+  border-radius: clamp(0.4rem, 0.6vw, 0.5rem); /* 响应式圆角 */
+  animation: none !important;
+}
+
+img.image-3d-rotate.visible,
+.image-3d-rotate.visible img {
+  opacity: 1 !important;
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(0deg) scale(1) !important; /* 响应式变换 */
+}
+
+img.image-3d-rotate:not(.visible),
+.image-3d-rotate:not(.visible) img {
+  transition-delay: 0s !important;
+}
+
+img.image-3d-rotate:hover,
+.image-3d-rotate img:hover {
+  transform: perspective(clamp(50rem, 60vw, 62.5rem)) rotateY(5deg) rotateX(5deg) scale(1.05) !important; /* 响应式变换 */
+  transition-delay: 0s !important;
+}
+
+/* Vision Content 从上面滑下特效 */
+.vision-slide-down {
+  opacity: 0 !important;
+  transform: translateY(clamp(-3rem, -4vw, -4rem)) !important; /* 响应式变换 */
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: none !important;
+}
+
+.vision-slide-down.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: 0.5s !important;
+}
+
+.vision-slide-down:not(.visible) {
+  transition-delay: 0s !important;
+}
+
+/* 时间线动画状态 */
+.timeline-section.timeline-active h1 {
+    animation: titleFadeIn 0.4s ease-out forwards;
+    animation-delay: 0s;
+}
+
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(clamp(1rem, 1.5vw, 1.25rem)); /* 响应式变换 */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-section.timeline-active .timeline-track {
+    animation: trackExpand 0.5s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes trackExpand {
+    from {
+        transform: translateY(-50%) scaleX(0);
+    }
+    to {
+        transform: translateY(-50%) scaleX(1);
+    }
+}
+
+.timeline-section.timeline-active .timeline-items-container {
+    animation: itemsFadeIn 0.4s ease-out forwards;
+    animation-delay: 0.7s;
+}
+
+@keyframes itemsFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.timeline-section.timeline-active .timeline-item {
+    animation: bulletAppear 0.4s ease-out forwards;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(2) {
+    animation-delay: 0.45s;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(4) {
+    animation-delay: 0.75s;
+}
+
+.timeline-section.timeline-active .timeline-item:nth-child(5) {
+    animation-delay: 0.9s;
+}
+
+@keyframes bulletAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5) translateY(clamp(1rem, 1.5vw, 1.25rem)); /* 响应式变换 */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.timeline-section.timeline-active .nav-arrow {
+    animation: arrowFadeIn 0.3s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+@keyframes arrowFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+/* AboutUs 专用的动画状态 */
+.aboutus-banner {
+    opacity: 1;
+    transform: translateY(0);
+    background-size: cover;
+    background-position: center;
+    min-height: clamp(12rem, 15vw, 15rem); /* 响应式最小高度 */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aboutus-content {
+    opacity: 0 !important;
+    transform: translateY(clamp(1.5rem, 2vw, 2rem)) !important; /* 响应式变换 */
+    transition: all 0.8s ease-out;
+    text-align: center;
+    color: white;
+    visibility: hidden;
+}
+
+.aboutus-banner.content-loaded .aboutus-content {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.3s;
+}
+
+.aboutus-intro {
+    background-size: cover;
+    background-position: center;
+}
+
+.intro-content {
+    opacity: 0 !important;
+    transform: translateY(clamp(2rem, 3vw, 2.5rem)) !important; /* 响应式变换 */
+    transition: all 1.0s ease-out;
+    width: 100%; /* 使用全宽度，确保居中 */
+    text-align: center;
+    visibility: hidden;
+}
+
+.aboutus-intro.intro-loaded .intro-content {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.6s;
+}
+
+.aboutus-content h1,
+.aboutus-content p {
+    opacity: 0 !important;
+    transform: translateY(clamp(-3rem, -4vw, -4rem)) !important; /* 响应式变换 */
+    transition: all 0.8s ease-out;
+    visibility: hidden;
+}
+
+.intro-content h1 {
+    opacity: 0 !important;
+    transform: translateY(clamp(1rem, 1.5vw, 1.25rem)) !important; /* 响应式变换 */
+    transition: all 0.6s ease-out;
+    visibility: hidden;
+}
+
+.intro-content p {
+    opacity: 0 !important;
+    transform: translateY(clamp(0.75rem, 1vw, 1rem)) !important; /* 响应式变换 */
+    transition: all 0.6s ease-out;
+    visibility: hidden;
+}
+
+.aboutus-banner.content-loaded .aboutus-content h1 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.5s;
+}
+
+.aboutus-banner.content-loaded .aboutus-content p {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 0.7s;
+}
+
+.aboutus-intro.intro-loaded .intro-content h1 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 1.1s;
+}
+
+.aboutus-intro.intro-loaded .intro-content p {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible;
+    transition-delay: 1.3s;
+}
+
+/* 加载状态类 */
+
+.page-indicator.indicator-loaded {
+  opacity: 1;
+}
+
+.navbar.navbar-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================================
+   滚动触发的动画
+   =========================================== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(clamp(1rem, 1.5vw, 1.25rem)); /* 响应式变换 */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.05s;
+}
