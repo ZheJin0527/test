@@ -233,6 +233,10 @@ if (isset($_SESSION['user_id'])) {
     transform: rotate(90deg);
 }
 
+.informationmenu-section-title.active .section-icon {
+    filter: brightness(0) saturate(100%) invert(45%) sepia(98%) saturate(2000%) hue-rotate(0deg) brightness(102%) contrast(105%);
+}
+
 /* 下拉显示的菜单项区域 */
 .dropdown-menu-items {
     max-height: 0;
@@ -505,6 +509,7 @@ if (isset($_SESSION['user_id'])) {
     vertical-align: middle;
     flex-shrink: 0;
     object-fit: contain;
+    transition: filter 0.3s ease; /* 给icon加动画 */
 }
 
 .informationmenu-section-title.active .section-icon {
