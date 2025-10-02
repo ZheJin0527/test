@@ -4945,16 +4945,18 @@
             const recordId = input.dataset.recordId;
             const container = input.closest('tr') || input.closest('.form-container') || document;
             
-            // 清空出货相关字段
-            clearOutboundFields(container);
-            
-            // 如果是编辑模式，清空数据库中的相关字段
-            if (recordId) {
-                updateField(parseInt(recordId), 'out_quantity', '');
-                updateField(parseInt(recordId), 'price', '');
-                updateField(parseInt(recordId), 'receiver', '');
-                updateField(parseInt(recordId), 'target_system', '');
-                updateField(parseInt(recordId), 'specification', '');
+            // 只有选择货品编号或货品名称时才清空出货相关字段
+            if (type === 'code' || type === 'product') {
+                clearOutboundFields(container);
+                
+                // 如果是编辑模式，清空数据库中的相关字段
+                if (recordId) {
+                    updateField(parseInt(recordId), 'out_quantity', '');
+                    updateField(parseInt(recordId), 'price', '');
+                    updateField(parseInt(recordId), 'receiver', '');
+                    updateField(parseInt(recordId), 'target_system', '');
+                    updateField(parseInt(recordId), 'specification', '');
+                }
             }
             
             // 标记正在进行选择操作
@@ -5064,8 +5066,8 @@
                 }
             }
             
-            // 如果是编辑模式，更新字段
-            if (recordId) {
+            // 如果是编辑模式，更新字段（避免重复更新收货人）
+            if (recordId && type !== 'receiver') {
                 updateField(parseInt(recordId), input.dataset.field, value);
             }
 
@@ -5212,7 +5214,10 @@
                         // 验证输入值
                         if (input.value.trim() && !validateComboboxInput(input)) {
                             const type = input.dataset.type;
-                            const fieldName = type === 'code' ? '货品编号' : '货品名称';
+                            let fieldName = '字段';
+                            if (type === 'code') fieldName = '货品编号';
+                            else if (type === 'product') fieldName = '货品名称';
+                            else if (type === 'receiver') fieldName = '收货人';
                             showAlert(`${fieldName}不存在，请从下拉列表中选择`, 'error');
                             // 不要立即重新聚焦，给用户机会点击其他地方
                             setTimeout(() => {
