@@ -2237,17 +2237,6 @@
 
         // 规格选项
         const specifications = ['Tub', 'Kilo', 'Piece', 'Bottle', 'Box', 'Packet', 'Carton', 'Tin', 'Roll', 'Nos'];
-        // 收货人选项
-        const receiverOptions = [
-            'John Tan',
-            'Mary Lim',
-            'David Wong',
-            'Sarah Lee',
-            'Michael Chen',
-            'Lisa Ng',
-            'Steven Koh',
-            'Emily Teo'
-        ];
 
         // 日期选择器状态
         let currentDatePicker = null;
@@ -3621,7 +3610,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            createReceiverCombobox(record.receiver, record.id) :
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3764,7 +3753,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td>${createReceiverCombobox('', null, rowId)}</td>
+                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
@@ -4054,7 +4043,7 @@
                 out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0) || 0,
                 specification: document.getElementById(`${rowId}-specification`) ? document.getElementById(`${rowId}-specification`).value : '',
                 price: parseFloat(document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0) || 0,
-                receiver: document.getElementById(`${rowId}-receiver-input`) ? document.getElementById(`${rowId}-receiver-input`).value : '',
+                receiver: document.getElementById(`${rowId}-receiver`) ? document.getElementById(`${rowId}-receiver`).value : '',
                 code_number: codeInput ? codeInput.value : '',
                 remark: document.getElementById(`${rowId}-remark`) ? document.getElementById(`${rowId}-remark`).value : '',
                 product_remark_checked: document.getElementById(`${rowId}-product-remark`) ? document.getElementById(`${rowId}-product-remark`).checked : false,
@@ -4766,53 +4755,6 @@
             `;
         }
 
-        // 创建收货人 Combobox
-        function createReceiverCombobox(value = '', recordId = null, isNewRow = false) {
-            let containerId;
-            if (isNewRow === true) {
-                containerId = `new-receiver`;
-            } else if (typeof isNewRow === 'string') {
-                containerId = `${isNewRow}-receiver`;
-            } else {
-                containerId = `combo-receiver-${recordId}`;
-            }
-            const inputId = `${containerId}-input`;
-            const dropdownId = `${containerId}-dropdown`;
-            
-            return `
-                <div class="combobox-container" id="${containerId}">
-                    <input 
-                        type="text" 
-                        class="combobox-input receiver-combobox" 
-                        id="${inputId}"
-                        value="${value || ''}" 
-                        placeholder="输入或选择收货人..."
-                        autocomplete="off"
-                        ${recordId ? `data-record-id="${recordId}"` : ''}
-                        data-field="receiver"
-                        data-type="receiver"
-                    />
-                    <i class="fas fa-chevron-down combobox-arrow"></i>
-                    <div class="combobox-dropdown" id="${dropdownId}">
-                        ${generateReceiverOptions()}
-                    </div>
-                </div>
-            `;
-        }
-
-        // 生成收货人下拉选项
-        function generateReceiverOptions() {
-            if (!receiverOptions || receiverOptions.length === 0) {
-                return '<div class="no-results">暂无选项</div>';
-            }
-            
-            return receiverOptions.map(option => 
-                `<div class="combobox-option" data-value="${option}">
-                    ${option}
-                </div>`
-            ).join('');
-        }
-
         // 生成下拉选项
         function generateComboboxOptions(options, displayField) {
             if (!options || options.length === 0) {
@@ -4927,58 +4869,6 @@
                     }
                 }
             }, 100); // 100ms 防抖延迟
-        }
-
-        // 过滤收货人选项
-        function filterReceiverOptions(input) {
-            clearTimeout(input._filterTimeout);
-            input._filterTimeout = setTimeout(() => {
-                const container = input.closest('.combobox-container');
-                const dropdown = container.querySelector('.combobox-dropdown');
-                
-                if (!dropdown) return;
-                
-                const searchTerm = input.value.toLowerCase();
-                const filteredOptions = receiverOptions.filter(option => 
-                    option.toLowerCase().includes(searchTerm)
-                );
-                
-                if (filteredOptions.length === 0) {
-                    dropdown.innerHTML = '<div class="no-results">未找到匹配项</div>';
-                } else {
-                    dropdown.innerHTML = filteredOptions.map(option => 
-                        `<div class="combobox-option" data-value="${option}">${option}</div>`
-                    ).join('');
-                    
-                    dropdown.querySelectorAll('.combobox-option').forEach(option => {
-                        option.addEventListener('click', () => selectReceiverOption(option, input));
-                    });
-                }
-                
-                showComboboxDropdown(input);
-                
-                // 更新记录数据
-                const recordId = input.dataset.recordId;
-                if (recordId) {
-                    const record = stockData.find(r => r.id === parseInt(recordId));
-                    if (record) {
-                        record.receiver = input.value;
-                    }
-                }
-            }, 100);
-        }
-
-        // 选择收货人选项
-        function selectReceiverOption(optionElement, input) {
-            const value = optionElement.dataset.value;
-            input.value = value;
-            hideAllComboboxDropdowns();
-            
-            // 更新记录
-            const recordId = input.dataset.recordId;
-            if (recordId) {
-                updateField(parseInt(recordId), 'receiver', value);
-            }
         }
 
         // 选择下拉选项
@@ -5202,18 +5092,8 @@
         function bindComboboxEvents() {
         // 为所有 combobox 输入框绑定事件
         document.querySelectorAll('.combobox-input').forEach(input => {
+            // 只有在没有绑定过的情况下才绑定事件
             if (!input._eventsbound) {
-                const isReceiverInput = input.classList.contains('receiver-combobox');
-                
-                // 创建事件处理器
-                const focusHandler = () => showComboboxDropdown(input);
-                const inputHandler = () => {
-                    if (isReceiverInput) {
-                        filterReceiverOptions(input);
-                    } else {
-                        filterComboboxOptions(input);
-                    }
-                };
                 // 创建事件处理器
                 const focusHandler = () => showComboboxDropdown(input);
                 const inputHandler = () => filterComboboxOptions(input);
