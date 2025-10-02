@@ -4055,6 +4055,12 @@
             console.log('codeInput:', codeInput);
             console.log('productInput:', productInput);
 
+            // 获取收货人字段（combobox）
+            const receiverInput = document.getElementById(`${rowId}-receiver-input`);
+            
+            console.log('receiverInput:', receiverInput);
+            console.log('receiverInput value:', receiverInput ? receiverInput.value : 'null');
+            
             const formData = {
                 date: document.getElementById(`${rowId}-date`) ? document.getElementById(`${rowId}-date`).value : '',
                 time: new Date().toTimeString().slice(0, 5),
@@ -4063,7 +4069,7 @@
                 out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0) || 0,
                 specification: document.getElementById(`${rowId}-specification`) ? document.getElementById(`${rowId}-specification`).value : '',
                 price: parseFloat(document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0) || 0,
-                receiver: document.getElementById(`${rowId}-receiver`) ? document.getElementById(`${rowId}-receiver`).value : '',
+                receiver: receiverInput ? receiverInput.value : '',
                 code_number: codeInput ? codeInput.value : '',
                 remark: document.getElementById(`${rowId}-remark`) ? document.getElementById(`${rowId}-remark`).value : '',
                 product_remark_checked: document.getElementById(`${rowId}-product-remark`) ? document.getElementById(`${rowId}-product-remark`).checked : false,
@@ -4071,6 +4077,12 @@
                 type: document.getElementById(`${rowId}-type`) ? document.getElementById(`${rowId}-type`).value : ''
             };
 
+            // 调试信息
+            console.log('formData:', formData);
+            console.log('product_name:', formData.product_name);
+            console.log('specification:', formData.specification);
+            console.log('receiver:', formData.receiver);
+            
             // 验证必填字段
             if (!formData.product_name || !formData.specification || !formData.receiver) {
                 showAlert('请填写货品名称、规格单位和收货人', 'error');
