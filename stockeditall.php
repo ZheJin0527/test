@@ -1844,6 +1844,89 @@
             display: flex;
             gap: 8px;
         }
+
+        /* 收货人下拉列表样式 */
+        .receiver-dropdown-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .receiver-input {
+            width: 100%;
+            padding: 8px 30px 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.2s;
+        }
+
+        .receiver-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .receiver-dropdown-arrow {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            pointer-events: none;
+            font-size: 12px;
+        }
+
+        .receiver-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .receiver-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .receiver-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .receiver-option:active {
+            background-color: #e5e7eb;
+        }
+
+        .no-results {
+            padding: 8px 12px;
+            color: #6b7280;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* 表格中的收货人下拉列表样式 */
+        .table-input.receiver-input {
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 6px 25px 6px 8px;
+            font-size: 13px;
+        }
+
+        .table-input.receiver-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -1947,7 +2030,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-receiver">收货人 *</label>
-                    <input type="text" id="add-receiver" class="form-input" placeholder="输入收货人..." required>
+                    ${createReceiverDropdown('add-receiver', '', '选择或输入收货人...')}
                 </div>
                 <div class="form-group">
                     <label for="add-applicant">申请人 *</label>
@@ -3208,6 +3291,117 @@
             // 这个函数保留用于其他可能的逻辑扩展
         }
 
+        // 收货人选项列表
+        const receiverOptions = [
+            '张三', '李四', '王五', '赵六', '陈七', '刘八', '黄九', '周十', '吴十一',
+            '郑十二', '孙十三', '马十四', '朱十五', '胡十六', '郭十七', '何十八', '高十九', '林二十',
+            '罗二十一', '梁二十二'
+        ];
+
+        // 创建可搜索的收货人下拉列表
+        function createReceiverDropdown(id, value = '', placeholder = '选择或输入收货人...') {
+            return `
+                <div class="receiver-dropdown-container" id="${id}-container">
+                    <input 
+                        type="text" 
+                        class="receiver-input" 
+                        id="${id}"
+                        value="${value}"
+                        placeholder="${placeholder}"
+                        autocomplete="off"
+                        oninput="filterReceiverOptions('${id}')"
+                        onfocus="showReceiverDropdown('${id}')"
+                        onblur="hideReceiverDropdown('${id}')"
+                    />
+                    <i class="fas fa-chevron-down receiver-dropdown-arrow"></i>
+                    <div class="receiver-dropdown" id="${id}-dropdown">
+                        ${generateReceiverOptions(receiverOptions)}
+                    </div>
+                </div>
+            `;
+        }
+
+        // 生成收货人选项
+        function generateReceiverOptions(options, filter = '') {
+            if (!options || options.length === 0) {
+                return '<div class="no-results">暂无选项</div>';
+            }
+            
+            const filteredOptions = filter ? 
+                options.filter(option => option.toLowerCase().includes(filter.toLowerCase())) : 
+                options;
+            
+            if (filteredOptions.length === 0) {
+                return '<div class="no-results">无匹配结果</div>';
+            }
+            
+            return filteredOptions.map(option => 
+                `<div class="receiver-option" data-value="${option}">${option}</div>`
+            ).join('');
+        }
+
+        // 过滤收货人选项
+        function filterReceiverOptions(inputId) {
+            const input = document.getElementById(inputId);
+            const dropdown = document.getElementById(`${inputId}-dropdown`);
+            const filter = input.value;
+            
+            if (dropdown) {
+                dropdown.innerHTML = generateReceiverOptions(receiverOptions, filter);
+                dropdown.style.display = 'block';
+            }
+        }
+
+        // 显示收货人下拉列表
+        function showReceiverDropdown(inputId) {
+            const dropdown = document.getElementById(`${inputId}-dropdown`);
+            if (dropdown) {
+                dropdown.style.display = 'block';
+            }
+        }
+
+        // 隐藏收货人下拉列表
+        function hideReceiverDropdown(inputId) {
+            // 延迟隐藏，让点击事件先执行
+            setTimeout(() => {
+                const dropdown = document.getElementById(`${inputId}-dropdown`);
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+            }, 200);
+        }
+
+        // 选择收货人选项
+        function selectReceiverOption(optionElement, inputId) {
+            const value = optionElement.dataset.value;
+            const input = document.getElementById(inputId);
+            if (input) {
+                input.value = value;
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            hideReceiverDropdown(inputId);
+        }
+
+        // 为下拉列表选项添加点击事件监听器
+        function addReceiverDropdownListeners() {
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('receiver-option')) {
+                    const container = e.target.closest('.receiver-dropdown-container');
+                    if (container) {
+                        const input = container.querySelector('.receiver-input');
+                        if (input) {
+                            selectReceiverOption(e.target, input.id);
+                        }
+                    }
+                }
+            });
+        }
+
+        // 页面加载完成后添加事件监听器
+        document.addEventListener('DOMContentLoaded', function() {
+            addReceiverDropdownListeners();
+        });
+
         // 处理编辑模式下出货数量变化
         function handleEditOutQuantityChange(recordId, value) {
             const outQty = parseFloat(value) || 0;
@@ -3610,7 +3804,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
+                            createReceiverDropdown(`${record.id}-receiver`, record.receiver || '', '选择或输入收货人...') :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3753,7 +3947,7 @@
                 <td>
                     ${createNewRowRemarkNumberInput(rowId)}
                 </td>
-                <td><input type="text" class="table-input" placeholder="输入收货人..." id="${rowId}-receiver"></td>
+                <td>${createReceiverDropdown(`${rowId}-receiver`, '', '选择或输入收货人...')}</td>
                 <td><input type="text" class="table-input" placeholder="输入备注..." id="${rowId}-remark"></td>
                 <td>
                     <span class="action-cell">
