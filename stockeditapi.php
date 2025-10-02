@@ -392,20 +392,23 @@ function handleGet() {
             break;
 
         case 'product_by_code':
-            // 根据code_number获取对应的product_name
+            // 根据code_number获取对应的product_name和specification
             $codeNumber = $_GET['code_number'] ?? null;
             if (!$codeNumber) {
                 sendResponse(false, "缺少编号参数");
             }
             
-            $stmt = $pdo->prepare("SELECT DISTINCT product_name FROM stock_data WHERE product_code = ? LIMIT 1");
+            $stmt = $pdo->prepare("SELECT DISTINCT product_name, specification FROM stock_data WHERE product_code = ? LIMIT 1");
             $stmt->execute([$codeNumber]);
-            $productName = $stmt->fetchColumn();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            if ($productName) {
-                sendResponse(true, "产品名称获取成功", ['product_name' => $productName]);
+            if ($result) {
+                sendResponse(true, "产品信息获取成功", [
+                    'product_name' => $result['product_name'],
+                    'specification' => $result['specification']
+                ]);
             } else {
-                sendResponse(false, "未找到对应的产品名称");
+                sendResponse(false, "未找到对应的产品信息");
             }
             break;
         
@@ -419,20 +422,23 @@ function handleGet() {
             break;
 
         case 'code_by_product':
-            // 根据product_name获取对应的product_code
+            // 根据product_name获取对应的product_code和specification
             $productName = $_GET['product_name'] ?? null;
             if (!$productName) {
                 sendResponse(false, "缺少产品名称参数");
             }
             
-            $stmt = $pdo->prepare("SELECT DISTINCT product_code FROM stock_data WHERE product_name = ? LIMIT 1");
+            $stmt = $pdo->prepare("SELECT DISTINCT product_code, specification FROM stock_data WHERE product_name = ? LIMIT 1");
             $stmt->execute([$productName]);
-            $productCode = $stmt->fetchColumn();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            if ($productCode) {
-                sendResponse(true, "产品编号获取成功", ['product_code' => $productCode]);
+            if ($result) {
+                sendResponse(true, "产品信息获取成功", [
+                    'product_code' => $result['product_code'],
+                    'specification' => $result['specification']
+                ]);
             } else {
-                sendResponse(false, "未找到对应的产品编号");
+                sendResponse(false, "未找到对应的产品信息");
             }
             break;
             
