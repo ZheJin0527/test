@@ -1955,7 +1955,7 @@
                 </div>
                 <div class="form-group">
                     <label for="add-code-number">编号</label>
-                    <select id="add-code-number" class="form-select" onchange="handleCodeNumberChange(this, document.getElementById('add-product-name'))">
+                    <select id="add-code-number" class="form-select" onchange="handleAddFormCodeNumberChange(this, document.getElementById('add-product-name'))">
                         <option value="">请选择编号</option>
                     </select>
                 </div>
@@ -3149,6 +3149,20 @@
                         }
                     }
                     
+                    // 自动填充规格
+                    const specification = await getSpecificationByProduct(productName, productCode);
+                    if (specification) {
+                        const row = selectElement.closest('tr');
+                        const specificationElement = row.querySelector('td:nth-child(5) select') || row.querySelector('td:nth-child(5) input');
+                        if (specificationElement) {
+                            if (specificationElement.tagName === 'SELECT') {
+                                specificationElement.value = specification;
+                            } else {
+                                specificationElement.value = specification;
+                            }
+                        }
+                    }
+                    
                     // 如果是在编辑模式，更新数据
                     const row = selectElement.closest('tr');
                     if (row && !row.classList.contains('new-row')) {
@@ -3170,6 +3184,30 @@
                 }
             } catch (error) {
                 console.error('获取货品名称失败:', error);
+            }
+            return '';
+        }
+
+        // 根据产品名称或编号获取规格
+        async function getSpecificationByProduct(productName, productCode) {
+            try {
+                let url = '?action=product_specification';
+                if (productName && productCode) {
+                    url += `&product_name=${encodeURIComponent(productName)}&product_code=${encodeURIComponent(productCode)}`;
+                } else if (productName) {
+                    url += `&product_name=${encodeURIComponent(productName)}`;
+                } else if (productCode) {
+                    url += `&product_code=${encodeURIComponent(productCode)}`;
+                } else {
+                    return '';
+                }
+                
+                const result = await apiCall(url);
+                if (result.success && result.data) {
+                    return result.data.specification;
+                }
+            } catch (error) {
+                console.error('获取规格失败:', error);
             }
             return '';
         }
@@ -3205,6 +3243,20 @@
                             productNameElement.value = productName;
                         } else {
                             productNameElement.textContent = productName;
+                        }
+                    }
+                    
+                    // 自动填充规格
+                    const specification = await getSpecificationByProduct(productName, codeNumber);
+                    if (specification) {
+                        const row = selectElement.closest('tr');
+                        const specificationElement = row.querySelector('td:nth-child(5) select') || row.querySelector('td:nth-child(5) input');
+                        if (specificationElement) {
+                            if (specificationElement.tagName === 'SELECT') {
+                                specificationElement.value = specification;
+                            } else {
+                                specificationElement.value = specification;
+                            }
                         }
                     }
                     
@@ -4255,7 +4307,7 @@
                     
                     if (addCodeSelect) {
                         addCodeSelect.onchange = function() {
-                            handleCodeNumberChange(this, addProductSelect);
+                            handleAddFormCodeNumberChange(this, addProductSelect);
                         };
                     }
 
@@ -4710,6 +4762,20 @@
                             updateField(parseInt(recordId), 'product_name', productName);
                         }
                     }
+                    
+                    // 自动填充规格
+                    const specification = await getSpecificationByProduct(productName, value);
+                    if (specification) {
+                        const row = input.closest('tr');
+                        const specificationElement = row.querySelector('td:nth-child(5) select') || row.querySelector('td:nth-child(5) input');
+                        if (specificationElement) {
+                            if (specificationElement.tagName === 'SELECT') {
+                                specificationElement.value = specification;
+                            } else {
+                                specificationElement.value = specification;
+                            }
+                        }
+                    }
                 }
             } else if (type === 'product') {
                 const productCode = await getCodeByProduct(value);
@@ -4735,6 +4801,20 @@
                         relatedInput.value = productCode;
                         if (recordId) {
                             updateField(parseInt(recordId), 'code_number', productCode);
+                        }
+                    }
+                    
+                    // 自动填充规格
+                    const specification = await getSpecificationByProduct(value, productCode);
+                    if (specification) {
+                        const row = input.closest('tr');
+                        const specificationElement = row.querySelector('td:nth-child(5) select') || row.querySelector('td:nth-child(5) input');
+                        if (specificationElement) {
+                            if (specificationElement.tagName === 'SELECT') {
+                                specificationElement.value = specification;
+                            } else {
+                                specificationElement.value = specification;
+                            }
                         }
                     }
                 }
@@ -5197,11 +5277,23 @@
     </script>
     <script>
         // 处理新增表单中货品变化时加载价格选项
-        function handleAddFormProductChange(selectElement, codeNumberElement) {
+        async function handleAddFormProductChange(selectElement, codeNumberElement) {
             const productName = selectElement.value;
             
             // 原有的货品变化处理
-            handleProductChange(selectElement, codeNumberElement);
+            await handleProductChange(selectElement, codeNumberElement);
+            
+            // 自动填充规格
+            if (productName) {
+                const productCode = codeNumberElement ? codeNumberElement.value : '';
+                const specification = await getSpecificationByProduct(productName, productCode);
+                if (specification) {
+                    const specificationSelect = document.getElementById('add-specification');
+                    if (specificationSelect) {
+                        specificationSelect.value = specification;
+                    }
+                }
+            }
             
             // 根据出库数量决定是否加载价格选项
             if (productName) {
@@ -5216,6 +5308,26 @@
                 if (priceInput) {
                     priceInput.style.display = 'block';
                     priceInput.value = '';
+                }
+            }
+        }
+
+        // 处理新增表单中编号变化时自动填充规格
+        async function handleAddFormCodeNumberChange(selectElement, productNameElement) {
+            const codeNumber = selectElement.value;
+            
+            // 原有的编号变化处理
+            await handleCodeNumberChange(selectElement, productNameElement);
+            
+            // 自动填充规格
+            if (codeNumber) {
+                const productName = productNameElement ? productNameElement.value : '';
+                const specification = await getSpecificationByProduct(productName, codeNumber);
+                if (specification) {
+                    const specificationSelect = document.getElementById('add-specification');
+                    if (specificationSelect) {
+                        specificationSelect.value = specification;
+                    }
                 }
             }
         }
