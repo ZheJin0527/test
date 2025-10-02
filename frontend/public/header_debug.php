@@ -27,11 +27,8 @@
                 
                 <!-- 登入按钮 -->
                 <div class="relative login-dropdown">
-                    <button class="flex items-center space-x-2 px-6 lg:px-8 py-2 lg:py-3 text-base lg:text-lg bg-[#ff5c00] hover:bg-[#f7931e] text-white rounded-[30px] border-2 border-[#ff5c00] transition-colors">
+                    <button class="flex items-center space-x-2 px-6 lg:px-8 py-2 lg:py-3 text-base lg:text-lg bg-[#ff5c00] hover:bg-[#f7931e] text-white rounded-[30px] border-2 border-[#ff5c00] hover:border-[#ff5c00] transition-colors">
                         <span>登入</span>
-                        <svg class="w-4 lg:w-5 h-4 lg:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
                     </button>
                     
                     <div class="absolute right-0 mt-3 w-40 lg:w-48 bg-[#2f2f2f] rounded-lg shadow-lg opacity-0 invisible translate-y-2 transition-all duration-300 login-menu">
@@ -48,9 +45,6 @@
                 <div class="relative language-dropdown">
                     <button class="flex items-center space-x-2 px-6 lg:px-8 py-2 lg:py-3 text-base lg:text-lg bg-transparent border-2 border-[#ff5c00] text-white hover:bg-[#ff5c00] rounded-[30px] transition-colors">
                         <span class="language-text">中文</span>
-                        <svg class="w-4 lg:w-5 h-4 lg:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
                     </button>
                     
                     <div class="absolute right-0 mt-3 w-36 lg:w-40 bg-white rounded-lg shadow-lg opacity-0 invisible translate-y-2 transition-all duration-300 language-menu">
