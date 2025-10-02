@@ -3344,7 +3344,7 @@
                     
                     // 自动填充规格
                     if (specification) {
-                        const specificationSelect = container.querySelector('select[id$="-specification"]');
+                        const specificationSelect = container.querySelector('select[id$="-specification"], select[onchange*="specification"]');
                         if (specificationSelect) {
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
@@ -3441,7 +3441,7 @@
                     
                     // 自动填充规格
                     if (specification) {
-                        const specificationSelect = container.querySelector('select[id$="-specification"]');
+                        const specificationSelect = container.querySelector('select[id$="-specification"], select[onchange*="specification"]');
                         if (specificationSelect) {
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
@@ -4968,7 +4968,7 @@
                     // 自动填充规格
                     if (specification) {
                         const row = input.closest('tr');
-                        const specificationSelect = row ? row.querySelector('select[id$="-specification"]') : null;
+                        const specificationSelect = row ? row.querySelector('select[id$="-specification"], select[onchange*="specification"]') : null;
                         if (specificationSelect) {
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
@@ -5012,7 +5012,7 @@
                     // 自动填充规格
                     if (specification) {
                         const row = input.closest('tr');
-                        const specificationSelect = row ? row.querySelector('select[id$="-specification"]') : null;
+                        const specificationSelect = row ? row.querySelector('select[id$="-specification"], select[onchange*="specification"]') : null;
                         if (specificationSelect) {
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
