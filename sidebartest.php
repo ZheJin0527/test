@@ -210,10 +210,20 @@ if (isset($_SESSION['user_id'])) {
     transition: all 0.3s ease;
 }
 
-.informationmenu-section-title:hover {
+.informationmenu-section-title:hover:not(.active) {
     background-color: #ffffffff;
     color: #ff5c00;
     margin: 0;
+}
+
+/* 禁用active状态下的hover效果 */
+.informationmenu-section-title.active:hover {
+    background-color: #ff5c00;
+    color: #ffffff;
+}
+
+.informationmenu-section-title.active:hover .section-icon {
+    filter: brightness(0) invert(1);
 }
 
 .informationmenu-section-title.active {
@@ -512,7 +522,7 @@ if (isset($_SESSION['user_id'])) {
     filter: brightness(0) invert(1);
 }
 
-.informationmenu-section-title:hover .section-icon {
+.informationmenu-section-title:hover:not(.active) .section-icon {
     filter: brightness(0) saturate(100%) invert(45%) sepia(98%) saturate(2000%) hue-rotate(0deg) brightness(102%) contrast(105%);
 }
 
