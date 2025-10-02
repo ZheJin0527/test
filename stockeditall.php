@@ -3174,51 +3174,6 @@
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
                         }
                     }
-                    
-                    // 处理价格更新 - 检查是否是添加表单
-                    if (selectElement.id === 'add-product-name') {
-                        // 添加表单：根据出库数量决定是否加载价格选项
-                        handleAddFormOutQuantityChange();
-                    } else if (row && !row.classList.contains('new-row')) {
-                        // 编辑模式：检查是否需要更新价格选项
-                        const outQty = parseFloat(row.querySelector('input[data-field="out_quantity"]')?.value || 0);
-                        const inQty = parseFloat(row.querySelector('input[data-field="in_quantity"]')?.value || 0);
-                        
-                        if (outQty > 0 && inQty === 0) {
-                            // 纯出库，需要重新加载价格选项
-                            const recordId = parseInt(selectElement.getAttribute('data-record-id'));
-                            if (recordId) {
-                                loadProductPricesWithStock(productName, `price-select-${recordId}`, '', outQty);
-                            }
-                        }
-                    } else if (row && row.classList.contains('new-row')) {
-                        // 新行：检查是否需要更新价格选项
-                        const outQty = parseFloat(row.querySelector('input[data-field="out_quantity"]')?.value || 0);
-                        const inQty = parseFloat(row.querySelector('input[data-field="in_quantity"]')?.value || 0);
-                        
-                        if (outQty > 0 && inQty === 0) {
-                            // 纯出库，需要重新加载价格选项
-                            const rowId = row.getAttribute('data-row-id');
-                            if (rowId) {
-                                loadNewRowProductPricesWithStock(productName, `price-select-${rowId}`, '', outQty);
-                            }
-                        }
-                    }
-                }
-            } else {
-                // 清空货品时，重置相关字段
-                if (selectElement.id === 'add-product-name') {
-                    // 添加表单：清空价格选项
-                    const priceSelect = document.getElementById('add-price-select');
-                    const priceInput = document.getElementById('add-price');
-                    if (priceSelect) {
-                        priceSelect.innerHTML = '<option value="">请先选择货品</option>';
-                        priceSelect.style.display = 'none';
-                    }
-                    if (priceInput) {
-                        priceInput.style.display = 'block';
-                        priceInput.value = '';
-                    }
                 }
             }
         }
@@ -3294,51 +3249,6 @@
                             specificationSelect.value = specification;
                             specificationSelect.dispatchEvent(new Event('change', { bubbles: true }));
                         }
-                    }
-                    
-                    // 处理价格更新 - 检查是否是添加表单
-                    if (selectElement.id === 'add-code-number') {
-                        // 添加表单：根据出库数量决定是否加载价格选项
-                        handleAddFormOutQuantityChange();
-                    } else if (row && !row.classList.contains('new-row')) {
-                        // 编辑模式：检查是否需要更新价格选项
-                        const outQty = parseFloat(row.querySelector('input[data-field="out_quantity"]')?.value || 0);
-                        const inQty = parseFloat(row.querySelector('input[data-field="in_quantity"]')?.value || 0);
-                        
-                        if (outQty > 0 && inQty === 0) {
-                            // 纯出库，需要重新加载价格选项
-                            const recordId = parseInt(selectElement.getAttribute('data-record-id'));
-                            if (recordId) {
-                                loadProductPricesWithStock(product_name, `price-select-${recordId}`, '', outQty);
-                            }
-                        }
-                    } else if (row && row.classList.contains('new-row')) {
-                        // 新行：检查是否需要更新价格选项
-                        const outQty = parseFloat(row.querySelector('input[data-field="out_quantity"]')?.value || 0);
-                        const inQty = parseFloat(row.querySelector('input[data-field="in_quantity"]')?.value || 0);
-                        
-                        if (outQty > 0 && inQty === 0) {
-                            // 纯出库，需要重新加载价格选项
-                            const rowId = row.getAttribute('data-row-id');
-                            if (rowId) {
-                                loadNewRowProductPricesWithStock(product_name, `price-select-${rowId}`, '', outQty);
-                            }
-                        }
-                    }
-                }
-            } else {
-                // 清空编号时，重置相关字段
-                if (selectElement.id === 'add-code-number') {
-                    // 添加表单：清空价格选项
-                    const priceSelect = document.getElementById('add-price-select');
-                    const priceInput = document.getElementById('add-price');
-                    if (priceSelect) {
-                        priceSelect.innerHTML = '<option value="">请先选择货品</option>';
-                        priceSelect.style.display = 'none';
-                    }
-                    if (priceInput) {
-                        priceInput.style.display = 'block';
-                        priceInput.value = '';
                     }
                 }
             }
