@@ -3135,6 +3135,16 @@
             const outQtyInput = container.querySelector('input[id*="-out-qty"], input[data-field="out_quantity"]');
             if (outQtyInput) {
                 outQtyInput.value = '';
+                // 触发change事件以更新相关UI
+                outQtyInput.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            
+            // 清空收货单位
+            const receiverInput = container.querySelector('input[id*="-receiver"], input[data-field="receiver"]');
+            if (receiverInput) {
+                receiverInput.value = '';
+                receiverInput.disabled = true;
+                receiverInput.required = false;
             }
             
             // 清空单价
@@ -3429,7 +3439,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'out_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="handleEditOutQuantityChange(${record.id}, this.value)">` :
                             `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
@@ -3511,7 +3521,7 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)">` :
+                            `<input type="text" class="table-input" value="${record.receiver || ''}" onchange="updateField(${record.id}, 'receiver', this.value)" ${(parseFloat(record.out_quantity || 0) === 0) ? 'disabled' : ''}>` :
                             `<span>${record.receiver || '-'}</span>`
                         }
                     </td>
@@ -3702,6 +3712,19 @@
                     targetSelect.disabled = true;
                     targetSelect.value = '';
                     targetSelect.required = false;
+                }
+            }
+            
+            // 新增：控制收货单位输入框的启用/禁用状态
+            const receiverInput = document.getElementById(`${rowId}-receiver`);
+            if (receiverInput) {
+                if (outQty > 0) {
+                    receiverInput.disabled = false;
+                    receiverInput.required = true;
+                } else {
+                    receiverInput.disabled = true;
+                    receiverInput.value = '';
+                    receiverInput.required = false;
                 }
             }
             
@@ -5384,6 +5407,40 @@
                 inputElement.value = selectElement.value;
             }
         }
+        
+        // 处理编辑模式下出货数量变化
+        function handleEditOutQuantityChange(recordId, value) {
+            const outQty = parseFloat(value) || 0;
+            
+            // 控制Target下拉框状态
+            const targetSelect = document.getElementById(`target-select-${recordId}`);
+            if (targetSelect) {
+                if (outQty > 0) {
+                    targetSelect.disabled = false;
+                    targetSelect.required = true;
+                } else {
+                    targetSelect.disabled = true;
+                    targetSelect.value = '';
+                    targetSelect.required = false;
+                }
+            }
+            
+            // 控制收货单位输入框状态
+            const receiverInput = document.querySelector(`input[onchange*="updateField(${recordId}, 'receiver'"]`);
+            if (receiverInput) {
+                if (outQty > 0) {
+                    receiverInput.disabled = false;
+                    receiverInput.required = true;
+                } else {
+                    receiverInput.disabled = true;
+                    receiverInput.value = '';
+                    receiverInput.required = false;
+                }
+            }
+            
+            // 更新数据库中的值
+            updateField(recordId, 'out_quantity', value);
+        }
     </script>
     <script>
         // 处理新增表单出库数量变化
@@ -5418,6 +5475,19 @@
                 targetSelect.disabled = true;
                 targetSelect.value = '';
                 targetSelect.required = false;
+            }
+            
+            // 控制收货单位输入框状态
+            const receiverInput = document.getElementById('add-receiver');
+            if (receiverInput) {
+                if (outQty > 0) {
+                    receiverInput.disabled = false;
+                    receiverInput.required = true;
+                } else {
+                    receiverInput.disabled = true;
+                    receiverInput.value = '';
+                    receiverInput.required = false;
+                }
             }
         }
     </script>
