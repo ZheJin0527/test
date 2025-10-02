@@ -11,9 +11,6 @@
                         alt="KUNZZ Logo" 
                         class="h-14 lg:h-16 w-auto"
                     >
-                    <span class="text-white font-bold text-xl lg:text-2xl">
-                        KUNZZ HOLDINGS
-                    </span>
                 </a>
             </div>
 
