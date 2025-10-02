@@ -435,42 +435,6 @@ function handleGet() {
                 sendResponse(false, "未找到对应的产品编号");
             }
             break;
-
-        case 'product_specification':
-            // 根据product_name或product_code获取对应的specification
-            $productName = $_GET['product_name'] ?? null;
-            $productCode = $_GET['product_code'] ?? null;
-            
-            if (!$productName && !$productCode) {
-                sendResponse(false, "缺少产品名称或编号参数");
-            }
-            
-            $sql = "SELECT DISTINCT specification FROM stock_data WHERE ";
-            $params = [];
-            
-            if ($productName && $productCode) {
-                $sql .= "(product_name = ? OR product_code = ?)";
-                $params = [$productName, $productCode];
-            } elseif ($productName) {
-                $sql .= "product_name = ?";
-                $params = [$productName];
-            } else {
-                $sql .= "product_code = ?";
-                $params = [$productCode];
-            }
-            
-            $sql .= " AND specification IS NOT NULL AND specification != '' LIMIT 1";
-            
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute($params);
-            $specification = $stmt->fetchColumn();
-            
-            if ($specification) {
-                sendResponse(true, "规格获取成功", ["specification" => $specification]);
-            } else {
-                sendResponse(false, "未找到对应的规格");
-            }
-            break;
             
         case 'product_prices':
             // 获取指定产品的所有进货价格
