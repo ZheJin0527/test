@@ -3159,6 +3159,20 @@
                 receiverInput.required = false;
             }
             
+            // 清空Target下拉框
+            const targetSelect = container.querySelector('select[id*="-target"], select[data-field="target_system"]');
+            if (targetSelect) {
+                targetSelect.value = '';
+                targetSelect.disabled = true;
+                targetSelect.required = false;
+            }
+            
+            // 清空规格字段
+            const specificationSelect = container.querySelector('select[id*="-specification"], select[data-field="specification"]');
+            if (specificationSelect) {
+                specificationSelect.value = '';
+            }
+            
             // 更新单价选项
             updatePriceOptions(container, '');
         }
@@ -3280,9 +3294,19 @@
         async function handleProductChange(selectElement, codeNumberElement) {
             const productName = selectElement.value;
             const container = selectElement.closest('tr') || selectElement.closest('.form-container') || document;
+            const recordId = selectElement.getAttribute('data-record-id');
             
             // 清空出货相关字段
             clearOutboundFields(container);
+            
+            // 如果是编辑模式，清空数据库中的相关字段
+            if (recordId) {
+                updateField(parseInt(recordId), 'out_quantity', '');
+                updateField(parseInt(recordId), 'price', '');
+                updateField(parseInt(recordId), 'receiver', '');
+                updateField(parseInt(recordId), 'target_system', '');
+                updateField(parseInt(recordId), 'specification', '');
+            }
             
             if (productName) {
                 const result = await getCodeByProduct(productName);
@@ -3368,9 +3392,19 @@
         async function handleCodeNumberChange(selectElement, productNameElement) {
             const codeNumber = selectElement.value;
             const container = selectElement.closest('tr') || selectElement.closest('.form-container') || document;
+            const recordId = selectElement.getAttribute('data-record-id');
             
             // 清空出货相关字段
             clearOutboundFields(container);
+            
+            // 如果是编辑模式，清空数据库中的相关字段
+            if (recordId) {
+                updateField(parseInt(recordId), 'out_quantity', '');
+                updateField(parseInt(recordId), 'price', '');
+                updateField(parseInt(recordId), 'receiver', '');
+                updateField(parseInt(recordId), 'target_system', '');
+                updateField(parseInt(recordId), 'specification', '');
+            }
             
             if (codeNumber) {
                 const result = await getProductByCode(codeNumber);
@@ -4878,6 +4912,15 @@
             
             // 清空出货相关字段
             clearOutboundFields(container);
+            
+            // 如果是编辑模式，清空数据库中的相关字段
+            if (recordId) {
+                updateField(parseInt(recordId), 'out_quantity', '');
+                updateField(parseInt(recordId), 'price', '');
+                updateField(parseInt(recordId), 'receiver', '');
+                updateField(parseInt(recordId), 'target_system', '');
+                updateField(parseInt(recordId), 'specification', '');
+            }
             
             // 标记正在进行选择操作
             input._isSelecting = true;
