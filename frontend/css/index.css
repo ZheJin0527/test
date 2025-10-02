@@ -432,7 +432,7 @@ body::-webkit-scrollbar {
 .home h1 {
     font-family: 'Source Sans Pro', sans-serif;
     /* 字体大小响应式缩放 */
-    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-size: clamp(3.5rem, 6vw, 7rem);
     font-weight: bold;
     margin-bottom: clamp(1rem, 2vw, 2.5rem);
     line-height: 140%;
@@ -444,7 +444,7 @@ body::-webkit-scrollbar {
 
 .home p {
     /* 字体大小响应式缩放 */
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(1rem, 2vw, 1.7rem);
     font-weight: normal;
     letter-spacing: clamp(0.15rem, 0.4vw, 0.5rem);
     line-height: 165%;
@@ -480,21 +480,22 @@ body::-webkit-scrollbar {
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: clamp(4rem, 8vh, 5rem) 0; /* 预留 navbar 高度 */
+    padding: clamp(2.5rem, 6vh, 4rem) 0; /* 优化顶部padding，在平板上更紧凑 */
     background-color: white;
 }
 
 .comprofile-section {
-    height: 80%;
+    flex: 1 1 auto;
+    min-height: 0; /* 允许flex子项收缩 */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: clamp(2.5rem, 6vw, 5rem) clamp(2.5rem, 6vw, 5rem) 0; /* 上左右内边距响应 */
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem) 0; /* 优化内边距，在平板上更紧凑 */
     box-sizing: border-box;
     max-width: clamp(75rem, 100vw, 120rem);
     margin: 0 auto;
-    flex-wrap: nowrap;
-    gap: clamp(3.75rem, 8vw, 10rem); /* 子元素间距响应 */
+    flex-wrap: wrap; /* 允许换行，在小屏幕上自动变为垂直布局 */
+    gap: clamp(2rem, 6vw, 8rem); /* 优化间距，在平板上更紧凑 */
 }
 
 .comprofile-text {
@@ -531,7 +532,8 @@ body::-webkit-scrollbar {
 .comprofile-description {
     width: 100%;
     max-width: clamp(40rem, 50vw, 48.75rem);
-    height: clamp(5rem, 8vw, 10.6rem); /* 高度响应 */
+    height: auto; /* 改为自动高度，允许内容自适应 */
+    min-height: clamp(3rem, 6vw, 8rem); /* 设置最小高度 */
     font-size: clamp(0.875rem, 1.25vw, 1.25rem); /* 字号响应 */
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
@@ -542,10 +544,10 @@ body::-webkit-scrollbar {
 
 .comprofile-image {
     flex: 0 0 auto;
-    width: clamp(20rem, 30vw, 37.5rem); /* 图片宽度响应 */
-    max-width: 50vw;
+    width: clamp(15rem, 25vw, 32rem); /* 优化图片宽度，在平板上更紧凑 */
+    max-width: 45vw; /* 减少最大宽度 */
     aspect-ratio: 884 / 639;
-    padding: clamp(2.5rem, 6vw, 5rem) 0; /* 上下内边距响应 */
+    padding: clamp(1.5rem, 4vw, 3rem) 0; /* 优化上下内边距 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -561,16 +563,17 @@ body::-webkit-scrollbar {
 }
 
 .stats-section {
-    height: 20%;
+    flex: 0 0 auto;
+    min-height: clamp(6rem, 10vh, 10rem); /* 优化最小高度，确保在平板上能显示 */
     background: url('../../images/images/背景4.webp') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(1.25rem, 5vw, 3.75rem);
+    gap: clamp(1rem, 4vw, 3rem); /* 优化间距 */
     color: white;
-    padding: 0 clamp(1.25rem, 10vw, 16rem);
-    flex-wrap: nowrap;
-    margin-bottom: clamp(-5rem, -8vh, -8rem);
+    padding: clamp(0.8rem, 2.5vh, 1.5rem) clamp(1rem, 8vw, 12rem); /* 优化内边距 */
+    flex-wrap: wrap; /* 允许换行，在小屏幕上自动调整 */
+    margin-bottom: 0; /* 移除负边距 */
 }
 
 .stat-box {
@@ -584,8 +587,8 @@ body::-webkit-scrollbar {
 }
 
 .stat-number {
-    /* 响应式字体大小 */
-    font-size: clamp(2.5rem, 3.125vw, 3.75rem);
+    /* 优化响应式字体大小，在平板上更紧凑 */
+    font-size: clamp(1.8rem, 2.5vw, 3.2rem);
     font-weight: bold;
     font-family: 'Inter', sans-serif;
     line-height: 1.2;
@@ -593,8 +596,8 @@ body::-webkit-scrollbar {
 }
 
 .stat-label {
-    /* 响应式字体大小 */
-    font-size: clamp(0.875rem, 1.04vw, 1.25rem);
+    /* 优化响应式字体大小，在平板上更紧凑 */
+    font-size: clamp(0.7rem, 0.9vw, 1.1rem);
     font-family: 'Inter', sans-serif;
     line-height: 1.2;
     white-space: nowrap;
@@ -725,3 +728,4 @@ body::-webkit-scrollbar {
     background-color: white;
     color: #FF5C00;
 }
+
