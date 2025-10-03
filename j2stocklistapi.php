@@ -74,23 +74,19 @@ function getJ2StockSummary() {
         foreach ($stockData as $row) {
             $currentStock = floatval($row['current_stock']);
             $price = floatval($row['price']);
-            
-            // 先四舍五入到两位小数，再进行计算
-            $roundedStock = round($currentStock, 2);
-            $roundedPrice = round($price, 2);
-            $totalPrice = $roundedStock * $roundedPrice;
+            $totalPrice = $currentStock * $price;
             $totalValue += $totalPrice;
             
             $summaryData[] = [
                 'no' => $counter++,
                 'product_name' => $row['product_name'],
                 'code_number' => $row['code_number'] ?? '',
-                'total_stock' => $roundedStock, // 使用进位后的值
+                'total_stock' => $currentStock,
                 'specification' => $row['specification'] ?? '',
-                'price' => $roundedPrice, // 使用进位后的值
+                'price' => $price,
                 'total_price' => $totalPrice,
-                'formatted_stock' => number_format($roundedStock, 2),
-                'formatted_price' => number_format($roundedPrice, 2),
+                'formatted_stock' => number_format($currentStock, 2),
+                'formatted_price' => number_format($price, 2),
                 'formatted_total_price' => number_format($totalPrice, 2)
             ];
         }
