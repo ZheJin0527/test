@@ -3542,13 +3542,13 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${formatEditNumber(record.in_quantity)}" min="0" step="0.001" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
                             `<span>${formatNumber(record.in_quantity)}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${formatEditNumber(record.out_quantity)}" min="0" step="0.001" onchange="handleEditOutQuantityChange(${record.id}, this.value)">` :
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="handleEditOutQuantityChange(${record.id}, this.value)">` :
                             `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
@@ -3695,27 +3695,14 @@
             return `${day} ${month}`;
         }
 
-        // 格式化数字 - 显示时四舍五入到两位小数
+        // 格式化数字 - 统一显示两位小数，支持三位小数输入的四舍五入
         function formatNumber(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
             
-            // 调试信息
-            console.log('formatNumber input:', value, 'parsed:', num, 'formatted:', num.toFixed(2));
-            
-            // 显示时四舍五入到两位小数
+            // 使用 toFixed(2) 进行四舍五入到两位小数
             return num.toFixed(2);
-        }
-
-        // 格式化编辑数字 - 保持原始精度用于编辑
-        function formatEditNumber(value) {
-            if (!value || value === '' || value === '0') return '0.000';
-            const num = parseFloat(value);
-            if (isNaN(num)) return '0.000';
-            
-            // 编辑时保持原始精度，确保显示三位小数
-            return num.toFixed(3);
         }
 
         // 格式化货币
@@ -4079,8 +4066,8 @@
                 date: document.getElementById(`${rowId}-date`) ? document.getElementById(`${rowId}-date`).value : '',
                 time: new Date().toTimeString().slice(0, 5),
                 product_name: productInput ? productInput.value : '',
-                in_quantity: document.getElementById(`${rowId}-in-qty`) ? document.getElementById(`${rowId}-in-qty`).value : 0,
-                out_quantity: document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0,
+                in_quantity: parseFloat(document.getElementById(`${rowId}-in-qty`) ? document.getElementById(`${rowId}-in-qty`).value : 0) || 0,
+                out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0) || 0,
                 specification: document.getElementById(`${rowId}-specification`) ? document.getElementById(`${rowId}-specification`).value : '',
                 price: document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0,
                 receiver: receiverInput ? receiverInput.value : '',
@@ -4222,8 +4209,8 @@
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
                 product_name: document.getElementById('add-product-name').value,
-                in_quantity: document.getElementById('add-in-qty').value || 0,
-                out_quantity: document.getElementById('add-out-qty').value || 0,
+                in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
+                out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
                 specification: document.getElementById('add-specification').value,
                 price: document.getElementById('add-price').value || 0,
                 receiver: document.getElementById('add-receiver').value,
