@@ -77,24 +77,25 @@ function getStockSummary() {
             $totalPrice = $currentStock * $price;
             $totalValue += $totalPrice;
             
+            // 计算时使用原始精度，显示时四舍五入到两位小数
             $summaryData[] = [
                 'no' => $counter++,
                 'product_name' => $row['product_name'],
                 'code_number' => $row['code_number'] ?? '',
-                'total_stock' => $currentStock, // 确保这个值是数字
+                'total_stock' => $currentStock, // 保持原始精度用于计算
                 'specification' => $row['specification'] ?? '',
-                'price' => $price,
-                'total_price' => $totalPrice,
-                'formatted_stock' => number_format($currentStock, 2),
-                'formatted_price' => number_format($price, 2),
-                'formatted_total_price' => number_format($totalPrice, 2)
+                'price' => $price, // 保持原始精度用于计算
+                'total_price' => $totalPrice, // 保持原始精度用于计算
+                'formatted_stock' => number_format(round($currentStock, 2), 2), // 显示时四舍五入到两位
+                'formatted_price' => number_format(round($price, 2), 2), // 显示时四舍五入到两位
+                'formatted_total_price' => number_format(round($totalPrice, 2), 2) // 显示时四舍五入到两位
             ];
         }
         
         return [
             'summary' => $summaryData,
-            'total_value' => $totalValue,
-            'formatted_total_value' => number_format($totalValue, 2),
+            'total_value' => $totalValue, // 保持原始精度用于计算
+            'formatted_total_value' => number_format(round($totalValue, 2), 2), // 显示时四舍五入到两位
             'total_products' => count($summaryData)
         ];
         
