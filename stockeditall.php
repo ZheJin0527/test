@@ -3701,8 +3701,10 @@
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
             
-            // 显示时四舍五入到两位小数
-            return num.toFixed(2);
+            // 显示时四舍五入到两位小数，确保正确进位
+            const rounded = Math.round(num * 100) / 100;
+            console.log(`formatNumber: ${value} -> ${num} -> ${rounded} -> ${rounded.toFixed(2)}`);
+            return rounded.toFixed(2);
         }
         
         // 格式化数字用于编辑 - 保持原始精度
@@ -3711,8 +3713,8 @@
             const num = parseFloat(value);
             if (isNaN(num)) return '0.000';
             
-            // 编辑时保持原始精度，最多显示三位小数
-            return num.toFixed(3);
+            // 编辑时保持原始精度，最多显示三位小数，使用四舍五入
+            return Math.round(num * 1000) / 1000;
         }
 
         // 格式化货币
