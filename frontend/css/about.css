@@ -98,7 +98,7 @@ body::-webkit-scrollbar {
 
 .aboutus-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(2rem, 6vw, 4rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(3rem, 6vw, 6rem); /* 更明显的响应式字体大小 */
     font-weight: bold;
     line-height: 1;
     letter-spacing: 0.014em; /* 使用 em 单位 */
@@ -113,7 +113,7 @@ body::-webkit-scrollbar {
 }
 
 .aboutus-content p {
-    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1rem, 2vw, 2.5rem); /* 更明显的响应式字体大小 */
     font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.005em; /* 使用 em 单位 */
@@ -134,6 +134,7 @@ body::-webkit-scrollbar {
     align-items: center;
     flex: 1; /* 改为flex: 1，让内容自然分布 */
     width: 100%; /* 确保容器占满宽度 */
+    padding: 0 0 clamp(1.25rem, 6vw, 0) 0;
     text-align: center; /* 确保文本居中 */
 }
 
@@ -149,7 +150,7 @@ body::-webkit-scrollbar {
 
 .intro-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(2rem, 6vw, 3.5rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(2rem, 6vw, 6rem); /* 更明显的响应式字体大小 */
     font-weight: bold;
     line-height: 1.4;
     letter-spacing: 0.005em; /* 使用 em 单位 */
@@ -160,7 +161,7 @@ body::-webkit-scrollbar {
 }
 
 .intro-content p {
-    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1rem, 2vw, 2rem); /* 更明显的响应式字体大小 */
     font-weight: normal;
     line-height: 1.7;
     letter-spacing: clamp(0.15rem, 0.3vw, 0.2rem); /* 响应式字母间距 */

@@ -162,12 +162,6 @@ body::-webkit-scrollbar {
     filter: drop-shadow(2px 1px 1px rgba(0, 0, 0, 0.6));
 }
 
-/* 响应式：1280px 以下 */
-/* 移除媒体查询，改用现代响应式技术 */
-
-/* 响应式：768px 以下 */
-/* 移除媒体查询，改用现代响应式技术 */
-
 .benefits-wrapper {
     background: url('../../images/images/背景3.jpg') no-repeat center center/cover;
     padding: clamp(0px, 1.8vw, 40px) 20px;
