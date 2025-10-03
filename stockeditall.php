@@ -3695,33 +3695,15 @@
             return `${day} ${month}`;
         }
 
-        // 格式化数字 - 智能显示小数位数
+        // 格式化数字 - 统一显示两位小数，支持三位小数输入的四舍五入
         function formatNumber(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
             
-            // 检查原始输入是否有三位小数
-            const valueStr = value.toString().trim();
-            const decimalIndex = valueStr.indexOf('.');
-            
-            if (decimalIndex === -1) {
-                // 没有小数点，显示两位小数
-                return num.toFixed(2);
-            }
-            
-            // 计算小数位数
-            const decimalPlaces = valueStr.length - decimalIndex - 1;
-            
-            if (decimalPlaces >= 3) {
-                // 三位或更多小数，四舍五入到三位并显示
-                const rounded = Math.round(num * 1000) / 1000;
-                return rounded.toFixed(3);
-            } else {
-                // 两位或更少小数，四舍五入到两位并显示
-                const rounded = Math.round(num * 100) / 100;
-                return rounded.toFixed(2);
-            }
+            // 统一四舍五入到两位小数并显示
+            const rounded = Math.round(num * 100) / 100;
+            return rounded.toFixed(2);
         }
 
         // 格式化货币
