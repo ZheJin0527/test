@@ -3701,9 +3701,10 @@
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
             
-            // 统一四舍五入到两位小数并显示
-            const rounded = Math.round(num * 100) / 100;
-            return rounded.toFixed(2);
+            // 先四舍五入到三位小数，再四舍五入到两位小数
+            const roundedToThree = Math.round(num * 1000) / 1000;
+            const roundedToTwo = Math.round(roundedToThree * 100) / 100;
+            return roundedToTwo.toFixed(2);
         }
 
         // 格式化货币
