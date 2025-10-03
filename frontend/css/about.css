@@ -341,7 +341,7 @@ body::-webkit-scrollbar {
 
 .values-bottom {
     display: flex;
-    flex-wrap: wrap; /* 允许换行 */
+    flex-wrap: nowrap;
     gap: clamp(1.5rem, 3vw, 3rem);
     padding: 0 clamp(1.5rem, 3vw, 2.5rem);
     justify-content: center;
