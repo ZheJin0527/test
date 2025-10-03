@@ -4410,10 +4410,37 @@
                     }
                 }
                 
+                // 特殊处理备注相关字段 - 立即保存到数据库
+                if (field === 'product_remark_checked' || field === 'remark_number') {
+                    saveFieldToDatabase(id, field, value);
+                }
+                
                 // 移除自动重新渲染，改为只更新计算值
                 if (field === 'in_quantity' || field === 'out_quantity' || field === 'price') {
                     updateCalculatedValues(id);
                 }
+            }
+        }
+
+        // 保存单个字段到数据库
+        async function saveFieldToDatabase(id, field, value) {
+            try {
+                const result = await apiCall('', {
+                    method: 'PATCH',
+                    body: JSON.stringify({
+                        id: id,
+                        field: field,
+                        value: value
+                    })
+                });
+
+                if (!result.success) {
+                    console.error('保存字段到数据库失败:', result.message);
+                    showAlert(`保存${field}失败: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                console.error('保存字段到数据库时发生错误:', error);
+                showAlert('保存字段时发生错误', 'error');
             }
         }
 

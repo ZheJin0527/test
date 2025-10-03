@@ -2,7 +2,7 @@
 ob_start();
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 // 处理预检请求
@@ -206,6 +206,9 @@ switch ($method) {
         break;
     case 'DELETE':
         handleDelete();
+        break;
+    case 'PATCH':
+        handlePatch();
         break;
     default:
         sendResponse(false, "不支持的请求方法");
@@ -1379,6 +1382,47 @@ function handleDelete() {
         
     } catch (PDOException $e) {
         sendResponse(false, "删除记录失败：" . $e->getMessage());
+    }
+}
+
+// 处理 PATCH 请求 - 更新单个字段
+function handlePatch() {
+    global $pdo, $data;
+    
+    if (!$data || !isset($data['id']) || !isset($data['field']) || !isset($data['value'])) {
+        sendResponse(false, "缺少必要参数：id、field、value");
+    }
+    
+    $id = intval($data['id']);
+    $field = $data['field'];
+    $value = $data['value'];
+    
+    // 验证字段名是否安全
+    $allowedFields = ['product_remark_checked', 'remark_number', 'remark'];
+    if (!in_array($field, $allowedFields)) {
+        sendResponse(false, "不允许更新字段: " . $field);
+    }
+    
+    try {
+        // 开始事务
+        $pdo->beginTransaction();
+        
+        // 更新单个字段
+        $sql = "UPDATE stockinout_data SET {$field} = ? WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        $result = $stmt->execute([$value, $id]);
+        
+        if ($stmt->rowCount() > 0) {
+            $pdo->commit();
+            sendResponse(true, "字段更新成功", ['id' => $id, 'field' => $field, 'value' => $value]);
+        } else {
+            $pdo->rollBack();
+            sendResponse(false, "记录不存在或无变化");
+        }
+        
+    } catch (PDOException $e) {
+        $pdo->rollBack();
+        sendResponse(false, "更新字段失败：" . $e->getMessage());
     }
 }
 ?>
