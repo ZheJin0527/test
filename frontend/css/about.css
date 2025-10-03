@@ -198,7 +198,7 @@ body::-webkit-scrollbar {
 
 .vision-content h1 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: clamp(1.5rem, 5vw, 3.5rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(2rem, 5vw, 5.5rem); /* 更明显的响应式字体大小 */
     font-weight: bold;
     line-height: 1.4;
     letter-spacing: 0.005em; /* 使用 em 单位 */
@@ -207,7 +207,7 @@ body::-webkit-scrollbar {
 }
 
 .vision-content p {
-    font-size: clamp(0.875rem, 2vw, 1.125rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1rem, 2vw, 2rem); /* 更明显的响应式字体大小 */
     font-weight: normal;
     line-height: 1.5;
     letter-spacing: 0.02em; /* 使用 em 单位 */
@@ -229,7 +229,7 @@ body::-webkit-scrollbar {
 
 .vision-card {
     width: clamp(20rem, 40vw, 35rem); /* 调整卡片宽度，更协调 */
-    height: clamp(18rem, 25vw, 18rem); /* 调整卡片高度，更协调 */
+    height: clamp(22rem, 25vw, 25rem); /* 调整卡片高度，更协调 */
     background-color: #FFF3E6;
     border-radius: clamp(1rem, 2vw, 1.5rem); /* 响应式圆角 */
     padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); /* 调整内边距 */
@@ -247,7 +247,7 @@ body::-webkit-scrollbar {
     display: inline-block;
     background-color: white;
     color: #FF5C00;
-    font-size: clamp(1rem, 3vw, 1.8rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1rem, 3vw, 2rem); /* 更明显的响应式字体大小 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     padding: clamp(0.5rem, 1vw, 0.8rem) clamp(1rem, 1.5vw, 1.25rem); /* 调整内边距 */
@@ -260,7 +260,7 @@ body::-webkit-scrollbar {
 }
 
 .vision-card h2 {
-    font-size: clamp(1.125rem, 2.5vw, 1.8rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(1.125rem, 2.5vw, 2rem); /* 更明显的响应式字体大小 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.4;
@@ -271,7 +271,7 @@ body::-webkit-scrollbar {
 }
 
 .vision-card p {
-    font-size: clamp(0.875rem, 1.5vw, 1rem); /* 更明显的响应式字体大小 */
+    font-size: clamp(0.95rem, 1.5vw, 1.5rem); /* 更明显的响应式字体大小 */
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.5;
