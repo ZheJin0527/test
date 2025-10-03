@@ -375,7 +375,7 @@ if (isset($_SESSION['user_id'])) {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: #583e04;
+            background: #000000ff;
         }
 
         .excel-table thead tr {
