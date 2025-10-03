@@ -3542,13 +3542,13 @@
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${formatNumberForEdit(record.in_quantity)}" min="0" step="0.001" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
+                            `<input type="number" class="table-input" value="${record.in_quantity || ''}" min="0" step="0.001" onchange="updateField(${record.id}, 'in_quantity', this.value)">` :
                             `<span>${formatNumber(record.in_quantity)}</span>`
                         }
                     </td>
                     <td>
                         ${isEditing ? 
-                            `<input type="number" class="table-input" value="${formatNumberForEdit(record.out_quantity)}" min="0" step="0.001" onchange="handleEditOutQuantityChange(${record.id}, this.value)">` :
+                            `<input type="number" class="table-input" value="${record.out_quantity || ''}" min="0" step="0.001" onchange="handleEditOutQuantityChange(${record.id}, this.value)">` :
                             `<span class="${outQty > 0 ? 'negative-value' : ''}">${formatNumber(record.out_quantity)}</span>`
                         }
                     </td>
@@ -3695,24 +3695,14 @@
             return `${day} ${month}`;
         }
 
-        // 格式化数字 - 显示时只显示两位小数，但保持原始精度
+        // 格式化数字 - 统一显示两位小数，支持三位小数输入的四舍五入
         function formatNumber(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
             
-            // 显示时四舍五入到两位小数
+            // 使用 toFixed(2) 进行四舍五入到两位小数
             return num.toFixed(2);
-        }
-        
-        // 格式化数字用于编辑 - 保持原始精度
-        function formatNumberForEdit(value) {
-            if (!value || value === '' || value === '0') return '0.000';
-            const num = parseFloat(value);
-            if (isNaN(num)) return '0.000';
-            
-            // 编辑时保持原始精度，最多显示3位小数
-            return num.toString();
         }
 
         // 格式化货币
