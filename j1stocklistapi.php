@@ -66,7 +66,7 @@ function getJ1StockSummary() {
         $stmt->execute();
         $stockData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // 计算总价值
+        // 计算总价值 - 使用进位后的两位小数进行加减
         $totalValue = 0;
         $summaryData = [];
         $counter = 1;
@@ -75,7 +75,11 @@ function getJ1StockSummary() {
             $currentStock = floatval($row['current_stock']);
             $price = floatval($row['price']);
             $totalPrice = $currentStock * $price;
-            $totalValue += $totalPrice;
+            
+            // 先四舍五入到三位小数，再四舍五入到两位小数
+            $roundedToThree = round($totalPrice, 3);
+            $roundedToTwo = round($roundedToThree, 2);
+            $totalValue += $roundedToTwo;
             
             $summaryData[] = [
                 'no' => $counter++,
@@ -84,10 +88,10 @@ function getJ1StockSummary() {
                 'total_stock' => $currentStock,
                 'specification' => $row['specification'] ?? '',
                 'price' => $price,
-                'total_price' => $totalPrice,
+                'total_price' => $roundedToTwo, // 使用进位后的两位小数
                 'formatted_stock' => number_format($currentStock, 2),
                 'formatted_price' => number_format($price, 2),
-                'formatted_total_price' => number_format($totalPrice, 2)
+                'formatted_total_price' => number_format($roundedToTwo, 2)
             ];
         }
         
