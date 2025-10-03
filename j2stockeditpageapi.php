@@ -144,14 +144,14 @@ function handleGet() {
                     $record['out_value'] = $outQty * $price;
                     $record['balance_value'] = $record['balance_quantity'] * $price;
                     
-                    // 格式化数字 - 确保正确四舍五入
-                    $record['in_quantity'] = round($inQty, 2);
-                    $record['out_quantity'] = round($outQty, 2);
-                    $record['balance_quantity'] = round($record['balance_quantity'], 2);
-                    $record['price'] = round($price, 2);
-                    $record['in_value'] = round($record['in_value'], 2);
-                    $record['out_value'] = round($record['out_value'], 2);
-                    $record['balance_value'] = round($record['balance_value'], 2);
+                    // 格式化数字
+                    $record['in_quantity'] = number_format($inQty, 2, '.', '');
+                    $record['out_quantity'] = number_format($outQty, 2, '.', '');
+                    $record['balance_quantity'] = number_format($record['balance_quantity'], 2, '.', '');
+                    $record['price'] = number_format($price, 2, '.', '');
+                    $record['in_value'] = number_format($record['in_value'], 2, '.', '');
+                    $record['out_value'] = number_format($record['out_value'], 2, '.', '');
+                    $record['balance_value'] = number_format($record['balance_value'], 2, '.', '');
                 }
                 
                 sendResponse(true, "进出库数据获取成功，共找到 " . count($records) . " 条记录", $records);
