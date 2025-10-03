@@ -663,14 +663,14 @@ if (isset($_SESSION['user_id'])) {
 .user-name {
     margin: 0;
     font-size: clamp(6px, 0.63vw, 12px);
-    font-weight: 500;
+    font-weight: bold;
     color: #000000ff;
 }
 
 .user-position {
     margin: 2px 0 0 0;
     font-size: clamp(7px, 0.63vw, 12px);
-    font-weight: 400;
+    font-weight: 500;
     color: #000000ff;
 }
 
