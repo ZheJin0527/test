@@ -2102,16 +2102,11 @@
             return html;
         }
 
-        // 格式化货币 - 统一显示两位小数，支持三位小数输入的四舍五入
+        // 格式化货币
         function formatCurrency(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
-            if (isNaN(num)) return '0.00';
-            
-            // 先四舍五入到三位小数，再四舍五入到两位小数
-            const roundedToThree = Math.round(num * 1000) / 1000;
-            const roundedToTwo = Math.round(roundedToThree * 100) / 100;
-            return roundedToTwo.toFixed(2);
+            return isNaN(num) ? '0.00' : num.toFixed(2);
         }
 
         // 刷新数据
