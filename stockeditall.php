@@ -3701,6 +3701,9 @@
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
             
+            // 调试信息
+            console.log('formatNumber input:', value, 'parsed:', num, 'formatted:', num.toFixed(2));
+            
             // 显示时四舍五入到两位小数
             return num.toFixed(2);
         }
@@ -3711,8 +3714,8 @@
             const num = parseFloat(value);
             if (isNaN(num)) return '0.000';
             
-            // 编辑时保持原始精度，最多显示三位小数
-            return num.toString();
+            // 编辑时保持原始精度，确保显示三位小数
+            return num.toFixed(3);
         }
 
         // 格式化货币
@@ -4076,8 +4079,8 @@
                 date: document.getElementById(`${rowId}-date`) ? document.getElementById(`${rowId}-date`).value : '',
                 time: new Date().toTimeString().slice(0, 5),
                 product_name: productInput ? productInput.value : '',
-                in_quantity: parseFloat(document.getElementById(`${rowId}-in-qty`) ? document.getElementById(`${rowId}-in-qty`).value : 0) || 0,
-                out_quantity: parseFloat(document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0) || 0,
+                in_quantity: document.getElementById(`${rowId}-in-qty`) ? document.getElementById(`${rowId}-in-qty`).value : 0,
+                out_quantity: document.getElementById(`${rowId}-out-qty`) ? document.getElementById(`${rowId}-out-qty`).value : 0,
                 specification: document.getElementById(`${rowId}-specification`) ? document.getElementById(`${rowId}-specification`).value : '',
                 price: document.getElementById(`${rowId}-price`) ? document.getElementById(`${rowId}-price`).value : 0,
                 receiver: receiverInput ? receiverInput.value : '',
@@ -4219,8 +4222,8 @@
                 date: document.getElementById('add-date').value,
                 time: document.getElementById('add-time').value,
                 product_name: document.getElementById('add-product-name').value,
-                in_quantity: parseFloat(document.getElementById('add-in-qty').value) || 0,
-                out_quantity: parseFloat(document.getElementById('add-out-qty').value) || 0,
+                in_quantity: document.getElementById('add-in-qty').value || 0,
+                out_quantity: document.getElementById('add-out-qty').value || 0,
                 specification: document.getElementById('add-specification').value,
                 price: document.getElementById('add-price').value || 0,
                 receiver: document.getElementById('add-receiver').value,
