@@ -2133,11 +2133,15 @@
             return html;
         }
 
-        // 格式化货币
+        // 格式化货币 - 使用进位后的两位小数
         function formatCurrency(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
-            return isNaN(num) ? '0.00' : num.toFixed(2);
+            if (isNaN(num)) return '0.00';
+            
+            // 先四舍五入到两位小数
+            const rounded = Math.round(num * 100) / 100;
+            return rounded.toFixed(2);
         }
 
         // 刷新数据
