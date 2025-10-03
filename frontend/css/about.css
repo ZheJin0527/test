@@ -666,16 +666,16 @@ body::-webkit-scrollbar {
 .timeline-content-container {
     position: relative;
     width: 100%;
-    max-width: clamp(60rem, 80vw, 80rem); /* 优化小屏幕最大宽度 */
-    height: clamp(35rem, 45vw, 50rem); /* 优化小屏幕高度 */
+    max-width: clamp(70rem, 90vw, 100rem); /* 增大最大宽度，特别是大屏幕 */
+    height: clamp(40rem, 50vw, 60rem); /* 增大高度，特别是大屏幕 */
     overflow: hidden;
-    perspective: clamp(35rem, 45vw, 50rem); /* 优化小屏幕透视 */
+    perspective: clamp(40rem, 50vw, 60rem); /* 增大透视，特别是大屏幕 */
 }
 
 .timeline-cards-wrapper {
     position: relative;
     width: 100%;
-    height: clamp(22rem, 28vw, 32rem); /* 优化小屏幕高度 */
+    height: clamp(26rem, 32vw, 38rem); /* 增大高度，特别是大屏幕 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -683,11 +683,11 @@ body::-webkit-scrollbar {
 
 .timeline-content-item {
     position: absolute;
-    width: clamp(28rem, 35vw, 42rem); /* 优化小屏幕宽度 */
-    height: clamp(11rem, 15vw, 18rem); /* 优化小屏幕高度 */
+    width: clamp(32rem, 40vw, 50rem); /* 增大宽度，特别是大屏幕 */
+    height: clamp(13rem, 18vw, 22rem); /* 增大高度，特别是大屏幕 */
     transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
-    margin-top: -5rem; /* 80px转换为rem */
+    margin-top: -6rem; /* 调整位置以适应更大的卡片 */
 }
 
 .timeline-content-item.active {
@@ -697,13 +697,13 @@ body::-webkit-scrollbar {
 }
 
 .timeline-content-item.prev {
-    transform: translateX(clamp(-13rem, -15vw, -15rem)) scale(0.80); /* 优化小屏幕变换 */
+    transform: translateX(clamp(-16rem, -18vw, -18rem)) scale(0.80); /* 调整变换以适应更大的卡片 */
     z-index: 1;
     opacity: 0.8;
 }
 
 .timeline-content-item.next {
-    transform: translateX(clamp(13rem, 15vw, 15rem)) scale(0.80); /* 优化小屏幕变换 */
+    transform: translateX(clamp(16rem, 18vw, 18rem)) scale(0.80); /* 调整变换以适应更大的卡片 */
     z-index: 1;
     opacity: 0.8;
 }
@@ -740,21 +740,21 @@ body::-webkit-scrollbar {
 
 .timeline-content {
     display: flex;
-    gap: clamp(0.5rem, 1.5vw, 2rem); /* 优化小屏幕间距 */
+    gap: clamp(0.8rem, 2vw, 2.5rem); /* 增大间距，特别是大屏幕 */
     align-items: center;
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 1), 
         rgba(255, 255, 255, 1));
-    padding: clamp(1.2rem, 2vw, 2.2rem); /* 增加内边距，为字体留出更多空间 */
-    border-radius: clamp(1.2rem, 1.6vw, 1.5rem); /* 优化小屏幕圆角 */
-    border: clamp(0.04rem, 0.08vw, 0.06rem) solid rgba(255, 255, 255, 0.3); /* 优化小屏幕边框 */
+    padding: clamp(1.5rem, 2.5vw, 3rem); /* 增大内边距，特别是大屏幕 */
+    border-radius: clamp(1.5rem, 2vw, 2rem); /* 增大圆角，特别是大屏幕 */
+    border: clamp(0.06rem, 0.1vw, 0.08rem) solid rgba(255, 255, 255, 0.3); /* 增大边框，特别是大屏幕 */
     box-shadow: 
-        0 clamp(1rem, 2vw, 1.5rem) clamp(2rem, 3vw, 2.5rem) rgba(0, 0, 0, 0.1), /* 优化小屏幕阴影 */
-        0 0 0 clamp(0.04rem, 0.08vw, 0.06rem) rgba(255, 255, 255, 0.05),
-        inset 0 clamp(0.04rem, 0.08vw, 0.06rem) 0 rgba(255, 255, 255, 0.1);
+        0 clamp(1.2rem, 2.5vw, 2rem) clamp(2.5rem, 4vw, 3.5rem) rgba(0, 0, 0, 0.12), /* 增大阴影，特别是大屏幕 */
+        0 0 0 clamp(0.06rem, 0.1vw, 0.08rem) rgba(255, 255, 255, 0.05),
+        inset 0 clamp(0.06rem, 0.1vw, 0.08rem) 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(clamp(0.4rem, 0.8vw, 0.6rem)); /* 优化小屏幕模糊 */
+    backdrop-filter: blur(clamp(0.5rem, 1vw, 0.8rem)); /* 增大模糊，特别是大屏幕 */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-sizing: border-box; /* 确保内边距计算正确 */
 }
@@ -775,35 +775,35 @@ body::-webkit-scrollbar {
 
 .timeline-image {
     flex: 1;
-    max-width: clamp(15rem, 20vw, 18rem); /* 优化小屏幕最大宽度 */
+    max-width: clamp(18rem, 25vw, 22rem); /* 增大最大宽度，特别是大屏幕 */
     position: relative;
     z-index: 1;
 }
 
 .timeline-image img {
     width: 100%;
-    height: clamp(9rem, 12vw, 15rem); /* 优化小屏幕高度 */
+    height: clamp(11rem, 15vw, 18rem); /* 增大高度，特别是大屏幕 */
     object-fit: cover;
-    border-radius: clamp(0.7rem, 1vw, 0.8rem); /* 优化小屏幕圆角 */
-    box-shadow: 0 clamp(0.7rem, 1.2vw, 1rem) clamp(1.5rem, 2vw, 1.6rem) rgba(0, 0, 0, 0.2); /* 优化小屏幕阴影 */
+    border-radius: clamp(0.8rem, 1.2vw, 1rem); /* 增大圆角，特别是大屏幕 */
+    box-shadow: 0 clamp(0.8rem, 1.5vw, 1.2rem) clamp(1.8rem, 2.5vw, 2rem) rgba(0, 0, 0, 0.2); /* 增大阴影，特别是大屏幕 */
     transition: all 0.4s ease;
-    border: clamp(0.08rem, 0.12vw, 0.12rem) solid rgba(255, 255, 255, 0.1); /* 优化小屏幕边框 */
+    border: clamp(0.1rem, 0.15vw, 0.15rem) solid rgba(255, 255, 255, 0.1); /* 增大边框，特别是大屏幕 */
 }
 
 .timeline-text {
     flex: 1;
-    max-width: clamp(18rem, 25vw, 25rem); /* 优化小屏幕最大宽度 */
+    max-width: clamp(22rem, 30vw, 30rem); /* 增大最大宽度，特别是大屏幕 */
     position: relative;
     z-index: 1;
 }
 
 .timeline-text h3 {
-    font-size: clamp(0.8rem, 1.6vw, 1.2rem); /* 统一字体大小，与其他卡片保持一致 */
+    font-size: clamp(1rem, 2vw, 1.5rem); /* 增大字体，特别是大屏幕 */
     background: #ff5c00;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: clamp(1rem, 1.2vw, 1.2rem); /* 优化小屏幕下边距 */
+    margin-bottom: clamp(1.2rem, 1.5vw, 1.5rem); /* 增大下边距，特别是大屏幕 */
     position: relative;
     font-weight: 700;
     line-height: 1.2;
@@ -820,22 +820,22 @@ body::-webkit-scrollbar {
 }
 
 .timeline-text p {
-    font-size: clamp(0.7rem, 1.2vw, 0.9rem); /* 统一字体大小，与其他卡片保持一致 */
+    font-size: clamp(0.8rem, 1.4vw, 1.1rem); /* 增大字体，特别是大屏幕 */
     color: #555;
     line-height: 1.6;
-    margin-bottom: clamp(0.6rem, 0.8vw, 0.7rem); /* 优化小屏幕下边距 */
+    margin-bottom: clamp(0.8rem, 1vw, 1rem); /* 增大下边距，特别是大屏幕 */
 }
 
 .timeline-text .year-badge {
     display: inline-block;
-    padding: clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.6rem, 0.8vw, 0.7rem); /* 优化小屏幕内边距 */
+    padding: clamp(0.3rem, 0.4vw, 0.4rem) clamp(0.8rem, 1vw, 1rem); /* 增大内边距，特别是大屏幕 */
     background: linear-gradient(135deg, #ff5c00, #ff8c00);
     color: white;
-    border-radius: clamp(1rem, 1.2vw, 1.1rem); /* 优化小屏幕圆角 */
-    font-size: clamp(0.5rem, 0.7vw, 0.7rem); /* 统一字体大小，与其他卡片保持一致 */
+    border-radius: clamp(1.2rem, 1.5vw, 1.4rem); /* 增大圆角，特别是大屏幕 */
+    font-size: clamp(0.6rem, 0.8vw, 0.8rem); /* 增大字体，特别是大屏幕 */
     font-weight: 600;
-    margin-bottom: clamp(0.7rem, 1vw, 0.8rem); /* 优化小屏幕下边距 */
-    box-shadow: 0 clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.6vw, 0.5rem) rgba(255, 92, 0, 0.3); /* 优化小屏幕阴影 */
+    margin-bottom: clamp(0.8rem, 1.2vw, 1rem); /* 增大下边距，特别是大屏幕 */
+    box-shadow: 0 clamp(0.3rem, 0.4vw, 0.4rem) clamp(0.6rem, 0.8vw, 0.8rem) rgba(255, 92, 0, 0.3); /* 增大阴影，特别是大屏幕 */
 }
 
 /* 侧边卡片点击效果 */
