@@ -3204,9 +3204,9 @@
 
         // 收货人选项列表
         const receiverOptions = [
-            'SANSUI', '中央', 'SERDAP', 'TAC', 'JUN HAO', '刘八', '黄九', '周十', '吴十一',
-            '郑十二', '孙十三', '马十四', '朱十五', '胡十六', '郭十七', '何十八', '高十九', '林二十',
-            '罗二十一', '梁二十二', '徐二十三', '苏二十四', '卢二十五', '蒋二十六', '沈二十七', '韩二十八',
+            'SANSUI', '中央', 'SERDAP', 'TAC', 'JUN HAO', 'WIN FAR', 'STANDARD COLD STORAGE', 'AO KE', 'TAC FOOD',
+            'SENRI', 'HARUKI', 'SINAR GEMILANG', 'GRAND METIQUE', 'FUDO', 'MEGACOLD', 'MST IMPORT & EXPORT', 'OCEAN PACIFIC', 'PRAWN SUPPLIER',
+            'A TWO Z', 'A KIM', 'MJ', 'HY', '卢二十五', '蒋二十六', '沈二十七', '韩二十八',
             '杨二十九', '朱三十', '秦三十一', '尤三十二', '许三十三', '何三十四', '吕三十五', '施三十六',
             '张三十七', '孔三十八', '曹三十九', '严四十', '华四十一', '金四十二', '魏四十三', '陶四十四',
             '姜四十五', '戚四十六', '谢四十七', '邹四十八', '喻四十九', '柏五十'
