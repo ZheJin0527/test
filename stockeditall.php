@@ -3701,15 +3701,25 @@
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
             
-            // 检查是否有三位小数
-            const rounded = Math.round(num * 1000) / 1000;
-            const hasThreeDecimals = (rounded * 1000) % 1 !== 0;
+            // 检查原始输入是否有三位小数
+            const valueStr = value.toString().trim();
+            const decimalIndex = valueStr.indexOf('.');
             
-            if (hasThreeDecimals) {
-                // 如果有三位小数，显示三位
+            if (decimalIndex === -1) {
+                // 没有小数点，显示两位小数
+                return num.toFixed(2);
+            }
+            
+            // 计算小数位数
+            const decimalPlaces = valueStr.length - decimalIndex - 1;
+            
+            if (decimalPlaces >= 3) {
+                // 三位或更多小数，四舍五入到三位并显示
+                const rounded = Math.round(num * 1000) / 1000;
                 return rounded.toFixed(3);
             } else {
-                // 否则显示两位小数
+                // 两位或更少小数，四舍五入到两位并显示
+                const rounded = Math.round(num * 100) / 100;
                 return rounded.toFixed(2);
             }
         }
