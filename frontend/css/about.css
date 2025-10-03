@@ -232,7 +232,7 @@ body::-webkit-scrollbar {
     height: clamp(22rem, 25vw, 25rem); /* 调整卡片高度，更协调 */
     background-color: #FFF3E6;
     border-radius: clamp(1rem, 2vw, 1.5rem); /* 响应式圆角 */
-    padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); /* 调整内边距 */
+    padding: clamp(1.2rem, 2.2vw, 1.7rem) clamp(1.2rem, 2.2vw, 1.7rem); /* 增加内边距，为更大字体留出空间 */
     text-align: left;
     color: #888888;
     box-shadow: 
@@ -241,6 +241,7 @@ body::-webkit-scrollbar {
     transform: scale(clamp(0.7, 1.8vw + 0.2, 1.1)); /* 卡片独立缩放 */
     transform-origin: center center;
     transition: transform 0.3s ease;
+    box-sizing: border-box; /* 确保内边距计算正确 */
 }
 
 .vision-label {
@@ -321,7 +322,7 @@ body::-webkit-scrollbar {
 }
 
 .values-title {
-    font-size: clamp(1.3rem, 4vw, 3rem); /* 优化小屏幕字体大小 */
+    font-size: clamp(1.3rem, 4vw, 3rem); /* 统一字体大小，与vision保持一致 */
     color: black;
     font-weight: bold;
     margin-top: clamp(1rem, 1.5vw, 1.75rem); /* 优化小屏幕上边距 */
@@ -330,7 +331,7 @@ body::-webkit-scrollbar {
 }
 
 .values-description {
-    font-size: clamp(0.8rem, 1.8vw, 1.125rem); /* 优化小屏幕字体大小 */
+    font-size: clamp(0.8rem, 1.8vw, 1.125rem); /* 统一字体大小，与vision保持一致 */
     color: #888888;
     margin-top: 0;
     margin-bottom: 0; /* 移除下边距，由父元素控制 */
@@ -355,7 +356,7 @@ body::-webkit-scrollbar {
     width: clamp(12rem, 18vw, 18rem); /* 优化小屏幕宽度，更紧凑 */
     height: clamp(16rem, 20vw, 22rem); /* 优化小屏幕高度，更紧凑 */
     background-color: #FFF1E5;
-    padding: clamp(0.8rem, 1.8vw, 1.5rem); /* 优化小屏幕内边距 */
+    padding: clamp(1rem, 2vw, 1.7rem); /* 增加内边距，为字体留出更多空间 */
     border-radius: clamp(0.8rem, 1.5vw, 1.25rem); /* 优化小屏幕圆角 */
     text-align: center;
     box-shadow: 0 clamp(0.2rem, 0.4vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem) rgba(0, 0, 0, 0.05); /* 优化小屏幕阴影 */
@@ -377,7 +378,7 @@ body::-webkit-scrollbar {
 }
 
 .values-card h3 {
-    font-size: clamp(0.9rem, 2.2vw, 1.5rem); /* 优化小屏幕字体大小 */
+    font-size: clamp(0.9rem, 2.2vw, 1.5rem); /* 统一字体大小，与vision保持一致 */
     font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.4;
@@ -386,7 +387,7 @@ body::-webkit-scrollbar {
 
 .values-card p {
     width: 100%; /* 占满卡片宽度 */
-    font-size: clamp(0.7rem, 1.4vw, 0.95rem); /* 优化小屏幕字体大小 */
+    font-size: clamp(0.7rem, 1.4vw, 0.95rem); /* 统一字体大小，与vision保持一致 */
     font-weight: normal;
     color: #888888;
     line-height: 1.5; /* 增加行高，提高可读性 */
@@ -746,7 +747,7 @@ body::-webkit-scrollbar {
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 1), 
         rgba(255, 255, 255, 1));
-    padding: clamp(1rem, 1.8vw, 2rem); /* 优化小屏幕内边距 */
+    padding: clamp(1.2rem, 2vw, 2.2rem); /* 增加内边距，为字体留出更多空间 */
     border-radius: clamp(1.2rem, 1.6vw, 1.5rem); /* 优化小屏幕圆角 */
     border: clamp(0.04rem, 0.08vw, 0.06rem) solid rgba(255, 255, 255, 0.3); /* 优化小屏幕边框 */
     box-shadow: 
@@ -757,6 +758,7 @@ body::-webkit-scrollbar {
     overflow: hidden;
     backdrop-filter: blur(clamp(0.4rem, 0.8vw, 0.6rem)); /* 优化小屏幕模糊 */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-sizing: border-box; /* 确保内边距计算正确 */
 }
 
 .timeline-content::before {
@@ -798,7 +800,7 @@ body::-webkit-scrollbar {
 }
 
 .timeline-text h3 {
-    font-size: clamp(0.8rem, 1.6vw, 1.2rem); /* 优化小屏幕字体大小 */
+    font-size: clamp(0.8rem, 1.6vw, 1.2rem); /* 统一字体大小，与其他卡片保持一致 */
     background: #ff5c00;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -820,7 +822,7 @@ body::-webkit-scrollbar {
 }
 
 .timeline-text p {
-    font-size: clamp(0.7rem, 1.2vw, 0.9rem); /* 优化小屏幕字体大小 */
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem); /* 统一字体大小，与其他卡片保持一致 */
     color: #555;
     line-height: 1.6;
     margin-bottom: clamp(0.6rem, 0.8vw, 0.7rem); /* 优化小屏幕下边距 */
@@ -832,7 +834,7 @@ body::-webkit-scrollbar {
     background: linear-gradient(135deg, #ff5c00, #ff8c00);
     color: white;
     border-radius: clamp(1rem, 1.2vw, 1.1rem); /* 优化小屏幕圆角 */
-    font-size: clamp(0.5rem, 0.7vw, 0.7rem); /* 优化小屏幕字体大小 */
+    font-size: clamp(0.5rem, 0.7vw, 0.7rem); /* 统一字体大小，与其他卡片保持一致 */
     font-weight: 600;
     margin-bottom: clamp(0.7rem, 1vw, 0.8rem); /* 优化小屏幕下边距 */
     box-shadow: 0 clamp(0.2rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.6vw, 0.5rem) rgba(255, 92, 0, 0.3); /* 优化小屏幕阴影 */
