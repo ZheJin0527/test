@@ -74,19 +74,23 @@ function getStockSummary() {
         foreach ($stockData as $row) {
             $currentStock = floatval($row['current_stock']);
             $price = floatval($row['price']);
-            $totalPrice = $currentStock * $price;
+            
+            // 先四舍五入到两位小数，再进行计算
+            $roundedStock = round($currentStock, 2);
+            $roundedPrice = round($price, 2);
+            $totalPrice = $roundedStock * $roundedPrice;
             $totalValue += $totalPrice;
             
             $summaryData[] = [
                 'no' => $counter++,
                 'product_name' => $row['product_name'],
                 'code_number' => $row['code_number'] ?? '',
-                'total_stock' => $currentStock, // 确保这个值是数字
+                'total_stock' => $roundedStock, // 使用进位后的值
                 'specification' => $row['specification'] ?? '',
-                'price' => $price,
+                'price' => $roundedPrice, // 使用进位后的值
                 'total_price' => $totalPrice,
-                'formatted_stock' => number_format($currentStock, 2),
-                'formatted_price' => number_format($price, 2),
+                'formatted_stock' => number_format($roundedStock, 2),
+                'formatted_price' => number_format($roundedPrice, 2),
                 'formatted_total_price' => number_format($totalPrice, 2)
             ];
         }
