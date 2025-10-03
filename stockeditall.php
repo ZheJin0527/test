@@ -3586,13 +3586,13 @@
                                 `<div class="currency-display">
                                     <span class="currency-symbol">RM</span>
                                     <input type="number" class="currency-input-edit" 
-                                        value="${record.price || ''}" min="0" step="0.00001" 
+                                        value="${formatCurrencyEdit(record.price)}" min="0" step="0.00001" 
                                         onchange="updateField(${record.id}, 'price', this.value)">
                                 </div>`
                             ) :
                             `<div class="currency-display">
                                 <span class="currency-symbol">RM</span>
-                                <span class="currency-amount">${record.price ? parseFloat(record.price).toFixed(5) : '0.00000'}</span>
+                                <span class="currency-amount">${formatCurrency(record.price)}</span>
                             </div>`
                         }
                     </td>
@@ -3707,8 +3707,20 @@
             return roundedToTwo.toFixed(2);
         }
 
-        // 格式化货币
+        // 格式化货币 - 显示时使用两位小数
         function formatCurrency(value) {
+            if (!value || value === '' || value === '0') return '0.00';
+            const num = parseFloat(value);
+            if (isNaN(num)) return '0.00';
+            
+            // 先四舍五入到三位小数，再四舍五入到两位小数
+            const roundedToThree = Math.round(num * 1000) / 1000;
+            const roundedToTwo = Math.round(roundedToThree * 100) / 100;
+            return roundedToTwo.toFixed(2);
+        }
+
+        // 格式化货币 - 编辑时使用五位小数
+        function formatCurrencyEdit(value) {
             if (!value || value === '' || value === '0') return '0.00000';
             const num = parseFloat(value);
             return isNaN(num) ? '0.00000' : num.toFixed(5);
