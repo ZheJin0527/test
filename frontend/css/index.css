@@ -490,7 +490,7 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: clamp(2rem, 5vw, 4rem) 0;
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem) 0;
     box-sizing: border-box;
     max-width: clamp(75rem, 100vw, 120rem);
     margin: 0 auto;
