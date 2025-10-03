@@ -252,7 +252,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: #583e04;
+            background: #000000ff;
         }
 
         .stock-table thead tr {
