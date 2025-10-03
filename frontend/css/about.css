@@ -232,7 +232,7 @@ body::-webkit-scrollbar {
     height: clamp(22rem, 25vw, 25rem); /* 调整卡片高度，更协调 */
     background-color: #FFF3E6;
     border-radius: clamp(1rem, 2vw, 1.5rem); /* 响应式圆角 */
-    padding: clamp(1.2rem, 2.2vw, 1.7rem) clamp(1.2rem, 2.2vw, 1.7rem); /* 增加内边距，为更大字体留出空间 */
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); /* 增加内边距，为更大字体留出空间 */
     text-align: left;
     color: #888888;
     box-shadow: 
@@ -241,7 +241,6 @@ body::-webkit-scrollbar {
     transform: scale(clamp(0.7, 1.8vw + 0.2, 1.1)); /* 卡片独立缩放 */
     transform-origin: center center;
     transition: transform 0.3s ease;
-    box-sizing: border-box; /* 确保内边距计算正确 */
 }
 
 .vision-label {
