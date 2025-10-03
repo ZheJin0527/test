@@ -3695,13 +3695,23 @@
             return `${day} ${month}`;
         }
 
-        // 格式化数字
+        // 格式化数字 - 智能显示小数位数
         function formatNumber(value) {
             if (!value || value === '' || value === '0') return '0.00';
             const num = parseFloat(value);
             if (isNaN(num)) return '0.00';
-            // 四舍五入到2位小数
-            return (Math.round(num * 100) / 100).toFixed(2);
+            
+            // 检查是否有三位小数
+            const rounded = Math.round(num * 1000) / 1000;
+            const hasThreeDecimals = (rounded * 1000) % 1 !== 0;
+            
+            if (hasThreeDecimals) {
+                // 如果有三位小数，显示三位
+                return rounded.toFixed(3);
+            } else {
+                // 否则显示两位小数
+                return rounded.toFixed(2);
+            }
         }
 
         // 格式化货币
