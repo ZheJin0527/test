@@ -9,13 +9,13 @@ $canViewAnalytics = isset($canViewAnalytics) ? $canViewAnalytics : true;
 <?php
 session_start();
 
-// 超时时间（秒）- 增加到30分钟
-define('SESSION_TIMEOUT', 1800);
+// 超时时间（秒）
+define('SESSION_TIMEOUT', 60);
 
 // 如果 session 存在，检查是否过期
 if (isset($_SESSION['user_id'])) {
 
-    // 如果超过30分钟没活动，并且没有记住我
+    // 如果超过 1 分钟没活动，并且没有记住我
     if (
         isset($_SESSION['last_activity']) &&
         (time() - $_SESSION['last_activity'] > SESSION_TIMEOUT) &&
