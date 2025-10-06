@@ -97,9 +97,9 @@ if (isset($_SESSION['user_id'])) {
     height: 100vh;
     background-color: rgba(255, 255, 255, 1);
     z-index: 999;
-    /* 修改：默认隐藏遮罩层 */
-    opacity: 0;
-    visibility: hidden;
+    /* 修改：默认显示遮罩层 */
+    opacity: 1;
+    visibility: visible;
     transition: all 0.3s ease;
     pointer-events: none; /* 添加这行，让遮罩层不阻止点击 */
 }
