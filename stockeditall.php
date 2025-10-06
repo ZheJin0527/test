@@ -1102,16 +1102,62 @@
             background-color: #ff9e00;
             color: white;
             font-weight: 500;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.73vw, 14px);
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> refactor
             padding: 11px 24px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
             font-size: 16px;
+<<<<<<< HEAD
+=======
+=======
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.84vw, 16px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
+=======
+            padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.73vw, 14px);
+>>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
+>>>>>>> main
+>>>>>>> refactor
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
+<<<<<<< HEAD
             min-width: 130px;
+=======
+<<<<<<< HEAD
+            width: clamp(90px, 6.77vw, 130px);
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            min-width: 130px;
+=======
+            width: clamp(90px, 6.77vw, 130px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
+=======
+            width: clamp(80px, 6.77vw, 130px);
+>>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
+>>>>>>> main
+>>>>>>> refactor
             justify-content: space-between;
             position: relative; /* 添加这个，因为下拉菜单需要 */
         }
@@ -1131,7 +1177,11 @@
             border: 2px solid #000000ff;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
+<<<<<<< HEAD
             min-width: 130px;
+=======
+            width: 100%;
+>>>>>>> refactor
             z-index: 10000;
             display: none;
             margin-top: 4px;
@@ -1146,7 +1196,11 @@
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
+<<<<<<< HEAD
             color: #000000ff;
+=======
+            color: #583e04;
+>>>>>>> refactor
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;
@@ -1173,10 +1227,17 @@
             margin-right: 16px;
         }
 
+<<<<<<< HEAD
         .view-selector .selector-button {
             background-color: #583e04;
             min-width: 120px;
         }
+=======
+        /* .view-selector .selector-button {
+            background-color: #583e04;
+            min-width: 120px;
+        } */
+>>>>>>> refactor
 
         .view-selector .selector-button:hover {
             background-color: #f98500ff;
@@ -1185,7 +1246,11 @@
         }
 
         .view-selector .selector-dropdown {
+<<<<<<< HEAD
             min-width: 120px;
+=======
+            width: 100%;
+>>>>>>> refactor
         }
 
         /* 回到顶部按钮 */

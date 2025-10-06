@@ -4,16 +4,16 @@ header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
 session_start();
-include_once 'media_config.php';
+include_once '../media_config.php';
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['aboutanimation.css','style.css'];
+$additionalCSS = ['css/about.css','../public/css/components/header.css','../public/css/components/social.css','../public/css/components/footer.css']; // footer.css 放最后，确保样式优先级
 $showPageIndicator = true;
 $totalSlides = 5;
 
 // 包含header
-include 'header.php';
+include '../public/header.php';
 
 // 在header之后获取时间线数据，避免阻塞header加载
 $timelineData = getTimelineConfig();
@@ -96,22 +96,22 @@ $timelineData = getTimelineConfig();
       
         <div class="values-bottom animate-on-scroll card-tilt-in-left">
             <div class="values-card">
-                <img src="images/images/目标导向.png" alt="icon" class="values-icon">
+                <img src="../images/images/目标导向.png" alt="icon" class="values-icon">
                 <h3>目标导向</h3>
                 <p>以结果为导向，聚焦关键任务，明确每一步的方向与意义。</p>
             </div>
             <div class="values-card">
-                <img src="images/images/理念一致.png" alt="icon" class="values-icon">
+                <img src="../images/images/理念一致.png" alt="icon" class="values-icon">
                 <h3>理念一致</h3>
                 <p>保持高度共识，思想同频，目标一致，减少内耗。</p>
             </div>
             <div class="values-card">
-                <img src="images/images/追求卓越.png" alt="icon" class="values-icon">
+                <img src="../images/images/追求卓越.png" alt="icon" class="values-icon">
                 <h3>追求卓越</h3>
                 <p>不满足于完成任务，要追求干得更好，更高标准地完成目标，持续优化每项工作。</p>
             </div>
             <div class="values-card">
-                <img src="images/images/创新精神.png" alt="icon" class="values-icon">
+                <img src="../images/images/创新精神.png" alt="icon" class="values-icon">
                 <h3>创新精神</h3>
                 <p>拥抱变化、敢于尝试，突破既有框架，不断探索新方法、新工具与新角度，推动企业成长。</p>
             </div>
@@ -177,76 +177,16 @@ $timelineData = getTimelineConfig();
     </section>
   </div>
 
-  <div class="swiper-slide footer-slide">
-    <section class="scroll-buffer">
-    <footer class="footer">
-    <div class="footer-section">
-      <h4><a href="index.php">首页</a></h4>
-      <ul>
-        <li><a href="index.php#comprofile">公司简介</a></li>
-        <li><a href="index.php#culture">公司文化</a></li>
-      </ul>
-    </div>
+  <?php include '../public/footer.php'; ?>
 
-    <div class="footer-section">
-      <h4><a href="about.php">关于我们</a></h4>
-      <ul>
-        <li><a href="#" onclick="goToSlide(0); return false;">集团简介</a></li>
-        <li><a href="#" onclick="goToSlide(1); return false;">信念与方向</a></li>
-        <li><a href="#" onclick="goToSlide(2); return false;">核心价值观</a></li>
-        <li><a href="#" onclick="goToSlide(3); return false;">发展历史</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-section">
-      <h4>旗下品牌</h4>
-      <ul>
-        <li><a href="tokyo-japanese-cuisine.php">TOKYO JAPANESE </br>CUISINE</li>
-      </ul>
-    </div>
-
-    <div class="footer-section">
-      <h4><a href="joinus.php">加入我们</a></h4>
-      <ul>
-        <li><a href="joinus.php">公司福利</li>
-        <li><a href="joinus.php#comphoto-container">我们的足迹</li>
-        <li><a href="joinus.php#particles">招聘的职位</li>
-        <li><a href="joinus.php#map">联系我们</a></li>        
-      </ul>
-    </div>
-  </footer>
-
-  <button id="backToTop" onclick="scrollToTop()">&#8673;</button>
-  
-  <div class="footer-bottom">
-    © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
-  </div>
-  </section>
-  </div>
-
-  
   </div> <!-- 关闭 swiper-wrapper -->
 </div> <!-- 关闭 swiper -->
-
-<div class="social-sidebar">
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="images/images/fbicon.png" alt="Facebook">
-    </a>
-
-    <!-- Instagram -->
-    <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="images/images/igicon.png" alt="Instagram">
-    </a>
-
-    <!-- WhatsApp -->
-    <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="images/images/wsicon.png" alt="WhatsApp">
-    </a>
-</div>
+<?php include '../public/social.php'; ?>
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="app.js"></script>
+<script src="../app.js"></script>
+<script src="../public/header.js"></script>
+<script src="../public/social.js"></script>
 <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
@@ -661,8 +601,8 @@ const swiper = new Swiper('.swiper', {
     }
 });
 
-// 页面指示器功能
-const pageDots = document.querySelectorAll('.page-dot');
+// 页面指示器功能（与 header 中的指示器类名保持一致）
+const pageDots = document.querySelectorAll('.header-page-dot');
 
 // 点击圆点跳转到对应页面
 pageDots.forEach((dot, index) => {
@@ -686,20 +626,6 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-        // 页面加载完成后的处理 - 简化版本
-        window.addEventListener('load', () => {
-            // 启动navbar动画 - 页面加载完成就可以开始
-            const navbar = document.querySelector('.navbar');
-            if (navbar) navbar.classList.add('navbar-loaded');
-            
-            // 显示社交侧边栏
-            const socialSidebar = document.querySelector('.social-sidebar');
-            if (socialSidebar) socialSidebar.classList.add('social-loaded');
-            
-            // 显示页面指示器
-            const pageIndicator = document.querySelector('.page-indicator');
-            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
-        });
     </script>
     <script>
         let currentIndex = 0;
@@ -725,11 +651,15 @@ updatePageIndicator(0);
                 item.classList.toggle('active', index === currentIndex);
             });
 
-            // 平滑滚动到居中位置
+            // 简化的居中计算：让当前选中的年份在中间
             const containerWidth = container.parentElement.offsetWidth;
-            const itemWidth = 120;
-            const centerOffset = containerWidth / 2 - itemWidth / 2;
-            const translateX = centerOffset - (currentIndex * itemWidth);
+            const totalItems = navItems.length;
+            const itemWidth = 120; // 使用固定的item宽度（与CSS中的min-width一致）
+            
+            // 计算让当前年份居中的translateX值
+            const centerPosition = containerWidth / 2;
+            const currentItemPosition = currentIndex * itemWidth + itemWidth / 2;
+            const translateX = centerPosition - currentItemPosition;
             
             // 使用CSS transition实现平滑滚动
             container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';

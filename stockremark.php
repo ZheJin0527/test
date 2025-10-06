@@ -416,6 +416,13 @@
             color: white;
             font-weight: 500;
 <<<<<<< HEAD
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.73vw, 14px);
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
             padding: 11px 24px;
             border-radius: 8px;
@@ -436,15 +443,12 @@
             cursor: pointer;
             font-size: clamp(10px, 0.73vw, 14px);
 >>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
+>>>>>>> main
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: all 0.2s;
-<<<<<<< HEAD
-            min-width: 130px;
-=======
             width: clamp(90px, 6.77vw, 130px);
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             justify-content: space-between;
             position: relative; /* 添加这个，因为下拉菜单需要 */
         }
@@ -463,11 +467,7 @@
             border: 2px solid #000000ff;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(88, 62, 4, 0.2);
-<<<<<<< HEAD
-            min-width: 130px;
-=======
             width: 100%;
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             z-index: 10000;
             display: none;
             margin-top: 4px;
@@ -484,7 +484,6 @@
             transition: all 0.2s;
             color: #583e04;
             font-size: clamp(8px, 0.74vw, 14px);
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
             font-weight: 500;
             text-decoration: none;
             display: block;
@@ -510,17 +509,10 @@
             margin-right: 16px;
         }
 
-<<<<<<< HEAD
-        .view-selector .selector-button {
-            background-color: #583e04;
-            min-width: 120px;
-        }
-=======
         /* .view-selector .selector-button {
             background-color: #583e04;
             min-width: 120px;
         } */
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
 
         .view-selector .selector-button:hover {
             background-color: #f98500ff;
@@ -529,11 +521,7 @@
         }
 
         .view-selector .selector-dropdown {
-<<<<<<< HEAD
-            min-width: 133px;
-=======
             width: 100%;
->>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
         }
 
         @media (max-width: 768px) {

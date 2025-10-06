@@ -87,11 +87,41 @@ if (isset($_SESSION['user_id'])) {
             background-color: #583e04;
             color: white;
             font-weight: 500;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.73vw, 14px);
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            padding: 11px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+=======
+            padding: clamp(8px, 0.52vw, 10px) clamp(16px, 1.25vw, 24px);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(10px, 0.84vw, 16px);
+>>>>>>> a917773dd1aef844291a806d78ac81e9ed22d708
+=======
+>>>>>>> refactor
             padding: clamp(6px, 0.52vw, 10px) clamp(16px, 1.04vw, 20px);
             border-radius: 8px;
             border: none;
             cursor: pointer;
             font-size: clamp(10px, 0.73vw, 14px);
+<<<<<<< HEAD
+=======
+>>>>>>> 8ac3288396d84cb34d301bfc1b1f51dc3fb5af78
+>>>>>>> main
+>>>>>>> refactor
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -130,10 +160,14 @@ if (isset($_SESSION['user_id'])) {
             cursor: pointer;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
+<<<<<<< HEAD
             color: #000000ff;
 <<<<<<< HEAD
             font-size: 14px;
 =======
+=======
+            color: #583e04;
+>>>>>>> refactor
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;

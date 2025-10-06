@@ -648,7 +648,11 @@ if (isset($_SESSION['user_id'])) {
     background-color: #FF5C00;
     color: white;
     font-weight: bold;
+<<<<<<< HEAD
+    font-size: clamp(8px, 1.04vw, 20px);
+=======
     font-size: clamp(7px, 1.04vw, 20px);
+>>>>>>> main
     line-height: clamp(24px, 2.34vw, 45px);
     text-align: center;
     border-radius: 50%;

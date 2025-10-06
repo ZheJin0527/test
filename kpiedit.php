@@ -266,7 +266,7 @@
         }
 
         .month-selector select {
-            padding: clamp(4px, 0.42vw, 8px) clamp(8px, 0.83vw, 16px);
+            padding: 8px 16px;
             border: 1px solid #d1d5db;
             border-radius: clamp(4px, 0.42vw, 8px);
             font-size: clamp(10px, 0.84vw, 16px);

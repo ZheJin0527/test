@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'media_config.php';
+include_once '../media_config.php';
 
 // 禁用页面缓存
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -9,12 +9,12 @@ header("Expires: 0");
 
 // 设置页面特定的变量
 $pageTitle = 'KUNZZ HOLDINGS';
-$additionalCSS = ['joinusanimation.css','style.css'];
+$additionalCSS = ['css/joinus.css','../public/css/components/header.css','../public/css/components/social.css','../public/css/components/footer.css']; // footer.css 放最后，确保样式优先级
 $showPageIndicator = true;
-$totalSlides = 6;
+$totalSlides = 5;
 
 // 包含header
-include 'header.php';
+include '../public/header.php';
 ?>
 
 <div class="swiper">
@@ -36,27 +36,27 @@ include 'header.php';
       <h2>公司福利</h2>
       <div class="benefits-grid">
         <div class="benefit-item">
-          <img src="images/images/带薪假期.png" alt="带薪假期">
+          <img src="../../images/images/带薪假期.png" alt="带薪假期">
           <p>带薪假期</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/旅游奖励.png" alt="旅游奖励">
+          <img src="../../images/images/旅游奖励.png" alt="旅游奖励">
           <p>旅游奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/汽车奖励.png" alt="汽车奖励">
+          <img src="../../images/images/汽车奖励.png" alt="汽车奖励">
           <p>汽车奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/房子奖励.png" alt="房子奖励">
+          <img src="../../images/images/房子奖励.png" alt="房子奖励">
           <p>房子奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/年度绩效奖励.png" alt="年度绩效奖励">
+          <img src="../../images/images/年度绩效奖励.png" alt="年度绩效奖励">
           <p>年度绩效奖励</p>
         </div>
         <div class="benefit-item">
-          <img src="images/images/专业培训与学习机会.png" alt="专业培训与学习机会">
+          <img src="../../images/images/专业培训与学习机会.png" alt="专业培训与学习机会">
           <p>专业培训与学习机会</p>
         </div>
       </div>
@@ -97,28 +97,28 @@ include 'header.php';
                 <h2 id="jobDetailTitle">职位详情</h2>
                 <div class="job-detail-meta">
                     <div class="job-detail-item">
-                        <span class="job-detail-label">&#128101; 人数:</span>
+                        <span class="job-detail-label">人数:</span>
                         <span id="jobDetailCount">-</span>
                     </div>
                     <div class="job-detail-item">
-                        <span class="job-detail-label">&#128188; 工作经验:</span>
+                        <span class="job-detail-label">工作经验:</span>
                         <span id="jobDetailExperience">-</span>
                         <span class="job-detail-label"> 年</span>
                     </div>
                     <div class="job-detail-item">
-                        <span class="job-detail-label">&#128197; 发布:</span>
+                        <span class="job-detail-label">发布:</span>
                         <span id="jobDetailPublishDate">-</span>
                     </div>
                     <div class="job-detail-item">
-                        <span class="job-detail-label">🏷️ 公司:</span>
+                        <span class="job-detail-label">公司:</span>
                         <span id="jobDetailCompany">-</span>
                     </div>
                     <div class="job-detail-item" id="jobDetailDepartment" style="display: none;">
-                        <span class="job-detail-label">🏢 部门:</span>
+                        <span class="job-detail-label">部门:</span>
                         <span id="jobDetailDepartmentValue">-</span>
                     </div>
                     <div class="job-detail-item" id="jobDetailSalary" style="display: none;">
-                        <span class="job-detail-label">💰 薪资:</span>
+                        <span class="job-detail-label">薪资:</span>
                         <span id="jobDetailSalaryValue">-</span>
                     </div>
                 </div>
@@ -278,74 +278,16 @@ include 'header.php';
 </div>
 </div>
 
-  <div class="swiper-slide footer-slide">
-    <section class="scroll-buffer">
-    <footer class="footer">
-    <div class="footer-section">
-      <h4><a href="index.php">首页</a></h4>
-      <ul>
-        <li><a href="index.php#comprofile">公司简介</a></li>
-        <li><a href="index.php#culture">公司文化</a></li>
-      </ul>
-    </div>
+<?php include '../public/footer.php'; ?>
 
-    <div class="footer-section">
-      <h4><a href="about.php">关于我们</a></h4>
-      <ul>
-        <li><a href="about.php#intro">集团简介</a></li>
-        <li><a href="about.php#vision">信念与方向</a></li>
-        <li><a href="about.php#values">核心价值观</a></li>
-        <li><a href="about.php#timeline-1">发展历史</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-section">
-      <h4>旗下品牌</h4>
-      <ul>
-        <li><a href="tokyo-japanese-cuisine.php">TOKYO JAPANESE </br>CUISINE</li>
-      </ul>
-    </div>
-
-    <div class="footer-section">
-      <h4><a href="joinus.php">加入我们</a></h4>
-      <ul>
-        <li><a href="#" onclick="goToSlide(0); return false;">公司福利</li>
-        <li><a href="#" onclick="goToSlide(1); return false;">我们的足迹</li>
-        <li><a href="#" onclick="goToSlide(2); return false;">招聘的职位</li>
-        <li><a href="#" onclick="goToSlide(4); return false;">联系我们</a></li>        
-      </ul>
-    </div>
-  </footer>
-
-  <button id="backToTop" onclick="scrollToTop()">&#8673;</button>
-  
-  <div class="footer-bottom">
-    © 2025 Kunzz Holdings Sdn. Bhd. All rights reserved.
-  </div>
-  </section>
   </div>
 </div>
-
-<div class="social-sidebar">
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/16ZihY9RN6/" target="_blank" class="social-icon facebook" title="进入 Facebook 世界">
-        <img src="images/images/fbicon.png" alt="Facebook">
-    </a>
-
-    <!-- Instagram -->
-    <a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="探索 Instagram 精彩">
-        <img src="images/images/igicon.png" alt="Instagram">
-    </a>
-
-    <!-- WhatsApp -->
-    <a href="https://www.whatsapp.com" target="_blank" class="social-icon whatsapp" title="连接 WhatsApp">
-        <img src="images/images/wsicon.png" alt="WhatsApp">
-    </a>
-</div>
+<?php include '../public/social.php'; ?>
     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="app.js"></script>
-<script src="header.js"></script>
+<script src="../public/header.js"></script>
+<script src="../public/social.js"></script>
 <script>
         // 通用的 animate-on-scroll observer（保持原有逻辑）
 const observer = new IntersectionObserver((entries) => {
@@ -593,9 +535,6 @@ function isElementInViewport(el) {
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const homeContent = document.querySelector('.home-content');
-    const navbar = document.querySelector('.navbar');
-    const socialSidebar = document.querySelector('.social-sidebar');
-    const pageIndicator = document.querySelector('.page-indicator');
     
     // 强制隐藏主内容，等待背景图加载
     if (homeContent) {
@@ -607,23 +546,11 @@ function isElementInViewport(el) {
     console.log('开始加载背景图...');
     
     const bgImg = new Image();
-    bgImg.src = "images/images/加入我们bg2.jpg";
+    bgImg.src = "../../images/images/加入我们bg2.jpg";
 
     bgImg.onload = function () {
         console.log('背景图加载完成！开始显示动画');
         
-        // 背景图加载完成后，立即触发导航栏等元素的动画
-        if (navbar) {
-            navbar.classList.add('navbar-loaded');
-        }
-        
-        if (socialSidebar) {
-            socialSidebar.classList.add('social-loaded');
-        }
-        
-        if (pageIndicator) {
-            pageIndicator.classList.add('indicator-loaded');
-        }
         
         // 显示背景渐变
         const homeSection = document.querySelector('.home');
@@ -644,18 +571,6 @@ function isElementInViewport(el) {
     bgImg.onerror = function () {
         console.error('背景图加载失败，但仍显示界面元素');
         
-        // 即使背景图加载失败，也要显示界面元素
-        if (navbar) {
-            navbar.classList.add('navbar-loaded');
-        }
-        
-        if (socialSidebar) {
-            socialSidebar.classList.add('social-loaded');
-        }
-        
-        if (pageIndicator) {
-            pageIndicator.classList.add('indicator-loaded');
-        }
         
         if (homeContent) {
             homeContent.style.opacity = '1';
@@ -667,19 +582,11 @@ function isElementInViewport(el) {
 
     // 添加超时保护：如果5秒内背景图还没加载完成，强制显示所有元素
     setTimeout(() => {
-        if (!navbar || !navbar.classList.contains('navbar-loaded')) {
-            console.log('超时保护：强制开始动画');
-            
-            if (navbar) navbar.classList.add('navbar-loaded');
-            if (socialSidebar) socialSidebar.classList.add('social-loaded');
-            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
-            
-            if (homeContent && homeContent.style.opacity === '0') {
-                homeContent.style.opacity = '1';
-                homeContent.style.visibility = 'visible';
-                homeContent.style.transform = 'translateY(0)';
-                homeContent.classList.remove('hidden');
-            }
+        if (homeContent && homeContent.style.opacity === '0') {
+            homeContent.style.opacity = '1';
+            homeContent.style.visibility = 'visible';
+            homeContent.style.transform = 'translateY(0)';
+            homeContent.classList.remove('hidden');
         }
     }, 5000);
 });
@@ -714,7 +621,7 @@ const swiper = new Swiper('.swiper', {
             // 在过渡结束后检查进度
             setTimeout(() => {
                 if (this.progress > 0.95) {
-                    updatePageIndicator(5); // 滑到最后一页
+                    updatePageIndicator(4); // 滑到最后一页（索引0-4，共5页）
                 } else {
                     updatePageIndicator(this.activeIndex); // 从最后一页滑回来时用正常的activeIndex
                 }
@@ -723,8 +630,8 @@ const swiper = new Swiper('.swiper', {
     }
 });
 
-// 页面指示器功能
-const pageDots = document.querySelectorAll('.page-dot');
+// 页面指示器功能（与 header 中的指示器类名保持一致）
+const pageDots = document.querySelectorAll('.header-page-dot');
 
 // 点击圆点跳转到对应页面
 pageDots.forEach((dot, index) => {
@@ -748,20 +655,6 @@ function updatePageIndicator(activeIndex) {
 updatePageIndicator(0);
     </script>
 <script>
-        // 页面加载完成后的处理 - 简化版本
-        window.addEventListener('load', () => {
-            // 启动navbar动画 - 页面加载完成就可以开始
-            const navbar = document.querySelector('.navbar');
-            if (navbar) navbar.classList.add('navbar-loaded');
-            
-            // 显示社交侧边栏
-            const socialSidebar = document.querySelector('.social-sidebar');
-            if (socialSidebar) socialSidebar.classList.add('social-loaded');
-            
-            // 显示页面指示器
-            const pageIndicator = document.querySelector('.page-indicator');
-            if (pageIndicator) pageIndicator.classList.add('indicator-loaded');
-        });
     </script>
 <script>
         let currentIndex = 0;
@@ -1804,5 +1697,42 @@ window.addEventListener("resize", resizeJobs);
 resizeJobs();
 
 </script>
+
+<script>
+// Footer 相关功能
+function scrollToTop() {
+    if (typeof swiper !== 'undefined') {
+        swiper.slideTo(0);
+    }
+}
+
+// 显示/隐藏回到顶部按钮
+function toggleBackToTopButton() {
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        if (typeof swiper !== 'undefined') {
+            // 当在最后一页时显示按钮
+            if (swiper.activeIndex === swiper.slides.length - 1) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        }
+    }
+}
+
+// 监听 Swiper 变化
+if (typeof swiper !== 'undefined') {
+    swiper.on('slideChange', function() {
+        toggleBackToTopButton();
+    });
+}
+
+// 页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    toggleBackToTopButton();
+});
+</script>
+
 </body>
 </html>
