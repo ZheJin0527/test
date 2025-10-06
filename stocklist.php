@@ -23,6 +23,15 @@
             max-width: 1800px;
             margin: 0 auto;
             padding: 24px;
+            /* 确保容器在sidebar存在时正确显示 */
+            width: calc(100% - clamp(140px, 13.02vw, 250px));
+            margin-left: 0;
+            margin-right: auto;
+        }
+        
+        /* 当sidebar收起时的样式 */
+        body.sidebar-collapsed .container {
+            width: calc(100% - clamp(50px, 3.65vw, 70px));
         }
         
         .header {
