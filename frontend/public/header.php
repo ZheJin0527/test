@@ -35,8 +35,8 @@ $current_lang = $_SESSION['lang'] ?? 'zh';
                     </a>
                 </div>
 
-                <!-- Desktop Navigation -->
-                <div class="hidden lg:flex items-center space-x-1">
+                <!-- Desktop Navigation - Hidden on mobile (< 768px) -->
+                <div class="hidden md:flex items-center space-x-1">
                     <?php foreach ($nav_items as $item): 
                         $is_active = ($current_page === $item['url'] || 
                                      ($item['url'] !== $base_path && strpos($current_page, $item['url']) === 0));
@@ -52,8 +52,8 @@ $current_lang = $_SESSION['lang'] ?? 'zh';
                     <?php endforeach; ?>
                 </div>
 
-                <!-- Right Side: Login & Language -->
-                <div class="hidden lg:flex items-center space-x-3">
+                <!-- Right Side: Login & Language - Hidden on mobile (< 768px) -->
+                <div class="hidden md:flex items-center space-x-3">
                     <!-- Login Button -->
                     <a href="<?php echo $base_path; ?>login.php" 
                        class="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-full hover:shadow-lg hover:scale-105 transform transition-all duration-300">

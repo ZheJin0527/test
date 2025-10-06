@@ -1,0 +1,171 @@
+/**
+ * Header Component Styles
+ * Custom styles for glassmorphism effect and animations
+ */
+
+/* Glassmorphism Effect */
+.glass-header {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Enhanced glass effect on scroll */
+#main-header.scrolled .glass-header {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Navigation Link Hover Effect */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    border-radius: 2px;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::before {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Active Navigation Link */
+.nav-link.active {
+    color: #ea580c;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Language Switcher Animation */
+.language-switcher button:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Menu Animation */
+#mobile-menu {
+    max-height: calc(100vh - 5rem);
+    overflow-y: auto;
+}
+
+/* Smooth scrollbar for mobile menu */
+#mobile-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+#mobile-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#mobile-menu::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+#mobile-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Logo Glow Effect */
+.logo-glow {
+    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+}
+
+/* Ensure header is above other content */
+#main-header {
+    z-index: 9999;
+}
+
+/* Prevent content jump when opening mobile menu */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .glass-header {
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    /* Ensure navigation and buttons are hidden on mobile */
+    .nav-link,
+    .language-switcher {
+        display: none !important;
+    }
+}
+
+/* Animation for dropdown */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+#lang-dropdown.visible {
+    animation: slideDown 0.3s ease;
+}
+
+/* Gradient text for logo on hover */
+.logo-gradient:hover .logo-text {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Button hover effects */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Focus states for accessibility */
+.nav-link:focus,
+button:focus,
+a:focus {
+    outline: 2px solid #f97316;
+    outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

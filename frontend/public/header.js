@@ -99,9 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 
-    // Close mobile menu on window resize
+    // Close mobile menu on window resize (when switching to desktop view)
     window.addEventListener('resize', function() {
-        if (window.innerWidth >= 1024 && mobileMenuOpen) {
+        if (window.innerWidth >= 768 && mobileMenuOpen) {
             mobileMenuOpen = false;
             mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
             mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
