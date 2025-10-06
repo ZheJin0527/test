@@ -1197,10 +1197,14 @@
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
 <<<<<<< HEAD
+<<<<<<< HEAD
             color: #000000ff;
 =======
             color: #583e04;
 >>>>>>> refactor
+=======
+            color: #000000ff;
+>>>>>>> upstream
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;

@@ -50,7 +50,7 @@ if (isset($_SESSION['user_id'])) {
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f1dfbc;
+            background-color: #faf7f2;
             color: #111827;
         }
         
@@ -74,7 +74,7 @@ if (isset($_SESSION['user_id'])) {
         .header h1 {
             font-size: clamp(20px, 2.6vw, 50px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
         
         .header .controls {
@@ -84,7 +84,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .selector-button {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
             font-weight: 500;
 <<<<<<< HEAD
@@ -161,6 +161,7 @@ if (isset($_SESSION['user_id'])) {
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.2s;
 <<<<<<< HEAD
+<<<<<<< HEAD
             color: #000000ff;
 <<<<<<< HEAD
             font-size: 14px;
@@ -168,6 +169,9 @@ if (isset($_SESSION['user_id'])) {
 =======
             color: #583e04;
 >>>>>>> refactor
+=======
+            color: #000000ff;
+>>>>>>> upstream
             font-size: clamp(8px, 0.74vw, 14px);
             font-weight: 500;
             text-decoration: none;
@@ -201,7 +205,7 @@ if (isset($_SESSION['user_id'])) {
         } */
 
         .view-selector .selector-button:hover {
-            background-color: #462d03;
+            background-color: #f99e00;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(88, 62, 4, 0.2);
         }
@@ -249,7 +253,7 @@ if (isset($_SESSION['user_id'])) {
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(88, 62, 4, 0.1);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             display: flex;
             flex-direction: column;
             height: calc(100vh - 300px);
@@ -266,7 +270,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .excel-table th {
-            background: #583e04;
+            background: #636363;
             color: white;
             padding: clamp(4px, 0.42vw, 8px) clamp(6px, 0.63vw, 12px);
             text-align: center;
@@ -458,12 +462,12 @@ if (isset($_SESSION['user_id'])) {
         }
         
         .btn-primary {
-            background-color: #583e04;
+            background-color: #f99e00;
             color: white;
         }
         
         .btn-primary:hover {
-            background-color: #462d03;
+            background-color: #f98500ff;
             transform: translateY(-1px);
         }
         
@@ -517,7 +521,7 @@ if (isset($_SESSION['user_id'])) {
         .stat-value {
             font-size: clamp(12px, 0.94vw, 18px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
 
         /* 删除按钮 */
@@ -652,7 +656,7 @@ if (isset($_SESSION['user_id'])) {
             border-radius: 12px;
             padding: clamp(10px, 1.15vw, 22px) clamp(18px, 1.25vw, 24px);
             margin-bottom: clamp(14px, 1.25vw, 24px);
-            border: 2px solid #583e04;
+            border: 2px solid #000000ff;
             box-shadow: 0 2px 8px rgba(88, 62, 4, 0.1);
             display: flex;
             align-items: center;
@@ -682,7 +686,7 @@ if (isset($_SESSION['user_id'])) {
         .filter-bar .stats-info .stat-value {
             font-size: clamp(10px, 0.94vw, 18px);
             font-weight: bold;
-            color: #583e04;
+            color: #000000ff;
         }
 
         @media (max-width: 768px) {
@@ -715,7 +719,7 @@ if (isset($_SESSION['user_id'])) {
         .filter-item label {
             font-size: clamp(6px, 0.63vw, 12px);
             font-weight: 600;
-            color: #583e04;
+            color: #000000ff;
         }
 
         .filter-input {
@@ -724,14 +728,14 @@ if (isset($_SESSION['user_id'])) {
             border-radius: 6px;
             font-size: clamp(8px, 0.74vw, 14px);
             background: white;
-            color: #583e04;
+            color: #000000ff;
             min-width: 70px;
         }
 
         .filter-input:focus {
             outline: none;
-            border-color: #583e04;
-            box-shadow: 0 0 0 2px rgba(88, 62, 4, 0.1);
+            border-color: #000000ff;
+            box-shadow: 0 0 0 2px rgba(32, 22, 0, 0.1);
         }
 
         /* 批准按钮样式 */
