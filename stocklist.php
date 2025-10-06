@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+// 包含错误处理
+require_once 'error_handler.php';
+?>
+4858<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <link rel="icon" type="image/png" href="images/images/logo.png">

@@ -1,3 +1,7 @@
+<?php
+// 包含错误处理
+require_once 'error_handler.php';
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
