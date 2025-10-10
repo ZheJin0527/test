@@ -59,7 +59,6 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
             text-align: center;
             color: white;
             z-index: 20;
@@ -128,25 +127,25 @@
         .door-1 {
             left: 0;
             background-image: url('images/images/Shoji.svg');
-            z-index: 13;
+            z-index: 12;
         }
 
         .door-2 {
             left: 25%;
             background-image: url('images/images/Shoji.svg');
-            z-index: 12;
+            z-index: 13;
         }
 
         .door-3 {
             left: 50%;
             background-image: url('images/images/Shoji.svg');
-            z-index: 12;
+            z-index: 13;
         }
 
         .door-4 {
             right: 0;
             background-image: url('images/images/Shoji.svg');
-            z-index: 13;
+            z-index: 12;
         }
 
         /* 滚动提示 */
@@ -286,6 +285,14 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
+        // 设置初始状态
+        gsap.set('.content-overlay', {
+            xPercent: -50,
+            yPercent: -50,
+            scale: 0.8,
+            opacity: 0
+        });
+
         // 创建时间线
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -337,10 +344,11 @@
             ease: 'power2.out'
         }, 0)
         
-        // Logo和标题渐显（门打开时才显示）
+        // Logo和标题从里面向前移动到门外（渐显+放大）
         .to('.content-overlay', {
             opacity: 1,
-            duration: 0.8,
+            scale: 1.15,
+            duration: 1,
             ease: 'power2.out'
         }, 0.2)
         
