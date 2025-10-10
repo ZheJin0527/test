@@ -204,14 +204,19 @@
         /* 关于我们页面 */
         .about-section {
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
             background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%);
-            padding: 80px 20px;
+            padding: 0;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .about-container {
             max-width: 1400px;
+            width: 100%;
+            padding: 0 60px;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -228,7 +233,8 @@
 
         .about-image img {
             width: 100%;
-            height: 600px;
+            height: 70vh;
+            max-height: 700px;
             object-fit: cover;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
@@ -238,7 +244,7 @@
             flex: 1;
             position: relative;
             text-align: left;
-            padding: 40px;
+            padding: 60px;
         }
 
         .about-title {
@@ -319,18 +325,6 @@
         .petal:nth-child(6) { left: 89%; animation-duration: 10.5s; animation-delay: 2.5s; }
         .petal:nth-child(7) { left: 84%; animation-duration: 9.5s; animation-delay: 0.8s; }
         .petal:nth-child(8) { left: 87%; animation-duration: 11.5s; animation-delay: 1.8s; }
-
-        /* 响应式设计 */
-        @media (max-width: 1024px) {
-            .about-container {
-                flex-direction: column;
-            }
-
-            .cherry-blossom {
-                width: 200px;
-                opacity: 0.5;
-            }
-        }
 
     </style>
 </head>
