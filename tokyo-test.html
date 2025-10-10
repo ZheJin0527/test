@@ -7,18 +7,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Arial', sans-serif;
             background: #f5f5f5;
@@ -36,7 +24,6 @@
             left: 0;
             width: 100%;
             overflow: hidden;
-            z-index: 1;
         }
 
         /* 背景内容 - 门关着时已经可见 */
@@ -69,16 +56,15 @@
             text-align: center;
             color: white;
             z-index: 20;
-            opacity: 1;
+            opacity: 0;
         }
 
         /* Logo - 使用图片 */
         .logo {
-            width: 120px;
-            height: 120px;
-            background: #c8a068;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            margin: 0 auto 30px;
+            margin: 0px auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -93,17 +79,18 @@
         }
 
         .title {
-            font-size: 48px;
+            font-size: 35px;
             font-weight: bold;
-            letter-spacing: 8px;
-            margin-bottom: 20px;
+            letter-spacing: 3px;
+            margin-bottom: 2px;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            white-space: nowrap;
         }
 
         .subtitle {
-            font-size: 18px;
+            font-size: 16px;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin: 0px auto 2px;
             opacity: 0.9;
         }
 
@@ -158,11 +145,11 @@
         /* 滚动提示 */
         .scroll-hint {
             position: absolute;
-            bottom: 50px;
+            bottom: 35px;
             left: 50%;
             transform: translateX(-50%);
             color: #111;
-            font-size: 14px;
+            font-size: 10px;
             letter-spacing: 2px;
             z-index: 15;
             animation: bounce 2s infinite;
@@ -182,11 +169,11 @@
 
         .scroll-icon {
             display: block;
-            width: 24px;
-            height: 36px;
+            width: 16px;
+            height: 26px;
             border: 2px solid #111;
             border-radius: 12px;
-            margin: 10px auto;
+            margin: 5px auto;
             position: relative;
         }
 
@@ -196,8 +183,8 @@
             top: 6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 4px;
-            height: 8px;
+            width: 2px;
+            height: 6px;
             background: #111;
             border-radius: 2px;
             animation: scroll 2s infinite;
@@ -214,43 +201,22 @@
             }
         }
 
-        /* 底部内容区 */
-        .content-section {
-            position: relative;
-            min-height: 100vh;
-            background: white;
-            margin-top: 100vh;
-            padding: 80px 20px;
-            text-align: center;
-            z-index: 100;
-        }
-
-        .content-section h2 {
-            font-size: 36px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .content-section p {
-            font-size: 18px;
-            color: #666;
-            line-height: 1.8;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
         /* 关于我们页面 */
         .about-section {
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
             background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%);
-            padding: 80px 20px;
+            padding: 0;
             overflow: hidden;
-            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .about-container {
             max-width: 1400px;
+            width: 100%;
+            padding: 0 60px;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -267,7 +233,8 @@
 
         .about-image img {
             width: 100%;
-            height: 600px;
+            height: 70vh;
+            max-height: 700px;
             object-fit: cover;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
@@ -277,7 +244,7 @@
             flex: 1;
             position: relative;
             text-align: left;
-            padding: 40px;
+            padding: 60px;
         }
 
         .about-title {
@@ -359,17 +326,6 @@
         .petal:nth-child(7) { left: 84%; animation-duration: 9.5s; animation-delay: 0.8s; }
         .petal:nth-child(8) { left: 87%; animation-duration: 11.5s; animation-delay: 1.8s; }
 
-        /* 响应式设计 */
-        @media (max-width: 1024px) {
-            .about-container {
-                flex-direction: column;
-            }
-
-            .cherry-blossom {
-                width: 200px;
-                opacity: 0.5;
-            }
-        }
     </style>
 </head>
 <body>
@@ -380,17 +336,6 @@
                 <img src="images/images/tokyorestaurant.webp" 
                      alt="Japanese Restaurant" 
                      class="restaurant-image">
-                <div class="content-overlay">
-                    <!-- 替换成你的Logo图片 -->
-                    <div class="logo">
-                        <img src="images/images/your-logo.png" alt="Tokyo Logo">
-                        <!-- 如果还没有logo图片，暂时用emoji: -->
-                        <!-- 🍜 -->
-                    </div>
-                    <h1 class="title">TOKYO JAPANESE CUISINE</h1>
-                    <p class="subtitle">精致美食・卓越服务</p>
-                    <p class="subtitle">成就世界级日料品牌</p>
-                </div>
             </div>
 
             <!-- 四个门 -->
@@ -408,6 +353,17 @@
                 <div class="door door-4"></div>
             </div>
 
+            <!-- 标题和Logo -->
+            <div class="content-overlay">
+                <!-- 替换成你的Logo图片 -->
+                <div class="logo">
+                    <img src="images/images/tokyo.png" alt="Tokyo Logo">
+                </div>
+                <h1 class="title">TOKYO JAPANESE CUISINE</h1>
+                <p class="subtitle">精致美食・卓越服务</p>
+                <p class="subtitle">成就世界级日料品牌</p>
+            </div>
+
             <!-- 滚动提示 -->
             <div class="scroll-hint">
                 <div class="scroll-icon"></div>
@@ -416,20 +372,12 @@
         </div>
     </div>
 
-    <div class="content-section">
-        <h2>欢迎来到东京日本料理</h2>
-        <p>
-            我们致力于为您提供最正宗的日式料理体验。每一道菜品都经过精心烹制，
-            使用最新鲜的食材，传承传统工艺，为您呈现独特的味觉盛宴。
-        </p>
-    </div>
-
     <!-- 关于我们页面 -->
     <div class="about-section">
         <div class="about-container">
             <div class="about-image">
                 <!-- 替换成你的厨师照片 -->
-                <img src="images/images/chef-cooking.jpg" 
+                <img src="images/images/chef.webp" 
                      alt="日本料理制作">
             </div>
             <div class="about-content">
@@ -543,13 +491,8 @@
         }, 0.2)
         
         // 标题和副标题渐显
-        .to('.title', {
+        .to('.title, .subtitle', {
             opacity: 1,
-            duration: 0.8,
-            ease: 'power2.out'
-        }, 0.3)
-        .to('.subtitle', {
-            opacity: 0.9,
             duration: 0.8,
             ease: 'power2.out'
         }, 0.3)
