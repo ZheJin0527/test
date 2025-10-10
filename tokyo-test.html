@@ -62,7 +62,8 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: white;
-            z-index: 2;
+            z-index: 20;
+            opacity: 0;
         }
 
         /* Logo - 使用图片 */
@@ -127,25 +128,25 @@
         .door-1 {
             left: 0;
             background-image: url('images/images/Shoji.svg');
-            z-index: 12;
+            z-index: 13;
         }
 
         .door-2 {
             left: 25%;
             background-image: url('images/images/Shoji.svg');
-            z-index: 13;
+            z-index: 12;
         }
 
         .door-3 {
             left: 50%;
             background-image: url('images/images/Shoji.svg');
-            z-index: 13;
+            z-index: 12;
         }
 
         .door-4 {
             right: 0;
             background-image: url('images/images/Shoji.svg');
-            z-index: 12;
+            z-index: 13;
         }
 
         /* 滚动提示 */
@@ -244,8 +245,6 @@
                     <!-- 替换成你的Logo图片 -->
                     <div class="logo">
                         <img src="images/images/tokyo.png" alt="Tokyo Logo">
-                        <!-- 如果还没有logo图片，暂时用emoji: -->
-                        <!-- 🍜 -->
                     </div>
                     <h1 class="title">TOKYO JAPANESE CUISINE</h1>
                     <p class="subtitle">精致美食・卓越服务</p>
@@ -337,6 +336,13 @@
             duration: 1,
             ease: 'power2.out'
         }, 0)
+        
+        // Logo和标题渐显（门打开时才显示）
+        .to('.content-overlay', {
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power2.out'
+        }, 0.2)
         
         // 滚动提示淡出
         .to('.scroll-hint', {
