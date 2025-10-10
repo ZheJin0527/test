@@ -201,29 +201,137 @@
             }
         }
 
-        /* 底部内容区 */
-        .content-section {
+        /* 关于我们页面 */
+        .about-section {
             position: relative;
             min-height: 100vh;
-            background: white;
-            margin-top: 100vh;
+            background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%);
             padding: 80px 20px;
-            text-align: center;
+            overflow: hidden;
         }
 
-        .content-section h2 {
-            font-size: 36px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .content-section p {
-            font-size: 18px;
-            color: #666;
-            line-height: 1.8;
-            max-width: 800px;
+        .about-container {
+            max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            opacity: 0;
         }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .about-content {
+            flex: 1;
+            position: relative;
+            text-align: left;
+            padding: 40px;
+        }
+
+        .about-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #8B4513;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #FFB6C1, #FFC0CB);
+        }
+
+        .about-text {
+            font-size: 18px;
+            line-height: 2;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* 樱花装饰 */
+        .cherry-blossom {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 400px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cherry-branch {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800"><path d="M350 0 Q300 100 280 200 T250 400 Q240 500 230 600 T200 800" fill="none" stroke="%238B4513" stroke-width="8"/><circle cx="320" cy="80" r="15" fill="%23FFB6C1"/><circle cx="290" cy="150" r="18" fill="%23FFC0CB"/><circle cx="270" cy="220" r="16" fill="%23FFB6C1"/><circle cx="260" cy="300" r="17" fill="%23FFC0CB"/><circle cx="245" cy="380" r="15" fill="%23FFB6C1"/><circle cx="240" cy="460" r="16" fill="%23FFC0CB"/></svg>') no-repeat;
+            background-size: contain;
+        }
+
+        /* 樱花花瓣 */
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, #FFB6C1 0%, #FFC0CB 50%, transparent 100%);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 不同的花瓣样式 */
+        .petal:nth-child(1) { left: 85%; animation-duration: 8s; animation-delay: 0s; }
+        .petal:nth-child(2) { left: 88%; animation-duration: 10s; animation-delay: 1s; }
+        .petal:nth-child(3) { left: 82%; animation-duration: 9s; animation-delay: 2s; }
+        .petal:nth-child(4) { left: 90%; animation-duration: 11s; animation-delay: 0.5s; }
+        .petal:nth-child(5) { left: 86%; animation-duration: 8.5s; animation-delay: 1.5s; }
+        .petal:nth-child(6) { left: 89%; animation-duration: 10.5s; animation-delay: 2.5s; }
+        .petal:nth-child(7) { left: 84%; animation-duration: 9.5s; animation-delay: 0.8s; }
+        .petal:nth-child(8) { left: 87%; animation-duration: 11.5s; animation-delay: 1.8s; }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .about-container {
+                flex-direction: column;
+            }
+
+            .cherry-blossom {
+                width: 200px;
+                opacity: 0.5;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -270,12 +378,37 @@
         </div>
     </div>
 
-    <div class="content-section">
-        <h2>欢迎来到东京日本料理</h2>
-        <p>
-            我们致力于为您提供最正宗的日式料理体验。每一道菜品都经过精心烹制，
-            使用最新鲜的食材，传承传统工艺，为您呈现独特的味觉盛宴。
-        </p>
+    <!-- 关于我们页面 -->
+    <div class="about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <!-- 替换成你的厨师照片 -->
+                <img src="images/images/chef-cooking.jpg" 
+                     alt="日本料理制作">
+            </div>
+            <div class="about-content">
+                <h2 class="about-title">关于我们</h2>
+                <p class="about-text">
+                    我们是一家致力于提供精致料理与卓越服务的日式料理餐厅。以极致的匠心打造美食。严选当即新鲜食材，融合传统与创意，呈现日本料理美。
+                    餐厅环境清雅舒适，充满日式格调。宾客在此不仅能品味精妙料理，更能感受到细致入微的服务与文化魅力。我们立志将每一次用餐变成难忘的美食之旅，
+                    以卓越的服务和精致的料理成为世界级日料品牌。
+                </p>
+            </div>
+        </div>
+
+        <!-- 樱花装饰 -->
+        <div class="cherry-blossom">
+            <div class="cherry-branch"></div>
+            <!-- 樱花花瓣 -->
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
     </div>
 
     <script>
@@ -388,6 +521,29 @@
                 duration: 0.5,
                 ease: 'power2.out'
             });
+        });
+
+        // 关于我们页面动画
+        gsap.to('.about-container', {
+            opacity: 1,
+            duration: 0.5,
+            scrollTrigger: {
+                trigger: '.about-section',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        gsap.to('.about-image', {
+            x: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.about-section',
+                start: 'top 70%',
+                toggleActions: 'play none none none'
+            }
         });
     </script>
 </body>
