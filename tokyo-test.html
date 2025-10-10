@@ -285,7 +285,15 @@
         gsap.set('.content-overlay', {
             xPercent: -50,
             yPercent: -50,
-            scale: 0.8,
+            opacity: 1  // Logo一开始可见
+        });
+
+        gsap.set('.logo', {
+            width: 200,
+            height: 200
+        });
+
+        gsap.set('.title, .subtitle', {
             opacity: 0
         });
 
@@ -340,13 +348,27 @@
             ease: 'power2.out'
         }, 0)
         
-        // Logo和标题从里面向前移动到门外（渐显+放大）
+        // Logo缩小到最终大小
+        .to('.logo', {
+            width: 80,
+            height: 80,
+            duration: 1,
+            ease: 'power2.out'
+        }, 0)
+        
+        // 整体内容向前移动并放大
         .to('.content-overlay', {
-            opacity: 1,
             scale: 1.15,
             duration: 1,
             ease: 'power2.out'
         }, 0.2)
+        
+        // 标题和副标题渐显
+        .to('.title, .subtitle', {
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power2.out'
+        }, 0.3)
         
         // 滚动提示淡出
         .to('.scroll-hint', {
