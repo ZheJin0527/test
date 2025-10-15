@@ -132,7 +132,7 @@ export default function Header({ showPageIndicator = false, totalSlides = 4 }) {
         <div className="flex items-center">
           <Link href={isEnglish ? '/en' : '/'}>
             <Image 
-              src="/images/images/KUNZZ.png" 
+              src="/images/logo.png" 
               alt="KUNZZ Logo" 
               width={150}
               height={52}
