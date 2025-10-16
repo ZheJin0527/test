@@ -77,7 +77,6 @@
             position: relative;
             cursor: none;
             overflow: hidden;
-            touch-action: none;
         }
 
         .sushi {
@@ -164,6 +163,52 @@
             gap: 10px;
         }
 
+        .leaderboard {
+            margin-top: 20px;
+        }
+
+        .leaderboard h3 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #leaderboardList {
+            background: #F5F5F5;
+            border-radius: 8px;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        #leaderboardList::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #leaderboardList::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 3px;
+        }
+
+        #leaderboardList::-webkit-scrollbar-thumb {
+            background: #4A90E2;
+            border-radius: 3px;
+        }
+
+        #playerName {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4A90E2;
+            border-radius: 8px;
+            width: 200px;
+            outline: none;
+        }
+
+        #playerName:focus {
+            border-color: #FF6B35;
+            box-shadow: 0 0 5px rgba(255, 107, 53, 0.3);
+        }
+
         .sushi-item {
             text-align: center;
             padding: 10px;
@@ -216,7 +261,6 @@
             <div id="startOverlay" class="overlay">
                 <div class="overlay-content">
                     <h2>🍣 寿司接住游戏</h2>
-                    <p>🎮 用鼠标或手指移动碗接住寿司</p>
                     <p>🍣 不同寿司分数不同</p>
                     <p>🔥 连击越高，分数倍数越高</p>
                     <p>💔 失误10次游戏结束</p>
@@ -229,6 +273,11 @@
                     <h2>游戏结束！</h2>
                     <p style="font-size: 24px; color: #4A90E2;">最终分数: <span id="finalScore">0</span></p>
                     <p style="font-size: 18px; color: #FF6B35;">最高连击: <span id="maxCombo">0</span></p>
+                    <div id="nameInputSection" style="margin: 20px 0;">
+                        <p style="font-size: 16px; margin-bottom: 10px;">输入你的名字上榜：</p>
+                        <input type="text" id="playerName" placeholder="输入名字" maxlength="15" style="padding: 10px; font-size: 16px; border: 2px solid #4A90E2; border-radius: 8px; width: 200px;">
+                        <button onclick="saveScore()" style="margin-left: 10px; padding: 10px 20px;">保存</button>
+                    </div>
                     <button onclick="resetGame()">再玩一次</button>
                 </div>
             </div>
@@ -236,41 +285,55 @@
             <div id="bowl" class="bowl">🥣</div>
         </div>
 
-        <div class="sushi-legend">
-            <div class="sushi-item">
-                <img src="images/images/Sushi1.png" alt="Sushi 1" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍣'">
-                <div style="font-size: 30px; display: none;">🍣</div>
-                <div class="points">10分</div>
+        <div style="display: flex; gap: 20px; margin-top: 20px;">
+            <div class="sushi-legend" style="flex: 1;">
+                <div class="sushi-item">
+                    <img src="images/images/Sushi1.png" alt="Sushi 1" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍣'">
+                    <div style="font-size: 30px; display: none;">🍣</div>
+                    <div class="points">10分</div>
+                </div>
+                <div class="sushi-item">
+                    <img src="images/images/Sushi2.png" alt="Sushi 2" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍱'">
+                    <div style="font-size: 30px; display: none;">🍱</div>
+                    <div class="points">15分</div>
+                </div>
+                <div class="sushi-item">
+                    <img src="images/images/Sushi3.png" alt="Sushi 3" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍙'">
+                    <div style="font-size: 30px; display: none;">🍙</div>
+                    <div class="points">20分</div>
+                </div>
+                <div class="sushi-item">
+                    <img src="images/images/Sushi4.png" alt="Sushi 4" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍢'">
+                    <div style="font-size: 30px; display: none;">🍢</div>
+                    <div class="points">25分</div>
+                </div>
+                <div class="sushi-item">
+                    <img src="images/images/Sushi5.png" alt="Sushi 5" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍡'">
+                    <div style="font-size: 30px; display: none;">🍡</div>
+                    <div class="points">30分</div>
+                </div>
+                <div class="sushi-item">
+                    <img src="images/images/Sushi6.png" alt="Sushi 6" onerror="this.style.display='none'; this.nextElementSibling.textContent='🦐'">
+                    <div style="font-size: 30px; display: none;">🦐</div>
+                    <div class="points">50分</div>
+                </div>
             </div>
-            <div class="sushi-item">
-                <img src="images/images/Sushi2.png" alt="Sushi 2" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍱'">
-                <div style="font-size: 30px; display: none;">🍱</div>
-                <div class="points">15分</div>
-            </div>
-            <div class="sushi-item">
-                <img src="images/images/Sushi3.png" alt="Sushi 3" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍙'">
-                <div style="font-size: 30px; display: none;">🍙</div>
-                <div class="points">20分</div>
-            </div>
-            <div class="sushi-item">
-                <img src="images/images/Sushi4.png" alt="Sushi 4" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍢'">
-                <div style="font-size: 30px; display: none;">🍢</div>
-                <div class="points">25分</div>
-            </div>
-            <div class="sushi-item">
-                <img src="images/images/Sushi5.png" alt="Sushi 5" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍡'">
-                <div style="font-size: 30px; display: none;">🍡</div>
-                <div class="points">30分</div>
-            </div>
-            <div class="sushi-item">
-                <img src="images/images/Sushi6.png" alt="Sushi 6" onerror="this.style.display='none'; this.nextElementSibling.textContent='🦐'">
-                <div style="font-size: 30px; display: none;">🦐</div>
-                <div class="points">50分</div>
+
+            <div class="leaderboard" style="flex: 1;">
+                <h3 style="text-align: center; margin-bottom: 10px; color: #333;">🏆 在线排行榜</h3>
+                <div id="leaderboardList" style="background: #F5F5F5; border-radius: 8px; padding: 10px; max-height: 200px; overflow-y: auto;">
+                    <div style="text-align: center; color: #999; padding: 20px;">加载中...</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // ===== 修改这里：填写你的PHP API地址 =====
+        const API_URL = 'https://system.kunzzgroup.com/leaderboard.php';
+        // 例如: const API_URL = 'https://mywebsite.com/sushi-game/leaderboard.php';
+        // ==========================================
+
         const SUSHI_TYPES = [
             { id: 1, score: 10, image: 'images/images/Sushi1.png', emoji: '🍣' },
             { id: 2, score: 15, image: 'images/images/Sushi2.png', emoji: '🍱' },
@@ -419,12 +482,106 @@
             document.getElementById('finalScore').textContent = gameState.score;
             document.getElementById('maxCombo').textContent = gameState.maxCombo;
             document.getElementById('gameOverOverlay').classList.remove('hidden');
+            document.getElementById('playerName').value = '';
+            document.getElementById('nameInputSection').style.display = 'block';
             
             gameState.sushis.forEach(sushi => {
                 if (sushi.element) sushi.element.remove();
             });
             gameState.sushis = [];
         }
+
+        function saveScore() {
+            const playerName = document.getElementById('playerName').value.trim();
+            if (!playerName) {
+                alert('请输入你的名字！');
+                return;
+            }
+
+            // 保存到在线数据库
+            fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: playerName,
+                    score: gameState.score,
+                    combo: gameState.maxCombo
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('成绩已保存到在线排行榜！');
+                    displayLeaderboard(); // 刷新排行榜
+                    document.getElementById('nameInputSection').style.display = 'none';
+                } else {
+                    alert('保存失败：' + (data.message || '未知错误'));
+                }
+            })
+            .catch(error => {
+                console.error('保存错误:', error);
+                alert('网络错误，无法保存成绩');
+            });
+        }
+
+        function displayLeaderboard() {
+            const listElement = document.getElementById('leaderboardList');
+            listElement.innerHTML = '<div style="text-align: center; color: #999; padding: 20px;">加载中...</div>';
+
+            // 从在线数据库获取排行榜
+            fetch(API_URL + '?limit=10')
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success && result.data.length > 0) {
+                        let html = '';
+                        result.data.forEach((record, index) => {
+                            const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+                            html += `
+                                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #ddd; align-items: center;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="font-weight: bold; font-size: 18px;">${medal}</span>
+                                        <span style="font-weight: bold;">${record.player_name}</span>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="color: #4A90E2; font-weight: bold;">${record.score}分</div>
+                                        <div style="color: #999; font-size: 11px;">连击 ${record.combo}</div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        listElement.innerHTML = html;
+                    } else {
+                        listElement.innerHTML = '<div style="text-align: center; color: #999; padding: 20px;">暂无记录</div>';
+                    }
+                })
+                .catch(error => {
+                    console.error('加载排行榜错误:', error);
+                    listElement.innerHTML = '<div style="text-align: center; color: #E63946; padding: 20px;">加载失败</div>';
+                });
+        }
+
+        function clearLeaderboard() {
+            alert('在线排行榜不支持清空功能');
+        }
+
+        // 页面加载时显示排行榜
+        window.addEventListener('load', () => {
+            displayLeaderboard();
+        });
+
+        // 支持回车键提交名字
+        document.addEventListener('DOMContentLoaded', () => {
+            const nameInput = document.getElementById('playerName');
+            if (nameInput) {
+                nameInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        saveScore();
+                    }
+                });
+            }
+        });
 
         function resetGame() {
             document.getElementById('gameOverOverlay').classList.add('hidden');
@@ -445,7 +602,7 @@
         // 触屏控制
         canvas.addEventListener('touchmove', (e) => {
             if (!gameState.started || gameState.over) return;
-            e.preventDefault(); // 防止页面滚动
+            e.preventDefault();
             const rect = canvas.getBoundingClientRect();
             const touch = e.touches[0];
             const x = ((touch.clientX - rect.left) / rect.width) * 100;
@@ -455,7 +612,7 @@
 
         canvas.addEventListener('touchstart', (e) => {
             if (!gameState.started || gameState.over) return;
-            e.preventDefault(); // 防止页面滚动
+            e.preventDefault();
             const rect = canvas.getBoundingClientRect();
             const touch = e.touches[0];
             const x = ((touch.clientX - rect.left) / rect.width) * 100;
