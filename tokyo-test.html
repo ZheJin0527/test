@@ -397,6 +397,135 @@
             height: 41px;
         }
 
+        /* 使命愿景价值观页面 */
+        .values-section {
+            position: relative;
+            min-height: 100vh;
+            background-image: url('images/images/vision.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            overflow: hidden;
+        }
+
+        /* 背景遮罩 */
+        .values-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .values-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        /* Glassmorphism 卡片 */
+        .value-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 30px 40px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+        }
+
+        /* 默认状态 - 所有卡片可见 */
+        .value-card {
+            opacity: 1;
+            filter: blur(0px);
+        }
+
+        /* 当有卡片激活时，其他卡片模糊 */
+        .values-container.has-active .value-card:not(.active) {
+            opacity: 0.4;
+            filter: blur(3px);
+            transform: scale(0.95);
+        }
+
+        /* 激活的卡片 */
+        .value-card.active {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.35);
+            opacity: 1;
+            filter: blur(0px);
+        }
+
+        .value-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(-5px);
+        }
+
+        /* 卡片标题 */
+        .value-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 12px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        /* 卡片内容 */
+        .value-content {
+            max-width: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            color: white;
+            font-size: 18px;
+            line-height: 1.8;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            margin-left: 30px;
+            padding-left: 30px;
+            border-left: 2px solid rgba(255, 255, 255, 0.3);
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+        }
+
+        .value-card.active .value-content {
+            max-width: 600px;
+            opacity: 1;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .value-title {
+                font-size: 28px;
+                letter-spacing: 8px;
+            }
+
+            .value-content {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+
+            .value-card {
+                padding: 25px 30px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -470,6 +599,43 @@
             <div class="petal"></div>
             <div class="petal"></div>
             <div class="petal"></div>
+        </div>
+    </div>
+
+    <!-- 使命愿景价值观页面 -->
+    <div class="values-section">
+        <div class="values-container">
+            <!-- 使命卡片 -->
+            <div class="value-card" onclick="toggleCard(this)">
+                <h3 class="value-title">使命</h3>
+                <div class="value-content">
+                    <p>以极致的匠心和热情为每一位顾客呈现最正宗的日式料理体验我们致力于将传统日本饮食文化与现代创新完美融合</p>
+                </div>
+            </div>
+
+            <!-- 愿景卡片 -->
+            <div class="value-card" onclick="toggleCard(this)">
+                <h3 class="value-title">愿景</h3>
+                <div class="value-content">
+                    <p>成为世界级的日料品牌让更多人感受到日本料理的精致与美好我们希望通过卓越的服务和品质成为顾客心中最值得信赖的日式餐厅</p>
+                </div>
+            </div>
+
+            <!-- 价值观卡片 -->
+            <div class="value-card" onclick="toggleCard(this)">
+                <h3 class="value-title">价值观</h3>
+                <div class="value-content">
+                    <p>专注品质追求完美尊重传统勇于创新我们相信细节决定成败每一个环节都精益求精为顾客创造难忘的用餐体验</p>
+                </div>
+            </div>
+
+            <!-- 人品卡片 -->
+            <div class="value-card" onclick="toggleCard(this)">
+                <h3 class="value-title">人品</h3>
+                <div class="value-content">
+                    <p>诚信为本匠心独运服务至上我们以最真诚的态度对待每一位顾客用心制作每一道料理让顾客感受到家一般的温暖和关怀</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -612,6 +778,25 @@
                 toggleActions: 'play none none none'
             }
         });
+
+        // 使命愿景价值观页面交互功能
+        function toggleCard(card) {
+            const container = card.parentElement;
+            
+            // 如果点击的卡片已经是激活状态，则关闭所有卡片
+            if (card.classList.contains('active')) {
+                card.classList.remove('active');
+                container.classList.remove('has-active');
+            } else {
+                // 关闭所有其他卡片
+                document.querySelectorAll('.value-card').forEach(c => {
+                    c.classList.remove('active');
+                });
+                // 激活当前卡片
+                card.classList.add('active');
+                container.classList.add('has-active');
+            }
+        }
     </script>
 </body>
 </html>
