@@ -661,6 +661,7 @@
                 start: 'top top',
                 end: 'bottom bottom',
                 scrub: 1,
+                toggleActions: 'play none none reverse',
             }
         });
 
@@ -738,6 +739,67 @@
             duration: 0.3,
             ease: 'power2.in'
         }, 0);
+
+        // 添加反向动画 - 当向上滚动时门重新关闭
+        tl.to('.door-2', {
+            x: '0%',
+            scale: 1,
+            duration: 1,
+            ease: 'power2.inOut'
+        }, 1)
+        .to('.door-3', {
+            x: '0%',
+            scale: 1,
+            duration: 1,
+            ease: 'power2.inOut'
+        }, 1)
+        .to('.door-1', {
+            scale: 1,
+            duration: 1,
+            ease: 'power2.inOut'
+        }, 1)
+        .to('.door-4', {
+            scale: 1,
+            duration: 1,
+            ease: 'power2.inOut'
+        }, 1)
+        .to('.background', {
+            opacity: 0.5,
+            scale: 1,
+            duration: 1,
+            ease: 'power2.out'
+        }, 1)
+        .to('.restaurant-image', {
+            scale: 1,
+            duration: 1,
+            ease: 'power2.out'
+        }, 1)
+        .to('.logo', {
+            width: 200,
+            height: 200,
+            duration: 1,
+            ease: 'power2.out'
+        }, 1)
+        .to('.content-overlay', {
+            scale: 1,
+            duration: 1,
+            ease: 'power2.out'
+        }, 1)
+        .to('.title', {
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.in'
+        }, 1)
+        .to('.subtitle', {
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.in'
+        }, 1)
+        .to('.scroll-hint', {
+            opacity: 1,
+            duration: 0.3,
+            ease: 'power2.out'
+        }, 1);
 
         // 添加鼠标移动视差效果
         document.addEventListener('mousemove', (e) => {
