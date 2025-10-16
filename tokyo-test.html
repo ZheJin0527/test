@@ -506,8 +506,6 @@
             border-top: 2px solid rgba(255, 255, 255, 0.3);
             writing-mode: vertical-rl;
             text-orientation: upright;
-            text-align: center;
-            white-space: nowrap;
         }
 
         .value-card.active .value-content {
@@ -515,44 +513,6 @@
             opacity: 1;
         }
 
-        /* ==================== 响应式设计 ==================== */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 36px;
-            }
-
-            .subtitle {
-                font-size: 16px;
-            }
-
-            .about-container {
-                flex-direction: column;
-            }
-
-            .about-title {
-                font-size: 36px;
-            }
-
-            .about-text {
-                font-size: 16px;
-            }
-
-            .values-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .value-card {
-                width: 80%;
-                height: auto;
-                padding: 30px 20px;
-            }
-
-            .value-card.active {
-                min-width: auto;
-                width: 90%;
-            }
-        }
     </style>
 </head>
 <body>
