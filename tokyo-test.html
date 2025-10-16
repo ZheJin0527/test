@@ -23,7 +23,6 @@
         .scroll-container {
             height: 200vh;
             position: relative;
-            z-index: 10;
         }
 
         .scene {
@@ -33,7 +32,7 @@
             left: 0;
             width: 100%;
             overflow: hidden;
-            z-index: 10;
+            z-index: 1;
         }
 
         /* 背景内容 */
@@ -218,8 +217,8 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            z-index: 5;
-            margin-top: -100vh;
+            z-index: 10;
+            margin-top: 100vh;
         }
 
         .about-container {
@@ -686,15 +685,13 @@
             opacity: 0
         });
 
-        // 创建时间线
+        // 创建时间线 - 推门动画
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.scroll-container',
                 start: 'top top',
-                end: 'bottom bottom',
-                scrub: 1,
-                pin: '.scene',
-                pinSpacing: false
+                end: '50% bottom',
+                scrub: 1
             }
         });
 
@@ -768,6 +765,18 @@
             duration: 0.3,
             ease: 'power2.in'
         }, 0);
+
+        // 第一页被第二页推上去的动画
+        gsap.to('.scene', {
+            yPercent: -100,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.about-section',
+                start: 'top bottom',
+                end: 'top top',
+                scrub: 1
+            }
+        });
 
         // 鼠标视差效果
         document.addEventListener('mousemove', (e) => {
