@@ -432,7 +432,8 @@
             justify-content: center;
             gap: 20px;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Glassmorphism 卡片 */
@@ -445,7 +446,7 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 40px 20px;
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
             writing-mode: vertical-rl;
             text-orientation: upright;
@@ -455,6 +456,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-width: 200px;
         }
 
         /* 默认状态 - 所有卡片可见 */
@@ -463,21 +465,23 @@
             filter: blur(0px);
         }
 
-        /* 当有卡片激活时，其他卡片模糊 */
+        /* 当有卡片激活时，其他卡片保持原样但会被推开 */
         .values-container.has-active .value-card:not(.active) {
-            opacity: 0.3;
-            filter: blur(4px);
-            transform: scale(0.9);
+            opacity: 1;
+            filter: blur(0px);
+            transform: scale(1);
         }
 
         /* 激活的卡片 */
         .value-card.active {
             background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.1);
+            transform: scale(1);
             box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.4);
             opacity: 1;
             filter: blur(0px);
             z-index: 10;
+            flex: 2;
+            min-width: 400px;
         }
 
         .value-card:hover {
@@ -513,10 +517,11 @@
             writing-mode: vertical-rl;
             text-orientation: upright;
             text-align: center;
+            white-space: nowrap;
         }
 
         .value-card.active .value-content {
-            max-width: 300px;
+            max-width: 500px;
             opacity: 1;
         }
 
