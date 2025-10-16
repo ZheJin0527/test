@@ -77,6 +77,7 @@
             position: relative;
             cursor: none;
             overflow: hidden;
+            touch-action: none;
         }
 
         .sushi {
@@ -202,7 +203,7 @@
         <div class="game-header">
             <div class="game-title">
                 <h1>🍣 寿司接住游戏</h1>
-                <p>用鼠标移动碗来接住掉落的寿司！</p>
+                <p>用鼠标或触屏移动碗来接住掉落的寿司！</p>
             </div>
             <div class="game-stats">
                 <div class="score">分数: <span id="score">0</span></div>
@@ -215,6 +216,7 @@
             <div id="startOverlay" class="overlay">
                 <div class="overlay-content">
                     <h2>🍣 寿司接住游戏</h2>
+                    <p>🎮 用鼠标或手指移动碗接住寿司</p>
                     <p>🍣 不同寿司分数不同</p>
                     <p>🔥 连击越高，分数倍数越高</p>
                     <p>💔 失误10次游戏结束</p>
@@ -431,6 +433,7 @@
             bowl.style.left = '50%';
         }
 
+        // 鼠标控制
         canvas.addEventListener('mousemove', (e) => {
             if (!gameState.started || gameState.over) return;
             const rect = canvas.getBoundingClientRect();
@@ -438,6 +441,27 @@
             gameState.bowlX = Math.max(5, Math.min(95, x));
             bowl.style.left = gameState.bowlX + '%';
         });
+
+        // 触屏控制
+        canvas.addEventListener('touchmove', (e) => {
+            if (!gameState.started || gameState.over) return;
+            e.preventDefault(); // 防止页面滚动
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = ((touch.clientX - rect.left) / rect.width) * 100;
+            gameState.bowlX = Math.max(5, Math.min(95, x));
+            bowl.style.left = gameState.bowlX + '%';
+        }, { passive: false });
+
+        canvas.addEventListener('touchstart', (e) => {
+            if (!gameState.started || gameState.over) return;
+            e.preventDefault(); // 防止页面滚动
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = ((touch.clientX - rect.left) / rect.width) * 100;
+            gameState.bowlX = Math.max(5, Math.min(95, x));
+            bowl.style.left = gameState.bowlX + '%';
+        }, { passive: false });
     </script>
 </body>
 </html>
