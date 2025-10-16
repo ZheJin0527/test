@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寿司接住游戏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #87CEEB, #4A90E2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .game-title h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .game-title p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .game-stats {
+            text-align: right;
+        }
+
+        .score {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4A90E2;
+        }
+
+        .combo {
+            font-size: 18px;
+            color: #FF6B35;
+            margin: 5px 0;
+        }
+
+        .missed {
+            font-size: 14px;
+            color: #E63946;
+        }
+
+        #gameCanvas {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(to bottom, #E3F2FD, #BBDEFB);
+            border: 4px solid #4A90E2;
+            border-radius: 10px;
+            position: relative;
+            cursor: none;
+            overflow: hidden;
+        }
+
+        .sushi {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            pointer-events: none;
+            transition: transform 0.1s;
+        }
+
+        .sushi img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .bowl {
+            position: absolute;
+            bottom: 20px;
+            width: 80px;
+            height: 60px;
+            font-size: 50px;
+            text-align: center;
+            line-height: 60px;
+            transform: translateX(-50%);
+            pointer-events: none;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .overlay-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .overlay-content h2 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .overlay-content p {
+            font-size: 18px;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        button {
+            background: linear-gradient(to right, #FF6B35, #E63946);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .sushi-legend {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+        }
+
+        .sushi-item {
+            text-align: center;
+            padding: 10px;
+            background: #F5F5F5;
+            border-radius: 8px;
+        }
+
+        .sushi-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .sushi-item .points {
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .sushi.falling {
+            animation: rotate 2s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <div class="game-title">
+                <h1>🍣 寿司接住游戏</h1>
+                <p>用鼠标移动碗来接住掉落的寿司！</p>
+            </div>
+            <div class="game-stats">
+                <div class="score">分数: <span id="score">0</span></div>
+                <div class="combo">Combo: x<span id="multiplier">1.0</span> (<span id="combo">0</span>连击)</div>
+                <div class="missed">失误: <span id="missed">0</span>/10</div>
+            </div>
+        </div>
+
+        <div id="gameCanvas">
+            <div id="startOverlay" class="overlay">
+                <div class="overlay-content">
+                    <h2>🍣 寿司接住游戏</h2>
+                    <p>🍣 不同寿司分数不同</p>
+                    <p>🔥 连击越高，分数倍数越高</p>
+                    <p>💔 失误10次游戏结束</p>
+                    <button onclick="startGame()">开始游戏</button>
+                </div>
+            </div>
+
+            <div id="gameOverOverlay" class="overlay hidden">
+                <div class="overlay-content">
+                    <h2>游戏结束！</h2>
+                    <p style="font-size: 24px; color: #4A90E2;">最终分数: <span id="finalScore">0</span></p>
+                    <p style="font-size: 18px; color: #FF6B35;">最高连击: <span id="maxCombo">0</span></p>
+                    <button onclick="resetGame()">再玩一次</button>
+                </div>
+            </div>
+
+            <div id="bowl" class="bowl">🥣</div>
+        </div>
+
+        <div class="sushi-legend">
+            <div class="sushi-item">
+                <img src="Sushi1.png" alt="Sushi 1" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍣'">
+                <div style="font-size: 30px; display: none;">🍣</div>
+                <div class="points">10分</div>
+            </div>
+            <div class="sushi-item">
+                <img src="Sushi2.png" alt="Sushi 2" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍱'">
+                <div style="font-size: 30px; display: none;">🍱</div>
+                <div class="points">15分</div>
+            </div>
+            <div class="sushi-item">
+                <img src="Sushi3.png" alt="Sushi 3" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍙'">
+                <div style="font-size: 30px; display: none;">🍙</div>
+                <div class="points">20分</div>
+            </div>
+            <div class="sushi-item">
+                <img src="Sushi4.png" alt="Sushi 4" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍢'">
+                <div style="font-size: 30px; display: none;">🍢</div>
+                <div class="points">25分</div>
+            </div>
+            <div class="sushi-item">
+                <img src="Sushi5.png" alt="Sushi 5" onerror="this.style.display='none'; this.nextElementSibling.textContent='🍡'">
+                <div style="font-size: 30px; display: none;">🍡</div>
+                <div class="points">30分</div>
+            </div>
+            <div class="sushi-item">
+                <img src="Sushi6.png" alt="Sushi 6" onerror="this.style.display='none'; this.nextElementSibling.textContent='🦐'">
+                <div style="font-size: 30px; display: none;">🦐</div>
+                <div class="points">50分</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUSHI_TYPES = [
+            { id: 1, score: 10, image: 'Sushi1.png', emoji: '🍣' },
+            { id: 2, score: 15, image: 'Sushi2.png', emoji: '🍱' },
+            { id: 3, score: 20, image: 'Sushi3.png', emoji: '🍙' },
+            { id: 4, score: 25, image: 'Sushi4.png', emoji: '🍢' },
+            { id: 5, score: 30, image: 'Sushi5.png', emoji: '🍡' },
+            { id: 6, score: 50, image: 'Sushi6.png', emoji: '🦐' }
+        ];
+
+        let gameState = {
+            started: false,
+            over: false,
+            score: 0,
+            combo: 0,
+            maxCombo: 0,
+            missed: 0,
+            sushis: [],
+            bowlX: 50,
+            lastSpawnTime: 0,
+            animationId: null
+        };
+
+        const canvas = document.getElementById('gameCanvas');
+        const bowl = document.getElementById('bowl');
+
+        function getComboMultiplier(combo) {
+            if (combo >= 20) return 4;
+            if (combo >= 15) return 3;
+            if (combo >= 10) return 2.5;
+            if (combo >= 5) return 2;
+            return 1;
+        }
+
+        function updateStats() {
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('combo').textContent = gameState.combo;
+            document.getElementById('multiplier').textContent = getComboMultiplier(gameState.combo).toFixed(1);
+            document.getElementById('missed').textContent = gameState.missed;
+        }
+
+        function createSushi() {
+            const type = SUSHI_TYPES[Math.floor(Math.random() * SUSHI_TYPES.length)];
+            const sushi = {
+                id: Date.now(),
+                type: type,
+                x: Math.random() * 85 + 5,
+                y: -10,
+                speed: Math.random() * 1.5 + 2,
+                element: null
+            };
+
+            const element = document.createElement('div');
+            element.className = 'sushi falling';
+            element.style.left = sushi.x + '%';
+            element.style.top = sushi.y + '%';
+            
+            const img = document.createElement('img');
+            img.src = type.image;
+            img.onerror = function() {
+                this.parentElement.innerHTML = '<div style="font-size: 40px;">' + type.emoji + '</div>';
+            };
+            element.appendChild(img);
+            
+            canvas.appendChild(element);
+            sushi.element = element;
+            gameState.sushis.push(sushi);
+        }
+
+        function checkCollision(sushi) {
+            const canvasRect = canvas.getBoundingClientRect();
+            const sushiX = sushi.x;
+            const sushiY = sushi.y;
+            const bowlX = gameState.bowlX;
+
+            if (sushiY > 82 && sushiY < 92) {
+                const distance = Math.abs(sushiX - bowlX);
+                if (distance < 8) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function gameLoop(timestamp) {
+            if (!gameState.started || gameState.over) return;
+
+            if (timestamp - gameState.lastSpawnTime > 1000) {
+                createSushi();
+                gameState.lastSpawnTime = timestamp;
+            }
+
+            const toRemove = [];
+            gameState.sushis.forEach((sushi, index) => {
+                sushi.y += sushi.speed * 0.5;
+                sushi.element.style.top = sushi.y + '%';
+
+                if (checkCollision(sushi)) {
+                    const multiplier = getComboMultiplier(gameState.combo);
+                    const earnedScore = Math.floor(sushi.type.score * multiplier);
+                    gameState.score += earnedScore;
+                    gameState.combo += 1;
+                    if (gameState.combo > gameState.maxCombo) {
+                        gameState.maxCombo = gameState.combo;
+                    }
+                    updateStats();
+                    sushi.element.remove();
+                    toRemove.push(index);
+                } else if (sushi.y > 100) {
+                    gameState.combo = 0;
+                    gameState.missed += 1;
+                    updateStats();
+                    sushi.element.remove();
+                    toRemove.push(index);
+
+                    if (gameState.missed >= 10) {
+                        endGame();
+                        return;
+                    }
+                }
+            });
+
+            for (let i = toRemove.length - 1; i >= 0; i--) {
+                gameState.sushis.splice(toRemove[i], 1);
+            }
+
+            gameState.animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function startGame() {
+            document.getElementById('startOverlay').classList.add('hidden');
+            gameState.started = true;
+            gameState.over = false;
+            gameState.score = 0;
+            gameState.combo = 0;
+            gameState.maxCombo = 0;
+            gameState.missed = 0;
+            gameState.sushis = [];
+            gameState.lastSpawnTime = 0;
+            updateStats();
+            gameState.animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function endGame() {
+            gameState.over = true;
+            gameState.started = false;
+            document.getElementById('finalScore').textContent = gameState.score;
+            document.getElementById('maxCombo').textContent = gameState.maxCombo;
+            document.getElementById('gameOverOverlay').classList.remove('hidden');
+            
+            gameState.sushis.forEach(sushi => {
+                if (sushi.element) sushi.element.remove();
+            });
+            gameState.sushis = [];
+        }
+
+        function resetGame() {
+            document.getElementById('gameOverOverlay').classList.add('hidden');
+            document.getElementById('startOverlay').classList.remove('hidden');
+            gameState.bowlX = 50;
+            bowl.style.left = '50%';
+        }
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!gameState.started || gameState.over) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            gameState.bowlX = Math.max(5, Math.min(95, x));
+            bowl.style.left = gameState.bowlX + '%';
+        });
+    </script>
+</body>
+</html>
