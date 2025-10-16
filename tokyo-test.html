@@ -23,6 +23,7 @@
         .scroll-container {
             height: 200vh;
             position: relative;
+            z-index: 10;
         }
 
         .scene {
@@ -32,7 +33,7 @@
             left: 0;
             width: 100%;
             overflow: hidden;
-            z-index: 1;
+            z-index: 10;
         }
 
         /* 背景内容 */
@@ -217,7 +218,8 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            margin-top: 100vh;
+            z-index: 5;
+            margin-top: -100vh;
         }
 
         .about-container {
@@ -691,7 +693,8 @@
                 start: 'top top',
                 end: 'bottom bottom',
                 scrub: 1,
-                pin: '.scene'
+                pin: '.scene',
+                pinSpacing: false
             }
         });
 
