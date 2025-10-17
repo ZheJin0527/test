@@ -217,7 +217,7 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            z-index: 10;
+            z-index: 100;
             margin-top: 150vh;
         }
 
@@ -746,6 +746,18 @@
                 duration: 0.5,
                 ease: 'power2.out'
             });
+        });
+
+        // 当滚动超过第一页后，让 scene 不影响后续内容
+        ScrollTrigger.create({
+            trigger: '.scroll-container',
+            start: 'bottom top',
+            onEnter: () => {
+                gsap.set('.scene', { pointerEvents: 'none', zIndex: -1 });
+            },
+            onLeaveBack: () => {
+                gsap.set('.scene', { pointerEvents: 'auto', zIndex: 1 });
+            }
         });
 
         // ========== 第二页:关于我们动画 ==========
