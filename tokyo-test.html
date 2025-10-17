@@ -403,7 +403,11 @@
         .values-section {
             position: relative;
             min-height: 100vh;
-            background: #1a1a2e;
+            background-image: url('images/images/vision.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -411,32 +415,7 @@
             overflow: hidden;
         }
 
-        /* 背景图片容器 */
-        .values-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .values-bg-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-            position: relative;
-            z-index: 0;
-        }
-
-        /* 当背景图片加载成功时显示 */
-        .values-section[data-bg-loaded="true"] .values-bg-image {
-            opacity: 1;
-        }
-
+        /* 暂时注释遮罩层，测试背景图是否显示 */
         .values-section::before {
             content: '';
             position: absolute;
@@ -444,8 +423,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent;
+            background: rgba(0, 0, 0, 0);
             z-index: 1;
+            pointer-events: none;
         }
 
         .values-container {
@@ -617,11 +597,6 @@
 
     <!-- ==================== 第三页 - 使命愿景价值观 ==================== -->
     <div class="values-section">
-        <!-- 背景图片 -->
-        <div class="values-background">
-            <img src="images/images/vision.png" alt="Vision Background" class="values-bg-image">
-        </div>
-        
         <div class="values-container">
             <!-- 使命卡片 -->
             <div class="value-card" onclick="toggleCard(this)">
@@ -773,6 +748,19 @@
             });
         });
 
+        // 当滚动到第二页时，隐藏第一页的 scene
+        ScrollTrigger.create({
+            trigger: '.about-section',
+            start: 'top bottom',
+            end: 'top top',
+            onEnter: () => {
+                gsap.to('.scene', { opacity: 0, duration: 0.3 });
+            },
+            onLeaveBack: () => {
+                gsap.to('.scene', { opacity: 1, duration: 0.3 });
+            }
+        });
+
         // ========== 第二页:关于我们动画 ==========
         
         gsap.to('.about-container', {
@@ -813,31 +801,6 @@
                 container.classList.add('has-active');
             }
         }
-
-        // ========== 背景图片加载检测 ==========
-        
-        // 检测第三页背景图片是否加载成功
-        function checkBackgroundImage() {
-            const valuesSection = document.querySelector('.values-section');
-            const bgImage = document.querySelector('.values-bg-image');
-            
-            if (bgImage) {
-                bgImage.onload = function() {
-                    // 图片加载成功
-                    valuesSection.setAttribute('data-bg-loaded', 'true');
-                    console.log('第三页背景图片加载成功');
-                };
-                
-                bgImage.onerror = function() {
-                    // 图片加载失败
-                    valuesSection.setAttribute('data-bg-loaded', 'false');
-                    console.log('第三页背景图片加载失败，使用备用渐变背景');
-                };
-            }
-        }
-        
-        // 页面加载完成后检测背景图片
-        window.addEventListener('load', checkBackgroundImage);
     </script>
 </body>
 </html>
