@@ -403,6 +403,14 @@
         .values-section {
             position: relative;
             min-height: 100vh;
+            /* 备用背景渐变 */
+            background: linear-gradient(135deg, 
+                #1a1a2e 0%, 
+                #16213e 25%, 
+                #0f3460 50%, 
+                #533483 75%, 
+                #7209b7 100%);
+            /* 主背景图片 */
             background-image: url('images/images/vision.png');
             background-size: cover;
             background-position: center;
@@ -424,6 +432,11 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.4);
             z-index: 1;
+        }
+
+        /* 当背景图片加载成功时，调整遮罩层透明度 */
+        .values-section[data-bg-loaded="true"]::before {
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .values-container {
@@ -786,6 +799,32 @@
                 container.classList.add('has-active');
             }
         }
+
+        // ========== 背景图片加载检测 ==========
+        
+        // 检测第三页背景图片是否加载成功
+        function checkBackgroundImage() {
+            const valuesSection = document.querySelector('.values-section');
+            const img = new Image();
+            
+            img.onload = function() {
+                // 图片加载成功
+                valuesSection.setAttribute('data-bg-loaded', 'true');
+                console.log('第三页背景图片加载成功');
+            };
+            
+            img.onerror = function() {
+                // 图片加载失败
+                valuesSection.setAttribute('data-bg-loaded', 'false');
+                console.log('第三页背景图片加载失败，使用备用渐变背景');
+            };
+            
+            // 开始加载图片
+            img.src = 'images/images/vision.png';
+        }
+        
+        // 页面加载完成后检测背景图片
+        window.addEventListener('load', checkBackgroundImage);
     </script>
 </body>
 </html>
