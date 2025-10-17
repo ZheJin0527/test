@@ -748,19 +748,6 @@
             });
         });
 
-        // 当滚动到第二页时，隐藏第一页的 scene
-        ScrollTrigger.create({
-            trigger: '.about-section',
-            start: 'top bottom',
-            end: 'top top',
-            onEnter: () => {
-                gsap.to('.scene', { opacity: 0, duration: 0.3 });
-            },
-            onLeaveBack: () => {
-                gsap.to('.scene', { opacity: 1, duration: 0.3 });
-            }
-        });
-
         // ========== 第二页:关于我们动画 ==========
         
         gsap.to('.about-container', {
