@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokyo Japanese Cuisine - Gallery Menu</title>
+    <title>Tokyo Japanese Cuisine - 懐石巻物</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -17,748 +18,666 @@
 
         body {
             font-family: 'Noto Serif JP', serif;
-            background: #ffffff;
-            color: #1a1a1a;
+            background: #f5f3f0;
+            color: #2a2a2a;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* ==================== 首页导航 ==================== */
-        .menu-home {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px;
-            position: relative;
-        }
-
-        .home-title {
-            font-size: 14px;
-            letter-spacing: 8px;
-            color: #999;
-            margin-bottom: 60px;
-            font-weight: 200;
-            text-transform: uppercase;
-        }
-
-        .menu-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .menu-nav-button {
-            background: transparent;
-            border: none;
-            font-family: 'Noto Serif JP', serif;
-            font-size: 32px;
-            letter-spacing: 12px;
-            color: #1a1a1a;
-            cursor: pointer;
-            padding: 20px 40px;
-            position: relative;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 300;
-        }
-
-        .menu-nav-button::after {
+        /* 和纸纹理 */
+        body::before {
             content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #c9a961, transparent);
-            transform: translateX(-50%);
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .menu-nav-button:hover {
-            letter-spacing: 16px;
-            color: #c9a961;
-        }
-
-        .menu-nav-button:hover::after {
-            width: 100%;
-        }
-
-        .menu-nav-subtitle {
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: #999;
-            margin-top: 8px;
-            text-transform: uppercase;
-        }
-
-        /* ==================== 画廊页面 ==================== */
-        .gallery-page {
-            display: none;
-            opacity: 0;
-            padding: 100px 40px 60px;
-        }
-
-        .gallery-page.active {
-            display: block;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* 返回按钮 */
-        .back-button {
-            position: fixed;
-            top: 40px;
-            left: 40px;
-            background: transparent;
-            border: 1px solid #e0e0e0;
-            padding: 12px 30px;
-            font-family: 'Noto Serif JP', serif;
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            z-index: 100;
-            text-transform: uppercase;
-        }
-
-        .back-button:hover {
-            background: #1a1a1a;
-            color: white;
-            border-color: #1a1a1a;
-        }
-
-        /* 筛选器 */
-        .filter-bar {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 80px;
-            flex-wrap: wrap;
-        }
-
-        .filter-button {
-            background: transparent;
-            border: none;
-            font-family: 'Noto Serif JP', serif;
-            font-size: 13px;
-            letter-spacing: 3px;
-            color: #999;
-            cursor: pointer;
-            padding: 10px 20px;
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        .filter-button.active {
-            color: #c9a961;
-        }
-
-        .filter-button.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: #c9a961;
-        }
-
-        /* 瀑布流布局 */
-        .gallery-grid {
-            columns: 4;
-            column-gap: 30px;
-            max-width: 1800px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 30px;
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-            border-radius: 2px;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .gallery-item.visible {
-            animation: itemFadeIn 0.8s ease forwards;
-        }
-
-        @keyframes itemFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .gallery-image-wrapper {
-            position: relative;
-            overflow: hidden;
-            background: #f5f5f5;
-        }
-
-        .gallery-image {
-            width: 100%;
-            display: block;
-            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: grayscale(10%) brightness(1.02);
-        }
-
-        .gallery-item:hover .gallery-image {
-            transform: scale(1.05);
-            filter: grayscale(0%) brightness(1.05);
-        }
-
-        /* Hover 显示信息 */
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
-            padding: 30px 20px 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .gallery-name-ja {
-            font-size: 18px;
-            letter-spacing: 6px;
-            color: white;
-            margin-bottom: 6px;
-            font-weight: 300;
-        }
-
-        .gallery-name-en {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: rgba(255,255,255,0.7);
-            text-transform: uppercase;
-        }
-
-        .gallery-price {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: #1a1a1a;
-            border-radius: 2px;
-            opacity: 0;
-            transition: opacity 0.6s ease 0.2s;
-        }
-
-        .gallery-item:hover .gallery-price {
-            opacity: 1;
-        }
-
-        /* ==================== 弹窗 ==================== */
-        .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            align-items: center;
-            justify-content: center;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0,0,0,.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0,0,0,.02) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,.01) 2px, rgba(0,0,0,.01) 4px);
+            pointer-events: none;
             z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            padding: 60px;
+            opacity: 0.6;
         }
 
-        .modal.active {
+        /* 章节容器 */
+        .chapter {
+            min-height: 100vh;
+            position: relative;
             display: flex;
-            opacity: 1;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 80px 60px 100px;
+            opacity: 0;
         }
 
-        .modal-content {
-            max-width: 1200px;
+        /* 背景图片 */
+        .chapter-background {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 80px;
-            background: white;
-            border-radius: 4px;
+            height: 100%;
             overflow: hidden;
-            box-shadow: 0 30px 90px rgba(0,0,0,0.1);
-            transform: scale(0.95);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
         }
 
-        .modal.active .modal-content {
-            transform: scale(1);
+        .chapter-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%) brightness(0.8);
+            transform: scale(1.1);
         }
 
-        .modal-image-wrapper {
+        /* 渐变覆盖层 */
+        .chapter-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(245, 243, 240, 0.3) 0%,
+                rgba(245, 243, 240, 0.7) 50%,
+                rgba(245, 243, 240, 0.95) 100%);
+            z-index: 1;
+        }
+
+        /* 章节标题 */
+        .chapter-header {
+            position: absolute;
+            top: 120px;
+            left: 60px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .chapter-season {
+            font-family: 'Zen Old Mincho', serif;
+            font-size: 80px;
+            letter-spacing: 20px;
+            color: #2a2a2a;
+            margin-bottom: 20px;
+            font-weight: 400;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            line-height: 1;
+        }
+
+        .chapter-subtitle {
+            font-size: 12px;
+            letter-spacing: 6px;
+            color: #8b7355;
+            text-transform: uppercase;
+            margin-top: 30px;
+            writing-mode: vertical-rl;
+        }
+
+        /* 菜单卡片网格 */
+        .menu-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .menu-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 115, 85, 0.1);
+            padding: 40px 30px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .modal-image {
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(5%);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b7355, transparent);
+            opacity: 0;
+            transition: opacity 0.6s ease;
         }
 
-        .modal-info {
-            padding: 60px 60px 60px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .menu-card:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
 
-        .modal-category {
-            font-size: 10px;
+        .menu-card:hover::before {
+            opacity: 1;
+        }
+
+        .menu-card-category {
+            font-size: 9px;
             letter-spacing: 3px;
-            color: #c9a961;
+            color: #8b7355;
             margin-bottom: 20px;
             text-transform: uppercase;
-            font-weight: 400;
         }
 
-        .modal-title-ja {
-            font-size: 36px;
-            letter-spacing: 10px;
-            margin-bottom: 12px;
+        .menu-card-name-ja {
+            font-size: 22px;
+            letter-spacing: 8px;
+            margin-bottom: 8px;
             font-weight: 300;
+            line-height: 1.6;
         }
 
-        .modal-title-en {
-            font-size: 13px;
+        .menu-card-name-en {
+            font-size: 10px;
             letter-spacing: 2px;
             color: #999;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-transform: uppercase;
         }
 
-        .modal-description {
-            font-size: 14px;
-            line-height: 2;
+        .menu-card-description {
+            font-size: 12px;
+            line-height: 1.9;
             color: #666;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
             letter-spacing: 0.5px;
             font-weight: 300;
         }
 
-        .modal-ingredients {
-            margin-bottom: 40px;
-        }
-
-        .modal-ingredients-title {
-            font-size: 11px;
+        .menu-card-price {
+            font-size: 18px;
             letter-spacing: 3px;
-            color: #999;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-        }
-
-        .modal-ingredients-list {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.8;
-            letter-spacing: 1px;
-        }
-
-        .modal-price-label {
-            font-size: 28px;
-            letter-spacing: 4px;
-            color: #1a1a1a;
+            color: #2a2a2a;
             font-weight: 300;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            z-index: 10;
+        /* 章节过渡装饰 */
+        .chapter-divider {
+            height: 200px;
+            position: relative;
+            background: linear-gradient(to bottom, 
+                rgba(245, 243, 240, 0.95),
+                rgba(245, 243, 240, 1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .modal-close::before,
-        .modal-close::after {
+        .divider-ornament {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(139, 115, 85, 0.3) 30%,
+                rgba(139, 115, 85, 0.3) 70%, 
+                transparent);
+            position: relative;
+        }
+
+        .divider-ornament::before,
+        .divider-ornament::after {
             content: '';
             position: absolute;
             top: 50%;
-            left: 50%;
-            width: 30px;
-            height: 1px;
-            background: #1a1a1a;
-            transition: all 0.4s ease;
+            width: 6px;
+            height: 6px;
+            background: #8b7355;
+            border-radius: 50%;
+            transform: translateY(-50%);
         }
 
-        .modal-close::before {
-            transform: translate(-50%, -50%) rotate(45deg);
+        .divider-ornament::before {
+            left: 0;
         }
 
-        .modal-close::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
+        .divider-ornament::after {
+            right: 0;
         }
 
-        .modal-close:hover::before,
-        .modal-close:hover::after {
-            background: #c9a961;
-            width: 35px;
+        /* 春季主题色 */
+        .chapter.spring .chapter-season {
+            color: #d4a5a5;
+        }
+
+        .chapter.spring .chapter-subtitle {
+            color: #d4a5a5;
+        }
+
+        /* 夏季主题色 */
+        .chapter.summer .chapter-season {
+            color: #7ba05b;
+        }
+
+        .chapter.summer .chapter-subtitle {
+            color: #7ba05b;
+        }
+
+        /* 秋季主题色 */
+        .chapter.autumn .chapter-season {
+            color: #c17a3a;
+        }
+
+        .chapter.autumn .chapter-subtitle {
+            color: #c17a3a;
+        }
+
+        /* 冬季主题色 */
+        .chapter.winter .chapter-season {
+            color: #5a7e9e;
+        }
+
+        .chapter.winter .chapter-subtitle {
+            color: #5a7e9e;
         }
 
         /* 响应式 */
         @media (max-width: 1400px) {
-            .gallery-grid {
-                columns: 3;
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
             }
         }
 
         @media (max-width: 1024px) {
-            .gallery-grid {
-                columns: 2;
-                column-gap: 20px;
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .modal-content {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-
-            .modal-info {
-                padding: 40px;
+            .chapter-season {
+                font-size: 60px;
+                letter-spacing: 15px;
             }
         }
 
         @media (max-width: 768px) {
-            .gallery-grid {
-                columns: 1;
+            .chapter {
+                padding: 60px 30px 80px;
             }
 
-            .menu-nav-button {
-                font-size: 24px;
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
-            .modal {
-                padding: 20px;
+            .chapter-header {
+                top: 80px;
+                left: 30px;
             }
+
+            .chapter-season {
+                font-size: 48px;
+                letter-spacing: 10px;
+            }
+        }
+
+        /* 滚动指示器 */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            opacity: 0.6;
+            animation: fadeInOut 3s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .scroll-text {
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: #8b7355;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, #8b7355, transparent);
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <!-- 首页导航 -->
-    <div class="menu-home" id="menuHome">
-        <div class="home-title">Menu Selection</div>
-        <div class="menu-nav">
-            <button class="menu-nav-button" onclick="showGallery('seasonal')">
-                季節の料理
-                <div class="menu-nav-subtitle">Seasonal Menu</div>
-            </button>
-            <button class="menu-nav-button" onclick="showGallery('chef')">
-                主厨推荐
-                <div class="menu-nav-subtitle">Chef's Selection</div>
-            </button>
-            <button class="menu-nav-button" onclick="showGallery('all')">
-                全メニュー
-                <div class="menu-nav-subtitle">Full Menu</div>
-            </button>
+    <!-- 春之章 -->
+    <section class="chapter spring">
+        <div class="chapter-background">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1920&h=1080&fit=crop" alt="Spring">
         </div>
-    </div>
-
-    <!-- 画廊页面 -->
-    <div class="gallery-page" id="galleryPage">
-        <button class="back-button" onclick="backToHome()">← Back</button>
-
-        <!-- 筛选器 -->
-        <div class="filter-bar">
-            <button class="filter-button active" onclick="filterItems('all')">すべて</button>
-            <button class="filter-button" onclick="filterItems('sushi')">寿司</button>
-            <button class="filter-button" onclick="filterItems('sashimi')">刺身</button>
-            <button class="filter-button" onclick="filterItems('grilled')">焼き物</button>
-            <button class="filter-button" onclick="filterItems('soup')">椀物</button>
-            <button class="filter-button" onclick="filterItems('dessert')">甘味</button>
+        <div class="chapter-overlay"></div>
+        
+        <div class="chapter-header">
+            <h2 class="chapter-season">春之章</h2>
+            <div class="chapter-subtitle">Spring Collection</div>
         </div>
 
-        <!-- 瀑布流画廊 -->
-        <div class="gallery-grid" id="galleryGrid"></div>
-    </div>
-
-    <!-- 弹窗 -->
-    <div class="modal" id="modal">
-        <div class="modal-close" onclick="closeModal()"></div>
-        <div class="modal-content">
-            <div class="modal-image-wrapper">
-                <img id="modalImage" class="modal-image" src="" alt="">
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-card-category">Appetizer</div>
+                <h3 class="menu-card-name-ja">春野菜の<br>前菜盛り</h3>
+                <div class="menu-card-name-en">Spring Vegetable Platter</div>
+                <p class="menu-card-description">旬の春野菜を使用した、彩り豊かな前菜の盛り合わせ</p>
+                <div class="menu-card-price">RM 48</div>
             </div>
-            <div class="modal-info">
-                <div class="modal-category" id="modalCategory"></div>
-                <h2 class="modal-title-ja" id="modalTitleJa"></h2>
-                <div class="modal-title-en" id="modalTitleEn"></div>
-                <p class="modal-description" id="modalDescription"></p>
-                <div class="modal-ingredients">
-                    <div class="modal-ingredients-title">Ingredients</div>
-                    <div class="modal-ingredients-list" id="modalIngredients"></div>
-                </div>
-                <div class="modal-price-label" id="modalPrice"></div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Sashimi</div>
+                <h3 class="menu-card-name-ja">桜鯛の<br>薄造り</h3>
+                <div class="menu-card-name-en">Cherry Snapper Sashimi</div>
+                <p class="menu-card-description">春が旬の桜鯛を、極薄に切り出した逸品</p>
+                <div class="menu-card-price">RM 68</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Sashimi</div>
+                <h3 class="menu-card-name-ja">ホタルイカの<br>沖漬け</h3>
+                <div class="menu-card-name-en">Firefly Squid</div>
+                <p class="menu-card-description">春の訪れを告げる、ホタルイカの特製漬け</p>
+                <div class="menu-card-price">RM 52</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Soup</div>
+                <h3 class="menu-card-name-ja">筍と<br>若布の椀</h3>
+                <div class="menu-card-name-en">Bamboo Shoot Soup</div>
+                <p class="menu-card-description">春の香り豊かな、筍と若布の澄まし汁</p>
+                <div class="menu-card-price">RM 38</div>
             </div>
         </div>
+    </section>
+
+    <div class="chapter-divider">
+        <div class="divider-ornament"></div>
+    </div>
+
+    <!-- 夏之章 -->
+    <section class="chapter summer">
+        <div class="chapter-background">
+            <img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=1920&h=1080&fit=crop" alt="Summer">
+        </div>
+        <div class="chapter-overlay"></div>
+        
+        <div class="chapter-header">
+            <h2 class="chapter-season">夏之章</h2>
+            <div class="chapter-subtitle">Summer Collection</div>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-card-category">Grilled</div>
+                <h3 class="menu-card-name-ja">鮎の<br>塩焼き</h3>
+                <div class="menu-card-name-en">Grilled Sweetfish</div>
+                <p class="menu-card-description">清流で育った鮎を、炭火でじっくりと焼き上げ</p>
+                <div class="menu-card-price">RM 85</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Steamed</div>
+                <h3 class="menu-card-name-ja">鱧の<br>湯引き</h3>
+                <div class="menu-card-name-en">Steamed Pike Conger</div>
+                <p class="menu-card-description">夏の京料理の代表、鱧を優雅に仕上げた一品</p>
+                <div class="menu-card-price">RM 92</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Grilled</div>
+                <h3 class="menu-card-name-ja">鰻の<br>蒲焼き</h3>
+                <div class="menu-card-name-en">Grilled Eel</div>
+                <p class="menu-card-description">秘伝のタレで焼き上げた、香ばしい鰻</p>
+                <div class="menu-card-price">RM 120</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Cold Dish</div>
+                <h3 class="menu-card-name-ja">冷やし<br>茶碗蒸し</h3>
+                <div class="menu-card-name-en">Chilled Savory Custard</div>
+                <p class="menu-card-description">夏の暑さを癒す、冷たい茶碗蒸し</p>
+                <div class="menu-card-price">RM 42</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="chapter-divider">
+        <div class="divider-ornament"></div>
+    </div>
+
+    <!-- 秋之章 -->
+    <section class="chapter autumn">
+        <div class="chapter-background">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&h=1080&fit=crop" alt="Autumn">
+        </div>
+        <div class="chapter-overlay"></div>
+        
+        <div class="chapter-header">
+            <h2 class="chapter-season">秋之章</h2>
+            <div class="chapter-subtitle">Autumn Collection</div>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-card-category">Rice Dish</div>
+                <h3 class="menu-card-name-ja">松茸の<br>土鍋ご飯</h3>
+                <div class="menu-card-name-en">Matsutake Rice</div>
+                <p class="menu-card-description">秋の香り豊かな松茸を贅沢に使用した土鍋炊き</p>
+                <div class="menu-card-price">RM 98</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Sushi</div>
+                <h3 class="menu-card-name-ja">戻り鰹の<br>握り</h3>
+                <div class="menu-card-name-en">Autumn Bonito Sushi</div>
+                <p class="menu-card-description">脂の乗った戻り鰹を丁寧に握りました</p>
+                <div class="menu-card-price">RM 55</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Grilled</div>
+                <h3 class="menu-card-name-ja">秋刀魚の<br>塩焼き</h3>
+                <div class="menu-card-name-en">Grilled Pacific Saury</div>
+                <p class="menu-card-description">秋の味覚、秋刀魚を香ばしく焼き上げ</p>
+                <div class="menu-card-price">RM 65</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Hot Pot</div>
+                <h3 class="menu-card-name-ja">きのこの<br>すき焼き</h3>
+                <div class="menu-card-name-en">Mushroom Sukiyaki</div>
+                <p class="menu-card-description">秋の山の恵み、きのこ尽くしのすき焼き</p>
+                <div class="menu-card-price">RM 88</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="chapter-divider">
+        <div class="divider-ornament"></div>
+    </div>
+
+    <!-- 冬之章 -->
+    <section class="chapter winter">
+        <div class="chapter-background">
+            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1920&h=1080&fit=crop" alt="Winter">
+        </div>
+        <div class="chapter-overlay"></div>
+        
+        <div class="chapter-header">
+            <h2 class="chapter-season">冬之章</h2>
+            <div class="chapter-subtitle">Winter Collection</div>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-card-category">Dessert</div>
+                <h3 class="menu-card-name-ja">柚子の<br>シャーベット</h3>
+                <div class="menu-card-name-en">Yuzu Sorbet</div>
+                <p class="menu-card-description">冬の柚子を使用した、爽やかなシャーベット</p>
+                <div class="menu-card-price">RM 32</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Dessert</div>
+                <h3 class="menu-card-name-ja">栗の<br>渋皮煮</h3>
+                <div class="menu-card-name-en">Candied Chestnuts</div>
+                <p class="menu-card-description">じっくり煮込んだ、上品な甘さの栗</p>
+                <div class="menu-card-price">RM 38</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Beverage</div>
+                <h3 class="menu-card-name-ja">熱燗<br>各種</h3>
+                <div class="menu-card-name-en">Hot Sake Selection</div>
+                <p class="menu-card-description">厳選された日本酒を、温めてお楽しみください</p>
+                <div class="menu-card-price">RM 45〜</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-card-category">Tea</div>
+                <h3 class="menu-card-name-ja">ほうじ茶</h3>
+                <div class="menu-card-name-en">Roasted Green Tea</div>
+                <p class="menu-card-description">香ばしく焙じた、心温まるお茶</p>
+                <div class="menu-card-price">RM 18</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 滚动指示器 -->
+    <div class="scroll-indicator">
+        <div class="scroll-text">SCROLL</div>
+        <div class="scroll-line"></div>
     </div>
 
     <script>
-        // 菜单数据
-        const menuData = [
-            {
-                id: 1,
-                category: 'sushi',
-                nameJa: '中トロ',
-                nameEn: 'Medium Fatty Tuna',
-                description: '口の中でとろける、絶妙な脂の乗り具合。マグロの旨味が凝縮された逸品です。',
-                ingredients: 'マグロ、酢飯、わさび',
-                price: 'RM 42',
-                image: 'https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=600&h=800&fit=crop',
-                seasonal: true,
-                chef: true
-            },
-            {
-                id: 2,
-                category: 'sushi',
-                nameJa: '大トロ',
-                nameEn: 'Fatty Tuna',
-                description: '最高級の霜降りトロ。とろけるような食感と深い旨味をお楽しみください。',
-                ingredients: 'マグロ、酢飯、わさび',
-                price: 'RM 55',
-                image: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&h=700&fit=crop',
-                seasonal: false,
-                chef: true
-            },
-            {
-                id: 3,
-                category: 'sushi',
-                nameJa: 'ウニ',
-                nameEn: 'Sea Urchin',
-                description: '北海道産の新鮮なウニ。クリーミーで濃厚な味わいが特徴です。',
-                ingredients: 'ウニ、酢飯、海苔',
-                price: 'RM 48',
-                image: 'https://images.unsplash.com/photo-1626497764746-6dc36546b388?w=600&h=900&fit=crop',
-                seasonal: true,
-                chef: true
-            },
-            {
-                id: 4,
-                category: 'sashimi',
-                nameJa: 'お造り盛り合わせ',
-                nameEn: 'Sashimi Platter',
-                description: '市場から直送の新鮮な魚介を、職人が丁寧に盛り付けました。',
-                ingredients: 'マグロ、サーモン、ハマチ、タイ、イカ',
-                price: 'RM 88',
-                image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&h=600&fit=crop',
-                seasonal: true,
-                chef: true
-            },
-            {
-                id: 5,
-                category: 'grilled',
-                nameJa: '銀鱈の西京焼き',
-                nameEn: 'Grilled Miso Black Cod',
-                description: '西京味噌に漬け込んだ銀鱈を、香ばしく焼き上げました。',
-                ingredients: '銀鱈、西京味噌、みりん',
-                price: 'RM 78',
-                image: 'https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=600&h=750&fit=crop',
-                seasonal: false,
-                chef: true
-            },
-            {
-                id: 6,
-                category: 'grilled',
-                nameJa: '和牛サーロイン',
-                nameEn: 'Wagyu Sirloin',
-                description: 'A5ランクの和牛を炭火でじっくりと焼き上げました。',
-                ingredients: '和牛、塩、胡椒',
-                price: 'RM 120',
-                image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&h=800&fit=crop',
-                seasonal: false,
-                chef: true
-            },
-            {
-                id: 7,
-                category: 'soup',
-                nameJa: '季節の椀物',
-                nameEn: 'Seasonal Soup',
-                description: '丁寧に引いた出汁で作る、滋味深い一椀。',
-                ingredients: '出汁、季節の食材',
-                price: 'RM 38',
-                image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&h=700&fit=crop',
-                seasonal: true,
-                chef: false
-            },
-            {
-                id: 8,
-                category: 'dessert',
-                nameJa: '抹茶アイス',
-                nameEn: 'Matcha Ice Cream',
-                description: '京都産の上質な抹茶を使用した、濃厚なアイスクリーム。',
-                ingredients: '抹茶、生クリーム、砂糖',
-                price: 'RM 28',
-                image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&h=800&fit=crop',
-                seasonal: false,
-                chef: false
-            },
-            {
-                id: 9,
-                category: 'sushi',
-                nameJa: '車エビ',
-                nameEn: 'Tiger Prawn',
-                description: '活きの良い車エビを丁寧に仕上げました。',
-                ingredients: '車エビ、酢飯、わさび',
-                price: 'RM 35',
-                image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600&h=850&fit=crop',
-                seasonal: true,
-                chef: false
-            },
-            {
-                id: 10,
-                category: 'sushi',
-                nameJa: 'アナゴ',
-                nameEn: 'Sea Eel',
-                description: '江戸前伝統の煮アナゴ。ふっくらと柔らかく、甘辛いタレが絶品です。',
-                ingredients: 'アナゴ、酢飯、タレ',
-                price: 'RM 38',
-                image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600&h=700&fit=crop',
-                seasonal: false,
-                chef: false
-            }
-        ];
+        gsap.registerPlugin(ScrollTrigger);
 
-        let currentFilter = 'all';
-        let currentView = 'all';
-
-        // 显示画廊
-        function showGallery(view) {
-            currentView = view;
-            document.getElementById('menuHome').style.display = 'none';
-            document.getElementById('galleryPage').classList.add('active');
-            
-            let filteredData = menuData;
-            if (view === 'seasonal') {
-                filteredData = menuData.filter(item => item.seasonal);
-            } else if (view === 'chef') {
-                filteredData = menuData.filter(item => item.chef);
-            }
-            
-            renderGallery(filteredData);
-        }
-
-        // 返回首页
-        function backToHome() {
-            document.getElementById('galleryPage').classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('menuHome').style.display = 'flex';
-                document.getElementById('galleryPage').style.display = 'none';
-            }, 300);
-        }
-
-        // 渲染画廊
-        function renderGallery(data) {
-            const grid = document.getElementById('galleryGrid');
-            grid.innerHTML = '';
-            
-            data.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'gallery-item';
-                div.setAttribute('data-category', item.category);
-                div.innerHTML = `
-                    <div class="gallery-image-wrapper">
-                        <img src="${item.image}" alt="${item.nameJa}" class="gallery-image" loading="lazy">
-                        <div class="gallery-price">${item.price}</div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-name-ja">${item.nameJa}</div>
-                            <div class="gallery-name-en">${item.nameEn}</div>
-                        </div>
-                    </div>
-                `;
-                
-                div.onclick = () => openModal(item);
-                grid.appendChild(div);
-                
-                // 延迟显示动画
-                setTimeout(() => {
-                    div.classList.add('visible');
-                }, index * 80);
-            });
-        }
-
-        // 筛选
-        function filterItems(category) {
-            currentFilter = category;
-            
-            // 更新按钮状态
-            document.querySelectorAll('.filter-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // 筛选数据
-            let filteredData = menuData;
-            if (currentView === 'seasonal') {
-                filteredData = menuData.filter(item => item.seasonal);
-            } else if (currentView === 'chef') {
-                filteredData = menuData.filter(item => item.chef);
-            }
-            
-            if (category !== 'all') {
-                filteredData = filteredData.filter(item => item.category === category);
-            }
-            
-            renderGallery(filteredData);
-        }
-
-        // 打开弹窗
-        function openModal(item) {
-            document.getElementById('modalCategory').textContent = item.category.toUpperCase();
-            document.getElementById('modalTitleJa').textContent = item.nameJa;
-            document.getElementById('modalTitleEn').textContent = item.nameEn;
-            document.getElementById('modalDescription').textContent = item.description;
-            document.getElementById('modalIngredients').textContent = item.ingredients;
-            document.getElementById('modalPrice').textContent = item.price;
-            document.getElementById('modalImage').src = item.image;
-            
-            document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // 关闭弹窗
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // ESC 关闭
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (document.getElementById('modal').classList.contains('active')) {
-                    closeModal();
-                } else {
-                    backToHome();
+        // 每个章节的动画
+        document.querySelectorAll('.chapter').forEach((chapter, index) => {
+            // 章节淡入
+            gsap.to(chapter, {
+                opacity: 1,
+                duration: 1.5,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: chapter,
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    toggleActions: 'play none none none'
                 }
+            });
+
+            // 背景图片缩放
+            const bgImg = chapter.querySelector('.chapter-background img');
+            gsap.fromTo(bgImg,
+                { scale: 1.1 },
+                {
+                    scale: 1,
+                    duration: 2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: chapter,
+                        start: 'top 80%',
+                        end: 'top 20%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+
+            // 章节标题动画
+            const header = chapter.querySelector('.chapter-header');
+            gsap.to(header, {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                delay: 0.3,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: chapter,
+                    start: 'top 70%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // 菜单网格动画
+            const grid = chapter.querySelector('.menu-grid');
+            gsap.to(grid, {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                delay: 0.6,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: chapter,
+                    start: 'top 60%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // 卡片逐个淡入
+            const cards = chapter.querySelectorAll('.menu-card');
+            cards.forEach((card, i) => {
+                gsap.fromTo(card,
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        delay: 0.8 + (i * 0.15),
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: chapter,
+                            start: 'top 50%',
+                            toggleActions: 'play none none none'
+                        }
+                    }
+                );
+            });
+
+            // 章节淡出
+            gsap.to(chapter, {
+                opacity: 0.3,
+                scrollTrigger: {
+                    trigger: chapter,
+                    start: 'bottom 40%',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        });
+
+        // 隐藏滚动指示器
+        gsap.to('.scroll-indicator', {
+            opacity: 0,
+            scrollTrigger: {
+                trigger: 'body',
+                start: '300px top',
+                toggleActions: 'play none none reverse'
             }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
     </script>
 </body>
