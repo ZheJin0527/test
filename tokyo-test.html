@@ -21,7 +21,7 @@
 
         /* ==================== 第一页 - 推门效果 ==================== */
         .scroll-container {
-            height: 100vh;
+            height: 200vh;
             position: relative;
         }
 
@@ -218,6 +218,7 @@
             display: flex;
             align-items: center;
             z-index: 10;
+            margin-top: 100vh;
         }
 
         .about-container {
@@ -654,7 +655,7 @@
             scrollTrigger: {
                 trigger: '.scroll-container',
                 start: 'top top',
-                end: 'bottom top',
+                end: 'bottom bottom',
                 scrub: 1
             }
         });
@@ -742,18 +743,6 @@
             }
         });
 
-        // 第一页重新显示的动画（向上滚动时）
-        gsap.to('.scene', {
-            yPercent: 0,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.scroll-container',
-                start: 'top bottom',
-                end: 'top top',
-                scrub: 1
-            }
-        });
-
         // 鼠标视差效果
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) / 50;
@@ -774,7 +763,7 @@
             duration: 0.5,
             scrollTrigger: {
                 trigger: '.about-section',
-                start: 'top 80%',
+                start: 'top 60%',
                 toggleActions: 'play none none none'
             }
         });
@@ -786,7 +775,7 @@
             ease: 'power3.out',
             scrollTrigger: {
                 trigger: '.about-section',
-                start: 'top 70%',
+                start: 'top 50%',
                 toggleActions: 'play none none none'
             }
         });
