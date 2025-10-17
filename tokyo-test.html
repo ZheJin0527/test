@@ -446,12 +446,10 @@
             -webkit-backdrop-filter: blur(12px);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 40px 20px;
+            padding: 30px 20px;
             cursor: pointer;
             transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-            writing-mode: vertical-rl;
-            text-orientation: upright;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -462,6 +460,7 @@
             opacity: 1;
             filter: blur(0px);
             transform: scale(1);
+            text-align: center;
         }
 
         .values-container.has-active .value-card:not(.active) {
@@ -479,7 +478,9 @@
             z-index: 10;
             flex: 2.5;
             min-width: 450px;
+            width: auto;
             border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 40px 30px;
         }
 
         .value-card:hover:not(.active) {
@@ -492,10 +493,16 @@
             font-size: 36px;
             font-weight: bold;
             color: white;
-            letter-spacing: 12px;
+            letter-spacing: 8px;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
             white-space: nowrap;
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
         }
 
         .value-content {
@@ -511,9 +518,12 @@
             margin-top: 20px;
             padding-top: 20px;
             border-top: 2px solid rgba(255, 255, 255, 0.3);
-            writing-mode: vertical-rl;
-            text-orientation: upright;
+            text-align: center;
             transform: translateY(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
         .value-card.active .value-content {
