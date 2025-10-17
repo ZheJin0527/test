@@ -654,7 +654,7 @@
             scrollTrigger: {
                 trigger: '.scroll-container',
                 start: 'top top',
-                end: 'bottom bottom',
+                end: 'bottom top',
                 scrub: 1
             }
         });
@@ -737,7 +737,19 @@
             scrollTrigger: {
                 trigger: '.about-section',
                 start: 'top bottom',
-                end: 'bottom top',
+                end: 'top top',
+                scrub: 1
+            }
+        });
+
+        // 第一页重新显示的动画（向上滚动时）
+        gsap.to('.scene', {
+            yPercent: 0,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.scroll-container',
+                start: 'top bottom',
+                end: 'top top',
                 scrub: 1
             }
         });
@@ -762,7 +774,7 @@
             duration: 0.5,
             scrollTrigger: {
                 trigger: '.about-section',
-                start: 'top 60%',
+                start: 'top 80%',
                 toggleActions: 'play none none none'
             }
         });
@@ -774,7 +786,7 @@
             ease: 'power3.out',
             scrollTrigger: {
                 trigger: '.about-section',
-                start: 'top 50%',
+                start: 'top 70%',
                 toggleActions: 'play none none none'
             }
         });
