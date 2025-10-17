@@ -217,7 +217,7 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            z-index: 20;
+            z-index: 10;
             margin-top: 150vh;
         }
 
@@ -745,23 +745,6 @@
         });
 
         // ========== 第二页:关于我们动画 ==========
-        
-        // 第二页从底部滑入覆盖第一页
-        gsap.fromTo('.about-section', 
-            {
-                yPercent: 100
-            },
-            {
-                yPercent: 0,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '.about-section',
-                    start: 'top bottom',
-                    end: 'top top',
-                    scrub: 1
-                }
-            }
-        );
         
         gsap.to('.about-container', {
             opacity: 1,
